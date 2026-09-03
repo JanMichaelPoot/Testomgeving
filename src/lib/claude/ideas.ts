@@ -1,5 +1,10 @@
-import type Anthropic from "@anthropic-ai/sdk";
 import { anthropic, CLAUDE_MODEL } from "@/lib/anthropic";
+import {
+  WINDOW_VOICE_SYSTEM_PROMPT,
+  extractToolInput,
+  formatIntake,
+  type IntakeContext,
+} from "@/lib/claude/shared";
 
 export const LENSES = ["practical", "unusual", "ambitious", "playful"] as const;
 export type Lens = (typeof LENSES)[number];
@@ -10,22 +15,9 @@ export interface GeneratedPossibility {
   description: string;
 }
 
-export interface IntakeContext {
-  topic: string;
-  time_available: string;
-  budget: string;
-  desired_surprise: string;
-  company: string;
-}
-
 const IDEA_COUNT = 10;
 
-const SYSTEM_PROMPT = `You are the possibility engine behind WINDOW, an app whose promise is
-"You don't need another answer. Sometimes you need to see another possibility."
-
-Voice: intelligent, curious, warm, lightly mischievous — like a premium
-travel magazine, never a productivity dashboard. Never preachy, never
-generic listicle language ("Have you tried..."). Write in English.
+const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 
 Every possibility is written through exactly one lens:
 - practical: grounded, doable today, low friction
@@ -36,27 +28,6 @@ Every possibility is written through exactly one lens:
 Each possibility needs a short, evocative title (max ~8 words) and a 2-3
 sentence description that makes the person feel the specific texture of
 doing this — not a vague benefit statement.`;
-
-function extractToolInput<T>(message: Anthropic.Message, toolName: string): T {
-  const toolUse = message.content.find(
-    (block): block is Anthropic.ToolUseBlock =>
-      block.type === "tool_use" && block.name === toolName
-  );
-
-  if (!toolUse) {
-    throw new Error("Claude did not return the expected structured response.");
-  }
-
-  return toolUse.input as T;
-}
-
-function formatIntake(intake: IntakeContext): string {
-  return `Situation: ${intake.topic}
-Time available: ${intake.time_available}
-Budget: ${intake.budget}
-Desired level of surprise: ${intake.desired_surprise}
-Company: ${intake.company}`;
-}
 
 export async function generatePossibilities(
   intake: IntakeContext

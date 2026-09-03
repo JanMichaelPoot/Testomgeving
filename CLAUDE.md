@@ -185,7 +185,27 @@ bewaren.
       interacties (like/skip optimistisch, reshape met laad- en
       foutstatus) werken zoals bedoeld; echte generatie/persistence vereist
       een geldige `ANTHROPIC_API_KEY` en Supabase-credentials.
-- [ ] Stap 5 — Convergentie + betaalscherm (Stripe Checkout)
+- [x] Stap 5 — Convergentie + betaalscherm: `src/lib/claude/converge.ts`
+      kiest via Claude tool-use 1-3 kandidaten uit de geliked ideeën en
+      schrijft per kandidaat een "why it fits"-tekst. `ConvergeBoard` laat
+      de gebruiker er één selecteren, toont de verplichte disclaimer (geen
+      medisch/therapeutisch/financieel/juridisch advies) en de verplichte
+      checkbox voor het herroepingsrecht — de "Make this real"-knop blijft
+      disabled tot beide voorwaarden voldaan zijn. Server action
+      `createCheckoutSession` (`src/app/converge/actions.ts`) verifieert
+      opnieuw sessie-eigenaarschap, maakt een Stripe Checkout Session aan,
+      slaat een `payments`-rij op (status `pending`, met
+      `withdrawal_waiver_confirmed_at` als tijdstempel + het gekoppelde
+      `session_id`) en redirect naar Stripe. Webhook
+      `src/app/api/stripe/webhook/route.ts` verifieert de Stripe-signature
+      en zet betaling/sessie op `succeeded`/`failed`/`paid` — genereert nog
+      geen Window Plan-inhoud, dat is stap 6. `src/lib/stripe.ts` maakt de
+      Stripe-client lazy (de SDK valideert de API key anders al bij de
+      build, vóórdat runtime env vars beschikbaar zijn). `/plan` (stub)
+      is het succes-doel van de checkout. Getest via een tijdelijke
+      preview-route met mock-kandidaten (niet gecommit): selectie,
+      checkbox-gating en foutafhandeling werken; een echte Stripe-betaling
+      vereist jouw eigen Stripe test-sleutels en webhook-secret.
 - [ ] Stap 6 — Window Plan (resultaat, PDF, e-mail)
 
 Zie ook `.env.example` voor alle benodigde environment variables (Supabase,
