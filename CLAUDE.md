@@ -169,7 +169,22 @@ bewaren.
       (stub). Fouten (bv. Supabase onbereikbaar) tonen een nette
       foutmelding in de UI i.p.v. te crashen — getest door de laatste stap
       daadwerkelijk in te vullen en te submitten.
-- [ ] Stap 4 — Ideeën-scherm (divergentie)
+- [x] Stap 4 — Ideeën-scherm (divergentie): `src/lib/claude/ideas.ts` roept de
+      Claude API aan (tool-use met een geforceerde tool voor betrouwbare
+      structured output) om 10 mogelijkheden te genereren, verdeeld over de
+      4 lenzen (practical/unusual/ambitious/playful) op basis van de
+      intake-antwoorden. `IdeasBoard` (client component) toont de kaarten
+      met like/skip/"make it weirder"/"make it more practical". Server
+      actions in `src/app/ideas/actions.ts` controleren dat een idee bij de
+      huidige sessie hoort voor élke mutatie. `/ideas` (server component)
+      genereert ideeën eenmalig per sessie, hergebruikt bestaande rijen bij
+      een herbezoek, en toont een nette foutmelding + "Try again"-link als
+      Claude/Supabase niet bereikbaar zijn i.p.v. te crashen. CTA "See what
+      fits" (actief vanaf 1 like) linkt naar `/converge` (stub). Getest via
+      een tijdelijke preview-route met mock-data (niet gecommit) — alle
+      interacties (like/skip optimistisch, reshape met laad- en
+      foutstatus) werken zoals bedoeld; echte generatie/persistence vereist
+      een geldige `ANTHROPIC_API_KEY` en Supabase-credentials.
 - [ ] Stap 5 — Convergentie + betaalscherm (Stripe Checkout)
 - [ ] Stap 6 — Window Plan (resultaat, PDF, e-mail)
 
