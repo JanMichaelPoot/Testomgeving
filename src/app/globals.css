@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+:root {
+  /* WINDOW brand tokens — use these instead of raw hex codes throughout the app */
+  --color-accent: #6c3ce9;
+  --color-accent-dark: #4b2aa6;
+  --color-ink: #1a1a2e;
+  --color-cream: #f5f3ee;
+  --color-paper: #ffffff;
+}
+
+@theme inline {
+  --color-accent: var(--color-accent);
+  --color-accent-dark: var(--color-accent-dark);
+  --color-ink: var(--color-ink);
+  --color-cream: var(--color-cream);
+  --color-paper: var(--color-paper);
+
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
