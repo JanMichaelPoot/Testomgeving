@@ -206,7 +206,35 @@ bewaren.
       preview-route met mock-kandidaten (niet gecommit): selectie,
       checkbox-gating en foutafhandeling werken; een echte Stripe-betaling
       vereist jouw eigen Stripe test-sleutels en webhook-secret.
-- [ ] Stap 6 — Window Plan (resultaat, PDF, e-mail)
+- [x] Stap 6 — Window Plan: `src/lib/claude/plan.ts` genereert via Claude
+      tool-use het definitieve plan (titel, why-it-fits, 4-7 concrete
+      stappen, eerste actie, kosten-/tijdsindicatie). `src/lib/pdf/
+      windowPlan.ts` rendert dit met `pdf-lib` naar een PDF (brand-kleuren,
+      geen externe dependencies). `src/app/plan/data.ts`
+      (`getOrCreateWindowPlan`) haalt de Stripe Checkout Session op en
+      verifieert zelf `payment_status === "paid"` (niet vertrouwen op de
+      query param alleen), genereert het plan eenmalig per sessie, uploadt
+      de PDF naar de nieuwe publieke Supabase Storage-bucket
+      `window-plans` (migratie `0002_storage.sql`), koppelt het
+      Stripe-opgegeven klant-e-mailadres aan een `users`-rij (pas ná
+      betaling — dus nog steeds los van de gedragsdata ervoor) en stuurt
+      de PDF per e-mail via Resend. `/plan` toont het resultaat met
+      download-link. Zowel Stripe- als Resend-clients zijn lazy
+      geïnitialiseerd (zelfde build-time-key-validatie-probleem als
+      eerder). Fout- en foutafhandelingsbug gefixt: server-component-render
+      errors (ideas/converge/plan) lekten eerst rauwe interne foutmeldingen
+      (incl. een deel van de Stripe-key) naar de gebruiker — nu altijd een
+      veilige generieke melding, met de echte fout alleen server-side
+      gelogd. Getest via een tijdelijke PDF-testroute (niet gecommit) en
+      de `/plan`-foutstaten (ontbrekende/ongeldige checkout-sessie).
+
+**Alle 6 kernschermen uit de bouwopdracht zijn nu gebouwd.** Wat nog
+ontbreekt voor een werkend end-to-end systeem: echte Supabase/Stripe/
+Anthropic/Resend/PostHog-credentials in `.env.local`, de migraties
+uitgevoerd tegen een echt Supabase-project, en een Stripe-webhook die naar
+`/api/stripe/webhook` wijst (lokaal via `stripe listen --forward-to
+localhost:3000/api/stripe/webhook`, of in productie via het Stripe
+dashboard).
 
 Zie ook `.env.example` voor alle benodigde environment variables (Supabase,
 Stripe, Claude API, Resend, PostHog).

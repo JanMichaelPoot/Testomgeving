@@ -60,10 +60,10 @@ export default async function IdeasPage() {
       if (error) throw error;
       ideas = inserted ?? [];
     } catch (err) {
-      generationError =
-        err instanceof Error
-          ? err.message
-          : "Something went wrong while opening your window.";
+      // Don't leak internal error details (API keys, stack traces) to the
+      // user — log server-side and show a safe generic message instead.
+      console.error("Failed to generate ideas:", err);
+      generationError = "Something went wrong while opening your window.";
     }
   }
 

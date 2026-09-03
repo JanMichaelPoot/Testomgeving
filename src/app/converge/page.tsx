@@ -69,10 +69,10 @@ export default async function ConvergePage() {
         : [];
     });
   } catch (err) {
-    selectionError =
-      err instanceof Error
-        ? err.message
-        : "Something went wrong while narrowing things down.";
+    // Don't leak internal error details (API keys, stack traces) to the
+    // user — log server-side and show a safe generic message instead.
+    console.error("Failed to select candidates:", err);
+    selectionError = "Something went wrong while narrowing things down.";
   }
 
   return (
