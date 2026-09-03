@@ -8,7 +8,10 @@ export async function createClient() {
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    // Supabase renamed "anon key" to "publishable key" in 2025; some
+    // Vercel/Supabase integration flows only set the new name.
+    (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY)!,
     {
       cookies: {
         getAll() {
@@ -34,7 +37,9 @@ export async function createClient() {
 export function createServiceRoleClient() {
   return createSupabaseClient<Database, "public">(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    // Supabase renamed "service_role key" to "secret key" in 2025; some
+    // Vercel/Supabase integration flows only set the new name.
+    (process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SECRET_KEY)!,
     { auth: { persistSession: false } }
   );
 }
