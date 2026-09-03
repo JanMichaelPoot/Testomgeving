@@ -2,44 +2,40 @@ import { createServerClient } from "@supabase/ssr";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import type { Database } from "@/types/database";
+import {
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY,
+  SUPABASE_SERVICE_ROLE_KEY,
+} from "@/lib/supabase/env";
 
 export async function createClient() {
   const cookieStore = await cookies();
 
-  return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    // Supabase renamed "anon key" to "publishable key" in 2025; some
-    // Vercel/Supabase integration flows only set the new name.
-    (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY)!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          } catch {
-            // setAll called from a Server Component — safe to ignore when
-            // middleware is refreshing the session.
-          }
-        },
+  return createServerClient<Database>(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll();
       },
-    }
-  );
+      setAll(cookiesToSet) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, options)
+          );
+        } catch {
+          // setAll called from a Server Component — safe to ignore when
+          // middleware is refreshing the session.
+        }
+      },
+    },
+  });
 }
 
 // Bypasses Row Level Security — server-only, never expose to the client
 // (e.g. Stripe webhook handlers writing payment status).
 export function createServiceRoleClient() {
   return createSupabaseClient<Database, "public">(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    // Supabase renamed "service_role key" to "secret key" in 2025; some
-    // Vercel/Supabase integration flows only set the new name.
-    (process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SECRET_KEY)!,
+    SUPABASE_URL!,
+    SUPABASE_SERVICE_ROLE_KEY!,
     { auth: { persistSession: false } }
   );
 }
