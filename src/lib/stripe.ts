@@ -7,7 +7,9 @@ let client: Stripe | null = null;
 
 export function getStripe(): Stripe {
   if (!client) {
-    client = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    // .trim() guards against a stray trailing newline/whitespace from
+    // pasting the key into a dashboard env var field.
+    client = new Stripe((process.env.STRIPE_SECRET_KEY ?? "").trim(), {
       apiVersion: "2026-08-26.dahlia",
     });
   }

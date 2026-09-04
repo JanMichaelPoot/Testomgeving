@@ -9,10 +9,13 @@
 //
 // `||` (not `??`) is deliberate: a Vercel env var that exists but was
 // saved with an empty value reads back as `""`, which `??` would not
-// treat as "unset".
+// treat as "unset". Each candidate is also trimmed, guarding against a
+// stray trailing newline/whitespace from pasting into a dashboard field.
 
 function firstNonEmpty(...values: (string | undefined)[]): string | undefined {
-  return values.find((value) => value && value.length > 0);
+  return values
+    .map((value) => value?.trim())
+    .find((value) => value && value.length > 0);
 }
 
 // Supabase's Vercel integration (as of 2025) creates a bare SUPABASE_URL

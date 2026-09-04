@@ -7,7 +7,9 @@ let client: Resend | null = null;
 
 export function getResend(): Resend {
   if (!client) {
-    client = new Resend(process.env.RESEND_API_KEY!);
+    // .trim() guards against a stray trailing newline/whitespace from
+    // pasting the key into a dashboard env var field.
+    client = new Resend((process.env.RESEND_API_KEY ?? "").trim());
   }
   return client;
 }
