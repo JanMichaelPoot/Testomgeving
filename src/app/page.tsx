@@ -1,7 +1,8 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { PossibilityWindow } from "@/components/window/PossibilityWindow";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { SiteFooter } from "@/components/window/SiteFooter";
+import { LANDING_HERO_ILLUSTRATION } from "@/lib/illustrations";
 
 export default function Home() {
   return (
@@ -25,8 +26,15 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mx-auto w-full max-w-lg lg:max-w-none">
-            <PossibilityWindow />
+          <div className="relative mx-auto aspect-4/3 w-full max-w-lg overflow-hidden rounded-2xl shadow-lg lg:max-w-none">
+            <Image
+              src={LANDING_HERO_ILLUSTRATION}
+              alt="A window opening onto a warmly lit, unexpected possibility"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+              priority
+            />
           </div>
         </div>
       </main>

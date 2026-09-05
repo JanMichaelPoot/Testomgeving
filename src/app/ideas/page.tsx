@@ -2,40 +2,8 @@ import { redirect } from "next/navigation";
 import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { generatePossibilities } from "@/lib/claude/ideas";
-import { generateIllustration } from "@/lib/gemini";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { IdeasBoard } from "@/components/window/IdeasBoard";
-
-type ServiceClient = ReturnType<typeof createServiceRoleClient>;
-
-// Best-effort: a failed illustration shouldn't block the idea itself from
-// showing up. Runs all requested images in parallel — bounded by the
-// slowest single call rather than 10x sequential latency.
-async function generateIdeaImageUrl(
-  supabase: ServiceClient,
-  sessionId: string,
-  index: number,
-  idea: { title: string; description: string }
-): Promise<string | null> {
-  try {
-    const image = await generateIllustration(
-      `${idea.title}. ${idea.description}`
-    );
-    const path = `ideas/${sessionId}/${index}.jpg`;
-    const { error } = await supabase.storage
-      .from("illustrations")
-      .upload(path, image.data, {
-        contentType: image.mimeType,
-        upsert: true,
-      });
-    if (error) throw error;
-    return supabase.storage.from("illustrations").getPublicUrl(path).data
-      .publicUrl;
-  } catch (err) {
-    console.error(`Failed to generate illustration for idea ${index}:`, err);
-    return null;
-  }
-}
 
 export const metadata = {
   title: "Your possibilities — WINDOW",
@@ -77,21 +45,14 @@ export default async function IdeasPage() {
         company: intake.company ?? "",
       });
 
-      const imageUrls = await Promise.all(
-        generated.map((idea, index) =>
-          generateIdeaImageUrl(supabase, sessionId, index, idea)
-        )
-      );
-
       const { data: inserted, error } = await supabase
         .from("ideas")
         .insert(
-          generated.map((idea, index) => ({
+          generated.map((idea) => ({
             session_id: sessionId,
             lens: idea.lens,
             title: idea.title,
             description: idea.description,
-            image_url: imageUrls[index],
           }))
         )
         .select("*");

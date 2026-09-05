@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { likeIdea, skipIdea, reshapeIdea } from "@/app/ideas/actions";
+import { LENS_ILLUSTRATIONS } from "@/lib/illustrations";
 import type { Database } from "@/types/database";
 import type { RefineDirection } from "@/lib/claude/ideas";
 
@@ -153,10 +154,10 @@ function IdeaCard({
         busy && "opacity-60"
       )}
     >
-      {idea.image_url && (
+      {LENS_ILLUSTRATIONS[idea.lens] && (
         <div className="relative -mx-6 -mt-6 mb-4 aspect-4/3 overflow-hidden rounded-t-2xl">
           <Image
-            src={idea.image_url}
+            src={LENS_ILLUSTRATIONS[idea.lens]}
             alt=""
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
