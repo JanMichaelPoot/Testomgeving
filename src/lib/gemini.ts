@@ -42,7 +42,9 @@ export async function generateIllustration(
       mime_type: "image/jpeg",
       aspect_ratio: aspectRatio,
       image_size: "1K",
-      delivery: "inline",
+      // No `delivery` field: despite being in the SDK's types, the API
+      // currently rejects any explicit value ("Image delivery mode is
+      // not supported") — omitting it defaults to inline base64 data.
     },
   });
 
