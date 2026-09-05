@@ -3,6 +3,7 @@
 import { useMemo, useState, useTransition } from "react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { isRedirectError } from "@/lib/isRedirectError";
 import { submitIntake, type IntakeAnswers } from "@/app/intake/actions";
 
 type StepId = keyof IntakeAnswers;
@@ -109,8 +110,10 @@ export function IntakeWizard() {
       try {
         await submitIntake(answers);
       } catch (err) {
-        // Next.js redirect() throws internally on success — anything that
-        // reaches here is a genuine failure (e.g. Supabase unreachable).
+        // Next.js redirect() throws internally on success — let that
+        // propagate so Next's router can actually navigate, instead of
+        // swallowing it here and showing "NEXT_REDIRECT" as an error.
+        if (isRedirectError(err)) throw err;
         setError(
           err instanceof Error
             ? err.message

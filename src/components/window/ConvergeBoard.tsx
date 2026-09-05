@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { isRedirectError } from "@/lib/isRedirectError";
 import { createCheckoutSession } from "@/app/converge/actions";
 
 export interface Candidate {
@@ -40,6 +41,9 @@ export function ConvergeBoard({ candidates }: { candidates: Candidate[] }) {
       try {
         await createCheckoutSession(selectedId, waiverConfirmed);
       } catch (err) {
+        // Next.js redirect() throws internally on success (to Stripe
+        // Checkout) — let that propagate instead of showing it as an error.
+        if (isRedirectError(err)) throw err;
         setError(
           err instanceof Error
             ? err.message
