@@ -11,7 +11,7 @@ const TARGETS: { name: string; prompt: string }[] = [
   {
     name: "landing-hero",
     prompt:
-      "Looking out through a large open window frame from a dim, cozy room into an impossible, vivid landscape bathed in golden and violet light — a glimpse of a completely different possibility just beyond the sill. Sense of wonder and invitation, striking and beautiful.",
+      "A single elegant window frame set into a softly lit interior wall, its casement fanning outward like an open book to reveal four distinct vertical panels side by side, each a glimpse into a different possibility. From left to right: a solitary hiking trail winding up a mountainside at dusk; the warm interior of a cozy café with a table, cup, and open books; a starlit night forest under a deep indigo sky; a vibrant city street at dusk with a couple of small figures walking. Warm light spills from the window onto the interior floor and a plant on the sill. Striking, beautiful, sense of wonder and invitation.",
   },
   {
     name: "practical",
