@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { getOrCreateWindowPlan, PlanNotReadyError } from "@/app/plan/data";
 
@@ -72,6 +73,19 @@ export default async function PlanPage(props: PageProps<"/plan">) {
     <div className="flex min-h-full flex-col">
       <SiteHeader />
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12 sm:px-10">
+        {plan.image_url && (
+          <div className="relative mb-8 aspect-3/2 w-full overflow-hidden rounded-2xl">
+            <Image
+              src={plan.image_url}
+              alt=""
+              fill
+              sizes="(min-width: 640px) 672px, 100vw"
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
+
         <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
           Your Window Plan
         </p>

@@ -3,6 +3,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { generateWindowPlan } from "@/lib/claude/plan";
 import { renderWindowPlanPdf } from "@/lib/pdf/windowPlan";
 import { sendWindowPlanEmail } from "@/lib/email/windowPlan";
+import { generateIllustration } from "@/lib/gemini";
 import type { Database } from "@/types/database";
 
 type WindowPlanRow = Database["public"]["Tables"]["window_plans"]["Row"];
@@ -85,6 +86,32 @@ export async function getOrCreateWindowPlan(
     : supabase.storage.from("window-plans").getPublicUrl(pdfPath).data
         .publicUrl;
 
+  // Reuse the idea's own illustration from the ideas screen when it has
+  // one — same scene, no extra Gemini call. Only generate fresh if it
+  // doesn't (e.g. that generation failed at the time).
+  let imageUrl = idea.image_url;
+  if (!imageUrl) {
+    try {
+      const image = await generateIllustration(
+        `${generated.title}. ${generated.why_it_fits}`,
+        "3:2"
+      );
+      const imagePath = `plans/${sessionId}.jpg`;
+      const { error: imageUploadError } = await supabase.storage
+        .from("illustrations")
+        .upload(imagePath, image.data, {
+          contentType: image.mimeType,
+          upsert: true,
+        });
+      if (imageUploadError) throw imageUploadError;
+      imageUrl = supabase.storage.from("illustrations").getPublicUrl(
+        imagePath
+      ).data.publicUrl;
+    } catch (err) {
+      console.error("Failed to generate Window Plan illustration:", err);
+    }
+  }
+
   const { data: inserted, error: insertError } = await supabase
     .from("window_plans")
     .insert({
@@ -97,6 +124,7 @@ export async function getOrCreateWindowPlan(
       cost_estimate: generated.cost_estimate,
       time_estimate: generated.time_estimate,
       pdf_url: pdfUrl,
+      image_url: imageUrl,
     })
     .select("*")
     .single();

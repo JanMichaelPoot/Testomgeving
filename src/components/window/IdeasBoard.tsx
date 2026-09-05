@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { likeIdea, skipIdea, reshapeIdea } from "@/app/ideas/actions";
@@ -152,6 +153,18 @@ function IdeaCard({
         busy && "opacity-60"
       )}
     >
+      {idea.image_url && (
+        <div className="relative -mx-6 -mt-6 mb-4 aspect-4/3 overflow-hidden rounded-t-2xl">
+          <Image
+            src={idea.image_url}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+          />
+        </div>
+      )}
+
       <span
         className={cn(
           "self-start rounded-full px-3 py-1 text-xs font-medium",

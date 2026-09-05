@@ -103,6 +103,7 @@ export interface Database {
           title: string;
           description: string;
           status: IdeaStatus;
+          image_url: string | null;
           created_at: string;
         };
         Insert: {
@@ -112,6 +113,7 @@ export interface Database {
           title: string;
           description: string;
           status?: IdeaStatus;
+          image_url?: string | null;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["ideas"]["Insert"]>;
@@ -137,6 +139,7 @@ export interface Database {
           cost_estimate: string | null;
           time_estimate: string | null;
           pdf_url: string | null;
+          image_url: string | null;
           created_at: string;
         };
         Insert: {
@@ -150,6 +153,7 @@ export interface Database {
           cost_estimate?: string | null;
           time_estimate?: string | null;
           pdf_url?: string | null;
+          image_url?: string | null;
           created_at?: string;
         };
         Update: Partial<
