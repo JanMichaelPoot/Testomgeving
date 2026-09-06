@@ -4,6 +4,7 @@ import { generateIdeaBook, type GeneratedIdeaBook } from "@/lib/claude/generateI
 import { renderIdeaBookPdf } from "@/lib/pdf/ideaBook";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { isPreviewBypassAllowed } from "@/lib/previewBypass";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database } from "@/types/database";
 
@@ -164,14 +165,16 @@ export async function getOrCreateWindowPlan(
 }
 
 // Test-only bypass so the Idea Book can be reviewed without a real Stripe
-// payment during the test phase. Refuses outside development regardless of
-// how it's reached — the matching client-facing gate lives in
-// src/app/checkout/actions.ts, but this check is what actually matters.
+// payment. Always allowed outside production; on the live site only when
+// `previewToken` matches TEST_PREVIEW_SECRET (see src/lib/previewBypass.ts)
+// — this is the check that actually matters, independent of the page-level
+// gate in src/app/plan/page.tsx.
 export async function getOrCreateTestWindowPlan(
-  sessionId: string
+  sessionId: string,
+  previewToken?: string
 ): Promise<WindowPlanRow> {
-  if (process.env.NODE_ENV === "production") {
-    throw new Error("The test bypass is not available in production.");
+  if (!isPreviewBypassAllowed(previewToken)) {
+    throw new Error("The test bypass is not available here.");
   }
 
   const supabase = createServiceRoleClient();

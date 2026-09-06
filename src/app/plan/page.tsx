@@ -8,6 +8,7 @@ import {
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getLocale, type Locale } from "@/lib/language";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
+import { isPreviewBypassAllowed } from "@/lib/previewBypass";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -46,8 +47,10 @@ export default async function PlanPage(props: PageProps<"/plan">) {
     typeof searchParams.checkout_session_id === "string"
       ? searchParams.checkout_session_id
       : null;
+  const previewToken =
+    typeof searchParams.preview === "string" ? searchParams.preview : undefined;
   const testSessionId =
-    process.env.NODE_ENV !== "production" &&
+    isPreviewBypassAllowed(previewToken) &&
     typeof searchParams.test_session_id === "string"
       ? searchParams.test_session_id
       : null;
@@ -66,7 +69,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
 
   try {
     plan = testSessionId
-      ? await getOrCreateTestWindowPlan(testSessionId)
+      ? await getOrCreateTestWindowPlan(testSessionId, previewToken)
       : await getOrCreateWindowPlan(checkoutSessionId!);
   } catch (err) {
     if (err instanceof PlanNotReadyError) {

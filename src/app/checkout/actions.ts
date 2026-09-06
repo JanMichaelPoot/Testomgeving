@@ -5,6 +5,7 @@ import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
 import { WINDOW_PLAN_PRICE } from "@/lib/pricing";
+import { isPreviewBypassAllowed } from "@/lib/previewBypass";
 
 export async function createCheckoutSession(waiverConfirmed: boolean) {
   if (!waiverConfirmed) {
@@ -82,11 +83,12 @@ export async function createCheckoutSession(waiverConfirmed: boolean) {
 }
 
 // Test-only bypass: skips Stripe entirely so the Idea Book can be reviewed
-// during the test phase without a real payment. Refuses outside
-// development regardless of how it's reached.
-export async function skipPaymentForTesting() {
-  if (process.env.NODE_ENV === "production") {
-    throw new Error("The test bypass is not available in production.");
+// without a real payment. Always allowed outside production; on the live
+// site only when `previewToken` matches TEST_PREVIEW_SECRET (see
+// src/lib/previewBypass.ts) — never based on the client alone.
+export async function skipPaymentForTesting(previewToken?: string) {
+  if (!isPreviewBypassAllowed(previewToken)) {
+    throw new Error("The test bypass is not available here.");
   }
 
   const sessionId = await getSessionId();
@@ -94,5 +96,8 @@ export async function skipPaymentForTesting() {
     throw new Error("No active session.");
   }
 
-  redirect(`/plan?test_session_id=${sessionId}`);
+  const query = new URLSearchParams({ test_session_id: sessionId });
+  if (previewToken) query.set("preview", previewToken);
+
+  redirect(`/plan?${query.toString()}`);
 }

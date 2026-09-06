@@ -8,9 +8,11 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 export function CheckoutPanel({
   isTestMode,
+  previewToken,
   dict,
 }: {
   isTestMode: boolean;
+  previewToken?: string;
   dict: Dictionary["checkout"];
 }) {
   const [waiverConfirmed, setWaiverConfirmed] = useState(false);
@@ -37,7 +39,7 @@ export function CheckoutPanel({
     setError(null);
     startTestTransition(async () => {
       try {
-        await skipPaymentForTesting();
+        await skipPaymentForTesting(previewToken);
       } catch (err) {
         if (isRedirectError(err)) throw err;
         setError(err instanceof Error ? err.message : dict.errorTest);
