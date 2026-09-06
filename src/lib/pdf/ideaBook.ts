@@ -1,11 +1,36 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import fontkit from "@pdf-lib/fontkit";
-import { PDFDocument, rgb, type PDFFont, type PDFPage, type PDFImage } from "pdf-lib";
+import { PDFDocument, PDFString, rgb, type PDFFont, type PDFPage, type PDFImage } from "pdf-lib";
 import { DIFFICULTY_LABELS, type GeneratedIdeaBook, type IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { resolveStylePreset } from "@/lib/styleEngine";
+import { mapsSearchUrl } from "@/lib/maps";
+
+// pdf-lib has no first-class "add a hyperlink" API, so a clickable region
+// is a manually-built Link annotation — a standard, documented technique
+// for this library, not a hack specific to this file.
+function addLinkAnnotation(
+  page: PDFPage,
+  rect: { x: number; y: number; width: number; height: number },
+  url: string
+) {
+  const annotRef = page.doc.context.register(
+    page.doc.context.obj({
+      Type: "Annot",
+      Subtype: "Link",
+      Rect: [rect.x, rect.y, rect.x + rect.width, rect.y + rect.height],
+      Border: [0, 0, 0],
+      A: {
+        Type: "Action",
+        S: "URI",
+        URI: PDFString.of(url),
+      },
+    })
+  );
+  page.node.addAnnot(annotRef);
+}
 
 const PAGE_WIDTH = 595.28; // A4 in points
 const PAGE_HEIGHT = 841.89;
@@ -363,15 +388,34 @@ export async function renderIdeaBookPdf(
 
   // A single compact "meta" line — used for the short practical/location
   // facts on an idea page. Kept to one line each; requirements (which can
-  // run to several items) get a real bullet list instead, see below.
-  function drawMetaLine(label: string, value: string, x: number, maxWidth: number) {
+  // run to several items) get a real bullet list instead, see below. When
+  // linkUrl is given, the value itself becomes a real clickable link
+  // (underlined, accent-colored) — used for the "view on map" location
+  // line, a safe, key-less Google Maps search link rather than a
+  // fabricated exact address (see the improvement plan's section 9).
+  function drawMetaLine(label: string, value: string, x: number, maxWidth: number, linkUrl?: string) {
     if (!value) return;
     newPageIfNeeded(9 + 4);
     const labelWidth = fonts.sansBold.widthOfTextAtSize(`${label}: `, 9);
     page.drawText(`${label}:`, { x, y, size: 9, font: fonts.sansBold, color: ACCENT_DARK });
     const lines = wrapText(value, fonts.sans, 9, maxWidth - labelWidth, 1);
     if (lines[0]) {
-      page.drawText(lines[0], { x: x + labelWidth, y, size: 9, font: fonts.sans, color: INK });
+      const valueColor = linkUrl ? ACCENT_DARK : INK;
+      const textWidth = fonts.sans.widthOfTextAtSize(lines[0], 9);
+      page.drawText(lines[0], { x: x + labelWidth, y, size: 9, font: fonts.sans, color: valueColor });
+      if (linkUrl) {
+        page.drawLine({
+          start: { x: x + labelWidth, y: y - 1.5 },
+          end: { x: x + labelWidth + textWidth, y: y - 1.5 },
+          thickness: 0.5,
+          color: ACCENT_DARK,
+        });
+        addLinkAnnotation(
+          page,
+          { x: x + labelWidth, y: y - 2, width: textWidth, height: 9 + 3 },
+          linkUrl
+        );
+      }
     }
     y -= 9 + 4;
   }
@@ -427,7 +471,8 @@ export async function renderIdeaBookPdf(
         book.labels.location_heading || chrome.locationFallback,
         locationLine,
         TEXT_COL_X,
-        TEXT_COL_WIDTH
+        TEXT_COL_WIDTH,
+        mapsSearchUrl(idea.location.name, idea.location.city)
       );
     }
 
@@ -540,7 +585,8 @@ export async function renderIdeaBookPdf(
         book.labels.location_heading || chrome.locationFallback,
         wildcardLocationLine,
         MARGIN,
-        CONTENT_WIDTH
+        CONTENT_WIDTH,
+        mapsSearchUrl(book.wildcard.location.name, book.wildcard.location.city)
       );
     }
     if (book.wildcard.requirements.length > 0) {

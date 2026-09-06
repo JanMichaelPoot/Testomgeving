@@ -186,10 +186,16 @@ export async function getOrCreateWindowPlan(
         .eq("id", sessionId);
     }
 
+    // A gift redirects only where the Idea Book itself is delivered — the
+    // buyer still pays with their own card and gets Stripe's own receipt
+    // at their own email regardless, and stays the account on file above.
+    const giftRecipientEmail = checkoutSession.metadata?.gift_recipient_email;
+    const deliveryEmail = giftRecipientEmail || customerEmail;
+
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
     try {
       await sendIdeaBookEmail({
-        to: customerEmail,
+        to: deliveryEmail,
         title: plan.title,
         book: generated,
         pdfBytes,

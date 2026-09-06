@@ -42,6 +42,9 @@ export interface Dictionary {
     steps: string[];
     disclaimer: string;
     waiverLabel: string;
+    giftToggleLabel: string;
+    giftEmailLabel: string;
+    giftEmailPlaceholder: string;
     ctaIdle: string;
     ctaPending: string;
     errorGeneric: string;
@@ -65,6 +68,16 @@ export interface Dictionary {
     wildcardFallback: string;
     downloadPdf: string;
     emailedCopy: string;
+    shareButtonLabel: string;
+    shareCopiedLabel: string;
+  };
+  shared: {
+    pageTitle: string;
+    eyebrow: string;
+    intro: string;
+    ctaLabel: string;
+    notFoundHeading: string;
+    notFoundBody: string;
   };
   email: { subjectSuffix: string; heading: string; viewOnline: string };
   pdfChrome: {
@@ -80,6 +93,7 @@ export interface Dictionary {
     practicalFallback: string;
     locationFallback: string;
     requirementsFallback: string;
+    mapLinkLabel: string;
     footerWordmark: string;
   };
   intake: {
@@ -231,6 +245,9 @@ const nl: Dictionary = {
       "WINDOW biedt mogelijkheden om te verkennen — geen medisch, therapeutisch, financieel of juridisch advies. Gebruik je eigen inzicht en raadpleeg een professional waar dat nodig is.",
     waiverLabel:
       "Ik begrijp dat mijn Idea Book digitaal en direct wordt geleverd, waardoor mijn wettelijke bedenktijd van 14 dagen vervalt zodra de betaling is voltooid.",
+    giftToggleLabel: "Dit is een cadeau — stuur het naar iemand anders",
+    giftEmailLabel: "E-mailadres van de ontvanger",
+    giftEmailPlaceholder: "naam@voorbeeld.nl",
     ctaIdle: "Maak het echt",
     ctaPending: "Checkout wordt geopend…",
     errorGeneric: "Er ging iets mis bij het openen van de checkout. Probeer het opnieuw.",
@@ -254,7 +271,17 @@ const nl: Dictionary = {
     possibilitiesHeading: "Jouw mogelijkheden",
     wildcardFallback: "De wildcard",
     downloadPdf: "Download PDF",
-    emailedCopy: "We hebben je ook een kopie gemaild.",
+    emailedCopy: "We hebben ook een kopie gemaild.",
+    shareButtonLabel: "Deel je Idea Book",
+    shareCopiedLabel: "Link gekopieerd!",
+  },
+  shared: {
+    pageTitle: "Gedeeld Idea Book — WINDOW",
+    eyebrow: "Gedeeld Idea Book",
+    intro: "Iemand deelde dit Idea Book met je — gemaakt door WINDOW, op basis van hun eigen antwoorden.",
+    ctaLabel: "Open zelf een venster",
+    notFoundHeading: "Dit Idea Book bestaat niet (meer)",
+    notFoundBody: "De link klopt niet, of dit Idea Book is niet meer beschikbaar.",
   },
   email: {
     subjectSuffix: "je mogelijkheden zijn klaar",
@@ -274,6 +301,7 @@ const nl: Dictionary = {
     practicalFallback: "Praktisch",
     locationFallback: "Locatie",
     requirementsFallback: "Wat heeft u nodig",
+    mapLinkLabel: "bekijk op kaart",
     footerWordmark: "WINDOW  ·  Jouw Idea Book",
   },
   intake: {
@@ -586,6 +614,9 @@ const en: Dictionary = {
       "WINDOW offers possibilities to explore — not medical, therapeutic, financial, or legal advice. Use your own judgment, and consult a professional where it matters.",
     waiverLabel:
       "I understand that my Idea Book is delivered digitally and immediately, so my statutory 14-day right of withdrawal no longer applies once payment completes.",
+    giftToggleLabel: "This is a gift — send it to someone else",
+    giftEmailLabel: "Recipient's email address",
+    giftEmailPlaceholder: "name@example.com",
     ctaIdle: "Make this real",
     ctaPending: "Opening checkout…",
     errorGeneric: "Something went wrong opening checkout. Please try again.",
@@ -609,7 +640,17 @@ const en: Dictionary = {
     possibilitiesHeading: "Your possibilities",
     wildcardFallback: "The wildcard",
     downloadPdf: "Download PDF",
-    emailedCopy: "We've also emailed you a copy.",
+    emailedCopy: "We've also emailed a copy.",
+    shareButtonLabel: "Share your Idea Book",
+    shareCopiedLabel: "Link copied!",
+  },
+  shared: {
+    pageTitle: "Shared Idea Book — WINDOW",
+    eyebrow: "Shared Idea Book",
+    intro: "Someone shared this Idea Book with you — made by WINDOW, from their own answers.",
+    ctaLabel: "Open your own window",
+    notFoundHeading: "This Idea Book doesn't exist (anymore)",
+    notFoundBody: "The link is wrong, or this Idea Book is no longer available.",
   },
   email: {
     subjectSuffix: "your possibilities are ready",
@@ -629,6 +670,7 @@ const en: Dictionary = {
     practicalFallback: "Practical",
     locationFallback: "Location",
     requirementsFallback: "What you'll need",
+    mapLinkLabel: "view on map",
     footerWordmark: "WINDOW  ·  Your Idea Book",
   },
   intake: {

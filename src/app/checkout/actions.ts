@@ -6,7 +6,10 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
 import { WINDOW_PLAN_PRICE } from "@/lib/pricing";
 
-export async function createCheckoutSession(waiverConfirmed: boolean) {
+export async function createCheckoutSession(
+  waiverConfirmed: boolean,
+  giftRecipientEmail?: string
+) {
   if (!waiverConfirmed) {
     throw new Error(
       "Please confirm you understand the withdrawal waiver before continuing."
@@ -53,6 +56,11 @@ export async function createCheckoutSession(waiverConfirmed: boolean) {
     cancel_url: `${siteUrl}/checkout`,
     metadata: {
       session_id: sessionId,
+      // The buyer still pays and gets Stripe's own receipt at their own
+      // email; this only redirects where *our* delivery email (the PDF +
+      // the /plan link) goes. Empty string, not omitted, so a later read
+      // never has to distinguish "no metadata" from "not a gift".
+      gift_recipient_email: giftRecipientEmail?.trim() || "",
     },
   });
 

@@ -599,3 +599,58 @@ Stripe, Claude API, Resend, PostHog).
       de wildcard-banner verder te verkleinen en de typografie daar gelijk
       te trekken met de idee-pagina's). `tsc --noEmit`/`eslint .`/`npm run
       build` schoon.
+
+- [x] Stap 14 — Start van Fase 2 uit het verbeterplan: kaart-links,
+      deel/referral-basis (Fase A) en de cadeau-optie. Twee andere
+      Fase 2-items (web-grounding, premium-tier) bewust nog niet gebouwd —
+      zie de kritische toelichting hieronder.
+      **Kaart-links**: nieuwe `src/lib/maps.ts` (`mapsSearchUrl`) bouwt een
+      sleutelloze Google Maps-zoeklink — geen verzonnen exact adres, het
+      alternatief dat sectie 9 van het verbeterplan al aanraadde zolang er
+      geen web-grounding is. Op `/plan` en `/shared/[id]` een gewone
+      `<a>`-link; in de PDF een **echte klikbare link-annotatie**
+      (`addLinkAnnotation` in `src/lib/pdf/ideaBook.ts` — pdf-lib heeft
+      hier geen eigen API voor, dit is de standaardtechniek: een handmatig
+      geregistreerd `/Subtype /Link`-annotatie-object). Geverifieerd met
+      PyMuPDF's `page.get_links()`: de link-rect en URI kloppen exact, op
+      zowel een idee-pagina als de wildcard-pagina.
+      **Deel/referral Fase A** (bewust zonder korting, zie de kritische
+      kanttekening in het verbeterplan over sectie 6): nieuwe publieke
+      route `/shared/[id]` (`src/app/shared/[id]/`) toont een
+      alleen-lezen versie van een Idea Book — wél alle ideeën + wildcard
+      (de indrukwekkende, deelbare inhoud), bewust NIET
+      `profile_summary`/`must_haves`/`preferences` (persoonlijke context).
+      `IdeaDetail` is uit `plan/page.tsx` geëxtraheerd naar
+      `src/components/window/IdeaDetail.tsx` zodat beide pagina's exact
+      dezelfde weergave gebruiken. Nieuwe `ShareButton` (Web Share API met
+      clipboard-fallback + bevestiging) op `/plan`, met UTM-parameters op
+      de gedeelde link. Twee nieuwe PostHog-events
+      (`idea_book_share_clicked`, `shared_idea_book_viewed`,
+      `shared_idea_book_cta_clicked`) meten precies de funnel die Fase A
+      vraagt: gedeeld → bekeken → doorgeklikt — zonder daar nu al een
+      beloning aan te koppelen.
+      **Cadeau-optie**: `CheckoutPanel` heeft een nieuwe, altijd zichtbare
+      "dit is een cadeau"-toggle (bewust NIET gekoppeld aan de
+      intake-vraag "voor wie is dit venster", die over gezelschap gaat,
+      niet over cadeau-intentie — dat zou een te losse aanname zijn
+      geweest) met een e-mailveld dat de "Maak het echt"-knop pas
+      vrijgeeft bij een geldig e-mailadres. `createCheckoutSession` legt
+      het ontvanger-adres vast in Stripe-metadata
+      (`gift_recipient_email`); `getOrCreateWindowPlan` stuurt de e-mail
+      met de PDF naar dat adres in plaats van naar de koper, terwijl de
+      koper zelf gewoon zijn eigen Stripe-bon en het `users`-account-record
+      houdt. Geverifieerd met een echte Stripe Sandbox-testbetaling (twee
+      verschillende e-mailadressen: koper vs. ontvanger) — rechtstreeks bij
+      Stripe's API opgevraagd en bevestigd dat `gift_recipient_email` en
+      `customer_details.email` correct gescheiden bleven.
+      **Bewust nog niet gebouwd**: web-grounding (sectie 9, wachtte op een
+      keuze — gebruiker koos "nu overslaan, veilige Maps-links zijn
+      genoeg") en de premium-tier (sectie 7, vraagt eerst een prijsopgave
+      van de gebruiker, geen technische beslissing). Ook de "praktische
+      vervolgstappen + QR-deelpagina" (sectie 10/11) en iconen/
+      kleurcodering in de PDF (sectie 11) staan nog open.
+      Getest: volledige wizard + een echte Stripe Sandbox-betaling met het
+      cadeauvakje aangevinkt; deel-knop (clipboard-fallback bevestigd);
+      `/shared/[id]` met een echte en een niet-bestaande id (nette
+      "bestaat niet"-pagina); PDF-linkannotaties gecontroleerd met
+      PyMuPDF. `tsc --noEmit`/`eslint .`/`npm run build` schoon.
