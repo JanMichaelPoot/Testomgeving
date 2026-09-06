@@ -61,9 +61,10 @@ The person has just paid for their WINDOW Idea Book — a personalized set of
 exactly 6 possibilities generated directly from their profile, plus one
 "wildcard" idea. There is no browsing or narrowing step: everything you
 generate here is the final, paid deliverable, so it needs to already feel
-considered and worth the money. The book is printed as a fixed 6-page PDF
-(two ideas per page), so every field below has a firm length limit —
-respect it exactly, don't pad and don't run long.
+considered and worth the money. The book is printed as a PDF with one full
+page per idea, so there's real room to breathe — but every field still has
+a length guideline below. Stay close to it: concise and specific reads as
+considered, padding to fill space reads as filler.
 
 Rules for using the profile:
 - Fields the person marked as MUST-HAVES are hard constraints. Never
@@ -78,14 +79,14 @@ Rules for using the profile:
 - The wildcard must be a real, usable idea — not a joke — but framed with
   a knowing "we probably shouldn't suggest this, but that's exactly why
   you'll love it" spirit. It should still respect any must-haves.
-- Every idea needs: a title (max ~6 words), a one-sentence intro, a
-  one-sentence why_it_fits (why this fits *this* person, referencing
-  specifics from their profile), details (an array of exactly 3 concrete,
-  sequential, doable steps — one short imperative sentence per step, no
-  vague verbs like "consider" or "explore"), and a first_action: one
-  specific, immediately doable next step, one short sentence, phrased as
-  an instruction (e.g. "Check dit weekend de beschikbaarheid en boek
-  daarna de kayak.").
+- Every idea needs: a title (max ~6 words), a one-sentence intro (max ~18
+  words), a one-sentence why_it_fits (max ~18 words; why this fits *this*
+  person, referencing specifics from their profile), details (an array of
+  exactly 3 concrete, sequential, doable steps — one short imperative
+  sentence per step, max ~16 words each, no vague verbs like "consider" or
+  "explore"), and a first_action: one specific, immediately doable next
+  step, one short instruction (max ~16 words), e.g. "Check dit weekend de
+  beschikbaarheid en boek daarna de kayak.".
 - practical is a small structured object, not free text:
   estimated_cost (short, e.g. "€25–40" or "Gratis"), duration (short,
   e.g. "Een dagdeel"), difficulty (exactly "easy", "moderate", or
@@ -100,10 +101,10 @@ Rules for using the profile:
   individual businesses. Set location to null entirely for ideas that
   don't happen at one specific findable place (e.g. "cook a new recipe at
   home", "write letters to old friends").
-- requirements: a short list of concrete things the person needs to
-  arrange, buy, or bring (tickets, gear, clothing, an app, a reservation)
-  — an empty array when the idea genuinely needs nothing beyond showing
-  up.
+- requirements: up to 4 short items (a few words each) of concrete things
+  the person needs to arrange, buy, or bring (tickets, gear, clothing, an
+  app, a reservation) — an empty array when the idea genuinely needs
+  nothing beyond showing up.
 - Never invent a specific ticket price, opening hours, or a direct URL —
   you have no way to verify those and a wrong one actively hurts trust.
   Keep estimated_cost approximate and don't mention opening hours at all.
@@ -173,7 +174,7 @@ const IDEA_ENTRY_SCHEMA = {
     first_action: { type: "string" },
     practical: PRACTICAL_SCHEMA,
     location: LOCATION_SCHEMA,
-    requirements: { type: "array", items: { type: "string" } },
+    requirements: { type: "array", maxItems: 4, items: { type: "string" } },
     image_suggestion: { type: "string" },
   },
   required: [

@@ -560,3 +560,42 @@ Stripe, Claude API, Resend, PostHog).
       standaard `warm`-stijl. Fase 1 van het verbeterplan is hiermee
       volledig end-to-end geverifieerd, inclusief de twee optionele
       Style Engine- en locatie-autocomplete-uitbreidingen.
+
+- [x] Stap 13 — PDF-tekstafkapping en bladvulling gefixt: op basis van een
+      screenshot van een echt gegenereerd idee bleek `intro`/`why_it_fits`
+      midden in een woord afgekapt te worden met "…", en de "Wat heeft u
+      nodig"-regel deed hetzelfde bij meer dan één item. Oorzaak: Stap 12
+      propte de volledige Actionability Layer-inhoud (stappen, praktische
+      info, locatie, materialenlijst, eerste stap) nog in de oude
+      halve-pagina-sloten uit Stap 9 (twee ideeën per pagina) met krappe
+      `maxLines`-caps — precies de spanning die het verbeterplan zelf al
+      als kritiek punt benoemde ("rijkere ideeën passen niet meer in de
+      vaste 6-pagina-lay-out"), nu voor het eerst zichtbaar met échte,
+      volledige-lengte Claude-output.
+      Oplossing: `src/lib/pdf/ideaBook.ts` toegewezen van twee ideeën per
+      pagina naar **één volledige pagina per idee** (`drawIdeaSlot` →
+      `drawIdeaPage`) — het boek is nu 9 pagina's (cover, profiel, 6
+      idee-pagina's, wildcard) in plaats van vast 6. Grotere, comfortabelere
+      typografie (titel 21pt, intro/why/stappen 12pt i.p.v. 15.5/10/9.5pt),
+      `requirements` wordt nu als een echte bullet-lijst gerenderd
+      (`drawBulletList`) in plaats van een enkele, potentieel afgekapte
+      regel, en `first_action` krijgt dezelfde omkaderde call-out-behandeling
+      als de wildcard-pagina al had. De wildcard-pagina's banner is
+      verkleind (360→260pt, afbeelding 230→170pt) om ruimte vrij te maken
+      voor dezelfde rijkere content die nu ook op die pagina moet passen.
+      `generateIdeaBook.ts`'s systeemprompt is bijgewerkt: de "vaste
+      6-pagina-PDF"-beschrijving is vervangen door "één volledige pagina
+      per idee", woordlimieten voor intro/why_it_fits/stappen/eerste stap
+      zijn expliciet en strakker gemaakt (max ~18/~18/~16/~16 woorden i.p.v.
+      vage "one-sentence"-instructies die in de praktijk tot te lange,
+      samengestelde zinnen leidden), en `requirements` is begrensd op
+      maximaal 4 items (`maxItems: 4` in het schema).
+      Getest: een losse testrender met opzettelijk lange, realistische
+      tekst (die de exacte afkapping uit het screenshot reproduceerde)
+      bevestigde eerst het probleem, en na de fix geen enkele afkapping
+      meer op de idee- of wildcard-pagina, met het boek precies op de
+      verwachte 9 pagina's (een eerste poging met de aanvankelijke
+      wildcard-afmetingen liet een 10e overloop-pagina zien — opgelost door
+      de wildcard-banner verder te verkleinen en de typografie daar gelijk
+      te trekken met de idee-pagina's). `tsc --noEmit`/`eslint .`/`npm run
+      build` schoon.

@@ -11,7 +11,6 @@ const PAGE_WIDTH = 595.28; // A4 in points
 const PAGE_HEIGHT = 841.89;
 const MARGIN = 56;
 const CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2;
-const CONTENT_HEIGHT = PAGE_HEIGHT - MARGIN * 2;
 
 const INK = rgb(0.102, 0.102, 0.18); // #1A1A2E
 const ACCENT_DARK = rgb(0.294, 0.165, 0.651); // #4B2AA6
@@ -24,19 +23,19 @@ const LAVENDER_LIGHT = rgb(0.86, 0.81, 0.97);
 const FONTS_DIR = path.join(process.cwd(), "src/lib/pdf/fonts");
 const STYLES_DIR = path.join(process.cwd(), "public/illustrations/styles");
 
-// Side-column layout shared by the profile page and the idea half-slots.
+// Side-column layout shared by the profile page and each idea page.
 const SIDE_COL_WIDTH = 180;
 const SIDE_COL_GAP = 24;
 const TEXT_COL_X = MARGIN + SIDE_COL_WIDTH + SIDE_COL_GAP;
 const TEXT_COL_WIDTH = CONTENT_WIDTH - SIDE_COL_WIDTH - SIDE_COL_GAP;
 
-// Two ideas per page, split into equal-height slots.
-const IDEA_SLOT_GAP = 20;
-const IDEA_SLOT_HEIGHT = (CONTENT_HEIGHT - IDEA_SLOT_GAP) / 2;
-
-// Wildcard's framed photo-on-color-field header.
-const WILDCARD_TOP_HEIGHT = 360;
-const WILDCARD_IMAGE_HEIGHT = 230;
+// Wildcard's framed photo-on-color-field header — sized to leave enough
+// body room for the same amount of content an idea page carries (practical
+// info, an optional location, a requirements list, a first-action
+// callout), just laid out full-width below the banner instead of beside a
+// side column.
+const WILDCARD_TOP_HEIGHT = 260;
+const WILDCARD_IMAGE_HEIGHT = 170;
 
 function wrapText(
   text: string,
@@ -362,10 +361,9 @@ export async function renderIdeaBookPdf(
     }
   }
 
-  // A single compact "meta" line — used for the practical/location/
-  // requirements rows in the tight half-page idea slots. Fase 1 keeps
-  // these to one line each (Fase 2 gives content-rich ideas their own
-  // full page instead of squeezing everything into a half-page slot).
+  // A single compact "meta" line — used for the short practical/location
+  // facts on an idea page. Kept to one line each; requirements (which can
+  // run to several items) get a real bullet list instead, see below.
   function drawMetaLine(label: string, value: string, x: number, maxWidth: number) {
     if (!value) return;
     newPageIfNeeded(9 + 4);
@@ -378,34 +376,41 @@ export async function renderIdeaBookPdf(
     y -= 9 + 4;
   }
 
-  // --- Pages 3-5: ideas, two per page, six total — each in a fixed-height
-  // half-slot so the page is always full regardless of how much text a
-  // given idea got.
-  function drawIdeaSlot(idea: IdeaBookEntry, index: number, moodImage: PDFImage, slotTopY: number) {
-    const slotBottomY = slotTopY - IDEA_SLOT_HEIGHT;
-    drawSideColumn(MARGIN, slotTopY, SIDE_COL_WIDTH, slotBottomY, moodImage, index);
+  // --- Pages 3-8: ideas, one full page each, six total. Earlier this
+  // packed two ideas into fixed-height half-page slots with tight maxLines
+  // caps to guarantee a fixed 6-page book — but the real Actionability
+  // Layer content (practical info, location, a requirements list, a first
+  // action) reliably overran those caps and got cut off mid-sentence with
+  // an ellipsis, which is worse than a longer, complete book. A full page
+  // per idea gives real content room to breathe; the "fill the remainder
+  // with a tinted panel" trick still keeps every page looking intentional
+  // regardless of exactly how much a given idea's text runs.
+  function drawIdeaPage(idea: IdeaBookEntry, index: number, moodImage: PDFImage) {
+    const topY = PAGE_HEIGHT - MARGIN;
+    const bottomY = MARGIN;
+    drawSideColumn(MARGIN, topY, SIDE_COL_WIDTH, bottomY, moodImage, index);
 
-    y = slotTopY;
-    drawParagraph(chrome.possibilityEyebrow, fonts.sansBold, 9.5, ACCENT_DARK, 3, TEXT_COL_X, TEXT_COL_WIDTH);
-    y -= 2;
-    drawParagraph(idea.title, fonts.serif, 15.5, INK, 5, TEXT_COL_X, TEXT_COL_WIDTH, 2);
-    y -= 3;
-    drawParagraph(idea.intro, fonts.sans, 10, MUTED, 4, TEXT_COL_X, TEXT_COL_WIDTH, 2);
+    y = topY;
+    drawParagraph(chrome.possibilityEyebrow, fonts.sansBold, 10, ACCENT_DARK, 4, TEXT_COL_X, TEXT_COL_WIDTH);
     y -= 4;
-    drawParagraph(idea.why_it_fits, fonts.sans, 10, INK, 4, TEXT_COL_X, TEXT_COL_WIDTH, 2);
+    drawParagraph(idea.title, fonts.serif, 21, INK, 7, TEXT_COL_X, TEXT_COL_WIDTH, 2);
+    y -= 5;
+    drawParagraph(idea.intro, fonts.sans, 12, MUTED, 5, TEXT_COL_X, TEXT_COL_WIDTH, 4);
     y -= 6;
+    drawParagraph(idea.why_it_fits, fonts.sans, 12, INK, 5, TEXT_COL_X, TEXT_COL_WIDTH, 4);
+    y -= 12;
     drawParagraph(
       book.labels.steps_heading || chrome.stepsFallback,
       fonts.sansBold,
-      9,
+      11,
       ACCENT_DARK,
-      3,
+      4,
       TEXT_COL_X,
       TEXT_COL_WIDTH
     );
-    y -= 1;
-    drawNumberedList(idea.details, fonts.sans, 9.5, TEXT_COL_X, TEXT_COL_WIDTH, 2);
-    y -= 3;
+    y -= 2;
+    drawNumberedList(idea.details, fonts.sans, 12, TEXT_COL_X, TEXT_COL_WIDTH, 3);
+    y -= 6;
 
     const practicalLine = [
       idea.practical.estimated_cost,
@@ -427,54 +432,45 @@ export async function renderIdeaBookPdf(
     }
 
     if (idea.requirements.length > 0) {
-      drawMetaLine(
+      y -= 4;
+      drawParagraph(
         book.labels.requirements_heading || chrome.requirementsFallback,
-        idea.requirements.join(", "),
+        fonts.sansBold,
+        10.5,
+        ACCENT_DARK,
+        4,
         TEXT_COL_X,
         TEXT_COL_WIDTH
       );
+      y -= 1;
+      drawBulletList(idea.requirements, fonts.sans, 11, TEXT_COL_X, TEXT_COL_WIDTH);
     }
+    y -= 8;
 
-    y -= 2;
-    drawParagraph(
+    drawCallout(
       book.labels.first_action_heading || chrome.firstActionFallback,
-      fonts.sansBold,
-      8.5,
-      ACCENT_DARK,
-      2,
+      idea.first_action,
       TEXT_COL_X,
       TEXT_COL_WIDTH
     );
-    drawParagraph(idea.first_action, fonts.sans, 9.5, INK, 3, TEXT_COL_X, TEXT_COL_WIDTH, 2);
 
     // Same fill-the-remainder backstop as the profile/wildcard pages, so a
-    // terser idea doesn't read as visually lighter than its neighbor slot.
-    if (y - slotBottomY > 10) {
+    // terser idea never reads as visually lighter than a richer one.
+    if (y - bottomY > 10) {
       page.drawRectangle({
         x: TEXT_COL_X,
-        y: slotBottomY,
+        y: bottomY,
         width: TEXT_COL_WIDTH,
-        height: y - slotBottomY,
+        height: y - bottomY,
         color: panelTint,
       });
     }
   }
 
-  for (let i = 0; i < book.ideas.length; i += 2) {
+  book.ideas.forEach((idea, i) => {
     page = addPage();
-    const topSlotTop = PAGE_HEIGHT - MARGIN;
-    const bottomSlotTop = topSlotTop - IDEA_SLOT_HEIGHT - IDEA_SLOT_GAP;
-
-    drawIdeaSlot(book.ideas[i], i + 1, images.moods[i % images.moods.length], topSlotTop);
-    if (book.ideas[i + 1]) {
-      drawIdeaSlot(
-        book.ideas[i + 1],
-        i + 2,
-        images.moods[(i + 1) % images.moods.length],
-        bottomSlotTop
-      );
-    }
-  }
+    drawIdeaPage(idea, i + 1, images.moods[i % images.moods.length]);
+  });
 
   // --- Page 6: Wildcard — a framed photo on a colored field up top (the
   // book's other "special" moment, echoing the cover), body content below.
@@ -512,21 +508,21 @@ export async function renderIdeaBookPdf(
     y -= 8;
     drawParagraph(book.wildcard.title, fonts.serif, 22, WHITE, 7, MARGIN, CONTENT_WIDTH, 2);
 
-    y = PAGE_HEIGHT - WILDCARD_TOP_HEIGHT - 32;
-    drawParagraph(book.wildcard.intro, fonts.sans, 13.5, MUTED, 6, MARGIN, CONTENT_WIDTH, 2);
-    y -= 8;
-    drawParagraph(book.wildcard.why_it_fits, fonts.sans, 13.5, INK, 6, MARGIN, CONTENT_WIDTH, 3);
-    y -= 14;
+    y = PAGE_HEIGHT - WILDCARD_TOP_HEIGHT - 28;
+    drawParagraph(book.wildcard.intro, fonts.sans, 12, MUTED, 5, MARGIN, CONTENT_WIDTH, 3);
+    y -= 6;
+    drawParagraph(book.wildcard.why_it_fits, fonts.sans, 12, INK, 5, MARGIN, CONTENT_WIDTH, 3);
+    y -= 10;
     drawParagraph(
       book.labels.steps_heading || chrome.stepsFallback,
       fonts.sansBold,
-      12,
+      11,
       ACCENT_DARK,
-      5
+      4
     );
     y -= 2;
-    drawNumberedList(book.wildcard.details, fonts.sans, 13.5, MARGIN, CONTENT_WIDTH, 2);
-    y -= 6;
+    drawNumberedList(book.wildcard.details, fonts.sans, 12, MARGIN, CONTENT_WIDTH, 2);
+    y -= 4;
 
     const wildcardPractical = [
       book.wildcard.practical.estimated_cost,
@@ -548,14 +544,20 @@ export async function renderIdeaBookPdf(
       );
     }
     if (book.wildcard.requirements.length > 0) {
-      drawMetaLine(
+      y -= 4;
+      drawParagraph(
         book.labels.requirements_heading || chrome.requirementsFallback,
-        book.wildcard.requirements.join(", "),
+        fonts.sansBold,
+        10.5,
+        ACCENT_DARK,
+        4,
         MARGIN,
         CONTENT_WIDTH
       );
+      y -= 1;
+      drawBulletList(book.wildcard.requirements, fonts.sans, 11.5, MARGIN, CONTENT_WIDTH);
     }
-    y -= 4;
+    y -= 6;
 
     drawCallout(
       book.labels.first_action_heading || chrome.firstActionFallback,
