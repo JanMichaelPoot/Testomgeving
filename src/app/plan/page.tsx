@@ -18,9 +18,11 @@ export async function generateMetadata(): Promise<Metadata> {
 function ErrorState({
   message,
   dict,
+  refreshHref,
 }: {
   message: string;
   dict: Dictionary["plan"];
+  refreshHref: string;
 }) {
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-16 text-center">
@@ -28,7 +30,7 @@ function ErrorState({
       <div className="mt-6 w-full rounded-2xl border border-red-200 bg-red-50 px-6 py-8">
         <p className="text-ink/70">{message}</p>
         <a
-          href="/plan"
+          href={refreshHref}
           className="mt-4 inline-block text-sm font-medium text-accent-dark underline"
         >
           {dict.refreshLink}
@@ -55,11 +57,24 @@ export default async function PlanPage(props: PageProps<"/plan">) {
       ? searchParams.test_session_id
       : null;
 
+  // Preserves whatever got the user to this page so the ErrorState's
+  // "refresh" link actually retries generation instead of losing the
+  // payment/session reference and dead-ending on "no payment found".
+  const refreshParams = new URLSearchParams();
+  if (checkoutSessionId) refreshParams.set("checkout_session_id", checkoutSessionId);
+  if (testSessionId) refreshParams.set("test_session_id", testSessionId);
+  if (previewToken) refreshParams.set("preview", previewToken);
+  const refreshHref = refreshParams.size > 0 ? `/plan?${refreshParams}` : "/plan";
+
   if (!checkoutSessionId && !testSessionId) {
     return (
       <div className="flex min-h-full flex-col">
         <SiteHeader locale={locale} dict={dict.header} />
-        <ErrorState message={dict.plan.errorNoPayment} dict={dict.plan} />
+        <ErrorState
+          message={dict.plan.errorNoPayment}
+          dict={dict.plan}
+          refreshHref={refreshHref}
+        />
       </div>
     );
   }
@@ -89,6 +104,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
         <ErrorState
           message={errorMessage ?? dict.plan.errorFallback}
           dict={dict.plan}
+          refreshHref={refreshHref}
         />
       </div>
     );
