@@ -103,10 +103,14 @@ export function PillSlider({ options, value, onChange, label }: PillSliderProps)
           setDragging(true);
           selectFromClientX(e.clientX);
         }}
-        className="relative mt-4 h-2 w-full cursor-pointer touch-none rounded-full bg-ink/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+        className="relative mt-4 h-11 w-full cursor-pointer touch-none rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
       >
+        {/* Visual track only — kept slim on purpose. The 44px-tall parent
+            above is the actual hit target, so mobile taps land reliably
+            without making the bar itself look chunky. */}
+        <div className="pointer-events-none absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 rounded-full bg-ink/10" />
         <div
-          className="absolute inset-y-0 left-0 rounded-full bg-accent"
+          className="pointer-events-none absolute left-0 top-1/2 h-2 -translate-y-1/2 rounded-full bg-accent"
           style={{ width: `${percent}%` }}
         />
         {options.map((option, index) => {

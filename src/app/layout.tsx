@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { ConsentBanner } from "@/components/window/ConsentBanner";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -25,6 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const locale = await getLocale();
+  const dict = getDictionary(locale);
 
   return (
     <html
@@ -33,6 +35,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-cream text-ink font-sans">
         {children}
+        <ConsentBanner dict={dict.consent} />
       </body>
     </html>
   );

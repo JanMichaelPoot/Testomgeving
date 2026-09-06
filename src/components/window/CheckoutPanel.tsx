@@ -6,15 +6,7 @@ import { isRedirectError } from "@/lib/isRedirectError";
 import { createCheckoutSession, skipPaymentForTesting } from "@/app/checkout/actions";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-export function CheckoutPanel({
-  isTestMode,
-  previewToken,
-  dict,
-}: {
-  isTestMode: boolean;
-  previewToken?: string;
-  dict: Dictionary["checkout"];
-}) {
+export function CheckoutPanel({ dict }: { dict: Dictionary["checkout"] }) {
   const [waiverConfirmed, setWaiverConfirmed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -39,7 +31,7 @@ export function CheckoutPanel({
     setError(null);
     startTestTransition(async () => {
       try {
-        await skipPaymentForTesting(previewToken);
+        await skipPaymentForTesting();
       } catch (err) {
         if (isRedirectError(err)) throw err;
         setError(err instanceof Error ? err.message : dict.errorTest);
@@ -73,22 +65,20 @@ export function CheckoutPanel({
         </Button>
       </div>
 
-      {isTestMode && (
-        <div className="mt-6 rounded-xl border border-dashed border-amber-400 bg-amber-50 px-4 py-3">
-          <p className="text-xs font-medium uppercase tracking-widest text-amber-700">
-            {dict.testModeLabel}
-          </p>
-          <p className="mt-1 text-sm text-amber-800/80">{dict.testModeHelper}</p>
-          <button
-            type="button"
-            onClick={handleSkipPayment}
-            disabled={isTestPending}
-            className="mt-3 rounded-full border border-amber-400 bg-white px-4 py-2 text-sm font-medium text-amber-800 transition-colors hover:bg-amber-100 disabled:opacity-50"
-          >
-            {isTestPending ? dict.testModePending : dict.testModeCta}
-          </button>
-        </div>
-      )}
+      <div className="mt-6 rounded-xl border border-dashed border-amber-400 bg-amber-50 px-4 py-3">
+        <p className="text-xs font-medium uppercase tracking-widest text-amber-700">
+          {dict.testModeLabel}
+        </p>
+        <p className="mt-1 text-sm text-amber-800/80">{dict.testModeHelper}</p>
+        <button
+          type="button"
+          onClick={handleSkipPayment}
+          disabled={isTestPending}
+          className="mt-3 rounded-full border border-amber-400 bg-white px-4 py-2 text-sm font-medium text-amber-800 transition-colors hover:bg-amber-100 disabled:opacity-50"
+        >
+          {isTestPending ? dict.testModePending : dict.testModeCta}
+        </button>
+      </div>
     </div>
   );
 }

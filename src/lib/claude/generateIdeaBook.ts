@@ -6,12 +6,35 @@ import {
 import { languageLabel, type Locale } from "@/lib/language";
 import type { IntakeAnswers } from "@/app/intake/actions";
 
+export interface IdeaPractical {
+  estimated_cost: string;
+  duration: string;
+  difficulty: "easy" | "moderate" | "demanding";
+  preparation: string;
+}
+
+// Shared between the PDF renderer and the /plan page so both ever show the
+// exact same wording for a given difficulty value, in either locale.
+export const DIFFICULTY_LABELS: Record<Locale, Record<IdeaPractical["difficulty"], string>> = {
+  nl: { easy: "Makkelijk", moderate: "Gemiddeld", demanding: "Uitdagend" },
+  en: { easy: "Easy", moderate: "Moderate", demanding: "Demanding" },
+};
+
+export interface IdeaLocation {
+  name: string;
+  address: string;
+  city: string;
+}
+
 export interface IdeaBookEntry {
   title: string;
   intro: string;
   why_it_fits: string;
   details: string[];
-  practical_info: string;
+  first_action: string;
+  practical: IdeaPractical;
+  location: IdeaLocation | null;
+  requirements: string[];
   image_suggestion: string;
 }
 
@@ -27,6 +50,8 @@ export interface GeneratedIdeaBook {
     wildcard_heading: string;
     time_label: string;
     cost_label: string;
+    location_heading: string;
+    requirements_heading: string;
   };
 }
 
@@ -57,8 +82,31 @@ Rules for using the profile:
   one-sentence why_it_fits (why this fits *this* person, referencing
   specifics from their profile), details (an array of exactly 3 concrete,
   sequential, doable steps — one short imperative sentence per step, no
-  vague verbs like "consider" or "explore"), and practical_info (one short
-  line combining a realistic time and cost estimate).
+  vague verbs like "consider" or "explore"), and a first_action: one
+  specific, immediately doable next step, one short sentence, phrased as
+  an instruction (e.g. "Check dit weekend de beschikbaarheid en boek
+  daarna de kayak.").
+- practical is a small structured object, not free text:
+  estimated_cost (short, e.g. "€25–40" or "Gratis"), duration (short,
+  e.g. "Een dagdeel"), difficulty (exactly "easy", "moderate", or
+  "demanding"), and preparation (one short line on what to arrange
+  beforehand, or an empty string if nothing needs preparing).
+- location: only fill this in for ideas tied to one specific, findable
+  physical place — a named park, museum, trail, neighborhood, or venue.
+  Use it for the place's name and city; only fill in "address" when you
+  are confident about a real, well-known public place (a famous landmark,
+  a specific city park) — leave it as an empty string for anything more
+  specific than that, since you cannot verify exact street addresses of
+  individual businesses. Set location to null entirely for ideas that
+  don't happen at one specific findable place (e.g. "cook a new recipe at
+  home", "write letters to old friends").
+- requirements: a short list of concrete things the person needs to
+  arrange, buy, or bring (tickets, gear, clothing, an app, a reservation)
+  — an empty array when the idea genuinely needs nothing beyond showing
+  up.
+- Never invent a specific ticket price, opening hours, or a direct URL —
+  you have no way to verify those and a wrong one actively hurts trust.
+  Keep estimated_cost approximate and don't mention opening hours at all.
 - image_suggestion is a one-line internal art-direction note for a future
   illustration of this idea — not shown to the user, so it can be terse.
 - Write the profile_summary as one warm, specific sentence that reflects
@@ -66,7 +114,7 @@ Rules for using the profile:
 - Write must_haves and preferences as short, cleaned-up bullet phrases
   echoing what the person told you (don't invent new ones).
 - The "labels" are tiny pieces of UI micro-copy for the printed book
-  (section headings like "Steps" or "First action"); keep them short.
+  (section headings like "Steps" or "What you'll need"); keep them short.
 - Write absolutely everything (profile_summary, must_haves, preferences,
   all idea fields, all labels) in {{LANGUAGE}}, not English, unless
   {{LANGUAGE}} is English.`;
@@ -89,6 +137,27 @@ Preferences (soft nudges): ${intake.preferences || "none stated"}
 Company: ${intake.company}`;
 }
 
+const PRACTICAL_SCHEMA = {
+  type: "object" as const,
+  properties: {
+    estimated_cost: { type: "string" },
+    duration: { type: "string" },
+    difficulty: { type: "string", enum: ["easy", "moderate", "demanding"] },
+    preparation: { type: "string" },
+  },
+  required: ["estimated_cost", "duration", "difficulty", "preparation"],
+};
+
+const LOCATION_SCHEMA = {
+  type: ["object", "null"] as const,
+  properties: {
+    name: { type: "string" },
+    address: { type: "string" },
+    city: { type: "string" },
+  },
+  required: ["name", "address", "city"],
+};
+
 const IDEA_ENTRY_SCHEMA = {
   type: "object" as const,
   properties: {
@@ -101,7 +170,10 @@ const IDEA_ENTRY_SCHEMA = {
       maxItems: 3,
       items: { type: "string" },
     },
-    practical_info: { type: "string" },
+    first_action: { type: "string" },
+    practical: PRACTICAL_SCHEMA,
+    location: LOCATION_SCHEMA,
+    requirements: { type: "array", items: { type: "string" } },
     image_suggestion: { type: "string" },
   },
   required: [
@@ -109,12 +181,37 @@ const IDEA_ENTRY_SCHEMA = {
     "intro",
     "why_it_fits",
     "details",
-    "practical_info",
+    "first_action",
+    "practical",
+    "location",
+    "requirements",
     "image_suggestion",
   ],
 };
 
-export async function generateIdeaBook(
+const LABELS_SCHEMA = {
+  type: "object" as const,
+  properties: {
+    steps_heading: { type: "string" },
+    first_action_heading: { type: "string" },
+    wildcard_heading: { type: "string" },
+    time_label: { type: "string" },
+    cost_label: { type: "string" },
+    location_heading: { type: "string" },
+    requirements_heading: { type: "string" },
+  },
+  required: [
+    "steps_heading",
+    "first_action_heading",
+    "wildcard_heading",
+    "time_label",
+    "cost_label",
+    "location_heading",
+    "requirements_heading",
+  ],
+};
+
+async function callClaudeForIdeaBook(
   intake: IntakeAnswers,
   locale: Locale
 ): Promise<GeneratedIdeaBook> {
@@ -151,23 +248,7 @@ once, with exactly 6 ideas plus one separate wildcard.`,
               items: IDEA_ENTRY_SCHEMA,
             },
             wildcard: IDEA_ENTRY_SCHEMA,
-            labels: {
-              type: "object",
-              properties: {
-                steps_heading: { type: "string" },
-                first_action_heading: { type: "string" },
-                wildcard_heading: { type: "string" },
-                time_label: { type: "string" },
-                cost_label: { type: "string" },
-              },
-              required: [
-                "steps_heading",
-                "first_action_heading",
-                "wildcard_heading",
-                "time_label",
-                "cost_label",
-              ],
-            },
+            labels: LABELS_SCHEMA,
           },
           required: [
             "profile_summary",
@@ -187,6 +268,32 @@ once, with exactly 6 ideas plus one separate wildcard.`,
   return normalizeIdeaBook(raw);
 }
 
+// The Anthropic SDK already retries transient network/5xx errors on its
+// own, but that doesn't cover a *successful* response that comes back
+// malformed (e.g. an empty ideas array) — normalizeIdeaBook throws in that
+// case, and that failure mode is worth one extra full attempt before we
+// give up and show the user an error on a purchase they already paid for.
+export async function generateIdeaBook(
+  intake: IntakeAnswers,
+  locale: Locale
+): Promise<GeneratedIdeaBook> {
+  const attempts = 2;
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    try {
+      return await callClaudeForIdeaBook(intake, locale);
+    } catch (err) {
+      lastError = err;
+      if (attempt < attempts) {
+        await new Promise((resolve) => setTimeout(resolve, 1000 * attempt));
+      }
+    }
+  }
+
+  throw lastError;
+}
+
 // Claude's tool schema declares every idea field as a plain string, but
 // forced tool-use doesn't guarantee it at runtime — a field described as
 // "3-5 steps" sometimes comes back as an array of steps instead of one
@@ -203,6 +310,28 @@ function toTextArray(value: unknown): string[] {
   return items.map(toText).filter((item) => item.length > 0);
 }
 
+function normalizePractical(value: unknown): IdeaPractical {
+  const p = (value ?? {}) as Partial<IdeaPractical>;
+  const difficulty =
+    p.difficulty === "easy" || p.difficulty === "moderate" || p.difficulty === "demanding"
+      ? p.difficulty
+      : "moderate";
+  return {
+    estimated_cost: toText(p.estimated_cost),
+    duration: toText(p.duration),
+    difficulty,
+    preparation: toText(p.preparation),
+  };
+}
+
+function normalizeLocation(value: unknown): IdeaLocation | null {
+  if (value == null || typeof value !== "object") return null;
+  const l = value as Partial<IdeaLocation>;
+  const name = toText(l.name);
+  if (!name) return null;
+  return { name, address: toText(l.address), city: toText(l.city) };
+}
+
 function normalizeEntry(entry: unknown): IdeaBookEntry {
   const e = (entry ?? {}) as Partial<IdeaBookEntry>;
   return {
@@ -210,7 +339,10 @@ function normalizeEntry(entry: unknown): IdeaBookEntry {
     intro: toText(e.intro),
     why_it_fits: toText(e.why_it_fits),
     details: toTextArray(e.details),
-    practical_info: toText(e.practical_info),
+    first_action: toText(e.first_action),
+    practical: normalizePractical(e.practical),
+    location: normalizeLocation(e.location),
+    requirements: toTextArray(e.requirements),
     image_suggestion: toText(e.image_suggestion),
   };
 }
@@ -240,6 +372,8 @@ function normalizeIdeaBook(book: GeneratedIdeaBook): GeneratedIdeaBook {
       wildcard_heading: toText(book.labels?.wildcard_heading),
       time_label: toText(book.labels?.time_label),
       cost_label: toText(book.labels?.cost_label),
+      location_heading: toText(book.labels?.location_heading),
+      requirements_heading: toText(book.labels?.requirements_heading),
     },
   };
 }

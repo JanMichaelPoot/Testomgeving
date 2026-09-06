@@ -30,6 +30,7 @@ export interface IntakeAnswers {
   mustHaves: string;
   preferences: string;
   company: string;
+  styleId: string;
 }
 
 // The locale is not answered by the user in the wizard — it's whatever the

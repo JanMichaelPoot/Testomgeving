@@ -14,6 +14,7 @@ interface FollowUpCopy {
 export interface Dictionary {
   header: { switchLanguage: string };
   footer: { privacy: string; terms: string; priceFaqLabel: string; priceFaqAnswer: string };
+  consent: { message: string; accept: string; decline: string };
   landing: {
     headlineLine1: string;
     headlineLine2: string;
@@ -76,6 +77,9 @@ export interface Dictionary {
     wildcardFallbackHeading: string;
     stepsFallback: string;
     firstActionFallback: string;
+    practicalFallback: string;
+    locationFallback: string;
+    requirementsFallback: string;
     footerWordmark: string;
   };
   intake: {
@@ -110,6 +114,7 @@ export interface Dictionary {
     mustHaves: { label: string; sub: string; placeholder: string; suggestions: string[] };
     preferences: { label: string; sub: string; placeholder: string; suggestions: string[] };
     company: { label: string; sub: string; options: Option[] };
+    style: { label: string; sub: string; options: Option[] };
   };
 }
 
@@ -120,6 +125,12 @@ const nl: Dictionary = {
     terms: "Voorwaarden",
     priceFaqLabel: "Wat kost het?",
     priceFaqAnswer: "Eén Idea Book kost {price}, eenmalig. Geen abonnement, geen verborgen kosten.",
+  },
+  consent: {
+    message:
+      "We gebruiken alleen analytics om te begrijpen hoe WINDOW gebruikt wordt — pas na jouw toestemming.",
+    accept: "Prima",
+    decline: "Liever niet",
   },
   landing: {
     headlineLine1: "Een Venster Naar",
@@ -259,7 +270,10 @@ const nl: Dictionary = {
     possibilityEyebrow: "MOGELIJKHEID",
     wildcardFallbackHeading: "DE WILDCARD",
     stepsFallback: "Stappen",
-    firstActionFallback: "Praktische info",
+    firstActionFallback: "Dit kunt u nu doen",
+    practicalFallback: "Praktisch",
+    locationFallback: "Locatie",
+    requirementsFallback: "Wat heeft u nodig",
     footerWordmark: "WINDOW  ·  Jouw Idea Book",
   },
   intake: {
@@ -445,6 +459,18 @@ const nl: Dictionary = {
         { value: "colleagues", label: "Collega's" },
       ],
     },
+    style: {
+      label: "Welke stijl spreekt je het meest aan?",
+      sub: "Dit bepaalt de look van je Idea Book — kies wat je aanspreekt.",
+      options: [
+        { value: "bloom", label: "Elegant & botanisch" },
+        { value: "warm", label: "Warm & verfijnd" },
+        { value: "bold", label: "Stoer & krachtig" },
+        { value: "edge", label: "Technisch & modern" },
+        { value: "calm", label: "Natuurlijk & rustig" },
+        { value: "vivid", label: "Creatief & uitgesproken" },
+      ],
+    },
   },
 };
 
@@ -455,6 +481,11 @@ const en: Dictionary = {
     terms: "Terms",
     priceFaqLabel: "What does it cost?",
     priceFaqAnswer: "One Idea Book costs {price}, a single payment. No subscription, no hidden fees.",
+  },
+  consent: {
+    message: "We only use analytics to understand how WINDOW is used — and only after you say it's okay.",
+    accept: "Sounds good",
+    decline: "No thanks",
   },
   landing: {
     headlineLine1: "A Window Into",
@@ -594,7 +625,10 @@ const en: Dictionary = {
     possibilityEyebrow: "POSSIBILITY",
     wildcardFallbackHeading: "THE WILDCARD",
     stepsFallback: "Steps",
-    firstActionFallback: "Practical info",
+    firstActionFallback: "You can do this now",
+    practicalFallback: "Practical",
+    locationFallback: "Location",
+    requirementsFallback: "What you'll need",
     footerWordmark: "WINDOW  ·  Your Idea Book",
   },
   intake: {
@@ -778,6 +812,18 @@ const en: Dictionary = {
         { value: "friends", label: "Friends" },
         { value: "family", label: "Family" },
         { value: "colleagues", label: "Colleagues" },
+      ],
+    },
+    style: {
+      label: "Which style speaks to you most?",
+      sub: "This sets the look of your Idea Book — pick whatever draws you in.",
+      options: [
+        { value: "bloom", label: "Elegant & botanical" },
+        { value: "warm", label: "Warm & refined" },
+        { value: "bold", label: "Bold & powerful" },
+        { value: "edge", label: "Technical & modern" },
+        { value: "calm", label: "Natural & calm" },
+        { value: "vivid", label: "Creative & bold" },
       ],
     },
   },

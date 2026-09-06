@@ -6,7 +6,6 @@ import { SiteHeader } from "@/components/window/SiteHeader";
 import { CheckoutPanel } from "@/components/window/CheckoutPanel";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { isPreviewBypassAllowed } from "@/lib/previewBypass";
 import { formatPrice } from "@/lib/pricing";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -14,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: dict.checkout.pageTitle };
 }
 
-export default async function CheckoutPage(props: PageProps<"/checkout">) {
+export default async function CheckoutPage() {
   const sessionId = await getSessionId();
   if (!sessionId) redirect("/intake");
 
@@ -33,10 +32,6 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
   const locale = await getLocale();
   const dict = getDictionary(locale);
   const price = formatPrice(locale);
-
-  const searchParams = await props.searchParams;
-  const previewToken =
-    typeof searchParams.preview === "string" ? searchParams.preview : undefined;
 
   return (
     <div className="flex min-h-full flex-col">
@@ -59,11 +54,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
         </ol>
 
         <div className="mt-10">
-          <CheckoutPanel
-            isTestMode={isPreviewBypassAllowed(previewToken)}
-            previewToken={previewToken}
-            dict={dict.checkout}
-          />
+          <CheckoutPanel dict={dict.checkout} />
         </div>
       </main>
     </div>

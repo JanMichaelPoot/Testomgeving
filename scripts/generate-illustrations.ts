@@ -15,7 +15,6 @@ interface Target {
 }
 
 const PUBLIC_DIR = "public/illustrations";
-const PDF_DIR = "src/lib/pdf/images";
 
 const TARGETS: Target[] = [
   {
@@ -57,37 +56,9 @@ const TARGETS: Target[] = [
       "A small round table set for two with warm mugs and a lit candle, string lights soft-focus in the background at dusk. Cozy, inviting, unhurried.",
   },
 
-  // Idea Book PDF imagery (src/lib/pdf/ideaBook.ts)
-  {
-    name: "pdf-cover",
-    dir: PDF_DIR,
-    prompt:
-      "A grand arched window thrown wide open onto an impossible dreamlike landscape blending a mountain trail, a starlit forest, and a glowing city skyline into one continuous horizon. Sweeping, cinematic, full of wonder — a single striking cover image.",
-  },
-  {
-    name: "pdf-wildcard",
-    dir: PDF_DIR,
-    prompt:
-      "A single door left slightly ajar, warm mischievous light and a scatter of confetti spilling out into a dim room. Playful, surprising, a little bit daring.",
-  },
-  {
-    name: "pdf-mood-1",
-    dir: PDF_DIR,
-    prompt:
-      "A sunlit forest trail cutting through tall trees, dappled light on the path ahead. Adventurous, fresh, inviting movement.",
-  },
-  {
-    name: "pdf-mood-2",
-    dir: PDF_DIR,
-    prompt:
-      "A warm cup of tea beside an open book on a soft blanket, gentle morning light. Calm, grounded, restorative.",
-  },
-  {
-    name: "pdf-mood-3",
-    dir: PDF_DIR,
-    prompt:
-      "A cluttered creative desk with paints, sketches, and colored threads catching afternoon light. Playful, imaginative, hands-on.",
-  },
+  // Idea Book PDF imagery used to live here as a single fixed set — it's
+  // now generated per Style Engine preset instead, see
+  // scripts/generate-style-illustrations.ts.
 ];
 
 async function main() {

@@ -13,6 +13,8 @@ export type IdeaStatus = "generated" | "liked" | "skipped" | "refined";
 
 export type PaymentStatus = "pending" | "succeeded" | "failed" | "refunded";
 
+export type PlanStatus = "pending" | "ready" | "failed";
+
 export interface Database {
   __InternalSupabase: {
     PostgrestVersion: "13";
@@ -131,6 +133,7 @@ export interface Database {
           session_id: string;
           title: string;
           language: string;
+          status: PlanStatus;
           profile_summary: string;
           must_haves: string[];
           preferences: string[];
@@ -146,6 +149,7 @@ export interface Database {
           session_id: string;
           title: string;
           language?: string;
+          status?: PlanStatus;
           profile_summary?: string;
           must_haves?: string[];
           preferences?: string[];

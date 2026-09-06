@@ -5,10 +5,9 @@ import {
   getOrCreateTestWindowPlan,
   PlanNotReadyError,
 } from "@/app/plan/data";
-import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
+import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getLocale, type Locale } from "@/lib/language";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
-import { isPreviewBypassAllowed } from "@/lib/previewBypass";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -40,6 +39,94 @@ function ErrorState({
   );
 }
 
+// Renders one idea (or the wildcard) with the full Actionability Layer
+// content — the same information the PDF gets, so the page itself already
+// makes the impression the PDF used to be the only place to make (see the
+// improvement plan's audit finding on /plan showing far less than the PDF).
+function IdeaDetail({
+  idea,
+  index,
+  locale,
+  labels,
+  dict,
+}: {
+  idea: IdeaBookEntry;
+  index: number | null;
+  locale: Locale;
+  labels: Record<string, string>;
+  dict: Dictionary["pdfChrome"];
+}) {
+  const practicalLine = [
+    idea.practical.estimated_cost,
+    idea.practical.duration,
+    DIFFICULTY_LABELS[locale][idea.practical.difficulty],
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  const locationLine = idea.location
+    ? [idea.location.name, idea.location.city].filter(Boolean).join(", ")
+    : null;
+
+  return (
+    <div>
+      <p className="font-serif text-xl text-ink">
+        {index !== null ? `${index + 1}. ${idea.title}` : idea.title}
+      </p>
+      <p className="mt-1 text-ink/70">{idea.intro}</p>
+      <p className="mt-2 text-sm text-ink/80">{idea.why_it_fits}</p>
+
+      {idea.details.length > 0 && (
+        <div className="mt-3">
+          <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
+            {labels.steps_heading || dict.stepsFallback}
+          </p>
+          <ol className="mt-1 list-decimal space-y-1 pl-5 text-sm text-ink/80">
+            {idea.details.map((step, i) => (
+              <li key={i}>{step}</li>
+            ))}
+          </ol>
+        </div>
+      )}
+
+      <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-ink/60">
+        {practicalLine && (
+          <span>
+            <strong className="font-medium text-ink/80">
+              {labels.cost_label || dict.practicalFallback}:
+            </strong>{" "}
+            {practicalLine}
+          </span>
+        )}
+        {locationLine && (
+          <span>
+            <strong className="font-medium text-ink/80">
+              {labels.location_heading || dict.locationFallback}:
+            </strong>{" "}
+            {locationLine}
+          </span>
+        )}
+        {idea.requirements.length > 0 && (
+          <span>
+            <strong className="font-medium text-ink/80">
+              {labels.requirements_heading || dict.requirementsFallback}:
+            </strong>{" "}
+            {idea.requirements.join(", ")}
+          </span>
+        )}
+      </div>
+
+      {idea.first_action && (
+        <div className="mt-3 rounded-xl bg-accent/5 px-4 py-3 text-sm">
+          <p className="font-medium text-accent-dark">
+            {labels.first_action_heading || dict.firstActionFallback}
+          </p>
+          <p className="mt-0.5 text-ink/80">{idea.first_action}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default async function PlanPage(props: PageProps<"/plan">) {
   const locale: Locale = await getLocale();
   const dict = getDictionary(locale);
@@ -49,10 +136,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
     typeof searchParams.checkout_session_id === "string"
       ? searchParams.checkout_session_id
       : null;
-  const previewToken =
-    typeof searchParams.preview === "string" ? searchParams.preview : undefined;
   const testSessionId =
-    isPreviewBypassAllowed(previewToken) &&
     typeof searchParams.test_session_id === "string"
       ? searchParams.test_session_id
       : null;
@@ -63,7 +147,6 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   const refreshParams = new URLSearchParams();
   if (checkoutSessionId) refreshParams.set("checkout_session_id", checkoutSessionId);
   if (testSessionId) refreshParams.set("test_session_id", testSessionId);
-  if (previewToken) refreshParams.set("preview", previewToken);
   const refreshHref = refreshParams.size > 0 ? `/plan?${refreshParams}` : "/plan";
 
   if (!checkoutSessionId && !testSessionId) {
@@ -84,7 +167,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
 
   try {
     plan = testSessionId
-      ? await getOrCreateTestWindowPlan(testSessionId, previewToken)
+      ? await getOrCreateTestWindowPlan(testSessionId)
       : await getOrCreateWindowPlan(checkoutSessionId!);
   } catch (err) {
     if (err instanceof PlanNotReadyError) {
@@ -169,13 +252,16 @@ export default async function PlanPage(props: PageProps<"/plan">) {
         <h2 className="mt-10 text-xs font-medium uppercase tracking-widest text-accent-dark">
           {dict.plan.possibilitiesHeading}
         </h2>
-        <ol className="mt-4 space-y-6">
+        <ol className="mt-4 space-y-8">
           {ideas.map((idea, index) => (
-            <li key={index}>
-              <p className="font-serif text-xl text-ink">
-                {index + 1}. {idea.title}
-              </p>
-              <p className="mt-1 text-ink/70">{idea.intro}</p>
+            <li key={index} className="border-b border-ink/10 pb-8 last:border-b-0 last:pb-0">
+              <IdeaDetail
+                idea={idea}
+                index={index}
+                locale={locale}
+                labels={labels}
+                dict={dict.pdfChrome}
+              />
             </li>
           ))}
         </ol>
@@ -185,8 +271,15 @@ export default async function PlanPage(props: PageProps<"/plan">) {
             <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
               {labels.wildcard_heading || dict.plan.wildcardFallback}
             </p>
-            <p className="mt-2 font-serif text-lg text-ink">{wildcard.title}</p>
-            <p className="mt-1 text-ink/70">{wildcard.intro}</p>
+            <div className="mt-2">
+              <IdeaDetail
+                idea={wildcard}
+                index={null}
+                locale={locale}
+                labels={labels}
+                dict={dict.pdfChrome}
+              />
+            </div>
           </div>
         )}
 

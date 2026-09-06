@@ -428,3 +428,135 @@ Stripe, Claude API, Resend, PostHog).
       checkout-pagina met prijs in kop + stappenlijst, privacy/terms in
       beide talen, `tsc --noEmit` / `eslint .` / `npm run build` allemaal
       schoon.
+
+- [x] Stap 11 — Fase 1 van het productverbeterplan (zie het gepubliceerde
+      "WINDOW Verbeterplan"-artifact): de must-have-items die geen nieuwe
+      externe dienst/API-keuze vereisen.
+      **Actionability Layer + concrete-ideeën-structuur**:
+      `IdeaBookEntry` (`src/lib/claude/generateIdeaBook.ts`) uitgebreid met
+      `first_action`, een gestructureerd `practical` (`estimated_cost`,
+      `duration`, `difficulty`, `preparation`) i.p.v. het vrije-tekstveld
+      `practical_info`, `location` (naam/adres/plaats, of `null` — de
+      systeemprompt verbiedt expliciet verzonnen exacte adressen/prijzen/
+      openingstijden, conform de kritische kanttekening in het
+      verbeterplan) en `requirements`. `src/lib/pdf/ideaBook.ts` en
+      `src/app/plan/page.tsx` renderen deze velden nu allebei conditioneel
+      (geen locatieregel zonder `location`, geen "wat heeft u nodig" zonder
+      `requirements`) vanuit dezelfde databron — dat lost meteen op dat de
+      webpagina eerder veel minder toonde dan de PDF. Layout blijft bewust
+      binnen de bestaande vaste 6-pagina/halve-pagina-structuur (de
+      contentafhankelijke paginavulling uit het verbeterplan is Fase 2).
+      **Generatiestatus tegen dubbele generatie**: nieuwe kolom
+      `window_plans.status` (`pending`/`ready`/`failed`, migratie
+      `0006_plan_status_and_actionability.sql` — **nog handmatig uit te
+      voeren in de Supabase SQL Editor**, zoals eerdere migraties).
+      `src/app/plan/data.ts` schrijft nu een `pending`-rij vóór de trage
+      Claude/PDF-stap begint en zet 'm pas op `ready` ná succes (of
+      `failed` bij een fout); een pagina-herlaad binnen 90s tijdens een
+      lopende generatie toont nu een "we zijn nog bezig, ververs zo"-
+      melding in plaats van een volledig dubbele, kostenverhogende
+      generatie te starten — dit gedrag zelf live gereproduceerd tijdens
+      het testen van de betaalflow eerder deze sessie. **Retry**:
+      `generateIdeaBook` doet nu 1 automatische herpoging (met korte
+      backoff) specifiek op een misvormde-maar-succesvolle Claude-respons
+      (lege ideeën-array) — dat is de faalmodus die de ingebouwde SDK-retry
+      niet dekt. **PostHog daadwerkelijk actief**: nieuwe
+      `ConsentBanner` (`src/components/window/ConsentBanner.tsx`,
+      hydration-veilig via `useSyncExternalStore`) in `layout.tsx` op elke
+      pagina; `initPostHog()` wordt nu voor het eerst ergens aangeroepen,
+      uitsluitend ná expliciete toestemming (of meteen bij een eerder
+      "granted"-bezoek), en no-opt nog steeds veilig zolang
+      `NEXT_PUBLIC_POSTHOG_KEY` leeg is. Een nieuwe `trackEvent()`-helper
+      verstuurt nu een `intake_page_completed`-event per wizard-pagina-
+      overgang, om drop-off per stap zichtbaar te maken zodra er een echte
+      PostHog-key is. **Sliders op mobiel**: `PillSlider`'s klik-/tikzone
+      vergroot van 8px naar 44px hoog (de visuele track blijft even dun),
+      zelf gemeten vóór en ná op een 375px-viewport. Getest: `tsc
+      --noEmit`/`eslint .`/`npm run build` schoon; een losse testrender van
+      `renderIdeaBookPdf` met een mock-boek dat alle nieuwe velden gebruikt
+      (met en zonder `location`/`requirements`) gecontroleerd pagina voor
+      pagina via de PyMuPDF-rasterizer — voorwaardelijk renderen werkt, nog
+      steeds exact 6 pagina's; consent-banner en slider-tikzone
+      geverifieerd in de browser. De volledige checkout→plan-flow met een
+      echte database kon in deze stap niet end-to-end getest worden: de
+      test-bypass faalde live met "Could not find the 'status' column of
+      'window_plans'" — migratie 0006 stond op dat moment nog niet
+      uitgevoerd tegen de Supabase-database.
+
+- [x] Stap 12 — Style Engine + locatie-autocomplete (de twee Fase 1-items
+      die bewust waren uitgesteld tot na een gebruikerskeuze).
+      **Style Engine**: nieuw `src/lib/styleEngine.ts` met 6 vaste,
+      vooraf gegenereerde stijlpresets (`bloom`/`warm`/`bold`/`edge`/
+      `calm`/`vivid`), elk met een eigen paginategenkleur (`panelTint`,
+      vervangt de eerder vaste lavendel `PANEL_TINT`) en een eigen
+      beeldenset (1 cover- + 3 sfeerbeelden). Bewust géén live per-
+      gebruiker AI-beeldgeneratie (zie de kritische kanttekening in het
+      verbeterplan) — alle 24 beelden zijn eenmalig gegenereerd via het
+      nieuwe `scripts/generate-style-illustrations.ts` (zelfde patroon als
+      het bestaande `generate-illustrations.ts`) en gecommit onder
+      `public/illustrations/styles/<stijl>/`. `src/lib/gemini.ts` kreeg
+      hiervoor een optioneel `stylePrefix`-argument. De oude vaste PDF-
+      beelden (`src/lib/pdf/images/pdf-*.jpg`) en hun generatie-targets
+      zijn verwijderd — volledig vervangen door de stijlmatrix.
+      `IntakeWizard.tsx` heeft een nieuw `style-cards`-veldtype (visuele
+      kaarten met een echte thumbnail per stijl, niet alleen tekst) op de
+      laatste pagina, vóór de gezelschapsvraag; `IntakeAnswers.styleId`
+      wordt opgeslagen als het gebruikelijke stabiele `{value,label}`-veld
+      en standaard voorgeselecteerd op `"warm"`. `renderIdeaBookPdf` kreeg
+      een `styleId`-parameter; `src/app/plan/data.ts` geeft
+      `profile.styleId` door. Bewust géén styling-verandering op de
+      `/plan`-webpagina zelf — de opdracht vroeg expliciet om de stijl
+      zichtbaar te maken in de PDF, de webpagina blijft in de vaste
+      WINDOW-merkstijl. **Locatie-autocomplete**: nieuwe route
+      `src/app/api/location-suggest/route.ts` proxyt de gratis, sleutelloze
+      PDOK Locatieserver (Nederlandse overheidsdienst), beperkt tot
+      woonplaats/gemeente-resultaten (nooit exacte adressen, conform de
+      bestaande intake-copy "stad of regio is genoeg"). Nieuw
+      `src/components/ui/LocationAutocomplete.tsx` (gedebouncet, degradeert
+      stil naar een gewoon tekstveld als PDOK traag/onbereikbaar is) via
+      een nieuw `location`-veldtype in de wizard.
+      Onderweg een echte, ontbrekende `GEMINI_API_KEY` gevonden en
+      hersteld: de sleutel in `.env.local` gaf een 403 ("unregistered
+      caller") — de gebruiker heeft een nieuwe sleutel aangeleverd, die
+      eerst los geverifieerd is met een test-generatie vóór 'm op te slaan
+      (conform de vaste projectgewoonte "verifieer tokens vóór vertrouwen
+      erin te stellen"). Onderweg ook geleerd: `scripts/generate-
+      illustrations.ts`-achtige scripts lezen `.env.local` NIET automatisch
+      in wanneer ze los via `npx tsx` gedraaid worden (dat is puur
+      Next.js-gedrag) — de env var moet expliciet op de commandoregel
+      meegegeven worden, exact zoals het bestaande script al in zijn eigen
+      kop-commentaar documenteerde.
+      Getest: alle 24 stijlbeelden succesvol gegenereerd; volledige wizard
+      doorlopen tot en met de stijlkaarten (visuele selectie, thumbnails,
+      correcte standaardselectie); `/api/location-suggest` geeft echte
+      PDOK-suggesties terug voor een geteste zoekopdracht; drie losse
+      testrenders van `renderIdeaBookPdf` met verschillende `styleId`'s
+      (`bloom`/`bold`/`edge`) pagina voor pagina gecontroleerd — cover,
+      paginategenkleur en sfeerbeelden zijn per stijl duidelijk en correct
+      verschillend.
+
+      Migratie 0006 kostte drie pogingen om echt door te laten dringen —
+      eerst leek de eerdere "kolom bestaat niet"-fout een PostgREST-
+      schemacache-probleem (opgelost geacht met `NOTIFY pgrst, 'reload
+      schema'`), maar een rechtstreekse REST-call naar Supabase (los van de
+      app, met de service-role-key) liet zien dat de kolom op dat moment
+      écht niet bestond (Postgres-foutcode `42703`, niet slechts een
+      cache-symptoom) — de conclusie "het is de cache" was voorbarig,
+      getrokken zonder het zelf te verifiëren. Pas na een derde poging
+      (die botste op "constraint bestaat al" — een teken dat een eerdere
+      poging alsnog was geslaagd) bevestigde diezelfde rechtstreekse
+      REST-call dat de kolom er nu daadwerkelijk stond. Les: bij een
+      databasefout die na een fix blijft terugkomen, altijd rechtstreeks
+      tegen de database verifiëren (buiten de applicatiecode om) in plaats
+      van op de meest voor de hand liggende verklaring te vertrouwen.
+
+      Met de kolom bevestigd aanwezig, de volledige flow opnieuw doorlopen
+      met stijl `vivid` geselecteerd: intake → checkout →
+      test-bypass → `/plan` toonde de rijke Actionability Layer-content
+      met échte Claude-output (kosten/duur/moeilijkheid, locatie zonder
+      verzonnen adres, materialenlijst, "Do this first"-callout) — en de
+      gedownloade PDF's omslag was zichtbaar en correct in de gekozen
+      `vivid`-stijl (verzadigde kleuren, energieke compositie), niet de
+      standaard `warm`-stijl. Fase 1 van het verbeterplan is hiermee
+      volledig end-to-end geverifieerd, inclusief de twee optionele
+      Style Engine- en locatie-autocomplete-uitbreidingen.

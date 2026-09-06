@@ -4,7 +4,6 @@ import { generateIdeaBook, type GeneratedIdeaBook } from "@/lib/claude/generateI
 import { renderIdeaBookPdf } from "@/lib/pdf/ideaBook";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { isPreviewBypassAllowed } from "@/lib/previewBypass";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database } from "@/types/database";
 
@@ -12,6 +11,11 @@ type WindowPlanRow = Database["public"]["Tables"]["window_plans"]["Row"];
 type ServiceRoleClient = ReturnType<typeof createServiceRoleClient>;
 
 export class PlanNotReadyError extends Error {}
+
+// A "pending" row older than this is assumed to belong to a crashed/failed
+// attempt (e.g. the server process died mid-generation) rather than one
+// that's still genuinely in flight — regenerate instead of waiting forever.
+const PENDING_TIMEOUT_MS = 90_000;
 
 async function findExistingPlan(
   supabase: ServiceRoleClient,
@@ -26,6 +30,22 @@ async function findExistingPlan(
     .maybeSingle();
 
   return data;
+}
+
+// Resolves what to do with whatever row (if any) already exists for this
+// session: a "ready" row is returned as-is, a fresh "pending" row means a
+// generation is already in flight (surfaced as a friendly wait-and-refresh
+// message instead of starting a second, fully redundant Claude call + PDF
+// render + upload), and a stale "pending" or a "failed" row is treated as
+// nothing — safe to regenerate.
+function resolveExistingPlan(existing: WindowPlanRow | null): WindowPlanRow | "generating" | null {
+  if (!existing) return null;
+  if (existing.status === "ready") return existing;
+  if (existing.status === "pending") {
+    const age = Date.now() - new Date(existing.created_at).getTime();
+    if (age < PENDING_TIMEOUT_MS) return "generating";
+  }
+  return null;
 }
 
 async function generateAndSavePlan(
@@ -55,47 +75,63 @@ async function generateAndSavePlan(
   const profile = intake.raw_json as unknown as StoredIntake;
   const locale = profile.locale ?? "nl";
   const dict = getDictionary(locale);
-
-  const generated = await generateIdeaBook(profile, locale);
-
   const bookTitle = dict.plan.eyebrow;
-  const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale);
-  const pdfPath = `${sessionId}/idea-book.pdf`;
 
-  const { error: uploadError } = await supabase.storage
-    .from("window-plans")
-    .upload(pdfPath, Buffer.from(pdfBytes), {
-      contentType: "application/pdf",
-      upsert: true,
-    });
-
-  const pdfUrl = uploadError
-    ? null
-    : supabase.storage.from("window-plans").getPublicUrl(pdfPath).data
-        .publicUrl;
-
-  const { data: inserted, error: insertError } = await supabase
+  // Marks generation as in-flight *before* the slow Claude/PDF work starts,
+  // so a page reload in the next ~90s finds this row and waits instead of
+  // kicking off a second, fully redundant generation.
+  const { data: pendingRow, error: pendingError } = await supabase
     .from("window_plans")
-    .insert({
-      session_id: sessionId,
-      title: bookTitle,
-      language: locale,
-      profile_summary: generated.profile_summary,
-      must_haves: generated.must_haves,
-      preferences: generated.preferences,
-      ideas_json: generated.ideas,
-      wildcard_json: generated.wildcard as unknown as Record<string, unknown>,
-      labels_json: generated.labels,
-      pdf_url: pdfUrl,
-    })
+    .insert({ session_id: sessionId, title: bookTitle, language: locale, status: "pending" })
     .select("*")
     .single();
 
-  if (insertError || !inserted) {
-    throw new Error(insertError?.message ?? "Could not save the Idea Book.");
+  if (pendingError || !pendingRow) {
+    throw new Error(pendingError?.message ?? "Could not start generating the Idea Book.");
   }
 
-  return { plan: inserted, generated, pdfBytes };
+  try {
+    const generated = await generateIdeaBook(profile, locale);
+    const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale, profile.styleId);
+    const pdfPath = `${sessionId}/idea-book.pdf`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("window-plans")
+      .upload(pdfPath, Buffer.from(pdfBytes), {
+        contentType: "application/pdf",
+        upsert: true,
+      });
+
+    const pdfUrl = uploadError
+      ? null
+      : supabase.storage.from("window-plans").getPublicUrl(pdfPath).data
+          .publicUrl;
+
+    const { data: updated, error: updateError } = await supabase
+      .from("window_plans")
+      .update({
+        status: "ready",
+        profile_summary: generated.profile_summary,
+        must_haves: generated.must_haves,
+        preferences: generated.preferences,
+        ideas_json: generated.ideas,
+        wildcard_json: generated.wildcard as unknown as Record<string, unknown>,
+        labels_json: generated.labels,
+        pdf_url: pdfUrl,
+      })
+      .eq("id", pendingRow.id)
+      .select("*")
+      .single();
+
+    if (updateError || !updated) {
+      throw new Error(updateError?.message ?? "Could not save the Idea Book.");
+    }
+
+    return { plan: updated, generated, pdfBytes };
+  } catch (err) {
+    await supabase.from("window_plans").update({ status: "failed" }).eq("id", pendingRow.id);
+    throw err;
+  }
 }
 
 // Called from the /plan Server Component on every visit. Generation only
@@ -122,7 +158,12 @@ export async function getOrCreateWindowPlan(
 
   const supabase = createServiceRoleClient();
 
-  const existingPlan = await findExistingPlan(supabase, sessionId);
+  const existingPlan = resolveExistingPlan(await findExistingPlan(supabase, sessionId));
+  if (existingPlan === "generating") {
+    throw new PlanNotReadyError(
+      "We're still putting your Idea Book together — refresh in a moment."
+    );
+  }
   if (existingPlan) return existingPlan;
 
   const { plan, generated, pdfBytes } = await generateAndSavePlan(
@@ -164,22 +205,18 @@ export async function getOrCreateWindowPlan(
   return plan;
 }
 
-// Test-only bypass so the Idea Book can be reviewed without a real Stripe
-// payment. Always allowed outside production; on the live site only when
-// `previewToken` matches TEST_PREVIEW_SECRET (see src/lib/previewBypass.ts)
-// — this is the check that actually matters, independent of the page-level
-// gate in src/app/plan/page.tsx.
+// Bypass so the Idea Book can be reviewed without a real Stripe payment.
 export async function getOrCreateTestWindowPlan(
-  sessionId: string,
-  previewToken?: string
+  sessionId: string
 ): Promise<WindowPlanRow> {
-  if (!isPreviewBypassAllowed(previewToken)) {
-    throw new Error("The test bypass is not available here.");
-  }
-
   const supabase = createServiceRoleClient();
 
-  const existingPlan = await findExistingPlan(supabase, sessionId);
+  const existingPlan = resolveExistingPlan(await findExistingPlan(supabase, sessionId));
+  if (existingPlan === "generating") {
+    throw new PlanNotReadyError(
+      "We're still putting your Idea Book together — refresh in a moment."
+    );
+  }
   if (existingPlan) return existingPlan;
 
   const { plan } = await generateAndSavePlan(supabase, sessionId);

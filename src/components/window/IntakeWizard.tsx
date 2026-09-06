@@ -4,10 +4,13 @@ import { useMemo, useState, useTransition } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { PillSlider } from "@/components/ui/PillSlider";
+import { LocationAutocomplete } from "@/components/ui/LocationAutocomplete";
 import { cn } from "@/lib/utils";
 import { isRedirectError } from "@/lib/isRedirectError";
+import { trackEvent } from "@/lib/posthog/client";
 import { submitIntake, type IntakeAnswers } from "@/app/intake/actions";
 import { WIZARD_PAGE_ILLUSTRATIONS } from "@/lib/illustrations";
+import { STYLE_PRESETS, DEFAULT_STYLE_ID, type StyleId } from "@/lib/styleEngine";
 import type { Dictionary, Option } from "@/lib/i18n/dictionaries";
 
 type StepId = keyof IntakeAnswers;
@@ -25,7 +28,9 @@ type FieldConfig =
     }
   | { id: StepId; type: "chips"; label: string; sub?: string; options: Option[] }
   | { id: StepId; type: "multi-chips"; label: string; sub?: string; options: Option[] }
-  | { id: StepId; type: "slider"; label: string; sub?: string; options: Option[] };
+  | { id: StepId; type: "slider"; label: string; sub?: string; options: Option[] }
+  | { id: StepId; type: "style-cards"; label: string; sub?: string; options: Option[] }
+  | { id: StepId; type: "location"; label: string; sub?: string; placeholder: string };
 
 interface PageConfig {
   id: string;
@@ -84,7 +89,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
         },
         {
           id: "location",
-          type: "text",
+          type: "location",
           label: dict.location.label,
           sub: dict.location.sub,
           placeholder: dict.location.placeholder,
@@ -176,6 +181,13 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       image: WIZARD_PAGE_ILLUSTRATIONS[4],
       fields: [
         {
+          id: "styleId",
+          type: "style-cards",
+          label: dict.style.label,
+          sub: dict.style.sub,
+          options: dict.style.options,
+        },
+        {
           id: "company",
           type: "chips",
           label: dict.company.label,
@@ -206,6 +218,7 @@ const EMPTY_ANSWERS: IntakeAnswers = {
   mustHaves: "",
   preferences: "",
   company: "",
+  styleId: DEFAULT_STYLE_ID,
 };
 
 function canContinuePage(page: PageConfig, answers: IntakeAnswers): boolean {
@@ -258,6 +271,8 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
 
   function goNext() {
     if (!canContinue) return;
+
+    trackEvent("intake_page_completed", { page: currentPage.id, index: page });
 
     if (!isLastPage) {
       setPage((prev) => prev + 1);
@@ -363,6 +378,67 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
             </div>
           </div>
         );
+      case "location":
+        return (
+          <div key={field.id}>
+            <p className="font-medium text-ink">{field.label}</p>
+            {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
+            <LocationAutocomplete
+              value={answers[field.id] as string}
+              onChange={(value) => setField(field.id, value)}
+              placeholder={field.placeholder}
+            />
+          </div>
+        );
+      case "style-cards": {
+        const currentValue = answers[field.id] as string;
+        return (
+          <div key={field.id}>
+            <p className="font-medium text-ink">{field.label}</p>
+            {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
+            <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {field.options.map((option) => {
+                const selected = currentValue === option.value;
+                const preset = STYLE_PRESETS[option.value as StyleId] as
+                  | (typeof STYLE_PRESETS)[StyleId]
+                  | undefined;
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setField(field.id, option.value)}
+                    className={cn(
+                      "overflow-hidden rounded-2xl border-2 text-left transition-colors",
+                      selected ? "border-accent" : "border-transparent hover:border-accent/30"
+                    )}
+                  >
+                    <div className="relative aspect-4/3 w-full bg-ink/5">
+                      {preset && (
+                        <Image
+                          src={preset.images.cover}
+                          alt=""
+                          fill
+                          sizes="(min-width: 640px) 160px, 45vw"
+                          className="object-cover"
+                        />
+                      )}
+                    </div>
+                    <p
+                      className={cn(
+                        "px-2.5 py-2 text-xs font-medium",
+                        selected ? "text-accent-dark" : "text-ink/70"
+                      )}
+                    >
+                      {option.label}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      }
       case "slider":
         return (
           <PillSlider

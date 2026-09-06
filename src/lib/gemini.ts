@@ -32,11 +32,12 @@ export interface GeneratedIllustration {
 
 export async function generateIllustration(
   subject: string,
-  aspectRatio: "4:3" | "3:2" = "4:3"
+  aspectRatio: "4:3" | "3:2" = "4:3",
+  stylePrefix: string = STYLE_PREFIX
 ): Promise<GeneratedIllustration> {
   const interaction = await getGemini().interactions.create({
     model: IMAGE_MODEL,
-    input: `${STYLE_PREFIX} Scene: ${subject}`,
+    input: `${stylePrefix} Scene: ${subject}`,
     response_format: {
       type: "image",
       mime_type: "image/jpeg",

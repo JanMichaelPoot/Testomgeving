@@ -2,9 +2,10 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import fontkit from "@pdf-lib/fontkit";
 import { PDFDocument, rgb, type PDFFont, type PDFPage, type PDFImage } from "pdf-lib";
-import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
+import { DIFFICULTY_LABELS, type GeneratedIdeaBook, type IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
+import { resolveStylePreset } from "@/lib/styleEngine";
 
 const PAGE_WIDTH = 595.28; // A4 in points
 const PAGE_HEIGHT = 841.89;
@@ -19,10 +20,9 @@ const MUTED = rgb(0.4, 0.4, 0.45);
 const CREAM = rgb(0.965, 0.957, 0.933); // #F5F3EE
 const WHITE = rgb(1, 1, 1);
 const LAVENDER_LIGHT = rgb(0.86, 0.81, 0.97);
-const PANEL_TINT = rgb(0.91, 0.885, 0.97); // pale lavender fill behind side images
 
 const FONTS_DIR = path.join(process.cwd(), "src/lib/pdf/fonts");
-const IMAGES_DIR = path.join(process.cwd(), "src/lib/pdf/images");
+const STYLES_DIR = path.join(process.cwd(), "public/illustrations/styles");
 
 // Side-column layout shared by the profile page and the idea half-slots.
 const SIDE_COL_WIDTH = 180;
@@ -92,9 +92,12 @@ function imageHeightForWidth(image: PDFImage, width: number): number {
 export async function renderIdeaBookPdf(
   book: GeneratedIdeaBook,
   title: string,
-  locale: Locale
+  locale: Locale,
+  styleId?: string
 ): Promise<Uint8Array> {
   const chrome = getDictionary(locale).pdfChrome;
+  const style = resolveStylePreset(styleId);
+  const panelTint = rgb(...style.panelTint);
 
   const doc = await PDFDocument.create();
   doc.registerFontkit(fontkit);
@@ -111,18 +114,22 @@ export async function renderIdeaBookPdf(
     sansBold: await doc.embedFont(sansBoldBytes),
   };
 
-  const [coverBytes, wildcardBytes, mood1Bytes, mood2Bytes, mood3Bytes] =
-    await Promise.all([
-      readFile(path.join(IMAGES_DIR, "pdf-cover.jpg")),
-      readFile(path.join(IMAGES_DIR, "pdf-wildcard.jpg")),
-      readFile(path.join(IMAGES_DIR, "pdf-mood-1.jpg")),
-      readFile(path.join(IMAGES_DIR, "pdf-mood-2.jpg")),
-      readFile(path.join(IMAGES_DIR, "pdf-mood-3.jpg")),
-    ]);
+  // The wildcard banner reuses the style's cover shot (rather than a 5th
+  // generated image per style) — both are "special moment" full-bleed
+  // banners, so sharing one image keeps the Style Engine to a 6x4 image
+  // matrix instead of 6x5.
+  const styleDir = path.join(STYLES_DIR, style.id);
+  const [coverBytes, mood1Bytes, mood2Bytes, mood3Bytes] = await Promise.all([
+    readFile(path.join(styleDir, "cover.jpg")),
+    readFile(path.join(styleDir, "mood-1.jpg")),
+    readFile(path.join(styleDir, "mood-2.jpg")),
+    readFile(path.join(styleDir, "mood-3.jpg")),
+  ]);
 
+  const coverImage = await doc.embedJpg(coverBytes);
   const images: Images = {
-    cover: await doc.embedJpg(coverBytes),
-    wildcard: await doc.embedJpg(wildcardBytes),
+    cover: coverImage,
+    wildcard: coverImage,
     moods: [
       await doc.embedJpg(mood1Bytes),
       await doc.embedJpg(mood2Bytes),
@@ -259,7 +266,7 @@ export async function renderIdeaBookPdf(
 
     const panelHeight = imgY - bottomY;
     if (panelHeight > 0) {
-      page.drawRectangle({ x, y: bottomY, width: colWidth, height: panelHeight, color: PANEL_TINT });
+      page.drawRectangle({ x, y: bottomY, width: colWidth, height: panelHeight, color: panelTint });
     }
 
     page.drawRectangle({
@@ -350,9 +357,25 @@ export async function renderIdeaBookPdf(
         y: bottomY,
         width: TEXT_COL_WIDTH,
         height: y - bottomY,
-        color: PANEL_TINT,
+        color: panelTint,
       });
     }
+  }
+
+  // A single compact "meta" line — used for the practical/location/
+  // requirements rows in the tight half-page idea slots. Fase 1 keeps
+  // these to one line each (Fase 2 gives content-rich ideas their own
+  // full page instead of squeezing everything into a half-page slot).
+  function drawMetaLine(label: string, value: string, x: number, maxWidth: number) {
+    if (!value) return;
+    newPageIfNeeded(9 + 4);
+    const labelWidth = fonts.sansBold.widthOfTextAtSize(`${label}: `, 9);
+    page.drawText(`${label}:`, { x, y, size: 9, font: fonts.sansBold, color: ACCENT_DARK });
+    const lines = wrapText(value, fonts.sans, 9, maxWidth - labelWidth, 1);
+    if (lines[0]) {
+      page.drawText(lines[0], { x: x + labelWidth, y, size: 9, font: fonts.sans, color: INK });
+    }
+    y -= 9 + 4;
   }
 
   // --- Pages 3-5: ideas, two per page, six total — each in a fixed-height
@@ -382,7 +405,37 @@ export async function renderIdeaBookPdf(
     );
     y -= 1;
     drawNumberedList(idea.details, fonts.sans, 9.5, TEXT_COL_X, TEXT_COL_WIDTH, 2);
-    y -= 5;
+    y -= 3;
+
+    const practicalLine = [
+      idea.practical.estimated_cost,
+      idea.practical.duration,
+      DIFFICULTY_LABELS[locale][idea.practical.difficulty],
+    ]
+      .filter(Boolean)
+      .join("  ·  ");
+    drawMetaLine(book.labels.cost_label || chrome.practicalFallback, practicalLine, TEXT_COL_X, TEXT_COL_WIDTH);
+
+    if (idea.location) {
+      const locationLine = [idea.location.name, idea.location.city].filter(Boolean).join(", ");
+      drawMetaLine(
+        book.labels.location_heading || chrome.locationFallback,
+        locationLine,
+        TEXT_COL_X,
+        TEXT_COL_WIDTH
+      );
+    }
+
+    if (idea.requirements.length > 0) {
+      drawMetaLine(
+        book.labels.requirements_heading || chrome.requirementsFallback,
+        idea.requirements.join(", "),
+        TEXT_COL_X,
+        TEXT_COL_WIDTH
+      );
+    }
+
+    y -= 2;
     drawParagraph(
       book.labels.first_action_heading || chrome.firstActionFallback,
       fonts.sansBold,
@@ -392,7 +445,7 @@ export async function renderIdeaBookPdf(
       TEXT_COL_X,
       TEXT_COL_WIDTH
     );
-    drawParagraph(idea.practical_info, fonts.sans, 9.5, INK, 3, TEXT_COL_X, TEXT_COL_WIDTH, 2);
+    drawParagraph(idea.first_action, fonts.sans, 9.5, INK, 3, TEXT_COL_X, TEXT_COL_WIDTH, 2);
 
     // Same fill-the-remainder backstop as the profile/wildcard pages, so a
     // terser idea doesn't read as visually lighter than its neighbor slot.
@@ -402,7 +455,7 @@ export async function renderIdeaBookPdf(
         y: slotBottomY,
         width: TEXT_COL_WIDTH,
         height: y - slotBottomY,
-        color: PANEL_TINT,
+        color: panelTint,
       });
     }
   }
@@ -473,10 +526,40 @@ export async function renderIdeaBookPdf(
     );
     y -= 2;
     drawNumberedList(book.wildcard.details, fonts.sans, 13.5, MARGIN, CONTENT_WIDTH, 2);
-    y -= 10;
+    y -= 6;
+
+    const wildcardPractical = [
+      book.wildcard.practical.estimated_cost,
+      book.wildcard.practical.duration,
+      DIFFICULTY_LABELS[locale][book.wildcard.practical.difficulty],
+    ]
+      .filter(Boolean)
+      .join("  ·  ");
+    drawMetaLine(book.labels.cost_label || chrome.practicalFallback, wildcardPractical, MARGIN, CONTENT_WIDTH);
+    if (book.wildcard.location) {
+      const wildcardLocationLine = [book.wildcard.location.name, book.wildcard.location.city]
+        .filter(Boolean)
+        .join(", ");
+      drawMetaLine(
+        book.labels.location_heading || chrome.locationFallback,
+        wildcardLocationLine,
+        MARGIN,
+        CONTENT_WIDTH
+      );
+    }
+    if (book.wildcard.requirements.length > 0) {
+      drawMetaLine(
+        book.labels.requirements_heading || chrome.requirementsFallback,
+        book.wildcard.requirements.join(", "),
+        MARGIN,
+        CONTENT_WIDTH
+      );
+    }
+    y -= 4;
+
     drawCallout(
       book.labels.first_action_heading || chrome.firstActionFallback,
-      book.wildcard.practical_info
+      book.wildcard.first_action
     );
 
     // Fill whatever's left down to the bottom margin with a tinted panel,
@@ -489,7 +572,7 @@ export async function renderIdeaBookPdf(
         y: MARGIN,
         width: CONTENT_WIDTH,
         height: y - MARGIN,
-        color: PANEL_TINT,
+        color: panelTint,
       });
     }
   }
