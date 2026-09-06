@@ -18,11 +18,17 @@ export default async function PrivacyPage() {
       <SiteHeader locale={locale} dict={dict.header} />
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-16">
         <h1 className="font-serif text-3xl text-ink">{dict.legal.privacyHeading}</h1>
-        <p className="mt-6 rounded-lg border border-dashed border-ink/30 bg-paper px-4 py-3 text-sm text-ink/70">
-          {dict.legal.privacyBody}
-        </p>
+        <p className="mt-4 text-ink/60">{dict.legal.privacyIntro}</p>
+        <div className="mt-8 space-y-6">
+          {dict.legal.privacySections.map((section) => (
+            <div key={section.heading}>
+              <h2 className="font-serif text-lg text-ink">{section.heading}</h2>
+              <p className="mt-1.5 text-sm text-ink/70">{section.body}</p>
+            </div>
+          ))}
+        </div>
       </main>
-      <SiteFooter dict={dict.footer} />
+      <SiteFooter locale={locale} dict={dict.footer} />
     </div>
   );
 }

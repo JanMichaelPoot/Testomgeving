@@ -391,3 +391,40 @@ Stripe, Claude API, Resend, PostHog).
       Books gegenereerd via de test-bypass — beide exact 6 pagina's,
       pagina voor pagina gecontroleerd (met en zonder ingevulde
       must-haves/preferences) op volledige paginadekking.
+
+- [x] Stap 10 — Top-5 quick wins uit de conversieaudit geïmplementeerd:
+      **(1) Prijs zichtbaar vóór checkout**: nieuwe `formatPrice(locale)`
+      in `src/lib/pricing.ts` (handmatig geformatteerd — "€3,50" / "€3.50"
+      — i.p.v. `Intl.NumberFormat`, die in nl-NL een spatie na het
+      symbool invoegt). Getoond als microcopy onder de landing-CTA
+      (`dict.landing.ctaCaption`), verwerkt in de checkout-kop
+      (`dict.checkout.heading`, nu met een `{price}`-token dat op de
+      pagina wordt vervangen), en als een uitklapbare "Wat kost het?"-FAQ
+      in `SiteFooter` (native `<details>`, geen nieuwe route nodig).
+      **(2) "Wat er in jouw venster zit"**: nieuwe sectie op de homepage
+      (`src/app/page.tsx`) met 3 kaarten uit `dict.landing.whatYouGetItems`
+      — geen nieuwe illustraties, hergebruikt de bestaande kaartstijl.
+      **(3) 1-2-3-stappenuitleg op de bevestigingspagina**: `dict.checkout.
+      steps` (3 zinnen, eerste met het prijs-token) gerenderd als
+      genummerde lijst tussen de subcopy en het `CheckoutPanel` in
+      `src/app/checkout/page.tsx`. **(4) Klikbare voorbeeld-chips**: het
+      `text`-veldtype in `IntakeWizard.tsx` heeft nu een optionele
+      `suggestions`-lijst — een rij kleine chips die bij een klik de
+      bijbehorende textarea vullen (overschrijfbaar, geen aparte opslag).
+      Toegevoegd aan "Wat speelt er?" (stap 1) en aan de dealbreakers-/
+      voorkeuren-velden (stap 4), die ook zijn herbenoemd naar de
+      "harde grens vs. voorkeur"-metafoor uit de audit, met een nieuwe
+      introductie-alinea (`dict.opennessIntro`) bovenaan die pagina.
+      **(5) Privacy/Voorwaarden niet langer placeholders**: `Dictionary
+      ["legal"]` is omgebouwd van één placeholder-paragraaf naar een
+      intro + een array van `{heading, body}`-secties (6 stuks per
+      pagina), inhoudelijk exact aansluitend op wat er technisch gebeurt
+      (sessie-gekoppelde antwoorden, e-mail pas ná betaling, Stripe voor
+      betaalgegevens). `src/app/privacy/page.tsx` en `terms/page.tsx`
+      renderen deze nu als losse kopjes i.p.v. één tekstvak. Contactadres
+      `hello@windowinto.nl` is een aanname — vervang door het echte adres
+      zodra dat vaststaat. Getest: volledige wizard doorlopen (chips vullen
+      het veld, `opennessIntro` en herbenoemde labels tonen correct),
+      checkout-pagina met prijs in kop + stappenlijst, privacy/terms in
+      beide talen, `tsc --noEmit` / `eslint .` / `npm run build` allemaal
+      schoon.

@@ -7,6 +7,7 @@ import { CheckoutPanel } from "@/components/window/CheckoutPanel";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isPreviewBypassAllowed } from "@/lib/previewBypass";
+import { formatPrice } from "@/lib/pricing";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -31,6 +32,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
 
   const locale = await getLocale();
   const dict = getDictionary(locale);
+  const price = formatPrice(locale);
 
   const searchParams = await props.searchParams;
   const previewToken =
@@ -41,9 +43,20 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
       <SiteHeader locale={locale} dict={dict.header} />
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-12 sm:px-10">
         <h1 className="font-serif text-3xl text-ink sm:text-4xl">
-          {dict.checkout.heading}
+          {dict.checkout.heading.replace("{price}", price)}
         </h1>
         <p className="mt-2 max-w-xl text-ink/60">{dict.checkout.subcopy}</p>
+
+        <ol className="mt-6 flex max-w-xl flex-col gap-2.5">
+          {dict.checkout.steps.map((step, i) => (
+            <li key={i} className="flex items-start gap-3 text-sm text-ink/70">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-dark text-[11px] font-medium text-white">
+                {i + 1}
+              </span>
+              <span>{step.replace("{price}", price)}</span>
+            </li>
+          ))}
+        </ol>
 
         <div className="mt-10">
           <CheckoutPanel

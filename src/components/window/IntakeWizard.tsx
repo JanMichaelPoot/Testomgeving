@@ -21,6 +21,7 @@ type FieldConfig =
       sub?: string;
       placeholder: string;
       optional?: boolean;
+      suggestions?: string[];
     }
   | { id: StepId; type: "chips"; label: string; sub?: string; options: Option[] }
   | { id: StepId; type: "multi-chips"; label: string; sub?: string; options: Option[] }
@@ -30,6 +31,7 @@ interface PageConfig {
   id: string;
   heading: string;
   subheading: string;
+  intro?: string;
   image: string;
   fields: FieldConfig[];
 }
@@ -51,6 +53,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           label: dict.situation.label,
           sub: dict.situation.sub,
           placeholder: dict.situation.placeholder,
+          suggestions: dict.situation.suggestions,
         },
         {
           id: "purpose",
@@ -136,6 +139,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "openness",
       heading: dict.pages.openness.heading,
       subheading: dict.pages.openness.subheading,
+      intro: dict.opennessIntro,
       image: WIZARD_PAGE_ILLUSTRATIONS[3],
       fields: [
         {
@@ -152,6 +156,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           sub: dict.mustHaves.sub,
           placeholder: dict.mustHaves.placeholder,
           optional: true,
+          suggestions: dict.mustHaves.suggestions,
         },
         {
           id: "preferences",
@@ -160,6 +165,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           sub: dict.preferences.sub,
           placeholder: dict.preferences.placeholder,
           optional: true,
+          suggestions: dict.preferences.suggestions,
         },
       ],
     },
@@ -276,6 +282,20 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
           <div key={field.id}>
             <p className="font-medium text-ink">{field.label}</p>
             {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
+            {field.suggestions && field.suggestions.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {field.suggestions.map((suggestion) => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    onClick={() => setField(field.id, suggestion)}
+                    className="rounded-full border border-ink/15 bg-paper px-3.5 py-1.5 text-xs text-ink/70 transition-colors hover:border-accent/50 hover:text-ink"
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            )}
             <textarea
               value={answers[field.id] as string}
               onChange={(e) => setField(field.id, e.target.value)}
@@ -398,6 +418,11 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
             {currentPage.heading}
           </h1>
           <p className="mt-2 text-ink/60">{currentPage.subheading}</p>
+          {currentPage.intro && (
+            <p className="mt-4 rounded-2xl bg-accent/5 px-4 py-3 text-sm text-ink/70">
+              {currentPage.intro}
+            </p>
+          )}
 
           <div className="mt-8 space-y-8">
             {currentPage.fields.map((field) => renderField(field))}
