@@ -6,10 +6,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
 import { WINDOW_PLAN_PRICE } from "@/lib/pricing";
 
-export async function createCheckoutSession(
-  ideaId: string,
-  waiverConfirmed: boolean
-) {
+export async function createCheckoutSession(waiverConfirmed: boolean) {
   if (!waiverConfirmed) {
     throw new Error(
       "Please confirm you understand the withdrawal waiver before continuing."
@@ -23,19 +20,16 @@ export async function createCheckoutSession(
 
   const supabase = createServiceRoleClient();
 
-  const { data: idea, error: ideaError } = await supabase
-    .from("ideas")
-    .select("id, session_id, title, status")
-    .eq("id", ideaId)
-    .single();
+  const { data: intake } = await supabase
+    .from("intake_answers")
+    .select("id")
+    .eq("session_id", sessionId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
 
-  if (
-    ideaError ||
-    !idea ||
-    idea.session_id !== sessionId ||
-    idea.status !== "liked"
-  ) {
-    throw new Error("That idea could not be found in this session.");
+  if (!intake) {
+    throw new Error("That session could not be found.");
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
@@ -48,18 +42,17 @@ export async function createCheckoutSession(
           currency: WINDOW_PLAN_PRICE.currency,
           unit_amount: WINDOW_PLAN_PRICE.amountCents,
           product_data: {
-            name: "Your Window Plan",
-            description: idea.title,
+            name: "Your WINDOW Idea Book",
+            description: "A personalized set of possibilities, made real.",
           },
         },
         quantity: 1,
       },
     ],
     success_url: `${siteUrl}/plan?checkout_session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${siteUrl}/converge`,
+    cancel_url: `${siteUrl}/checkout`,
     metadata: {
       session_id: sessionId,
-      idea_id: ideaId,
     },
   });
 
@@ -86,4 +79,20 @@ export async function createCheckoutSession(
     .eq("id", sessionId);
 
   redirect(checkoutSession.url);
+}
+
+// Test-only bypass: skips Stripe entirely so the Idea Book can be reviewed
+// during the test phase without a real payment. Refuses outside
+// development regardless of how it's reached.
+export async function skipPaymentForTesting() {
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("The test bypass is not available in production.");
+  }
+
+  const sessionId = await getSessionId();
+  if (!sessionId) {
+    throw new Error("No active session.");
+  }
+
+  redirect(`/plan?test_session_id=${sessionId}`);
 }

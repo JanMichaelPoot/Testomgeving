@@ -6,12 +6,12 @@ Plak dit als eerste prompt in een nieuwe Claude Code-sessie in dit project, of s
 
 ## Project
 
-Ik bouw **WINDOW**, een digitale possibility-discovery app. Gebruikers delen kort
-context over hun situatie of stemming; de app genereert via AI meerdere
-uiteenlopende mogelijkheden (praktisch, ongewoon, ambitieus, speels), laat de
-gebruiker erop reageren en verfijnen, en convergeert daarna naar 1–3 concrete
-opties. Voor een klein bedrag (€2–5) zet WINDOW de gekozen mogelijkheid om in
-een gepersonaliseerd, uitvoerbaar "Window Plan".
+Ik bouw **WINDOW**, een digitale possibility-discovery app. Gebruikers vullen
+een rijk persoonsprofiel in (situatie, doel, wie ze zijn, waar ze zijn, en een
+reeks dial-achtige voorkeuren); de app genereert direct via AI 6-7
+gepersonaliseerde mogelijkheden plus één expliciet gekaderde "wildcard"-optie
+— geen los browse/like-scherm meer. Voor een klein bedrag (€2–5) levert
+WINDOW dit als een gepersonaliseerd, meerpagina's "Idea Book" (PDF).
 
 **Doel van dit traject:** een lean MVP live binnen 8 weken, om te testen of
 mensen ervoor betalen, het delen en er iets mee doen — niet het volledige
@@ -22,8 +22,9 @@ platform bouwen. Houd de scope strikt (zie "Buiten scope" hieronder).
 another possibility."
 **Toon van de UI-copy:** intelligent, nieuwsgierig, warm, licht ondeugend —
 dichter bij een premium reismagazine dan een productiviteitsdashboard.
-Schrijf alle gebruikersgerichte teksten in het Engels (zoals in de
-meegeleverde mockup); code, comments en commit messages ook in het Engels.
+De site-UI is standaard Nederlands, met een Engelse toggle (zie
+`src/lib/i18n/dictionaries.ts`) — beide taalversies moeten die toon
+raken. Code, comments en commit messages blijven in het Engels.
 Praat tegen mij in het Nederlands.
 
 ---
@@ -47,16 +48,30 @@ Praat tegen mij in het Nederlands.
 ## De kernloop
 
 ```
-OPEN → CONTEXT → DIVERGE → INTERACT → CONVERGE → BETALEN → PLAN
+OPEN → CONTEXT (rijk profiel) → BETALEN → PLAN (Idea Book PDF)
 ```
+
+Er is geen apart divergentie/convergentie-scherm meer: de intake genereert
+direct het volledige, betaalde eindproduct — niets wordt eerst "gekozen" uit
+een lijst kaarten.
 
 ## Kernschermen (bouw niet meer dan dit voor de MVP)
 
-1. **Landing** — kernbelofte + één duidelijke CTA ("Open a Window")
-2. **Intake** — max. 5 vragen: situatie, tijd, budget, gewenste verrassing, gezelschap
-3. **Ideeën-scherm** — 8–12 kaarten, met reacties: like / skip / "make it weirder" / "make it more practical"
-4. **Convergentie + betaalscherm** — 1–3 kandidaten met korte uitleg waarom ze passen, CTA "Make this real" → Stripe Checkout
-5. **Window Plan** — het betaalde resultaat: gekozen idee, waarom het past, concrete stappen, eerste actie, kosten-/tijdsindicatie. Ook als PDF en per e-mail.
+1. **Landing** — kernbelofte + één duidelijke CTA ("Open a Window"), met de
+   taal-toggle (NL/EN) in de header op elke pagina
+2. **Intake** — visuele profiel-wizard, max. 5 pagina's met gegroepeerde
+   vragen en een passende illustratie per pagina: situatie + doel +
+   doel-afhankelijke vervolgvraag; leeftijd + locatie + zoekafstand;
+   vijf voorkeurs-dials als sliders (praktisch↔wild, verrassingsniveau, tijd,
+   budget, inzet); gewenste type-mogelijkheden (multi-select) + must-haves +
+   preferences; gezelschap. Geen aparte taalvraag meer — de site-brede
+   taalkeuze bepaalt ook de taal van het Idea Book.
+3. **Checkout** — disclaimer + verplichte herroepingsrecht-checkbox, CTA
+   "Make this real" → Stripe Checkout (geen kandidaat-selectie meer)
+4. **Idea Book** — het betaalde resultaat: profielsamenvatting, 6-7
+   gepersonaliseerde mogelijkheden, en één apart gekaderde "wildcard".
+   Meerpagina's-PDF (cover, profiel, per-idee pagina's, wildcard-pagina) en
+   per e-mail, in de door de gebruiker gekozen taal.
 
 ---
 
@@ -67,19 +82,21 @@ users            (id, email, created_at, marketing_opt_in)
 sessions         (id, user_id nullable, created_at, status)
 intake_answers   (id, session_id, topic, time_available, budget,
                    desired_surprise, company, raw_json)
-ideas            (id, session_id, lens, title, description, status
-                   -- status: generated | liked | skipped | refined)
-window_plans     (id, session_id, chosen_idea_id, title, why_it_fits,
-                   steps_json, first_action, cost_estimate, time_estimate,
-                   pdf_url, created_at)
+                   -- raw_json bevat het volledige rijke profiel; de losse
+                   -- kolommen zijn legacy en blijven ongebruikt staan
+ideas            (id, session_id, lens, title, description, status)
+                   -- ongebruikt sinds het Idea Book-model; bewust niet
+                   -- gedropt (zie migratie 0005_idea_book.sql)
+window_plans     (id, session_id, title, language, profile_summary,
+                   must_haves, preferences, ideas_json, wildcard_json,
+                   labels_json, pdf_url, created_at)
 payments         (id, session_id, stripe_payment_id, amount, currency,
                    status, created_at)
 ```
 
 Houd persoonsgegevens zoveel mogelijk los van gedragsdata: koppel
-`intake_answers` en `ideas` aan een los `session_id`, niet direct aan
-`users.email`, zodat we conform AVG zo min mogelijk herleidbare data
-bewaren.
+`intake_answers` aan een los `session_id`, niet direct aan `users.email`,
+zodat we conform AVG zo min mogelijk herleidbare data bewaren.
 
 ---
 
@@ -121,7 +138,11 @@ bewaren.
 - "Window for Two" en uitgebreide social-/deelfeatures (behalve een simpele
   deel-link)
 - Complexe, afgeleide profielopbouw — alleen expliciete voorkeuren opslaan
-- Meertaligheid — alleen Engelse UI-copy voor nu
+- Bredere meertaligheid dan Nederlands/Engels — de site-UI én de
+  gegenereerde Idea Book-inhoud delen nu één taalinstelling
+  (`src/lib/language.ts`, `src/lib/i18n/dictionaries.ts`), maar beperkt tot
+  nl/en; geen bredere schrift-ondersteuning (Cyrillisch, CJK,
+  Arabisch/Hebreeuws met RTL) voor nu
 
 ---
 
@@ -238,3 +259,135 @@ dashboard).
 
 Zie ook `.env.example` voor alle benodigde environment variables (Supabase,
 Stripe, Claude API, Resend, PostHog).
+
+- [x] Stap 7 — Idee-flow vervangen door "Idea Book": op verzoek de hele
+      intake → ideeën → convergentie → betaling → plan-flow vervangen door
+      een rijker profiel-intake die direct doorstroomt naar betaling en een
+      meerpagina's PDF, zonder los like/skip/convergentie-scherm.
+      `IntakeWizard` (herschreven) heeft nu 17 stappen (situatie, doel +
+      doel-afhankelijke vervolgvraag, gender, leeftijd, locatie +
+      zoekafstand, praktisch↔wild, verrassingsniveau, tijd, budget, inzet,
+      type-mogelijkheden als multi-select, must-haves, preferences,
+      gezelschap, taal — de taalstap is voorgeselecteerd op basis van de
+      `Accept-Language`-header, zie `src/lib/language.ts`).
+      `src/app/intake/actions.ts` slaat het hele profiel op in
+      `intake_answers.raw_json` en redirect naar het nieuwe `/checkout`
+      (vervangt `/converge`; geen kandidaat-selectie meer, alleen
+      disclaimer + herroepingsrecht-checkbox). `src/lib/claude/
+      generateIdeaBook.ts` genereert in één Claude tool-use-call het hele
+      boek: profielsamenvatting, must-haves/preferences, 6-7 ideeën, en een
+      apart gekaderde "wildcard" — met expliciete MOET (hard constraint) vs
+      LIEFST (zachte voorkeur) afhandeling in de systeemprompt, en output
+      in de door de gebruiker gekozen taal. `src/lib/pdf/ideaBook.ts`
+      rendert dit met `pdf-lib` + `@pdf-lib/fontkit` en gebundelde Noto
+      Sans/Serif-fonts (`src/lib/pdf/fonts/`, SIL OFL) voor correcte
+      accenten buiten het Engels — nodig omdat `pdf-lib`'s ingebouwde
+      standaardfonts alleen WinAnsi ondersteunen. `src/app/plan/data.ts`
+      en `page.tsx` herschreven voor de nieuwe inhoud (geen `chosen_idea_id`
+      meer); migratie `0005_idea_book.sql` herstructureert `window_plans`
+      en laat de nu ongebruikte `ideas`-tabel bewust ongemoeid. Oude
+      bestanden (`src/app/ideas/`, `src/app/converge/`, `IdeasBoard.tsx`,
+      `ConvergeBoard.tsx`, `claude/ideas.ts`, `claude/converge.ts`,
+      `claude/plan.ts`, `pdf/windowPlan.ts`) verwijderd. Getest: volledige
+      wizard doorlopen in de browser (alle vraagtypes: tekst, chips,
+      doel-afhankelijke copy, multi-select-validatie, taalkeuze), en een
+      los testscript (niet gecommit) dat de PDF-renderer met een
+      Nederlandstalig mock-boek rendert — 9 pagina's zoals verwacht
+      (cover, profiel, 6 ideeën, wildcard), inclusief correct gerenderde
+      accenten (café, naïef, Müller, garçon). Een echte, betaalde
+      end-to-end test vereist werkende Supabase/Stripe/Anthropic-
+      credentials in `.env.local`.
+
+- [x] Stap 8 — Intake en Idea Book visueel herontworpen: op verzoek de
+      17-stappen-wizard teruggebracht tot maximaal 5 visuele pagina's, met
+      gegroepeerde vragen, sliders voor ordinale keuzes en een passende
+      illustratie per pagina; de PDF zelf ook visueel verrijkt met
+      fotografische beelden.
+      `IntakeWizard` (herschreven) groepeert de 17 velden op 5 pagina's
+      (situatie, over jou, dials, openheid, laatste stap) — zelfde
+      `IntakeAnswers`-vorm, alleen de presentatie verandert. Nieuw
+      component `src/components/ui/PillSlider.tsx`: een klikbare/sleepbare
+      "pil-track"-slider (geen native `<input type="range">`) voor de
+      7 ordinale velden (leeftijd, zoekafstand, praktisch↔wild,
+      verrassing, tijd, budget, inzet), elk met het meest neutrale
+      antwoord als standaardwaarde in plaats van leeg. Elke pagina toont nu
+      een bijpassende illustratie (`src/lib/illustrations.ts`:
+      `WIZARD_PAGE_ILLUSTRATIONS`).
+      `scripts/generate-illustrations.ts` uitgebreid met 10 nieuwe
+      eenmalige Gemini-generaties (5 voor de wizard-pagina's in
+      `public/illustrations/`, 5 voor de PDF in het nieuwe
+      `src/lib/pdf/images/`) — de nu volledig ongebruikte oude
+      lens-illustraties (`practical`/`unusual`/`ambitious`/`playful`)
+      verwijderd. `src/lib/pdf/ideaBook.ts` visueel herontworpen: crème
+      paginaomslag i.p.v. wit, een full-bleed omslag- en wildcard-banner
+      met een donkere titelband, een tweekolomslayout op de profiel- en
+      idee-pagina's (gecycled sfeerbeeld + genummerd accent-badge naast de
+      tekst), stappen nu als echte genummerde lijst (`details` is
+      `string[]` geworden i.p.v. één alinea, zowel in het Claude-schema
+      als in de PDF-renderer), en een pagina-voettekst
+      (paginanummer + wordmark) op elke pagina behalve de omslag.
+      Twee bugs onderweg gevonden en gefixt: (1) de gebundelde
+      Noto-fonts stonden als `.woff` opgeslagen — geen geldig
+      PDF-lettertypeformaat; sommige renderers (waaronder de tool waarmee
+      dit is getest) laadden ze daardoor niet en vielen terug op een
+      fallback-font zonder de juiste ligatuur-glyphs ("effort" toonde als
+      "e ort"). Omgezet naar rauwe `.ttf`-bestanden
+      (`src/lib/pdf/fonts/`), wat het probleem volledig oploste. (2) de
+      omslag-/wildcard-banner had te weinig ruimte tussen het kleine
+      "eyebrow"-label en de grote titel, waardoor de tekst overlapte —
+      gefixt door de verticale marge te vergroten. Ook
+      `generateIdeaBook.ts` iets robuuster gemaakt tegen een enkele keer
+      misvormde Claude-output (`ideas` niet als array) door dat expliciet
+      te detecteren en een duidelijke, opnieuw-proberen-foutmelding te
+      tonen in plaats van een onduidelijke crash.
+      Getest: volledige wizard doorlopen in de browser (alle 5 pagina's,
+      sliders klikken/slepen/toetsenbord, standaardwaarden, per-pagina
+      validatie, illustraties), en meerdere volledige Idea Books
+      gegenereerd via de test-bypass (Engels en Nederlands) — de
+      gerenderde PDF's zijn pagina voor pagina gecontroleerd (omslag,
+      profiel, idee-pagina's, wildcard-pagina, voettekst) via een lokaal
+      geïnstalleerde PDF-rasterizer (poppler/pdftoppm ontbrak in deze
+      omgeving; PyMuPDF gebruikt als alternatief).
+
+- [x] Stap 9 — Gender-vraag verwijderd, site standaard Nederlands met
+      Engelse toggle, PDF teruggebracht naar precies 6 pagina's:
+      **(1) Gender weg**: de "Hoe omschrijf je jezelf?"-vraag is verwijderd
+      uit pagina 2 van de wizard, uit `IntakeAnswers` en uit het
+      Claude-profiel. **(2) Taal**: de bestaande, aparte 7-talige
+      "in welke taal moet je Idea Book"-stap in de wizard is samengevoegd
+      met een nieuwe, site-brede taalkeuze — er is nu nog maar één
+      taalinstelling (nl/en) die zowel de site-UI als de gegenereerde
+      Idea Book-inhoud stuurt. `src/lib/locale.ts` bevat de
+      client-veilige constanten (`SUPPORTED_LOCALES`, `Locale`);
+      `src/lib/language.ts` voegt daar de server-only `getLocale()` aan
+      toe (leest het `window_locale`-cookie, standaard `"nl"` — niet
+      langer browser-gedetecteerd). `src/app/actions/locale.ts` is de
+      `setLocale`-server action achter de nieuwe `LanguageToggle`
+      (`src/components/window/LanguageToggle.tsx`), zichtbaar in
+      `SiteHeader` op elke pagina. Alle UI-tekst (landing, wizard,
+      checkout, plan, privacy/terms, e-mail) staat nu in
+      `src/lib/i18n/dictionaries.ts` (`nl`/`en`), met per pagina het
+      patroon `const locale = await getLocale(); const dict =
+      getDictionary(locale);`. Chip/slider-opties slaan een stabiele,
+      taal-onafhankelijke waarde op (`{value, label}` i.p.v. kale
+      strings) zodat het wisselen van taal nooit de opgeslagen
+      antwoorden verandert. De taal die bij het invullen actief was,
+      wordt server-side vastgelegd in `intake_answers.raw_json` (niet
+      meer als wizard-antwoord) zodat een latere taalwissel een
+      lopende generatie niet beïnvloedt (`StoredIntake` in
+      `src/app/intake/actions.ts`). **(3) PDF naar 6 pagina's**: het
+      aantal ideeën staat nu vast op 6 (was 6-7) met precies 3 stappen
+      per idee (was 3-5), zodat de paginastructuur voorspelbaar is:
+      omslag, profiel, drie pagina's met elk twee ideeën, wildcard.
+      `src/lib/pdf/ideaBook.ts` is herschreven zodat elke pagina altijd
+      volledig gevuld oogt: een zijkolom-afbeelding op haar natuurlijke
+      beeldverhouding (nooit uitgerekt) gecombineerd met een
+      lavendelkleurig vlak dat de rest van die kolom opvult tot aan de
+      onderkant — en diezelfde truc ook toegepast op elke tekstkolom
+      zodat een kort ingevuld profiel of kort idee nooit als "leger"
+      oogt dan zijn buurpagina. Getest: de wizard doorlopen in het
+      Nederlands én Engels (taalwissel via de header-toggle, direct
+      zichtbaar effect, gender-vraag afwezig), en twee volledige Idea
+      Books gegenereerd via de test-bypass — beide exact 6 pagina's,
+      pagina voor pagina gecontroleerd (met en zonder ingevulde
+      must-haves/preferences) op volledige paginadekking.

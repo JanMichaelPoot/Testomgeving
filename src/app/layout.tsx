@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
+import { getLocale } from "@/lib/language";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -13,16 +15,20 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "WINDOW — A Window Into What Could Be",
-  description:
-    "You don't need another answer. Sometimes you need to see another possibility.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const dict = getDictionary(await getLocale());
+  return {
+    title: `WINDOW — ${dict.landing.headlineLine1} ${dict.landing.headlineLine2}`,
+    description: dict.landing.subcopy,
+  };
+}
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const locale = await getLocale();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-ink font-sans">

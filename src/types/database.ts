@@ -129,13 +129,14 @@ export interface Database {
         Row: {
           id: string;
           session_id: string;
-          chosen_idea_id: string;
           title: string;
-          why_it_fits: string;
-          steps_json: unknown[];
-          first_action: string;
-          cost_estimate: string | null;
-          time_estimate: string | null;
+          language: string;
+          profile_summary: string;
+          must_haves: string[];
+          preferences: string[];
+          ideas_json: unknown[];
+          wildcard_json: Record<string, unknown>;
+          labels_json: Record<string, string>;
           pdf_url: string | null;
           image_url: string | null;
           created_at: string;
@@ -143,13 +144,14 @@ export interface Database {
         Insert: {
           id?: string;
           session_id: string;
-          chosen_idea_id: string;
           title: string;
-          why_it_fits: string;
-          steps_json?: unknown[];
-          first_action: string;
-          cost_estimate?: string | null;
-          time_estimate?: string | null;
+          language?: string;
+          profile_summary?: string;
+          must_haves?: string[];
+          preferences?: string[];
+          ideas_json?: unknown[];
+          wildcard_json?: Record<string, unknown>;
+          labels_json?: Record<string, string>;
           pdf_url?: string | null;
           image_url?: string | null;
           created_at?: string;
@@ -163,13 +165,6 @@ export interface Database {
             columns: ["session_id"];
             isOneToOne: false;
             referencedRelation: "sessions";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "window_plans_chosen_idea_id_fkey";
-            columns: ["chosen_idea_id"];
-            isOneToOne: false;
-            referencedRelation: "ideas";
             referencedColumns: ["id"];
           },
         ];

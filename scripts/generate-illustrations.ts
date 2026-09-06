@@ -1,47 +1,103 @@
 // One-time script: generates the fixed illustrations referenced by
-// src/lib/illustrations.ts and saves them into public/illustrations/.
-// Run once (locally, with GEMINI_API_KEY set) whenever these need
-// regenerating — the running app never calls Gemini itself.
+// src/lib/illustrations.ts (wizard pages, landing hero) and
+// src/lib/pdf/ideaBook.ts (PDF imagery). Run once (locally, with
+// GEMINI_API_KEY set) whenever these need regenerating — the running app
+// never calls Gemini itself.
 //
 //   GEMINI_API_KEY=... npx tsx scripts/generate-illustrations.ts
 import { writeFileSync, mkdirSync } from "node:fs";
 import { generateIllustration } from "../src/lib/gemini";
 
-const TARGETS: { name: string; prompt: string }[] = [
+interface Target {
+  name: string;
+  prompt: string;
+  dir: string;
+}
+
+const PUBLIC_DIR = "public/illustrations";
+const PDF_DIR = "src/lib/pdf/images";
+
+const TARGETS: Target[] = [
   {
     name: "landing-hero",
+    dir: PUBLIC_DIR,
     prompt:
       "A single elegant window frame set into a softly lit interior wall, its casement fanning outward like an open book to reveal four distinct vertical panels side by side, each a glimpse into a different possibility. From left to right: a solitary hiking trail winding up a mountainside at dusk; the warm interior of a cozy café with a table, cup, and open books; a starlit night forest under a deep indigo sky; a vibrant city street at dusk with a couple of small figures walking. Warm light spills from the window onto the interior floor and a plant on the sill. Striking, beautiful, sense of wonder and invitation.",
   },
+
+  // Intake wizard pages (src/lib/illustrations.ts: WIZARD_PAGE_ILLUSTRATIONS)
   {
-    name: "practical",
+    name: "step-situation",
+    dir: PUBLIC_DIR,
     prompt:
-      "A sunlit kitchen counter in the early morning: a steaming cup of coffee, an open notebook, soft warm light through a window. Calm, grounded, achievable.",
+      "A rain-speckled window at dusk, warm interior light glowing behind gauzy curtains, a steaming mug resting on the sill beside an open journal. Quiet, reflective, inviting — the feeling of pausing to consider what's next.",
   },
   {
-    name: "unusual",
+    name: "step-about",
+    dir: PUBLIC_DIR,
     prompt:
-      "A spiral staircase standing alone in a quiet garden, climbing up into a sky full of soft clouds and disappearing into the haze. Dreamlike, slightly surreal, intriguing.",
+      "A small wooden desk with a folded paper map, a pair of reading glasses, and a brass compass, lit by a single warm desk lamp against a dark backdrop. Personal, grounded, quietly curious.",
   },
   {
-    name: "ambitious",
+    name: "step-dials",
+    dir: PUBLIC_DIR,
     prompt:
-      "A lone figure standing at the edge of a dramatic mountain ridge at golden hour, a vast valley and horizon stretching out below. Sense of scale, boldness, and possibility.",
+      "A row of vintage brass dials and knobs mounted on a warm wooden control panel, softly lit from one side, dust motes visible in the light. Tactile, precise, inviting adjustment.",
   },
   {
-    name: "playful",
+    name: "step-openness",
+    dir: PUBLIC_DIR,
     prompt:
-      "A joyful burst of colorful paper confetti and ribbons floating over a rooftop terrace at dusk, string lights glowing. Lighthearted, whimsical, full of delight.",
+      "A row of five different doors left slightly ajar along a softly lit corridor, each glowing with a different warm hue spilling out. A sense of choice, curiosity, and possibility.",
+  },
+  {
+    name: "step-final",
+    dir: PUBLIC_DIR,
+    prompt:
+      "A small round table set for two with warm mugs and a lit candle, string lights soft-focus in the background at dusk. Cozy, inviting, unhurried.",
+  },
+
+  // Idea Book PDF imagery (src/lib/pdf/ideaBook.ts)
+  {
+    name: "pdf-cover",
+    dir: PDF_DIR,
+    prompt:
+      "A grand arched window thrown wide open onto an impossible dreamlike landscape blending a mountain trail, a starlit forest, and a glowing city skyline into one continuous horizon. Sweeping, cinematic, full of wonder — a single striking cover image.",
+  },
+  {
+    name: "pdf-wildcard",
+    dir: PDF_DIR,
+    prompt:
+      "A single door left slightly ajar, warm mischievous light and a scatter of confetti spilling out into a dim room. Playful, surprising, a little bit daring.",
+  },
+  {
+    name: "pdf-mood-1",
+    dir: PDF_DIR,
+    prompt:
+      "A sunlit forest trail cutting through tall trees, dappled light on the path ahead. Adventurous, fresh, inviting movement.",
+  },
+  {
+    name: "pdf-mood-2",
+    dir: PDF_DIR,
+    prompt:
+      "A warm cup of tea beside an open book on a soft blanket, gentle morning light. Calm, grounded, restorative.",
+  },
+  {
+    name: "pdf-mood-3",
+    dir: PDF_DIR,
+    prompt:
+      "A cluttered creative desk with paints, sketches, and colored threads catching afternoon light. Playful, imaginative, hands-on.",
   },
 ];
 
 async function main() {
-  mkdirSync("public/illustrations", { recursive: true });
+  const dirs = new Set(TARGETS.map((t) => t.dir));
+  for (const dir of dirs) mkdirSync(dir, { recursive: true });
 
   for (const target of TARGETS) {
     console.log(`Generating ${target.name}...`);
     const image = await generateIllustration(target.prompt, "4:3");
-    const path = `public/illustrations/${target.name}.jpg`;
+    const path = `${target.dir}/${target.name}.jpg`;
     writeFileSync(path, image.data);
     console.log(`Saved ${path} (${image.data.length} bytes)`);
   }
