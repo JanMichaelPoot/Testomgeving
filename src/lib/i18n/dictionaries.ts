@@ -164,7 +164,6 @@ export interface Dictionary {
     mustHaves: { label: string; sub: string; placeholder: string; suggestions: string[] };
     preferences: { label: string; sub: string; placeholder: string; suggestions: string[] };
     company: { label: string; sub: string; options: Option[] };
-    style: { label: string; sub: string; options: Option[] };
   };
 }
 
@@ -555,18 +554,6 @@ const nl: Dictionary = {
         { value: "colleagues", label: "Collega's" },
       ],
     },
-    style: {
-      label: "Welke stijl spreekt je het meest aan?",
-      sub: "Dit bepaalt de look van je Idea Book — kies wat je aanspreekt.",
-      options: [
-        { value: "bloom", label: "Elegant & botanisch" },
-        { value: "warm", label: "Warm & verfijnd" },
-        { value: "bold", label: "Stoer & krachtig" },
-        { value: "edge", label: "Technisch & modern" },
-        { value: "calm", label: "Natuurlijk & rustig" },
-        { value: "vivid", label: "Creatief & uitgesproken" },
-      ],
-    },
   },
 };
 
@@ -954,18 +941,6 @@ const en: Dictionary = {
         { value: "friends", label: "Friends" },
         { value: "family", label: "Family" },
         { value: "colleagues", label: "Colleagues" },
-      ],
-    },
-    style: {
-      label: "Which style speaks to you most?",
-      sub: "This sets the look of your Idea Book — pick whatever draws you in.",
-      options: [
-        { value: "bloom", label: "Elegant & botanical" },
-        { value: "warm", label: "Warm & refined" },
-        { value: "bold", label: "Bold & powerful" },
-        { value: "edge", label: "Technical & modern" },
-        { value: "calm", label: "Natural & calm" },
-        { value: "vivid", label: "Creative & bold" },
       ],
     },
   },

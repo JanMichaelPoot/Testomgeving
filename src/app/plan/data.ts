@@ -96,7 +96,7 @@ async function generateAndSavePlan(
 
   try {
     const generated = await generateIdeaBook(profile, locale);
-    const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale, profile.styleId);
+    const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale);
     const pdfPath = `${sessionId}/idea-book.pdf`;
 
     const { error: uploadError } = await supabase.storage

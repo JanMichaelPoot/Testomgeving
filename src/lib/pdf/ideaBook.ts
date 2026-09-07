@@ -5,7 +5,6 @@ import { PDFDocument, PDFString, rgb, type PDFFont, type PDFPage, type PDFImage,
 import { DIFFICULTY_LABELS, type GeneratedIdeaBook, type IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
-import { resolveStylePreset } from "@/lib/styleEngine";
 import { mapsSearchUrl } from "@/lib/maps";
 
 // pdf-lib has no first-class "add a hyperlink" API, so a clickable region
@@ -59,7 +58,9 @@ const SHADOW_TINT = rgb(0.086, 0.098, 0.086);
 const LUX_PANEL = rgb(0.918, 0.898, 0.851); // warm "frosted" fill panel
 
 const FONTS_DIR = path.join(process.cwd(), "src/lib/pdf/fonts");
-const STYLES_DIR = path.join(process.cwd(), "public/illustrations/styles");
+// The Idea Book's single, fixed illustration set (no more user-facing
+// style choice — see scripts/generate-idea-book-illustrations.ts).
+const IMAGES_DIR = path.join(process.cwd(), "public/illustrations/idea-book");
 
 // Side-column layout shared by the profile page and each idea page.
 const SIDE_COL_WIDTH = 180;
@@ -129,15 +130,9 @@ function imageHeightForWidth(image: PDFImage, width: number): number {
 export async function renderIdeaBookPdf(
   book: GeneratedIdeaBook,
   title: string,
-  locale: Locale,
-  styleId?: string
+  locale: Locale
 ): Promise<Uint8Array> {
   const chrome = getDictionary(locale).pdfChrome;
-  const style = resolveStylePreset(styleId);
-  // The per-style panelTint (used elsewhere in the app) is intentionally
-  // not used here — the quiet-luxury treatment wants one coherent warm
-  // "frosted" tone regardless of which Style Engine image set was chosen,
-  // rather than six different colored panels.
   const panelTint = LUX_PANEL;
 
   const doc = await PDFDocument.create();
@@ -155,16 +150,13 @@ export async function renderIdeaBookPdf(
     sansBold: await doc.embedFont(sansBoldBytes),
   };
 
-  // The wildcard banner reuses the style's cover shot (rather than a 5th
-  // generated image per style) — both are "special moment" full-bleed
-  // banners, so sharing one image keeps the Style Engine to a 6x4 image
-  // matrix instead of 6x5.
-  const styleDir = path.join(STYLES_DIR, style.id);
+  // The wildcard banner reuses the cover shot (rather than a 5th generated
+  // image) — both are "special moment" full-bleed banners.
   const [coverBytes, mood1Bytes, mood2Bytes, mood3Bytes] = await Promise.all([
-    readFile(path.join(styleDir, "cover.jpg")),
-    readFile(path.join(styleDir, "mood-1.jpg")),
-    readFile(path.join(styleDir, "mood-2.jpg")),
-    readFile(path.join(styleDir, "mood-3.jpg")),
+    readFile(path.join(IMAGES_DIR, "cover.jpg")),
+    readFile(path.join(IMAGES_DIR, "mood-1.jpg")),
+    readFile(path.join(IMAGES_DIR, "mood-2.jpg")),
+    readFile(path.join(IMAGES_DIR, "mood-3.jpg")),
   ]);
 
   const coverImage = await doc.embedJpg(coverBytes);

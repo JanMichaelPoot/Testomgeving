@@ -856,3 +856,36 @@ Stripe, Claude API, Resend, PostHog).
       crops van de badge en de callout-box gecontroleerd; nog steeds exact
       9 pagina's, geen afkapping, geen lay-outregressie. `tsc --noEmit`/
       `eslint .`/`npm run build` schoon.
+
+- [x] Stap 19 — Style Engine verwijderd, vervangen door één vaste
+      "vrolijke luxe"-beeldset, op expliciet verzoek. De 6-stijlenkeuze uit
+      Stap 12 (bloom/warm/bold/edge/calm/vivid, 24 afbeeldingen, een aparte
+      wizard-pagina) is volledig verwijderd — er is geen stijlkeuze meer,
+      elk Idea Book gebruikt voortaan dezelfde vaste illustratieset.
+      **Nieuwe beelden**: 4 nieuwe afbeeldingen (cover + 3 sfeerbeelden)
+      gegenereerd via Gemini met een expliciete "vrolijk + luxueus"-prompt
+      (stralend goudlicht, edelsteen-tinten emerald/saffier/koraal met
+      gouden bladgoud-accenten, "uplifting en celebratory" maar verfijnd) —
+      bewust gekozen boven het hergebruiken van een van de 6 bestaande
+      stijlen, na overleg. Opgeslagen als
+      `public/illustrations/idea-book/{cover,mood-1,mood-2,mood-3}.jpg` via
+      het nieuwe `scripts/generate-idea-book-illustrations.ts` (vervangt
+      `generate-style-illustrations.ts`, dat samen met de oude 24
+      afbeeldingen en `src/lib/styleEngine.ts` is verwijderd). De
+      goud/emerald "quiet luxury"-chrome uit Stap 18 (badge, kaders,
+      banners) blijft bewust ongewijzigd — expliciet zo gekozen toen
+      hierover gevraagd is — en het resultaat past er verrassend goed bij:
+      de vrolijke, edelsteenkleurige illustraties met bladgoud-details
+      sluiten naadloos aan op de gedempte goud/emerald PDF-kaders.
+      **Opgeschoond**: `IntakeAnswers.styleId` en de bijbehorende
+      "style-cards"-veldsoort, wizard-pagina-item, `dict.intake.style`- en
+      `EMPTY_ANSWERS.styleId`-verwijzingen zijn allemaal verwijderd;
+      `renderIdeaBookPdf()` heeft geen `styleId`-parameter meer en laadt de
+      vaste afbeeldingen rechtstreeks. De laatste wizard-pagina ("Laatste
+      stap") toont nu alleen nog de gezelschapsvraag.
+      Getest: de volledige wizard doorlopen — geen stijlkeuze meer
+      zichtbaar op de laatste pagina — en een echte testgeneratie zowel
+      lokaal als op productie (windowinto.nl) gedraaid; de gedownloade
+      PDF's cover-, idee- en wildcard-pagina's tonen overal consequent de
+      nieuwe vaste vrolijke-luxe-beelden, nog steeds exact 9 pagina's.
+      `tsc --noEmit`/`eslint .`/`npm run build` schoon.
