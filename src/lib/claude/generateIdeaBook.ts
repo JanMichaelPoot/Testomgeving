@@ -3,57 +3,28 @@ import {
   WINDOW_VOICE_SYSTEM_PROMPT,
   extractToolInput,
 } from "@/lib/claude/shared";
-import { languageLabel, type Locale } from "@/lib/language";
+import { languageLabel, type Locale } from "@/lib/locale";
 import type { IntakeAnswers } from "@/app/intake/actions";
 
-export interface IdeaPractical {
-  estimated_cost: string;
-  duration: string;
-  difficulty: "easy" | "moderate" | "demanding";
-  preparation: string;
-}
-
-// Shared between the PDF renderer and the /plan page so both ever show the
-// exact same wording for a given difficulty value, in either locale.
-export const DIFFICULTY_LABELS: Record<Locale, Record<IdeaPractical["difficulty"], string>> = {
-  nl: { easy: "Makkelijk", moderate: "Gemiddeld", demanding: "Uitdagend" },
-  en: { easy: "Easy", moderate: "Moderate", demanding: "Demanding" },
-};
-
-export interface IdeaLocation {
-  name: string;
-  address: string;
-  city: string;
-}
-
-export interface IdeaBookEntry {
-  title: string;
-  intro: string;
-  why_it_fits: string;
-  details: string[];
-  first_action: string;
-  practical: IdeaPractical;
-  location: IdeaLocation | null;
-  requirements: string[];
-  image_suggestion: string;
-}
-
-export interface GeneratedIdeaBook {
-  profile_summary: string;
-  must_haves: string[];
-  preferences: string[];
-  ideas: IdeaBookEntry[];
-  wildcard: IdeaBookEntry;
-  labels: {
-    steps_heading: string;
-    first_action_heading: string;
-    wildcard_heading: string;
-    time_label: string;
-    cost_label: string;
-    location_heading: string;
-    requirements_heading: string;
-  };
-}
+// Re-exported so existing server-side callers (plan/data.ts, pdf/ideaBook.ts,
+// email/windowPlan.ts) keep importing from this file — but the type/constant
+// definitions themselves live in ideaBookTypes.ts, which client components
+// (IdeaDetail, IdeaBookViewer) import directly instead, since importing
+// anything from *this* file would drag the Anthropic client above into the
+// browser bundle.
+export {
+  DIFFICULTY_LABELS,
+  type IdeaPractical,
+  type IdeaLocation,
+  type IdeaBookEntry,
+  type GeneratedIdeaBook,
+} from "@/lib/claude/ideaBookTypes";
+import type {
+  IdeaBookEntry,
+  GeneratedIdeaBook,
+  IdeaPractical,
+  IdeaLocation,
+} from "@/lib/claude/ideaBookTypes";
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 

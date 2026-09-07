@@ -713,3 +713,63 @@ Stripe, Claude API, Resend, PostHog).
       loopt, wat lastig te forceren is via losse browseracties) — nog niet
       apart met een race-conditie live gereproduceerd. `tsc --noEmit`/
       `eslint .`/`npm run build` schoon.
+
+- [x] Stap 16 — Start van Fase 2 uit het "WINDOW Ervaringsontwerp"-artifact:
+      de Idea Book op `/plan` is niet langer één lange scrollpagina met alle
+      ideeën onder elkaar, maar een echt "boek" — één scherm tegelijk, met
+      navigatie, exact het "Idea Book-layout als boek"-item uit de roadmap
+      (must, de grootste structurele wijziging van Fase 2).
+      Nieuw `src/components/window/IdeaBookViewer.tsx` (client component):
+      bouwt intern een schermenlijst — profiel, voorkeurenoverzicht (alleen
+      als er daadwerkelijk moet-haves/voorkeuren zijn — anders overgeslagen,
+      conform het ontwerp), één scherm per idee (hergebruikt de bestaande
+      `IdeaDetail`, nu met een "Idee X van 6"-teller erboven), een apart
+      gekaderd wildcard-scherm (eigen kadering/achtergrond, de intro-zin
+      "Dit stellen we normaal niet zomaar voor — maar bij jou past het
+      toch.", en "Ik durf het aan"/"Nee, laat maar" als afsluitende
+      acties — beide voeren gewoon door naar het laatste scherm, er is geen
+      inhoudelijk verschil, maar de copy geeft de niet-veroordelende framing
+      die het ontwerp vroeg), en een laatste "opslaan/delen"-scherm
+      (hergebruikt de bestaande PDF-downloadlink en `ShareButton`). Een
+      gesegmenteerde voortgangsbalk bovenaan (zelfde visuele patroon als de
+      intake-wizard) plus Terug/Verder-navigatie eronder.
+      `src/app/plan/page.tsx` is fors ingekort: de handmatige rendering van
+      profiel/voorkeuren/ideeën/wildcard/acties is vervangen door één
+      `<IdeaBookViewer />`-aanroep met de plandata als props.
+      **Metadata per idee** en **opslaan/delen op boek-niveau** stonden ook
+      als Fase 2-items op de roadmap, maar waren feitelijk al gebouwd (de
+      Actionability Layer resp. de Fase A-deelfunctie) — nu automatisch ook
+      zichtbaar per boek-scherm in plaats van in de oude lange lijst.
+      **Eerste-actie als apart moment**: bewust NIET als een volledig eigen
+      scherm per idee gebouwd (dat zou het aantal schermen verdubbelen) —
+      blijft de bestaande, apart omkaderde call-out binnen elk idee-scherm,
+      wat de kern van dat ontwerp-item (visuele nadruk, geen aparte
+      keuzevraag) al dekt.
+      **Bewust ongewijzigd**: `/shared/[id]` (de publieke deel-preview)
+      blijft de platte, scrollbare lijst — dat is een expres andere
+      leesvorm voor iemand die een boek toegestuurd kreeg en het in één
+      oogopslag wil kunnen beoordelen, niet de eigenaar die het net heeft
+      gekocht.
+      Onderweg een bug gevonden en gefixt vóórdat 'm live kon gaan: het
+      importeren van `IdeaDetail`/`IdeaBookViewer` in een client-component-
+      boom trok via `DIFFICULTY_LABELS` (geïmporteerd uit
+      `generateIdeaBook.ts`) ook de Anthropic-client-initialisatie
+      (`src/lib/anthropic.ts`) de browserbundel in — die weigert te
+      draaien in een browseromgeving (bewuste SDK-veiligheidscheck tegen
+      het lekken van de API-key) en gaf een runtime "It looks like you're
+      running in a browser-like environment"-crash op `/plan`, ondanks een
+      groene `npm run build`. Simpele `import type`-scheiding loste dit
+      niet op omdat `DIFFICULTY_LABELS` een echte runtime-waarde is, niet
+      een type. Opgelost door de types/constante te verplaatsen naar een
+      nieuw, bewust server-vrij bestand
+      (`src/lib/claude/ideaBookTypes.ts`, geen enkele runtime-import) —
+      `generateIdeaBook.ts` re-exporteert alles daarvandaan voor de
+      bestaande server-only aanroepers, terwijl `IdeaDetail`/
+      `IdeaBookViewer` nu rechtstreeks uit het veilige bestand importeren.
+      Getest: de volledige wizard opnieuw doorlopen en een testgeneratie
+      gedraaid — het boek doorlopen van profiel → voorkeuren → alle 6
+      ideeën (met correcte "Idee X van 6"-teller en persoonlijke
+      why-it-fits-teksten) → wildcard (met de afwijkende kadering en
+      "Ik durf het aan") → het afsluitende download/deel-scherm, inclusief
+      de volledig gevulde voortgangsbalk. `tsc --noEmit`/`eslint .`/
+      `npm run build` schoon ná de fix.

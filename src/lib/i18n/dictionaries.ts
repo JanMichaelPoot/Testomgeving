@@ -75,6 +75,21 @@ export interface Dictionary {
     emailedCopy: string;
     shareButtonLabel: string;
     shareCopiedLabel: string;
+    book: {
+      profileEyebrow: string;
+      preferencesEyebrow: string;
+      viewIdeas: string;
+      back: string;
+      next: string;
+      ideaLabel: string;
+      ofWord: string;
+      wildcardLabel: string;
+      wildcardIntro: string;
+      wildcardYes: string;
+      wildcardNo: string;
+      doneHeading: string;
+      doneSub: string;
+    };
   };
   shared: {
     pageTitle: string;
@@ -295,6 +310,21 @@ const nl: Dictionary = {
     emailedCopy: "We hebben ook een kopie gemaild.",
     shareButtonLabel: "Deel je Idea Book",
     shareCopiedLabel: "Link gekopieerd!",
+    book: {
+      profileEyebrow: "Dit hebben we over je ontdekt",
+      preferencesEyebrow: "Waar we rekening mee hielden",
+      viewIdeas: "Bekijk de ideeën",
+      back: "Terug",
+      next: "Verder",
+      ideaLabel: "Idee",
+      ofWord: "van",
+      wildcardLabel: "Het wilde idee",
+      wildcardIntro: "Dit stellen we normaal niet zomaar voor — maar bij jou past het toch.",
+      wildcardYes: "Ik durf het aan",
+      wildcardNo: "Nee, laat maar",
+      doneHeading: "Dat was 'm — jouw Idea Book",
+      doneSub: "Bewaar 'm, deel 'm, of begin gewoon met de eerste stap.",
+    },
   },
   shared: {
     pageTitle: "Gedeeld Idea Book — WINDOW",
@@ -675,6 +705,21 @@ const en: Dictionary = {
     emailedCopy: "We've also emailed a copy.",
     shareButtonLabel: "Share your Idea Book",
     shareCopiedLabel: "Link copied!",
+    book: {
+      profileEyebrow: "Here's what we picked up about you",
+      preferencesEyebrow: "What we kept in mind",
+      viewIdeas: "See the ideas",
+      back: "Back",
+      next: "Next",
+      ideaLabel: "Idea",
+      ofWord: "of",
+      wildcardLabel: "The wild idea",
+      wildcardIntro: "We wouldn't normally suggest this — but for you, it actually fits.",
+      wildcardYes: "I'm in",
+      wildcardNo: "No, skip this one",
+      doneHeading: "That's it — your Idea Book",
+      doneSub: "Save it, share it, or just start with the first step.",
+    },
   },
   shared: {
     pageTitle: "Shared Idea Book — WINDOW",

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/window/SiteHeader";
-import { IdeaDetail } from "@/components/window/IdeaDetail";
-import { ShareButton } from "@/components/window/ShareButton";
+import { IdeaBookViewer } from "@/components/window/IdeaBookViewer";
 import { GeneratingScreen } from "@/components/window/GeneratingScreen";
 import {
   getOrCreateWindowPlan,
@@ -139,97 +138,21 @@ export default async function PlanPage(props: PageProps<"/plan">) {
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12 sm:px-10">
-        <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
-          {dict.plan.eyebrow}
-        </p>
-        <h1 className="mt-2 font-serif text-3xl text-ink sm:text-4xl">
-          {plan.title}
-        </h1>
-        <p className="mt-4 text-ink/70">{plan.profile_summary}</p>
-
-        {(mustHaves.length > 0 || preferences.length > 0) && (
-          <div className="mt-6 flex flex-wrap gap-x-10 gap-y-4 text-sm">
-            {mustHaves.length > 0 && (
-              <div>
-                <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
-                  {dict.plan.mustHaves}
-                </p>
-                <ul className="mt-1 space-y-1 text-ink/70">
-                  {mustHaves.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {preferences.length > 0 && (
-              <div>
-                <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
-                  {dict.plan.preferences}
-                </p>
-                <ul className="mt-1 space-y-1 text-ink/70">
-                  {preferences.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        )}
-
-        <h2 className="mt-10 text-xs font-medium uppercase tracking-widest text-accent-dark">
-          {dict.plan.possibilitiesHeading}
-        </h2>
-        <ol className="mt-4 space-y-8">
-          {ideas.map((idea, index) => (
-            <li key={index} className="border-b border-ink/10 pb-8 last:border-b-0 last:pb-0">
-              <IdeaDetail
-                idea={idea}
-                index={index}
-                locale={locale}
-                labels={labels}
-                dict={dict.pdfChrome}
-              />
-            </li>
-          ))}
-        </ol>
-
-        {wildcard && (
-          <div className="mt-8 rounded-2xl border border-accent-dark/30 bg-cream px-6 py-5">
-            <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
-              {labels.wildcard_heading || dict.plan.wildcardFallback}
-            </p>
-            <div className="mt-2">
-              <IdeaDetail
-                idea={wildcard}
-                index={null}
-                locale={locale}
-                labels={labels}
-                dict={dict.pdfChrome}
-              />
-            </div>
-          </div>
-        )}
-
-        <div className="mt-10 flex flex-wrap items-center gap-4">
-          {plan.pdf_url && (
-            <a
-              href={plan.pdf_url}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent-dark"
-            >
-              {dict.plan.downloadPdf}
-            </a>
-          )}
-          <ShareButton
-            url={`${process.env.NEXT_PUBLIC_SITE_URL}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
-            label={dict.plan.shareButtonLabel}
-            copiedLabel={dict.plan.shareCopiedLabel}
-          />
-          {!testSessionId && (
-            <p className="text-sm text-ink/50">{dict.plan.emailedCopy}</p>
-          )}
-        </div>
+        <IdeaBookViewer
+          title={plan.title}
+          profileSummary={plan.profile_summary ?? ""}
+          mustHaves={mustHaves}
+          preferences={preferences}
+          ideas={ideas}
+          wildcard={wildcard}
+          locale={locale}
+          labels={labels}
+          pdfChromeDict={dict.pdfChrome}
+          planDict={dict.plan}
+          pdfUrl={plan.pdf_url}
+          shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
+          showEmailedCopy={!testSessionId}
+        />
       </main>
     </div>
   );

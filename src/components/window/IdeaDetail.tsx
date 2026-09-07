@@ -1,4 +1,4 @@
-import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
+import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { mapsSearchUrl } from "@/lib/maps";
 import type { Locale } from "@/lib/language";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
