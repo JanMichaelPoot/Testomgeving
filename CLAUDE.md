@@ -773,3 +773,42 @@ Stripe, Claude API, Resend, PostHog).
       "Ik durf het aan") → het afsluitende download/deel-scherm, inclusief
       de volledig gevulde voortgangsbalk. `tsc --noEmit`/`eslint .`/
       `npm run build` schoon ná de fix.
+
+- [x] Stap 17 — Start van Fase 3 uit het "WINDOW Ervaringsontwerp"-artifact:
+      op verzoek alleen de eerste-actie-herinnering per e-mail (de overige
+      Fase 3-items — geschiedenis/meerdere Idea Books, leren van eerdere
+      ideeën, feedback na uitvoering, samen kiezen — vragen om een account-
+      systeem, een notificatiekanaal of raken de expliciet uitgesloten
+      "Window for Two"-feature, en zijn bewust niet gebouwd zonder eerst de
+      gebruiker daarover te laten kiezen; zie de vraag die hieraan
+      voorafging).
+      Nieuwe geplande job `src/app/api/cron/first-action-reminder/route.ts`
+      (aangeroepen door Vercel Cron, geconfigureerd in het nieuwe
+      `vercel.json` op elke dag 09:00 UTC): stuurt precies één e-mail per
+      Idea Book, 2 tot 9 dagen na het aanmaken, met de titel en
+      `first_action` van het eerste idee, naar wie het boek destijds
+      daadwerkelijk ontving (koper of cadeau-ontvanger). Optioneel
+      beveiligd met een `CRON_SECRET`-omgevingsvariabele (Vercel stuurt
+      deze automatisch mee als `Authorization: Bearer`-header zodra de
+      env var op het project staat — zonder die variabele draait de route
+      gewoon open, voor lokaal testen).
+      Migratie `0007_first_action_reminder.sql` (**nog handmatig uit te
+      voeren**, zoals eerdere migraties) voegt twee kolommen toe aan
+      `window_plans`: `recipient_email` (vastgelegd in
+      `getOrCreateWindowPlan` op het moment van genereren — bewust niet
+      achteraf uit Stripe herleid, want dat zou de cron-job per boek een
+      losse Stripe-aanroep kosten en van Stripe's bereikbaarheid laten
+      afhangen) en `first_action_reminder_sent_at` (voorkomt dubbel
+      versturen bij een volgende cron-run). Test-Idea Books (via de
+      betaal-bypass) krijgen nooit een `recipient_email` en worden dus
+      vanzelf overgeslagen. Nieuwe `src/lib/email/reminder.ts`
+      (`sendFirstActionReminderEmail`) volgt hetzelfde Resend-patroon als
+      de bestaande aankoopbevestigingsmail.
+      Getest: `tsc --noEmit`/`eslint .`/`npm run build` schoon, inclusief
+      de nieuwe route in de build-output. Een echte end-to-end test (een
+      verzonden herinnering, met een reëel verlopen wachttijd van dagen)
+      kon in deze sessie niet uitgevoerd worden — vereist migratie 0007
+      tegen de echte Supabase-database én minstens twee dagen wachten na
+      een echte betaling. Nog te doen door de gebruiker: migratie 0007
+      draaien, en optioneel `CRON_SECRET` instellen op zowel Vercel als in
+      `.env.local`.

@@ -99,7 +99,17 @@ export interface Dictionary {
     notFoundHeading: string;
     notFoundBody: string;
   };
-  email: { subjectSuffix: string; heading: string; viewOnline: string };
+  email: {
+    subjectSuffix: string;
+    heading: string;
+    viewOnline: string;
+    reminder: {
+      subject: string;
+      heading: string;
+      intro: string;
+      ctaLabel: string;
+    };
+  };
   pdfChrome: {
     coverEyebrow: string;
     coverTagline: string;
@@ -338,6 +348,12 @@ const nl: Dictionary = {
     subjectSuffix: "je mogelijkheden zijn klaar",
     heading: "Jouw mogelijkheden",
     viewOnline: "Bekijk je Idea Book online",
+    reminder: {
+      subject: "Heb je je eerste stap al gezet?",
+      heading: "Nog even dit",
+      intro: "Een paar dagen geleden kreeg je je Idea Book. Eén van de ideeën was {title} — {action}",
+      ctaLabel: "Bekijk je Idea Book",
+    },
   },
   pdfChrome: {
     coverEyebrow: "JOUW WINDOW IDEA BOOK",
@@ -733,6 +749,12 @@ const en: Dictionary = {
     subjectSuffix: "your possibilities are ready",
     heading: "Your possibilities",
     viewOnline: "View your Idea Book online",
+    reminder: {
+      subject: "Have you taken your first step yet?",
+      heading: "Just a nudge",
+      intro: "A few days ago you got your Idea Book. One of the ideas was {title} — {action}",
+      ctaLabel: "View your Idea Book",
+    },
   },
   pdfChrome: {
     coverEyebrow: "YOUR WINDOW IDEA BOOK",

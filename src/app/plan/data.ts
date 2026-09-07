@@ -198,6 +198,16 @@ export async function getOrCreateWindowPlan(
     const giftRecipientEmail = checkoutSession.metadata?.gift_recipient_email;
     const deliveryEmail = giftRecipientEmail || customerEmail;
 
+    // Captured once here rather than re-derived from Stripe later — the
+    // scheduled first-action reminder (see api/cron/first-action-reminder)
+    // needs a delivery address days after this checkout session is created,
+    // and re-fetching every plan's Stripe session on a cron run would be
+    // both slower and a needless dependency on Stripe staying reachable.
+    await supabase
+      .from("window_plans")
+      .update({ recipient_email: deliveryEmail })
+      .eq("id", plan.id);
+
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
     try {
       await sendIdeaBookEmail({

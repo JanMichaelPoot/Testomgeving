@@ -142,6 +142,8 @@ export interface Database {
           labels_json: Record<string, string>;
           pdf_url: string | null;
           image_url: string | null;
+          recipient_email: string | null;
+          first_action_reminder_sent_at: string | null;
           created_at: string;
         };
         Insert: {
@@ -158,6 +160,8 @@ export interface Database {
           labels_json?: Record<string, string>;
           pdf_url?: string | null;
           image_url?: string | null;
+          recipient_email?: string | null;
+          first_action_reminder_sent_at?: string | null;
           created_at?: string;
         };
         Update: Partial<
