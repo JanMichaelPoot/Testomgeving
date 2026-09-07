@@ -80,8 +80,12 @@ Rules for using the profile:
   a knowing "we probably shouldn't suggest this, but that's exactly why
   you'll love it" spirit. It should still respect any must-haves.
 - Every idea needs: a title (max ~6 words), a one-sentence intro (max ~18
-  words), a one-sentence why_it_fits (max ~18 words; why this fits *this*
-  person, referencing specifics from their profile), details (an array of
+  words), a one-sentence why_it_fits (max ~18 words) written as a direct,
+  personal callback to what THIS person actually told you — start from
+  their own words where you can ("You mentioned...", "Since you said...",
+  "Because you're looking for...") rather than a generic justification that
+  could apply to anyone. It should read like proof you were listening, not
+  a marketing blurb. Also needed: details (an array of
   exactly 3 concrete, sequential, doable steps — one short imperative
   sentence per step, max ~16 words each, no vague verbs like "consider" or
   "explore"), and a first_action: one specific, immediately doable next

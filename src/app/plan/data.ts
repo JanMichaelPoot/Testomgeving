@@ -10,7 +10,11 @@ import type { Database } from "@/types/database";
 type WindowPlanRow = Database["public"]["Tables"]["window_plans"]["Row"];
 type ServiceRoleClient = ReturnType<typeof createServiceRoleClient>;
 
-export class PlanNotReadyError extends Error {}
+export class PlanNotReadyError extends Error {
+  constructor(message: string, public reason: "unpaid" | "generating") {
+    super(message);
+  }
+}
 
 // A "pending" row older than this is assumed to belong to a crashed/failed
 // attempt (e.g. the server process died mid-generation) rather than one
@@ -146,7 +150,8 @@ export async function getOrCreateWindowPlan(
 
   if (checkoutSession.payment_status !== "paid") {
     throw new PlanNotReadyError(
-      "We haven't confirmed your payment yet. If you just completed checkout, refresh in a moment."
+      "We haven't confirmed your payment yet. If you just completed checkout, refresh in a moment.",
+      "unpaid"
     );
   }
 
@@ -161,7 +166,8 @@ export async function getOrCreateWindowPlan(
   const existingPlan = resolveExistingPlan(await findExistingPlan(supabase, sessionId));
   if (existingPlan === "generating") {
     throw new PlanNotReadyError(
-      "We're still putting your Idea Book together — refresh in a moment."
+      "We're still putting your Idea Book together — refresh in a moment.",
+      "generating"
     );
   }
   if (existingPlan) return existingPlan;
@@ -220,7 +226,8 @@ export async function getOrCreateTestWindowPlan(
   const existingPlan = resolveExistingPlan(await findExistingPlan(supabase, sessionId));
   if (existingPlan === "generating") {
     throw new PlanNotReadyError(
-      "We're still putting your Idea Book together — refresh in a moment."
+      "We're still putting your Idea Book together — refresh in a moment.",
+      "generating"
     );
   }
   if (existingPlan) return existingPlan;

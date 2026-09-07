@@ -24,6 +24,7 @@ type FieldConfig =
       sub?: string;
       placeholder: string;
       optional?: boolean;
+      optionalHint?: string;
       suggestions?: string[];
     }
   | { id: StepId; type: "chips"; label: string; sub?: string; options: Option[] }
@@ -59,6 +60,8 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           sub: dict.situation.sub,
           placeholder: dict.situation.placeholder,
           suggestions: dict.situation.suggestions,
+          optional: true,
+          optionalHint: dict.situation.optionalHint,
         },
         {
           id: "purpose",
@@ -318,6 +321,9 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
               rows={3}
               className="mt-3 w-full rounded-2xl border border-ink/15 bg-paper px-4 py-3 text-ink shadow-sm outline-none placeholder:text-ink/35 focus:border-accent"
             />
+            {field.optionalHint && !(answers[field.id] as string).trim() && (
+              <p className="mt-2 text-xs text-ink/45">{field.optionalHint}</p>
+            )}
           </div>
         );
       case "chips": {
@@ -326,7 +332,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
           <div key={field.id}>
             <p className="font-medium text-ink">{field.label}</p>
             {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
-            <div className="mt-3 flex flex-wrap gap-2.5">
+            <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
               {field.options.map((option) => {
                 const selected = currentValue === option.value;
                 return (
@@ -336,10 +342,10 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
                     aria-pressed={selected}
                     onClick={() => setField(field.id, option.value)}
                     className={cn(
-                      "rounded-full border px-4 py-2 text-sm transition-colors",
+                      "min-h-11 rounded-2xl border-2 px-4 py-3.5 text-left text-sm font-medium shadow-sm transition-all hover:shadow-md",
                       selected
-                        ? "border-accent bg-accent text-white"
-                        : "border-ink/15 bg-paper text-ink hover:border-accent/50"
+                        ? "border-accent bg-accent/10 text-accent-dark"
+                        : "border-ink/12 bg-paper text-ink hover:border-accent/40"
                     )}
                   >
                     {option.label}
@@ -355,7 +361,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
           <div key={field.id}>
             <p className="font-medium text-ink">{field.label}</p>
             {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
-            <div className="mt-3 flex flex-wrap gap-2.5">
+            <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
               {field.options.map((option) => {
                 const selected = answers.solutionTypes.includes(option.value);
                 return (
@@ -365,10 +371,10 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
                     aria-pressed={selected}
                     onClick={() => toggleSolutionType(option.value)}
                     className={cn(
-                      "rounded-full border px-4 py-2 text-sm transition-colors",
+                      "min-h-11 rounded-2xl border-2 px-4 py-3.5 text-left text-sm font-medium shadow-sm transition-all hover:shadow-md",
                       selected
-                        ? "border-accent bg-accent text-white"
-                        : "border-ink/15 bg-paper text-ink hover:border-accent/50"
+                        ? "border-accent bg-accent/10 text-accent-dark"
+                        : "border-ink/12 bg-paper text-ink hover:border-accent/40"
                     )}
                   >
                     {option.label}

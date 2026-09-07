@@ -654,3 +654,62 @@ Stripe, Claude API, Resend, PostHog).
       `/shared/[id]` met een echte en een niet-bestaande id (nette
       "bestaat niet"-pagina); PDF-linkannotaties gecontroleerd met
       PyMuPDF. `tsc --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 15 — Start van Fase 1 uit het gepubliceerde "WINDOW
+      Ervaringsontwerp"-artifact: de vijf quick-wins, geïmplementeerd
+      binnen de bestaande 5-pagina-wizard (geen herbouw naar het
+      aspirationele 18-schermenmodel uit dat ontwerp — dat hoort bij
+      Fase 2's structurele wijzigingen).
+      **Antwoordkaarten i.p.v. kale opties**: de `chips`- en
+      `multi-chips`-velden in `IntakeWizard.tsx` (doel, gezelschap,
+      type-mogelijkheden) zijn omgezet van kleine `rounded-full`-pilletjes
+      in een `flex-wrap`-rij naar grotere `rounded-2xl`-kaarten (44px+
+      tikgebied, subtiele schaduw, accent-rand + lichte accent-vulling bij
+      selectie i.p.v. een volle kleurvulling) in een responsive 1-/2-
+      koloms grid — exact het patroon uit het designsysteem-hoofdstuk van
+      het ontwerp. Sliders (de dial-achtige velden) blijven ongewijzigd
+      sliders, zoals het ontwerp ook expliciet aangeeft.
+      **Gesegmenteerde voortgang**: bleek al aanwezig (de voortgangsbalk
+      rendert al één segment per pagina, niet één doorlopende
+      percentagebalk) — geen wijziging nodig, alleen bevestigd tijdens het
+      testen.
+      **Zachte lege-staat-copy**: de eerste vraag ("Wat speelt er?") is nu
+      officieel optioneel (`optional: true` op het `situation`-veld) in
+      plaats van een verplicht veld dat de wizard blokkeert — met een
+      nieuwe, alleen-bij-leeg getoonde regel "Dat mag ook. We werken dan
+      met wat je hierna nog vertelt." (`dict.intake.situation.
+      optionalHint`), letterlijk de copy uit het ontwerp. `purpose` en
+      `purposeFollowUp` blijven bewust wél verplicht — dat is een
+      specifiekere vraag dan het ontwerp als "skipbaar" bedoelde.
+      **Fout- en laadstatussen**: `PlanNotReadyError`
+      (`src/app/plan/data.ts`) draagt nu een `reason: "unpaid" |
+      "generating"` in plaats van beide gevallen hetzelfde te behandelen.
+      Bij `"generating"` toont `/plan` niet langer de rode foutbox met een
+      handmatige "Vernieuwen"-link, maar een nieuwe
+      `GeneratingScreen`-component (`src/components/window/
+      GeneratingScreen.tsx`): roterende statusregels (exact de vier uit
+      het ontwerp: "Je situatie wordt gelezen…" → … → "Je Idea Book wordt
+      opgemaakt…") plus een automatische `router.refresh()` elke 5
+      seconden tot de generatie klaar is — geen volledige page-reload,
+      dus geen scroll-/state-verlies. De `"unpaid"`-tak (geen
+      betaalreferentie gevonden) behoudt de bestaande foutbox-stijl, want
+      dat is een echte actie-vereisende situatie, geen wachtmoment.
+      **Persoonlijker resultaat**: de systeemprompt in
+      `generateIdeaBook.ts` instrueert `why_it_fits` nu expliciet als een
+      directe terugverwijzing naar wat de gebruiker zelf aangaf ("Je
+      vermeldde...", "Omdat je op zoek bent naar...") in plaats van een
+      generieke onderbouwing — "moet lezen als bewijs dat er geluisterd
+      is, geen marketingtekst".
+      Getest: volledige wizard doorlopen in de browser (antwoordkaarten
+      op zowel 1- als 2-koloms breedte, lege-staat-hint verschijnt en
+      verdwijnt correct bij typen) en een volledige testgeneratie via de
+      bestaande test-bypass — de gegenereerde `why_it_fits`-teksten lazen
+      inderdaad als directe terugverwijzingen ("Je wilde alleen iets
+      nieuws proberen dit weekend, en dit is nieuw zonder overweldigend
+      te zijn."). De nieuwe `GeneratingScreen` zelf is bevestigd via
+      code-/typecontrole en de ongewijzigde staat van de rest van de
+      `/plan`-pagina (de "generating"-tak wordt alleen bereikt bij een
+      gelijktijdige tweede aanvraag terwijl een eerdere generatie nog
+      loopt, wat lastig te forceren is via losse browseracties) — nog niet
+      apart met een race-conditie live gereproduceerd. `tsc --noEmit`/
+      `eslint .`/`npm run build` schoon.

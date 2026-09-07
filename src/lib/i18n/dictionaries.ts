@@ -61,6 +61,11 @@ export interface Dictionary {
     errorNoPayment: string;
     errorGeneric: string;
     errorFallback: string;
+    generating: {
+      heading: string;
+      messages: string[];
+      autoRefreshNote: string;
+    };
     eyebrow: string;
     mustHaves: string;
     preferences: string;
@@ -112,7 +117,13 @@ export interface Dictionary {
       openness: { heading: string; subheading: string };
       final: { heading: string; subheading: string };
     };
-    situation: { label: string; sub: string; placeholder: string; suggestions: string[] };
+    situation: {
+      label: string;
+      sub: string;
+      placeholder: string;
+      suggestions: string[];
+      optionalHint: string;
+    };
     purpose: { label: string; options: Option[] };
     purposeFollowUp: Record<"self" | "gift" | "problem" | "curious", FollowUpCopy>;
     ageCategory: { label: string; options: Option[] };
@@ -265,6 +276,16 @@ const nl: Dictionary = {
       "Geen betalingsreferentie gevonden. Heb je net betaald? Gebruik dan de link uit je bevestigingsmail.",
     errorGeneric: "Er ging iets mis bij het samenstellen van je Idea Book.",
     errorFallback: "Er ging iets mis.",
+    generating: {
+      heading: "Je Idea Book wordt samengesteld…",
+      messages: [
+        "Je situatie wordt gelezen…",
+        "Zes mogelijkheden worden bedacht…",
+        "Je wildcard krijgt een laatste check…",
+        "Je Idea Book wordt opgemaakt…",
+      ],
+      autoRefreshNote: "Dit duurt meestal minder dan een minuut. Deze pagina ververst zichzelf.",
+    },
     eyebrow: "Jouw Idea Book",
     mustHaves: "Vereisten",
     preferences: "Voorkeuren",
@@ -346,6 +367,7 @@ const nl: Dictionary = {
         "Het is een gekke week geweest",
         "Ik weet het eigenlijk niet precies",
       ],
+      optionalHint: "Dat mag ook. We werken dan met wat je hierna nog vertelt.",
     },
     purpose: {
       label: "Waar ben je eigenlijk naar op zoek?",
@@ -634,6 +656,16 @@ const en: Dictionary = {
       "No payment reference was found. If you just paid, use the link from your confirmation email.",
     errorGeneric: "Something went wrong while putting your Idea Book together.",
     errorFallback: "Something went wrong.",
+    generating: {
+      heading: "Putting your Idea Book together…",
+      messages: [
+        "Reading through your situation…",
+        "Coming up with six possibilities…",
+        "Giving your wildcard one last check…",
+        "Laying out your Idea Book…",
+      ],
+      autoRefreshNote: "This usually takes under a minute. This page refreshes itself.",
+    },
     eyebrow: "Your Idea Book",
     mustHaves: "Must-haves",
     preferences: "Preferences",
@@ -715,6 +747,7 @@ const en: Dictionary = {
         "It's been a strange week",
         "Honestly, I'm not sure",
       ],
+      optionalHint: "That's fine too — we'll work with whatever you tell us next.",
     },
     purpose: {
       label: "What are you really after?",

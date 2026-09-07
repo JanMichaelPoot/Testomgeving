@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { IdeaDetail } from "@/components/window/IdeaDetail";
 import { ShareButton } from "@/components/window/ShareButton";
+import { GeneratingScreen } from "@/components/window/GeneratingScreen";
 import {
   getOrCreateWindowPlan,
   getOrCreateTestWindowPlan,
@@ -85,6 +86,18 @@ export default async function PlanPage(props: PageProps<"/plan">) {
       : await getOrCreateWindowPlan(checkoutSessionId!);
   } catch (err) {
     if (err instanceof PlanNotReadyError) {
+      if (err.reason === "generating") {
+        return (
+          <div className="flex min-h-full flex-col">
+            <SiteHeader locale={locale} dict={dict.header} />
+            <GeneratingScreen
+              heading={dict.plan.generating.heading}
+              messages={dict.plan.generating.messages}
+              autoRefreshNote={dict.plan.generating.autoRefreshNote}
+            />
+          </div>
+        );
+      }
       errorMessage = err.message;
     } else {
       // Don't leak internal error details (API keys, stack traces) to the
