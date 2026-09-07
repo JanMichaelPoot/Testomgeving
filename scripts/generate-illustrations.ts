@@ -16,6 +16,16 @@ interface Target {
 
 const PUBLIC_DIR = "public/illustrations";
 
+// The site's visual identity moved from painterly/watercolor illustration
+// to photorealistic "cheerful luxury" photography — gold and emerald,
+// matching the Idea Book PDF's restyle and the new fixed Idea Book
+// illustration set (see generate-idea-book-illustrations.ts). Passed
+// explicitly per generateIllustration() call rather than changing
+// gemini.ts's shared default, since that default may still be reused
+// elsewhere.
+const STYLE_PREFIX =
+  "Photorealistic, cinematic photograph — rich jewel-toned lighting in deep emerald and warm gold, a soft golden-hour glow, luxurious and inviting atmosphere, shot on a full-frame camera with shallow depth of field, high production value, joyful and elegant mood. No text, no words, no letters anywhere in the image, no illustration or painterly style — genuine photographic realism.";
+
 const TARGETS: Target[] = [
   {
     name: "landing-hero",
@@ -67,7 +77,7 @@ async function main() {
 
   for (const target of TARGETS) {
     console.log(`Generating ${target.name}...`);
-    const image = await generateIllustration(target.prompt, "4:3");
+    const image = await generateIllustration(target.prompt, "4:3", STYLE_PREFIX);
     const path = `${target.dir}/${target.name}.jpg`;
     writeFileSync(path, image.data);
     console.log(`Saved ${path} (${image.data.length} bytes)`);

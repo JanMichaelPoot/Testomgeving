@@ -1,9 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  /* WINDOW brand tokens — use these instead of raw hex codes throughout the app */
-  --color-accent: #6c3ce9;
-  --color-accent-dark: #4b2aa6;
+  /* WINDOW brand tokens — use these instead of raw hex codes throughout the
+     app. Deep emerald + antique gold ("quiet/cheerful luxury"), matching
+     the Idea Book PDF's restyle — deliberately replaces the original
+     purple/violet brand. --color-accent carries contrast-critical UI
+     (buttons, links, focus rings) so it stays dark enough for white text
+     at ~6.6:1; --color-gold is a secondary highlight only (borders,
+     badges), never body text or button fills, since gold-on-cream alone
+     doesn't clear AA contrast for text. */
+  --color-accent: #0e6b4f;
+  --color-accent-dark: #083d2d;
+  --color-gold: #b4924f;
   --color-ink: #1a1a2e;
   --color-cream: #f5f3ee;
   --color-paper: #ffffff;
@@ -12,6 +20,7 @@
 @theme inline {
   --color-accent: var(--color-accent);
   --color-accent-dark: var(--color-accent-dark);
+  --color-gold: var(--color-gold);
   --color-ink: var(--color-ink);
   --color-cream: var(--color-cream);
   --color-paper: var(--color-paper);

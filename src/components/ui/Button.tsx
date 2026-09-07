@@ -6,7 +6,10 @@ const base =
   "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream disabled:pointer-events-none disabled:opacity-50";
 
 const variants = {
-  primary: "bg-accent text-white shadow-sm hover:bg-accent-dark",
+  // The gold ring is a deliberate, small "foil edge" touch on the site's
+  // one most-repeated interactive element, echoing the Idea Book PDF's
+  // gold-foil borders without needing gold anywhere near body text.
+  primary: "bg-accent text-white shadow-sm ring-1 ring-inset ring-gold/50 hover:bg-accent-dark",
   secondary: "bg-paper text-ink shadow-sm hover:bg-ink/5",
   ghost: "text-ink hover:bg-ink/5",
 };

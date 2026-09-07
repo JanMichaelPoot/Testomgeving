@@ -149,7 +149,7 @@ export function IdeaBookViewer({
         )}
 
         {screen.type === "wildcard" && wildcard && (
-          <div className="rounded-2xl border border-accent-dark/30 bg-cream px-6 py-6">
+          <div className="rounded-2xl border-2 border-gold/60 bg-cream px-6 py-6">
             <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
               {labels.wildcard_heading || planDict.book.wildcardLabel}
             </p>

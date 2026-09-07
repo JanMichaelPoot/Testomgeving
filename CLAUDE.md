@@ -119,8 +119,13 @@ zodat we conform AVG zo min mogelijk herleidbare data bewaren.
 
 ## Merk & visuele identiteit
 
-- Accent: `#6C3CE9` (paars), donker-accent `#4B2AA6`, inkt-tekst `#1A1A2E`,
-  achtergrond crème `#F5F3EE`, wit `#FFFFFF`.
+- Accent: `#0E6B4F` (diep emerald), donker-accent `#083D2D`, goud-accent
+  `#B4924F` (alleen randen/badges, nooit body-tekst of knopvulling —
+  onvoldoende contrast tegen crème), inkt-tekst `#1A1A2E`, achtergrond
+  crème `#F5F3EE`, wit `#FFFFFF`. **Bijgewerkt in Stap 21** — oorspronkelijk
+  paars (`#6C3CE9`/`#4B2AA6`), op expliciet verzoek verschoven naar
+  emerald/goud om aan te sluiten bij de "quiet/vrolijke luxury"-restyle van
+  de Idea Book-PDF (Stap 18-19).
 - Serif voor headlines (bv. Google Font "Fraunces" of "Playfair Display"),
   clean sans-serif voor body (bv. "Inter").
 - Terugkerend visueel motief: het venster-frame (zie meegeleverde
@@ -889,3 +894,115 @@ Stripe, Claude API, Resend, PostHog).
       PDF's cover-, idee- en wildcard-pagina's tonen overal consequent de
       nieuwe vaste vrolijke-luxe-beelden, nog steeds exact 9 pagina's.
       `tsc --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 20 — Technische best-practices-audit uitgevoerd en drie van de
+      vier gekozen categorieën geïmplementeerd (security headers, SEO/
+      deel-previews, toegankelijkheid); de vierde (tests/error-monitoring)
+      bewust niet gestart, en een vijfde, apart aangedragen wens
+      (fotorealistische "vrolijke luxe"-restyle van de hele website) staat
+      nog open, in afwachting van gerichte vervolgvragen.
+      **Security headers**: nieuwe `src/proxy.ts`-logica (Next 16's naam
+      voor middleware) genereert per request een CSP-nonce en zet die zowel
+      als `x-nonce`-requestheader (zodat Next's eigen React-hydration-
+      scripts hem automatisch krijgen) als in de `Content-Security-Policy`-
+      responseheader, naast `'strict-dynamic'`. Dit was geen triviale
+      toevoeging: een simpele statische `script-src 'self'` in
+      `next.config.ts` bleek **live** de hele intake-pagina te breken
+      (Next.js' eigen inline hydration-scripts werden geblokkeerd,
+      geconstateerd via een echte production-server-test op poort 3001,
+      niet alleen `next dev`, omdat dev-mode een andere CSP-realiteit heeft
+      dan productie). Twee specifieke, inhoudelijk vaste Next.js-
+      bootstrapscripts kregen zelfs mét het nonce-mechanisme geen nonce
+      toegewezen (vermoedelijk een randgeval in Next 16.3.4's eigen
+      CSP-ondersteuning) — opgelost met twee expliciete `sha256`-hash-
+      allowlist-entries (geverifieerd stabiel over meerdere reloads, dus
+      geen `'unsafe-inline'`-omweg). `next.config.ts` zelf bevat nu alleen
+      nog de headers die geen per-request nonce nodig hebben:
+      X-Frame-Options, X-Content-Type-Options, Referrer-Policy,
+      Permissions-Policy.
+      **SEO & deel-previews**: `metadataBase`, Open Graph- en Twitter-Card-
+      metadata toegevoegd aan de root layout (hergebruikt de nieuwe
+      Idea Book-omslagillustratie als voorlopige deel-afbeelding) — en,
+      belangrijker, expliciet ook aan `/shared/[id]`, want zonder een eigen
+      `openGraph`-blok daar erft die pagina alleen de generieke titel/
+      afbeelding van de root layout (Next.js' metadata-merging vervangt
+      geneste objects niet automatisch met kind-informatie) — precies de
+      pagina die je eigen deel-functie (Fase A) bedoeld is om te delen.
+      Nieuwe `src/app/robots.ts` en `src/app/sitemap.ts`: `/plan`,
+      `/checkout`, `/intake` en `/shared/[id]` staan expliciet op
+      disallow/buiten de sitemap — `/shared/[id]` bevat iemands persoonlijk
+      gegenereerde Idea Book en hoort niet doorzoekbaar te worden voor
+      Google, ook al is de link zelf openbaar deelbaar.
+      **Toegankelijkheid**: de `PillSlider` bleek bij inspectie al correct
+      (`role="slider"`, volledige aria-value-attributen, pijltjestoetsen/
+      Home/End) — geen wijziging nodig. De echte gaten zaten in
+      `IntakeWizard.tsx`: visuele `<p>`-labels zijn vervangen door echte
+      `<label htmlFor>` (tekst-/locatievelden) resp. `role="group"` +
+      `aria-labelledby` (chip-/multi-chipgroepen), zodat een screenreader
+      elk veld daadwerkelijk aan zijn label koppelt. `LocationAutocomplete`
+      kreeg een optionele `id`-prop plus een lichte ARIA-combobox-behandeling
+      (`role="combobox"`, `aria-expanded`, `role="listbox"`/`role="option"`
+      op de suggestielijst) — bewust geen volledige toetsenbord-navigatie
+      door de suggesties, dat is een grotere, aparte uitbreiding.
+      **Opruiming**: vier ongebruikte default Next.js-scaffold-SVG's uit
+      `public/` verwijderd (`file.svg`, `globe.svg`, `next.svg`,
+      `vercel.svg`, plus het eveneens nergens gebruikte `window.svg`).
+      **Bewust niet gestart**: geautomatiseerde tests en error-monitoring
+      (Sentry o.i.d.) — een grotere, nieuwe investering die apart is
+      teruggelegd bij de gebruiker in plaats van er zomaar een keuze in te
+      maken (testframework, scope van dekking, wel/niet Sentry).
+      Getest: een echte **production**-server (`npm run build && npm run
+      start`, niet `next dev`) op een aparte poort, omdat CSP-gedrag tussen
+      dev en productie wezenlijk verschilt — responseheaders gecontroleerd
+      via `curl -I`, en de intake-pagina in een verse browsertab volledig
+      doorlopen (chip-selectie, label-koppeling via
+      `document.getElementById`) zonder consolefouten. `robots.txt`,
+      `sitemap.xml` en de Open Graph-tags met `curl` opgehaald en
+      inhoudelijk gecontroleerd. `tsc --noEmit`/`eslint .`/`npm run build`
+      schoon.
+
+- [x] Stap 21 — De hele live website (niet alleen de PDF) naar dezelfde
+      emerald/goud "vrolijke luxe"-identiteit gebracht, op expliciet
+      verzoek na Stap 20's audit: fotorealistische beelden i.p.v. de
+      bestaande aquarel-illustraties, én de merkkleur zelf van paars naar
+      emerald/goud.
+      **Nieuwe fotorealistische beelden**: `scripts/generate-illustrations.
+      ts` (de landingspagina-hero + de 5 wizard-stapillustraties)
+      hergebruikt dezelfde scène-omschrijvingen als voorheen, maar met een
+      volledig nieuwe, expliciet fotografische stijl-prefix ("Photorealistic,
+      cinematic photograph... deep emerald and warm gold... no illustration
+      or painterly style") i.p.v. de oude aquarel/editorial-stijl — een
+      bewuste mediumwissel, niet alleen een kleurwissel. De eerste
+      hero-generatie viel te amber-gedomineerd uit vergeleken met de andere
+      vijf (die sterk emerald+goud troffen, zoals een emerald bankierslamp
+      met messing en een kamer vol boekenkasten); opnieuw gegenereerd met
+      een sterker op emerald gerichte prompt tot het resultaat zichtbaar
+      aansloot bij de rest van de set.
+      **Merkkleur zelf verschoven**: `src/app/globals.css`'s twee bestaande
+      Tailwind-tokens (`--color-accent`, `--color-accent-dark`) zijn
+      herzien van paars naar emerald, plus een nieuw `--color-gold`-token
+      — omdat dit via CSS-variabelen loopt (precies waarom `CLAUDE.md` al
+      vanaf het begin tokens i.p.v. losse hex-codes voorschreef) kleurde de
+      hele site in één keer mee, zonder de 14 bestandsherverwijzingen naar
+      `accent`/`accent-dark` één voor één te hoeven aanpassen. Gouden
+      accenten bewust beperkt tot twee betekenisvolle, contrastveilige
+      plekken in plaats van overal: een subtiele goudrand op de primaire
+      knop (`Button.tsx`, "foil edge"-gevoel op het meest herhaalde
+      interactie-element) en een dikkere goudrand op het wildcard-kader in
+      `IdeaBookViewer.tsx` (echoot de goudframing van de wildcard-pagina in
+      de PDF). Bewust géén goud voor body-tekst of knopvulling — onvoldoende
+      contrast tegen crème voor WCAG AA, zoals ook expliciet toegelicht bij
+      het kiezen van de kleurwaarden.
+      `CLAUDE.md`'s eigen "Merk & visuele identiteit"-sectie (onderdeel van
+      de oorspronkelijke bouwopdracht, niet alleen het voortgangslogboek)
+      is bijgewerkt naar de nieuwe kleurwaarden, met een verwijzing naar dit
+      stap-nummer — anders zou dat brondocument voortaan feitelijk onjuist
+      zijn.
+      Getest: een echte productie-server opnieuw opgestart na de
+      kleurwijziging (`npm run build && npm run start`), en de live
+      dev-preview doorlopen — landingspagina (nieuwe hero, emerald CTA-knop
+      met zichtbare goudrand), intake-wizard (nieuwe stap-foto, emerald
+      geselecteerde kaarten, emerald voortgangsbalk) pagina voor pagina
+      gecontroleerd. Alle zes nieuwe beelden zijn stuk voor stuk visueel
+      geïnspecteerd vóór ze werden geaccepteerd. `tsc --noEmit`/`eslint .`/
+      `npm run build` schoon.
