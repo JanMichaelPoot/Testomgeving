@@ -1006,3 +1006,59 @@ Stripe, Claude API, Resend, PostHog).
       gecontroleerd. Alle zes nieuwe beelden zijn stuk voor stuk visueel
       geïnspecteerd vóór ze werden geaccepteerd. `tsc --noEmit`/`eslint .`/
       `npm run build` schoon.
+
+- [x] Stap 22 — Volledige visuele herbouw van de Idea Book-PDF, op basis
+      van een aangeleverd mockup-beeld ("Blind Date With Your Partner":
+      full-bleed foto, donkere gradient, goud-badge rechtsboven, frosted
+      glass-kaarten, gouden CTA-pil). Vooraf afgestemd wat wél en niet kon:
+      geen uniek per-idee-beeld (blijft bij de bestaande 4 vaste
+      sfeerbeelden, live per-idee-generatie zou de wachttijd en kosten per
+      aankoop te veel verhogen) en geen pixel-exacte iconen/dot-indicator
+      (geen vector-icoonsysteem in pdf-lib) — het mockup is gebruikt als
+      sfeer/richting, niet als exacte spec.
+      **Volledig nieuwe pagina-opbouw** (`src/lib/pdf/ideaBook.ts`, vrijwel
+      het hele bestand herschreven): elke inhoudspagina (profiel, 6 ideeën,
+      wildcard) is nu full-bleed — het sfeerbeeld vult de hele pagina
+      (`coverFitSize`, een "background-size: cover"-achtige berekening;
+      overloop buiten de MediaBox wordt door elke PDF-viewer vanzelf
+      afgesneden, de standaardtechniek voor bleed-afbeeldingen), met een
+      egale donker-emerald wash plus een onderaan opgebouwde gradient
+      (`drawBottomGradient`, gestapelde, steeds transparanter wordende
+      banden — pdf-lib kent geen echte gradient-fill) voor leesbare tekst.
+      Een idee-pagina heeft nu: een gouden "munt"-badge met nummer
+      rechtsboven (was linksonder op de zijkolom), titel/intro/why-it-fits
+      over de foto, een frosted glass-paneel met stappen/praktisch/
+      locatie/vereisten, en een volledig ondoorzichtige gouden actiebalk
+      onderaan voor de eerste stap (verving de oude witte kaart-met-rand
+      `drawCallout`). De oude zijkolom-layout (`drawSideColumn`,
+      `SIDE_COL_WIDTH`/`TEXT_COL_X`) is volledig verwijderd.
+      **Zichzelf aanpassend glas-paneel**: de eerste testrender liet een
+      duidelijk probleem zien — bij kortere content (weinig vereisten, geen
+      locatie) bleef het glas-paneel op een vaste, royale hoogte staan en
+      oogde het grootste deel gewoon leeg. Opgelost met een "dry run"-
+      meettechniek: een nieuwe module-brede `dryRun`-vlag laat elke
+      teken-helper (`drawParagraph`, `drawBulletList`, `drawNumberedList`,
+      `drawMetaLine`) de `y`-cursor nog steeds normaal verplaatsen maar de
+      daadwerkelijke `page.draw*`-aanroepen overslaan; de paneel-inhoud
+      wordt zo eerst één keer "droog" gerenderd om de werkelijk benodigde
+      hoogte te meten, dan wordt het glas-paneel op precies die hoogte
+      getekend, en pas daarna wordt dezelfde inhoud-tekenfunctie nog een
+      keer echt aangeroepen — één bron van waarheid voor lay-out in plaats
+      van een losse, makkelijk-uit-sync-rakende meetfunctie. De
+      profielpagina slaat het paneel zelfs volledig over als er geen
+      moet-haves/voorkeuren zijn opgegeven, in plaats van een lege kaart
+      te tonen.
+      **Voetnoot-/tekstkleuren omgedraaid**: omdat elke pagina nu een
+      donkere foto als achtergrond heeft in plaats van het crème
+      paginavlak, zijn labels/body-tekst/voettekst overal omgezet van
+      donkere naar lichte tinten (`GOLD_LIGHT`/`CHAMPAGNE_LIGHT`/`WHITE`
+      i.p.v. `ACCENT_DARK`/`INK`/`MUTED`).
+      Getest: eerst een losse testrender met mock-data (kort/lang, met/
+      zonder vereisten en locatie) via de PyMuPDF-rasterizer om het
+      leeg-paneel-probleem te reproduceren en daarna te bevestigen dat het
+      opgelost was; daarna een echte, betaalde testgeneratie via de
+      bestaande test-bypass met een "cadeau voor een kunstliefhebber in
+      Haarlem"-profiel — de echte Claude-output (incl. een verwijzing naar
+      het Frans Hals Museum) rendert overal correct, inclusief een idee
+      zonder locatie waarbij die regel netjes wegvalt. Nog steeds exact 9
+      pagina's. `tsc --noEmit`/`eslint .`/`npm run build` schoon.
