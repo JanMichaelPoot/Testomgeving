@@ -812,3 +812,47 @@ Stripe, Claude API, Resend, PostHog).
       een echte betaling. Nog te doen door de gebruiker: migratie 0007
       draaien, en optioneel `CRON_SECRET` instellen op zowel Vercel als in
       `.env.local`.
+
+- [x] Stap 18 — "Quiet luxury"-restyle van de Idea Book-PDF, op expliciet
+      verzoek: een gedempt goud/diep-emerald printthema, losstaand van het
+      paars/crème-merk van de live site (dat blijft ongewijzigd — dit raakt
+      alleen `src/lib/pdf/ideaBook.ts`). Belangrijke kanttekening die vooraf
+      is gedeeld: pdf-lib kent geen gaussian blur of gradient-fill-tekst, dus
+      "glassmorphism" en "metallic gradient" zijn hier benaderd met gelaagde
+      transparante vlakken en tweekleurige tekst-offsets, niet met echte
+      blur/gradients.
+      Nieuw kleurenpalet (alleen in dit bestand): warm bijna-zwart voor
+      inkt, diep emerald voor de donkere banners/randen/labels (was paars),
+      gedempt antiek goud voor accenten/badge/foil (was paars-accent), en
+      een warme ivoor paginakleur. De per-stijl `panelTint` uit de Style
+      Engine wordt hier bewust genegeerd ten gunste van één samenhangende
+      "frosted" ivoorkleur, ongeacht welke van de 6 Style Engine-stijlen de
+      gebruiker koos — zes verschillend gekleurde vlakken zouden de
+      gevraagde eenduidige "quiet luxury"-sfeer ondermijnen.
+      **Sfeerbeelden niet opnieuw gegenereerd**: in lijn met de expliciete
+      eis "edit, geen nieuwe generatie" krijgen de bestaande Style
+      Engine-beelden (cover, moods, wildcard) een emerald+amber
+      kleurgrading-laag overheen (`applyMoodColorGrade`, gelaagde
+      transparante rechthoeken) in plaats van dat ze via Gemini opnieuw
+      gegenereerd worden — een echte render-time "edit" van het bestaande
+      beeld, geen nieuw beeld.
+      **Badge**: laag-op-laag opgebouwd (schaduwcirkel → goudbasis →
+      lichtere hooglicht-cirkel → dunne contourlijn) voor een metallic-
+      munt-achtig effect, cijfer nu in inkt i.p.v. wit voor een gegraveerde
+      look.
+      **"Eerste stap"-callout**: een zachte, laag-opaque schaduw-rechthoek
+      achter de box plus een dubbele goudrand (dikkere buitenrand, dunne
+      lichtgouden binnenrand) in plaats van de vlakke enkele rand.
+      **Typografie**: een nieuwe `drawTrackedLine`-helper tekent labels
+      letter voor letter met handmatige tracking (pdf-lib heeft geen
+      ingebouwde letter-spacing) — toegepast op alle kleine hoofdletter-
+      labels (eyebrows, "Vereisten"/"Voorkeuren", "Stappen"). De cover- en
+      wildcard-titel krijgen een `foil`-modus: twee keer getekend
+      (donkergoud licht verschoven, dan lichtgoud erbovenop) voor een
+      zachte metallic-schijn-illusie.
+      Getest: een losse testrender met mock-data via de PyMuPDF-rasterizer
+      (niet gecommit, opgeruimd na controle) — cover, profiel, een
+      idee-pagina en de wildcard-pagina pagina voor pagina met ingezoomde
+      crops van de badge en de callout-box gecontroleerd; nog steeds exact
+      9 pagina's, geen afkapping, geen lay-outregressie. `tsc --noEmit`/
+      `eslint .`/`npm run build` schoon.

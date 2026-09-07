@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import fontkit from "@pdf-lib/fontkit";
-import { PDFDocument, PDFString, rgb, type PDFFont, type PDFPage, type PDFImage } from "pdf-lib";
+import { PDFDocument, PDFString, rgb, type PDFFont, type PDFPage, type PDFImage, type RGB } from "pdf-lib";
 import { DIFFICULTY_LABELS, type GeneratedIdeaBook, type IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
@@ -37,13 +37,26 @@ const PAGE_HEIGHT = 841.89;
 const MARGIN = 56;
 const CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2;
 
-const INK = rgb(0.102, 0.102, 0.18); // #1A1A2E
-const ACCENT_DARK = rgb(0.294, 0.165, 0.651); // #4B2AA6
-const ACCENT = rgb(0.424, 0.235, 0.914); // #6C3CE9
-const MUTED = rgb(0.4, 0.4, 0.45);
-const CREAM = rgb(0.965, 0.957, 0.933); // #F5F3EE
+// "Quiet luxury" print palette for the Idea Book PDF specifically — the
+// live site keeps WINDOW's own purple/cream brand (see tailwind config);
+// this file's chrome is deliberately a separate, print-only treatment: a
+// warm near-black ink, a deep emerald for dark bands/borders/labels, and a
+// muted antique gold (never a bright/yellow gold) for accents and foil
+// details. pdf-lib has no gaussian blur or gradient-fill text, so "frosted
+// glass" and "metallic foil" below are approximated with layered
+// semi-transparent shapes and two-tone offset text rather than true
+// blur/gradients.
+const INK = rgb(0.086, 0.098, 0.086); // warm near-black
+const ACCENT_DARK = rgb(0.086, 0.184, 0.157); // deep emerald
+const ACCENT = rgb(0.706, 0.573, 0.31); // muted antique gold
+const GOLD_LIGHT = rgb(0.831, 0.729, 0.482); // pale gold sheen/highlight
+const GOLD_DEEP = rgb(0.427, 0.333, 0.161); // recessed gold shadow
+const MUTED = rgb(0.42, 0.4, 0.36);
+const CREAM = rgb(0.973, 0.957, 0.925); // warm ivory page background
 const WHITE = rgb(1, 1, 1);
-const LAVENDER_LIGHT = rgb(0.86, 0.81, 0.97);
+const CHAMPAGNE_LIGHT = rgb(0.89, 0.83, 0.68); // pale warm text-on-dark-band
+const SHADOW_TINT = rgb(0.086, 0.098, 0.086);
+const LUX_PANEL = rgb(0.918, 0.898, 0.851); // warm "frosted" fill panel
 
 const FONTS_DIR = path.join(process.cwd(), "src/lib/pdf/fonts");
 const STYLES_DIR = path.join(process.cwd(), "public/illustrations/styles");
@@ -121,7 +134,11 @@ export async function renderIdeaBookPdf(
 ): Promise<Uint8Array> {
   const chrome = getDictionary(locale).pdfChrome;
   const style = resolveStylePreset(styleId);
-  const panelTint = rgb(...style.panelTint);
+  // The per-style panelTint (used elsewhere in the app) is intentionally
+  // not used here — the quiet-luxury treatment wants one coherent warm
+  // "frosted" tone regardless of which Style Engine image set was chosen,
+  // rather than six different colored panels.
+  const panelTint = LUX_PANEL;
 
   const doc = await PDFDocument.create();
   doc.registerFontkit(fontkit);
@@ -187,6 +204,26 @@ export async function renderIdeaBookPdf(
     }
   }
 
+  // Draws one line of text with manual per-character advance — pdf-lib has
+  // no native letter-spacing/tracking, so a tracked look (used for the
+  // small-caps section labels, for that "perfecte letter-spacing" editorial
+  // feel) means placing each glyph by hand instead of one drawText call.
+  function drawTrackedLine(
+    text: string,
+    font: PDFFont,
+    size: number,
+    color: RGB,
+    x: number,
+    lineY: number,
+    tracking: number
+  ) {
+    let cursor = x;
+    for (const ch of text) {
+      page.drawText(ch, { x: cursor, y: lineY, size, font, color });
+      cursor += font.widthOfTextAtSize(ch, size) + tracking;
+    }
+  }
+
   function drawParagraph(
     text: string,
     font: PDFFont,
@@ -195,12 +232,25 @@ export async function renderIdeaBookPdf(
     lineGap = 6,
     x = MARGIN,
     maxWidth = CONTENT_WIDTH,
-    maxLines?: number
+    maxLines?: number,
+    options?: { tracking?: number; foil?: boolean }
   ) {
+    const tracking = options?.tracking ?? 0;
+    const foil = options?.foil ?? false;
     const lines = wrapText(text, font, size, maxWidth, maxLines);
     for (const line of lines) {
       newPageIfNeeded(size + lineGap);
-      page.drawText(line, { x, y, size, font, color });
+      if (foil) {
+        // A cheap stand-in for a metallic gold gradient: a deeper-gold pass
+        // offset by half a point, then a pale-gold pass on top — reads as a
+        // soft foil sheen without pdf-lib's lack of gradient-fill text.
+        drawTrackedLine(line, font, size, GOLD_DEEP, x + 0.5, y - 0.5, tracking);
+        drawTrackedLine(line, font, size, GOLD_LIGHT, x, y, tracking);
+      } else if (tracking > 0) {
+        drawTrackedLine(line, font, size, color, x, y, tracking);
+      } else {
+        page.drawText(line, { x, y, size, font, color });
+      }
       y -= size + lineGap;
     }
   }
@@ -247,27 +297,71 @@ export async function renderIdeaBookPdf(
     x = MARGIN,
     width = CONTENT_WIDTH
   ) {
-    const bodyLines = wrapText(body, fonts.sans, 12, width - 24);
-    const innerContentHeight = 10 + 4 + bodyLines.length * (12 + 5);
-    const verticalPadding = 14;
+    const bodyLines = wrapText(body, fonts.sans, 12, width - 28);
+    const innerContentHeight = 10 + 5 + bodyLines.length * (12 + 5);
+    const verticalPadding = 16;
     const calloutHeight = innerContentHeight + verticalPadding * 2;
     newPageIfNeeded(calloutHeight + 16);
 
     const calloutTop = y;
+    const boxX = x - 14;
+    const boxY = calloutTop - calloutHeight;
+    const boxWidth = width + 28;
+
+    // A soft, low-opacity offset duplicate of the box reads as a gentle
+    // floating shadow — pdf-lib has no native drop-shadow, so this is the
+    // standard fake: draw the shadow shape first, the real box on top.
     page.drawRectangle({
-      x: x - 12,
-      y: calloutTop - calloutHeight,
-      width: width + 24,
+      x: boxX + 2.5,
+      y: boxY - 2.5,
+      width: boxWidth,
       height: calloutHeight,
-      borderColor: ACCENT_DARK,
+      color: SHADOW_TINT,
+      opacity: 0.14,
+    });
+
+    page.drawRectangle({
+      x: boxX,
+      y: boxY,
+      width: boxWidth,
+      height: calloutHeight,
+      borderColor: ACCENT,
       borderWidth: 1,
       color: WHITE,
     });
+    // A thin inset gold line just inside the main border reads as a foil
+    // double-edge rather than a single flat stroke.
+    page.drawRectangle({
+      x: boxX + 2.5,
+      y: boxY + 2.5,
+      width: boxWidth - 5,
+      height: calloutHeight - 5,
+      borderColor: GOLD_LIGHT,
+      borderWidth: 0.5,
+    });
 
     y = calloutTop - verticalPadding;
-    drawParagraph(heading, fonts.sansBold, 10, ACCENT_DARK, 4, x, width);
+    drawParagraph(heading, fonts.sansBold, 10, ACCENT_DARK, 5, x, width, undefined, { tracking: 0.6 });
     drawParagraph(body, fonts.sans, 12, INK, 5, x, width);
     y = calloutTop - calloutHeight - 20;
+  }
+
+  // A warm emerald + golden-hour color-grade wash over an already-drawn
+  // image — layered semi-transparent fills, not a pixel edit of the source
+  // JPEG. This is the intentional choice over regenerating the Style
+  // Engine's illustrations: it's a real, cheap "edit" of the existing
+  // image at render time (deeper, warmer, more cinematic) rather than a
+  // brand new AI generation.
+  function applyMoodColorGrade(x: number, imgY: number, width: number, height: number) {
+    page.drawRectangle({ x, y: imgY, width, height, color: ACCENT_DARK, opacity: 0.16 });
+    page.drawRectangle({
+      x,
+      y: imgY,
+      width,
+      height: height * 0.55,
+      color: ACCENT,
+      opacity: 0.14,
+    });
   }
 
   // A side-column image at its natural (undistorted) aspect ratio, with a
@@ -287,26 +381,51 @@ export async function renderIdeaBookPdf(
     const imgY = topY - imgHeight;
 
     page.drawImage(image, { x, y: imgY, width: colWidth, height: imgHeight });
+    applyMoodColorGrade(x, imgY, colWidth, imgHeight);
 
     const panelHeight = imgY - bottomY;
     if (panelHeight > 0) {
-      page.drawRectangle({ x, y: bottomY, width: colWidth, height: panelHeight, color: panelTint });
+      page.drawRectangle({ x, y: bottomY, width: colWidth, height: panelHeight, color: panelTint, opacity: 0.72 });
     }
 
+    // Foil-edge frame: a slightly heavier deep-gold outer line with a
+    // hairline pale-gold inset, instead of one flat solid stroke.
     page.drawRectangle({
       x,
       y: bottomY,
       width: colWidth,
       height: topY - bottomY,
-      borderColor: ACCENT_DARK,
-      borderWidth: 1,
+      borderColor: ACCENT,
+      borderWidth: 1.1,
+    });
+    page.drawRectangle({
+      x: x + 2,
+      y: bottomY + 2,
+      width: colWidth - 4,
+      height: topY - bottomY - 4,
+      borderColor: GOLD_LIGHT,
+      borderWidth: 0.4,
     });
 
     if (typeof badgeIndex === "number") {
       const badgeRadius = 15;
       const badgeX = x + 6;
       const badgeY = imgY + 6;
+      // Layered gold badge: a recessed shadow disc, the gold base, then a
+      // small offset highlight disc to fake a metallic sheen — pdf-lib
+      // can't fill a circle with a gradient, so the "shine" is a second,
+      // smaller, lighter circle instead.
+      page.drawCircle({ x: badgeX + 1, y: badgeY - 1, size: badgeRadius, color: SHADOW_TINT, opacity: 0.25 });
       page.drawCircle({ x: badgeX, y: badgeY, size: badgeRadius, color: ACCENT });
+      page.drawCircle({
+        x: badgeX - 4,
+        y: badgeY + 4,
+        size: badgeRadius * 0.55,
+        color: GOLD_LIGHT,
+        opacity: 0.55,
+      });
+      page.drawCircle({ x: badgeX, y: badgeY, size: badgeRadius, borderColor: GOLD_DEEP, borderWidth: 0.75 });
+
       const numText = String(badgeIndex);
       const numWidth = fonts.sansBold.widthOfTextAtSize(numText, 13);
       page.drawText(numText, {
@@ -314,7 +433,7 @@ export async function renderIdeaBookPdf(
         y: badgeY - 4.5,
         size: 13,
         font: fonts.sansBold,
-        color: WHITE,
+        color: INK,
       });
     }
 
@@ -333,16 +452,22 @@ export async function renderIdeaBookPdf(
       width: PAGE_WIDTH,
       height: bannerHeight,
     });
+    applyMoodColorGrade(0, PAGE_HEIGHT - bannerHeight, PAGE_WIDTH, bannerHeight);
 
     const bandHeight = PAGE_HEIGHT - bannerHeight;
     page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: bandHeight, color: ACCENT_DARK });
+    // A hairline gold seam between the image and the dark band — a small
+    // touch that reads as a foil-edged frame rather than a plain color cut.
+    page.drawRectangle({ x: 0, y: bandHeight - 1, width: PAGE_WIDTH, height: 1.5, color: ACCENT });
 
     y = bandHeight - 40;
-    drawParagraph(chrome.coverEyebrow, fonts.sansBold, 10, LAVENDER_LIGHT, 4);
+    drawParagraph(chrome.coverEyebrow, fonts.sansBold, 10, CHAMPAGNE_LIGHT, 4, MARGIN, CONTENT_WIDTH, undefined, {
+      tracking: 1.2,
+    });
     y -= 10;
-    drawParagraph(title, fonts.serif, 26, WHITE, 8, MARGIN, CONTENT_WIDTH, 3);
+    drawParagraph(title, fonts.serif, 26, WHITE, 8, MARGIN, CONTENT_WIDTH, 3, { foil: true });
     y -= 4;
-    drawParagraph(chrome.coverTagline, fonts.sans, 12, LAVENDER_LIGHT, 5, MARGIN, CONTENT_WIDTH, 2);
+    drawParagraph(chrome.coverTagline, fonts.sans, 12, CHAMPAGNE_LIGHT, 5, MARGIN, CONTENT_WIDTH, 2);
   }
 
   // --- Page 2: Profile — full-height side column, profile text alongside.
@@ -353,20 +478,20 @@ export async function renderIdeaBookPdf(
     drawSideColumn(MARGIN, topY, SIDE_COL_WIDTH, bottomY, images.moods[0]);
 
     y = topY;
-    drawParagraph(chrome.profileEyebrow, fonts.sansBold, 10, ACCENT_DARK, 4, TEXT_COL_X, TEXT_COL_WIDTH);
+    drawParagraph(chrome.profileEyebrow, fonts.sansBold, 10, ACCENT_DARK, 4, TEXT_COL_X, TEXT_COL_WIDTH, undefined, { tracking: 0.8 });
     y -= 6;
     drawParagraph(book.profile_summary, fonts.serif, 17, INK, 7, TEXT_COL_X, TEXT_COL_WIDTH, 8);
 
     if (book.must_haves.length > 0) {
       y -= 12;
-      drawParagraph(chrome.mustHaves, fonts.sansBold, 10, ACCENT_DARK, 4, TEXT_COL_X, TEXT_COL_WIDTH);
+      drawParagraph(chrome.mustHaves, fonts.sansBold, 10, ACCENT_DARK, 4, TEXT_COL_X, TEXT_COL_WIDTH, undefined, { tracking: 0.8 });
       y -= 2;
       drawBulletList(book.must_haves, fonts.sans, 11.5, TEXT_COL_X, TEXT_COL_WIDTH);
     }
 
     if (book.preferences.length > 0) {
       y -= 10;
-      drawParagraph(chrome.preferences, fonts.sansBold, 10, ACCENT_DARK, 4, TEXT_COL_X, TEXT_COL_WIDTH);
+      drawParagraph(chrome.preferences, fonts.sansBold, 10, ACCENT_DARK, 4, TEXT_COL_X, TEXT_COL_WIDTH, undefined, { tracking: 0.8 });
       y -= 2;
       drawBulletList(book.preferences, fonts.sans, 11.5, TEXT_COL_X, TEXT_COL_WIDTH);
     }
@@ -382,6 +507,7 @@ export async function renderIdeaBookPdf(
         width: TEXT_COL_WIDTH,
         height: y - bottomY,
         color: panelTint,
+        opacity: 0.72,
       });
     }
   }
@@ -435,7 +561,7 @@ export async function renderIdeaBookPdf(
     drawSideColumn(MARGIN, topY, SIDE_COL_WIDTH, bottomY, moodImage, index);
 
     y = topY;
-    drawParagraph(chrome.possibilityEyebrow, fonts.sansBold, 10, ACCENT_DARK, 4, TEXT_COL_X, TEXT_COL_WIDTH);
+    drawParagraph(chrome.possibilityEyebrow, fonts.sansBold, 10, ACCENT_DARK, 4, TEXT_COL_X, TEXT_COL_WIDTH, undefined, { tracking: 0.8 });
     y -= 4;
     drawParagraph(idea.title, fonts.serif, 21, INK, 7, TEXT_COL_X, TEXT_COL_WIDTH, 2);
     y -= 5;
@@ -508,6 +634,7 @@ export async function renderIdeaBookPdf(
         width: TEXT_COL_WIDTH,
         height: y - bottomY,
         color: panelTint,
+        opacity: 0.72,
       });
     }
   }
@@ -538,20 +665,30 @@ export async function renderIdeaBookPdf(
       width: imgWidth,
       height: WILDCARD_IMAGE_HEIGHT,
     });
+    applyMoodColorGrade(imgX, PAGE_HEIGHT - WILDCARD_IMAGE_HEIGHT, imgWidth, WILDCARD_IMAGE_HEIGHT);
+    page.drawRectangle({
+      x: imgX,
+      y: PAGE_HEIGHT - WILDCARD_IMAGE_HEIGHT,
+      width: imgWidth,
+      height: WILDCARD_IMAGE_HEIGHT,
+      borderColor: ACCENT,
+      borderWidth: 1,
+    });
 
     y = PAGE_HEIGHT - WILDCARD_IMAGE_HEIGHT - 34;
     drawParagraph(
       book.labels.wildcard_heading || chrome.wildcardFallbackHeading,
       fonts.sansBold,
       10,
-      LAVENDER_LIGHT,
+      CHAMPAGNE_LIGHT,
       4,
       MARGIN,
       CONTENT_WIDTH,
-      1
+      1,
+      { tracking: 1.2 }
     );
     y -= 8;
-    drawParagraph(book.wildcard.title, fonts.serif, 22, WHITE, 7, MARGIN, CONTENT_WIDTH, 2);
+    drawParagraph(book.wildcard.title, fonts.serif, 22, WHITE, 7, MARGIN, CONTENT_WIDTH, 2, { foil: true });
 
     y = PAGE_HEIGHT - WILDCARD_TOP_HEIGHT - 28;
     drawParagraph(book.wildcard.intro, fonts.sans, 12, MUTED, 5, MARGIN, CONTENT_WIDTH, 3);
@@ -621,6 +758,7 @@ export async function renderIdeaBookPdf(
         width: CONTENT_WIDTH,
         height: y - MARGIN,
         color: panelTint,
+        opacity: 0.72,
       });
     }
   }
