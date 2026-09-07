@@ -10,10 +10,12 @@ export function LocationAutocomplete({
   value,
   onChange,
   placeholder,
+  id,
 }: {
   value: string;
   onChange: (value: string) => void;
   placeholder: string;
+  id?: string;
 }) {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
@@ -55,7 +57,12 @@ export function LocationAutocomplete({
   return (
     <div className="relative">
       <input
+        id={id}
         type="text"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={open && suggestions.length > 0}
+        aria-controls={id ? `${id}-listbox` : undefined}
         value={value}
         onChange={(e) => {
           onChange(e.target.value);
@@ -71,9 +78,13 @@ export function LocationAutocomplete({
         className="mt-3 w-full rounded-2xl border border-ink/15 bg-paper px-4 py-3 text-ink shadow-sm outline-none placeholder:text-ink/35 focus:border-accent"
       />
       {open && suggestions.length > 0 && (
-        <ul className="absolute z-10 mt-1 w-full overflow-hidden rounded-xl border border-ink/10 bg-paper shadow-md">
+        <ul
+          id={id ? `${id}-listbox` : undefined}
+          role="listbox"
+          className="absolute z-10 mt-1 w-full overflow-hidden rounded-xl border border-ink/10 bg-paper shadow-md"
+        >
           {suggestions.map((suggestion) => (
-            <li key={suggestion}>
+            <li key={suggestion} role="option" aria-selected={suggestion === value}>
               <button
                 type="button"
                 onMouseDown={(e) => e.preventDefault()}

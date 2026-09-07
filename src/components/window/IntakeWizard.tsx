@@ -285,10 +285,13 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
 
   function renderField(field: FieldConfig) {
     switch (field.type) {
-      case "text":
+      case "text": {
+        const inputId = `field-${field.id}`;
         return (
           <div key={field.id}>
-            <p className="font-medium text-ink">{field.label}</p>
+            <label htmlFor={inputId} className="block font-medium text-ink">
+              {field.label}
+            </label>
             {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
             {field.suggestions && field.suggestions.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
@@ -305,6 +308,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
               </div>
             )}
             <textarea
+              id={inputId}
               value={answers[field.id] as string}
               onChange={(e) => setField(field.id, e.target.value)}
               placeholder={field.placeholder}
@@ -316,13 +320,21 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
             )}
           </div>
         );
+      }
       case "chips": {
         const currentValue = answers[field.id] as string;
+        const labelId = `field-${field.id}-label`;
         return (
           <div key={field.id}>
-            <p className="font-medium text-ink">{field.label}</p>
+            <p id={labelId} className="font-medium text-ink">
+              {field.label}
+            </p>
             {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
-            <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+            <div
+              role="group"
+              aria-labelledby={labelId}
+              className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2"
+            >
               {field.options.map((option) => {
                 const selected = currentValue === option.value;
                 return (
@@ -346,12 +358,19 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
           </div>
         );
       }
-      case "multi-chips":
+      case "multi-chips": {
+        const labelId = `field-${field.id}-label`;
         return (
           <div key={field.id}>
-            <p className="font-medium text-ink">{field.label}</p>
+            <p id={labelId} className="font-medium text-ink">
+              {field.label}
+            </p>
             {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
-            <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+            <div
+              role="group"
+              aria-labelledby={labelId}
+              className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2"
+            >
               {field.options.map((option) => {
                 const selected = answers.solutionTypes.includes(option.value);
                 return (
@@ -374,18 +393,24 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
             </div>
           </div>
         );
-      case "location":
+      }
+      case "location": {
+        const inputId = `field-${field.id}`;
         return (
           <div key={field.id}>
-            <p className="font-medium text-ink">{field.label}</p>
+            <label htmlFor={inputId} className="block font-medium text-ink">
+              {field.label}
+            </label>
             {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
             <LocationAutocomplete
+              id={inputId}
               value={answers[field.id] as string}
               onChange={(value) => setField(field.id, value)}
               placeholder={field.placeholder}
             />
           </div>
         );
+      }
       case "slider":
         return (
           <PillSlider

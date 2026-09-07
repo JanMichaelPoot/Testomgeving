@@ -18,9 +18,28 @@ const inter = Inter({
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
+  const title = `WINDOW — ${dict.landing.headlineLine1} ${dict.landing.headlineLine2}`;
+  // The idea-book cover illustration doubles as the default share-preview
+  // image — it's the closest thing this site has to a branded hero shot
+  // until a dedicated OG image exists.
+  const ogImage = "/illustrations/idea-book/cover.jpg";
+
   return {
-    title: `WINDOW — ${dict.landing.headlineLine1} ${dict.landing.headlineLine2}`,
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+    title,
     description: dict.landing.subcopy,
+    openGraph: {
+      title,
+      description: dict.landing.subcopy,
+      images: [ogImage],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: dict.landing.subcopy,
+      images: [ogImage],
+    },
   };
 }
 

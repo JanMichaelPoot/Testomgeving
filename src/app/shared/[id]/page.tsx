@@ -10,7 +10,25 @@ import type { Locale } from "@/lib/locale";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
-  return { title: dict.shared.pageTitle };
+  // A shared link is the one page on this site truly meant to be posted
+  // into a chat or social feed — without its own openGraph/twitter block,
+  // Next.js metadata merging leaves the *root* layout's generic title and
+  // image in place instead, which defeats the point of sharing it.
+  return {
+    title: dict.shared.pageTitle,
+    openGraph: {
+      title: dict.shared.pageTitle,
+      description: dict.shared.intro,
+      images: ["/illustrations/idea-book/cover.jpg"],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: dict.shared.pageTitle,
+      description: dict.shared.intro,
+      images: ["/illustrations/idea-book/cover.jpg"],
+    },
+  };
 }
 
 export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
