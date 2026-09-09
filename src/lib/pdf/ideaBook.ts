@@ -33,50 +33,40 @@ function addLinkAnnotation(
 
 const PAGE_WIDTH = 595.28; // A4 in points
 const PAGE_HEIGHT = 841.89;
-const MARGIN = 56;
+const MARGIN = 60;
 const CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2;
 
-// "Quiet luxury" print palette for the Idea Book PDF specifically — the
-// live site keeps its own brand tokens; this file's chrome is deliberately
-// a separate, print-only treatment: a warm near-black ink, a deep emerald
-// wash over every full-bleed photo, and a muted antique gold (never a
-// bright/yellow gold) for accents, badges and the action bar. pdf-lib has
-// no gaussian blur or gradient-fill anything, so "frosted glass" and
-// "metallic foil" below are approximated with layered semi-transparent
-// shapes and two-tone offset text rather than true blur/gradients.
-const INK = rgb(0.086, 0.098, 0.086); // warm near-black
-const ACCENT_DARK = rgb(0.086, 0.184, 0.157); // deep emerald
-const ACCENT = rgb(0.706, 0.573, 0.31); // muted antique gold
-const GOLD_LIGHT = rgb(0.831, 0.729, 0.482); // pale gold sheen/highlight
-const GOLD_DEEP = rgb(0.427, 0.333, 0.161); // recessed gold shadow
-const CREAM = rgb(0.973, 0.957, 0.925); // warm ivory page background
-const WHITE = rgb(1, 1, 1);
-const CHAMPAGNE_LIGHT = rgb(0.89, 0.83, 0.68); // pale warm text-on-image
-const SHADOW_TINT = rgb(0.086, 0.098, 0.086);
+// A calm, editorial palette built around the user's own supplied
+// photograph (soft, airy, warm-white interiors with sheer curtains) —
+// replaces the earlier "quiet luxury" gold/emerald print theme entirely,
+// on explicit request. Every page's text lives inside a translucent warm
+// charcoal "glass" card (per the brief's own rule: a light photo calls for
+// a dark transparent overlay) so contrast never depends on guessing what's
+// behind it — one consistent rule instead of per-page judgement calls.
+const PANEL_FILL = rgb(0.122, 0.106, 0.094); // warm charcoal glass
+const PANEL_BORDER = rgb(0.78, 0.7, 0.58); // soft warm taupe hairline
+const TEXT_LIGHT = rgb(0.976, 0.965, 0.941); // warm ivory — primary text on panels
+const TEXT_MUTED = rgb(0.78, 0.73, 0.65); // warm taupe-cream — secondary text
+const ACCENT = rgb(0.78, 0.68, 0.55); // warm taupe — labels, hairlines, links
+const CREAM = rgb(0.973, 0.957, 0.925); // page fallback (full-bleed covers it)
+const SHADOW_TINT = rgb(0.05, 0.04, 0.03);
 
 const FONTS_DIR = path.join(process.cwd(), "src/lib/pdf/fonts");
-// The Idea Book's single, fixed illustration set (no user-facing style
-// choice — see scripts/generate-idea-book-illustrations.ts).
 const IMAGES_DIR = path.join(process.cwd(), "public/illustrations/idea-book");
 
-// Fixed vertical zones shared by every content page (profile, ideas,
-// wildcard) — a full-bleed photo behind all three, so the layout is a
-// deterministic grid rather than text that flows until it runs out:
-// header block (eyebrow/title/badge/intro/why) → a frosted glass content
-// panel → (ideas/wildcard only) a solid gold action bar pinned to the
-// bottom. Generous on purpose — the tightened Claude schema (exactly 3
-// steps, capped word counts) means real content sits well inside these
-// with room to spare, rather than needing to fill every pixel.
-const HEADER_ZONE_HEIGHT = 280;
-const GOLD_BAR_HEIGHT = 64;
-const GOLD_BAR_BOTTOM_Y = 46;
-const GOLD_BAR_TOP_Y = GOLD_BAR_BOTTOM_Y + GOLD_BAR_HEIGHT;
-const GLASS_PANEL_TOP_Y = PAGE_HEIGHT - MARGIN - HEADER_ZONE_HEIGHT;
-const GLASS_PANEL_BOTTOM_WITH_BAR = GOLD_BAR_TOP_Y + 12;
-const GLASS_PANEL_BOTTOM_NO_BAR = 46;
-const PANEL_PAD_X = 24;
-const PANEL_PAD_Y = 22;
-const BADGE_RADIUS = 24;
+// Every content page (profile + each idea) is a fixed two-card grid: one
+// main card (title/intro/why-it-fits/steps/practical info) and, for ideas
+// and the wildcard, a small first-action card pinned to the bottom — both
+// sized to their own real content via the dry-run measuring pass below,
+// never a fixed height that leaves a card looking mostly empty.
+const CARD_TOP_Y = PAGE_HEIGHT - MARGIN - 70; // leaves clear room for the badge above it
+const CARD_RADIUS = 16;
+const PANEL_PAD_X = 28;
+const PANEL_PAD_Y = 26;
+const FIRST_ACTION_MIN_HEIGHT = 90;
+const FIRST_ACTION_MAX_HEIGHT = 150;
+const CARD_GAP = 16;
+const BADGE_RADIUS = 22;
 
 function wrapText(
   text: string,
@@ -113,6 +103,28 @@ function wrapText(
   return lines;
 }
 
+// A rounded-rectangle SVG path, top-left origin, Y increasing downward
+// (standard SVG convention) — pdf-lib's drawSvgPath flips this to match
+// the page's own upward-Y space, so passing the panel's top-left corner
+// as {x, y} draws it exactly where expected. This is what gives every
+// card in the book its "subtiel afgeronde" corners; pdf-lib's plain
+// drawRectangle has no radius option at all.
+function roundedRectPath(width: number, height: number, radius: number): string {
+  const r = Math.max(0, Math.min(radius, width / 2, height / 2));
+  return [
+    `M ${r},0`,
+    `H ${width - r}`,
+    `A ${r},${r} 0 0 1 ${width},${r}`,
+    `V ${height - r}`,
+    `A ${r},${r} 0 0 1 ${width - r},${height}`,
+    `H ${r}`,
+    `A ${r},${r} 0 0 1 0,${height - r}`,
+    `V ${r}`,
+    `A ${r},${r} 0 0 1 ${r},0`,
+    "Z",
+  ].join(" ");
+}
+
 interface Fonts {
   serif: PDFFont;
   sans: PDFFont;
@@ -121,8 +133,8 @@ interface Fonts {
 
 interface Images {
   cover: PDFImage;
-  wildcard: PDFImage;
-  moods: PDFImage[];
+  background: PDFImage;
+  closing: PDFImage;
 }
 
 // "Cover" fit (like CSS background-size: cover): scales so both dimensions
@@ -157,24 +169,16 @@ export async function renderIdeaBookPdf(
     sansBold: await doc.embedFont(sansBoldBytes),
   };
 
-  // The wildcard page reuses the cover shot (rather than a 5th generated
-  // image) — both are "special moment" full-bleed pages.
-  const [coverBytes, mood1Bytes, mood2Bytes, mood3Bytes] = await Promise.all([
+  const [coverBytes, backgroundBytes, closingBytes] = await Promise.all([
     readFile(path.join(IMAGES_DIR, "cover.jpg")),
-    readFile(path.join(IMAGES_DIR, "mood-1.jpg")),
-    readFile(path.join(IMAGES_DIR, "mood-2.jpg")),
-    readFile(path.join(IMAGES_DIR, "mood-3.jpg")),
+    readFile(path.join(IMAGES_DIR, "background.jpg")),
+    readFile(path.join(IMAGES_DIR, "closing.jpg")),
   ]);
 
-  const coverImage = await doc.embedJpg(coverBytes);
   const images: Images = {
-    cover: coverImage,
-    wildcard: coverImage,
-    moods: [
-      await doc.embedJpg(mood1Bytes),
-      await doc.embedJpg(mood2Bytes),
-      await doc.embedJpg(mood3Bytes),
-    ],
+    cover: await doc.embedJpg(coverBytes),
+    background: await doc.embedJpg(backgroundBytes),
+    closing: await doc.embedJpg(closingBytes),
   };
 
   function addPage(): PDFPage {
@@ -193,16 +197,16 @@ export async function renderIdeaBookPdf(
   let y = 0;
   // When true, every drawing helper below still moves the `y` cursor
   // exactly as it would when drawing for real, but skips the actual
-  // page.draw* calls — lets a glass panel's real height be measured by
-  // running its own content-drawing function once "dry" before drawing it
-  // again for real, instead of duplicating the layout logic in a second,
+  // page.draw* calls — lets a card's real height be measured by running
+  // its own content-drawing function once "dry" before drawing it again
+  // for real, instead of duplicating the layout logic in a second,
   // easy-to-desync measurement function.
   let dryRun = false;
 
   // A page-margin safety net only — the primary defense against overflow
   // is the tightened Claude schema (exactly 6 ideas, exactly 3 steps) plus
   // the maxLines caps below. This just stops a pathological response from
-  // corrupting the layout instead of guaranteeing the fixed page zones.
+  // corrupting the layout instead of guaranteeing the fixed card zones.
   function newPageIfNeeded(nextLineHeight: number) {
     if (!dryRun && y - nextLineHeight < MARGIN) {
       page = addPage();
@@ -212,8 +216,8 @@ export async function renderIdeaBookPdf(
 
   // Draws one line of text with manual per-character advance — pdf-lib has
   // no native letter-spacing/tracking, so a tracked look (used for the
-  // small-caps section labels, for that "perfecte letter-spacing" editorial
-  // feel) means placing each glyph by hand instead of one drawText call.
+  // small-caps section labels, for that editorial feel) means placing
+  // each glyph by hand instead of one drawText call.
   function drawTrackedLine(
     text: string,
     font: PDFFont,
@@ -234,25 +238,18 @@ export async function renderIdeaBookPdf(
     text: string,
     font: PDFFont,
     size: number,
-    color = INK,
+    color = TEXT_LIGHT,
     lineGap = 6,
     x = MARGIN,
     maxWidth = CONTENT_WIDTH,
     maxLines?: number,
-    options?: { tracking?: number; foil?: boolean }
+    options?: { tracking?: number }
   ) {
     const tracking = options?.tracking ?? 0;
-    const foil = options?.foil ?? false;
     const lines = wrapText(text, font, size, maxWidth, maxLines);
     for (const line of lines) {
       newPageIfNeeded(size + lineGap);
-      if (foil) {
-        // A cheap stand-in for a metallic gold gradient: a deeper-gold pass
-        // offset by half a point, then a pale-gold pass on top — reads as a
-        // soft foil sheen without pdf-lib's lack of gradient-fill text.
-        drawTrackedLine(line, font, size, GOLD_DEEP, x + 0.5, y - 0.5, tracking);
-        drawTrackedLine(line, font, size, GOLD_LIGHT, x, y, tracking);
-      } else if (tracking > 0) {
+      if (tracking > 0) {
         drawTrackedLine(line, font, size, color, x, y, tracking);
       } else if (!dryRun) {
         page.drawText(line, { x, y, size, font, color });
@@ -267,7 +264,7 @@ export async function renderIdeaBookPdf(
     size = 12,
     x = MARGIN,
     maxWidth = CONTENT_WIDTH,
-    color = INK
+    color = TEXT_MUTED
   ) {
     for (const item of items) {
       const lines = wrapText(`•  ${item}`, font, size, maxWidth, 2);
@@ -286,7 +283,7 @@ export async function renderIdeaBookPdf(
     x: number,
     maxWidth: number,
     maxLinesPerItem?: number,
-    color = INK
+    color = TEXT_LIGHT
   ) {
     items.forEach((item, i) => {
       const lines = wrapText(`${i + 1}.  ${item}`, font, size, maxWidth, maxLinesPerItem);
@@ -310,280 +307,243 @@ export async function renderIdeaBookPdf(
     x: number,
     maxWidth: number,
     linkUrl?: string,
-    labelColor = ACCENT_DARK,
-    valueColor = INK
+    labelColor = ACCENT,
+    valueColor = TEXT_MUTED
   ) {
     if (!value) return;
-    newPageIfNeeded(9 + 4);
-    const labelWidth = fonts.sansBold.widthOfTextAtSize(`${label}: `, 9);
-    if (!dryRun) page.drawText(`${label}:`, { x, y, size: 9, font: fonts.sansBold, color: labelColor });
-    const lines = wrapText(value, fonts.sans, 9, maxWidth - labelWidth, 1);
+    newPageIfNeeded(9.5 + 4);
+    const labelWidth = fonts.sansBold.widthOfTextAtSize(`${label}: `, 9.5);
+    if (!dryRun) page.drawText(`${label}:`, { x, y, size: 9.5, font: fonts.sansBold, color: labelColor });
+    const lines = wrapText(value, fonts.sans, 9.5, maxWidth - labelWidth, 1);
     if (lines[0] && !dryRun) {
-      const textWidth = fonts.sans.widthOfTextAtSize(lines[0], 9);
-      page.drawText(lines[0], { x: x + labelWidth, y, size: 9, font: fonts.sans, color: valueColor });
+      const linkColor = linkUrl ? ACCENT : valueColor;
+      const textWidth = fonts.sans.widthOfTextAtSize(lines[0], 9.5);
+      page.drawText(lines[0], { x: x + labelWidth, y, size: 9.5, font: fonts.sans, color: linkColor });
       if (linkUrl) {
         page.drawLine({
           start: { x: x + labelWidth, y: y - 1.5 },
           end: { x: x + labelWidth + textWidth, y: y - 1.5 },
           thickness: 0.5,
-          color: valueColor,
+          color: linkColor,
         });
         addLinkAnnotation(
           page,
-          { x: x + labelWidth, y: y - 2, width: textWidth, height: 9 + 3 },
+          { x: x + labelWidth, y: y - 2, width: textWidth, height: 9.5 + 3 },
           linkUrl
         );
       }
     }
-    y -= 9 + 4;
+    y -= 9.5 + 4;
   }
 
-  // Fills the whole page with an image at "cover" size, centered — any
-  // overflow beyond the page edges is simply outside the MediaBox and
-  // never rendered, which is the standard full-bleed technique.
-  function drawFullBleedImage(image: PDFImage) {
+  // Fills the whole page with an image at "cover" size, centered by
+  // default — any overflow beyond the page edges is simply outside the
+  // MediaBox and never rendered, the standard full-bleed technique. An
+  // optional horizontal pan (-1..1, a fraction of the available overflow)
+  // gives the same shared background photo a slightly different crop from
+  // page to page instead of looking pixel-identical seven times in a row.
+  function drawFullBleedImage(image: PDFImage, panX = 0) {
     const { width, height } = coverFitSize(image, PAGE_WIDTH, PAGE_HEIGHT);
-    page.drawImage(image, {
-      x: (PAGE_WIDTH - width) / 2,
-      y: (PAGE_HEIGHT - height) / 2,
-      width,
-      height,
-    });
+    const maxShiftX = Math.max(0, (width - PAGE_WIDTH) / 2);
+    const x = (PAGE_WIDTH - width) / 2 + panX * maxShiftX;
+    const y0 = (PAGE_HEIGHT - height) / 2;
+    page.drawImage(image, { x, y: y0, width, height });
   }
 
-  // A uniform emerald wash over the whole photo — this is what gives every
-  // page its cinematic, jewel-toned mood regardless of the source photo's
-  // own colors, and is a real render-time "edit" of the existing Idea Book
-  // illustration set rather than a new AI generation.
+  // A very light warm wash for tonal cohesion across cover/closing/shared
+  // background photos — not for text contrast (every card carries its own
+  // contrast via its glass fill), just a subtle unifying grade.
   function drawOverlayWash(opacity: number) {
-    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT, color: ACCENT_DARK, opacity });
+    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT, color: PANEL_FILL, opacity });
   }
 
-  // Approximates a bottom-to-top fade (darkest at y=0, transparent at
-  // `topY`) by stacking many thin, decreasingly-opaque bands — pdf-lib has
-  // no native gradient fill, so this is the standard workaround. This is
-  // what keeps text legible over a busy photo without needing a solid
-  // color block that would hide the image entirely.
-  function drawBottomGradient(topY: number, maxOpacity: number, bands = 16) {
-    const bandHeight = topY / bands;
-    for (let i = 0; i < bands; i++) {
-      const opacity = maxOpacity * (1 - i / (bands - 1));
-      page.drawRectangle({
-        x: 0,
-        y: i * bandHeight,
-        width: PAGE_WIDTH,
-        height: bandHeight + 1,
-        color: INK,
-        opacity,
-      });
-    }
-  }
-
-  // The frosted-glass content card every content page's steps/practical
-  // info/requirements sit inside — a semi-opaque dark fill (so it reads as
-  // glass over the photo behind it, not a solid card) with a thin gold
-  // foil double-edge, the same technique used elsewhere in this file for
-  // "metallic" borders.
-  function drawGlassPanel(x: number, panelY: number, width: number, height: number) {
-    page.drawRectangle({ x, y: panelY, width, height, color: ACCENT_DARK, opacity: 0.58 });
-    page.drawRectangle({ x, y: panelY, width, height, borderColor: ACCENT, borderWidth: 1 });
-    page.drawRectangle({
+  // The translucent "glass" card every page's text lives inside — a warm
+  // charcoal fill (dark, so it reads clearly over this book's uniformly
+  // light, airy photography) with a soft rounded corner and a hairline
+  // warm-taupe border, never a hard edge or a solid opaque block.
+  function drawCard(x: number, cardY: number, width: number, height: number, opacity = 0.6) {
+    const shadowPath = roundedRectPath(width, height, CARD_RADIUS);
+    page.drawSvgPath(shadowPath, {
       x: x + 2,
-      y: panelY + 2,
-      width: width - 4,
-      height: height - 4,
-      borderColor: GOLD_LIGHT,
-      borderWidth: 0.4,
-    });
-  }
-
-  // The layered gold "coin" badge used for each idea's number — a
-  // recessed shadow disc, the gold base, a small offset highlight disc to
-  // fake a metallic sheen (pdf-lib can't fill a circle with a gradient),
-  // and a thin contour ring.
-  function drawGoldBadge(centerX: number, centerY: number, label: string) {
-    page.drawCircle({ x: centerX + 1.5, y: centerY - 1.5, size: BADGE_RADIUS, color: SHADOW_TINT, opacity: 0.3 });
-    page.drawCircle({ x: centerX, y: centerY, size: BADGE_RADIUS, color: ACCENT });
-    page.drawCircle({
-      x: centerX - 6,
-      y: centerY + 6,
-      size: BADGE_RADIUS * 0.55,
-      color: GOLD_LIGHT,
-      opacity: 0.55,
-    });
-    page.drawCircle({ x: centerX, y: centerY, size: BADGE_RADIUS, borderColor: GOLD_DEEP, borderWidth: 0.75 });
-
-    const labelWidth = fonts.sansBold.widthOfTextAtSize(label, 15);
-    page.drawText(label, {
-      x: centerX - labelWidth / 2,
-      y: centerY - 5.5,
-      size: 15,
-      font: fonts.sansBold,
-      color: INK,
-    });
-  }
-
-  // The solid gold action bar pinned to the bottom of every idea/wildcard
-  // page — deliberately the one fully opaque (non-glass) element on the
-  // page, so the single most important instruction on the page (what to
-  // literally do first) reads as an unmissable call to action.
-  function drawGoldActionBar(label: string, text: string) {
-    const barX = MARGIN;
-    const barY = GOLD_BAR_BOTTOM_Y;
-    const barWidth = CONTENT_WIDTH;
-    const barHeight = GOLD_BAR_HEIGHT;
-
-    page.drawRectangle({
-      x: barX + 2,
-      y: barY - 2,
-      width: barWidth,
-      height: barHeight,
+      y: cardY + height - 2,
       color: SHADOW_TINT,
       opacity: 0.22,
     });
-    page.drawRectangle({ x: barX, y: barY, width: barWidth, height: barHeight, color: ACCENT });
-    page.drawRectangle({
-      x: barX,
-      y: barY,
-      width: barWidth,
-      height: barHeight,
-      borderColor: GOLD_DEEP,
+    page.drawSvgPath(roundedRectPath(width, height, CARD_RADIUS), {
+      x,
+      y: cardY + height,
+      color: PANEL_FILL,
+      opacity,
+      borderColor: PANEL_BORDER,
       borderWidth: 0.75,
+      borderOpacity: 0.55,
     });
-
-    const innerX = barX + 22;
-    const innerWidth = barWidth - 44;
-    const textLines = wrapText(text, fonts.sansBold, 12.5, innerWidth, 2);
-    const blockHeight = 12 + (textLines.length - 1) * 16;
-    let localY = barY + (barHeight + blockHeight) / 2 - 2;
-
-    drawTrackedLine(label, fonts.sansBold, 9, INK, innerX, localY, 1);
-    localY -= 17;
-    for (const line of textLines) {
-      page.drawText(line, { x: innerX, y: localY, size: 12.5, font: fonts.sansBold, color: INK });
-      localY -= 16;
-    }
   }
 
-  // --- Page 1: Cover — full-bleed image, a strong bottom fade for the
-  // title block to sit on, matching the same full-bleed language every
-  // other page in the book now uses.
+  // The minimal glass badge used for each idea's number — same translucent
+  // language as the cards (a soft shadow, the glass fill, a hairline ring)
+  // rather than a separate decorative gold "coin", to keep the page's
+  // visual vocabulary to one consistent, quiet idea.
+  function drawBadge(centerX: number, centerY: number, label: string) {
+    page.drawCircle({ x: centerX + 1.5, y: centerY - 1.5, size: BADGE_RADIUS, color: SHADOW_TINT, opacity: 0.22 });
+    page.drawCircle({ x: centerX, y: centerY, size: BADGE_RADIUS, color: PANEL_FILL, opacity: 0.62 });
+    page.drawCircle({ x: centerX, y: centerY, size: BADGE_RADIUS, borderColor: PANEL_BORDER, borderWidth: 0.75 });
+
+    const labelWidth = fonts.sansBold.widthOfTextAtSize(label, 14);
+    page.drawText(label, {
+      x: centerX - labelWidth / 2,
+      y: centerY - 5,
+      size: 14,
+      font: fonts.sansBold,
+      color: TEXT_LIGHT,
+    });
+  }
+
+  // --- Page 1: Cover — full-bleed image, a single card with the title.
   page = addPage();
   {
     drawFullBleedImage(images.cover);
-    drawOverlayWash(0.14);
-    drawBottomGradient(PAGE_HEIGHT * 0.6, 0.92);
+    drawOverlayWash(0.05);
 
-    y = 210;
-    drawParagraph(chrome.coverEyebrow, fonts.sansBold, 10, CHAMPAGNE_LIGHT, 4, MARGIN, CONTENT_WIDTH, undefined, {
+    const cardHeight = 190;
+    const cardY = 130;
+    drawCard(MARGIN, cardY, CONTENT_WIDTH, cardHeight, 0.6);
+
+    y = cardY + cardHeight - PANEL_PAD_Y;
+    const textX = MARGIN + PANEL_PAD_X;
+    const textWidth = CONTENT_WIDTH - PANEL_PAD_X * 2;
+    drawParagraph(chrome.coverEyebrow, fonts.sansBold, 10.5, ACCENT, 4, textX, textWidth, undefined, {
       tracking: 1.2,
     });
-    y -= 10;
-    drawParagraph(title, fonts.serif, 30, WHITE, 9, MARGIN, CONTENT_WIDTH, 3, { foil: true });
-    y -= 6;
-    drawParagraph(chrome.coverTagline, fonts.sans, 12.5, CHAMPAGNE_LIGHT, 5, MARGIN, CONTENT_WIDTH, 2);
+    y -= 8;
+    drawParagraph(title, fonts.serif, 28, TEXT_LIGHT, 8, textX, textWidth, 2);
+    y -= 4;
+    drawParagraph(chrome.coverTagline, fonts.sans, 12.5, TEXT_MUTED, 5, textX, textWidth, 2);
   }
 
-  // --- Page 2: Profile — same full-bleed + glass-panel language as the
-  // idea pages, just without a badge or gold action bar (there's no
-  // single "first action" for a profile summary).
+  // --- Page 2: Profile — shared background photo, one card with the
+  // profile summary and (if present) must-haves/preferences.
   page = addPage();
   {
-    drawFullBleedImage(images.moods[0]);
-    drawOverlayWash(0.4);
-    drawBottomGradient(PAGE_HEIGHT - MARGIN, 0.6);
+    drawFullBleedImage(images.background, 0.15);
+    drawOverlayWash(0.05);
 
-    y = PAGE_HEIGHT - MARGIN;
-    drawParagraph(chrome.profileEyebrow, fonts.sansBold, 10, CHAMPAGNE_LIGHT, 4, MARGIN, CONTENT_WIDTH, undefined, {
-      tracking: 1,
-    });
-    y -= 8;
-    drawParagraph(book.profile_summary, fonts.serif, 18, WHITE, 8, MARGIN, CONTENT_WIDTH, 6);
-
-    const panelTop = GLASS_PANEL_TOP_Y;
-    const maxPanelHeight = panelTop - GLASS_PANEL_BOTTOM_NO_BAR;
-    const textX = MARGIN + PANEL_PAD_X;
+    const cardX = MARGIN;
+    const maxCardHeight = CARD_TOP_Y - MARGIN;
+    const textX = cardX + PANEL_PAD_X;
     const textWidth = CONTENT_WIDTH - PANEL_PAD_X * 2;
 
-    function drawPanelContent() {
-      y = panelTop - PANEL_PAD_Y;
+    function drawCardContent() {
+      y = CARD_TOP_Y - PANEL_PAD_Y;
+      drawParagraph(chrome.profileEyebrow, fonts.sansBold, 10.5, ACCENT, 4, textX, textWidth, undefined, {
+        tracking: 1,
+      });
+      y -= 8;
+      drawParagraph(book.profile_summary, fonts.serif, 19, TEXT_LIGHT, 8, textX, textWidth, 6);
+
       if (book.must_haves.length > 0) {
-        drawParagraph(chrome.mustHaves, fonts.sansBold, 10, GOLD_LIGHT, 4, textX, textWidth, undefined, {
+        y -= 12;
+        drawParagraph(chrome.mustHaves, fonts.sansBold, 10.5, ACCENT, 4, textX, textWidth, undefined, {
           tracking: 0.8,
         });
         y -= 2;
-        drawBulletList(book.must_haves, fonts.sans, 11.5, textX, textWidth, WHITE);
-        y -= 10;
+        drawBulletList(book.must_haves, fonts.sans, 12, textX, textWidth, TEXT_MUTED);
       }
+
       if (book.preferences.length > 0) {
-        drawParagraph(chrome.preferences, fonts.sansBold, 10, GOLD_LIGHT, 4, textX, textWidth, undefined, {
+        y -= 10;
+        drawParagraph(chrome.preferences, fonts.sansBold, 10.5, ACCENT, 4, textX, textWidth, undefined, {
           tracking: 0.8,
         });
         y -= 2;
-        drawBulletList(book.preferences, fonts.sans, 11.5, textX, textWidth, WHITE);
+        drawBulletList(book.preferences, fonts.sans, 12, textX, textWidth, TEXT_MUTED);
       }
     }
 
-    // No must-haves and no preferences stated at all — skip the panel
-    // entirely rather than drawing an empty glass card.
-    if (book.must_haves.length > 0 || book.preferences.length > 0) {
-      // Measure first (dry run — same code path, no actual drawing) so the
-      // glass panel behind the text is only ever as tall as its real
-      // content, never a mostly-empty card when must-haves/preferences
-      // are short.
-      const measureStart = panelTop - PANEL_PAD_Y;
-      dryRun = true;
-      drawPanelContent();
-      const contentHeight = measureStart - y;
-      dryRun = false;
+    const measureStart = CARD_TOP_Y - PANEL_PAD_Y;
+    dryRun = true;
+    drawCardContent();
+    const contentHeight = measureStart - y;
+    dryRun = false;
 
-      const panelHeight = Math.min(maxPanelHeight, contentHeight + PANEL_PAD_Y * 2);
-      drawGlassPanel(MARGIN, panelTop - panelHeight, CONTENT_WIDTH, panelHeight);
-      drawPanelContent();
-    }
+    const cardHeight = Math.min(maxCardHeight, contentHeight + PANEL_PAD_Y * 2);
+    drawCard(cardX, CARD_TOP_Y - cardHeight, CONTENT_WIDTH, cardHeight);
+    drawCardContent();
   }
 
-  // --- Pages 3-8: ideas, one full page each, six total. Every page is a
-  // fixed grid — header block (eyebrow, title, gold badge, intro,
-  // why-it-fits) over the top of the photo, a glass panel with the real
-  // Actionability Layer content, and a solid gold action bar pinned to the
-  // bottom for the first step. Generous fixed zones (see the constants
-  // above) rather than dynamic flow-until-full — the tightened Claude
-  // schema (exactly 3 steps, capped word counts) reliably fits inside
-  // them with room to spare.
-  function drawIdeaPage(idea: IdeaBookEntry, index: number, moodImage: PDFImage) {
-    drawFullBleedImage(moodImage);
-    drawOverlayWash(0.4);
-    drawBottomGradient(PAGE_HEIGHT - MARGIN, 0.68);
+  // --- Pages 3-8: ideas, one full page each, six total. A shared
+  // photograph fills the page (a subtle per-page pan keeps it from
+  // looking pixel-identical seven pages running), a small glass badge
+  // marks the idea number, one main card carries title/intro/why-it-
+  // fits/steps/practical info, and a compact second card holds the first
+  // action — both sized to their own real content via the dry-run
+  // measuring pass, so a short idea never leaves a card looking empty.
+  const BACKGROUND_PANS = [-0.5, 0.5, -0.2, 0.3, 0, -0.35];
+
+  function drawIdeaPage(idea: IdeaBookEntry, index: number, panX: number) {
+    drawFullBleedImage(images.background, panX);
+    drawOverlayWash(0.05);
 
     const badgeCenterX = PAGE_WIDTH - MARGIN - BADGE_RADIUS;
-    const badgeCenterY = PAGE_HEIGHT - MARGIN - BADGE_RADIUS + 6;
-    drawGoldBadge(badgeCenterX, badgeCenterY, String(index));
+    const badgeCenterY = PAGE_HEIGHT - MARGIN - BADGE_RADIUS;
+    drawBadge(badgeCenterX, badgeCenterY, String(index));
 
-    const titleMaxWidth = CONTENT_WIDTH - (BADGE_RADIUS * 2 + 20);
-    y = PAGE_HEIGHT - MARGIN;
-    drawParagraph(chrome.possibilityEyebrow, fonts.sansBold, 10, CHAMPAGNE_LIGHT, 4, MARGIN, titleMaxWidth, undefined, {
-      tracking: 0.8,
-    });
-    y -= 4;
-    drawParagraph(idea.title, fonts.serif, 22, WHITE, 7, MARGIN, titleMaxWidth, 2, { foil: true });
-    y -= 6;
-    drawParagraph(idea.intro, fonts.sans, 11.5, CHAMPAGNE_LIGHT, 5, MARGIN, CONTENT_WIDTH, 3);
-    y -= 6;
-    drawParagraph(idea.why_it_fits, fonts.sans, 12, WHITE, 5, MARGIN, CONTENT_WIDTH, 3);
-
-    const panelTop = GLASS_PANEL_TOP_Y;
-    const maxPanelHeight = panelTop - GLASS_PANEL_BOTTOM_WITH_BAR;
-    const textX = MARGIN + PANEL_PAD_X;
+    const cardX = MARGIN;
+    const textX = cardX + PANEL_PAD_X;
     const textWidth = CONTENT_WIDTH - PANEL_PAD_X * 2;
 
-    function drawPanelContent() {
-      y = panelTop - PANEL_PAD_Y;
+    // First-action card content + measurement (bottom-anchored, compact).
+    function drawFirstActionContent() {
+      y -= PANEL_PAD_Y;
+      drawParagraph(
+        book.labels.first_action_heading || chrome.firstActionFallback,
+        fonts.sansBold,
+        9.5,
+        ACCENT,
+        4,
+        textX,
+        textWidth,
+        undefined,
+        { tracking: 1 }
+      );
+      y -= 2;
+      drawParagraph(idea.first_action, fonts.sansBold, 13, TEXT_LIGHT, 5, textX, textWidth, 2);
+    }
+
+    const faMeasureStart = 10000; // arbitrary fixed reference, only the delta matters
+    y = faMeasureStart;
+    dryRun = true;
+    drawFirstActionContent();
+    const faContentHeight = faMeasureStart - y - PANEL_PAD_Y;
+    dryRun = false;
+    const firstActionHeight = Math.min(
+      FIRST_ACTION_MAX_HEIGHT,
+      Math.max(FIRST_ACTION_MIN_HEIGHT, faContentHeight + PANEL_PAD_Y * 2)
+    );
+    const firstActionTop = MARGIN + firstActionHeight;
+
+    // Main card content + measurement, capped so it never reaches the
+    // first-action card below it.
+    const maxMainHeight = CARD_TOP_Y - (firstActionTop + CARD_GAP);
+
+    function drawMainCardContent() {
+      y = CARD_TOP_Y - PANEL_PAD_Y;
+      drawParagraph(chrome.possibilityEyebrow, fonts.sansBold, 10.5, ACCENT, 4, textX, textWidth, undefined, {
+        tracking: 0.8,
+      });
+      y -= 4;
+      drawParagraph(idea.title, fonts.serif, 24, TEXT_LIGHT, 7, textX, textWidth, 2);
+      y -= 6;
+      drawParagraph(idea.intro, fonts.sans, 12.5, TEXT_MUTED, 5, textX, textWidth, 3);
+      y -= 6;
+      drawParagraph(idea.why_it_fits, fonts.sans, 13, TEXT_LIGHT, 5, textX, textWidth, 3);
+      y -= 12;
+
       drawParagraph(
         book.labels.steps_heading || chrome.stepsFallback,
         fonts.sansBold,
-        10.5,
-        GOLD_LIGHT,
+        11,
+        ACCENT,
         4,
         textX,
         textWidth,
@@ -591,7 +551,7 @@ export async function renderIdeaBookPdf(
         { tracking: 0.8 }
       );
       y -= 2;
-      drawNumberedList(idea.details, fonts.sans, 11.5, textX, textWidth, 3, WHITE);
+      drawNumberedList(idea.details, fonts.sans, 12.5, textX, textWidth, 3, TEXT_LIGHT);
       y -= 4;
 
       const practicalLine = [
@@ -601,15 +561,7 @@ export async function renderIdeaBookPdf(
       ]
         .filter(Boolean)
         .join("  ·  ");
-      drawMetaLine(
-        book.labels.cost_label || chrome.practicalFallback,
-        practicalLine,
-        textX,
-        textWidth,
-        undefined,
-        GOLD_LIGHT,
-        CHAMPAGNE_LIGHT
-      );
+      drawMetaLine(book.labels.cost_label || chrome.practicalFallback, practicalLine, textX, textWidth);
 
       if (idea.location) {
         const locationLine = [idea.location.name, idea.location.city].filter(Boolean).join(", ");
@@ -618,9 +570,7 @@ export async function renderIdeaBookPdf(
           locationLine,
           textX,
           textWidth,
-          mapsSearchUrl(idea.location.name, idea.location.city),
-          GOLD_LIGHT,
-          CHAMPAGNE_LIGHT
+          mapsSearchUrl(idea.location.name, idea.location.city)
         );
       }
 
@@ -630,7 +580,7 @@ export async function renderIdeaBookPdf(
           book.labels.requirements_heading || chrome.requirementsFallback,
           fonts.sansBold,
           10,
-          GOLD_LIGHT,
+          ACCENT,
           4,
           textX,
           textWidth,
@@ -638,81 +588,98 @@ export async function renderIdeaBookPdf(
           { tracking: 0.6 }
         );
         y -= 1;
-        drawBulletList(idea.requirements, fonts.sans, 10.5, textX, textWidth, CHAMPAGNE_LIGHT);
+        drawBulletList(idea.requirements, fonts.sans, 10.5, textX, textWidth, TEXT_MUTED);
       }
     }
 
-    // Measure first (dry run), then draw the glass panel only as tall as
-    // this idea's actual content needs — a short idea (no location, no
-    // requirements) gets a tighter card instead of a mostly-empty one.
-    const measureStart = panelTop - PANEL_PAD_Y;
+    const measureStart = CARD_TOP_Y - PANEL_PAD_Y;
     dryRun = true;
-    drawPanelContent();
+    drawMainCardContent();
     const contentHeight = measureStart - y;
     dryRun = false;
 
-    const panelHeight = Math.min(maxPanelHeight, Math.max(140, contentHeight + PANEL_PAD_Y * 2));
-    drawGlassPanel(MARGIN, panelTop - panelHeight, CONTENT_WIDTH, panelHeight);
-    drawPanelContent();
+    const mainCardHeight = Math.min(maxMainHeight, Math.max(160, contentHeight + PANEL_PAD_Y * 2));
+    drawCard(cardX, CARD_TOP_Y - mainCardHeight, CONTENT_WIDTH, mainCardHeight);
+    drawMainCardContent();
 
-    drawGoldActionBar(book.labels.first_action_heading || chrome.firstActionFallback, idea.first_action);
+    drawCard(cardX, MARGIN, CONTENT_WIDTH, firstActionHeight, 0.68);
+    y = MARGIN + firstActionHeight;
+    drawFirstActionContent();
   }
 
   book.ideas.forEach((idea, i) => {
     page = addPage();
-    drawIdeaPage(idea, i + 1, images.moods[i % images.moods.length]);
+    drawIdeaPage(idea, i + 1, BACKGROUND_PANS[i % BACKGROUND_PANS.length]);
   });
 
-  // --- Page 9: Wildcard — the same full-bleed/glass-panel/gold-bar grid
-  // as an idea page, distinguished by a thin full-page gold frame instead
-  // of a numbered badge (it deliberately sits outside the "idea 1-6"
-  // numbering) and its own framing copy.
+  // --- Page 9: Wildcard — the same two-card grid as an idea page, on its
+  // own full-bleed closing photograph, distinguished by its own framing
+  // copy rather than an extra decorative border.
   page = addPage();
   {
-    drawFullBleedImage(images.wildcard);
-    drawOverlayWash(0.42);
-    drawBottomGradient(PAGE_HEIGHT - MARGIN, 0.68);
+    drawFullBleedImage(images.closing);
+    drawOverlayWash(0.05);
 
-    page.drawRectangle({
-      x: 18,
-      y: 18,
-      width: PAGE_WIDTH - 36,
-      height: PAGE_HEIGHT - 36,
-      borderColor: ACCENT,
-      borderWidth: 1.5,
-    });
-
-    y = PAGE_HEIGHT - MARGIN;
-    drawParagraph(
-      book.labels.wildcard_heading || chrome.wildcardFallbackHeading,
-      fonts.sansBold,
-      10,
-      GOLD_LIGHT,
-      4,
-      MARGIN,
-      CONTENT_WIDTH,
-      1,
-      { tracking: 1.2 }
-    );
-    y -= 4;
-    drawParagraph(book.wildcard.title, fonts.serif, 22, WHITE, 7, MARGIN, CONTENT_WIDTH, 2, { foil: true });
-    y -= 6;
-    drawParagraph(book.wildcard.intro, fonts.sans, 11.5, CHAMPAGNE_LIGHT, 5, MARGIN, CONTENT_WIDTH, 3);
-    y -= 6;
-    drawParagraph(book.wildcard.why_it_fits, fonts.sans, 12, WHITE, 5, MARGIN, CONTENT_WIDTH, 3);
-
-    const panelTop = GLASS_PANEL_TOP_Y;
-    const maxPanelHeight = panelTop - GLASS_PANEL_BOTTOM_WITH_BAR;
-    const textX = MARGIN + PANEL_PAD_X;
+    const cardX = MARGIN;
+    const textX = cardX + PANEL_PAD_X;
     const textWidth = CONTENT_WIDTH - PANEL_PAD_X * 2;
 
-    function drawPanelContent() {
-      y = panelTop - PANEL_PAD_Y;
+    function drawFirstActionContent() {
+      y -= PANEL_PAD_Y;
+      drawParagraph(
+        book.labels.first_action_heading || chrome.firstActionFallback,
+        fonts.sansBold,
+        9.5,
+        ACCENT,
+        4,
+        textX,
+        textWidth,
+        undefined,
+        { tracking: 1 }
+      );
+      y -= 2;
+      drawParagraph(book.wildcard.first_action, fonts.sansBold, 13, TEXT_LIGHT, 5, textX, textWidth, 2);
+    }
+
+    const faMeasureStart = 10000;
+    y = faMeasureStart;
+    dryRun = true;
+    drawFirstActionContent();
+    const faContentHeight = faMeasureStart - y - PANEL_PAD_Y;
+    dryRun = false;
+    const firstActionHeight = Math.min(
+      FIRST_ACTION_MAX_HEIGHT,
+      Math.max(FIRST_ACTION_MIN_HEIGHT, faContentHeight + PANEL_PAD_Y * 2)
+    );
+    const firstActionTop = MARGIN + firstActionHeight;
+    const maxMainHeight = CARD_TOP_Y - (firstActionTop + CARD_GAP);
+
+    function drawMainCardContent() {
+      y = CARD_TOP_Y - PANEL_PAD_Y;
+      drawParagraph(
+        book.labels.wildcard_heading || chrome.wildcardFallbackHeading,
+        fonts.sansBold,
+        10.5,
+        ACCENT,
+        4,
+        textX,
+        textWidth,
+        1,
+        { tracking: 1.2 }
+      );
+      y -= 4;
+      drawParagraph(book.wildcard.title, fonts.serif, 24, TEXT_LIGHT, 7, textX, textWidth, 2);
+      y -= 6;
+      drawParagraph(book.wildcard.intro, fonts.sans, 12.5, TEXT_MUTED, 5, textX, textWidth, 3);
+      y -= 6;
+      drawParagraph(book.wildcard.why_it_fits, fonts.sans, 13, TEXT_LIGHT, 5, textX, textWidth, 3);
+      y -= 12;
+
       drawParagraph(
         book.labels.steps_heading || chrome.stepsFallback,
         fonts.sansBold,
-        10.5,
-        GOLD_LIGHT,
+        11,
+        ACCENT,
         4,
         textX,
         textWidth,
@@ -720,7 +687,7 @@ export async function renderIdeaBookPdf(
         { tracking: 0.8 }
       );
       y -= 2;
-      drawNumberedList(book.wildcard.details, fonts.sans, 11.5, textX, textWidth, 3, WHITE);
+      drawNumberedList(book.wildcard.details, fonts.sans, 12.5, textX, textWidth, 3, TEXT_LIGHT);
       y -= 4;
 
       const wildcardPractical = [
@@ -730,15 +697,7 @@ export async function renderIdeaBookPdf(
       ]
         .filter(Boolean)
         .join("  ·  ");
-      drawMetaLine(
-        book.labels.cost_label || chrome.practicalFallback,
-        wildcardPractical,
-        textX,
-        textWidth,
-        undefined,
-        GOLD_LIGHT,
-        CHAMPAGNE_LIGHT
-      );
+      drawMetaLine(book.labels.cost_label || chrome.practicalFallback, wildcardPractical, textX, textWidth);
       if (book.wildcard.location) {
         const wildcardLocationLine = [book.wildcard.location.name, book.wildcard.location.city]
           .filter(Boolean)
@@ -748,9 +707,7 @@ export async function renderIdeaBookPdf(
           wildcardLocationLine,
           textX,
           textWidth,
-          mapsSearchUrl(book.wildcard.location.name, book.wildcard.location.city),
-          GOLD_LIGHT,
-          CHAMPAGNE_LIGHT
+          mapsSearchUrl(book.wildcard.location.name, book.wildcard.location.city)
         );
       }
       if (book.wildcard.requirements.length > 0) {
@@ -759,7 +716,7 @@ export async function renderIdeaBookPdf(
           book.labels.requirements_heading || chrome.requirementsFallback,
           fonts.sansBold,
           10,
-          GOLD_LIGHT,
+          ACCENT,
           4,
           textX,
           textWidth,
@@ -767,48 +724,45 @@ export async function renderIdeaBookPdf(
           { tracking: 0.6 }
         );
         y -= 1;
-        drawBulletList(book.wildcard.requirements, fonts.sans, 10.5, textX, textWidth, CHAMPAGNE_LIGHT);
+        drawBulletList(book.wildcard.requirements, fonts.sans, 10.5, textX, textWidth, TEXT_MUTED);
       }
     }
 
-    const measureStart = panelTop - PANEL_PAD_Y;
+    const measureStart = CARD_TOP_Y - PANEL_PAD_Y;
     dryRun = true;
-    drawPanelContent();
+    drawMainCardContent();
     const contentHeight = measureStart - y;
     dryRun = false;
 
-    const panelHeight = Math.min(maxPanelHeight, Math.max(140, contentHeight + PANEL_PAD_Y * 2));
-    drawGlassPanel(MARGIN, panelTop - panelHeight, CONTENT_WIDTH, panelHeight);
-    drawPanelContent();
+    const mainCardHeight = Math.min(maxMainHeight, Math.max(160, contentHeight + PANEL_PAD_Y * 2));
+    drawCard(cardX, CARD_TOP_Y - mainCardHeight, CONTENT_WIDTH, mainCardHeight);
+    drawMainCardContent();
 
-    drawGoldActionBar(
-      book.labels.first_action_heading || chrome.firstActionFallback,
-      book.wildcard.first_action
-    );
+    drawCard(cardX, MARGIN, CONTENT_WIDTH, firstActionHeight, 0.68);
+    y = MARGIN + firstActionHeight;
+    drawFirstActionContent();
   }
 
-  // Footer: page number + wordmark on every page except the cover — every
-  // one of those pages is now a full-bleed dark photo, so the footer's
-  // color moved from a muted gray (meant for the old cream background) to
-  // a pale champagne that stays legible over the image.
+  // Footer: page number + wordmark on every page except the cover — warm
+  // taupe, legible against this book's uniformly light, airy photography.
   const allPages = doc.getPages();
   allPages.forEach((footerPage, i) => {
     if (i === 0) return;
     footerPage.drawText(chrome.footerWordmark, {
       x: MARGIN,
-      y: 28,
+      y: 32,
       size: 8,
       font: fonts.sans,
-      color: CHAMPAGNE_LIGHT,
+      color: ACCENT,
     });
     const pageNumText = String(i + 1);
     const pageNumWidth = fonts.sans.widthOfTextAtSize(pageNumText, 8);
     footerPage.drawText(pageNumText, {
       x: PAGE_WIDTH - MARGIN - pageNumWidth,
-      y: 28,
+      y: 32,
       size: 8,
       font: fonts.sans,
-      color: CHAMPAGNE_LIGHT,
+      color: ACCENT,
     });
   });
 

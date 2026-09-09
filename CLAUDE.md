@@ -1062,3 +1062,66 @@ Stripe, Claude API, Resend, PostHog).
       het Frans Hals Museum) rendert overal correct, inclusief een idee
       zonder locatie waarbij die regel netjes wegvalt. Nog steeds exact 9
       pagina's. `tsc --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 23 — Volledige visuele herbouw van de Idea Book-PDF naar een
+      rustige, lichte "vensters met vitrage"-stijl, op basis van een echt
+      aangeleverd achtergrondbeeld (`Achtergrond.jpeg`, door de gebruiker
+      zelf aangedragen als projectbestand). Vervangt het donkere
+      goud/emerald "quiet luxury"-thema uit Stap 18-22 volledig — expliciet
+      zo gekozen na een gerichte vraag, niet als hybride ernaast.
+      **Vaste, echte achtergrondfoto i.p.v. AI-gegenereerde sfeerbeelden**:
+      het aangeleverde beeld is gekopieerd naar
+      `public/illustrations/idea-book/background.jpg` en wordt nu als
+      full-bleed achtergrond gebruikt op alle 7 inhoudspagina's (profiel +
+      6 ideeën) — met een lichte, per-pagina horizontale pan-variatie
+      (`BACKGROUND_PANS`) zodat dezelfde foto niet zeven keer pixel-
+      identiek oogt. Cover en wildcard/slotpagina krijgen elk een nieuw,
+      apart gegenereerd beeld in dezelfde zachte/luchtige/fotorealistische
+      sfeer (`scripts/generate-idea-book-illustrations.ts` herschreven —
+      genereert nu alleen nog `cover.jpg`/`closing.jpg`, de achtergrond is
+      geen AI-beeld meer). De 3 oude `mood-*.jpg`-bestanden zijn
+      verwijderd.
+      **Nieuw kleurenpalet, volledig losstaand van het vorige**: warm
+      houtskoolzwart voor de kaartvulling, warme ivoor/room voor primaire
+      tekst, een zachte taupe/greige als enige accentkleur (vervangt
+      goud volledig) — gekozen omdat dit beeld overwegend licht is, en de
+      eigen instructie expliciet vroeg om dan een donkere transparante
+      overlay te gebruiken voor leesbaarheid, in plaats van per plek te
+      moeten inschatten of de achtergrond licht of donker is.
+      **Echt afgeronde kaarten**: pdf-lib's `drawRectangle` kent geen
+      radius-optie; opgelost met een nieuwe `roundedRectPath()`-functie
+      (een met de hand opgebouwd SVG-rondedhoeken-path) getekend via
+      `page.drawSvgPath()` — geverifieerd dat pdf-lib's eigen Y-as-flip
+      (het commentaar in de pdf-lib-broncode zelf: "SVG path Y axis is
+      opposite pdf-lib's") de verwachte positionering oplevert door het
+      eerst in een render te controleren vóór het overal te gebruiken.
+      **Van drie kaarten naar twee, consolidatie i.p.v. decoratie**: de
+      oude driedelige opbouw (los kop-blok zonder kader, glas-paneel,
+      volledig ondoorzichtige gouden actiebalk uit Stap 22) is vervangen
+      door precies twee afgeronde, semi-transparante kaarten per
+      idee-/wildcardpagina: één hoofdkaart (titel, intro, waarom-dit-past,
+      stappen, praktische info, vereisten) en één compacte eerste-actie-
+      kaart — beide zelf hun hoogte bepalend via dezelfde dry-run-
+      meettechniek uit Stap 22 (nu consistent toegepast op alle kaarten,
+      inclusief de eerste-actie-kaart, die dat in Stap 22 nog niet had).
+      De gouden badge/foil-teksteffecten zijn volledig verwijderd — een
+      minimale glazen cirkel-badge (zelfde visuele taal als de kaarten)
+      voor het idee-nummer is het enige decoratieve accent dat overblijft.
+      Het volledige-paginakader om de wildcard-pagina (Stap 22) is ook
+      geschrapt — die pagina onderscheidt zich nu alleen nog via zijn
+      eigen beeld en copy, niet via een extra decoratief element.
+      Onderweg een echte bug gevonden en gefixt: een eerste testrender
+      liet op de profielpagina een leeg vierkantje zien i.p.v. een
+      ster-badge — het gebundelde Noto Sans Bold-lettertype bevat geen
+      "★"-glyph. Opgelost door de badge op de profielpagina helemaal weg
+      te laten (een profiel heeft toch geen volgnummer nodig) in plaats
+      van naar een ander glyph te zoeken.
+      Getest: een losse testrender met mock-data (met/zonder vereisten en
+      locatie, een idee met een lange titel) via de PyMuPDF-rasterizer —
+      afgeronde hoeken, kaart-transparantie en de zelf-aanpassende
+      kaarthoogtes stuk voor stuk gecontroleerd, inclusief de hierboven
+      genoemde badge-bugfix; daarna een echte, betaalde testgeneratie via
+      de bestaande test-bypass met een Utrecht-profiel — de echte
+      Claude-output (met een verwijzing naar Landgoed Amelisweerd en de
+      Kromme Rijn) rendert overal correct in de nieuwe stijl. Nog steeds
+      exact 9 pagina's. `tsc --noEmit`/`eslint .`/`npm run build` schoon.
