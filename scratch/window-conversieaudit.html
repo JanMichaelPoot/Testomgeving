@@ -1,0 +1,785 @@
+<title>WINDOW Conversieaudit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #f5f3ee;
+    --paper: #ffffff;
+    --ink: #1a1a2e;
+    --ink-muted: #5b5b68;
+    --ink-faint: #8a8a94;
+    --accent: #6c3ce9;
+    --accent-dark: #4b2aa6;
+    --panel-tint: #ede6fb;
+    --panel-tint-border: #d9caf5;
+    --border: rgba(26, 26, 46, 0.12);
+    --border-soft: rgba(26, 26, 46, 0.07);
+    --shadow: 0 1px 2px rgba(26, 26, 46, 0.04), 0 8px 24px rgba(26, 26, 46, 0.06);
+    --good: #2f7a52;
+    --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --cream: #16141f;
+      --paper: #211d2c;
+      --ink: #f2efea;
+      --ink-muted: #ab a5bc;
+      --ink-muted: #aca5bc;
+      --ink-faint: #7c7690;
+      --accent: #9b7ff2;
+      --accent-dark: #cdbdf7;
+      --panel-tint: #2a2340;
+      --panel-tint-border: #453a68;
+      --border: rgba(242, 239, 234, 0.14);
+      --border-soft: rgba(242, 239, 234, 0.08);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 28px rgba(0, 0, 0, 0.35);
+      --good: #6fcf9a;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --cream: #16141f;
+    --paper: #211d2c;
+    --ink: #f2efea;
+    --ink-muted: #aca5bc;
+    --ink-faint: #7c7690;
+    --accent: #9b7ff2;
+    --accent-dark: #cdbdf7;
+    --panel-tint: #2a2340;
+    --panel-tint-border: #453a68;
+    --border: rgba(242, 239, 234, 0.14);
+    --border-soft: rgba(242, 239, 234, 0.08);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 28px rgba(0, 0, 0, 0.35);
+    --good: #6fcf9a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; text-wrap: balance; color: var(--ink); }
+
+  a { color: var(--accent-dark); }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+  }
+
+  /* ---------- Masthead ---------- */
+
+  .masthead {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background:
+      linear-gradient(180deg, rgba(108,60,233,0.10), rgba(108,60,233,0) 55%),
+      var(--cream);
+    padding: 3.4rem 1.5rem 2.6rem;
+  }
+
+  .frame {
+    max-width: 880px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .panes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    height: 84px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+    background: var(--border);
+  }
+
+  .pane {
+    background:
+      radial-gradient(120% 140% at 30% 0%, rgba(108,60,233,0.22), transparent 60%),
+      var(--paper);
+  }
+  .pane:nth-child(2) { background:
+      radial-gradient(120% 160% at 70% 100%, rgba(108,60,233,0.30), transparent 60%),
+      var(--paper); }
+  .pane:nth-child(3) { background:
+      radial-gradient(140% 140% at 20% 20%, rgba(108,60,233,0.18), transparent 55%),
+      var(--paper); }
+
+  .masthead h1 {
+    font-size: clamp(2.1rem, 4.4vw, 3.05rem);
+    line-height: 1.08;
+    margin: 0.9rem 0 0.9rem;
+    letter-spacing: -0.01em;
+  }
+
+  .masthead .lede {
+    max-width: 62ch;
+    font-size: 1.08rem;
+    color: var(--ink-muted);
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.1rem;
+    margin-top: 1.6rem;
+    font-size: 0.86rem;
+    color: var(--ink-faint);
+  }
+  .meta-row span::before { content: "·"; margin-right: 1.1rem; color: var(--border); }
+  .meta-row span:first-child::before { content: none; margin-right: 0; }
+
+  /* ---------- Layout ---------- */
+
+  .layout {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 2.6rem 1.5rem 6rem;
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  nav.toc {
+    position: sticky;
+    top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  nav.toc a {
+    text-decoration: none;
+    color: var(--ink-muted);
+    font-size: 0.86rem;
+    font-weight: 500;
+    padding: 0.45rem 0 0.45rem 0.9rem;
+    border-left: 2px solid var(--border);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  nav.toc a:hover { color: var(--accent-dark); border-color: var(--accent); }
+  nav.toc .toc-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-left: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+
+  main { min-width: 0; }
+
+  section.block { margin-bottom: 4.6rem; scroll-margin-top: 1.5rem; }
+
+  .block-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+  .block-num {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--paper);
+    background: var(--accent);
+    width: 2.1rem;
+    height: 2.1rem;
+    min-width: 2.1rem;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .block-head h2 { font-size: 1.7rem; margin: 0; }
+  .block-intro { color: var(--ink-muted); max-width: 66ch; margin: 0.9rem 0 0 2.9rem; }
+
+  .item { margin: 2.1rem 0 0 2.9rem; padding-top: 2.1rem; border-top: 1px solid var(--border-soft); }
+  .item:first-of-type { border-top: none; padding-top: 0; }
+
+  .item h3 { font-size: 1.2rem; margin: 0 0 0.9rem; }
+  .item h4.sub { font-size: 1.02rem; margin: 1.6rem 0 0.7rem; color: var(--ink); }
+
+  .label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .label.huidig { color: var(--ink-faint); }
+  .label.voorstel { color: var(--accent-dark); }
+  .label.waarom { color: var(--ink-faint); }
+
+  blockquote.huidig {
+    margin: 0 0 1.1rem;
+    padding: 0.85rem 1.1rem;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+  }
+  blockquote.huidig p { margin: 0.25rem 0; }
+  blockquote.huidig p + p { margin-top: 0.4rem; }
+
+  .voorstel-box {
+    background: var(--panel-tint);
+    border: 1px solid var(--panel-tint-border);
+    border-radius: 14px;
+    padding: 1.15rem 1.3rem;
+    margin: 0 0 1.1rem;
+  }
+  .voorstel-box .copy-line {
+    font-family: var(--font-serif);
+    font-size: 1.06rem;
+    line-height: 1.5;
+    margin: 0.15rem 0 0.5rem;
+  }
+  .voorstel-box .copy-line:last-child { margin-bottom: 0; }
+  .voorstel-box .copy-small {
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+  }
+  .voorstel-box .tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-bottom: 0.35rem;
+  }
+
+  .waarom {
+    font-size: 0.92rem;
+    color: var(--ink-muted);
+    max-width: 68ch;
+  }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.7rem 0 1.1rem; }
+  .chip {
+    font-family: var(--font-sans);
+    font-size: 0.84rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* mock UI fragments */
+  .mock {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    margin: 0.3rem 0 0.9rem;
+  }
+  .mock-btn {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.94rem;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+  }
+  .mock-caption { font-size: 0.78rem; color: var(--ink-faint); }
+
+  .mock-slider { width: 100%; max-width: 360px; margin: 0.4rem 0 0.2rem; }
+  .mock-slider .value { font-family: var(--font-sans); font-weight: 600; font-size: 0.98rem; margin-bottom: 0.4rem; }
+  .mock-slider .track { position: relative; height: 6px; border-radius: 999px; background: var(--border); }
+  .mock-slider .fill { position: absolute; inset: 0 auto 0 0; width: var(--w, 50%); border-radius: 999px; background: var(--accent); }
+  .mock-slider .thumb { position: absolute; top: 50%; left: var(--w, 50%); width: 16px; height: 16px; margin-left: -8px; margin-top: -8px; border-radius: 999px; background: var(--paper); border: 2px solid var(--accent-dark); }
+  .mock-slider .ends { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--ink-faint); margin-top: 0.35rem; }
+  .mock-slider .example { font-size: 0.82rem; color: var(--accent-dark); margin-top: 0.5rem; }
+
+  .card-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 0.6rem 0 1.2rem; }
+  .mini-card { background: var(--paper); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.2rem; box-shadow: var(--shadow); }
+  .mini-card h5 { font-family: var(--font-serif); font-weight: 500; font-size: 1.02rem; margin: 0 0 0.4rem; }
+  .mini-card p { font-size: 0.86rem; color: var(--ink-muted); margin: 0; }
+
+  .phase-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 0.6rem 0 1.2rem; }
+  .phase { border-radius: 14px; padding: 1rem 1.1rem; background: var(--paper); border: 1px solid var(--border); }
+  .phase .tag { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.5rem; }
+  .phase p { font-size: 0.88rem; margin: 0; color: var(--ink-muted); }
+  .phase p.q { color: var(--ink); font-style: italic; }
+
+  .steps-123 { list-style: none; margin: 0.6rem 0 1.2rem; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+  .steps-123 li { display: flex; gap: 0.8rem; align-items: flex-start; font-size: 0.94rem; }
+  .steps-123 .n {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: var(--accent-dark);
+    color: var(--paper);
+    width: 1.6rem; height: 1.6rem; min-width: 1.6rem;
+    border-radius: 999px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .trust-line { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--ink-faint); margin-top: 0.6rem; }
+
+  .checklist { list-style: none; margin: 0.6rem 0 1.2rem; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+  .checklist li { padding: 0.9rem 1.05rem; background: var(--paper); border: 1px solid var(--border); border-radius: 12px; font-size: 0.92rem; }
+  .checklist li strong { display: block; margin-bottom: 0.2rem; font-family: var(--font-serif); font-weight: 500; font-size: 1rem; }
+  .checklist li span.small { color: var(--ink-muted); font-size: 0.88rem; }
+
+  .legal-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin: 0.6rem 0 1.2rem; }
+  .legal-col h5 { font-family: var(--font-serif); font-weight: 500; font-size: 1.05rem; margin: 0 0 0.6rem; }
+  .legal-col ol { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.55rem; font-size: 0.9rem; color: var(--ink-muted); }
+  .legal-col ol li strong { color: var(--ink); }
+
+  /* Quick wins */
+  .wins {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 1rem;
+  }
+  .win {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    box-shadow: var(--shadow);
+  }
+  .win .num {
+    font-family: var(--font-serif);
+    font-size: 1.7rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .win h4 { margin: 0 0 0.25rem; font-size: 1.02rem; }
+  .win p { margin: 0; font-size: 0.86rem; color: var(--ink-muted); }
+  .impact {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .impact.hoog { background: rgba(108,60,233,0.14); color: var(--accent-dark); }
+
+  footer.doc-footer {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+    color: var(--ink-faint);
+    font-size: 0.84rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+
+  @media (max-width: 820px) {
+    .layout { grid-template-columns: 1fr; }
+    nav.toc { position: static; flex-direction: row; flex-wrap: wrap; gap: 0.3rem 1rem; }
+    nav.toc .toc-title { display: none; }
+    nav.toc a { border-left: none; border-bottom: 2px solid var(--border); padding: 0.3rem 0; }
+    .card-row, .phase-row, .legal-cols { grid-template-columns: 1fr; }
+    .item, .block-intro { margin-left: 0; }
+    .win { grid-template-columns: 2.4rem 1fr; }
+    .win .impact { grid-column: 2; justify-self: start; }
+  }
+</style>
+
+<header class="masthead">
+  <div class="frame">
+    <div class="panes"><div class="pane"></div><div class="pane"></div><div class="pane"></div></div>
+    <p class="eyebrow">Interne UX- &amp; conversieaudit</p>
+    <h1>WINDOW, opnieuw bekeken</h1>
+    <p class="lede">Vijf secties, van hero tot voorwaarden — concrete copy, UX-aanpassingen en een prioriteitenlijst om conversie en vertrouwen te verhogen zonder de poëtische kern te verliezen.</p>
+    <div class="meta-row">
+      <span>5 secties</span>
+      <span>1 prioriteitenlijst</span>
+      <span>geschreven in de stem van WINDOW</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <span class="toc-title">Op deze pagina</span>
+    <a href="#homepage">Homepage</a>
+    <a href="#intake">Intake-flow</a>
+    <a href="#bevestiging">Bevestiging</a>
+    <a href="#trust-legal">Trust &amp; legal</a>
+    <a href="#quick-wins">Quick wins</a>
+  </nav>
+
+  <main>
+
+    <!-- 1. HOMEPAGE -->
+    <section class="block" id="homepage">
+      <div class="block-head"><span class="block-num">1</span><h2>Homepage</h2></div>
+      <p class="block-intro">De huidige hero is poëtisch sterk maar volledig abstract: een nieuwe bezoeker weet na drie seconden niet wát hij krijgt, hoelang het duurt of wat het kost. Voor een betaald, onbekend concept ("Idea Book") is dat de grootste conversieblokkade van de hele site.</p>
+
+      <div class="item">
+        <h3>Hero: headline, subheadline &amp; CTA</h3>
+
+        <span class="label huidig">Huidig</span>
+        <blockquote class="huidig">
+          <p><strong>Een Venster Naar Wat Zou Kunnen Zijn</strong></p>
+          <p>"Je hebt niet nog een antwoord nodig. Soms moet je gewoon een andere mogelijkheid zien."</p>
+          <p>CTA: "Open een Venster"</p>
+        </blockquote>
+
+        <span class="label voorstel">Voorstel</span>
+        <div class="voorstel-box">
+          <span class="tag">Headline — behouden</span>
+          <p class="copy-line">Een Venster Naar Wat Zou Kunnen Zijn</p>
+          <span class="tag" style="margin-top:0.6rem;">Nieuwe subheadline</span>
+          <p class="copy-line">Beantwoord vijf korte vragen over jezelf. Ontvang binnen twee minuten een persoonlijk Idea Book vol mogelijkheden — gemaakt om iets te doen, niet om te lezen.</p>
+          <div class="mock" style="margin-top:0.9rem;">
+            <button class="mock-btn" type="button">Open een Venster — in 2 minuten</button>
+            <span class="mock-caption">Geen account nodig · vanaf €3,50</span>
+          </div>
+        </div>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">De poëtische kern (het venster-beeld) blijft intact, maar één zin maakt nu ook helder: wat je moet doen (vijf vragen), hoe lang het duurt (twee minuten — verlaagt de drempel enorm) en wat je krijgt (een tastbaar Idea Book, geen vage "mogelijkheden"). De microcopy onder de knop neemt de twee grootste aarzelingen vooraf weg: moet ik een account maken (nee), en wat kost dit (een laag, concreet bedrag).</p>
+      </div>
+
+      <div class="item">
+        <h3>Nieuw: "Wat er in jouw venster zit"</h3>
+        <p class="waarom" style="margin-bottom:0.9rem;">Ontbreekt nu volledig. Direct onder de hero, drie scanbare blokken die de drie écht onderscheidende dingen benoemen — personalisatie, de wildcard, het tastbare eindproduct.</p>
+
+        <span class="label voorstel">Voorstel</span>
+        <div class="card-row">
+          <div class="mini-card">
+            <h5>Zes mogelijkheden, voor jou</h5>
+            <p>Geen generieke tips. Elke suggestie is gebouwd op wat jij hebt verteld — je situatie, je budget, je tijd.</p>
+          </div>
+          <div class="mini-card">
+            <h5>Eén wildcard</h5>
+            <p>Het idee dat we eigenlijk niet zouden moeten voorstellen. Maar toch doen.</p>
+          </div>
+          <div class="mini-card">
+            <h5>Een Idea Book om te bewaren</h5>
+            <p>Een mooi vormgegeven PDF, geen los lijstje. Je ontvangt 'm ook meteen in je mail.</p>
+          </div>
+        </div>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">Drie korte blokken ogen als een menukaart en wekken vertrouwen vóórdat de betaalvraag komt — dit is het verschil tussen "mooi maar onduidelijk" en "mooi én ik snap wat ik koop".</p>
+      </div>
+
+      <div class="item">
+        <h3>Social proof</h3>
+        <p class="waarom" style="margin-bottom:0.9rem;">Een nieuw MVP heeft (nog) geen klanten om te citeren. Verzonnen testimonials zijn een vertrouwensbreuk zodra ze ontdekt worden — daarom een eerlijke, gefaseerde opbouw:</p>
+
+        <span class="label voorstel">Voorstel — drie fasen</span>
+        <div class="phase-row">
+          <div class="phase">
+            <span class="tag">Fase 0 — nu</span>
+            <p class="q">"Gemaakt omdat ik zelf te vaak op mijn telefoon zocht naar 'iets leuks doen' en nooit iets vond dat echt bij mij paste."</p>
+            <p>Een maker's note, geen nep-proof. Mensen vertrouwen sneller een mens dan een anonieme app.</p>
+          </div>
+          <div class="phase">
+            <span class="tag">Fase 1 — na ~20 verkopen</span>
+            <p class="q">"Al 47 vensters geopend deze maand"</p>
+            <p>Een simpele, dynamische teller. Laat zien dat anderen het risico al namen.</p>
+          </div>
+          <div class="phase">
+            <span class="tag">Fase 2 — bij echte reacties</span>
+            <p>2–3 korte, échte quotes (voornaam + achterletter, nooit een volledige naam zonder toestemming), in dezelfde kaartstijl als de rest van de site.</p>
+          </div>
+        </div>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">Elke fase is feitelijk correct op het moment dat hij online staat — en past bij de eerlijke, warme merktoon in plaats van die te ondermijnen.</p>
+      </div>
+
+      <div class="item">
+        <h3>Pricing visibility</h3>
+        <p class="waarom" style="margin-bottom:0.9rem;">De prijs is nu <strong>nergens</strong> zichtbaar vóór het Stripe-scherm zelf — niet op de homepage, niet in de intake, niet op de bevestigingspagina. Dat voelt als een bait-and-switch, ook al is het onbedoeld.</p>
+
+        <span class="label voorstel">Voorstel — drie plekken, klein en rustig</span>
+        <ol class="checklist" style="list-style:none;">
+          <li><strong>Homepage</strong><span class="small">Microcopy onder de hero-CTA: "vanaf €3,50" (zie hierboven).</span></li>
+          <li><strong>Bevestigingspagina</strong><span class="small">Verwerkt in de kop zelf: "Jouw Idea Book is klaar om samengesteld te worden — voor €3,50" (uitgewerkt in sectie 3).</span></li>
+          <li><strong>Footer</strong><span class="small">Een link "Wat kost het?" met een mini-FAQ: "Eén Idea Book kost €3,50, eenmalig. Geen abonnement, geen verborgen kosten."</span></li>
+        </ol>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">Vroege prijstransparantie verhoogt de kwaliteit van de doorklikkers en verlaagt de afhaak vlak vóór het echte betaalmoment — de beslissing is dan al bij de start genomen, niet pas bij Stripe.</p>
+      </div>
+    </section>
+
+    <!-- 2. INTAKE -->
+    <section class="block" id="intake">
+      <div class="block-head"><span class="block-num">2</span><h2>Intake-flow</h2></div>
+      <p class="block-intro">De structuur van de vijf stappen is al sterk. Wat ontbreekt: uitleg wáárom iets gevraagd wordt, een uitweg voor wie liever niet uitgebreid typt, en tastbare voorbeelden bij abstracte schuifjes.</p>
+
+      <div class="item">
+        <h3>Stap 1 — Jouw situatie</h3>
+        <span class="label huidig">Huidig</span>
+        <blockquote class="huidig"><p>Twee verplichte open tekstvelden ("Wat speelt er?" en de doel-afhankelijke vervolgvraag) op de allereerste pagina — een hoge instapdrempel vóórdat mensen de rest van de flow zien.</p></blockquote>
+
+        <span class="label voorstel">Voorstel — klikbare voorbeelden die het veld vullen</span>
+        <div class="voorstel-box">
+          <span class="tag">Wat speelt er?</span>
+          <p class="copy-small" style="margin-bottom:0.6rem;">Een gevoel, een moment, een dinsdag die wel een reddingsactie kan gebruiken. Kies een start, of typ je eigen verhaal.</p>
+          <div class="chip-row">
+            <span class="chip">Ik verveel me al weken</span>
+            <span class="chip">Ik heb een dagje voor mezelf nodig</span>
+            <span class="chip">Het is een gekke week geweest</span>
+            <span class="chip">Ik weet het eigenlijk niet precies</span>
+          </div>
+          <p class="copy-small">Klik op een chip = de tekst verschijnt in het veld, direct aanpasbaar. De laatste chip is bewust een geldig, eerlijk antwoord: het haalt de druk weg om "het perfecte antwoord" te verzinnen.</p>
+        </div>
+        <p class="waarom" style="margin-bottom:1.1rem;">Laat iemand die niets typt tóch doorgaan, met een zachte melding i.p.v. een blokkade: <em>"Weet je het nog niet? Dat mag — we werken dan met wat je verderop invult."</em></p>
+
+        <span class="label voorstel">Voorstel — vervolgvraag</span>
+        <p class="waarom">Voeg boven het veld een gerust stellende regel toe: <em>"Twee zinnen is genoeg — we hebben geen essay nodig."</em> Zet de lat expliciet laag, vóórdat iemand te lang gaat nadenken.</p>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">Klik-om-te-vullen chips verlagen de last van een leeg wit vak drastisch: mensen starten makkelijker vanuit een suggestie dan vanuit niets. Het veld optioneel máken zonder het zo te labelen houdt de kwaliteit hoog voor wie wél wil typen, zonder mensen te verliezen die dat niet willen.</p>
+      </div>
+
+      <div class="item">
+        <h3>Stap 2 — Over jou</h3>
+        <span class="label huidig">Huidig</span>
+        <blockquote class="huidig"><p>"Waar woon je?" als open tekstveld, zonder enige uitleg waarom dit nodig is — voelt voor sommigen gevoelig.</p></blockquote>
+
+        <span class="label voorstel">Voorstel</span>
+        <div class="voorstel-box">
+          <span class="tag">Waar woon je?</span>
+          <p class="copy-line" style="font-size:1rem;">Stad of regio is genoeg — nooit je exacte adres. We gebruiken dit alleen om mogelijkheden voor te stellen die je ook echt kan doen.</p>
+          <p class="copy-small">Placeholder: "Rotterdam" — bewust ruw genoeg om het gewenste detailniveau te tonen.</p>
+        </div>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">Eén zin die uitlegt wélk detailniveau volstaat én waarom het gevraagd wordt, neemt een impliciete zorg weg vóórdat die als aarzeling opspeelt — juist hier, waar iets wordt gevraagd dat niet vanzelfsprekend "voor mijn eigen plezier" aanvoelt.</p>
+      </div>
+
+      <div class="item">
+        <h3>Stap 3 — Jouw dials</h3>
+        <span class="label huidig">Huidig</span>
+        <blockquote class="huidig"><p>Vijf mooi vormgegeven "pil-track"-schuifjes, elk startend in het midden — maar zonder uitleg wat "dials" betekenen of wat er met de antwoorden gebeurt.</p></blockquote>
+
+        <span class="label voorstel">Voorstel — kadering vooraf</span>
+        <div class="voorstel-box">
+          <span class="tag">Jouw dials</span>
+          <p class="copy-line" style="font-size:1rem;">Denk aan deze vijf schuifjes als de radio-knoppen van vandaag — niet van altijd. Er is geen goed of fout antwoord, en elke dial begint in het midden. Verschuif alleen wat vandaag anders voelt.</p>
+        </div>
+
+        <span class="label voorstel">Voorstel — tastbare voorbeelden per dial</span>
+        <div class="mock-slider">
+          <p class="value">Grounded, of een beetje wild?</p>
+          <div class="track"><div class="fill" style="--w:15%"></div><div class="thumb" style="--w:15%"></div></div>
+          <div class="ends"><span>Hou het bij de grond</span><span>Neem me mee naar iets wilds</span></div>
+          <p class="example">Bij dit uiterste: "Denk: een rustige boswandeling."</p>
+        </div>
+        <div class="mock-slider">
+          <div class="track"><div class="fill" style="--w:85%"></div><div class="thumb" style="--w:85%"></div></div>
+          <p class="example">Bij het andere uiterste: "Denk: een midnight hike, of iets waar je vrienden jaloers op zijn."</p>
+        </div>
+        <p class="waarom" style="margin-bottom:1.1rem;">Begin voor de MVP met alleen de twee uitersten per dial invullen — dat geeft al het grootste deel van het effect. Sluit de pagina af met: <em>"Niets hier is definitief — je kunt altijd terug."</em></p>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">Sliders zonder concreet referentiepunt vragen net iets te veel interpretatie. Een voorbeeldzin die meebeweegt maakt het antwoord instant tastbaar ("oh, dát bedoelen ze met wild") en verkleint de kans dat een dial verkeerd wordt gezet ten opzichte van wat iemand eigenlijk bedoelt.</p>
+      </div>
+
+      <div class="item">
+        <h3>Stap 4 — Waar je voor openstaat</h3>
+        <span class="label huidig">Huidig</span>
+        <blockquote class="huidig"><p>"Dealbreakers" en "voorkeuren" zijn twee losse, vergelijkbaar ogende open velden. Het verschil tussen "moet" en "wil het liefst" is een subtiele denkstap die niet iedereen meteen maakt.</p></blockquote>
+
+        <span class="label voorstel">Voorstel — een fysieke metafoor voor het onderscheid</span>
+        <div class="voorstel-box">
+          <p class="copy-line" style="font-size:1rem;">Twee soorten wensen: dingen die écht niet mogen (een harde grens), en dingen die fijn zouden zijn maar niet cruciaal (een voorkeur). Twijfel je? Zet het bij voorkeuren — we filteren dan soepeler.</p>
+          <span class="tag" style="margin-top:0.7rem;">Herbenoemd label 1</span>
+          <p class="copy-small">"Wat mag absoluut niet ontbreken — of moet juist wegblijven?" · <em>Optioneel. Alleen harde eisen: een allergie, een dier dat mee moet, een tijdstip dat niet kan.</em></p>
+          <span class="tag" style="margin-top:0.7rem;">Herbenoemd label 2</span>
+          <p class="copy-small">"En wat zou fijn zijn, maar is geen dealbreaker?" · <em>Optioneel. Kleine duwtjes — we wijken hier soepel van af.</em></p>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Moet met de hond kunnen</span>
+          <span class="chip">Geen alcohol</span>
+          <span class="chip">Rolstoeltoegankelijk</span>
+        </div>
+        <div class="chip-row" style="margin-top:-0.4rem;">
+          <span class="chip">Het liefst buiten</span>
+          <span class="chip">Iets creatiefs</span>
+          <span class="chip">Niet te druk</span>
+        </div>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">Het fysieke onderscheid ("harde grens" vs. "duwtje") is makkelijker te begrijpen dan de woorden "dealbreaker" en "voorkeur" alleen. Voorbeeldchips laten bovendien zien welk detailniveau verwacht wordt — dat verbetert de kwaliteit van de gegenereerde ideeën én verkort de invultijd.</p>
+      </div>
+
+      <div class="item">
+        <h3>Stap 5 — Laatste stap</h3>
+        <span class="label huidig">Huidig</span>
+        <blockquote class="huidig"><p>Na de gezellige "voor wie is dit venster?"-vraag volgt direct de knop "Maak het echt" — een abrupte sprong naar het betaalscherm met juridische disclaimer.</p></blockquote>
+
+        <span class="label voorstel">Voorstel — vooruitblik vóór de knop</span>
+        <div class="voorstel-box">
+          <p class="copy-line">Bijna klaar. Op de volgende pagina zetten we alles om in jouw Idea Book — voor €3,50, eenmalig.</p>
+        </div>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">Door de prijs één stap eerder te noemen dan waar hij nu voor het eerst opduikt, wordt de overgang naar "nu moet ik echt beslissen" geleidelijker — mensen krijgen een extra moment om mentaal "ja" te zeggen vóórdat ze het juridische scherm zien.</p>
+      </div>
+    </section>
+
+    <!-- 3. BEVESTIGING -->
+    <section class="block" id="bevestiging">
+      <div class="block-head"><span class="block-num">3</span><h2>Laatste stap &amp; bevestigingspagina</h2></div>
+      <p class="block-intro">De sub-copy is al sterk en on-brand. Wat ontbreekt: de prijs, een idee van wat er ná de knop gebeurt, en een vertrouwenssignaal rond het betalen zelf.</p>
+
+      <div class="item">
+        <h3>Herschreven bevestigingspagina</h3>
+
+        <span class="label voorstel">Voorstel — volledige pagina</span>
+        <div class="voorstel-box">
+          <span class="tag">Kop</span>
+          <p class="copy-line">Jouw Idea Book is klaar om samengesteld te worden — voor €3,50</p>
+
+          <span class="tag">Sub — behouden</span>
+          <p class="copy-line" style="font-size:0.98rem; font-family:var(--font-sans); color:var(--ink-muted);">Een handvol mogelijkheden, gevormd naar wat je ons hebt verteld — plus eentje die we eigenlijk niet zouden moeten voorstellen, maar toch doen.</p>
+
+          <span class="tag">Nieuw — wat er nu gebeurt</span>
+          <ol class="steps-123">
+            <li><span class="n">1</span><span>Je betaalt eenmalig €3,50 — veilig via Stripe.</span></li>
+            <li><span class="n">2</span><span>Binnen een minuut stellen we jouw Idea Book samen.</span></li>
+            <li><span class="n">3</span><span>Je ziet 'm meteen hier, en we mailen 'm ook naar je.</span></li>
+          </ol>
+
+          <span class="tag">Disclaimer — warmer geformuleerd</span>
+          <p class="copy-small">"Een woord vooraf: WINDOW helpt je mogelijkheden ontdekken — het is geen medisch, therapeutisch, financieel of juridisch advies. Vertrouw op je eigen inzicht, en schakel een professional in waar dat past."</p>
+
+          <span class="tag">Checkbox — menselijker</span>
+          <p class="copy-small">"Ik snap het: mijn Idea Book wordt direct digitaal geleverd, dus mijn wettelijke bedenktijd van 14 dagen vervalt zodra ik betaal."</p>
+
+          <div class="mock" style="margin-top:1rem;">
+            <button class="mock-btn" type="button">Maak het echt</button>
+            <span class="trust-line">🔒 Veilig betalen via Stripe · geen account nodig · direct e-mailbevestiging</span>
+          </div>
+        </div>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">De genummerde 1-2-3 haalt de grootste onzekerheid vlak vóór een betaalmoment weg: "wat gebeurt er precies als ik hierop druk?" Het noemen van Stripe leent het vertrouwen van een herkend betaalmerk. De taalkundige aanpassingen aan disclaimer en checkbox behouden de volledige juridische inhoud, maar laten het net iets meer aanvoelen als een vriend die je bijpraat dan een advocaat die je waarschuwt.</p>
+      </div>
+    </section>
+
+    <!-- 4. TRUST & LEGAL -->
+    <section class="block" id="trust-legal">
+      <div class="block-head"><span class="block-num">4</span><h2>Trust &amp; legal</h2></div>
+      <p class="block-intro">Privacy- en Voorwaardenpagina zijn nu pure placeholders. Voor een MVP is dat acceptabel — zodra er écht geld gevraagd wordt naast het verzamelen van persoonlijke intake-antwoorden, wordt het een reëel vertrouwens- en compliance-risico.</p>
+
+      <div class="item">
+        <h3>Minimale, inhoudelijk kloppende basis</h3>
+        <p class="waarom" style="margin-bottom:0.9rem;">Niet juridisch waterdicht, wél volledig — en belangrijker: exact in lijn met wat er technisch al gebeurt (sessie-gekoppelde antwoorden, e-mail pas ná betaling).</p>
+
+        <div class="legal-cols">
+          <div class="legal-col">
+            <h5>Privacybeleid</h5>
+            <ol>
+              <li><strong>Wie zijn we</strong> — contactgegevens, ook zonder KvK: "e-mail ons via [adres]".</li>
+              <li><strong>Welke gegevens</strong> — intake-antwoorden (situatie, leeftijd, locatie, voorkeuren); bij betaling je e-mailadres via Stripe. WINDOW slaat zelf geen kaartgegevens op.</li>
+              <li><strong>Waarvoor</strong> — uitsluitend om je Idea Book te maken en te versturen. Geen doorverkoop aan derden.</li>
+              <li><strong>Bewaartermijn</strong> — antwoorden blijven gekoppeld aan een sessie, niet aan je naam, totdat je betaalt.</li>
+              <li><strong>Jouw rechten</strong> — inzage en verwijdering, aan te vragen per e-mail.</li>
+              <li><strong>Cookies</strong> — welke tool (bv. PostHog) en dat toestemming wordt gevraagd.</li>
+            </ol>
+          </div>
+          <div class="legal-col">
+            <h5>Algemene voorwaarden</h5>
+            <ol>
+              <li><strong>Wat je koopt</strong> — één Idea Book (PDF), op basis van je eigen antwoorden. Geen abonnement.</li>
+              <li><strong>Prijs &amp; betaling</strong> — €3,50 eenmalig, via Stripe, in euro's.</li>
+              <li><strong>Levering</strong> — direct na betaling, digitaal, plus e-mailkopie.</li>
+              <li><strong>Herroepingsrecht</strong> — vervalt zodra je betaalt en instemt, omdat het direct digitaal geleverd wordt. Hier uitgeschreven, niet alleen in de checkbox.</li>
+              <li><strong>Aansprakelijkheid</strong> — ideeën zijn suggesties, geen garantie op resultaat en geen advies.</li>
+              <li><strong>Klachten</strong> — hoe en waar (e-mailadres).</li>
+            </ol>
+          </div>
+        </div>
+
+        <span class="label waarom">Waarom dit werkt</span>
+        <p class="waarom">Een pagina die exact klopt met de realiteit bouwt vertrouwen op; een placeholder die "later" belooft doet dat niet — zeker niet naast een live betaalknop.</p>
+      </div>
+
+      <div class="item">
+        <h3>Ontbrekende trust-signalen op de site</h3>
+        <span class="label voorstel">Voorstel</span>
+        <ul class="checklist">
+          <li><strong>Geen zichtbaar contact</strong><span class="small">Voeg een simpele mailto-link toe aan de footer.</span></li>
+          <li><strong>Geen transparantie over AI</strong><span class="small">"Jouw Idea Book wordt automatisch samengesteld op basis van wat je invult — geen mens leest je antwoorden mee, en er wordt niets bewaard totdat je betaalt." Lost een privacyzorg én een snelheidszorg tegelijk op.</span></li>
+          <li><strong>Betaalmerk pas zichtbaar bij Stripe zelf</strong><span class="small">Zie de vertrouwensregel in sectie 3.</span></li>
+          <li><strong>Geen coulance-belofte</strong><span class="small">"Niet tevreden over je Idea Book? Mail ons — we kijken altijd coulant naar individuele gevallen." Een belofte, geen wijziging van het al correct afgehandelde herroepingsrecht — puur een vertrouwens-boost.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. QUICK WINS -->
+    <section class="block" id="quick-wins">
+      <div class="block-head"><span class="block-num">5</span><h2>Quick wins</h2></div>
+      <p class="block-intro">Geprioriteerd op impact tegenover effort — dit is de volgorde om aan te pakken.</p>
+
+      <div class="wins">
+        <div class="win">
+          <span class="num">1</span>
+          <div><h4>Zet de prijs op de homepage en de bevestigingspagina</h4><p>10 minuten tekstwerk. Neemt het enige échte afhaakrisico direct weg: niemand doorloopt vijf stappen om er ná afloop achter te komen wat het kost.</p></div>
+          <span class="impact hoog">Hoge impact</span>
+        </div>
+        <div class="win">
+          <span class="num">2</span>
+          <div><h4>Voeg "Wat er in jouw venster zit" toe aan de homepage</h4><p>Drie korte tekstblokken, geen nieuwe illustraties nodig. Het verschil tussen mooi-maar-onduidelijk en mooi-én-begrijpelijk.</p></div>
+          <span class="impact hoog">Hoge impact</span>
+        </div>
+        <div class="win">
+          <span class="num">3</span>
+          <div><h4>Voeg de 1-2-3-uitleg toe aan de bevestigingspagina</h4><p>Drie zinnen. Vermindert de "wat gebeurt er nu"-onzekerheid vlak vóór het moment waarop mensen het vaakst afhaken.</p></div>
+          <span class="impact hoog">Hoge impact</span>
+        </div>
+        <div class="win">
+          <span class="num">4</span>
+          <div><h4>Klikbare voorbeeld-chips in stap 1 en stap 4</h4><p>Eén UI-component, geen backend-wijziging — de velden blijven vrije tekst. Verlaagt de instapdrempel precies waar mensen nu het vaakst twijfelen.</p></div>
+          <span class="impact hoog">Hoge impact</span>
+        </div>
+        <div class="win">
+          <span class="num">5</span>
+          <div><h4>Schrijf minimaal-kloppende Privacy- en Voorwaardenpagina's</h4><p>Contentwerk, geen dev-werk. Noodzakelijk zodra er echt betaald geld binnenkomt naast persoonlijke intake-data.</p></div>
+          <span class="impact hoog">Hoge impact</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="doc-footer">
+  Geschreven vanuit de bestaande WINDOW-merkstijl (crème, inkt, paars, Fraunces/Inter) — elk voorstel is bedoeld om direct herkenbaar te blijven als WINDOW, niet als een ander merk.
+</footer>

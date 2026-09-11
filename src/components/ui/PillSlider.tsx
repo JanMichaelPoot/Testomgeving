@@ -108,30 +108,32 @@ export function PillSlider({ options, value, onChange, label }: PillSliderProps)
         {/* Visual track only — kept slim on purpose. The 44px-tall parent
             above is the actual hit target, so mobile taps land reliably
             without making the bar itself look chunky. */}
-        <div className="pointer-events-none absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 rounded-full bg-ink/10" />
+        <div className="pointer-events-none absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 rounded-full bg-accent/10" />
         <div
-          className="pointer-events-none absolute left-0 top-1/2 h-2 -translate-y-1/2 rounded-full bg-accent"
-          style={{ width: `${percent}%` }}
+          className="pointer-events-none absolute left-0 top-1/2 h-2 -translate-y-1/2 rounded-full bg-accent/20 transition-all duration-150"
+          style={{ width: `calc(${percent}% + 24px)` }}
         />
         {options.map((option, index) => {
           const stopPercent = lastIndex === 0 ? 0 : (index / lastIndex) * 100;
           const filled = index <= activeIndex;
-          const isThumb = index === activeIndex;
           return (
             <div
               key={option}
               className={cn(
-                "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 transition-colors",
-                isThumb
-                  ? "h-5 w-5 border-accent-dark bg-white shadow-sm"
-                  : "h-3 w-3",
-                !isThumb && filled && "border-accent bg-accent",
-                !isThumb && !filled && "border-ink/20 bg-paper"
+                "pointer-events-none absolute top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors",
+                filled ? "bg-accent" : "bg-accent/25"
               )}
               style={{ left: `${stopPercent}%` }}
             />
           );
         })}
+        {/* Pill-shaped thumb, numbered to match the WINDOW prototype */}
+        <div
+          className="pointer-events-none absolute top-1/2 flex h-6 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-accent text-xs font-medium text-white shadow-md transition-all duration-150"
+          style={{ left: `calc(${percent}% - ${percent * 0.36}px)` }}
+        >
+          {activeIndex + 1}
+        </div>
       </div>
 
       <div className="mt-2 flex items-center justify-between text-xs text-ink/40">

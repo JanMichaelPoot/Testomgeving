@@ -22,12 +22,23 @@ const FRAMEWORK_SCRIPT_HASHES = [
   "'sha256-aZcAO72iEn2WWCPSnlOW3mdvN3STDw3MnL5vMoxnGQc='",
 ];
 
+// React/Next.js dev mode calls eval() for its own debugging features (stack
+// reconstruction, Fast Refresh) — this is documented React behaviour, not a
+// bug, and it never runs in production builds. A strict script-src without
+// 'unsafe-eval' blocks it outright, which is exactly the
+// "eval() is not supported in this environment... Content-Security-Policy"
+// overlay this guards against. Scoping the relaxation to non-production
+// keeps the real, deployed CSP just as strict as before.
+const isDev = process.env.NODE_ENV !== "production";
+
 function buildCsp(nonce: string): string {
   return [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${FRAMEWORK_SCRIPT_HASHES.join(" ")}`,
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${FRAMEWORK_SCRIPT_HASHES.join(" ")}${isDev ? " 'unsafe-eval'" : ""}`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data:",
+    // images.unsplash.com is allow-listed for the hotlinked stock photos
+    // used across the landing hero, intake wizard, and idea cards.
+    "img-src 'self' data: https://images.unsplash.com",
     "font-src 'self' data:",
     "connect-src 'self' https://eu.i.posthog.com https://eu-assets.i.posthog.com",
     "frame-ancestors 'none'",

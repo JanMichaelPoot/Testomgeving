@@ -1,0 +1,948 @@
+<title>WINDOW Ervaringsontwerp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #f5f3ee;
+    --paper: #ffffff;
+    --ink: #1a1a2e;
+    --ink-muted: #5b5b68;
+    --ink-faint: #8a8a94;
+    --accent: #6c3ce9;
+    --accent-dark: #4b2aa6;
+    --panel-tint: #ede6fb;
+    --panel-tint-border: #d9caf5;
+    --border: rgba(26, 26, 46, 0.12);
+    --border-soft: rgba(26, 26, 46, 0.07);
+    --shadow: 0 1px 2px rgba(26, 26, 46, 0.04), 0 8px 24px rgba(26, 26, 46, 0.06);
+    --success-fg: #2f7a52; --success-bg: #e3f2e9; --success-border: #bfe3d1;
+    --wild-fg: #92650b; --wild-bg: #fbf0d8; --wild-border: #edd9a3;
+    --danger-fg: #9c2b3a; --danger-bg: #fbe7ea; --danger-border: #f1c6ce;
+    --code-bg: #211d2c; --code-fg: #eae6f5;
+    --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --cream: #16141f; --paper: #211d2c; --ink: #f2efea; --ink-muted: #aca5bc; --ink-faint: #7c7690;
+      --accent: #9b7ff2; --accent-dark: #cdbdf7; --panel-tint: #2a2340; --panel-tint-border: #453a68;
+      --border: rgba(242, 239, 234, 0.14); --border-soft: rgba(242, 239, 234, 0.08);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 28px rgba(0,0,0,0.35);
+      --success-fg: #8fd6b4; --success-bg: #1c332a; --success-border: #305444;
+      --wild-fg: #e8c874; --wild-bg: #362c17; --wild-border: #5a4a24;
+      --danger-fg: #f5a8b3; --danger-bg: #3a2027; --danger-border: #5c2f3a;
+      --code-bg: #0f0d16; --code-fg: #ded8ee;
+    }
+  }
+  :root[data-theme="dark"] {
+    --cream: #16141f; --paper: #211d2c; --ink: #f2efea; --ink-muted: #aca5bc; --ink-faint: #7c7690;
+    --accent: #9b7ff2; --accent-dark: #cdbdf7; --panel-tint: #2a2340; --panel-tint-border: #453a68;
+    --border: rgba(242, 239, 234, 0.14); --border-soft: rgba(242, 239, 234, 0.08);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 28px rgba(0,0,0,0.35);
+    --success-fg: #8fd6b4; --success-bg: #1c332a; --success-border: #305444;
+    --wild-fg: #e8c874; --wild-bg: #362c17; --wild-border: #5a4a24;
+    --danger-fg: #f5a8b3; --danger-bg: #3a2027; --danger-border: #5c2f3a;
+    --code-bg: #0f0d16; --code-fg: #ded8ee;
+  }
+
+  * { box-sizing: border-box; }
+  body { background: var(--cream); color: var(--ink); font-family: var(--font-sans); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; text-wrap: balance; color: var(--ink); }
+  a { color: var(--accent-dark); }
+  code { font-family: var(--font-mono); font-size: 0.92em; }
+
+  .eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-dark); }
+
+  .masthead { position: relative; overflow: hidden; border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(108,60,233,0.10), rgba(108,60,233,0) 55%), var(--cream);
+    padding: 3.2rem 1.5rem 2.4rem; }
+  .frame { max-width: 940px; margin: 0 auto; position: relative; }
+  .panes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; height: 72px; border-radius: 14px;
+    overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.8rem; background: var(--border); }
+  .pane { background: radial-gradient(120% 140% at 30% 0%, rgba(108,60,233,0.22), transparent 60%), var(--paper); }
+  .pane:nth-child(2) { background: radial-gradient(120% 160% at 70% 100%, rgba(108,60,233,0.30), transparent 60%), var(--paper); }
+  .pane:nth-child(3) { background: radial-gradient(140% 140% at 20% 20%, rgba(108,60,233,0.18), transparent 55%), var(--paper); }
+  .pane:nth-child(4) { background: radial-gradient(140% 160% at 80% 20%, rgba(108,60,233,0.26), transparent 55%), var(--paper); }
+  .masthead h1 { font-size: clamp(2rem, 4.2vw, 2.85rem); line-height: 1.1; margin: 0.8rem 0 0.9rem; letter-spacing: -0.01em; }
+  .masthead .lede { max-width: 68ch; font-size: 1.05rem; color: var(--ink-muted); }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem 1.1rem; margin-top: 1.4rem; font-size: 0.85rem; color: var(--ink-faint); }
+  .meta-row span::before { content: "·"; margin-right: 1.1rem; color: var(--border); }
+  .meta-row span:first-child::before { content: none; margin-right: 0; }
+
+  .layout { max-width: 1160px; margin: 0 auto; padding: 2.4rem 1.5rem 6rem; display: grid;
+    grid-template-columns: 220px minmax(0, 1fr); gap: 3rem; align-items: start; }
+  nav.toc { position: sticky; top: 1.5rem; display: flex; flex-direction: column; gap: 0.05rem; max-height: calc(100vh - 3rem); overflow-y: auto; }
+  nav.toc a { text-decoration: none; color: var(--ink-muted); font-size: 0.8rem; font-weight: 500; padding: 0.32rem 0 0.32rem 0.9rem;
+    border-left: 2px solid var(--border); transition: color 0.15s, border-color 0.15s; }
+  nav.toc a:hover { color: var(--accent-dark); border-color: var(--accent); }
+  nav.toc .toc-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); padding-left: 0.9rem; margin-bottom: 0.5rem; }
+
+  main { min-width: 0; }
+  section.block { margin-bottom: 4.4rem; scroll-margin-top: 1.5rem; }
+  .block-head { display: flex; align-items: baseline; gap: 0.9rem; margin-bottom: 0.4rem; }
+  .block-num { font-family: var(--font-serif); font-size: 1rem; color: var(--paper); background: var(--accent); width: 2rem; height: 2rem; min-width: 2rem;
+    border-radius: 999px; display: flex; align-items: center; justify-content: center; }
+  .block-head h2 { font-size: 1.55rem; margin: 0; }
+  .block-intro { color: var(--ink-muted); max-width: 72ch; margin: 0.9rem 0 0 2.9rem; }
+  .stage { margin: 1.8rem 0 0 2.9rem; }
+  .stage h3 { font-size: 1.08rem; margin: 0 0 0.8rem; }
+
+  .voorstel-box { background: var(--panel-tint); border: 1px solid var(--panel-tint-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin: 1rem 0; }
+  .voorstel-box .tag { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 0.4rem; }
+  .voorstel-box p { margin: 0.3rem 0; font-size: 0.94rem; }
+
+  .critical { background: var(--wild-bg); border: 1px solid var(--wild-border); border-left: 4px solid var(--wild-fg); border-radius: 10px; padding: 0.9rem 1.1rem; margin: 1rem 0; }
+  .critical .tag { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wild-fg); margin-bottom: 0.35rem; }
+  .critical p { margin: 0; font-size: 0.9rem; }
+
+  /* Screen spec cards */
+  .screen-card { background: var(--paper); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; box-shadow: var(--shadow); }
+  .screen-card-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.7rem; }
+  .screen-num { font-family: var(--font-serif); font-size: 0.92rem; color: var(--paper); background: var(--accent-dark); width: 1.7rem; height: 1.7rem; min-width: 1.7rem;
+    border-radius: 999px; display: flex; align-items: center; justify-content: center; }
+  .screen-card-head h4 { margin: 0; font-size: 1.05rem; font-family: var(--font-sans); font-weight: 600; }
+  .screen-row { display: grid; grid-template-columns: 8.5rem 1fr; gap: 0.3rem 1rem; font-size: 0.88rem; padding: 0.38rem 0; }
+  .screen-row + .screen-row { border-top: 1px solid var(--border-soft); }
+  .screen-row .k { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-faint); padding-top: 0.15rem; }
+  .screen-row .v { color: var(--ink); }
+  .screen-row .v.muted { color: var(--ink-muted); }
+
+  /* Idea example cards */
+  .idea-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1rem 0 1.3rem; }
+  .idea-card { background: var(--paper); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; box-shadow: var(--shadow); }
+  .idea-card.wild { background: var(--wild-bg); border-color: var(--wild-border); }
+  .idea-card .kicker { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-dark); }
+  .idea-card.wild .kicker { color: var(--wild-fg); }
+  .idea-card h4 { font-size: 1.15rem; margin: 0.25rem 0 0.5rem; }
+  .idea-card p.desc { margin: 0 0 0.5rem; color: var(--ink); font-size: 0.95rem; }
+  .idea-card p.why { margin: 0 0 0.7rem; color: var(--ink-muted); font-size: 0.88rem; font-style: italic; }
+  .idea-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.82rem; color: var(--ink-muted); margin-bottom: 0.6rem; }
+  .idea-meta strong { color: var(--ink); font-weight: 600; }
+  .idea-card .sub-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-dark); margin: 0.6rem 0 0.3rem; }
+  .idea-card.wild .sub-label { color: var(--wild-fg); }
+  .idea-card ol, .idea-card ul { margin: 0; padding-left: 1.15rem; font-size: 0.88rem; color: var(--ink); display: flex; flex-direction: column; gap: 0.25rem; }
+  .idea-card .first-action { margin-top: 0.7rem; background: var(--panel-tint); border-radius: 10px; padding: 0.65rem 0.9rem; font-size: 0.88rem; }
+  .idea-card.wild .first-action { background: var(--paper); border: 1px solid var(--wild-border); }
+
+  /* Wireframes */
+  .wire-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin: 1rem 0 1.3rem; }
+  .wire-card { background: var(--paper); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
+  .wire-card h5 { margin: 0; padding: 0.7rem 1rem; font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; border-bottom: 1px solid var(--border-soft); }
+  .wire-card pre { margin: 0; padding: 0.9rem 1rem; background: var(--code-bg); color: var(--code-fg); font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.55; white-space: pre-wrap; overflow-x: auto; }
+  .wire-card .dominant { padding: 0.7rem 1rem; font-size: 0.82rem; color: var(--ink-muted); }
+  .wire-card .dominant strong { color: var(--ink); }
+
+  /* Design system swatches */
+  .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; margin: 1rem 0 1.3rem; }
+  .swatch { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--paper); }
+  .swatch-color { height: 56px; }
+  .swatch .label { padding: 0.5rem 0.7rem; font-size: 0.78rem; }
+  .swatch .label strong { display: block; font-size: 0.82rem; }
+  .swatch .label code { font-size: 0.72rem; color: var(--ink-faint); }
+
+  .type-sample { background: var(--paper); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1.1rem; margin-bottom: 0.6rem; display: flex; align-items: baseline; gap: 1rem; }
+  .type-sample .tlabel { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); min-width: 5.5rem; }
+
+  .table-wrap { overflow-x: auto; margin: 1rem 0 1.3rem; border: 1px solid var(--border); border-radius: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 640px; }
+  thead th { text-align: left; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint);
+    background: var(--panel-tint); padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--border); }
+  tbody td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--border-soft); vertical-align: top; color: var(--ink); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td.muted { color: var(--ink-muted); }
+
+  .checklist { list-style: none; margin: 0.8rem 0 1.2rem; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  .checklist li { padding: 0.85rem 1.05rem; background: var(--paper); border: 1px solid var(--border); border-radius: 12px; font-size: 0.9rem; }
+  .checklist li strong { display: block; margin-bottom: 0.2rem; font-family: var(--font-serif); font-weight: 500; font-size: 0.98rem; }
+  .checklist li span.small { color: var(--ink-muted); font-size: 0.86rem; }
+
+  .phase { border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem 1.4rem; margin-bottom: 1rem; background: var(--paper); box-shadow: var(--shadow); }
+  .phase-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.8rem; }
+  .phase-head h4 { margin: 0; font-size: 1.08rem; }
+  .roadmap-item { padding: 0.7rem 0; border-top: 1px solid var(--border-soft); font-size: 0.9rem; }
+  .roadmap-item:first-child { border-top: none; padding-top: 0; }
+  .roadmap-item .name { font-weight: 600; color: var(--ink); }
+  .roadmap-item .meta { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; margin-top: 0.3rem; font-size: 0.8rem; color: var(--ink-muted); }
+  .pill { display: inline-flex; align-items: center; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 0.22rem 0.55rem; border-radius: 999px; border: 1px solid; }
+  .pill.must { color: var(--danger-fg); background: var(--danger-bg); border-color: var(--danger-border); }
+  .pill.should { color: var(--wild-fg); background: var(--wild-bg); border-color: var(--wild-border); }
+  .pill.nice { color: var(--success-fg); background: var(--success-bg); border-color: var(--success-border); }
+
+  .copy-block { background: var(--paper); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: 0.9rem; }
+  .copy-block h5 { margin: 0 0 0.5rem; font-size: 0.98rem; }
+  .copy-block .line { font-family: var(--font-serif); font-size: 1.02rem; margin: 0.2rem 0; }
+  .copy-block .small { font-size: 0.85rem; color: var(--ink-muted); margin: 0.2rem 0; }
+
+  footer.doc-footer { max-width: 1160px; margin: 0 auto; padding: 0 1.5rem 4rem; color: var(--ink-faint); font-size: 0.84rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    nav.toc { position: static; flex-direction: row; flex-wrap: wrap; gap: 0.25rem 0.9rem; max-height: none; }
+    nav.toc .toc-title { display: none; }
+    nav.toc a { border-left: none; border-bottom: 2px solid var(--border); padding: 0.28rem 0; }
+    .stage, .block-intro { margin-left: 0; }
+    .wire-grid { grid-template-columns: 1fr; }
+    .screen-row { grid-template-columns: 1fr; gap: 0.1rem; }
+  }
+</style>
+
+<header class="masthead">
+  <div class="frame">
+    <div class="panes"><div class="pane"></div><div class="pane"></div><div class="pane"></div><div class="pane"></div></div>
+    <p class="eyebrow">Mobile-first ervaringsontwerp</p>
+    <h1>Windowinto, herontworpen als een klein boekje vol mogelijkheden</h1>
+    <p class="lede">Een compleet UX/UI-voorstel: positionering, de volledige flow van 18 schermen, kant-en-klare Nederlandse copy, een volledig uitgewerkt voorbeeld-Idea Book, tekstuele wireframes, een visueel systeem, conversieredenatie, veiligheidsbeleid, A/B-tests en een roadmap.</p>
+    <div class="meta-row">
+      <span>10 onderdelen</span>
+      <span>18 schermen</span>
+      <span>1 compleet voorbeeld-Idea Book</span>
+      <span>mobile-first, gegrond in het bestaande WINDOW-merk</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <span class="toc-title">Op deze pagina</span>
+    <a href="#s1">1. Positionering</a>
+    <a href="#s2">2. User flow</a>
+    <a href="#s3">3. UX-copy</a>
+    <a href="#s4">4. Voorbeeld Idea Book</a>
+    <a href="#s5">5. Wireframes</a>
+    <a href="#s6">6. Design systeem</a>
+    <a href="#s7">7. UX &amp; conversie</a>
+    <a href="#s8">8. Veiligheid &amp; privacy</a>
+    <a href="#s9">9. A/B-testen</a>
+    <a href="#s10">10. Roadmap</a>
+  </nav>
+
+  <main>
+
+    <!-- 1. POSITIONERING -->
+    <section class="block" id="s1">
+      <div class="block-head"><span class="block-num">1</span><h2>Productpositionering</h2></div>
+
+      <p class="block-intro">Een ideeënlijst toont je wat er bestaat; een chatbot beantwoordt wat je vraagt. Windowinto doet geen van beide — het vertaalt een gevoel dat je nog niet in woorden had naar een klein aantal mogelijkheden die kloppen, met een zichtbare reden waarom. Waar een chatbot een gesprek voert dat nergens toe verplicht, levert Windowinto één keer per sessie een afgerond, tastbaar resultaat op: een Idea Book dat je kunt bewaren, delen en meteen op kunt volgen. Het voelt minder als zoeken en meer als geholpen worden door iemand die al even heeft nagedacht namens jou.</p>
+      <p class="block-intro">Mensen die Windowinto openen zitten meestal niet vast op een concreet probleem ("waar kan ik zaterdag heen"), maar op een vager gevoel: verveling, onrust, een moment dat om iets anders vraagt dan de standaardroutine. Ze willen niet nog een lijst scrollen — ze willen dat iemand hun situatie even serieus neemt en er iets treffends uit destilleert.</p>
+      <p class="block-intro">De gewenste emotie is herkenning, gevolgd door een klein beetje verrassing: het moment waarop iemand denkt "dat is precies wat ik nodig had, en daar was ik zelf niet opgekomen" — gevolgd door genoeg vertrouwen om het ook echt te gaan doen, niet alleen te bewaren voor "ooit".</p>
+      <p class="block-intro">De productbelofte: Windowinto zet een vaag gevoel om in een klein, persoonlijk boekje vol mogelijkheden die je nu al kan uitvoeren — geen aanbevelingen, maar een venster dat al even voor je openstond.</p>
+      <p class="block-intro">Het Idea Book is daarbij niet de samenvatting van een zoekopdracht — het ís het product. Het is het bewijs dat er is nagedacht, het bewaarobject dat de belofte fysiek/digitaal maakt, en het startpunt van actie: elk idee eindigt in een concrete eerste stap, niet in nog een keuzemoment.</p>
+
+      <div class="voorstel-box">
+        <span class="tag">Productbelofte</span>
+        <p style="font-family:var(--font-serif); font-size:1.1rem;">"Een klein, persoonlijk boekje vol mogelijkheden — precies op het moment dat je even niet meer weet wat je wilt."</p>
+        <span class="tag" style="margin-top:0.8rem;">Drie slogans</span>
+        <p>1. "Je hoeft het niet te weten. Wij zien het al."<br>2. "Een venster, geen zoekmachine."<br>3. "Van gevoel naar plan, in één boekje."</p>
+        <span class="tag" style="margin-top:0.8rem;">Elevator pitch</span>
+        <p>Windowinto is de app voor het moment dat je iets anders wil, maar niet weet wat. In een paar korte vragen leert de app je situatie kennen — hoeveel tijd, budget, energie, met wie — en stelt daar een persoonlijk Idea Book tegenover: zes zorgvuldig gekozen ideeën plus één gedurfder wildcard, elk met een duidelijke reden waarom het bij je past en een eerste stap die je vandaag nog kan zetten. Geen eindeloze scroll, geen chatgesprek — een klein boekje dat voelt alsof iemand het speciaal voor jou heeft samengesteld, omdat dat ook zo is.</p>
+      </div>
+    </section>
+
+    <!-- 2. USER FLOW -->
+    <section class="block" id="s2">
+      <div class="block-head"><span class="block-num">2</span><h2>Volledige user flow — 18 schermen</h2></div>
+      <p class="block-intro">De daadwerkelijke intake blijft beperkt tot 8 kernvragen (schermen 2–9); schermen 10, 11, 13 en 14 zijn geen vragen maar bevestigings-/weergavemomenten die vertrouwen opbouwen vóór en na de generatie.</p>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">1</span><h4>Welkom</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">In 3 seconden duidelijk maken wat je krijgt en hoelang het duurt.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Een Venster Naar Wat Zou Kunnen Zijn" · "Vertel ons wat er speelt. Wij zien er een paar mogelijkheden in die je zelf nog niet had bedacht."</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v muted">Geen — CTA-scherm.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Ontdek mijn ideeën"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Hoe werkt dit?" (uitklapbare mini-uitleg, geen aparte pagina)</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Microcopy onder CTA: "3 minuten · geen account nodig · vanaf €3,50".</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Geen (nog niet gestart).</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">N.v.t. — zet alleen de verwachting.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">2</span><h4>Gevoel/behoefte</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">De vage aanleiding ophalen zonder dat het een schrijfopdracht wordt.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Wat speelt er vandaag?" · "Een gevoel is genoeg — kies wat past, of typ het zelf."</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v">Kaarten: "Ik verveel me" · "Ik wil iets bijzonders" · "Ik heb rust nodig" · "Ik weet het niet precies" + vrij tekstveld met klik-chips.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Verder"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v muted">Geen (eerste stap).</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Gekozen kaart krijgt accent-rand + vulling.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">Geen blokkade: "Dat mag ook. We werken dan met wat je hierna nog vertelt."</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Stap 1 van 8.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Stuurt toon en type ideeën (bv. "rust nodig" → laagdrempelige/intieme opties).</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">3</span><h4>Gewenste ervaring</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Richting geven aan het soort ervaring.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Waar heb je nu zin in?" · "Kies er zoveel als kloppen."</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v">Multi-select: Iets rustigs · Iets actiefs · Iets creatiefs · Iets spannends · Iets sociaals · Weet ik niet.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Verder"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Terug"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Geselecteerde kaarten gevuld met accentkleur.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">"Kies op z'n minst één richting — of 'weet ik niet', ook dat is een antwoord."</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Stap 2 van 8.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Bepaalt de mix van de 6 idee-categorieën.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">4</span><h4>Gezelschap</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Weten voor wie de mogelijkheden moeten werken.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Met wie?" · "Wie er eventueel bij is."</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v">Alleen ik · Partner · Vrienden · Familie · Collega's.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Verder"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Terug"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Single-select highlight.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">Verplicht — knop blijft inactief tot een keuze, geen foutmelding nodig.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Stap 3 van 8.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Filtert op geschiktheid (intiem alleen bij "partner", sociaal bij "vrienden").</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">5</span><h4>Tijd</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Realistisch tijdsbudget vaststellen.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Hoeveel tijd heb je?" (schuifregelaar)</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v">Een uur of twee · Halve dag · Hele dag · Heel weekend.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Verder"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Terug"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Live labelwissel boven de slider.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">N.v.t. — slider start altijd in het midden.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Stap 4 van 8.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Bepaalt haalbaarheid: geen dagtrip bij "een uur of twee".</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">6</span><h4>Budget</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Financiële ruimte vaststellen zonder verkoopgevoel.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Wat mag het kosten?" · "Richtbedrag, geen verplichting."</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v">Gratis · Tot €25 · Tot €100 · Geen limiet.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Verder"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Terug"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Live bedrag-label.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Stap 5 van 8.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Harde bovengrens op kosten-metadata per idee.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">7</span><h4>Inspanning</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Energieniveau/intensiteit peilen.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Hoeveel moeite wil je erin steken?" · "Fysiek of mentaal — helemaal aan jou."</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v">Zo min mogelijk · Een beetje · Vol ervoor.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Verder"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Terug"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Live label.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Stap 6 van 8.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Stuurt het fysieke/avontuurlijke idee zwaarder of lichter aan.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">8</span><h4>Locatie</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Reisbereidheid + globale plek bepalen zonder adres te vragen.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Waar zoeken we?" · "Stad of regio is genoeg — nooit je exacte adres." + "Hoe ver mag het zijn?"</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v">Tekstveld met plaats-autocomplete + slider: dichtbij / stad / uur reizen / overal.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Verder"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Terug"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Dropdown-suggesties tijdens typen.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">Zacht doorlaten: "Weet je nog niet? We houden het dan landelijk breed."</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Stap 7 van 8.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Geografische haalbaarheid + reisafstand-metadata per idee.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">9</span><h4>Grenzen/uitsluitingen</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Harde nee's en zachte voorkeuren apart vastleggen.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Nog iets dat niet mag — of juist wel moet?" · "Harde grens? Zet 'm hieronder. Voorkeur? Daaronder."</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v">Twee tekstvelden (grens/voorkeur) met klik-chips: "Geen alcohol" · "Rolstoeltoegankelijk" · "Het liefst buiten".</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Maak mijn Idea Book"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Terug"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Chips vullen het veld direct.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">Volledig optioneel, geen validatie.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Stap 8 van 8 (laatste).</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Grens = harde filter; voorkeur = zachte nudge.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">10</span><h4>Persoonlijke tussenbevestiging</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Na de helft bevestigen dat het klopt — drop-off verminderen.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Je zoekt dus iets {ervaring}, met {gezelschap}, binnen {tijd} — klopt dat zo'n beetje?"</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v">"Klopt" · "Pas nog iets aan" (terug naar relevante stap).</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Ja, verder"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Iets aanpassen"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Samenvatting dynamisch samengesteld uit eerdere antwoorden.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Subtiele balk, geen stap-teller hier.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Toont expliciet dat er geluisterd is — vertrouwen, geen nieuwe data.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">11</span><h4>Loading/generatie</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">De wachttijd (~20–60s) overbruggen zonder dat het als hangen voelt.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">Wisselende statusregels: "Je situatie wordt gelezen…" → "Zes mogelijkheden worden bedacht…" → "Je wildcard krijgt een laatste check…" → "Je Idea Book wordt opgemaakt…"</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v muted">Geen.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v muted">Geen — automatische doorstroom.</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v muted">Geen.</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Subtiele actieve indicator, geen percentage.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">"Dit duurt langer dan verwacht — we proberen het nog eens." (automatische retry)</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Onbepaald maar zichtbaar actief.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">N.v.t.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">12</span><h4>Idea Book-intro</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Een moment maken, niet meteen met de deur in huis vallen.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Jouw Idea Book is klaar." · "Zes mogelijkheden, gevormd naar wat je vertelde — plus een wildcard die we eigenlijk niet zouden moeten voorstellen."</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v muted">Geen.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Bekijk mijn Idea Book"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v muted">Geen.</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Cover-achtig sfeerbeeld in gekozen stijl.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">N.v.t. — intake is klaar.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Toont de gekozen visuele stijl direct.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">13</span><h4>Profiel</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Laten zien dat er geluisterd is, vóór de ideeën zelf.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Dit hebben we over je ontdekt" + één warme samenvattingszin.</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v muted">Geen.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Naar de ideeën"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Iets aanpassen" (naar scherm 18)</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Dit IS de weergave van de personalisatie.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">14</span><h4>Voorkeurenoverzicht</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Grenzen/voorkeuren compact tonen zodat ideeën niet willekeurig aanvoelen.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Waar we rekening mee hielden" — kolommen "Moet" / "Liever wel".</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v muted">Geen.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Bekijk de ideeën"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v muted">Geen.</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Tags/chips per voorkeur.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">Geen grenzen ingevuld → sectie verbergen i.p.v. leeg tonen.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Legt de "why" bloot vóór de ideeën — bouwt vertrouwen.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">15</span><h4>Idee-detailpagina</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Eén idee volledig en overtuigend tonen, met directe actie.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">Titel + omschrijving + "Waarom dit bij je past" + metadata + stappen + eerste actie.</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v muted">Geen.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Plan de eerste stap" / "Ik ga dit doen"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Stuur dit naar [partner]" · "Bewaar voor later"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Bevestigingstoast: "Bewaard." / "Verstuurd."</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">Ontbrekende locatie/materialen → sectie weglaten, nooit een placeholder tonen.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">"Idee 2 van 6" + swipe-indicator.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">"Waarom dit bij je past" citeert letterlijk eigen antwoorden terug.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">16</span><h4>Wild idee-detailpagina</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Het gedurfde idee apart kaderen zodat het niet als vergissing overkomt.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">Label "HET WILDE IDEE" + "Dit stellen we normaal niet zomaar voor — maar bij jou passen we het toch toe." + zelfde opbouw als een gewoon idee.</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v muted">Geen.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Ik durf het aan"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Nee, laat maar" (geen schuldgevoel-copy)</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Visueel afwijkend kader — zelfde metadata-opbouw als vertrouwenwaarborg.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">Los van "idee X van 6" — expliciet een 7e, apart element.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Benoemt expliciet wélke eigen grens hier net wordt verschoven.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">17</span><h4>Opslaan/delen/uitvoeren</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Na het lezen een vervolgactie geven op boek-niveau, niet alleen per idee.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Wat wil je hiermee doen?" (onderaan het hele Idea Book)</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v">Download als PDF · Deel met [partner] · Bewaar in mijn account.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Deel je Idea Book"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Download PDF"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">"Link gekopieerd!" · "We hebben ook een kopie gemaild."</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">Mislukte share → stille fallback naar kopiëren, nooit een harde foutmelding.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">N.v.t. — einde van de flow.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">N.v.t.</span></div>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-card-head"><span class="screen-num">18</span><h4>Voorkeuren aanpassen</h4></div>
+        <div class="screen-row"><span class="k">Doel</span><span class="v">Gedeeltelijke herziening toestaan zonder de hele intake opnieuw te doen.</span></div>
+        <div class="screen-row"><span class="k">Copy</span><span class="v">"Wat wil je aanpassen?" — lijst eerdere antwoorden, elk met een potlood-icoon.</span></div>
+        <div class="screen-row"><span class="k">Opties</span><span class="v muted">Per regel terug naar dat ene scherm.</span></div>
+        <div class="screen-row"><span class="k">Primair</span><span class="v">"Genereer opnieuw"</span></div>
+        <div class="screen-row"><span class="k">Secundair</span><span class="v">"Annuleren"</span></div>
+        <div class="screen-row"><span class="k">Feedback</span><span class="v muted">Gewijzigde regel krijgt visuele markering.</span></div>
+        <div class="screen-row"><span class="k">Fout/leeg</span><span class="v muted">Niks gewijzigd → "Genereer opnieuw" blijft inactief.</span></div>
+        <div class="screen-row"><span class="k">Voortgang</span><span class="v muted">N.v.t.</span></div>
+        <div class="screen-row"><span class="k">Personalisatie</span><span class="v muted">Hergebruikt bestaande antwoorden — voorkomt van-nul-af-aan-gevoel.</span></div>
+      </div>
+    </section>
+
+    <!-- 3. UX COPY -->
+    <section class="block" id="s3">
+      <div class="block-head"><span class="block-num">3</span><h2>Concrete Nederlandse UX-copy</h2></div>
+      <p class="block-intro">Een doorzoekbare copy-bibliotheek, gegroepeerd per type — een aanvulling op de schermspecificaties hierboven, niet een herhaling ervan.</p>
+
+      <div class="copy-block">
+        <h5>Welkomstscherm</h5>
+        <p class="line">Een Venster Naar Wat Zou Kunnen Zijn</p>
+        <p class="small">"Vertel ons wat er speelt. Wij zien er een paar mogelijkheden in die je zelf nog niet had bedacht."</p>
+        <p class="small">CTA: "Ontdek mijn ideeën" · Micro: "3 minuten · geen account nodig · vanaf €3,50"</p>
+      </div>
+
+      <div class="copy-block">
+        <h5>Voortgang &amp; tussenbevestiging</h5>
+        <p class="small">Stap-label: "Stap {x} van 8"</p>
+        <p class="small">Tussenbevestiging: "Je zoekt dus iets {ervaring}, met {gezelschap}, binnen {tijd} — klopt dat zo'n beetje?"</p>
+        <p class="small">Knoppen: "Ja, verder" / "Iets aanpassen"</p>
+      </div>
+
+      <div class="copy-block">
+        <h5>Loadingteksten (roterend)</h5>
+        <p class="small">1. "Je situatie wordt gelezen…" — 2. "Zes mogelijkheden worden bedacht…" — 3. "Je wildcard krijgt een laatste check…" — 4. "Je Idea Book wordt opgemaakt…"</p>
+      </div>
+
+      <div class="copy-block">
+        <h5>Idea Book-intro &amp; profiel</h5>
+        <p class="line">Jouw Idea Book is klaar.</p>
+        <p class="small">"Zes mogelijkheden, gevormd naar wat je vertelde — plus een wildcard die we eigenlijk niet zouden moeten voorstellen." · CTA: "Bekijk mijn Idea Book"</p>
+        <p class="small" style="margin-top:0.5rem;">Profielkop: "Dit hebben we over je ontdekt" — voorbeeldzin: "Je verveelt je al een paar weken en zoekt iets bijzonders — het liefst samen met je partner, zonder dat het een hele onderneming wordt."</p>
+        <p class="small">Tags: "Met partner" · "Halve dag" · "Rond €25" · "Beetje inspanning" · "Bij Laren" · "Niet te druk"</p>
+      </div>
+
+      <div class="copy-block">
+        <h5>Knoppen (algemeen)</h5>
+        <p class="small">Doorgaan: "Verder" · Laatste stap: "Maak mijn Idea Book" · Idee-actie: "Plan de eerste stap" / "Ik ga dit doen" / "Stuur dit naar [naam]" / "Bewaar voor later" · Wildcard: "Ik durf het aan" / "Nee, laat maar" · Terug: "Terug" · Aanpassen: "Iets aanpassen"</p>
+      </div>
+
+      <div class="copy-block">
+        <h5>Foutmeldingen &amp; lege statussen</h5>
+        <p class="small">Generatie mislukt: "Dit lukte niet in één keer — we proberen het automatisch nog een keer."</p>
+        <p class="small">Geen betaling gevonden: "We hebben nog geen betaling gezien. Kom je net van de betaalpagina? Ververs dan even."</p>
+        <p class="small">Geen gevoel ingevuld: "Dat mag ook. We werken dan met wat je hierna nog vertelt."</p>
+        <p class="small">Geen harde grenzen: sectie "Waar we rekening mee hielden" toont dan alleen voorkeuren, of wordt overgeslagen.</p>
+      </div>
+
+      <div class="copy-block">
+        <h5>Opslaan/delen-bevestigingen</h5>
+        <p class="small">"Link gekopieerd!" · "We hebben ook een kopie gemaild." · "Bewaard in je Idea Book-geschiedenis."</p>
+      </div>
+
+      <div class="copy-block">
+        <h5>"Waarom zie ik dit idee?" — patroon</h5>
+        <p class="small">"Je gaf aan dat je {antwoord A} en {antwoord B} — dit idee combineert precies dat, binnen je {tijd/budget}."</p>
+        <p class="small">Voorbeeld: "Je gaf aan dat je iets bijzonders zoekt en niet van drukte houdt — dit is bijzonder juist omdát het rustig is."</p>
+      </div>
+
+      <div class="copy-block">
+        <h5>Zes voorbeeldideeën + één wild idee (korte vorm)</h5>
+        <p class="small">1. "Kooksessie met gesloten ogen" — kook om de beurt een gerecht dat de ander geblinddoekt proeft en raadt.</p>
+        <p class="small">2. "Zwerftocht zonder telefoon" — wandel een onbekende route uit en laat het toeval de richting bepalen.</p>
+        <p class="small">3. "Galerij-hop in het Gooi" — bezoek twee kleine galerijen die je nog nooit binnenliep.</p>
+        <p class="small">4. "Sauna voor twee" — boek een privésauna-sessie, geen grote drukte, wel warmte.</p>
+        <p class="small">5. "Levenslessen op canvas" — volg samen een korte schilderworkshop, geen ervaring nodig.</p>
+        <p class="small">6. "Sterren zoeken buiten de stad" — rij naar een donkere plek en breng een uur kijkend naar de sterrenhemel door.</p>
+        <p class="small"><strong>Wild:</strong> "Vreemdetaal-date" — bestel en bepraat je hele avond alleen in een taal die je geen van beiden goed spreekt.</p>
+      </div>
+    </section>
+
+    <!-- 4. VOORBEELD IDEA BOOK -->
+    <section class="block" id="s4">
+      <div class="block-head"><span class="block-num">4</span><h2>Compleet voorbeeld-Idea Book</h2></div>
+      <p class="block-intro">Voor een fictieve gebruiker: verveelt zich al enkele weken, zoekt iets bijzonders en opwindends met partner, budget ~€25, halve dag, open voor inspanning, woont in/rond Laren, vermijdt grote drukte, open voor creatieve, actieve en intieme ervaringen.</p>
+
+      <div class="voorstel-box">
+        <span class="tag">Profiel</span>
+        <p>"Je verveelt je al een tijdje en hebt zin in iets bijzonders met je partner — zonder dat het een hele productie wordt, en het liefst ver van de drukte."</p>
+        <span class="tag" style="margin-top:0.6rem;">Tags</span>
+        <p>Met partner · Halve dag · Rond €25 · Beetje inspanning · Bij Laren · Niet te druk · Creatief, actief &amp; intiem</p>
+      </div>
+
+      <div class="idea-grid">
+        <div class="idea-card">
+          <span class="kicker">Thuisidee</span>
+          <h4>1. Blinde Proeverij voor Twee</h4>
+          <p class="desc">Jullie koken om de beurt een gerecht voor elkaar, geblinddoekt geserveerd — proeven, raden, en pas daarna de ingrediënten onthullen.</p>
+          <p class="why">Je zei dat je iets bijzonders zoekt zonder groot budget of drukte — dit haalt de verrassing gewoon je eigen keuken in.</p>
+          <div class="idea-meta"><span><strong>Kosten</strong> €15–20</span><span><strong>Tijd</strong> 2–3 uur</span><span><strong>Inspanning</strong> Gemiddeld</span><span><strong>Waar</strong> Binnen, thuis</span></div>
+          <p class="sub-label">Benodigd</p>
+          <ul><li>Blinddoek of sjaal</li><li>2–3 verrassingsingrediënten per persoon</li></ul>
+          <p class="sub-label">Stappen</p>
+          <ol><li>Spreek om de beurt een rol af (kok/proever).</li><li>Kok kiest in het geheim ingrediënten en bereidt iets kleins.</li><li>Proever wordt geblinddoekt en raadt tijdens het proeven.</li><li>Wissel van rol en onthul samen beide gerechten.</li></ol>
+          <p class="first-action"><strong>Eerste actie:</strong> Bepaal vanavond nog wie als eerste kookt, en koop morgen twee verrassingsingrediënten.</p>
+        </div>
+
+        <div class="idea-card">
+          <span class="kicker">Creatief idee</span>
+          <h4>2. Levenslessen op Canvas</h4>
+          <p class="desc">Volg samen een korte, laagdrempelige schilderworkshop in de buurt van Laren — geen ervaring nodig, wel twee canvassen om mee naar huis te nemen.</p>
+          <p class="why">Je gaf aan open te staan voor iets creatiefs en met je partner — dit is samen iets maken zonder dat het competitief wordt.</p>
+          <div class="idea-meta"><span><strong>Kosten</strong> €20–25 p.p.</span><span><strong>Tijd</strong> 2–2,5 uur</span><span><strong>Inspanning</strong> Licht–gemiddeld</span><span><strong>Waar</strong> Binnen, regio Laren</span></div>
+          <p class="sub-label">Benodigd</p>
+          <ul><li>Geen eigen materiaal</li><li>Kleding die vlekken mag hebben</li></ul>
+          <p class="sub-label">Stappen</p>
+          <ol><li>Zoek een schildersatelier of workshopaanbieder in het Gooi.</li><li>Reserveer een duo-plek voor een avond deze week.</li><li>Kies samen vooraf een simpel thema.</li></ol>
+          <p class="first-action"><strong>Eerste actie:</strong> Zoek vanavond een schildersworkshop in het Gooi en reserveer een plek voor twee.</p>
+        </div>
+
+        <div class="idea-card">
+          <span class="kicker">Buitenactiviteit</span>
+          <h4>3. Zwerftocht zonder Doel door de Tafelbergheide</h4>
+          <p class="desc">Wandel de Tafelbergheide in zonder vaste route — bij elk kruispunt beslist een muntje welke kant je op gaat.</p>
+          <p class="why">Je vermijdt drukte en zoekt iets bijzonders — een doelloze wandeling met een speels randje levert allebei op, gratis.</p>
+          <div class="idea-meta"><span><strong>Kosten</strong> Gratis</span><span><strong>Tijd</strong> 2–3 uur</span><span><strong>Inspanning</strong> Gemiddeld</span><span><strong>Waar</strong> Buiten, Tafelbergheide</span></div>
+          <p class="sub-label">Benodigd</p>
+          <ul><li>Wandelschoenen</li><li>Een muntje (of muntje-app)</li><li>Water</li></ul>
+          <p class="sub-label">Stappen</p>
+          <ol><li>Parkeer bij een toegang tot de Tafelbergheide.</li><li>Gooi bij elk kruispunt op — kruis is links, munt is rechts.</li><li>Loop tot je een plek vindt die om een pauze vraagt, en keer terug.</li></ol>
+          <p class="first-action"><strong>Eerste actie:</strong> Zoek dit weekend een parkeerplek bij de Tafelbergheide op en ga er zonder plan heen.</p>
+        </div>
+
+        <div class="idea-card">
+          <span class="kicker">Vraagt reservering</span>
+          <h4>4. Privésauna aan het Gooimeer</h4>
+          <p class="desc">Boek een privésauna- of wellnesssessie met uitzicht op het Gooimeer, zonder andere gasten in de buurt.</p>
+          <p class="why">Je wilt iets bijzonders zonder grote drukte — een privésessie geeft precies die combinatie van luxe en rust.</p>
+          <div class="idea-meta"><span><strong>Kosten</strong> €20–25 p.p.</span><span><strong>Tijd</strong> 2 uur</span><span><strong>Inspanning</strong> Laag</span><span><strong>Waar</strong> Gooimeer-regio</span></div>
+          <p class="sub-label">Benodigd</p>
+          <ul><li>Badkleding, handdoeken</li><li>Reservering enkele dagen vooraf</li></ul>
+          <p class="sub-label">Stappen</p>
+          <ol><li>Zoek een sauna-/wellnessaanbieder aan het Gooimeer met een privé-optie.</li><li>Reserveer een avondslot voor twee.</li><li>Neem handdoeken en badkleding mee, plan niets erna.</li></ol>
+          <p class="first-action"><strong>Eerste actie:</strong> Check vanavond de beschikbaarheid voor een privésauna-sessie dit weekend en boek een slot.</p>
+        </div>
+
+        <div class="idea-card">
+          <span class="kicker">Fysiek/avontuurlijk</span>
+          <h4>5. Suppen bij Zonsondergang</h4>
+          <p class="desc">Huur een supboard en peddel samen over rustig water terwijl de zon ondergaat.</p>
+          <p class="why">Je staat open voor inspanning en iets actiefs — dit is fysiek maar niet zwaar, en de zonsondergang maakt het bijzonder.</p>
+          <div class="idea-meta"><span><strong>Kosten</strong> €20–25</span><span><strong>Tijd</strong> 1,5–2 uur</span><span><strong>Inspanning</strong> Gemiddeld</span><span><strong>Waar</strong> Gooimeer of Vecht</span></div>
+          <p class="sub-label">Benodigd</p>
+          <ul><li>Supboard-verhuur (reserveren aanbevolen)</li><li>Kleding die nat mag worden, handdoek</li></ul>
+          <p class="sub-label">Stappen</p>
+          <ol><li>Zoek een supverhuur bij het Gooimeer of de Vecht met een avondslot.</li><li>Reserveer rond zonsondergangstijd.</li><li>Peddel rustig een stuk het water op en laat je drijven.</li></ol>
+          <p class="first-action"><strong>Eerste actie:</strong> Check dit weekend het zonsondergangstijdstip en boek een supslot rond dat tijdstip.</p>
+        </div>
+
+        <div class="idea-card">
+          <span class="kicker">Intiem/verbindend</span>
+          <h4>6. Brievenavond zonder Telefoons</h4>
+          <p class="desc">Schrijf elkaar 's avonds bij kaarslicht een brief over een herinnering die je nog nooit hardop deelde, en lees ze daarna aan elkaar voor.</p>
+          <p class="why">Je zocht iets bijzonders mét je partner — dit is intiem, kost niets, en vraagt alleen aandacht, geen budget.</p>
+          <div class="idea-meta"><span><strong>Kosten</strong> Gratis</span><span><strong>Tijd</strong> 1–1,5 uur</span><span><strong>Inspanning</strong> Laag</span><span><strong>Waar</strong> Binnen, thuis</span></div>
+          <p class="sub-label">Benodigd</p>
+          <ul><li>Papier, pen, een kaars</li><li>Telefoons in een andere kamer</li></ul>
+          <p class="sub-label">Stappen</p>
+          <ol><li>Leg beide telefoons in een andere kamer.</li><li>Schrijf 15–20 minuten in stilte een brief over een gedeelde herinnering.</li><li>Lees om de beurt je brief hardop voor.</li></ol>
+          <p class="first-action"><strong>Eerste actie:</strong> Leg vanavond om negen uur beide telefoons weg en pak pen en papier erbij.</p>
+        </div>
+
+        <div class="idea-card wild">
+          <span class="kicker">Het wilde idee</span>
+          <h4>7. Vreemdetaal-date</h4>
+          <p class="desc">Ga een avond uit eten of drinken, maar spreek de hele tijd alleen in een taal die jullie geen van beiden goed beheersen.</p>
+          <p class="why">Je zei liever geen grote drukte, maar wel iets bijzonders — dit is spannend in het klein, zonder ook maar iemand anders erbij te betrekken.</p>
+          <div class="idea-meta"><span><strong>Kosten</strong> €15–25</span><span><strong>Tijd</strong> 1,5–2 uur</span><span><strong>Inspanning</strong> Gemiddeld (mentaal)</span><span><strong>Waar</strong> Binnen, regio Laren</span></div>
+          <p class="sub-label">Benodigd</p>
+          <ul><li>Niets, hooguit een vertaal-app als geheime noodgreep</li></ul>
+          <p class="sub-label">Stappen</p>
+          <ol><li>Kies samen een taal die jullie geen van beiden vloeiend spreken.</li><li>Ga naar een rustig café of restaurant in de buurt.</li><li>Bestel en praat de hele avond alleen in die taal.</li></ol>
+          <p class="first-action"><strong>Eerste actie:</strong> Kies vanavond samen de taal, en spreek af welk café jullie er dit weekend voor uitproberen.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. WIREFRAMES -->
+    <section class="block" id="s5">
+      <div class="block-head"><span class="block-num">5</span><h2>Tekstuele wireframes</h2></div>
+      <p class="block-intro">Structuur: [Header] / [Inhoud] / [Onderkant], met per scherm de visueel dominante elementen benoemd.</p>
+
+      <div class="wire-grid">
+        <div class="wire-card">
+          <h5>Welkomstscherm</h5>
+          <pre>[Header]
+WINDOW-logo · taal-toggle (NL/EN)
+
+[Inhoud]
+Groot: "Een Venster Naar Wat Zou
+Kunnen Zijn"
+Sub: korte belofte-zin
+Sfeerbeeld (venster-motief)
+
+[Onderkant]
+Pil-knop: "Ontdek mijn ideeën"
+Micro: "3 minuten · vanaf €3,50"</pre>
+          <p class="dominant">Dominant: <strong>headline + sfeerbeeld</strong> — de CTA is de enige interactie.</p>
+        </div>
+
+        <div class="wire-card">
+          <h5>Vraagscherm</h5>
+          <pre>[Header]
+Voortgangsbalk (dun) · "Stap 2
+van 8" · terug-pijl
+
+[Inhoud]
+Eén vraag, groot
+Sub-toelichting, klein
+Antwoordkaarten (1 kolom mobiel)
+Optioneel: vrij veld + klik-chips
+
+[Onderkant]
+"Terug" (links) · "Verder"
+(pil-knop, rechts, disabled)</pre>
+          <p class="dominant">Dominant: <strong>de antwoordkaarten</strong> — grote, aanraakbare vlakken, geen dropdown.</p>
+        </div>
+
+        <div class="wire-card">
+          <h5>Tussenbevestiging</h5>
+          <pre>[Header]
+Voortgangsbalk (bijna vol),
+geen stap-nummer
+
+[Inhoud]
+Samenvattingszin met eigen
+antwoorden verweven (cursief)
+Kleine iconen per antwoord
+
+[Onderkant]
+"Iets aanpassen" (link) ·
+"Ja, verder" (pil-knop)</pre>
+          <p class="dominant">Dominant: <strong>de samenvattingszin</strong> — het enige "hardop terugleesmoment".</p>
+        </div>
+
+        <div class="wire-card">
+          <h5>Idea Book-intro</h5>
+          <pre>[Header]
+(geen navigatie — bewust rustig)
+
+[Inhoud]
+Full-bleed sfeerbeeld (stijl)
+Eyebrow: "JOUW IDEA BOOK"
+Titel: "Jouw Idea Book is klaar."
+Warme onderschrift-zin
+
+[Onderkant]
+Pil-knop: "Bekijk mijn Idea Book"</pre>
+          <p class="dominant">Dominant: <strong>het beeld</strong> — bewust beeld-eerst, tekst-tweede.</p>
+        </div>
+
+        <div class="wire-card">
+          <h5>Profielpagina</h5>
+          <pre>[Header]
+WINDOW-logo · "Terug naar start"
+
+[Inhoud]
+Eyebrow: "DIT HEBBEN WE OVER
+JE ONTDEKT"
+Samenvattingszin (groot, serif)
+Rij voorkeurstags (chips)
+
+[Onderkant]
+"Iets aanpassen" (link) ·
+"Naar de ideeën" (pil-knop)</pre>
+          <p class="dominant">Dominant: <strong>de samenvattingszin</strong> — groter en persoonlijker dan een paragraaf.</p>
+        </div>
+
+        <div class="wire-card">
+          <h5>Detailpagina idee</h5>
+          <pre>[Header]
+"Idee 2 van 6" + swipe-stippen ·
+sluit-kruisje
+
+[Inhoud]
+Sfeerbeeld (portret, boven)
+Titel + korte omschrijving
+"Waarom dit bij je past" (vlak)
+Metadata-rij (iconen+labels)
+Stappenplan (genummerd)
+Benodigdheden (indien relevant)
+
+[Onderkant]
+"Plan de eerste stap" (primair) ·
+"Bewaar"/"Deel" (icoon-knoppen)</pre>
+          <p class="dominant">Dominant: <strong>metadata-rij + "waarom dit past"</strong> — samen bepalen ze het vertrouwen.</p>
+        </div>
+
+        <div class="wire-card">
+          <h5>Wild idee</h5>
+          <pre>[Header]
+Label: "HET WILDE IDEE"
+(los van "Idee X van 6")
+
+[Inhoud]
+Donkerder/opvallender kader
+Titel + omschrijving
+"Waarom dit bij je past"
+(benoemt de verschoven grens)
+Zelfde metadata + stappenplan
+
+[Onderkant]
+"Ik durf het aan" (opvallend) ·
+"Nee, laat maar" (link, neutraal)</pre>
+          <p class="dominant">Dominant: <strong>het afwijkende kader/kleurgebruik</strong> — direct herkenbaar als andere categorie.</p>
+        </div>
+
+        <div class="wire-card">
+          <h5>Eerste-actiescherm</h5>
+          <pre>[Header]
+"Eerste stap" (klein label)
+
+[Inhoud]
+Eén zin: de concrete actie,
+groot gezet
+Kleine context-regel (welk idee)
+
+[Onderkant]
+"Ik heb dit gedaan" (pil-knop) ·
+"Herinner me hieraan" (link,
+optioneel, Fase 3)</pre>
+          <p class="dominant">Dominant: <strong>de ene actiezin</strong> — verder bewust leeg, geen afleiding.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. DESIGN SYSTEEM -->
+    <section class="block" id="s6">
+      <div class="block-head"><span class="block-num">6</span><h2>UI- en visual-designsysteem</h2></div>
+      <p class="block-intro">Een verfijning van het bestaande WINDOW-systeem, niet een nieuw merk — mobile-first uitgewerkt.</p>
+
+      <div class="stage">
+        <h3>Kleurenpalet</h3>
+        <div class="swatch-grid">
+          <div class="swatch"><div class="swatch-color" style="background:#6C3CE9;"></div><div class="label"><strong>Accent</strong><code>#6C3CE9</code></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#4B2AA6;"></div><div class="label"><strong>Accent-dark</strong><code>#4B2AA6</code></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#1A1A2E;"></div><div class="label"><strong>Inkt</strong><code>#1A1A2E</code></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#F5F3EE;border-bottom:1px solid #ddd;"></div><div class="label"><strong>Crème</strong><code>#F5F3EE</code></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#2F7A52;"></div><div class="label"><strong>Succes</strong><code>#2F7A52</code></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#B8860B;"></div><div class="label"><strong>Wildcard-amber</strong><code>#B8860B</code></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#9C2B3A;"></div><div class="label"><strong>Terughoudend rood</strong><code>#9C2B3A</code></div></div>
+        </div>
+        <p class="waarom" style="color:var(--ink-muted); font-size:0.9rem;">De zes bestaande Style Engine-tinten (bloom/warm/bold/edge/calm/vivid) worden ook gebruikt als achtergrondtint van antwoordkaarten zodra iemand een stijl kiest — de hele intake kleurt dan al mee met het latere Idea Book.</p>
+      </div>
+
+      <div class="stage">
+        <h3>Typografie</h3>
+        <div class="type-sample"><span class="tlabel">H1 / 32px</span><span style="font-family:var(--font-serif); font-size:1.8rem;">Een Venster Naar Wat Zou Kunnen Zijn</span></div>
+        <div class="type-sample"><span class="tlabel">H2 / 22px</span><span style="font-family:var(--font-serif); font-size:1.3rem;">Dit hebben we over je ontdekt</span></div>
+        <div class="type-sample"><span class="tlabel">Body / 16px</span><span style="font-size:1rem;">Je verveelt je al een tijdje en hebt zin in iets bijzonders.</span></div>
+        <div class="type-sample"><span class="tlabel">Label / 12px</span><span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent-dark); font-weight:700;">Stap 3 van 8</span></div>
+        <p class="waarom" style="color:var(--ink-muted); font-size:0.9rem;">Fraunces (serif) voor koppen en samenvattingszinnen — alles wat gevóeld moet worden. Inter (sans) voor labels, metadata en stappen — alles wat gelézen moet worden. Op mobiel zakt H1 naar 26–28px om wrap-chaos bij lange stijlnamen te voorkomen.</p>
+      </div>
+
+      <div class="stage">
+        <h3>Componenten</h3>
+        <ul class="checklist">
+          <li><strong>Knoppen</strong><span class="small">Pil-vormig, accent primair, ghost/outline secundair. Nieuw: een "durf"-variant voor de wildcard-CTA — zelfde vorm, warmere/donkerdere kleur, net iets groter.</span></li>
+          <li><strong>Antwoordkaarten</strong><span class="small">Afgeronde rechthoeken (16px radius), 44px+ tikgebied, subtiele schaduw bij hover/focus, accent-rand + lichte vulling bij selectie — de vulling ís de bevestiging, geen apart vinkje nodig.</span></li>
+          <li><strong>Tags/chips</strong><span class="small">Pil-vorm, twee varianten: "hard" (grens, donkerder/vetter) en "zacht" (voorkeur, lichter) — ondersteunt visueel het moet-vs-liever-onderscheid uit de intake.</span></li>
+          <li><strong>Voortgangsbalk</strong><span class="small">Dun (4–6px), gevulde segmenten per stap i.p.v. één doorlopende balk — toont voortgang én totale lengte in één oogopslag.</span></li>
+          <li><strong>Iconen</strong><span class="small">Dunne lijnstijl (1.5px stroke), nooit puur decoratief — alleen voor metadata (klok, euro, kaart-pin, binnen/buiten).</span></li>
+          <li><strong>Fotografie/illustratie</strong><span class="small">De bestaande aquarel/editorial-illustraties (Style Engine) blijven de basis — geen stockfoto's van mensen, dat breekt het "voor jou gemaakt"-gevoel.</span></li>
+          <li><strong>Achtergronden</strong><span class="small">Crème als basis overal; wit gereserveerd voor kaarten/panelen die zich moeten onderscheiden van de achtergrond.</span></li>
+        </ul>
+      </div>
+
+      <div class="stage">
+        <h3>Idea Book-layout, micro-interacties &amp; responsive gedrag</h3>
+        <p class="waarom" style="color:var(--ink-muted); font-size:0.92rem;">Cover (stijlbeeld) → profiel (samenvatting + tags) → 6 ideeën, elk een eigen scherm bij swipen → apart gekaderd wildcard-scherm → afsluitend actiescherm. Op desktop: twee-koloms (sfeerbeeld links, content rechts); op mobiel: beeld boven, content eronder, verticaal scrollend. Kaart-selectie is een korte kleurfade (150ms, geen bounce); een voortgangssegment vult met een zachte ease-out (200ms); loadingteksten wisselen met een fade, nooit alleen een spinner; het wildcard-scherm krijgt een eenmalige, subtiele reveal (4px omhoog + fade) om het als bijzonder moment te merken zonder overdaad. Vanaf 768px worden antwoordkaarten 2-koloms i.p.v. gestapeld.</p>
+        <div class="critical">
+          <span class="tag">Visuele overgang intake → genereren → Idea Book → detail</span>
+          <p>De intake blijft crème/rustig. Het loading-scherm maakt een korte, subtiele overgang naar de gekozen stijltint — een hint van wat komt. De Idea Book-intro is de eerste plek waar de volle stijl (beeld + kleur) losbreekt: bewust het "wow"-moment. Idee-detailpagina's houden diezelfde stijltint vast tot en met de laatste pagina, zodat het boek als één geheel voelt.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. UX & CONVERSIE -->
+    <section class="block" id="s7">
+      <div class="block-head"><span class="block-num">7</span><h2>UX- en conversieverbeteringen</h2></div>
+      <ul class="checklist">
+        <li><strong>Verhoogt intake-voltooiing</strong><span class="small">Eén vraag per scherm + zichtbare segment-voortgang + een tussenbevestiging halverwege houden "bijna klaar" levend in plaats van "nog een heel formulier".</span></li>
+        <li><strong>Verlaagt cognitieve belasting</strong><span class="small">Kaarten i.p.v. open velden, sliders met een neutrale startwaarde, en optionele klik-chips bij vrije tekst verlagen de drempel om te beginnen én om door te gaan.</span></li>
+        <li><strong>Voelt persoonlijker dan een chatbot</strong><span class="small">Een chatbot voelt als een gesprek zonder einde; hier weet je vooraf hoeveel stappen er zijn én wat je aan het eind krijgt — gecombineerd met letterlijke citaten uit je eigen antwoorden in "waarom dit past" voelt dat aantoonbaar persoonlijker dan een generiek antwoord.</span></li>
+        <li><strong>Geeft emotionele waarde aan het resultaat</strong><span class="small">Het aparte Idea Book-intro-moment (beeld eerst, geen navigatie) en de apart gekaderde wildcard-pagina zorgen dat het resultaat als een cadeau aanvoelt, niet als een zoekresultatenpagina.</span></li>
+        <li><strong>Brengt direct in beweging</strong><span class="small">Elk idee eindigt in exact één, zeer kleine eerste actie — nooit "plan een dagje uit" maar "boek dit weekend een slot" — dat verkleint de afstand tussen lezen en doen tot bijna nul.</span></li>
+        <li><strong>Stimuleert terugkerend gebruik</strong><span class="small">"Voorkeuren aanpassen" maakt een nieuw Idea Book laagdrempelig — je hoeft niet opnieuw te beginnen, alleen te verfijnen.</span></li>
+        <li><strong>Ondersteunt opslaan, delen en hervatten</strong><span class="small">Een device-onafhankelijke gedeelde link, een e-mailkopie, en (Fase 3) een accountgeschiedenis zorgen dat een Idea Book nooit verloren gaat aan "ergens in mijn browserhistorie".</span></li>
+      </ul>
+    </section>
+
+    <!-- 8. VEILIGHEID & PRIVACY -->
+    <section class="block" id="s8">
+      <div class="block-head"><span class="block-num">8</span><h2>Veiligheid, privacy en grenzen</h2></div>
+      <div class="idea-grid">
+        <div class="idea-card"><span class="kicker">Gevoelige persoonsgegevens</span><p class="desc">Beleid: alleen opslaan wat nodig is voor personalisatie, gekoppeld aan een sessie, niet aan een naam, tot er betaald wordt.</p><p class="why">Copy: "We bewaren je antwoorden alleen om dit Idea Book te maken — niet gekoppeld aan je naam, tenzij je betaalt."</p></div>
+        <div class="idea-card"><span class="kicker">Locatie</span><p class="desc">Beleid: alleen stad/regio-niveau, nooit een exact adres; alleen gebruikt voor generieke kaartlinks, niet voor tracking.</p><p class="why">Copy: "Stad of regio is genoeg — nooit je exacte adres."</p></div>
+        <div class="idea-card"><span class="kicker">Intieme voorkeuren</span><p class="desc">Beleid: intieme/verbindende ideeën blijven altijd tekstueel en suggestief, nooit expliciet; overslaanbaar via "Gewenste ervaring".</p><p class="why">Copy: "Intiem kan ook gewoon een brief bij kaarslicht zijn — wij houden het toepasselijk, nooit ongemakkelijk."</p></div>
+        <div class="idea-card"><span class="kicker">Minderjarigen</span><p class="desc">Beleid: platform niet bedoeld voor minderjarigen; leeftijdscategorie sluit "onder 18" uit van alcohol-/volwassen-thema's.</p><p class="why">Copy: "Voor deze leeftijd houden we het bij ideeën zonder alcohol of volwassen thema's."</p></div>
+        <div class="idea-card"><span class="kicker">Risicovolle/fysieke activiteiten</span><p class="desc">Beleid: geen ideeën die specialistische training/certificering vereisen zonder dat te vermelden; moeilijkheidsgraad altijd zichtbaar.</p><p class="why">Copy: "Dit vraagt wat conditie — check bij twijfel even bij jezelf of een arts."</p></div>
+        <div class="idea-card"><span class="kicker">Toestemming van anderen</span><p class="desc">Beleid: bij ideeën "met partner/vrienden" wordt nooit aangenomen dat de ander al akkoord is.</p><p class="why">Copy (bij delen): "Stuur dit gerust door — maar overleg voor je iets boekt dat hen ook raakt."</p></div>
+        <div class="idea-card"><span class="kicker">Weersafhankelijkheid</span><p class="desc">Beleid: buitenideeën krijgen een zichtbare notitie i.p.v. een verzonnen weersverwachting.</p><p class="why">Copy: "Buitenidee — check zelf even het weer voor je gaat."</p></div>
+        <div class="idea-card"><span class="kicker">Onjuiste/verouderde locatiegegevens</span><p class="desc">Beleid: nooit een verzonnen exact adres of openingstijd; altijd een kaartlink naar de bron zelf i.p.v. een hard feit in de tekst.</p><p class="why">Copy: "Adressen en tijden kunnen wijzigen — check de kaartlink voor de actuele situatie."</p></div>
+      </div>
+    </section>
+
+    <!-- 9. A/B TESTEN -->
+    <section class="block" id="s9">
+      <div class="block-head"><span class="block-num">9</span><h2>A/B-testen</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Test</th><th>Hypothese</th><th>Variant A</th><th>Variant B</th><th>Meetpunt</th></tr></thead>
+          <tbody>
+            <tr><td>Welkomsttekst</td><td class="muted">Concrete tijdsbelofte verhoogt start-conversie meer dan pure sfeertekst.</td><td class="muted">Huidige poëtische headline zonder tijdsvermelding.</td><td class="muted">Headline + "3 minuten" zichtbaar in de hero.</td><td class="muted">% klik op hoofd-CTA</td></tr>
+            <tr><td>CTA-tekst</td><td class="muted">Actiegerichte CTA-taal converteert beter dan neutrale taal.</td><td class="muted">"Start"</td><td class="muted">"Ontdek mijn ideeën"</td><td class="muted">Klik-ratio hero-CTA</td></tr>
+            <tr><td>Aantal vragen</td><td class="muted">8 kernvragen voelen niet langer aan dan 5 als de rest optioneel is.</td><td class="muted">8 verplichte vragen</td><td class="muted">5 verplicht + 3 optioneel/uitklapbaar</td><td class="muted">Intake-voltooiingspercentage</td></tr>
+            <tr><td>Voortgangsweergave</td><td class="muted">Gesegmenteerde voortgang verlaagt afhaak t.o.v. een percentage.</td><td class="muted">Percentage-balk</td><td class="muted">Gesegmenteerde stap-balk</td><td class="muted">Drop-off per stap</td></tr>
+            <tr><td>Moment persoonlijke samenvatting</td><td class="muted">Een tussenbevestiging halverwege verhoogt voltooiing.</td><td class="muted">Geen tussenbevestiging</td><td class="muted">Tussenbevestiging na stap 4–5</td><td class="muted">Voltooiing vanaf de helft</td></tr>
+            <tr><td>Presentatie wilde idee</td><td class="muted">Een apart gekaderd wildcard-scherm wordt vaker uitgevoerd.</td><td class="muted">Wildcard tussen de andere 6</td><td class="muted">Apart, visueel afwijkend scherm</td><td class="muted">Klikratio "Ik durf het aan"</td></tr>
+            <tr><td>Formulering eerste actie</td><td class="muted">Een specifieke, tijdgebonden actie wordt vaker afgevinkt als gedaan.</td><td class="muted">Algemene actiezin</td><td class="muted">Specifieke, tijdgebonden actiezin</td><td class="muted">% "Ik heb dit gedaan"</td></tr>
+            <tr><td>Delen vs. opslaan</td><td class="muted">Gepersonaliseerde deel-copy verhoogt deelratio t.o.v. generiek.</td><td class="muted">Generieke "Deel"-knop</td><td class="muted">"Stuur dit naar je partner" (op basis van intake)</td><td class="muted">Klikratio deelknop</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 10. ROADMAP -->
+    <section class="block" id="s10">
+      <div class="block-head"><span class="block-num">10</span><h2>Productroadmap</h2></div>
+
+      <div class="phase">
+        <div class="phase-head"><h4>Fase 1 — Snelle verbeteringen</h4></div>
+        <div class="roadmap-item"><div class="name">Betere CTA + kortere copy</div><div class="meta"><span class="pill must">Must</span><span>Waarde: hoog</span><span>Complexiteit: laag</span><span>Afhankelijkheden: geen</span></div></div>
+        <div class="roadmap-item"><div class="name">Antwoordkaarten i.p.v. kale opties</div><div class="meta"><span class="pill must">Must</span><span>Waarde: hoog</span><span>Complexiteit: gemiddeld</span><span>Afhankelijkheden: geen</span></div></div>
+        <div class="roadmap-item"><div class="name">Gesegmenteerde voortgang</div><div class="meta"><span class="pill should">Should</span><span>Waarde: gemiddeld</span><span>Complexiteit: laag</span><span>Afhankelijkheden: geen</span></div></div>
+        <div class="roadmap-item"><div class="name">Fout- en laadstatussen (retry, zachte lege-staat-copy)</div><div class="meta"><span class="pill must">Must</span><span>Waarde: hoog</span><span>Complexiteit: gemiddeld</span><span>Afhankelijkheden: generatiestatus-veld (al gebouwd)</span></div></div>
+        <div class="roadmap-item"><div class="name">Persoonlijker resultaat (citaten uit eigen antwoorden)</div><div class="meta"><span class="pill should">Should</span><span>Waarde: hoog</span><span>Complexiteit: laag</span><span>Afhankelijkheden: geen</span></div></div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head"><h4>Fase 2 — Kernervaring</h4></div>
+        <div class="roadmap-item"><div class="name">Profielscherm + voorkeurenoverzicht als aparte stappen</div><div class="meta"><span class="pill must">Must</span><span>Waarde: hoog</span><span>Complexiteit: gemiddeld</span><span>Afhankelijkheden: bestaande profieldata</span></div></div>
+        <div class="roadmap-item"><div class="name">Idea Book-layout als "boek" (cover, swipe/scroll per idee)</div><div class="meta"><span class="pill must">Must</span><span>Waarde: hoog</span><span>Complexiteit: hoog</span><span>Afhankelijkheden: Style Engine (al gebouwd)</span></div></div>
+        <div class="roadmap-item"><div class="name">Metadata zichtbaar per idee (kosten/tijd/inspanning/binnen-buiten)</div><div class="meta"><span class="pill must">Must</span><span>Waarde: hoog</span><span>Complexiteit: laag</span><span>Afhankelijkheden: Actionability Layer (al gebouwd)</span></div></div>
+        <div class="roadmap-item"><div class="name">Eerste-actie als apart, klein moment</div><div class="meta"><span class="pill should">Should</span><span>Waarde: gemiddeld–hoog</span><span>Complexiteit: laag</span><span>Afhankelijkheden: geen</span></div></div>
+        <div class="roadmap-item"><div class="name">Opslaan/delen op boek-niveau</div><div class="meta"><span class="pill must">Must</span><span>Waarde: hoog</span><span>Complexiteit: laag</span><span>Afhankelijkheden: gedeelde previewpagina (al gebouwd)</span></div></div>
+        <div class="roadmap-item"><div class="name">Apart gekaderd wildcard-scherm</div><div class="meta"><span class="pill should">Should</span><span>Waarde: gemiddeld</span><span>Complexiteit: gemiddeld</span><span>Afhankelijkheden: geen</span></div></div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head"><h4>Fase 3 — Verdieping</h4></div>
+        <div class="roadmap-item"><div class="name">Leren van eerdere ideeën (aangevinkt/gedaan)</div><div class="meta"><span class="pill nice">Nice</span><span>Waarde: hoog op termijn</span><span>Complexiteit: hoog</span><span>Afhankelijkheden: accounts/geschiedenis</span></div></div>
+        <div class="roadmap-item"><div class="name">Feedback na uitvoering ("hoe was het?")</div><div class="meta"><span class="pill nice">Nice</span><span>Waarde: gemiddeld</span><span>Complexiteit: gemiddeld</span><span>Afhankelijkheden: notificatiekanaal</span></div></div>
+        <div class="roadmap-item"><div class="name">Dynamische locatiegegevens (echte openingstijden/beschikbaarheid)</div><div class="meta"><span class="pill nice">Nice</span><span>Waarde: hoog, risicovol</span><span>Complexiteit: hoog</span><span>Afhankelijkheden: web-grounding-keuze (nog openstaand)</span></div></div>
+        <div class="roadmap-item"><div class="name">Herinneringen aan de eerste actie</div><div class="meta"><span class="pill nice">Nice</span><span>Waarde: gemiddeld</span><span>Complexiteit: laag–gemiddeld</span><span>Afhankelijkheden: notificatiekanaal</span></div></div>
+        <div class="roadmap-item"><div class="name">Meerdere Idea Books (geschiedenis)</div><div class="meta"><span class="pill nice">Nice</span><span>Waarde: gemiddeld–hoog</span><span>Complexiteit: gemiddeld</span><span>Afhankelijkheden: accounts</span></div></div>
+        <div class="roadmap-item"><div class="name">Samen kiezen met partner/groep (gedeelde sessie)</div><div class="meta"><span class="pill nice">Nice</span><span>Waarde: hoog, nieuw segment</span><span>Complexiteit: hoog</span><span>Afhankelijkheden: real-time gedeelde staat — grenst aan het expliciet uitgesloten "Window for Two"</span></div></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="doc-footer">
+  Gegrond in het bestaande WINDOW-merk (crème, inkt, paars, Fraunces/Inter, Style Engine, Actionability Layer) — een verfijning van wat er al gebouwd is, geen nieuw merk.
+</footer>

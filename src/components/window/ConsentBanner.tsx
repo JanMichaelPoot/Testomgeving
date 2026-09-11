@@ -59,25 +59,23 @@ export function ConsentBanner({ dict }: { dict: Dictionary["consent"] }) {
   if (consent !== null) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-ink/10 bg-paper px-6 py-4 shadow-[0_-4px_16px_rgba(26,26,46,0.08)] sm:px-10">
-      <div className="mx-auto flex max-w-6xl flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-ink/70">{dict.message}</p>
-        <div className="flex shrink-0 gap-3">
-          <button
-            type="button"
-            onClick={() => setConsent("denied")}
-            className="rounded-full px-4 py-2 text-sm font-medium text-ink/60 transition-colors hover:text-ink"
-          >
-            {dict.decline}
-          </button>
-          <button
-            type="button"
-            onClick={() => setConsent("granted")}
-            className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent-dark"
-          >
-            {dict.accept}
-          </button>
-        </div>
+    <div className="animate-window-fade-in fixed inset-x-6 bottom-6 z-50 rounded-2xl border border-gold/30 bg-paper p-5 shadow-xl sm:inset-x-auto sm:right-6 sm:max-w-sm">
+      <p className="text-sm leading-relaxed text-ink">{dict.message}</p>
+      <div className="mt-4 flex shrink-0 gap-3">
+        <button
+          type="button"
+          onClick={() => setConsent("granted")}
+          className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent-dark"
+        >
+          {dict.accept}
+        </button>
+        <button
+          type="button"
+          onClick={() => setConsent("denied")}
+          className="rounded-full px-4 py-2 text-sm font-medium text-ink/60 transition-colors hover:text-ink"
+        >
+          {dict.decline}
+        </button>
       </div>
     </div>
   );

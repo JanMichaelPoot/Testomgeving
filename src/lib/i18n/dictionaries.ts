@@ -12,18 +12,42 @@ interface FollowUpCopy {
 }
 
 export interface Dictionary {
-  header: { switchLanguage: string };
-  footer: { privacy: string; terms: string; priceFaqLabel: string; priceFaqAnswer: string };
+  header: {
+    switchLanguage: string;
+    navHowItWorks: string;
+    navExamples: string;
+    navAbout: string;
+  };
+  footer: {
+    privacy: string;
+    terms: string;
+    priceFaqLabel: string;
+    priceFaqAnswer: string;
+    tagline: string;
+    productHeading: string;
+    legalHeading: string;
+    navHowItWorks: string;
+    navExamples: string;
+  };
   consent: { message: string; accept: string; decline: string };
   landing: {
+    badgeLabel: string;
     headlineLine1: string;
+    headlineEmphasis: string;
     headlineLine2: string;
     subcopy: string;
     cta: string;
+    secondaryCta: string;
     ctaCaption: string;
     heroAlt: string;
     whatYouGetHeading: string;
+    whatYouGetSubcopy: string;
     whatYouGetItems: { title: string; body: string }[];
+    testimonialsHeading: string;
+    testimonials: { quote: string; name: string; role: string }[];
+    ctaBannerHeading: string;
+    ctaBannerBody: string;
+    ctaBannerCta: string;
   };
   legal: {
     privacyTitle: string;
@@ -38,7 +62,9 @@ export interface Dictionary {
   checkout: {
     pageTitle: string;
     heading: string;
+    priceCaption: string;
     subcopy: string;
+    stepsHeading: string;
     steps: string[];
     disclaimer: string;
     waiverLabel: string;
@@ -89,6 +115,10 @@ export interface Dictionary {
       wildcardNo: string;
       doneHeading: string;
       doneSub: string;
+      statsIdeasLabel: string;
+      statsActionsLabel: string;
+      statsWildcardLabel: string;
+      statsWildcardValue: string;
     };
   };
   shared: {
@@ -98,6 +128,9 @@ export interface Dictionary {
     ctaLabel: string;
     notFoundHeading: string;
     notFoundBody: string;
+    bannerHeading: string;
+    bannerSub: string;
+    bannerCta: string;
   };
   email: {
     subjectSuffix: string;
@@ -118,6 +151,7 @@ export interface Dictionary {
     preferences: string;
     possibilityEyebrow: string;
     wildcardFallbackHeading: string;
+    whyItFitsFallback: string;
     stepsFallback: string;
     firstActionFallback: string;
     practicalFallback: string;
@@ -168,12 +202,22 @@ export interface Dictionary {
 }
 
 const nl: Dictionary = {
-  header: { switchLanguage: "Taal wisselen" },
+  header: {
+    switchLanguage: "Taal wisselen",
+    navHowItWorks: "Hoe het werkt",
+    navExamples: "Voorbeelden",
+    navAbout: "Over ons",
+  },
   footer: {
     privacy: "Privacy",
     terms: "Voorwaarden",
     priceFaqLabel: "Wat kost het?",
     priceFaqAnswer: "Eén Idea Book kost {price}, eenmalig. Geen abonnement, geen verborgen kosten.",
+    tagline: "Persoonlijke ideeën voor mensen die vastzitten of toe zijn aan iets nieuws.",
+    productHeading: "Product",
+    legalHeading: "Juridisch",
+    navHowItWorks: "Hoe het werkt",
+    navExamples: "Voorbeelden",
   },
   consent: {
     message:
@@ -182,14 +226,19 @@ const nl: Dictionary = {
     decline: "Liever niet",
   },
   landing: {
-    headlineLine1: "Een Venster Naar",
-    headlineLine2: "Wat Zou Kunnen Zijn",
+    badgeLabel: "Gegenereerd door AI · Persoonlijk voor jou",
+    headlineLine1: "Ontdek wat er",
+    headlineEmphasis: "mogelijk is",
+    headlineLine2: "voor jou.",
     subcopy:
-      "Je hebt niet nog een antwoord nodig. Soms moet je gewoon een andere mogelijkheid zien.",
-    cta: "Open een Venster",
-    ctaCaption: "Geen account nodig · vanaf {price}",
-    heroAlt: "Een venster dat opengaat naar een warm verlichte, onverwachte mogelijkheid",
-    whatYouGetHeading: "Wat er in jouw venster zit",
+      "Vertel ons wie je bent en wat je beweegt. In enkele minuten ontvang je een persoonlijk Idea Book — zes concrete ideeën plus één wildcard, volledig uitgewerkt.",
+    cta: "Maak mijn Idea Book",
+    secondaryCta: "Bekijk een voorbeeld",
+    ctaCaption: "Geen account nodig · vanaf {price} · herroepingsrecht van 14 dagen",
+    heroAlt: "Een venster dat opengaat naar vier verschillende mogelijkheden",
+    whatYouGetHeading: "Wat je krijgt",
+    whatYouGetSubcopy:
+      "Geen generieke tips. Geen lange vragenlijsten zonder uitkomst. Concrete ideeën, helemaal voor jou.",
     whatYouGetItems: [
       {
         title: "Zes mogelijkheden, voor jou",
@@ -204,6 +253,30 @@ const nl: Dictionary = {
         body: "Een mooi vormgegeven PDF, geen los lijstje. Je ontvangt 'm ook meteen in je mail.",
       },
     ],
+    testimonialsHeading: "Wat anderen zeggen",
+    testimonials: [
+      {
+        quote:
+          "Ik zat al maanden vast. Het Idea Book gaf me drie ideeën die ik daadwerkelijk uitvoerbaar vond — één ervan doe ik nu echt.",
+        name: "Marieke V.",
+        role: "Marketeer, 34",
+      },
+      {
+        quote:
+          "De wildcard sloeg me met verstomming. Ik had er zelf nooit op gekomen, maar het klopte perfect.",
+        name: "Thomas K.",
+        role: "Leraar, 41",
+      },
+      {
+        quote:
+          "Eindelijk iets dat niet alleen 'mediteer meer' zegt. De ideeën waren specifiek, uitvoerbaar en pasten echt bij mij.",
+        name: "Sofie D.",
+        role: "Freelancer, 29",
+      },
+    ],
+    ctaBannerHeading: "Klaar om een venster te openen?",
+    ctaBannerBody: "In een paar minuten beantwoord je de intake. Je Idea Book staat er meteen na betaling.",
+    ctaBannerCta: "Start de intake",
   },
   legal: {
     privacyTitle: "Privacybeleid — WINDOW",
@@ -268,9 +341,11 @@ const nl: Dictionary = {
   },
   checkout: {
     pageTitle: "Maak het echt — WINDOW",
-    heading: "Jouw Idea Book is klaar om samengesteld te worden — voor {price}",
+    heading: "Jouw Idea Book",
+    priceCaption: "eenmalig, inclusief btw",
     subcopy:
       "Een handvol mogelijkheden, gevormd naar wat je ons hebt verteld — plus eentje die we eigenlijk niet zouden moeten voorstellen, maar toch doen.",
+    stepsHeading: "Wat er nu gebeurt",
     steps: [
       "Je betaalt eenmalig {price} — veilig via Stripe.",
       "Binnen een minuut stellen we jouw Idea Book samen.",
@@ -333,6 +408,10 @@ const nl: Dictionary = {
       wildcardNo: "Nee, laat maar",
       doneHeading: "Dat was 'm — jouw Idea Book",
       doneSub: "Bewaar 'm, deel 'm, of begin gewoon met de eerste stap.",
+      statsIdeasLabel: "Ideeën",
+      statsActionsLabel: "Stappen",
+      statsWildcardLabel: "Wildcard",
+      statsWildcardValue: "1",
     },
   },
   shared: {
@@ -342,6 +421,9 @@ const nl: Dictionary = {
     ctaLabel: "Open zelf een venster",
     notFoundHeading: "Dit Idea Book bestaat niet (meer)",
     notFoundBody: "De link klopt niet, of dit Idea Book is niet meer beschikbaar.",
+    bannerHeading: "Idee uit een WINDOW Idea Book",
+    bannerSub: "Wil jij ook jouw persoonlijke ideeën?",
+    bannerCta: "Maak er een",
   },
   email: {
     subjectSuffix: "je mogelijkheden zijn klaar",
@@ -362,6 +444,7 @@ const nl: Dictionary = {
     preferences: "VOORKEUREN",
     possibilityEyebrow: "MOGELIJKHEID",
     wildcardFallbackHeading: "DE WILDCARD",
+    whyItFitsFallback: "Waarom dit bij jou past",
     stepsFallback: "Stappen",
     firstActionFallback: "Dit kunt u nu doen",
     practicalFallback: "Praktisch",
@@ -558,12 +641,22 @@ const nl: Dictionary = {
 };
 
 const en: Dictionary = {
-  header: { switchLanguage: "Switch language" },
+  header: {
+    switchLanguage: "Switch language",
+    navHowItWorks: "How it works",
+    navExamples: "Examples",
+    navAbout: "About",
+  },
   footer: {
     privacy: "Privacy",
     terms: "Terms",
     priceFaqLabel: "What does it cost?",
     priceFaqAnswer: "One Idea Book costs {price}, a single payment. No subscription, no hidden fees.",
+    tagline: "Personal ideas for people who feel stuck or ready for something new.",
+    productHeading: "Product",
+    legalHeading: "Legal",
+    navHowItWorks: "How it works",
+    navExamples: "Examples",
   },
   consent: {
     message: "We only use analytics to understand how WINDOW is used — and only after you say it's okay.",
@@ -571,14 +664,19 @@ const en: Dictionary = {
     decline: "No thanks",
   },
   landing: {
-    headlineLine1: "A Window Into",
-    headlineLine2: "What Could Be",
+    badgeLabel: "Generated by AI · Personal to you",
+    headlineLine1: "Discover what's",
+    headlineEmphasis: "possible",
+    headlineLine2: "for you.",
     subcopy:
-      "You don't need another answer. Sometimes you need to see another possibility.",
-    cta: "Open a Window",
-    ctaCaption: "No account needed · from {price}",
-    heroAlt: "A window opening onto a warmly lit, unexpected possibility",
-    whatYouGetHeading: "What's in your window",
+      "Tell us who you are and what moves you. In a few minutes you'll get a personal Idea Book — six concrete ideas plus one wildcard, fully worked out.",
+    cta: "Make my Idea Book",
+    secondaryCta: "See an example",
+    ctaCaption: "No account needed · from {price} · 14-day right of withdrawal",
+    heroAlt: "A window opening onto four different possibilities",
+    whatYouGetHeading: "What you get",
+    whatYouGetSubcopy:
+      "No generic tips. No long questionnaires with nothing to show for it. Concrete ideas, made entirely for you.",
     whatYouGetItems: [
       {
         title: "Six possibilities, made for you",
@@ -593,6 +691,30 @@ const en: Dictionary = {
         body: "A beautifully designed PDF, not a loose list. We'll email you a copy too.",
       },
     ],
+    testimonialsHeading: "What others say",
+    testimonials: [
+      {
+        quote:
+          "I'd been stuck for months. The Idea Book gave me three ideas I actually found doable — I'm really doing one of them now.",
+        name: "Marieke V.",
+        role: "Marketer, 34",
+      },
+      {
+        quote:
+          "The wildcard left me speechless. I'd never have thought of it myself, but it fit perfectly.",
+        name: "Thomas K.",
+        role: "Teacher, 41",
+      },
+      {
+        quote:
+          "Finally something that doesn't just say 'meditate more'. The ideas were specific, doable, and genuinely fit me.",
+        name: "Sofie D.",
+        role: "Freelancer, 29",
+      },
+    ],
+    ctaBannerHeading: "Ready to open a window?",
+    ctaBannerBody: "The intake takes just a few minutes to answer. Your Idea Book is ready right after payment.",
+    ctaBannerCta: "Start the intake",
   },
   legal: {
     privacyTitle: "Privacy Policy — WINDOW",
@@ -657,9 +779,11 @@ const en: Dictionary = {
   },
   checkout: {
     pageTitle: "Make this real — WINDOW",
-    heading: "Your Idea Book is ready to be put together — for {price}",
+    heading: "Your Idea Book",
+    priceCaption: "one-time, VAT included",
     subcopy:
       "A handful of possibilities, shaped around what you told us — plus one we probably shouldn't suggest, but will anyway.",
+    stepsHeading: "What happens next",
     steps: [
       "You pay {price} once — securely via Stripe.",
       "Within a minute, we put your Idea Book together.",
@@ -722,6 +846,10 @@ const en: Dictionary = {
       wildcardNo: "No, skip this one",
       doneHeading: "That's it — your Idea Book",
       doneSub: "Save it, share it, or just start with the first step.",
+      statsIdeasLabel: "Ideas",
+      statsActionsLabel: "Steps",
+      statsWildcardLabel: "Wildcard",
+      statsWildcardValue: "1",
     },
   },
   shared: {
@@ -731,6 +859,9 @@ const en: Dictionary = {
     ctaLabel: "Open your own window",
     notFoundHeading: "This Idea Book doesn't exist (anymore)",
     notFoundBody: "The link is wrong, or this Idea Book is no longer available.",
+    bannerHeading: "An idea from a WINDOW Idea Book",
+    bannerSub: "Want your own personal ideas?",
+    bannerCta: "Make one",
   },
   email: {
     subjectSuffix: "your possibilities are ready",
@@ -751,6 +882,7 @@ const en: Dictionary = {
     preferences: "PREFERENCES",
     possibilityEyebrow: "POSSIBILITY",
     wildcardFallbackHeading: "THE WILDCARD",
+    whyItFitsFallback: "Why this fits you",
     stepsFallback: "Steps",
     firstActionFallback: "You can do this now",
     practicalFallback: "Practical",

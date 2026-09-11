@@ -1,0 +1,739 @@
+<title>WINDOW Verbeterplan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #f5f3ee;
+    --paper: #ffffff;
+    --ink: #1a1a2e;
+    --ink-muted: #5b5b68;
+    --ink-faint: #8a8a94;
+    --accent: #6c3ce9;
+    --accent-dark: #4b2aa6;
+    --panel-tint: #ede6fb;
+    --panel-tint-border: #d9caf5;
+    --border: rgba(26, 26, 46, 0.12);
+    --border-soft: rgba(26, 26, 46, 0.07);
+    --shadow: 0 1px 2px rgba(26, 26, 46, 0.04), 0 8px 24px rgba(26, 26, 46, 0.06);
+    --must-fg: #9c2b3a; --must-bg: #fbe7ea; --must-border: #f1c6ce;
+    --should-fg: #92650b; --should-bg: #faf0d8; --should-border: #edd9a3;
+    --nice-fg: #2c6e52; --nice-bg: #e2f2ea; --nice-border: #bfe3d1;
+    --critical-fg: #92650b; --critical-bg: #fbf3e2; --critical-border: #edcf8a;
+    --code-bg: #211d2c; --code-fg: #eae6f5;
+    --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --cream: #16141f;
+      --paper: #211d2c;
+      --ink: #f2efea;
+      --ink-muted: #aca5bc;
+      --ink-faint: #7c7690;
+      --accent: #9b7ff2;
+      --accent-dark: #cdbdf7;
+      --panel-tint: #2a2340;
+      --panel-tint-border: #453a68;
+      --border: rgba(242, 239, 234, 0.14);
+      --border-soft: rgba(242, 239, 234, 0.08);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 28px rgba(0, 0, 0, 0.35);
+      --must-fg: #f5a8b3; --must-bg: #3a2027; --must-border: #5c2f3a;
+      --should-fg: #e8c874; --should-bg: #362c17; --should-border: #5a4a24;
+      --nice-fg: #8fd6b4; --nice-bg: #1c332a; --nice-border: #305444;
+      --critical-fg: #e8c874; --critical-bg: #332a17; --critical-border: #5a4a24;
+      --code-bg: #0f0d16; --code-fg: #ded8ee;
+    }
+  }
+  :root[data-theme="dark"] {
+    --cream: #16141f; --paper: #211d2c; --ink: #f2efea; --ink-muted: #aca5bc; --ink-faint: #7c7690;
+    --accent: #9b7ff2; --accent-dark: #cdbdf7; --panel-tint: #2a2340; --panel-tint-border: #453a68;
+    --border: rgba(242, 239, 234, 0.14); --border-soft: rgba(242, 239, 234, 0.08);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 28px rgba(0, 0, 0, 0.35);
+    --must-fg: #f5a8b3; --must-bg: #3a2027; --must-border: #5c2f3a;
+    --should-fg: #e8c874; --should-bg: #362c17; --should-border: #5a4a24;
+    --nice-fg: #8fd6b4; --nice-bg: #1c332a; --nice-border: #305444;
+    --critical-fg: #e8c874; --critical-bg: #332a17; --critical-border: #5a4a24;
+    --code-bg: #0f0d16; --code-fg: #ded8ee;
+  }
+
+  * { box-sizing: border-box; }
+  body { background: var(--cream); color: var(--ink); font-family: var(--font-sans); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; text-wrap: balance; color: var(--ink); }
+  a { color: var(--accent-dark); }
+  code, .mono { font-family: var(--font-mono); }
+
+  .eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-dark); }
+
+  /* Masthead */
+  .masthead { position: relative; overflow: hidden; border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(108,60,233,0.10), rgba(108,60,233,0) 55%), var(--cream);
+    padding: 3.2rem 1.5rem 2.4rem; }
+  .frame { max-width: 920px; margin: 0 auto; position: relative; }
+  .panes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; height: 72px; border-radius: 14px;
+    overflow: hidden; border: 1px solid var(--border); margin-bottom: 1.8rem; background: var(--border); }
+  .pane { background: radial-gradient(120% 140% at 30% 0%, rgba(108,60,233,0.22), transparent 60%), var(--paper); }
+  .pane:nth-child(2) { background: radial-gradient(120% 160% at 70% 100%, rgba(108,60,233,0.30), transparent 60%), var(--paper); }
+  .pane:nth-child(3) { background: radial-gradient(140% 140% at 20% 20%, rgba(108,60,233,0.18), transparent 55%), var(--paper); }
+  .pane:nth-child(4) { background: radial-gradient(140% 160% at 80% 20%, rgba(108,60,233,0.26), transparent 55%), var(--paper); }
+  .masthead h1 { font-size: clamp(2rem, 4.2vw, 2.9rem); line-height: 1.1; margin: 0.8rem 0 0.9rem; letter-spacing: -0.01em; }
+  .masthead .lede { max-width: 68ch; font-size: 1.05rem; color: var(--ink-muted); }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem 1.1rem; margin-top: 1.4rem; font-size: 0.85rem; color: var(--ink-faint); }
+  .meta-row span::before { content: "·"; margin-right: 1.1rem; color: var(--border); }
+  .meta-row span:first-child::before { content: none; margin-right: 0; }
+
+  /* Layout */
+  .layout { max-width: 1140px; margin: 0 auto; padding: 2.4rem 1.5rem 6rem; display: grid;
+    grid-template-columns: 210px minmax(0, 1fr); gap: 3rem; align-items: start; }
+  nav.toc { position: sticky; top: 1.5rem; display: flex; flex-direction: column; gap: 0.05rem; max-height: calc(100vh - 3rem); overflow-y: auto; }
+  nav.toc a { text-decoration: none; color: var(--ink-muted); font-size: 0.82rem; font-weight: 500; padding: 0.36rem 0 0.36rem 0.9rem;
+    border-left: 2px solid var(--border); transition: color 0.15s, border-color 0.15s; }
+  nav.toc a:hover { color: var(--accent-dark); border-color: var(--accent); }
+  nav.toc .toc-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); padding-left: 0.9rem; margin-bottom: 0.5rem; }
+
+  main { min-width: 0; }
+  section.block { margin-bottom: 4.4rem; scroll-margin-top: 1.5rem; }
+  .block-head { display: flex; align-items: baseline; gap: 0.9rem; margin-bottom: 0.4rem; }
+  .block-num { font-family: var(--font-serif); font-size: 1rem; color: var(--paper); background: var(--accent); width: 2rem; height: 2rem; min-width: 2rem;
+    border-radius: 999px; display: flex; align-items: center; justify-content: center; }
+  .block-head h2 { font-size: 1.6rem; margin: 0; }
+  .block-intro { color: var(--ink-muted); max-width: 70ch; margin: 0.9rem 0 0 2.9rem; }
+
+  .stage { margin: 2rem 0 0 2.9rem; }
+  .stage h3 { font-size: 1.1rem; margin: 0 0 0.9rem; padding-top: 1.6rem; border-top: 1px solid var(--border-soft); }
+  .stage:first-of-type h3 { border-top: none; padding-top: 0; }
+
+  /* Audit item card */
+  .audit-item { background: var(--paper); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 0.9rem; box-shadow: var(--shadow); }
+  .audit-item .row { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.4rem 1rem; font-size: 0.92rem; padding: 0.4rem 0; }
+  .audit-item .row + .row { border-top: 1px solid var(--border-soft); }
+  .audit-item .row .k { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); padding-top: 0.15rem; }
+  .audit-item .row .v { color: var(--ink); }
+  .audit-item .row .v.muted { color: var(--ink-muted); }
+  .audit-item-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.6rem; }
+  .audit-item-head h4 { font-size: 1rem; margin: 0; font-family: var(--font-sans); font-weight: 600; }
+
+  .pill { display: inline-flex; align-items: center; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 0.28rem 0.65rem; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+  .pill.must { color: var(--must-fg); background: var(--must-bg); border-color: var(--must-border); }
+  .pill.should { color: var(--should-fg); background: var(--should-bg); border-color: var(--should-border); }
+  .pill.nice { color: var(--nice-fg); background: var(--nice-bg); border-color: var(--nice-border); }
+
+  /* Critical callout */
+  .critical { background: var(--critical-bg); border: 1px solid var(--critical-border); border-left: 4px solid var(--critical-fg);
+    border-radius: 10px; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .critical .tag { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--critical-fg); margin-bottom: 0.4rem; }
+  .critical p { margin: 0.3rem 0; font-size: 0.92rem; color: var(--ink); }
+  .critical p:first-of-type { margin-top: 0; }
+
+  .voorstel-box { background: var(--panel-tint); border: 1px solid var(--panel-tint-border); border-radius: 14px; padding: 1.1rem 1.3rem; margin: 1rem 0; }
+  .voorstel-box .tag { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 0.5rem; }
+  .voorstel-box p { margin: 0.35rem 0; font-size: 0.92rem; }
+
+  .item { margin: 1.6rem 0; }
+  .item h4 { font-size: 1.02rem; margin: 0 0 0.5rem; }
+  .waarom { font-size: 0.92rem; color: var(--ink-muted); max-width: 72ch; }
+
+  /* Style swatches */
+  .style-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.9rem; margin: 1rem 0 1.3rem; }
+  .style-card { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--paper); box-shadow: var(--shadow); }
+  .style-swatch { height: 64px; }
+  .style-card .body { padding: 0.7rem 0.85rem; }
+  .style-card h5 { font-family: var(--font-serif); font-weight: 500; font-size: 0.98rem; margin: 0 0 0.2rem; }
+  .style-card p { font-size: 0.78rem; color: var(--ink-muted); margin: 0; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; margin: 1rem 0 1.3rem; border: 1px solid var(--border); border-radius: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 640px; }
+  thead th { text-align: left; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint);
+    background: var(--panel-tint); padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--border); }
+  tbody td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--border-soft); vertical-align: top; color: var(--ink); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td.muted { color: var(--ink-muted); }
+
+  /* Code block */
+  .code-block { background: var(--code-bg); color: var(--code-fg); border-radius: 14px; padding: 1.2rem 1.4rem; overflow-x: auto;
+    font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.65; margin: 1rem 0 1.3rem; white-space: pre; }
+  .code-block .c1 { color: #8a83a8; }
+  .code-block .kw { color: #9b7ff2; }
+  .code-block .ty { color: #7fd6c0; }
+  .code-block .st { color: #f0c987; }
+
+  .checklist { list-style: none; margin: 0.8rem 0 1.2rem; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  .checklist li { padding: 0.85rem 1.05rem; background: var(--paper); border: 1px solid var(--border); border-radius: 12px; font-size: 0.9rem; }
+  .checklist li strong { display: block; margin-bottom: 0.2rem; font-family: var(--font-serif); font-weight: 500; font-size: 0.98rem; }
+  .checklist li span.small { color: var(--ink-muted); font-size: 0.86rem; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 1rem 0 1.3rem; }
+  .col-card { background: var(--paper); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.3rem; }
+  .col-card h5 { font-family: var(--font-serif); font-weight: 500; font-size: 1.02rem; margin: 0 0 0.7rem; }
+  .col-card ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.88rem; color: var(--ink-muted); }
+
+  .phase { border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem 1.4rem; margin-bottom: 1rem; background: var(--paper); box-shadow: var(--shadow); }
+  .phase-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.8rem; }
+  .phase-head h4 { margin: 0; font-size: 1.08rem; }
+  .phase ul { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.55rem; font-size: 0.9rem; }
+  .phase ul li .pill { margin-left: 0.5rem; }
+
+  .kicker-summary { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 1.3rem; }
+  .kicker-summary .critical { margin: 0; }
+
+  footer.doc-footer { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem 4rem; color: var(--ink-faint); font-size: 0.84rem;
+    border-top: 1px solid var(--border); padding-top: 2rem; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    nav.toc { position: static; flex-direction: row; flex-wrap: wrap; gap: 0.25rem 0.9rem; max-height: none; }
+    nav.toc .toc-title { display: none; }
+    nav.toc a { border-left: none; border-bottom: 2px solid var(--border); padding: 0.28rem 0; }
+    .stage, .block-intro { margin-left: 0; }
+    .two-col { grid-template-columns: 1fr; }
+    .audit-item .row { grid-template-columns: 1fr; gap: 0.1rem; }
+  }
+</style>
+
+<header class="masthead">
+  <div class="frame">
+    <div class="panes"><div class="pane"></div><div class="pane"></div><div class="pane"></div><div class="pane"></div></div>
+    <p class="eyebrow">Product- &amp; conversieverbeterplan</p>
+    <h1>Van AI-ideeëngenerator naar persoonlijke ideeënservice</h1>
+    <p class="lede">Een kritische, funnel-brede audit van WINDOW plus een concreet, technisch bruikbaar plan om er een persoonlijk, visueel onderscheidend en direct uitvoerbaar product van te maken — geschreven vanuit gebruiker, designer, developer én ondernemer tegelijk.</p>
+    <div class="meta-row">
+      <span>12 secties</span>
+      <span>Audit met prioritering</span>
+      <span>3-fasen roadmap</span>
+      <span>gegrond in de huidige codebase, niet in aannames</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <span class="toc-title">Op deze pagina</span>
+    <a href="#samenvatting">Kritische samenvatting</a>
+    <a href="#s1">1. Volledige audit</a>
+    <a href="#s2">2. Style Engine</a>
+    <a href="#s3">3. Professionele PDF</a>
+    <a href="#s4">4. Uitvoerbare ideeën</a>
+    <a href="#s5">5. Actionability Layer</a>
+    <a href="#s6">6. Referral &amp; viral</a>
+    <a href="#s7">7. Commercieel</a>
+    <a href="#s8">8. Intake</a>
+    <a href="#s9">9. AI &amp; actuele info</a>
+    <a href="#s10">10. Ideale PDF-structuur</a>
+    <a href="#s11">11. Visueel onderscheidend</a>
+    <a href="#s12">12. Implementatieplan</a>
+  </nav>
+
+  <main>
+
+    <!-- SAMENVATTING -->
+    <section class="block" id="samenvatting">
+      <div class="block-head"><span class="block-num">—</span><h2>Kritische samenvatting</h2></div>
+      <p class="block-intro">Voordat de rest van dit document ingaat op de details: dit zijn de vijf plekken waar ik het voorstel bijstel of afraad, met een concreet alternatief. De rest van het plan bouwt hierop voort.</p>
+
+      <div class="kicker-summary">
+        <div class="critical">
+          <span class="tag">1 — Directe officiële links zijn nu niet betrouwbaar te leveren</span>
+          <p>Claude genereert de Idea Book zonder toegang tot het web (één geïsoleerde tool-use-call, zie <code>generateIdeaBook.ts</code>). Vraag je het model om "directe links naar tickets/reserveringen", dan verzint het plausibele maar vaak niet-kloppende of dode URL's — precies het vertrouwen kapotmaken dat dit hele plan probeert op te bouwen. Oplossing: web-grounding (sectie 9) is een <em>voorwaarde</em> voor sectie 4/5, geen nice-to-have erna.</p>
+        </div>
+        <div class="critical">
+          <span class="tag">2 — "Deel met 3 → 50% korting" is bij €3,50 economisch dun en fraudegevoelig</span>
+          <p>Bij zo'n lage prijs is elke euro korting relatief zwaar, en nep-shares (delen met jezelf via een tweede e-mailadres) zijn goedkoop te faken. Belangrijker: het ondermijnt precies het MVP-doel uit <code>CLAUDE.md</code> — testen of mensen <em>echt</em> betalen. Voorstel: begin met een gratis, niet-financiële deelactie en meet eerst of er organisch gedeeld wordt (sectie 6).</p>
+        </div>
+        <div class="critical">
+          <span class="tag">3 — "Actuele" informatie hoort niet in de PDF-tekst zelf</span>
+          <p>Een PDF is per definitie een statisch document — een prijs of openingstijd die er vandaag in staat kan volgende week alweer achterhaald zijn, ook mét web-grounding tijdens generatie. Oplossing: verwijs voor tijdgevoelige feiten altijd naar de live bron zelf, in plaats van een los getal te "bakken" in de tekst (sectie 9).</p>
+        </div>
+        <div class="critical">
+          <span class="tag">4 — Live per-gebruiker beeldgeneratie is niet haalbaar op deze schaal</span>
+          <p>6 stijlen × 6 ideeën zou tot 36 unieke AI-beelden per sessie betekenen — te traag en te kostbaar voor een product van €3,50, en het project vermijdt dit al bewust (zie <code>scripts/generate-illustrations.ts</code>: alle illustraties zijn eenmalig vooraf gegenereerd, nooit live). De Style Engine moet dezelfde aanpak volgen: een vaste, vooraf gegenereerde beeldmatrix per stijl (sectie 2).</p>
+        </div>
+        <div class="critical">
+          <span class="tag">5 — Rijkere ideeën passen niet meer in de huidige vaste 6-pagina-lay-out</span>
+          <p>De PDF is deze sessie bewust naar een vaste structuur van 2 ideeën per pagina gebracht. Zodra een idee een locatieblok, linklijst en materialenlijst krijgt, past dat niet meer naast een tweede idee op dezelfde pagina. Dat is geen bug in het huidige werk — het was toen de juiste MVP-keuze — maar sectie 3 stelt een gerichte aanpassing voor: contentafhankelijke paginavulling in plaats van een vast aantal pagina's.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. AUDIT -->
+    <section class="block" id="s1">
+      <div class="block-head"><span class="block-num">1</span><h2>Volledige audit</h2></div>
+      <p class="block-intro">Doorlopen langs de gevraagde flow. Elke bevinding: <strong>Probleem → Waarom → Oplossing → Prioriteit</strong>. Waar iets deze sessie al is opgelost, staat dat er expliciet bij — dit document doet geen alsof.</p>
+
+      <div class="stage">
+        <h3>Landing page</h3>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Geen social proof</h4><span class="pill nice">Nice have (nu) → Should have (na eerste klanten)</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted">Een nieuw product zonder enig vertrouwenssignaal is een reëel afhaakrisico, maar verzonnen testimonials zijn erger dan geen — dat ondermijnt vertrouwen zodra het opvalt.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Gefaseerd: eerst een eerlijke "maker's note", dan een simpele teller ("X vensters geopend"), pas dan echte quotes zodra die er zijn.</span></div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Geen transparantie over AI-gebruik</h4><span class="pill should">Should have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted">Gebruikers delen persoonlijke antwoorden vóór betaling zonder te weten wat ermee gebeurt of dat een AI het genereert — dat raakt zowel vertrouwen als AVG-verwachtingsmanagement.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Eén heldere zin op de homepage/footer: hoe het werkt, dat niemand meeleest, wat er bewaard blijft.</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <h3>Uitleg van het concept</h3>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Geen voorbeeld van het eindproduct vóór aankoop</h4><span class="pill should">Should have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted">Mensen kopen nu een onbekend documentformaat — ze weten niet <em>hoe</em> het Idea Book eruitziet vóór ze betalen, wat bij een visueel product een reële conversiedrempel is.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Toon een korte, geblurde/watermerkte voorbeeldpagina (of een klein statisch mockup-fragment) op de homepage of vlak vóór checkout — geen interactieve preview nodig, alleen visueel bewijs dat het geen kaal rapport is.</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <h3>Intake &amp; persoonlijke voorkeuren</h3>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Geen stijlkeuze</h4><span class="pill must">Must have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted">De kern van deze opdracht (sectie 2) — zonder deze vraag is er niets om de visuele personalisatie op te baseren.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Zie sectie 2 in detail.</span></div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Locatieveld is vrije tekst zonder validatie</h4><span class="pill should">Should have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted">Typefouten ("Rotterdma") verzwakken de AI-output nu al, en worden een groter probleem zodra locatie ook kaartlinks moet voeden (sectie 5).</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Lichte autocomplete (bv. Google Places Autocomplete) in plaats van een kaal tekstveld.</span></div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Geen per-stap analytics</h4><span class="pill must">Must have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted">Zonder events per wizardpagina is er geen zicht op wáár mensen afhaken — je optimaliseert dan blind. PostHog is al voorbereid in de code (<code>src/lib/posthog/client.ts</code>) maar wordt <strong>nergens aangeroepen</strong>: <code>initPostHog()</code> heeft momenteel geen enkele call-site.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Activeer PostHog daadwerkelijk (ná consent, zie AVG-punt hieronder) en stuur een event per pagina-overgang in de wizard.</span></div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Sliders hebben een smal tikdoel op mobiel</h4><span class="pill should">Should have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted">Zelf getest op 375px breedte: <code>PillSlider</code>'s track is 8px hoog. Dat is ruim onder de aanbevolen ~44px-tikdoelgrootte — precies raken is lastiger dan het moet zijn, al vangt de volle breedte van de track wel elke horizontale tik op.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Vergroot de onzichtbare hit-area verticaal (bv. een 44px hoge wrapper om de 8px-track) zonder het visuele ontwerp te veranderen.</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <h3>Verwerking (generatie)</h3>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Geen voortgangsindicatie tijdens genereren</h4><span class="pill must">Must have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted">Generatie duurt realistisch 20–60 seconden met alleen een statische knoptekst ("Wordt geopend…"). Zelf tijdens het testen van deze sessie meegemaakt: een gebruiker die tussentijds ververst of wegnavigeert triggert een <strong>volledig nieuwe</strong> Claude-generatie + PDF-upload, want <code>getOrCreateWindowPlan</code>/<code>getOrCreateTestWindowPlan</code> schrijven pas ná succesvolle generatie een rij weg — er is geen "bezig"-status die een dubbele poging kan detecteren.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">(a) een geanimeerde laadstaat met realistische substappen; (b) een <code>status</code>-kolom (<code>pending</code>/<code>ready</code>/<code>failed</code>) op <code>window_plans</code> die vóór de Claude-call al wordt weggeschreven.</span></div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Geen retry op de Claude-call</h4><span class="pill must">Must have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted"><code>anthropic.messages.create</code> wordt precies één keer aangeroepen — een enkele transiënte timeout laat de hele betaalde flow direct falen (zelf live gezien tijdens het testen van de betaalflow deze sessie).</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">1–2 automatische retries met korte backoff in <code>generateIdeaBook</code>, vóór het als fout aan de gebruiker getoond wordt.</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <h3>Resultaat (plan-pagina)</h3>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Webpagina toont veel minder dan de PDF</h4><span class="pill should">Should have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted"><code>/plan</code> toont per idee alleen titel + één zin (<code>intro</code>) — geen <code>why_it_fits</code>, geen stappen, geen praktische info. Precies ná betaling is dit de plek waar de gebruiker het meeste indruk zou moeten krijgen, niet het minste.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Toon dezelfde rijke idee-kaarten als de PDF direct op de pagina — de PDF wordt dan puur de "bewaar/deel"-vorm van identieke inhoud (zie ook sectie 5).</span></div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Geen deel-mogelijkheid</h4><span class="pill must">Must have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted">Ontbreekt volledig — noodzakelijk fundament voor sectie 6.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Zie sectie 6.</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <h3>Betaling</h3>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Geen cadeau-afleveroptie in checkout</h4><span class="pill nice">Nice to have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted">De intake vraagt al "voor wie is dit venster?" met opties als partner/familie/vrienden, maar checkout doet daar niets mee.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Als <code>company ≠ alleen ik</code>: toon een optionele "stuur dit cadeau direct naar [naam]'s e-mail"-toggle.</span></div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Prijs, 1-2-3-uitleg, Stripe-flow</h4><span class="pill nice">Al opgelost</span></div>
+          <div class="row"><span class="k">Status</span><span class="v muted">Deze drie zijn deze sessie al gebouwd en end-to-end getest (incl. een echte Stripe Sandbox-betaling): prijs zichtbaar vóór checkout, een genummerde stappenuitleg, en een werkende testbetaling die tot een gegenereerd Idea Book leidt.</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <h3>Delen &amp; referral</h3>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Bestaat op dit moment niet</h4><span class="pill must">Must have (fundament)</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted"><code>CLAUDE.md</code> noemt alleen "een simpele deel-link" als scope, maar die is nooit gebouwd — geen deel-knop, geen publieke preview-URL, geen tracking.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Zie sectie 6 voor het volledige, gefaseerde voorstel.</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <h3>Privacy / AVG</h3>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Geen actieve consent-banner, ondanks voorbereide PostHog-integratie</h4><span class="pill must">Must have</span></div>
+          <div class="row"><span class="k">Waarom</span><span class="v muted"><code>NEXT_PUBLIC_POSTHOG_KEY</code> staat leeg en <code>initPostHog()</code> wordt nergens aangeroepen — er draait dus nu geen tracking, wat op zich prima is, maar <code>CLAUDE.md</code> noemt een cookiebanner als vereiste vóór launch. Zodra referral-tracking (sectie 6) erbij komt, is dit niet langer uitstelbaar.</span></div>
+          <div class="row"><span class="k">Oplossing</span><span class="v">Bouw de consent-banner en de PostHog-activatie in dezelfde wijziging — nooit tracking laden vóór expliciete toestemming.</span></div>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-head"><h4>Privacy-/voorwaardenpagina's</h4><span class="pill nice">Al opgelost</span></div>
+          <div class="row"><span class="k">Status</span><span class="v muted">Deze sessie omgezet van placeholders naar inhoudelijk kloppende, sectie-per-sectie content die exact aansluit bij wat er technisch gebeurt.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. STYLE ENGINE -->
+    <section class="block" id="s2">
+      <div class="block-head"><span class="block-num">2</span><h2>Style Engine</h2></div>
+      <p class="block-intro">Een expliciete, visuele stijlkeuze — nooit aan gender gekoppeld (die vraag is deze sessie juist al verwijderd, met reden). Zes stijlen, gekozen via visuele kaarten, niet kale chips.</p>
+
+      <div class="item">
+        <h4>De zes stijlen</h4>
+        <div class="style-grid">
+          <div class="style-card"><div class="style-swatch" style="background:linear-gradient(135deg,#f6e4ee,#c98fae);"></div><div class="body"><h5>Elegant &amp; botanisch</h5><p><code>bloom</code></p></div></div>
+          <div class="style-card"><div class="style-swatch" style="background:linear-gradient(135deg,#fbe9d7,#e0a86a);"></div><div class="body"><h5>Warm &amp; verfijnd</h5><p><code>warm</code></p></div></div>
+          <div class="style-card"><div class="style-swatch" style="background:linear-gradient(135deg,#2b2b33,#0e0e12);"></div><div class="body"><h5>Stoer &amp; krachtig</h5><p><code>bold</code></p></div></div>
+          <div class="style-card"><div class="style-swatch" style="background:linear-gradient(135deg,#e4edf5,#7fa0bf);"></div><div class="body"><h5>Technisch &amp; modern</h5><p><code>edge</code></p></div></div>
+          <div class="style-card"><div class="style-swatch" style="background:linear-gradient(135deg,#e7efe2,#8fae76);"></div><div class="body"><h5>Natuurlijk &amp; rustig</h5><p><code>calm</code></p></div></div>
+          <div class="style-card"><div class="style-swatch" style="background:linear-gradient(135deg,#ffd66b,#ee5d6c,#6c3ce9);"></div><div class="body"><h5>Creatief &amp; uitgesproken</h5><p><code>vivid</code></p></div></div>
+        </div>
+        <p class="waarom">Elke kaart toont straks een echte thumbnail uit de vooraf gegenereerde beeldmatrix in plaats van een vlakke kleurstaal — "kies aan de hand van visuele voorbeelden", zoals gevraagd.</p>
+      </div>
+
+      <div class="item">
+        <h4>Wat de keuze aanstuurt</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Ontwerplaag</th><th>Hoe de stijl 'm aanstuurt</th></tr></thead>
+            <tbody>
+              <tr><td>Kleur</td><td class="muted">Een stijl-specifieke secundaire accenttint (side-panels, badges) náást de vaste WINDOW-merkkleur — het merk blijft herkenbaar, alleen de sfeer verschuift.</td></tr>
+              <tr><td>Typografie</td><td class="muted">Zelfde Fraunces/Inter-familie, andere gewicht-/italic-toepassing per stijl (bv. <code>bold</code> zwaarder en strak, <code>bloom</code> lichter met italic-accenten) — geen nieuwe fonts laden.</td></tr>
+              <tr><td>Fotografie / illustraties</td><td class="muted">Een vaste, vooraf gegenereerde beeldenset per stijl (zie kritische kanttekening hieronder).</td></tr>
+              <tr><td>Iconen &amp; vormen</td><td class="muted">Vorm-taal per stijl: scherpe hoeken (<code>edge</code>), afgeronde (<code>bloom</code>/<code>warm</code>), organisch (<code>calm</code>).</td></tr>
+              <tr><td>Cover &amp; headers</td><td class="muted">De cover- en wildcard-bannerafbeelding komt uit dezelfde stijlset, niet uit de huidige ene vaste cover voor iedereen.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="critical">
+        <span class="tag">Kritische kanttekening — geen live beeldgeneratie per gebruiker</span>
+        <p>6 stijlen × 6 ideeën zou tot 36 unieke, live gegenereerde beelden per sessie kunnen betekenen: te traag (elke generatie duurt seconden), te kostbaar op deze prijs, en inconsistent tussen sessies. Het project vermijdt dit al bewust — alle bestaande illustraties zijn eenmalig vooraf gegenereerd via <code>scripts/generate-illustrations.ts</code> (de "Nano Banana Pro"-pipeline), nooit tijdens een sessie. De Style Engine moet dezelfde aanpak volgen: 6 stijlen × ~4 sfeerbeelden = 24 nieuwe eenmalige generaties, precies zoals de bestaande 11.</p>
+      </div>
+
+      <div class="item">
+        <h4>Technische invulling</h4>
+        <p class="waarom">Nieuw bestand <code>src/lib/styleEngine.ts</code> met een vaste <code>STYLE_PRESETS</code>-record (zelfde patroon als het bestaande <code>WIZARD_PAGE_ILLUSTRATIONS</code>): per stijl een <code>accentOverride</code>, <code>imageSet: string[]</code> en <code>shapeStyle</code>. De keuze wordt opgeslagen als <code>IntakeAnswers.styleId</code> (hetzelfde stabiele <code>{value,label}</code>-patroon als de rest van de intake) en doorgegeven aan <code>renderIdeaBookPdf(book, title, locale, styleId)</code> voor de visuele wissel, en optioneel aan <code>generateIdeaBook</code> voor een lichte toonnuance.</p>
+      </div>
+    </section>
+
+    <!-- 3. PDF PROFESSIONALISERING -->
+    <section class="block" id="s3">
+      <div class="block-head"><span class="block-num">3</span><h2>Een professionele PDF</h2></div>
+      <p class="block-intro">De huidige PDF-renderer (<code>src/lib/pdf/ideaBook.ts</code>) heeft al een sterk fundament: een "vul-het-restant-met-een-getint-vlak"-techniek (<code>PANEL_TINT</code>) die elke pagina gegarandeerd vol laat ogen, ongeacht de exacte hoeveelheid tekst. Dat idee is precies goed — het probleem zit in wat er hierna aan content bij komt.</p>
+
+      <div class="item">
+        <h4>Typografische regels</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Rol</th><th>Font</th><th>Grootte</th><th>Regelafstand</th></tr></thead>
+            <tbody>
+              <tr><td>Cover-titel</td><td class="muted">Fraunces (serif)</td><td class="muted">26–30pt</td><td class="muted">+8pt</td></tr>
+              <tr><td>Sectiekop (idee-titel)</td><td class="muted">Fraunces (serif)</td><td class="muted">15–17pt</td><td class="muted">+5pt</td></tr>
+              <tr><td>Lopende tekst</td><td class="muted">Inter (sans)</td><td class="muted">10–12pt</td><td class="muted">+4–5pt (≥ 40% van de tekengrootte)</td></tr>
+              <tr><td>Labels/eyebrows</td><td class="muted">Inter Bold, uppercase</td><td class="muted">8.5–10pt</td><td class="muted">+3–4pt, letter-spacing</td></tr>
+              <tr><td>Footer/paginanummer</td><td class="muted">Inter</td><td class="muted">8pt</td><td class="muted">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="waarom">Dit zijn vrijwel exact de waarden die de huidige renderer al gebruikt — vastleggen als expliciete regel voorkomt dat toekomstige wijzigingen per ongeluk te kleine of te grote tekst introduceren.</p>
+      </div>
+
+      <div class="item">
+        <h4>Dynamische paginavulling — de regel die moet veranderen</h4>
+        <div class="critical">
+          <span class="tag">Kritische kanttekening — de vaste 6-pagina-structuur botst met sectie 4/5</span>
+          <p>Deze sessie is de PDF bewust naar exact 6 pagina's gebracht (2 ideeën per pagina, in een vaste halve-pagina-slot). Dat was toen de juiste keuze om halflege pagina's te voorkomen. Maar zodra een idee een locatieblok, linklijst én materialenlijst krijgt (sectie 4/5), past dat simpelweg niet meer naast een tweede idee in dezelfde ruimte.</p>
+        </div>
+        <p class="waarom">Voorgestelde regel: bepaal <em>ná</em> generatie, vóór het renderen, per idee of het "compact" is (titel/intro/why/stappen/praktisch — past op een halve pagina) of "verrijkt" (heeft ook een locatie- en/of linkblok — heeft een volledige pagina nodig). Reken dit om naar paginacount in plaats van een vaste lus te draaien:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Situatie</th><th>Regel</th></tr></thead>
+            <tbody>
+              <tr><td>Idee zonder locatie/links</td><td class="muted">Halve pagina, 2 per pagina — huidige <code>drawIdeaSlot</code>-aanpak blijft precies zo.</td></tr>
+              <tr><td>Idee mét locatie- en/of linkblok</td><td class="muted">Eigen volledige pagina — nieuwe <code>drawIdeaFullPage</code>-variant, zelfde <code>drawSideColumn</code>-fill-techniek maar over de hele hoogte.</td></tr>
+              <tr><td>Gemengde set (bv. 4 compact, 2 verrijkt)</td><td class="muted">Groepeer eerst alle compacte ideeën in paren, dan de verrijkte ideeën elk op hun eigen pagina — totaal aantal pagina's wordt weer variabel, met een realistische bandbreedte van 7–10 pagina's in plaats van vast 6.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="waarom">Dit is puur layout-logica in <code>ideaBook.ts</code> — geen wijziging aan het Claude-schema nodig, wél een bewuste, gedocumenteerde afwijking van de eerdere "exact 6 pagina's"-beslissing, met een concrete reden erbij.</p>
+      </div>
+    </section>
+
+    <!-- 4. UITVOERBARE IDEEEN -->
+    <section class="block" id="s4">
+      <div class="block-head"><span class="block-num">4</span><h2>Ieder idee concreet en uitvoerbaar</h2></div>
+      <p class="block-intro">De gevraagde structuur is goed en sluit direct aan op de Actionability Layer in sectie 5. Ik neem 'm over, met één aanpassing bij de links.</p>
+
+      <div class="checklist">
+        <li><strong>Titel</strong><span class="small">Aantrekkelijk en concreet — al de huidige aanpak, ongewijzigd.</span></li>
+        <li><strong>Het idee</strong><span class="small">Korte, inspirerende beschrijving — komt overeen met het huidige <code>intro</code>-veld.</span></li>
+        <li><strong>Waarom dit bij u past</strong><span class="small">Bestaat al als <code>why_it_fits</code>, moet expliciet naar het profiel verwijzen (dat doet de huidige systeemprompt al).</span></li>
+        <li><strong>Concrete uitwerking</strong><span class="small">Wat, waar, wanneer, met wie, hoe lang, in welke volgorde — uitbreiding van het huidige <code>details</code>-stappenarray (nu vast op 3 generieke stappen).</span></li>
+        <li><strong>Praktische informatie</strong><span class="small">Kosten, duur, voorbereiding, moeilijkheidsgraad — uitbreiding van het huidige eenregelige <code>practical_info</code> naar gestructureerde velden (sectie 5).</span></li>
+        <li><strong>Wat heeft u nodig?</strong><span class="small">Nieuw — alleen tonen als <code>requirements</code> niet leeg is (sectie 5).</span></li>
+        <li><strong>Locatie</strong><span class="small">Nieuw — alleen tonen als <code>location</code> aanwezig is (sectie 5).</span></li>
+        <li><strong>Eerste stap</strong><span class="small">Bestaat al in geest (<code>practical_info</code>/labels), wordt een expliciet apart veld: "Dit kunt u nu doen:" + één concrete actie.</span></li>
+      </div>
+
+      <div class="critical">
+        <span class="tag">Kritische kanttekening — "direct bruikbare links" alleen mét grounding</span>
+        <p>Zonder web-toegang tijdens generatie (zie sectie 9) kan Claude geen betrouwbare directe links naar officiële websites, tickets of reserveringen leveren — het verzint dan plausibele URL's die niet kloppen. Tot web-grounding gebouwd is (Fase 2, zie sectie 12): geef in plaats van een verzonnen exacte link een <em>generiek maar wél bruikbaar</em> linktype, bijvoorbeeld "Zoek '[locatienaam]' op Google Maps" met een kant-en-klare zoek-URL (die altijd werkt, want gebaseerd op een simpele query, niet op verzonnen kennis van de exacte site-structuur van een specifieke aanbieder).</p>
+      </div>
+    </section>
+
+    <!-- 5. ACTIONABILITY LAYER -->
+    <section class="block" id="s5">
+      <div class="block-head"><span class="block-num">5</span><h2>De Actionability Layer</h2></div>
+      <p class="block-intro">Eén gestructureerde databron voor een idee, gebruikt door zowel de webpagina als de PDF-generator — dat lost meteen de audit-bevinding op dat <code>/plan</code> nu veel minder toont dan de PDF.</p>
+
+      <div class="code-block"><span class="kw">interface</span> <span class="ty">Idea</span> {
+  title: <span class="ty">string</span>;
+  description: <span class="ty">string</span>;
+  personalFit: <span class="ty">string</span>;
+  steps: <span class="ty">string</span>[];
+  firstAction: <span class="ty">string</span>;
+
+  practical?: {
+    estimatedCost?: <span class="ty">string</span>;
+    duration?: <span class="ty">string</span>;
+    difficulty?: <span class="st">"easy"</span> | <span class="st">"moderate"</span> | <span class="st">"demanding"</span>;
+    preparation?: <span class="ty">string</span>[];
+  };
+
+  <span class="c1">// aanwezig → kaartblok; afwezig → geen kaartblok</span>
+  location?: {
+    name: <span class="ty">string</span>;
+    address?: <span class="ty">string</span>;
+    city?: <span class="ty">string</span>;
+    mapUrl?: <span class="ty">string</span>;
+  };
+
+  <span class="c1">// "booking"/"tickets" → CTA "Direct reserveren"</span>
+  links?: {
+    label: <span class="ty">string</span>;
+    url: <span class="ty">string</span>;
+    type: <span class="st">"official"</span> | <span class="st">"booking"</span> | <span class="st">"tickets"</span> | <span class="st">"product"</span> | <span class="st">"map"</span>;
+  }[];
+
+  <span class="c1">// aanwezig → "Wat heeft u nodig?"-sectie</span>
+  requirements?: <span class="ty">string</span>[];
+  alternatives?: <span class="ty">string</span>[];
+}</div>
+
+      <div class="item">
+        <h4>Hoe de structuur gebruikt wordt</h4>
+        <p class="waarom">Conditioneel renderen op zowel <code>/plan</code> als in <code>ideaBook.ts</code>, vanuit precies dezelfde <code>Idea</code>-objecten: een idee zonder <code>location</code> krijgt geen kaartblok, een idee met een <code>"booking"</code>- of <code>"tickets"</code>-link krijgt een "Direct reserveren"-call-to-action, een idee met <code>requirements</code> krijgt een "Wat heeft u nodig?"-sectie. Dit is ook meteen de oplossing voor audit-bevinding F1: één databron, twee weergaven, geen risico meer dat pagina en PDF uit elkaar lopen.</p>
+      </div>
+    </section>
+
+    <!-- 6. REFERRAL -->
+    <section class="block" id="s6">
+      <div class="block-head"><span class="block-num">6</span><h2>Een viral/referral-loop — bijgesteld</h2></div>
+      <p class="block-intro">Het voorgestelde "deel met 3 → 50% korting"-model sla ik expliciet af als startpunt (zie de samenvatting). Onderstaand een gefaseerd alternatief dat hetzelfde doel dient — organische groei — zonder de prijsperceptie en het MVP-meetdoel te ondermijnen.</p>
+
+      <div class="phase">
+        <div class="phase-head"><h4>Fase A — nu: meten, niet belonen</h4><span class="pill must">Must have</span></div>
+        <ul>
+          <li>Een "Deel je Idea Book"-knop op <code>/plan</code> (ná betaling) genereert een publieke, alleen-lezen previewlink (<code>/gedeeld/[uuid]</code>) zonder persoonlijke intake-details.</li>
+          <li>UTM-tracking op die link: meet shares, kliks, en nieuwe intakes die eruit voortkomen.</li>
+          <li>Geen korting — puur valideren of het concept organisch verspreidt vóórdat er een beloningsmotor gebouwd wordt.</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-head"><h4>Fase B — na validatie: niet-financiële beloning</h4><span class="pill should">Should have, conditioneel</span></div>
+        <ul>
+          <li>Alleen bouwen als Fase A een reële deel-ratio laat zien.</li>
+          <li>Beloning zonder korting: een gratis extra wildcard-idee, of een tweede stijl-variant van hetzelfde boek — beschermt de prijsperceptie.</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-head"><h4>Fase C — pas als groei stokt: een echt kortingsprogramma</h4><span class="pill nice">Nice to have, laatste redmiddel</span></div>
+        <ul>
+          <li>Funnel met vijf meetbare stappen: <span class="pill nice" style="margin-left:0;">1 gedeeld</span> → <span class="pill nice">2 aangeklikt</span> → <span class="pill nice">3 geregistreerd</span> → <span class="pill nice">4 actief gebruikt</span> → <span class="pill nice">5 betalende nieuwe gebruiker</span>.</li>
+          <li>Korting alléén uitkeren bij stap 5 (betaalde conversie), nooit eerder.</li>
+          <li>Fraudecheck per e-mailadres + betaalmethode/IP, om dubbeltellingen via alt-accounts te beperken.</li>
+        </ul>
+      </div>
+
+      <div class="critical">
+        <span class="tag">Waarom niet meteen het voorgestelde model</span>
+        <p>Bij €3,50 is elke korting relatief zwaar, en fraudedetectie kost meer engineering dan het product op deze schaal rechtvaardigt — zeker vóórdat je weet of er überhaupt organisch gedeeld wordt. Een kortingsmotor bouwen vóór je die vraag hebt beantwoord, is precies het soort complexiteit dat het brief zelf vraagt kritisch te toetsen.</p>
+      </div>
+    </section>
+
+    <!-- 7. COMMERCIEEL -->
+    <section class="block" id="s7">
+      <div class="block-head"><span class="block-num">7</span><h2>Commerciële mogelijkheden</h2></div>
+      <p class="block-intro">Beoordeling per model, vanuit het expliciete MVP-doel uit <code>CLAUDE.md</code>: eerst valideren of mensen betalen, dan pas uitbreiden.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h5>Aanraden</h5>
+          <ul>
+            <li><strong>Eenmalige PDF (huidig, €3,50)</strong> — houd dit als hoofdroute; laagste drempel, past bij het validatiedoel.</li>
+            <li><strong>Premium-tier</strong> (Style Engine + verrijkte Actionability Layer + meer ideeën, bv. €7–9) — sterk 2e prijspunt zodra volume er is.</li>
+            <li><strong>Cadeau-optie</strong> — lage complexiteit, sluit direct aan op de bestaande "voor wie"-vraag.</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h5>Afraden (nu)</h5>
+          <ul>
+            <li><strong>Abonnement</strong> — WINDOW is een eenmalig-moment-product ("een venster openen"), geen doorlopende behoefte; staat ook expliciet in <code>CLAUDE.md</code>'s "Buiten scope".</li>
+            <li><strong>Losse betaalde personalisatie-upsell</strong> — verdunt de kernbelofte "maximale personalisatie met minimale moeite" als het beste product achter een extra betaalmuur zit.</li>
+            <li><strong>Gratis beperkte versie (van de ideeën zelf)</strong> — ondermijnt het MVP-meetdoel. Vervang eventueel door een gratis <em>profiel</em>-teaser (wat WINDOW over je begrepen heeft, zonder de ideeën) als vertrouwenwekkend voorproefje.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="waarom">Conclusie: behoud de huidige eenmalige aankoop als kern, voeg Premium-tier + cadeau-optie toe als eerste uitbreiding (Fase 2 in het implementatieplan), en stel referral-korting uit tot na validatie (Fase 3).</p>
+    </section>
+
+    <!-- 8. INTAKE -->
+    <section class="block" id="s8">
+      <div class="block-head"><span class="block-num">8</span><h2>Intake optimaliseren</h2></div>
+      <p class="block-intro">De huidige 5-pagina-intake is al dicht bij het gevraagde ideaal. De enige harde toevoeging die deze opdracht rechtvaardigt is de stijlvraag — verder uitbreiden raad ik af.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Must ask</th><th>Useful</th><th>Optional</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="muted">Situatie, doel, leeftijd, locatie, budget, tijd, gezelschap, must-haves</td>
+              <td class="muted">Praktisch↔wild, verrassingsniveau, inzet, type-mogelijkheden, voorkeuren, <strong>stijlkeuze (nieuw)</strong></td>
+              <td class="muted">Exacte reisbereidheid (al een simpele dial) — verder niets nieuws</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="critical">
+        <span class="tag">Kritische kanttekening — geen aparte binnen/buiten- of luxe-vraag</span>
+        <p>Beide zijn al impliciet af te leiden via <code>solutionTypes</code>/<code>preferences</code>-vrije tekst en de suggestie-chips die deze sessie al zijn toegevoegd. Een nieuwe verplichte vraag verhoogt het afhaakrisico zonder bewezen meerwaarde — test dit liever via vrije tekst vóór je er een aparte, verplichte stap van maakt. Dit volgt direct uit het eigen uitgangspunt van de opdracht: <em>maximale personalisatie met minimale inspanning</em>.</p>
+      </div>
+    </section>
+
+    <!-- 9. AI & ACTUELE INFO -->
+    <section class="block" id="s9">
+      <div class="block-head"><span class="block-num">9</span><h2>AI en actuele informatie</h2></div>
+      <p class="block-intro">Dit is het technisch riskantste onderdeel van het hele plan — en de voorwaarde voor sectie 4 en 5's belofte van directe links en locaties.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h5>Optie A — Web-grounding via tool-use</h5>
+          <ul>
+            <li>Geef Claude een web-search-tool tijdens generatie, zodat het echte, actuele bronnen citeert in plaats van verzint.</li>
+            <li>Voordeel: render-time blijft simpel, geen apart databeheer.</li>
+            <li>Nadeel: hogere latency/kosten per generatie, en geen garantie dat elk feit ook daadwerkelijk gegrond wordt.</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h5>Optie B — Curated dataset</h5>
+          <ul>
+            <li>Een lichte, door mensen onderhouden "plekken"-tabel per regio/type; Claude kiest hieruit i.p.v. vrij te genereren.</li>
+            <li>Voordeel: volledige controle over juistheid.</li>
+            <li>Nadeel: schaalt niet vanzelf naar elke locatie in Nederland — vraagt doorlopend contentbeheer.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="voorstel-box">
+        <span class="tag">Aanbeveling voor de MVP-uitbreiding</span>
+        <p>Begin met optie A, maar alléén voor niet-tijdgevoelige feiten (naam, type locatie, globale ligging) — zet geen concrete prijzen of openingstijden hard in de tekst. Verwijs daarvoor altijd naar de live bron zelf: <em>"Actuele openingstijden en prijzen: zie [officiële website]"</em>. Voeg een vaste disclaimerzin toe aan elk idee met praktische info: <em>"Prijzen en tijden kunnen wijzigen — check de officiële bron voor je gaat."</em> Dat is zowel eerlijker (een PDF veroudert nu eenmaal) als technisch haalbaarder dan proberen alles 100% actueel in tekst te houden.</p>
+      </div>
+    </section>
+
+    <!-- 10. IDEALE PDF STRUCTUUR -->
+    <section class="block" id="s10">
+      <div class="block-head"><span class="block-num">10</span><h2>De ideale PDF-structuur</h2></div>
+      <p class="block-intro">Een lichte aanpassing van het voorgestelde volgorde-voorstel — met één toevoeging en één schrapping.</p>
+
+      <ol class="checklist" style="list-style:none;">
+        <li><strong>1. Cover</strong></li>
+        <li><strong>2. Korte persoonlijke introductie</strong></li>
+        <li><strong>3. Jouw profiel</strong><span class="small">"Dit hebben we over u ontdekt" + vereisten/voorkeuren — bestaat al.</span></li>
+        <li><strong>4–9. Ideeën</strong><span class="small">Variabel 1 of 2 per pagina, afhankelijk van content-rijkdom (sectie 3) — niet langer een vast aantal pagina's voor een vast aantal ideeën.</span></li>
+        <li><strong>10. Wildcard</strong></li>
+        <li><strong>11. Praktische vervolgstappen</strong><span class="small">Nieuw — één pagina met alle "Dit kunt u nu doen"-eerste-stappen op een rij, als naslag-checklist.</span></li>
+        <li><strong>12. Deel &amp; bewaar</strong><span class="small">Nieuw — QR-code naar de gedeelde online versie (sectie 6) + korte deel-uitnodiging.</span></li>
+      </ol>
+
+      <div class="critical">
+        <span class="tag">Geschrapt: "extra inspiratie"-pagina</span>
+        <p>Een generieke extra-inspiratiepagina voegt geen concrete waarde toe bovenop 6 al concrete ideeën en brengt precies het risico op vage content terug dat deze hele opdracht juist probeert weg te werken. Als er ruimte over is, gaat die liever naar het praktische actie-overzicht hierboven.</p>
+      </div>
+    </section>
+
+    <!-- 11. VISUEEL ONDERSCHEIDEND -->
+    <section class="block" id="s11">
+      <div class="block-head"><span class="block-num">11</span><h2>Visueel onderscheidend maken</h2></div>
+      <p class="block-intro">Concreet gekoppeld aan wat al bestaat versus wat nieuw is.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Element</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Hoogwaardige fotografie</td><td class="muted">Al aanwezig (Gemini-pipeline) — uitbreiden met de stijlmatrix uit sectie 2.</td></tr>
+            <tr><td>Persoonlijke cover</td><td class="muted">Nu 1 vaste cover voor iedereen → per stijl (bewust nog niet per individu, zie sectie 2).</td></tr>
+            <tr><td>Locatiekaarten</td><td class="muted">Nieuw, via <code>location.mapUrl</code> — een duidelijke "Bekijk op kaart"-link/QR, geen interactieve kaart (kan niet in een PDF).</td></tr>
+            <tr><td>Pictogrammen</td><td class="muted">Nieuw — kleine lijniconen per praktische categorie (klok voor duur, euroteken voor kosten) i.p.v. platte tekst; lage complexiteit.</td></tr>
+            <tr><td>Kleurcodering</td><td class="muted">Koppel aan moeilijkheidsgraad of stijl-tint (sectie 2).</td></tr>
+            <tr><td>QR naar gedeelde versie</td><td class="muted">Nieuw, lage complexiteit — pure SVG-QR, geen externe dependency nodig.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="critical">
+        <span class="tag">Afgeraden: een numerieke "match-score"</span>
+        <p>Een "94% match" zonder uitlegbare berekening voelt als nep-precisie en kan het vertrouwen juist ondermijnen ("hoe kom je aan dat getal?"). "Waarom dit bij u past" (sectie 4, tekstueel) doet hetzelfde werk eerlijker en is al gepland.</p>
+      </div>
+    </section>
+
+    <!-- 12. IMPLEMENTATIEPLAN -->
+    <section class="block" id="s12">
+      <div class="block-head"><span class="block-num">12</span><h2>Implementatieplan</h2></div>
+      <p class="block-intro">Drie fasen, elk met concrete items uit de secties hierboven, geprioriteerd op wat een fundament is voor latere fasen versus wat pas waarde heeft ná validatie.</p>
+
+      <div class="phase">
+        <div class="phase-head"><h4>Fase 1 — MVP / noodzakelijke verbeteringen</h4></div>
+        <ul>
+          <li>Style Engine basisversie: 6 stijlen, vaste beeldmatrix, kleurtint-override <span class="pill must">Must</span></li>
+          <li>Actionability Layer datamodel in schema + renderer (zonder live links) <span class="pill must">Must</span></li>
+          <li>Concrete-ideeën-structuur zonder gegronde links <span class="pill must">Must</span></li>
+          <li>Generatiestatusveld tegen dubbele generatie <span class="pill must">Must</span></li>
+          <li>Retry/backoff op de Claude-call <span class="pill must">Must</span></li>
+          <li>PostHog daadwerkelijk activeren + consent-banner <span class="pill must">Must</span></li>
+          <li>Plan-pagina toont dezelfde rijke content als de PDF <span class="pill should">Should</span></li>
+          <li>Locatieveld met autocomplete <span class="pill should">Should</span></li>
+          <li>Sliders: groter tikdoel op mobiel <span class="pill should">Should</span></li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-head"><h4>Fase 2 — Professionalisering</h4></div>
+        <ul>
+          <li>Web-grounding voor officiële links/adressen + vaste disclaimer <span class="pill must">Must — voorwaarde voor Fase 1's linkbeloftes</span></li>
+          <li>Dynamische 1-of-2-per-pagina PDF-lay-out o.b.v. content-rijkdom <span class="pill should">Should</span></li>
+          <li>Iconen, kleurcodering, kaart-links in de PDF <span class="pill should">Should</span></li>
+          <li>Premium-tier + cadeau-optie in checkout <span class="pill should">Should</span></li>
+          <li>Deel-knop + publieke previewlink + UTM-tracking (Fase A referral, zónder korting) <span class="pill should">Should</span></li>
+          <li>Praktische-vervolgstappen-pagina + QR-deelpagina in de PDF <span class="pill nice">Nice</span></li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-head"><h4>Fase 3 — Growth &amp; Viral</h4></div>
+        <ul>
+          <li>Niet-financiële deelbeloning, alleen o.b.v. gemeten deel-ratio uit Fase 2 <span class="pill should">Should, conditioneel</span></li>
+          <li>Pas dan: een echt kortingsprogramma met fraudecheck, uitgekeerd bij betaalde conversie <span class="pill nice">Nice, laatste redmiddel</span></li>
+          <li>A/B-testen van prijspunten voor de Premium-tier <span class="pill nice">Nice</span></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="doc-footer">
+  Gegrond in de daadwerkelijke huidige codebase (o.a. <code>generateIdeaBook.ts</code>, <code>ideaBook.ts</code>, <code>PillSlider.tsx</code>, <code>posthog/client.ts</code>) — niet in aannames over wat er zou kunnen staan.
+</footer>

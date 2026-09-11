@@ -49,55 +49,88 @@ export function CheckoutPanel({ dict }: { dict: Dictionary["checkout"] }) {
   }
 
   return (
-    <div className="max-w-xl rounded-2xl border border-ink/10 bg-paper p-6 shadow-sm sm:p-8">
-      <p className="text-sm text-ink/60">{dict.disclaimer}</p>
+    <div>
+      {/* Gift toggle */}
+      <div className="mb-6 rounded-2xl bg-cream p-5">
+        <div className="flex items-center justify-between gap-4">
+          <span className="text-sm font-medium text-ink">{dict.giftToggleLabel}</span>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={isGift}
+            onClick={() => setIsGift((g) => !g)}
+            className={`relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
+              isGift ? "bg-accent" : "bg-ink/15"
+            }`}
+          >
+            <span
+              className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200 ${
+                isGift ? "translate-x-6" : "translate-x-1"
+              }`}
+            />
+          </button>
+        </div>
 
-      <label className="mt-4 flex items-start gap-3 text-sm text-ink/80">
+        {isGift && (
+          <div className="mt-4">
+            <label className="block text-xs font-medium uppercase tracking-widest text-ink/50">
+              {dict.giftEmailLabel}
+            </label>
+            <input
+              type="email"
+              value={giftEmail}
+              onChange={(e) => setGiftEmail(e.target.value)}
+              placeholder={dict.giftEmailPlaceholder}
+              className="mt-1.5 w-full rounded-xl border border-ink/15 bg-paper px-3.5 py-2.5 text-sm text-ink shadow-sm outline-none placeholder:text-ink/35 focus:border-accent"
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Disclaimer */}
+      <p className="mb-5 rounded-xl bg-ink/4 p-4 text-xs leading-relaxed text-ink/60">
+        {dict.disclaimer}
+      </p>
+
+      {/* Waiver checkbox */}
+      <label className="group mb-7 flex cursor-pointer items-start gap-3">
+        <span
+          aria-hidden="true"
+          className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${
+            waiverConfirmed
+              ? "border-accent bg-accent"
+              : "border-ink/25 bg-paper group-hover:border-accent/50"
+          }`}
+        >
+          {waiverConfirmed && (
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+              <path d="M1 5l3.5 4L11 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          )}
+        </span>
         <input
           type="checkbox"
           checked={waiverConfirmed}
           onChange={(e) => setWaiverConfirmed(e.target.checked)}
-          className="mt-0.5 h-4 w-4 shrink-0 rounded border-ink/30 text-accent focus:ring-accent"
+          className="sr-only"
         />
-        <span>{dict.waiverLabel}</span>
+        <span className="text-xs leading-relaxed text-ink/70">{dict.waiverLabel}</span>
       </label>
-
-      <label className="mt-4 flex items-start gap-3 text-sm text-ink/80">
-        <input
-          type="checkbox"
-          checked={isGift}
-          onChange={(e) => setIsGift(e.target.checked)}
-          className="mt-0.5 h-4 w-4 shrink-0 rounded border-ink/30 text-accent focus:ring-accent"
-        />
-        <span>{dict.giftToggleLabel}</span>
-      </label>
-
-      {isGift && (
-        <div className="mt-3 pl-7">
-          <label className="block text-xs font-medium uppercase tracking-widest text-ink/50">
-            {dict.giftEmailLabel}
-          </label>
-          <input
-            type="email"
-            value={giftEmail}
-            onChange={(e) => setGiftEmail(e.target.value)}
-            placeholder={dict.giftEmailPlaceholder}
-            className="mt-1.5 w-full max-w-sm rounded-xl border border-ink/15 bg-paper px-3.5 py-2 text-sm text-ink shadow-sm outline-none placeholder:text-ink/35 focus:border-accent"
-          />
-        </div>
-      )}
 
       {error && (
-        <p className="mt-3 text-sm text-red-600" role="alert">
+        <p className="mb-4 text-sm text-red-600" role="alert">
           {error}
         </p>
       )}
 
-      <div className="mt-6">
-        <Button onClick={handleSubmit} disabled={!canSubmit || isPending}>
-          {isPending ? dict.ctaPending : dict.ctaIdle}
-        </Button>
-      </div>
+      <Button
+        onClick={handleSubmit}
+        disabled={!canSubmit || isPending}
+        size="lg"
+        className="w-full justify-center"
+      >
+        {isPending ? dict.ctaPending : dict.ctaIdle}
+      </Button>
 
       <div className="mt-6 rounded-xl border border-dashed border-amber-400 bg-amber-50 px-4 py-3">
         <p className="text-xs font-medium uppercase tracking-widest text-amber-700">

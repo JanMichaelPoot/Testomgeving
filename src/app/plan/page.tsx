@@ -86,15 +86,14 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   } catch (err) {
     if (err instanceof PlanNotReadyError) {
       if (err.reason === "generating") {
+        // Full-screen takeover, no site header — matches the WINDOW
+        // prototype's dedicated dark "generating" screen.
         return (
-          <div className="flex min-h-full flex-col">
-            <SiteHeader locale={locale} dict={dict.header} />
-            <GeneratingScreen
-              heading={dict.plan.generating.heading}
-              messages={dict.plan.generating.messages}
-              autoRefreshNote={dict.plan.generating.autoRefreshNote}
-            />
-          </div>
+          <GeneratingScreen
+            heading={dict.plan.generating.heading}
+            messages={dict.plan.generating.messages}
+            autoRefreshNote={dict.plan.generating.autoRefreshNote}
+          />
         );
       }
       errorMessage = err.message;

@@ -9,7 +9,8 @@ import { cn } from "@/lib/utils";
 import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
 import { submitIntake, type IntakeAnswers } from "@/app/intake/actions";
-import { WIZARD_PAGE_ILLUSTRATIONS } from "@/lib/illustrations";
+import { INTAKE_STOCK_PHOTOS } from "@/lib/illustrations";
+import { WindowMark } from "@/components/window/WindowMark";
 import type { Dictionary, Option } from "@/lib/i18n/dictionaries";
 
 type StepId = keyof IntakeAnswers;
@@ -49,7 +50,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "situation",
       heading: dict.pages.situation.heading,
       subheading: dict.pages.situation.subheading,
-      image: WIZARD_PAGE_ILLUSTRATIONS[0],
+      image: INTAKE_STOCK_PHOTOS[0],
       fields: [
         {
           id: "situation",
@@ -80,7 +81,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "about",
       heading: dict.pages.about.heading,
       subheading: dict.pages.about.subheading,
-      image: WIZARD_PAGE_ILLUSTRATIONS[1],
+      image: INTAKE_STOCK_PHOTOS[1],
       fields: [
         {
           id: "ageCategory",
@@ -107,7 +108,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "dials",
       heading: dict.pages.dials.heading,
       subheading: dict.pages.dials.subheading,
-      image: WIZARD_PAGE_ILLUSTRATIONS[2],
+      image: INTAKE_STOCK_PHOTOS[2],
       fields: [
         {
           id: "practicalToWild",
@@ -146,7 +147,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       heading: dict.pages.openness.heading,
       subheading: dict.pages.openness.subheading,
       intro: dict.opennessIntro,
-      image: WIZARD_PAGE_ILLUSTRATIONS[3],
+      image: INTAKE_STOCK_PHOTOS[3],
       fields: [
         {
           id: "solutionTypes",
@@ -179,7 +180,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "final",
       heading: dict.pages.final.heading,
       subheading: dict.pages.final.subheading,
-      image: WIZARD_PAGE_ILLUSTRATIONS[4],
+      image: INTAKE_STOCK_PHOTOS[4],
       fields: [
         {
           id: "company",
@@ -431,38 +432,51 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
   }
 
   return (
-    <div className="w-full max-w-4xl">
-      <div className="flex items-center gap-1.5">
-        {pages.map((p, i) => (
-          <div
-            key={p.id}
-            className={cn(
-              "h-1.5 flex-1 rounded-full transition-colors",
-              i <= page ? "bg-accent" : "bg-ink/10"
-            )}
-          />
-        ))}
+    <div className="flex w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-accent/10 bg-paper shadow-sm md:flex-row">
+      {/* Left: full-bleed photo, desktop only */}
+      <div className="relative hidden md:block md:w-2/5 md:flex-shrink-0">
+        <Image
+          key={currentPage.image}
+          src={currentPage.image}
+          alt=""
+          fill
+          sizes="(min-width: 768px) 40vw, 100vw"
+          className="animate-window-fade-in object-cover"
+          priority={page === 0}
+        />
+        <div className="absolute inset-0 bg-accent-dark/50" />
+        <div className="absolute inset-0 flex flex-col justify-end p-8">
+          <WindowMark className="h-8 w-8 text-white" />
+          <h2 className="mt-5 font-serif text-2xl font-semibold leading-snug text-white sm:text-3xl">
+            {currentPage.heading}
+          </h2>
+          <p className="mt-2 text-sm text-white/60">
+            {dict.stepWord} {page + 1} {dict.ofWord} {pages.length}
+          </p>
+        </div>
       </div>
-      <p className="mt-3 text-xs font-medium uppercase tracking-widest text-ink/40">
-        {dict.stepWord} {page + 1} {dict.ofWord} {pages.length}
-      </p>
 
-      <div className="mt-6 grid gap-8 sm:grid-cols-[280px_1fr] sm:items-start">
-        <div className="sm:sticky sm:top-6">
-          <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl shadow-sm">
-            <Image
-              src={currentPage.image}
-              alt=""
-              fill
-              sizes="(min-width: 640px) 280px, 100vw"
-              className="object-cover"
-              priority={page === 0}
-            />
+      {/* Right: form */}
+      <div className="flex flex-1 flex-col bg-cream">
+        <div className="px-6 pt-8 sm:px-10">
+          <div className="flex items-center gap-1.5">
+            {pages.map((p, i) => (
+              <div
+                key={p.id}
+                className={cn(
+                  "h-1 flex-1 rounded-full transition-colors",
+                  i <= page ? "bg-accent" : "bg-accent/15"
+                )}
+              />
+            ))}
           </div>
+          <p className="mt-3 text-xs font-medium uppercase tracking-widest text-accent-dark md:hidden">
+            {dict.stepWord} {page + 1} {dict.ofWord} {pages.length}
+          </p>
         </div>
 
-        <div>
-          <h1 className="font-serif text-3xl text-ink sm:text-4xl">
+        <div key={currentPage.id} className="animate-window-page-in flex-1 px-6 pb-4 pt-6 sm:px-10">
+          <h1 className="font-serif text-3xl text-ink sm:text-4xl md:hidden">
             {currentPage.heading}
           </h1>
           <p className="mt-2 text-ink/60">{currentPage.subheading}</p>
@@ -481,23 +495,31 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
               {error}
             </p>
           )}
+        </div>
 
-          <div className="mt-10 flex items-center justify-between">
-            {page > 0 ? (
-              <Button variant="ghost" onClick={goBack} disabled={isPending}>
-                {dict.back}
-              </Button>
-            ) : (
-              <span />
-            )}
-            <Button onClick={goNext} disabled={!canContinue || isPending}>
-              {isLastPage
-                ? isPending
-                  ? dict.opening
-                  : dict.makeThisReal
-                : dict.continueLabel}
+        <div className="flex items-center justify-between border-t border-accent/10 px-6 py-6 sm:px-10">
+          {page > 0 ? (
+            <Button variant="ghost" onClick={goBack} disabled={isPending}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              {dict.back}
             </Button>
-          </div>
+          ) : (
+            <span />
+          )}
+          <Button onClick={goNext} disabled={!canContinue || isPending}>
+            {isLastPage
+              ? isPending
+                ? dict.opening
+                : dict.makeThisReal
+              : dict.continueLabel}
+            {!isLastPage && (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            )}
+          </Button>
         </div>
       </div>
     </div>

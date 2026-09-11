@@ -7,6 +7,15 @@ import type { NextConfig } from "next";
 // headers, so that second policy would silently block the app again. These
 // headers don't need per-request values, so they're fine here.
 const nextConfig: NextConfig = {
+  images: {
+    // The landing hero's 4-panel window, the intake wizard's full-bleed
+    // page photos, and the idea cards' hero images are hotlinked Unsplash
+    // photos (same source as the WINDOW Figma Make prototype) rather than
+    // pre-generated illustrations — allow next/image to optimize them.
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+    ],
+  },
   async headers() {
     return [
       {

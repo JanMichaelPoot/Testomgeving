@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { ShareButton } from "@/components/window/ShareButton";
 import { IdeaDetail } from "@/components/window/IdeaDetail";
+import { WindowMark } from "@/components/window/WindowMark";
 import { cn } from "@/lib/utils";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import type { Locale } from "@/lib/language";
@@ -50,6 +51,8 @@ export function IdeaBookViewer({
   showEmailedCopy: boolean;
 }) {
   const hasPreferences = mustHaves.length > 0 || preferences.length > 0;
+  const totalActions = ideas.reduce((sum, idea) => sum + idea.details.length, 0)
+    + (wildcard?.details.length ?? 0);
 
   const screens = useMemo<Screen[]>(() => {
     const list: Screen[] = [{ type: "profile" }];
@@ -71,16 +74,28 @@ export function IdeaBookViewer({
   function goNext() {
     setScreenIndex((prev) => Math.min(screens.length - 1, prev + 1));
   }
+  function goTo(i: number) {
+    setScreenIndex(Math.max(0, Math.min(screens.length - 1, i)));
+  }
 
   return (
     <div>
-      <div className="flex items-center gap-1.5">
+      {/* Clickable progress strip — jump straight to any screen already
+          reached, matching the WINDOW prototype's book navigation. */}
+      <div className="flex items-center gap-1">
         {screens.map((_, i) => (
-          <div
+          <button
             key={i}
+            type="button"
+            aria-label={`${i + 1}`}
+            onClick={() => i <= screenIndex && goTo(i)}
             className={cn(
               "h-1.5 flex-1 rounded-full transition-colors",
-              i <= screenIndex ? "bg-accent" : "bg-ink/10"
+              i === screenIndex
+                ? "bg-accent"
+                : i < screenIndex
+                  ? "cursor-pointer bg-accent/50 hover:bg-accent/70"
+                  : "cursor-default bg-ink/10"
             )}
           />
         ))}
@@ -89,11 +104,31 @@ export function IdeaBookViewer({
       <div className="mt-8">
         {screen.type === "profile" && (
           <div>
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/40 bg-accent-dark text-white">
+              <WindowMark className="h-7 w-7" />
+            </div>
             <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
               {planDict.book.profileEyebrow}
             </p>
             <h1 className="mt-2 font-serif text-3xl text-ink sm:text-4xl">{title}</h1>
             <p className="mt-4 text-lg text-ink/70">{profileSummary}</p>
+
+            <div className="mt-8 grid grid-cols-3 gap-4 border-y border-accent/10 py-6 text-center">
+              <div>
+                <p className="font-serif text-3xl font-semibold text-accent">{ideas.length}</p>
+                <p className="mt-1 text-xs text-ink/60">{planDict.book.statsIdeasLabel}</p>
+              </div>
+              <div>
+                <p className="font-serif text-3xl font-semibold text-accent">{totalActions}</p>
+                <p className="mt-1 text-xs text-ink/60">{planDict.book.statsActionsLabel}</p>
+              </div>
+              <div>
+                <p className="font-serif text-3xl font-semibold text-accent">
+                  {wildcard ? planDict.book.statsWildcardValue : 0}
+                </p>
+                <p className="mt-1 text-xs text-ink/60">{planDict.book.statsWildcardLabel}</p>
+              </div>
+            </div>
           </div>
         )}
 
@@ -133,36 +168,32 @@ export function IdeaBookViewer({
 
         {screen.type === "idea" && (
           <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-ink/40">
+            <p className="mb-3 text-xs font-medium uppercase tracking-widest text-ink/40">
               {planDict.book.ideaLabel} {screen.index + 1} {planDict.book.ofWord} {ideas.length}
             </p>
-            <div className="mt-3">
-              <IdeaDetail
-                idea={screen.idea}
-                index={null}
-                locale={locale}
-                labels={labels}
-                dict={pdfChromeDict}
-              />
-            </div>
+            <IdeaDetail
+              idea={screen.idea}
+              index={null}
+              photoIndex={screen.index}
+              locale={locale}
+              labels={labels}
+              dict={pdfChromeDict}
+            />
           </div>
         )}
 
         {screen.type === "wildcard" && wildcard && (
-          <div className="rounded-2xl border-2 border-gold/60 bg-cream px-6 py-6">
-            <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
-              {labels.wildcard_heading || planDict.book.wildcardLabel}
-            </p>
-            <p className="mt-1.5 text-sm italic text-ink/60">{planDict.book.wildcardIntro}</p>
-            <div className="mt-4">
-              <IdeaDetail
-                idea={wildcard}
-                index={null}
-                locale={locale}
-                labels={labels}
-                dict={pdfChromeDict}
-              />
-            </div>
+          <div>
+            <p className="mb-3 text-sm italic text-ink/60">{planDict.book.wildcardIntro}</p>
+            <IdeaDetail
+              idea={wildcard}
+              index={null}
+              photoIndex={ideas.length}
+              locale={locale}
+              labels={labels}
+              dict={pdfChromeDict}
+              isWildcard
+            />
             <div className="mt-6 flex flex-wrap items-center gap-4">
               <Button onClick={goNext}>{planDict.book.wildcardYes}</Button>
               <button
@@ -177,28 +208,37 @@ export function IdeaBookViewer({
         )}
 
         {screen.type === "done" && (
-          <div>
-            <h1 className="font-serif text-2xl text-ink sm:text-3xl">
-              {planDict.book.doneHeading}
-            </h1>
-            <p className="mt-2 text-ink/60">{planDict.book.doneSub}</p>
-            <div className="mt-6 flex flex-wrap items-center gap-4">
-              {pdfUrl && (
-                <a
-                  href={pdfUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent-dark"
-                >
-                  {planDict.downloadPdf}
-                </a>
-              )}
-              <ShareButton
-                url={shareUrl}
-                label={planDict.shareButtonLabel}
-                copiedLabel={planDict.shareCopiedLabel}
-              />
-              {showEmailedCopy && <p className="text-sm text-ink/50">{planDict.emailedCopy}</p>}
+          <div className="relative overflow-hidden rounded-3xl bg-accent-dark p-10 text-center">
+            <div className="pointer-events-none absolute right-0 top-0 h-48 w-48 -translate-y-24 translate-x-24 rounded-full bg-accent/40" />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-32 -translate-x-16 translate-y-16 rounded-full bg-gold/15" />
+            <div className="relative">
+              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 text-gold">
+                <svg width="26" height="26" viewBox="0 0 28 28" fill="currentColor" aria-hidden="true">
+                  <path d="M14 2l3.09 6.26L24 9.27l-5 4.87 1.18 6.88L14 17.77l-6.18 3.25L9 14.14 4 9.27l6.91-1.01L14 2z" />
+                </svg>
+              </div>
+              <h1 className="font-serif text-2xl font-semibold text-white sm:text-3xl">
+                {planDict.book.doneHeading}
+              </h1>
+              <p className="mx-auto mt-2 max-w-xs text-sm text-white/60">{planDict.book.doneSub}</p>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                {pdfUrl && (
+                  <a
+                    href={pdfUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-accent-dark shadow-sm transition-colors hover:bg-white/90"
+                  >
+                    {planDict.downloadPdf}
+                  </a>
+                )}
+                <ShareButton
+                  url={shareUrl}
+                  label={planDict.shareButtonLabel}
+                  copiedLabel={planDict.shareCopiedLabel}
+                />
+              </div>
+              {showEmailedCopy && <p className="mt-4 text-sm text-white/50">{planDict.emailedCopy}</p>}
             </div>
           </div>
         )}

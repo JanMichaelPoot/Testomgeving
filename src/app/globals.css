@@ -33,3 +33,43 @@ body {
   background: var(--color-cream);
   color: var(--color-ink);
 }
+
+@keyframes window-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes window-page-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes window-spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-window-fade-in {
+  animation: window-fade-in 0.5s ease forwards;
+}
+
+.animate-window-page-in {
+  animation: window-page-in 0.35s ease forwards;
+}
+
+.animate-window-spin-slow {
+  animation: window-spin-slow 3s linear infinite;
+}
