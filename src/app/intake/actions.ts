@@ -22,7 +22,6 @@ export interface IntakeAnswers {
   location: string;
   searchDistance: string;
   practicalToWild: string;
-  surpriseLevel: string;
   timeAvailable: string;
   budget: string;
   effort: string;

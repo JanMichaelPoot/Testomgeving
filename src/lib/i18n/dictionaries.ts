@@ -9,6 +9,10 @@ interface FollowUpCopy {
   label: string;
   sub: string;
   placeholder: string;
+  // Shown as clickable chips on this mandatory field — unlike the optional
+  // `situation` field above it, this one used to offer zero scaffolding
+  // for the first required freeform answer in the flow.
+  suggestions: string[];
 }
 
 export interface Dictionary {
@@ -189,15 +193,34 @@ export interface Dictionary {
     location: { label: string; sub: string; placeholder: string };
     searchDistance: { label: string; options: Option[] };
     practicalToWild: { label: string; options: Option[] };
-    surpriseLevel: { label: string; options: Option[] };
     timeAvailable: { label: string; options: Option[] };
     budget: { label: string; options: Option[] };
     effort: { label: string; options: Option[] };
     solutionTypes: { label: string; sub: string; options: Option[] };
     opennessIntro: string;
-    mustHaves: { label: string; sub: string; placeholder: string; suggestions: string[] };
-    preferences: { label: string; sub: string; placeholder: string; suggestions: string[] };
-    company: { label: string; sub: string; options: Option[] };
+    mustHaves: {
+      label: string;
+      sub: string;
+      placeholder: string;
+      suggestions: string[];
+      optionalHint: string;
+    };
+    preferences: {
+      label: string;
+      sub: string;
+      placeholder: string;
+      suggestions: string[];
+      optionalHint: string;
+    };
+    // Keyed by the same purpose the person chose on step 1 (see
+    // purposeFollowUp above) — "gift" needs different wording here, since
+    // by this point they've already told us the *recipient*, and a plain
+    // "who's this for?" reads as contradicting that earlier answer.
+    company: {
+      label: string;
+      sub: Record<"self" | "gift" | "problem" | "curious", string>;
+      options: Option[];
+    };
   };
 }
 
@@ -347,7 +370,7 @@ const nl: Dictionary = {
       "Een handvol mogelijkheden, gevormd naar wat je ons hebt verteld — plus eentje die we eigenlijk niet zouden moeten voorstellen, maar toch doen.",
     stepsHeading: "Wat er nu gebeurt",
     steps: [
-      "Je betaalt eenmalig {price} — veilig via Stripe.",
+      "Je betaalt eenmalig {price} via Stripe — met het e-mailadres waar we ook je Idea Book naartoe sturen.",
       "Binnen een minuut stellen we jouw Idea Book samen.",
       "Je ziet 'm meteen hier, en we mailen 'm ook naar je.",
     ],
@@ -472,8 +495,9 @@ const nl: Dictionary = {
         subheading: "Zo stemmen we mogelijkheden af die echt bij je leven passen.",
       },
       dials: {
-        heading: "Jouw dials",
-        subheading: "Zet ze zoals het vandaag voelt — elke dial start in het midden.",
+        heading: "Jouw stijl",
+        subheading:
+          "Zet ze zoals het vandaag voelt — elke schuif start in het midden totdat je 'm aanraakt.",
       },
       openness: {
         heading: "Waar je voor openstaat",
@@ -511,21 +535,41 @@ const nl: Dictionary = {
         label: "Wat voor ervaring heb je in gedachten?",
         sub: "Schets ons een ruw beeld — de rest vullen wij aan. Twee zinnen is genoeg, we hebben geen essay nodig.",
         placeholder: "Iets waardoor ik het huis uit kom en mijn telefoon wegleg…",
+        suggestions: [
+          "Iets waar ik met plezier aan terugdenk",
+          "Iets heel anders dan mijn dagelijkse routine",
+          "Gewoon iets leuks, maak me verrast",
+        ],
       },
       gift: {
         label: "Vertel ons over diegene.",
         sub: "Wie is het, en waar houdt diegene van? Twee zinnen is genoeg, we hebben geen essay nodig.",
         placeholder: "Mijn zus, die geobsedeerd is door planten en vreselijke woordgrappen…",
+        suggestions: [
+          "Mijn partner, die van lekker eten en verrassingen houdt",
+          "Een vriend(in) die alles al lijkt te hebben",
+          "Een collega die wel een oppepper kan gebruiken",
+        ],
       },
       problem: {
         label: "Wat is het probleem precies?",
         sub: "Hoe specifieker, hoe beter we ermee aan de slag kunnen. Twee zinnen is genoeg, we hebben geen essay nodig.",
         placeholder: "Ik zeg steeds ja tegen dingen die ik eigenlijk niet wil doen…",
+        suggestions: [
+          "Ik kom nooit toe aan iets voor mezelf",
+          "Ik zie mijn vrienden veel te weinig",
+          "Ik weet niet meer wat ik leuk vind",
+        ],
       },
       curious: {
         label: "Wat prikkelt je nieuwsgierigheid?",
         sub: "Een thema, een gevoel, een konijnenhol waar je al lang in wilde vallen. Twee zinnen is genoeg, we hebben geen essay nodig.",
         placeholder: "Ik vraag me af hoe mijn weekenden er ook uit zouden kunnen zien…",
+        suggestions: [
+          "Ik wil gewoon eens iets nieuws proberen",
+          "Ik ben benieuwd wat ik nog niet ken in mijn eigen stad",
+          "Geen idee — verras me maar",
+        ],
       },
     },
     ageCategory: {
@@ -555,22 +599,13 @@ const nl: Dictionary = {
       ],
     },
     practicalToWild: {
-      label: "Met beide benen op de grond, of een beetje wild?",
+      label: "Hou je het liever veilig, of mag het verrassen?",
       options: [
-        { value: "grounded", label: "Hou het bij de grond" },
-        { value: "practical", label: "Vooral praktisch" },
+        { value: "grounded", label: "Hou het voorspelbaar en vertrouwd" },
+        { value: "practical", label: "Vooral praktisch, weinig verrassing" },
         { value: "either", label: "Sta open voor beide" },
-        { value: "unexpected", label: "Neig naar onverwacht" },
-        { value: "wild", label: "Neem me mee naar iets wilds" },
-      ],
-    },
-    surpriseLevel: {
-      label: "Hoeveel mogen we je verrassen?",
-      options: [
-        { value: "barely", label: "Nauwelijks" },
-        { value: "little", label: "Een beetje onverwacht" },
-        { value: "weird", label: "Aangenaam vreemd" },
-        { value: "complete", label: "Verras me volledig" },
+        { value: "unexpected", label: "Verras me gerust af en toe" },
+        { value: "wild", label: "Verras me volledig, neem me mee naar iets wilds" },
       ],
     },
     timeAvailable: {
@@ -616,19 +651,29 @@ const nl: Dictionary = {
       "Twee soorten wensen: dingen die écht niet mogen (een harde grens), en dingen die fijn zouden zijn maar niet cruciaal (een voorkeur). Twijfel je? Zet het bij voorkeuren — we filteren dan soepeler.",
     mustHaves: {
       label: "Wat mag absoluut niet ontbreken — of moet juist wegblijven?",
-      sub: "Optioneel. Alleen harde eisen, denk: allergieën, een dier dat mee moet, een tijdstip dat niet kan.",
+      sub: "Alleen harde eisen, denk: allergieën, een dier dat mee moet, een tijdstip dat niet kan.",
       placeholder: "Moet hondvriendelijk zijn, moet buiten zijn, geen vis of schaaldieren…",
       suggestions: ["Moet met de hond kunnen", "Geen alcohol", "Rolstoeltoegankelijk"],
+      optionalHint: "Niks hards? Sla gerust over.",
     },
     preferences: {
       label: "En wat zou fijn zijn, maar is geen dealbreaker?",
-      sub: "Optioneel. Kleine duwtjes in een richting — we wijken hier soepel van af als het net beter past.",
+      sub: "Kleine duwtjes in een richting — we wijken hier soepel van af als het net beter past.",
       placeholder: "Ik zou iets creatiefs geweldig vinden, het liefst buiten…",
       suggestions: ["Het liefst buiten", "Iets creatiefs", "Niet te druk"],
+      optionalHint: "Geen voorkeur? Ook prima.",
     },
     company: {
       label: "Voor wie is dit venster?",
-      sub: "Wie er eventueel bij is.",
+      sub: {
+        self: "Wie er eventueel bij is.",
+        // "Purpose" already told us who the *gift* is for — this question
+        // is really about who joins in, so it needs to say that
+        // explicitly, or it reads as contradicting the earlier answer.
+        gift: "Dit gaat over wie er evt. bij is als het moment zelf plaatsvindt — niet over wie het cadeau ontvangt.",
+        problem: "Wie er eventueel bij is.",
+        curious: "Wie er eventueel bij is.",
+      },
       options: [
         { value: "alone", label: "Alleen ik" },
         { value: "partner", label: "Een partner" },
@@ -785,7 +830,7 @@ const en: Dictionary = {
       "A handful of possibilities, shaped around what you told us — plus one we probably shouldn't suggest, but will anyway.",
     stepsHeading: "What happens next",
     steps: [
-      "You pay {price} once — securely via Stripe.",
+      "You pay {price} once via Stripe — using the email address we'll also send your Idea Book to.",
       "Within a minute, we put your Idea Book together.",
       "You'll see it right here, and we'll email you a copy too.",
     ],
@@ -910,8 +955,9 @@ const en: Dictionary = {
         subheading: "Helps us pitch possibilities that actually fit your life.",
       },
       dials: {
-        heading: "Your dials",
-        subheading: "Set these however feels right for today — every one defaults to the middle.",
+        heading: "Your style",
+        subheading:
+          "Set these however feels right for today — every one defaults to the middle until you touch it.",
       },
       openness: {
         heading: "What you're open to",
@@ -949,21 +995,41 @@ const en: Dictionary = {
         label: "What kind of experience are you imagining?",
         sub: "Paint us a rough picture — we'll fill in the rest. Two sentences is plenty, no essay needed.",
         placeholder: "Something that gets me out of the house and off my phone…",
+        suggestions: [
+          "Something I'll look back on fondly",
+          "Something totally different from my routine",
+          "Just something fun, surprise me",
+        ],
       },
       gift: {
         label: "Tell us about them.",
         sub: "Who are they, and what do they love? Two sentences is plenty, no essay needed.",
         placeholder: "My sister, who's obsessed with plants and terrible puns…",
+        suggestions: [
+          "My partner, who loves good food and surprises",
+          "A friend who seems to already have everything",
+          "A coworker who could use a pick-me-up",
+        ],
       },
       problem: {
         label: "What's the problem, exactly?",
         sub: "The more specific, the better we can work with it. Two sentences is plenty, no essay needed.",
         placeholder: "I keep saying yes to things I don't actually want to do…",
+        suggestions: [
+          "I never get around to doing something for myself",
+          "I barely see my friends anymore",
+          "I've lost track of what I actually enjoy",
+        ],
       },
       curious: {
         label: "What's sparking your curiosity?",
         sub: "A theme, a feeling, a rabbit hole you've been meaning to fall into. Two sentences is plenty, no essay needed.",
         placeholder: "I've been wondering what else my weekends could look like…",
+        suggestions: [
+          "I just want to try something new",
+          "I'm curious what I haven't discovered in my own city yet",
+          "No idea — surprise me",
+        ],
       },
     },
     ageCategory: {
@@ -993,22 +1059,13 @@ const en: Dictionary = {
       ],
     },
     practicalToWild: {
-      label: "Grounded, or a little wild?",
+      label: "Keep it safe, or let it surprise you?",
       options: [
-        { value: "grounded", label: "Keep it grounded" },
-        { value: "practical", label: "Mostly practical" },
+        { value: "grounded", label: "Keep it predictable and familiar" },
+        { value: "practical", label: "Mostly practical, little surprise" },
         { value: "either", label: "Open to either" },
-        { value: "unexpected", label: "Lean unexpected" },
-        { value: "wild", label: "Take me somewhere wild" },
-      ],
-    },
-    surpriseLevel: {
-      label: "How much should we surprise you?",
-      options: [
-        { value: "barely", label: "Barely at all" },
-        { value: "little", label: "A little unexpected" },
-        { value: "weird", label: "Pleasantly weird" },
-        { value: "complete", label: "Surprise me completely" },
+        { value: "unexpected", label: "Surprise me now and then" },
+        { value: "wild", label: "Surprise me completely, take me somewhere wild" },
       ],
     },
     timeAvailable: {
@@ -1054,19 +1111,26 @@ const en: Dictionary = {
       "Two kinds of wishes: things that really can't happen (a hard limit), and things that would be nice but aren't essential (a preference). Not sure? Put it under preferences — we'll filter more loosely there.",
     mustHaves: {
       label: "What absolutely can't be missing — or has to stay away?",
-      sub: "Optional. Hard requirements only — think allergies, a pet that has to come along, a time that just doesn't work.",
+      sub: "Hard requirements only — think allergies, a pet that has to come along, a time that just doesn't work.",
       placeholder: "Needs to be dog-friendly, must be outdoors, no seafood…",
       suggestions: ["Needs to work with a dog", "No alcohol", "Wheelchair accessible"],
+      optionalHint: "Nothing hard? Feel free to skip.",
     },
     preferences: {
       label: "And what would be nice, but isn't a dealbreaker?",
-      sub: "Optional. Small nudges in a direction — we'll happily bend these if something else fits better.",
+      sub: "Small nudges in a direction — we'll happily bend these if something else fits better.",
       placeholder: "I'd love something creative, ideally outdoors…",
       suggestions: ["Ideally outdoors", "Something creative", "Not too busy"],
+      optionalHint: "No preference? That's fine too.",
     },
     company: {
       label: "Who's this window for?",
-      sub: "Who's coming along, if anyone.",
+      sub: {
+        self: "Who's coming along, if anyone.",
+        gift: "This is about who's there when the moment itself happens — not about who receives the gift.",
+        problem: "Who's coming along, if anyone.",
+        curious: "Who's coming along, if anyone.",
+      },
       options: [
         { value: "alone", label: "Just me" },
         { value: "partner", label: "A partner" },

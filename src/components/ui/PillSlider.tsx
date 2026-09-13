@@ -8,13 +8,18 @@ interface PillSliderProps {
   value: string;
   onChange: (value: string) => void;
   label?: string;
+  // Whether the user has actually interacted with this slider, vs. it still
+  // sitting on its neutral default. Sliders can't be "empty" the way a text
+  // field or an unpicked chip can, so without this cue a default reads as a
+  // deliberate answer — this renders a small hollow-vs-filled dot instead.
+  touched?: boolean;
 }
 
 // A discrete, labeled slider styled as a pill-shaped track. Interaction is
 // click-or-drag (pointer events) rather than a native <input type="range">,
 // so it looks like a slider but behaves like the app's existing chip
 // buttons — easier to keep visually consistent and accessible.
-export function PillSlider({ options, value, onChange, label }: PillSliderProps) {
+export function PillSlider({ options, value, onChange, label, touched = false }: PillSliderProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
 
@@ -87,7 +92,17 @@ export function PillSlider({ options, value, onChange, label }: PillSliderProps)
           {label}
         </p>
       )}
-      <p className="mt-1 text-lg font-medium text-ink">{options[activeIndex]}</p>
+      <p className="mt-1 flex items-center gap-2 text-lg font-medium text-ink">
+        {options[activeIndex]}
+        <span
+          aria-hidden="true"
+          title={touched ? undefined : "Standaardwaarde — nog niet aangeraakt"}
+          className={cn(
+            "inline-block h-1.5 w-1.5 rounded-full transition-colors",
+            touched ? "bg-accent" : "border border-ink/25 bg-transparent"
+          )}
+        />
+      </p>
 
       <div
         ref={trackRef}

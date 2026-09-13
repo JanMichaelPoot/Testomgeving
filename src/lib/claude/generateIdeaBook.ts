@@ -102,8 +102,7 @@ Purpose detail: ${intake.purposeFollowUp}
 Age bracket: ${intake.ageCategory}
 Location: ${intake.location}
 Search distance: ${intake.searchDistance}
-Practical-to-wild dial: ${intake.practicalToWild}
-Desired surprise level: ${intake.surpriseLevel}
+Comfort-zone-to-wild dial (how safe/predictable vs. surprising/adventurous): ${intake.practicalToWild}
 Time available: ${intake.timeAvailable}
 Budget: ${intake.budget}
 Willingness to put in effort: ${intake.effort}

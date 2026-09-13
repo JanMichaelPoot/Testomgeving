@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { PillSlider } from "@/components/ui/PillSlider";
@@ -44,6 +44,8 @@ interface PageConfig {
 function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
   const purposeKey = answers.purpose as keyof IntakeDict["purposeFollowUp"];
   const followUp = dict.purposeFollowUp[purposeKey] ?? dict.purposeFollowUp.self;
+  const companySubKey = answers.purpose as keyof IntakeDict["company"]["sub"];
+  const companySub = dict.company.sub[companySubKey] ?? dict.company.sub.self;
 
   return [
     {
@@ -74,6 +76,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           label: followUp.label,
           sub: followUp.sub,
           placeholder: followUp.placeholder,
+          suggestions: followUp.suggestions,
         },
       ],
     },
@@ -115,12 +118,6 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           type: "slider",
           label: dict.practicalToWild.label,
           options: dict.practicalToWild.options,
-        },
-        {
-          id: "surpriseLevel",
-          type: "slider",
-          label: dict.surpriseLevel.label,
-          options: dict.surpriseLevel.options,
         },
         {
           id: "timeAvailable",
@@ -186,7 +183,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           id: "company",
           type: "chips",
           label: dict.company.label,
-          sub: dict.company.sub,
+          sub: companySub,
           options: dict.company.options,
         },
       ],
@@ -205,7 +202,6 @@ const EMPTY_ANSWERS: IntakeAnswers = {
   location: "",
   searchDistance: "city",
   practicalToWild: "either",
-  surpriseLevel: "little",
   timeAvailable: "halfday",
   budget: "25",
   effort: "some",
@@ -214,6 +210,52 @@ const EMPTY_ANSWERS: IntakeAnswers = {
   preferences: "",
   company: "",
 };
+
+// Draft persistence — sessionStorage only (cleared on tab close and never
+// synced anywhere), so a refresh or an accidental back-navigation mid-intake
+// doesn't throw away answers, without keeping anything beyond the tab's
+// lifetime. Guarded for SSR (`typeof window === "undefined"`) and wrapped in
+// try/catch since storage can throw or be unavailable (private browsing).
+const DRAFT_KEY = "window-intake-draft-v1";
+
+interface IntakeDraft {
+  page: number;
+  answers: IntakeAnswers;
+}
+
+function loadDraft(): IntakeDraft | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.sessionStorage.getItem(DRAFT_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as { page?: number; answers?: Partial<IntakeAnswers> };
+    if (!parsed.answers) return null;
+    return {
+      page: typeof parsed.page === "number" ? parsed.page : 0,
+      answers: { ...EMPTY_ANSWERS, ...parsed.answers },
+    };
+  } catch {
+    return null;
+  }
+}
+
+function saveDraft(draft: IntakeDraft) {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  } catch {
+    // Storage full or unavailable — the draft simply isn't persisted.
+  }
+}
+
+function clearDraft() {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.removeItem(DRAFT_KEY);
+  } catch {
+    // Nothing to do if storage is unavailable.
+  }
+}
 
 function canContinuePage(page: PageConfig, answers: IntakeAnswers): boolean {
   return page.fields.every((field) => {
@@ -233,6 +275,32 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
   const [answers, setAnswers] = useState<IntakeAnswers>(EMPTY_ANSWERS);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [hydrated, setHydrated] = useState(false);
+  const [touchedSliders, setTouchedSliders] = useState<Set<StepId>>(new Set());
+
+  // Restore a draft (if any) once on mount, then start persisting on every
+  // change. The hydrated gate stops that first restore from immediately
+  // re-saving itself, and stops us from ever overwriting a real draft with
+  // the initial empty-answers render.
+  useEffect(() => {
+    // Deliberate one-time sync from an external system (sessionStorage) that
+    // can only be read after mount, to keep server and first-client render
+    // identical for hydration. Not a subscription, so the cascading-render
+    // caution behind this rule doesn't apply here.
+    const draft = loadDraft();
+    if (draft) {
+      // One-time hydration-safe restore from sessionStorage, not a render loop.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setPage(draft.page);
+      setAnswers(draft.answers);
+    }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    saveDraft({ page, answers });
+  }, [hydrated, page, answers]);
 
   const pages = useMemo(() => buildPages(answers, dict), [answers, dict]);
   const currentPage = pages[page];
@@ -278,7 +346,10 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
       try {
         await submitIntake(answers);
       } catch (err) {
-        if (isRedirectError(err)) throw err;
+        if (isRedirectError(err)) {
+          clearDraft();
+          throw err;
+        }
         setError(err instanceof Error ? err.message : dict.errorGeneric);
       }
     });
@@ -422,9 +493,11 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
               field.options.find((o) => o.value === (answers[field.id] as string))
                 ?.label ?? field.options[0].label
             }
+            touched={touchedSliders.has(field.id)}
             onChange={(label) => {
               const match = field.options.find((o) => o.label === label);
               if (match) setField(field.id, match.value);
+              setTouchedSliders((prev) => new Set(prev).add(field.id));
             }}
           />
         );
