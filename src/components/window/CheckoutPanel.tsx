@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/Button";
 import { isRedirectError } from "@/lib/isRedirectError";
-import { createCheckoutSession, skipPaymentForTesting } from "@/app/checkout/actions";
+import { createCheckoutSession } from "@/app/checkout/actions";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 function isValidEmail(value: string): boolean {
@@ -16,7 +16,6 @@ export function CheckoutPanel({ dict }: { dict: Dictionary["checkout"] }) {
   const [giftEmail, setGiftEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const [isTestPending, startTestTransition] = useTransition();
 
   const giftEmailValid = !isGift || isValidEmail(giftEmail);
   const canSubmit = waiverConfirmed && giftEmailValid;
@@ -36,22 +35,10 @@ export function CheckoutPanel({ dict }: { dict: Dictionary["checkout"] }) {
     });
   }
 
-  function handleSkipPayment() {
-    setError(null);
-    startTestTransition(async () => {
-      try {
-        await skipPaymentForTesting();
-      } catch (err) {
-        if (isRedirectError(err)) throw err;
-        setError(err instanceof Error ? err.message : dict.errorTest);
-      }
-    });
-  }
-
   return (
     <div>
       {/* Gift toggle */}
-      <div className="mb-6 rounded-2xl bg-cream p-5">
+      <div className="mb-6 rounded-lg border border-border bg-cream p-5">
         <div className="flex items-center justify-between gap-4">
           <span className="text-sm font-medium text-ink">{dict.giftToggleLabel}</span>
           <button
@@ -81,14 +68,14 @@ export function CheckoutPanel({ dict }: { dict: Dictionary["checkout"] }) {
               value={giftEmail}
               onChange={(e) => setGiftEmail(e.target.value)}
               placeholder={dict.giftEmailPlaceholder}
-              className="mt-1.5 w-full rounded-xl border border-ink/15 bg-paper px-3.5 py-2.5 text-sm text-ink shadow-sm outline-none placeholder:text-ink/35 focus:border-accent"
+              className="mt-1.5 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/35 focus:border-ink"
             />
           </div>
         )}
       </div>
 
       {/* Disclaimer */}
-      <p className="mb-5 rounded-xl bg-ink/4 p-4 text-xs leading-relaxed text-ink/60">
+      <p className="mb-5 rounded-lg bg-ink/4 p-4 text-xs leading-relaxed text-ink/60">
         {dict.disclaimer}
       </p>
 
@@ -98,8 +85,8 @@ export function CheckoutPanel({ dict }: { dict: Dictionary["checkout"] }) {
           aria-hidden="true"
           className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${
             waiverConfirmed
-              ? "border-accent bg-accent"
-              : "border-ink/25 bg-paper group-hover:border-accent/50"
+              ? "border-ink bg-ink"
+              : "border-ink/25 bg-paper group-hover:border-ink/50"
           }`}
         >
           {waiverConfirmed && (
@@ -131,21 +118,6 @@ export function CheckoutPanel({ dict }: { dict: Dictionary["checkout"] }) {
       >
         {isPending ? dict.ctaPending : dict.ctaIdle}
       </Button>
-
-      <div className="mt-6 rounded-xl border border-dashed border-amber-400 bg-amber-50 px-4 py-3">
-        <p className="text-xs font-medium uppercase tracking-widest text-amber-700">
-          {dict.testModeLabel}
-        </p>
-        <p className="mt-1 text-sm text-amber-800/80">{dict.testModeHelper}</p>
-        <button
-          type="button"
-          onClick={handleSkipPayment}
-          disabled={isTestPending}
-          className="mt-3 rounded-full border border-amber-400 bg-white px-4 py-2 text-sm font-medium text-amber-800 transition-colors hover:bg-amber-100 disabled:opacity-50"
-        >
-          {isTestPending ? dict.testModePending : dict.testModeCta}
-        </button>
-      </div>
     </div>
   );
 }

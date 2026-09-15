@@ -9,15 +9,13 @@ const sizes = {
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-cream disabled:pointer-events-none disabled:opacity-50";
 
 const variants = {
-  // The gold ring is a deliberate, small "foil edge" touch on the site's
-  // one most-repeated interactive element, echoing the Idea Book PDF's
-  // gold-foil borders without needing gold anywhere near body text.
-  primary:
-    "bg-accent text-white shadow-[0_0_0_1.5px_var(--color-gold),0_4px_16px_rgba(14,107,79,0.25)] hover:bg-accent-dark hover:shadow-[0_0_0_1.5px_var(--color-gold),0_6px_24px_rgba(14,107,79,0.35)]",
-  secondary: "bg-paper text-accent-dark border border-accent/15 shadow-sm hover:shadow-md hover:border-accent/30",
+  // Clean Premium Hybrid: no heavy shadows or "AI glow" — a flat fill and a
+  // 1px border are the only two states, per the current design system.
+  primary: "bg-ink text-white hover:bg-accent-dark",
+  secondary: "bg-paper text-ink border border-border hover:border-ink/30",
   ghost: "text-ink hover:bg-ink/5",
 };
 

@@ -75,13 +75,13 @@ export function LocationAutocomplete({
           setTimeout(() => setOpen(false), 120);
         }}
         placeholder={placeholder}
-        className="mt-3 w-full rounded-2xl border border-ink/15 bg-paper px-4 py-3 text-ink shadow-sm outline-none placeholder:text-ink/35 focus:border-accent"
+        className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/35 focus:border-ink"
       />
       {open && suggestions.length > 0 && (
         <ul
           id={id ? `${id}-listbox` : undefined}
           role="listbox"
-          className="absolute z-10 mt-1 w-full overflow-hidden rounded-xl border border-ink/10 bg-paper shadow-md"
+          className="absolute z-10 mt-1 w-full overflow-hidden rounded-lg border border-border bg-paper shadow-md"
         >
           {suggestions.map((suggestion) => (
             <li key={suggestion} role="option" aria-selected={suggestion === value}>
@@ -89,7 +89,7 @@ export function LocationAutocomplete({
                 type="button"
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => select(suggestion)}
-                className="block w-full px-4 py-2 text-left text-sm text-ink transition-colors hover:bg-accent/10"
+                className="block w-full px-4 py-2 text-left text-sm text-ink transition-colors hover:bg-surface-active"
               >
                 {suggestion}
               </button>

@@ -119,20 +119,28 @@ zodat we conform AVG zo min mogelijk herleidbare data bewaren.
 
 ## Merk & visuele identiteit
 
-- Accent: `#0E6B4F` (diep emerald), donker-accent `#083D2D`, goud-accent
-  `#B4924F` (alleen randen/badges, nooit body-tekst of knopvulling —
-  onvoldoende contrast tegen crème), inkt-tekst `#1A1A2E`, achtergrond
-  crème `#F5F3EE`, wit `#FFFFFF`. **Bijgewerkt in Stap 21** — oorspronkelijk
-  paars (`#6C3CE9`/`#4B2AA6`), op expliciet verzoek verschoven naar
-  emerald/goud om aan te sluiten bij de "quiet/vrolijke luxury"-restyle van
-  de Idea Book-PDF (Stap 18-19).
-- Serif voor headlines (bv. Google Font "Fraunces" of "Playfair Display"),
-  clean sans-serif voor body (bv. "Inter").
-- Terugkerend visueel motief: het venster-frame (zie meegeleverde
-  landingspagina-mockup als referentie) — meerdere "vensters"/panelen die
-  verschillende mogelijkheden tonen.
-- Rounded pill-buttons, veel witruimte, zachte schaduwen — premium SaaS/
-  reismerk-gevoel, geen corporate dashboard-stijl.
+- Accent: `#0F766E` (diep teal), donker-accent/hover `#115E59`, primaire
+  knoppen/CTA's vullen met inkt-zwart `#111827` (niet de accentkleur).
+  Achtergrond `#FAFAFA`, kaarten/oppervlakken wit `#FFFFFF`, randen
+  `#E5E7EB`, geselecteerde/actieve vulling `#F9FAFB`. **Bijgewerkt in
+  Stap 24** — oorspronkelijk emerald/goud "quiet/vrolijke luxury"
+  (Stap 18-21), op expliciet verzoek vervangen door de "Clean Premium
+  Hybrid"-identiteit hieronder. `--color-gold` (`#B4924F`) blijft
+  gedefinieerd maar wordt door nieuw werk niet meer gebruikt — alleen nog
+  gelezen door schermen die deze stap bewust ongemoeid liet (zie Stap 24).
+- Serif voor landingspagina-headlines (Google Font "Newsreader", was
+  "Fraunces"); overal elders — inclusief Intake- en Checkout-koppen, die
+  bewust géén serif meer zijn — een strakke sans-serif ("Plus Jakarta
+  Sans", was "Inter") met lichte negatieve tracking op koppen.
+- Border-radius als vast systeem: `8px` (kaarten, inputs), `6px`
+  (knoppen — niet langer volle pillen), `9999px` (pil-badges, bv. de
+  "Stap X van Y"-indicator). 8px-spacinggrid (8/16/24/32/48).
+- Geen zware schaduwen of "AI-glow"-effecten (geen blurred gloeiende
+  cirkels, geen foil-knoprand) — een subtiele 1px-rand (`#E5E7EB`) is het
+  standaardmiddel om een vlak van zijn omgeving te onderscheiden.
+- Terugkerend visueel motief: het venster-frame (het `WindowMark`-icoon,
+  en het patroon van "vensters"/panelen die verschillende mogelijkheden
+  tonen) — blijft, ook na Stap 24.
 
 ---
 
@@ -1125,3 +1133,156 @@ Stripe, Claude API, Resend, PostHog).
       Claude-output (met een verwijzing naar Landgoed Amelisweerd en de
       Kromme Rijn) rendert overal correct in de nieuwe stijl. Nog steeds
       exact 9 pagina's. `tsc --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 24 — "Clean Premium Hybrid" UI/UX-redesign van Landing, Intake
+      en Checkout, op basis van een gedetailleerde eigen specificatie.
+      Uitsluitend visueel/structureel (typografie, spacing, componentontwerp,
+      layout) — geen enkele wijziging aan state, server actions, routes,
+      velden of het datamodel.
+
+      **Voorafgaand: codebase-drift geconstateerd en veiliggesteld.** Bij het
+      oppakken van deze stap bleek de werkmap fors afgeweken te zijn van wat
+      deze sessie's eigen Stap-log beschreef — commits `43c292a` en
+      `f8f5c59` (beide door de projecteigenaar zelf, niet door deze sessie)
+      plus een grote hoeveelheid ongecommit werk voor een parallel,
+      "WindowInto master-prompt"-gedreven traject met een eigen
+      "Fase 1-7"-nummering (Open Doors/Serendipity Engine, karakterprofiel,
+      een `/admin`-auditlog-omgeving, idee-feedback, Unsplash-gebaseerde
+      fotografie i.p.v. de eigen Gemini-illustraties). Dat bleek geen
+      vreemde/ongeautoriseerde wijziging maar werk van de gebruiker zelf in
+      een aparte, parallelle sessie op dezelfde repository. Uit
+      voorzorg is dat ongecommitte werk (~3300 regels, o.a. `src/app/admin/`,
+      `src/lib/characterProfile.ts`, `src/lib/discoveryProfile.ts`,
+      `src/lib/possibilityMap.ts`, `src/lib/auditLog.ts`, de audit-log- en
+      idee-feedback-migraties) eerst in een eigen commit vastgelegd voordat
+      deze stap begon — puur een veiligheidsmaatregel tegen dataverlies bij
+      gelijktijdig bewerken van dezelfde bestanden, geen inhoudelijke
+      wijziging. Deze stap raakt bewust geen van die bestanden, noch
+      `dictionaries.ts`, `generateIdeaBook.ts`, `ideaBookTypes.ts`,
+      `IdeaBookViewer.tsx`, `GeneratingScreen.tsx` of `IdeaDetail.tsx` — die
+      staan actief in ontwikkeling in dat andere traject.
+
+      **Design tokens** (`globals.css`): `--color-accent` verschoven van
+      emerald naar diep teal (`#0F766E`/`#115E59`), `--color-ink` naar
+      `#111827`, `--color-cream`/`--color-paper` naar `#FAFAFA`/`#FFFFFF`,
+      plus twee nieuwe tokens `--color-border` (`#E5E7EB`) en
+      `--color-surface-active` (`#F9FAFB`) — dezelfde truc als Stap 21:
+      centrale tokens aanpassen kleurt automatisch de hele site mee, zonder
+      elk bestand apart te hoeven aanpassen. `--color-gold` blijft
+      gedefinieerd (ongewijzigd) omdat de niet-geraakte schermen
+      (Idea Book-viewer, generating-screen) er nog naar verwijzen.
+      **Typografie**: Fraunces/Inter vervangen door Newsreader (serif,
+      alleen landing-headlines) en Plus Jakarta Sans (sans, overal elders +
+      body) via `next/font/google` in `layout.tsx`. Intake- en
+      Checkout-koppen zijn expliciet omgezet van `font-serif` naar
+      `font-sans font-semibold tracking-[-0.02em]`, conform de eigen
+      specificatie dat alleen de landingspagina de serif-koppen behoudt.
+      **Componenten**: `Button.tsx` van volle pillen (`rounded-full`) naar
+      `rounded-md` (6px), de gouden "foil"-knoprand verwijderd, primaire
+      knop nu een vlakke inkt-vulling (geen schaduw/glow). `PillSlider.tsx`
+      volledig herbouwd van een sleep-thumb-op-een-trackje naar een
+      segmented control (rij knoppen in één `role="radiogroup"`, actieve
+      stap inkt-gevuld) — rechtstreeks de gevraagde oplossing voor het
+      "faded/onduidelijk contrast"-probleem, met dezelfde
+      toetsenbordnavigatie (pijltjes/Home/End) als voorheen.
+
+      **Landing**: de 2x2-fotocollage-in-een-donker-frame
+      (`WindowIllustration`) vervangen door één rustige, afgeronde
+      productmockup-kaart met een subtiele rand (geen zware schaduw).
+      Primaire/secundaire CTA's staan nu naast elkaar zonder afleidende
+      onderschrift-tekst direct eronder — de prijsvermelding is verplaatst
+      naar het eyebrow-badge boven de headline. "Wat je krijgt"-kaarten,
+      testimonial-kaarten en de sluitings-CTA-banner zijn meegenomen naar
+      hetzelfde tokens-systeem (8px-radius, `border-border`, geen
+      blurred-gloed-cirkels achter de banner meer).
+      **Intake** (`IntakeWizard.tsx`): de linker full-bleed sfeerfoto met
+      donkere overlay (desktop-only split-layout) is volledig verwijderd
+      — nu één centrale kaart op elke breedte. De losse segmented-
+      voortgangsbalk + mobiele "Stap X van Y"-tekst zijn vervangen door één
+      "Stap X van Y"-pilbadge (altijd zichtbaar) plus een dunne (2px)
+      geanimeerde voortgangsbalk eronder. Chip-/multi-chipkaarten hebben nu
+      een consistente `ChipOption`-component: bij selectie een 2px
+      inkt-rand + lichte vulling (`--color-surface-active`) + een
+      vinkje-icoon, in plaats van een kleurverzadigde accent-rand zonder
+      icoon. De nu ongebruikte `image`-velden (`PageConfig`/`buildPages`,
+      `INTAKE_STOCK_PHOTOS`) zijn opgeruimd i.p.v. dode code achter te
+      laten.
+      **Checkout**: van één kolom naar een 2-koloms lay-out (linker
+      besteloverzicht met prijs + stappen, rechter paneel met cadeau-
+      toggle/disclaimer/waiver/CTA — stort samen tot één kolom onder
+      `lg:`). De groene genummerde cirkels zijn vervangen door een echte
+      verticale tijdlijn met verbindingslijn en afgevinkte iconen. De
+      opvallende gele test-mode-blokkade midden in het paneel is eruit
+      gehaald; een nieuwe, losse `TestModeBanner.tsx` (dezelfde
+      `skipPaymentForTesting`-server-action) toont 'm nu als een smalle,
+      niet-opdringerige balk direct onder de header, boven de rest van de
+      pagina.
+      Getest: volledige wizard doorlopen in de browser (alle 5 pagina's,
+      chip-selectie met vinkje, segmented sliders klikken + toetsenbord,
+      draft-persistence ongemoeid), checkout in 2-koloms en (375px)
+      1-koloms weergave, en een volledige echte testgeneratie via de
+      bestaande test-bypass — de bestaande, ongewijzigde `/plan`-pagina
+      rendert daarna probleemloos mee in de nieuwe teal/zwart-kleurstelling
+      (bevestigt dat de tokens-aanpak geen van de niet-geraakte schermen
+      breekt). `tsc --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 25 — Zes nieuwe fotorealistische "luxe magazine"-stillevens
+      toegevoegd aan Landing, alle 5 Intake-pagina's en Checkout, op
+      expliciet verzoek na feedback dat Stap 24's minimalisme "niet
+      aantrekkelijk en professioneel" oogde. Herstelt bewust een deel van de
+      fotorijkdom die Stap 24 had weggehaald, maar dan passend bij de
+      Clean Premium Hybrid-vormtaal (geen donkere overlay, geen tekst over
+      de foto — de foto is een decoratief, op zichzelf staand beeld naast
+      de content, niet een achtergrond eronder).
+      **Nieuwe beelden**: `scripts/generate-luxury-illustrations.ts`
+      (nieuw script, zelfde `generateIllustration()`-patroon als de
+      bestaande generatiescripts) genereert zes vaste stillevens —
+      kompas-op-landkaart, leren kledinghanger, analoog mengpaneel
+      (aluminium/walnoot), vensterkozijn met uitzicht op een zonnige
+      binnenplaats, glazen prisma met lichtstraal, marmeren schaal met
+      strijklicht — met een eigen `STYLE_PREFIX` (warme neutrale tinten,
+      Kinfolk/Cereal-achtige editorial-fotografie) losstaand van de
+      bestaande emerald/goud-stijlprefix in `generate-illustrations.ts`,
+      bewust omdat deze set de nieuwe, terughoudender teal/zwart-identiteit
+      ondersteunt in plaats van een eigen kleur op te dringen — de
+      omringende UI draagt het accent, de foto's blijven neutraal.
+      Opgeslagen onder `public/illustrations/luxury/`, geëxporteerd via
+      nieuwe `LUXURY_ILLUSTRATIONS`- en `INTAKE_LUXURY_PHOTOS`-constanten in
+      `src/lib/illustrations.ts`.
+      **Toewijzing per pagina** (zelf gekozen op thematische klik, zoals
+      gevraagd): het vensterkozijn-met-uitzicht op de landing-hero (een
+      letterlijke weergave van het eigen "venster"-motief) én, als bewuste
+      callback/bookend, nogmaals — breder bijgesneden — op checkout, boven
+      het besteloverzicht. Kompas-op-landkaart op Intake-pagina 1
+      ("Jouw situatie" — richting bepalen), leren kledinghanger op pagina 2
+      ("Over jou"), het mengpaneel op pagina 3 ("Jouw stijl" — de letterlijk
+      dichtstbijzijnde klik: knoppen/schuiven verstellen, exact wat de
+      sliders op die pagina doen), het prisma op pagina 4 ("Waar je voor
+      openstaat" — licht dat in meerdere richtingen uiteenvalt, past bij
+      meerdere soorten mogelijkheden), de marmeren schaal op pagina 5
+      ("Laatste stap" — rustige afsluiting).
+      **Layout**: `IntakeWizard.tsx` heeft de linkerkolom-foto (verwijderd
+      in Stap 24) teruggekregen — desktop-only, `md:w-2/5`, zonder de oude
+      donkere overlay/koptekst-over-de-foto van vóór Stap 24; alle tekst
+      blijft in de rechterkolom, de foto is nu puur decoratief. `page.tsx`
+      (landing) en `checkout/page.tsx` gebruiken dezelfde
+      `LUXURY_ILLUSTRATIONS.windowView` op twee plekken met verschillende
+      `aspect-*`-crops (`aspect-4/3` groot op landing, `aspect-[16/9]`
+      compact op checkout) in plaats van een los zevende beeld te
+      genereren voor checkout.
+      **Opgeschoond**: de nu volledig ongebruikte oude
+      `LANDING_HERO_ILLUSTRATION`/`WIZARD_PAGE_ILLUSTRATIONS`-constanten
+      (Stap 8/21, hadden al geen enkele aanroeper meer sinds de "Figma Make
+      prototype"-commit de site op Unsplash-stockfoto's zette) en
+      `HERO_WINDOW_PANELS`/`INTAKE_STOCK_PHOTOS` (dat Unsplash-stockfoto's
+      set, overbodig zodra de landing/wizard weer eigen, self-hosted
+      beelden gebruiken) zijn verwijderd uit `src/lib/illustrations.ts`.
+      `IDEA_HERO_PHOTOS`/`ideaHeroPhoto` (nog actief gebruikt door
+      `IdeaDetail.tsx`, onderdeel van het andere, parallelle traject) is
+      bewust ongemoeid gelaten.
+      Getest: alle 6 nieuwe beelden individueel visueel geïnspecteerd vóór
+      gebruik; de volledige wizard doorlopen in de browser (elke pagina
+      toont het juiste, bedoelde beeld, inclusief een korte controle dat
+      mobiel — 375px — de foto-kolom netjes verbergt in plaats van een
+      kapotte layout te geven) en checkout met de hergebruikte
+      vensterfoto. `tsc --noEmit`/`eslint .`/`npm run build` schoon.

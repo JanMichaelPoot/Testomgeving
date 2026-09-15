@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
 import { submitIntake, type IntakeAnswers } from "@/app/intake/actions";
-import { INTAKE_STOCK_PHOTOS } from "@/lib/illustrations";
 import { WindowMark } from "@/components/window/WindowMark";
+import { INTAKE_LUXURY_PHOTOS } from "@/lib/illustrations";
 import type { Dictionary, Option } from "@/lib/i18n/dictionaries";
 
 type StepId = keyof IntakeAnswers;
@@ -53,7 +53,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "situation",
       heading: dict.pages.situation.heading,
       subheading: dict.pages.situation.subheading,
-      image: INTAKE_STOCK_PHOTOS[0],
+      image: INTAKE_LUXURY_PHOTOS[0],
       fields: [
         {
           id: "situation",
@@ -85,7 +85,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "about",
       heading: dict.pages.about.heading,
       subheading: dict.pages.about.subheading,
-      image: INTAKE_STOCK_PHOTOS[1],
+      image: INTAKE_LUXURY_PHOTOS[1],
       fields: [
         {
           id: "ageCategory",
@@ -119,7 +119,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "dials",
       heading: dict.pages.dials.heading,
       subheading: dict.pages.dials.subheading,
-      image: INTAKE_STOCK_PHOTOS[2],
+      image: INTAKE_LUXURY_PHOTOS[2],
       fields: [
         {
           id: "practicalToWild",
@@ -157,8 +157,8 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "openness",
       heading: dict.pages.openness.heading,
       subheading: dict.pages.openness.subheading,
+      image: INTAKE_LUXURY_PHOTOS[3],
       intro: dict.opennessIntro,
-      image: INTAKE_STOCK_PHOTOS[3],
       fields: [
         {
           id: "solutionTypes",
@@ -201,7 +201,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "final",
       heading: dict.pages.final.heading,
       subheading: dict.pages.final.subheading,
-      image: INTAKE_STOCK_PHOTOS[4],
+      image: INTAKE_LUXURY_PHOTOS[4],
       fields: [
         {
           id: "company",
@@ -282,6 +282,41 @@ function clearDraft() {
   } catch {
     // Nothing to do if storage is unavailable.
   }
+}
+
+// Selection card used by both the single-choice ("chips") and multi-choice
+// ("multi-chips") field types — a 2px ink border plus a light fill and a
+// checkmark communicates "selected" without relying on a color/contrast
+// shift alone.
+function ChipOption({
+  label,
+  selected,
+  onClick,
+}: {
+  label: string;
+  selected: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={selected}
+      onClick={onClick}
+      className={cn(
+        "flex min-h-13 items-center justify-between gap-3 rounded-lg border-2 px-4 py-3.5 text-left text-sm font-medium transition-colors",
+        selected
+          ? "border-ink bg-surface-active text-ink"
+          : "border-border bg-paper text-ink hover:border-ink/30"
+      )}
+    >
+      <span>{label}</span>
+      {selected && (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+          <path d="M3 8.5l3.2 3.2L13 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )}
+    </button>
+  );
 }
 
 function canContinuePage(page: PageConfig, answers: IntakeAnswers): boolean {
@@ -399,7 +434,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
                     key={suggestion}
                     type="button"
                     onClick={() => setField(field.id, suggestion)}
-                    className="rounded-full border border-ink/15 bg-paper px-3.5 py-1.5 text-xs text-ink/70 transition-colors hover:border-accent/50 hover:text-ink"
+                    className="rounded-full border border-border bg-paper px-3.5 py-1.5 text-xs text-ink/70 transition-colors hover:border-ink/40 hover:text-ink"
                   >
                     {suggestion}
                   </button>
@@ -412,7 +447,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
               onChange={(e) => setField(field.id, e.target.value)}
               placeholder={field.placeholder}
               rows={3}
-              className="mt-3 w-full rounded-2xl border border-ink/15 bg-paper px-4 py-3 text-ink shadow-sm outline-none placeholder:text-ink/35 focus:border-accent"
+              className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink leading-relaxed outline-none placeholder:text-ink/35 focus:border-ink"
             />
             {field.optionalHint && !(answers[field.id] as string).trim() && (
               <p className="mt-2 text-xs text-ink/45">{field.optionalHint}</p>
@@ -437,20 +472,12 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
               {field.options.map((option) => {
                 const selected = currentValue === option.value;
                 return (
-                  <button
+                  <ChipOption
                     key={option.value}
-                    type="button"
-                    aria-pressed={selected}
+                    label={option.label}
+                    selected={selected}
                     onClick={() => setField(field.id, option.value)}
-                    className={cn(
-                      "min-h-11 rounded-2xl border-2 px-4 py-3.5 text-left text-sm font-medium shadow-sm transition-all hover:shadow-md",
-                      selected
-                        ? "border-accent bg-accent/10 text-accent-dark"
-                        : "border-ink/12 bg-paper text-ink hover:border-accent/40"
-                    )}
-                  >
-                    {option.label}
-                  </button>
+                  />
                 );
               })}
             </div>
@@ -473,20 +500,12 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
               {field.options.map((option) => {
                 const selected = answers.solutionTypes.includes(option.value);
                 return (
-                  <button
+                  <ChipOption
                     key={option.value}
-                    type="button"
-                    aria-pressed={selected}
+                    label={option.label}
+                    selected={selected}
                     onClick={() => toggleSolutionType(option.value)}
-                    className={cn(
-                      "min-h-11 rounded-2xl border-2 px-4 py-3.5 text-left text-sm font-medium shadow-sm transition-all hover:shadow-md",
-                      selected
-                        ? "border-accent bg-accent/10 text-accent-dark"
-                        : "border-ink/12 bg-paper text-ink hover:border-accent/40"
-                    )}
-                  >
-                    {option.label}
-                  </button>
+                  />
                 );
               })}
             </div>
@@ -513,7 +532,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
       case "toggle": {
         const checked = answers[field.id] as boolean;
         return (
-          <div key={field.id} className="flex items-center justify-between gap-4 rounded-2xl bg-paper p-5 shadow-sm">
+          <div key={field.id} className="flex items-center justify-between gap-4 rounded-lg border border-border bg-paper p-5">
             <div>
               <p className="font-medium text-ink">{field.label}</p>
               {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
@@ -561,10 +580,14 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
     }
   }
 
+  const progressPercent = ((page + 1) / pages.length) * 100;
+
   return (
-    <div className="flex w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-accent/10 bg-paper shadow-sm md:flex-row">
-      {/* Left: full-bleed photo, desktop only */}
-      <div className="relative hidden md:block md:w-2/5 md:flex-shrink-0">
+    <div className="flex w-full max-w-5xl flex-col overflow-hidden rounded-lg border border-border bg-paper md:flex-row">
+      {/* Left: editorial still-life photo, desktop only — a magazine-style
+          "opener" image for the page, not a dark overlay/backdrop like the
+          pre-Stap-24 layout. Text stays entirely in the right column. */}
+      <div className="relative hidden shrink-0 overflow-hidden bg-cream md:block md:w-2/5">
         <Image
           key={currentPage.image}
           src={currentPage.image}
@@ -574,44 +597,32 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
           className="animate-window-fade-in object-cover"
           priority={page === 0}
         />
-        <div className="absolute inset-0 bg-accent-dark/50" />
-        <div className="absolute inset-0 flex flex-col justify-end p-8">
-          <WindowMark className="h-8 w-8 text-white" />
-          <h2 className="mt-5 font-serif text-2xl font-semibold leading-snug text-white sm:text-3xl">
-            {currentPage.heading}
-          </h2>
-          <p className="mt-2 text-sm text-white/60">
-            {dict.stepWord} {page + 1} {dict.ofWord} {pages.length}
-          </p>
-        </div>
       </div>
 
       {/* Right: form */}
-      <div className="flex flex-1 flex-col bg-cream">
+      <div className="flex flex-1 flex-col">
         <div className="px-6 pt-8 sm:px-10">
-          <div className="flex items-center gap-1.5">
-            {pages.map((p, i) => (
-              <div
-                key={p.id}
-                className={cn(
-                  "h-1 flex-1 rounded-full transition-colors",
-                  i <= page ? "bg-accent" : "bg-accent/15"
-                )}
-              />
-            ))}
+          <div className="flex items-center justify-between gap-4">
+            <span className="inline-flex items-center gap-2 rounded-full bg-surface-active px-3 py-1 text-xs font-medium text-ink/70">
+              <WindowMark className="h-3.5 w-3.5 text-ink/50" />
+              {dict.stepWord} {page + 1} {dict.ofWord} {pages.length}
+            </span>
           </div>
-          <p className="mt-3 text-xs font-medium uppercase tracking-widest text-accent-dark md:hidden">
-            {dict.stepWord} {page + 1} {dict.ofWord} {pages.length}
-          </p>
+          <div className="mt-4 h-0.5 w-full overflow-hidden rounded-full bg-border">
+            <div
+              className="h-full rounded-full bg-ink transition-[width] duration-300 ease-out"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
         </div>
 
-        <div key={currentPage.id} className="animate-window-page-in flex-1 px-6 pb-4 pt-6 sm:px-10">
-          <h1 className="font-serif text-3xl text-ink sm:text-4xl md:hidden">
+        <div key={currentPage.id} className="animate-window-page-in flex-1 px-6 pb-4 pt-8 sm:px-10">
+          <h1 className="font-sans text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
             {currentPage.heading}
           </h1>
           <p className="mt-2 text-ink/60">{currentPage.subheading}</p>
           {currentPage.intro && (
-            <p className="mt-4 rounded-2xl bg-accent/5 px-4 py-3 text-sm text-ink/70">
+            <p className="mt-4 rounded-lg border border-border bg-surface-active px-4 py-3 text-sm text-ink/70">
               {currentPage.intro}
             </p>
           )}
@@ -627,7 +638,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
           )}
         </div>
 
-        <div className="flex items-center justify-between border-t border-accent/10 px-6 py-6 sm:px-10">
+        <div className="flex items-center justify-between border-t border-border px-6 py-6 sm:px-10">
           {page > 0 ? (
             <Button variant="ghost" onClick={goBack} disabled={isPending}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

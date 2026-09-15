@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { CheckoutPanel } from "@/components/window/CheckoutPanel";
+import { TestModeBanner } from "@/components/window/TestModeBanner";
+import { LUXURY_ILLUSTRATIONS } from "@/lib/illustrations";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { formatPrice } from "@/lib/pricing";
@@ -37,10 +40,11 @@ export default async function CheckoutPage() {
   return (
     <div className="flex min-h-full flex-col bg-cream">
       <SiteHeader locale={locale} dict={dict.header} />
-      <main className="mx-auto w-full max-w-xl flex-1 px-6 py-12 sm:px-10">
+      <TestModeBanner dict={dict.checkout} />
+      <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-12 sm:px-10">
         <Link
           href="/intake"
-          className="mb-8 inline-flex items-center gap-2 text-sm text-ink/60 transition-colors hover:text-accent"
+          className="mb-8 inline-flex items-center gap-2 text-sm text-ink/60 transition-colors hover:text-ink"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -48,27 +52,47 @@ export default async function CheckoutPage() {
           {dict.intake.back}
         </Link>
 
-        <div className="rounded-3xl border border-gold/30 bg-paper p-8 shadow-sm sm:p-10">
-          <div className="mb-8 flex items-start justify-between gap-4 border-b border-ink/8 pb-8">
-            <div>
-              <h1 className="font-serif text-3xl font-semibold text-ink">{dict.checkout.heading}</h1>
-              <p className="mt-1 max-w-xs text-sm text-ink/60">{dict.checkout.subcopy}</p>
+        <div className="grid gap-6 rounded-lg border border-border bg-paper p-8 sm:p-10 lg:grid-cols-[1fr_1.1fr]">
+          {/* Left: order summary */}
+          <div className="lg:border-r lg:border-border lg:pr-10">
+            {/* Same still life as the landing hero, cropped wider here —
+                an intentional bookend: the window that's about to open. */}
+            <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-lg border border-border bg-cream">
+              <Image
+                src={LUXURY_ILLUSTRATIONS.windowView}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 30vw, 90vw"
+                className="object-cover"
+              />
             </div>
-            <div className="shrink-0 text-right">
-              <p className="font-serif text-4xl font-semibold text-accent">{price}</p>
-              <p className="text-xs text-ink/50">{dict.checkout.priceCaption}</p>
-            </div>
-          </div>
 
-          <div className="mb-8">
-            <h2 className="mb-5 text-sm font-medium text-ink">{dict.checkout.stepsHeading}</h2>
-            <ol className="flex flex-col gap-4">
+            <h1 className="font-sans text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
+              {dict.checkout.heading}
+            </h1>
+            <p className="mt-1 text-sm text-ink/60">{dict.checkout.subcopy}</p>
+
+            <div className="mt-6 flex items-baseline gap-2 rounded-lg bg-surface-active px-4 py-3">
+              <span className="font-serif text-3xl font-semibold text-ink">{price}</span>
+              <span className="text-xs text-ink/50">{dict.checkout.priceCaption}</span>
+            </div>
+
+            <h2 className="mt-8 text-sm font-medium text-ink">{dict.checkout.stepsHeading}</h2>
+            <ol className="relative mt-5 flex flex-col gap-6">
               {dict.checkout.steps.map((step, i) => (
-                <li key={i} className="flex items-start gap-4">
-                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-xs font-medium text-white">
-                    {i + 1}
+                <li key={i} className="relative flex items-start gap-4">
+                  {i < dict.checkout.steps.length - 1 && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-3 top-7 h-[calc(100%+0.5rem)] w-px bg-border"
+                    />
+                  )}
+                  <span className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-ink bg-ink text-white">
+                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+                      <path d="M1 5l3.5 4L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </span>
-                  <span className="text-sm leading-relaxed text-ink/70">
+                  <span className="pt-0.5 text-sm leading-relaxed text-ink/70">
                     {step.replace("{price}", price)}
                   </span>
                 </li>
@@ -76,7 +100,10 @@ export default async function CheckoutPage() {
             </ol>
           </div>
 
-          <CheckoutPanel dict={dict.checkout} />
+          {/* Right: gift/waiver/payment */}
+          <div className="lg:pl-0">
+            <CheckoutPanel dict={dict.checkout} />
+          </div>
         </div>
       </main>
     </div>
