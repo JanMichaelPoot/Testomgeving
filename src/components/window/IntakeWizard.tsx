@@ -30,7 +30,8 @@ type FieldConfig =
   | { id: StepId; type: "chips"; label: string; sub?: string; options: Option[] }
   | { id: StepId; type: "multi-chips"; label: string; sub?: string; options: Option[] }
   | { id: StepId; type: "slider"; label: string; sub?: string; options: Option[] }
-  | { id: StepId; type: "location"; label: string; sub?: string; placeholder: string };
+  | { id: StepId; type: "location"; label: string; sub?: string; placeholder: string }
+  | { id: StepId; type: "toggle"; label: string; sub?: string };
 
 interface PageConfig {
   id: string;
@@ -105,6 +106,13 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           label: dict.searchDistance.label,
           options: dict.searchDistance.options,
         },
+        {
+          id: "freeTimePattern",
+          type: "chips",
+          label: dict.freeTimePattern.label,
+          sub: dict.freeTimePattern.sub,
+          options: dict.freeTimePattern.options,
+        },
       ],
     },
     {
@@ -118,6 +126,12 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           type: "slider",
           label: dict.practicalToWild.label,
           options: dict.practicalToWild.options,
+        },
+        {
+          id: "challengeMe",
+          type: "toggle",
+          label: dict.challengeMe.label,
+          sub: dict.challengeMe.sub,
         },
         {
           id: "timeAvailable",
@@ -171,6 +185,16 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           optional: true,
           suggestions: dict.preferences.suggestions,
         },
+        {
+          id: "personalReflection",
+          type: "text",
+          label: dict.personalReflection.label,
+          sub: dict.personalReflection.sub,
+          placeholder: dict.personalReflection.placeholder,
+          optional: true,
+          optionalHint: dict.personalReflection.optionalHint,
+          suggestions: dict.personalReflection.suggestions,
+        },
       ],
     },
     {
@@ -201,13 +225,16 @@ const EMPTY_ANSWERS: IntakeAnswers = {
   ageCategory: "35-44",
   location: "",
   searchDistance: "city",
+  freeTimePattern: "",
   practicalToWild: "either",
+  challengeMe: false,
   timeAvailable: "halfday",
   budget: "25",
   effort: "some",
   solutionTypes: [],
   mustHaves: "",
   preferences: "",
+  personalReflection: "",
   company: "",
 };
 
@@ -259,7 +286,7 @@ function clearDraft() {
 
 function canContinuePage(page: PageConfig, answers: IntakeAnswers): boolean {
   return page.fields.every((field) => {
-    if (field.type === "slider") return true;
+    if (field.type === "slider" || field.type === "toggle") return true;
     if (field.type === "multi-chips") return answers.solutionTypes.length > 0;
     if (field.type === "text") {
       if (field.optional) return true;
@@ -480,6 +507,36 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
               onChange={(value) => setField(field.id, value)}
               placeholder={field.placeholder}
             />
+          </div>
+        );
+      }
+      case "toggle": {
+        const checked = answers[field.id] as boolean;
+        return (
+          <div key={field.id} className="flex items-center justify-between gap-4 rounded-2xl bg-paper p-5 shadow-sm">
+            <div>
+              <p className="font-medium text-ink">{field.label}</p>
+              {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
+            </div>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={checked}
+              onClick={() =>
+                setAnswers((prev) => ({ ...prev, [field.id]: !checked }))
+              }
+              className={cn(
+                "relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200",
+                checked ? "bg-accent" : "bg-ink/15"
+              )}
+            >
+              <span
+                className={cn(
+                  "absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200",
+                  checked ? "translate-x-6" : "translate-x-1"
+                )}
+              />
+            </button>
           </div>
         );
       }

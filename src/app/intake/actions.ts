@@ -21,6 +21,11 @@ export interface IntakeAnswers {
   ageCategory: string;
   location: string;
   searchDistance: string;
+  // A behavioral scenario question ("a free Saturday opens up — what do you
+  // do?") rather than a direct self-rating — see src/lib/characterProfile.ts
+  // for why this reads as a more honest character signal than asking
+  // "are you spontaneous?" outright.
+  freeTimePattern: string;
   practicalToWild: string;
   timeAvailable: string;
   budget: string;
@@ -29,6 +34,15 @@ export interface IntakeAnswers {
   mustHaves: string;
   preferences: string;
   company: string;
+  // Explicit opt-in to a bigger stretch, independent of the practicalToWild
+  // dial's position — someone can sit near "safe" on the dial but still
+  // tick this, which is itself a signal (see characterProfile.ts).
+  challengeMe: boolean;
+  // The single open question the WindowInto brief asks to weigh heavily in
+  // generation ("what would you secretly love to do more of?") — optional,
+  // since forcing it would read as an interview, but strongly invited via
+  // suggestion chips.
+  personalReflection: string;
 }
 
 // The locale is not answered by the user in the wizard — it's whatever the

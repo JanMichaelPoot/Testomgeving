@@ -1,4 +1,4 @@
-// Hand-written to match supabase/migrations/0001_init.sql.
+// Hand-written to match supabase/migrations/*.sql (0001 through 0009).
 // Once the project is linked to a real Supabase instance, regenerate with:
 //   npx supabase gen types typescript --linked > src/types/database.ts
 
@@ -144,6 +144,9 @@ export interface Database {
           image_url: string | null;
           recipient_email: string | null;
           first_action_reminder_sent_at: string | null;
+          // Fase 6 (Interaction & Retention) — per-idea thumbs reaction, see
+          // supabase/migrations/0009_idea_feedback.sql.
+          feedback_json: Record<string, string>;
           created_at: string;
         };
         Insert: {
@@ -162,6 +165,7 @@ export interface Database {
           image_url?: string | null;
           recipient_email?: string | null;
           first_action_reminder_sent_at?: string | null;
+          feedback_json?: Record<string, string>;
           created_at?: string;
         };
         Update: Partial<
@@ -208,6 +212,37 @@ export interface Database {
             referencedColumns: ["id"];
           },
         ];
+      };
+      // Deliberately has no foreign key to any other table — see
+      // supabase/migrations/0008_audit_log.sql for why this row can never
+      // be traced back to a session or person.
+      audit_log: {
+        Row: {
+          id: string;
+          created_at: string;
+          locale: string;
+          input_json: Record<string, unknown>;
+          output_profile_summary: string | null;
+          output_must_haves: string[];
+          output_preferences: string[];
+          output_ideas_json: unknown[];
+          output_wildcard_json: Record<string, unknown> | null;
+          email_delivered: boolean;
+        };
+        Insert: {
+          id?: string;
+          created_at?: string;
+          locale: string;
+          input_json?: Record<string, unknown>;
+          output_profile_summary?: string | null;
+          output_must_haves?: string[];
+          output_preferences?: string[];
+          output_ideas_json?: unknown[];
+          output_wildcard_json?: Record<string, unknown> | null;
+          email_delivered?: boolean;
+        };
+        Update: Partial<Database["public"]["Tables"]["audit_log"]["Insert"]>;
+        Relationships: [];
       };
     };
     Views: Record<string, never>;

@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
       // /shared/[id] is meant for direct link-sharing, not public search
       // discovery of someone else's personal Idea Book — /checkout and
       // /intake are mid-flow pages with nothing worth indexing.
-      disallow: ["/plan", "/checkout", "/intake", "/shared", "/api"],
+      disallow: ["/plan", "/checkout", "/intake", "/shared", "/api", "/admin"],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
   };

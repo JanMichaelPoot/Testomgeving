@@ -3,6 +3,8 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { generateIdeaBook, type GeneratedIdeaBook } from "@/lib/claude/generateIdeaBook";
 import { renderIdeaBookPdf } from "@/lib/pdf/ideaBook";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
+import { recordAuditLogEntry } from "@/lib/auditLog";
+import { computeCharacterProfile, type CharacterProfile } from "@/lib/characterProfile";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database } from "@/types/database";
@@ -52,14 +54,14 @@ function resolveExistingPlan(existing: WindowPlanRow | null): WindowPlanRow | "g
   return null;
 }
 
-async function generateAndSavePlan(
+// Shared by generateAndSavePlan and getCharacterProfileForSession (Fase 4)
+// — both need the same raw stored answers for a session, just for
+// different purposes (generation vs. re-deriving the character profile for
+// display after the fact).
+async function fetchStoredIntake(
   supabase: ServiceRoleClient,
   sessionId: string
-): Promise<{
-  plan: WindowPlanRow;
-  generated: GeneratedIdeaBook;
-  pdfBytes: Uint8Array;
-}> {
+): Promise<StoredIntake | null> {
   const { data: intake } = await supabase
     .from("intake_answers")
     .select("raw_json")
@@ -68,7 +70,37 @@ async function generateAndSavePlan(
     .limit(1)
     .maybeSingle();
 
-  if (!intake) {
+  return intake ? (intake.raw_json as unknown as StoredIntake) : null;
+}
+
+// Fase 4 (New Result Experience) — the /plan page's Discovery Profile
+// screen needs the character profile too, but only for display, well after
+// generateAndSavePlan has already run and returned. Rather than adding a
+// new column to persist it (window_plans has no character_profile_json
+// today), this just re-derives it from the same stored intake answers —
+// computeCharacterProfile is pure and cheap, so recomputing it on read is
+// simpler and safer than keeping a second, easy-to-drift copy in storage.
+export async function getCharacterProfileForSession(
+  sessionId: string
+): Promise<CharacterProfile | null> {
+  const supabase = createServiceRoleClient();
+  const profile = await fetchStoredIntake(supabase, sessionId);
+  return profile ? computeCharacterProfile(profile) : null;
+}
+
+async function generateAndSavePlan(
+  supabase: ServiceRoleClient,
+  sessionId: string
+): Promise<{
+  plan: WindowPlanRow;
+  generated: GeneratedIdeaBook;
+  pdfBytes: Uint8Array;
+  profile: StoredIntake;
+  characterProfile: CharacterProfile;
+}> {
+  const profile = await fetchStoredIntake(supabase, sessionId);
+
+  if (!profile) {
     throw new Error("The intake profile for this session could not be found.");
   }
 
@@ -76,10 +108,15 @@ async function generateAndSavePlan(
   // src/app/intake/actions.ts) rather than answered in the wizard, so the
   // book always matches what the user actually saw, even if they toggle
   // the site language afterwards.
-  const profile = intake.raw_json as unknown as StoredIntake;
   const locale = profile.locale ?? "nl";
   const dict = getDictionary(locale);
   const bookTitle = dict.plan.eyebrow;
+
+  // Fase 3 (Possibility/Door Engine): computed once here and threaded into
+  // both the generation call below (drives door balance/tone) and the
+  // return value, so callers reuse it for audit logging instead of
+  // recomputing it from the same profile a second time.
+  const characterProfile = computeCharacterProfile(profile);
 
   // Marks generation as in-flight *before* the slow Claude/PDF work starts,
   // so a page reload in the next ~90s finds this row and waits instead of
@@ -95,7 +132,7 @@ async function generateAndSavePlan(
   }
 
   try {
-    const generated = await generateIdeaBook(profile, locale);
+    const generated = await generateIdeaBook(profile, locale, characterProfile);
     const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale);
     const pdfPath = `${sessionId}/idea-book.pdf`;
 
@@ -131,7 +168,7 @@ async function generateAndSavePlan(
       throw new Error(updateError?.message ?? "Could not save the Idea Book.");
     }
 
-    return { plan: updated, generated, pdfBytes };
+    return { plan: updated, generated, pdfBytes, profile, characterProfile };
   } catch (err) {
     await supabase.from("window_plans").update({ status: "failed" }).eq("id", pendingRow.id);
     throw err;
@@ -172,10 +209,12 @@ export async function getOrCreateWindowPlan(
   }
   if (existingPlan) return existingPlan;
 
-  const { plan, generated, pdfBytes } = await generateAndSavePlan(
+  const { plan, generated, pdfBytes, profile, characterProfile } = await generateAndSavePlan(
     supabase,
     sessionId
   );
+
+  let emailDelivered = false;
 
   const customerEmail = checkoutSession.customer_details?.email;
   if (customerEmail) {
@@ -218,11 +257,18 @@ export async function getOrCreateWindowPlan(
         planUrl: `${siteUrl}/plan?checkout_session_id=${checkoutSessionId}`,
         locale: plan.language as "nl" | "en",
       });
+      emailDelivered = true;
     } catch {
       // Best-effort — the plan is already saved and viewable on this page
-      // even if Resend is unreachable.
+      // even if Resend is unreachable. Recorded as not-delivered below so
+      // the admin audit log reflects reality.
     }
   }
+
+  // Fire-and-forget-adjacent: awaited so a logging failure can be caught
+  // and swallowed by recordAuditLogEntry itself, but never allowed to
+  // throw and break the (already-successful) plan generation above.
+  await recordAuditLogEntry(supabase, { profile, generated, emailDelivered, characterProfile });
 
   return plan;
 }
@@ -242,6 +288,13 @@ export async function getOrCreateTestWindowPlan(
   }
   if (existingPlan) return existingPlan;
 
-  const { plan } = await generateAndSavePlan(supabase, sessionId);
+  const { plan, generated, profile, characterProfile } = await generateAndSavePlan(
+    supabase,
+    sessionId
+  );
+  // No payment, so no Stripe-collected email exists to mail a copy to —
+  // still logged (with emailDelivered: false) so the audit trail reflects
+  // every generation, not only paid ones.
+  await recordAuditLogEntry(supabase, { profile, generated, emailDelivered: false, characterProfile });
   return plan;
 }

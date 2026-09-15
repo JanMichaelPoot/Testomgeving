@@ -5,6 +5,7 @@ import { GeneratingScreen } from "@/components/window/GeneratingScreen";
 import {
   getOrCreateWindowPlan,
   getOrCreateTestWindowPlan,
+  getCharacterProfileForSession,
   PlanNotReadyError,
 } from "@/app/plan/data";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
@@ -132,6 +133,17 @@ export default async function PlanPage(props: PageProps<"/plan">) {
       ? (plan.wildcard_json as unknown as IdeaBookEntry)
       : null;
   const labels = (plan.labels_json ?? {}) as Record<string, string>;
+  // Fase 6 (Interaction & Retention) — per-idea thumbs reactions already
+  // saved for this plan, so a page refresh shows what was chosen before
+  // instead of resetting every reaction to blank.
+  const feedback = (plan.feedback_json ?? {}) as Record<string, "up" | "down">;
+
+  // Fase 4 (New Result Experience) — the Discovery Profile screen. Best-
+  // effort: re-derived from the same stored intake answers rather than
+  // persisted anywhere (see getCharacterProfileForSession), so a lookup
+  // failure here shouldn't take down the whole Idea Book — the viewer
+  // already handles a null characterProfile by skipping that screen.
+  const characterProfile = await getCharacterProfileForSession(plan.session_id);
 
   return (
     <div className="flex min-h-full flex-col">
@@ -144,6 +156,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           preferences={preferences}
           ideas={ideas}
           wildcard={wildcard}
+          characterProfile={characterProfile}
           locale={locale}
           labels={labels}
           pdfChromeDict={dict.pdfChrome}
@@ -151,6 +164,8 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           pdfUrl={plan.pdf_url}
           shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
           showEmailedCopy={!testSessionId}
+          planId={plan.id}
+          feedback={feedback}
         />
       </main>
     </div>

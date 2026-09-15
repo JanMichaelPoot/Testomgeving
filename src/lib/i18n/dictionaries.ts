@@ -123,6 +123,35 @@ export interface Dictionary {
       statsActionsLabel: string;
       statsWildcardLabel: string;
       statsWildcardValue: string;
+      // Fase 4 (New Result Experience) — Discovery Profile screen, the
+      // Possibility Map screen (which also carries the Open Doors legend
+      // and the One Thing highlight), and the per-idea "What if" eyebrow.
+      // See src/lib/discoveryProfile.ts and src/lib/possibilityMap.ts.
+      discoveryEyebrow: string;
+      discoveryHeading: string;
+      discoveryFallback: string;
+      mapEyebrow: string;
+      mapHeading: string;
+      mapIntro: string;
+      mapViewLabel: string;
+      oneThingBadge: string;
+      oneThingCaption: string;
+      whatIfLabel: string;
+      doors: Record<
+        "natural" | "discovery" | "unexpected" | "stretch",
+        { label: string; description: string }
+      >;
+      // Fase 6 (Interaction & Retention) — per-idea thumbs reaction (/plan
+      // only, see IdeaFeedback.tsx), the Challenge Mode toggle on the
+      // Possibility Map screen (see possibilityMap.ts), and a repeat-use
+      // nudge on the closing "done" screen.
+      feedbackPrompt: string;
+      feedbackUpLabel: string;
+      feedbackDownLabel: string;
+      feedbackThanks: string;
+      challengeModeLabel: string;
+      challengeModeHelper: string;
+      doneReturnCta: string;
     };
   };
   shared: {
@@ -192,7 +221,11 @@ export interface Dictionary {
     ageCategory: { label: string; options: Option[] };
     location: { label: string; sub: string; placeholder: string };
     searchDistance: { label: string; options: Option[] };
+    // A behavioral scenario question, not a self-rating — see
+    // src/lib/characterProfile.ts.
+    freeTimePattern: { label: string; sub: string; options: Option[] };
     practicalToWild: { label: string; options: Option[] };
+    challengeMe: { label: string; sub: string };
     timeAvailable: { label: string; options: Option[] };
     budget: { label: string; options: Option[] };
     effort: { label: string; options: Option[] };
@@ -206,6 +239,15 @@ export interface Dictionary {
       optionalHint: string;
     };
     preferences: {
+      label: string;
+      sub: string;
+      placeholder: string;
+      suggestions: string[];
+      optionalHint: string;
+    };
+    // The one open, weighted-heavily question from the WindowInto brief —
+    // optional, but invited with suggestion chips like situation/mustHaves.
+    personalReflection: {
       label: string;
       sub: string;
       placeholder: string;
@@ -435,6 +477,43 @@ const nl: Dictionary = {
       statsActionsLabel: "Stappen",
       statsWildcardLabel: "Wildcard",
       statsWildcardValue: "1",
+      discoveryEyebrow: "Zo lezen we jouw antwoorden",
+      discoveryHeading: "Jouw ontdekkingsprofiel",
+      discoveryFallback:
+        "Je hield je antwoorden dicht bij het midden — dus lieten we de deuren hierna extra breed open staan.",
+      mapEyebrow: "Vier deuren, telkens een stapje verder",
+      mapHeading: "Jouw mogelijkheden in kaart",
+      mapIntro:
+        "Elk idee hoort bij een deur — hoe verder je gaat, hoe verder van je comfortzone. Begin waar je wilt.",
+      mapViewLabel: "Bekijk",
+      oneThingBadge: "Als je er maar één kiest",
+      oneThingCaption: "Dit past het best bij je situatie én is meteen te doen.",
+      whatIfLabel: "Wat als…",
+      doors: {
+        natural: {
+          label: "Vertrouwd",
+          description: "Dicht bij wat je al doet — maar dan net iets beter uitgewerkt.",
+        },
+        discovery: {
+          label: "Ontdekking",
+          description: "Iets wat aansluit bij wat je leuk vindt, maar dat je nog niet had geprobeerd.",
+        },
+        unexpected: {
+          label: "Onverwacht",
+          description: "Verrast je in eerste instantie — tot je leest waarom het toch bij je past.",
+        },
+        stretch: {
+          label: "Uitdaging",
+          description: "Net buiten je comfortzone. Groter, spannender, nog steeds haalbaar.",
+        },
+      },
+      feedbackPrompt: "Spreekt dit je aan?",
+      feedbackUpLabel: "Ja, leuk",
+      feedbackDownLabel: "Niet voor mij",
+      feedbackThanks: "Genoteerd",
+      challengeModeLabel: "Uitdagingsmodus",
+      challengeModeHelper: "Begin bij de uitdaging in plaats van bij het vertrouwde.",
+      doneReturnCta: "Kom later terug voor een nieuw venster",
     },
   },
   shared: {
@@ -598,6 +677,17 @@ const nl: Dictionary = {
         { value: "anywhere", label: "Overal" },
       ],
     },
+    freeTimePattern: {
+      label: "Een vrije zaterdag doemt op. Wat doe je?",
+      sub: "Niet wat je zou moeten doen — wat je écht doet.",
+      options: [
+        { value: "familiar", label: "Iets plannen dat ik al ken en vertrouw" },
+        { value: "search", label: "Op zoek gaan naar iets interessants" },
+        { value: "ask", label: "Iemand anders vragen wat die wil doen" },
+        { value: "spontaneous", label: "Gewoon spontaan beslissen, ter plekke" },
+        { value: "stayhome", label: "Thuisblijven en kijken wat er gebeurt" },
+      ],
+    },
     practicalToWild: {
       label: "Hou je het liever veilig, of mag het verrassen?",
       options: [
@@ -607,6 +697,10 @@ const nl: Dictionary = {
         { value: "unexpected", label: "Verras me gerust af en toe" },
         { value: "wild", label: "Verras me volledig, neem me mee naar iets wilds" },
       ],
+    },
+    challengeMe: {
+      label: "Ik wil dat WindowInto me uitdaagt",
+      sub: "Zet aan voor minstens één idee dat duidelijk buiten je gewone patroon ligt.",
     },
     timeAvailable: {
       label: "Hoeveel tijd heb je?",
@@ -662,6 +756,17 @@ const nl: Dictionary = {
       placeholder: "Ik zou iets creatiefs geweldig vinden, het liefst buiten…",
       suggestions: ["Het liefst buiten", "Iets creatiefs", "Niet te druk"],
       optionalHint: "Geen voorkeur? Ook prima.",
+    },
+    personalReflection: {
+      label: "Wat zou je stiekem wel vaker willen doen?",
+      sub: "Het antwoord waar je normaal niet naar wordt gevraagd — dit telt zwaar mee.",
+      placeholder: "Ik zou best vaker…",
+      suggestions: [
+        "Iets maken met mijn handen",
+        "Er in mijn eentje op uit gaan",
+        "Meer tijd in de natuur doorbrengen",
+      ],
+      optionalHint: "Mag ook leeg — dan laten we het aan de rest van je antwoorden over.",
     },
     company: {
       label: "Voor wie is dit venster?",
@@ -895,6 +1000,43 @@ const en: Dictionary = {
       statsActionsLabel: "Steps",
       statsWildcardLabel: "Wildcard",
       statsWildcardValue: "1",
+      discoveryEyebrow: "How we read your answers",
+      discoveryHeading: "Your discovery profile",
+      discoveryFallback:
+        "You kept your answers close to the middle — so we left the doors ahead extra wide open.",
+      mapEyebrow: "Four doors, each one a bit further",
+      mapHeading: "Your possibilities, mapped out",
+      mapIntro:
+        "Every idea belongs to a door — the further along, the further from your comfort zone. Start wherever you like.",
+      mapViewLabel: "View",
+      oneThingBadge: "If you only do one thing",
+      oneThingCaption: "This fits your situation best, and you can start today.",
+      whatIfLabel: "What if…",
+      doors: {
+        natural: {
+          label: "Familiar",
+          description: "Close to what you already do — just worked out a little better.",
+        },
+        discovery: {
+          label: "Discovery",
+          description: "Something that fits what you enjoy, that you just haven't tried yet.",
+        },
+        unexpected: {
+          label: "Unexpected",
+          description: "Surprises you at first — until you read why it actually fits.",
+        },
+        stretch: {
+          label: "Stretch",
+          description: "Just outside your comfort zone. Bigger, more exciting, still doable.",
+        },
+      },
+      feedbackPrompt: "Does this land?",
+      feedbackUpLabel: "Yes, I like it",
+      feedbackDownLabel: "Not for me",
+      feedbackThanks: "Noted",
+      challengeModeLabel: "Challenge Mode",
+      challengeModeHelper: "Start at the stretch, not the familiar.",
+      doneReturnCta: "Come back later for a new window",
     },
   },
   shared: {
@@ -1058,6 +1200,17 @@ const en: Dictionary = {
         { value: "anywhere", label: "Anywhere at all" },
       ],
     },
+    freeTimePattern: {
+      label: "A free Saturday suddenly opens up. What do you do?",
+      sub: "Not what you'd feel you should do — what you'd actually do.",
+      options: [
+        { value: "familiar", label: "Plan something I already know and trust" },
+        { value: "search", label: "Go looking for something interesting" },
+        { value: "ask", label: "Ask someone else what they want to do" },
+        { value: "spontaneous", label: "Just decide on the spot, spontaneously" },
+        { value: "stayhome", label: "Stay home and see what happens" },
+      ],
+    },
     practicalToWild: {
       label: "Keep it safe, or let it surprise you?",
       options: [
@@ -1067,6 +1220,10 @@ const en: Dictionary = {
         { value: "unexpected", label: "Surprise me now and then" },
         { value: "wild", label: "Surprise me completely, take me somewhere wild" },
       ],
+    },
+    challengeMe: {
+      label: "I want WindowInto to challenge me",
+      sub: "Guarantees at least one idea that's clearly outside your usual pattern.",
     },
     timeAvailable: {
       label: "How much time do you have?",
@@ -1122,6 +1279,17 @@ const en: Dictionary = {
       placeholder: "I'd love something creative, ideally outdoors…",
       suggestions: ["Ideally outdoors", "Something creative", "Not too busy"],
       optionalHint: "No preference? That's fine too.",
+    },
+    personalReflection: {
+      label: "What would you secretly love to do more of?",
+      sub: "The question you don't usually get asked — this one weighs heavily.",
+      placeholder: "I'd love to…",
+      suggestions: [
+        "Make something with my hands",
+        "Go out and explore on my own",
+        "Spend more time outdoors",
+      ],
+      optionalHint: "Fine to leave blank — we'll lean on the rest of your answers instead.",
     },
     company: {
       label: "Who's this window for?",

@@ -6,6 +6,7 @@ import { DIFFICULTY_LABELS, type GeneratedIdeaBook, type IdeaBookEntry } from "@
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { mapsSearchUrl } from "@/lib/maps";
+import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
 
 // pdf-lib has no first-class "add a hyperlink" API, so a clickable region
 // is a manually-built Link annotation — a standard, documented technique
@@ -152,7 +153,18 @@ export async function renderIdeaBookPdf(
   title: string,
   locale: Locale
 ): Promise<Uint8Array> {
-  const chrome = getDictionary(locale).pdfChrome;
+  const dict = getDictionary(locale);
+  const chrome = dict.pdfChrome;
+  // Fase 5 (PDF & Share) — the printed book now reflects the same
+  // Open Doors structure as the web experience (Fase 4): ideas are laid
+  // out in door order rather than Claude's raw array order, a new
+  // Possibility Map page mirrors the web's door legend + One Thing
+  // highlight, and each idea page's eyebrow now names its door. Reuses
+  // the exact same pure helpers the web viewer uses (src/lib/possibilityMap.ts)
+  // so the two experiences can never quietly drift apart.
+  const mapCopy = dict.plan.book;
+  const orderedIdeas = orderIdeasByDoor(book.ideas);
+  const oneThingIndex = pickOneThingIndex(book.ideas);
 
   const doc = await PDFDocument.create();
   doc.registerFontkit(fontkit);
@@ -471,16 +483,91 @@ export async function renderIdeaBookPdf(
     drawCardContent();
   }
 
-  // --- Pages 3-8: ideas, one full page each, six total. A shared
-  // photograph fills the page (a subtle per-page pan keeps it from
-  // looking pixel-identical seven pages running), a small glass badge
-  // marks the idea number, one main card carries title/intro/why-it-
-  // fits/steps/practical info, and a compact second card holds the first
-  // action — both sized to their own real content via the dry-run
-  // measuring pass, so a short idea never leaves a card looking empty.
+  // --- Page 3: Possibility Map — the printed mirror of the web
+  // experience's map screen: the four-door legend, every idea's title
+  // grouped under its door, and the One Thing pick called out. Same
+  // shared-background + single dry-run-measured card pattern as the
+  // profile page above.
+  page = addPage();
+  {
+    drawFullBleedImage(images.background, -0.15);
+    drawOverlayWash(0.05);
+
+    const cardX = MARGIN;
+    const maxCardHeight = CARD_TOP_Y - MARGIN;
+    const textX = cardX + PANEL_PAD_X;
+    const textWidth = CONTENT_WIDTH - PANEL_PAD_X * 2;
+
+    function drawCardContent() {
+      y = CARD_TOP_Y - PANEL_PAD_Y;
+      drawParagraph(mapCopy.mapEyebrow, fonts.sansBold, 10.5, ACCENT, 4, textX, textWidth, undefined, {
+        tracking: 1,
+      });
+      y -= 6;
+      drawParagraph(mapCopy.mapHeading, fonts.serif, 20, TEXT_LIGHT, 6, textX, textWidth, 2);
+      y -= 2;
+      drawParagraph(mapCopy.mapIntro, fonts.sans, 10.5, TEXT_MUTED, 4, textX, textWidth, 2);
+      y -= 14;
+
+      for (const door of DOOR_ORDER) {
+        const doorIdeas = orderedIdeas.filter(({ idea }) => idea.door === door);
+        if (doorIdeas.length === 0) continue;
+
+        drawParagraph(mapCopy.doors[door].label, fonts.sansBold, 10.5, ACCENT, 3, textX, textWidth, undefined, {
+          tracking: 0.8,
+        });
+        y -= 1;
+        drawParagraph(mapCopy.doors[door].description, fonts.sans, 9, TEXT_MUTED, 3, textX, textWidth, 1);
+        y -= 3;
+        for (const { idea, originalIndex } of doorIdeas) {
+          const isOneThing = originalIndex === oneThingIndex;
+          drawParagraph(
+            `${isOneThing ? "✦" : "•"}  ${idea.title}`,
+            fonts.sans,
+            10.5,
+            isOneThing ? TEXT_LIGHT : TEXT_MUTED,
+            3,
+            textX,
+            textWidth,
+            2
+          );
+        }
+        y -= 10;
+      }
+
+      if (oneThingIndex !== null && book.ideas[oneThingIndex]) {
+        drawParagraph(mapCopy.oneThingBadge, fonts.sansBold, 9, ACCENT, 3, textX, textWidth, undefined, {
+          tracking: 1,
+        });
+        y -= 1;
+        drawParagraph(mapCopy.oneThingCaption, fonts.sans, 10, TEXT_MUTED, 4, textX, textWidth, 2);
+      }
+    }
+
+    const measureStart = CARD_TOP_Y - PANEL_PAD_Y;
+    dryRun = true;
+    drawCardContent();
+    const contentHeight = measureStart - y;
+    dryRun = false;
+
+    const cardHeight = Math.min(maxCardHeight, contentHeight + PANEL_PAD_Y * 2);
+    drawCard(cardX, CARD_TOP_Y - cardHeight, CONTENT_WIDTH, cardHeight);
+    drawCardContent();
+  }
+
+  // --- Pages 4-9: ideas, one full page each, six total, in door order
+  // (natural → discovery → unexpected → stretch) rather than Claude's raw
+  // array order — the same journey-from-comfort-zone arc as the web
+  // viewer. A shared photograph fills the page (a subtle per-page pan
+  // keeps it from looking pixel-identical seven pages running), a small
+  // glass badge marks the idea's position in that order, one main card
+  // carries title/intro/why-it-fits/steps/practical info (its eyebrow now
+  // names the door), and a compact second card holds the first action —
+  // both sized to their own real content via the dry-run measuring pass,
+  // so a short idea never leaves a card looking empty.
   const BACKGROUND_PANS = [-0.5, 0.5, -0.2, 0.3, 0, -0.35];
 
-  function drawIdeaPage(idea: IdeaBookEntry, index: number, panX: number) {
+  function drawIdeaPage(idea: IdeaBookEntry, index: number, panX: number, doorLabel: string | null) {
     drawFullBleedImage(images.background, panX);
     drawOverlayWash(0.05);
 
@@ -528,7 +615,8 @@ export async function renderIdeaBookPdf(
 
     function drawMainCardContent() {
       y = CARD_TOP_Y - PANEL_PAD_Y;
-      drawParagraph(chrome.possibilityEyebrow, fonts.sansBold, 10.5, ACCENT, 4, textX, textWidth, undefined, {
+      const eyebrow = doorLabel ? `${chrome.possibilityEyebrow} · ${doorLabel}` : chrome.possibilityEyebrow;
+      drawParagraph(eyebrow, fonts.sansBold, 10.5, ACCENT, 4, textX, textWidth, undefined, {
         tracking: 0.8,
       });
       y -= 4;
@@ -607,12 +695,13 @@ export async function renderIdeaBookPdf(
     drawFirstActionContent();
   }
 
-  book.ideas.forEach((idea, i) => {
+  orderedIdeas.forEach(({ idea }, i) => {
     page = addPage();
-    drawIdeaPage(idea, i + 1, BACKGROUND_PANS[i % BACKGROUND_PANS.length]);
+    const doorLabel = idea.door === "wildcard" ? null : mapCopy.doors[idea.door].label;
+    drawIdeaPage(idea, i + 1, BACKGROUND_PANS[i % BACKGROUND_PANS.length], doorLabel);
   });
 
-  // --- Page 9: Wildcard — the same two-card grid as an idea page, on its
+  // --- Page 10: Wildcard — the same two-card grid as an idea page, on its
   // own full-bleed closing photograph, distinguished by its own framing
   // copy rather than an extra decorative border.
   page = addPage();

@@ -16,6 +16,8 @@ export {
   DIFFICULTY_LABELS,
   type IdeaPractical,
   type IdeaLocation,
+  type IdeaDoor,
+  type IdeaScores,
   type IdeaBookEntry,
   type GeneratedIdeaBook,
 } from "@/lib/claude/ideaBookTypes";
@@ -24,7 +26,10 @@ import type {
   GeneratedIdeaBook,
   IdeaPractical,
   IdeaLocation,
+  IdeaDoor,
+  IdeaScores,
 } from "@/lib/claude/ideaBookTypes";
+import type { CharacterProfile } from "@/lib/characterProfile";
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 
@@ -37,6 +42,49 @@ page per idea, so there's real room to breathe — but every field still has
 a length guideline below. Stay close to it: concise and specific reads as
 considered, padding to fill space reads as filler.
 
+Open Doors — how to structure the 6 ideas:
+Each of the 6 regular ideas belongs to exactly one "door" — how far it sits
+from what this person already does. Quality comes before quota: don't
+force a weak idea into an empty door just to fill it, but aim to spread the
+6 across all four doors rather than clustering them in one or two.
+- "natural": a confident, well-executed extension of something they
+  already clearly enjoy or already do. Low risk, but still needs to feel
+  fresh and specific — not a rehash of what they described back to them.
+- "discovery": adjacent to their stated interests, something they likely
+  haven't tried or framed this way before — it reveals an option they
+  didn't know was available to them.
+- "unexpected": genuinely surprising given their profile, but you can
+  explain in one sentence why it actually fits them — the why_it_fits line
+  carries this weight. The reaction this should produce: "oh, that could
+  actually work."
+- "stretch": meaningfully outside their comfort zone. Bigger than
+  "unexpected" — how far to push depends on their comfort-zone-to-wild
+  dial, whether they said they want to be challenged, and their internal
+  challenge level below. Push harder when that's high, stay gentler when
+  it's low — but a stretch idea must stay achievable, never reckless.
+The separate wildcard keeps its own door, "wildcard" — see below, it's
+always its own slot and not counted among the 6.
+
+Combinatorial creativity — avoid generic, single-signal ideas. For every
+idea, actively combine at least two distinct signals from the profile (a
+stated interest plus their company/context, plus a location, timing, or
+personal-reflection signal) into one idea that feels assembled specifically
+for this person's combination of answers — not something that could have
+been generated for almost anyone who shares just one of their interests.
+
+Internal scoring — for every idea (the 6 plus the wildcard), also return a
+"scores" object: your own honest internal estimate, each 0-100, never
+shown to the person. relevance (fit with their stated needs/must-haves),
+novelty (how new this would likely be to them specifically), feasibility
+(how realistic given their time/budget/effort), surprise (how unexpected
+it would feel to them), shareability (how likely they'd tell someone about
+it), effort (physical/mental/logistical effort required), cost (relative
+to their stated budget), social_fit (how well it matches their
+company/context), and challenge_level (how far it pushes their comfort
+zone). Differentiate honestly — a "natural" idea should score lower on
+novelty/surprise/challenge_level than a "stretch" or "wildcard" idea; don't
+return near-identical numbers across all 7 ideas.
+
 Rules for using the profile:
 - Fields the person marked as MUST-HAVES are hard constraints. Never
   generate an idea that violates one. If a must-have makes most ideas
@@ -44,6 +92,10 @@ Rules for using the profile:
 - Fields the person marked as PREFERENCES are directional nudges only —
   lean toward them where it fits naturally, but don't force every idea to
   satisfy every preference, and don't treat them as requirements.
+- The internal character signals (curiosity, spontaneity, social energy,
+  need for structure, challenge level) are for calibrating tone and door
+  balance only — never reference them, their names, or their numbers in
+  anything the person reads.
 - If the profile is sparse (short or vague answers), don't over-filter —
   generate a genuinely diverse, exploratory set rather than a narrow,
   timid one.
@@ -95,7 +147,7 @@ Rules for using the profile:
   all idea fields, all labels) in {{LANGUAGE}}, not English, unless
   {{LANGUAGE}} is English.`;
 
-function formatProfile(intake: IntakeAnswers): string {
+function formatProfile(intake: IntakeAnswers, character: CharacterProfile): string {
   return `Situation: ${intake.situation}
 Purpose: ${intake.purpose}
 Purpose detail: ${intake.purposeFollowUp}
@@ -109,7 +161,18 @@ Willingness to put in effort: ${intake.effort}
 Open to these kinds of possibilities: ${intake.solutionTypes.join(", ")}
 Must-haves (hard constraints): ${intake.mustHaves || "none stated"}
 Preferences (soft nudges): ${intake.preferences || "none stated"}
-Company: ${intake.company}`;
+Company: ${intake.company}
+Free-time pattern (what they said they'd actually do on a free Saturday): ${intake.freeTimePattern || "not stated"}
+Wants to be challenged: ${intake.challengeMe ? "yes" : "no"}
+Personal reflection (something they'd secretly like to do more): ${intake.personalReflection || "not stated"}
+
+Internal character signals (derived, 0-100 each, 50 = neutral — for
+calibrating tone and door balance only, see the rules below):
+Curiosity: ${character.dimensions.curiosity}
+Spontaneity: ${character.dimensions.spontaneity}
+Social energy: ${character.dimensions.socialEnergy}
+Need for structure: ${character.dimensions.needForStructure}
+Challenge level: ${character.challengeLevel}`;
 }
 
 const PRACTICAL_SCHEMA = {
@@ -133,6 +196,36 @@ const LOCATION_SCHEMA = {
   required: ["name", "address", "city"],
 };
 
+// Fase 3 (Possibility/Door Engine) — see the master prompt sections 6 and
+// 11. Shared between the 6 regular ideas and the wildcard: the wildcard is
+// distinguished by always carrying door "wildcard" (enforced defensively in
+// normalizeEntry below, not just trusted from the model's output).
+const SCORES_SCHEMA = {
+  type: "object" as const,
+  properties: {
+    relevance: { type: "number" },
+    novelty: { type: "number" },
+    feasibility: { type: "number" },
+    surprise: { type: "number" },
+    shareability: { type: "number" },
+    effort: { type: "number" },
+    cost: { type: "number" },
+    social_fit: { type: "number" },
+    challenge_level: { type: "number" },
+  },
+  required: [
+    "relevance",
+    "novelty",
+    "feasibility",
+    "surprise",
+    "shareability",
+    "effort",
+    "cost",
+    "social_fit",
+    "challenge_level",
+  ],
+};
+
 const IDEA_ENTRY_SCHEMA = {
   type: "object" as const,
   properties: {
@@ -150,6 +243,11 @@ const IDEA_ENTRY_SCHEMA = {
     location: LOCATION_SCHEMA,
     requirements: { type: "array", maxItems: 4, items: { type: "string" } },
     image_suggestion: { type: "string" },
+    door: {
+      type: "string",
+      enum: ["natural", "discovery", "unexpected", "stretch", "wildcard"],
+    },
+    scores: SCORES_SCHEMA,
   },
   required: [
     "title",
@@ -161,6 +259,8 @@ const IDEA_ENTRY_SCHEMA = {
     "location",
     "requirements",
     "image_suggestion",
+    "door",
+    "scores",
   ],
 };
 
@@ -188,7 +288,8 @@ const LABELS_SCHEMA = {
 
 async function callClaudeForIdeaBook(
   intake: IntakeAnswers,
-  locale: Locale
+  locale: Locale,
+  characterProfile: CharacterProfile
 ): Promise<GeneratedIdeaBook> {
   const language = languageLabel(locale);
   const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language);
@@ -200,10 +301,12 @@ async function callClaudeForIdeaBook(
     messages: [
       {
         role: "user",
-        content: `${formatProfile(intake)}
+        content: `${formatProfile(intake, characterProfile)}
 
 Generate the full Idea Book by calling the create_idea_book tool exactly
-once, with exactly 6 ideas plus one separate wildcard.`,
+once, with exactly 6 ideas plus one separate wildcard. Spread the 6 ideas
+across the natural/discovery/unexpected/stretch doors (quality over a rigid
+quota); the wildcard's door is always "wildcard".`,
       },
     ],
     tools: [
@@ -250,14 +353,15 @@ once, with exactly 6 ideas plus one separate wildcard.`,
 // give up and show the user an error on a purchase they already paid for.
 export async function generateIdeaBook(
   intake: IntakeAnswers,
-  locale: Locale
+  locale: Locale,
+  characterProfile: CharacterProfile
 ): Promise<GeneratedIdeaBook> {
   const attempts = 2;
   let lastError: unknown;
 
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
-      return await callClaudeForIdeaBook(intake, locale);
+      return await callClaudeForIdeaBook(intake, locale, characterProfile);
     } catch (err) {
       lastError = err;
       if (attempt < attempts) {
@@ -307,7 +411,48 @@ function normalizeLocation(value: unknown): IdeaLocation | null {
   return { name, address: toText(l.address), city: toText(l.city) };
 }
 
-function normalizeEntry(entry: unknown): IdeaBookEntry {
+const VALID_DOORS: readonly IdeaDoor[] = [
+  "natural",
+  "discovery",
+  "unexpected",
+  "stretch",
+  "wildcard",
+];
+
+// Falls back to "discovery" — the middle-of-the-road door — rather than
+// throwing, on the rare chance the model returns something outside the
+// enum despite the forced tool schema declaring it.
+function normalizeDoor(value: unknown, fallback: IdeaDoor): IdeaDoor {
+  return typeof value === "string" && (VALID_DOORS as string[]).includes(value)
+    ? (value as IdeaDoor)
+    : fallback;
+}
+
+function clampScore(value: unknown): number {
+  const n = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(n)) return 50;
+  return Math.max(0, Math.min(100, Math.round(n)));
+}
+
+function normalizeScores(value: unknown): IdeaScores {
+  const s = (value ?? {}) as Partial<IdeaScores>;
+  return {
+    relevance: clampScore(s.relevance),
+    novelty: clampScore(s.novelty),
+    feasibility: clampScore(s.feasibility),
+    surprise: clampScore(s.surprise),
+    shareability: clampScore(s.shareability),
+    effort: clampScore(s.effort),
+    cost: clampScore(s.cost),
+    social_fit: clampScore(s.social_fit),
+    challenge_level: clampScore(s.challenge_level),
+  };
+}
+
+// forceDoor overrides whatever the model returned — used for the wildcard
+// slot, which must always be door "wildcard" regardless of model output,
+// rather than merely falling back to it when missing/invalid.
+function normalizeEntry(entry: unknown, opts: { forceDoor?: IdeaDoor } = {}): IdeaBookEntry {
   const e = (entry ?? {}) as Partial<IdeaBookEntry>;
   return {
     title: toText(e.title),
@@ -319,6 +464,8 @@ function normalizeEntry(entry: unknown): IdeaBookEntry {
     location: normalizeLocation(e.location),
     requirements: toTextArray(e.requirements),
     image_suggestion: toText(e.image_suggestion),
+    door: opts.forceDoor ?? normalizeDoor(e.door, "discovery"),
+    scores: normalizeScores(e.scores),
   };
 }
 
@@ -327,7 +474,9 @@ function toTextList(value: unknown): string[] {
 }
 
 function normalizeIdeaBook(book: GeneratedIdeaBook): GeneratedIdeaBook {
-  const ideas = Array.isArray(book.ideas) ? book.ideas.map(normalizeEntry) : [];
+  const ideas = Array.isArray(book.ideas)
+    ? book.ideas.map((idea) => normalizeEntry(idea))
+    : [];
 
   if (ideas.length === 0) {
     throw new Error(
@@ -340,7 +489,7 @@ function normalizeIdeaBook(book: GeneratedIdeaBook): GeneratedIdeaBook {
     must_haves: toTextList(book.must_haves),
     preferences: toTextList(book.preferences),
     ideas,
-    wildcard: normalizeEntry(book.wildcard),
+    wildcard: normalizeEntry(book.wildcard, { forceDoor: "wildcard" }),
     labels: {
       steps_heading: toText(book.labels?.steps_heading),
       first_action_heading: toText(book.labels?.first_action_heading),

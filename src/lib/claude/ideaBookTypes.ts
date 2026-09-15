@@ -27,6 +27,31 @@ export interface IdeaLocation {
   city: string;
 }
 
+// Fase 3 (Possibility/Door Engine) — every idea belongs to exactly one
+// "door," representing its distance from the person's comfort zone. The 6
+// regular ideas use natural/discovery/unexpected/stretch; the separate
+// wildcard slot always carries "wildcard". See the WindowInto master
+// prompt, section 6 ("Open Doors").
+export type IdeaDoor = "natural" | "discovery" | "unexpected" | "stretch" | "wildcard";
+
+// Fase 3 — internal Serendipity Engine scores (master prompt section 11),
+// 0-100 each, 50 = neutral. These are Claude's own self-estimate per idea,
+// used so a balanced set can be selected/inspected rather than just the
+// highest-relevance ideas. Not shown to the person anywhere yet — that's a
+// later-phase (display/quality-gate) decision — but logged in the admin
+// audit-log export so real generations can be sanity-checked.
+export interface IdeaScores {
+  relevance: number;
+  novelty: number;
+  feasibility: number;
+  surprise: number;
+  shareability: number;
+  effort: number;
+  cost: number;
+  social_fit: number;
+  challenge_level: number;
+}
+
 export interface IdeaBookEntry {
   title: string;
   intro: string;
@@ -37,6 +62,8 @@ export interface IdeaBookEntry {
   location: IdeaLocation | null;
   requirements: string[];
   image_suggestion: string;
+  door: IdeaDoor;
+  scores: IdeaScores;
 }
 
 export interface GeneratedIdeaBook {

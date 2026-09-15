@@ -13,21 +13,25 @@ export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
   // A shared link is the one page on this site truly meant to be posted
   // into a chat or social feed — without its own openGraph/twitter block,
-  // Next.js metadata merging leaves the *root* layout's generic title and
-  // image in place instead, which defeats the point of sharing it.
+  // Next.js metadata merging leaves the *root* layout's generic title in
+  // place instead, which defeats the point of sharing it.
+  //
+  // No `images` array here (Fase 5, PDF & Share): this route now has its
+  // own opengraph-image.tsx, a per-book "Share Card" generated with the
+  // person's actual title and One Thing pick. Next.js wires a file with
+  // that name into openGraph/twitter metadata automatically, so pointing
+  // this at the old static cover.jpg would just fight it for no reason.
   return {
     title: dict.shared.pageTitle,
     openGraph: {
       title: dict.shared.pageTitle,
       description: dict.shared.intro,
-      images: ["/illustrations/idea-book/cover.jpg"],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title: dict.shared.pageTitle,
       description: dict.shared.intro,
-      images: ["/illustrations/idea-book/cover.jpg"],
     },
   };
 }
