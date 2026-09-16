@@ -2,28 +2,37 @@
 
 :root {
   /* WINDOW brand tokens — use these instead of raw hex codes throughout the
-     app. "Clean Premium Hybrid" (see CLAUDE.md) — an off-white/white/near-
-     black base with a single deep-teal accent, replacing the earlier
-     emerald/gold "quiet luxury" identity. --color-accent carries
-     contrast-critical UI (buttons, links, focus rings, selection state).
-     --color-gold is kept, unchanged, only because a few not-yet-restyled
-     screens (the Idea Book viewer, the generating screen) still reference
-     it — new UI should not reach for it. */
-  --color-accent: #0f766e;
-  --color-accent-dark: #115e59;
-  --color-gold: #b4924f;
-  --color-ink: #111827;
-  --color-cream: #fafafa;
-  --color-paper: #ffffff;
-  --color-border: #e5e7eb;
-  --color-surface-active: #f9fafb;
+     app. "Warm Walnut" — a warm off-white/cream base, near-black warm-grey
+     text, and a walnut/muted-gold accent pair, replacing the cooler
+     teal/near-black "Clean Premium Hybrid" tokens. Same variable names as
+     before on purpose: every consumer (`bg-accent`, `text-ink`,
+     `border-border`, …) recolors automatically, no per-file changes needed.
+     --color-accent/-accent-dark carry contrast-critical interactive UI
+     (buttons, focus rings, selection state) and are walnut, not the neutral
+     --color-ink used for body text. --color-gold/-gold-light and
+     --color-walnut-light are secondary accents — used sparingly (button
+     hover borders, small highlights), never as a fill behind body text. */
+  --color-accent: #5b3f2f;
+  --color-accent-dark: #3c2920;
+  --color-walnut-light: #a98262;
+  --color-gold: #b08a4a;
+  --color-gold-light: #d2b77a;
+  --color-ink: #202020;
+  --color-muted: #77736c;
+  --color-cream: #f7f5f0;
+  --color-paper: #fffdfa;
+  --color-border: #ded8ce;
+  --color-surface-active: #f2ece1;
 }
 
 @theme inline {
   --color-accent: var(--color-accent);
   --color-accent-dark: var(--color-accent-dark);
+  --color-walnut-light: var(--color-walnut-light);
   --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
   --color-ink: var(--color-ink);
+  --color-muted: var(--color-muted);
   --color-cream: var(--color-cream);
   --color-paper: var(--color-paper);
   --color-border: var(--color-border);
@@ -31,6 +40,12 @@
 
   --font-serif: var(--font-newsreader);
   --font-sans: var(--font-jakarta);
+
+  /* Softer, larger corners than Tailwind's stock scale — every existing
+     rounded-sm/-md/-lg usage across the app picks these up automatically. */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
 }
 
 body {

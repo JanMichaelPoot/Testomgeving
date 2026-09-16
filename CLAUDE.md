@@ -119,25 +119,37 @@ zodat we conform AVG zo min mogelijk herleidbare data bewaren.
 
 ## Merk & visuele identiteit
 
-- Accent: `#0F766E` (diep teal), donker-accent/hover `#115E59`, primaire
-  knoppen/CTA's vullen met inkt-zwart `#111827` (niet de accentkleur).
-  Achtergrond `#FAFAFA`, kaarten/oppervlakken wit `#FFFFFF`, randen
-  `#E5E7EB`, geselecteerde/actieve vulling `#F9FAFB`. **Bijgewerkt in
-  Stap 24** — oorspronkelijk emerald/goud "quiet/vrolijke luxury"
-  (Stap 18-21), op expliciet verzoek vervangen door de "Clean Premium
-  Hybrid"-identiteit hieronder. `--color-gold` (`#B4924F`) blijft
-  gedefinieerd maar wordt door nieuw werk niet meer gebruikt — alleen nog
-  gelezen door schermen die deze stap bewust ongemoeid liet (zie Stap 24).
-- Serif voor landingspagina-headlines (Google Font "Newsreader", was
-  "Fraunces"); overal elders — inclusief Intake- en Checkout-koppen, die
-  bewust géén serif meer zijn — een strakke sans-serif ("Plus Jakarta
-  Sans", was "Inter") met lichte negatieve tracking op koppen.
-- Border-radius als vast systeem: `8px` (kaarten, inputs), `6px`
-  (knoppen — niet langer volle pillen), `9999px` (pil-badges, bv. de
-  "Stap X van Y"-indicator). 8px-spacinggrid (8/16/24/32/48).
+- Accent (interactief, knoppen): walnoot `#5B3F2F`, donker-accent/hover +
+  primaire-knopvulling `#3C2920`, secundair accent `#A98262`. Goud alleen
+  als terughoudend hover-/focus-accent: `#B08A4A` (`#D2B77A` lichter).
+  Achtergrond `#F7F5F0`, kaarten/oppervlakken `#FFFDFA`, tekst `#202020`
+  (warmgrijs, niet hard zwart), gedempte tekst `#77736C`, randen `#DED8CE`,
+  geselecteerde/actieve vulling `#F2ECE1`. **Bijgewerkt in Stap 26** —
+  vervangt het teal/zwarte "Clean Premium Hybrid"-palet van Stap 24-25 door
+  een warmer walnoot/goud/crème-palet ("Warm Walnut"), op expliciet verzoek
+  na feedback dat teal/zwart nog niet warm/premium genoeg aanvoelde. Zelfde
+  variabelenamen als Stap 24 (`--color-accent`, `--color-ink`, `--color-
+  cream`, …) — alleen de hex-waarden zijn vervangen, dus dit kleurt
+  automatisch door op elk scherm dat de tokens gebruikt, ook de niet
+  expliciet in Stap 26 herziene schermen (Idea Book-viewer, admin, generating-
+  screen).
+- Serif voor landingspagina-headlines (Google Font "Newsreader"); overal
+  elders — inclusief Intake- en Checkout-koppen, die bewust géén serif
+  zijn — een strakke sans-serif ("Plus Jakarta Sans") met lichte negatieve
+  tracking op koppen. Ongewijzigd sinds Stap 24 — Stap 26 was uitsluitend
+  een kleur-/radius-wijziging, geen typografiewissel.
+- Border-radius als vast systeem: `8px` (kleine elementen), `12px`
+  (knoppen), `18px` (kaarten, panelen, inputs — bewust zachter/ronder dan
+  Stap 24's `6px`/`8px`, via `--radius-sm/-md/-lg`-tokens die Tailwinds
+  eigen `rounded-sm/-md/-lg`-schaal overschrijven). `9999px` blijft voor
+  pil-badges (bv. de "Stap X van Y"-indicator). 8px-spacinggrid
+  (8/16/24/32/48), ongewijzigd.
 - Geen zware schaduwen of "AI-glow"-effecten (geen blurred gloeiende
-  cirkels, geen foil-knoprand) — een subtiele 1px-rand (`#E5E7EB`) is het
-  standaardmiddel om een vlak van zijn omgeving te onderscheiden.
+  cirkels) — een subtiele 1px-rand (`#DED8CE`) is het standaardmiddel om
+  een vlak van zijn omgeving te onderscheiden. Uitzondering: de primaire
+  knop krijgt bij hover een klein, zacht schaduweffect + een dunne gouden
+  randkleur — de enige plek waar goud bewust wordt ingezet, verder nergens
+  als vulling of body-tekstkleur.
 - Terugkerend visueel motief: het venster-frame (het `WindowMark`-icoon,
   en het patroon van "vensters"/panelen die verschillende mogelijkheden
   tonen) — blijft, ook na Stap 24.
@@ -1286,3 +1298,50 @@ Stripe, Claude API, Resend, PostHog).
       mobiel — 375px — de foto-kolom netjes verbergt in plaats van een
       kapotte layout te geven) en checkout met de hergebruikte
       vensterfoto. `tsc --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 26 — "Warm Walnut"-kleur-/radius-restyle van dezelfde drie
+      schermen (Landing, Intake, Checkout), op verzoek na feedback dat de
+      teal/zwarte Stap 24-25-uitstraling nog niet warm/premium genoeg
+      aanvoelde. Alleen tokens + `Button.tsx` aangepast — geen enkele
+      layout-/componentwijziging (die kwam al in Stap 24-25 goed uit de
+      verf), geen nieuwe beelden nodig (de 6 lokale foto's uit Stap 25 —
+      leer, walnoot, marmer, messing — passen al perfect bij dit warmere
+      palet).
+      **Belangrijke kanttekening vooraf gedeeld**: de drie door de
+      gebruiker bijgevoegde referentiebeelden (gevonden op eigen initiatief
+      in `Downloads/`, na het zoeken op de genoemde bestandsnamen) bleken
+      zelf vrijwel pixel-identieke screenshots van de bestaande site te
+      zijn (dezelfde teal/zwart/wit-opzet, met wat kleine icoontjes
+      toegevoegd) — geen walnoot/goud-sfeer zoals de begeleidende tekst
+      beschreef. De zeer expliciete, hex-exacte tekstbrief is als leidend
+      genomen in plaats van de beelden zelf.
+      **Tokens** (`globals.css`): dezelfde variabelenamen als Stap 24
+      (`--color-accent`, `--color-accent-dark`, `--color-ink`,
+      `--color-cream`, `--color-paper`, `--color-border`, `--color-
+      surface-active`, `--color-gold`) behouden hun rol maar krijgen nieuwe
+      hex-waarden — walnoot/warmgrijs/crème i.p.v. teal/koelgrijs/wit —
+      plus twee nieuwe tokens (`--color-walnut-light`, `--color-gold-
+      light`, `--color-muted`) voor de secundaire accenten uit de
+      specificatie. Nieuwe `--radius-sm/-md/-lg`-tokens (8/12/18px)
+      overschrijven Tailwinds eigen `rounded-sm/-md/-lg`-schaal, dus elke
+      bestaande `rounded-md`/`rounded-lg`-className in de app (knoppen,
+      kaarten, inputs, panelen) wordt in één keer zachter/ronder — exact
+      dezelfde "verander het token, niet elk bestand"-aanpak als steeds dit
+      traject.
+      **`Button.tsx`**: primaire knop nu een vlakke walnoot-donker-vulling
+      (`--color-accent-dark`) met een dunne gouden randkleur en een zacht
+      schaduweffect bij hover (conform de aangeleverde CSS), secundaire
+      knop een crème-vulling met een walnoot-hoverrand, een goud-getinte
+      focus-ring i.p.v. de vorige accentkleur-ring, en een consistente
+      `min-h-12`(48px)/`min-h-11`(44px) op alle knopgroottes zodat
+      Terug/Verder-paren altijd op dezelfde hoogte staan. De landingspagina's
+      sluitings-CTA-banner (voorheen `bg-ink`) is naar `bg-accent-dark`
+      (walnoot-donker) gezet voor eenzelfde warme, premium paneelvulling als
+      de knoppen — alle overige donkere/geselecteerde elementen (chip-
+      selectie, sliders, checkout-tijdlijn) blijven bewust op `ink` staan,
+      niet walnoot, conform "gebruik walnoot/goud met mate".
+      Getest: volledige wizard + checkout opnieuw doorlopen in de browser
+      (elke pagina, alle 5 foto's, geselecteerde/niet-geselecteerde
+      knopstaten, focus-/hoverstaten) en de landingspagina — alles warm,
+      samenhangend, en de bestaande Stap 25-fotografie sluit er naadloos
+      op aan. `tsc --noEmit`/`eslint .`/`npm run build` schoon.

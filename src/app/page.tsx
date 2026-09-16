@@ -130,7 +130,7 @@ export default async function Home() {
 
         {/* Closing CTA banner */}
         <section className="px-6 py-20 sm:px-10">
-          <div className="mx-auto max-w-3xl rounded-lg bg-ink p-10 text-center sm:p-14">
+          <div className="mx-auto max-w-3xl rounded-lg bg-accent-dark p-10 text-center sm:p-14">
             <h2 className="font-serif text-3xl font-semibold text-white sm:text-4xl">
               {dict.landing.ctaBannerHeading}
             </h2>
