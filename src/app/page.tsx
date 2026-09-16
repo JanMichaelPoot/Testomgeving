@@ -17,8 +17,8 @@ export default async function Home() {
 
       <main className="w-full flex-1">
         {/* Hero */}
-        <section className="mx-auto w-full max-w-[110rem] px-6 py-16 sm:px-10 sm:py-24">
-          <div className="grid w-full items-center gap-16 lg:grid-cols-[1fr_2fr]">
+        <section className="mx-auto w-full max-w-[84rem] px-6 py-16 sm:px-10 sm:py-24">
+          <div className="grid w-full items-center gap-16 lg:grid-cols-[1fr_1.3fr]">
             <div className="max-w-xl">
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-paper px-4 py-1.5">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />

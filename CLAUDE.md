@@ -1530,3 +1530,23 @@ Stripe, Claude API, Resend, PostHog).
       zichtbaar.
       Getest: desktop (1700px) en mobiel (375px) — beide tonen direct het
       nieuwe bestand. `tsc --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 32 — De op de live site gemelde rand rond de hero weggehaald en
+      het beeld kleiner/beter geproportioneerd gemaakt, op verzoek.
+      **Oorzaak van de rand**: niet de achtergrondkleur (`hero.jpg`'s hoek-
+      pixel `#F8F5EE` bleek al vrijwel identiek aan `--color-cream`
+      `#F7F5F0`, met `sharp` losstaand van de app geverifieerd) maar de
+      `drop-shadow`-CSS-filter uit Stap 28-29 op `HeroFanCollage.tsx`: een
+      `drop-shadow` op een ondoorzichtige JPEG (geen alfakanaal) werpt een
+      schaduw rond de hele **rechthoekige** afbeeldingsgrens, niet rond de
+      zichtbare waaiervorm — precies de rand die zichtbaar was. Filter
+      volledig verwijderd; geen Gemini-regeneratie nodig, dit was een
+      zuivere CSS-fix.
+      **Kleiner/beter geproportioneerd**: hero-sectie in `page.tsx` van
+      `max-w-[110rem]` + `lg:grid-cols-[1fr_2fr]` (Stap 30's ~2x) terug
+      naar `max-w-[84rem]` + `lg:grid-cols-[1fr_1.3fr]` — een gematigder
+      ~1,3x t.o.v. de oorspronkelijke 50/50-verhouding uit Stap 28, in
+      plaats van de eerder gevraagde 2x.
+      Getest: desktop (1600px, `getComputedStyle(...).filter === "none"`
+      expliciet gecontroleerd, geen rand meer zichtbaar) en mobiel (375px).
+      `tsc --noEmit`/`eslint .` schoon.
