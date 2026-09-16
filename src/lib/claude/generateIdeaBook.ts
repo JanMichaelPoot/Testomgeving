@@ -1,3 +1,4 @@
+import type Anthropic from "@anthropic-ai/sdk";
 import { anthropic, CLAUDE_MODEL } from "@/lib/anthropic";
 import {
   WINDOW_VOICE_SYSTEM_PROMPT,
@@ -16,6 +17,7 @@ export {
   DIFFICULTY_LABELS,
   type IdeaPractical,
   type IdeaLocation,
+  type IdeaOption,
   type IdeaDoor,
   type IdeaScores,
   type IdeaBookEntry,
@@ -26,6 +28,7 @@ import type {
   GeneratedIdeaBook,
   IdeaPractical,
   IdeaLocation,
+  IdeaOption,
   IdeaDoor,
   IdeaScores,
 } from "@/lib/claude/ideaBookTypes";
@@ -108,12 +111,23 @@ Rules for using the profile:
   their own words where you can ("You mentioned...", "Since you said...",
   "Because you're looking for...") rather than a generic justification that
   could apply to anyone. It should read like proof you were listening, not
-  a marketing blurb. Also needed: details (an array of
-  exactly 3 concrete, sequential, doable steps — one short imperative
-  sentence per step, max ~16 words each, no vague verbs like "consider" or
-  "explore"), and a first_action: one specific, immediately doable next
-  step, one short instruction (max ~16 words), e.g. "Check dit weekend de
-  beschikbaarheid en boek daarna de kayak.".
+  a marketing blurb.
+- details: an array of exactly 3 concrete, sequential steps that read like
+  a ready-made how-to, not a vague suggestion — say exactly what to open,
+  search, or click. Name the specific website/app/platform from the
+  verified research brief below when there is one for this idea (e.g.
+  "Open eventbrite.nl, search for '<exact term>' and filter by your
+  city."), or a well-known, certainly-real platform/search engine when the
+  research didn't verify anything more specific (Google Maps, Marktplaats,
+  Meetup, a plain Google search with an exact query) — never a vague
+  instruction like "find a suitable place" or "look online". One short
+  imperative sentence per step, max ~20 words each, no vague verbs like
+  "consider" or "explore".
+- first_action: one instruction the person can complete within 60 seconds
+  of finishing reading, naming an exact site/app/search term/button — e.g.
+  "Open Google Maps and search '<exact term>'" or "Go to meetup.com and
+  filter on '<category>' in <city>." (max ~20 words). Never a vague "think
+  about" or "consider".
 - practical is a small structured object, not free text:
   estimated_cost (short, e.g. "€25–40" or "Gratis"), duration (short,
   e.g. "Een dagdeel"), difficulty (exactly "easy", "moderate", or
@@ -121,19 +135,30 @@ Rules for using the profile:
   beforehand, or an empty string if nothing needs preparing).
 - location: only fill this in for ideas tied to one specific, findable
   physical place — a named park, museum, trail, neighborhood, or venue.
-  Use it for the place's name and city; only fill in "address" when you
-  are confident about a real, well-known public place (a famous landmark,
-  a specific city park) — leave it as an empty string for anything more
-  specific than that, since you cannot verify exact street addresses of
-  individual businesses. Set location to null entirely for ideas that
+  Take the name and city from the verified research brief below; only fill
+  in "address" when the research brief itself confirms an address for a
+  well-known public place. Set location to null entirely for ideas that
   don't happen at one specific findable place (e.g. "cook a new recipe at
-  home", "write letters to old friends").
+  home", "write letters to old friends"), or when the research brief has
+  nothing relevant to offer for this idea.
+- options: an array of 2-3 concrete, real, named alternatives for actually
+  doing this idea (a specific business, venue, platform, route, or event),
+  taken ONLY from the verified research brief below — never invented from
+  your own memory or a plausible-sounding guess, since you cannot verify
+  whether it still exists, is spelled right, or is even real. Each option
+  needs a name, a one-line detail (why it fits / what it is, in
+  {{LANGUAGE}}), and a url — copy the URL exactly as given in the research
+  brief, or leave it as an empty string if the research didn't give one for
+  that item. If the research brief has nothing relevant for this idea,
+  return an empty array rather than guessing a name.
 - requirements: up to 4 short items (a few words each) of concrete things
   the person needs to arrange, buy, or bring (tickets, gear, clothing, an
   app, a reservation) — an empty array when the idea genuinely needs
   nothing beyond showing up.
-- Never invent a specific ticket price, opening hours, or a direct URL —
-  you have no way to verify those and a wrong one actively hurts trust.
+- Never invent a specific business name, exact street address, ticket
+  price, opening hours, or direct URL that isn't confirmed in the verified
+  research brief below — you have no way to verify those yourself and a
+  wrong one actively hurts trust, in a product people already paid for.
   Keep estimated_cost approximate and don't mention opening hours at all.
 - image_suggestion is a one-line internal art-direction note for a future
   illustration of this idea — not shown to the user, so it can be terse.
@@ -175,6 +200,95 @@ Need for structure: ${character.dimensions.needForStructure}
 Challenge level: ${character.challengeLevel}`;
 }
 
+// A slimmer profile view for the research pass below — it only needs the
+// signals that narrow down what's worth searching for (where, what kind of
+// thing, budget/time), not the full character-scoring context that the
+// idea-generation call needs.
+function formatProfileForResearch(intake: IntakeAnswers): string {
+  return `Location: ${intake.location}
+Search distance: ${intake.searchDistance}
+Situation: ${intake.situation}
+Purpose: ${intake.purpose}
+Purpose detail: ${intake.purposeFollowUp}
+Time available: ${intake.timeAvailable}
+Budget: ${intake.budget}
+Open to these kinds of possibilities: ${intake.solutionTypes.join(", ")}
+Must-haves (hard constraints): ${intake.mustHaves || "none stated"}
+Preferences (soft nudges): ${intake.preferences || "none stated"}
+Company: ${intake.company}`;
+}
+
+// Runs before idea generation, using Claude's live web-search tool to find
+// real, currently-operating businesses/venues/platforms/routes/events that
+// match this person's profile — the idea-generation call is then told to
+// only name something specific when it's backed by this brief, never from
+// its own (unverifiable, potentially outdated) training data. This is what
+// makes the "concrete real names" requirement in generateIdeaBook's system
+// prompt actually safe rather than an invitation to hallucinate business
+// names — see the improvement-plan discussion this replaces (previously
+// the prompt only allowed well-known landmarks, precisely because there was
+// no grounding source).
+// Fails soft: if the search call errors (network, quota, tool
+// unavailable), idea generation still proceeds — every idea then simply
+// falls back to generic, verifiably-real platforms (Google Maps, Meetup,
+// a plain search query) per the system prompt's fallback instruction,
+// rather than failing the whole paid generation over a research outage.
+async function researchGroundedOptions(intake: IntakeAnswers, locale: Locale): Promise<string> {
+  const language = languageLabel(locale);
+  try {
+    const message = await anthropic.messages.create({
+      model: CLAUDE_MODEL,
+      max_tokens: 4000,
+      system: `You are a meticulous local-options researcher for WINDOW, a
+possibility-discovery app. Your only job here is to use web search to find
+REAL, CURRENTLY OPERATING businesses, venues, routes, events, or platforms
+that concretely match the profile below — always verify with a search,
+never rely on memory or a plausible-sounding guess. Write your findings in
+${language} as a compact, scannable research brief, not prose.`,
+      messages: [
+        {
+          role: "user",
+          content: `${formatProfileForResearch(intake)}
+
+Search for concrete, real, currently-operating options relevant to this
+person's location and search distance, their situation/purpose, budget,
+time available, and the kinds of possibilities they're open to. Cover a
+spread of different activity types rather than depth on just one. For each
+theme you find something for, list 2-3 real named options: the
+business/venue/route/event/platform's name, its city, a one-line
+description of what it is, and its website URL exactly as it appears in
+your search results (only include a URL you actually saw in the results —
+never guess one). If you cannot verify anything real for a theme, say so
+explicitly rather than inventing a name.`,
+        },
+      ],
+      tools: [
+        {
+          type: "web_search_20250305",
+          name: "web_search",
+          max_uses: 8,
+          user_location: {
+            type: "approximate",
+            city: intake.location || null,
+            country: "NL",
+          },
+        },
+      ],
+    });
+
+    return message.content
+      .filter((block): block is Anthropic.TextBlock => block.type === "text")
+      .map((block) => block.text)
+      .join("\n");
+  } catch (err) {
+    console.error(
+      "WINDOW: grounded-options web search failed, continuing without it",
+      err
+    );
+    return "";
+  }
+}
+
 const PRACTICAL_SCHEMA = {
   type: "object" as const,
   properties: {
@@ -194,6 +308,16 @@ const LOCATION_SCHEMA = {
     city: { type: "string" },
   },
   required: ["name", "address", "city"],
+};
+
+const OPTION_SCHEMA = {
+  type: "object" as const,
+  properties: {
+    name: { type: "string" },
+    detail: { type: "string" },
+    url: { type: "string" },
+  },
+  required: ["name", "detail", "url"],
 };
 
 // Fase 3 (Possibility/Door Engine) — see the master prompt sections 6 and
@@ -241,6 +365,7 @@ const IDEA_ENTRY_SCHEMA = {
     first_action: { type: "string" },
     practical: PRACTICAL_SCHEMA,
     location: LOCATION_SCHEMA,
+    options: { type: "array", maxItems: 3, items: OPTION_SCHEMA },
     requirements: { type: "array", maxItems: 4, items: { type: "string" } },
     image_suggestion: { type: "string" },
     door: {
@@ -257,6 +382,7 @@ const IDEA_ENTRY_SCHEMA = {
     "first_action",
     "practical",
     "location",
+    "options",
     "requirements",
     "image_suggestion",
     "door",
@@ -293,6 +419,17 @@ async function callClaudeForIdeaBook(
 ): Promise<GeneratedIdeaBook> {
   const language = languageLabel(locale);
   const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language);
+  const researchBrief = await researchGroundedOptions(intake, locale);
+  const researchBlock = researchBrief
+    ? `Verified live web research (use ONLY these names for anything
+specific — never invent a business/venue/platform/route/event name beyond
+what's listed here; if a theme below isn't covered, keep that idea's
+options empty and its steps/first_action generic instead of guessing):
+${researchBrief}`
+    : `No verified web research came back this time — keep every idea's
+options array empty, and keep steps/first_action generic (well-known,
+certainly-real platform types and search strategies) rather than inventing
+a specific unverified business, venue, or address.`;
 
   const message = await anthropic.messages.create({
     model: CLAUDE_MODEL,
@@ -302,6 +439,8 @@ async function callClaudeForIdeaBook(
       {
         role: "user",
         content: `${formatProfile(intake, characterProfile)}
+
+${researchBlock}
 
 Generate the full Idea Book by calling the create_idea_book tool exactly
 once, with exactly 6 ideas plus one separate wildcard. Spread the 6 ideas
@@ -411,6 +550,21 @@ function normalizeLocation(value: unknown): IdeaLocation | null {
   return { name, address: toText(l.address), city: toText(l.city) };
 }
 
+function normalizeOption(value: unknown): IdeaOption | null {
+  if (value == null || typeof value !== "object") return null;
+  const o = value as Partial<IdeaOption>;
+  const name = toText(o.name);
+  if (!name) return null;
+  return { name, detail: toText(o.detail), url: toText(o.url) };
+}
+
+function normalizeOptions(value: unknown): IdeaOption[] {
+  const items = Array.isArray(value) ? value : [];
+  return items
+    .map(normalizeOption)
+    .filter((option): option is IdeaOption => option !== null);
+}
+
 const VALID_DOORS: readonly IdeaDoor[] = [
   "natural",
   "discovery",
@@ -462,6 +616,7 @@ function normalizeEntry(entry: unknown, opts: { forceDoor?: IdeaDoor } = {}): Id
     first_action: toText(e.first_action),
     practical: normalizePractical(e.practical),
     location: normalizeLocation(e.location),
+    options: normalizeOptions(e.options),
     requirements: toTextArray(e.requirements),
     image_suggestion: toText(e.image_suggestion),
     door: opts.forceDoor ?? normalizeDoor(e.door, "discovery"),

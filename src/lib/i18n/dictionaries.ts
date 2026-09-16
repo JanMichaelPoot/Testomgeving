@@ -189,6 +189,7 @@ export interface Dictionary {
     firstActionFallback: string;
     practicalFallback: string;
     locationFallback: string;
+    optionsFallback: string;
     requirementsFallback: string;
     mapLinkLabel: string;
     footerWordmark: string;
@@ -551,6 +552,7 @@ const nl: Dictionary = {
     firstActionFallback: "Dit kunt u nu doen",
     practicalFallback: "Praktisch",
     locationFallback: "Locatie",
+    optionsFallback: "Concrete opties",
     requirementsFallback: "Wat heeft u nodig",
     mapLinkLabel: "bekijk op kaart",
     footerWordmark: "WINDOW  ·  Jouw Idea Book",
@@ -1074,6 +1076,7 @@ const en: Dictionary = {
     firstActionFallback: "You can do this now",
     practicalFallback: "Practical",
     locationFallback: "Location",
+    optionsFallback: "Concrete options",
     requirementsFallback: "What you'll need",
     mapLinkLabel: "view on map",
     footerWordmark: "WINDOW  ·  Your Idea Book",

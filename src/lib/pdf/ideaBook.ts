@@ -656,6 +656,17 @@ export async function renderIdeaBookPdf(
         .join("  ·  ");
       drawMetaLine(book.labels.cost_label || chrome.practicalFallback, practicalLine, textX, textWidth);
 
+      if (idea.options.length > 0) {
+        y -= 3;
+        drawParagraph(chrome.optionsFallback, fonts.sansBold, 10, ACCENT, 4, textX, textWidth, undefined, {
+          tracking: 0.6,
+        });
+        y -= 1;
+        for (const option of idea.options) {
+          drawMetaLine(option.name, option.detail, textX, textWidth, option.url || undefined);
+        }
+      }
+
       if (idea.location) {
         const locationLine = [idea.location.name, idea.location.city].filter(Boolean).join(", ");
         drawMetaLine(
@@ -792,6 +803,16 @@ export async function renderIdeaBookPdf(
         .filter(Boolean)
         .join("  ·  ");
       drawMetaLine(book.labels.cost_label || chrome.practicalFallback, wildcardPractical, textX, textWidth);
+      if (book.wildcard.options.length > 0) {
+        y -= 3;
+        drawParagraph(chrome.optionsFallback, fonts.sansBold, 10, ACCENT, 4, textX, textWidth, undefined, {
+          tracking: 0.6,
+        });
+        y -= 1;
+        for (const option of book.wildcard.options) {
+          drawMetaLine(option.name, option.detail, textX, textWidth, option.url || undefined);
+        }
+      }
       if (book.wildcard.location) {
         const wildcardLocationLine = [book.wildcard.location.name, book.wildcard.location.city]
           .filter(Boolean)

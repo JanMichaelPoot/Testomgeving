@@ -1604,3 +1604,63 @@ Stripe, Claude API, Resend, PostHog).
       possibility-map-pagina zelf is een toevoeging van het andere
       traject, niet van deze stap). `tsc --noEmit`/`eslint .`/`npm run
       build` schoon.
+
+- [x] Stap 34 — Idee-inhoud van generiek naar concreet en uitvoerbaar
+      gemaakt, op verzoek: geen "zoek een pottenbakkerij" meer, maar
+      "Open steckutrecht.nl en boek een plek bij Ceramics of the Night".
+      **Belangrijke kanttekening vooraf gedeeld en samen opgelost**: de
+      bestaande systeemprompt verbood tot nu toe expliciet dat Claude
+      concrete bedrijfsnamen/adressen verzint (sinds Stap 11, herbevestigd
+      in Stap 14 toen bewust voor "geen live web-grounding, veilige
+      Maps-links" gekozen werd) — omdat het model zonder actuele databron
+      niet kan weten of een verzonnen naam echt bestaat. In plaats van die
+      waarborg te laten varen is er nu een echte databron aan toegevoegd:
+      Claude's live web-search tool.
+      **Nieuwe research-pas vóór generatie**: `researchGroundedOptions()`
+      (`src/lib/claude/generateIdeaBook.ts`) doet een eigen Claude-aanroep
+      mét de `web_search_20250305`-tool (max. 8 zoekopdrachten, met
+      `user_location` op de opgegeven stad + land NL voor relevantere
+      resultaten) die op basis van een verkorte profielweergave
+      (`formatProfileForResearch`) een compact "research brief" teruggeeft:
+      per relevant thema 2-3 echte, actuele bedrijven/venues/platforms/
+      routes met stad, korte beschrijving en URL — expliciet alleen wat
+      daadwerkelijk in de zoekresultaten stond, nooit gegokt. Faalt zacht:
+      als de zoekopdracht om wat voor reden dan ook faalt, gaat de
+      generatie gewoon door met een lege brief (idee-generatie valt dan
+      terug op generieke, gegarandeerd-echte platforms als Google Maps/
+      Meetup i.p.v. te crashen op een onderzoeksstoring in een product dat
+      al betaald is).
+      **Idee-generatie hergebruikt de brief, verzint niets voorbij haar
+      grenzen**: de hoofdprompt in `generateIdeaBook.ts` kreeg een nieuw
+      `options`-veld (2-3 concrete, echte alternatieven per idee — naam,
+      one-line detail, url), en de bestaande `location`/`details`/
+      `first_action`-regels zijn herschreven om expliciet te verwijzen naar
+      de meegegeven research brief: namen/locaties/URL's mogen alleen uit
+      die brief komen, nooit uit het eigen geheugen van het model. `details`
+      moet nu lezen als een kant-en-klare handleiding (exact welke site/app
+      te openen, wat te zoeken/klikken) i.p.v. een vage suggestie, en
+      `first_action` moet binnen 60 seconden uitvoerbaar zijn met een
+      exacte instructie. Nieuw `IdeaOption`-type in
+      `src/lib/claude/ideaBookTypes.ts`, met eigen schema/normalisatie
+      (`OPTION_SCHEMA`, `normalizeOption(s)`) op dezelfde defensieve manier
+      als de bestaande `location`/`practical`-velden.
+      **Weergave**: `IdeaDetail.tsx` (gedeeld door `/plan` en
+      `/shared/[id]`) toont de concrete opties nu als een lijst met naam,
+      detail en klikbare link. `src/lib/pdf/ideaBook.ts` hergebruikt de
+      bestaande `drawMetaLine`-helper (naam als label, detail als waarde,
+      url als klikbare linkannotatie) onder een nieuwe "Concrete opties"-
+      kop, op zowel de idee- als de wildcard-pagina — geen nieuwe
+      layout-machinerie nodig, de bestaande dry-run-kaartmeting uit Stap 22
+      schaalt vanzelf mee. Nieuw `optionsFallback`-label toegevoegd aan
+      `pdfChrome` in `src/lib/i18n/dictionaries.ts` (nl/en).
+      Getest: een losse, niet-gecommitte testrun tegen de echte Claude API
+      (`scratch/test-grounded-idea-book.ts`, verwijderd na controle) met
+      een Utrecht-profiel (pottenbakken, kunst, koffie, buiten) — de
+      research-pas vond en gebruikte daadwerkelijk bestaande, verifieerbare
+      zaken (Steck Utrecht, Museumcafé Centraal, KOR Utrecht, DagjeSuppen.nl,
+      ArtPub Rotsoord) met working URL's, en elke stap/eerste-actie was
+      exact en direct uitvoerbaar. De gerenderde PDF (pagina voor pagina
+      gecontroleerd via de PyMuPDF-rasterizer, incl. een idee met 3 opties)
+      toonde de nieuwe "Concrete opties"-sectie overal correct, zonder
+      overloop of afkapping — nog steeds exact 10 pagina's. `tsc --noEmit`/
+      `eslint .`/`npm run build` schoon.
