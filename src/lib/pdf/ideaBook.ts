@@ -37,20 +37,20 @@ const PAGE_HEIGHT = 841.89;
 const MARGIN = 60;
 const CONTENT_WIDTH = PAGE_WIDTH - MARGIN * 2;
 
-// A calm, editorial palette built around the user's own supplied
-// photograph (soft, airy, warm-white interiors with sheer curtains) —
-// replaces the earlier "quiet luxury" gold/emerald print theme entirely,
-// on explicit request. Every page's text lives inside a translucent warm
-// charcoal "glass" card (per the brief's own rule: a light photo calls for
-// a dark transparent overlay) so contrast never depends on guessing what's
-// behind it — one consistent rule instead of per-page judgement calls.
-const PANEL_FILL = rgb(0.122, 0.106, 0.094); // warm charcoal glass
-const PANEL_BORDER = rgb(0.78, 0.7, 0.58); // soft warm taupe hairline
-const TEXT_LIGHT = rgb(0.976, 0.965, 0.941); // warm ivory — primary text on panels
-const TEXT_MUTED = rgb(0.78, 0.73, 0.65); // warm taupe-cream — secondary text
-const ACCENT = rgb(0.78, 0.68, 0.55); // warm taupe — labels, hairlines, links
-const CREAM = rgb(0.973, 0.957, 0.925); // page fallback (full-bleed covers it)
-const SHADOW_TINT = rgb(0.05, 0.04, 0.03);
+// "Warm Walnut" — the same palette as the live website's design tokens
+// (src/app/globals.css: --color-accent-dark/--color-gold/--color-paper/
+// --color-cream), so the printed book finally reads as the same product as
+// the site instead of the older, disconnected "sheer curtain" pastel theme.
+// Every page's text still lives inside a translucent walnut "glass" card
+// (a light photo calls for a dark transparent overlay, per the original
+// brief) so contrast never depends on guessing what's behind it.
+const PANEL_FILL = rgb(0.235, 0.161, 0.125); // walnut-dark glass (--color-accent-dark #3C2920)
+const PANEL_BORDER = rgb(0.69, 0.541, 0.29); // antique gold hairline (--color-gold #B08A4A)
+const TEXT_LIGHT = rgb(1, 0.992, 0.98); // near-white — primary text on panels (--color-paper #FFFDFA)
+const TEXT_MUTED = rgb(0.824, 0.718, 0.478); // light gold-tan — secondary text (--color-gold-light #D2B77A)
+const ACCENT = rgb(0.69, 0.541, 0.29); // antique gold — labels, hairlines, links (--color-gold)
+const CREAM = rgb(0.969, 0.961, 0.941); // page fallback (--color-cream #F7F5F0, full-bleed covers it)
+const SHADOW_TINT = rgb(0.07, 0.05, 0.04);
 
 const FONTS_DIR = path.join(process.cwd(), "src/lib/pdf/fonts");
 const IMAGES_DIR = path.join(process.cwd(), "public/illustrations/idea-book");
@@ -522,7 +522,12 @@ export async function renderIdeaBookPdf(
         for (const { idea, originalIndex } of doorIdeas) {
           const isOneThing = originalIndex === oneThingIndex;
           drawParagraph(
-            `${isOneThing ? "✦" : "•"}  ${idea.title}`,
+            // "✦" isn't in the bundled NotoSans-Bold font (same class of
+            // missing-glyph bug as Stap 23's "★") and rendered as an empty
+            // box — the lighter text color already distinguishes the One
+            // Thing pick, so this just drops the glyph rather than hunting
+            // for another one, per that same precedent.
+            `•  ${idea.title}`,
             fonts.sans,
             10.5,
             isOneThing ? TEXT_LIGHT : TEXT_MUTED,

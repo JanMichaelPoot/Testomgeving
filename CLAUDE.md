@@ -1550,3 +1550,57 @@ Stripe, Claude API, Resend, PostHog).
       Getest: desktop (1600px, `getComputedStyle(...).filter === "none"`
       expliciet gecontroleerd, geen rand meer zichtbaar) en mobiel (375px).
       `tsc --noEmit`/`eslint .` schoon.
+
+- [x] Stap 33 — De Idea Book-PDF omgezet naar hetzelfde "Warm Walnut"-palet
+      en dezelfde fotografische stijl als de website (Stap 26-32), op
+      verzoek nadat de PDF nog de oudere, losstaande "sheer curtain
+      window"-stijl uit Stap 23 had — de twee waren visueel uit elkaar
+      gegroeid. Vooraf afgestemd via twee keuzevragen: (1) ja, aansluiten
+      bij de website-uitstraling, niet iets anders bedoeld met "de kaarten
+      daarvoor"; (2) nieuwe beelden laten genereren in dezelfde stijl,
+      geen hergebruik van bestaande website-bestanden.
+      **Palet** (`src/lib/pdf/ideaBook.ts`): de 7 kleurconstanten
+      (`PANEL_FILL`/`PANEL_BORDER`/`TEXT_LIGHT`/`TEXT_MUTED`/`ACCENT`/
+      `CREAM`/`SHADOW_TINT`) rechtstreeks overgenomen van de site's eigen
+      design-tokens (`--color-accent-dark`/`--color-gold`/`--color-paper`/
+      `--color-gold-light`/`--color-cream`) — walnoot-donkere glaskaarten,
+      een antiek-gouden randkleur/labels i.p.v. de vorige neutrale
+      taupe/houtskool-combinatie. Uitsluitend deze 7 constanten gewijzigd —
+      de rest van het bestand (dry-run-kaartmeting, `roundedRectPath`,
+      de "Fase 3/5"-Possibility Map-pagina met deur-groepering die intussen
+      door het andere, parallelle traject aan dit bestand is toegevoegd)
+      bewust volledig ongemoeid, conform het patroon van elke eerdere
+      PDF-restyle dit traject (Stap 18/19/22/23): alleen kleuren/beelden,
+      nooit de laag-architectuur.
+      **Nieuwe beelden**: `scripts/generate-idea-book-illustrations.ts`
+      herschreven met een nieuwe `STYLE_PREFIX` (dezelfde "premium
+      travel-magazine, warme walnoothout-tinten"-taal als
+      `generate-outdoor-illustrations.ts`/`generate-hero-illustration.ts`)
+      en genereert nu voor het eerst ook zelf de gedeelde achtergrond —
+      Stap 23's aanpak (de eigen `Achtergrond.jpeg` van de gebruiker als
+      vaste achtergrond) is hiermee losgelaten, expliciet akkoord bevonden
+      in de keuzevraag vooraf. Cover: een walnoot-schrijftafel met
+      leren dagboek, kompas en koffie bij een zonnig raam. Achtergrond
+      (gedeeld over profiel + mogelijkheden-kaart + alle 6 idee-pagina's):
+      een walnoot vensternis met linnen gordijnen, boeken en een
+      olijftakje. Sluiting/wildcard: een walnoot tuinbank in gouden-uur-
+      licht met mokken en boeken — bewust eenzelfde soort scène als
+      Intake-pagina 5's `final.jpg`, voor herkenbare samenhang tussen boek
+      en site zonder letterlijk hetzelfde bestand te hergebruiken.
+      **Bijgevangen bug, niet door mij veroorzaakt**: tijdens het
+      testrenderen bleek de "✦"-marker op de (door het andere traject
+      toegevoegde) Possibility Map-pagina als een lege tofu-box te
+      renderen — exact dezelfde soort ontbrekende-glyph-bug als de "★" uit
+      Stap 23, ditmaal in het gebundelde NotoSans-Bold-lettertype. Opgelost
+      volgens hetzelfde precedent: de marker weggehaald in plaats van een
+      vervangend glyph te zoeken (de lichtere tekstkleur onderscheidt de
+      "One Thing"-pick al voldoende).
+      Getest: een losse testrender met mock-data (kort/lang, met/zonder
+      locatie en vereisten) via de PyMuPDF-rasterizer, pagina voor pagina
+      gecontroleerd — cover, profiel, possibility-map (glyph-fix
+      bevestigd), idee-pagina's (incl. de zelf-aanpassende kaarthoogte bij
+      kortere content) en de wildcard-pagina. Nog steeds exact 10 pagina's
+      (cover, profiel, possibility map, 6 idee-pagina's, wildcard — de
+      possibility-map-pagina zelf is een toevoeging van het andere
+      traject, niet van deze stap). `tsc --noEmit`/`eslint .`/`npm run
+      build` schoon.
