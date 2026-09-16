@@ -1345,3 +1345,188 @@ Stripe, Claude API, Resend, PostHog).
       knopstaten, focus-/hoverstaten) en de landingspagina — alles warm,
       samenhangend, en de bestaande Stap 25-fotografie sluit er naadloos
       op aan. `tsc --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 27 — De 5 Intake-foto's uit Stap 25 (indoor walnoot/leer-set:
+      kompas, kledinghanger, mengpaneel, prisma, marmeren schaal) vervangen
+      door een nieuwe "outdoor adventure"-set, op een zeer gedetailleerde,
+      per-pagina eigen specificatie (sage/mos/terracotta/lucht-blauw,
+      geen mensen/tekst/logo's). De landingspagina-hero + checkout-bookend
+      (`LUXURY_ILLUSTRATIONS.windowView`) zijn **expliciet niet aangepast**,
+      conform de uitdrukkelijke instructie — dat ene beeld blijft het venster
+      met de zonnige binnenplaats uit Stap 25.
+      **Nieuwe beelden**: `scripts/generate-outdoor-illustrations.ts`
+      (nieuw script, eigen `STYLE_PREFIX` losstaand van het indoor-neutrale
+      prefix in `generate-luxury-illustrations.ts`) genereert 5 vaste
+      stillevens onder `public/illustrations/outdoor/`: een vensterbank met
+      een mistig bospad erachter, kompas/verrekijker/kaartrol
+      (`situation.jpg`, Intake-pagina 1), een outdoor-gearkapstok met
+      regenjas/rugzak/wandelschoenen i.p.v. de kledingrek-hanger
+      (`about.jpg`, pagina 2), een houten tuintafel met veldnotitieboekjes/
+      kompas/gedroogde bloemen (`dials.jpg`, pagina 3 — de sliders-pagina),
+      een picknickkleed-flatlay met een cadeau/aquarelsetje/kruiden
+      (`openness.jpg`, pagina 4), en een tuinbank met boeken/mokken in
+      warm avondlicht (`final.jpg`, pagina 5).
+      **Eén bewuste vereenvoudiging, expliciet afgeweken van de specificatie**:
+      voor pagina 5 vroeg de specificatie om een letterlijke 3-panelen-
+      collage (picknickkleed + tuinbank + tuinstoel als drie aparte
+      deelbeelden) — deze pagina rendert technisch gezien altijd één
+      enkele foto (geen collage-compositing-infrastructuur in het project),
+      dus is in plaats daarvan één samenhangende tuinbank-scène gegenereerd
+      die de sfeer van alle drie de elementen vangt (boeken, mokken, warm
+      licht, groen) in één beeld.
+      **Opgeruimd**: de 5 nu volledig ongebruikte Stap 25-bestanden
+      (`compass.jpg`, `hanger.jpg`, `mixer.jpg`, `prism.jpg`,
+      `marble-bowl.jpg`) zijn verwijderd uit `public/illustrations/luxury/`
+      — alleen `window-view.jpg` blijft daar staan. `src/lib/
+      illustrations.ts`'s `LUXURY_ILLUSTRATIONS`-object bevat nu alleen nog
+      `windowView`; `INTAKE_LUXURY_PHOTOS` wijst naar de nieuwe
+      `outdoor/`-set. `scripts/generate-luxury-illustrations.ts` zelf is
+      bewust laten staan (documenteert nog hoe `window-view.jpg` gemaakt
+      is), ook al genereert een herrun ervan nu overbodige bestanden.
+      Getest: alle 5 nieuwe beelden individueel visueel geïnspecteerd;
+      de volledige wizard doorlopen in de browser (elke pagina toont het
+      juiste nieuwe beeld) en de landingspagina expliciet gecontroleerd op
+      een ongewijzigde hero. `tsc --noEmit`/`eslint .`/`npm run build`
+      schoon.
+
+- [x] Stap 28 — De landing-hero alsnog vervangen door de fan-collage uit de
+      referentie (Stap 27 liet 'm expliciet ongewijzigd; hier expliciet
+      omgedraaid op verzoek), plus twee Intake-foto's vervangen door
+      eigen aangeleverde bestanden.
+      **Hero volledig vereenvoudigd**: eerdere pogingen bouwden de fan als
+      zes losse foto's met CSS `clip-path`-wiggen rondom een gedeeld
+      draaipunt (`HeroFanCollage.tsx`) — technisch werkend, maar met
+      wiggen van sterk ongelijke zichtbare oppervlakte (een wig die naar de
+      dichtstbijzijnde rand van de container wijst, heeft simpelweg veel
+      minder ruimte dan een wig die naar de verre kant wijst), wat ondanks
+      meerdere pogingen met hoek-herverdeling nooit een gebalanceerde fan
+      opleverde. Overbodig geworden zodra bleek dat de gebruiker één al
+      volledig samengestelde fan-afbeelding aanleverde (`hero.jpeg`,
+      gevonden in `Downloads/` op eigen initiatief, zelfde patroon als
+      eerdere sessies) — `HeroFanCollage.tsx` is teruggebracht tot een
+      simpele `<Image>`-weergave van dat ene bestand
+      (`public/illustrations/hero-fan/hero.jpg`), zonder kaartrand/
+      achtergrondvlak: de foto's eigen witruimte rond de waaiervorm oogt al
+      vrijwel naadloos tegen de crème paginakleur, en de bruin/crème-tinten
+      in het beeld zelf sluiten toevallig al goed aan bij het "Warm
+      Walnut"-palet. De 6 losse, nu volledig ongebruikte wig-foto's
+      (koffie/berg/tuin/markt/atelier/ruïnes) en het bijbehorende
+      `scripts/generate-hero-fan-illustrations.ts` zijn verwijderd.
+      **Twee Intake-foto's vervangen door eigen bestanden**: de gebruiker
+      leverde ook `Foto1.jpeg` (vensterbank/bospad, vervangt Intake-pagina 1
+      "Jouw situatie") en `Foto4.jpeg` (picknickkleed/aquarelsetje, vervangt
+      pagina 4 "Waar je voor openstaat") aan — beide zijn eigen,
+      net-iets-anders gecomponeerde varianten van dezelfde motieven als de
+      Stap 27-Gemini-beelden. Simpele bestandsvervanging op exact dezelfde
+      paden (`public/illustrations/outdoor/situation.jpg` en
+      `openness.jpg`) — geen codewijziging nodig, `INTAKE_LUXURY_PHOTOS`
+      wees al naar die bestandsnamen.
+      **`src/lib/gemini.ts`** kreeg voor deze stap's (achteraf overbodig
+      gebleken) fan-wiggen-experiment een uitgebreide `aspectRatio`-union
+      (`"3:4" | "2:3" | "1:1"` toegevoegd naast `"4:3"/"3:2"`) en een
+      optionele `imageSize: "1K" | "2K"`-parameter — blijft staan, want
+      Stap 27's outdoor-set is met dezelfde uitbreiding ook opnieuw
+      gegenereerd in portret/2K (zie hieronder) en dat blijft bruikbaar
+      voor toekomstige portret-generaties.
+      **Zijdelings ook gedaan**: op verzoek ("hoge resolutie verticaal")
+      zijn de 5 Stap 27-Intake-illustraties opnieuw gegenereerd in
+      portretoriëntatie op 2K (was landschap/1K) via dezelfde
+      `scripts/generate-outdoor-illustrations.ts` — pagina's 2, 3 en 5
+      gebruiken nog steeds deze hogere-resolutie hergeneraties;
+      pagina 1 en 4 zijn met de zojuist genoemde eigen bestanden
+      overschreven.
+      Getest: hero en beide vervangen Intake-foto's stuk voor stuk visueel
+      gecontroleerd in de browser (Stap 1 en Stap 4, via een
+      sessionStorage-geïnjecteerde draft om snel bij pagina 4 te komen).
+      `tsc --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 29 — De hero opnieuw via Gemini gegenereerd (i.p.v. het
+      aangeleverde bestand uit Stap 28) en ~1,5x vergroot, op expliciet
+      verzoek.
+      **Generatie**: nieuw `scripts/generate-hero-illustration.ts` — één
+      Gemini-call die de hele waaiercompositie in één beeld aanvraagt
+      (zes wig-vormige foto's rond een gedeeld draaipunt: koffie-bij-het-
+      raam, besneeuwd bergpad, moestuin, kleurrijke markt, schrijfbureau,
+      antieke ruïne, plus het kleine gekantelde raam-met-vaas-inzetfoto op
+      het draaipunt) met expliciet `#F7F5F0` als achtergrondkleur — exact
+      de hex van `--color-cream` — zodat het gegenereerde beeld zonder
+      verdere bewerking naadloos in de paginaondergrond overloopt. Dit
+      werkte verrassend goed in één keer: Gemini leverde zes visueel
+      gelijkmatige wiggen (waar de eerdere, met de hand met CSS
+      `clip-path` opgebouwde waaier uit hetzelfde Stap 28-traject juist
+      last had van sterk ongelijke wig-oppervlaktes) — bevestigt dat het
+      laten genereren van de hele compositie in één keer hier robuuster
+      was dan zelf de geometrie proberen te berekenen.
+      **Vergroting**: de hero-sectie in `page.tsx` ging van `max-w-6xl` +
+      een gelijke 2-koloms grid naar `max-w-[90rem]` +
+      `lg:grid-cols-[1fr_1.5fr]` — bewust zo gekozen dat de tekstkolom
+      ongeveer even breed blijft als voorheen (~504px) terwijl de
+      beeldkolom naar ~1,5x haar oude breedte (~504px → ~780px) groeit,
+      in plaats van simpelweg de bestaande 50/50-verdeling breder te
+      trekken (wat de tekstkolom ook onnodig zou vergroten). Alleen de
+      hero-sectie werd verbreed; de overige secties op de landingspagina
+      (wat je krijgt/testimonials/sluitings-CTA) bleven op `max-w-6xl`.
+      Onderweg tegengekomen: Next.js' image-optimizer-cache in dev-mode
+      bleef de oude hero tonen nadat het bronbestand overschreven was
+      (zelfde URL/query, dus dezelfde cache-sleutel) — opgelost door
+      `.next/cache/images` te verwijderen; dit deed zich niet voor bij
+      eerdere beeldvervangingen deze sessie omdat die telkens een nieuwe
+      bestandsnaam kregen.
+      Getest: desktop (1600px, duidelijk grotere/gebalanceerdere waaier,
+      naadloze overgang beeld↔pagina-achtergrond) en mobiel (375px, nette
+      stapeling, geen overflow). `tsc --noEmit`/`eslint .`/`npm run build`
+      schoon.
+
+- [x] Stap 30 — De hero nogmaals via Gemini geregenereerd, deze keer om
+      dichter bij de scherpe "pinwheel/ninja-star"-vorm van de eigen
+      referentieafbeelding te komen (Stap 29's versie had een zachtere,
+      afgeronde regenboogboog-silhouet in plaats van scherpe punten), en
+      naar ~2x vergroot (was ~1,5x in Stap 29).
+      **Prompt bijgesteld**: `scripts/generate-hero-illustration.ts`'s
+      `STYLE_PREFIX`/`PROMPT` expliciet herschreven om scherpe,
+      driehoekige wiggen te vragen die in punten samenkomen (i.p.v. een
+      afgeronde waaier), panelen die direct tegen elkaar aan liggen zonder
+      gekleurde randlijn (alleen een dun wit lijntje ertussen, zoals de
+      referentie), én — voor het eerst deze sessie voor gegenereerde
+      beelden — een persoon toegestaan (een schilder van achteren gezien,
+      gezicht niet zichtbaar, exact zoals de referentie) plus kleine,
+      niet-herkenbare figuren op de marktfoto, omdat de gebruiker voor de
+      tweede keer expliciet dezelfde referentie met een persoon erin
+      aanleverde. Resultaat in één keer een vrijwel exacte match van de
+      gevraagde scherpe pinwheel-vorm.
+      **Vergroting naar ~2x**: hero-sectie in `page.tsx` van `max-w-[90rem]`
+      + `lg:grid-cols-[1fr_1.5fr]` naar `max-w-[110rem]` +
+      `lg:grid-cols-[1fr_2fr]` — zelfde rekenmethode als Stap 29 (tekstkolom
+      blijft ongeveer op haar oorspronkelijke breedte, alleen de beeldkolom
+      groeit, nu naar ~2x i.p.v. ~1,5x).
+      **Cache-probleem dieper dan Stap 29 gedacht**: het wissen van enkel
+      `.next/cache/images` (Stap 29's fix) bleek deze keer niet genoeg — de
+      draaiende dev-server had blijkbaar ook een in-memory-cache die een
+      map verwijderen niet raakt zolang het proces leeft. Pas na het
+      volledig stoppen van de dev-server, `.next` in zijn geheel wissen
+      (niet alleen de `images`-submap) en een verse server starten, toonde
+      de browser het nieuwe beeld. Voor toekomstige beeldvervangingen: bij
+      een hardnekkig verouderd beeld ondanks een gewijzigd bronbestand,
+      eerst de dev-server zelf herstarten vóór dieper te zoeken naar de
+      oorzaak.
+      Getest: desktop (1700px, scherpe pinwheel-vorm, zichtbaar ~2x groter,
+      naadloze crème-overgang) en mobiel (375px, nette stapeling). `tsc
+      --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 31 — De hero teruggezet naar een eigen aangeleverd bestand
+      (`Hero_goed.jpeg`, gevonden in `Downloads/` op eigen initiatief) —
+      de afgeronde waaiervorm uit Stap 28, niet de scherpe pinwheel-vorm
+      uit Stap 29-30. Zelfde bestandsnaam/pad
+      (`public/illustrations/hero-fan/hero.jpg`) overschreven, aspect-ratio
+      in `HeroFanCollage.tsx` teruggezet naar `1255/848` (dit bestands
+      exacte pixelmaten, gelijk aan Stap 28's origineel). Grootte
+
+      (`max-w-[110rem]`/`lg:grid-cols-[1fr_2fr]` uit Stap 30) ongewijzigd
+      gelaten.
+      **Cache-les uit Stap 30 direct toegepast**: dev-server gestopt,
+      volledige `.next`-map gewist (niet alleen `.next/cache/images`), en
+      pas daarna een verse `npm run build` + nieuwe dev-server gestart —
+      geen hardnekkig verouderd beeld dit keer, in één keer goed
+      zichtbaar.
+      Getest: desktop (1700px) en mobiel (375px) — beide tonen direct het
+      nieuwe bestand. `tsc --noEmit`/`eslint .`/`npm run build` schoon.

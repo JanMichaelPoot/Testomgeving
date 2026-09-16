@@ -3,28 +3,25 @@
 // Gemini itself, so every visitor session costs zero image-generation
 // credits regardless of how many ideas/plans are generated.
 
-// "Clean Premium Hybrid" luxury-magazine still-life set (see
-// scripts/generate-luxury-illustrations.ts) — the landing hero, each intake
-// wizard page, and the checkout summary each get one of these, chosen for a
-// thematic fit with that screen (e.g. the analog mixing console for the
-// dials/sliders page).
+// The homepage hero + checkout bookend photo (see
+// scripts/generate-luxury-illustrations.ts) — kept deliberately unchanged
+// through the outdoor-adventure restyle below, per explicit instruction.
 export const LUXURY_ILLUSTRATIONS = {
-  compass: "/illustrations/luxury/compass.jpg",
-  hanger: "/illustrations/luxury/hanger.jpg",
-  mixer: "/illustrations/luxury/mixer.jpg",
   windowView: "/illustrations/luxury/window-view.jpg",
-  prism: "/illustrations/luxury/prism.jpg",
-  marbleBowl: "/illustrations/luxury/marble-bowl.jpg",
 } as const;
 
 // One photo per intake wizard page (src/components/window/IntakeWizard.tsx),
 // indexed by page position: situatie, over jou, dials, openness, laatste stap.
+// "Outdoor adventure" still-life set (see
+// scripts/generate-outdoor-illustrations.ts) — replaces the indoor walnut/
+// leather set on these five pages only; the hero/checkout window-view above
+// is untouched.
 export const INTAKE_LUXURY_PHOTOS = [
-  LUXURY_ILLUSTRATIONS.compass,
-  LUXURY_ILLUSTRATIONS.hanger,
-  LUXURY_ILLUSTRATIONS.mixer,
-  LUXURY_ILLUSTRATIONS.prism,
-  LUXURY_ILLUSTRATIONS.marbleBowl,
+  "/illustrations/outdoor/situation.jpg",
+  "/illustrations/outdoor/about.jpg",
+  "/illustrations/outdoor/dials.jpg",
+  "/illustrations/outdoor/openness.jpg",
+  "/illustrations/outdoor/final.jpg",
 ] as const;
 
 // ── Stock photography (idea-card imagery only) ──────────────────────────

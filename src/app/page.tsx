@@ -1,37 +1,10 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { SiteFooter } from "@/components/window/SiteFooter";
-import { LUXURY_ILLUSTRATIONS } from "@/lib/illustrations";
+import { HeroFanCollage } from "@/components/window/HeroFanCollage";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { formatPrice } from "@/lib/pricing";
-
-// A single, calm product-mockup card — replaces the earlier 2x2 photo
-// collage-in-a-dark-frame, per the "Clean Premium Hybrid" redesign: one
-// clean rounded image with a subtle border and a little depth, not a busy
-// grid. The window-and-courtyard-view still life doubles as a literal
-// rendering of the brand's own "window" motif.
-function WindowIllustration({ alt }: { alt: string }) {
-  return (
-    <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-      <div
-        className="relative aspect-4/3 overflow-hidden rounded-lg border border-border bg-paper shadow-[0_1px_2px_rgba(17,24,39,0.04),0_12px_32px_-16px_rgba(17,24,39,0.18)]"
-        role="img"
-        aria-label={alt}
-      >
-        <Image
-          src={LUXURY_ILLUSTRATIONS.windowView}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 40vw, 90vw"
-          className="object-cover"
-          priority
-        />
-      </div>
-    </div>
-  );
-}
 
 export default async function Home() {
   const locale = await getLocale();
@@ -44,8 +17,8 @@ export default async function Home() {
 
       <main className="w-full flex-1">
         {/* Hero */}
-        <section className="mx-auto w-full max-w-6xl px-6 py-16 sm:px-10 sm:py-24">
-          <div className="grid w-full items-center gap-16 lg:grid-cols-2">
+        <section className="mx-auto w-full max-w-[110rem] px-6 py-16 sm:px-10 sm:py-24">
+          <div className="grid w-full items-center gap-16 lg:grid-cols-[1fr_2fr]">
             <div className="max-w-xl">
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-paper px-4 py-1.5">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
@@ -74,7 +47,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <WindowIllustration alt={dict.landing.heroAlt} />
+            <HeroFanCollage alt={dict.landing.heroAlt} />
           </div>
         </section>
 

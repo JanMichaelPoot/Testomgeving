@@ -32,8 +32,9 @@ export interface GeneratedIllustration {
 
 export async function generateIllustration(
   subject: string,
-  aspectRatio: "4:3" | "3:2" = "4:3",
-  stylePrefix: string = STYLE_PREFIX
+  aspectRatio: "4:3" | "3:2" | "3:4" | "2:3" | "1:1" = "4:3",
+  stylePrefix: string = STYLE_PREFIX,
+  imageSize: "1K" | "2K" = "1K"
 ): Promise<GeneratedIllustration> {
   const interaction = await getGemini().interactions.create({
     model: IMAGE_MODEL,
@@ -42,7 +43,7 @@ export async function generateIllustration(
       type: "image",
       mime_type: "image/jpeg",
       aspect_ratio: aspectRatio,
-      image_size: "1K",
+      image_size: imageSize,
       // No `delivery` field: despite being in the SDK's types, the API
       // currently rejects any explicit value ("Image delivery mode is
       // not supported") — omitting it defaults to inline base64 data.
