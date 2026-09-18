@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { WindowMark } from "./WindowMark";
+import { Wordmark } from "./Wordmark";
 import { LanguageToggle } from "./LanguageToggle";
 import type { Locale } from "@/lib/language";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -14,11 +15,9 @@ export function SiteHeader({
   return (
     <header className="sticky top-0 z-40 border-b border-accent/10 bg-cream/90 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 sm:px-10">
-        <Link href="/" className="flex items-center gap-2.5 text-accent-dark">
+        <Link href="/" className="flex items-center gap-2.5">
           <WindowMark className="h-7 w-7" />
-          <span className="font-serif text-lg font-semibold tracking-tight text-ink">
-            WINDOW
-          </span>
+          <Wordmark />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

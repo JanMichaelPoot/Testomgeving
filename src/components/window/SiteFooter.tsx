@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { WindowMark } from "./WindowMark";
+import { Wordmark } from "./Wordmark";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { formatPrice } from "@/lib/pricing";
@@ -17,11 +18,9 @@ export function SiteFooter({
     <footer id="over-ons" className="mt-24 bg-accent-dark text-white/60">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 py-14 sm:flex-row sm:justify-between sm:px-10">
         <div>
-          <div className="mb-3 flex items-center gap-2.5 text-gold">
+          <div className="mb-3 flex items-center gap-2.5">
             <WindowMark className="h-6 w-6" />
-            <span className="font-serif text-lg font-semibold tracking-tight text-white">
-              WINDOW
-            </span>
+            <Wordmark onDark />
           </div>
           <p className="max-w-xs text-sm leading-relaxed">{dict.tagline}</p>
         </div>

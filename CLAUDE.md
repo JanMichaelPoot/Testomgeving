@@ -1664,3 +1664,95 @@ Stripe, Claude API, Resend, PostHog).
       toonde de nieuwe "Concrete opties"-sectie overal correct, zonder
       overloop of afkapping — nog steeds exact 10 pagina's. `tsc --noEmit`/
       `eslint .`/`npm run build` schoon.
+
+- [x] Stap 35 — Het `WindowMark`-lijnicoon overal vervangen door een nieuw,
+      voluit-gekleurd "WindowInto"-beeldmerk (twee overlappende, omgekrulde
+      afgeronde vierkanten in een oranje-naar-blauw verloop), plus de
+      site-header/footer-wordmark van "WINDOW" naar "WindowInto", op
+      aangeleverd referentiebeeld (een logo-vel-screenshot, geen los
+      bronbestand). Drie keuzevragen vooraf beantwoord: bronbestand →
+      nabouwen met Gemini (i.p.v. zelf uitknippen of wachten op een
+      aangeleverd bestand); header-variant → icoon + volledige
+      "WindowInto"-wordmark (niet alleen "Window", niet icoon-only);
+      bereik → overal, inclusief favicon.
+      **Icoon opnieuw gegenereerd, niet uitgeknipt**: het aangeleverde
+      beeld was een 1024×224px screenshot van een logo-presentatievel — het
+      icoontje zelf was daarin maar ~40×40px, te weinig voor een scherpe
+      favicon. `scripts/generate-logo-icon.ts` (nieuw, eenmalig) laat
+      Gemini de compositie navertellen (twee afgeronde vierkanten, achterste
+      effen oranje-naar-geel, voorste met een diagonaal oranje→blauw
+      verloop en een omgekrulde rechteronderhoek) op een vlakke witte
+      achtergrond, op basis van uit het origineel gesamplede hex-waarden —
+      in één poging een zeer close match qua vorm/kleur.
+      **Transparantie: flood-fill i.p.v. een globale kleurdrempel**:
+      `scripts/process-logo-icon.ts` (nieuw, eenmalig) maakt de witte
+      achtergrond transparant via een flood-fill vanaf de beeldrand
+      (`isBackgroundish`, laag-verzadigd + helder genoeg) in plaats van elk
+      pixel dat op wit lijkt simpelweg transparant te maken — het icoon
+      heeft zelf een bijna-wit gevouwen-hoek-hooglicht dat bij een globale
+      drempel ook zou worden weggegumd. Omdat flood-fill alleen pixels
+      raakt die daadwerkelijk verbonden zijn met de buitenrand, blijft dat
+      ingesloten hooglicht intact terwijl zowel de achtergrond als het
+      icoon's eigen (ongewenste, niet-overdraagbare) zachte slagschaduw wel
+      verdwijnen.
+      **Twee echte sharp-bugs gevonden en omzeild tijdens het bouwen van
+      dit script** (beide pas zichtbaar na expliciet ruwe pixelwaarden op
+      elke tussenstap te controleren, niet alleen op `metadata()` te
+      vertrouwen): (1) `removeAlpha().joinChannel(alphaBuffer,
+      {raw:{...}}).ensureAlpha().png()` leek een alfakanaal toe te voegen
+      (`metadata()` toonde `hasAlpha:true`), maar een pixel met bewust
+      alpha=0 kwam er na `.png()`-encoding alsnog als alpha=255 uit —
+      `joinChannel` registreert de nieuwe band kennelijk niet als "dit is
+      alfa", en de daaropvolgende `.ensureAlpha()` voegt dan een eigen,
+      volledig ondoorzichtige band toe die de echte waarden overschrijft.
+      Opgelost door de hele keying+feathering-stap binnen één rauwe
+      RGBA-buffer te doen met gewone JavaScript (een handgeschreven
+      scheidbare box-blur op alleen het alfa-kanaal), en pas daarna één
+      keer naar een echte PNG te encoderen — geen `joinChannel`/
+      `ensureAlpha` meer nodig. (2) apart daarvan bleek het chainen van
+      `.resize()`-aanroepen op dezelfde nog-niet-gematerialiseerde
+      sharp-pipeline bij één van twee doelgroottes alsnog het alfakanaal
+      te laten vallen; opgelost door tussen elke stap eerst echt naar een
+      PNG-buffer te encoderen (`.png().toBuffer()`) vóórdat een volgende
+      sharp-instantie daarop verder bouwt, in plaats van dezelfde
+      pipeline te clonen.
+      **Wordmark**: nieuw `src/components/window/Wordmark.tsx` — "Window"
+      in inkt (lichte achtergrond) of wit (donkere achtergrond, via een
+      `onDark`-prop), "Into" met een `bg-clip-text`-verloop in exact de
+      oranje/blauw-eindkleuren van het icoon zelf. Gebruikt in
+      `SiteHeader.tsx` (was "WINDOW" in het serif-merklettertype) en
+      `SiteFooter.tsx` (was "WINDOW" in wit-serif) — beide vervingen ook
+      hun eigen ad-hoc icoon+tekst-opmaak door dezelfde twee componenten.
+      De losstaande `WindowMark`-icoonplekken die geen wordmark tonen
+      (`GeneratingScreen`, `IdeaBookViewer`'s profielbadge, de deel-banner
+      op `/shared/[id]`, de kleine "Stap X van Y"-badge in de wizard)
+      kregen automatisch hetzelfde nieuwe icoon mee, zonder tekstwijziging
+      — dat zijn decoratieve hergebruiken van het venstermotief, geen
+      merklockups.
+      **`WindowMark.tsx`**: van een inline `currentColor`-SVG naar een
+      simpele `<img src="/logo/icon-128.png">` (met een
+      `eslint-disable @next/next/no-img-element` — elke aanroepplek zet de
+      grootte puur via Tailwind-hoogte/breedteklassen zonder gepositioneerde
+      wrapper, wat `next/image`'s `fill`-modus overal zou vereisen).
+      **Favicon/appicon**: `src/app/icon.png` (512×512, Next.js' eigen
+      App Router-conventie, automatisch opgepikt in de `<head>`) en
+      `src/app/apple-icon.png` (180×180, ondoorzichtig op het
+      crème-token geflatterd — iOS rondt zelf af, transparantie zou een
+      zwart vierkant achter het icoon opleveren). `src/app/favicon.ico`
+      is ook echt vervangen (niet alleen aangevuld) — handmatig
+      samengesteld als een "PNG-in-ICO"-bestand (16/32/48/256px, sinds
+      IE9/Vista overal ondersteund) omdat sharp zelf geen ICO kan
+      schrijven; geverifieerd door de bestandsstructuur (offsets/groottes
+      per icoon-entry) na te rekenen en `/favicon.ico` in de draaiende
+      dev-server rechtstreeks op te vragen.
+      Getest: volledige homepage, footer en intake-wizard doorlopen in de
+      browser — het icoon rendert scherp en zonder wit kader/schaduwvlek op
+      zowel de crème header als de walnoot-donkere footer (expliciet
+      gecontroleerd via een sharp-gecomponeerde vergelijking naast elkaar,
+      nadat een eerdere versie daar wél een duidelijk zichtbaar wit blok
+      liet zien — precies de sharp-bug hierboven); de drie
+      `<link rel="icon">`-varianten (favicon.ico, icon.png, apple-icon.png)
+      gecontroleerd via `document.querySelectorAll` in de browser, en
+      `/favicon.ico` rechtstreeks opgevraagd om te bevestigen dat de
+      draaiende server het nieuwe, grotere bestand serveert. `tsc
+      --noEmit`/`eslint .`/`npm run build` schoon.

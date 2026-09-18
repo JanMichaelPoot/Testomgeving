@@ -1,17 +1,14 @@
+// The WindowInto brand icon — two overlapping, peeling rounded-square
+// cards in a warm-orange-to-sky-blue gradient. Recreated via Gemini from a
+// reference logo sheet (no clean source file existed) rather than a hand-
+// drawn line icon, since the brand mark itself is now a full-color image,
+// not a monochrome shape — see scripts/generate-logo-icon.ts and
+// scripts/process-logo-icon.ts for how public/logo/icon-128.png was made.
+//
+// A plain <img> rather than next/image: every call site sizes this purely
+// via Tailwind height/width utility classes with no positioned wrapper,
+// which next/image's `fill` mode would require adding everywhere.
+/* eslint-disable @next/next/no-img-element */
 export function WindowMark({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 32 32"
-      className={className}
-      fill="none"
-      aria-hidden="true"
-    >
-      <rect x="2" y="2" width="28" height="28" rx="4" stroke="currentColor" strokeWidth="2.25" />
-      <path d="M16 2v28M2 16h28" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="4" y="4" width="10" height="10" rx="1" fill="currentColor" opacity="0.12" />
-      <rect x="18" y="4" width="10" height="10" rx="1" fill="currentColor" opacity="0.06" />
-      <rect x="4" y="18" width="10" height="10" rx="1" fill="currentColor" opacity="0.06" />
-      <rect x="18" y="18" width="10" height="10" rx="1" fill="currentColor" opacity="0.12" />
-    </svg>
-  );
+  return <img src="/logo/icon-128.png" alt="" aria-hidden="true" className={className} />;
 }
