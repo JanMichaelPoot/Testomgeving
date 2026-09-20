@@ -6,6 +6,7 @@ import { DIFFICULTY_LABELS, type GeneratedIdeaBook, type IdeaBookEntry } from "@
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { mapsSearchUrl } from "@/lib/maps";
+import { ideaCategoryPhoto } from "@/lib/illustrations";
 import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
 
 // pdf-lib has no first-class "add a hyperlink" API, so a clickable region
@@ -52,22 +53,29 @@ const ACCENT = rgb(0.69, 0.541, 0.29); // antique gold — labels, hairlines, li
 const CREAM = rgb(0.969, 0.961, 0.941); // page fallback (--color-cream #F7F5F0, full-bleed covers it)
 const SHADOW_TINT = rgb(0.07, 0.05, 0.04);
 
+// Idea/wildcard pages (only) use a second, lighter palette — matching the
+// web's own IdeaDetail card design token-for-token (see CLAUDE.md's Stap 26
+// "Warm Walnut" values), on explicit request to make the printed idea pages
+// look like the same product as the /plan web card instead of the separate
+// full-bleed-photo "quiet luxury" language above, which the cover/profile/
+// possibility-map pages keep unchanged.
+const INK = rgb(0.125, 0.125, 0.125); // --color-ink #202020
+const MUTED = rgb(0.467, 0.451, 0.424); // --color-muted #77736C
+const WALNUT = rgb(0.357, 0.247, 0.184); // --color-accent #5B3F2F
+const SURFACE_TINT = rgb(0.949, 0.925, 0.882); // --color-surface-active #F2ECE1
+const PAPER = rgb(1, 0.992, 0.98); // --color-paper #FFFDFA
+
 const FONTS_DIR = path.join(process.cwd(), "src/lib/pdf/fonts");
 const IMAGES_DIR = path.join(process.cwd(), "public/illustrations/idea-book");
 
-// Every content page (profile + each idea) is a fixed two-card grid: one
-// main card (title/intro/why-it-fits/steps/practical info) and, for ideas
-// and the wildcard, a small first-action card pinned to the bottom — both
-// sized to their own real content via the dry-run measuring pass below,
-// never a fixed height that leaves a card looking mostly empty.
+// The cover/profile/possibility-map pages still use this fixed single-card
+// layout (a card sized to its own content via the dry-run measuring pass
+// below) — only the idea/wildcard pages were rebuilt into the banner+body
+// layout further down.
 const CARD_TOP_Y = PAGE_HEIGHT - MARGIN - 70; // leaves clear room for the badge above it
 const CARD_RADIUS = 16;
 const PANEL_PAD_X = 28;
 const PANEL_PAD_Y = 26;
-const FIRST_ACTION_MIN_HEIGHT = 90;
-const FIRST_ACTION_MAX_HEIGHT = 150;
-const CARD_GAP = 16;
-const BADGE_RADIUS = 22;
 
 function wrapText(
   text: string,
@@ -135,7 +143,6 @@ interface Fonts {
 interface Images {
   cover: PDFImage;
   background: PDFImage;
-  closing: PDFImage;
 }
 
 // "Cover" fit (like CSS background-size: cover): scales so both dimensions
@@ -181,17 +188,32 @@ export async function renderIdeaBookPdf(
     sansBold: await doc.embedFont(sansBoldBytes),
   };
 
-  const [coverBytes, backgroundBytes, closingBytes] = await Promise.all([
+  const [coverBytes, backgroundBytes] = await Promise.all([
     readFile(path.join(IMAGES_DIR, "cover.jpg")),
     readFile(path.join(IMAGES_DIR, "background.jpg")),
-    readFile(path.join(IMAGES_DIR, "closing.jpg")),
   ]);
 
   const images: Images = {
     cover: await doc.embedJpg(coverBytes),
     background: await doc.embedJpg(backgroundBytes),
-    closing: await doc.embedJpg(closingBytes),
   };
+
+  // One photo per idea (plus the wildcard), chosen by that idea's own
+  // photo_category — see ideaCategoryPhoto()/PHOTO_CATEGORIES in
+  // lib/illustrations.ts and the system prompt in generateIdeaBook.ts.
+  // Loaded on demand here (still a local file read of a pre-generated,
+  // committed asset — never a live Gemini call) rather than up front,
+  // since which categories are needed depends on this specific book.
+  const ideaPhotoCache = new Map<string, PDFImage>();
+  async function loadIdeaPhoto(category: IdeaBookEntry["photo_category"], variantSeed: number): Promise<PDFImage> {
+    const publicPath = ideaCategoryPhoto(category, variantSeed);
+    const cached = ideaPhotoCache.get(publicPath);
+    if (cached) return cached;
+    const bytes = await readFile(path.join(process.cwd(), "public", publicPath));
+    const image = await doc.embedJpg(bytes);
+    ideaPhotoCache.set(publicPath, image);
+    return image;
+  }
 
   function addPage(): PDFPage {
     const newPage = doc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
@@ -288,26 +310,6 @@ export async function renderIdeaBookPdf(
     }
   }
 
-  function drawNumberedList(
-    items: string[],
-    font: PDFFont,
-    size: number,
-    x: number,
-    maxWidth: number,
-    maxLinesPerItem?: number,
-    color = TEXT_LIGHT
-  ) {
-    items.forEach((item, i) => {
-      const lines = wrapText(`${i + 1}.  ${item}`, font, size, maxWidth, maxLinesPerItem);
-      for (const line of lines) {
-        newPageIfNeeded(size + 5);
-        if (!dryRun) page.drawText(line, { x, y, size, font, color });
-        y -= size + 5;
-      }
-      y -= 3;
-    });
-  }
-
   // A single compact "meta" line — used for the short practical/location
   // facts. When linkUrl is given, the value itself becomes a real clickable
   // link (underlined) — used for the "view on map" location line, a safe,
@@ -389,25 +391,6 @@ export async function renderIdeaBookPdf(
       borderColor: PANEL_BORDER,
       borderWidth: 0.75,
       borderOpacity: 0.55,
-    });
-  }
-
-  // The minimal glass badge used for each idea's number — same translucent
-  // language as the cards (a soft shadow, the glass fill, a hairline ring)
-  // rather than a separate decorative gold "coin", to keep the page's
-  // visual vocabulary to one consistent, quiet idea.
-  function drawBadge(centerX: number, centerY: number, label: string) {
-    page.drawCircle({ x: centerX + 1.5, y: centerY - 1.5, size: BADGE_RADIUS, color: SHADOW_TINT, opacity: 0.22 });
-    page.drawCircle({ x: centerX, y: centerY, size: BADGE_RADIUS, color: PANEL_FILL, opacity: 0.62 });
-    page.drawCircle({ x: centerX, y: centerY, size: BADGE_RADIUS, borderColor: PANEL_BORDER, borderWidth: 0.75 });
-
-    const labelWidth = fonts.sansBold.widthOfTextAtSize(label, 14);
-    page.drawText(label, {
-      x: centerX - labelWidth / 2,
-      y: centerY - 5,
-      size: 14,
-      font: fonts.sansBold,
-      color: TEXT_LIGHT,
     });
   }
 
@@ -560,281 +543,341 @@ export async function renderIdeaBookPdf(
     drawCardContent();
   }
 
-  // --- Pages 4-9: ideas, one full page each, six total, in door order
-  // (natural → discovery → unexpected → stretch) rather than Claude's raw
-  // array order — the same journey-from-comfort-zone arc as the web
-  // viewer. A shared photograph fills the page (a subtle per-page pan
-  // keeps it from looking pixel-identical seven pages running), a small
-  // glass badge marks the idea's position in that order, one main card
-  // carries title/intro/why-it-fits/steps/practical info (its eyebrow now
-  // names the door), and a compact second card holds the first action —
-  // both sized to their own real content via the dry-run measuring pass,
-  // so a short idea never leaves a card looking empty.
-  const BACKGROUND_PANS = [-0.5, 0.5, -0.2, 0.3, 0, -0.35];
+  // --- Pages 4-9 (ideas) and page 10 (wildcard): one full page each,
+  // rebuilt on request to match the live /plan web card (IdeaDetail.tsx)
+  // instead of this book's own separate full-bleed-photo "quiet luxury"
+  // language — photo banner at the top, everything else on a light paper
+  // body below, so the printed book finally reads as the same card design
+  // the buyer already saw on the website. Ideas are still laid out in door
+  // order (natural → discovery → unexpected → stretch) rather than
+  // Claude's raw array order, the same journey-from-comfort-zone arc as
+  // the web viewer.
+  const BANNER_HEIGHT = 250;
+  const BODY_TOP_Y = PAGE_HEIGHT - BANNER_HEIGHT;
+  const BODY_PAD = 30;
+  const GOLD_TINT = rgb(0.969, 0.954, 0.929); // ~10% gold over white, for the wildcard's first-action box
 
-  function drawIdeaPage(idea: IdeaBookEntry, index: number, panX: number, doorLabel: string | null) {
-    drawFullBleedImage(images.background, panX);
-    drawOverlayWash(0.05);
-
-    const badgeCenterX = PAGE_WIDTH - MARGIN - BADGE_RADIUS;
-    const badgeCenterY = PAGE_HEIGHT - MARGIN - BADGE_RADIUS;
-    drawBadge(badgeCenterX, badgeCenterY, String(index));
-
-    const cardX = MARGIN;
-    const textX = cardX + PANEL_PAD_X;
-    const textWidth = CONTENT_WIDTH - PANEL_PAD_X * 2;
-
-    // First-action card content + measurement (bottom-anchored, compact).
-    function drawFirstActionContent() {
-      y -= PANEL_PAD_Y;
-      drawParagraph(
-        book.labels.first_action_heading || chrome.firstActionFallback,
-        fonts.sansBold,
-        9.5,
-        ACCENT,
-        4,
-        textX,
-        textWidth,
-        undefined,
-        { tracking: 1 }
-      );
-      y -= 2;
-      drawParagraph(idea.first_action, fonts.sansBold, 13, TEXT_LIGHT, 5, textX, textWidth, 2);
-    }
-
-    const faMeasureStart = 10000; // arbitrary fixed reference, only the delta matters
-    y = faMeasureStart;
-    dryRun = true;
-    drawFirstActionContent();
-    const faContentHeight = faMeasureStart - y - PANEL_PAD_Y;
-    dryRun = false;
-    const firstActionHeight = Math.min(
-      FIRST_ACTION_MAX_HEIGHT,
-      Math.max(FIRST_ACTION_MIN_HEIGHT, faContentHeight + PANEL_PAD_Y * 2)
-    );
-    const firstActionTop = MARGIN + firstActionHeight;
-
-    // Main card content + measurement, capped so it never reaches the
-    // first-action card below it.
-    const maxMainHeight = CARD_TOP_Y - (firstActionTop + CARD_GAP);
-
-    function drawMainCardContent() {
-      y = CARD_TOP_Y - PANEL_PAD_Y;
-      const eyebrow = doorLabel ? `${chrome.possibilityEyebrow} · ${doorLabel}` : chrome.possibilityEyebrow;
-      drawParagraph(eyebrow, fonts.sansBold, 10.5, ACCENT, 4, textX, textWidth, undefined, {
-        tracking: 0.8,
-      });
-      y -= 4;
-      drawParagraph(idea.title, fonts.serif, 24, TEXT_LIGHT, 7, textX, textWidth, 2);
-      y -= 6;
-      drawParagraph(idea.intro, fonts.sans, 12.5, TEXT_MUTED, 5, textX, textWidth, 3);
-      y -= 6;
-      drawParagraph(idea.why_it_fits, fonts.sans, 13, TEXT_LIGHT, 5, textX, textWidth, 3);
-      y -= 12;
-
-      drawParagraph(
-        book.labels.steps_heading || chrome.stepsFallback,
-        fonts.sansBold,
-        11,
-        ACCENT,
-        4,
-        textX,
-        textWidth,
-        undefined,
-        { tracking: 0.8 }
-      );
-      y -= 2;
-      drawNumberedList(idea.details, fonts.sans, 12.5, textX, textWidth, 3, TEXT_LIGHT);
-      y -= 4;
-
-      const practicalLine = [
-        idea.practical.estimated_cost,
-        idea.practical.duration,
-        DIFFICULTY_LABELS[locale][idea.practical.difficulty],
-      ]
-        .filter(Boolean)
-        .join("  ·  ");
-      drawMetaLine(book.labels.cost_label || chrome.practicalFallback, practicalLine, textX, textWidth);
-
-      if (idea.location) {
-        const locationLine = [idea.location.name, idea.location.city].filter(Boolean).join(", ");
-        drawMetaLine(
-          book.labels.location_heading || chrome.locationFallback,
-          locationLine,
-          textX,
-          textWidth,
-          mapsSearchUrl(idea.location.name, idea.location.city)
-        );
-      }
-
-      if (idea.requirements.length > 0) {
-        y -= 3;
-        drawParagraph(
-          book.labels.requirements_heading || chrome.requirementsFallback,
-          fonts.sansBold,
-          10,
-          ACCENT,
-          4,
-          textX,
-          textWidth,
-          undefined,
-          { tracking: 0.6 }
-        );
-        y -= 1;
-        drawBulletList(idea.requirements, fonts.sans, 10.5, textX, textWidth, TEXT_MUTED);
-      }
-    }
-
-    const measureStart = CARD_TOP_Y - PANEL_PAD_Y;
-    dryRun = true;
-    drawMainCardContent();
-    const contentHeight = measureStart - y;
-    dryRun = false;
-
-    const mainCardHeight = Math.min(maxMainHeight, Math.max(160, contentHeight + PANEL_PAD_Y * 2));
-    drawCard(cardX, CARD_TOP_Y - mainCardHeight, CONTENT_WIDTH, mainCardHeight);
-    drawMainCardContent();
-
-    drawCard(cardX, MARGIN, CONTENT_WIDTH, firstActionHeight, 0.68);
-    y = MARGIN + firstActionHeight;
-    drawFirstActionContent();
+  // Cover-fits the image into the banner box, top-aligned to the page's own
+  // top edge so any excess simply extends downward — safely hidden a
+  // moment later underneath the opaque paper body rectangle, the same
+  // "let the page edge/a later opaque draw clip it" trick coverFitSize's
+  // own full-bleed callers already rely on.
+  function drawBannerImage(image: PDFImage) {
+    const { width, height } = coverFitSize(image, PAGE_WIDTH, BANNER_HEIGHT);
+    page.drawImage(image, { x: (PAGE_WIDTH - width) / 2, y: PAGE_HEIGHT - height, width, height });
   }
 
-  orderedIdeas.forEach(({ idea }, i) => {
-    page = addPage();
-    const doorLabel = idea.door === "wildcard" ? null : mapCopy.doors[idea.door].label;
-    drawIdeaPage(idea, i + 1, BACKGROUND_PANS[i % BACKGROUND_PANS.length], doorLabel);
-  });
+  // A bottom-heavy gradient inside the banner only (never a real gradient
+  // fill in pdf-lib — this is the same "stack increasingly transparent
+  // bands" technique used elsewhere in this file), so the title text
+  // sitting at the bottom of the banner stays legible over any photo.
+  function drawBannerGradient() {
+    const steps = 8;
+    const bandHeight = BANNER_HEIGHT / steps;
+    for (let i = 0; i < steps; i++) {
+      const t = 1 - i / steps;
+      page.drawRectangle({
+        x: 0,
+        y: BODY_TOP_Y + i * bandHeight,
+        width: PAGE_WIDTH,
+        height: bandHeight + 1,
+        color: PANEL_FILL,
+        opacity: 0.78 * t * t,
+      });
+    }
+  }
 
-  // --- Page 10: Wildcard — the same two-card grid as an idea page, on its
-  // own full-bleed closing photograph, distinguished by its own framing
-  // copy rather than an extra decorative border.
+  // Mirrors the web card exactly: no separate eyebrow line, just the
+  // (optionally numbered) title sitting at the bottom of the banner, plus
+  // an optional pill badge top-right for the wildcard.
+  function drawBannerText(titleLine: string, badgeLabel: string | null) {
+    if (badgeLabel) {
+      const padX = 12;
+      const labelWidth = fonts.sansBold.widthOfTextAtSize(badgeLabel, 8.5);
+      const pillWidth = labelWidth + padX * 2;
+      const pillHeight = 22;
+      const pillX = PAGE_WIDTH - MARGIN - pillWidth;
+      const pillTop = PAGE_HEIGHT - 24;
+      page.drawSvgPath(roundedRectPath(pillWidth, pillHeight, pillHeight / 2), {
+        x: pillX,
+        y: pillTop,
+        color: ACCENT,
+      });
+      page.drawText(badgeLabel, {
+        x: pillX + padX,
+        y: pillTop - pillHeight + 7,
+        size: 8.5,
+        font: fonts.sansBold,
+        color: PANEL_FILL,
+      });
+    }
+
+    const textX = MARGIN;
+    const textWidth = CONTENT_WIDTH;
+    const titleSize = 21;
+    const titleLines = wrapText(titleLine, fonts.serif, titleSize, textWidth, 2);
+    let ty = BODY_TOP_Y + 22 + (titleLines.length - 1) * (titleSize + 4);
+    for (const line of titleLines) {
+      page.drawText(line, { x: textX, y: ty, size: titleSize, font: fonts.serif, color: TEXT_LIGHT });
+      ty -= titleSize + 4;
+    }
+  }
+
+  // The tan "why it fits" callout — a left accent bar + tinted fill, sized
+  // to its own wrapped text via a direct wrapText call rather than the
+  // dry-run mechanism above, since a leaf paragraph's line count is already
+  // knowable up front without a second real draw pass.
+  function drawWhyItFitsCallout(label: string, body: string) {
+    const padX = 16;
+    const padY = 13;
+    const bodyLines = wrapText(body, fonts.sans, 11, CONTENT_WIDTH - padX * 2, 3);
+    const boxHeight = padY * 2 + (9 + 8) + bodyLines.length * (11 + 4);
+    newPageIfNeeded(boxHeight + 10);
+    const boxTop = y;
+    const boxBottom = boxTop - boxHeight;
+    if (!dryRun) {
+      page.drawRectangle({ x: MARGIN, y: boxBottom, width: CONTENT_WIDTH, height: boxHeight, color: SURFACE_TINT });
+      page.drawRectangle({ x: MARGIN, y: boxBottom, width: 4, height: boxHeight, color: WALNUT });
+      let ty = boxTop - padY - 9;
+      drawTrackedLine(label.toUpperCase(), fonts.sansBold, 9, WALNUT, MARGIN + padX, ty, 0.8);
+      ty -= 9 + 8;
+      for (const line of bodyLines) {
+        page.drawText(line, { x: MARGIN + padX, y: ty, size: 11, font: fonts.sans, color: INK });
+        ty -= 11 + 4;
+      }
+    }
+    y = boxBottom - 16;
+  }
+
+  // Steps as a numbered list with a small filled circle badge per step
+  // (matching the web card's numbered-circle steps) instead of the plain
+  // "1." text prefix drawNumberedList uses elsewhere in this file.
+  function drawStepsWithBadges(label: string, steps: string[]) {
+    if (steps.length === 0) return;
+    newPageIfNeeded(9 + 4);
+    drawTrackedLine(label.toUpperCase(), fonts.sansBold, 10, INK, MARGIN, y, 0.6);
+    y -= 10 + 8;
+
+    const badgeR = 9;
+    const textX = MARGIN + badgeR * 2 + 10;
+    const textWidth = CONTENT_WIDTH - (badgeR * 2 + 10);
+    steps.forEach((step, i) => {
+      const lines = wrapText(step, fonts.sans, 11, textWidth, 2);
+      const blockHeight = lines.length * (11 + 4);
+      newPageIfNeeded(blockHeight + 8);
+      if (!dryRun) {
+        const badgeCenterY = y - 7;
+        page.drawCircle({ x: MARGIN + badgeR, y: badgeCenterY, size: badgeR, color: WALNUT });
+        const num = String(i + 1);
+        const numWidth = fonts.sansBold.widthOfTextAtSize(num, 9.5);
+        page.drawText(num, {
+          x: MARGIN + badgeR - numWidth / 2,
+          y: badgeCenterY - 3.3,
+          size: 9.5,
+          font: fonts.sansBold,
+          color: PAPER,
+        });
+        let ty = y;
+        for (const line of lines) {
+          page.drawText(line, { x: textX, y: ty, size: 11, font: fonts.sans, color: INK });
+          ty -= 11 + 4;
+        }
+      }
+      y -= blockHeight + 8;
+    });
+    y -= 8;
+  }
+
+  // One light "meta" box (cost/practical or requirements) — up to two sit
+  // side by side via drawMetaBoxRow below.
+  function drawMetaBox(x: number, width: number, label: string, lines: string[]) {
+    const padX = 14;
+    const padY = 12;
+    const boxHeight = padY * 2 + (8.5 + 6) + lines.length * (10.5 + 4);
+    if (!dryRun) {
+      page.drawSvgPath(roundedRectPath(width, boxHeight, 10), { x, y: y + boxHeight, color: CREAM });
+      let ty = y + boxHeight - padY - 8.5;
+      drawTrackedLine(label.toUpperCase(), fonts.sansBold, 8.5, MUTED, x + padX, ty, 0.6);
+      ty -= 8.5 + 6;
+      for (const line of lines) {
+        page.drawText(line, { x: x + padX, y: ty, size: 10.5, font: fonts.sans, color: INK });
+        ty -= 10.5 + 4;
+      }
+    }
+    return boxHeight;
+  }
+
+  function drawMetaBoxRow(
+    costLabel: string,
+    costLine: string,
+    requirementsLabel: string,
+    requirements: string[]
+  ) {
+    const hasCost = costLine.length > 0;
+    const hasRequirements = requirements.length > 0;
+    if (!hasCost && !hasRequirements) return;
+
+    const gap = 14;
+    const colWidth = hasCost && hasRequirements ? (CONTENT_WIDTH - gap) / 2 : CONTENT_WIDTH;
+    const costLines = hasCost ? wrapText(costLine, fonts.sans, 10.5, colWidth - 28, 2) : [];
+    const reqLines = hasRequirements
+      ? requirements.flatMap((r) => wrapText(`•  ${r}`, fonts.sans, 10.5, colWidth - 28, 1))
+      : [];
+
+    const costHeight = hasCost ? 24 + 14.5 + costLines.length * 14.5 : 0;
+    const reqHeight = hasRequirements ? 24 + 14.5 + reqLines.length * 14.5 : 0;
+    const rowHeight = Math.max(costHeight, reqHeight);
+    newPageIfNeeded(rowHeight + 12);
+    y -= rowHeight;
+
+    if (hasCost) drawMetaBox(MARGIN, colWidth, costLabel, costLines);
+    if (hasRequirements) {
+      const x = hasCost ? MARGIN + colWidth + gap : MARGIN;
+      drawMetaBox(x, colWidth, requirementsLabel, reqLines);
+    }
+    y -= 16;
+  }
+
+  // The location line reuses drawMetaLine's link-annotation machinery, just
+  // recolored for this page's light background instead of its dark-glass
+  // default.
+  function drawLocationLine(label: string, idea: IdeaBookEntry) {
+    if (!idea.location) return;
+    const line = [idea.location.name, idea.location.city].filter(Boolean).join(", ");
+    drawMetaLine(label, line, MARGIN, CONTENT_WIDTH, mapsSearchUrl(idea.location.name, idea.location.city), WALNUT, MUTED);
+    y -= 8;
+  }
+
+  // The "Begin hier" callout — a solid dark box for a regular idea (mirrors
+  // the web's bg-accent-dark box), or a lighter gold-tinted, gold-bordered
+  // box for the wildcard (mirrors the web's isWildcard variant) — sized to
+  // its own text the same way the why-it-fits callout above is.
+  function drawFirstActionCallout(label: string, body: string, isWildcard: boolean) {
+    if (!body) return;
+    const padX = 18;
+    const padY = 16;
+    const bodyLines = wrapText(body, fonts.sansBold, 13, CONTENT_WIDTH - padX * 2, 2);
+    const boxHeight = padY * 2 + (9 + 8) + bodyLines.length * (13 + 5);
+    newPageIfNeeded(boxHeight + 10);
+    const boxTop = y;
+    const boxBottom = boxTop - boxHeight;
+    if (!dryRun) {
+      const path = roundedRectPath(CONTENT_WIDTH, boxHeight, 14);
+      if (isWildcard) {
+        page.drawSvgPath(path, {
+          x: MARGIN,
+          y: boxBottom + boxHeight,
+          color: GOLD_TINT,
+          borderColor: ACCENT,
+          borderWidth: 1.2,
+        });
+      } else {
+        page.drawSvgPath(path, { x: MARGIN, y: boxBottom + boxHeight, color: PANEL_FILL });
+      }
+      let ty = boxTop - padY - 9;
+      drawTrackedLine(label.toUpperCase(), fonts.sansBold, 9, ACCENT, MARGIN + padX, ty, 1);
+      ty -= 9 + 8;
+      const bodyColor = isWildcard ? INK : TEXT_LIGHT;
+      for (const line of bodyLines) {
+        page.drawText(line, { x: MARGIN + padX, y: ty, size: 13, font: fonts.sansBold, color: bodyColor });
+        ty -= 13 + 5;
+      }
+    }
+    y = boxBottom - 16;
+  }
+
+  function drawActionabilityPage(
+    idea: IdeaBookEntry,
+    photo: PDFImage,
+    titleLine: string,
+    badgeLabel: string | null,
+    isWildcard: boolean
+  ) {
+    drawBannerImage(photo);
+    drawBannerGradient();
+    // Fills the body area (and, incidentally, any banner-image overflow
+    // below BODY_TOP_Y — see drawBannerImage's own comment) with the same
+    // paper surface color the web card's body uses.
+    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: BODY_TOP_Y, color: PAPER });
+    drawBannerText(titleLine, badgeLabel);
+
+    const practicalLine = [
+      idea.practical.estimated_cost,
+      idea.practical.duration,
+      DIFFICULTY_LABELS[locale][idea.practical.difficulty],
+    ]
+      .filter(Boolean)
+      .join("  ·  ");
+
+    // The tightened schema (2 steps, short field limits — see
+    // generateIdeaBook.ts) means most ideas' body content is noticeably
+    // shorter than the full body area below the banner. Rather than always
+    // anchoring to the top and leaving a large, uneven blank strip at the
+    // bottom of shorter pages, measure the real content height with a dry
+    // run first (same technique used elsewhere in this file) and start
+    // from a padding that centers it — a page with more content (location,
+    // requirements) still simply starts closer to the banner.
+    function drawBody(topPad: number) {
+      y = BODY_TOP_Y - topPad;
+      drawParagraph(idea.intro, fonts.sans, 11.5, INK, 5, MARGIN, CONTENT_WIDTH, 3);
+      y -= 12;
+      drawWhyItFitsCallout(chrome.whyItFitsFallback, idea.why_it_fits);
+      drawStepsWithBadges(book.labels.steps_heading || chrome.stepsFallback, idea.details);
+      drawMetaBoxRow(
+        book.labels.cost_label || chrome.practicalFallback,
+        practicalLine,
+        book.labels.requirements_heading || chrome.requirementsFallback,
+        idea.requirements
+      );
+      drawLocationLine(book.labels.location_heading || chrome.locationFallback, idea);
+      drawFirstActionCallout(book.labels.first_action_heading || chrome.firstActionFallback, idea.first_action, isWildcard);
+    }
+
+    dryRun = true;
+    drawBody(BODY_PAD);
+    const contentHeight = BODY_TOP_Y - BODY_PAD - y;
+    dryRun = false;
+
+    const availableHeight = BODY_TOP_Y - MARGIN;
+    const idleSpace = Math.max(0, availableHeight - contentHeight);
+    drawBody(BODY_PAD + idleSpace / 2);
+  }
+
+  // Counts how many times each category has been used so far in this book,
+  // so two ideas sharing a category get the category's two different
+  // photo variants instead of both landing on the same one (which a
+  // page-index-based seed would do whenever two same-category ideas happen
+  // to land on pages of the same parity).
+  const categoryUseCount = new Map<string, number>();
+  function nextPhotoVariant(category: string): number {
+    const seed = categoryUseCount.get(category) ?? 0;
+    categoryUseCount.set(category, seed + 1);
+    return seed;
+  }
+
+  for (const [i, { idea }] of orderedIdeas.entries()) {
+    page = addPage();
+    const photo = await loadIdeaPhoto(idea.photo_category, nextPhotoVariant(idea.photo_category));
+    drawActionabilityPage(idea, photo, `${i + 1}. ${idea.title}`, null, false);
+  }
+
+  // --- Page 10: Wildcard — the same banner+body layout as an idea page,
+  // its own photo (chosen the same way, by its own photo_category), and
+  // distinguished by a small badge in the banner plus the gold-tinted
+  // first-action box rather than an extra decorative page border.
   page = addPage();
   {
-    drawFullBleedImage(images.closing);
-    drawOverlayWash(0.05);
-
-    const cardX = MARGIN;
-    const textX = cardX + PANEL_PAD_X;
-    const textWidth = CONTENT_WIDTH - PANEL_PAD_X * 2;
-
-    function drawFirstActionContent() {
-      y -= PANEL_PAD_Y;
-      drawParagraph(
-        book.labels.first_action_heading || chrome.firstActionFallback,
-        fonts.sansBold,
-        9.5,
-        ACCENT,
-        4,
-        textX,
-        textWidth,
-        undefined,
-        { tracking: 1 }
-      );
-      y -= 2;
-      drawParagraph(book.wildcard.first_action, fonts.sansBold, 13, TEXT_LIGHT, 5, textX, textWidth, 2);
-    }
-
-    const faMeasureStart = 10000;
-    y = faMeasureStart;
-    dryRun = true;
-    drawFirstActionContent();
-    const faContentHeight = faMeasureStart - y - PANEL_PAD_Y;
-    dryRun = false;
-    const firstActionHeight = Math.min(
-      FIRST_ACTION_MAX_HEIGHT,
-      Math.max(FIRST_ACTION_MIN_HEIGHT, faContentHeight + PANEL_PAD_Y * 2)
+    const wildcardPhoto = await loadIdeaPhoto(
+      book.wildcard.photo_category,
+      nextPhotoVariant(book.wildcard.photo_category)
     );
-    const firstActionTop = MARGIN + firstActionHeight;
-    const maxMainHeight = CARD_TOP_Y - (firstActionTop + CARD_GAP);
-
-    function drawMainCardContent() {
-      y = CARD_TOP_Y - PANEL_PAD_Y;
-      drawParagraph(
-        book.labels.wildcard_heading || chrome.wildcardFallbackHeading,
-        fonts.sansBold,
-        10.5,
-        ACCENT,
-        4,
-        textX,
-        textWidth,
-        1,
-        { tracking: 1.2 }
-      );
-      y -= 4;
-      drawParagraph(book.wildcard.title, fonts.serif, 24, TEXT_LIGHT, 7, textX, textWidth, 2);
-      y -= 6;
-      drawParagraph(book.wildcard.intro, fonts.sans, 12.5, TEXT_MUTED, 5, textX, textWidth, 3);
-      y -= 6;
-      drawParagraph(book.wildcard.why_it_fits, fonts.sans, 13, TEXT_LIGHT, 5, textX, textWidth, 3);
-      y -= 12;
-
-      drawParagraph(
-        book.labels.steps_heading || chrome.stepsFallback,
-        fonts.sansBold,
-        11,
-        ACCENT,
-        4,
-        textX,
-        textWidth,
-        undefined,
-        { tracking: 0.8 }
-      );
-      y -= 2;
-      drawNumberedList(book.wildcard.details, fonts.sans, 12.5, textX, textWidth, 3, TEXT_LIGHT);
-      y -= 4;
-
-      const wildcardPractical = [
-        book.wildcard.practical.estimated_cost,
-        book.wildcard.practical.duration,
-        DIFFICULTY_LABELS[locale][book.wildcard.practical.difficulty],
-      ]
-        .filter(Boolean)
-        .join("  ·  ");
-      drawMetaLine(book.labels.cost_label || chrome.practicalFallback, wildcardPractical, textX, textWidth);
-      if (book.wildcard.location) {
-        const wildcardLocationLine = [book.wildcard.location.name, book.wildcard.location.city]
-          .filter(Boolean)
-          .join(", ");
-        drawMetaLine(
-          book.labels.location_heading || chrome.locationFallback,
-          wildcardLocationLine,
-          textX,
-          textWidth,
-          mapsSearchUrl(book.wildcard.location.name, book.wildcard.location.city)
-        );
-      }
-      if (book.wildcard.requirements.length > 0) {
-        y -= 3;
-        drawParagraph(
-          book.labels.requirements_heading || chrome.requirementsFallback,
-          fonts.sansBold,
-          10,
-          ACCENT,
-          4,
-          textX,
-          textWidth,
-          undefined,
-          { tracking: 0.6 }
-        );
-        y -= 1;
-        drawBulletList(book.wildcard.requirements, fonts.sans, 10.5, textX, textWidth, TEXT_MUTED);
-      }
-    }
-
-    const measureStart = CARD_TOP_Y - PANEL_PAD_Y;
-    dryRun = true;
-    drawMainCardContent();
-    const contentHeight = measureStart - y;
-    dryRun = false;
-
-    const mainCardHeight = Math.min(maxMainHeight, Math.max(160, contentHeight + PANEL_PAD_Y * 2));
-    drawCard(cardX, CARD_TOP_Y - mainCardHeight, CONTENT_WIDTH, mainCardHeight);
-    drawMainCardContent();
-
-    drawCard(cardX, MARGIN, CONTENT_WIDTH, firstActionHeight, 0.68);
-    y = MARGIN + firstActionHeight;
-    drawFirstActionContent();
+    drawActionabilityPage(
+      book.wildcard,
+      wildcardPhoto,
+      book.wildcard.title,
+      book.labels.wildcard_heading || chrome.wildcardFallbackHeading,
+      true
+    );
   }
 
   // Footer: page number + wordmark on every page except the cover — warm

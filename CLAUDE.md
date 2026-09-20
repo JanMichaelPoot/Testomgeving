@@ -1756,3 +1756,101 @@ Stripe, Claude API, Resend, PostHog).
       `/favicon.ico` rechtstreeks opgevraagd om te bevestigen dat de
       draaiende server het nieuwe, grotere bestand serveert. `tsc
       --noEmit`/`eslint .`/`npm run build` schoon.
+
+- [x] Stap 36 — Vier gerichte verbeteringen aan de test-/generatieflow en de
+      Idea Book-PDF, op verzoek na een screenshot van de opgeschoonde
+      idee-kaart-styling.
+      **(1) Zandloper-pagina bij "Betaling overslaan"**: `getOrCreateWindowPlan`
+      en `getOrCreateTestWindowPlan` (`src/app/plan/data.ts`) deden voorheen
+      de hele trage Claude/PDF-pijplijn synchroon binnen één request — de
+      testbypass liet daardoor tot nu toe een blanco tab zien tot de hele
+      generatie (60-100+s) klaar was, in plaats van de al bestaande
+      `GeneratingScreen` te tonen. De functies zijn gesplitst in
+      `startPlanGeneration` (snel: legt een `pending`-rij vast) en
+      `finishPlanGeneration` (traag: Claude, PDF-render, upload, e-mail) —
+      het snelle deel wordt synchroon afgewacht, het trage deel draait in
+      Next.js' `after()` (`src/app/plan/page.tsx` kreeg `export const
+      maxDuration = 120` zodat dat achtergrondwerk genoeg tijd krijgt binnen
+      dezelfde serverless-invocation; op een Vercel Hobby-plan blijft dit
+      alsnog op 60s gekapt, ongeacht deze waarde). De functie gooit meteen
+      na het starten `PlanNotReadyError` met reden `"generating"`, dus
+      `/plan` toont vanaf de allereerste aanvraag al de zandloper-pagina in
+      plaats van pas bij een gelijktijdige tweede aanvraag.
+      **(2) Test-bevestigingsmail**: `getOrCreateTestWindowPlan` stuurt nu,
+      uitsluitend in testmodus, de échte aankoopbevestigingsmail
+      (`sendIdeaBookEmail`) naar een vast e-mailadres
+      (`TEST_MODE_EMAIL_RECIPIENT`, niet een environment variable — een
+      hardcoded developer-gemak voor dit ene project) met een duidelijk
+      gelabeld placeholder-`order`-object (`orderNumber: "TEST"`), zodat
+      precies te zien is wat een echte koper in zijn inbox krijgt zonder
+      een echte betaling nodig te hebben.
+      **(3) PDF-idee-/wildcardpagina's herbouwd naar de webkaart-stijl**: op
+      verzoek bleek de bijgevoegde referentieafbeelding een screenshot van
+      de bestaande `/plan`-webkaart (`IdeaDetail.tsx`) te zijn — losstaand
+      geverifieerd via een keuzevraag vooraf. `src/lib/pdf/ideaBook.ts`'s
+      idee- en wildcardpagina's (niet de cover/profiel/possibility-map-
+      pagina's, die hun Stap 33 "quiet luxury"-fotostijl behouden) zijn
+      volledig herbouwd naar een fotobanner boven + een lichte "paper"-body
+      eronder, met dezelfde onderdelen als de webkaart: een tan
+      "waarom dit bij jou past"-callout, genummerde bruine cirkel-stappen,
+      lichte kosten-/vereisten-vakken naast elkaar, een locatieregel met
+      kaartlink, en een donkere "begin hiermee"-actiebalk (goud-omrand en
+      lichter getint voor de wildcard, conform de webkaart's eigen
+      `isWildcard`-variant). Geen aparte eyebrow-regel meer boven de titel
+      — exact als de webkaart toont de banner alleen "N. Titel" (of alleen
+      de titel + een "wildcard"-pil voor de wildcard). Content wordt eerst
+      "droog" gemeten (dezelfde dry-run-techniek als de rest van dit
+      bestand) en vervolgens verticaal gecentreerd in de beschikbare
+      bodyruimte in plaats van altijd bovenaan te beginnen — zonder dat zou
+      een kort ingevuld idee (2 stappen, korte velden, per de bestaande
+      schemalimieten) een grote, ongebalanceerde lege strook onderaan de
+      pagina overhouden.
+      **(4) Foto per idee matcht nu het echte onderwerp**: de oude
+      `IDEA_HERO_PHOTOS`-pool (7 generieke Unsplash-foto's, puur op
+      volgorde-index gecycled, zonder enige relatie tot de inhoud — de
+      bron van het gemelde "mistig bos bij een kunstroute"-mismatch) is
+      vervangen door een eigen, eenmalig gegenereerde gecategoriseerde
+      fotobibliotheek (12 categorieën × 2 varianten = 24 foto's,
+      `scripts/generate-idea-category-illustrations.ts`,
+      `public/illustrations/idea-book/categories/`) — gekozen na een
+      keuzevraag boven live per-idee AI-generatie, om de bestaande
+      kosten-/snelheidsafweging (Stap 12/19/22) niet te doorbreken. Elk
+      gegenereerd idee krijgt nu een eigen `photo_category`-veld
+      (`src/lib/claude/ideaBookTypes.ts`/`generateIdeaBook.ts`) dat Claude
+      zelf invult op basis van een expliciete, per-categorie omschreven
+      lijst in de systeemprompt (bv. "art_culture: kijken naar kunst, niet
+      zelf maken" vs. "creative_workshop: zelf iets maken") — een eerste
+      testgeneratie liet zien dat de kale enum-namen zonder die
+      omschrijvingen tot verkeerde categorieën leidden (een museumbezoek
+      kreeg tweemaal de pottenbak-workshopfoto in plaats van een
+      kunstgalerie-foto); na het toevoegen van de omschrijvingen bleven
+      alleen nog overtuigende matches over. `ideaCategoryPhoto()`
+      (`src/lib/illustrations.ts`) kiest per idee tussen de twee varianten
+      van zijn categorie via een per-categorie-telling (niet de paginapositie
+      in het boek), zodat twee ideeën met dezelfde categorie in hetzelfde
+      boek niet toevallig dezelfde foto tonen. `IdeaDetail.tsx` (het gedeelde
+      webcomponent van `/plan` en `/shared/[id]`) gebruikt dezelfde functie,
+      dus de mismatch is op web én in de PDF tegelijk opgelost. De oude
+      vaste `closing.jpg` (voorheen alle wildcard-pagina's) is verwijderd —
+      de wildcard krijgt nu net als elk ander idee zijn eigen
+      categoriefoto.
+      Getest: de volledige testbypass-flow end-to-end doorlopen in de
+      browser — de zandloper verscheen nu meteen (in plaats van een
+      blanco tab), rouleerde door de bestaande statusregels, en de pagina
+      ververste zichzelf automatisch naar de voltooide Possibility Map
+      zodra de achtergrondgeneratie (~90s) klaar was. Twee volledige echte
+      testgeneraties bekeken (een eerste met de kale enum-namen, die de
+      categorie-mismatch bevestigde; een tweede na de promptverbetering,
+      waarbij alle 7 foto's — 6 ideeën + wildcard — overtuigend bij hun
+      onderwerp pasten, incl. een jazzavond-idee met een kunstgalerie-foto
+      en een teken-workshop-wildcard met een penselenfoto). De gedownloade
+      PDF (10 pagina's: cover, profiel, possibility map, 6 idee-pagina's,
+      wildcard) pagina voor pagina gecontroleerd via de PyMuPDF-rasterizer —
+      geen afkapping, correcte voorwaardelijke rendering (kosten-only vs.
+      kosten+vereisten, met/zonder locatie), en zichtbaar gebalanceerde
+      verticale centrering bij kortere content. `tsc --noEmit`/`eslint .`/
+      `npm run build`/`npx vitest run` (25 tests) allemaal schoon. De
+      test-bevestigingsmail zelf kon niet rechtstreeks geverifieerd worden
+      (geen toegang tot de pootjm@hotmail.com-inbox vanuit deze sessie) —
+      de verzendcode volgt exact hetzelfde, al eerder geverifieerde
+      Resend-pad als de echte aankoopbevestigingsmail.

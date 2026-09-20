@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { mapsSearchUrl } from "@/lib/maps";
-import { ideaHeroPhoto } from "@/lib/illustrations";
+import { ideaCategoryPhoto } from "@/lib/illustrations";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/lib/language";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -10,12 +10,12 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 // content — shared between /plan (the buyer's own page) and /shared/[id]
 // (the public read-only preview), so both ever show the same information.
 //
-// `photoIndex` picks a header photo from a small fixed stock-photo pool
-// (see IDEA_HERO_PHOTOS in lib/illustrations.ts) — Claude writes a fresh
-// idea every time, so there's no way to fetch a photo that actually
-// matches an arbitrary AI-generated idea. Cycling a small pool still gives
-// every idea a photographic header, matching the WINDOW prototype's card
-// style, without pretending the photo depicts that specific idea.
+// `photoIndex` (still just the idea's position in the book) only picks
+// between the two photos within the idea's own `photo_category` — Claude
+// tags every idea with the category itself, so the photo actually matches
+// the idea's real subject instead of cycling a category-blind pool. See
+// ideaCategoryPhoto()/PHOTO_CATEGORIES in lib/illustrations.ts and
+// lib/claude/ideaBookTypes.ts.
 export function IdeaDetail({
   idea,
   index,
@@ -54,7 +54,7 @@ export function IdeaDetail({
       {/* Hero photo */}
       <div className="relative h-48 bg-accent-dark sm:h-56">
         <Image
-          src={ideaHeroPhoto(photoIndex)}
+          src={ideaCategoryPhoto(idea.photo_category, photoIndex)}
           alt=""
           fill
           sizes="(min-width: 640px) 640px, 100vw"

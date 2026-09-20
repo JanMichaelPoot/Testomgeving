@@ -17,6 +17,16 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: dict.plan.pageTitle };
 }
 
+// getOrCreateWindowPlan/getOrCreateTestWindowPlan (src/app/plan/data.ts) now
+// respond immediately and hand the slow Claude+PDF work to Next's `after()`,
+// but that background work still runs inside this same serverless function
+// invocation (via Vercel's waitUntil) and gets killed the moment the
+// function's own timeout hits — raising maxDuration is what actually buys it
+// the ~60-100s it needs. NB: this is capped by the Vercel plan regardless of
+// this number — Hobby hard-caps at 60s, so on Hobby this only helps once the
+// project is on Pro or above.
+export const maxDuration = 120;
+
 function ErrorState({
   message,
   dict,

@@ -21,6 +21,7 @@ function idea(overrides: Partial<IdeaBookEntry> & Pick<IdeaBookEntry, "title" | 
     location: null,
     requirements: [],
     image_suggestion: "",
+    photo_category: "nature_outdoor",
     scores: {
       relevance: 70,
       novelty: 60,
@@ -54,6 +55,7 @@ const NL: GeneratedIdeaBook = {
       first_action: "Zoek 'pottenbakken workshop' + je woonplaats en bekijk de eerstvolgende datum.",
       practical: { estimated_cost: "€35–50 p.p.", duration: "Een dagdeel", difficulty: "easy", preparation: "" },
       requirements: ["Kleding die vuil mag worden"],
+      photo_category: "creative_workshop",
     }),
     idea({
       title: "Kunstroute langs verborgen werken",
@@ -67,6 +69,7 @@ const NL: GeneratedIdeaBook = {
       first_action: "Zoek 'kunstroute' + je woonplaats en open de eerste link.",
       practical: { estimated_cost: "Gratis", duration: "Een dagdeel", difficulty: "easy", preparation: "" },
       requirements: ["Smartphone met kaart of papieren route"],
+      photo_category: "art_culture",
     }),
     idea({
       title: "Koffie midden in het museum",
@@ -79,6 +82,7 @@ const NL: GeneratedIdeaBook = {
       ],
       first_action: "Zoek 'museumcafé' + je woonplaats op Google Maps.",
       practical: { estimated_cost: "€10–20", duration: "1-2 uur", difficulty: "easy", preparation: "" },
+      photo_category: "food_drink",
     }),
     idea({
       title: "Suppen door je eigen stad",
@@ -92,6 +96,7 @@ const NL: GeneratedIdeaBook = {
       first_action: "Zoek 'sup verhuur' + je woonplaats en bekijk de beschikbaarheid.",
       practical: { estimated_cost: "€20–30 p.p.", duration: "Een dagdeel", difficulty: "moderate", preparation: "" },
       requirements: ["Reservering vooraf", "Handdoek en droge kleding"],
+      photo_category: "water_activity",
     }),
     idea({
       title: "Muurschilderingen jagen als speurtocht",
@@ -104,6 +109,7 @@ const NL: GeneratedIdeaBook = {
       ],
       first_action: "Zoek 'street art route' + je woonplaats in Google.",
       practical: { estimated_cost: "Gratis", duration: "Een dagdeel", difficulty: "easy", preparation: "" },
+      photo_category: "art_culture",
     }),
     idea({
       title: "Oldtimer-roadtrip zonder vaste route",
@@ -117,6 +123,7 @@ const NL: GeneratedIdeaBook = {
       first_action: "Zoek 'oldtimer verhuur' + je regio en bekijk de beschikbaarheid.",
       practical: { estimated_cost: "€100–150", duration: "Een dagdeel", difficulty: "moderate", preparation: "" },
       requirements: ["Geldig rijbewijs", "Reservering vooraf"],
+      photo_category: "travel_adventure",
     }),
   ],
   wildcard: idea({
@@ -131,6 +138,7 @@ const NL: GeneratedIdeaBook = {
     first_action: "Zoek 'action painting workshop' + je woonplaats.",
     practical: { estimated_cost: "€35–50 p.p.", duration: "Een dagdeel", difficulty: "moderate", preparation: "" },
     requirements: ["Reservering vooraf", "Oude kleding of schort"],
+    photo_category: "creative_workshop",
   }),
   labels: {
     steps_heading: "",

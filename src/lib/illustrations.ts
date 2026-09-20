@@ -25,24 +25,33 @@ export const INTAKE_LUXURY_PHOTOS = [
 ] as const;
 
 // ── Stock photography (idea-card imagery only) ──────────────────────────
-// Idea cards are generated freely by Claude, so there's no way to fetch a
-// photo that actually matches an arbitrary AI-written idea — IDEA_HERO_PHOTOS
-// is a small fixed pool that IdeaDetail cycles through by index instead, so
-// every idea still gets a photographic header.
-function unsplash(photoId: string, w: number, h: number) {
-  return `https://images.unsplash.com/${photoId}?w=${w}&h=${h}&fit=crop&auto=format`;
-}
+// Replaces the old IDEA_HERO_PHOTOS pool (7 generic Unsplash photos cycled
+// purely by index, with no relation to an idea's actual content — leading
+// to mismatches like a misty-forest photo on an art-gallery idea) with a
+// small, self-hosted, categorized library (see
+// scripts/generate-idea-category-illustrations.ts, 2 photos per category).
+// Claude tags every idea with the best-fitting category itself
+// (photo_category, see generateIdeaBook.ts) — far more reliable than
+// keyword-matching free text after the fact — so the header photo is
+// chosen by an idea's actual subject, still with zero live image
+// generation per purchase.
+import type { PhotoCategory } from "@/lib/claude/ideaBookTypes";
+import { PHOTO_CATEGORIES } from "@/lib/claude/ideaBookTypes";
 
-export const IDEA_HERO_PHOTOS = [
-  unsplash("photo-1506905925346-21bda4d32df4", 800, 500),
-  unsplash("photo-1565193566173-7a0ee3dbe261", 800, 500),
-  unsplash("photo-1448375240586-882707db888b", 800, 500),
-  unsplash("photo-1500514966906-fe245eea9344", 800, 500),
-  unsplash("photo-1455390582262-044cdead277a", 800, 500),
-  unsplash("photo-1585208798174-6cedd86e019a", 800, 500),
-  unsplash("photo-1474722883778-792e7990302f", 800, 500),
-] as const;
+const IDEA_CATEGORY_PHOTOS = Object.fromEntries(
+  PHOTO_CATEGORIES.map((category) => [
+    category,
+    [
+      `/illustrations/idea-book/categories/${category}-1.jpg`,
+      `/illustrations/idea-book/categories/${category}-2.jpg`,
+    ] as const,
+  ])
+) as Record<PhotoCategory, readonly [string, string]>;
 
-export function ideaHeroPhoto(index: number): string {
-  return IDEA_HERO_PHOTOS[index % IDEA_HERO_PHOTOS.length];
+// `variantSeed` (e.g. an idea's index within the book) just picks between
+// the category's two photos, so two ideas sharing a category in the same
+// book don't show the exact same photo twice.
+export function ideaCategoryPhoto(category: PhotoCategory, variantSeed: number): string {
+  const variants = IDEA_CATEGORY_PHOTOS[category] ?? IDEA_CATEGORY_PHOTOS.nature_outdoor;
+  return variants[variantSeed % variants.length];
 }

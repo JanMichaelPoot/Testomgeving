@@ -6,6 +6,7 @@ import {
 } from "@/lib/claude/shared";
 import { languageLabel, type Locale } from "@/lib/locale";
 import type { IntakeAnswers } from "@/app/intake/actions";
+import { PHOTO_CATEGORIES } from "@/lib/claude/ideaBookTypes";
 
 // Re-exported so existing server-side callers (plan/data.ts, pdf/ideaBook.ts,
 // email/windowPlan.ts) keep importing from this file — but the type/constant
@@ -21,6 +22,7 @@ export {
   type IdeaScores,
   type IdeaBookEntry,
   type GeneratedIdeaBook,
+  type PhotoCategory,
 } from "@/lib/claude/ideaBookTypes";
 import type {
   IdeaBookEntry,
@@ -29,6 +31,7 @@ import type {
   IdeaLocation,
   IdeaDoor,
   IdeaScores,
+  PhotoCategory,
 } from "@/lib/claude/ideaBookTypes";
 import type { CharacterProfile } from "@/lib/characterProfile";
 
@@ -150,6 +153,26 @@ Rules for using the profile:
   Keep estimated_cost approximate and don't mention opening hours at all.
 - image_suggestion is a one-line internal art-direction note for a future
   illustration of this idea — not shown to the user, so it can be terse.
+- photo_category: pick exactly one value from this fixed list that best
+  matches the idea's actual real-world activity/setting — this drives which
+  photo from a small fixed library appears on this idea's page, so pick the
+  closest real match rather than defaulting to the same category every time:
+  - art_culture: visiting or viewing art/culture (museums, galleries, exhibitions, architecture tours) — the idea is about LOOKING, not making.
+  - creative_workshop: hands-on making (pottery, painting, crafts, workshops where the person creates something themselves).
+  - food_drink: eating, drinking, cooking, coffee, restaurants, bars.
+  - nature_outdoor: walking, parks, forests, gardens, being outside in nature.
+  - water_activity: canals, lakes, rivers, paddleboarding, kayaking, boats.
+  - active_sport: cycling, climbing, hiking, physically active pursuits.
+  - music_nightlife: concerts, live music, clubs, going out at night.
+  - wellness_relax: spa, yoga, massage, quiet relaxation.
+  - social_games: board games, escape rooms, quizzes, games with others.
+  - travel_adventure: day trips, road trips, exploring somewhere new by traveling there.
+  - home_cozy: staying in, reading, cozy at-home time.
+  - market_shopping: markets, vintage shopping, browsing stalls.
+  Choose based on what the person will actually be DOING, not the theme they
+  mentioned — e.g. visiting a museum is art_culture even if triggered by a
+  love of "creativity"; only use creative_workshop when they make something
+  themselves.
 - Write the profile_summary as one warm, specific sentence that reflects
   this person's situation back to them — not a generic recap.
 - Write must_haves and preferences as short, cleaned-up bullet phrases
@@ -344,6 +367,7 @@ const IDEA_ENTRY_SCHEMA = {
     location: LOCATION_SCHEMA,
     requirements: { type: "array", maxItems: 4, items: { type: "string" } },
     image_suggestion: { type: "string" },
+    photo_category: { type: "string", enum: [...PHOTO_CATEGORIES] },
     door: {
       type: "string",
       enum: ["natural", "discovery", "unexpected", "stretch", "wildcard"],
@@ -360,6 +384,7 @@ const IDEA_ENTRY_SCHEMA = {
     "location",
     "requirements",
     "image_suggestion",
+    "photo_category",
     "door",
     "scores",
   ],
@@ -542,6 +567,15 @@ function normalizeDoor(value: unknown, fallback: IdeaDoor): IdeaDoor {
     : fallback;
 }
 
+// Falls back to "nature_outdoor" — a broadly applicable, unremarkable
+// default — rather than throwing, on the rare chance the model returns
+// something outside the enum despite the forced tool schema declaring it.
+function normalizePhotoCategory(value: unknown): PhotoCategory {
+  return typeof value === "string" && (PHOTO_CATEGORIES as readonly string[]).includes(value)
+    ? (value as PhotoCategory)
+    : "nature_outdoor";
+}
+
 function clampScore(value: unknown): number {
   const n = typeof value === "number" ? value : Number(value);
   if (!Number.isFinite(n)) return 50;
@@ -578,6 +612,7 @@ function normalizeEntry(entry: unknown, opts: { forceDoor?: IdeaDoor } = {}): Id
     location: normalizeLocation(e.location),
     requirements: toTextArray(e.requirements),
     image_suggestion: toText(e.image_suggestion),
+    photo_category: normalizePhotoCategory(e.photo_category),
     door: opts.forceDoor ?? normalizeDoor(e.door, "discovery"),
     scores: normalizeScores(e.scores),
   };

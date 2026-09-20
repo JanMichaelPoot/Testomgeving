@@ -34,6 +34,31 @@ export interface IdeaLocation {
 // prompt, section 6 ("Open Doors").
 export type IdeaDoor = "natural" | "discovery" | "unexpected" | "stretch" | "wildcard";
 
+// A fixed, pre-generated photo library (see
+// scripts/generate-idea-category-illustrations.ts, 2 photos per category)
+// replaces the old IDEA_HERO_PHOTOS pool that just cycled through 7 generic
+// stock photos with no relation to an idea's actual content (leading to
+// mismatches like a misty-forest photo on an art-gallery idea). Claude picks
+// the best-fitting category itself per idea — far more reliable than
+// keyword-matching the free-text `image_suggestion` field after the fact —
+// still with zero live image generation per purchase.
+export const PHOTO_CATEGORIES = [
+  "art_culture",
+  "creative_workshop",
+  "food_drink",
+  "nature_outdoor",
+  "water_activity",
+  "active_sport",
+  "music_nightlife",
+  "wellness_relax",
+  "social_games",
+  "travel_adventure",
+  "home_cozy",
+  "market_shopping",
+] as const;
+
+export type PhotoCategory = (typeof PHOTO_CATEGORIES)[number];
+
 // Fase 3 — internal Serendipity Engine scores (master prompt section 11),
 // 0-100 each, 50 = neutral. These are Claude's own self-estimate per idea,
 // used so a balanced set can be selected/inspected rather than just the
@@ -62,6 +87,7 @@ export interface IdeaBookEntry {
   location: IdeaLocation | null;
   requirements: string[];
   image_suggestion: string;
+  photo_category: PhotoCategory;
   door: IdeaDoor;
   scores: IdeaScores;
 }
