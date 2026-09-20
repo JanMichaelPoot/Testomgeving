@@ -6,22 +6,11 @@ import { Button } from "@/components/ui/Button";
 import { ShareButton } from "@/components/window/ShareButton";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/posthog/client";
-import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
-import type { IdeaBookEntry, IdeaDoor } from "@/lib/claude/ideaBookTypes";
+import { orderIdeasByDoor } from "@/lib/possibilityMap";
+import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 type Screen = { type: "map" } | { type: "done" };
-
-// A regular idea's door is always one of the 4 non-wildcard doors (Fase 3's
-// normalizeEntry only ever assigns "wildcard" to the dedicated wildcard
-// slot) — but the type itself still allows "wildcard", so this stays a
-// small defensive lookup rather than a direct index.
-function doorCopy(
-  door: IdeaDoor,
-  doors: Dictionary["plan"]["book"]["doors"]
-): { label: string; description: string } | null {
-  return door === "wildcard" ? null : doors[door];
-}
 
 // Renders the paid Idea Book result. On explicit request, this is
 // deliberately just two screens now: the Possibility Map (overview of all
@@ -56,13 +45,14 @@ export function IdeaBookViewer({
   planId: string;
 }) {
   // The web Possibility Map and the printed/emailed PDF always walk ideas
-  // in the same fixed DOOR_ORDER (natural → discovery → unexpected →
-  // stretch), so an idea's position here matches its PDF page exactly.
-  // Page 1 is the cover, 2 is the profile, 3 is the Possibility Map, so
-  // the first idea always lands on page 4 — see CLAUDE.md's Stap 33/34
-  // log for why that layout is fixed.
+  // in the same fixed door order (natural → discovery → unexpected →
+  // stretch, safe to bold), so an idea's position here matches its PDF
+  // page exactly — the ordering itself stays even though the door names
+  // are no longer shown on this screen (removed on request). Page 1 is
+  // the cover, 2 is the profile, 3 is the Possibility Map, so the first
+  // idea always lands on page 4 — see CLAUDE.md's Stap 33/34 log for why
+  // that layout is fixed.
   const orderedIdeas = useMemo(() => orderIdeasByDoor(ideas), [ideas]);
-  const oneThingIndex = useMemo(() => pickOneThingIndex(ideas), [ideas]);
   const pdfPageByOriginalIndex = useMemo(() => {
     const map = new Map<number, number>();
     orderedIdeas.forEach(({ originalIndex }, i) => map.set(originalIndex, 4 + i));
@@ -132,45 +122,16 @@ export function IdeaBookViewer({
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-ink/70">{planDict.book.mapIntro}</p>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {DOOR_ORDER.map((door) => (
-                <div key={door} className="rounded-xl bg-cream p-4">
-                  <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
-                    {planDict.book.doors[door].label}
-                  </p>
-                  <p className="mt-1 text-sm text-ink/70">{planDict.book.doors[door].description}</p>
-                </div>
-              ))}
-            </div>
-
             <ul className="mt-8 space-y-3">
               {orderedIdeas.map(({ idea, originalIndex }, i) => {
-                const isOneThing = originalIndex === oneThingIndex;
-                const copy = doorCopy(idea.door, planDict.book.doors);
                 const href = pdfHrefForPage(pdfPageByOriginalIndex.get(originalIndex) ?? 4 + i);
                 return (
                   <li
                     key={i}
-                    className={cn(
-                      "flex items-center justify-between gap-4 rounded-2xl border p-4",
-                      isOneThing ? "border-gold bg-gold/5" : "border-accent/10"
-                    )}
+                    className="flex items-center justify-between gap-4 rounded-2xl border border-accent/10 p-4"
                   >
                     <div className="min-w-0">
-                      {isOneThing && (
-                        <p className="mb-1 text-xs font-medium uppercase tracking-widest text-gold">
-                          ✦ {planDict.book.oneThingBadge}
-                        </p>
-                      )}
-                      {copy && (
-                        <p className="text-xs font-medium uppercase tracking-widest text-ink/40">
-                          {copy.label}
-                        </p>
-                      )}
                       <p className="truncate font-serif text-lg text-ink">{idea.title}</p>
-                      {isOneThing && (
-                        <p className="mt-1 text-sm text-ink/60">{planDict.book.oneThingCaption}</p>
-                      )}
                     </div>
                     {href && (
                       <a
