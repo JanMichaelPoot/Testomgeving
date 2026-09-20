@@ -181,7 +181,7 @@ export function IdeaBookViewer({
         {screen.type === "profile" && (
           <div>
             <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/40 bg-accent-dark text-white">
-              <WindowMark className="h-7 w-7" />
+              <WindowMark onDark className="h-7 w-7" />
             </div>
             <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
               {planDict.book.profileEyebrow}

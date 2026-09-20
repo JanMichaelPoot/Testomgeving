@@ -604,7 +604,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
         <div className="px-6 pt-8 sm:px-10">
           <div className="flex items-center justify-between gap-4">
             <span className="inline-flex items-center gap-2 rounded-full bg-surface-active px-3 py-1 text-xs font-medium text-ink/70">
-              <WindowMark className="h-3.5 w-3.5 text-ink/50" />
+              <WindowMark className="h-3.5 w-3.5" />
               {dict.stepWord} {page + 1} {dict.ofWord} {pages.length}
             </span>
           </div>

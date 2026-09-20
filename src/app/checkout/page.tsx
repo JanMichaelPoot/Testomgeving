@@ -17,9 +17,16 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: dict.checkout.pageTitle };
 }
 
-export default async function CheckoutPage() {
+export default async function CheckoutPage(props: PageProps<"/checkout">) {
   const sessionId = await getSessionId();
   if (!sessionId) redirect("/intake");
+
+  const searchParams = await props.searchParams;
+  // Stripe sends the buyer back to this URL both when they cancel and when
+  // a synchronous payment method (e.g. a declined card) fails outright —
+  // see the `?payment=cancelled` marker on cancel_url in
+  // src/app/checkout/actions.ts. Section 24's exact wording for this case.
+  const paymentFailed = searchParams.payment === "cancelled";
 
   const supabase = createServiceRoleClient();
 
@@ -51,6 +58,15 @@ export default async function CheckoutPage() {
           </svg>
           {dict.intake.back}
         </Link>
+
+        {paymentFailed && (
+          <p
+            className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+            role="alert"
+          >
+            {dict.checkout.errorPaymentFailed}
+          </p>
+        )}
 
         <div className="grid gap-6 rounded-lg border border-border bg-paper p-8 sm:p-10 lg:grid-cols-[1fr_1.1fr]">
           {/* Left: order summary */}
@@ -102,7 +118,7 @@ export default async function CheckoutPage() {
 
           {/* Right: gift/waiver/payment */}
           <div className="lg:pl-0">
-            <CheckoutPanel dict={dict.checkout} />
+            <CheckoutPanel dict={dict.checkout} price={price} />
           </div>
         </div>
       </main>

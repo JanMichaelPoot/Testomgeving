@@ -6,8 +6,17 @@ import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
 import { recordAuditLogEntry } from "@/lib/auditLog";
 import { computeCharacterProfile, type CharacterProfile } from "@/lib/characterProfile";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { LEGAL_VERSIONS } from "@/lib/legal/versions";
+import { getSignedPdfUrl } from "@/lib/pdfAccess";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database } from "@/types/database";
+
+// Re-exported so existing callers (src/app/plan/page.tsx) can keep
+// importing every plan-related helper from this one module; the
+// implementation itself lives in src/lib/pdfAccess.ts so it can be unit
+// tested without pulling in this file's much heavier import graph
+// (Claude/PDF generation, Resend, audit logging).
+export { getSignedPdfUrl };
 
 type WindowPlanRow = Database["public"]["Tables"]["window_plans"]["Row"];
 type ServiceRoleClient = ReturnType<typeof createServiceRoleClient>;
@@ -88,9 +97,24 @@ export async function getCharacterProfileForSession(
   return profile ? computeCharacterProfile(profile) : null;
 }
 
+// Bumped whenever renderIdeaBookPdf's output changes in a way worth being
+// able to tell apart later (layout, legal footer text, included sections) —
+// stored per plan in window_plans.pdf_version so a support/admin lookup can
+// tell which template generation a given customer's PDF actually reflects.
+// Not tied to LEGAL_VERSIONS — this versions the *document*, not the
+// consent copy.
+const PDF_VERSION = 1;
+
 async function generateAndSavePlan(
   supabase: ServiceRoleClient,
-  sessionId: string
+  sessionId: string,
+  // The order (payments.id) this generation belongs to, when there is one.
+  // null for the no-payment test-mode bypass (getOrCreateTestWindowPlan) —
+  // there is no order to link. Recorded on the very first "pending" insert,
+  // not only the final "ready" update, so even a row that ends up "failed"
+  // stays traceable to the order that triggered it for admin debugging
+  // (Fase 3 Task: Admin order-detail).
+  paymentId: string | null
 ): Promise<{
   plan: WindowPlanRow;
   generated: GeneratedIdeaBook;
@@ -123,7 +147,13 @@ async function generateAndSavePlan(
   // kicking off a second, fully redundant generation.
   const { data: pendingRow, error: pendingError } = await supabase
     .from("window_plans")
-    .insert({ session_id: sessionId, title: bookTitle, language: locale, status: "pending" })
+    .insert({
+      session_id: sessionId,
+      title: bookTitle,
+      language: locale,
+      status: "pending",
+      payment_id: paymentId,
+    })
     .select("*")
     .single();
 
@@ -143,10 +173,13 @@ async function generateAndSavePlan(
         upsert: true,
       });
 
-    const pdfUrl = uploadError
-      ? null
-      : supabase.storage.from("window-plans").getPublicUrl(pdfPath).data
-          .publicUrl;
+    // Compliance/security fix (Fase 3, PDF-downloadbeveiliging): the
+    // `window-plans` bucket is private as of 0011_private_pdf_storage.sql,
+    // so a public URL would just 400. `window_plans.pdf_url` now holds the
+    // bare storage object path instead — never a directly-fetchable URL —
+    // and getSignedPdfUrl() below turns it into a short-lived signed URL
+    // on demand, freshly minted on every /plan render (see plan/page.tsx).
+    const pdfUrl = uploadError ? null : pdfPath;
 
     const { data: updated, error: updateError } = await supabase
       .from("window_plans")
@@ -159,6 +192,8 @@ async function generateAndSavePlan(
         wildcard_json: generated.wildcard as unknown as Record<string, unknown>,
         labels_json: generated.labels,
         pdf_url: pdfUrl,
+        generated_at: new Date().toISOString(),
+        pdf_version: PDF_VERSION,
       })
       .eq("id", pendingRow.id)
       .select("*")
@@ -200,6 +235,17 @@ export async function getOrCreateWindowPlan(
 
   const supabase = createServiceRoleClient();
 
+  // The order this plan belongs to — looked up by the Stripe Checkout
+  // Session id every payments row is keyed on (see checkout/actions.ts).
+  // Best-effort: a missing order shouldn't block generation, since the
+  // payment itself has already been confirmed via Stripe above; it just
+  // means window_plans.payment_id stays null for that row.
+  const { data: paymentRow } = await supabase
+    .from("payments")
+    .select("id, order_number, amount, currency, created_at")
+    .eq("stripe_payment_id", checkoutSessionId)
+    .maybeSingle();
+
   const existingPlan = resolveExistingPlan(await findExistingPlan(supabase, sessionId));
   if (existingPlan === "generating") {
     throw new PlanNotReadyError(
@@ -211,7 +257,8 @@ export async function getOrCreateWindowPlan(
 
   const { plan, generated, pdfBytes, profile, characterProfile } = await generateAndSavePlan(
     supabase,
-    sessionId
+    sessionId,
+    paymentRow?.id ?? null
   );
 
   let emailDelivered = false;
@@ -249,6 +296,16 @@ export async function getOrCreateWindowPlan(
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
     try {
+      // A confirmation e-mail that can't state what was actually ordered
+      // is worse than none — if the order record is somehow missing,
+      // treat it the same as any other delivery failure (caught below)
+      // rather than sending a confirmation with blank order details.
+      if (!paymentRow) {
+        throw new Error(
+          `No payments row found for checkout session ${checkoutSessionId}; cannot send an order confirmation.`
+        );
+      }
+
       await sendIdeaBookEmail({
         to: deliveryEmail,
         title: plan.title,
@@ -256,12 +313,27 @@ export async function getOrCreateWindowPlan(
         pdfBytes,
         planUrl: `${siteUrl}/plan?checkout_session_id=${checkoutSessionId}`,
         locale: plan.language as "nl" | "en",
+        siteUrl,
+        order: {
+          orderNumber: paymentRow.order_number ?? "—",
+          amountCents: paymentRow.amount,
+          currency: paymentRow.currency,
+          orderDate: new Date(paymentRow.created_at),
+          termsVersion: LEGAL_VERSIONS.terms,
+        },
       });
       emailDelivered = true;
-    } catch {
+      await supabase
+        .from("window_plans")
+        .update({ email_sent_at: new Date().toISOString() })
+        .eq("id", plan.id);
+    } catch (err) {
       // Best-effort — the plan is already saved and viewable on this page
       // even if Resend is unreachable. Recorded as not-delivered below so
-      // the admin audit log reflects reality.
+      // the admin audit log reflects reality. email_sent_at stays null,
+      // which an admin order-detail view can use to tell a genuinely
+      // undelivered order confirmation apart from a delivered one.
+      console.error("Failed to send order confirmation e-mail:", err);
     }
   }
 
@@ -290,7 +362,8 @@ export async function getOrCreateTestWindowPlan(
 
   const { plan, generated, profile, characterProfile } = await generateAndSavePlan(
     supabase,
-    sessionId
+    sessionId,
+    null
   );
   // No payment, so no Stripe-collected email exists to mail a copy to —
   // still logged (with emailDelivered: false) so the audit trail reflects

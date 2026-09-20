@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { WindowMark } from "./WindowMark";
-import { Wordmark } from "./Wordmark";
+import Image from "next/image";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { formatPrice } from "@/lib/pricing";
@@ -18,9 +17,20 @@ export function SiteFooter({
     <footer id="over-ons" className="mt-24 bg-accent-dark text-white/60">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 py-14 sm:flex-row sm:justify-between sm:px-10">
         <div>
-          <div className="mb-3 flex items-center gap-2.5">
-            <WindowMark className="h-6 w-6" />
-            <Wordmark onDark />
+          {/* A flat cream "reversed" cutout (windowinto-cream.png), not the
+              walnut-colored wordmark used by SiteHeader — that asset's own
+              walnut brown is close enough to this bg-accent-dark background
+              that it would nearly disappear here. Replaces the old
+              <WindowMark/><Wordmark onDark/> pair with the single supplied
+              lockup. */}
+          <div className="mb-3">
+            <Image
+              src="/logo/windowinto-cream.png"
+              alt="WindowInto"
+              width={800}
+              height={237}
+              className="h-7 w-auto"
+            />
           </div>
           <p className="max-w-xs text-sm leading-relaxed">{dict.tagline}</p>
         </div>
@@ -52,11 +62,23 @@ export function SiteFooter({
               {dict.legalHeading}
             </p>
             <div className="flex flex-col gap-2">
+              <Link href="/terms" className="transition-colors hover:text-white">
+                {dict.terms}
+              </Link>
+              <Link href="/herroepingsrecht" className="transition-colors hover:text-white">
+                {dict.withdrawal}
+              </Link>
               <Link href="/privacy" className="transition-colors hover:text-white">
                 {dict.privacy}
               </Link>
-              <Link href="/terms" className="transition-colors hover:text-white">
-                {dict.terms}
+              <Link href="/privacy#cookies" className="transition-colors hover:text-white">
+                {dict.cookies}
+              </Link>
+              <Link href="/privacy#contact" className="transition-colors hover:text-white">
+                {dict.contact}
+              </Link>
+              <Link href="/privacy#bedrijfsgegevens" className="transition-colors hover:text-white">
+                {dict.companyInfo}
               </Link>
             </div>
           </div>

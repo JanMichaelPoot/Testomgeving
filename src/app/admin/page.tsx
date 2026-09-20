@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createServiceRoleClient } from "@/lib/supabase/server";
@@ -61,7 +62,10 @@ export default async function AdminPage() {
                 ` Toont de meest recente ${MAX_ROWS} rijen — de .xlsx-download bevat het volledige logboek.`}
             </p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
+            <Link href="/admin/orders" className="text-sm font-medium text-accent-dark hover:underline">
+              Orders
+            </Link>
             <a
               href="/api/admin/audit-log/export"
               className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent-dark"

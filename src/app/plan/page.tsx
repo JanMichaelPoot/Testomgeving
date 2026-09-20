@@ -6,6 +6,7 @@ import {
   getOrCreateWindowPlan,
   getOrCreateTestWindowPlan,
   getCharacterProfileForSession,
+  getSignedPdfUrl,
   PlanNotReadyError,
 } from "@/app/plan/data";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
@@ -145,6 +146,12 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   // already handles a null characterProfile by skipping that screen.
   const characterProfile = await getCharacterProfileForSession(plan.session_id);
 
+  // window_plans.pdf_url is a private-bucket storage path, not a fetchable
+  // URL (see 0011_private_pdf_storage.sql + getSignedPdfUrl) — mint a
+  // fresh short-lived signed URL on every render rather than ever storing
+  // or reusing one.
+  const pdfUrl = await getSignedPdfUrl(plan.pdf_url);
+
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
@@ -161,7 +168,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           labels={labels}
           pdfChromeDict={dict.pdfChrome}
           planDict={dict.plan}
-          pdfUrl={plan.pdf_url}
+          pdfUrl={pdfUrl}
           shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
           showEmailedCopy={!testSessionId}
           planId={plan.id}

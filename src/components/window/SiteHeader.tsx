@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { WindowMark } from "./WindowMark";
-import { Wordmark } from "./Wordmark";
+import Image from "next/image";
 import { LanguageToggle } from "./LanguageToggle";
 import type { Locale } from "@/lib/language";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -15,9 +14,23 @@ export function SiteHeader({
   return (
     <header className="sticky top-0 z-40 border-b border-accent/10 bg-cream/90 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 sm:px-10">
-        <Link href="/" className="flex items-center gap-2.5">
-          <WindowMark className="h-7 w-7" />
-          <Wordmark />
+        {/* This is the row's first flex child under justify-between, so the
+            wordmark sits flush against the content column's left edge on
+            every page that renders SiteHeader — the source PNG is cropped
+            tight to the mark's own bounds (no baked-in padding), so no
+            transparent margin pushes it off that edge. Replaces the old
+            <WindowMark/><Wordmark/> pair with the single supplied lockup
+            (see public/logo/windowinto-color.png), recolored from its
+            original green to this site's walnut accent family. */}
+        <Link href="/" className="flex shrink-0 items-center">
+          <Image
+            src="/logo/windowinto-color.png"
+            alt="WindowInto"
+            width={800}
+            height={237}
+            priority
+            className="h-8 w-auto sm:h-9"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

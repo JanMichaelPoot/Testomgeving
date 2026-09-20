@@ -25,6 +25,10 @@ export interface Dictionary {
   footer: {
     privacy: string;
     terms: string;
+    withdrawal: string;
+    cookies: string;
+    contact: string;
+    companyInfo: string;
     priceFaqLabel: string;
     priceFaqAnswer: string;
     tagline: string;
@@ -57,11 +61,22 @@ export interface Dictionary {
     privacyTitle: string;
     privacyHeading: string;
     privacyIntro: string;
-    privacySections: { heading: string; body: string }[];
+    // `id` gives every section a stable, locale-independent anchor
+    // (e.g. "#cookies") — the heading text itself differs per locale, so
+    // it can't double as the anchor the way it used to.
+    privacySections: { id: string; heading: string; body: string }[];
     termsTitle: string;
     termsHeading: string;
     termsIntro: string;
     termsSections: { heading: string; body: string }[];
+    // Model C digital sale compliance — the standalone /herroepingsrecht
+    // page (see src/app/herroepingsrecht/page.tsx). Kept apart from
+    // termsSections because it's also its own required standalone route,
+    // not only a Terms subsection.
+    withdrawalTitle: string;
+    withdrawalHeading: string;
+    withdrawalIntro: string;
+    withdrawalSections: { heading: string; body: string }[];
   };
   checkout: {
     pageTitle: string;
@@ -71,13 +86,35 @@ export interface Dictionary {
     stepsHeading: string;
     steps: string[];
     disclaimer: string;
-    waiverLabel: string;
+    // The two explanation blocks required before the checkboxes: what
+    // digital delivery means, and the immediate-delivery/withdrawal notice.
+    digitalDeliveryHeading: string;
+    digitalDeliveryBody: string;
+    withdrawalNoticeHeading: string;
+    withdrawalNoticeBody: string;
+    // Two separate, never-pre-checked checkboxes (never combined into
+    // one) — digital delivery + withdrawal waiver together (that pairing
+    // is allowed to be one checkbox), and terms acceptance on its own.
+    digitalDeliveryConsentLabel: string;
+    termsAcceptanceLabelPrefix: string;
+    termsAcceptanceLinkText: string;
+    termsAcceptanceLabelSuffix: string;
+    legalLinksIntro: string;
+    legalLinks: {
+      terms: string;
+      withdrawal: string;
+      privacy: string;
+      contact: string;
+    };
     giftToggleLabel: string;
     giftEmailLabel: string;
     giftEmailPlaceholder: string;
     ctaIdle: string;
     ctaPending: string;
     errorGeneric: string;
+    errorTermsRequired: string;
+    errorConsentRequired: string;
+    errorPaymentFailed: string;
     testModeLabel: string;
     testModeHelper: string;
     testModeCta: string;
@@ -90,6 +127,11 @@ export interface Dictionary {
     refreshLink: string;
     errorNoPayment: string;
     errorGeneric: string;
+    // Shown instead of errorGeneric specifically once payment is already
+    // confirmed but PDF generation itself failed (section 24) — the buyer
+    // needs to know their money was received and nothing needs to be paid
+    // again, which errorGeneric's wording doesn't convey.
+    errorPdfGenerationFailed: string;
     errorFallback: string;
     generating: {
       heading: string;
@@ -169,6 +211,19 @@ export interface Dictionary {
     subjectSuffix: string;
     heading: string;
     viewOnline: string;
+    // Order confirmation additions (section 17): order number, price,
+    // date, an explicit digital-delivery note, a re-confirmation of the
+    // consent given at checkout, the terms version + link, a link to the
+    // legal information, and company details.
+    orderNumberLabel: string;
+    priceLabel: string;
+    dateLabel: string;
+    digitalDeliveryNote: string;
+    consentConfirmation: string;
+    termsVersionLabel: string;
+    termsLinkText: string;
+    legalInfoLinkText: string;
+    companyInfo: string;
     reminder: {
       subject: string;
       heading: string;
@@ -277,6 +332,10 @@ const nl: Dictionary = {
   footer: {
     privacy: "Privacy",
     terms: "Voorwaarden",
+    withdrawal: "Herroepingsrecht",
+    cookies: "Cookies",
+    contact: "Contact",
+    companyInfo: "Bedrijfsgegevens",
     priceFaqLabel: "Wat kost het?",
     priceFaqAnswer: "Eén Idea Book kost {price}, eenmalig. Geen abonnement, geen verborgen kosten.",
     tagline: "Persoonlijke ideeën voor mensen die vastzitten of toe zijn aan iets nieuws.",
@@ -351,28 +410,44 @@ const nl: Dictionary = {
       "Kort en concreet: dit is wat er met jouw gegevens gebeurt wanneer je een Idea Book aanvraagt bij WINDOW.",
     privacySections: [
       {
+        id: "wie-zijn-we",
         heading: "Wie zijn we",
         body: "WINDOW is een klein product in de testfase. Vragen of verzoeken over je gegevens? Mail naar hello@windowinto.nl.",
       },
       {
+        id: "gegevens",
         heading: "Welke gegevens we verzamelen",
-        body: "Je intake-antwoorden (je situatie, leeftijd, locatie en voorkeuren) en, als je betaalt, het e-mailadres dat je bij Stripe invult. WINDOW slaat zelf nooit kaart- of betaalgegevens op — dat verloopt volledig via Stripe.",
+        body: "Je intake-antwoorden (je situatie, leeftijd, locatie en voorkeuren) en, als je betaalt, het e-mailadres dat je bij Stripe invult. Bij een betaalde bestelling leggen we ook vast dat je de Algemene voorwaarden hebt geaccepteerd en toestemming hebt gegeven voor directe digitale levering — inclusief tijdstip, versie en (voor die ene toestemming) je IP-adres en browser, als bewijs bij een eventueel geschil. WINDOW slaat zelf nooit kaart- of betaalgegevens op — dat verloopt volledig via Stripe.",
       },
       {
+        id: "gebruik",
         heading: "Waarvoor we het gebruiken",
-        body: "Uitsluitend om jouw Idea Book samen te stellen en te versturen. We verkopen of delen je gegevens nooit aan derden.",
+        body: "Uitsluitend om jouw Idea Book samen te stellen en te versturen, en om aan te kunnen tonen onder welke voorwaarden een betaalde bestelling tot stand kwam. We verkopen of delen je gegevens nooit aan derden.",
       },
       {
+        id: "bewaartermijn",
         heading: "Hoe lang we het bewaren",
-        body: "Je intake-antwoorden blijven gekoppeld aan een anonieme sessie, niet aan je naam of e-mailadres. Pas zodra je betaalt, koppelen we je e-mailadres aan die sessie om je Idea Book te kunnen versturen.",
+        body: "Je intake-antwoorden blijven gekoppeld aan een anonieme sessie, niet aan je naam of e-mailadres. Pas zodra je betaalt, koppelen we je e-mailadres aan die sessie om je Idea Book te kunnen versturen. Bestel- en toestemmingsgegevens bewaren we zolang dat nodig is om een bestelling aantoonbaar te houden.",
       },
       {
+        id: "rechten",
         heading: "Jouw rechten",
         body: "Je kunt op elk moment inzage of verwijdering van je gegevens aanvragen. Mail daarvoor naar hello@windowinto.nl.",
       },
       {
+        id: "cookies",
         heading: "Cookies en analytics",
         body: "We gebruiken PostHog om te begrijpen hoe WINDOW gebruikt wordt. Waar dat wettelijk verplicht is, vragen we eerst je toestemming.",
+      },
+      {
+        id: "contact",
+        heading: "Contact",
+        body: "Vragen over je gegevens, je bestelling, of iets anders? Mail naar hello@windowinto.nl.",
+      },
+      {
+        id: "bedrijfsgegevens",
+        heading: "Bedrijfsgegevens",
+        body: "[Bedrijfsnaam] · [KvK-nummer] · [Vestigingsadres] · [Btw-nummer]",
       },
     ],
     termsTitle: "Algemene Voorwaarden — WINDOW",
@@ -404,6 +479,24 @@ const nl: Dictionary = {
         body: "Niet tevreden, of iets onduidelijk? Mail naar hello@windowinto.nl — we reageren zo snel mogelijk.",
       },
     ],
+    withdrawalTitle: "Herroepingsrecht — WINDOW",
+    withdrawalHeading: "Herroepingsrecht",
+    withdrawalIntro:
+      "Bij online aankopen hebben consumenten in beginsel een wettelijke bedenktijd van 14 dagen.",
+    withdrawalSections: [
+      {
+        heading: "Wanneer vervalt dit recht bij WindowInto",
+        body: "Voor digitale inhoud die niet op een materiële drager wordt geleverd — zoals je WindowInto PDF — kan het herroepingsrecht vervallen wanneer je vóór de levering: (1) uitdrukkelijk instemt met onmiddellijke levering, (2) erkent dat je herroepingsrecht daardoor vervalt, en (3) de levering vervolgens daadwerkelijk start.",
+      },
+      {
+        heading: "Hoe WindowInto dit vastlegt",
+        body: "WindowInto vraagt deze toestemming expliciet tijdens het bestelproces, via een aparte checkbox die je zelf moet aanvinken — nooit vooraf aangevinkt. We leggen vast wanneer je dit hebt gedaan en onder welke versie van deze informatie, gekoppeld aan je specifieke bestelling.",
+      },
+      {
+        heading: "Wettelijke grondslag",
+        body: "Deze uitzondering is gebaseerd op artikel 6:230p van het Burgerlijk Wetboek, de Nederlandse implementatie van artikel 16 onder m van de Europese Richtlijn Consumentenrechten (2011/83/EU). Twijfel je over jouw situatie, of wil je een klacht indienen? Neem contact op via hello@windowinto.nl.",
+      },
+    ],
   },
   checkout: {
     pageTitle: "Maak het echt — WINDOW",
@@ -419,14 +512,34 @@ const nl: Dictionary = {
     ],
     disclaimer:
       "WINDOW biedt mogelijkheden om te verkennen — geen medisch, therapeutisch, financieel of juridisch advies. Gebruik je eigen inzicht en raadpleeg een professional waar dat nodig is.",
-    waiverLabel:
-      "Ik begrijp dat mijn Idea Book digitaal en direct wordt geleverd, waardoor mijn wettelijke bedenktijd van 14 dagen vervalt zodra de betaling is voltooid.",
+    digitalDeliveryHeading: "Digitale levering",
+    digitalDeliveryBody:
+      "Je persoonlijke WindowInto PDF wordt na betaling digitaal gegenereerd en beschikbaar gesteld.",
+    withdrawalNoticeHeading: "Let op: directe levering van digitale inhoud",
+    withdrawalNoticeBody:
+      "Je koopt een gepersonaliseerd digitaal product dat direct na betaling wordt gegenereerd en beschikbaar gesteld.",
+    digitalDeliveryConsentLabel:
+      "Ik verzoek WindowInto om mijn digitale product direct na betaling te leveren. Ik begrijp dat ik hiermee uitdrukkelijk instem met de onmiddellijke levering van de digitale inhoud en erken dat ik mijn wettelijke herroepingsrecht verlies zodra de levering begint.",
+    termsAcceptanceLabelPrefix: "Ik heb de",
+    termsAcceptanceLinkText: "Algemene voorwaarden",
+    termsAcceptanceLabelSuffix: "gelezen en accepteer deze.",
+    legalLinksIntro: "Meer weten voordat je betaalt?",
+    legalLinks: {
+      terms: "Algemene voorwaarden",
+      withdrawal: "Herroepingsrecht",
+      privacy: "Privacybeleid",
+      contact: "Contact",
+    },
     giftToggleLabel: "Dit is een cadeau — stuur het naar iemand anders",
     giftEmailLabel: "E-mailadres van de ontvanger",
     giftEmailPlaceholder: "naam@voorbeeld.nl",
-    ctaIdle: "Maak het echt",
+    ctaIdle: "Betalen en mijn PDF ontvangen — {price}",
     ctaPending: "Checkout wordt geopend…",
     errorGeneric: "Er ging iets mis bij het openen van de checkout. Probeer het opnieuw.",
+    errorTermsRequired: "Accepteer de Algemene voorwaarden om verder te gaan.",
+    errorConsentRequired:
+      "Vink aan dat je instemt met directe levering van het digitale product voordat je verdergaat.",
+    errorPaymentFailed: "Je betaling kon niet worden verwerkt. Je PDF is nog niet geleverd.",
     testModeLabel: "Alleen testmodus",
     testModeHelper: "Sla de betaling over en genereer het Idea Book direct, voor testdoeleinden.",
     testModeCta: "Betaling overslaan (test)",
@@ -440,6 +553,8 @@ const nl: Dictionary = {
     errorNoPayment:
       "Geen betalingsreferentie gevonden. Heb je net betaald? Gebruik dan de link uit je bevestigingsmail.",
     errorGeneric: "Er ging iets mis bij het samenstellen van je Idea Book.",
+    errorPdfGenerationFailed:
+      "Je betaling is ontvangen, maar je PDF kon nog niet worden gegenereerd. We werken dit automatisch af en sturen je een bericht zodra je PDF beschikbaar is.",
     errorFallback: "Er ging iets mis.",
     generating: {
       heading: "Je Idea Book wordt samengesteld…",
@@ -532,6 +647,17 @@ const nl: Dictionary = {
     subjectSuffix: "je mogelijkheden zijn klaar",
     heading: "Jouw mogelijkheden",
     viewOnline: "Bekijk je Idea Book online",
+    orderNumberLabel: "Ordernummer",
+    priceLabel: "Prijs",
+    dateLabel: "Datum",
+    digitalDeliveryNote:
+      "Digitale levering: je Idea Book is direct na betaling gegenereerd en beschikbaar gesteld.",
+    consentConfirmation:
+      "Je hebt tijdens het bestelproces uitdrukkelijk ingestemd met directe levering van de digitale inhoud en erkend dat je wettelijke herroepingsrecht verloren gaat zodra de levering begint.",
+    termsVersionLabel: "Algemene voorwaarden (versie {termsVersion})",
+    termsLinkText: "Bekijk de Algemene voorwaarden",
+    legalInfoLinkText: "Juridische informatie",
+    companyInfo: "[Bedrijfsnaam] · [KvK-nummer] · [Vestigingsadres] · [Btw-nummer]",
     reminder: {
       subject: "Heb je je eerste stap al gezet?",
       heading: "Nog even dit",
@@ -802,6 +928,10 @@ const en: Dictionary = {
   footer: {
     privacy: "Privacy",
     terms: "Terms",
+    withdrawal: "Right of withdrawal",
+    cookies: "Cookies",
+    contact: "Contact",
+    companyInfo: "Company details",
     priceFaqLabel: "What does it cost?",
     priceFaqAnswer: "One Idea Book costs {price}, a single payment. No subscription, no hidden fees.",
     tagline: "Personal ideas for people who feel stuck or ready for something new.",
@@ -875,28 +1005,44 @@ const en: Dictionary = {
       "Short and concrete: here's what happens to your data when you request an Idea Book from WINDOW.",
     privacySections: [
       {
+        id: "wie-zijn-we",
         heading: "Who we are",
         body: "WINDOW is a small product still in its testing phase. Questions or requests about your data? Email hello@windowinto.nl.",
       },
       {
+        id: "gegevens",
         heading: "What data we collect",
-        body: "Your intake answers (your situation, age, location and preferences) and, if you pay, the email address you enter with Stripe. WINDOW never stores card or payment details itself — that runs entirely through Stripe.",
+        body: "Your intake answers (your situation, age, location and preferences) and, if you pay, the email address you enter with Stripe. For a paid order we also record that you accepted the Terms of Service and consented to immediate digital delivery — including the time, version, and (for that one consent) your IP address and browser — as evidence in case of a dispute. WINDOW never stores card or payment details itself — that runs entirely through Stripe.",
       },
       {
+        id: "gebruik",
         heading: "What we use it for",
-        body: "Solely to put together and send your Idea Book. We never sell or share your data with third parties.",
+        body: "Solely to put together and send your Idea Book, and to be able to show under what conditions a paid order was placed. We never sell or share your data with third parties.",
       },
       {
+        id: "bewaartermijn",
         heading: "How long we keep it",
-        body: "Your intake answers stay linked to an anonymous session, not to your name or email. Only once you pay do we link your email address to that session, so we can send your Idea Book.",
+        body: "Your intake answers stay linked to an anonymous session, not to your name or email. Only once you pay do we link your email address to that session, so we can send your Idea Book. Order and consent records are kept for as long as needed to keep an order demonstrable.",
       },
       {
+        id: "rechten",
         heading: "Your rights",
         body: "You can request access to or deletion of your data at any time. Email hello@windowinto.nl.",
       },
       {
+        id: "cookies",
         heading: "Cookies and analytics",
         body: "We use PostHog to understand how WINDOW is used. Where required by law, we ask for your consent first.",
+      },
+      {
+        id: "contact",
+        heading: "Contact",
+        body: "Questions about your data, your order, or anything else? Email hello@windowinto.nl.",
+      },
+      {
+        id: "bedrijfsgegevens",
+        heading: "Company details",
+        body: "[Company name] · [Chamber of Commerce number] · [Registered address] · [VAT number]",
       },
     ],
     termsTitle: "Terms of Service — WINDOW",
@@ -928,6 +1074,24 @@ const en: Dictionary = {
         body: "Not happy, or something unclear? Email hello@windowinto.nl — we'll get back to you as soon as we can.",
       },
     ],
+    withdrawalTitle: "Right of withdrawal — WINDOW",
+    withdrawalHeading: "Right of withdrawal",
+    withdrawalIntro:
+      "For online purchases, consumers generally have a statutory 14-day cooling-off period.",
+    withdrawalSections: [
+      {
+        heading: "When this right no longer applies at WindowInto",
+        body: "For digital content not supplied on a tangible medium — such as your WindowInto PDF — the right of withdrawal can be lost when, before delivery, you: (1) expressly consent to immediate delivery, (2) acknowledge that this means you lose your right of withdrawal, and (3) delivery then actually begins.",
+      },
+      {
+        heading: "How WindowInto records this",
+        body: "WindowInto asks for this consent explicitly during checkout, through a separate checkbox you have to check yourself — never pre-checked. We record when you did this and under which version of this information, tied to your specific order.",
+      },
+      {
+        heading: "Legal basis",
+        body: "This exception is based on article 6:230p of the Dutch Civil Code, the Dutch implementation of article 16(m) of the EU Consumer Rights Directive (2011/83/EU). Unsure about your situation, or want to file a complaint? Contact us at hello@windowinto.nl.",
+      },
+    ],
   },
   checkout: {
     pageTitle: "Make this real — WINDOW",
@@ -943,14 +1107,34 @@ const en: Dictionary = {
     ],
     disclaimer:
       "WINDOW offers possibilities to explore — not medical, therapeutic, financial, or legal advice. Use your own judgment, and consult a professional where it matters.",
-    waiverLabel:
-      "I understand that my Idea Book is delivered digitally and immediately, so my statutory 14-day right of withdrawal no longer applies once payment completes.",
+    digitalDeliveryHeading: "Digital delivery",
+    digitalDeliveryBody:
+      "Your personal WindowInto PDF is generated and made available digitally right after payment.",
+    withdrawalNoticeHeading: "Please note: immediate delivery of digital content",
+    withdrawalNoticeBody:
+      "You're buying a personalised digital product that is generated and made available immediately after payment.",
+    digitalDeliveryConsentLabel:
+      "I request that WindowInto deliver my digital product immediately after payment. I understand that by doing so I expressly consent to the immediate delivery of the digital content, and I acknowledge that I lose my statutory right of withdrawal once delivery begins.",
+    termsAcceptanceLabelPrefix: "I have read and accept the",
+    termsAcceptanceLinkText: "Terms of Service",
+    termsAcceptanceLabelSuffix: ".",
+    legalLinksIntro: "Want to know more before you pay?",
+    legalLinks: {
+      terms: "Terms of Service",
+      withdrawal: "Right of withdrawal",
+      privacy: "Privacy Policy",
+      contact: "Contact",
+    },
     giftToggleLabel: "This is a gift — send it to someone else",
     giftEmailLabel: "Recipient's email address",
     giftEmailPlaceholder: "name@example.com",
-    ctaIdle: "Make this real",
+    ctaIdle: "Pay and get my PDF — {price}",
     ctaPending: "Opening checkout…",
     errorGeneric: "Something went wrong opening checkout. Please try again.",
+    errorTermsRequired: "Accept the Terms of Service to continue.",
+    errorConsentRequired:
+      "Check the box confirming immediate delivery of the digital product before continuing.",
+    errorPaymentFailed: "Your payment could not be processed. Your PDF has not been delivered.",
     testModeLabel: "Test mode only",
     testModeHelper: "Skip payment and generate the Idea Book directly, for testing.",
     testModeCta: "Skip payment (test)",
@@ -964,6 +1148,8 @@ const en: Dictionary = {
     errorNoPayment:
       "No payment reference was found. If you just paid, use the link from your confirmation email.",
     errorGeneric: "Something went wrong while putting your Idea Book together.",
+    errorPdfGenerationFailed:
+      "Your payment has been received, but your PDF could not be generated yet. We're automatically retrying and will let you know as soon as your PDF is available.",
     errorFallback: "Something went wrong.",
     generating: {
       heading: "Putting your Idea Book together…",
@@ -1056,6 +1242,17 @@ const en: Dictionary = {
     subjectSuffix: "your possibilities are ready",
     heading: "Your possibilities",
     viewOnline: "View your Idea Book online",
+    orderNumberLabel: "Order number",
+    priceLabel: "Price",
+    dateLabel: "Date",
+    digitalDeliveryNote:
+      "Digital delivery: your Idea Book was generated and made available right after payment.",
+    consentConfirmation:
+      "During checkout, you expressly consented to immediate delivery of the digital content and acknowledged that your statutory right of withdrawal is lost once delivery begins.",
+    termsVersionLabel: "Terms of Service (version {termsVersion})",
+    termsLinkText: "View the Terms of Service",
+    legalInfoLinkText: "Legal information",
+    companyInfo: "[Company name] · [Chamber of Commerce number] · [Registered address] · [VAT number]",
     reminder: {
       subject: "Have you taken your first step yet?",
       heading: "Just a nudge",

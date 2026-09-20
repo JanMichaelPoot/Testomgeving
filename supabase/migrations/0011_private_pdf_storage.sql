@@ -1,0 +1,22 @@
+-- The `window-plans` bucket (see 0002_storage.sql) held every generated
+-- Idea Book PDF at a public, predictable path (<session_id>/idea-book.pdf)
+-- — anyone who learned or guessed a session_id could download someone
+-- else's personal PDF with no authentication at all. This flips the
+-- bucket to private.
+--
+-- Correction vs. the Fase 2 proposal: a dedicated authenticated download
+-- route turned out not to be needed. src/app/plan/page.tsx is the only
+-- place a PDF link is ever rendered (checked via grep across src/ —
+-- src/app/shared/[id]/page.tsx has no download link at all, it only
+-- shows the ideas themselves) and it already gates access the same way
+-- the emailed plan link always has: the caller must present a paid
+-- Stripe `checkout_session_id` (or an admin `test_session_id`), verified
+-- against Stripe before the row is even looked up — not a session
+-- cookie, which the emailed link deliberately doesn't depend on. Reusing
+-- that existing, already-verified gate, src/app/plan/data.ts now stores
+-- the bare storage object path in window_plans.pdf_url instead of a
+-- permanent public URL, and mints a fresh short-lived signed URL
+-- (getSignedPdfUrl) on every page render, right before handing it to
+-- IdeaBookViewer's existing <a href> download button. No new route, no
+-- new attack surface, same authorization boundary the page already had.
+update storage.buckets set public = false where id = 'window-plans';

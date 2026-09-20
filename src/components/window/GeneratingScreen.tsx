@@ -84,7 +84,7 @@ export function GeneratingScreen({
         <div className="animate-window-spin-slow absolute inset-0 rounded-2xl border-2 border-gold/40" />
         <div className="absolute inset-3 rounded-xl border border-accent/50" />
         <div className="absolute inset-0 flex items-center justify-center text-white">
-          <WindowMark className="h-9 w-9" />
+          <WindowMark onDark className="h-9 w-9" />
         </div>
       </div>
 

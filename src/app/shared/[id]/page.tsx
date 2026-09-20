@@ -77,7 +77,7 @@ export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12 sm:px-10">
         <div className="mb-8 flex flex-wrap items-center gap-4 rounded-2xl bg-accent-dark p-4">
           <span className="text-white">
-            <WindowMark className="h-7 w-7" />
+            <WindowMark onDark className="h-7 w-7" />
           </span>
           <div>
             <p className="text-sm font-semibold text-white">{bookDict.shared.bannerHeading}</p>
