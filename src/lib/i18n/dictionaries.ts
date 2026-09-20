@@ -139,8 +139,6 @@ export interface Dictionary {
       autoRefreshNote: string;
     };
     eyebrow: string;
-    mustHaves: string;
-    preferences: string;
     possibilitiesHeading: string;
     wildcardFallback: string;
     downloadPdf: string;
@@ -148,50 +146,37 @@ export interface Dictionary {
     shareButtonLabel: string;
     shareCopiedLabel: string;
     book: {
-      profileEyebrow: string;
-      preferencesEyebrow: string;
-      viewIdeas: string;
       back: string;
       next: string;
-      ideaLabel: string;
-      ofWord: string;
       wildcardLabel: string;
-      wildcardIntro: string;
-      wildcardYes: string;
-      wildcardNo: string;
       doneHeading: string;
       doneSub: string;
+      // Used by /shared/[id]'s Open Graph share-preview image, not by
+      // IdeaBookViewer itself (see opengraph-image.tsx).
       statsIdeasLabel: string;
-      statsActionsLabel: string;
       statsWildcardLabel: string;
-      statsWildcardValue: string;
-      // Fase 4 (New Result Experience) — Discovery Profile screen, the
-      // Possibility Map screen (which also carries the Open Doors legend
-      // and the One Thing highlight), and the per-idea "What if" eyebrow.
-      // See src/lib/discoveryProfile.ts and src/lib/possibilityMap.ts.
-      discoveryEyebrow: string;
-      discoveryHeading: string;
-      discoveryFallback: string;
+      // The Possibility Map screen (the Open Doors legend plus the One
+      // Thing highlight) and its "view as PDF" links per idea/wildcard —
+      // see src/lib/possibilityMap.ts. This is deliberately the only
+      // screen before the closing download/share screen; a separate
+      // profile/preferences/discovery-profile/per-idea walkthrough used to
+      // sit here (see git history) but was removed on request — the PDF
+      // is the product, so getting to it should take one click from this
+      // overview, not a walk through several screens first.
       mapEyebrow: string;
       mapHeading: string;
       mapIntro: string;
       mapViewLabel: string;
       oneThingBadge: string;
       oneThingCaption: string;
-      whatIfLabel: string;
       viewAsPdfLabel: string;
       doors: Record<
         "natural" | "discovery" | "unexpected" | "stretch",
         { label: string; description: string }
       >;
-      // Fase 6 (Interaction & Retention) — per-idea thumbs reaction (/plan
-      // only, see IdeaFeedback.tsx), the Challenge Mode toggle on the
-      // Possibility Map screen (see possibilityMap.ts), and a repeat-use
-      // nudge on the closing "done" screen.
-      feedbackPrompt: string;
-      feedbackUpLabel: string;
-      feedbackDownLabel: string;
-      feedbackThanks: string;
+      // Fase 6 (Interaction & Retention) — the Challenge Mode toggle on
+      // the Possibility Map screen (see possibilityMap.ts) and a
+      // repeat-use nudge on the closing "done" screen.
       challengeModeLabel: string;
       challengeModeHelper: string;
       doneReturnCta: string;
@@ -567,8 +552,6 @@ const nl: Dictionary = {
       autoRefreshNote: "Dit duurt meestal minder dan een minuut. Deze pagina ververst zichzelf.",
     },
     eyebrow: "Jouw Idea Book",
-    mustHaves: "Vereisten",
-    preferences: "Voorkeuren",
     possibilitiesHeading: "Jouw mogelijkheden",
     wildcardFallback: "De wildcard",
     downloadPdf: "Download PDF",
@@ -576,27 +559,13 @@ const nl: Dictionary = {
     shareButtonLabel: "Deel je Idea Book",
     shareCopiedLabel: "Link gekopieerd!",
     book: {
-      profileEyebrow: "Dit hebben we over je ontdekt",
-      preferencesEyebrow: "Waar we rekening mee hielden",
-      viewIdeas: "Bekijk de ideeën",
       back: "Terug",
       next: "Verder",
-      ideaLabel: "Idee",
-      ofWord: "van",
       wildcardLabel: "Het wilde idee",
-      wildcardIntro: "Dit stellen we normaal niet zomaar voor — maar bij jou past het toch.",
-      wildcardYes: "Ik durf het aan",
-      wildcardNo: "Nee, laat maar",
       doneHeading: "Dat was 'm — jouw Idea Book",
       doneSub: "Bewaar 'm, deel 'm, of begin gewoon met de eerste stap.",
       statsIdeasLabel: "Ideeën",
-      statsActionsLabel: "Stappen",
       statsWildcardLabel: "Wildcard",
-      statsWildcardValue: "1",
-      discoveryEyebrow: "Zo lezen we jouw antwoorden",
-      discoveryHeading: "Jouw ontdekkingsprofiel",
-      discoveryFallback:
-        "Je hield je antwoorden dicht bij het midden — dus lieten we de deuren hierna extra breed open staan.",
       mapEyebrow: "Vier deuren, telkens een stapje verder",
       mapHeading: "Jouw mogelijkheden in kaart",
       mapIntro:
@@ -604,7 +573,6 @@ const nl: Dictionary = {
       mapViewLabel: "Bekijk",
       oneThingBadge: "Als je er maar één kiest",
       oneThingCaption: "Dit past het best bij je situatie én is meteen te doen.",
-      whatIfLabel: "Wat als…",
       viewAsPdfLabel: "Bekijk als PDF-pagina",
       doors: {
         natural: {
@@ -624,10 +592,6 @@ const nl: Dictionary = {
           description: "Net buiten je comfortzone. Groter, spannender, nog steeds haalbaar.",
         },
       },
-      feedbackPrompt: "Spreekt dit je aan?",
-      feedbackUpLabel: "Ja, leuk",
-      feedbackDownLabel: "Niet voor mij",
-      feedbackThanks: "Genoteerd",
       challengeModeLabel: "Uitdagingsmodus",
       challengeModeHelper: "Begin bij de uitdaging in plaats van bij het vertrouwde.",
       doneReturnCta: "Kom later terug voor een nieuw venster",
@@ -1158,8 +1122,6 @@ const en: Dictionary = {
       autoRefreshNote: "This usually takes under a minute. This page refreshes itself.",
     },
     eyebrow: "Your Idea Book",
-    mustHaves: "Must-haves",
-    preferences: "Preferences",
     possibilitiesHeading: "Your possibilities",
     wildcardFallback: "The wildcard",
     downloadPdf: "Download PDF",
@@ -1167,27 +1129,13 @@ const en: Dictionary = {
     shareButtonLabel: "Share your Idea Book",
     shareCopiedLabel: "Link copied!",
     book: {
-      profileEyebrow: "Here's what we picked up about you",
-      preferencesEyebrow: "What we kept in mind",
-      viewIdeas: "See the ideas",
       back: "Back",
       next: "Next",
-      ideaLabel: "Idea",
-      ofWord: "of",
       wildcardLabel: "The wild idea",
-      wildcardIntro: "We wouldn't normally suggest this — but for you, it actually fits.",
-      wildcardYes: "I'm in",
-      wildcardNo: "No, skip this one",
       doneHeading: "That's it — your Idea Book",
       doneSub: "Save it, share it, or just start with the first step.",
       statsIdeasLabel: "Ideas",
-      statsActionsLabel: "Steps",
       statsWildcardLabel: "Wildcard",
-      statsWildcardValue: "1",
-      discoveryEyebrow: "How we read your answers",
-      discoveryHeading: "Your discovery profile",
-      discoveryFallback:
-        "You kept your answers close to the middle — so we left the doors ahead extra wide open.",
       mapEyebrow: "Four doors, each one a bit further",
       mapHeading: "Your possibilities, mapped out",
       mapIntro:
@@ -1195,7 +1143,6 @@ const en: Dictionary = {
       mapViewLabel: "View",
       oneThingBadge: "If you only do one thing",
       oneThingCaption: "This fits your situation best, and you can start today.",
-      whatIfLabel: "What if…",
       viewAsPdfLabel: "View as PDF page",
       doors: {
         natural: {
@@ -1215,10 +1162,6 @@ const en: Dictionary = {
           description: "Just outside your comfort zone. Bigger, more exciting, still doable.",
         },
       },
-      feedbackPrompt: "Does this land?",
-      feedbackUpLabel: "Yes, I like it",
-      feedbackDownLabel: "Not for me",
-      feedbackThanks: "Noted",
       challengeModeLabel: "Challenge Mode",
       challengeModeHelper: "Start at the stretch, not the familiar.",
       doneReturnCta: "Come back later for a new window",

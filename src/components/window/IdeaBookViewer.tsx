@@ -4,39 +4,23 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { ShareButton } from "@/components/window/ShareButton";
-import { IdeaDetail } from "@/components/window/IdeaDetail";
-import { IdeaFeedback } from "@/components/window/IdeaFeedback";
-import { WindowMark } from "@/components/window/WindowMark";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/posthog/client";
-import { describeDiscoveryProfile } from "@/lib/discoveryProfile";
 import {
   CHALLENGE_DOOR_ORDER,
   DOOR_ORDER,
   orderIdeasByDoor,
   pickOneThingIndex,
 } from "@/lib/possibilityMap";
-import type { IdeaFeedbackValue } from "@/app/plan/actions";
 import type { IdeaBookEntry, IdeaDoor } from "@/lib/claude/ideaBookTypes";
-import type { CharacterProfile } from "@/lib/characterProfile";
-import type { Locale } from "@/lib/language";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-type Screen =
-  | { type: "profile" }
-  | { type: "preferences" }
-  | { type: "discovery" }
-  | { type: "map" }
-  | { type: "idea"; idea: IdeaBookEntry; index: number; originalIndex: number }
-  | { type: "wildcard" }
-  | { type: "done" };
+type Screen = { type: "map" } | { type: "done" };
 
 // A regular idea's door is always one of the 4 non-wildcard doors (Fase 3's
 // normalizeEntry only ever assigns "wildcard" to the dedicated wildcard
 // slot) — but the type itself still allows "wildcard", so this stays a
-// small defensive lookup rather than a direct index, and doubles as the one
-// place that decides "no legend copy for this door" (there isn't one for
-// "wildcard" — that screen already has its own framing).
+// small defensive lookup rather than a direct index.
 function doorCopy(
   door: IdeaDoor,
   doors: Dictionary["plan"]["book"]["doors"]
@@ -44,36 +28,24 @@ function doorCopy(
   return door === "wildcard" ? null : doors[door];
 }
 
-// Renders the paid Idea Book as a single "book" experience — one screen at
-// a time — instead of one long scrolling list, per the "Idea Book-layout
-// als boek" item in the WINDOW Ervaringsontwerp roadmap.
+// Renders the paid Idea Book result. On explicit request, this is
+// deliberately just two screens now: the Possibility Map (overview of all
+// 6 ideas + the wildcard, each opening the real generated PDF at its own
+// page) and a closing download/share screen — no separate profile,
+// preferences, discovery, or per-idea web screens in between. Those
+// existed here before (see git history / CLAUDE.md's Stap-log for the
+// "Idea Book as a book" and "New Result Experience" phases that built
+// them) but produced exactly the "card → own page → own page → ... →
+// eventually a PDF" flow the product brief explicitly asked to collapse:
+// the PDF *is* the product, so getting to it should take one click from
+// the overview, not a walk through N screens first.
 //
-// Fase 4 (New Result Experience) added four screens to that book: a
-// Discovery Profile (a soft reflection of the character profile from Fase
-// 2), a Possibility Map (the Open Doors legend plus a jump-to-any-idea
-// overview, with the "One Thing" pick highlighted), and — on every idea
-// screen — a door badge and a "What if…" eyebrow. The ideas themselves are
-// walked in door order (natural → discovery → unexpected → stretch) rather
-// than Claude's original array order, so paging forward reads as a
-// deliberate journey further from the comfort zone, ending at the
-// wildcard.
-//
-// Fase 6 (Interaction & Retention) added three more pieces, all web-only —
-// the PDF keeps rendering the door-order/One-Thing pick exactly as before:
-// a thumbs-style reaction under every idea (see IdeaFeedback.tsx), a
-// Challenge Mode toggle on the Possibility Map screen that walks the same
-// doors back-to-front and reweights the One Thing pick toward challenge/
-// novelty (see possibilityMap.ts), and a repeat-use nudge on the closing
-// "done" screen.
+// The Challenge Mode toggle (reverses the door walk + reweights the "One
+// Thing" pick) still lives here — it's independent of which screens exist
+// around it.
 export function IdeaBookViewer({
-  title,
-  profileSummary,
-  mustHaves,
-  preferences,
   ideas,
   wildcard,
-  characterProfile,
-  locale,
   labels,
   pdfChromeDict,
   planDict,
@@ -81,16 +53,9 @@ export function IdeaBookViewer({
   shareUrl,
   showEmailedCopy,
   planId,
-  feedback,
 }: {
-  title: string;
-  profileSummary: string;
-  mustHaves: string[];
-  preferences: string[];
   ideas: IdeaBookEntry[];
   wildcard: IdeaBookEntry | null;
-  characterProfile: CharacterProfile | null;
-  locale: Locale;
   labels: Record<string, string>;
   pdfChromeDict: Dictionary["pdfChrome"];
   planDict: Dictionary["plan"];
@@ -98,12 +63,7 @@ export function IdeaBookViewer({
   shareUrl: string;
   showEmailedCopy: boolean;
   planId: string;
-  feedback: Record<string, IdeaFeedbackValue>;
 }) {
-  const hasPreferences = mustHaves.length > 0 || preferences.length > 0;
-  const totalActions = ideas.reduce((sum, idea) => sum + idea.details.length, 0)
-    + (wildcard?.details.length ?? 0);
-
   const [challengeMode, setChallengeMode] = useState(false);
   const activeDoorOrder = challengeMode ? CHALLENGE_DOOR_ORDER : DOOR_ORDER;
 
@@ -115,18 +75,14 @@ export function IdeaBookViewer({
     () => pickOneThingIndex(ideas, { challengeMode }),
     [ideas, challengeMode]
   );
-  const discoveryLines = useMemo(
-    () => (characterProfile ? describeDiscoveryProfile(characterProfile, locale) : []),
-    [characterProfile, locale]
-  );
 
-  // Fase 9/10 ("Bekijk dit idee" → real PDF) — the printed/emailed PDF's
-  // page order is always the fixed DOOR_ORDER (src/lib/pdf/ideaBook.ts
-  // never receives the web-only Challenge Mode toggle), so this has to be
-  // computed separately from `orderedIdeas` above, which follows
-  // `activeDoorOrder` and can be reversed. Page 1 is the cover, 2 is the
-  // profile, 3 is the Possibility Map, so the first idea always lands on
-  // page 4 — see CLAUDE.md's Stap 33/34 log for why that layout is fixed.
+  // The printed/emailed PDF's page order is always the fixed DOOR_ORDER
+  // (src/lib/pdf/ideaBook.ts never receives the web-only Challenge Mode
+  // toggle), so this has to be computed separately from `orderedIdeas`
+  // above, which follows `activeDoorOrder` and can be reversed. Page 1 is
+  // the cover, 2 is the profile, 3 is the Possibility Map, so the first
+  // idea always lands on page 4 — see CLAUDE.md's Stap 33/34 log for why
+  // that layout is fixed.
   const fixedOrderedIdeas = useMemo(() => orderIdeasByDoor(ideas), [ideas]);
   const pdfPageByOriginalIndex = useMemo(() => {
     const map = new Map<number, number>();
@@ -140,23 +96,11 @@ export function IdeaBookViewer({
   }
 
   const screens = useMemo<Screen[]>(() => {
-    const list: Screen[] = [{ type: "profile" }];
-    if (hasPreferences) list.push({ type: "preferences" });
-    if (characterProfile) list.push({ type: "discovery" });
-    if (orderedIdeas.length > 0) list.push({ type: "map" });
-    orderedIdeas.forEach(({ idea, originalIndex }, index) =>
-      list.push({ type: "idea", idea, index, originalIndex })
-    );
-    if (wildcard) list.push({ type: "wildcard" });
+    const list: Screen[] = [];
+    if (orderedIdeas.length > 0 || wildcard) list.push({ type: "map" });
     list.push({ type: "done" });
     return list;
-  }, [hasPreferences, characterProfile, orderedIdeas, wildcard]);
-
-  // The Possibility Map's cards jump straight into the idea screens, which
-  // sit contiguously right after "map" in the same order as orderedIdeas —
-  // built together above, so this stays correct without re-searching by
-  // value on every render.
-  const firstIdeaScreenIndex = screens.findIndex((s) => s.type === "map") + 1;
+  }, [orderedIdeas, wildcard]);
 
   const [screenIndex, setScreenIndex] = useState(0);
   const screen = screens[screenIndex];
@@ -176,7 +120,9 @@ export function IdeaBookViewer({
   return (
     <div>
       {/* Clickable progress strip — jump straight to any screen already
-          reached, matching the WINDOW prototype's book navigation. */}
+          reached. Only ever 1 or 2 segments now, but kept as the same
+          component so it stays visually consistent if a screen is ever
+          added back. */}
       <div className="flex items-center gap-1">
         {screens.map((_, i) => (
           <button
@@ -197,95 +143,6 @@ export function IdeaBookViewer({
       </div>
 
       <div className="mt-8">
-        {screen.type === "profile" && (
-          <div>
-            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/40 bg-accent-dark text-white">
-              <WindowMark onDark className="h-7 w-7" />
-            </div>
-            <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
-              {planDict.book.profileEyebrow}
-            </p>
-            <h1 className="mt-2 font-serif text-3xl text-ink sm:text-4xl">{title}</h1>
-            <p className="mt-4 text-lg text-ink/70">{profileSummary}</p>
-
-            <div className="mt-8 grid grid-cols-3 gap-4 border-y border-accent/10 py-6 text-center">
-              <div>
-                <p className="font-serif text-3xl font-semibold text-accent">{ideas.length}</p>
-                <p className="mt-1 text-xs text-ink/60">{planDict.book.statsIdeasLabel}</p>
-              </div>
-              <div>
-                <p className="font-serif text-3xl font-semibold text-accent">{totalActions}</p>
-                <p className="mt-1 text-xs text-ink/60">{planDict.book.statsActionsLabel}</p>
-              </div>
-              <div>
-                <p className="font-serif text-3xl font-semibold text-accent">
-                  {wildcard ? planDict.book.statsWildcardValue : 0}
-                </p>
-                <p className="mt-1 text-xs text-ink/60">{planDict.book.statsWildcardLabel}</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {screen.type === "preferences" && (
-          <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
-              {planDict.book.preferencesEyebrow}
-            </p>
-            <div className="mt-4 flex flex-wrap gap-x-10 gap-y-6">
-              {mustHaves.length > 0 && (
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-widest text-ink/50">
-                    {planDict.mustHaves}
-                  </p>
-                  <ul className="mt-2 space-y-1.5 text-sm text-ink/80">
-                    {mustHaves.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {preferences.length > 0 && (
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-widest text-ink/50">
-                    {planDict.preferences}
-                  </p>
-                  <ul className="mt-2 space-y-1.5 text-sm text-ink/80">
-                    {preferences.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {screen.type === "discovery" && (
-          <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
-              {planDict.book.discoveryEyebrow}
-            </p>
-            <h2 className="mt-2 font-serif text-2xl text-ink sm:text-3xl">
-              {planDict.book.discoveryHeading}
-            </h2>
-            {discoveryLines.length > 0 ? (
-              <ul className="mt-6 space-y-4">
-                {discoveryLines.map((line, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                    <span className="text-base leading-relaxed text-ink/80">{line}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-6 text-base leading-relaxed text-ink/70">
-                {planDict.book.discoveryFallback}
-              </p>
-            )}
-          </div>
-        )}
-
         {screen.type === "map" && (
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
@@ -296,9 +153,9 @@ export function IdeaBookViewer({
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-ink/70">{planDict.book.mapIntro}</p>
 
-            {/* Fase 6 — Challenge Mode: reverses the walk below (and the
-                legend order right under it) from stretch back to natural,
-                and reweights the One Thing pick the same way. */}
+            {/* Challenge Mode: reverses the walk below (and the legend
+                order right under it) from stretch back to natural, and
+                reweights the One Thing pick the same way. */}
             <div className="mt-6 flex items-center justify-between gap-4 rounded-xl bg-cream p-4">
               <div>
                 <p className="text-sm font-medium text-ink">{planDict.book.challengeModeLabel}</p>
@@ -342,6 +199,7 @@ export function IdeaBookViewer({
               {orderedIdeas.map(({ idea, originalIndex }, i) => {
                 const isOneThing = originalIndex === oneThingIndex;
                 const copy = doorCopy(idea.door, planDict.book.doors);
+                const href = pdfHrefForPage(pdfPageByOriginalIndex.get(originalIndex) ?? 4 + i);
                 return (
                   <li
                     key={i}
@@ -366,110 +224,40 @@ export function IdeaBookViewer({
                         <p className="mt-1 text-sm text-ink/60">{planDict.book.oneThingCaption}</p>
                       )}
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => goTo(firstIdeaScreenIndex + i)}
-                      className="shrink-0 rounded-full border border-accent/30 px-4 py-2 text-sm font-medium text-accent-dark transition-colors hover:bg-accent/5"
-                    >
-                      {planDict.book.mapViewLabel}
-                    </button>
+                    {href && (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="shrink-0 rounded-full border border-accent/30 px-4 py-2 text-sm font-medium text-accent-dark transition-colors hover:bg-accent/5"
+                      >
+                        {planDict.book.mapViewLabel}
+                      </a>
+                    )}
                   </li>
                 );
               })}
-            </ul>
-          </div>
-        )}
-
-        {screen.type === "idea" && (
-          <div>
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-              <p className="text-xs font-medium uppercase tracking-widest text-ink/40">
-                {planDict.book.ideaLabel} {screen.index + 1} {planDict.book.ofWord} {orderedIdeas.length}
-              </p>
-              {doorCopy(screen.idea.door, planDict.book.doors) && (
-                <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent-dark">
-                  {doorCopy(screen.idea.door, planDict.book.doors)!.label}
-                </span>
+              {wildcard && (
+                <li className="flex items-center justify-between gap-4 rounded-2xl border border-gold/40 bg-gold/5 p-4">
+                  <div className="min-w-0">
+                    <p className="mb-1 text-xs font-medium uppercase tracking-widest text-gold">
+                      ✦ {labels.wildcard_heading || pdfChromeDict.wildcardFallbackHeading}
+                    </p>
+                    <p className="truncate font-serif text-lg text-ink">{wildcard.title}</p>
+                  </div>
+                  {pdfHrefForPage(wildcardPdfPage) && (
+                    <a
+                      href={pdfHrefForPage(wildcardPdfPage)!}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="shrink-0 rounded-full border border-gold/50 px-4 py-2 text-sm font-medium text-accent-dark transition-colors hover:bg-gold/10"
+                    >
+                      {planDict.book.mapViewLabel}
+                    </a>
+                  )}
+                </li>
               )}
-            </div>
-            <p className="mb-2 text-xs font-medium uppercase tracking-widest text-gold">
-              {planDict.book.whatIfLabel}
-            </p>
-            {pdfHrefForPage(pdfPageByOriginalIndex.get(screen.originalIndex) ?? 4) && (
-              <a
-                href={pdfHrefForPage(pdfPageByOriginalIndex.get(screen.originalIndex) ?? 4)!}
-                target="_blank"
-                rel="noreferrer"
-                className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent-dark underline underline-offset-2 hover:text-accent"
-              >
-                {planDict.book.viewAsPdfLabel} →
-              </a>
-            )}
-            <IdeaDetail
-              idea={screen.idea}
-              index={null}
-              photoIndex={screen.index}
-              locale={locale}
-              labels={labels}
-              dict={pdfChromeDict}
-            />
-            <div className="mt-4">
-              <IdeaFeedback
-                planId={planId}
-                ideaKey={`idea-${screen.originalIndex}`}
-                initialValue={feedback[`idea-${screen.originalIndex}`] ?? null}
-                prompt={planDict.book.feedbackPrompt}
-                upLabel={planDict.book.feedbackUpLabel}
-                downLabel={planDict.book.feedbackDownLabel}
-                thanksLabel={planDict.book.feedbackThanks}
-              />
-            </div>
-          </div>
-        )}
-
-        {screen.type === "wildcard" && wildcard && (
-          <div>
-            <p className="mb-3 text-sm italic text-ink/60">{planDict.book.wildcardIntro}</p>
-            {pdfHrefForPage(wildcardPdfPage) && (
-              <a
-                href={pdfHrefForPage(wildcardPdfPage)!}
-                target="_blank"
-                rel="noreferrer"
-                className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent-dark underline underline-offset-2 hover:text-accent"
-              >
-                {planDict.book.viewAsPdfLabel} →
-              </a>
-            )}
-            <IdeaDetail
-              idea={wildcard}
-              index={null}
-              photoIndex={orderedIdeas.length}
-              locale={locale}
-              labels={labels}
-              dict={pdfChromeDict}
-              isWildcard
-            />
-            <div className="mt-4">
-              <IdeaFeedback
-                planId={planId}
-                ideaKey="wildcard"
-                initialValue={feedback["wildcard"] ?? null}
-                prompt={planDict.book.feedbackPrompt}
-                upLabel={planDict.book.feedbackUpLabel}
-                downLabel={planDict.book.feedbackDownLabel}
-                thanksLabel={planDict.book.feedbackThanks}
-              />
-            </div>
-            <div className="mt-6 flex flex-wrap items-center gap-4">
-              <Button onClick={goNext}>{planDict.book.wildcardYes}</Button>
-              <button
-                type="button"
-                onClick={goNext}
-                className="text-sm font-medium text-ink/50 hover:text-ink/70"
-              >
-                {planDict.book.wildcardNo}
-              </button>
-            </div>
+            </ul>
           </div>
         )}
 
@@ -506,10 +294,10 @@ export function IdeaBookViewer({
               </div>
               {showEmailedCopy && <p className="mt-4 text-sm text-white/50">{planDict.emailedCopy}</p>}
 
-              {/* Fase 6 — repeat-use nudge: mirrors the CTA already used on
-                  the public /shared/[id] page (see SharedPageTracking.tsx),
-                  pointed at a fresh intake instead of assuming anything
-                  about avoiding previously-seen ideas. */}
+              {/* Repeat-use nudge: mirrors the CTA already used on the
+                  public /shared/[id] page, pointed at a fresh intake
+                  instead of assuming anything about avoiding
+                  previously-seen ideas. */}
               <Link
                 href="/intake?utm_source=idea_book_done&utm_medium=return_cta"
                 onClick={() => trackEvent("idea_book_done_return_clicked", { planId })}
@@ -522,10 +310,9 @@ export function IdeaBookViewer({
         )}
       </div>
 
-      {/* The wildcard screen has its own forward actions, so the generic
-          nav row is redundant there — and "done" has nothing left to skip
-          to. */}
-      {screen.type !== "wildcard" && screen.type !== "done" && (
+      {/* "done" has nothing left to skip to, so the generic nav row is
+          redundant there. */}
+      {screen.type !== "done" && (
         <div className="mt-10 flex items-center justify-between">
           {!isFirst ? (
             <button
@@ -538,11 +325,7 @@ export function IdeaBookViewer({
           ) : (
             <span />
           )}
-          {!isLast && (
-            <Button onClick={goNext}>
-              {screen.type === "map" ? planDict.book.viewIdeas : planDict.book.next}
-            </Button>
-          )}
+          {!isLast && <Button onClick={goNext}>{planDict.book.next}</Button>}
         </div>
       )}
     </div>

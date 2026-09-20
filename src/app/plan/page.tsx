@@ -5,7 +5,6 @@ import { GeneratingScreen } from "@/components/window/GeneratingScreen";
 import {
   getOrCreateWindowPlan,
   getOrCreateTestWindowPlan,
-  getCharacterProfileForSession,
   getSignedPdfUrl,
   PlanNotReadyError,
 } from "@/app/plan/data";
@@ -120,12 +119,6 @@ export default async function PlanPage(props: PageProps<"/plan">) {
     );
   }
 
-  const mustHaves = Array.isArray(plan.must_haves)
-    ? (plan.must_haves as unknown[]).map(String)
-    : [];
-  const preferences = Array.isArray(plan.preferences)
-    ? (plan.preferences as unknown[]).map(String)
-    : [];
   const ideas = Array.isArray(plan.ideas_json)
     ? (plan.ideas_json as unknown as IdeaBookEntry[])
     : [];
@@ -134,17 +127,6 @@ export default async function PlanPage(props: PageProps<"/plan">) {
       ? (plan.wildcard_json as unknown as IdeaBookEntry)
       : null;
   const labels = (plan.labels_json ?? {}) as Record<string, string>;
-  // Fase 6 (Interaction & Retention) — per-idea thumbs reactions already
-  // saved for this plan, so a page refresh shows what was chosen before
-  // instead of resetting every reaction to blank.
-  const feedback = (plan.feedback_json ?? {}) as Record<string, "up" | "down">;
-
-  // Fase 4 (New Result Experience) — the Discovery Profile screen. Best-
-  // effort: re-derived from the same stored intake answers rather than
-  // persisted anywhere (see getCharacterProfileForSession), so a lookup
-  // failure here shouldn't take down the whole Idea Book — the viewer
-  // already handles a null characterProfile by skipping that screen.
-  const characterProfile = await getCharacterProfileForSession(plan.session_id);
 
   // window_plans.pdf_url is a private-bucket storage path, not a fetchable
   // URL (see 0011_private_pdf_storage.sql + getSignedPdfUrl) — mint a
@@ -157,14 +139,8 @@ export default async function PlanPage(props: PageProps<"/plan">) {
       <SiteHeader locale={locale} dict={dict.header} />
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12 sm:px-10">
         <IdeaBookViewer
-          title={plan.title}
-          profileSummary={plan.profile_summary ?? ""}
-          mustHaves={mustHaves}
-          preferences={preferences}
           ideas={ideas}
           wildcard={wildcard}
-          characterProfile={characterProfile}
-          locale={locale}
           labels={labels}
           pdfChromeDict={dict.pdfChrome}
           planDict={dict.plan}
@@ -172,7 +148,6 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
           showEmailedCopy={!testSessionId}
           planId={plan.id}
-          feedback={feedback}
         />
       </main>
     </div>
