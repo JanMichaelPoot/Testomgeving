@@ -27,18 +27,6 @@ export interface IdeaLocation {
   city: string;
 }
 
-// A concrete, real, named alternative for actually doing an idea — a
-// specific business, venue, platform, route, or event. Populated only from
-// Claude's live web-search research pass (see generateIdeaBook.ts's
-// researchGroundedOptions), never invented from the model's own training
-// data, so every name here is meant to be a real, currently-findable thing
-// rather than a plausible-sounding guess.
-export interface IdeaOption {
-  name: string;
-  detail: string;
-  url: string;
-}
-
 // Fase 3 (Possibility/Door Engine) — every idea belongs to exactly one
 // "door," representing its distance from the person's comfort zone. The 6
 // regular ideas use natural/discovery/unexpected/stretch; the separate
@@ -72,7 +60,6 @@ export interface IdeaBookEntry {
   first_action: string;
   practical: IdeaPractical;
   location: IdeaLocation | null;
-  options: IdeaOption[];
   requirements: string[];
   image_suggestion: string;
   door: IdeaDoor;

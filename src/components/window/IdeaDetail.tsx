@@ -125,34 +125,6 @@ export function IdeaDetail({
           )}
         </div>
 
-        {idea.options.length > 0 && (
-          <div>
-            <p className="mb-2.5 text-xs font-medium uppercase tracking-widest text-ink">
-              {dict.optionsFallback}
-            </p>
-            <ul className="space-y-2">
-              {idea.options.map((option, i) => (
-                <li key={i} className="rounded-xl bg-cream p-3">
-                  <p className="text-sm font-medium text-ink">{option.name}</p>
-                  {option.detail && (
-                    <p className="mt-0.5 text-xs leading-relaxed text-ink/70">{option.detail}</p>
-                  )}
-                  {option.url && (
-                    <a
-                      href={option.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-1 inline-block text-xs font-medium text-accent-dark underline underline-offset-2"
-                    >
-                      {option.url} →
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
         {locationLine && idea.location && (
           <div className="flex flex-wrap items-center gap-2 text-sm text-ink/70">
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">

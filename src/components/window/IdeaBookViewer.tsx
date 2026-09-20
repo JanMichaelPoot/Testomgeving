@@ -6,12 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { ShareButton } from "@/components/window/ShareButton";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/posthog/client";
-import {
-  CHALLENGE_DOOR_ORDER,
-  DOOR_ORDER,
-  orderIdeasByDoor,
-  pickOneThingIndex,
-} from "@/lib/possibilityMap";
+import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
 import type { IdeaBookEntry, IdeaDoor } from "@/lib/claude/ideaBookTypes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -39,10 +34,6 @@ function doorCopy(
 // eventually a PDF" flow the product brief explicitly asked to collapse:
 // the PDF *is* the product, so getting to it should take one click from
 // the overview, not a walk through N screens first.
-//
-// The Challenge Mode toggle (reverses the door walk + reweights the "One
-// Thing" pick) still lives here — it's independent of which screens exist
-// around it.
 export function IdeaBookViewer({
   ideas,
   wildcard,
@@ -64,31 +55,19 @@ export function IdeaBookViewer({
   showEmailedCopy: boolean;
   planId: string;
 }) {
-  const [challengeMode, setChallengeMode] = useState(false);
-  const activeDoorOrder = challengeMode ? CHALLENGE_DOOR_ORDER : DOOR_ORDER;
-
-  const orderedIdeas = useMemo(
-    () => orderIdeasByDoor(ideas, activeDoorOrder),
-    [ideas, activeDoorOrder]
-  );
-  const oneThingIndex = useMemo(
-    () => pickOneThingIndex(ideas, { challengeMode }),
-    [ideas, challengeMode]
-  );
-
-  // The printed/emailed PDF's page order is always the fixed DOOR_ORDER
-  // (src/lib/pdf/ideaBook.ts never receives the web-only Challenge Mode
-  // toggle), so this has to be computed separately from `orderedIdeas`
-  // above, which follows `activeDoorOrder` and can be reversed. Page 1 is
-  // the cover, 2 is the profile, 3 is the Possibility Map, so the first
-  // idea always lands on page 4 — see CLAUDE.md's Stap 33/34 log for why
-  // that layout is fixed.
-  const fixedOrderedIdeas = useMemo(() => orderIdeasByDoor(ideas), [ideas]);
+  // The web Possibility Map and the printed/emailed PDF always walk ideas
+  // in the same fixed DOOR_ORDER (natural → discovery → unexpected →
+  // stretch), so an idea's position here matches its PDF page exactly.
+  // Page 1 is the cover, 2 is the profile, 3 is the Possibility Map, so
+  // the first idea always lands on page 4 — see CLAUDE.md's Stap 33/34
+  // log for why that layout is fixed.
+  const orderedIdeas = useMemo(() => orderIdeasByDoor(ideas), [ideas]);
+  const oneThingIndex = useMemo(() => pickOneThingIndex(ideas), [ideas]);
   const pdfPageByOriginalIndex = useMemo(() => {
     const map = new Map<number, number>();
-    fixedOrderedIdeas.forEach(({ originalIndex }, i) => map.set(originalIndex, 4 + i));
+    orderedIdeas.forEach(({ originalIndex }, i) => map.set(originalIndex, 4 + i));
     return map;
-  }, [fixedOrderedIdeas]);
+  }, [orderedIdeas]);
   const wildcardPdfPage = 4 + ideas.length;
 
   function pdfHrefForPage(page: number): string | null {
@@ -153,39 +132,8 @@ export function IdeaBookViewer({
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-ink/70">{planDict.book.mapIntro}</p>
 
-            {/* Challenge Mode: reverses the walk below (and the legend
-                order right under it) from stretch back to natural, and
-                reweights the One Thing pick the same way. */}
-            <div className="mt-6 flex items-center justify-between gap-4 rounded-xl bg-cream p-4">
-              <div>
-                <p className="text-sm font-medium text-ink">{planDict.book.challengeModeLabel}</p>
-                <p className="mt-0.5 text-xs text-ink/60">{planDict.book.challengeModeHelper}</p>
-              </div>
-              <button
-                type="button"
-                role="switch"
-                aria-checked={challengeMode}
-                onClick={() => {
-                  const next = !challengeMode;
-                  setChallengeMode(next);
-                  trackEvent("challenge_mode_toggled", { planId, enabled: next });
-                }}
-                className={cn(
-                  "relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200",
-                  challengeMode ? "bg-accent" : "bg-ink/15"
-                )}
-              >
-                <span
-                  className={cn(
-                    "absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200",
-                    challengeMode ? "translate-x-6" : "translate-x-1"
-                  )}
-                />
-              </button>
-            </div>
-
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {activeDoorOrder.map((door) => (
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {DOOR_ORDER.map((door) => (
                 <div key={door} className="rounded-xl bg-cream p-4">
                   <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
                     {planDict.book.doors[door].label}

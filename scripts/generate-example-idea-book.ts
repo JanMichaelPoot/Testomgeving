@@ -19,7 +19,6 @@ function idea(overrides: Partial<IdeaBookEntry> & Pick<IdeaBookEntry, "title" | 
     first_action: "",
     practical: { estimated_cost: "", duration: "", difficulty: "moderate", preparation: "" },
     location: null,
-    options: [],
     requirements: [],
     image_suggestion: "",
     scores: {
@@ -51,13 +50,9 @@ const NL: GeneratedIdeaBook = {
       details: [
         "Zoek een pottenbakstudio bij jou in de buurt via Google Maps.",
         "Boek een plek voor een proefles van twee uur.",
-        "Neem kleding mee die vuil mag worden.",
       ],
       first_action: "Zoek 'pottenbakken workshop' + je woonplaats en bekijk de eerstvolgende datum.",
       practical: { estimated_cost: "€35–50 p.p.", duration: "Een dagdeel", difficulty: "easy", preparation: "" },
-      options: [
-        { name: "Lokale pottenbakstudio", detail: "Toegankelijke, ontspannen proefles.", url: "" },
-      ],
       requirements: ["Kleding die vuil mag worden"],
     }),
     idea({
@@ -67,8 +62,7 @@ const NL: GeneratedIdeaBook = {
       why_it_fits: "Je houdt van kunst en buiten zijn — dit combineert allebei zonder gedoe.",
       details: [
         "Zoek online naar 'kunstroute' of 'street art route' in je woonplaats.",
-        "Download of print de route.",
-        "Start bij het eerste punt op de kaart.",
+        "Download of print de route en start bij het eerste punt op de kaart.",
       ],
       first_action: "Zoek 'kunstroute' + je woonplaats en open de eerste link.",
       practical: { estimated_cost: "Gratis", duration: "Een dagdeel", difficulty: "easy", preparation: "" },
@@ -81,8 +75,7 @@ const NL: GeneratedIdeaBook = {
       why_it_fits: "Je noemde koffie en kunst als dingen waar je van houdt — dit zet ze aan hetzelfde tafeltje.",
       details: [
         "Zoek het dichtstbijzijnde museum met een eigen café.",
-        "Loop binnen, ook zonder ticket vaak toegankelijk.",
-        "Besluit ter plekke of je alsnog een ticket koopt.",
+        "Loop binnen (vaak ook zonder ticket toegankelijk) en besluit ter plekke.",
       ],
       first_action: "Zoek 'museumcafé' + je woonplaats op Google Maps.",
       practical: { estimated_cost: "€10–20", duration: "1-2 uur", difficulty: "easy", preparation: "" },
@@ -95,7 +88,6 @@ const NL: GeneratedIdeaBook = {
       details: [
         "Zoek 'suppen huren' of 'kano verhuur' bij jou in de buurt.",
         "Boek twee sups voor minimaal anderhalf uur.",
-        "Kom een kwartier vooraf voor de korte instructie.",
       ],
       first_action: "Zoek 'sup verhuur' + je woonplaats en bekijk de beschikbaarheid.",
       practical: { estimated_cost: "€20–30 p.p.", duration: "Een dagdeel", difficulty: "moderate", preparation: "" },
@@ -108,8 +100,7 @@ const NL: GeneratedIdeaBook = {
       why_it_fits: "Je zit al maanden vooral op de bank — dit is een actieve, low-key manier om je stad te herontdekken.",
       details: [
         "Zoek 'street art route' + je woonplaats.",
-        "Volg de route te voet of op de fiets.",
-        "Maak bij elk werk een foto en verzin samen een titel.",
+        "Volg de route te voet of op de fiets en maak bij elk werk een foto.",
       ],
       first_action: "Zoek 'street art route' + je woonplaats in Google.",
       practical: { estimated_cost: "Gratis", duration: "Een dagdeel", difficulty: "easy", preparation: "" },
@@ -121,8 +112,7 @@ const NL: GeneratedIdeaBook = {
       why_it_fits: "Je koos 'een uitje' als mogelijkheid — dit is spontaan, buiten, en net onvoorspelbaar genoeg.",
       details: [
         "Zoek 'oldtimer verhuur' bij jou in de regio.",
-        "Reserveer een auto voor een dagdeel.",
-        "Rijd samen de stad uit, zonder vaste route.",
+        "Reserveer een auto voor een dagdeel en rijd de stad uit, zonder vaste route.",
       ],
       first_action: "Zoek 'oldtimer verhuur' + je regio en bekijk de beschikbaarheid.",
       practical: { estimated_cost: "€100–150", duration: "Een dagdeel", difficulty: "moderate", preparation: "" },
@@ -136,8 +126,7 @@ const NL: GeneratedIdeaBook = {
     why_it_fits: "Je zei dat je best weer een workshop wil doen — dit is minder voorspelbaar dan pottenbakken.",
     details: [
       "Zoek 'action painting workshop' bij jou in de buurt.",
-      "Boek een sessie voor twee personen.",
-      "Trek kleding aan die verf mag hebben en gooi je precisie overboard.",
+      "Boek een sessie voor twee personen en trek kleding aan die verf mag hebben.",
     ],
     first_action: "Zoek 'action painting workshop' + je woonplaats.",
     practical: { estimated_cost: "€35–50 p.p.", duration: "Een dagdeel", difficulty: "moderate", preparation: "" },

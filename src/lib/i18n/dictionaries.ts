@@ -174,11 +174,7 @@ export interface Dictionary {
         "natural" | "discovery" | "unexpected" | "stretch",
         { label: string; description: string }
       >;
-      // Fase 6 (Interaction & Retention) — the Challenge Mode toggle on
-      // the Possibility Map screen (see possibilityMap.ts) and a
-      // repeat-use nudge on the closing "done" screen.
-      challengeModeLabel: string;
-      challengeModeHelper: string;
+      // Repeat-use nudge on the closing "done" screen.
       doneReturnCta: string;
     };
   };
@@ -230,7 +226,6 @@ export interface Dictionary {
     firstActionFallback: string;
     practicalFallback: string;
     locationFallback: string;
-    optionsFallback: string;
     requirementsFallback: string;
     mapLinkLabel: string;
     footerWordmark: string;
@@ -592,8 +587,6 @@ const nl: Dictionary = {
           description: "Net buiten je comfortzone. Groter, spannender, nog steeds haalbaar.",
         },
       },
-      challengeModeLabel: "Uitdagingsmodus",
-      challengeModeHelper: "Begin bij de uitdaging in plaats van bij het vertrouwde.",
       doneReturnCta: "Kom later terug voor een nieuw venster",
     },
   },
@@ -643,7 +636,6 @@ const nl: Dictionary = {
     firstActionFallback: "Dit kunt u nu doen",
     practicalFallback: "Praktisch",
     locationFallback: "Locatie",
-    optionsFallback: "Concrete opties",
     requirementsFallback: "Wat heeft u nodig",
     mapLinkLabel: "bekijk op kaart",
     footerWordmark: "WINDOW  ·  Jouw Idea Book",
@@ -1162,8 +1154,6 @@ const en: Dictionary = {
           description: "Just outside your comfort zone. Bigger, more exciting, still doable.",
         },
       },
-      challengeModeLabel: "Challenge Mode",
-      challengeModeHelper: "Start at the stretch, not the familiar.",
       doneReturnCta: "Come back later for a new window",
     },
   },
@@ -1213,7 +1203,6 @@ const en: Dictionary = {
     firstActionFallback: "You can do this now",
     practicalFallback: "Practical",
     locationFallback: "Location",
-    optionsFallback: "Concrete options",
     requirementsFallback: "What you'll need",
     mapLinkLabel: "view on map",
     footerWordmark: "WINDOW  ·  Your Idea Book",

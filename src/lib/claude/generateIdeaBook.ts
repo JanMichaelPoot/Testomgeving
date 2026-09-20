@@ -17,7 +17,6 @@ export {
   DIFFICULTY_LABELS,
   type IdeaPractical,
   type IdeaLocation,
-  type IdeaOption,
   type IdeaDoor,
   type IdeaScores,
   type IdeaBookEntry,
@@ -28,7 +27,6 @@ import type {
   GeneratedIdeaBook,
   IdeaPractical,
   IdeaLocation,
-  IdeaOption,
   IdeaDoor,
   IdeaScores,
 } from "@/lib/claude/ideaBookTypes";
@@ -112,7 +110,7 @@ Rules for using the profile:
   "Because you're looking for...") rather than a generic justification that
   could apply to anyone. It should read like proof you were listening, not
   a marketing blurb.
-- details: an array of exactly 3 concrete, sequential steps that read like
+- details: an array of exactly 2 concrete, sequential steps that read like
   a ready-made how-to, not a vague suggestion — say exactly what to open,
   search, or click. Name the specific website/app/platform from the
   verified research brief below when there is one for this idea (e.g.
@@ -141,16 +139,6 @@ Rules for using the profile:
   don't happen at one specific findable place (e.g. "cook a new recipe at
   home", "write letters to old friends"), or when the research brief has
   nothing relevant to offer for this idea.
-- options: an array of 2-3 concrete, real, named alternatives for actually
-  doing this idea (a specific business, venue, platform, route, or event),
-  taken ONLY from the verified research brief below — never invented from
-  your own memory or a plausible-sounding guess, since you cannot verify
-  whether it still exists, is spelled right, or is even real. Each option
-  needs a name, a one-line detail (why it fits / what it is, in
-  {{LANGUAGE}}), and a url — copy the URL exactly as given in the research
-  brief, or leave it as an empty string if the research didn't give one for
-  that item. If the research brief has nothing relevant for this idea,
-  return an empty array rather than guessing a name.
 - requirements: up to 4 short items (a few words each) of concrete things
   the person needs to arrange, buy, or bring (tickets, gear, clothing, an
   app, a reservation) — an empty array when the idea genuinely needs
@@ -309,16 +297,6 @@ const LOCATION_SCHEMA = {
   required: ["name", "address", "city"],
 };
 
-const OPTION_SCHEMA = {
-  type: "object" as const,
-  properties: {
-    name: { type: "string" },
-    detail: { type: "string" },
-    url: { type: "string" },
-  },
-  required: ["name", "detail", "url"],
-};
-
 // Fase 3 (Possibility/Door Engine) — see the master prompt sections 6 and
 // 11. Shared between the 6 regular ideas and the wildcard: the wildcard is
 // distinguished by always carrying door "wildcard" (enforced defensively in
@@ -357,14 +335,13 @@ const IDEA_ENTRY_SCHEMA = {
     why_it_fits: { type: "string" },
     details: {
       type: "array",
-      minItems: 3,
-      maxItems: 3,
+      minItems: 2,
+      maxItems: 2,
       items: { type: "string" },
     },
     first_action: { type: "string" },
     practical: PRACTICAL_SCHEMA,
     location: LOCATION_SCHEMA,
-    options: { type: "array", maxItems: 3, items: OPTION_SCHEMA },
     requirements: { type: "array", maxItems: 4, items: { type: "string" } },
     image_suggestion: { type: "string" },
     door: {
@@ -381,7 +358,6 @@ const IDEA_ENTRY_SCHEMA = {
     "first_action",
     "practical",
     "location",
-    "options",
     "requirements",
     "image_suggestion",
     "door",
@@ -423,12 +399,12 @@ async function callClaudeForIdeaBook(
     ? `Verified live web research (use ONLY these names for anything
 specific — never invent a business/venue/platform/route/event name beyond
 what's listed here; if a theme below isn't covered, keep that idea's
-options empty and its steps/first_action generic instead of guessing):
+location null and its steps/first_action generic instead of guessing):
 ${researchBrief}`
-    : `No verified web research came back this time — keep every idea's
-options array empty, and keep steps/first_action generic (well-known,
-certainly-real platform types and search strategies) rather than inventing
-a specific unverified business, venue, or address.`;
+    : `No verified web research came back this time — keep steps/
+first_action generic (well-known, certainly-real platform types and search
+strategies) rather than inventing a specific unverified business, venue,
+or address.`;
 
   const message = await anthropic.messages.create({
     model: CLAUDE_MODEL,
@@ -549,21 +525,6 @@ function normalizeLocation(value: unknown): IdeaLocation | null {
   return { name, address: toText(l.address), city: toText(l.city) };
 }
 
-function normalizeOption(value: unknown): IdeaOption | null {
-  if (value == null || typeof value !== "object") return null;
-  const o = value as Partial<IdeaOption>;
-  const name = toText(o.name);
-  if (!name) return null;
-  return { name, detail: toText(o.detail), url: toText(o.url) };
-}
-
-function normalizeOptions(value: unknown): IdeaOption[] {
-  const items = Array.isArray(value) ? value : [];
-  return items
-    .map(normalizeOption)
-    .filter((option): option is IdeaOption => option !== null);
-}
-
 const VALID_DOORS: readonly IdeaDoor[] = [
   "natural",
   "discovery",
@@ -615,7 +576,6 @@ function normalizeEntry(entry: unknown, opts: { forceDoor?: IdeaDoor } = {}): Id
     first_action: toText(e.first_action),
     practical: normalizePractical(e.practical),
     location: normalizeLocation(e.location),
-    options: normalizeOptions(e.options),
     requirements: toTextArray(e.requirements),
     image_suggestion: toText(e.image_suggestion),
     door: opts.forceDoor ?? normalizeDoor(e.door, "discovery"),
