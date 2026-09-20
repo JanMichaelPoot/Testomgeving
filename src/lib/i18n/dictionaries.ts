@@ -179,6 +179,7 @@ export interface Dictionary {
       oneThingBadge: string;
       oneThingCaption: string;
       whatIfLabel: string;
+      viewAsPdfLabel: string;
       doors: Record<
         "natural" | "discovery" | "unexpected" | "stretch",
         { label: string; description: string }
@@ -281,7 +282,6 @@ export interface Dictionary {
     // src/lib/characterProfile.ts.
     freeTimePattern: { label: string; sub: string; options: Option[] };
     practicalToWild: { label: string; options: Option[] };
-    challengeMe: { label: string; sub: string };
     timeAvailable: { label: string; options: Option[] };
     budget: { label: string; options: Option[] };
     effort: { label: string; options: Option[] };
@@ -359,7 +359,7 @@ const nl: Dictionary = {
       "Vertel ons wie je bent en wat je beweegt. In enkele minuten ontvang je een persoonlijk Idea Book — zes concrete ideeën plus één wildcard, volledig uitgewerkt.",
     cta: "Maak mijn Idea Book",
     secondaryCta: "Bekijk een voorbeeld",
-    ctaCaption: "Geen account nodig · vanaf {price} · herroepingsrecht van 14 dagen",
+    ctaCaption: "Geen account nodig · vanaf {price}",
     heroAlt: "Een venster dat opengaat naar vier verschillende mogelijkheden",
     whatYouGetHeading: "Wat je krijgt",
     whatYouGetSubcopy:
@@ -605,6 +605,7 @@ const nl: Dictionary = {
       oneThingBadge: "Als je er maar één kiest",
       oneThingCaption: "Dit past het best bij je situatie én is meteen te doen.",
       whatIfLabel: "Wat als…",
+      viewAsPdfLabel: "Bekijk als PDF-pagina",
       doors: {
         natural: {
           label: "Vertrouwd",
@@ -826,10 +827,6 @@ const nl: Dictionary = {
         { value: "wild", label: "Verras me volledig, neem me mee naar iets wilds" },
       ],
     },
-    challengeMe: {
-      label: "Ik wil dat WindowInto me uitdaagt",
-      sub: "Zet aan voor minstens één idee dat duidelijk buiten je gewone patroon ligt.",
-    },
     timeAvailable: {
       label: "Hoeveel tijd heb je?",
       options: [
@@ -860,9 +857,8 @@ const nl: Dictionary = {
       label: "Voor welk soort mogelijkheden sta je open?",
       sub: "Kies er zoveel als goed voelen.",
       options: [
-        { value: "activity", label: "Een activiteit" },
+        { value: "activity", label: "Een activiteit of uitje" },
         { value: "gift", label: "Een cadeau" },
-        { value: "trip", label: "Een uitje" },
         { value: "recipe", label: "Een recept of maaltijd" },
         { value: "habit", label: "Een gewoonte of ritueel" },
         { value: "conversation", label: "Een gesprek" },
@@ -954,7 +950,7 @@ const en: Dictionary = {
       "Tell us who you are and what moves you. In a few minutes you'll get a personal Idea Book — six concrete ideas plus one wildcard, fully worked out.",
     cta: "Make my Idea Book",
     secondaryCta: "See an example",
-    ctaCaption: "No account needed · from {price} · 14-day right of withdrawal",
+    ctaCaption: "No account needed · from {price}",
     heroAlt: "A window opening onto four different possibilities",
     whatYouGetHeading: "What you get",
     whatYouGetSubcopy:
@@ -1200,6 +1196,7 @@ const en: Dictionary = {
       oneThingBadge: "If you only do one thing",
       oneThingCaption: "This fits your situation best, and you can start today.",
       whatIfLabel: "What if…",
+      viewAsPdfLabel: "View as PDF page",
       doors: {
         natural: {
           label: "Familiar",
@@ -1421,10 +1418,6 @@ const en: Dictionary = {
         { value: "wild", label: "Surprise me completely, take me somewhere wild" },
       ],
     },
-    challengeMe: {
-      label: "I want WindowInto to challenge me",
-      sub: "Guarantees at least one idea that's clearly outside your usual pattern.",
-    },
     timeAvailable: {
       label: "How much time do you have?",
       options: [
@@ -1455,9 +1448,8 @@ const en: Dictionary = {
       label: "What kind of possibilities are you open to?",
       sub: "Pick as many as feel right.",
       options: [
-        { value: "activity", label: "An activity" },
+        { value: "activity", label: "An activity or outing" },
         { value: "gift", label: "A gift" },
-        { value: "trip", label: "A trip" },
         { value: "recipe", label: "A recipe or meal" },
         { value: "habit", label: "A habit or ritual" },
         { value: "conversation", label: "A conversation" },

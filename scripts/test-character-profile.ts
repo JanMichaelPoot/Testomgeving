@@ -28,8 +28,7 @@ function profile(overrides: Partial<IntakeAnswers>): IntakeAnswers {
     solutionTypes: [],
     mustHaves: "",
     preferences: "",
-    company: "",
-    challengeMe: false,
+    company: [],
     personalReflection: "",
     ...overrides,
   };
@@ -41,7 +40,7 @@ const CASES: { name: string; answers: IntakeAnswers }[] = [
     answers: profile({
       freeTimePattern: "stayhome",
       practicalToWild: "grounded",
-      company: "alone",
+      company: ["alone"],
       effort: "minimal",
       solutionTypes: ["habit"],
     }),
@@ -51,10 +50,9 @@ const CASES: { name: string; answers: IntakeAnswers }[] = [
     answers: profile({
       freeTimePattern: "search",
       practicalToWild: "wild",
-      company: "friends",
+      company: ["friends"],
       effort: "committed",
-      challengeMe: true,
-      solutionTypes: ["activity", "trip", "creative", "conversation"],
+      solutionTypes: ["activity", "creative", "conversation"],
       personalReflection: "Ik zou best vaker iets compleet nieuws willen proberen.",
     }),
   },
@@ -63,9 +61,9 @@ const CASES: { name: string; answers: IntakeAnswers }[] = [
     answers: profile({
       freeTimePattern: "ask",
       practicalToWild: "practical",
-      company: "family",
+      company: ["family", "friends"],
       effort: "some",
-      solutionTypes: ["trip", "recipe"],
+      solutionTypes: ["activity", "recipe"],
     }),
   },
   {
@@ -77,8 +75,7 @@ const CASES: { name: string; answers: IntakeAnswers }[] = [
     answers: profile({
       freeTimePattern: "familiar",
       practicalToWild: "unexpected",
-      challengeMe: true,
-      company: "partner",
+      company: ["partner"],
       effort: "committed",
       solutionTypes: ["activity", "creative"],
     }),

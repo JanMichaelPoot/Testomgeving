@@ -120,6 +120,25 @@ export function IdeaBookViewer({
     [characterProfile, locale]
   );
 
+  // Fase 9/10 ("Bekijk dit idee" → real PDF) — the printed/emailed PDF's
+  // page order is always the fixed DOOR_ORDER (src/lib/pdf/ideaBook.ts
+  // never receives the web-only Challenge Mode toggle), so this has to be
+  // computed separately from `orderedIdeas` above, which follows
+  // `activeDoorOrder` and can be reversed. Page 1 is the cover, 2 is the
+  // profile, 3 is the Possibility Map, so the first idea always lands on
+  // page 4 — see CLAUDE.md's Stap 33/34 log for why that layout is fixed.
+  const fixedOrderedIdeas = useMemo(() => orderIdeasByDoor(ideas), [ideas]);
+  const pdfPageByOriginalIndex = useMemo(() => {
+    const map = new Map<number, number>();
+    fixedOrderedIdeas.forEach(({ originalIndex }, i) => map.set(originalIndex, 4 + i));
+    return map;
+  }, [fixedOrderedIdeas]);
+  const wildcardPdfPage = 4 + ideas.length;
+
+  function pdfHrefForPage(page: number): string | null {
+    return pdfUrl ? `${pdfUrl}#page=${page}` : null;
+  }
+
   const screens = useMemo<Screen[]>(() => {
     const list: Screen[] = [{ type: "profile" }];
     if (hasPreferences) list.push({ type: "preferences" });
@@ -376,6 +395,16 @@ export function IdeaBookViewer({
             <p className="mb-2 text-xs font-medium uppercase tracking-widest text-gold">
               {planDict.book.whatIfLabel}
             </p>
+            {pdfHrefForPage(pdfPageByOriginalIndex.get(screen.originalIndex) ?? 4) && (
+              <a
+                href={pdfHrefForPage(pdfPageByOriginalIndex.get(screen.originalIndex) ?? 4)!}
+                target="_blank"
+                rel="noreferrer"
+                className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent-dark underline underline-offset-2 hover:text-accent"
+              >
+                {planDict.book.viewAsPdfLabel} →
+              </a>
+            )}
             <IdeaDetail
               idea={screen.idea}
               index={null}
@@ -401,6 +430,16 @@ export function IdeaBookViewer({
         {screen.type === "wildcard" && wildcard && (
           <div>
             <p className="mb-3 text-sm italic text-ink/60">{planDict.book.wildcardIntro}</p>
+            {pdfHrefForPage(wildcardPdfPage) && (
+              <a
+                href={pdfHrefForPage(wildcardPdfPage)!}
+                target="_blank"
+                rel="noreferrer"
+                className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent-dark underline underline-offset-2 hover:text-accent"
+              >
+                {planDict.book.viewAsPdfLabel} →
+              </a>
+            )}
             <IdeaDetail
               idea={wildcard}
               index={null}

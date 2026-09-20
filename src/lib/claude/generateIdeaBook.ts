@@ -62,9 +62,9 @@ force a weak idea into an empty door just to fill it, but aim to spread the
   actually work."
 - "stretch": meaningfully outside their comfort zone. Bigger than
   "unexpected" — how far to push depends on their comfort-zone-to-wild
-  dial, whether they said they want to be challenged, and their internal
-  challenge level below. Push harder when that's high, stay gentler when
-  it's low — but a stretch idea must stay achievable, never reckless.
+  dial and their internal challenge level below. Push harder when that's
+  high, stay gentler when it's low — but a stretch idea must stay
+  achievable, never reckless.
 The separate wildcard keeps its own door, "wildcard" — see below, it's
 always its own slot and not counted among the 6.
 
@@ -186,9 +186,8 @@ Willingness to put in effort: ${intake.effort}
 Open to these kinds of possibilities: ${intake.solutionTypes.join(", ")}
 Must-haves (hard constraints): ${intake.mustHaves || "none stated"}
 Preferences (soft nudges): ${intake.preferences || "none stated"}
-Company: ${intake.company}
+Company: ${intake.company.join(", ") || "not stated"}
 Free-time pattern (what they said they'd actually do on a free Saturday): ${intake.freeTimePattern || "not stated"}
-Wants to be challenged: ${intake.challengeMe ? "yes" : "no"}
 Personal reflection (something they'd secretly like to do more): ${intake.personalReflection || "not stated"}
 
 Internal character signals (derived, 0-100 each, 50 = neutral — for
@@ -215,7 +214,7 @@ Budget: ${intake.budget}
 Open to these kinds of possibilities: ${intake.solutionTypes.join(", ")}
 Must-haves (hard constraints): ${intake.mustHaves || "none stated"}
 Preferences (soft nudges): ${intake.preferences || "none stated"}
-Company: ${intake.company}`;
+Company: ${intake.company.join(", ") || "not stated"}`;
 }
 
 // Runs before idea generation, using Claude's live web-search tool to find

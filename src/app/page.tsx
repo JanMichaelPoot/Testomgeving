@@ -41,7 +41,13 @@ export default async function Home() {
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </Button>
-                <Button href="/#voorbeelden" variant="secondary" size="lg">
+                <Button
+                  href={`/examples/idea-book-${locale}.pdf`}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="secondary"
+                  size="lg"
+                >
                   {dict.landing.secondaryCta}
                 </Button>
               </div>

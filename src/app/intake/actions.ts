@@ -33,11 +33,9 @@ export interface IntakeAnswers {
   solutionTypes: string[];
   mustHaves: string;
   preferences: string;
-  company: string;
-  // Explicit opt-in to a bigger stretch, independent of the practicalToWild
-  // dial's position — someone can sit near "safe" on the dial but still
-  // tick this, which is itself a signal (see characterProfile.ts).
-  challengeMe: boolean;
+  // Who this window is for — multi-select, since it's common for more than
+  // one to apply at once (e.g. "for me" and "my family will join in too").
+  company: string[];
   // The single open question the WindowInto brief asks to weigh heavily in
   // generation ("what would you secretly love to do more of?") — optional,
   // since forcing it would read as an interview, but strongly invited via

@@ -37,7 +37,12 @@ export function SiteHeader({
           <Link href="/#wat-je-krijgt" className="text-sm text-ink/60 transition-colors hover:text-accent">
             {dict.navHowItWorks}
           </Link>
-          <Link href="/#voorbeelden" className="text-sm text-ink/60 transition-colors hover:text-accent">
+          <Link
+            href={`/examples/idea-book-${locale}.pdf`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm text-ink/60 transition-colors hover:text-accent"
+          >
             {dict.navExamples}
           </Link>
           <Link href="/#over-ons" className="text-sm text-ink/60 transition-colors hover:text-accent">

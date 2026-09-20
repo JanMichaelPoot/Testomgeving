@@ -35,10 +35,10 @@ export interface CharacterProfile {
   /**
    * Hoe ver voorbij de comfortzone gegenereerde mogelijkheden mogen reiken —
    * een aparte as van de vier dimensies hierboven (zie sectie 3 "HOW FAR YOU
-   * WANT TO GO" in het master-prompt): afgeleid van de practicalToWild-dial
-   * plus de expliciete challengeMe-toggle, niet van karakter an sich. Iemand
-   * kan laag op de dial zitten maar toch bewust "daag me uit" aanvinken —
-   * dat is zelf ook een signaal, geen tegenstrijdigheid.
+   * WANT TO GO" in het master-prompt): afgeleid van de practicalToWild-dial,
+   * niet van karakter an sich. (De losstaande "daag me uit"-toggle die hier
+   * eerder ook aan bijdroeg, is verwijderd — de wildcard en de "stretch"-deur
+   * zijn nu standaard onderdeel van elk Idea Book, zonder aparte opt-in.)
    */
   challengeLevel: number;
   /**
@@ -74,7 +74,7 @@ export function computeCharacterProfile(answers: IntakeAnswers): CharacterProfil
   const freeTimePattern = answers.freeTimePattern || "";
   const practicalToWild = answers.practicalToWild || "either";
   const effort = answers.effort || "";
-  const company = answers.company || "";
+  const company = answers.company ?? [];
   const solutionTypes = answers.solutionTypes ?? [];
   const personalReflection = (answers.personalReflection || "").trim();
   const wildness = wildnessScore(practicalToWild);
@@ -122,23 +122,25 @@ export function computeCharacterProfile(answers: IntakeAnswers): CharacterProfil
   } else if (freeTimePattern === "stayhome") {
     spontaneity -= 10;
   }
-  if (answers.challengeMe) {
-    spontaneity += 10;
-    note("challengeMe=true → +10 spontaneity");
-  }
   spontaneity += (wildness - 50) * 0.3;
 
   // --- Social energy -------------------------------------------------------
+  // Fase 5 — company is now multi-select, so each selected option
+  // contributes its own delta independently rather than an else-if chain
+  // (someone can pick e.g. both "family" and "friends" at once).
   let socialEnergy = 50;
-  if (company === "alone") {
+  if (company.includes("alone")) {
     socialEnergy -= 25;
-    note("company=alone → -25 socialEnergy");
-  } else if (company === "friends") {
+    note("company includes alone → -25 socialEnergy");
+  }
+  if (company.includes("friends")) {
     socialEnergy += 20;
-    note("company=friends → +20 socialEnergy");
-  } else if (company === "family") {
+    note("company includes friends → +20 socialEnergy");
+  }
+  if (company.includes("family")) {
     socialEnergy += 10;
-  } else if (company === "colleagues") {
+  }
+  if (company.includes("colleagues")) {
     socialEnergy += 5;
   }
   if (freeTimePattern === "ask") {
@@ -176,17 +178,9 @@ export function computeCharacterProfile(answers: IntakeAnswers): CharacterProfil
   } else if (effort === "minimal") {
     needForStructure -= 5;
   }
-  if (answers.challengeMe) {
-    needForStructure -= 10;
-    note("challengeMe=true → -10 needForStructure");
-  }
 
   // --- Challenge level (separate axis, see doc comment above) --------------
-  let challengeLevel = wildness;
-  if (answers.challengeMe) {
-    challengeLevel += 20;
-    note("challengeMe=true → +20 challengeLevel");
-  }
+  const challengeLevel = wildness;
 
   return {
     dimensions: {

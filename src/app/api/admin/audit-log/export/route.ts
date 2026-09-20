@@ -56,7 +56,6 @@ export async function GET() {
     // Alleen gelogd voor inspectie — dit stuurt de generatie nog niet aan
     // (dat is Fase 3, de Possibility/Door Engine).
     { header: "Vrije-zaterdag-patroon", key: "freeTimePattern", width: 20 },
-    { header: "Wil uitgedaagd worden", key: "challengeMe", width: 16 },
     { header: "Persoonlijke reflectie", key: "personalReflection", width: 30 },
     { header: "Nieuwsgierigheid", key: "curiosity", width: 14 },
     { header: "Spontaniteit", key: "spontaneity", width: 14 },
@@ -136,9 +135,8 @@ export async function GET() {
       solutionTypes: Array.isArray(input.solutionTypes) ? input.solutionTypes.join(", ") : "",
       mustHaves: input.mustHaves ?? "",
       preferences: input.preferences ?? "",
-      company: input.company ?? "",
+      company: Array.isArray(input.company) ? input.company.join(", ") : (input.company ?? ""),
       freeTimePattern: input.freeTimePattern ?? "",
-      challengeMe: input.challengeMe ? "Ja" : "Nee",
       personalReflection: input.personalReflection ?? "",
       curiosity: character?.dimensions.curiosity ?? "",
       spontaneity: character?.dimensions.spontaneity ?? "",

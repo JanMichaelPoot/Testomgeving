@@ -30,8 +30,7 @@ type FieldConfig =
   | { id: StepId; type: "chips"; label: string; sub?: string; options: Option[] }
   | { id: StepId; type: "multi-chips"; label: string; sub?: string; options: Option[] }
   | { id: StepId; type: "slider"; label: string; sub?: string; options: Option[] }
-  | { id: StepId; type: "location"; label: string; sub?: string; placeholder: string }
-  | { id: StepId; type: "toggle"; label: string; sub?: string };
+  | { id: StepId; type: "location"; label: string; sub?: string; placeholder: string };
 
 interface PageConfig {
   id: string;
@@ -128,12 +127,6 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
           options: dict.practicalToWild.options,
         },
         {
-          id: "challengeMe",
-          type: "toggle",
-          label: dict.challengeMe.label,
-          sub: dict.challengeMe.sub,
-        },
-        {
           id: "timeAvailable",
           type: "slider",
           label: dict.timeAvailable.label,
@@ -205,7 +198,7 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       fields: [
         {
           id: "company",
-          type: "chips",
+          type: "multi-chips",
           label: dict.company.label,
           sub: companySub,
           options: dict.company.options,
@@ -227,7 +220,6 @@ const EMPTY_ANSWERS: IntakeAnswers = {
   searchDistance: "city",
   freeTimePattern: "",
   practicalToWild: "either",
-  challengeMe: false,
   timeAvailable: "halfday",
   budget: "25",
   effort: "some",
@@ -235,7 +227,7 @@ const EMPTY_ANSWERS: IntakeAnswers = {
   mustHaves: "",
   preferences: "",
   personalReflection: "",
-  company: "",
+  company: [],
 };
 
 // Draft persistence — sessionStorage only (cleared on tab close and never
@@ -321,8 +313,8 @@ function ChipOption({
 
 function canContinuePage(page: PageConfig, answers: IntakeAnswers): boolean {
   return page.fields.every((field) => {
-    if (field.type === "slider" || field.type === "toggle") return true;
-    if (field.type === "multi-chips") return answers.solutionTypes.length > 0;
+    if (field.type === "slider") return true;
+    if (field.type === "multi-chips") return (answers[field.id] as string[]).length > 0;
     if (field.type === "text") {
       if (field.optional) return true;
       return (answers[field.id] as string).trim().length > 1;
@@ -376,14 +368,16 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
     setAnswers((prev) => ({ ...prev, [id]: value }));
   }
 
-  function toggleSolutionType(option: string) {
+  // Shared by every multi-select field (solutionTypes, company) — generic
+  // over the field id rather than one hardcoded array, since Fase 5 added
+  // a second multi-chips field alongside the original solutionTypes one.
+  function toggleMultiChip(fieldId: StepId, option: string) {
     setAnswers((prev) => {
-      const has = prev.solutionTypes.includes(option);
+      const current = prev[fieldId] as string[];
+      const has = current.includes(option);
       return {
         ...prev,
-        solutionTypes: has
-          ? prev.solutionTypes.filter((o) => o !== option)
-          : [...prev.solutionTypes, option],
+        [fieldId]: has ? current.filter((o) => o !== option) : [...current, option],
       };
     });
   }
@@ -498,13 +492,13 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
               className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2"
             >
               {field.options.map((option) => {
-                const selected = answers.solutionTypes.includes(option.value);
+                const selected = (answers[field.id] as string[]).includes(option.value);
                 return (
                   <ChipOption
                     key={option.value}
                     label={option.label}
                     selected={selected}
-                    onClick={() => toggleSolutionType(option.value)}
+                    onClick={() => toggleMultiChip(field.id, option.value)}
                   />
                 );
               })}
@@ -526,36 +520,6 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
               onChange={(value) => setField(field.id, value)}
               placeholder={field.placeholder}
             />
-          </div>
-        );
-      }
-      case "toggle": {
-        const checked = answers[field.id] as boolean;
-        return (
-          <div key={field.id} className="flex items-center justify-between gap-4 rounded-lg border border-border bg-paper p-5">
-            <div>
-              <p className="font-medium text-ink">{field.label}</p>
-              {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
-            </div>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={checked}
-              onClick={() =>
-                setAnswers((prev) => ({ ...prev, [field.id]: !checked }))
-              }
-              className={cn(
-                "relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200",
-                checked ? "bg-accent" : "bg-ink/15"
-              )}
-            >
-              <span
-                className={cn(
-                  "absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200",
-                  checked ? "translate-x-6" : "translate-x-1"
-                )}
-              />
-            </button>
           </div>
         );
       }
