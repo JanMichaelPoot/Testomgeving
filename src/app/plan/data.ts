@@ -37,14 +37,40 @@ export class PlanNotReadyError extends Error {
 // as a hard failure.
 class ConcurrentGenerationError extends Error {}
 
+// Thrown by finishPlanGeneration when its own final "mark as ready" update
+// loses the same unique-index race, from the other side: this attempt did
+// all the (costly) work and only collides at the very last save step,
+// because a newer attempt for the same session already claimed the active
+// slot while this one was still running. Not a real failure — the newer
+// attempt's own background task already owns delivering the result (and
+// its own confirmation e-mail) — so this is handled as a quiet no-op by
+// its caller rather than logged/treated like finishPlanGeneration's other
+// error paths.
+class SupersededGenerationError extends Error {}
+
 // The Postgres/PostgREST error code for a unique-constraint violation —
 // see migration 0012_prevent_concurrent_plan_generation.sql.
 const UNIQUE_VIOLATION_CODE = "23505";
 
 // A "pending" row older than this is assumed to belong to a crashed/failed
-// attempt (e.g. the server process died mid-generation) rather than one
-// that's still genuinely in flight — regenerate instead of waiting forever.
-const PENDING_TIMEOUT_MS = 90_000;
+// attempt (e.g. the server process died mid-generation, or was killed by
+// the platform's own function timeout) rather than one that's still
+// genuinely in flight — regenerate instead of waiting forever.
+//
+// Deliberately set above src/app/plan/page.tsx's `maxDuration` (120s) —
+// real generations (Claude + web-search research pass + PDF render) have
+// been observed taking close to that ceiling themselves. A threshold at
+// or below the platform's own hard timeout meant a merely-slow-but-still-
+// running generation could get reclassified as "stale" by a concurrent
+// request while genuinely still in flight; when that original attempt
+// then finished and tried to save its own result, it collided with
+// whatever newer attempt had since claimed the session's active slot
+// (migration 0012's unique index) — see SupersededGenerationError below
+// for how that collision is now handled gracefully rather than logged as
+// an alarming failure. Setting this above the platform ceiling means a
+// row still "pending" past it can only belong to a task the platform has
+// already killed — it can no longer still be racing to finish.
+const PENDING_TIMEOUT_MS = 150_000;
 
 async function findExistingPlan(
   supabase: ServiceRoleClient,
@@ -284,12 +310,24 @@ async function finishPlanGeneration(
       .select("*")
       .single();
 
+    if (updateError?.code === UNIQUE_VIOLATION_CODE) {
+      throw new SupersededGenerationError();
+    }
+
     if (updateError || !updated) {
       throw new Error(updateError?.message ?? "Could not save the Idea Book.");
     }
 
     return { plan: updated, generated, pdfBytes };
   } catch (err) {
+    if (err instanceof SupersededGenerationError) {
+      // Deliberately don't touch this row's status here — a concurrent
+      // attempt already owns the session's active slot (and, most likely,
+      // already reclassified this very row as "failed" itself via
+      // resolveExistingPlan's stale-pending handling; overwriting it again
+      // adds nothing and risks racing that other write).
+      throw err;
+    }
     await supabase.from("window_plans").update({ status: "failed" }).eq("id", pendingRow.id);
     throw err;
   }
@@ -461,10 +499,20 @@ export async function getOrCreateWindowPlan(
         characterProfile: ctx.characterProfile,
       });
     } catch (err) {
-      // finishPlanGeneration already marks the row "failed" on its own
-      // error path — this is just so a background failure isn't silently
-      // swallowed without at least a server log.
-      console.error("Background Idea Book generation failed:", err);
+      if (err instanceof SupersededGenerationError) {
+        // Not a failure — a newer attempt for this session already won
+        // the race and owns delivering the result (see
+        // SupersededGenerationError's own comment). An info-level log is
+        // enough; this shouldn't read like something went wrong.
+        console.log(
+          "Idea Book generation superseded by a newer attempt for this session — discarding this result."
+        );
+      } else {
+        // finishPlanGeneration already marks the row "failed" on its own
+        // error path — this is just so a background failure isn't silently
+        // swallowed without at least a server log.
+        console.error("Background Idea Book generation failed:", err);
+      }
     }
   });
 
@@ -558,7 +606,13 @@ export async function getOrCreateTestWindowPlan(
         characterProfile: ctx.characterProfile,
       });
     } catch (err) {
-      console.error("Background test Idea Book generation failed:", err);
+      if (err instanceof SupersededGenerationError) {
+        console.log(
+          "Idea Book generation superseded by a newer attempt for this session — discarding this result."
+        );
+      } else {
+        console.error("Background test Idea Book generation failed:", err);
+      }
     }
   });
 

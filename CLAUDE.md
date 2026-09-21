@@ -1984,3 +1984,56 @@ Stripe, Claude API, Resend, PostHog).
       verwijderd. Ná de opschoning: 107 → 77 actieve rijen, 0 sessies met
       duplicaten, 0 verouderde pending-rijen. `tsc --noEmit`/`eslint .`/
       `npm run build`/`npx vitest run` (25 tests) allemaal schoon.
+
+- [x] Stap 40 — Een derde, subtielere variant van dezelfde racefamilie
+      gevonden en gefixt, gemeld via een live foutmelding in de
+      server-terminal: `duplicate key value violates unique constraint
+      "window_plans_session_active_unique"` — ditmaal geworpen door
+      `finishPlanGeneration`'s eigen "zet op ready"-update, niet door
+      `startPlanGeneration`'s insert (Stap 38-39 dekten alleen die kant).
+      **Oorzaak**: de 90s-`PENDING_TIMEOUT_MS` uit Stap 11 bleek te krap
+      t.o.v. de echte, gemeten generatieduur (Claude + web-search-
+      researchpas + PDF-render loopt regelmatig tegen de 90-120s aan).
+      Verloopt een generatie net iets te lang, dan bestempelt een
+      volgende `/plan`-aanvraag (een `GeneratingScreen`-poll of
+      handmatige herlaad) de rij als "verouderd/mislukt" en start een
+      nieuwe — maar de óórspronkelijke generatie loopt gewoon door, en
+      probeert bij voltooiing alsnog zijn eigen rij op `"ready"` te
+      zetten. Op dat moment bezet de nieuwe rij (nog `pending` of al
+      `ready`) alweer de unique-index-plek voor die sessie, dus knalt de
+      oorspronkelijke poging op exact dezelfde constraint als Stap 38-39
+      — nu vanaf de andere kant van dezelfde race. Rechtstreeks tegen de
+      database gecontroleerd: de gemelde sessie had hierdoor een
+      cascade van twee mislukte pogingen vóór een derde het uiteindelijk
+      wél redde (zelf-herstellend, maar met twee weggegooide, volledig
+      betaalde-tier Claude-aanroepen).
+      **Twee maatregelen, geen losse lapmiddelen**:
+      (1) `PENDING_TIMEOUT_MS` (`src/app/plan/data.ts`) omhoog van 90s
+      naar 150s — bewust ruim boven `plan/page.tsx`'s eigen
+      `maxDuration = 120`: een rij die nog `"pending"` is ná 150s kán
+      niet meer bij een echt nog lopende taak horen, want het platform
+      zou die taak allang hebben afgekapt op de 120s-grens. Dat maakt
+      "verouderd" weer een betrouwbare indicator voor "daadwerkelijk
+      dood", in plaats van een slordige gok die een gewoon-trage-maar-
+      levende generatie kan raken.
+      (2) Als vangnet voor de resterende, principieel nooit volledig uit
+      te sluiten rand van deze race: `finishPlanGeneration`'s eigen
+      "zet op ready"-update herkent nu specifiek diezelfde
+      unique-violation (`23505`) en gooit een nieuwe, onderscheiden
+      `SupersededGenerationError` in plaats van de generieke foutmelding
+      — deze rij niet nogmaals op `"failed"` overschrijven (een andere,
+      recentere poging bezit die rij inmiddels al, mogelijk via zijn
+      eigen schrijfactie) en geen alarmerende `console.error`, maar een
+      rustige `console.log` ("superseded door een nieuwere poging"). Dit
+      voorkomt niet alleen verwarrende logs maar ook een dubbele
+      bevestigingsmail: de "verliezende" poging stuurt nu helemaal geen
+      e-mail meer, de "winnende" poging (die de sessie daadwerkelijk
+      succesvol afrondt) doet dat al.
+      Getest: de exacte gemelde sessie rechtstreeks tegen de database
+      gecontroleerd — bevestigd dat de derde poging alsnog `"ready"` was
+      geworden (zelf-herstellend gedrag, dus geen acute gebruikersimpact,
+      maar wel de bevestiging dat de race echt plaatsvond). Daarna een
+      volledig verse testgeneratie gedraaid met de fix actief: ~100
+      seconden, geen enkele collision-fout in de serverlogs, in één keer
+      een compleet Idea Book. `tsc --noEmit`/`eslint .`/`npm run build`/
+      `npx vitest run` (25 tests) allemaal schoon.
