@@ -65,22 +65,31 @@ async function findExistingPlan(
 // session: a "ready" row is returned as-is, a fresh "pending" row means a
 // generation is already in flight (surfaced as a friendly wait-and-refresh
 // message instead of starting a second, fully redundant Claude call + PDF
-// render + upload), a stale "pending" row is treated as nothing — safe to
-// regenerate — and a "failed" row is surfaced as a terminal "failed" state
-// rather than silently regenerated. That last case used to fall through to
-// "safe to regenerate" too, which meant a hard, persistent failure (e.g.
-// the Anthropic account running out of credits) triggered a brand new,
-// fully redundant generation attempt on every GeneratingScreen poll,
-// forever, with no visible error — see retryPlanGeneration in actions.ts
-// for the explicit, user-triggered way to actually retry now.
-function resolveExistingPlan(
+// render + upload), a stale "pending" row is reclassified as "failed" and
+// treated as nothing — safe to regenerate — and an already-"failed" row is
+// surfaced as a terminal "failed" state rather than silently regenerated.
+// That last case used to fall through to "safe to regenerate" too, which
+// meant a hard, persistent failure (e.g. the Anthropic account running out
+// of credits) triggered a brand new, fully redundant generation attempt on
+// every GeneratingScreen poll, forever, with no visible error — see
+// retryPlanGeneration in actions.ts for the explicit, user-triggered way to
+// actually retry now.
+//
+// The stale-pending reclassification is itself required for migration
+// 0012's partial unique index (one active row per session) to work at
+// all: without it, a stale pending row would sit there as "pending"
+// forever, and a fresh insert for that same session would keep losing the
+// unique-index race to a row nothing is actually working on anymore.
+async function resolveExistingPlan(
+  supabase: ServiceRoleClient,
   existing: WindowPlanRow | null
-): WindowPlanRow | "generating" | "failed" | null {
+): Promise<WindowPlanRow | "generating" | "failed" | null> {
   if (!existing) return null;
   if (existing.status === "ready") return existing;
   if (existing.status === "pending") {
     const age = Date.now() - new Date(existing.created_at).getTime();
     if (age < PENDING_TIMEOUT_MS) return "generating";
+    await supabase.from("window_plans").update({ status: "failed" }).eq("id", existing.id);
     return null;
   }
   if (existing.status === "failed") return "failed";
@@ -99,7 +108,7 @@ async function resolveAfterConcurrentInsert(
   supabase: ServiceRoleClient,
   sessionId: string
 ): Promise<WindowPlanRow | "generating"> {
-  const resolved = resolveExistingPlan(await findExistingPlan(supabase, sessionId));
+  const resolved = await resolveExistingPlan(supabase, await findExistingPlan(supabase, sessionId));
   return resolved && resolved !== "failed" ? resolved : "generating";
 }
 
@@ -322,7 +331,7 @@ export async function getOrCreateWindowPlan(
     .eq("stripe_payment_id", checkoutSessionId)
     .maybeSingle();
 
-  const existingPlan = resolveExistingPlan(await findExistingPlan(supabase, sessionId));
+  const existingPlan = await resolveExistingPlan(supabase, await findExistingPlan(supabase, sessionId));
   if (existingPlan === "generating") {
     throw new PlanNotReadyError(
       "We're still putting your Idea Book together — refresh in a moment.",
@@ -471,7 +480,7 @@ export async function getOrCreateTestWindowPlan(
 ): Promise<WindowPlanRow> {
   const supabase = createServiceRoleClient();
 
-  const existingPlan = resolveExistingPlan(await findExistingPlan(supabase, sessionId));
+  const existingPlan = await resolveExistingPlan(supabase, await findExistingPlan(supabase, sessionId));
   if (existingPlan === "generating") {
     throw new PlanNotReadyError(
       "We're still putting your Idea Book together — refresh in a moment.",

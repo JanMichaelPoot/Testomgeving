@@ -1940,3 +1940,47 @@ Stripe, Claude API, Resend, PostHog).
       SQL Editor — tot die tijd blijft de onderliggende race
       technisch mogelijk (de code-kant van de fix vangt 'm pas op zodra
       de database daadwerkelijk een unique-violation teruggeeft).
+
+- [x] Stap 39 — Migratie 0012 daadwerkelijk uitgevoerd en de hele fix
+      end-to-end geverifieerd, plus een tweede, verwant probleem gevonden
+      en gefixt dat de eerste poging tot uitvoeren blokkeerde.
+      **Eerste poging faalde, terecht**: `create unique index` gaf
+      `ERROR: 23505: could not create unique index ... Key (session_id)=
+      (...) is duplicated` — de tabel bevatte al dubbele actieve rijen (de
+      race die de index juist moet voorkomen, had al meermaals
+      toegeslagen vóór de fix). Rechtstreeks tegen de database opgezocht:
+      9 sessies met dubbele `"ready"`-rijen (één sessie zelfs met 13
+      losse volledige generaties), en al die rijen bleken `payment_id =
+      null` te hebben — dus uitsluitend test-bypass-data, geen echte
+      betaalde bestelling ooit geraakt. Migratie 0012 uitgebreid met een
+      opschoonstap vooraf: per sessie de meest recente actieve rij
+      behouden, de rest naar `"failed"` (nooit verwijderd, voor het
+      audit-spoor).
+      **Tweede, apart probleem gevonden tijdens die opschoning**: één
+      verouderde `"pending"`-rij (van een gecrashte/afgebroken poging)
+      stond nog steeds als `"pending"` geregistreerd — onder de nieuwe
+      index zou zo'n rij voor altijd élke nieuwe poging voor die sessie
+      blokkeren, want `resolveExistingPlan` behandelde een verouderde
+      pending-rij weliswaar als "veilig om opnieuw te genereren", maar
+      liet de rij zelf ongemoeid op status `"pending"` staan. Opgelost:
+      `resolveExistingPlan` (`src/app/plan/data.ts`) is nu async en zet
+      zo'n verouderde rij expliciet op `"failed"` zodra hij 'm als
+      "stale" herkent, zodat die zijn plek in de partial unique index
+      daadwerkelijk vrijgeeft. Dezelfde opruimlogica (rn > 1 OF een
+      verouderde pending-rij) is ook in migratie 0012 zelf verwerkt, voor
+      de al bestaande rij.
+      **Live, functioneel geverifieerd — geen aanname**: rechtstreeks via
+      de Supabase REST API (niet alleen "de migratie gaf geen foutmelding
+      terug") een echte duplicate-insert-test gedraaid: een eerste
+      `window_plans`-insert voor een verse testsessie lukte, een tweede
+      insert met dezelfde `session_id` en status `"ready"`/`"pending"`
+      faalde daadwerkelijk met `duplicate key value violates unique
+      constraint "window_plans_session_active_unique"` — exact de fout
+      die `ConcurrentGenerationError` in de code opvangt. Een derde
+      insert met status `"failed"` voor diezelfde sessie lukte wél,
+      wat bevestigt dat een mislukte rij terecht buiten de index valt
+      (nodig voor `retryPlanGeneration`). Testrijen (zowel in
+      `window_plans` als de bijbehorende `sessions`-rij) daarna weer
+      verwijderd. Ná de opschoning: 107 → 77 actieve rijen, 0 sessies met
+      duplicaten, 0 verouderde pending-rijen. `tsc --noEmit`/`eslint .`/
+      `npm run build`/`npx vitest run` (25 tests) allemaal schoon.
