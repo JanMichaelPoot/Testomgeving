@@ -30,6 +30,17 @@ export class PlanNotReadyError extends Error {
   }
 }
 
+// Thrown by startPlanGeneration when its own "pending" insert loses a race
+// to a concurrent request for the same session (caught via the unique
+// constraint from migration 0012) — signals the caller to re-resolve
+// against whatever that other request produced instead of treating this
+// as a hard failure.
+class ConcurrentGenerationError extends Error {}
+
+// The Postgres/PostgREST error code for a unique-constraint violation —
+// see migration 0012_prevent_concurrent_plan_generation.sql.
+const UNIQUE_VIOLATION_CODE = "23505";
+
 // A "pending" row older than this is assumed to belong to a crashed/failed
 // attempt (e.g. the server process died mid-generation) rather than one
 // that's still genuinely in flight — regenerate instead of waiting forever.
@@ -74,6 +85,22 @@ function resolveExistingPlan(
   }
   if (existing.status === "failed") return "failed";
   return null;
+}
+
+// Called when startPlanGeneration's own "pending" insert lost the unique-
+// index race to a concurrent request for the same session (see migration
+// 0012 and ConcurrentGenerationError) — re-resolves against whatever that
+// other request produced instead of treating the race itself as a hard
+// failure. A ready plan from the other request is returned as-is;
+// anything else (including a "failed" row — that other request's own
+// problem, not this one's to surface as terminal) just becomes the
+// familiar "still generating, refresh in a moment" wait state.
+async function resolveAfterConcurrentInsert(
+  supabase: ServiceRoleClient,
+  sessionId: string
+): Promise<WindowPlanRow | "generating"> {
+  const resolved = resolveExistingPlan(await findExistingPlan(supabase, sessionId));
+  return resolved && resolved !== "failed" ? resolved : "generating";
 }
 
 // Shared by generateAndSavePlan and getCharacterProfileForSession (Fase 4)
@@ -184,6 +211,10 @@ async function startPlanGeneration(
     })
     .select("*")
     .single();
+
+  if (pendingError?.code === UNIQUE_VIOLATION_CODE) {
+    throw new ConcurrentGenerationError();
+  }
 
   if (pendingError || !pendingRow) {
     throw new Error(pendingError?.message ?? "Could not start generating the Idea Book.");
@@ -314,7 +345,22 @@ export async function getOrCreateWindowPlan(
   // and the page has already responded with GeneratingScreen. See
   // startPlanGeneration/finishPlanGeneration's own comments for why this
   // can't just be awaited inline.
-  const ctx = await startPlanGeneration(supabase, sessionId, paymentRow?.id ?? null);
+  let ctx;
+  try {
+    ctx = await startPlanGeneration(supabase, sessionId, paymentRow?.id ?? null);
+  } catch (err) {
+    if (err instanceof ConcurrentGenerationError) {
+      const resolved = await resolveAfterConcurrentInsert(supabase, sessionId);
+      if (resolved === "generating") {
+        throw new PlanNotReadyError(
+          "We're still putting your Idea Book together — refresh in a moment.",
+          "generating"
+        );
+      }
+      return resolved;
+    }
+    throw err;
+  }
 
   after(async () => {
     try {
@@ -440,7 +486,22 @@ export async function getOrCreateTestWindowPlan(
   }
   if (existingPlan) return existingPlan;
 
-  const ctx = await startPlanGeneration(supabase, sessionId, null);
+  let ctx;
+  try {
+    ctx = await startPlanGeneration(supabase, sessionId, null);
+  } catch (err) {
+    if (err instanceof ConcurrentGenerationError) {
+      const resolved = await resolveAfterConcurrentInsert(supabase, sessionId);
+      if (resolved === "generating") {
+        throw new PlanNotReadyError(
+          "We're still putting your Idea Book together — refresh in a moment.",
+          "generating"
+        );
+      }
+      return resolved;
+    }
+    throw err;
+  }
 
   after(async () => {
     let emailDelivered = false;

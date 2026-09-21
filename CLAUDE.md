@@ -1892,3 +1892,51 @@ Stripe, Claude API, Resend, PostHog).
       duidelijke fout → expliciete herpoging → succes). `tsc --noEmit`/
       `eslint .`/`npm run build`/`npx vitest run` (25 tests) allemaal
       schoon.
+
+- [x] Stap 38 — Een echte race condition gevonden en gefixt terwijl een
+      gemelde "mislukt"-screenshot werd onderzocht. De screenshot zelf
+      bleek een verouderde, niet-ververste browsertab te zijn (bevestigd
+      door de exacte pagina opnieuw te laden: toonde meteen het al
+      geslaagde boek) — maar de rechtstreekse databasecontrole die daarbij
+      hoorde (per de vaste projectgewoonte "bij een fout die blijft
+      terugkomen, rechtstreeks tegen de database verifiëren", zie Stap 12)
+      legde een echt, kostenverhogend probleem bloot: dezelfde
+      test-sessie had **drie losse `"ready"`-rijen** in `window_plans` —
+      drie volledige, betaalde-tier Claude+PDF-generaties voor wat één
+      aankoop had moeten zijn.
+      **Oorzaak**: `getOrCreateWindowPlan`/`getOrCreateTestWindowPlan`
+      deden hun "bestaat er al een plan?"-check en de daaropvolgende
+      "pending"-insert niet atomair — twee gelijktijdige `/plan`-aanvragen
+      voor dezelfde sessie (twee open tabbladen, of een handmatige
+      herlaad die net samenviel met `GeneratingScreen`'s eigen 5s-poll)
+      konden allebei onafhankelijk "nog geen plan" concluderen en allebei
+      hun eigen volledige generatie starten.
+      **Oplossing**: nieuwe migratie
+      `0012_prevent_concurrent_plan_generation.sql` (**nog handmatig uit
+      te voeren in de Supabase SQL Editor**, zoals eerdere migraties) voegt
+      een partial unique index toe op `window_plans(session_id)` waar
+      `status in ('pending','ready')` — een tweede gelijktijdige insert
+      voor dezelfde sessie faalt daardoor nu met een unique-violation
+      i.p.v. stil te slagen. `src/app/plan/data.ts` vangt die specifieke
+      fout (`ConcurrentGenerationError`, Postgres-foutcode `23505`) op in
+      een nieuwe `resolveAfterConcurrentInsert()`-helper: de "verliezende"
+      aanvraag stopt niet met een harde fout, maar herleest gewoon wat de
+      andere aanvraag inmiddels heeft opgeleverd (een `ready`-rij wordt
+      direct teruggegeven, anders de vertrouwde "nog bezig"-wachtstatus).
+      **Ook opgeruimd**: `resolveAfterConcurrentInsert` behandelt een
+      inmiddels-`"failed"`-rij van de andere aanvraag bewust niet als
+      terminaal voor déze aanvraag (dat zou een verkeerde toeschrijving
+      zijn) — gewoon als "nog bezig", zodat een volgende poll vanzelf de
+      echte staat oppikt.
+      Getest: de exacte sessie uit de melding rechtstreeks tegen de
+      database gecontroleerd (drie `ready`-rijen bevestigd, met
+      `created_at`/`generated_at` die de overlappende generaties duidelijk
+      laten zien) en de betrokken browsertab opnieuw geladen (toont nu
+      correct het geslaagde boek, geen "mislukt"-melding meer — bevestigt
+      dat het gemelde probleem zelf een verouderde tab was, niet een
+      lopende fout). `tsc --noEmit`/`eslint .`/`npm run build`/
+      `npx vitest run` (25 tests) allemaal schoon. Nog te doen door de
+      gebruiker: migratie 0012 handmatig uitvoeren in de Supabase
+      SQL Editor — tot die tijd blijft de onderliggende race
+      technisch mogelijk (de code-kant van de fix vangt 'm pas op zodra
+      de database daadwerkelijk een unique-violation teruggeeft).
