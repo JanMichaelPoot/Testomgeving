@@ -245,16 +245,35 @@ Company: ${intake.company.join(", ") || "not stated"}`;
 // rather than failing the whole paid generation over a research outage.
 async function researchGroundedOptions(intake: IntakeAnswers, locale: Locale): Promise<string> {
   const language = languageLabel(locale);
+  const startedAt = Date.now();
   try {
     const message = await anthropic.messages.create({
       model: CLAUDE_MODEL,
       max_tokens: 4000,
-      system: `You are a meticulous local-options researcher for WINDOW, a
+      // effort: "medium" — this pass is search-and-note-taking, not creative
+      // writing, so it doesn't need the default "high" reasoning depth; cuts
+      // token spend on what was measured to be the single most expensive
+      // step of a generation (~74% of the Claude cost per Idea Book).
+      output_config: { effort: "medium" },
+      // cache_control on the static system prompt: web_search is a
+      // server-side tool, so a single call here can internally run several
+      // search round-trips (each round-trip's growing context re-includes
+      // this same system prompt) — without a cache breakpoint every one of
+      // those re-inclusions is billed at full input price instead of the
+      // ~90%-cheaper cache-hit rate. Free win: same output, lower cost, no
+      // behavior change.
+      system: [
+        {
+          type: "text",
+          text: `You are a meticulous local-options researcher for WINDOW, a
 possibility-discovery app. Your only job here is to use web search to find
 REAL, CURRENTLY OPERATING businesses, venues, routes, events, or platforms
 that concretely match the profile below — always verify with a search,
 never rely on memory or a plausible-sounding guess. Write your findings in
 ${language} as a compact, scannable research brief, not prose.`,
+          cache_control: { type: "ephemeral" },
+        },
+      ],
       messages: [
         {
           role: "user",
@@ -276,7 +295,10 @@ explicitly rather than inventing a name.`,
         {
           type: "web_search_20250305",
           name: "web_search",
-          max_uses: 8,
+          // Lowered from 8 to 4 — this run's own typical usage was 4, so
+          // this caps the worst case (a very open-ended profile triggering
+          // many searches) without changing the common case.
+          max_uses: 4,
           user_location: {
             type: "approximate",
             city: intake.location || null,
@@ -286,13 +308,21 @@ explicitly rather than inventing a name.`,
       ],
     });
 
+    const searchCalls = message.content.filter(
+      (block) => block.type === "server_tool_use" && block.name === "web_search"
+    ).length;
+    console.log(
+      `WINDOW: research pass took ${Date.now() - startedAt}ms, ${searchCalls} web searches, ` +
+        `usage=${JSON.stringify(message.usage)}`
+    );
+
     return message.content
       .filter((block): block is Anthropic.TextBlock => block.type === "text")
       .map((block) => block.text)
       .join("\n");
   } catch (err) {
     console.error(
-      "WINDOW: grounded-options web search failed, continuing without it",
+      `WINDOW: grounded-options web search failed after ${Date.now() - startedAt}ms, continuing without it`,
       err
     );
     return "";
@@ -431,6 +461,7 @@ first_action generic (well-known, certainly-real platform types and search
 strategies) rather than inventing a specific unverified business, venue,
 or address.`;
 
+  const generationStartedAt = Date.now();
   const message = await anthropic.messages.create({
     model: CLAUDE_MODEL,
     max_tokens: 12000,
@@ -480,6 +511,9 @@ quota); the wildcard's door is always "wildcard".`,
     ],
     tool_choice: { type: "tool", name: "create_idea_book" },
   });
+  console.log(
+    `WINDOW: main generation call took ${Date.now() - generationStartedAt}ms, usage=${JSON.stringify(message.usage)}`
+  );
 
   const raw = extractToolInput<GeneratedIdeaBook>(message, "create_idea_book");
   return normalizeIdeaBook(raw);

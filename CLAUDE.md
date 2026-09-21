@@ -2037,3 +2037,52 @@ Stripe, Claude API, Resend, PostHog).
       seconden, geen enkele collision-fout in de serverlogs, in één keer
       een compleet Idea Book. `tsc --noEmit`/`eslint .`/`npm run build`/
       `npx vitest run` (25 tests) allemaal schoon.
+
+- [x] Stap 41 — Generatietijd en Claude-kosten inzichtelijk gemaakt en
+      verlaagd, op verzoek ("de pdf generatie duurt veel te lang" + "niet
+      teveel credits gebruiken").
+      **Meten vóór aanpassen**: permanente timing-/usage-logging toegevoegd
+      aan elke stap van de pijplijn (`WINDOW: ...`-regels in
+      `src/lib/claude/generateIdeaBook.ts` en `src/app/plan/data.ts`:
+      research-pas, hoofdgeneratie, PDF-render, storage-upload — elk met
+      tijdsduur en, voor de Claude-aanroepen, de volledige
+      `usage`-JSON van de API). Een echte testgeneratie gedraaid om
+      werkelijke cijfers te hebben i.p.v. te schatten: 109s totaal, waarvan
+      research-pas 45.2s (41%) en hoofdgeneratie 47.0s (43%) — samen 92.1s
+      Claude-tijd — plus PDF-render 1.8s en storage-upload 15.2s. Kosten
+      berekend met actuele Sonnet 5-prijzen ($2/$10 per MTok in/uit,
+      $0,01 per websearch): research-pas $0,174 (74% van de Claude-kosten,
+      grotendeels door 46.847 input-tokens — elke zoekopdracht binnen die
+      pas herverwerkte de hele groeiende context tegen vol tarief, want er
+      werd nergens `cache_control` gezet), hoofdgeneratie $0,061 — totaal
+      ~$0,235 (~€0,22) per Idea Book, ~6-7% van de verkoopprijs van €3,50.
+      **Drie maatregelen gekozen (via een keuzevraag) uit een geïdentificeerde
+      lijst — het volledig laten vervallen van de research-pas (grootste
+      hefboom, ~74% van de kosten) is bewust NIET gekozen, want dat zou de
+      Stap 34-verbetering (échte, geverifieerde bedrijfsnamen) terugdraaien**:
+      (1) **Prompt caching aan** op de research-pas: het systeemprompt-blok
+      kreeg `cache_control: {type: "ephemeral"}` (system omgezet van platte
+      string naar een array met dat blok) — web_search is een server-side
+      tool, dus één aanroep kan intern meerdere zoek-rondes bevatten, en
+      zonder cache-breakpoint werd bij elke ronde de hele groeiende context
+      opnieuw tegen vol tarief verwerkt. (2) **Effort omlaag**:
+      `output_config: {effort: "medium"}` toegevoegd (was impliciet "high",
+      Sonnet 5's standaard) — zoeken-en-noteren heeft niet dezelfde
+      redeneerdiepte nodig als creatief schrijfwerk. (3) **Max.
+      zoekopdrachten omlaag**: `max_uses` van 8 naar 4 (de eerste meting
+      gebruikte er zelf al maar 4) — zet een plafond op de kostbaarste
+      variabele zonder het gangbare geval te raken.
+      Getest: een tweede, verse testgeneratie gedraaid met alle drie de
+      maatregelen actief en de resultaten rechtstreeks vergeleken met de
+      eerste meting (niet aangenomen dat het zou helpen): research-pas
+      45.2s → 25.2s (-44%), totale Claude-tijd 92.1s → 70.7s (-23%), totale
+      wachttijd 109.1s → 79.7s (-27%), kosten €0,22 → €0,13 per Idea Book
+      (-39%) — de cache-velden in de API-respons bevestigen dat caching
+      daadwerkelijk actief is (`cache_creation_input_tokens`/
+      `cache_read_input_tokens` niet langer 0). De gegenereerde inhoud
+      bleef ongewijzigd van kwaliteit: nog steeds 6 concrete ideeën +
+      wildcard met geverifieerde locaties. De timing-/kostenlogging is
+      bewust blijven staan (niet weer verwijderd na het meten) zodat
+      toekomstige generaties op dezelfde manier gevolgd kunnen worden.
+      `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest run`
+      (25 tests) allemaal schoon.

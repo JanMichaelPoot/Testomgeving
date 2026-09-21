@@ -273,16 +273,24 @@ async function finishPlanGeneration(
   const { pendingRow, profile, characterProfile, locale, bookTitle } = ctx;
 
   try {
+    const generateStartedAt = Date.now();
     const generated = await generateIdeaBook(profile, locale, characterProfile);
+    console.log(`WINDOW: generateIdeaBook (Claude, total) took ${Date.now() - generateStartedAt}ms`);
+
+    const pdfStartedAt = Date.now();
     const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale);
+    console.log(`WINDOW: renderIdeaBookPdf took ${Date.now() - pdfStartedAt}ms`);
+
     const pdfPath = `${pendingRow.session_id}/idea-book.pdf`;
 
+    const uploadStartedAt = Date.now();
     const { error: uploadError } = await supabase.storage
       .from("window-plans")
       .upload(pdfPath, Buffer.from(pdfBytes), {
         contentType: "application/pdf",
         upsert: true,
       });
+    console.log(`WINDOW: storage upload took ${Date.now() - uploadStartedAt}ms`);
 
     // Compliance/security fix (Fase 3, PDF-downloadbeveiliging): the
     // `window-plans` bucket is private as of 0011_private_pdf_storage.sql,
