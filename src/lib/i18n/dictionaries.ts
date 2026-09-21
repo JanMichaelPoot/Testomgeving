@@ -132,6 +132,12 @@ export interface Dictionary {
     // needs to know their money was received and nothing needs to be paid
     // again, which errorGeneric's wording doesn't convey.
     errorPdfGenerationFailed: string;
+    // Shown when a generation attempt has actually failed (e.g. the
+    // Anthropic account ran out of credits) — a terminal state with an
+    // explicit retry button, rather than the old behavior of silently
+    // starting a brand new generation on every GeneratingScreen poll.
+    errorFailed: string;
+    retryButton: string;
     errorFallback: string;
     generating: {
       heading: string;
@@ -535,6 +541,9 @@ const nl: Dictionary = {
     errorGeneric: "Er ging iets mis bij het samenstellen van je Idea Book.",
     errorPdfGenerationFailed:
       "Je betaling is ontvangen, maar je PDF kon nog niet worden gegenereerd. We werken dit automatisch af en sturen je een bericht zodra je PDF beschikbaar is.",
+    errorFailed:
+      "Het samenstellen van je Idea Book is niet gelukt. Als je al betaald hebt, is je betaling veilig — probeer het hieronder opnieuw.",
+    retryButton: "Probeer opnieuw",
     errorFallback: "Er ging iets mis.",
     generating: {
       heading: "Je Idea Book wordt samengesteld…",
@@ -1102,6 +1111,9 @@ const en: Dictionary = {
     errorGeneric: "Something went wrong while putting your Idea Book together.",
     errorPdfGenerationFailed:
       "Your payment has been received, but your PDF could not be generated yet. We're automatically retrying and will let you know as soon as your PDF is available.",
+    errorFailed:
+      "Putting your Idea Book together didn't work out. If you already paid, your payment is safe — try again below.",
+    retryButton: "Try again",
     errorFallback: "Something went wrong.",
     generating: {
       heading: "Putting your Idea Book together…",

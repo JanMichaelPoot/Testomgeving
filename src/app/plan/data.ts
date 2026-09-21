@@ -25,7 +25,7 @@ type WindowPlanRow = Database["public"]["Tables"]["window_plans"]["Row"];
 type ServiceRoleClient = ReturnType<typeof createServiceRoleClient>;
 
 export class PlanNotReadyError extends Error {
-  constructor(message: string, public reason: "unpaid" | "generating") {
+  constructor(message: string, public reason: "unpaid" | "generating" | "failed") {
     super(message);
   }
 }
@@ -54,15 +54,25 @@ async function findExistingPlan(
 // session: a "ready" row is returned as-is, a fresh "pending" row means a
 // generation is already in flight (surfaced as a friendly wait-and-refresh
 // message instead of starting a second, fully redundant Claude call + PDF
-// render + upload), and a stale "pending" or a "failed" row is treated as
-// nothing — safe to regenerate.
-function resolveExistingPlan(existing: WindowPlanRow | null): WindowPlanRow | "generating" | null {
+// render + upload), a stale "pending" row is treated as nothing — safe to
+// regenerate — and a "failed" row is surfaced as a terminal "failed" state
+// rather than silently regenerated. That last case used to fall through to
+// "safe to regenerate" too, which meant a hard, persistent failure (e.g.
+// the Anthropic account running out of credits) triggered a brand new,
+// fully redundant generation attempt on every GeneratingScreen poll,
+// forever, with no visible error — see retryPlanGeneration in actions.ts
+// for the explicit, user-triggered way to actually retry now.
+function resolveExistingPlan(
+  existing: WindowPlanRow | null
+): WindowPlanRow | "generating" | "failed" | null {
   if (!existing) return null;
   if (existing.status === "ready") return existing;
   if (existing.status === "pending") {
     const age = Date.now() - new Date(existing.created_at).getTime();
     if (age < PENDING_TIMEOUT_MS) return "generating";
+    return null;
   }
+  if (existing.status === "failed") return "failed";
   return null;
 }
 
@@ -288,6 +298,12 @@ export async function getOrCreateWindowPlan(
       "generating"
     );
   }
+  if (existingPlan === "failed") {
+    throw new PlanNotReadyError(
+      "Something went wrong while creating your Idea Book. Your payment is safe — try again below.",
+      "failed"
+    );
+  }
   if (existingPlan) return existingPlan;
 
   // The "pending" insert is fast and awaited here, so a concurrent request
@@ -414,6 +430,12 @@ export async function getOrCreateTestWindowPlan(
     throw new PlanNotReadyError(
       "We're still putting your Idea Book together — refresh in a moment.",
       "generating"
+    );
+  }
+  if (existingPlan === "failed") {
+    throw new PlanNotReadyError(
+      "Something went wrong while creating your Idea Book. Try again below.",
+      "failed"
     );
   }
   if (existingPlan) return existingPlan;

@@ -1,9 +1,50 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
+import { getStripe } from "@/lib/stripe";
 
 export type IdeaFeedbackValue = "up" | "down";
+
+// The explicit, user-triggered way to retry after a hard generation
+// failure (e.g. the Anthropic account running out of credits) — see
+// resolveExistingPlan's "failed" handling in data.ts. Previously a
+// "failed" row was silently treated as "safe to regenerate" on every
+// GeneratingScreen poll, which meant a persistent failure just kept
+// retrying forever with no visible error. Now /plan surfaces a clear
+// error with a "try again" button that posts here.
+//
+// Only deletes a row that is still "failed" at the moment of deletion (not
+// just "the failed row this page saw"), so a concurrent successful
+// generation can never be wiped out by a stale retry click.
+export async function retryPlanGeneration(formData: FormData) {
+  const checkoutSessionId = formData.get("checkout_session_id");
+  const testSessionId = formData.get("test_session_id");
+
+  const supabase = createServiceRoleClient();
+  let sessionId: string | null = null;
+
+  if (typeof testSessionId === "string" && testSessionId) {
+    sessionId = testSessionId;
+  } else if (typeof checkoutSessionId === "string" && checkoutSessionId) {
+    const checkoutSession = await getStripe().checkout.sessions.retrieve(checkoutSessionId);
+    sessionId = checkoutSession.metadata?.session_id ?? null;
+  }
+
+  if (sessionId) {
+    await supabase.from("window_plans").delete().eq("session_id", sessionId).eq("status", "failed");
+  }
+
+  const params = new URLSearchParams();
+  if (typeof checkoutSessionId === "string" && checkoutSessionId) {
+    params.set("checkout_session_id", checkoutSessionId);
+  }
+  if (typeof testSessionId === "string" && testSessionId) {
+    params.set("test_session_id", testSessionId);
+  }
+  redirect(`/plan${params.size > 0 ? `?${params}` : ""}`);
+}
 
 // Fase 6 (Interaction & Retention) — a lightweight thumbs-style reaction per
 // idea, surfaced only on /plan (the buyer's own page; never on the public

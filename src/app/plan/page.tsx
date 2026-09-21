@@ -8,6 +8,7 @@ import {
   getSignedPdfUrl,
   PlanNotReadyError,
 } from "@/app/plan/data";
+import { retryPlanGeneration } from "@/app/plan/actions";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getLocale, type Locale } from "@/lib/language";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
@@ -47,6 +48,45 @@ function ErrorState({
         >
           {dict.refreshLink}
         </a>
+      </div>
+    </main>
+  );
+}
+
+// Distinct from ErrorState: a genuinely failed generation (e.g. the
+// Anthropic account ran out of credits) needs an explicit, user-triggered
+// retry — a plain "refresh" link would just hit the same terminal "failed"
+// row and show this exact same error again, which is correct (no more
+// silent infinite regeneration) but leaves the buyer with no way forward.
+// The form posts straight to retryPlanGeneration (a real server action,
+// works without client JS) which deletes the failed row and redirects
+// back here to start a genuinely fresh attempt.
+function FailedState({
+  dict,
+  checkoutSessionId,
+  testSessionId,
+}: {
+  dict: Dictionary["plan"];
+  checkoutSessionId: string | null;
+  testSessionId: string | null;
+}) {
+  return (
+    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-16 text-center">
+      <h1 className="font-serif text-3xl text-ink">{dict.errorHeading}</h1>
+      <div className="mt-6 w-full rounded-2xl border border-red-200 bg-red-50 px-6 py-8">
+        <p className="text-ink/70">{dict.errorFailed}</p>
+        <form action={retryPlanGeneration} className="mt-4">
+          {checkoutSessionId && (
+            <input type="hidden" name="checkout_session_id" value={checkoutSessionId} />
+          )}
+          {testSessionId && <input type="hidden" name="test_session_id" value={testSessionId} />}
+          <button
+            type="submit"
+            className="text-sm font-medium text-accent-dark underline"
+          >
+            {dict.retryButton}
+          </button>
+        </form>
       </div>
     </main>
   );
@@ -105,6 +145,18 @@ export default async function PlanPage(props: PageProps<"/plan">) {
             messages={dict.plan.generating.messages}
             autoRefreshNote={dict.plan.generating.autoRefreshNote}
           />
+        );
+      }
+      if (err.reason === "failed") {
+        return (
+          <div className="flex min-h-full flex-col">
+            <SiteHeader locale={locale} dict={dict.header} />
+            <FailedState
+              dict={dict.plan}
+              checkoutSessionId={checkoutSessionId}
+              testSessionId={testSessionId}
+            />
+          </div>
         );
       }
       errorMessage = err.message;

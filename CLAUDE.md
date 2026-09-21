@@ -1854,3 +1854,41 @@ Stripe, Claude API, Resend, PostHog).
       (geen toegang tot de pootjm@hotmail.com-inbox vanuit deze sessie) —
       de verzendcode volgt exact hetzelfde, al eerder geverifieerde
       Resend-pad als de echte aankoopbevestigingsmail.
+
+- [x] Stap 37 — Oneindige stille herpogingen na een harde generatiefout
+      gefixt, gemeld via een screenshot waarin het Anthropic-account zonder
+      credits kwam te zitten ("Your credit balance is too low..."). Niet de
+      credits zelf (een account-/billingkwestie, buiten de code om) maar de
+      manier waarop de app daarop reageerde was het probleem: een
+      `failed`-rij in `window_plans` werd door `resolveExistingPlan`
+      (`src/app/plan/data.ts`) behandeld als "veilig om opnieuw te
+      genereren" — waardoor elke automatische `GeneratingScreen`-refresh
+      (om de 5s) een gloednieuwe, gegarandeerd weer mislukkende generatie
+      startte, voor onbepaalde tijd, zonder ooit een zichtbare foutmelding.
+      `resolveExistingPlan` retourneert nu een expliciete `"failed"`-status
+      i.p.v. die stil als `null` te behandelen; `getOrCreateWindowPlan`/
+      `getOrCreateTestWindowPlan` gooien daarop een `PlanNotReadyError` met
+      reden `"failed"` (nieuwe derde waarde naast `"unpaid"`/`"generating"`).
+      `/plan` toont bij die reden nu een nieuwe `FailedState` (duidelijke
+      foutmelding + een echte "Probeer opnieuw"-knop) i.p.v. stil te blijven
+      doorproberen. Die knop post naar een nieuwe server action
+      `retryPlanGeneration` (`src/app/plan/actions.ts`, werkt ook zonder
+      client-JS) die alleen de rij verwijdert die op dat moment nog
+      daadwerkelijk `"failed"` is (niet zomaar "de rij die deze pagina
+      zag") en daarna terug redirect naar `/plan` — zodat een gelijktijdig
+      wél geslaagde generatie nooit per ongeluk weggegooid kan worden.
+      Nieuwe dictionary-teksten `plan.errorFailed`/`plan.retryButton`
+      (nl/en) — bewust niet de al aanwezige, ongebruikte
+      `errorPdfGenerationFailed`-tekst hergebruikt, want die belooft een
+      automatische herpoging-en-melding die niet bestaat (vermoedelijk voor
+      iets anders bedoeld in het andere, parallelle traject).
+      Getest: rechtstreeks op de daadwerkelijk vastgelopen sessie uit de
+      gemelde screenshot — eerst bevestigd dat `/plan` nu de duidelijke
+      `FailedState` toont in plaats van oneindig te blijven verversen, dan
+      op "Probeer opnieuw" geklikt. Op dat moment bleek het account alweer
+      van credits voorzien (buiten deze sessie om), dus die herpoging
+      leverde meteen een volledig, correct Idea Book op — een complete
+      end-to-end bevestiging van de hele reparatie-cyclus (vastlopen →
+      duidelijke fout → expliciete herpoging → succes). `tsc --noEmit`/
+      `eslint .`/`npm run build`/`npx vitest run` (25 tests) allemaal
+      schoon.
