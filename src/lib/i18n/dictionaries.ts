@@ -234,7 +234,7 @@ export interface Dictionary {
     locationFallback: string;
     requirementsFallback: string;
     mapLinkLabel: string;
-    footerWordmark: string;
+    footerTagline: string;
   };
   intake: {
     pageTitle: string;
@@ -647,7 +647,7 @@ const nl: Dictionary = {
     locationFallback: "Locatie",
     requirementsFallback: "Wat heeft u nodig",
     mapLinkLabel: "bekijk op kaart",
-    footerWordmark: "WINDOW  ·  Jouw Idea Book",
+    footerTagline: "Jouw Idea Book",
   },
   intake: {
     pageTitle: "Open een Venster — WINDOW",
@@ -1217,7 +1217,7 @@ const en: Dictionary = {
     locationFallback: "Location",
     requirementsFallback: "What you'll need",
     mapLinkLabel: "view on map",
-    footerWordmark: "WINDOW  ·  Your Idea Book",
+    footerTagline: "Your Idea Book",
   },
   intake: {
     pageTitle: "Open a Window — WINDOW",

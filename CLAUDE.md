@@ -2086,3 +2086,69 @@ Stripe, Claude API, Resend, PostHog).
       toekomstige generaties op dezelfde manier gevolgd kunnen worden.
       `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest run`
       (25 tests) allemaal schoon.
+
+- [x] Stap 42 — De idee-/wildcardpagina's van de Idea Book-PDF herbouwd naar
+      een extern aangeleverd designprofiel, "PossibilityPageA4" — een
+      Claude Design System-artifact
+      (https://claude.ai/artifact/RjoS7G6YeDZQJWRdn8RVyT) met een volledige
+      tokens.json (kleuren/typografie/spacing/radius), CSS en
+      referentievoorbeelden. Cover/profiel/possibility-map-pagina's zijn
+      bewust ongemoeid gelaten — dat designsysteem is zelf expliciet
+      geschaald op "één possibility-pagina", hetzelfde scopingpatroon als
+      Stap 33/36 al hanteerden.
+      **Drie bewuste afwijkingen van de spec, elk toegelicht in de code**:
+      (1) **Lettertypen**: de spec noemt Lora + Inter; hergebruikt in
+      plaats daarvan de al gebundelde Noto Serif/Sans (zelf-gehost,
+      al geverifieerd voor Nederlandse accenten sinds Stap 8) i.p.v. twee
+      nieuwe lettertypefamilies toe te voegen voor dezelfde
+      serif-kop/sans-body-combinatie; gewicht 600 (body-strong) valt terug
+      op Bold (700), gewicht 500 (caption) op Regular (400) — de twee
+      gewichten die dit project niet heeft. (2) **Geen buitenste
+      afgeronde kaart + rand**: de spec's eigen preview toont de hele
+      pagina als een afgeronde kaart met een dunne rand (bedoeld voor de
+      eigen browser-preview van het designsysteem) — weggelaten omdat dit
+      een écht printbare A4-pagina is en elke andere pagina in dit boek al
+      full-bleed is zonder kaart-op-achtergrond-effect. (3) **Geen
+      "Concrete opties"-paneel**: dat vraagt een losse naam +
+      beschrijvingszin die `IdeaBookEntry` niet meer heeft — Stap 36
+      verwijderde het meervoudige `options`-veld juist om generatiekosten
+      te besparen, en Stap 41 sneed daar nog verder in; het opnieuw
+      toevoegen zou daartegen ingaan, en het tonen vanuit `location` zou
+      gewoon de locatieregel eronder herhalen.
+      **Eenheidsomrekening**: elke pixelwaarde in de spec is 96dpi, PDF-
+      punten zijn 72dpi — dus elke maat in de implementatie is de
+      spec-pixelwaarde × 0,75 (geverifieerd: de spec's eigen 794px
+      paginabreedte × 0,75 = 595,5pt, nagenoeg exact de bestaande
+      PAGE_WIDTH van 595,28pt — bevestigt dat de omrekenfactor klopt).
+      **Iconen als vectoren, niet als tekstglyphs**: de pin (locatieregel)
+      en spark (naast "BEGIN HIER") zijn met de hand als eenvoudige
+      lijnvormen getekend i.p.v. Unicode-glyphs te gebruiken — dezelfde
+      aanpak die dit project al eerder nodig had voor ✦/★ (Stap 23/33).
+      Tijdens het testen bleek de spec's eigen "→"-pijl (na "bekijk op
+      kaart") ditzelfde probleem te hebben — het gebundelde NotoSans-
+      lettertype mist glyph U+2192, bevestigd met `fonttools`
+      (`0x2192 in cmap` → `False`) i.p.v. alleen op een screenshot te
+      vertrouwen. Opgelost met een kleine met de hand getekende
+      pijlvorm (twee lijnen als punt, i.p.v. de pijl gewoon weg te laten
+      zoals bij eerdere ontbrekende-glyph-bugs, omdat de klikaffordance
+      hier de moeite waard is om te behouden).
+      **Bewust weggevallen, expliciet gemeld**: het designprofiel kent
+      geen "Vereisten"-sectie — `idea.requirements`-data (bv. "oude
+      kleding meenemen") wordt hierdoor niet meer getoond op de nieuwe
+      pagina's, in ruil voor pagina-getrouwheid aan het aangeleverde
+      profiel i.p.v. het zelf uit te breiden met een sectie die de spec
+      niet vraagt.
+      Getest: eerst het voorbeeldscript (geen locatiedata) gerenderd en
+      pagina voor pagina gecontroleerd via de PyMuPDF-rasterizer — hero,
+      "waarom dit past"-paneel met accent-rand, genummerde stappen,
+      kosten-chip, donkere CTA-paneel met spark-icoon, wildcard-badge
+      — allemaal zichtbaar correct. Daarna een echte, betaalde
+      testgeneratie via de bestaande test-bypass (Rotterdam-profiel,
+      kunst+jazz) om de locatieregel met échte data te controleren — trof
+      daarbij de ontbrekende-pijl-bug in de praktijk aan (niet in de mock-
+      data zichtbaar, die had geen `location`) en loste 'm op. Een los,
+      niet-gecommit testscript met mock-locatiedata (verwijderd na
+      controle) bevestigde de fix zonder een tweede betaalde generatie
+      nodig te hebben. Nog steeds exact 10 pagina's. `tsc --noEmit`/
+      `eslint .`/`npm run build`/`npx vitest run` (25 tests) allemaal
+      schoon.
