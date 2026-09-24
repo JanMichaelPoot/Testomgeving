@@ -20,6 +20,7 @@ export function IdeaFeedback({
   upLabel,
   downLabel,
   thanksLabel,
+  onChange,
 }: {
   planId: string;
   ideaKey: string;
@@ -28,6 +29,10 @@ export function IdeaFeedback({
   upLabel: string;
   downLabel: string;
   thanksLabel: string;
+  // Lets a parent that also shows this reaction elsewhere (the heart on a
+  // door card, see PlanReveal.tsx) stay in sync. Also fired with the previous
+  // value when saving fails and the optimistic change is rolled back.
+  onChange?: (value: IdeaFeedbackValue | null) => void;
 }) {
   const [value, setValue] = useState<IdeaFeedbackValue | null>(initialValue);
   const [, startTransition] = useTransition();
@@ -38,12 +43,14 @@ export function IdeaFeedback({
     const resolved = value === next ? null : next;
     const previous = value;
     setValue(resolved);
+    onChange?.(resolved);
     trackEvent("idea_feedback_given", { planId, ideaKey, value: resolved });
     startTransition(async () => {
       try {
         await submitIdeaFeedback(planId, ideaKey, resolved);
       } catch {
         setValue(previous);
+        onChange?.(previous);
       }
     });
   }

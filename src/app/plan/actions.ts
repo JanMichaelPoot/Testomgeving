@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
+import { resolveIdeaByKey } from "@/lib/ideaKeys";
+import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 
 export type IdeaFeedbackValue = "up" | "down";
 
@@ -96,4 +98,50 @@ export async function submitIdeaFeedback(
   if (error) {
     throw new Error(error.message);
   }
+}
+
+// "Verleiding" Fase 2 — "Dit ga ik doen" on the /plan reveal page. Records
+// which idea the buyer intends to try, so the first-action reminder e-mail
+// (api/cron/first-action-reminder) nudges about that idea instead of always
+// the first one. Same ownership rule as submitIdeaFeedback: only the
+// session that generated the plan (session cookie <-> plan.session_id) may
+// write to it. Someone arriving via the emailed link without that cookie
+// gets { ok: false, reason: "forbidden" } — the UI hides the button for them
+// up front (see canInteract in plan/page.tsx), this is the server-side
+// backstop.
+//
+// Returns a result instead of throwing so the client can show a friendly
+// message rather than an error boundary.
+export type CommitResult = { ok: true } | { ok: false; reason: "forbidden" | "invalid" | "failed" };
+
+export async function commitToIdea(planId: string, ideaKey: string): Promise<CommitResult> {
+  const sessionId = await getSessionId();
+  if (!sessionId) return { ok: false, reason: "forbidden" };
+
+  const supabase = createServiceRoleClient();
+  const { data: plan } = await supabase
+    .from("window_plans")
+    .select("session_id, ideas_json, wildcard_json")
+    .eq("id", planId)
+    .maybeSingle();
+
+  if (!plan || plan.session_id !== sessionId) return { ok: false, reason: "forbidden" };
+
+  const ideas = Array.isArray(plan.ideas_json) ? (plan.ideas_json as unknown as IdeaBookEntry[]) : [];
+  const wildcard =
+    plan.wildcard_json && typeof plan.wildcard_json === "object"
+      ? (plan.wildcard_json as unknown as IdeaBookEntry)
+      : null;
+  if (!resolveIdeaByKey(ideaKey, ideas, wildcard)) return { ok: false, reason: "invalid" };
+
+  const { error } = await supabase
+    .from("window_plans")
+    .update({ committed_idea_key: ideaKey, committed_at: new Date().toISOString() })
+    .eq("id", planId);
+
+  if (error) {
+    console.error("Failed to record committed idea:", error.message);
+    return { ok: false, reason: "failed" };
+  }
+  return { ok: true };
 }

@@ -157,6 +157,33 @@ async function fetchStoredIntake(
   return intake ? (intake.raw_json as unknown as StoredIntake) : null;
 }
 
+// "Verleiding" Fase 2 — just the intake answers the /plan echo header quotes
+// back (see src/lib/planEcho.ts). Deliberately a narrow projection instead of
+// the whole stored profile, and never throws: the echo is decoration, so a
+// failed read must not take the buyer's Idea Book down with it.
+export async function getIntakeEchoForSession(sessionId: string): Promise<{
+  situation?: string;
+  location?: string;
+  timeAvailable?: string;
+  budget?: string;
+  company?: string[];
+} | null> {
+  try {
+    const intake = await fetchStoredIntake(createServiceRoleClient(), sessionId);
+    if (!intake) return null;
+    return {
+      situation: intake.situation,
+      location: intake.location,
+      timeAvailable: intake.timeAvailable,
+      budget: intake.budget,
+      company: Array.isArray(intake.company) ? intake.company : [],
+    };
+  } catch (err) {
+    console.error("Failed to load intake echo:", err);
+    return null;
+  }
+}
+
 // Fase 4 (New Result Experience) — the /plan page's Discovery Profile
 // screen needs the character profile too, but only for display, well after
 // generateAndSavePlan has already run and returned. Rather than adding a

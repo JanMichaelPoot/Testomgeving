@@ -2171,3 +2171,61 @@ Stripe, Claude API, Resend, PostHog).
       "Voorbeelden", geen horizontale scroll, en geen verzonnen namen meer
       op de pagina. `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest
       run` (25 tests) schoon.
+
+- [x] Stap 44 — "Verleiding" Fase 2 (onthulling op `/plan`): de twee-schermen-
+      stepper (`IdeaBookViewer`, verwijderd) is vervangen door één scrollpagina
+      `src/components/window/PlanReveal.tsx` (`main` van `max-w-2xl` naar
+      `max-w-6xl`): (A) Download PDF + Deel-knop rechtsboven, (B) echo-kop
+      "Je zei: ‘{situation}’ Hier zijn zeven ramen die open kunnen." met
+      "Gemaakt op basis van"-chips (locatie, tijd, budget, gezelschap als
+      dictionary-labels; lege situatie → "Zeven ramen, alleen voor jou.",
+      >90 tekens → afgekapt op woordgrens met "…"; alleen op `/plan`, nooit op
+      `/shared/[id]`), (C) "Als je er maar één kiest" (`pickOneThingIndex`) als
+      grote kaart met foto, deurlabel, meta-chips, why-it-fits en donker
+      eerste-stap-blok, (D) vier deuren (`#deuren`) met nieuw `DoorIcon`
+      (raamkozijn waarvan het raam per deur verder openstaat, warmer licht),
+      compacte kaarten met hartje (= bestaande "up"-feedback via
+      `submitIdeaFeedback`, geen tweede systeem) en "Lees het idee" dat een
+      native `<dialog>` (`IdeaDialog.tsx`) opent met de volledige `IdeaDetail`,
+      `IdeaFeedback` (op/neer) en "Bekijk als PDF-pagina", (E) verzegelde
+      wildcard (open-status in `sessionStorage` via `useSyncExternalStore`),
+      (F) afsluitband. Bestaande `IdeaFeedback` kreeg een optionele `onChange`
+      (hartje en dialoog blijven gelijk), `ShareButton` een optionele
+      `className`. `getIntakeEchoForSession` in `plan/data.ts` + pure helpers
+      in `src/lib/planEcho.ts`; toegang tot deze pagina blijft via
+      checkout-/test-sessie, de echo leest uit de sessie van het plan zelf.
+      **Backend**: migratie `0013_committed_idea.sql` (`committed_idea_key`,
+      `committed_at`), server action `commitToIdea` (zelfde eigenaarschapscheck
+      als `submitIdeaFeedback`; geeft een resultaat i.p.v. te gooien), en de
+      cron `first-action-reminder` kiest nu via `pickReminderIdea`
+      (`src/lib/reminderIdea.ts`) het gekozen idee (of wildcard), anders het
+      eerste idee zoals voorheen. Gedeelde sleutelhelpers in
+      `src/lib/ideaKeys.ts`. PostHog: `plan_viewed`, `one_thing_committed`,
+      `idea_opened`, `idea_liked`, `wildcard_revealed`, `plan_pdf_downloaded`
+      (bestaande events onveranderd).
+      **Bewuste keuzes**: (1) wie het boek opent via de mail-link zonder
+      sessiecookie kan alles lezen maar ziet de hartjes en "Dit ga ik doen"
+      niet (`canInteract` = cookie ↔ `plan.session_id`; dezelfde beperking als
+      bij feedback); (2) "Dit ga ik doen" staat ook in het ideevenster, zodat
+      "Liever een andere deur" zin heeft; (3) de ontwerptekst "je volgende Idea
+      Book leert daarvan" en "verdergaat waar dit ophield" zijn weggelaten —
+      dat kan het product (nog) niet waarmaken; (4) een deur zonder idee toont
+      "Deze deur blijft nu dicht."; (5) de cadeau-knop uit het ontwerp is
+      op verzoek niet gebouwd.
+      **Gevonden onderweg**: de productiedatabase miste migraties 0007
+      (`recipient_email`, `first_action_reminder_sent_at`) en 0009
+      (`feedback_json`) — de herinneringsmail kon daardoor nooit werken;
+      `plan/data.ts` schrijft `recipient_email` bovendien zonder de fout te
+      controleren, waardoor dat stil mislukte. Alles inmiddels uitgevoerd door
+      Jan. Resend meldt daarnaast nog dat het verzenddomein niet geverifieerd
+      is (mails komen dus niet aan) — open.
+      Getest: bestaand boek (`?test_session_id=`) zonder cookie — echo, deuren,
+      dialoog (Esc, focus terug), wildcard-onthulling, geen hartjes; daarna een
+      vers testboek in deze browser (≈€0,13): hartjes en "Dit ga ik doen"
+      staan direct in `feedback_json`/`committed_idea_key` in de database en
+      blijven na verversen; hartje ↔ dialoog blijven gesynchroniseerd; tikdoelen
+      44px; geen horizontale scroll. `/shared/[id]` ongewijzigd, zonder echo.
+      Niet live gedraaid: de cron zelf (vereist `recipient_email` + betaalrij
+      en 2 dagen wachten) — alleen de selectiefunctie is met vitest gedekt.
+      `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest run` (46 tests)
+      schoon.

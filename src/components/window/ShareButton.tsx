@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { trackEvent } from "@/lib/posthog/client";
+import { cn } from "@/lib/utils";
 
 // Fase A of the referral loop from the improvement plan: a free, purely
 // measurable share action — no discount, no incentive yet. The goal right
@@ -11,10 +12,12 @@ export function ShareButton({
   url,
   label,
   copiedLabel,
+  className,
 }: {
   url: string;
   label: string;
   copiedLabel: string;
+  className?: string;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -45,7 +48,10 @@ export function ShareButton({
     <button
       type="button"
       onClick={handleShare}
-      className="inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-paper px-6 py-3 text-sm font-medium text-ink shadow-sm transition-colors hover:bg-ink/5"
+      className={cn(
+        "inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-paper px-6 py-3 text-sm font-medium text-ink shadow-sm transition-colors hover:bg-ink/5",
+        className
+      )}
     >
       {copied ? copiedLabel : label}
     </button>

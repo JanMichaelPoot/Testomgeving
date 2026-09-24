@@ -156,6 +156,11 @@ export interface Database {
           // Fase 6 (Interaction & Retention) — per-idea thumbs reaction, see
           // supabase/migrations/0009_idea_feedback.sql.
           feedback_json: Record<string, string>;
+          // "Verleiding" Fase 2 — which idea the buyer pressed "Dit ga ik
+          // doen" on (same key format as feedback_json), see
+          // supabase/migrations/0013_committed_idea.sql.
+          committed_idea_key: string | null;
+          committed_at: string | null;
           // Model C digital sale compliance (0010_digital_sales_compliance.sql)
           // — which order this Idea Book belongs to, and when it was
           // actually generated/e-mailed, so an order's full legal/delivery
@@ -186,6 +191,8 @@ export interface Database {
           recipient_email?: string | null;
           first_action_reminder_sent_at?: string | null;
           feedback_json?: Record<string, string>;
+          committed_idea_key?: string | null;
+          committed_at?: string | null;
           payment_id?: string | null;
           generated_at?: string | null;
           email_sent_at?: string | null;

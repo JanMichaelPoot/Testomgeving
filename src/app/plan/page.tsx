@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/window/SiteHeader";
-import { IdeaBookViewer } from "@/components/window/IdeaBookViewer";
+import { PlanReveal } from "@/components/window/PlanReveal";
 import { GeneratingScreen } from "@/components/window/GeneratingScreen";
 import {
   getOrCreateWindowPlan,
   getOrCreateTestWindowPlan,
   getSignedPdfUrl,
+  getIntakeEchoForSession,
   PlanNotReadyError,
 } from "@/app/plan/data";
 import { retryPlanGeneration } from "@/app/plan/actions";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getLocale, type Locale } from "@/lib/language";
+import { getSessionId } from "@/lib/session";
+import { buildPlanEcho } from "@/lib/planEcho";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -196,20 +199,42 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   // or reusing one.
   const pdfUrl = await getSignedPdfUrl(plan.pdf_url);
 
+  // The quoted-back intake answers for the echo header. Read from the
+  // plan's own session (not the cookie), so it also works for someone
+  // opening the emailed link — and only ever shown here, never on the
+  // public /shared/[id] page.
+  const echo = buildPlanEcho(await getIntakeEchoForSession(plan.session_id), dict.intake);
+  const dateLabel = new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", {
+    day: "numeric",
+    month: "long",
+    timeZone: "Europe/Amsterdam",
+  }).format(new Date(plan.created_at));
+
+  // Reactions and "Dit ga ik doen" are only accepted from the session that
+  // generated the plan (ownership check in plan/actions.ts) — hide the
+  // controls for anyone else instead of showing buttons that would fail.
+  const canInteract = (await getSessionId()) === plan.session_id;
+
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
-      <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12 sm:px-10">
-        <IdeaBookViewer
+      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10 sm:px-10 sm:py-12">
+        <PlanReveal
+          planId={plan.id}
           ideas={ideas}
           wildcard={wildcard}
           labels={labels}
+          locale={locale}
           pdfChromeDict={dict.pdfChrome}
           planDict={dict.plan}
           pdfUrl={pdfUrl}
           shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
           showEmailedCopy={!testSessionId}
-          planId={plan.id}
+          canInteract={canInteract}
+          initialFeedback={plan.feedback_json ?? {}}
+          initialCommittedKey={plan.committed_idea_key ?? null}
+          echo={echo}
+          dateLabel={dateLabel}
         />
       </main>
     </div>

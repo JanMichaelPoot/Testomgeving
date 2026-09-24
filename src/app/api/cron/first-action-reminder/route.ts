@@ -2,13 +2,15 @@ import { NextResponse } from "next/server";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { sendFirstActionReminderEmail } from "@/lib/email/reminder";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
+import { pickReminderIdea } from "@/lib/reminderIdea";
 import type { Locale } from "@/lib/locale";
 
 // Fase 3 (WINDOW Ervaringsontwerp roadmap): a daily job — see vercel.json's
 // `crons` entry — that nudges buyers who haven't come back to their Idea
 // Book a few days after buying it. Deliberately narrow: no accounts, no
 // per-idea tracking of what was actually done, just one email referencing
-// the first idea's first_action, sent exactly once per plan.
+// the committed idea's (default: the first idea's) first_action, sent
+// exactly once per plan.
 const MIN_AGE_MS = 2 * 24 * 60 * 60 * 1000; // don't nudge same-day/next-day
 const MAX_AGE_MS = 9 * 24 * 60 * 60 * 1000; // don't dredge up ancient rows
 // (e.g. the first time this job ever runs against existing data)
@@ -29,7 +31,9 @@ export async function GET(request: Request) {
 
   const { data: plans, error } = await supabase
     .from("window_plans")
-    .select("id, session_id, language, ideas_json, recipient_email, created_at")
+    .select(
+      "id, session_id, language, ideas_json, wildcard_json, committed_idea_key, recipient_email, created_at"
+    )
     .eq("status", "ready")
     .not("recipient_email", "is", null)
     .is("first_action_reminder_sent_at", null)
@@ -49,8 +53,14 @@ export async function GET(request: Request) {
       const ideas = Array.isArray(plan.ideas_json)
         ? (plan.ideas_json as unknown as IdeaBookEntry[])
         : [];
-      const firstIdea = ideas[0];
-      if (!firstIdea || !plan.recipient_email) continue;
+      const wildcard =
+        plan.wildcard_json && typeof plan.wildcard_json === "object"
+          ? (plan.wildcard_json as unknown as IdeaBookEntry)
+          : null;
+      // The idea the buyer said they'd do ("Dit ga ik doen" on /plan), else
+      // the first one as before.
+      const nudgeIdea = pickReminderIdea(ideas, wildcard, plan.committed_idea_key);
+      if (!nudgeIdea || !plan.recipient_email) continue;
 
       const { data: payment } = await supabase
         .from("payments")
@@ -65,8 +75,8 @@ export async function GET(request: Request) {
 
       await sendFirstActionReminderEmail({
         to: plan.recipient_email,
-        ideaTitle: firstIdea.title,
-        firstAction: firstIdea.first_action,
+        ideaTitle: nudgeIdea.title,
+        firstAction: nudgeIdea.first_action,
         planUrl: `${siteUrl}/plan?checkout_session_id=${payment.stripe_payment_id}`,
         locale: (plan.language as Locale) ?? "nl",
       });

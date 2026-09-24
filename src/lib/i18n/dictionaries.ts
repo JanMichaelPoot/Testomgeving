@@ -183,6 +183,42 @@ export interface Dictionary {
       // Repeat-use nudge on the closing "done" screen.
       doneReturnCta: string;
     };
+    // "Verleiding" Fase 2 — the scrolling /plan reveal page (echo header,
+    // "if you only pick one" card, four doors, sealed wildcard, closing
+    // band). See src/components/window/PlanReveal.tsx.
+    reveal: {
+      eyebrow: string; // {date}
+      headingSaid: string; // {situation}
+      headingClosing: string;
+      headingFallback: string;
+      basedOn: string;
+      doorWord: string; // {n}
+      doorLabel: string; // {n}, {label}
+      whyHeading: string;
+      firstStepHeading: string;
+      commitCta: string;
+      otherDoorCta: string;
+      committedNote: string;
+      commitError: string;
+      heartHint: string;
+      scaleNear: string;
+      scaleFar: string;
+      emptyDoor: string;
+      readIdea: string;
+      likeLabel: string;
+      wildcardSealedEyebrow: string;
+      wildcardSealedHeading: string;
+      wildcardSealedSub: string;
+      wildcardOpenCta: string;
+      wildcardOpenEyebrow: string;
+      closingHeading: string;
+      closingSub: string;
+      dialogClose: string;
+      feedbackPrompt: string;
+      feedbackUp: string;
+      feedbackDown: string;
+      feedbackThanks: string;
+    };
   };
   shared: {
     pageTitle: string;
@@ -579,6 +615,39 @@ const nl: Dictionary = {
         },
       },
       doneReturnCta: "Kom later terug voor een nieuw venster",
+    },
+    reveal: {
+      eyebrow: "Jouw Idea Book · {date}",
+      headingSaid: "Je zei: ‘{situation}’",
+      headingClosing: "Hier zijn zeven ramen die open kunnen.",
+      headingFallback: "Zeven ramen, alleen voor jou.",
+      basedOn: "Gemaakt op basis van",
+      doorWord: "Deur {n}",
+      doorLabel: "Deur {n} · {label}",
+      whyHeading: "Waarom dit bij jou past",
+      firstStepHeading: "Eerste stap",
+      commitCta: "Dit ga ik doen",
+      otherDoorCta: "Liever een andere deur",
+      committedNote: "Genoteerd. Over een paar dagen sturen we je een duwtje.",
+      commitError: "Dat lukte even niet. Probeer het zo nog eens.",
+      heartHint: "Tik op het hartje bij wat je aanspreekt.",
+      scaleNear: "Dicht bij huis",
+      scaleFar: "Ver buiten je comfortzone",
+      emptyDoor: "Deze deur blijft nu dicht.",
+      readIdea: "Lees het idee",
+      likeLabel: "Spreekt me aan",
+      wildcardSealedEyebrow: "De wildcard · nog verzegeld",
+      wildcardSealedHeading: "Het idee dat we eigenlijk niet zouden moeten voorstellen.",
+      wildcardSealedSub: "Het past niet netjes in een deur. Open hem pas als je er klaar voor bent.",
+      wildcardOpenCta: "Open de wildcard",
+      wildcardOpenEyebrow: "De wildcard",
+      closingHeading: "Over twee weken: hoe ging je eerste stap?",
+      closingSub: "Wie weet kijk je er dan anders tegenaan. Een nieuw venster openen kan altijd.",
+      dialogClose: "Sluiten",
+      feedbackPrompt: "Spreekt dit je aan?",
+      feedbackUp: "Spreekt me aan",
+      feedbackDown: "Niet voor mij",
+      feedbackThanks: "Genoteerd.",
     },
   },
   shared: {
@@ -1131,6 +1200,39 @@ const en: Dictionary = {
         },
       },
       doneReturnCta: "Come back later for a new window",
+    },
+    reveal: {
+      eyebrow: "Your Idea Book · {date}",
+      headingSaid: "You said: ‘{situation}’",
+      headingClosing: "Here are seven windows that could open.",
+      headingFallback: "Seven windows, just for you.",
+      basedOn: "Made from",
+      doorWord: "Door {n}",
+      doorLabel: "Door {n} · {label}",
+      whyHeading: "Why this fits you",
+      firstStepHeading: "First step",
+      commitCta: "I'm going to do this",
+      otherDoorCta: "I'd rather try another door",
+      committedNote: "Noted. In a few days we'll send you a little nudge.",
+      commitError: "That didn't work just now. Please try again in a moment.",
+      heartHint: "Tap the heart on whatever appeals to you.",
+      scaleNear: "Close to home",
+      scaleFar: "Far outside your comfort zone",
+      emptyDoor: "This door stays closed for now.",
+      readIdea: "Read the idea",
+      likeLabel: "Appeals to me",
+      wildcardSealedEyebrow: "The wildcard · still sealed",
+      wildcardSealedHeading: "The idea we probably shouldn't suggest.",
+      wildcardSealedSub: "It doesn't fit neatly behind any door. Open it only when you're ready.",
+      wildcardOpenCta: "Open the wildcard",
+      wildcardOpenEyebrow: "The wildcard",
+      closingHeading: "In two weeks: how did your first step go?",
+      closingSub: "You may see it differently by then. Opening a new window is always possible.",
+      dialogClose: "Close",
+      feedbackPrompt: "Does this appeal to you?",
+      feedbackUp: "Appeals to me",
+      feedbackDown: "Not for me",
+      feedbackThanks: "Noted.",
     },
   },
   shared: {
