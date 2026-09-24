@@ -2309,3 +2309,24 @@ Stripe, Claude API, Resend, PostHog).
       build`/`npx vitest run` (54 tests) schoon. Fase 5 (teaser voor
       betaling) is bewust niet gebouwd (wacht op besluit over API-kosten voor
       niet-betalers en een PostHog-funnelcheck).
+
+- [x] Stap 47 — De `PillSlider`-dials op de intake zijn op mobiel (en op
+      desktop) leesbaar gemaakt: op 375px stonden de vijf lange optielabels van
+      "Hou je het liever veilig, of mag het verrassen?" in vijf even smalle
+      kolommen en liepen dwars door elkaar. `PillSlider` kiest nu de opmaak op
+      basis van de optieset zelf (`pickLayout`), niet de viewport: maximaal 4
+      opties met labels van ≤16 tekens blijven één rij (tijd, budget, zoekafstand);
+      een lange reeks heel korte labels (leeftijdscategorieën) wordt een grid
+      van 4 kolommen, en bij ≥448px containerbreedte 7 (Tailwind
+      `@container`/`@md:`, omdat de formulierkolom op desktop smaller is dan de
+      viewport door het "Jouw venster"-paneel); al het andere (praktisch↔wild,
+      inzet) wordt een verticale lijst van volle-breedte-rijen met 44px
+      tikdoelen. De begin-/eindlabels onder de balk verschijnen alleen nog bij
+      de rij-opmaak (anders staat elke optie er al). Toetsenbord volgt nu het
+      WAI-ARIA radiogroup-patroon: pijl omlaag/rechts = volgende, omhoog/links
+      = vorige (voorheen was omhoog = volgende, wat in een verticale lijst
+      verkeerd voelt). Getest in de browser op 375px en 1280px (aantal
+      kolommen per dial, geen horizontale scroll, knoppen ≥44px hoog,
+      pijltjestoetsen) en met een vitest-test voor de opmaakkeuze in nl en en
+      (54 → 60 tests). `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest
+      run` schoon.
