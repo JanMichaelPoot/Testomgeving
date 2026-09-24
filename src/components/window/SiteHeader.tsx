@@ -45,9 +45,6 @@ export function SiteHeader({
           >
             {dict.navExamples}
           </Link>
-          <Link href="/#over-ons" className="text-sm text-ink/60 transition-colors hover:text-accent">
-            {dict.navAbout}
-          </Link>
         </nav>
 
         <LanguageToggle locale={locale} label={dict.switchLanguage} />

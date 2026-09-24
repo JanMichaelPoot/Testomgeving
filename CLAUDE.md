@@ -2152,3 +2152,22 @@ Stripe, Claude API, Resend, PostHog).
       nodig te hebben. Nog steeds exact 10 pagina's. `tsc --noEmit`/
       `eslint .`/`npm run build`/`npx vitest run` (25 tests) allemaal
       schoon.
+
+- [x] Stap 43 — "Verleiding" Fase 1 (eerlijke landing): de drie verzonnen
+      testimonials (Marieke V./Thomas K./Sofie D.) zijn van de landingspagina
+      verwijderd, samen met de dictionary-keys `landing.testimonialsHeading`/
+      `landing.testimonials` (type + nl + en). Vervangen door een eerlijk
+      blok (`landing.honestHeading/honestBody/honestLinkLabel`, nl + en):
+      "We zijn net begonnen, dus nog geen reviews. Liever zelf oordelen?
+      Blader door een compleet Idea Book." met een knop naar
+      `/examples/idea-book-${locale}.pdf`. Het sectie-anker `#voorbeelden`
+      blijft bestaan. De navigatie-optie "Over ons" (`header.navAbout`,
+      `/#over-ons`) is uit `SiteHeader` en de dictionary verwijderd — de
+      brief noemde het anker niet-bestaand, maar `SiteFooter` heeft wél
+      `id="over-ons"`; gekozen voor verwijderen omdat er geen echte
+      over-ons-inhoud is om naartoe te verwijzen (het footer-`id` is
+      ongemoeid gelaten). Getest: in de browser is de sectie zichtbaar, de
+      link wijst naar de NL-PDF, de header-nav toont nog "Hoe het werkt" en
+      "Voorbeelden", geen horizontale scroll, en geen verzonnen namen meer
+      op de pagina. `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest
+      run` (25 tests) schoon.

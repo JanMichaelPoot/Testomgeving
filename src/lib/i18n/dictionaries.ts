@@ -20,7 +20,6 @@ export interface Dictionary {
     switchLanguage: string;
     navHowItWorks: string;
     navExamples: string;
-    navAbout: string;
   };
   footer: {
     privacy: string;
@@ -51,8 +50,9 @@ export interface Dictionary {
     whatYouGetHeading: string;
     whatYouGetSubcopy: string;
     whatYouGetItems: { title: string; body: string }[];
-    testimonialsHeading: string;
-    testimonials: { quote: string; name: string; role: string }[];
+    honestHeading: string;
+    honestBody: string;
+    honestLinkLabel: string;
     ctaBannerHeading: string;
     ctaBannerBody: string;
     ctaBannerCta: string;
@@ -313,7 +313,6 @@ const nl: Dictionary = {
     switchLanguage: "Taal wisselen",
     navHowItWorks: "Hoe het werkt",
     navExamples: "Voorbeelden",
-    navAbout: "Over ons",
   },
   footer: {
     privacy: "Privacy",
@@ -364,27 +363,10 @@ const nl: Dictionary = {
         body: "Een mooi vormgegeven PDF, geen los lijstje. Je ontvangt 'm ook meteen in je mail.",
       },
     ],
-    testimonialsHeading: "Wat anderen zeggen",
-    testimonials: [
-      {
-        quote:
-          "Ik zat al maanden vast. Het Idea Book gaf me drie ideeën die ik daadwerkelijk uitvoerbaar vond — één ervan doe ik nu echt.",
-        name: "Marieke V.",
-        role: "Marketeer, 34",
-      },
-      {
-        quote:
-          "De wildcard sloeg me met verstomming. Ik had er zelf nooit op gekomen, maar het klopte perfect.",
-        name: "Thomas K.",
-        role: "Leraar, 41",
-      },
-      {
-        quote:
-          "Eindelijk iets dat niet alleen 'mediteer meer' zegt. De ideeën waren specifiek, uitvoerbaar en pasten echt bij mij.",
-        name: "Sofie D.",
-        role: "Freelancer, 29",
-      },
-    ],
+    honestHeading: "Nog geen reviews — wel een voorbeeld",
+    honestBody:
+      "We zijn net begonnen, dus nog geen reviews. Liever zelf oordelen? Blader door een compleet Idea Book.",
+    honestLinkLabel: "Bekijk het voorbeeld (PDF)",
     ctaBannerHeading: "Klaar om een venster te openen?",
     ctaBannerBody: "In een paar minuten beantwoord je de intake. Je Idea Book staat er meteen na betaling.",
     ctaBannerCta: "Start de intake",
@@ -884,7 +866,6 @@ const en: Dictionary = {
     switchLanguage: "Switch language",
     navHowItWorks: "How it works",
     navExamples: "Examples",
-    navAbout: "About",
   },
   footer: {
     privacy: "Privacy",
@@ -934,27 +915,10 @@ const en: Dictionary = {
         body: "A beautifully designed PDF, not a loose list. We'll email you a copy too.",
       },
     ],
-    testimonialsHeading: "What others say",
-    testimonials: [
-      {
-        quote:
-          "I'd been stuck for months. The Idea Book gave me three ideas I actually found doable — I'm really doing one of them now.",
-        name: "Marieke V.",
-        role: "Marketer, 34",
-      },
-      {
-        quote:
-          "The wildcard left me speechless. I'd never have thought of it myself, but it fit perfectly.",
-        name: "Thomas K.",
-        role: "Teacher, 41",
-      },
-      {
-        quote:
-          "Finally something that doesn't just say 'meditate more'. The ideas were specific, doable, and genuinely fit me.",
-        name: "Sofie D.",
-        role: "Freelancer, 29",
-      },
-    ],
+    honestHeading: "No reviews yet — but there is an example",
+    honestBody:
+      "We've only just started, so no reviews yet. Rather judge for yourself? Leaf through a complete Idea Book.",
+    honestLinkLabel: "See the example (PDF)",
     ctaBannerHeading: "Ready to open a window?",
     ctaBannerBody: "The intake takes just a few minutes to answer. Your Idea Book is ready right after payment.",
     ctaBannerCta: "Start the intake",

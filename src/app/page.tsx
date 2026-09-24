@@ -82,27 +82,21 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Social proof */}
+        {/* Honest social proof: no reviews yet, so point at a real example */}
         <section id="voorbeelden" className="px-6 py-20 sm:px-10">
-          <div className="mx-auto w-full max-w-6xl">
-            <h2 className="mb-12 text-center font-serif text-3xl text-ink sm:text-4xl">
-              {dict.landing.testimonialsHeading}
-            </h2>
-            <div className="grid gap-6 sm:grid-cols-3">
-              {dict.landing.testimonials.map((t) => (
-                <div key={t.name} className="rounded-lg border border-border bg-paper p-7">
-                  <div className="mb-4 flex gap-0.5 text-ink" aria-hidden="true">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <svg key={i} width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                        <path d="M7 1l1.545 3.13L12 4.635l-2.5 2.437.59 3.441L7 8.885l-3.09 1.628.59-3.441L2 4.635l3.455-.505L7 1z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="mb-5 text-sm italic leading-relaxed text-ink">&ldquo;{t.quote}&rdquo;</p>
-                  <p className="text-sm font-medium text-ink">{t.name}</p>
-                  <p className="text-xs text-ink/50">{t.role}</p>
-                </div>
-              ))}
+          <div className="mx-auto w-full max-w-2xl rounded-lg border border-border bg-paper p-8 text-center sm:p-10">
+            <h2 className="font-serif text-2xl text-ink sm:text-3xl">{dict.landing.honestHeading}</h2>
+            <p className="mx-auto mt-4 max-w-md text-ink/70">{dict.landing.honestBody}</p>
+            <div className="mt-7">
+              <Button
+                href={`/examples/idea-book-${locale}.pdf`}
+                target="_blank"
+                rel="noreferrer"
+                variant="secondary"
+                size="lg"
+              >
+                {dict.landing.honestLinkLabel}
+              </Button>
             </div>
           </div>
         </section>
