@@ -41,7 +41,7 @@ export function SiteFooter({
               {dict.productHeading}
             </p>
             <div className="flex flex-col gap-2">
-              <Link href="/#wat-je-krijgt" className="transition-colors hover:text-white">
+              <Link href="/#hoe" className="transition-colors hover:text-white">
                 {dict.navHowItWorks}
               </Link>
               <Link href="/#voorbeelden" className="transition-colors hover:text-white">

@@ -43,14 +43,17 @@ export interface Dictionary {
     headlineEmphasis: string;
     headlineLine2: string;
     subcopy: string;
-    cta: string;
-    secondaryCta: string;
-    ctaCaption: string;
+    // Hero start form + badge ("Verleiding" Fase 4).
+    badge: string; // {price}
+    startLabel: string;
+    startCta: string;
+    exampleCardCaption: string;
+    howHeading: string;
+    howSteps: { title: string; body: string }[];
     heroAlt: string;
     whatYouGetHeading: string;
     whatYouGetSubcopy: string;
     whatYouGetItems: { title: string; body: string }[];
-    honestHeading: string;
     honestBody: string;
     honestLinkLabel: string;
     ctaBannerHeading: string;
@@ -362,7 +365,7 @@ const nl: Dictionary = {
   header: {
     switchLanguage: "Taal wisselen",
     navHowItWorks: "Hoe het werkt",
-    navExamples: "Voorbeelden",
+    navExamples: "Voorbeeld-Idea Book",
   },
   footer: {
     privacy: "Privacy",
@@ -391,10 +394,17 @@ const nl: Dictionary = {
     headlineEmphasis: "mogelijk is",
     headlineLine2: "voor jou.",
     subcopy:
-      "Vertel ons wie je bent en wat je beweegt. In enkele minuten ontvang je een persoonlijk Idea Book — zes concrete ideeën plus één wildcard, volledig uitgewerkt.",
-    cta: "Maak mijn Idea Book",
-    secondaryCta: "Bekijk een voorbeeld",
-    ctaCaption: "Geen account nodig · vanaf {price}",
+      "Vertel in drie minuten wat er speelt. Je krijgt zes ideeën die over jóu gaan — plus één wildcard — met de eerste stap er al bij.",
+    badge: "Nieuw · {price} · geen account nodig",
+    startLabel: "Wat speelt er bij jou?",
+    startCta: "Begin",
+    exampleCardCaption: "Zo ziet één idee eruit — uit een voorbeeld-Idea Book.",
+    howHeading: "Hoe het werkt",
+    howSteps: [
+      { title: "Vertel wat er speelt", body: "Vijf korte stappen, ± 3 minuten." },
+      { title: "Zie je deuren", body: "Van vertrouwd tot ver buiten je comfortzone." },
+      { title: "Zet de eerste stap", body: "Elk idee heeft een actie voor vandaag." },
+    ],
     heroAlt: "Een venster dat opengaat naar vier verschillende mogelijkheden",
     whatYouGetHeading: "Wat je krijgt",
     whatYouGetSubcopy:
@@ -413,7 +423,6 @@ const nl: Dictionary = {
         body: "Een mooi vormgegeven PDF, geen los lijstje. Je ontvangt 'm ook meteen in je mail.",
       },
     ],
-    honestHeading: "Nog geen reviews — wel een voorbeeld",
     honestBody:
       "We zijn net begonnen, dus nog geen reviews. Liever zelf oordelen? Blader door een compleet Idea Book.",
     honestLinkLabel: "Bekijk het voorbeeld (PDF)",
@@ -965,7 +974,7 @@ const en: Dictionary = {
   header: {
     switchLanguage: "Switch language",
     navHowItWorks: "How it works",
-    navExamples: "Examples",
+    navExamples: "Example Idea Book",
   },
   footer: {
     privacy: "Privacy",
@@ -993,10 +1002,17 @@ const en: Dictionary = {
     headlineEmphasis: "possible",
     headlineLine2: "for you.",
     subcopy:
-      "Tell us who you are and what moves you. In a few minutes you'll get a personal Idea Book — six concrete ideas plus one wildcard, fully worked out.",
-    cta: "Make my Idea Book",
-    secondaryCta: "See an example",
-    ctaCaption: "No account needed · from {price}",
+      "Tell us in three minutes what's going on. You get six ideas that are about you — plus one wildcard — with the first step already included.",
+    badge: "New · {price} · no account needed",
+    startLabel: "What's going on with you?",
+    startCta: "Start",
+    exampleCardCaption: "This is what one idea looks like — from an example Idea Book.",
+    howHeading: "How it works",
+    howSteps: [
+      { title: "Tell us what's going on", body: "Five short steps, about 3 minutes." },
+      { title: "See your doors", body: "From familiar to far outside your comfort zone." },
+      { title: "Take the first step", body: "Every idea comes with an action for today." },
+    ],
     heroAlt: "A window opening onto four different possibilities",
     whatYouGetHeading: "What you get",
     whatYouGetSubcopy:
@@ -1015,7 +1031,6 @@ const en: Dictionary = {
         body: "A beautifully designed PDF, not a loose list. We'll email you a copy too.",
       },
     ],
-    honestHeading: "No reviews yet — but there is an example",
     honestBody:
       "We've only just started, so no reviews yet. Rather judge for yourself? Leaf through a complete Idea Book.",
     honestLinkLabel: "See the example (PDF)",

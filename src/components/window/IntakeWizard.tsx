@@ -252,6 +252,23 @@ function loadDraft(): IntakeDraft | null {
   }
 }
 
+// Visiting the wizard saves an (empty) draft as soon as it mounts, so "a draft
+// exists" alone can't mean "the person has started" — otherwise a second visit
+// from the landing page's start form would never carry its text over. Only a
+// draft with actual progress or answers counts as one worth protecting.
+function isBlankDraft(draft: IntakeDraft): boolean {
+  return draft.page === 0 && JSON.stringify(draft.answers) === JSON.stringify(EMPTY_ANSWERS);
+}
+
+const MAX_SITUATION_FROM_URL = 500;
+
+function readSituationFromUrl(): string | null {
+  if (typeof window === "undefined") return null;
+  const value = new URLSearchParams(window.location.search).get("situation");
+  const trimmed = (value ?? "").trim().slice(0, MAX_SITUATION_FROM_URL).trim();
+  return trimmed || null;
+}
+
 function saveDraft(draft: IntakeDraft) {
   if (typeof window === "undefined") return;
   try {
@@ -336,11 +353,18 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
     // identical for hydration. Not a subscription, so the cascading-render
     // caution behind this rule doesn't apply here.
     const draft = loadDraft();
-    if (draft) {
+    if (draft && !isBlankDraft(draft)) {
       // One-time hydration-safe restore from sessionStorage, not a render loop.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setPage(draft.page);
       setAnswers(draft.answers);
+    } else {
+      // No real draft to protect: pick up what the landing page's start form
+      // sent along (?situation=). Read once on mount, never re-applied.
+      const fromLanding = readSituationFromUrl();
+      if (fromLanding) {
+        setAnswers((prev) => ({ ...prev, situation: fromLanding }));
+      }
     }
     setHydrated(true);
   }, []);

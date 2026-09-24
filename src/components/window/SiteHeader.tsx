@@ -34,7 +34,7 @@ export function SiteHeader({
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          <Link href="/#wat-je-krijgt" className="text-sm text-ink/60 transition-colors hover:text-accent">
+          <Link href="/#hoe" className="text-sm text-ink/60 transition-colors hover:text-accent">
             {dict.navHowItWorks}
           </Link>
           <Link

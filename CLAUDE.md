@@ -2264,3 +2264,48 @@ Stripe, Claude API, Resend, PostHog).
       lange optielabels van de `PillSlider` op de dials-pagina door elkaar.
       `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest run` (54 tests)
       schoon.
+
+- [x] Stap 46 — "Verleiding" Fase 4 (landing-hero): de twee losse knoppen zijn
+      vervangen door een startformulier in de hero (`HeroStartForm.tsx`, een
+      gewoon GET-formulier naar `/intake`, werkt ook zonder JS): label "Wat
+      speelt er bij jou?", tekstveld (placeholder uit
+      `intake.situation.placeholder`), primaire "Begin"-knop met pijl en drie
+      voorbeeldchips (de eerste drie van `intake.situation.suggestions`, een
+      chip vult alleen het veld). PostHog-event `landing_start_submitted` met
+      alleen `has_text` (nooit de tekst). `IntakeWizard` leest `?situation=`
+      eenmalig bij mount (max 500 tekens, getrimd) en past het alleen toe als
+      er geen bestaande draft is. Eén eigen keuze: een draft die alleen
+      "leeg" is (pagina 0, alle antwoorden standaard) telt niet als draft
+      (`isBlankDraft`) — de wizard slaat namelijk al bij het openen een lege
+      draft op, waardoor de tekst van de landingspagina anders bij een
+      tweede bezoek verloren zou gaan; een draft met voortgang of antwoorden
+      wint nog steeds. Badge nu "Nieuw · {price} · geen account nodig"
+      (`landing.badge`), de H1 houdt drie regels met `headlineEmphasis`
+      cursief in de accentkleur, nieuwe subcopy (nl + en). Rechts blijft
+      `HeroFanCollage`, met eroverheen (vanaf `md`) een gekantelde kaart met
+      een écht voorbeeldidee (`ExampleIdeaCard`, data in
+      `src/lib/exampleIdea.ts`, letterlijk het eerste idee van het
+      voorbeeld-Idea Book uit `scripts/generate-example-idea-book.ts`:
+      "Pottenbakken zoals je stiekem wilde") en het bijschrift "Zo ziet één
+      idee eruit — uit een voorbeeld-Idea Book." Let op: dat script hergebruikt
+      de Nederlandse ideetekst ook voor de Engelse voorbeeld-PDF, dus de kaart
+      toont in beide talen dezelfde Nederlandse tekst — hij spiegelt precies
+      wat de PDF ernaast laat zien; alleen de labels (deur, "Eerste stap")
+      zijn vertaald. "Hoe het werkt"-strip (`#hoe`) direct onder de hero: 3
+      stappen (`landing.howSteps`, nl + en) plus het eerlijke voorbeeldblok uit
+      Fase 1 (`id="voorbeelden"` behouden voor de footerlink); de aparte
+      Fase 1-sectie en `landing.honestHeading` zijn daarmee vervallen. De
+      bestaande "Wat je krijgt"-sectie blijft bewust staan (die beschrijft wat
+      je krijgt, de strip hoe het werkt). `SiteHeader`/`SiteFooter` linken
+      "Hoe het werkt" nu naar `/#hoe`; het header-label "Voorbeelden" is
+      "Voorbeeld-Idea Book" ("Example Idea Book"). Vervallen keys:
+      `landing.cta`, `secondaryCta`, `ctaCaption`, `honestHeading`. De
+      cadeau-navigatie-optie is op verzoek niet gebouwd.
+      Getest: desktop (1280) hero, kaart en strip; chip → veld → submit
+      landt op `/intake?situation=…` met het veld én het venster-paneel
+      gevuld; bestaande draft wint; lege draft + parameter wordt overschreven
+      met de getrimde tekst; op 375px geen horizontale scroll, kaart
+      verborgen, chips 44px hoog. `tsc --noEmit`/`eslint .`/`npm run
+      build`/`npx vitest run` (54 tests) schoon. Fase 5 (teaser voor
+      betaling) is bewust niet gebouwd (wacht op besluit over API-kosten voor
+      niet-betalers en een PostHog-funnelcheck).

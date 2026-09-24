@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/Button";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { SiteFooter } from "@/components/window/SiteFooter";
 import { HeroFanCollage } from "@/components/window/HeroFanCollage";
+import { HeroStartForm } from "@/components/window/HeroStartForm";
+import { ExampleIdeaCard } from "@/components/window/ExampleIdeaCard";
+import { EXAMPLE_IDEA } from "@/lib/exampleIdea";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { formatPrice } from "@/lib/pricing";
@@ -17,43 +20,74 @@ export default async function Home() {
 
       <main className="w-full flex-1">
         {/* Hero */}
-        <section className="mx-auto w-full max-w-[84rem] px-6 py-16 sm:px-10 sm:py-24">
-          <div className="grid w-full items-center gap-16 lg:grid-cols-[1fr_1.3fr]">
-            <div className="max-w-xl">
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-paper px-4 py-1.5">
+        <section className="mx-auto w-full max-w-[84rem] px-6 pt-12 sm:px-10 sm:pt-16">
+          <div className="grid w-full items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
+            <div className="flex max-w-xl flex-col gap-6">
+              <div className="inline-flex items-center gap-2 self-start rounded-full border border-border bg-paper px-3.5 py-1.5">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-                <span className="text-xs font-medium tracking-wide text-ink/70">
-                  {dict.landing.ctaCaption.replace("{price}", price)}
+                <span className="text-xs font-medium text-ink/70">
+                  {dict.landing.badge.replace("{price}", price)}
                 </span>
               </div>
-              <h1 className="font-serif text-5xl leading-[1.1] text-ink sm:text-6xl">
+              <h1 className="font-serif text-5xl leading-[1.05] tracking-[-0.015em] text-ink sm:text-6xl">
                 {dict.landing.headlineLine1}
                 <br />
-                <span className="text-accent">{dict.landing.headlineEmphasis}</span>
+                <span className="italic text-accent">{dict.landing.headlineEmphasis}</span>
                 <br />
                 {dict.landing.headlineLine2}
               </h1>
-              <p className="mt-6 max-w-md text-lg text-ink/70">{dict.landing.subcopy}</p>
-              <div className="mt-9 flex flex-wrap items-center gap-3">
-                <Button href="/intake" size="lg">
-                  {dict.landing.cta}
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Button>
-                <Button
-                  href={`/examples/idea-book-${locale}.pdf`}
-                  target="_blank"
-                  rel="noreferrer"
-                  variant="secondary"
-                  size="lg"
-                >
-                  {dict.landing.secondaryCta}
-                </Button>
-              </div>
+              <p className="max-w-md text-lg leading-relaxed text-ink/75">{dict.landing.subcopy}</p>
+              <HeroStartForm
+                label={dict.landing.startLabel}
+                placeholder={dict.intake.situation.placeholder}
+                cta={dict.landing.startCta}
+                suggestions={dict.intake.situation.suggestions.slice(0, 3)}
+              />
             </div>
 
-            <HeroFanCollage alt={dict.landing.heroAlt} />
+            {/* The real example idea overlaps the collage's lower-left on
+                wider screens; below md the collage stands alone. */}
+            <div className="relative pb-0 md:pb-28">
+              <HeroFanCollage alt={dict.landing.heroAlt} />
+              <ExampleIdeaCard
+                doorLine={dict.plan.reveal.doorLabel
+                  .replace("{n}", String(1))
+                  .replace("{label}", dict.plan.book.doors[EXAMPLE_IDEA.door].label)}
+                firstStepLabel={dict.plan.reveal.firstStepHeading}
+                className="absolute bottom-0 left-0 hidden w-[300px] -rotate-2 overflow-hidden rounded-lg border border-border bg-paper shadow-[0_30px_60px_-28px_rgba(60,41,32,0.55)] md:block lg:w-[340px]"
+              />
+              <p className="absolute bottom-4 left-[320px] hidden max-w-[180px] text-xs leading-snug text-ink/70 md:block lg:left-[360px]">
+                {dict.landing.exampleCardCaption}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* How it works + honest example block */}
+        <section id="hoe" className="mx-auto mt-14 w-full max-w-[84rem] scroll-mt-24 px-6 sm:px-10">
+          <div className="grid gap-8 border-t border-border pt-7 sm:grid-cols-3 lg:grid-cols-[repeat(3,minmax(0,1fr))_1.2fr] lg:gap-8">
+            <h2 className="sr-only">{dict.landing.howHeading}</h2>
+            {dict.landing.howSteps.map((step, i) => (
+              <div key={step.title} className="flex flex-col gap-1.5">
+                <span className="font-serif text-3xl text-walnut-light">{i + 1}</span>
+                <p className="text-[15px] font-semibold text-ink">{step.title}</p>
+                <p className="text-sm leading-relaxed text-ink/70">{step.body}</p>
+              </div>
+            ))}
+            <div
+              id="voorbeelden"
+              className="flex scroll-mt-24 flex-col gap-2.5 rounded-lg bg-surface-active p-5 sm:col-span-3 lg:col-span-1"
+            >
+              <p className="text-sm leading-relaxed text-accent-dark">{dict.landing.honestBody}</p>
+              <a
+                href={`/examples/idea-book-${locale}.pdf`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-11 items-center self-start text-sm font-semibold text-accent-dark underline underline-offset-2 hover:text-accent"
+              >
+                {dict.landing.honestLinkLabel}
+              </a>
+            </div>
           </div>
         </section>
 
@@ -78,25 +112,6 @@ export default async function Home() {
                   <p className="mt-2.5 text-sm leading-relaxed text-ink/70">{item.body}</p>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Honest social proof: no reviews yet, so point at a real example */}
-        <section id="voorbeelden" className="px-6 py-20 sm:px-10">
-          <div className="mx-auto w-full max-w-2xl rounded-lg border border-border bg-paper p-8 text-center sm:p-10">
-            <h2 className="font-serif text-2xl text-ink sm:text-3xl">{dict.landing.honestHeading}</h2>
-            <p className="mx-auto mt-4 max-w-md text-ink/70">{dict.landing.honestBody}</p>
-            <div className="mt-7">
-              <Button
-                href={`/examples/idea-book-${locale}.pdf`}
-                target="_blank"
-                rel="noreferrer"
-                variant="secondary"
-                size="lg"
-              >
-                {dict.landing.honestLinkLabel}
-              </Button>
             </div>
           </div>
         </section>
