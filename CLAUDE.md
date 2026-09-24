@@ -2330,3 +2330,23 @@ Stripe, Claude API, Resend, PostHog).
       pijltjestoetsen) en met een vitest-test voor de opmaakkeuze in nl en en
       (54 → 60 tests). `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest
       run` schoon.
+
+- [x] Stap 48 — De Engelse voorbeeld-PDF is écht Engels: het
+      voorbeeldscript hergebruikte de Nederlandse ideetekst voor
+      `public/examples/idea-book-en.pdf`, waardoor de Engelse "Example Idea
+      Book"-link (en de voorbeeldkaart in de landing-hero, Stap 46) Nederlandse
+      tekst toonden. `scripts/generate-example-idea-book.ts` bevat nu een
+      volledige vertaling (zes ideeën + wildcard: titels, intro's,
+      why-it-fits, stappen, eerste acties, kosten/duur, vereisten); de
+      profielsamenvatting, moet-haves en voorkeuren waren al Engels. De titel,
+      why-it-fits en eerste actie van het eerste idee komen uit één bron,
+      `src/lib/exampleIdea.ts` (`EXAMPLE_IDEAS` per taal), die zowel het script
+      als de hero-kaart (`ExampleIdeaCard`, nu met een `idea`-prop) gebruikt —
+      kaart en PDF kunnen daardoor niet meer uit elkaar lopen. Beide PDF's
+      zijn opnieuw gegenereerd met `npx tsx scripts/generate-example-idea-book.ts`
+      (de Nederlandse is inhoudelijk ongewijzigd). Getest: alle 10 pagina's van
+      de Engelse PDF met PyMuPDF gelezen en de profiel-, idee- en
+      wildcardpagina's bekeken (geen afkapping, Engelse chrome + inhoud);
+      Engelse landingspagina toont de Engelse kaart, bijschrift en een link naar
+      `/examples/idea-book-en.pdf`. `tsc --noEmit`/`eslint .`/`npm run
+      build`/`npx vitest run` schoon.

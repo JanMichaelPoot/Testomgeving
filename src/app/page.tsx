@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/window/SiteFooter";
 import { HeroFanCollage } from "@/components/window/HeroFanCollage";
 import { HeroStartForm } from "@/components/window/HeroStartForm";
 import { ExampleIdeaCard } from "@/components/window/ExampleIdeaCard";
-import { EXAMPLE_IDEA } from "@/lib/exampleIdea";
+import { EXAMPLE_IDEAS, EXAMPLE_IDEA_DOOR } from "@/lib/exampleIdea";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { formatPrice } from "@/lib/pricing";
@@ -50,9 +50,10 @@ export default async function Home() {
             <div className="relative pb-0 md:pb-28">
               <HeroFanCollage alt={dict.landing.heroAlt} />
               <ExampleIdeaCard
+                idea={EXAMPLE_IDEAS[locale]}
                 doorLine={dict.plan.reveal.doorLabel
                   .replace("{n}", String(1))
-                  .replace("{label}", dict.plan.book.doors[EXAMPLE_IDEA.door].label)}
+                  .replace("{label}", dict.plan.book.doors[EXAMPLE_IDEA_DOOR].label)}
                 firstStepLabel={dict.plan.reveal.firstStepHeading}
                 className="absolute bottom-0 left-0 hidden w-[300px] -rotate-2 overflow-hidden rounded-lg border border-border bg-paper shadow-[0_30px_60px_-28px_rgba(60,41,32,0.55)] md:block lg:w-[340px]"
               />

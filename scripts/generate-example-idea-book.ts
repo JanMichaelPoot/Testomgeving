@@ -9,6 +9,7 @@
 import { writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { renderIdeaBookPdf } from "../src/lib/pdf/ideaBook";
+import { EXAMPLE_IDEAS } from "../src/lib/exampleIdea";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "../src/lib/claude/ideaBookTypes";
 
 function idea(overrides: Partial<IdeaBookEntry> & Pick<IdeaBookEntry, "title" | "door">): IdeaBookEntry {
@@ -44,15 +45,15 @@ const NL: GeneratedIdeaBook = {
   preferences: ["Graag iets buiten", "Houdt van koffie en kunst"],
   ideas: [
     idea({
-      title: "Pottenbakken zoals je stiekem wilde",
+      title: EXAMPLE_IDEAS.nl.title,
       door: "natural",
       intro: "Een echte pottenbakworkshop, met je handen in de klei en je scherm in je zak.",
-      why_it_fits: "Je zei zelf dat je best weer eens een workshop zou willen doen — hier is hij.",
+      why_it_fits: EXAMPLE_IDEAS.nl.whyItFits,
       details: [
         "Zoek een pottenbakstudio bij jou in de buurt via Google Maps.",
         "Boek een plek voor een proefles van twee uur.",
       ],
-      first_action: "Zoek 'pottenbakken workshop' + je woonplaats en bekijk de eerstvolgende datum.",
+      first_action: EXAMPLE_IDEAS.nl.firstAction,
       practical: { estimated_cost: "€35–50 p.p.", duration: "Een dagdeel", difficulty: "easy", preparation: "" },
       requirements: ["Kleding die vuil mag worden"],
       photo_category: "creative_workshop",
@@ -151,21 +152,116 @@ const NL: GeneratedIdeaBook = {
   },
 };
 
+// The English example is a real translation of the Dutch one (same ideas,
+// same order, same structure) so the English landing page and the English
+// "Example Idea Book" link don't show Dutch copy. The first idea's title,
+// why-it-fits and first action come from src/lib/exampleIdea.ts, which the
+// landing page's hero card also renders.
 const EN: GeneratedIdeaBook = {
   profile_summary:
     "You've mostly been on the couch after work for months and want some life back in your weekends, ideally together with your partner.",
   must_haves: ["No dogs", "Wheelchair accessible"],
   preferences: ["Something outdoors would be nice", "Loves coffee and art"],
-  ideas: NL.ideas.map((i) => ({ ...i })),
-  wildcard: { ...NL.wildcard },
+  ideas: [
+    idea({
+      title: EXAMPLE_IDEAS.en.title,
+      door: "natural",
+      intro: "A real pottery workshop, with your hands in the clay and your phone in your pocket.",
+      why_it_fits: EXAMPLE_IDEAS.en.whyItFits,
+      details: [
+        "Find a pottery studio near you via Google Maps.",
+        "Book a spot for a two-hour trial class.",
+      ],
+      first_action: EXAMPLE_IDEAS.en.firstAction,
+      practical: { estimated_cost: "€35–50 p.p.", duration: "Half a day", difficulty: "easy", preparation: "" },
+      requirements: ["Clothes that can get dirty"],
+      photo_category: "creative_workshop",
+    }),
+    idea({
+      title: "An art route past hidden works",
+      door: "discovery",
+      intro: "Walk together past artworks in your own city that you've probably passed many times before.",
+      why_it_fits: "You like art and being outdoors — this combines both without any fuss.",
+      details: [
+        "Search online for an 'art route' or 'street art route' in your town.",
+        "Download or print the route and start at the first point on the map.",
+      ],
+      first_action: "Search 'art route' + your town and open the first link.",
+      practical: { estimated_cost: "Free", duration: "Half a day", difficulty: "easy", preparation: "" },
+      requirements: ["Smartphone with a map or a paper route"],
+      photo_category: "art_culture",
+    }),
+    idea({
+      title: "Coffee in the middle of a museum",
+      door: "discovery",
+      intro: "Drink specialty coffee among the art, even without a museum ticket.",
+      why_it_fits: "You mentioned coffee and art as things you love — this puts them at the same table.",
+      details: [
+        "Find the nearest museum with its own café.",
+        "Walk in (often accessible without a ticket too) and decide on the spot.",
+      ],
+      first_action: "Search 'museum café' + your town on Google Maps.",
+      practical: { estimated_cost: "€10–20", duration: "1–2 hours", difficulty: "easy", preparation: "" },
+      photo_category: "food_drink",
+    }),
+    idea({
+      title: "Paddleboarding through your own city",
+      door: "unexpected",
+      intro: "Paddle across water you normally only see from the quay.",
+      why_it_fits: "You want your weekends to feel alive again — from the water, your city looks completely different.",
+      details: [
+        "Search 'paddleboard rental' or 'canoe rental' near you.",
+        "Book two boards for at least an hour and a half.",
+      ],
+      first_action: "Search 'paddleboard rental' + your town and check availability.",
+      practical: { estimated_cost: "€20–30 p.p.", duration: "Half a day", difficulty: "moderate", preparation: "" },
+      requirements: ["Booking in advance", "Towel and dry clothes"],
+      photo_category: "water_activity",
+    }),
+    idea({
+      title: "Hunting murals as a scavenger hunt",
+      door: "unexpected",
+      intro: "Follow a self-guided route past murals and turn it into a photo scavenger hunt.",
+      why_it_fits: "You've mostly been on the couch for months — this is an active, low-key way to rediscover your city.",
+      details: [
+        "Search 'street art route' + your town.",
+        "Follow the route on foot or by bike and take a photo at each piece.",
+      ],
+      first_action: "Search 'street art route' + your town on Google.",
+      practical: { estimated_cost: "Free", duration: "Half a day", difficulty: "easy", preparation: "" },
+      photo_category: "art_culture",
+    }),
+    idea({
+      title: "A vintage-car road trip with no fixed route",
+      door: "stretch",
+      intro: "Rent a vintage car and head out together, with no set destination.",
+      why_it_fits: "You picked 'a day out' as an option — this is spontaneous, outdoors, and just unpredictable enough.",
+      details: [
+        "Search 'vintage car rental' in your region.",
+        "Reserve a car for part of a day and drive out of town without a fixed route.",
+      ],
+      first_action: "Search 'vintage car rental' + your region and check availability.",
+      practical: { estimated_cost: "€100–150", duration: "Half a day", difficulty: "moderate", preparation: "" },
+      requirements: ["Valid driving licence", "Booking in advance"],
+      photo_category: "travel_adventure",
+    }),
+  ],
+  wildcard: idea({
+    title: "Paint expressively in public",
+    door: "wildcard",
+    intro: "An action-painting workshop, where precision isn't the goal for once.",
+    why_it_fits: "You said you'd like to do a workshop again — this is less predictable than pottery.",
+    details: [
+      "Search 'action painting workshop' near you.",
+      "Book a session for two and wear clothes that can get paint on them.",
+    ],
+    first_action: "Search 'action painting workshop' + your town.",
+    practical: { estimated_cost: "€35–50 p.p.", duration: "Half a day", difficulty: "moderate", preparation: "" },
+    requirements: ["Booking in advance", "Old clothes or an apron"],
+    photo_category: "creative_workshop",
+  }),
   labels: NL.labels,
 };
-
-// Reuse the Dutch idea copy for the English example too — this is a
-// static, one-time example asset, not real generated output, so the exact
-// wording doesn't need a full translation pass; the point is to show the
-// book's structure and design in both languages' chrome (headings, labels,
-// footer) which renderIdeaBookPdf already localizes on its own.
 
 async function main() {
   const outDir = path.join(process.cwd(), "public/examples");
