@@ -10,20 +10,6 @@ export const LUXURY_ILLUSTRATIONS = {
   windowView: "/illustrations/luxury/window-view.jpg",
 } as const;
 
-// One photo per intake wizard page (src/components/window/IntakeWizard.tsx),
-// indexed by page position: situatie, over jou, dials, openness, laatste stap.
-// "Outdoor adventure" still-life set (see
-// scripts/generate-outdoor-illustrations.ts) — replaces the indoor walnut/
-// leather set on these five pages only; the hero/checkout window-view above
-// is untouched.
-export const INTAKE_LUXURY_PHOTOS = [
-  "/illustrations/outdoor/situation.jpg",
-  "/illustrations/outdoor/about.jpg",
-  "/illustrations/outdoor/dials.jpg",
-  "/illustrations/outdoor/openness.jpg",
-  "/illustrations/outdoor/final.jpg",
-] as const;
-
 // ── Stock photography (idea-card imagery only) ──────────────────────────
 // Replaces the old IDEA_HERO_PHOTOS pool (7 generic Unsplash photos cycled
 // purely by index, with no relation to an idea's actual content — leading

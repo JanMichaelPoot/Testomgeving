@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState, useTransition } from "react";
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { PillSlider } from "@/components/ui/PillSlider";
 import { LocationAutocomplete } from "@/components/ui/LocationAutocomplete";
@@ -10,7 +9,8 @@ import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
 import { submitIntake, type IntakeAnswers } from "@/app/intake/actions";
 import { WindowMark } from "@/components/window/WindowMark";
-import { INTAKE_LUXURY_PHOTOS } from "@/lib/illustrations";
+import { IntakeAnswerStrip, IntakeWindowPanel } from "@/components/window/IntakeWindowPanel";
+import { buildWindowPanes, minutesLeft } from "@/lib/intakeWindow";
 import type { Dictionary, Option } from "@/lib/i18n/dictionaries";
 
 type StepId = keyof IntakeAnswers;
@@ -37,7 +37,6 @@ interface PageConfig {
   heading: string;
   subheading: string;
   intro?: string;
-  image: string;
   fields: FieldConfig[];
 }
 
@@ -52,7 +51,6 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "situation",
       heading: dict.pages.situation.heading,
       subheading: dict.pages.situation.subheading,
-      image: INTAKE_LUXURY_PHOTOS[0],
       fields: [
         {
           id: "situation",
@@ -84,7 +82,6 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "about",
       heading: dict.pages.about.heading,
       subheading: dict.pages.about.subheading,
-      image: INTAKE_LUXURY_PHOTOS[1],
       fields: [
         {
           id: "ageCategory",
@@ -118,7 +115,6 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "dials",
       heading: dict.pages.dials.heading,
       subheading: dict.pages.dials.subheading,
-      image: INTAKE_LUXURY_PHOTOS[2],
       fields: [
         {
           id: "practicalToWild",
@@ -150,7 +146,6 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "openness",
       heading: dict.pages.openness.heading,
       subheading: dict.pages.openness.subheading,
-      image: INTAKE_LUXURY_PHOTOS[3],
       intro: dict.opennessIntro,
       fields: [
         {
@@ -194,7 +189,6 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       id: "final",
       heading: dict.pages.final.heading,
       subheading: dict.pages.final.subheading,
-      image: INTAKE_LUXURY_PHOTOS[4],
       fields: [
         {
           id: "company",
@@ -545,23 +539,14 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
   }
 
   const progressPercent = ((page + 1) / pages.length) * 100;
+  const windowPanes = buildWindowPanes(answers, dict, EMPTY_ANSWERS, touchedSliders);
+  const timeLeft = minutesLeft(page);
 
   return (
     <div className="flex w-full max-w-5xl flex-col overflow-hidden rounded-lg border border-border bg-paper md:flex-row">
-      {/* Left: editorial still-life photo, desktop only — a magazine-style
-          "opener" image for the page, not a dark overlay/backdrop like the
-          pre-Stap-24 layout. Text stays entirely in the right column. */}
-      <div className="relative hidden shrink-0 overflow-hidden bg-cream md:block md:w-2/5">
-        <Image
-          key={currentPage.image}
-          src={currentPage.image}
-          alt=""
-          fill
-          sizes="(min-width: 768px) 40vw, 100vw"
-          className="animate-window-fade-in object-cover"
-          priority={page === 0}
-        />
-      </div>
+      {/* Left (desktop): the "Jouw venster" panel that fills with the answers
+          given so far — replaces the per-page still-life photos. */}
+      <IntakeWindowPanel panes={windowPanes} dict={dict.window} />
 
       {/* Right: form */}
       <div className="flex flex-1 flex-col">
@@ -570,8 +555,13 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
             <span className="inline-flex items-center gap-2 rounded-full bg-surface-active px-3 py-1 text-xs font-medium text-ink/70">
               <WindowMark className="h-3.5 w-3.5" />
               {dict.stepWord} {page + 1} {dict.ofWord} {pages.length}
+              {" · "}
+              {timeLeft > 0
+                ? dict.window.timeLeft.replace("{n}", String(timeLeft))
+                : dict.window.almostDone}
             </span>
           </div>
+          <IntakeAnswerStrip panes={windowPanes} />
           <div className="mt-4 h-0.5 w-full overflow-hidden rounded-full bg-border">
             <div
               className="h-full rounded-full bg-ink transition-[width] duration-300 ease-out"

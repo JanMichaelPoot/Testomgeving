@@ -60,7 +60,7 @@ een lijst kaarten.
 1. **Landing** — kernbelofte + één duidelijke CTA ("Open a Window"), met de
    taal-toggle (NL/EN) in de header op elke pagina
 2. **Intake** — visuele profiel-wizard, max. 5 pagina's met gegroepeerde
-   vragen en een passende illustratie per pagina: situatie + doel +
+   vragen en een "Jouw venster"-paneel dat zich met de antwoorden vult (Stap 45; vervangt de foto's per pagina): situatie + doel +
    doel-afhankelijke vervolgvraag; leeftijd + locatie + zoekafstand;
    vijf voorkeurs-dials als sliders (praktisch↔wild, verrassingsniveau, tijd,
    budget, inzet); gewenste type-mogelijkheden (multi-select) + must-haves +
@@ -2228,4 +2228,39 @@ Stripe, Claude API, Resend, PostHog).
       Niet live gedraaid: de cron zelf (vereist `recipient_email` + betaalrij
       en 2 dagen wachten) — alleen de selectiefunctie is met vitest gedekt.
       `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest run` (46 tests)
+      schoon.
+
+- [x] Stap 45 — "Verleiding" Fase 3 (intake "jouw venster"): op expliciete
+      bevestiging van Jan vervangt een donker walnootpaneel de losse foto's per
+      wizardpagina (Stap 25/27). Nieuw `IntakeWindowPanel.tsx`: linkerkolom
+      (desktop, `md:w-2/5`) "Jouw venster — Elk antwoord zet een ruit op zijn
+      plek." met een raamkozijn van 2×4 ruiten (Wat speelt er, Waar, Op
+      zaterdag, Verrassing, Tijd, Budget, Moeite, Stiekem willen); gevuld =
+      lichte ruit met label + serifwaarde (fade-in bij wijziging), leeg =
+      gestippelde gedimde ruit met "…"; onder het kozijn "{n} van 8 ruiten
+      staan…". Het kozijn is `sticky` en heeft vaste ruithoogtes, zodat het
+      niet uitrekt op de lange wizardpagina's. Op mobiel geen zijkolom maar een
+      horizontaal scrollbare strip met de gevulde antwoorden boven de vragen
+      (`IntakeAnswerStrip`). De stap-badge toont nu "Stap 3 van 5 · nog ± 2
+      min" (vaste schatting per pagina, `minutesLeft`; laatste pagina "bijna
+      klaar"). De afleiding van de ruitwaarden staat als pure functie in
+      `src/lib/intakeWindow.ts` (met 8 vitest-tests): sliders hebben
+      standaardwaarden, dus een slider-ruit telt pas als hij aangeraakt is
+      óf afwijkt van zijn standaard (dat laatste dekt ook een herstelde draft,
+      waar de `touchedSliders`-set weg is); "Wat speelt er" valt terug op de
+      vervolgvraag van het doel zolang `situation` leeg is; vrije tekst wordt
+      op woordgrens afgekapt. Er is niets aan `submitIntake`, validatie of
+      draft-opslag veranderd. `image` is uit `PageConfig` verwijderd en de nu
+      ongebruikte `INTAKE_LUXURY_PHOTOS` uit `illustrations.ts`; de
+      beeldbestanden in `public/illustrations/outdoor/` en het
+      generatiescript zijn bewust laten staan. Het paneel is `aria-hidden`
+      (het herhaalt alleen wat het formulier al zegt). Nieuwe teksten in
+      `intake.window` (type + nl + en).
+      Getest: in de browser paneel leeg → gevuld bij typen, een slider
+      aanraken op zijn standaard vult de ruit, een herstelde draft toont de
+      juiste ruiten, teller en tijdbadge kloppen; op 375px geen zijkolom,
+      chipstrip scrolt horizontaal en er is geen horizontale paginascroll.
+      Opgemerkt maar niet aangepast (ouder dan deze stap): op 375px lopen de
+      lange optielabels van de `PillSlider` op de dials-pagina door elkaar.
+      `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest run` (54 tests)
       schoon.

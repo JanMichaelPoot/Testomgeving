@@ -274,6 +274,20 @@ export interface Dictionary {
   };
   intake: {
     pageTitle: string;
+    // "Verleiding" Fase 3 — the "Jouw venster" panel that fills up with the
+    // person's answers while they fill in the wizard, see
+    // src/components/window/IntakeWindowPanel.tsx.
+    window: {
+      eyebrow: string;
+      heading: string;
+      hint: string; // {n}, {total}
+      timeLeft: string; // {n}
+      almostDone: string;
+      panes: Record<
+        "situation" | "where" | "saturday" | "surprise" | "time" | "budget" | "effort" | "secret",
+        string
+      >;
+    };
     stepWord: string;
     ofWord: string;
     back: string;
@@ -701,6 +715,23 @@ const nl: Dictionary = {
     footerTagline: "Jouw Idea Book",
   },
   intake: {
+    window: {
+      eyebrow: "Jouw venster",
+      heading: "Elk antwoord zet een ruit op zijn plek.",
+      hint: "{n} van {total} ruiten staan. Hoe meer je vertelt, hoe persoonlijker je deuren worden.",
+      timeLeft: "nog ± {n} min",
+      almostDone: "bijna klaar",
+      panes: {
+        situation: "Wat speelt er",
+        where: "Waar",
+        saturday: "Op zaterdag",
+        surprise: "Verrassing",
+        time: "Tijd",
+        budget: "Budget",
+        effort: "Moeite",
+        secret: "Stiekem willen",
+      },
+    },
     pageTitle: "Open een Venster — WINDOW",
     stepWord: "Stap",
     ofWord: "van",
@@ -1286,6 +1317,23 @@ const en: Dictionary = {
     footerTagline: "Your Idea Book",
   },
   intake: {
+    window: {
+      eyebrow: "Your window",
+      heading: "Every answer sets a pane in place.",
+      hint: "{n} of {total} panes are in. The more you share, the more personal your doors get.",
+      timeLeft: "about {n} min left",
+      almostDone: "almost done",
+      panes: {
+        situation: "What's going on",
+        where: "Where",
+        saturday: "On a Saturday",
+        surprise: "Surprise",
+        time: "Time",
+        budget: "Budget",
+        effort: "Effort",
+        secret: "Secretly wanting",
+      },
+    },
     pageTitle: "Open a Window — WINDOW",
     stepWord: "Step",
     ofWord: "of",
