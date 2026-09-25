@@ -189,6 +189,15 @@ describe("pickStable", () => {
     expect(new Set(first).size).toBe(3);
   });
 
+  it("prefers entries that were not used yet, topping up with used ones", () => {
+    const fresh = pickStable(items, 3, "x", new Set(["a", "b"]));
+    expect(fresh.sort()).toEqual(["c", "d", "e"]);
+    const toppedUp = pickStable(items, 4, "x", new Set(["a", "b"]));
+    expect(toppedUp).toHaveLength(4);
+    expect(new Set(toppedUp).size).toBe(4);
+    expect(toppedUp.filter((i) => ["c", "d", "e"].includes(i))).toHaveLength(3);
+  });
+
   it("returns everything when there are not enough items", () => {
     expect(pickStable(["a", "b"], 3, "x")).toEqual(["a", "b"]);
   });

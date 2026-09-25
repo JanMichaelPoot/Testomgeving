@@ -137,7 +137,27 @@ function wrapText(
   maxWidth: number,
   maxLines?: number
 ): string[] {
-  const words = text.split(/\s+/).filter(Boolean);
+  // A single "word" wider than the whole line (a long web address) can't be
+  // wrapped at a space, so it is broken across lines instead of running out
+  // of its box.
+  const words = text
+    .split(/\s+/)
+    .filter(Boolean)
+    .flatMap((word) => {
+      if (font.widthOfTextAtSize(word, size) <= maxWidth) return [word];
+      const chunks: string[] = [];
+      let chunk = "";
+      for (const ch of word) {
+        if (chunk && font.widthOfTextAtSize(chunk + ch, size) > maxWidth) {
+          chunks.push(chunk);
+          chunk = ch;
+        } else {
+          chunk += ch;
+        }
+      }
+      if (chunk) chunks.push(chunk);
+      return chunks;
+    });
   const lines: string[] = [];
   let current = "";
 
@@ -855,7 +875,7 @@ export async function renderIdeaBookPdf(
 
   function blockSteps(width: number, label: string, steps: string[]): Block {
     const numW = 30;
-    const wrapped = steps.map((t) => wrapText(t, fonts.sans, BODY_SIZE, width - numW - 4, 3));
+    const wrapped = steps.map((t) => wrapText(t, fonts.sans, BODY_SIZE, width - numW - 4, 4));
     const itemHeights = wrapped.map((lines) => lines.length * BODY_LH + 12);
     const height = LABEL_SIZE + 8 + itemHeights.reduce((a, b) => a + b, 0) - 6;
     return {
@@ -962,9 +982,20 @@ export async function renderIdeaBookPdf(
   function blockStart(width: number, label: string, url: { display: string; href: string } | null, body: string): Block {
     const padX = 15;
     const padY = 13;
+    // A long address shrinks (down to a floor) and is then cut with an ellipsis
+    // rather than running out of the panel; the link itself stays complete.
+    const urlMaxWidth = width - padX * 2;
+    let urlSize = 15;
+    let urlText = url ? url.display : null;
+    if (urlText) {
+      while (urlSize > 10 && fonts.serif.widthOfTextAtSize(urlText, urlSize) > urlMaxWidth) urlSize -= 0.5;
+      if (fonts.serif.widthOfTextAtSize(urlText, urlSize) > urlMaxWidth) {
+        let cut = urlText;
+        while (cut.length > 1 && fonts.serif.widthOfTextAtSize(`${cut}…`, urlSize) > urlMaxWidth) cut = cut.slice(0, -1);
+        urlText = `${cut}…`;
+      }
+    }
     const bodyLines = wrapText(body, fonts.sansBold, BODY_SIZE, width - padX * 2, 2);
-    const urlSize = 15;
-    const urlText = url ? wrapText(url.display, fonts.serif, urlSize, width - padX * 2, 1)[0] : null;
     const height = padY * 2 + LABEL_SIZE + 7 + (urlText ? 21 : 0) + bodyLines.length * BODY_LH;
     return {
       height,
@@ -1026,6 +1057,8 @@ export async function renderIdeaBookPdf(
   const optionLabel = (options: { value: string; label: string }[], value: string | undefined) =>
     value ? options.find((o) => o.value === value)?.label ?? null : null;
   const pageLabels = ideaPageLabels(locale);
+  const usedTakeaways = new Set<string>();
+  const usedSuggestions = new Set<string>();
 
   function drawIdeaPage(idea: IdeaBookEntry, photo: PDFImage, opts: { number: number | null; badge: string }) {
     const kind = activityKindFor(idea);
@@ -1072,9 +1105,13 @@ export async function renderIdeaBookPdf(
     const profileRows = EXPERIENCE_DIMENSIONS.map((d) => ({ name: pageLabels.dimensions[d], score: profile[d] }));
     const schedule = scheduleFor(kind, durationText, locale);
 
+    // Prefer lines no earlier page of this book has used, so several ideas of
+    // the same kind don't all carry the same checklist.
     const seed = idea.title;
-    const takeaways = pickStable(copy.takeaways, 3, seed);
-    const suggestions = pickStable(copy.suggestions, 3, seed + "·");
+    const takeaways = pickStable(copy.takeaways, 3, seed, usedTakeaways);
+    const suggestions = pickStable(copy.suggestions, 3, seed + "·", usedSuggestions);
+    takeaways.forEach((t) => usedTakeaways.add(t));
+    suggestions.forEach((t) => usedSuggestions.add(t));
     const editorial = editorialFor(idea.door, seed, locale);
 
     // Steps: the idea's own steps, plus what to bring when the idea lists
@@ -1131,7 +1168,7 @@ export async function renderIdeaBookPdf(
       // tall as its tallest card rather than a stacked pair.
       const hasLocation = Boolean(idea.location);
       const hasCost = Boolean(costText);
-      const fracs = hasLocation && hasCost ? [0.4, 0.3, 0.3] : hasLocation || hasCost ? [0.6, 0.4] : [1];
+      const fracs = hasLocation && hasCost ? [0.44, 0.28, 0.28] : hasLocation || hasCost ? [0.6, 0.4] : [1];
       const cols: Row["cols"] = [
         { block: blockSteps(colWidth(fracs, 0), pageLabels.steps, practicalSteps), frac: fracs[0] },
       ];

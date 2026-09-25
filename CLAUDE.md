@@ -2394,3 +2394,23 @@ Stripe, Claude API, Resend, PostHog).
       gedaan: een echte, betaalde generatie met live Claude-output (kost ≈€0,13).
       `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest run` (77 tests)
       schoon.
+
+- [x] Stap 50 — De nieuwe idee-pagina's (Stap 49) getest met een échte,
+      betaalde generatie (test-bypass, Utrecht-profiel, ≈€0,13; `pdf_version`
+      werd 2 in de database) en op basis daarvan drie echte problemen gevonden
+      en gefixt die het mock-boek niet liet zien: (1) een lang webadres in het
+      "Begin hier"-blok liep het paneel uit — het adres krimpt nu (15→10pt) en
+      wordt anders met "…" afgekapt (de link zelf blijft volledig); tegelijk
+      breekt `wrapText` nu een enkel woord dat breder is dan de regel af, zodat
+      een lange URL midden in een zin nergens meer uit zijn vak loopt; (2)
+      echte stappen zijn langer dan de mock-stappen en werden na 3 regels midden
+      in een zin afgekapt — de stappenkolom is breder (44% i.p.v. 40%) en mag 4
+      regels; (3) omdat vijf van de zes ideeën hetzelfde type hadden, kregen ze
+      bijna dezelfde "wat je eraan overhoudt"- en "maak het van jou"-regels —
+      `pickStable` kiest nu bij voorkeur regels die eerder in hetzelfde boek nog
+      niet gebruikt zijn. Het boek is opnieuw gerenderd uit dezelfde opgeslagen
+      data (dus zonder tweede betaalde generatie) en pagina 4-10 opnieuw
+      bekeken: alles op één pagina, geen afkapping, klikbare kaart- en
+      webadres-links aanwezig. Bekende beperking: de "mogelijke invulling"-regels
+      zijn per type vast, dus ideeën van hetzelfde type delen die tekst.
+      `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest run` schoon.

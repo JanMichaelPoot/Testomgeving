@@ -185,12 +185,16 @@ function hash(seed: string): number {
 }
 
 // Picks `count` distinct entries, varying with the seed (an idea's title) but
-// always the same for the same seed — a book regenerated from the same data
+// always the same for the same seed (and the same `avoid` set) — a book regenerated from the same data
 // reads the same, while two ideas of the same kind don't share a checklist.
-export function pickStable<T>(items: readonly T[], count: number, seed: string): T[] {
+export function pickStable<T>(items: readonly T[], count: number, seed: string, avoid?: ReadonlySet<T>): T[] {
   if (items.length <= count) return [...items];
   const start = hash(seed) % items.length;
-  return Array.from({ length: count }, (_, i) => items[(start + i) % items.length]);
+  const rotated = Array.from({ length: items.length }, (_, i) => items[(start + i) % items.length]);
+  if (!avoid || avoid.size === 0) return rotated.slice(0, count);
+  // Fresh entries first, topped up with already-used ones when there aren't
+  // enough fresh ones left.
+  return [...rotated.filter((item) => !avoid.has(item)), ...rotated.filter((item) => avoid.has(item))].slice(0, count);
 }
 
 // --- Copy --------------------------------------------------------------------
