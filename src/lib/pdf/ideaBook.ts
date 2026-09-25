@@ -8,6 +8,21 @@ import type { Locale } from "@/lib/language";
 import { mapsSearchUrl } from "@/lib/maps";
 import { ideaCategoryPhoto } from "@/lib/illustrations";
 import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
+import {
+  EXPERIENCE_DIMENSIONS,
+  activityKindFor,
+  budgetStatusFor,
+  editorialFor,
+  experienceProfileFor,
+  extractUrl,
+  fillTemplate,
+  ideaPageLabels,
+  kindCopy,
+  pickStable,
+  scheduleFor,
+  timeFits,
+  type IdeaPageLabels,
+} from "@/lib/pdf/ideaContent";
 
 // pdf-lib has no first-class "add a hyperlink" API, so a clickable region
 // is a manually-built Link annotation — a standard, documented technique
@@ -82,9 +97,7 @@ const PWA4_SURFACE_INVERSE = PWA4_INK; // #3A2820 — same value, named per the 
 const PWA4_ACCENT = rgb(0.851, 0.549, 0.29); // #D98C4A
 const PWA4_SCRIM_RGB = rgb(0.102, 0.071, 0.047); // rgba(26,18,12,*)
 
-const PWA4_HERO_HEIGHT = 225; // 300px
 const PWA4_BODY_PAD_X = 21; // space-6, 28px
-const PWA4_BODY_PAD_TOP = 15; // space-5, 20px
 const PWA4_SPACE_2 = 6; // 8px
 const PWA4_SPACE_3 = 9; // 12px
 const PWA4_SPACE_4 = 12; // 16px
@@ -92,7 +105,6 @@ const PWA4_SPACE_5 = 15; // 20px
 const PWA4_SPACE_7 = 30; // 40px
 const PWA4_RADIUS_SM = 7.5; // 10px
 const PWA4_RADIUS_MD = 15; // 20px
-const PWA4_STEP_BADGE_D = 21; // 28px
 const PWA4_CONTENT_WIDTH = PAGE_WIDTH - PWA4_BODY_PAD_X * 2;
 
 // The spec's own "spark" glyph beside "BEGIN HIER", exactly as given in its
@@ -198,10 +210,20 @@ function coverFitSize(image: PDFImage, boxWidth: number, boxHeight: number) {
   return { width: image.width * scale, height: image.height * scale };
 }
 
+// What the renderer may know about the person beyond the generated book — all
+// optional: without it the idea pages simply leave out the company cell, the
+// budget status and the derived "it fits" sentence.
+export interface IdeaBookPdfContext {
+  company?: string[]; // stored intake values, e.g. ["alone"]
+  budget?: string; // "free" | "25" | "100" | "allin"
+  timeAvailable?: string; // "hour" | "halfday" | "fullday" | "weekend"
+}
+
 export async function renderIdeaBookPdf(
   book: GeneratedIdeaBook,
   title: string,
-  locale: Locale
+  locale: Locale,
+  context: IdeaBookPdfContext = {}
 ): Promise<Uint8Array> {
   const dict = getDictionary(locale);
   const chrome = dict.pdfChrome;
@@ -563,260 +585,6 @@ export async function renderIdeaBookPdf(
     }
   }
 
-  // --- Pages 4-9 (ideas) and page 10 (wildcard): one full page each,
-  // rebuilt to the PossibilityPageA4 design system (see the big comment
-  // block near PWA4_INK above for the spec source and this
-  // implementation's three deliberate departures from it). Ideas are still
-  // laid out in door order (natural → discovery → unexpected → stretch)
-  // rather than Claude's raw array order, the same journey-from-comfort-
-  // zone arc as the web viewer.
-  const pwa4HeroBottomY = PAGE_HEIGHT - PWA4_HERO_HEIGHT;
-
-  // Hero photo (top-aligned, any cover-fit overflow hidden a moment later
-  // under the opaque body rectangle — the same technique coverFitSize's
-  // other full-bleed callers already rely on), its bottom-anchored scrim
-  // gradient (stacked bands — pdf-lib has no real gradient fill), the
-  // title, and an optional wildcard pill badge top-right.
-  function pwa4DrawHero(photo: PDFImage, titleLine: string, badgeLabel: string | null) {
-    const { width, height } = coverFitSize(photo, PAGE_WIDTH, PWA4_HERO_HEIGHT);
-    page.drawImage(photo, { x: (PAGE_WIDTH - width) / 2, y: PAGE_HEIGHT - height, width, height });
-
-    const steps = 8;
-    const bandHeight = PWA4_HERO_HEIGHT / steps;
-    for (let i = 0; i < steps; i++) {
-      const t = 1 - i / steps;
-      page.drawRectangle({
-        x: 0,
-        y: pwa4HeroBottomY + i * bandHeight,
-        width: PAGE_WIDTH,
-        height: bandHeight + 1,
-        color: PWA4_SCRIM_RGB,
-        opacity: 0.72 * t * t,
-      });
-    }
-
-    // Fills the body area (and any hero-image/gradient overflow below the
-    // hero) with the page surface colour.
-    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: pwa4HeroBottomY, color: PWA4_SURFACE_PAGE });
-
-    if (badgeLabel) {
-      const padX = PWA4_SPACE_4;
-      const size = 8.25;
-      const labelWidth = trackedTextWidth(badgeLabel.toUpperCase(), fonts.sansBold, size, 0.9);
-      const pillWidth = labelWidth + padX * 2;
-      const pillHeight = 19;
-      const pillX = PAGE_WIDTH - PWA4_BODY_PAD_X - pillWidth;
-      const pillTop = PAGE_HEIGHT - PWA4_SPACE_5;
-      page.drawSvgPath(roundedRectPath(pillWidth, pillHeight, pillHeight / 2), {
-        x: pillX,
-        y: pillTop,
-        color: PWA4_ACCENT,
-      });
-      drawTrackedLine(
-        badgeLabel.toUpperCase(),
-        fonts.sansBold,
-        size,
-        PWA4_INK,
-        pillX + padX,
-        pillTop - pillHeight / 2 - size / 2.6,
-        0.9
-      );
-    }
-
-    const titleSize = 25.5;
-    const titleLineHeight = 30;
-    const titleWidth = PAGE_WIDTH - PWA4_BODY_PAD_X * 2;
-    const titleLines = wrapText(titleLine, fonts.serif, titleSize, titleWidth, 2);
-    let ty = pwa4HeroBottomY + PWA4_SPACE_5 + (titleLines.length - 1) * titleLineHeight;
-    for (const line of titleLines) {
-      page.drawText(line, { x: PWA4_BODY_PAD_X, y: ty, size: titleSize, font: fonts.serif, color: PWA4_INK_INVERSE });
-      ty -= titleLineHeight;
-    }
-  }
-
-  // "Waarom dit bij jou past" — surface-panel fill, radius-md, a thin
-  // surface-inverse accent bar on the left edge (the spec's
-  // wnd-panel--accent-edge).
-  function pwa4DrawWhyPanel(label: string, body: string) {
-    const padX = PWA4_SPACE_5;
-    const padY = PWA4_SPACE_5;
-    const eyebrowSize = 8.25;
-    const bodySize = 12;
-    const bodyLineHeight = 18;
-    const innerWidth = PWA4_CONTENT_WIDTH - padX * 2;
-    const bodyLines = wrapText(body, fonts.sansBold, bodySize, innerWidth, 3);
-    const boxHeight = padY * 2 + eyebrowSize + PWA4_SPACE_2 + bodyLines.length * bodyLineHeight;
-    newPageIfNeeded(boxHeight + PWA4_SPACE_5);
-    const boxTop = y;
-    const boxBottom = boxTop - boxHeight;
-    if (!dryRun) {
-      page.drawSvgPath(roundedRectPath(PWA4_CONTENT_WIDTH, boxHeight, PWA4_RADIUS_MD), {
-        x: PWA4_BODY_PAD_X,
-        y: boxTop,
-        color: PWA4_SURFACE_PANEL,
-      });
-      page.drawRectangle({ x: PWA4_BODY_PAD_X, y: boxBottom, width: 2.25, height: boxHeight, color: PWA4_SURFACE_INVERSE });
-      let ty = boxTop - padY - eyebrowSize;
-      drawTrackedLine(label.toUpperCase(), fonts.sansBold, eyebrowSize, PWA4_INK_MUTED, PWA4_BODY_PAD_X + padX, ty, 0.9);
-      ty -= eyebrowSize + PWA4_SPACE_2;
-      for (const line of bodyLines) {
-        page.drawText(line, { x: PWA4_BODY_PAD_X + padX, y: ty, size: bodySize, font: fonts.sansBold, color: PWA4_INK });
-        ty -= bodyLineHeight;
-      }
-    }
-    y = boxBottom - PWA4_SPACE_5;
-  }
-
-  // "Stappen" — an eyebrow label, then surface-inverse circular radius-full
-  // badges (numbered, ink-inverse digits) each paired with one body line.
-  function pwa4DrawSteps(label: string, steps: string[]) {
-    if (steps.length === 0) return;
-    const eyebrowSize = 8.25;
-    newPageIfNeeded(eyebrowSize + PWA4_SPACE_2);
-    drawTrackedLine(label.toUpperCase(), fonts.sansBold, eyebrowSize, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
-    y -= eyebrowSize + PWA4_SPACE_2;
-
-    const badgeD = PWA4_STEP_BADGE_D;
-    const badgeR = badgeD / 2;
-    const textX = PWA4_BODY_PAD_X + badgeD + PWA4_SPACE_3;
-    const textWidth = PWA4_CONTENT_WIDTH - (badgeD + PWA4_SPACE_3);
-    const bodySize = 12;
-    const bodyLineHeight = 18;
-    const numSize = 9.75;
-
-    steps.forEach((step, i) => {
-      const lines = wrapText(step, fonts.sans, bodySize, textWidth, 2);
-      const blockHeight = Math.max(badgeD, lines.length * bodyLineHeight);
-      newPageIfNeeded(blockHeight + PWA4_SPACE_3);
-      if (!dryRun) {
-        const badgeCenterY = y - badgeR;
-        page.drawCircle({ x: PWA4_BODY_PAD_X + badgeR, y: badgeCenterY, size: badgeR, color: PWA4_SURFACE_INVERSE });
-        const num = String(i + 1);
-        const numWidth = fonts.sansBold.widthOfTextAtSize(num, numSize);
-        page.drawText(num, {
-          x: PWA4_BODY_PAD_X + badgeR - numWidth / 2,
-          y: badgeCenterY - numSize * 0.35,
-          size: numSize,
-          font: fonts.sansBold,
-          color: PWA4_INK_INVERSE,
-        });
-        let ty = y - 2;
-        for (const line of lines) {
-          page.drawText(line, { x: textX, y: ty, size: bodySize, font: fonts.sans, color: PWA4_INK });
-          ty -= bodyLineHeight;
-        }
-      }
-      y -= blockHeight;
-      if (i < steps.length - 1) y -= PWA4_SPACE_3;
-    });
-    y -= PWA4_SPACE_5;
-  }
-
-  // "Kosten" — an inline chip (hugs its own text width, not full-bleed
-  // like the panels above).
-  function pwa4DrawCostChip(label: string, value: string) {
-    if (!value) return;
-    const padX = PWA4_SPACE_4;
-    const padY = PWA4_SPACE_4;
-    const eyebrowSize = 8.25;
-    const valueSize = 10.5;
-    const valueLineHeight = 15;
-    const maxInnerWidth = PWA4_CONTENT_WIDTH - padX * 2;
-    const lines = wrapText(value, fonts.sans, valueSize, maxInnerWidth, 2);
-    const labelWidth = trackedTextWidth(label.toUpperCase(), fonts.sansBold, eyebrowSize, 0.9);
-    const contentWidth = Math.max(labelWidth, ...lines.map((l) => fonts.sans.widthOfTextAtSize(l, valueSize)));
-    const chipWidth = Math.min(PWA4_CONTENT_WIDTH, contentWidth + padX * 2);
-    const chipHeight = padY * 2 + eyebrowSize + PWA4_SPACE_2 + lines.length * valueLineHeight;
-    newPageIfNeeded(chipHeight + PWA4_SPACE_5);
-    const boxTop = y;
-    if (!dryRun) {
-      page.drawSvgPath(roundedRectPath(chipWidth, chipHeight, PWA4_RADIUS_SM), {
-        x: PWA4_BODY_PAD_X,
-        y: boxTop,
-        color: PWA4_SURFACE_PANEL,
-      });
-      let ty = boxTop - padY - eyebrowSize;
-      drawTrackedLine(label.toUpperCase(), fonts.sansBold, eyebrowSize, PWA4_INK_MUTED, PWA4_BODY_PAD_X + padX, ty, 0.9);
-      ty -= eyebrowSize + PWA4_SPACE_2;
-      for (const line of lines) {
-        page.drawText(line, { x: PWA4_BODY_PAD_X + padX, y: ty, size: valueSize, font: fonts.sans, color: PWA4_INK });
-        ty -= valueLineHeight;
-      }
-    }
-    y = boxTop - chipHeight - PWA4_SPACE_5;
-  }
-
-  // Location line — a pin glyph (drawn as a simple filled circle + triangle
-  // rather than reusing the app's arc-based pin path, which isn't safe to
-  // scale numerically — see scaleLinearSvgPath's own comment), the location
-  // in caption, and a right-aligned underlined caption map link.
-  function pwa4DrawLocationLine(idea: IdeaBookEntry) {
-    if (!idea.location) return;
-    const locationText = [idea.location.name, idea.location.city].filter(Boolean).join(", ");
-    const size = 9.75;
-    newPageIfNeeded(size + PWA4_SPACE_7);
-    if (!dryRun) {
-      const headR = 2.6;
-      const iconX = PWA4_BODY_PAD_X;
-      const headCenterY = y - headR;
-      page.drawCircle({ x: iconX + headR, y: headCenterY, size: headR, color: PWA4_INK_MUTED });
-      page.drawSvgPath(
-        `M ${headR - 1.6},${2 * headR - 0.6} L ${headR + 1.6},${2 * headR - 0.6} L ${headR},${2 * headR + 3} Z`,
-        { x: iconX, y, color: PWA4_INK_MUTED }
-      );
-
-      const textX = iconX + headR * 2 + PWA4_SPACE_2 + 2;
-      const textY = y - size * 0.8;
-      page.drawText(locationText, { x: textX, y: textY, size, font: fonts.sans, color: PWA4_INK });
-
-      // "→" (U+2192) isn't in the bundled NotoSans font (same class of
-      // missing-glyph bug as the ✦/★ markers elsewhere in this file — see
-      // Stap 23/33's precedent) and renders as an empty box. Drawn as a
-      // small vector arrow instead of a text glyph, the same fix already
-      // used for the pin/spark icons above, rather than dropping the arrow
-      // entirely — the map link's affordance is worth keeping.
-      const mapLabel = chrome.mapLinkLabel;
-      const mapTextWidth = fonts.sans.widthOfTextAtSize(mapLabel, size);
-      const arrowGap = 4;
-      const arrowWidth = 8;
-      const totalWidth = mapTextWidth + arrowGap + arrowWidth;
-      const mapX = PWA4_BODY_PAD_X + PWA4_CONTENT_WIDTH - totalWidth;
-      page.drawText(mapLabel, { x: mapX, y: textY, size, font: fonts.sans, color: PWA4_INK });
-      page.drawLine({
-        start: { x: mapX, y: textY - 1.5 },
-        end: { x: mapX + mapTextWidth, y: textY - 1.5 },
-        thickness: 0.5,
-        color: PWA4_INK,
-      });
-      const arrowY = textY + size * 0.35;
-      const arrowStartX = mapX + mapTextWidth + arrowGap;
-      page.drawLine({
-        start: { x: arrowStartX, y: arrowY },
-        end: { x: arrowStartX + arrowWidth, y: arrowY },
-        thickness: 0.8,
-        color: PWA4_INK,
-      });
-      page.drawLine({
-        start: { x: arrowStartX + arrowWidth - 3, y: arrowY + 2.4 },
-        end: { x: arrowStartX + arrowWidth, y: arrowY },
-        thickness: 0.8,
-        color: PWA4_INK,
-      });
-      page.drawLine({
-        start: { x: arrowStartX + arrowWidth - 3, y: arrowY - 2.4 },
-        end: { x: arrowStartX + arrowWidth, y: arrowY },
-        thickness: 0.8,
-        color: PWA4_INK,
-      });
-      addLinkAnnotation(
-        page,
-        { x: mapX, y: textY - 2, width: totalWidth, height: size + 3 },
-        mapsSearchUrl(idea.location.name, idea.location.city)
-      );
-    }
-    y -= size + PWA4_SPACE_7;
-  }
-
   // Closing CTA — surface-inverse panel, the spark glyph in accent beside
   // the "BEGIN HIER" eyebrow (in ink-inverse), then the instruction line.
   function pwa4DrawCta(label: string, body: string) {
@@ -863,31 +631,620 @@ export async function renderIdeaBookPdf(
     y = boxBottom;
   }
 
-  // `isWildcard` no longer changes the CTA's own styling — the source
-  // design has no wildcard-specific CTA variant (unlike the previous
-  // Stap 36 design's gold-bordered version) — it's kept only to select
-  // the pill badge text via the caller, already handled by `badgeLabel`.
-  function drawActionabilityPage(idea: IdeaBookEntry, photo: PDFImage, titleLine: string, badgeLabel: string | null) {
-    pwa4DrawHero(photo, titleLine, badgeLabel);
+  // --- Pages 4-9 (ideas) and page 10 (wildcard): one full page each, laid out
+  // as a small magazine spread inside the PossibilityPageA4 tokens above:
+  // a hero (door badge, title, subtitle), then a personal-match panel, an
+  // at-a-glance strip, an experience profile beside a possible schedule,
+  // takeaways beside "make it yours", practical steps beside the investment +
+  // location cards, a small editorial detail, and the "start here" panel.
+  //
+  // Everything on the page but the hero photo is measured first (each block
+  // reports its own height), then the richest variant that fits on ONE page
+  // is drawn, with the spare room shared out between the gaps and the hero
+  // (see drawIdeaPage) — so a page is never half empty and never spills over.
+  // All the extra content is rule-based (src/lib/pdf/ideaContent.ts): no
+  // additional API call or generated text.
+  const IDEA_BOTTOM = 56; // above the footer line
+  const IDEA_GAP = 9;
+  const IDEA_COL_GAP = 10;
+  const HERO_MIN = 156;
+  const HERO_MAX = 214;
+  const HERO_TITLE_SIZE = 23;
+  const HERO_SUB_SIZE = 10.5;
+  const HERO_SUB_LH = 14.5;
+  const LABEL_SIZE = 7.25;
+  const BODY_SIZE = 9.75;
+  const BODY_LH = 13;
 
-    y = pwa4HeroBottomY - PWA4_BODY_PAD_TOP;
-    drawParagraph(idea.intro, fonts.sans, 12, PWA4_INK, 6, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 3);
-    y -= PWA4_SPACE_5;
+  // A measured piece of the page: its natural height, and how to draw it into
+  // a box of at least that height (panels stretch to fill a shared row).
+  interface Block {
+    height: number;
+    draw: (x: number, top: number, h: number) => void;
+  }
 
-    pwa4DrawWhyPanel(chrome.whyItFitsFallback, idea.why_it_fits);
-    pwa4DrawSteps(book.labels.steps_heading || chrome.stepsFallback, idea.details);
+  // The vertical space a wrapped block of text takes / where its first
+  // baseline sits, so measuring and drawing agree.
+  const textBaseline = (topY: number, size: number, lh: number) => topY - (lh - size) / 2 - size * 0.78;
 
-    const practicalLine = [
-      idea.practical.estimated_cost,
-      idea.practical.duration,
-      DIFFICULTY_LABELS[locale][idea.practical.difficulty],
-    ]
-      .filter(Boolean)
-      .join(" · ");
-    pwa4DrawCostChip(book.labels.cost_label || chrome.practicalFallback, practicalLine);
+  function drawTextLines(lines: string[], x: number, topY: number, size: number, lh: number, font: PDFFont, color: RGB) {
+    lines.forEach((line, i) => {
+      page.drawText(line, { x, y: textBaseline(topY - i * lh, size, lh), size, font, color });
+    });
+  }
 
-    pwa4DrawLocationLine(idea);
-    pwa4DrawCta(book.labels.first_action_heading || chrome.firstActionFallback, idea.first_action);
+  function drawLabel(text: string, x: number, topY: number, color: RGB = PWA4_INK_MUTED) {
+    drawTrackedLine(text.toUpperCase(), fonts.sansBold, LABEL_SIZE, color, x, topY - LABEL_SIZE, 0.85);
+  }
+
+  const drawPanel = (x: number, top: number, w: number, h: number, color: RGB, radius = PWA4_RADIUS_MD) =>
+    page.drawSvgPath(roundedRectPath(w, h, radius), { x, y: top, color });
+
+  type IconKind = "clock" | "level" | "people" | "pin" | "type";
+
+  // Simple line icons, drawn as vectors (the bundled fonts have no icon glyphs,
+  // and several symbols we might reach for are missing from Noto Sans).
+  function drawIcon(kind: IconKind, cx: number, cy: number, s: number, color: RGB) {
+    const w = 0.9;
+    if (kind === "clock") {
+      page.drawCircle({ x: cx, y: cy, size: s / 2, borderColor: color, borderWidth: w });
+      page.drawLine({ start: { x: cx, y: cy }, end: { x: cx, y: cy + s * 0.3 }, thickness: w, color });
+      page.drawLine({ start: { x: cx, y: cy }, end: { x: cx + s * 0.22, y: cy - s * 0.06 }, thickness: w, color });
+    } else if (kind === "level") {
+      const bw = s * 0.24;
+      [0.38, 0.68, 1].forEach((f, i) => {
+        page.drawRectangle({ x: cx - s / 2 + i * (bw + s * 0.14), y: cy - s / 2, width: bw, height: s * f, color });
+      });
+    } else if (kind === "people") {
+      page.drawCircle({ x: cx, y: cy + s * 0.2, size: s * 0.2, borderColor: color, borderWidth: w });
+      page.drawEllipse({ x: cx, y: cy - s * 0.32, xScale: s * 0.36, yScale: s * 0.2, borderColor: color, borderWidth: w });
+    } else if (kind === "pin") {
+      page.drawCircle({ x: cx, y: cy + s * 0.12, size: s * 0.26, color });
+      page.drawSvgPath(`M ${-s * 0.2},0 L ${s * 0.2},0 L 0,${s * 0.5} Z`, { x: cx, y: cy + s * 0.12 - s * 0.05, color });
+    } else {
+      page.drawSvgPath(scaleLinearSvgPath(PWA4_SPARK_PATH_24, s / 24), { x: cx - s / 2, y: cy + s / 2, color });
+    }
+  }
+
+  // --- blocks ---------------------------------------------------------------
+
+  function blockMatch(width: number, label: string, body: string): Block {
+    const padX = 14;
+    const padY = 11;
+    const size = 10.5;
+    const lh = 15;
+    const lines = wrapText(body, fonts.sans, size, width - padX * 2 - 4, 5);
+    const height = padY * 2 + LABEL_SIZE + 6 + lines.length * lh;
+    return {
+      height,
+      draw(x, top, h) {
+        drawPanel(x, top, width, h, PWA4_SURFACE_PANEL);
+        page.drawRectangle({ x, y: top - h, width: 2.25, height: h, color: PWA4_SURFACE_INVERSE });
+        drawLabel(label, x + padX, top - padY);
+        drawTextLines(lines, x + padX, top - padY - LABEL_SIZE - 6, size, lh, fonts.sans, PWA4_INK);
+      },
+    };
+  }
+
+  interface GlanceCell {
+    icon: IconKind;
+    label: string;
+    value: string;
+  }
+
+  function blockGlance(width: number, cells: GlanceCell[]): Block {
+    const gap = 8;
+    const cellW = (width - gap * (cells.length - 1)) / cells.length;
+    const pad = 9;
+    const valueSize = 9.75;
+    const valueLh = 12.5;
+    const wrapped = cells.map((c) => wrapText(c.value, fonts.sansBold, valueSize, cellW - pad * 2, 2));
+    const maxLines = Math.max(1, ...wrapped.map((l) => l.length));
+    const height = pad + 11 + 5 + maxLines * valueLh + pad - 2;
+    return {
+      height,
+      draw(x, top, h) {
+        cells.forEach((cell, i) => {
+          const cx = x + i * (cellW + gap);
+          drawPanel(cx, top, cellW, h, PWA4_SURFACE_PANEL, PWA4_RADIUS_SM);
+          drawIcon(cell.icon, cx + pad + 5, top - pad - 5, 10, PWA4_INK_MUTED);
+          drawTrackedLine(cell.label.toUpperCase(), fonts.sansBold, 6.75, PWA4_INK_MUTED, cx + pad + 15, top - pad - 7.5, 0.7);
+          drawTextLines(wrapped[i], cx + pad, top - pad - 11 - 5, valueSize, valueLh, fonts.sansBold, PWA4_INK);
+        });
+      },
+    };
+  }
+
+  function blockProfile(width: number, label: string, rows: { name: string; score: number }[]): Block {
+    const padX = 13;
+    const padY = 11;
+    const rowH = 17;
+    const height = padY * 2 + LABEL_SIZE + 8 + rows.length * rowH;
+    return {
+      height,
+      draw(x, top, h) {
+        drawPanel(x, top, width, h, PWA4_SURFACE_PANEL);
+        drawLabel(label, x + padX, top - padY);
+        let rowTop = top - padY - LABEL_SIZE - 8;
+        for (const row of rows) {
+          drawTextLines([row.name], x + padX, rowTop, BODY_SIZE, rowH, fonts.sans, PWA4_INK);
+          const dotR = 3.1;
+          const step = 10;
+          const startX = x + width - padX - (4 * step + dotR * 2) + dotR;
+          for (let d = 0; d < 5; d++) {
+            const filled = d < row.score;
+            page.drawCircle({
+              x: startX + d * step,
+              y: rowTop - rowH / 2,
+              size: dotR,
+              ...(filled ? { color: PWA4_INK } : { borderColor: PWA4_INK_MUTED, borderWidth: 0.8 }),
+            });
+          }
+          rowTop -= rowH;
+        }
+      },
+    };
+  }
+
+  function blockSchedule(width: number, label: string, steps: { label: string; text: string }[]): Block {
+    const padX = 13;
+    const padY = 11;
+    const textX = padX + 16;
+    const wrapped = steps.map((s) => wrapText(s.text, fonts.sans, BODY_SIZE, width - textX - padX, 2));
+    const stepHeights = wrapped.map((lines) => 11 + lines.length * 12.5 + 7);
+    const height = padY * 2 + LABEL_SIZE + 8 + stepHeights.reduce((a, b) => a + b, 0) - 5;
+    return {
+      height,
+      draw(x, top, h) {
+        drawPanel(x, top, width, h, PWA4_SURFACE_PANEL);
+        drawLabel(label, x + padX, top - padY);
+        let stepTop = top - padY - LABEL_SIZE - 8;
+        const dotX = x + padX + 4;
+        steps.forEach((step, i) => {
+          const dotY = stepTop - 5.5;
+          if (i < steps.length - 1) {
+            page.drawLine({
+              start: { x: dotX, y: dotY },
+              end: { x: dotX, y: dotY - stepHeights[i] },
+              thickness: 0.8,
+              color: PWA4_INK_MUTED,
+              opacity: 0.45,
+            });
+          }
+          page.drawCircle({ x: dotX, y: dotY, size: 3.4, color: i === 0 ? PWA4_ACCENT : PWA4_SURFACE_INVERSE });
+          drawTrackedLine(step.label.toUpperCase(), fonts.sansBold, 7.5, PWA4_INK, x + textX, stepTop - 8, 0.7);
+          drawTextLines(wrapped[i], x + textX, stepTop - 11, BODY_SIZE, 12.5, fonts.sans, PWA4_INK);
+          stepTop -= stepHeights[i];
+        });
+      },
+    };
+  }
+
+  function blockList(width: number, label: string, items: string[], marker: "dot" | "check"): Block {
+    const padX = 13;
+    const padY = 11;
+    const textX = padX + 15;
+    const wrapped = items.map((t) => wrapText(t, fonts.sans, BODY_SIZE, width - textX - padX, 2));
+    const itemHeights = wrapped.map((lines) => lines.length * 12.5 + 6);
+    const height = padY * 2 + LABEL_SIZE + 8 + itemHeights.reduce((a, b) => a + b, 0) - 4;
+    return {
+      height,
+      draw(x, top, h) {
+        drawPanel(x, top, width, h, PWA4_SURFACE_PANEL);
+        drawLabel(label, x + padX, top - padY);
+        let itemTop = top - padY - LABEL_SIZE - 8;
+        items.forEach((_, i) => {
+          const mid = itemTop - 6.2;
+          if (marker === "check") {
+            page.drawSvgPath(roundedRectPath(8, 8, 2), {
+              x: x + padX,
+              y: mid + 4,
+              color: PWA4_SURFACE_PAGE,
+              borderColor: PWA4_INK_MUTED,
+              borderWidth: 0.9,
+            });
+          } else {
+            page.drawCircle({ x: x + padX + 4, y: mid, size: 2.2, color: PWA4_ACCENT });
+          }
+          drawTextLines(wrapped[i], x + textX, itemTop, BODY_SIZE, 12.5, fonts.sans, PWA4_INK);
+          itemTop -= itemHeights[i];
+        });
+      },
+    };
+  }
+
+  function blockSteps(width: number, label: string, steps: string[]): Block {
+    const numW = 30;
+    const wrapped = steps.map((t) => wrapText(t, fonts.sans, BODY_SIZE, width - numW - 4, 3));
+    const itemHeights = wrapped.map((lines) => lines.length * BODY_LH + 12);
+    const height = LABEL_SIZE + 8 + itemHeights.reduce((a, b) => a + b, 0) - 6;
+    return {
+      height,
+      draw(x, top) {
+        drawLabel(label, x, top);
+        let itemTop = top - LABEL_SIZE - 8;
+        steps.forEach((_, i) => {
+          page.drawText(String(i + 1).padStart(2, "0"), {
+            x,
+            y: itemTop - 14,
+            size: 14,
+            font: fonts.serif,
+            color: PWA4_ACCENT,
+          });
+          drawTextLines(wrapped[i], x + numW, itemTop, BODY_SIZE, BODY_LH, fonts.sans, PWA4_INK);
+          if (i < steps.length - 1) {
+            page.drawRectangle({ x, y: itemTop - itemHeights[i] + 6, width, height: 0.75, color: PWA4_SURFACE_PANEL });
+          }
+          itemTop -= itemHeights[i];
+        });
+      },
+    };
+  }
+
+  function blockInvest(width: number, labels: IdeaPageLabels, cost: string, status: string | null): Block {
+    const padX = 13;
+    const padY = 11;
+    const costLines = wrapText(cost, fonts.serif, 16, width - padX * 2, 2);
+    const statusLines = status ? wrapText(status, fonts.sansBold, 9, width - padX * 2, 4) : [];
+    const height =
+      padY * 2 + LABEL_SIZE + 6 + costLines.length * 20 + 2 + 11 + (statusLines.length > 0 ? 6 + statusLines.length * 12 : 0);
+    return {
+      height,
+      draw(x, top, h) {
+        drawPanel(x, top, width, h, PWA4_SURFACE_PANEL);
+        drawLabel(labels.invest, x + padX, top - padY);
+        let cursor = top - padY - LABEL_SIZE - 6;
+        drawTextLines(costLines, x + padX, cursor, 16, 20, fonts.serif, PWA4_INK);
+        cursor -= costLines.length * 20 + 2;
+        drawTextLines([labels.investIndication], x + padX, cursor, 8.5, 11, fonts.sans, PWA4_INK_MUTED);
+        cursor -= 11 + 6;
+        drawTextLines(statusLines, x + padX, cursor, 9, 12, fonts.sansBold, PWA4_INK);
+      },
+    };
+  }
+
+  function blockLocation(width: number, labels: IdeaPageLabels, idea: IdeaBookEntry): Block {
+    const padX = 13;
+    const padY = 11;
+    const location = idea.location!;
+    const nameLines = wrapText(location.name, fonts.sansBold, 10.5, width - padX * 2 - 16, 3);
+    const city = location.city || "";
+    const mapText = chrome.mapLinkLabel;
+    const height = padY * 2 + LABEL_SIZE + 6 + nameLines.length * 14 + (city ? 13 : 0) + 6 + 12;
+    return {
+      height,
+      draw(x, top, h) {
+        drawPanel(x, top, width, h, PWA4_SURFACE_PANEL);
+        drawLabel(labels.where, x + padX, top - padY);
+        let cursor = top - padY - LABEL_SIZE - 6;
+        drawIcon("pin", x + padX + 4, cursor - 8, 11, PWA4_INK);
+        drawTextLines(nameLines, x + padX + 16, cursor, 10.5, 14, fonts.sansBold, PWA4_INK);
+        cursor -= nameLines.length * 14;
+        if (city) drawTextLines([city], x + padX + 16, cursor, 9.5, 13, fonts.sans, PWA4_INK_MUTED);
+        // Pinned to the bottom of the (possibly stretched) card so the link
+        // always lines up with the card's lower edge.
+        const linkTop = top - h + padY + 12;
+        const textW = fonts.sans.widthOfTextAtSize(mapText, 9);
+        const linkX = x + padX + 16;
+        drawTextLines([mapText], linkX, linkTop, 9, 12, fonts.sans, PWA4_INK);
+        page.drawLine({
+          start: { x: linkX, y: linkTop - 10.5 },
+          end: { x: linkX + textW, y: linkTop - 10.5 },
+          thickness: 0.5,
+          color: PWA4_INK,
+        });
+        const ay = linkTop - 6;
+        const ax = linkX + textW + 4;
+        page.drawLine({ start: { x: ax, y: ay }, end: { x: ax + 8, y: ay }, thickness: 0.8, color: PWA4_INK });
+        page.drawLine({ start: { x: ax + 5, y: ay + 2.4 }, end: { x: ax + 8, y: ay }, thickness: 0.8, color: PWA4_INK });
+        page.drawLine({ start: { x: ax + 5, y: ay - 2.4 }, end: { x: ax + 8, y: ay }, thickness: 0.8, color: PWA4_INK });
+        addLinkAnnotation(
+          page,
+          { x: linkX, y: linkTop - 12, width: textW + 12, height: 14 },
+          mapsSearchUrl(location.name, location.city)
+        );
+      },
+    };
+  }
+
+  function blockEditorial(width: number, label: string, text: string): Block {
+    const lines = wrapText(text, fonts.serif, 10.5, width - 16, 2);
+    return {
+      height: LABEL_SIZE + 5 + lines.length * 14.5,
+      draw(x, top, h) {
+        page.drawRectangle({ x, y: top - h, width: 2.25, height: h, color: PWA4_ACCENT });
+        drawLabel(label, x + 11, top);
+        drawTextLines(lines, x + 11, top - LABEL_SIZE - 5, 10.5, 14.5, fonts.serif, PWA4_INK);
+      },
+    };
+  }
+
+  function blockStart(width: number, label: string, url: { display: string; href: string } | null, body: string): Block {
+    const padX = 15;
+    const padY = 13;
+    const bodyLines = wrapText(body, fonts.sansBold, BODY_SIZE, width - padX * 2, 2);
+    const urlSize = 15;
+    const urlText = url ? wrapText(url.display, fonts.serif, urlSize, width - padX * 2, 1)[0] : null;
+    const height = padY * 2 + LABEL_SIZE + 7 + (urlText ? 21 : 0) + bodyLines.length * BODY_LH;
+    return {
+      height,
+      draw(x, top, h) {
+        drawPanel(x, top, width, h, PWA4_SURFACE_INVERSE);
+        page.drawSvgPath(scaleLinearSvgPath(PWA4_SPARK_PATH_24, LABEL_SIZE / 24), {
+          x: x + padX,
+          y: top - padY,
+          color: PWA4_ACCENT,
+        });
+        drawTrackedLine(label.toUpperCase(), fonts.sansBold, LABEL_SIZE, PWA4_INK_INVERSE, x + padX + LABEL_SIZE + 6, top - padY - LABEL_SIZE, 0.85);
+        let cursor = top - padY - LABEL_SIZE - 7;
+        if (urlText && url) {
+          drawTextLines([urlText], x + padX, cursor, urlSize, 21, fonts.serif, PWA4_ACCENT);
+          const uw = fonts.serif.widthOfTextAtSize(urlText, urlSize);
+          page.drawLine({
+            start: { x: x + padX, y: cursor - 18 },
+            end: { x: x + padX + uw, y: cursor - 18 },
+            thickness: 0.7,
+            color: PWA4_ACCENT,
+          });
+          addLinkAnnotation(page, { x: x + padX, y: cursor - 20, width: uw, height: 21 }, url.href);
+          cursor -= 21;
+        }
+        drawTextLines(bodyLines, x + padX, cursor, BODY_SIZE, BODY_LH, fonts.sansBold, PWA4_INK_INVERSE);
+      },
+    };
+  }
+
+  interface Row {
+    // widths as fractions of the content width (they get the column gap taken
+    // out); one entry = a full-width row.
+    cols: { block: Block; frac: number }[];
+  }
+
+  function rowHeight(row: Row): number {
+    return Math.max(...row.cols.map((c) => c.block.height));
+  }
+
+  function drawRow(row: Row, top: number) {
+    const h = rowHeight(row);
+    const gaps = IDEA_COL_GAP * (row.cols.length - 1);
+    let x = PWA4_BODY_PAD_X;
+    for (const col of row.cols) {
+      const w = (PWA4_CONTENT_WIDTH - gaps) * col.frac;
+      col.block.draw(x, top, h);
+      x += w + IDEA_COL_GAP;
+    }
+    return h;
+  }
+
+  // The widths a row's blocks are built for, so wrapping matches drawing.
+  const colWidth = (fracs: number[], i: number) =>
+    (PWA4_CONTENT_WIDTH - IDEA_COL_GAP * (fracs.length - 1)) * fracs[i];
+
+  // The person's own answers (when the caller passes them) feed the company
+  // cell, the budget status and one derived "it fits" sentence.
+  const intakeDict = dict.intake;
+  const optionLabel = (options: { value: string; label: string }[], value: string | undefined) =>
+    value ? options.find((o) => o.value === value)?.label ?? null : null;
+  const pageLabels = ideaPageLabels(locale);
+
+  function drawIdeaPage(idea: IdeaBookEntry, photo: PDFImage, opts: { number: number | null; badge: string }) {
+    const kind = activityKindFor(idea);
+    const copy = kindCopy(kind, locale);
+    const profile = experienceProfileFor(idea, { company: context.company });
+
+    // --- content ---
+    const costText = idea.practical.estimated_cost;
+    const durationText = idea.practical.duration;
+    const levelText = DIFFICULTY_LABELS[locale][idea.practical.difficulty];
+    const status = costText ? budgetStatusFor(costText, context.budget) : null;
+    const statusText =
+      status === "within"
+        ? pageLabels.budgetWithin
+        : status === "slightlyAbove"
+          ? pageLabels.budgetSlightlyAbove
+          : status === "above"
+            ? pageLabels.budgetAbove
+            : idea.practical.preparation || null;
+
+    const timeLabel = optionLabel(intakeDict.timeAvailable.options, context.timeAvailable);
+    const budgetLabel = optionLabel(intakeDict.budget.options, context.budget);
+    let fitSentence: string | null = null;
+    if (timeLabel && timeFits(durationText, context.timeAvailable)) {
+      fitSentence =
+        status === "within" && budgetLabel
+          ? fillTemplate(pageLabels.matchTimeBudget, { time: timeLabel.toLowerCase(), budget: budgetLabel.toLowerCase() })
+          : fillTemplate(pageLabels.matchTime, { time: timeLabel.toLowerCase() });
+    }
+    const matchText = [idea.why_it_fits, fitSentence].filter(Boolean).join(" ");
+
+    const companyLabels = (context.company ?? [])
+      .map((v) => optionLabel(intakeDict.company.options, v))
+      .filter((l): l is string => Boolean(l));
+    const place = idea.location ? idea.location.city || idea.location.name : "";
+    const glanceCells: GlanceCell[] = [
+      durationText ? { icon: "clock" as const, label: pageLabels.time, value: durationText } : null,
+      levelText ? { icon: "level" as const, label: pageLabels.level, value: levelText } : null,
+      companyLabels.length > 0 ? { icon: "people" as const, label: pageLabels.company, value: companyLabels.join(", ") } : null,
+      place ? { icon: "pin" as const, label: pageLabels.place, value: place } : null,
+      { icon: "type" as const, label: pageLabels.type, value: copy.label },
+    ].filter((c): c is GlanceCell => c !== null);
+
+    const profileRows = EXPERIENCE_DIMENSIONS.map((d) => ({ name: pageLabels.dimensions[d], score: profile[d] }));
+    const schedule = scheduleFor(kind, durationText, locale);
+
+    const seed = idea.title;
+    const takeaways = pickStable(copy.takeaways, 3, seed);
+    const suggestions = pickStable(copy.suggestions, 3, seed + "·");
+    const editorial = editorialFor(idea.door, seed, locale);
+
+    // Steps: the idea's own steps, plus what to bring when the idea lists
+    // requirements (existing data, not invented) — at most three.
+    const steps = [...idea.details];
+    if (steps.length < 3 && idea.requirements.length > 0) {
+      steps.push(`${pageLabels.bring}: ${idea.requirements.join(", ")}`);
+    }
+    const practicalSteps = steps.slice(0, 3);
+
+    const url = extractUrl(idea.first_action);
+    const startLabel = book.labels.first_action_heading || pageLabels.startHere;
+
+    const subtitleLines = wrapText(idea.intro, fonts.sans, HERO_SUB_SIZE, PWA4_CONTENT_WIDTH, 2);
+    // A long title steps down in size before it is ever cut short.
+    let titleSize = HERO_TITLE_SIZE;
+    let titleLines = wrapText(idea.title, fonts.serif, titleSize, PWA4_CONTENT_WIDTH);
+    for (const smaller of [20, 17.5]) {
+      if (titleLines.length <= 2) break;
+      titleSize = smaller;
+      titleLines = wrapText(idea.title, fonts.serif, titleSize, PWA4_CONTENT_WIDTH);
+    }
+    titleLines = wrapText(idea.title, fonts.serif, titleSize, PWA4_CONTENT_WIDTH, 2);
+    const heroNeed = 14 + subtitleLines.length * HERO_SUB_LH + 6 + titleLines.length * (titleSize + 4) + 50;
+    const heroMin = Math.max(HERO_MIN, heroNeed);
+
+    // --- variants, richest first; the first that fits on one page wins ---
+    function buildRows(level: number): Row[] {
+      const rows: Row[] = [];
+      rows.push({ cols: [{ block: blockMatch(PWA4_CONTENT_WIDTH, pageLabels.match, matchText), frac: 1 }] });
+      rows.push({ cols: [{ block: blockGlance(PWA4_CONTENT_WIDTH, glanceCells), frac: 1 }] });
+
+      const f2 = [0.46, 0.54];
+      rows.push({
+        cols: [
+          { block: blockProfile(colWidth(f2, 0), pageLabels.experience, profileRows), frac: f2[0] },
+          { block: blockSchedule(colWidth(f2, 1), pageLabels.schedule, schedule), frac: f2[1] },
+        ],
+      });
+
+      if (level < 3) {
+        const n = level >= 2 ? 2 : 3;
+        const f = [0.5, 0.5];
+        rows.push({
+          cols: [
+            { block: blockList(colWidth(f, 0), pageLabels.takeaways, takeaways.slice(0, n), "dot"), frac: f[0] },
+            { block: blockList(colWidth(f, 1), pageLabels.personalise, suggestions.slice(0, n), "check"), frac: f[1] },
+          ],
+        });
+      }
+
+      // Steps on the left; the investment and location cards side by side
+      // to their right (or just the one that exists), so the row is only as
+      // tall as its tallest card rather than a stacked pair.
+      const hasLocation = Boolean(idea.location);
+      const hasCost = Boolean(costText);
+      const fracs = hasLocation && hasCost ? [0.4, 0.3, 0.3] : hasLocation || hasCost ? [0.6, 0.4] : [1];
+      const cols: Row["cols"] = [
+        { block: blockSteps(colWidth(fracs, 0), pageLabels.steps, practicalSteps), frac: fracs[0] },
+      ];
+      let next = 1;
+      if (hasCost) {
+        cols.push({ block: blockInvest(colWidth(fracs, next), pageLabels, costText, statusText), frac: fracs[next] });
+        next++;
+      }
+      if (hasLocation) {
+        cols.push({ block: blockLocation(colWidth(fracs, next), pageLabels, idea), frac: fracs[next] });
+      }
+      rows.push({ cols });
+
+      if (level < 1) {
+        rows.push({ cols: [{ block: blockEditorial(PWA4_CONTENT_WIDTH, editorial.label, editorial.text), frac: 1 }] });
+      }
+      rows.push({ cols: [{ block: blockStart(PWA4_CONTENT_WIDTH, startLabel, url, idea.first_action), frac: 1 }] });
+      return rows;
+    }
+
+    let rows: Row[] = [];
+    let level = 0;
+    for (; level <= 3; level++) {
+      rows = buildRows(level);
+      const total = rows.reduce((sum, r) => sum + rowHeight(r), 0) + IDEA_GAP * (rows.length - 1);
+      if (PAGE_HEIGHT - heroMin - 12 - total >= IDEA_BOTTOM) break;
+    }
+    level = Math.min(level, 3);
+
+    const total = rows.reduce((sum, r) => sum + rowHeight(r), 0) + IDEA_GAP * (rows.length - 1);
+    const spare = Math.max(0, PAGE_HEIGHT - heroMin - 12 - total - IDEA_BOTTOM);
+    const heroExtra = Math.min(spare * 0.4, HERO_MAX - heroMin);
+    const gapExtra = rows.length > 1 ? Math.min((spare - heroExtra) / (rows.length - 1), 12) : 0;
+    const heroHeight = heroMin + Math.max(0, heroExtra);
+
+    // --- draw ---
+    drawHero(photo, {
+      height: heroHeight,
+      badge: opts.number !== null ? `${String(opts.number).padStart(2, "0")}  ·  ${opts.badge}` : opts.badge,
+      titleLines,
+      titleSize,
+      subtitleLines,
+    });
+
+    let top = PAGE_HEIGHT - heroHeight - 12;
+    rows.forEach((row) => {
+      top -= drawRow(row, top) + IDEA_GAP + gapExtra;
+    });
+  }
+
+  // Hero photo (top-aligned, any cover-fit overflow hidden by the opaque body
+  // rectangle drawn afterwards), a bottom-anchored scrim (stacked bands — pdf-lib
+  // has no real gradient fill), the door/wildcard badge top-left, and the title
+  // with the subtitle beneath it.
+  function drawHero(
+    photo: PDFImage,
+    hero: { height: number; badge: string; titleLines: string[]; titleSize: number; subtitleLines: string[] }
+  ) {
+    const heroBottomY = PAGE_HEIGHT - hero.height;
+    const { width, height } = coverFitSize(photo, PAGE_WIDTH, hero.height);
+    page.drawImage(photo, { x: (PAGE_WIDTH - width) / 2, y: PAGE_HEIGHT - height, width, height });
+
+    const steps = 8;
+    const bandHeight = hero.height / steps;
+    for (let i = 0; i < steps; i++) {
+      const t = 1 - i / steps;
+      page.drawRectangle({
+        x: 0,
+        y: heroBottomY + i * bandHeight,
+        width: PAGE_WIDTH,
+        height: bandHeight + 1,
+        color: PWA4_SCRIM_RGB,
+        opacity: 0.78 * t * t,
+      });
+    }
+    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: heroBottomY, color: PWA4_SURFACE_PAGE });
+
+    const padX = PWA4_SPACE_4;
+    const size = 8.25;
+    const label = hero.badge.toUpperCase();
+    const pillWidth = trackedTextWidth(label, fonts.sansBold, size, 0.9) + padX * 2;
+    const pillHeight = 19;
+    const pillTop = PAGE_HEIGHT - PWA4_SPACE_5;
+    page.drawSvgPath(roundedRectPath(pillWidth, pillHeight, pillHeight / 2), {
+      x: PWA4_BODY_PAD_X,
+      y: pillTop,
+      color: PWA4_ACCENT,
+    });
+    drawTrackedLine(label, fonts.sansBold, size, PWA4_INK, PWA4_BODY_PAD_X + padX, pillTop - pillHeight / 2 - size / 2.6, 0.9);
+
+    // Subtitle sits at the bottom of the hero, the title just above it.
+    let cursor = heroBottomY + 14 + hero.subtitleLines.length * HERO_SUB_LH;
+    hero.subtitleLines.forEach((line, i) => {
+      page.drawText(line, {
+        x: PWA4_BODY_PAD_X,
+        y: textBaseline(heroBottomY + 14 + (hero.subtitleLines.length - i) * HERO_SUB_LH, HERO_SUB_SIZE, HERO_SUB_LH),
+        size: HERO_SUB_SIZE,
+        font: fonts.sans,
+        color: PWA4_INK_INVERSE,
+        opacity: 0.92,
+      });
+    });
+    cursor += 6;
+    const titleLh = hero.titleSize + 4;
+    hero.titleLines.forEach((line, i) => {
+      page.drawText(line, {
+        x: PWA4_BODY_PAD_X,
+        y: textBaseline(cursor + (hero.titleLines.length - i) * titleLh, hero.titleSize, titleLh),
+        size: hero.titleSize,
+        font: fonts.serif,
+        color: PWA4_INK_INVERSE,
+      });
+    });
   }
 
   // Counts how many times each category has been used so far in this book,
@@ -905,25 +1262,22 @@ export async function renderIdeaBookPdf(
   for (const [i, { idea }] of orderedIdeas.entries()) {
     page = addPage();
     const photo = await loadIdeaPhoto(idea.photo_category, nextPhotoVariant(idea.photo_category));
-    drawActionabilityPage(idea, photo, `${i + 1}. ${idea.title}`, null);
+    drawIdeaPage(idea, photo, { number: i + 1, badge: dict.plan.book.doors[idea.door as "natural"]?.label ?? "" });
   }
 
-  // --- Page 10: Wildcard — the same PossibilityPageA4 layout as an idea
-  // page, its own photo (chosen the same way, by its own photo_category),
-  // and distinguished only by the pill badge in its hero (no separate CTA
-  // styling in this design — see drawActionabilityPage's own comment).
+  // --- Page 10: Wildcard — the same page layout, its own photo (chosen the
+  // same way, by its own photo_category), and its badge names it as the
+  // wildcard instead of carrying a number and a door.
   page = addPage();
   {
     const wildcardPhoto = await loadIdeaPhoto(
       book.wildcard.photo_category,
       nextPhotoVariant(book.wildcard.photo_category)
     );
-    drawActionabilityPage(
-      book.wildcard,
-      wildcardPhoto,
-      book.wildcard.title,
-      book.labels.wildcard_heading || chrome.wildcardFallbackHeading
-    );
+    drawIdeaPage(book.wildcard, wildcardPhoto, {
+      number: null,
+      badge: book.labels.wildcard_heading || chrome.wildcardFallbackHeading,
+    });
   }
 
   // Footer: the walnut wordmark + a short tagline + page number, on every

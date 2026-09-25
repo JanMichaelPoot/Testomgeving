@@ -205,7 +205,10 @@ export async function getCharacterProfileForSession(
 // tell which template generation a given customer's PDF actually reflects.
 // Not tied to LEGAL_VERSIONS — this versions the *document*, not the
 // consent copy.
-const PDF_VERSION = 1;
+// 2: idea pages rebuilt as magazine spreads (experience profile, schedule,
+// takeaways, "make it yours", investment/location cards) — see
+// src/lib/pdf/ideaContent.ts.
+const PDF_VERSION = 2;
 
 // Explicit request: every test-mode generation (the "Betaling overslaan"
 // bypass, never a real purchase) also sends the real order-confirmation
@@ -305,7 +308,11 @@ async function finishPlanGeneration(
     console.log(`WINDOW: generateIdeaBook (Claude, total) took ${Date.now() - generateStartedAt}ms`);
 
     const pdfStartedAt = Date.now();
-    const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale);
+    const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale, {
+      company: profile.company,
+      budget: profile.budget,
+      timeAvailable: profile.timeAvailable,
+    });
     console.log(`WINDOW: renderIdeaBookPdf took ${Date.now() - pdfStartedAt}ms`);
 
     const pdfPath = `${pendingRow.session_id}/idea-book.pdf`;

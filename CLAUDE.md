@@ -2350,3 +2350,47 @@ Stripe, Claude API, Resend, PostHog).
       Engelse landingspagina toont de Engelse kaart, bijschrift en een link naar
       `/examples/idea-book-en.pdf`. `tsc --noEmit`/`eslint .`/`npm run
       build`/`npx vitest run` schoon.
+
+- [x] Stap 49 — De idee- en wildcardpagina's van de Idea Book-PDF zijn
+      herbouwd tot een compacte magazine-pagina, op expliciet verzoek (alleen de
+      PDF; website, betaalflow, cover/profiel/kaartpagina en de
+      generatieprompt zijn niet aangeraakt). Elke pagina heeft nu: een hero met
+      deur-badge ("03 · ONTDEKKING", of "DE WILDCARD"), titel en subtitel (de
+      bestaande `intro`); "Waarom dit bij jou past" (bestaande tekst plus
+      maximaal één afgeleide zin over tijd/budget, alleen als het idee er
+      aantoonbaar binnen past); een "in één oogopslag"-strook met lijn-iconen
+      (tijd, niveau, gezelschap, plaats, type); een ervaringsprofiel (5
+      dimensies, 1-5 bolletjes); "een mogelijke invulling" (3-4 relatieve
+      stappen, geen kloktijden, dus geen schijn van een officiële planning);
+      "wat je eraan overhoudt"; "maak het van jou" (aanvinkvakjes); praktische
+      stappen 01-03 met daarnaast de kaarten "Jouw investering" (kosten +
+      budgetstatus) en "Waar?" (naam, plaats, kaartlink); een klein
+      redactioneel detail; en "Begin hier" met een groot, klikbaar webadres
+      wanneer `first_action` er een bevat. Alles is gratis afgeleid uit
+      bestaande data: `src/lib/pdf/ideaContent.ts` bevat de regels en de
+      nl/en-contentbibliotheek (10 activiteitstypes op basis van
+      `photo_category`; ervaringsscores uit baselines + `scores`/deur; budget-
+      en tijdvergelijking met het profiel; vaste, deterministische keuze uit
+      de bibliotheek op titel) — geen extra API-call, geen extra tokens, geen
+      wijziging aan het Claude-schema. Ontbrekende data laat gewoon een blok
+      weg (geen locatie → geen kaart; geen profiel → geen gezelschap/
+      budgetstatus). Bewuste keuzes: het budget staat in de investeringskaart
+      en niet óók in het raster (geen dubbele informatie); de derde stap komt
+      uit `requirements` ("Nodig: …") — bestaande data, niets verzonnen;
+      `renderIdeaBookPdf` kreeg een optioneel vierde argument
+      (`IdeaBookPdfContext`: gezelschap, budget, tijd) dat `plan/data.ts` uit het
+      profiel meegeeft; `PDF_VERSION` staat nu op 2. Paginavulling: alle
+      blokken worden eerst gemeten; het rijkste van vier niveaus dat op één
+      pagina past wordt getekend (achtereenvolgens vervalt het redactionele
+      detail, daarna 2 i.p.v. 3 bullets, daarna hele rij overhouden/maak-het-
+      van-jou), en de restruimte wordt verdeeld over de tussenruimtes en de
+      hoogte van de hero; een te lange titel wordt eerst kleiner gezet
+      (23→20→17,5pt) voor hij wordt afgekapt. De losse `pwa4Draw*`-helpers van
+      de oude idee-pagina zijn verwijderd. Getest: mock-boek met korte/lange
+      titels, met en zonder locatie/eisen/kosten/profiel, hoge kosten, een
+      wildcard en een Engelse render — steeds exact 10 pagina's en elke idee-
+      pagina op één pagina, zonder overloop; linkannotaties (kaart + webadres)
+      gecontroleerd; beide voorbeeld-PDF's opnieuw gegenereerd. Nog niet
+      gedaan: een echte, betaalde generatie met live Claude-output (kost ≈€0,13).
+      `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest run` (77 tests)
+      schoon.

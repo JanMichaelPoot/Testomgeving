@@ -263,14 +263,18 @@ const EN: GeneratedIdeaBook = {
   labels: NL.labels,
 };
 
+// What the example "person" told us — feeds the company cell, the budget status
+// and the "it fits" sentence on the idea pages, like a real book would show.
+const EXAMPLE_CONTEXT = { company: ["partner"], budget: "100", timeAvailable: "halfday" };
+
 async function main() {
   const outDir = path.join(process.cwd(), "public/examples");
   await mkdir(outDir, { recursive: true });
 
-  const nlPdf = await renderIdeaBookPdf(NL, "Jouw Window Idea Book", "nl");
+  const nlPdf = await renderIdeaBookPdf(NL, "Jouw Window Idea Book", "nl", EXAMPLE_CONTEXT);
   await writeFile(path.join(outDir, "idea-book-nl.pdf"), nlPdf);
 
-  const enPdf = await renderIdeaBookPdf(EN, "Your Window Idea Book", "en");
+  const enPdf = await renderIdeaBookPdf(EN, "Your Window Idea Book", "en", EXAMPLE_CONTEXT);
   await writeFile(path.join(outDir, "idea-book-en.pdf"), enPdf);
 
   console.log("Wrote public/examples/idea-book-nl.pdf and idea-book-en.pdf");
