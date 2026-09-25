@@ -2463,3 +2463,20 @@ Stripe, Claude API, Resend, PostHog).
       Outlook/Gmail accepteren, dus de mail kan bij klanten terugkomen; foto's
       verkleinen of een downloadlink i.p.v. bijlage is nodig.
       `tsc --noEmit`/`eslint .`/`npx vitest run` (86 tests) schoon.
+
+- [x] Stap 52 — PDF-grootte opgelost: de Idea Book-PDF was ≈22 MB (de
+      gegenereerde categoriefoto's zijn ≈2500px breed en 2-4 MB per stuk en
+      werden ongewijzigd ingebed) — als mailbijlage ≈29 MB na base64-codering,
+      boven wat Outlook/Gmail accepteren. Nieuw eenmalig, idempotent script
+      `scripts/optimize-idea-book-images.ts` (sharp, mozjpeg q80) verkleint de
+      26 beelden in `public/illustrations/idea-book/` in-place: categoriefoto's
+      en achtergrond naar max. 1600px breed (≈190 dpi op een A4-paginabreed
+      beeld), de cover op hoogte begrensd (1800px; een liggend beeld dat een
+      staande pagina vult wordt door zijn hoogte beperkt, dus breedte-cap zou
+      hem zacht maken — hij bleef 2400×1792). Totaal 72,6 MB → 4,4 MB. De
+      originelen staan nog in git. Resultaat: het echte boek van de testbestelling
+      opnieuw gerenderd = 2,35 MB (was 21,96 MB), beeldkwaliteit visueel
+      gecontroleerd op cover en hero; de website profiteert mee (lichtere
+      idee-foto's en Open Graph-cover ≈0,25 MB i.p.v. 2,4 MB). De voorbeeld-PDF's
+      zijn opnieuw gegenereerd. Al eerder opgeslagen PDF's in de storagebucket
+      blijven groot; alleen nieuwe generaties zijn klein.
