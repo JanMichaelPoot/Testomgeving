@@ -2414,3 +2414,52 @@ Stripe, Claude API, Resend, PostHog).
       webadres-links aanwezig. Bekende beperking: de "mogelijke invulling"-regels
       zijn per type vast, dus ideeën van hetzelfde type delen die tekst.
       `tsc --noEmit`/`eslint .`/`npm run build`/`npx vitest run` schoon.
+
+- [x] Stap 51 — Betaalflow (Stripe testmodus) en e-mail end-to-end getest.
+      **Betaling**: een echte Stripe Checkout Session in testmodus (`sk_test_…`,
+      `livemode: false`) — €3,50, betaald door Jan met de Stripe-testkaart (het
+      kaartnummer is bewust niet door de assistent ingevuld). Bevestigd bij
+      Stripe (`complete`/`paid`, klant-e-mail pootjm@hotmail.com, payment intent
+      aanwezig) én in de database (`payments`-rij met ordernummer
+      `WI-2026-000006` en het herroepingsafstand-tijdstempel vastgelegd bij het
+      aanmaken van de sessie). De terugkeer naar `/plan` was mislukt omdat de
+      lokale dev-server toen niet draaide; het openen van dezelfde
+      succes-URL startte de generatie alsnog: plan `ready` met `pdf_version` 2,
+      `payment_id` gekoppeld, `recipient_email` gezet, `email_sent_at` gezet en
+      audit-log `email_delivered = true`. Lokaal blijft `payments.status`
+      `pending` omdat er geen webhook draait (geen `STRIPE_WEBHOOK_SECRET`, geen
+      Stripe-CLI) — op productie moet de webhook naar `/api/stripe/webhook`
+      wijzen; de plan-generatie zelf controleert `payment_status === "paid"`
+      rechtstreeks bij Stripe en heeft de webhook niet nodig.
+      **Bug gevonden en gefixt**: `resend.emails.send()` gooit géén fout
+      wanneer Resend een mail weigert (niet-geverifieerd domein, ongeldige
+      sleutel, …) maar resolvet met `{ data: null, error }` — daardoor werd een
+      geweigerde mail als "verzonden" geregistreerd (`email_sent_at`,
+      audit-log). Nieuwe `sendEmail()` in `src/lib/resend.ts` gooit bij een
+      fout, en beide verzendfuncties gebruiken die nu; met tests (mock van de
+      SDK).
+      **E-mail herbouwd**: de bevestigingsmail zat nog in het oude paarse
+      palet, zonder duidelijke opbouw en met ongeëscapete AI-/gebruikerstekst in
+      de HTML. Nu in het Warm Walnut-palet met gedeelde bouwstenen
+      (`src/lib/email/layout.ts`: schil, knop, `escapeHtml`; tabel-layout met
+      inline styles, tekst-wordmark i.p.v. een afbeelding zodat het ook zonder
+      publiek bereikbare host werkt): kop "Je Idea Book staat klaar", samenvatting,
+      grote knop "Bekijk je Idea Book online" met de opmerking dat de PDF
+      bijgevoegd is, de zes ideeën + wildcard, "Je bestelling" (ordernummer,
+      prijs, datum) en het juridische kleingedrukte. `buildIdeaBookEmail` is los
+      van het verzenden testbaar; de herinneringsmail gebruikt dezelfde schil.
+      Nieuwe teksten `email.readyHeading/attachmentNote/orderHeading` (nl + en).
+      **Verstuurd naar pootjm@hotmail.com**: een testmail (ordernummer
+      TEST-0001) en de echte orderbevestiging van WI-2026-000006, beide door
+      Resend geaccepteerd; lokaal met afzender `onboarding@resend.dev` (Resend
+      staat daarmee alleen versturen naar het adres van het eigen account toe;
+      `EMAIL_FROM` in `.env.local` is daarvoor aangepast).
+      **Open (buiten de code)**: (1) `windowinto.nl` moet in Resend geverifieerd
+      worden en `EMAIL_FROM` op productie moet `WINDOW <hello@windowinto.nl>`
+      worden — tot dan ontvangen klanten niets; (2) de mailfooter toont nog
+      `[Bedrijfsnaam] · [KvK-nummer] · [Vestigingsadres] · [Btw-nummer]`
+      (placeholder in `email.companyInfo`); (3) de PDF is ≈22 MB (volledige
+      foto's ingebed) — als bijlage ≈29 MB na codering, boven de ≈20-25 MB die
+      Outlook/Gmail accepteren, dus de mail kan bij klanten terugkomen; foto's
+      verkleinen of een downloadlink i.p.v. bijlage is nodig.
+      `tsc --noEmit`/`eslint .`/`npx vitest run` (86 tests) schoon.

@@ -238,6 +238,9 @@ export interface Dictionary {
     subjectSuffix: string;
     heading: string;
     viewOnline: string;
+    readyHeading: string;
+    attachmentNote: string;
+    orderHeading: string;
     // Order confirmation additions (section 17): order number, price,
     // date, an explicit digital-delivery note, a re-confirmation of the
     // consent given at checkout, the terms version + link, a link to the
@@ -688,6 +691,9 @@ const nl: Dictionary = {
     subjectSuffix: "je mogelijkheden zijn klaar",
     heading: "Jouw mogelijkheden",
     viewOnline: "Bekijk je Idea Book online",
+    readyHeading: "Je Idea Book staat klaar",
+    attachmentNote: "De PDF zit als bijlage bij deze mail, zodat je hem ook offline kunt bewaren.",
+    orderHeading: "Je bestelling",
     orderNumberLabel: "Ordernummer",
     priceLabel: "Prijs",
     dateLabel: "Datum",
@@ -1296,6 +1302,9 @@ const en: Dictionary = {
     subjectSuffix: "your possibilities are ready",
     heading: "Your possibilities",
     viewOnline: "View your Idea Book online",
+    readyHeading: "Your Idea Book is ready",
+    attachmentNote: "The PDF is attached to this email, so you can keep it offline too.",
+    orderHeading: "Your order",
     orderNumberLabel: "Order number",
     priceLabel: "Price",
     dateLabel: "Date",

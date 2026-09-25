@@ -1,12 +1,14 @@
-import { getResend, EMAIL_FROM } from "@/lib/resend";
+import { sendEmail } from "@/lib/resend";
+import { EMAIL_COLORS as c, EMAIL_FONTS, emailButton, emailShell, escapeHtml } from "@/lib/email/layout";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/locale";
 
 // The Fase 3 "did you take your first step yet?" nudge — sent once, a few
 // days after generation, by the cron job in
 // src/app/api/cron/first-action-reminder/route.ts. Deliberately references
-// just one idea (the first one) rather than the whole book, so the email
-// stays a quick, specific nudge instead of repeating the PDF.
+// just one idea (the one the buyer chose, else the first) rather than the
+// whole book, so the email stays a quick, specific nudge instead of
+// repeating the PDF.
 export async function sendFirstActionReminderEmail(params: {
   to: string;
   ideaTitle: string;
@@ -17,22 +19,20 @@ export async function sendFirstActionReminderEmail(params: {
   const { to, ideaTitle, firstAction, planUrl, locale } = params;
   const dict = getDictionary(locale).email.reminder;
 
-  const intro = dict.intro
-    .replace("{title}", `<strong>${ideaTitle}</strong>`)
-    .replace("{action}", firstAction);
+  // Escape first, then substitute — the placeholders themselves are ours.
+  const intro = escapeHtml(dict.intro)
+    .replace("{title}", `<strong>${escapeHtml(ideaTitle)}</strong>`)
+    .replace("{action}", escapeHtml(firstAction));
 
-  await getResend().emails.send({
-    from: EMAIL_FROM,
+  const bodyHtml = `
+    <p style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:${c.accent};">${escapeHtml(dict.heading)}</p>
+    <p style="margin:0 0 24px;font-family:${EMAIL_FONTS.serif};font-size:20px;line-height:1.5;color:${c.ink};">${intro}</p>
+    ${emailButton(planUrl, dict.ctaLabel)}`;
+
+  await sendEmail({
+    from: process.env.EMAIL_FROM!,
     to,
     subject: dict.subject,
-    html: `
-      <div style="font-family: sans-serif; color: #1A1A2E; max-width: 560px; margin: 0 auto;">
-        <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: #4B2AA6; margin-top: 0;">${dict.heading}</h2>
-        <p style="color: #55555f;">${intro}</p>
-        <p style="margin-top: 24px;">
-          <a href="${planUrl}" style="color: #4B2AA6;">${dict.ctaLabel}</a>
-        </p>
-      </div>
-    `,
+    html: emailShell({ preheader: dict.subject, bodyHtml }),
   });
 }
