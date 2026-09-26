@@ -1,0 +1,647 @@
+[
+  {
+    "id": "buurtmaaltijd",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Buurtmaaltijd of eetclub",
+      "en": "Neighbourhood dinner"
+    },
+    "tags": [
+      "food",
+      "conviviality",
+      "teamwork"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Aanschuiven kan meestal alleen; vraag naar de kennismakingsronde",
+      "en": "Usually you can join alone; ask about the introduction round"
+    },
+    "scene": "a long communal table set with plates, bowls and lanterns",
+    "status": "concept"
+  },
+  {
+    "id": "taalcafe",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Taalcafé",
+      "en": "Language café"
+    },
+    "tags": [
+      "language",
+      "conviviality",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Gratis, vaak in de bibliotheek; je kunt ook alleen luisteren",
+      "en": "Free, often in the library; you can also just listen"
+    },
+    "scene": "a café table with a world map and coffee cups in a library corner",
+    "status": "concept"
+  },
+  {
+    "id": "wandelgroep",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Wandelgroep voor beginners",
+      "en": "Beginner walking group"
+    },
+    "tags": [
+      "movement",
+      "nature",
+      "conviviality",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Loop een keer mee; je hoeft niet te praten",
+      "en": "Join once; you don't have to talk"
+    },
+    "scene": "walking sticks and backpacks leaning together on a trailhead board",
+    "status": "concept"
+  },
+  {
+    "id": "book-club-stil",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Silent book club (samen lezen zonder praten)",
+      "en": "Silent book club"
+    },
+    "tags": [
+      "stillness",
+      "language",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Neem een eigen boek mee; praten mag na afloop",
+      "en": "Bring your own book; talking is possible afterwards"
+    },
+    "scene": "armchairs in a circle with stacks of books and reading lamps",
+    "status": "concept"
+  },
+  {
+    "id": "kletscafe",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Koffie-ochtend of kletscafé",
+      "en": "Coffee morning"
+    },
+    "tags": [
+      "conviviality",
+      "language"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Alleen komen is normaal; er is vaak een gastheer",
+      "en": "Coming alone is normal; there is often a host"
+    },
+    "scene": "a cozy coffee-morning table with cups and a cake",
+    "status": "concept"
+  },
+  {
+    "id": "buurtvrijwilliger",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Vrijwilliger in een buurtproject",
+      "en": "Neighbourhood volunteering"
+    },
+    "tags": [
+      "caring",
+      "teamwork",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kennismakingsmiddag zonder verplichting",
+      "en": "An introduction afternoon without obligation"
+    },
+    "scene": "a neighbourhood community-center table with a pinboard and cups",
+    "status": "concept"
+  },
+  {
+    "id": "body-doubling",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Online body-doubling (samen werken op afstand)",
+      "en": "Online body doubling"
+    },
+    "tags": [
+      "focus",
+      "teamwork",
+      "stillness"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Camera mag vaak uit; kijk hoe het werkt",
+      "en": "The camera is often off; see how it works"
+    },
+    "scene": "a laptop and a coffee cup on a home desk with a small plant in soft light",
+    "status": "concept"
+  },
+  {
+    "id": "potluck",
+    "domain": "together",
+    "sub": "organise",
+    "label": {
+      "nl": "Potluck-avond",
+      "en": "Potluck dinner"
+    },
+    "tags": [
+      "food",
+      "conviviality",
+      "teamwork"
+    ],
+    "formats": [
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Iedereen brengt één gerecht mee",
+      "en": "Everyone brings one dish"
+    },
+    "scene": "a table full of different home-cooked dishes in mismatched bowls",
+    "status": "concept"
+  },
+  {
+    "id": "buurttuin",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Meehelpen in een buurttuin",
+      "en": "Community garden"
+    },
+    "tags": [
+      "growing",
+      "caring",
+      "conviviality",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Open ochtend; werk in je eigen tempo",
+      "en": "Open morning; work at your own pace"
+    },
+    "scene": "community garden beds with watering cans and hand tools",
+    "status": "concept"
+  },
+  {
+    "id": "nieuwkomers",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Meet-up voor nieuwkomers",
+      "en": "Newcomers meet-up"
+    },
+    "tags": [
+      "conviviality",
+      "language",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Speciaal bedoeld voor mensen die iemand zoeken; niemand kent elkaar",
+      "en": "Meant for people looking for someone; nobody knows each other"
+    },
+    "scene": "a welcome sign and blank name tags on a table at a meet-up",
+    "status": "concept"
+  },
+  {
+    "id": "open-podium",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Een open podium bezoeken",
+      "en": "Open mic night"
+    },
+    "tags": [
+      "sound",
+      "story",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kijken en luisteren is genoeg; optreden is niet verplicht",
+      "en": "Watching and listening is enough; performing is not required"
+    },
+    "scene": "a small stage with a microphone and a stool in a warm room",
+    "status": "concept"
+  },
+  {
+    "id": "kook-club",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Samen koken (kookclub)",
+      "en": "Cooking club"
+    },
+    "tags": [
+      "food",
+      "teamwork",
+      "making",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Kookworkshop voor beginners, alleen aanmelden",
+      "en": "Cooking workshop for beginners, just sign up"
+    },
+    "scene": "a kitchen counter with chopped vegetables and pans ready for a group",
+    "status": "concept"
+  },
+  {
+    "id": "spelavond-thuis",
+    "domain": "together",
+    "sub": "organise",
+    "label": {
+      "nl": "Spelavond thuis organiseren",
+      "en": "Host a games night"
+    },
+    "tags": [
+      "conviviality",
+      "strategy",
+      "competition"
+    ],
+    "formats": [
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Nodig twee mensen uit en kies één makkelijk spel",
+      "en": "Invite two people and pick one easy game"
+    },
+    "scene": "a living-room coffee table with snacks and a board game",
+    "status": "concept"
+  },
+  {
+    "id": "vriendschapsdaten",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Vriendschapsdaten",
+      "en": "Friendship dating"
+    },
+    "tags": [
+      "conviviality",
+      "language"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Georganiseerd door een platform; ontmoet op een openbare plek",
+      "en": "Organised by a platform; meet in a public place"
+    },
+    "scene": "two coffee cups on a café table by a window",
+    "status": "concept"
+  },
+  {
+    "id": "onbekenden-diner",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Dineren met onbekenden",
+      "en": "Dinner with strangers"
+    },
+    "tags": [
+      "food",
+      "conviviality",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een georganiseerde avond in een restaurant, openbaar",
+      "en": "An organised evening in a restaurant, in a public place"
+    },
+    "scene": "a long restaurant table set for many with candles",
+    "status": "concept"
+  },
+  {
+    "id": "wandelmaatje",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Wandelen met een maatje",
+      "en": "Walking buddy"
+    },
+    "tags": [
+      "movement",
+      "conviviality",
+      "nature"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een vrijwillige koppeling via een welzijnsorganisatie",
+      "en": "A voluntary match via a welfare organisation"
+    },
+    "scene": "two pairs of walking shoes side by side at a trail start",
+    "status": "concept"
+  },
+  {
+    "id": "proefles-avond",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Proefavond waar iedereen nieuw is",
+      "en": "Beginners' taster night"
+    },
+    "tags": [
+      "learning",
+      "conviviality",
+      "teamwork"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies een cursus met de tekst \"geen ervaring nodig\"",
+      "en": "Pick a course that says \"no experience needed\""
+    },
+    "scene": "a beginner-class sign on an easel in a community center",
+    "status": "concept"
+  },
+  {
+    "id": "festival-vrijwilliger",
+    "domain": "together",
+    "sub": "organise",
+    "label": {
+      "nl": "Vrijwilliger bij een festival",
+      "en": "Festival volunteering"
+    },
+    "tags": [
+      "teamwork",
+      "conviviality",
+      "sound",
+      "caring"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een korte dienst met een team en gratis toegang",
+      "en": "A short shift with a team and free entry"
+    },
+    "scene": "a volunteer vest and wristbands hanging on a fence at dusk with string lights",
+    "status": "concept"
+  },
+  {
+    "id": "familie-uitje",
+    "domain": "together",
+    "sub": "organise",
+    "label": {
+      "nl": "Een familie-uitje organiseren",
+      "en": "Family outing"
+    },
+    "tags": [
+      "conviviality",
+      "discovery",
+      "teamwork"
+    ],
+    "formats": [
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies één activiteit en laat iedereen één ding kiezen",
+      "en": "Pick one activity and let everyone choose one thing"
+    },
+    "scene": "a map with pinned spots and colorful tickets on a family table",
+    "status": "concept"
+  },
+  {
+    "id": "online-praatgroep",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Online interessegroep (forum, Discord)",
+      "en": "Online interest community"
+    },
+    "tags": [
+      "conviviality",
+      "learning",
+      "language"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Lees mee zonder iets te zeggen; doe mee zodra het voelt",
+      "en": "Read along without saying anything; join in when it feels right"
+    },
+    "scene": "a laptop showing a chat window and a mug on a sofa arm",
+    "status": "concept"
+  }
+]

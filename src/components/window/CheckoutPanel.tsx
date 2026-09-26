@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { isRedirectError } from "@/lib/isRedirectError";
+import { trackEvent } from "@/lib/posthog/client";
 import { createCheckoutSession } from "@/app/checkout/actions";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -66,6 +67,11 @@ export function CheckoutPanel({
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
+  // Funnel steps around the price: seen, and pay button pressed (before Stripe).
+  useEffect(() => {
+    trackEvent("checkout_viewed");
+  }, []);
+
   const giftEmailValid = !isGift || isValidEmail(giftEmail);
   // The button only ever becomes active once both are true (compliance
   // brief section 7) — this is the UX gate; src/app/checkout/actions.ts
@@ -75,6 +81,7 @@ export function CheckoutPanel({
 
   function handleSubmit() {
     if (!canSubmit) return;
+    trackEvent("checkout_pay_clicked", { is_gift: isGift });
     setError(null);
     startTransition(async () => {
       try {

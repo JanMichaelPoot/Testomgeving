@@ -4,6 +4,15 @@ import posthog from "posthog-js";
 
 let initialized = false;
 
+// In development every tracked event is also pushed onto window.__windowEvents,
+// so tracking can be checked in the browser without a PostHog key (and before
+// consent). Compiled away in production builds.
+declare global {
+  interface Window {
+    __windowEvents?: { name: string; properties?: Record<string, unknown> }[];
+  }
+}
+
 // Call once from a top-level client component (ConsentBanner), only after
 // the user has given analytics consent.
 export function initPostHog() {
@@ -24,6 +33,9 @@ export function initPostHog() {
 // Silently does nothing until initPostHog() has actually run — callers
 // (e.g. the intake wizard) never need to check consent state themselves.
 export function trackEvent(name: string, properties?: Record<string, unknown>) {
+  if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
+    (window.__windowEvents ??= []).push({ name, properties });
+  }
   if (!initialized) return;
   posthog.capture(name, properties);
 }

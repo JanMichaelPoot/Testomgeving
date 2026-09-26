@@ -1,0 +1,714 @@
+[
+  {
+    "id": "pottenbakken",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Pottenbakken",
+      "en": "Pottery"
+    },
+    "tags": [
+      "making",
+      "focus",
+      "craft",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Losse workshop of proefles, alles wordt geleverd",
+      "en": "Single workshop or trial class, everything supplied"
+    },
+    "scene": "a potter's wheel with a wet clay bowl, ceramic tools and an apron on a stool",
+    "status": "concept"
+  },
+  {
+    "id": "houtbewerking",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Houtbewerking",
+      "en": "Woodworking"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "precision",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Beginnerscursus bij een werkplaats, gereedschap aanwezig",
+      "en": "Beginner course at a workshop, tools provided"
+    },
+    "scene": "a wooden workbench with chisels, a plane and fresh wood shavings",
+    "status": "concept"
+  },
+  {
+    "id": "lederwerk",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Lederwerk",
+      "en": "Leatherwork"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "precision"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eenmalige workshop: bijvoorbeeld een portemonnee maken",
+      "en": "One-off workshop, for example making a wallet"
+    },
+    "scene": "leather pieces, a stitching awl and waxed thread on a workbench",
+    "status": "concept"
+  },
+  {
+    "id": "beeldhouwen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Beeldhouwen",
+      "en": "Sculpting"
+    },
+    "tags": [
+      "making",
+      "focus",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Dagworkshop in klei, hout of steen",
+      "en": "Day workshop in clay, wood or stone"
+    },
+    "scene": "a small stone sculpture in progress with chisels and a mallet, stone dust on the bench",
+    "status": "concept"
+  },
+  {
+    "id": "glas-mozaiek",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Glas-in-lood of mozaïek",
+      "en": "Stained glass or mosaic"
+    },
+    "tags": [
+      "making",
+      "color",
+      "precision",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Workshop van een dagdeel, materiaal inbegrepen",
+      "en": "Half-day workshop, materials included"
+    },
+    "scene": "mosaic tiles in bright colors laid out beside a half-finished mosaic",
+    "status": "concept"
+  },
+  {
+    "id": "sieraden",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Sieraden maken",
+      "en": "Jewelry making"
+    },
+    "tags": [
+      "making",
+      "precision",
+      "miniature",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Beginnersworkshop zilversmeden of kralen",
+      "en": "Beginner workshop in silversmithing or beading"
+    },
+    "scene": "jewelry pliers, silver wire and beads on a velvet tray",
+    "status": "concept"
+  },
+  {
+    "id": "breien-haken",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Breien of haken",
+      "en": "Knitting or crocheting"
+    },
+    "tags": [
+      "making",
+      "rhythm",
+      "focus",
+      "conviviality"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Breicafé of beginnerspakket; ook online te leren",
+      "en": "Knitting café or starter kit; also easy to learn online"
+    },
+    "scene": "balls of colorful wool and knitting needles in a wicker basket",
+    "status": "concept"
+  },
+  {
+    "id": "borduren-weven",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Borduren of weven",
+      "en": "Embroidery or weaving"
+    },
+    "tags": [
+      "making",
+      "precision",
+      "focus",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Startpakket of workshop; heel klein te beginnen",
+      "en": "Starter kit or workshop; start very small"
+    },
+    "scene": "an embroidery hoop with colorful floral thread and a needle",
+    "status": "concept"
+  },
+  {
+    "id": "naaien",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Kleding naaien of verstellen",
+      "en": "Sewing and mending"
+    },
+    "tags": [
+      "making",
+      "technique",
+      "precision"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Naaicafé of beginnersles op een machine van de organisator",
+      "en": "Sewing café or beginner lesson on the organiser's machine"
+    },
+    "scene": "a vintage sewing machine with fabric, pins and spools of thread",
+    "status": "concept"
+  },
+  {
+    "id": "papier-boek",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Boekbinden en kalligrafie",
+      "en": "Bookbinding and calligraphy"
+    },
+    "tags": [
+      "making",
+      "precision",
+      "language",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Workshop van een dagdeel, alles inbegrepen",
+      "en": "Half-day workshop, everything included"
+    },
+    "scene": "a handmade notebook with a stitched spine, a calligraphy pen and an ink pot",
+    "status": "concept"
+  },
+  {
+    "id": "zeefdruk",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Zeefdruk of linosnede",
+      "en": "Screen printing or linocut"
+    },
+    "tags": [
+      "making",
+      "color",
+      "precision"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Open atelier of workshop; een eigen print in twee uur",
+      "en": "Open studio or workshop; your own print in two hours"
+    },
+    "scene": "a screen-printing frame and a bright print on a table with a squeegee",
+    "status": "concept"
+  },
+  {
+    "id": "schilderen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Schilderen",
+      "en": "Painting"
+    },
+    "tags": [
+      "making",
+      "color",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Schilderworkshop met materiaal, geen talent nodig",
+      "en": "Painting workshop with materials, no talent needed"
+    },
+    "scene": "an easel with a canvas, paint tubes and brushes in jars near a window",
+    "status": "concept"
+  },
+  {
+    "id": "tekenen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Tekenen en urban sketching",
+      "en": "Drawing and urban sketching"
+    },
+    "tags": [
+      "making",
+      "focus",
+      "discovery",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een schetsboek en pen; sketchcrawl-groepen zijn open",
+      "en": "A sketchbook and a pen; sketchcrawl groups are open"
+    },
+    "scene": "an open sketchbook with a pen sketch of a street and watercolor pencils on a café table",
+    "status": "concept"
+  },
+  {
+    "id": "fotografie",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Fotografie",
+      "en": "Photography"
+    },
+    "tags": [
+      "color",
+      "discovery",
+      "precision",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Fotowandeling met je telefoon of een beginnerscursus",
+      "en": "A photo walk with your phone or a beginner course"
+    },
+    "scene": "a vintage camera on a windowsill with a blurred street view behind it",
+    "status": "concept"
+  },
+  {
+    "id": "collage",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Collage of scrapbooken",
+      "en": "Collage and scrapbooking"
+    },
+    "tags": [
+      "making",
+      "color",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een avond met tijdschriften, schaar en lijm",
+      "en": "An evening with magazines, scissors and glue"
+    },
+    "scene": "paper cutouts, scissors and glue on a table forming a colorful collage",
+    "status": "concept"
+  },
+  {
+    "id": "koor",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Zingen in een koor",
+      "en": "Singing in a choir"
+    },
+    "tags": [
+      "sound",
+      "teamwork",
+      "rhythm",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Open koor of proefrepetitie, geen noten lezen nodig",
+      "en": "Open choir or trial rehearsal, no need to read music"
+    },
+    "scene": "a stack of sheet music on a piano with a tuning fork in a church hall",
+    "status": "concept"
+  },
+  {
+    "id": "instrument",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Een instrument leren (ukelele, gitaar, piano)",
+      "en": "Learning an instrument"
+    },
+    "tags": [
+      "sound",
+      "rhythm",
+      "learning",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Proefles of een instrument huren; ukelele is snel te leren",
+      "en": "Trial lesson or rent an instrument; ukulele is quick to learn"
+    },
+    "scene": "a ukulele leaning on a chair beside a window with sheet music",
+    "status": "concept"
+  },
+  {
+    "id": "muziek-maken",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Muziek maken of dj'en",
+      "en": "Music production or DJing"
+    },
+    "tags": [
+      "sound",
+      "technique",
+      "rhythm",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Beginnersworkshop of gratis software",
+      "en": "Beginner workshop or free software"
+    },
+    "scene": "a small synthesizer and headphones on a desk with a laptop glow",
+    "status": "concept"
+  },
+  {
+    "id": "improvisatie",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Improvisatietheater",
+      "en": "Improv theatre"
+    },
+    "tags": [
+      "roleplay",
+      "story",
+      "teamwork",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Beginnersworkshop waar iedereen nieuw is",
+      "en": "Beginner workshop where everyone is new"
+    },
+    "scene": "an empty small theatre stage with two chairs and a single spotlight",
+    "status": "concept"
+  },
+  {
+    "id": "schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Creatief schrijven",
+      "en": "Creative writing"
+    },
+    "tags": [
+      "story",
+      "language",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Schrijfgroep of een schrijfprompt en een half uur",
+      "en": "Writing group, or a writing prompt and thirty minutes"
+    },
+    "scene": "a typewriter with a sheet of paper and a mug of coffee on a desk",
+    "status": "concept"
+  }
+]

@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "taxonomy:check": "tsx scripts/taxonomy-check.ts",
+    "taxonomy:report": "tsx scripts/taxonomy-check.ts --report",
+    "taxonomy:images": "tsx scripts/generate-discovery-illustrations.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.123.0",

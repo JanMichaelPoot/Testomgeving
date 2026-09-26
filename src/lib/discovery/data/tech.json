@@ -1,0 +1,715 @@
+[
+  {
+    "id": "elektronica",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Elektronica knutselen (Arduino, solderen)",
+      "en": "Electronics tinkering"
+    },
+    "tags": [
+      "technique",
+      "making",
+      "puzzling",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Beginnersworkshop of een startset",
+      "en": "Beginner workshop or a starter kit"
+    },
+    "scene": "a breadboard with LEDs, wires and a microcontroller on a desk",
+    "status": "concept"
+  },
+  {
+    "id": "ontwerp-print",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "3D-ontwerp en 3D-printen",
+      "en": "3D design and printing"
+    },
+    "tags": [
+      "technique",
+      "making",
+      "precision",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Print één ontwerp bij een makerspace of bibliotheek",
+      "en": "Print one design at a makerspace or library"
+    },
+    "scene": "a 3D printer printing a small object in colorful filament",
+    "status": "concept"
+  },
+  {
+    "id": "coderen",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Creatief coderen",
+      "en": "Creative coding"
+    },
+    "tags": [
+      "technique",
+      "puzzling",
+      "learning",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis online omgeving en een eerste tekening",
+      "en": "A free online environment and a first drawing"
+    },
+    "scene": "a laptop showing colorful generative art in a dim room",
+    "status": "concept"
+  },
+  {
+    "id": "robotica",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Robotica bouwen",
+      "en": "Robotics"
+    },
+    "tags": [
+      "technique",
+      "making",
+      "puzzling",
+      "teamwork"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Robotclub of een beginnersset",
+      "en": "Robot club or a beginner kit"
+    },
+    "scene": "a small wheeled robot with sensors on a workbench",
+    "status": "concept"
+  },
+  {
+    "id": "makerspace",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Makerspace of fablab bezoeken",
+      "en": "Makerspace or fablab"
+    },
+    "tags": [
+      "technique",
+      "making",
+      "craft",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Open inloop; medewerkers helpen je op weg",
+      "en": "Open drop-in; staff help you get started"
+    },
+    "scene": "a makerspace workshop with a laser cutter, tools and shelves",
+    "status": "concept"
+  },
+  {
+    "id": "drones",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Drones bouwen of vliegen",
+      "en": "Building or flying drones"
+    },
+    "tags": [
+      "technique",
+      "precision",
+      "outdoors",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen binnen de regels: registratie, vliegzones, en bij voorkeur via een club.",
+        "en": "Only within the rules: registration, flight zones, preferably via a club."
+      }
+    },
+    "entry": {
+      "nl": "Alleen binnen de regels (registratie, vliegzones); begin op een clubdag",
+      "en": "Only within the rules (registration, flight zones); start at a club day"
+    },
+    "scene": "a small quadcopter drone on a grass field beside a controller",
+    "status": "concept"
+  },
+  {
+    "id": "repair-cafe",
+    "domain": "tech",
+    "sub": "repair_craft",
+    "label": {
+      "nl": "Repair café",
+      "en": "Repair café"
+    },
+    "tags": [
+      "technique",
+      "craft",
+      "teamwork",
+      "caring"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Neem iets kapots mee of kijk mee, altijd gratis",
+      "en": "Bring something broken or just look along, always free"
+    },
+    "scene": "a table with a toaster, screwdrivers and a tool roll at a repair café",
+    "status": "concept"
+  },
+  {
+    "id": "fietsreparatie",
+    "domain": "tech",
+    "sub": "repair_craft",
+    "label": {
+      "nl": "Zelf je fiets repareren",
+      "en": "Bike repair"
+    },
+    "tags": [
+      "technique",
+      "craft",
+      "making",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Fietsenmakersworkshop of een buurtwerkplaats",
+      "en": "Bike mechanic workshop or a neighbourhood workshop"
+    },
+    "scene": "a bicycle upside down on a workshop stand with wrenches",
+    "status": "concept"
+  },
+  {
+    "id": "restaureren",
+    "domain": "tech",
+    "sub": "repair_craft",
+    "label": {
+      "nl": "Meubels restaureren",
+      "en": "Furniture restoration"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "retro",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Beginnerscursus of een stoel van de kringloop",
+      "en": "Beginner course or a chair from a thrift shop"
+    },
+    "scene": "an old wooden chair with sandpaper and brushes in a workshop",
+    "status": "concept"
+  },
+  {
+    "id": "smeden",
+    "domain": "tech",
+    "sub": "repair_craft",
+    "label": {
+      "nl": "Smeden en metaalbewerking",
+      "en": "Blacksmithing and metalwork"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "history",
+      "technique"
+    ],
+    "formats": [
+      "duo",
+      "small_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen onder begeleiding, met beschermende uitrusting.",
+        "en": "Only under supervision, with protective gear."
+      }
+    },
+    "entry": {
+      "nl": "Alleen onder begeleiding, met beschermende uitrusting",
+      "en": "Only under supervision, with protective gear"
+    },
+    "scene": "an anvil, a hammer and glowing iron in a dark forge",
+    "status": "concept"
+  },
+  {
+    "id": "lassen",
+    "domain": "tech",
+    "sub": "repair_craft",
+    "label": {
+      "nl": "Lassen",
+      "en": "Welding"
+    },
+    "tags": [
+      "craft",
+      "technique",
+      "precision"
+    ],
+    "formats": [
+      "duo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen tijdens een cursus met uitrusting en instructeur.",
+        "en": "Only during a course with equipment and an instructor."
+      }
+    },
+    "entry": {
+      "nl": "Introductiecursus op een opleidingscentrum, met uitrusting",
+      "en": "Intro course at a training centre, with equipment"
+    },
+    "scene": "a welding helmet and gloves on a steel workbench with sparks",
+    "status": "concept"
+  },
+  {
+    "id": "klokken",
+    "domain": "tech",
+    "sub": "repair_craft",
+    "label": {
+      "nl": "Klokken en horloges repareren",
+      "en": "Clock and watch repair"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "miniature",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Workshop of een goedkoop mechanisch uurwerk",
+      "en": "Workshop or a cheap mechanical movement"
+    },
+    "scene": "an open mechanical watch movement with tweezers and a loupe",
+    "status": "concept"
+  },
+  {
+    "id": "telescoop",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Astronomie met een telescoop",
+      "en": "Astronomy with a telescope"
+    },
+    "tags": [
+      "stars",
+      "technique",
+      "learning",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Openbare sterrenwacht-avond",
+      "en": "Public observatory evening"
+    },
+    "scene": "a refractor telescope on a tripod on a rooftop at twilight",
+    "status": "concept"
+  },
+  {
+    "id": "citizen-science",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Citizen science (tellen, meten, melden)",
+      "en": "Citizen science"
+    },
+    "tags": [
+      "nature",
+      "learning",
+      "discovery",
+      "teamwork"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén tel-app, één meting, vijf minuten",
+      "en": "One counting app, one measurement, five minutes"
+    },
+    "scene": "a clipboard, a magnifier and a notebook beside a wildflower in a field",
+    "status": "concept"
+  },
+  {
+    "id": "microscopie",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Microscopie",
+      "en": "Microscopy"
+    },
+    "tags": [
+      "learning",
+      "discovery",
+      "precision",
+      "miniature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bekijk een druppel sloot- of vijverwater",
+      "en": "Look at a drop of pond water"
+    },
+    "scene": "a brass microscope with glass slides and a leaf sample",
+    "status": "concept"
+  },
+  {
+    "id": "geologie",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Geologie en stenen lezen",
+      "en": "Geology walks"
+    },
+    "tags": [
+      "nature",
+      "learning",
+      "discovery",
+      "history"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Excursie met een gids of een kaart van je regio",
+      "en": "Excursion with a guide or a map of your region"
+    },
+    "scene": "a layered rock cliff with a hammer and a notebook on the ground",
+    "status": "concept"
+  },
+  {
+    "id": "weerstation",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Weer volgen en een weerstation",
+      "en": "Weather observing"
+    },
+    "tags": [
+      "nature",
+      "technique",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een simpele regenmeter en een dagboekje",
+      "en": "A simple rain gauge and a notebook"
+    },
+    "scene": "a small garden weather station with a rain gauge and an anemometer in a meadow",
+    "status": "concept"
+  },
+  {
+    "id": "wetenschapsmuseum",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Wetenschapsmuseum of -workshop",
+      "en": "Science museum or workshop"
+    },
+    "tags": [
+      "learning",
+      "discovery",
+      "technique",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Volwassenenavond of kijk in de agenda van een science center",
+      "en": "Adult evening or check a science center's calendar"
+    },
+    "scene": "interactive science exhibits with glowing light displays in a dim hall",
+    "status": "concept"
+  },
+  {
+    "id": "kookwetenschap",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Kookwetenschap",
+      "en": "Kitchen science"
+    },
+    "tags": [
+      "food",
+      "learning",
+      "making",
+      "puzzling"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een experiment uit een boek, zoals zelf kaas of brood",
+      "en": "One experiment from a book, like making cheese or bread"
+    },
+    "scene": "glass flasks and a bowl of dough with a whisk on a kitchen counter",
+    "status": "concept"
+  },
+  {
+    "id": "data-visualisatie",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Data-visualisatie",
+      "en": "Data visualisation"
+    },
+    "tags": [
+      "technique",
+      "color",
+      "puzzling",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een openbare dataset en een gratis tool",
+      "en": "A public dataset and a free tool"
+    },
+    "scene": "a screen showing a colorful chart beside a notebook with sketches",
+    "status": "concept"
+  }
+]

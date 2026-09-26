@@ -1,0 +1,700 @@
+{
+  "domains": [
+    {
+      "id": "movement",
+      "label": {
+        "nl": "Sport, beweging & avontuur",
+        "en": "Sport, movement & adventure"
+      },
+      "short": {
+        "nl": "Sport & avontuur",
+        "en": "Sport & adventure"
+      },
+      "color": "#E4572E",
+      "colorName": "vermilion red-orange",
+      "scene": "a still life of sports gear (running shoes, a climbing rope, a ball) on a warm wooden floor"
+    },
+    {
+      "id": "creative",
+      "label": {
+        "nl": "Creatief, kunst, muziek & ambacht",
+        "en": "Creative, art, music & craft"
+      },
+      "short": {
+        "nl": "Creatief & ambacht",
+        "en": "Creative & craft"
+      },
+      "color": "#C2367A",
+      "colorName": "raspberry pink",
+      "scene": "a craft table with clay, paint tubes, yarn and a brush jar"
+    },
+    {
+      "id": "nature",
+      "label": {
+        "nl": "Natuur, dieren & buiten",
+        "en": "Nature, animals & outdoors"
+      },
+      "short": {
+        "nl": "Natuur & dieren",
+        "en": "Nature & animals"
+      },
+      "color": "#2E8B57",
+      "colorName": "vivid leaf green",
+      "scene": "a hiking boot, binoculars, a leaf and a field notebook on a mossy log"
+    },
+    {
+      "id": "history",
+      "label": {
+        "nl": "Geschiedenis, cultuur & re-enactment",
+        "en": "History, culture & re-enactment"
+      },
+      "short": {
+        "nl": "Geschiedenis",
+        "en": "History"
+      },
+      "color": "#8E2A2A",
+      "colorName": "deep oxblood red",
+      "scene": "an old map, a red wax seal, a lantern and a leather-bound book on an oak table, with a deep red velvet cloth beneath them"
+    },
+    {
+      "id": "games",
+      "label": {
+        "nl": "Spel, puzzel & strategie",
+        "en": "Games, puzzles & strategy"
+      },
+      "short": {
+        "nl": "Spel & strategie",
+        "en": "Games & strategy"
+      },
+      "color": "#E6A817",
+      "colorName": "saffron yellow",
+      "scene": "dice, playing cards, a chess piece and a puzzle piece on a wooden table"
+    },
+    {
+      "id": "collecting",
+      "label": {
+        "nl": "Verzamelen, modelbouw & specialistische hobby's",
+        "en": "Collecting, models & niche hobbies"
+      },
+      "short": {
+        "nl": "Verzamelen & modellen",
+        "en": "Collecting & models"
+      },
+      "color": "#128C8C",
+      "colorName": "deep teal",
+      "scene": "tiny painted miniatures, a magnifier, coins and a model on a workbench"
+    },
+    {
+      "id": "tech",
+      "label": {
+        "nl": "Techniek, wetenschap & vakmanschap",
+        "en": "Tech, science & craftsmanship"
+      },
+      "short": {
+        "nl": "Techniek & wetenschap",
+        "en": "Tech & science"
+      },
+      "color": "#6247C9",
+      "colorName": "electric violet",
+      "scene": "a circuit board, a screwdriver, a small telescope and a notebook on a workbench"
+    },
+    {
+      "id": "solo_explore",
+      "label": {
+        "nl": "Zelf op ontdekking",
+        "en": "Exploring on your own"
+      },
+      "short": {
+        "nl": "Zelf op ontdekking",
+        "en": "Exploring alone"
+      },
+      "color": "#8A9A1B",
+      "colorName": "olive lime",
+      "scene": "a paper map, a camera, a coffee cup and a train ticket on a café table"
+    },
+    {
+      "id": "together",
+      "label": {
+        "nl": "Laagdrempelig samen",
+        "en": "Easy ways to meet people"
+      },
+      "short": {
+        "nl": "Samen, laagdrempelig",
+        "en": "Easy together"
+      },
+      "color": "#4FB0E5",
+      "colorName": "bright sky blue",
+      "scene": "a long table with shared dishes, cups and folded napkins in warm light"
+    },
+    {
+      "id": "restful",
+      "label": {
+        "nl": "Ontspanning, reflectie & leren",
+        "en": "Rest, reflection & learning"
+      },
+      "short": {
+        "nl": "Rust & leren",
+        "en": "Rest & learning"
+      },
+      "color": "#D9A7A0",
+      "colorName": "dusty rose",
+      "scene": "a folded blanket, a cup of tea, an open book and a candle beside a window"
+    }
+  ],
+  "subs": [
+    {
+      "id": "endurance",
+      "domain": "movement",
+      "label": {
+        "nl": "Uithouding",
+        "en": "Endurance"
+      }
+    },
+    {
+      "id": "water",
+      "domain": "movement",
+      "label": {
+        "nl": "Water",
+        "en": "Water"
+      }
+    },
+    {
+      "id": "climbing",
+      "domain": "movement",
+      "label": {
+        "nl": "Klimmen & hoogte",
+        "en": "Climbing & heights"
+      }
+    },
+    {
+      "id": "moving_together",
+      "domain": "movement",
+      "label": {
+        "nl": "Samen bewegen",
+        "en": "Moving together"
+      }
+    },
+    {
+      "id": "precision_strength",
+      "domain": "movement",
+      "label": {
+        "nl": "Precisie & kracht",
+        "en": "Precision & strength"
+      }
+    },
+    {
+      "id": "shaping",
+      "domain": "creative",
+      "label": {
+        "nl": "Vormen met je handen",
+        "en": "Shaping with your hands"
+      }
+    },
+    {
+      "id": "textile_paper",
+      "domain": "creative",
+      "label": {
+        "nl": "Textiel & papier",
+        "en": "Textile & paper"
+      }
+    },
+    {
+      "id": "visual",
+      "domain": "creative",
+      "label": {
+        "nl": "Beeld",
+        "en": "Visual"
+      }
+    },
+    {
+      "id": "sound_stage",
+      "domain": "creative",
+      "label": {
+        "nl": "Klank & podium",
+        "en": "Sound & stage"
+      }
+    },
+    {
+      "id": "walking",
+      "domain": "nature",
+      "label": {
+        "nl": "Wandelen & ontdekken",
+        "en": "Walking & exploring"
+      }
+    },
+    {
+      "id": "animals",
+      "domain": "nature",
+      "label": {
+        "nl": "Dieren",
+        "en": "Animals"
+      }
+    },
+    {
+      "id": "plants",
+      "domain": "nature",
+      "label": {
+        "nl": "Planten & grond",
+        "en": "Plants & soil"
+      }
+    },
+    {
+      "id": "light_sky_water",
+      "domain": "nature",
+      "label": {
+        "nl": "Licht, lucht & water",
+        "en": "Light, sky & water"
+      }
+    },
+    {
+      "id": "lived_past",
+      "domain": "history",
+      "label": {
+        "nl": "Doorleefd verleden",
+        "en": "Living the past"
+      }
+    },
+    {
+      "id": "research",
+      "domain": "history",
+      "label": {
+        "nl": "Onderzoek & spoorzoeken",
+        "en": "Research & tracing"
+      }
+    },
+    {
+      "id": "places_stories",
+      "domain": "history",
+      "label": {
+        "nl": "Plekken & verhalen",
+        "en": "Places & stories"
+      }
+    },
+    {
+      "id": "tabletop",
+      "domain": "games",
+      "label": {
+        "nl": "Aan tafel",
+        "en": "At the table"
+      }
+    },
+    {
+      "id": "story_play",
+      "domain": "games",
+      "label": {
+        "nl": "Verhalen spelen",
+        "en": "Playing stories"
+      }
+    },
+    {
+      "id": "puzzles",
+      "domain": "games",
+      "label": {
+        "nl": "Puzzelen",
+        "en": "Puzzles"
+      }
+    },
+    {
+      "id": "digital_action",
+      "domain": "games",
+      "label": {
+        "nl": "Digitaal & actie",
+        "en": "Digital & action"
+      }
+    },
+    {
+      "id": "small_building",
+      "domain": "collecting",
+      "label": {
+        "nl": "Klein bouwen & schilderen",
+        "en": "Small-scale building & painting"
+      }
+    },
+    {
+      "id": "collecting_hunting",
+      "domain": "collecting",
+      "label": {
+        "nl": "Verzamelen & speuren",
+        "en": "Collecting & hunting"
+      }
+    },
+    {
+      "id": "specialist",
+      "domain": "collecting",
+      "label": {
+        "nl": "Specialistisch",
+        "en": "Specialist hobbies"
+      }
+    },
+    {
+      "id": "making_tech",
+      "domain": "tech",
+      "label": {
+        "nl": "Maken met techniek",
+        "en": "Making with tech"
+      }
+    },
+    {
+      "id": "repair_craft",
+      "domain": "tech",
+      "label": {
+        "nl": "Repareren & vakmanschap",
+        "en": "Repair & craftsmanship"
+      }
+    },
+    {
+      "id": "science",
+      "domain": "tech",
+      "label": {
+        "nl": "Wetenschap & onderzoek",
+        "en": "Science & research"
+      }
+    },
+    {
+      "id": "own_pace",
+      "domain": "solo_explore",
+      "label": {
+        "nl": "Op eigen tempo",
+        "en": "At your own pace"
+      }
+    },
+    {
+      "id": "join_in",
+      "domain": "together",
+      "label": {
+        "nl": "Aanschuiven",
+        "en": "Joining in"
+      }
+    },
+    {
+      "id": "organise",
+      "domain": "together",
+      "label": {
+        "nl": "Samen organiseren",
+        "en": "Organising together"
+      }
+    },
+    {
+      "id": "body_breath",
+      "domain": "restful",
+      "label": {
+        "nl": "Lichaam & adem",
+        "en": "Body & breath"
+      }
+    },
+    {
+      "id": "read_listen",
+      "domain": "restful",
+      "label": {
+        "nl": "Lezen & luisteren",
+        "en": "Reading & listening"
+      }
+    },
+    {
+      "id": "reflection",
+      "domain": "restful",
+      "label": {
+        "nl": "Reflectie",
+        "en": "Reflection"
+      }
+    }
+  ],
+  "tags": [
+    {
+      "id": "precision",
+      "label": {
+        "nl": "Precisie",
+        "en": "Precision"
+      },
+      "generic": true
+    },
+    {
+      "id": "story",
+      "label": {
+        "nl": "Verhaal",
+        "en": "Story"
+      },
+      "generic": false
+    },
+    {
+      "id": "history",
+      "label": {
+        "nl": "Geschiedenis",
+        "en": "History"
+      },
+      "generic": false
+    },
+    {
+      "id": "outdoors",
+      "label": {
+        "nl": "Buiten",
+        "en": "Outdoors"
+      },
+      "generic": false
+    },
+    {
+      "id": "animals",
+      "label": {
+        "nl": "Dieren",
+        "en": "Animals"
+      },
+      "generic": false
+    },
+    {
+      "id": "teamwork",
+      "label": {
+        "nl": "Samenwerken",
+        "en": "Teamwork"
+      },
+      "generic": false
+    },
+    {
+      "id": "strategy",
+      "label": {
+        "nl": "Strategie",
+        "en": "Strategy"
+      },
+      "generic": false
+    },
+    {
+      "id": "making",
+      "label": {
+        "nl": "Zelf maken",
+        "en": "Making things"
+      },
+      "generic": true
+    },
+    {
+      "id": "rhythm",
+      "label": {
+        "nl": "Ritme",
+        "en": "Rhythm"
+      },
+      "generic": false
+    },
+    {
+      "id": "sound",
+      "label": {
+        "nl": "Klank",
+        "en": "Sound"
+      },
+      "generic": false
+    },
+    {
+      "id": "movement",
+      "label": {
+        "nl": "Beweging",
+        "en": "Movement"
+      },
+      "generic": false
+    },
+    {
+      "id": "focus",
+      "label": {
+        "nl": "Focus",
+        "en": "Focus"
+      },
+      "generic": true
+    },
+    {
+      "id": "stillness",
+      "label": {
+        "nl": "Stilte",
+        "en": "Stillness"
+      },
+      "generic": true
+    },
+    {
+      "id": "discovery",
+      "label": {
+        "nl": "Ontdekken",
+        "en": "Discovery"
+      },
+      "generic": true
+    },
+    {
+      "id": "craft",
+      "label": {
+        "nl": "Vakmanschap",
+        "en": "Craftsmanship"
+      },
+      "generic": false
+    },
+    {
+      "id": "technique",
+      "label": {
+        "nl": "Techniek",
+        "en": "Technique"
+      },
+      "generic": false
+    },
+    {
+      "id": "nature",
+      "label": {
+        "nl": "Natuur",
+        "en": "Nature"
+      },
+      "generic": false
+    },
+    {
+      "id": "collecting",
+      "label": {
+        "nl": "Verzamelen",
+        "en": "Collecting"
+      },
+      "generic": false
+    },
+    {
+      "id": "miniature",
+      "label": {
+        "nl": "Kleinschalig",
+        "en": "Small scale"
+      },
+      "generic": false
+    },
+    {
+      "id": "roleplay",
+      "label": {
+        "nl": "Rollenspel",
+        "en": "Role-play"
+      },
+      "generic": false
+    },
+    {
+      "id": "competition",
+      "label": {
+        "nl": "Competitie",
+        "en": "Competition"
+      },
+      "generic": false
+    },
+    {
+      "id": "learning",
+      "label": {
+        "nl": "Leren",
+        "en": "Learning"
+      },
+      "generic": true
+    },
+    {
+      "id": "caring",
+      "label": {
+        "nl": "Zorgen voor",
+        "en": "Caring for"
+      },
+      "generic": false
+    },
+    {
+      "id": "food",
+      "label": {
+        "nl": "Eten",
+        "en": "Food"
+      },
+      "generic": false
+    },
+    {
+      "id": "water",
+      "label": {
+        "nl": "Water",
+        "en": "Water"
+      },
+      "generic": false
+    },
+    {
+      "id": "height",
+      "label": {
+        "nl": "Hoogte",
+        "en": "Height"
+      },
+      "generic": false
+    },
+    {
+      "id": "challenge",
+      "label": {
+        "nl": "Uitdaging",
+        "en": "Challenge"
+      },
+      "generic": false
+    },
+    {
+      "id": "retro",
+      "label": {
+        "nl": "Retro",
+        "en": "Retro"
+      },
+      "generic": false
+    },
+    {
+      "id": "color",
+      "label": {
+        "nl": "Kleur",
+        "en": "Colour"
+      },
+      "generic": false
+    },
+    {
+      "id": "language",
+      "label": {
+        "nl": "Taal",
+        "en": "Language"
+      },
+      "generic": false
+    },
+    {
+      "id": "stars",
+      "label": {
+        "nl": "Sterren",
+        "en": "Stars"
+      },
+      "generic": false
+    },
+    {
+      "id": "puzzling",
+      "label": {
+        "nl": "Puzzelen",
+        "en": "Puzzling"
+      },
+      "generic": false
+    },
+    {
+      "id": "growing",
+      "label": {
+        "nl": "Groeien",
+        "en": "Growing"
+      },
+      "generic": false
+    },
+    {
+      "id": "conviviality",
+      "label": {
+        "nl": "Gezelligheid",
+        "en": "Togetherness"
+      },
+      "generic": true
+    },
+    {
+      "id": "balance",
+      "label": {
+        "nl": "Evenwicht",
+        "en": "Balance"
+      },
+      "generic": false
+    },
+    {
+      "id": "play",
+      "label": {
+        "nl": "Spelen",
+        "en": "Play"
+      },
+      "generic": false
+    },
+    {
+      "id": "suspense",
+      "label": {
+        "nl": "Spanning",
+        "en": "Suspense"
+      },
+      "generic": false
+    }
+  ]
+}

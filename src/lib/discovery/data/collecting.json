@@ -1,0 +1,718 @@
+[
+  {
+    "id": "modelbouw",
+    "domain": "collecting",
+    "sub": "small_building",
+    "label": {
+      "nl": "Modelbouw (plastic, schepen, vliegtuigen)",
+      "en": "Scale modelling"
+    },
+    "tags": [
+      "miniature",
+      "precision",
+      "making",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een startset en één avond",
+      "en": "A starter kit and one evening"
+    },
+    "scene": "a plastic model ship partly assembled with glue, paints and tweezers",
+    "status": "concept"
+  },
+  {
+    "id": "miniaturen",
+    "domain": "collecting",
+    "sub": "small_building",
+    "label": {
+      "nl": "Miniaturen schilderen",
+      "en": "Miniature painting"
+    },
+    "tags": [
+      "miniature",
+      "color",
+      "precision",
+      "focus",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Schilderavond bij een hobbywinkel; verf wordt vaak uitgeleend",
+      "en": "Paint evening at a hobby shop; paint is often lent"
+    },
+    "scene": "tiny painted miniature figures with brushes and paint pots under a lamp",
+    "status": "concept"
+  },
+  {
+    "id": "modeltreinen",
+    "domain": "collecting",
+    "sub": "small_building",
+    "label": {
+      "nl": "Modeltreinen",
+      "en": "Model railways"
+    },
+    "tags": [
+      "miniature",
+      "technique",
+      "precision",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bezoek een modelspoorvereniging of expositie",
+      "en": "Visit a model railway society or exhibition"
+    },
+    "scene": "a model railway landscape with a tiny steam train and trees",
+    "status": "concept"
+  },
+  {
+    "id": "diorama",
+    "domain": "collecting",
+    "sub": "small_building",
+    "label": {
+      "nl": "Diorama's en landschapsbouw",
+      "en": "Dioramas and scenery"
+    },
+    "tags": [
+      "miniature",
+      "making",
+      "color",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een klein tafereel op een plankje",
+      "en": "A small scene on a small board"
+    },
+    "scene": "a miniature forest diorama with tiny trees and a cabin",
+    "status": "concept"
+  },
+  {
+    "id": "lego",
+    "domain": "collecting",
+    "sub": "small_building",
+    "label": {
+      "nl": "LEGO voor volwassenen",
+      "en": "LEGO for adults"
+    },
+    "tags": [
+      "miniature",
+      "making",
+      "puzzling",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een setje, of een bouwavond van een LEGO-gebruikersgroep",
+      "en": "A small set, or a building evening of a LEGO user group"
+    },
+    "scene": "a colorful brick architecture model on a table",
+    "status": "concept"
+  },
+  {
+    "id": "bonsai",
+    "domain": "collecting",
+    "sub": "small_building",
+    "label": {
+      "nl": "Bonsai",
+      "en": "Bonsai"
+    },
+    "tags": [
+      "miniature",
+      "growing",
+      "caring",
+      "precision",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Beginnersworkshop, boompje inbegrepen",
+      "en": "Beginner workshop, tree included"
+    },
+    "scene": "a bonsai tree in a ceramic pot with pruning shears",
+    "status": "concept"
+  },
+  {
+    "id": "origami",
+    "domain": "collecting",
+    "sub": "small_building",
+    "label": {
+      "nl": "Origami",
+      "en": "Origami"
+    },
+    "tags": [
+      "miniature",
+      "precision",
+      "focus",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een pak papier en één video",
+      "en": "A pack of paper and one video"
+    },
+    "scene": "colorful origami cranes on a table",
+    "status": "concept"
+  },
+  {
+    "id": "munten-zegels",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Munten en postzegels verzamelen",
+      "en": "Coins and stamps"
+    },
+    "tags": [
+      "collecting",
+      "history",
+      "precision",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": null,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ruilbeurs of een verzamelaarsvereniging bezoeken",
+      "en": "Visit a swap meet or a collectors' society"
+    },
+    "scene": "a coin album and a stamp album with a magnifier and tweezers",
+    "status": "concept"
+  },
+  {
+    "id": "vinyl",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Vinyl en platen zoeken",
+      "en": "Record digging"
+    },
+    "tags": [
+      "collecting",
+      "sound",
+      "retro",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": null,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een middag door een platenwinkel bladeren",
+      "en": "An afternoon browsing a record shop"
+    },
+    "scene": "crates of vinyl records with colorful sleeves",
+    "status": "concept"
+  },
+  {
+    "id": "kringloop",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Kringloop en vintage speuren",
+      "en": "Thrift and vintage hunting"
+    },
+    "tags": [
+      "collecting",
+      "retro",
+      "discovery",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een rondje door één kringloopwinkel, budget €10",
+      "en": "One round through a thrift shop, budget 10 euros"
+    },
+    "scene": "a shelf of vintage objects in a thrift store: teapots, lamps, books",
+    "status": "concept"
+  },
+  {
+    "id": "fossielen",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Fossielen en mineralen zoeken",
+      "en": "Fossil and mineral hunting"
+    },
+    "tags": [
+      "collecting",
+      "nature",
+      "discovery",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Excursie met een geologische vereniging",
+      "en": "Excursion with a geological society"
+    },
+    "scene": "an ammonite fossil and mineral specimens on a rock with a hammer",
+    "status": "concept"
+  },
+  {
+    "id": "strips",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Stripboeken en manga verzamelen",
+      "en": "Comics and manga"
+    },
+    "tags": [
+      "collecting",
+      "story",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": null,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Stripwinkel of bibliotheek, lees eerst één reeks",
+      "en": "Visit a comic shop or library; read one series first"
+    },
+    "scene": "a stack of comic books and manga on a windowsill",
+    "status": "concept"
+  },
+  {
+    "id": "cactussen",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Cactussen en zeldzame planten verzamelen",
+      "en": "Collecting cacti and rare plants"
+    },
+    "tags": [
+      "collecting",
+      "growing",
+      "caring",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": null,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Plantenruilbeurs of een specialist bezoeken",
+      "en": "Plant swap fair or visit a specialist"
+    },
+    "scene": "rows of small cacti and succulents in terracotta pots",
+    "status": "concept"
+  },
+  {
+    "id": "zendamateur",
+    "domain": "collecting",
+    "sub": "specialist",
+    "label": {
+      "nl": "Zendamateur (radio)",
+      "en": "Amateur radio"
+    },
+    "tags": [
+      "technique",
+      "learning",
+      "puzzling",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Introductiedag bij een zendamateursvereniging; licentie volgt later",
+      "en": "Intro day at an amateur-radio society; licence comes later"
+    },
+    "scene": "a vintage radio transceiver with dials and a headset",
+    "status": "concept"
+  },
+  {
+    "id": "rc-modellen",
+    "domain": "collecting",
+    "sub": "specialist",
+    "label": {
+      "nl": "RC-modellen (auto, boot, vliegtuig)",
+      "en": "RC models"
+    },
+    "tags": [
+      "technique",
+      "precision",
+      "outdoors",
+      "movement"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Bezoek een clubdag en bekijk hoe het werkt; regels gelden voor vliegtuigen",
+      "en": "Watch a club day first; rules apply to aircraft"
+    },
+    "scene": "a remote-controlled model airplane on a grass strip beside a transmitter",
+    "status": "concept"
+  },
+  {
+    "id": "spotten",
+    "domain": "collecting",
+    "sub": "specialist",
+    "label": {
+      "nl": "Vliegtuigen of treinen spotten",
+      "en": "Plane and train spotting"
+    },
+    "tags": [
+      "discovery",
+      "focus",
+      "technique",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Neem een kijker en ga naar een spotterheuvel",
+      "en": "Bring binoculars and go to a spotters' hill"
+    },
+    "scene": "binoculars on a railing overlooking an airport runway",
+    "status": "concept"
+  },
+  {
+    "id": "vulpennen",
+    "domain": "collecting",
+    "sub": "specialist",
+    "label": {
+      "nl": "Vulpennen en typemachines",
+      "en": "Fountain pens and typewriters"
+    },
+    "tags": [
+      "retro",
+      "language",
+      "precision",
+      "collecting"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een pennenwinkel of pennenbeurs bezoeken",
+      "en": "Visit a pen shop or pen fair"
+    },
+    "scene": "fountain pens in a leather case with an ink bottle and a notebook",
+    "status": "concept"
+  },
+  {
+    "id": "koffie-thee",
+    "domain": "collecting",
+    "sub": "specialist",
+    "label": {
+      "nl": "Specialty koffie en thee proeven",
+      "en": "Specialty coffee and tea tasting"
+    },
+    "tags": [
+      "food",
+      "learning",
+      "discovery",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Proeverij bij een brander of theehuis",
+      "en": "Tasting at a roastery or tea house"
+    },
+    "scene": "coffee cupping spoons and small cups beside coffee beans in warm light",
+    "status": "concept"
+  },
+  {
+    "id": "aquarium",
+    "domain": "collecting",
+    "sub": "specialist",
+    "label": {
+      "nl": "Aquarium of aquascaping",
+      "en": "Aquariums and aquascaping"
+    },
+    "tags": [
+      "caring",
+      "water",
+      "growing",
+      "color",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een klein aquarium of een bezoek aan een vereniging",
+      "en": "A small aquarium, or visit a society"
+    },
+    "scene": "a planted freshwater aquarium with colorful fish and mossy rocks",
+    "status": "concept"
+  },
+  {
+    "id": "retrogaming",
+    "domain": "collecting",
+    "sub": "specialist",
+    "label": {
+      "nl": "Retrogaming",
+      "en": "Retro gaming"
+    },
+    "tags": [
+      "retro",
+      "play",
+      "collecting",
+      "conviviality"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Retrogame-avond of een arcade bezoeken",
+      "en": "A retro-game evening, or visit an arcade"
+    },
+    "scene": "a vintage game console with cartridges and a CRT screen glow",
+    "status": "concept"
+  }
+]

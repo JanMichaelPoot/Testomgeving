@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { trackEvent } from "@/lib/posthog/client";
 
@@ -19,6 +19,11 @@ export function HeroStartForm({
   suggestions: string[];
 }) {
   const [text, setText] = useState("");
+
+  // Top of the funnel: how many people see the start form at all.
+  useEffect(() => {
+    trackEvent("landing_viewed");
+  }, []);
 
   return (
     <form

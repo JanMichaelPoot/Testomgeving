@@ -1,0 +1,704 @@
+[
+  {
+    "id": "bordspellen",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Moderne bordspellen",
+      "en": "Modern board games"
+    },
+    "tags": [
+      "strategy",
+      "conviviality",
+      "teamwork",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Spellencafé of spelavond; regels worden uitgelegd",
+      "en": "Games café or game night; rules are explained"
+    },
+    "scene": "a modern board game in progress with wooden pieces and cards on a table",
+    "status": "concept"
+  },
+  {
+    "id": "kaartspellen",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Kaartspellen (bridge, klaverjassen)",
+      "en": "Card games"
+    },
+    "tags": [
+      "strategy",
+      "conviviality",
+      "competition",
+      "focus"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Clubmiddag voor beginners, of een spel met vrienden",
+      "en": "Beginner club afternoon, or a game with friends"
+    },
+    "scene": "fanned playing cards on a wooden table beside a cup of tea",
+    "status": "concept"
+  },
+  {
+    "id": "schaken",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Schaken",
+      "en": "Chess"
+    },
+    "tags": [
+      "strategy",
+      "focus",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Vrije inloopavond bij een schaakclub of online",
+      "en": "Free drop-in evening at a chess club, or online"
+    },
+    "scene": "a chessboard mid-game with a wooden set by a window",
+    "status": "concept"
+  },
+  {
+    "id": "go",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Go",
+      "en": "Go"
+    },
+    "tags": [
+      "strategy",
+      "focus",
+      "puzzling"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Introductieavond; de regels zijn in tien minuten te leren",
+      "en": "Introduction evening; the rules are learned in ten minutes"
+    },
+    "scene": "a go board with black and white stones and wooden bowls",
+    "status": "concept"
+  },
+  {
+    "id": "mahjong",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Mahjong",
+      "en": "Mahjong"
+    },
+    "tags": [
+      "strategy",
+      "conviviality",
+      "puzzling"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Beginnersmiddag in een buurthuis of speciaalzaak",
+      "en": "Beginner afternoon in a community centre or specialist shop"
+    },
+    "scene": "mahjong tiles arranged in rows on a table with a tea cup",
+    "status": "concept"
+  },
+  {
+    "id": "ruilkaarten",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Ruilkaartspellen (Magic, Pokémon)",
+      "en": "Trading card games"
+    },
+    "tags": [
+      "strategy",
+      "collecting",
+      "competition",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Beginnerstoernooi of speelavond in een hobbywinkel",
+      "en": "Beginner tournament or play night at a hobby shop"
+    },
+    "scene": "trading cards fanned on a shop counter with card sleeves",
+    "status": "concept"
+  },
+  {
+    "id": "wargaming",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Wargaming met miniaturen",
+      "en": "Miniature wargaming"
+    },
+    "tags": [
+      "strategy",
+      "miniature",
+      "making",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Demospel in een hobbywinkel; figuren worden uitgeleend",
+      "en": "Demo game in a hobby shop; figures are lent"
+    },
+    "scene": "miniature armies on a detailed tabletop battlefield with terrain",
+    "status": "concept"
+  },
+  {
+    "id": "tabletop-rpg",
+    "domain": "games",
+    "sub": "story_play",
+    "label": {
+      "nl": "Tabletop rollenspel (D&D)",
+      "en": "Tabletop role-playing"
+    },
+    "tags": [
+      "roleplay",
+      "story",
+      "teamwork",
+      "strategy"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "One-shot voor beginners bij een spelwinkel of online",
+      "en": "Beginner one-shot at a game shop or online"
+    },
+    "scene": "polyhedral dice, a character sheet and a hand-drawn map on a table",
+    "status": "concept"
+  },
+  {
+    "id": "larp",
+    "domain": "games",
+    "sub": "story_play",
+    "label": {
+      "nl": "LARP (live action role-play)",
+      "en": "Live action role-play"
+    },
+    "tags": [
+      "roleplay",
+      "story",
+      "movement",
+      "teamwork"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Beginnersdag; kostuum en spelregels worden uitgelegd",
+      "en": "Beginner day; costume and rules are explained"
+    },
+    "scene": "a foam sword, a cloak and leather bracers on a wooden bench in a forest clearing",
+    "status": "concept"
+  },
+  {
+    "id": "solo-rpg",
+    "domain": "games",
+    "sub": "story_play",
+    "label": {
+      "nl": "Solo-rollenspel en verhalenspellen",
+      "en": "Solo role-playing and journaling games"
+    },
+    "tags": [
+      "roleplay",
+      "story",
+      "focus",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een klein solospel met een dobbelsteen en een notitieboekje",
+      "en": "A small solo game with a die and a notebook"
+    },
+    "scene": "a single die, a notebook and a pencil on a cozy desk with a lamp",
+    "status": "concept"
+  },
+  {
+    "id": "murder-mystery",
+    "domain": "games",
+    "sub": "story_play",
+    "label": {
+      "nl": "Murder mystery-avond",
+      "en": "Murder mystery night"
+    },
+    "tags": [
+      "roleplay",
+      "puzzling",
+      "story",
+      "conviviality",
+      "suspense"
+    ],
+    "formats": [
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kant-en-klare spelbox of georganiseerde avond",
+      "en": "A ready-made game box or an organised evening"
+    },
+    "scene": "a magnifying glass, a candle and torn letters on a dark table",
+    "status": "concept"
+  },
+  {
+    "id": "legpuzzels",
+    "domain": "games",
+    "sub": "puzzles",
+    "label": {
+      "nl": "Legpuzzels",
+      "en": "Jigsaw puzzles"
+    },
+    "tags": [
+      "puzzling",
+      "focus",
+      "stillness",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een puzzel van 500 stukjes op de keukentafel",
+      "en": "A 500-piece puzzle on the kitchen table"
+    },
+    "scene": "a half-finished jigsaw puzzle on a table with piece trays",
+    "status": "concept"
+  },
+  {
+    "id": "escape-room",
+    "domain": "games",
+    "sub": "puzzles",
+    "label": {
+      "nl": "Escape room",
+      "en": "Escape room"
+    },
+    "tags": [
+      "puzzling",
+      "teamwork",
+      "story",
+      "suspense"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Escape room met beginnersthema; team van 2 tot 6",
+      "en": "An escape room with a beginner theme; team of two to six"
+    },
+    "scene": "old brass keys and a padlocked wooden chest with a map",
+    "status": "concept"
+  },
+  {
+    "id": "pubquiz",
+    "domain": "games",
+    "sub": "puzzles",
+    "label": {
+      "nl": "Pubquiz",
+      "en": "Pub quiz"
+    },
+    "tags": [
+      "competition",
+      "learning",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Alleen komen kan vaak: teams worden gevormd",
+      "en": "Coming alone is often fine: teams are formed"
+    },
+    "scene": "quiz sheets, pens and a chalkboard scoreboard on a café table",
+    "status": "concept"
+  },
+  {
+    "id": "raadsels",
+    "domain": "games",
+    "sub": "puzzles",
+    "label": {
+      "nl": "Raadsels en cryptogrammen",
+      "en": "Riddles and cryptic crosswords"
+    },
+    "tags": [
+      "puzzling",
+      "language",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een cryptogram in een krant of een raadselapp",
+      "en": "A cryptic crossword in a newspaper or a riddle app"
+    },
+    "scene": "a folded newspaper crossword with a pencil and a coffee",
+    "status": "concept"
+  },
+  {
+    "id": "speedcuben",
+    "domain": "games",
+    "sub": "puzzles",
+    "label": {
+      "nl": "Speedcuben",
+      "en": "Speedcubing"
+    },
+    "tags": [
+      "puzzling",
+      "precision",
+      "rhythm",
+      "competition"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kubus en een online tutorial",
+      "en": "A cube and an online tutorial"
+    },
+    "scene": "a scrambled colorful puzzle cube on a wooden desk with a timer",
+    "status": "concept"
+  },
+  {
+    "id": "coop-games",
+    "domain": "games",
+    "sub": "digital_action",
+    "label": {
+      "nl": "Samen gamen (coöperatieve videogames)",
+      "en": "Co-op video games"
+    },
+    "tags": [
+      "teamwork",
+      "strategy",
+      "conviviality",
+      "play"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een coöperatief spel met vrienden of in een gamecafé",
+      "en": "A cooperative game with friends or in a gaming café"
+    },
+    "scene": "two game controllers on a couch with a glowing screen",
+    "status": "concept"
+  },
+  {
+    "id": "lasergamen",
+    "domain": "games",
+    "sub": "digital_action",
+    "label": {
+      "nl": "Lasergamen of paintball",
+      "en": "Laser tag or paintball"
+    },
+    "tags": [
+      "competition",
+      "teamwork",
+      "movement",
+      "play"
+    ],
+    "formats": [
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Beginnersronde met uitleg en uitrusting",
+      "en": "Beginner round with instructions and equipment"
+    },
+    "scene": "a laser tag arena with neon lights and fog, vests on a rack",
+    "status": "concept"
+  },
+  {
+    "id": "darten-pool",
+    "domain": "games",
+    "sub": "digital_action",
+    "label": {
+      "nl": "Darten of poolbiljart",
+      "en": "Darts or pool"
+    },
+    "tags": [
+      "precision",
+      "competition",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Losse baan of speelavond, geen ervaring nodig",
+      "en": "A single lane or game evening, no experience needed"
+    },
+    "scene": "a dartboard with darts in a cozy game room",
+    "status": "concept"
+  },
+  {
+    "id": "bowlen",
+    "domain": "games",
+    "sub": "digital_action",
+    "label": {
+      "nl": "Bowlen",
+      "en": "Bowling"
+    },
+    "tags": [
+      "competition",
+      "conviviality",
+      "precision"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Losse baan; schoenen te huur",
+      "en": "A single lane; shoes for hire"
+    },
+    "scene": "a bowling lane with pins and a bright ball",
+    "status": "concept"
+  }
+]

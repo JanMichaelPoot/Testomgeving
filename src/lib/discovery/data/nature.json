@@ -1,0 +1,728 @@
+[
+  {
+    "id": "wandelen",
+    "domain": "nature",
+    "sub": "walking",
+    "label": {
+      "nl": "Een lange wandeling",
+      "en": "A long walk"
+    },
+    "tags": [
+      "nature",
+      "outdoors",
+      "movement",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een wandelknooppunt-route of gratis wandelapp",
+      "en": "A walking-node route or a free walking app"
+    },
+    "scene": "hiking boots on a forest trail with dappled sunlight and a trail marker post",
+    "status": "concept"
+  },
+  {
+    "id": "trektocht",
+    "domain": "nature",
+    "sub": "walking",
+    "label": {
+      "nl": "Meerdaagse wandeltocht",
+      "en": "Multi-day hike"
+    },
+    "tags": [
+      "nature",
+      "outdoors",
+      "challenge",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 2,
+    "duration": 4,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Begin met een tweedaagse over een bewegwijzerde route",
+      "en": "Start with a two-day trek on a waymarked route"
+    },
+    "scene": "a backpack and trekking poles by a mountain hut door at sunrise",
+    "status": "concept"
+  },
+  {
+    "id": "gids-wandeling",
+    "domain": "nature",
+    "sub": "walking",
+    "label": {
+      "nl": "Natuurwandeling met gids",
+      "en": "Guided nature walk"
+    },
+    "tags": [
+      "nature",
+      "learning",
+      "discovery",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Wandeling van een natuurorganisatie, aanmelden volstaat",
+      "en": "A walk run by a nature organisation, just sign up"
+    },
+    "scene": "a wooden signpost in a nature reserve with binoculars hanging on it",
+    "status": "concept"
+  },
+  {
+    "id": "geocaching",
+    "domain": "nature",
+    "sub": "walking",
+    "label": {
+      "nl": "Geocaching",
+      "en": "Geocaching"
+    },
+    "tags": [
+      "puzzling",
+      "discovery",
+      "outdoors",
+      "movement"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Gratis app en een eerste cache in de buurt",
+      "en": "Free app and a first cache nearby"
+    },
+    "scene": "a small camouflaged cache container hidden in tree roots with a handheld GPS",
+    "status": "concept"
+  },
+  {
+    "id": "kamperen",
+    "domain": "nature",
+    "sub": "walking",
+    "label": {
+      "nl": "Kamperen of bivakkeren",
+      "en": "Camping or bivouac"
+    },
+    "tags": [
+      "outdoors",
+      "nature",
+      "stars",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 2,
+    "duration": 4,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een nacht in een trekkershut of op een minicamping",
+      "en": "One night in a trekker's cabin or at a small campsite"
+    },
+    "scene": "a small tent glowing at dusk beside a lake with a lantern",
+    "status": "concept"
+  },
+  {
+    "id": "vogels",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Vogels spotten",
+      "en": "Birdwatching"
+    },
+    "tags": [
+      "nature",
+      "animals",
+      "focus",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ochtendwandeling met een vogelwerkgroep, kijkers zijn te lenen",
+      "en": "Morning walk with a bird-watching group; binoculars can be borrowed"
+    },
+    "scene": "binoculars and a field guide on a wooden hide ledge overlooking reeds",
+    "status": "concept"
+  },
+  {
+    "id": "dierenasiel",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Vrijwilliger bij een dierenasiel",
+      "en": "Volunteering at an animal shelter"
+    },
+    "tags": [
+      "animals",
+      "caring",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Kennismakingsdag of hondenuitlaten als eerste taak",
+      "en": "Introduction day, or dog walking as a first task"
+    },
+    "scene": "a leash and a dog bowl by an animal shelter door with folded blankets",
+    "status": "concept"
+  },
+  {
+    "id": "paardrijden",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Paardrijden of paarden verzorgen",
+      "en": "Horse riding or care"
+    },
+    "tags": [
+      "animals",
+      "caring",
+      "balance",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen met een instructeur, op een erkend manege.",
+        "en": "Only with an instructor at a recognised riding school."
+      }
+    },
+    "entry": {
+      "nl": "Proefles met instructeur; ook verzorgen zonder rijden kan",
+      "en": "Trial lesson with an instructor; caring without riding is also possible"
+    },
+    "scene": "a saddle and bridle on a stable door with hay",
+    "status": "concept"
+  },
+  {
+    "id": "hondensport",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Hondensport of hondentraining",
+      "en": "Dog sports and training"
+    },
+    "tags": [
+      "animals",
+      "teamwork",
+      "caring",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Gratis proefles bij een hondenvereniging (eigen hond of lenen)",
+      "en": "Free trial lesson at a dog club (your own dog or borrow one)"
+    },
+    "scene": "an agility hurdle and tunnel on a grassy field with dog toys",
+    "status": "concept"
+  },
+  {
+    "id": "imkeren",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Imkeren",
+      "en": "Beekeeping"
+    },
+    "tags": [
+      "animals",
+      "nature",
+      "caring",
+      "craft"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een imkerij of vereniging, met beschermkleding en begeleiding.",
+        "en": "Only through an apiary or society, with protective clothing and guidance."
+      }
+    },
+    "entry": {
+      "nl": "Open dag of introductie bij een imkerij, beschermkleding aanwezig",
+      "en": "Open day or introduction at an apiary, protective clothing provided"
+    },
+    "scene": "beehives in a flower meadow with a smoker and a veil hat",
+    "status": "concept"
+  },
+  {
+    "id": "nachtdieren",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Vleermuizen en nachtdieren spotten",
+      "en": "Bat and night-animal walks"
+    },
+    "tags": [
+      "animals",
+      "nature",
+      "discovery",
+      "stillness"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Georganiseerde avondwandeling van een natuurvereniging",
+      "en": "An organised evening walk by a nature society"
+    },
+    "scene": "a bat detector and a torch on a fence post at dusk in a meadow",
+    "status": "concept"
+  },
+  {
+    "id": "vissen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Vissen",
+      "en": "Fishing"
+    },
+    "tags": [
+      "nature",
+      "stillness",
+      "focus",
+      "water"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Begin met een introductiedag; visvergunning regel je vooraf",
+      "en": "Start with an introduction day; arrange the fishing licence beforehand"
+    },
+    "scene": "a fishing rod resting on a wooden jetty at misty dawn with a tackle box",
+    "status": "concept"
+  },
+  {
+    "id": "tuinieren",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Tuinieren of een moestuin",
+      "en": "Gardening or a vegetable patch"
+    },
+    "tags": [
+      "growing",
+      "caring",
+      "nature",
+      "food"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Buurttuin met open ochtend, of een bak op je balkon",
+      "en": "A community garden with an open morning, or a planter on your balcony"
+    },
+    "scene": "a wooden crate of vegetables, gardening gloves and a trowel in a raised bed",
+    "status": "concept"
+  },
+  {
+    "id": "kamerplanten",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Kamerplanten en stekjes",
+      "en": "Houseplants and cuttings"
+    },
+    "tags": [
+      "growing",
+      "caring",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén stekje, één pot, één vensterbank",
+      "en": "One cutting, one pot, one windowsill"
+    },
+    "scene": "propagation jars with plant cuttings on a bright windowsill",
+    "status": "concept"
+  },
+  {
+    "id": "kruiden",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Wilde kruiden herkennen",
+      "en": "Foraging wild herbs"
+    },
+    "tags": [
+      "nature",
+      "food",
+      "learning",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen met een deskundige gids; nooit zelf proeven zonder zekerheid.",
+        "en": "Only with a qualified guide; never taste anything without certainty."
+      }
+    },
+    "entry": {
+      "nl": "Alleen met een gids of kenner; nooit zelf proeven zonder zekerheid",
+      "en": "Only with a guide or expert; never taste anything without certainty"
+    },
+    "scene": "a basket of wild herbs and a field guide on a mossy log",
+    "status": "concept"
+  },
+  {
+    "id": "paddenstoelen",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Paddenstoelen zoeken",
+      "en": "Mushroom hunting"
+    },
+    "tags": [
+      "nature",
+      "discovery",
+      "focus",
+      "food"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen met een deskundige (mycoloog); nooit eten zonder controle.",
+        "en": "Only with an expert (mycologist); never eat anything without a check."
+      }
+    },
+    "entry": {
+      "nl": "Herfstexcursie met mycologen; nooit eten zonder controle door een deskundige",
+      "en": "Autumn excursion with mycologists; never eat without an expert check"
+    },
+    "scene": "a wicker basket of forest mushrooms and a small knife on fallen leaves",
+    "status": "concept"
+  },
+  {
+    "id": "natuurbeheer",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Vrijwilliger bij natuurbeheer",
+      "en": "Nature conservation volunteering"
+    },
+    "tags": [
+      "nature",
+      "caring",
+      "teamwork",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Meehelpen op een werkdag van een natuurorganisatie",
+      "en": "Help out on a work day of a nature organisation"
+    },
+    "scene": "a wheelbarrow and hand tools in heathland at golden hour",
+    "status": "concept"
+  },
+  {
+    "id": "sterrenkijken",
+    "domain": "nature",
+    "sub": "light_sky_water",
+    "label": {
+      "nl": "Sterrenkijken",
+      "en": "Stargazing"
+    },
+    "tags": [
+      "stars",
+      "stillness",
+      "nature",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Open avond van een sterrenwacht of een sterrenkaart-app",
+      "en": "Open evening at an observatory or a star-chart app"
+    },
+    "scene": "a telescope silhouette under a milky-way sky over a dark field",
+    "status": "concept"
+  },
+  {
+    "id": "natuurfotografie",
+    "domain": "nature",
+    "sub": "light_sky_water",
+    "label": {
+      "nl": "Natuurfotografie",
+      "en": "Nature photography"
+    },
+    "tags": [
+      "nature",
+      "color",
+      "focus",
+      "precision"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een vroege ochtend in een park met je telefoon",
+      "en": "An early morning in a park with your phone"
+    },
+    "scene": "a camera with a long lens on a tripod at a misty lake at sunrise",
+    "status": "concept"
+  },
+  {
+    "id": "open-water",
+    "domain": "nature",
+    "sub": "light_sky_water",
+    "label": {
+      "nl": "Zwemmen in open water",
+      "en": "Open-water swimming"
+    },
+    "tags": [
+      "water",
+      "nature",
+      "challenge",
+      "movement"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 0,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen op aangewezen zwemplekken of met een groep en een zwemboei.",
+        "en": "Only at designated swimming spots or with a group and a swim buoy."
+      }
+    },
+    "entry": {
+      "nl": "Alleen op toegelaten plekken of met een groep en een boei",
+      "en": "Only at designated spots or with a group and a buoy"
+    },
+    "scene": "an orange swim buoy floating on a calm lake at dawn",
+    "status": "concept"
+  }
+]

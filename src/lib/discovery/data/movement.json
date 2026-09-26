@@ -1,0 +1,712 @@
+[
+  {
+    "id": "hardlopen",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Hardlopen",
+      "en": "Running"
+    },
+    "tags": [
+      "movement",
+      "outdoors",
+      "rhythm"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Beginnersgroep of proeftraining bij een loopclub",
+      "en": "Beginner group or trial session at a running club"
+    },
+    "scene": "a pair of running shoes on a wet forest path at sunrise, a bright jacket hanging on a fence post",
+    "status": "concept"
+  },
+  {
+    "id": "nordic-walking",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Nordic walking",
+      "en": "Nordic walking"
+    },
+    "tags": [
+      "movement",
+      "outdoors",
+      "rhythm",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Gratis proefles; stokken worden vaak uitgeleend",
+      "en": "Free trial lesson; poles are often lent"
+    },
+    "scene": "two nordic walking poles leaning on a wooden bench beside an autumn park path",
+    "status": "concept"
+  },
+  {
+    "id": "fietsen",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Toerfietsen",
+      "en": "Touring by bike"
+    },
+    "tags": [
+      "movement",
+      "outdoors",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Korte lus via fietsknooppunten of een club-toertocht",
+      "en": "A short loop along cycle-node routes, or a club tour"
+    },
+    "scene": "a vintage touring bicycle leaning against a brick wall on a canal-side path, panniers and a map in the basket",
+    "status": "concept"
+  },
+  {
+    "id": "schaatsen",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Schaatsen",
+      "en": "Ice skating"
+    },
+    "tags": [
+      "movement",
+      "rhythm",
+      "balance"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Recreatief uur op een ijsbaan, schaatsen te huur",
+      "en": "A recreational hour on an ice rink, skates for hire"
+    },
+    "scene": "a pair of white figure skates on the edge of a frozen pond in soft winter light",
+    "status": "concept"
+  },
+  {
+    "id": "skaten",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Skeeleren of skateboarden",
+      "en": "Inline skating or skateboarding"
+    },
+    "tags": [
+      "movement",
+      "outdoors",
+      "balance",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Beginnersles met beschermers; huurmateriaal bij skateparks",
+      "en": "Beginner lesson with pads; gear for hire at skate parks"
+    },
+    "scene": "a skateboard and inline skates on a concrete skatepark ledge with a helmet beside them",
+    "status": "concept"
+  },
+  {
+    "id": "zwemmen",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Baantjes en vrij zwemmen",
+      "en": "Swimming"
+    },
+    "tags": [
+      "movement",
+      "water",
+      "rhythm"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Rustig uur of ochtendzwemmen",
+      "en": "A quiet hour or morning swim"
+    },
+    "scene": "lane ropes seen from the edge of a pool, goggles and a towel on a tiled bench",
+    "status": "concept"
+  },
+  {
+    "id": "kanoen",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Kanoën of suppen",
+      "en": "Canoeing or paddleboarding"
+    },
+    "tags": [
+      "water",
+      "movement",
+      "outdoors",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Verhuur of begeleide tocht met zwemvest",
+      "en": "Rental or guided trip with a life jacket"
+    },
+    "scene": "a canoe on calm water at dawn with a paddle across it, reeds in the background",
+    "status": "concept"
+  },
+  {
+    "id": "zeilen",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Proefzeilen",
+      "en": "Trial sailing"
+    },
+    "tags": [
+      "water",
+      "teamwork",
+      "technique",
+      "outdoors"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen met een ervaren schipper of via een zeilschool.",
+        "en": "Only with an experienced skipper or a sailing school."
+      }
+    },
+    "entry": {
+      "nl": "Proefzeilen bij een zeilschool of vereniging, met schipper",
+      "en": "Trial sailing at a sailing school or club, with a skipper"
+    },
+    "scene": "a small sailing boat with a taut sail on blue water, coiled ropes in the foreground",
+    "status": "concept"
+  },
+  {
+    "id": "duiken",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Proefduik",
+      "en": "Intro scuba dive"
+    },
+    "tags": [
+      "water",
+      "challenge",
+      "discovery",
+      "nature"
+    ],
+    "formats": [
+      "duo",
+      "small_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen als proefduik met instructeur; een medische verklaring is nodig.",
+        "en": "Only as a trial dive with an instructor; a medical statement is required."
+      }
+    },
+    "entry": {
+      "nl": "Proefduik in een zwembad met instructeur (medische verklaring)",
+      "en": "Trial dive in a swimming pool with an instructor (medical statement required)"
+    },
+    "scene": "a diving mask and fins on a wooden dock beside turquoise water",
+    "status": "concept"
+  },
+  {
+    "id": "boulderen",
+    "domain": "movement",
+    "sub": "climbing",
+    "label": {
+      "nl": "Boulderen",
+      "en": "Bouldering"
+    },
+    "tags": [
+      "movement",
+      "challenge",
+      "puzzling",
+      "height"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Introductie-avond met huurschoenen, geen ervaring nodig",
+      "en": "Intro evening with rental shoes, no experience needed"
+    },
+    "scene": "a bouldering wall with colorful holds and a chalk bucket on a crash mat",
+    "status": "concept"
+  },
+  {
+    "id": "klimmen",
+    "domain": "movement",
+    "sub": "climbing",
+    "label": {
+      "nl": "Klimmen met touw",
+      "en": "Rope climbing"
+    },
+    "tags": [
+      "height",
+      "challenge",
+      "teamwork",
+      "movement"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen onder begeleiding van een instructeur; zekeren leer je ter plekke.",
+        "en": "Only with an instructor; belaying is taught on site."
+      }
+    },
+    "entry": {
+      "nl": "Introductiecursus met instructeur; zekeren leer je ter plekke",
+      "en": "Intro course with an instructor; you learn belaying on site"
+    },
+    "scene": "a climbing rope and carabiners coiled on a rock ledge, harness beside them",
+    "status": "concept"
+  },
+  {
+    "id": "klimpark",
+    "domain": "movement",
+    "sub": "climbing",
+    "label": {
+      "nl": "Klimpark of hoogtouwbaan",
+      "en": "High-ropes course"
+    },
+    "tags": [
+      "height",
+      "challenge",
+      "outdoors",
+      "teamwork"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Veiligheidsbriefing ter plekke; ook met familie",
+      "en": "Safety briefing on site; also fun with family"
+    },
+    "scene": "a high ropes course among tall pine trees with wooden platforms",
+    "status": "concept"
+  },
+  {
+    "id": "vrije-val",
+    "domain": "movement",
+    "sub": "climbing",
+    "label": {
+      "nl": "Indoor skydiven",
+      "en": "Indoor skydiving"
+    },
+    "tags": [
+      "challenge",
+      "height",
+      "balance"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkend windtunnelcentrum of tandemsprong met gecertificeerde instructeur.",
+        "en": "Only at a recognised wind-tunnel centre or a tandem jump with a certified instructor."
+      }
+    },
+    "entry": {
+      "nl": "Windtunnel met instructeur; een veiligere instap dan een sprong",
+      "en": "Wind tunnel with an instructor; a safer start than a jump"
+    },
+    "scene": "a vertical wind tunnel glass chamber seen from outside, helmet and goggles on a bench",
+    "status": "concept"
+  },
+  {
+    "id": "dansen",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Dansen (salsa, swing, latin)",
+      "en": "Social dancing"
+    },
+    "tags": [
+      "movement",
+      "rhythm",
+      "sound",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Beginnersles waarbij je geen partner nodig hebt",
+      "en": "Beginner class where you don't need a partner"
+    },
+    "scene": "a pair of dance shoes on a polished wooden dance floor under warm spotlights",
+    "status": "concept"
+  },
+  {
+    "id": "padel",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Padel of tennis",
+      "en": "Padel or tennis"
+    },
+    "tags": [
+      "movement",
+      "competition",
+      "teamwork"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Introductie-uurtje met racketverhuur",
+      "en": "Intro hour with racket rental"
+    },
+    "scene": "padel rackets and yellow balls in the corner of a glass-walled court",
+    "status": "concept"
+  },
+  {
+    "id": "teamsport",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Teamsport (voetbal, basketbal, volleybal)",
+      "en": "Team sports"
+    },
+    "tags": [
+      "competition",
+      "teamwork",
+      "movement"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 3,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Recreantengroep of proeftraining",
+      "en": "Recreational group or trial training"
+    },
+    "scene": "a leather ball and cones on a green pitch with goalposts in golden hour light",
+    "status": "concept"
+  },
+  {
+    "id": "aangepast-sporten",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Aangepast sporten (wandelvoetbal, zitvolleybal)",
+      "en": "Adapted sports"
+    },
+    "tags": [
+      "movement",
+      "teamwork",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Speciale beginnersgroepen, vraag naar aanpassingen voor jouw situatie",
+      "en": "Special beginner groups; ask about adaptations for your situation"
+    },
+    "scene": "colorful soft balls and cones on a sports hall floor with sunlit windows",
+    "status": "concept"
+  },
+  {
+    "id": "frisbee",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Ultimate frisbee",
+      "en": "Ultimate frisbee"
+    },
+    "tags": [
+      "movement",
+      "competition",
+      "teamwork",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Open training, spelregels leer je in een kwartier",
+      "en": "Open training; the rules take fifteen minutes to learn"
+    },
+    "scene": "a flying disc lying on a sunny meadow next to marker cones",
+    "status": "concept"
+  },
+  {
+    "id": "boogschieten",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Boogschieten",
+      "en": "Archery"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "history",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen op een schietbaan van een vereniging of school, met instructeur.",
+        "en": "Only on an archery range of a club or school, with an instructor."
+      }
+    },
+    "entry": {
+      "nl": "Introductieles bij een handboogvereniging, materiaal aanwezig",
+      "en": "Intro lesson at an archery club, equipment provided"
+    },
+    "scene": "a recurve bow and arrows next to a straw target on a meadow",
+    "status": "concept"
+  },
+  {
+    "id": "vechtsport",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Judo, aikido of recreatief boksen",
+      "en": "Judo, aikido or fitness boxing"
+    },
+    "tags": [
+      "movement",
+      "focus",
+      "challenge",
+      "precision"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Proefles bij een erkende club, geen wedstrijdverplichting",
+      "en": "Trial class at a recognised club, no competition obligation"
+    },
+    "scene": "a folded judo belt and gi on a tatami mat in morning light",
+    "status": "concept"
+  }
+]

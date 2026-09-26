@@ -1,0 +1,637 @@
+[
+  {
+    "id": "toerist",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Toerist in je eigen stad",
+      "en": "Tourist in your own city"
+    },
+    "tags": [
+      "discovery",
+      "story",
+      "stillness"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies één wijk die je niet kent en loop erdoorheen",
+      "en": "Pick one neighbourhood you don't know and walk through it"
+    },
+    "scene": "a city map, a camera and a coffee cup on a café table with a street view",
+    "status": "concept"
+  },
+  {
+    "id": "film-theater",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Alleen naar de film of het theater",
+      "en": "Solo cinema or theatre"
+    },
+    "tags": [
+      "story",
+      "stillness",
+      "color"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een reguliere voorstelling op een doordeweekse avond",
+      "en": "A regular showing on a weeknight"
+    },
+    "scene": "a single empty velvet cinema seat in a dim theatre",
+    "status": "concept"
+  },
+  {
+    "id": "cafe-schrijven",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Koffie en schrijven in een café",
+      "en": "Coffee and writing in a café"
+    },
+    "tags": [
+      "language",
+      "focus",
+      "stillness",
+      "story"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén kop koffie en dertig minuten",
+      "en": "One coffee and thirty minutes"
+    },
+    "scene": "a notebook and pen with a latte on a café window table",
+    "status": "concept"
+  },
+  {
+    "id": "fotowandeling",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Fotowandeling door een onbekende wijk",
+      "en": "Photo walk"
+    },
+    "tags": [
+      "discovery",
+      "color",
+      "movement"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies een thema, bijvoorbeeld deuren of kleuren",
+      "en": "Pick a theme, for example doors or colors"
+    },
+    "scene": "colorful painted doors along an old street",
+    "status": "concept"
+  },
+  {
+    "id": "audiowandeling",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Audiowandeling of podcastroute",
+      "en": "Audio walk"
+    },
+    "tags": [
+      "story",
+      "learning",
+      "movement",
+      "discovery"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Koptelefoon en een route in een app",
+      "en": "Headphones and a route in an app"
+    },
+    "scene": "headphones on a park bench with a winding path behind",
+    "status": "concept"
+  },
+  {
+    "id": "trein-dagtrip",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Met de trein naar een onbekend plaatsje",
+      "en": "Train day trip"
+    },
+    "tags": [
+      "discovery",
+      "challenge",
+      "outdoors"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Prik een plek op de kaart met een uur reistijd",
+      "en": "Drop a pin on a place an hour away"
+    },
+    "scene": "a small village train station platform with an old sign",
+    "status": "concept"
+  },
+  {
+    "id": "boekwinkels",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Een dag boekwinkels en bibliotheken",
+      "en": "Bookshops and libraries"
+    },
+    "tags": [
+      "story",
+      "language",
+      "collecting",
+      "stillness"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Loop drie winkels binnen en neem één boek mee",
+      "en": "Walk into three shops and take one book home"
+    },
+    "scene": "cozy bookshop shelves floor to ceiling with a rolling ladder",
+    "status": "concept"
+  },
+  {
+    "id": "ander-land",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Een gerecht uit een land dat je niet kent",
+      "en": "Cooking from an unfamiliar cuisine"
+    },
+    "tags": [
+      "food",
+      "discovery",
+      "making",
+      "learning"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een recept en één ingrediënt dat je nog nooit kocht",
+      "en": "A recipe and one ingredient you never bought"
+    },
+    "scene": "spices and fresh ingredients on a kitchen counter with a recipe card",
+    "status": "concept"
+  },
+  {
+    "id": "picknick",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Picknicken op een mooie plek",
+      "en": "Solo picnic"
+    },
+    "tags": [
+      "nature",
+      "food",
+      "stillness",
+      "outdoors"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een deken, een broodje en een uitzicht",
+      "en": "A blanket, a sandwich and a view"
+    },
+    "scene": "a picnic blanket with a basket on a hillside with a view",
+    "status": "concept"
+  },
+  {
+    "id": "buurtkaart",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Je buurt tekenen als kaart",
+      "en": "Draw a map of your area"
+    },
+    "tags": [
+      "making",
+      "discovery",
+      "story",
+      "color"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Papier, pen en een half uur rondlopen",
+      "en": "Paper, pen and half an hour of walking"
+    },
+    "scene": "a hand-drawn neighbourhood map with colored pencils on a table",
+    "status": "concept"
+  },
+  {
+    "id": "fietsroute",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Solo fietstocht langs rivier of kust",
+      "en": "Solo bike ride"
+    },
+    "tags": [
+      "movement",
+      "outdoors",
+      "discovery",
+      "rhythm"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een route van 30 kilometer langs water",
+      "en": "A 30-kilometre route along water"
+    },
+    "scene": "a bicycle at a river bank at golden hour",
+    "status": "concept"
+  },
+  {
+    "id": "online-cursus",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Een online cursus volgen",
+      "en": "Online course"
+    },
+    "tags": [
+      "learning",
+      "focus",
+      "growing"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis proefweek of open cursus",
+      "en": "A free trial week or open course"
+    },
+    "scene": "a laptop showing a course next to a notebook and tea",
+    "status": "concept"
+  },
+  {
+    "id": "taal-leren",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Een nieuwe taal leren",
+      "en": "Learning a language"
+    },
+    "tags": [
+      "language",
+      "learning",
+      "rhythm"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Tien minuten per dag met een app",
+      "en": "Ten minutes a day with an app"
+    },
+    "scene": "language flashcards and a phrasebook on a desk",
+    "status": "concept"
+  },
+  {
+    "id": "platenwinkel",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Een album van begin tot eind luisteren",
+      "en": "Listening to an album"
+    },
+    "tags": [
+      "sound",
+      "stillness",
+      "retro",
+      "focus"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies één album en leg je telefoon weg",
+      "en": "Choose one album and put your phone away"
+    },
+    "scene": "a turntable playing a vinyl record beside a lamp",
+    "status": "concept"
+  },
+  {
+    "id": "ateliers",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Ateliers en galeries op eigen tempo",
+      "en": "Studios and galleries"
+    },
+    "tags": [
+      "color",
+      "discovery",
+      "making",
+      "story"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Open-atelierdag of galerie-route",
+      "en": "An open-studio day or gallery route"
+    },
+    "scene": "an artist studio door standing open with canvases and paint tubes",
+    "status": "concept"
+  },
+  {
+    "id": "detox",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Een dag zonder telefoon",
+      "en": "Digital detox day"
+    },
+    "tags": [
+      "stillness",
+      "focus",
+      "challenge"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Begin met een halve dag en een papieren kaart",
+      "en": "Start with half a day and a paper map"
+    },
+    "scene": "a phone in a drawer beside a paper map and hiking boots",
+    "status": "concept"
+  },
+  {
+    "id": "dertig-dagen",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Een 30-dagenuitdaging",
+      "en": "A 30-day challenge"
+    },
+    "tags": [
+      "challenge",
+      "rhythm",
+      "learning",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies iets kleins: elke dag vijf minuten",
+      "en": "Pick something small: five minutes a day"
+    },
+    "scene": "a wall calendar with days crossed off in red marker",
+    "status": "concept"
+  },
+  {
+    "id": "slow-travel",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Slow-travel weekend",
+      "en": "Slow-travel weekend"
+    },
+    "tags": [
+      "discovery",
+      "challenge",
+      "story"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Één overnachting, alleen openbaar vervoer",
+      "en": "One overnight stay, public transport only"
+    },
+    "scene": "a night-train window with a suitcase on the seat",
+    "status": "concept"
+  },
+  {
+    "id": "brieven",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Brieven schrijven",
+      "en": "Writing letters"
+    },
+    "tags": [
+      "language",
+      "story",
+      "caring",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén brief aan iemand die je lang niet sprak",
+      "en": "One letter to someone you haven't spoken to in a while"
+    },
+    "scene": "a handwritten letter with an envelope, stamps and a fountain pen",
+    "status": "concept"
+  },
+  {
+    "id": "markt-ingredient",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Een markt en één onbekend ingrediënt",
+      "en": "Market and one unknown ingredient"
+    },
+    "tags": [
+      "food",
+      "discovery",
+      "learning"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Vraag de kraamhouder wat je ermee moet doen",
+      "en": "Ask the stallholder what to do with it"
+    },
+    "scene": "a market stall with an unusual vegetable in close-up, such as romanesco",
+    "status": "concept"
+  }
+]

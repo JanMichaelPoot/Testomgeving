@@ -1,0 +1,675 @@
+[
+  {
+    "id": "yoga",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Yoga",
+      "en": "Yoga"
+    },
+    "tags": [
+      "stillness",
+      "movement",
+      "focus",
+      "balance"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Proefles of een online sessie van 20 minuten",
+      "en": "Trial class or a 20-minute online session"
+    },
+    "scene": "a rolled yoga mat and a block on a wooden floor in morning light",
+    "status": "concept"
+  },
+  {
+    "id": "meditatie",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Meditatie",
+      "en": "Meditation"
+    },
+    "tags": [
+      "stillness",
+      "focus",
+      "balance"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Tien minuten met een gratis app",
+      "en": "Ten minutes with a free app"
+    },
+    "scene": "a meditation cushion beside a window with a plant and a small bell",
+    "status": "concept"
+  },
+  {
+    "id": "wandelmeditatie",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Wandelmeditatie",
+      "en": "Walking meditation"
+    },
+    "tags": [
+      "stillness",
+      "movement",
+      "nature",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Loop langzaam en let op je voeten",
+      "en": "Walk slowly and pay attention to your feet"
+    },
+    "scene": "stepping stones in a moss garden in soft light",
+    "status": "concept"
+  },
+  {
+    "id": "sauna",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Sauna of thermen",
+      "en": "Sauna or spa"
+    },
+    "tags": [
+      "stillness",
+      "conviviality",
+      "water"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een middagentree; regels en gebruiken worden uitgelegd",
+      "en": "An afternoon entry; rules and customs are explained"
+    },
+    "scene": "a wooden sauna interior with towels and a bucket, steam",
+    "status": "concept"
+  },
+  {
+    "id": "ademwerk",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Ademwerk",
+      "en": "Breathwork"
+    },
+    "tags": [
+      "stillness",
+      "focus",
+      "movement"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een geleide sessie; stop als je je onwel voelt",
+      "en": "A guided session; stop if you feel unwell"
+    },
+    "scene": "an open window with a curtain moving in the breeze and a cushion",
+    "status": "concept"
+  },
+  {
+    "id": "tai-chi",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Tai chi of qigong",
+      "en": "Tai chi or qigong"
+    },
+    "tags": [
+      "movement",
+      "stillness",
+      "balance",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Vaak een gratis proefles in een park of buurthuis",
+      "en": "Often a free trial class in a park or community centre"
+    },
+    "scene": "a quiet park lawn at sunrise with mist and a bench",
+    "status": "concept"
+  },
+  {
+    "id": "massage",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Massage of wellnessdag",
+      "en": "Massage or wellness day"
+    },
+    "tags": [
+      "stillness",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een korte behandeling bij een erkende praktijk",
+      "en": "A short treatment at a recognised practice"
+    },
+    "scene": "folded towels and candles with oil bottles on a stone",
+    "status": "concept"
+  },
+  {
+    "id": "stilteweekend",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Stilteweekend of retraite",
+      "en": "Silent retreat"
+    },
+    "tags": [
+      "stillness",
+      "focus",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Begin met een dag; veel centra bieden een korte start",
+      "en": "Start with a day; many centres offer a short start"
+    },
+    "scene": "a simple monastery-like room with a bed and a window over hills",
+    "status": "concept"
+  },
+  {
+    "id": "lezen",
+    "domain": "restful",
+    "sub": "read_listen",
+    "label": {
+      "nl": "Een roman van begin tot eind lezen",
+      "en": "Reading a novel"
+    },
+    "tags": [
+      "story",
+      "language",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies een dun boek van iemand die je nog niet kent",
+      "en": "Pick a slim book by someone you don't know yet"
+    },
+    "scene": "an open novel on a blanket with a mug beside a rainy window",
+    "status": "concept"
+  },
+  {
+    "id": "luisterboek",
+    "domain": "restful",
+    "sub": "read_listen",
+    "label": {
+      "nl": "Luisterboeken",
+      "en": "Audiobooks"
+    },
+    "tags": [
+      "story",
+      "language",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een proefabonnement of de bibliotheek-app",
+      "en": "A trial subscription or the library app"
+    },
+    "scene": "headphones resting on an open book on an armchair",
+    "status": "concept"
+  },
+  {
+    "id": "journaling",
+    "domain": "restful",
+    "sub": "reflection",
+    "label": {
+      "nl": "Journaling",
+      "en": "Journaling"
+    },
+    "tags": [
+      "language",
+      "focus",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Drie regels per dag: wat gebeurde, wat voelde ik",
+      "en": "Three lines a day: what happened, how did I feel"
+    },
+    "scene": "an open journal with a pen and a cup of tea",
+    "status": "concept"
+  },
+  {
+    "id": "slow-looking",
+    "domain": "restful",
+    "sub": "reflection",
+    "label": {
+      "nl": "Eén schilderij een uur bekijken",
+      "en": "Slow looking"
+    },
+    "tags": [
+      "color",
+      "focus",
+      "stillness",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies één werk in een museum en blijf zitten",
+      "en": "Pick one work in a museum and stay seated"
+    },
+    "scene": "a single painting on a gallery wall with a bench in front",
+    "status": "concept"
+  },
+  {
+    "id": "concert",
+    "domain": "restful",
+    "sub": "read_listen",
+    "label": {
+      "nl": "Klassiek of jazzconcert",
+      "en": "Classical or jazz concert"
+    },
+    "tags": [
+      "sound",
+      "stillness",
+      "conviviality"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Lunchconcert of een kleine zaal",
+      "en": "A lunchtime concert or a small venue"
+    },
+    "scene": "a grand piano on an empty concert stage in warm light",
+    "status": "concept"
+  },
+  {
+    "id": "filosofie",
+    "domain": "restful",
+    "sub": "reflection",
+    "label": {
+      "nl": "Filosofiecafé of -cursus",
+      "en": "Philosophy café"
+    },
+    "tags": [
+      "learning",
+      "language",
+      "conviviality",
+      "story"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Losse avond, geen voorkennis nodig",
+      "en": "A single evening, no prior knowledge needed"
+    },
+    "scene": "a stack of philosophy books with a lit candle and reading glasses",
+    "status": "concept"
+  },
+  {
+    "id": "theeceremonie",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Theeceremonie of theeproeverij",
+      "en": "Tea ceremony"
+    },
+    "tags": [
+      "stillness",
+      "food",
+      "learning",
+      "focus"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kleine workshop bij een theehuis",
+      "en": "A small workshop at a tea house"
+    },
+    "scene": "a tea set with a ceramic teapot and cups, steam rising",
+    "status": "concept"
+  },
+  {
+    "id": "hangmat",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Hangmat- of dagdroomuur",
+      "en": "Hammock hour"
+    },
+    "tags": [
+      "stillness",
+      "nature",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een deken, een plek in de zon, geen telefoon",
+      "en": "A blanket, a sunny spot, no phone"
+    },
+    "scene": "a hammock between two trees with dappled sun",
+    "status": "concept"
+  },
+  {
+    "id": "volksuniversiteit",
+    "domain": "restful",
+    "sub": "read_listen",
+    "label": {
+      "nl": "Een cursus bij de volksuniversiteit",
+      "en": "Adult-education course"
+    },
+    "tags": [
+      "learning",
+      "conviviality",
+      "language"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Losse lezing of proefles; kies iets waar je niets van weet",
+      "en": "A single lecture or trial lesson; pick something you know nothing about"
+    },
+    "scene": "a classroom desk with a notebook in front of a blackboard",
+    "status": "concept"
+  },
+  {
+    "id": "levenslijn",
+    "domain": "restful",
+    "sub": "reflection",
+    "label": {
+      "nl": "Je levenslijn tekenen",
+      "en": "Draw your life line"
+    },
+    "tags": [
+      "story",
+      "color",
+      "focus",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Papier en stiften; markeer hoogte- en dieptepunten",
+      "en": "Paper and markers; mark highs and lows"
+    },
+    "scene": "a large sheet of paper with a hand-drawn curved line and colored markers",
+    "status": "concept"
+  },
+  {
+    "id": "weekreview",
+    "domain": "restful",
+    "sub": "reflection",
+    "label": {
+      "nl": "Wekelijks ritueel van terugkijken",
+      "en": "Weekly review ritual"
+    },
+    "tags": [
+      "rhythm",
+      "focus",
+      "language"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Elke zondag vijf minuten: wat was mooi, wat wil ik meer",
+      "en": "Every Sunday five minutes: what was nice, what do I want more of"
+    },
+    "scene": "a planner and a pen with a mug on a Sunday desk",
+    "status": "concept"
+  },
+  {
+    "id": "niets-doen",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "De kunst van niets doen",
+      "en": "The art of doing nothing"
+    },
+    "tags": [
+      "stillness",
+      "challenge",
+      "focus"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Twintig minuten zitten zonder scherm of doel",
+      "en": "Twenty minutes seated without a screen or a goal"
+    },
+    "scene": "an empty chair by a sunlit window with a plant",
+    "status": "concept"
+  }
+]

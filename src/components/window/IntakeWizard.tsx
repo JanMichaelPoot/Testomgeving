@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { Button } from "@/components/ui/Button";
 import { PillSlider } from "@/components/ui/PillSlider";
 import { LocationAutocomplete } from "@/components/ui/LocationAutocomplete";
@@ -231,6 +231,10 @@ const EMPTY_ANSWERS: IntakeAnswers = {
 // try/catch since storage can throw or be unavailable (private browsing).
 const DRAFT_KEY = "window-intake-draft-v1";
 
+// Which wizard the visitor saw. "legacy" is the current text-chip wizard; the
+// visual discovery wizard will report its own value so both can be compared.
+const WIZARD_VARIANT = "legacy";
+
 interface IntakeDraft {
   page: number;
   answers: IntakeAnswers;
@@ -343,6 +347,13 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
   const [hydrated, setHydrated] = useState(false);
   const [touchedSliders, setTouchedSliders] = useState<Set<StepId>>(new Set());
 
+  // Measurement (fase 0 of the discovery upgrade): time per page and in total,
+  // so drop-off and fill-in time are known before anything about the wizard
+  // changes. `wizard_variant` lets a later A/B test tell the versions apart.
+  // Never any answer text — only page ids, indexes and durations.
+  const startedAt = useRef<number | null>(null);
+  const pageEnteredAt = useRef<number>(0);
+
   // Restore a draft (if any) once on mount, then start persisting on every
   // change. The hydrated gate stops that first restore from immediately
   // re-saving itself, and stops us from ever overwriting a real draft with
@@ -367,6 +378,8 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
       }
     }
     setHydrated(true);
+    startedAt.current = performance.now();
+    trackEvent("intake_started", { wizard_variant: WIZARD_VARIANT, restored: !!draft && !isBlankDraft(draft) });
   }, []);
 
   useEffect(() => {
@@ -376,6 +389,20 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
 
   const pages = useMemo(() => buildPages(answers, dict), [answers, dict]);
   const currentPage = pages[page];
+
+  // One "viewed" event per page shown (drop-off = viewed but never completed).
+  useEffect(() => {
+    if (!hydrated) return;
+    pageEnteredAt.current = performance.now();
+    trackEvent("intake_page_viewed", {
+      wizard_variant: WIZARD_VARIANT,
+      page: pages[page].id,
+      index: page,
+      of: pages.length,
+    });
+    // Only when the page number changes (or right after hydration), not on every keystroke.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated, page]);
   const isLastPage = page === pages.length - 1;
   const canContinue = useMemo(
     () => canContinuePage(currentPage, answers),
@@ -401,6 +428,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
   }
 
   function goBack() {
+    trackEvent("intake_page_back", { wizard_variant: WIZARD_VARIANT, page: currentPage.id, index: page });
     setError(null);
     setPage((prev) => Math.max(0, prev - 1));
   }
@@ -408,7 +436,12 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
   function goNext() {
     if (!canContinue) return;
 
-    trackEvent("intake_page_completed", { page: currentPage.id, index: page });
+    trackEvent("intake_page_completed", {
+      wizard_variant: WIZARD_VARIANT,
+      page: currentPage.id,
+      index: page,
+      duration_ms: Math.round(performance.now() - pageEnteredAt.current),
+    });
 
     if (!isLastPage) {
       setPage((prev) => prev + 1);
@@ -416,6 +449,11 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
     }
 
     setError(null);
+    trackEvent("intake_submitted", {
+      wizard_variant: WIZARD_VARIANT,
+      pages: pages.length,
+      total_ms: startedAt.current === null ? null : Math.round(performance.now() - startedAt.current),
+    });
     startTransition(async () => {
       try {
         await submitIntake(answers);
@@ -424,6 +462,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
           clearDraft();
           throw err;
         }
+        trackEvent("intake_submit_failed", { wizard_variant: WIZARD_VARIANT });
         setError(err instanceof Error ? err.message : dict.errorGeneric);
       }
     });

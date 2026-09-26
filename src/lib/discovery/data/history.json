@@ -1,0 +1,718 @@
+[
+  {
+    "id": "re-enactment",
+    "domain": "history",
+    "sub": "lived_past",
+    "label": {
+      "nl": "Re-enactment (middeleeuwen, Romeinen, Vikingen)",
+      "en": "Historical re-enactment"
+    },
+    "tags": [
+      "history",
+      "roleplay",
+      "making",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Kennismaking op een groepsdag of markt; kleding kan vaak geleend",
+      "en": "Introduction at a group day or market; costumes can often be borrowed"
+    },
+    "scene": "a medieval tent, shield, helmet and banner on a grass camp",
+    "status": "concept"
+  },
+  {
+    "id": "schermen",
+    "domain": "history",
+    "sub": "lived_past",
+    "label": {
+      "nl": "Historisch schermen (HEMA)",
+      "en": "Historical fencing (HEMA)"
+    },
+    "tags": [
+      "history",
+      "precision",
+      "competition",
+      "focus"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende club, met beschermende uitrusting en trainer.",
+        "en": "Only at a recognised club, with protective gear and a trainer."
+      }
+    },
+    "entry": {
+      "nl": "Proefles bij een erkende club met beschermende uitrusting",
+      "en": "Trial class at a recognised club with protective gear"
+    },
+    "scene": "a fencing mask and a longsword on a wooden rack in a stone hall",
+    "status": "concept"
+  },
+  {
+    "id": "hist-dans",
+    "domain": "history",
+    "sub": "lived_past",
+    "label": {
+      "nl": "Historische dans",
+      "en": "Historical dance"
+    },
+    "tags": [
+      "history",
+      "rhythm",
+      "sound",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Beginnersavond waar de passen uitgelegd worden",
+      "en": "Beginner evening where the steps are explained"
+    },
+    "scene": "an empty historic ballroom with a polished floor and candelabras",
+    "status": "concept"
+  },
+  {
+    "id": "hist-koken",
+    "domain": "history",
+    "sub": "lived_past",
+    "label": {
+      "nl": "Historisch koken",
+      "en": "Historical cooking"
+    },
+    "tags": [
+      "history",
+      "food",
+      "making",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Workshop met oude recepten in een museum of openluchtmuseum",
+      "en": "Workshop with old recipes in a museum or open-air museum"
+    },
+    "scene": "an iron pot over an open fire with herbs and an old cookbook",
+    "status": "concept"
+  },
+  {
+    "id": "ambachten",
+    "domain": "history",
+    "sub": "lived_past",
+    "label": {
+      "nl": "Historische ambachten (touw slaan, weven, zeep)",
+      "en": "Heritage crafts"
+    },
+    "tags": [
+      "history",
+      "making",
+      "craft",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Demonstratiedag in een openluchtmuseum met doe-activiteiten",
+      "en": "Demonstration day at an open-air museum with hands-on activities"
+    },
+    "scene": "a rope-making wheel and hemp cords in a rustic barn",
+    "status": "concept"
+  },
+  {
+    "id": "levend-verleden",
+    "domain": "history",
+    "sub": "lived_past",
+    "label": {
+      "nl": "Vikingmarkt of Romeins festival bezoeken",
+      "en": "Living-history fair"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "conviviality",
+      "story"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bezoek als toeschouwer; niemand verwacht dat je je verkleedt",
+      "en": "Visit as a spectator; nobody expects you to dress up"
+    },
+    "scene": "banner-lined medieval market stalls with wooden goods",
+    "status": "concept"
+  },
+  {
+    "id": "genealogie",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Stamboomonderzoek",
+      "en": "Genealogy"
+    },
+    "tags": [
+      "history",
+      "puzzling",
+      "learning",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Begin bij je grootouders; online archieven zijn gratis",
+      "en": "Start with your grandparents; online archives are free"
+    },
+    "scene": "a hand-drawn family tree on aged parchment with a fountain pen, an old leather-bound family bible and a magnifier on a wooden desk",
+    "status": "concept"
+  },
+  {
+    "id": "opgraving",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Archeologie: vrijwilliger bij een opgraving",
+      "en": "Archaeology volunteering"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "precision",
+      "teamwork"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Open dag of vrijwilligersdag via een archeologische vereniging",
+      "en": "Open day or volunteer day via an archaeological society"
+    },
+    "scene": "an archaeological trench with a measuring tape, trowel and finds tray",
+    "status": "concept"
+  },
+  {
+    "id": "archief",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Lokaal archief en oude kranten uitzoeken",
+      "en": "Local archive research"
+    },
+    "tags": [
+      "history",
+      "puzzling",
+      "focus",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een straat of familienaam op in een digitaal krantenarchief",
+      "en": "Look up a street or family name in a digital newspaper archive"
+    },
+    "scene": "a stack of old newspapers and a magnifier on an archive table",
+    "status": "concept"
+  },
+  {
+    "id": "metaaldetectie",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Metaaldetecteren (met toestemming)",
+      "en": "Metal detecting (with permission)"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "focus",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen met toestemming van de grondeigenaar en binnen de wet.",
+        "en": "Only with the landowner's permission and within the law."
+      }
+    },
+    "entry": {
+      "nl": "Alleen met toestemming van de grondeigenaar en volgens de wet; sluit aan bij een vereniging",
+      "en": "Only with landowner permission and within the law; join a society"
+    },
+    "scene": "a metal detector head over sandy soil with a small found coin",
+    "status": "concept"
+  },
+  {
+    "id": "handschriften",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Oude handschriften lezen (paleografie)",
+      "en": "Reading old handwriting"
+    },
+    "tags": [
+      "history",
+      "puzzling",
+      "language",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Start met een online leesles; veel archieven bieden hulp",
+      "en": "Start with an online reading lesson; many archives offer help"
+    },
+    "scene": "an old handwritten manuscript page with a quill and an ink well",
+    "status": "concept"
+  },
+  {
+    "id": "stadswandeling",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Stadswandeling over geschiedenis",
+      "en": "History city walk"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "learning",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Gidsgroep of audiotour, aanmelden of gewoon starten",
+      "en": "Guided group or audio tour, sign up or just start"
+    },
+    "scene": "an old brick city street with a wall plaque and a guide's flag pole",
+    "status": "concept"
+  },
+  {
+    "id": "monumenten",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Kastelen, kerken en monumenten bezoeken",
+      "en": "Castles, churches and heritage sites"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "learning",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Open Monumentendag of een enkel kasteel met audiogids",
+      "en": "Open Monument Day or a single castle with an audio guide"
+    },
+    "scene": "a castle gatehouse with a drawbridge in warm evening light",
+    "status": "concept"
+  },
+  {
+    "id": "musea",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Museumbezoek",
+      "en": "Museum visit"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "learning",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een klein museum in je buurt, één zaal is genoeg",
+      "en": "A small museum near you; one room is enough"
+    },
+    "scene": "an empty museum gallery with a single large abstract painting in bold colours and a wooden bench in front of it",
+    "status": "concept"
+  },
+  {
+    "id": "industrieel-erfgoed",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Industrieel erfgoed (fabrieken, molens, gemalen)",
+      "en": "Industrial heritage"
+    },
+    "tags": [
+      "history",
+      "technique",
+      "craft",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Molens en gemalen hebben vaak een open dag",
+      "en": "Mills and pumping stations often have an open day"
+    },
+    "scene": "a historic windmill with wooden sails beside a canal",
+    "status": "concept"
+  },
+  {
+    "id": "verzetsroute",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Herdenkings- of verzetsroute lopen",
+      "en": "Remembrance walk"
+    },
+    "tags": [
+      "history",
+      "story",
+      "stillness",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een uitgezette route met informatiepanelen of app",
+      "en": "A marked route with information panels or an app"
+    },
+    "scene": "a quiet forest path with a small memorial stone",
+    "status": "concept"
+  },
+  {
+    "id": "architectuur",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Architectuurwandeling",
+      "en": "Architecture walk"
+    },
+    "tags": [
+      "discovery",
+      "color",
+      "precision",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Gidsroute of app-route langs opvallende gebouwen",
+      "en": "Guided or app route past striking buildings"
+    },
+    "scene": "the facade of a striking modern building with geometric windows against a blue sky",
+    "status": "concept"
+  },
+  {
+    "id": "legendes",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Legendes en spooktocht",
+      "en": "Legends and ghost tour"
+    },
+    "tags": [
+      "story",
+      "history",
+      "conviviality",
+      "discovery",
+      "suspense"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Avondtour van lokale gidsen",
+      "en": "Evening tour by local guides"
+    },
+    "scene": "a cobbled alley lit by a lantern at dusk, light fog",
+    "status": "concept"
+  },
+  {
+    "id": "begraafplaats",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Wandeling over een oude begraafplaats",
+      "en": "Cemetery walk"
+    },
+    "tags": [
+      "story",
+      "history",
+      "stillness",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Rondleiding of eigen wandeling met respect voor de plek",
+      "en": "A guided tour or your own walk, with respect for the place"
+    },
+    "scene": "an old cemetery gate with ivy and a gravel path, autumn leaves",
+    "status": "concept"
+  },
+  {
+    "id": "sagen",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Sagen en mythen verkennen",
+      "en": "Myths and folklore"
+    },
+    "tags": [
+      "story",
+      "learning",
+      "history",
+      "language"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Begin met een verhalenwandeling of luisterboek",
+      "en": "Start with a story walk or an audiobook"
+    },
+    "scene": "an old open book of folk tales with a candle on an oak table",
+    "status": "concept"
+  }
+]

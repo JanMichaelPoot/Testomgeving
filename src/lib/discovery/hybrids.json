@@ -1,0 +1,242 @@
+[
+  {
+    "a": "boogschieten",
+    "b": "re-enactment",
+    "label": {
+      "nl": "Historisch boogschieten (middeleeuws handboogschieten)",
+      "en": "Historical archery (medieval longbow shooting)"
+    }
+  },
+  {
+    "a": "hist-koken",
+    "b": "kamperen",
+    "label": {
+      "nl": "Koken op open vuur zoals vroeger (bushcraft-kookworkshop)",
+      "en": "Cooking on an open fire like in the old days (bushcraft cooking workshop)"
+    }
+  },
+  {
+    "a": "miniaturen",
+    "b": "fotografie",
+    "label": {
+      "nl": "Miniaturen fotograferen als filmset (macrofotografie)",
+      "en": "Photographing miniatures as a film set (macro photography)"
+    }
+  },
+  {
+    "a": "tabletop-rpg",
+    "b": "schrijven",
+    "label": {
+      "nl": "Een eigen campagne schrijven en leiden",
+      "en": "Writing and running your own campaign"
+    }
+  },
+  {
+    "a": "tabletop-rpg",
+    "b": "hist-dans",
+    "label": {
+      "nl": "Een historisch bal als rollenspel (LARP-bal)",
+      "en": "A historical ball as role-play (LARP ball)"
+    }
+  },
+  {
+    "a": "sterrenkijken",
+    "b": "kamperen",
+    "label": {
+      "nl": "Bivak onder de sterren",
+      "en": "A bivouac under the stars"
+    }
+  },
+  {
+    "a": "audiowandeling",
+    "b": "legendes",
+    "label": {
+      "nl": "Zelf een legendewandeling lopen met podcast",
+      "en": "Walking a legend route yourself with a podcast"
+    }
+  },
+  {
+    "a": "geocaching",
+    "b": "stadswandeling",
+    "label": {
+      "nl": "Historische geocaching-route",
+      "en": "A historical geocaching route"
+    }
+  },
+  {
+    "a": "boulderen",
+    "b": "legpuzzels",
+    "label": {
+      "nl": "Boulderen als 'puzzel met je lichaam': routes uitpuzzelen",
+      "en": "Bouldering as a puzzle for your body: working out routes"
+    }
+  },
+  {
+    "a": "koor",
+    "b": "wandelen",
+    "label": {
+      "nl": "Zingen tijdens een wandeling (zangwandeling)",
+      "en": "Singing while walking (song walk)"
+    }
+  },
+  {
+    "a": "pottenbakken",
+    "b": "hist-koken",
+    "label": {
+      "nl": "Eten uit zelfgemaakt aardewerk (klei + historisch koken)",
+      "en": "Eating from your own pottery (clay + historical cooking)"
+    }
+  },
+  {
+    "a": "schaken",
+    "b": "wandelen",
+    "label": {
+      "nl": "Wandelschaken: één zet per bankje",
+      "en": "Walking chess: one move per bench"
+    }
+  },
+  {
+    "a": "tekenen",
+    "b": "kringloop",
+    "label": {
+      "nl": "Tekenen van vondsten uit de kringloop (stillevens)",
+      "en": "Drawing finds from the thrift shop (still lifes)"
+    }
+  },
+  {
+    "a": "modelbouw",
+    "b": "tuinieren",
+    "label": {
+      "nl": "Miniatuurtuin of terrarium bouwen",
+      "en": "Building a miniature garden or terrarium"
+    }
+  },
+  {
+    "a": "opgraving",
+    "b": "hist-koken",
+    "label": {
+      "nl": "Archeologie en proeven van oude recepten",
+      "en": "Archaeology and tasting old recipes"
+    }
+  },
+  {
+    "a": "bordspellen",
+    "b": "wandelen",
+    "label": {
+      "nl": "Spelletjeswandeling met een mini-spelletje onderweg",
+      "en": "A games walk with a mini game along the way"
+    }
+  },
+  {
+    "a": "kanoen",
+    "b": "vogels",
+    "label": {
+      "nl": "Vogels spotten vanaf het water",
+      "en": "Birdwatching from the water"
+    }
+  },
+  {
+    "a": "fotografie",
+    "b": "sterrenkijken",
+    "label": {
+      "nl": "Astrofotografie met gewoon een statief",
+      "en": "Astrophotography with just a tripod"
+    }
+  },
+  {
+    "a": "elektronica",
+    "b": "muziek-maken",
+    "label": {
+      "nl": "Een eigen synthesizer solderen",
+      "en": "Soldering your own synthesizer"
+    }
+  },
+  {
+    "a": "breien-haken",
+    "b": "kaartspellen",
+    "label": {
+      "nl": "Breien met een spelmiddag (breicafé + kaartavond)",
+      "en": "Knitting with a card-game afternoon"
+    }
+  },
+  {
+    "a": "dansen",
+    "b": "hist-dans",
+    "label": {
+      "nl": "Van salsa naar contradans",
+      "en": "From salsa to contra dance"
+    }
+  },
+  {
+    "a": "vulpennen",
+    "b": "brieven",
+    "label": {
+      "nl": "Brieven schrijven met een vulpen op mooi papier",
+      "en": "Writing letters with a fountain pen on nice paper"
+    }
+  },
+  {
+    "a": "citizen-science",
+    "b": "wandelen",
+    "label": {
+      "nl": "Wandelen met een tel-app: soorten tellen onderweg",
+      "en": "Walking with a counting app: species counted along the way"
+    }
+  },
+  {
+    "a": "fietsen",
+    "b": "geocaching",
+    "label": {
+      "nl": "Geocaching per fiets",
+      "en": "Geocaching by bike"
+    }
+  },
+  {
+    "a": "koffie-thee",
+    "b": "fietsen",
+    "label": {
+      "nl": "Fietsen langs branderijen en theehuizen",
+      "en": "Cycling past roasteries and tea houses"
+    }
+  },
+  {
+    "a": "lego",
+    "b": "diorama",
+    "label": {
+      "nl": "Een straat in miniatuur bouwen (LEGO-diorama)",
+      "en": "Building a street in miniature (LEGO diorama)"
+    }
+  },
+  {
+    "a": "genealogie",
+    "b": "wandelen",
+    "label": {
+      "nl": "Familiehistorie lopen: de plekken van je voorouders bezoeken",
+      "en": "Walking your family history: visiting your ancestors' places"
+    }
+  },
+  {
+    "a": "schilderen",
+    "b": "tuinieren",
+    "label": {
+      "nl": "Schilderen in je eigen tuin (plein air)",
+      "en": "Painting in your own garden (plein air)"
+    }
+  },
+  {
+    "a": "solo-rpg",
+    "b": "cafe-schrijven",
+    "label": {
+      "nl": "Een solospel spelen met koffie in een café",
+      "en": "Playing a solo game with coffee in a café"
+    }
+  },
+  {
+    "a": "fossielen",
+    "b": "wandelen",
+    "label": {
+      "nl": "Fossielenwandeling langs strand of groeve",
+      "en": "A fossil walk along a beach or quarry"
+    }
+  }
+]

@@ -2480,3 +2480,82 @@ Stripe, Claude API, Resend, PostHog).
       idee-foto's en Open Graph-cover ≈0,25 MB i.p.v. 2,4 MB). De voorbeeld-PDF's
       zijn opnieuw gegenereerd. Al eerder opgeslagen PDF's in de storagebucket
       blijven groot; alleen nieuwe generaties zijn klein.
+
+- [x] Stap 53 — Discovery Engine, fase 0 (meten) en fase 1 (bibliotheek), na
+      goedkeuring van het ontwerprapport ("Discovery Engine Ontwerp"). Nog geen
+      wizard- of motorwijziging; die volgen in fase 2 en 3.
+      **Fase 0, meten**: de wizard meldt nu `intake_started`,
+      `intake_page_viewed`, `intake_page_completed` (met `duration_ms`),
+      `intake_page_back`, `intake_submitted` (met `total_ms`) en
+      `intake_submit_failed`, elk met `wizard_variant: "legacy"` zodat de
+      kaartenwizard later ernaast vergeleken kan worden; landing meldt
+      `landing_viewed`, de betaalpagina `checkout_viewed` en
+      `checkout_pay_clicked`. Alleen ids, indexen en tijden, nooit
+      antwoordtekst. In `npm run dev` worden alle events ook op
+      `window.__windowEvents` gezet zodat meten te controleren is zonder
+      PostHog-sleutel. Geverifieerd in de browser: hele wizard tot en met de
+      betaalpagina doorlopen en de events gelezen. **Nog te doen door Jan**:
+      `NEXT_PUBLIC_POSTHOG_KEY` invullen (lokaal én in Vercel) en de vier
+      insights aanmaken, zie `docs/metrics-baseline.md`; zonder sleutel is er
+      geen baseline en blijft acceptatiecriteria U1/U3 onmeetbaar.
+      **Fase 1, bibliotheek** (`src/lib/discovery/`): 200 activiteiten in 10
+      domeinen als gewone JSON (`data/<domein>.json`, `vocabulary.json`,
+      `hybrids.json`), volledig NL en EN, met tags als bruggen (37, waarvan 7
+      "stemming"-tags die nooit als brug tellen), sociale vormen, intensiteit,
+      niveau, kosten, duur, binnen/buiten, veiligheidsklasse en instapvariant.
+      Onbekend is `null` (4 kostenvelden). 15 activiteiten met toezichtsplicht
+      hebben een verplichte, legale instapnotitie. Bewust uitbreidbaar (Jan
+      verwacht de bibliotheek fors uit te breiden): ids voor domeinen/tags zijn
+      strings gevalideerd tegen `vocabulary.json` (geen unions), een nieuw domein
+      is één JSON-bestand plus één importregel (`library.test.ts` faalt bij een
+      vergeten import), `status: retired` verbergt een activiteit zonder dat
+      opgeslagen keuzes breken, en balanswaarschuwingen (domein onder 10 of boven
+      15%) blokkeren niets. `validate.ts` handhaaft de regels (ids, tags,
+      subdomein bij domein, tier-2-notitie, geen mensen in beeldomschrijvingen,
+      minstens één echte brug per item) en vond meteen vier items die alleen
+      stemmingstags hadden. `npm run taxonomy:check` / `taxonomy:report` /
+      `taxonomy:images`; gids voor uitbreiden in `docs/discovery-taxonomy.md`.
+      **Beelden**: `scripts/generate-discovery-illustrations.ts` maakt per
+      activiteit en per domein een foto (Gemini, 4:3, 800px, JPEG), alleen wat
+      ontbreekt (idempotent, `--only`, `--domain`, `--limit`, `--force`). Op
+      verzoek van Jan meer contrast dan de bestaande stijl: elk domein heeft één
+      verzadigde accentkleur (vermiljoen, framboos, groen, brons, saffraan, teal,
+      violet, olijf, hemelsblauw, oudroze) die in het onderwerp zelf zit, op een
+      warme walnoot/linnen basis, zonder mensen, gezichten of handen. Een eerste
+      versie liet het accent te vaak als losse doek zien; de prompt is daarop
+      aangescherpt (accent als deel van het onderwerp) en opnieuw getest voor de
+      volledige run.
+      **Beelden (compleet)**: alle 200 activiteitenfoto's en 10 domeinfoto's
+      staan in `public/illustrations/discovery/` (4,7 MB voor de eerste 75, nu ca.
+      12 MB in totaal) en zijn visueel gecontroleerd op mensen, verkeerde
+      onderwerpen en samenhang. De eerste run liep na ~55 beelden vast op Gemini
+      (429 uitgavenlimiet, daarna 402 negatief prepay-saldo; account-/billingzaak,
+      opgelost doordat Jan €15 aan credits kocht). Twee correcties na review:
+      het accent van Geschiedenis is van brons naar dieper oxbloedrood (#8E2A2A)
+      gegaan omdat brons wegviel in de warme basis (Jan vroeg juist meer
+      contrast), en de scenes van `genealogie` en `musea` mogen geen portretten
+      meer tonen (kleine gezichten in ingelijste foto's kwamen door het
+      "geen gezichten"-verbod heen). Bekende restanten: voorwerpen die van zichzelf
+      tekst dragen (pubquiz-blad, mahjongstenen, een brief, een grafiek) tonen wat
+      onleesbaar of gestileerd tekstachtig materiaal; dat is niet te voorkomen
+      zonder die onderwerpen te schrappen. `npm run taxonomy:check -- --images`
+      slaagt (0 ontbrekende foto's). Het script stopt bij de eerste 402/429 in plaats
+      van tientallen aanvragen te blijven doen.
+      **Goedkoper genereren (`--sheet 2x2|3x3`)**: op vraag van Jan een manier
+      om de resterende beelden goedkoper te maken. Gemini rekent per beeld
+      ($0,134 voor 1K én 2K), dus één 2K-beeld met een raster van 4 of 9 foto's kost
+      evenveel als één foto. `sheetSlicer.ts` zoekt de witte goten (niet vaste
+      coördinaten aannemen), knipt de tegels, snijdt ze op 4:3 en schaalt naar 800px;
+      faalt het raster dan valt het script terug op losse foto's. Gedekt met 6
+      vitest-tests op synthetische vellen (o.a. geen witte wand als goot aanzien,
+      geen buitenmarge, licht-grijze goten, verkeerd aantal tegels). Bewust nog
+      met een 2x2- en een 3x3-testvel op echte Gemini-uitvoer getest: beide
+      sneden schoon, 3x3 is bij kaartgrootte nauwelijks zachter en dus gekozen.
+      De rest (134 foto's) is met 14 vellen 3x3 + 2 vellen 2x2 gemaakt (het restant
+      valt automatisch terug op een kleiner raster in plaats van losse foto's):
+      16 aanvragen in plaats van 134, ongeveer €2 in plaats van €16.
+      **Review**: een private reviewgalerij (artifact "Bibliotheek Review") met alle
+      200 items, foto's, kenmerken en per item Aanpassen/Schrappen plus opmerking,
+      met een knop die alles als tekst kopieert om terug te sturen.
+      Getest: `vitest` (101 tests, waarvan 15 nieuw voor de bibliotheek en de
+      validator zelf), `tsc --noEmit`, `eslint` schoon.
