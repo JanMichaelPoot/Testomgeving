@@ -54,6 +54,8 @@ export interface Seed {
 export interface ResolvedConstraints {
   /** Highest typical entry cost allowed (0 free .. 3 over 50). */
   costCap: 0 | 1 | 2 | 3;
+  /** The cost class whose range can reach past the stated budget; those pass with a "cost_near_budget" flag. */
+  nearBudgetCost: number | null;
   /** Highest physical intensity allowed (0..3). */
   intensityCap: 0 | 1 | 2 | 3;
   /** Activities that need qualified supervision are hidden. */

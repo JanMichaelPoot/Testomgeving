@@ -5,7 +5,13 @@ import type { EngineInput, ResolvedConstraints } from "@/lib/discovery/engine/ty
 // KNOWN conflict. An unknown facet (null) never excludes; it becomes a "verify" flag
 // for the research step instead.
 
-const COST_CAP: Record<string, 0 | 1 | 2 | 3> = { free: 0, "25": 1, "100": 2, allin: 3 };
+// A cost class is a RANGE (0 free, 1 up to 15, 2 15-50, 3 over 50), so "up to 25" still fits class 2:
+// a beginner workshop or trial class at 25 exists there. Only "free" is exact. Where the range can
+// reach past the budget the activity passes with a "cost_near_budget" flag, and the writer is told to
+// say the price varies (a person's own pick is otherwise silently dropped: pottery is class 2).
+const COST_CAP: Record<string, 0 | 1 | 2 | 3> = { free: 0, "25": 2, "100": 3, allin: 3 };
+// The class whose range can exceed the stated budget.
+const NEAR_BUDGET: Record<string, number> = { "25": 2, "100": 3 };
 const INTENSITY_CAP: Record<string, 0 | 1 | 2 | 3> = { minimal: 1, some: 2, committed: 3 };
 
 /**
@@ -56,6 +62,7 @@ export function resolveConstraints(input: EngineInput): ResolvedConstraints {
 
   return {
     costCap,
+    nearBudgetCost: must.free ? null : (NEAR_BUDGET[input.budget] ?? null),
     intensityCap: INTENSITY_CAP[input.effort] ?? 2,
     // Only offered to people who said they are open to something less predictable.
     hideSupervised: input.practicalToWild === "grounded" || input.practicalToWild === "practical",
@@ -80,6 +87,7 @@ export function passesConstraints(a: Activity, c: ResolvedConstraints): FilterRe
 
   if (a.cost === null) verify.push("cost_unknown");
   else if (a.cost > c.costCap) return no;
+  else if (c.nearBudgetCost !== null && a.cost === c.nearBudgetCost) verify.push("cost_near_budget");
 
   if (a.intensity !== null && a.intensity > c.intensityCap) return no;
   if (a.safety.tier === 2 && c.hideSupervised) return no;

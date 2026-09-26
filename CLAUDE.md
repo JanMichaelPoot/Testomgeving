@@ -2656,3 +2656,54 @@ Stripe, Claude API, Resend, PostHog).
       (≈€26); die beoordeling hoort bij fase 4/6 met echte, geïntegreerde boeken.
       Getest: 152 tests (nieuw: 23 voor de motor, waaronder de E1-E8-regressie op twee
       reeksen van 200 profielen), `tsc`, lint.
+
+- [x] Stap 56 — Discovery Engine, fase 4: de selectiemotor aan de generatie
+      gekoppeld, na eerst te meten hoe de API-calls nu gebruikt worden en hoe
+      groeperen ze goedkoper kan maken (uitgebreid in `docs/discovery-api-costs.md`).
+      **Meting** (`scripts/measure-generation.ts`, echte calls): de klassieke
+      pijplijn kost ≈$0,216 per boek (≈€0,19): researchpas met web search
+      (Sonnet, ~36k tokens in de cache geschreven) ≈$0,16 (74%), hoofdgeneratie
+      ≈$0,055; 80-110 s. De research was per boek (twee mensen in Utrecht die
+      allebei pottenbakken willen betaalden allebei) en zat in de retry-lus.
+      **Groeperen**: (1) alle seeds die nog geen antwoord hebben gaan in ÉÉN
+      researchcall (`src/lib/claude/localResearch.ts`, JSON-antwoord per
+      `activity_id`); (2) gedeelde cache per (activiteit × plaats × taal) in de
+      nieuwe tabel `local_research_cache` (migratie `0014_local_research_cache.sql`,
+      **nog handmatig uit te voeren in de Supabase SQL Editor**; zonder de tabel
+      werkt alles, alleen zonder cache, met één waarschuwing in de log), 30 dagen
+      voor gevonden opties, 7 voor "niets verifieerbaars"; (3) Haiku 4.5 voor de
+      research (`WINDOW_RESEARCH_MODEL` overschrijft): ongeveer de helft van de
+      prijs en 2× sneller, briefs van dezelfde soort. Bewust NIET gedaan: dynamic
+      filtering (`web_search_20260209`) faalde met "tool use limit exceeded" en
+      0 resultaten; één call per activiteit is niet goedkoper; de Batch API is
+      alleen voor niet-live werk (evaluatieruns, cache vooraf vullen).
+      Cache-simulatie (`scripts/simulate-research-cache.ts`): 5-9% treffers bij
+      100-300 boeken, ±24% bij 1.000, ±43% bij 3.000 — bij lancering levert de
+      cache dus nauwelijks iets op, de besparing komt dan van groeperen + Haiku.
+      **Seed-pijplijn** (`src/lib/claude/generateFromSeeds.ts`): voor wie de
+      interessestap gebruikte (`shouldUseEngine`: interesses, werelden of
+      "verras me") kiest de motor de zeven seeds, wordt er in één call
+      geresearcht en schrijft Claude alleen de tekstvelden per seed (dunner
+      schema; deur, fotocategorie, scores en beeldscène komen van de motor:
+      `engine/photo.ts`, `engine/scores.ts`). Resultaat krijgt `activity_id` en
+      `chain` per idee. Achteraf controleert `checkEntry` een locatie tegen de
+      research (onbekende locatie → weg) en meldt websites die nergens in de
+      research staan. De klassieke pijplijn blijft voor iedereen zonder
+      interessestap en als terugval als de seed-pijplijn faalt
+      (`src/app/plan/data.ts`); in de klassieke pijplijn staat de research nu
+      buiten de retry-lus (een mislukte poging betaalt niet opnieuw voor zoeken).
+      **Motoraanpassing**: een kostenklasse is een bereik, dus "tot €25" liet
+      pottenbakken (klasse 2) ten onrechte weg terwijl een proefles daar past;
+      `"25"` staat nu op klasse 2, `"100"` op klasse 3, en zo'n activiteit gaat
+      door met de vlag `cost_near_budget`, waarna de schrijver de goedkoopste
+      instap noemt en zegt dat de prijs varieert. De evaluatie-oracle
+      (`evaluate.ts`) is gelijk getrokken.
+      **Eerste echte seed-boek** (kaartenwizard, Utrecht, kunst en klei; koude
+      cache): research 15 s (Haiku, 5 zoekopdrachten, 7 seeds in één call),
+      schrijven 35 s ($0,042), totaal ≈$0,14-0,15 tegen $0,216 (≈-30-35%) en
+      ≈40% sneller; geen issues gemeld. Meetscript prijst nu per model.
+      **Nog open**: één meting is een schatting, meer profielen meten; Haiku-
+      kwaliteit alleen steekproefsgewijs bekeken, blinde vergelijking
+      (≈$28 per 200 boeken, half via Batch) hoort bij fase 6; het percentage
+      `unverified_website` over veel boeken; hub-bias van de motor.
+      Getest: 176 tests (nieuw: 24 voor research/seed-pijplijn), `tsc`, lint.

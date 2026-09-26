@@ -9,7 +9,8 @@ import type { EngineInput, EngineResult } from "@/lib/discovery/engine/types";
 // here on purpose, straight from the input, so a bug in the engine's own filter
 // cannot hide itself.
 
-const COST_CAP: Record<string, number> = { free: 0, "25": 1, "100": 2, allin: 3 };
+// A cost class is a range (0 free, 1 <=15, 2 15-50, 3 >50): "up to 25" allows class 2, "up to 100" class 3.
+const COST_CAP: Record<string, number> = { free: 0, "25": 2, "100": 3, allin: 3 };
 const INTENSITY_CAP: Record<string, number> = { minimal: 1, some: 2, committed: 3 };
 
 export interface Run {

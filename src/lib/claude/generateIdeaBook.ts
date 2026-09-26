@@ -193,7 +193,7 @@ Rules for using the profile:
   all idea fields, all labels) in {{LANGUAGE}}, not English, unless
   {{LANGUAGE}} is English.`;
 
-function formatProfile(intake: IntakeAnswers, character: CharacterProfile): string {
+export function formatProfile(intake: IntakeAnswers, character: CharacterProfile): string {
   // Only present for people who used the visual card wizard.
   const discoveryLines = describeDiscoveryForPrompt(intake);
   return `Situation: ${intake.situation}
@@ -343,7 +343,7 @@ explicitly rather than inventing a name.`,
   }
 }
 
-const PRACTICAL_SCHEMA = {
+export const PRACTICAL_SCHEMA = {
   type: "object" as const,
   properties: {
     estimated_cost: { type: "string" },
@@ -354,7 +354,7 @@ const PRACTICAL_SCHEMA = {
   required: ["estimated_cost", "duration", "difficulty", "preparation"],
 };
 
-const LOCATION_SCHEMA = {
+export const LOCATION_SCHEMA = {
   type: ["object", "null"] as const,
   properties: {
     name: { type: "string" },
@@ -459,11 +459,11 @@ const LABELS_SCHEMA = {
 async function callClaudeForIdeaBook(
   intake: IntakeAnswers,
   locale: Locale,
-  characterProfile: CharacterProfile
+  characterProfile: CharacterProfile,
+  researchBrief: string
 ): Promise<GeneratedIdeaBook> {
   const language = languageLabel(locale);
   const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language);
-  const researchBrief = await researchGroundedOptions(intake, locale);
   const researchBlock = researchBrief
     ? `Verified live web research (use ONLY these names for anything
 specific — never invent a business/venue/platform/route/event name beyond
@@ -545,10 +545,12 @@ export async function generateIdeaBook(
 ): Promise<GeneratedIdeaBook> {
   const attempts = 2;
   let lastError: unknown;
+  // Researched once: a retry after a malformed answer must not pay for the searches again.
+  const researchBrief = await researchGroundedOptions(intake, locale);
 
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
-      return await callClaudeForIdeaBook(intake, locale, characterProfile);
+      return await callClaudeForIdeaBook(intake, locale, characterProfile, researchBrief);
     } catch (err) {
       lastError = err;
       if (attempt < attempts) {
@@ -565,18 +567,18 @@ export async function generateIdeaBook(
 // "3-5 steps" sometimes comes back as an array of steps instead of one
 // string. Coerce defensively rather than let the PDF renderer's string
 // methods (e.g. wrapText's .split) crash on an unexpected array.
-function toText(value: unknown): string {
+export function toText(value: unknown): string {
   if (Array.isArray(value)) return value.map((item) => toText(item)).join(" ");
   if (value == null) return "";
   return String(value);
 }
 
-function toTextArray(value: unknown): string[] {
+export function toTextArray(value: unknown): string[] {
   const items = Array.isArray(value) ? value : [value];
   return items.map(toText).filter((item) => item.length > 0);
 }
 
-function normalizePractical(value: unknown): IdeaPractical {
+export function normalizePractical(value: unknown): IdeaPractical {
   const p = (value ?? {}) as Partial<IdeaPractical>;
   const difficulty =
     p.difficulty === "easy" || p.difficulty === "moderate" || p.difficulty === "demanding"
@@ -590,7 +592,7 @@ function normalizePractical(value: unknown): IdeaPractical {
   };
 }
 
-function normalizeLocation(value: unknown): IdeaLocation | null {
+export function normalizeLocation(value: unknown): IdeaLocation | null {
   if (value == null || typeof value !== "object") return null;
   const l = value as Partial<IdeaLocation>;
   const name = toText(l.name);

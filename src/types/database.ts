@@ -386,6 +386,30 @@ export interface Database {
         >;
         Relationships: [];
       };
+      // Shared, anonymous cache of local research results (activity x place), see
+      // supabase/migrations/0014_local_research_cache.sql.
+      local_research_cache: {
+        Row: {
+          id: string;
+          activity_id: string;
+          place_key: string;
+          locale: string;
+          options: unknown[];
+          searched_at: string;
+          expires_at: string;
+        };
+        Insert: {
+          id?: string;
+          activity_id: string;
+          place_key: string;
+          locale: string;
+          options?: unknown[];
+          searched_at?: string;
+          expires_at: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["local_research_cache"]["Insert"]>;
+        Relationships: [];
+      };
       // Deliberately has no foreign key to any other table — see
       // supabase/migrations/0008_audit_log.sql for why this row can never
       // be traced back to a session or person.

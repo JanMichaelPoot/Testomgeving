@@ -2,6 +2,7 @@ import { after } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { generateIdeaBook, type GeneratedIdeaBook } from "@/lib/claude/generateIdeaBook";
+import { generateIdeaBookFromSeeds, shouldUseEngine } from "@/lib/claude/generateFromSeeds";
 import { renderIdeaBookPdf } from "@/lib/pdf/ideaBook";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
 import { recordAuditLogEntry } from "@/lib/auditLog";
@@ -304,7 +305,20 @@ async function finishPlanGeneration(
 
   try {
     const generateStartedAt = Date.now();
-    const generated = await generateIdeaBook(profile, locale, characterProfile);
+    // People who used the card wizard's interest step get the selection engine + grouped, cached
+    // research pipeline; everyone else the classic one. If the seed pipeline fails for any reason
+    // the paid book is still delivered through the classic pipeline.
+    let generated: GeneratedIdeaBook;
+    if (shouldUseEngine(profile)) {
+      try {
+        generated = (await generateIdeaBookFromSeeds(profile, locale, characterProfile, { sessionId: pendingRow.session_id })).book;
+      } catch (err) {
+        console.error("WINDOW: seed pipeline failed, falling back to the classic generation", err);
+        generated = await generateIdeaBook(profile, locale, characterProfile);
+      }
+    } else {
+      generated = await generateIdeaBook(profile, locale, characterProfile);
+    }
     console.log(`WINDOW: generateIdeaBook (Claude, total) took ${Date.now() - generateStartedAt}ms`);
 
     const pdfStartedAt = Date.now();

@@ -90,6 +90,11 @@ export interface IdeaBookEntry {
   photo_category: PhotoCategory;
   door: IdeaDoor;
   scores: IdeaScores;
+  // Set by the seed pipeline (src/lib/claude/generateFromSeeds.ts): which library activity this
+  // idea is about and the path from the person's own pick to it (activity ids). Absent on books
+  // made before that pipeline existed.
+  activity_id?: string;
+  chain?: string[];
 }
 
 export interface GeneratedIdeaBook {
