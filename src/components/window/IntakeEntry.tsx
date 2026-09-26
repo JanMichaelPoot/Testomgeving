@@ -11,12 +11,15 @@ type Variant = "legacy" | "cards";
 
 const VARIANT_KEY = "window-wizard-variant-v1";
 
+// Share of visitors who get the card wizard when nothing is configured.
+const DEFAULT_CARD_WIZARD_PERCENT = 100;
+
 // Which wizard this visitor gets, decided once per browser tab (sessionStorage, no
 // cookie, same lifetime as the draft):
 //   1. ?wizard=cards or ?wizard=legacy forces it (for testing and for sharing a link);
 //   2. otherwise the choice already made in this tab;
 //   3. otherwise a random draw with NEXT_PUBLIC_DISCOVERY_WIZARD_PERCENT % chance of
-//      the card wizard. The default is 0, so nobody sees it until it is switched on.
+//      the card wizard. The default is 100 (everyone); set 0 to switch it off again.
 // Rendering waits for the decision so the server and the first client render agree.
 function decideVariant(): Variant {
   try {
@@ -30,7 +33,9 @@ function decideVariant(): Variant {
   } catch {
     // Storage unavailable: fall through to a fresh draw that simply is not remembered.
   }
-  const percent = Number(process.env.NEXT_PUBLIC_DISCOVERY_WIZARD_PERCENT ?? 0);
+  const configured = process.env.NEXT_PUBLIC_DISCOVERY_WIZARD_PERCENT;
+  const parsed = configured === undefined || configured.trim() === "" ? NaN : Number(configured);
+  const percent = Number.isFinite(parsed) ? parsed : DEFAULT_CARD_WIZARD_PERCENT;
   const drawn: Variant = Math.random() * 100 < percent ? "cards" : "legacy";
   try {
     window.sessionStorage.setItem(VARIANT_KEY, drawn);

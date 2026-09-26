@@ -36,7 +36,7 @@ kun je toch controleren wat er zou worden verstuurd: open de console en lees
 
 `wizard_variant` is `legacy` (de klassieke wizard) of `cards` (de visuele kaartenwizard), zodat
 beide naast elkaar vergeleken kunnen worden. Welke variant iemand krijgt staat in
-`NEXT_PUBLIC_DISCOVERY_WIZARD_PERCENT` (0-100, standaard 0 = niemand); `/intake?wizard=cards`
+`NEXT_PUBLIC_DISCOVERY_WIZARD_PERCENT` (0-100, standaard 100 = iedereen, 0 = niemand); `/intake?wizard=cards`
 en `/intake?wizard=legacy` forceren een variant om te testen. De keuze staat per browsertab
 in sessionStorage (geen cookie).
 
