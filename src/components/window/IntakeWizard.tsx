@@ -181,25 +181,6 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict, variant: WizardVar
           optional: true,
           suggestions: dict.mustHaves.suggestions,
         },
-        {
-          id: "preferences",
-          type: "text",
-          label: dict.preferences.label,
-          sub: dict.preferences.sub,
-          placeholder: dict.preferences.placeholder,
-          optional: true,
-          suggestions: dict.preferences.suggestions,
-        },
-        {
-          id: "personalReflection",
-          type: "text",
-          label: dict.personalReflection.label,
-          sub: dict.personalReflection.sub,
-          placeholder: dict.personalReflection.placeholder,
-          optional: true,
-          optionalHint: dict.personalReflection.optionalHint,
-          suggestions: dict.personalReflection.suggestions,
-        },
       ],
     },
     {
@@ -255,25 +236,6 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict, variant: WizardVar
           placeholder: dict.mustHaves.placeholder,
           optional: true,
           suggestions: dict.mustHaves.suggestions,
-        },
-        {
-          id: "preferences",
-          type: "text",
-          label: dict.preferences.label,
-          sub: dict.preferences.sub,
-          placeholder: dict.preferences.placeholder,
-          optional: true,
-          suggestions: dict.preferences.suggestions,
-        },
-        {
-          id: "personalReflection",
-          type: "text",
-          label: dict.personalReflection.label,
-          sub: dict.personalReflection.sub,
-          placeholder: dict.personalReflection.placeholder,
-          optional: true,
-          optionalHint: dict.personalReflection.optionalHint,
-          suggestions: dict.personalReflection.suggestions,
         },
         {
           id: "solutionTypes",
@@ -912,13 +874,17 @@ export function IntakeWizard({
 
   const progressPercent = ((page + 1) / pages.length) * 100;
   const activityLabel = new Map((library?.activities ?? []).map((a) => [a.id, a.label]));
+  const domainLabel = new Map((library?.domains ?? []).map((d) => [d.id, d.label]));
   const windowPanes = buildWindowPanes(
     answers,
     dict,
     EMPTY_ANSWERS,
     touchedSliders,
     variant === "cards"
-      ? { interestLabels: interests.map((id) => activityLabel.get(id)).filter((l): l is string => !!l) }
+      ? {
+          interestLabels: interests.map((id) => activityLabel.get(id)).filter((l): l is string => !!l),
+          domainLabels: (answers.interestDomains ?? []).map((id) => domainLabel.get(id)).filter((l): l is string => !!l),
+        }
       : undefined
   );
   const timeLeft = minutesLeft(page);

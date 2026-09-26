@@ -24,7 +24,7 @@ const base: IntakeAnswers = {
   solutionTypes: ["activity"],
   mustHaves: "geen groepen",
   preferences: "",
-  company: ["self"],
+  company: ["alone"],
   personalReflection: "",
 };
 

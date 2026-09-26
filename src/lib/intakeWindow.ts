@@ -9,6 +9,8 @@ export interface WindowPaneValue {
   id: string;
   label: string;
   value: string | null;
+  // Spans both columns of the window (room for a longer answer, e.g. the picks).
+  wide?: boolean;
 }
 
 const MAX_PANE_TEXT_LENGTH = 48;
@@ -46,19 +48,44 @@ function sliderAnswered(
   return touched.has(id) || answers[id] !== defaults[id];
 }
 
-// The card wizard swaps the "on a Saturday" pane for what they picked.
+// What the card wizard adds: labels (visitor's language) of what they picked.
 export interface WindowPaneExtras {
-  /** Labels (visitor's language) of the picked activities, in the order picked. */
+  /** The picked activities, in the order picked. */
   interestLabels?: string[];
+  /** The picked worlds, shown until specific activities have been picked. */
+  domainLabels?: string[];
 }
 
-function interestsPane(answers: IntakeAnswers, dict: Dictionary["intake"], labels: string[]): string | null {
-  if (labels.length > 0) {
-    const shown = labels.slice(0, 2).join(", ");
-    const more = labels.length > 2 ? ` +${labels.length - 2}` : "";
-    return truncateAtWord(`${shown}${more}`, MAX_PANE_TEXT_LENGTH);
+// The wide pane has room for about two lines; add labels until that is full.
+const MAX_INTERESTS_TEXT = 78;
+
+function fitLabels(labels: string[]): string | null {
+  if (labels.length === 0) return null;
+  let text = "";
+  let shown = 0;
+  for (const label of labels) {
+    const next = shown === 0 ? label : `${text}, ${label}`;
+    if (shown > 0 && next.length > MAX_INTERESTS_TEXT) break;
+    text = next;
+    shown += 1;
   }
+  if (shown === 0 || text.length > MAX_INTERESTS_TEXT + 12) text = truncateAtWord(labels[0], MAX_INTERESTS_TEXT);
+  const more = labels.length - shown;
+  return more > 0 ? `${text} +${more}` : text;
+}
+
+function interestsPane(answers: IntakeAnswers, dict: Dictionary["intake"], extras: WindowPaneExtras): string | null {
+  // Specific picks say more than the worlds they came from.
+  const picked = fitLabels(extras.interestLabels ?? []);
+  if (picked) return picked;
+  const worlds = fitLabels(extras.domainLabels ?? []);
+  if (worlds) return worlds;
   return answers.surpriseMe ? dict.discovery.panePlaceholder : null;
+}
+
+function joined(parts: (string | null)[]): string | null {
+  const present = parts.filter((p): p is string => !!p);
+  return present.length > 0 ? present.join(" · ") : null;
 }
 
 export function buildWindowPanes(
@@ -74,18 +101,41 @@ export function buildWindowPanes(
       ? labelFor(options, answers[id])
       : null;
 
+  // The follow-up to the purpose question stands in until they've told us
+  // their situation in their own words.
+  const situation = { id: "situation", label: t.situation, value: clean(answers.situation) ?? clean(answers.purposeFollowUp) };
+  const where = { id: "where", label: t.where, value: clean(answers.location) };
+  const surprise = { id: "surprise", label: t.surprise, value: slider("practicalToWild", dict.practicalToWild.options) };
+  const effort = { id: "effort", label: t.effort, value: slider("effort", dict.effort.options) };
+  const companyLabels = (answers.company ?? []).map((v) => labelFor(dict.company.options, v));
+
+  // The card wizard: the picks get a wide pane, and the last page's answers (how, with
+  // whom) and the two "how much" dials share panes so that every page fills something.
+  if (extras) {
+    const socialLabels = (answers.socialFormats ?? []).map((v) => labelFor(dict.discovery.social.options, v));
+    return [
+      situation,
+      where,
+      { id: "interests", label: t.interests, value: interestsPane(answers, dict, extras), wide: true },
+      { id: "how", label: t.how, value: joined([joined(socialLabels), joined(companyLabels)]) },
+      surprise,
+      {
+        id: "timeBudget",
+        label: t.timeBudget,
+        value: joined([slider("timeAvailable", dict.timeAvailable.options), slider("budget", dict.budget.options)]),
+      },
+      effort,
+    ];
+  }
+
   return [
-    // The follow-up to the purpose question stands in until they've told us
-    // their situation in their own words.
-    { id: "situation", label: t.situation, value: clean(answers.situation) ?? clean(answers.purposeFollowUp) },
-    { id: "where", label: t.where, value: clean(answers.location) },
-    extras?.interestLabels
-      ? { id: "interests", label: t.interests, value: interestsPane(answers, dict, extras.interestLabels) }
-      : { id: "saturday", label: t.saturday, value: labelFor(dict.freeTimePattern.options, answers.freeTimePattern) },
-    { id: "surprise", label: t.surprise, value: slider("practicalToWild", dict.practicalToWild.options) },
+    situation,
+    where,
+    { id: "saturday", label: t.saturday, value: labelFor(dict.freeTimePattern.options, answers.freeTimePattern) },
+    surprise,
     { id: "time", label: t.time, value: slider("timeAvailable", dict.timeAvailable.options) },
     { id: "budget", label: t.budget, value: slider("budget", dict.budget.options) },
-    { id: "effort", label: t.effort, value: slider("effort", dict.effort.options) },
-    { id: "secret", label: t.secret, value: clean(answers.personalReflection) },
+    effort,
+    { id: "company", label: t.company, value: joined(companyLabels) },
   ];
 }

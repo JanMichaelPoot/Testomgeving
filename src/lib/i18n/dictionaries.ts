@@ -300,7 +300,17 @@ export interface Dictionary {
       timeLeft: string; // {n}
       almostDone: string;
       panes: Record<
-        "situation" | "where" | "saturday" | "interests" | "surprise" | "time" | "budget" | "effort" | "secret",
+        | "situation"
+        | "where"
+        | "saturday"
+        | "interests"
+        | "how"
+        | "company"
+        | "surprise"
+        | "time"
+        | "budget"
+        | "timeBudget"
+        | "effort",
         string
       >;
     };
@@ -810,7 +820,9 @@ const nl: Dictionary = {
         time: "Tijd",
         budget: "Budget",
         effort: "Moeite",
-        secret: "Stiekem willen",
+        how: "Hoe & met wie",
+        company: "Met wie",
+        timeBudget: "Tijd & budget",
       },
     },
     pageTitle: "Open een Venster — WINDOW",
@@ -860,7 +872,7 @@ const nl: Dictionary = {
           { value: "varies", label: "Hangt van de dag af" },
         ],
       },
-      limitsHeading: "Grenzen en wensen",
+      limitsHeading: "Harde grenzen",
       alsoOpenTo: "Ik sta ook open voor…",
       panePlaceholder: "Verras me",
     },
@@ -1046,7 +1058,7 @@ const nl: Dictionary = {
       ],
     },
     opennessIntro:
-      "Twee soorten wensen: dingen die écht niet mogen (een harde grens), en dingen die fijn zouden zijn maar niet cruciaal (een voorkeur). Twijfel je? Zet het bij voorkeuren — we filteren dan soepeler.",
+      "Alleen harde grenzen: dingen die écht niet mogen ontbreken of juist niet mogen gebeuren. Daar houden we altijd rekening mee. Heb je die niet? Dan sla je dit gerust over.",
     mustHaves: {
       label: "Wat mag absoluut niet ontbreken — of moet juist wegblijven?",
       sub: "Alleen harde eisen, denk: allergieën, een dier dat mee moet, een tijdstip dat niet kan.",
@@ -1496,7 +1508,9 @@ const en: Dictionary = {
         time: "Time",
         budget: "Budget",
         effort: "Effort",
-        secret: "Secretly wanting",
+        how: "How & with whom",
+        company: "With whom",
+        timeBudget: "Time & budget",
       },
     },
     pageTitle: "Open a Window — WINDOW",
@@ -1546,7 +1560,7 @@ const en: Dictionary = {
           { value: "varies", label: "Depends on the day" },
         ],
       },
-      limitsHeading: "Limits and wishes",
+      limitsHeading: "Hard limits",
       alsoOpenTo: "I'm also open to…",
       panePlaceholder: "Surprise me",
     },
@@ -1732,7 +1746,7 @@ const en: Dictionary = {
       ],
     },
     opennessIntro:
-      "Two kinds of wishes: things that really can't happen (a hard limit), and things that would be nice but aren't essential (a preference). Not sure? Put it under preferences — we'll filter more loosely there.",
+      "Hard limits only: things that really can't be missing or really can't happen. We always take those into account. Don't have any? Feel free to skip this.",
     mustHaves: {
       label: "What absolutely can't be missing — or has to stay away?",
       sub: "Hard requirements only — think allergies, a pet that has to come along, a time that just doesn't work.",

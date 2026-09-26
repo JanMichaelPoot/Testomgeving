@@ -87,26 +87,55 @@ describe("minutesLeft", () => {
   });
 });
 
+describe("buildWindowPanes for the classic wizard", () => {
+  it("ends with who the window is for", () => {
+    const panes = buildWindowPanes({ ...defaults, company: ["friends", "partner"] }, dict, defaults, new Set());
+    expect(panes.map((p) => p.id)).toEqual(["situation", "where", "saturday", "surprise", "time", "budget", "effort", "company"]);
+    expect(byId(panes).company).toBe("Vrienden · Een partner");
+  });
+});
+
 describe("buildWindowPanes for the card wizard", () => {
-  it("swaps the Saturday pane for what they picked", () => {
-    const panes = buildWindowPanes(defaults, dict, defaults, new Set(), { interestLabels: [] });
-    expect(panes).toHaveLength(8);
-    expect(panes.map((p) => p.id)).toContain("interests");
-    expect(panes.map((p) => p.id)).not.toContain("saturday");
+  const cards = (answers: IntakeAnswers, extras: Parameters<typeof buildWindowPanes>[4] = { interestLabels: [] }, touched = new Set<string>()) =>
+    buildWindowPanes(answers, dict, defaults, touched, extras);
+
+  it("gives the picks a wide pane and fills the grid exactly (7 panes, 8 cells)", () => {
+    const panes = cards(defaults);
+    expect(panes.map((p) => p.id)).toEqual(["situation", "where", "interests", "how", "surprise", "timeBudget", "effort"]);
+    expect(panes.filter((p) => p.wide).map((p) => p.id)).toEqual(["interests"]);
+    expect(panes.reduce((cells, p) => cells + (p.wide ? 2 : 1), 0)).toBe(8);
+    expect(panes.every((p) => p.value === null)).toBe(true);
   });
 
-  it("shows the first two picks and how many more", () => {
+  it("shows as many picks as fit and how many more", () => {
     const labels = ["Hardlopen", "Yoga", "Schaken", "Origami"];
-    const values = byId(buildWindowPanes(defaults, dict, defaults, new Set(), { interestLabels: labels }));
-    expect(values.interests).toBe("Hardlopen, Yoga +2");
+    expect(byId(cards(defaults, { interestLabels: labels })).interests).toBe("Hardlopen, Yoga, Schaken, Origami");
+    const many = Array.from({ length: 12 }, (_, i) => `Activiteit ${i + 1}`);
+    const value = byId(cards(defaults, { interestLabels: many })).interests!;
+    expect(value).toMatch(/\+\d+$/);
+    expect(value.length).toBeLessThanOrEqual(78 + 5);
+  });
+
+  it("shows the worlds until specific activities have been picked, and the picks after", () => {
+    const withWorlds = cards(defaults, { interestLabels: [], domainLabels: ["Creatief & ambacht", "Natuur & dieren"] });
+    expect(byId(withWorlds).interests).toBe("Creatief & ambacht, Natuur & dieren");
+    const withPicks = cards(defaults, { interestLabels: ["Pottenbakken"], domainLabels: ["Creatief & ambacht"] });
+    expect(byId(withPicks).interests).toBe("Pottenbakken");
   });
 
   it("shows 'surprise me' when they asked for it and picked nothing", () => {
-    const values = byId(buildWindowPanes({ ...defaults, surpriseMe: true }, dict, defaults, new Set(), { interestLabels: [] }));
-    expect(values.interests).toBe("Verras me");
+    expect(byId(cards({ ...defaults, surpriseMe: true })).interests).toBe("Verras me");
   });
 
-  it("leaves the pane empty when nothing was chosen", () => {
-    expect(byId(buildWindowPanes(defaults, dict, defaults, new Set(), { interestLabels: [] })).interests).toBeNull();
+  it("combines how they like to do it with who joins, and time with budget", () => {
+    const values = byId(cards({ ...defaults, socialFormats: ["solo"], company: ["friends"] }, { interestLabels: [] }, new Set(["timeAvailable", "budget"])));
+    expect(values.how).toBe("Alleen · Vrienden");
+    expect(values.timeBudget).toBe("Een halve dag · Tot €25");
+  });
+
+  it("leaves a combined pane empty until at least one part is answered", () => {
+    expect(byId(cards(defaults)).how).toBeNull();
+    expect(byId(cards({ ...defaults, company: ["friends"] })).how).toBe("Vrienden");
+    expect(byId(cards(defaults, { interestLabels: [] }, new Set(["budget"]))).timeBudget).toBe("Tot €25");
   });
 });

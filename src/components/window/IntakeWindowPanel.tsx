@@ -6,6 +6,8 @@ export interface WindowPane {
   label: string;
   // Null while the person hasn't answered this one yet.
   value: string | null;
+  // Spans both columns.
+  wide?: boolean;
 }
 
 // The desktop-only left column of the intake wizard: a dark walnut panel
@@ -40,12 +42,13 @@ export function IntakeWindowPanel({
           </p>
         </div>
 
-        <div className="grid auto-rows-[96px] grid-cols-2 gap-1.5 rounded-sm border-[6px] border-walnut-light bg-black/25 p-1.5">
+        <div className="grid auto-rows-[108px] grid-cols-2 gap-1.5 rounded-sm border-[6px] border-walnut-light bg-black/25 p-1.5">
           {panes.map((pane) => (
             <div
               key={pane.id}
               className={cn(
                 "flex flex-col justify-end gap-1 rounded-[3px] p-3.5 transition-colors duration-500",
+                pane.wide && "col-span-2",
                 pane.value !== null
                   ? "bg-cream"
                   : "border border-dashed border-gold-light/35 bg-gold-light/10",
@@ -63,7 +66,7 @@ export function IntakeWindowPanel({
               <span
                 key={pane.value ?? "empty"}
                 className={cn(
-                  "line-clamp-3 break-words font-serif text-[17px] leading-tight",
+                  "line-clamp-3 break-words font-serif text-[16px] leading-[1.2]",
                   pane.value !== null
                     ? "animate-window-fade-in text-accent-dark"
                     : "text-walnut-light",

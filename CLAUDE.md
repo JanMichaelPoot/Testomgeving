@@ -2755,3 +2755,29 @@ Stripe, Claude API, Resend, PostHog).
       database, omdat migratie 0015 nog niet is uitgevoerd (alleen met nagebootste
       Supabase-client getest). Zodra 0015 draait: twee testboeken achter elkaar met
       hetzelfde cookie en kijken of het tweede niets herhaalt.
+
+- [x] Stap 58 — Intake opgeschoond en het "Jouw venster"-paneel beter gevuld voor
+      de kaartenwizard, op verzoek van Jan.
+      **Twee vragen uit de intake gehaald** (beide wizards): "En wat zou fijn zijn,
+      maar is geen dealbreaker?" (`preferences`) en "Wat zou je stiekem wel vaker
+      willen doen?" (`personalReflection`), omdat ze redundant zijn naast de
+      harde grenzen en de gekozen interesses. Alleen de vragen zijn weg: de velden
+      blijven bestaan in `IntakeAnswers` en `raw_json` (oude sessies, concepten en
+      de generatieprompts blijven geldig en lezen dan "none stated"), en de lijst
+      "voorkeuren" in het boek blijft leeg tenzij een oud antwoord er nog is. De
+      introtekst op die pagina (`opennessIntro`, nl + en) sprak nog over "twee
+      soorten wensen" en zegt nu dat het alleen om harde grenzen gaat; de sectiekop
+      in de kaartenwizard heet "Harde grenzen" (was "Grenzen en wensen").
+      **Paneel**: het paneel had voor de kaartenwizard lege of magere ruiten
+      (o.a. "Stiekem willen", dat nu niet meer bestaat; "Wat trekt je" bleef leeg
+      zolang alleen werelden gekozen waren en liet maar twee keuzes zien). Nu
+      toont de kaartenwizard 7 ruiten op 8 cellen: "Wat trekt je" is een brede
+      ruit (twee kolommen) met zoveel keuzes als er passen plus "+n", en toont de
+      gekozen werelden zolang er nog geen activiteiten gekozen zijn; "Hoe & met
+      wie" combineert de sociale vorm en het gezelschap van de laatste pagina;
+      "Tijd & budget" combineert die twee schuiven. De klassieke wizard behoudt 8
+      ruiten en krijgt "Met wie" in plaats van "Stiekem willen". Ruiten zijn iets
+      hoger (108px) met 16px tekst zodat er drie regels in passen. Getest: 211
+      tests (nieuw: paneellogica voor beide wizards), `tsc`, lint; in de browser de
+      kaartenwizard met werelden alleen en met alle antwoorden bekeken (geen
+      afkapping in de brede ruit).
