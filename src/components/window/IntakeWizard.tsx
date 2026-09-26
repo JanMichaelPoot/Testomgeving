@@ -9,6 +9,7 @@ import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
 import { submitIntake, type IntakeAnswers } from "@/app/intake/actions";
 import { WindowMark } from "@/components/window/WindowMark";
+import type { PaneGroup } from "@/lib/intakeWindow";
 import { IntakeAnswerStrip, IntakeWindowPanel } from "@/components/window/IntakeWindowPanel";
 import { buildWindowPanes, minutesLeft } from "@/lib/intakeWindow";
 import { DiscoveryStep, type DiscoveryStage } from "@/components/window/discovery/DiscoveryStep";
@@ -893,7 +894,7 @@ export function IntakeWizard({
     <div className="flex w-full max-w-5xl flex-col overflow-hidden rounded-lg border border-border bg-paper md:flex-row">
       {/* Left (desktop): the "Jouw venster" panel that fills with the answers
           given so far — replaces the per-page still-life photos. */}
-      <IntakeWindowPanel panes={windowPanes} dict={dict.window} />
+      <IntakeWindowPanel panes={windowPanes} dict={dict.window} activeGroup={currentPage.id as PaneGroup} />
 
       {/* Right: form */}
       <div className="flex flex-1 flex-col">

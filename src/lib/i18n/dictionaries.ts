@@ -303,13 +303,17 @@ export interface Dictionary {
         | "situation"
         | "where"
         | "saturday"
+        | "purpose"
+        | "age"
+        | "distance"
         | "interests"
         | "how"
         | "company"
+        | "open"
+        | "limits"
         | "surprise"
         | "time"
         | "budget"
-        | "timeBudget"
         | "effort",
         string
       >;
@@ -820,9 +824,13 @@ const nl: Dictionary = {
         time: "Tijd",
         budget: "Budget",
         effort: "Moeite",
-        how: "Hoe & met wie",
+        how: "Hoe",
         company: "Met wie",
-        timeBudget: "Tijd & budget",
+        purpose: "Doel",
+        age: "Leeftijd",
+        distance: "Afstand",
+        open: "Sta open voor",
+        limits: "Harde grenzen",
       },
     },
     pageTitle: "Open een Venster — WINDOW",
@@ -1508,9 +1516,13 @@ const en: Dictionary = {
         time: "Time",
         budget: "Budget",
         effort: "Effort",
-        how: "How & with whom",
+        how: "How",
         company: "With whom",
-        timeBudget: "Time & budget",
+        purpose: "Goal",
+        age: "Age",
+        distance: "Distance",
+        open: "Open to",
+        limits: "Hard limits",
       },
     },
     pageTitle: "Open a Window — WINDOW",

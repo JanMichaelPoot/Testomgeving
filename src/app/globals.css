@@ -23,6 +23,20 @@
   --color-paper: #fffdfa;
   --color-border: #ded8ce;
   --color-surface-active: #f2ece1;
+
+  /* Pane tones of the intake's "Jouw venster": one soft tint per wizard page (the fill of
+     an answered pane) with a stronger sibling for its accent bar and for the outline of
+     an empty pane on the dark walnut panel. Decorative only, never text on a fill. */
+  --color-pane-sand: #f0e2bd;
+  --color-pane-sand-strong: #d9b04f;
+  --color-pane-sage: #dbe5cf;
+  --color-pane-sage-strong: #94b576;
+  --color-pane-terracotta: #f4d8c9;
+  --color-pane-terracotta-strong: #de8763;
+  --color-pane-sky: #d5e3ed;
+  --color-pane-sky-strong: #74a8c9;
+  --color-pane-plum: #ebd7e0;
+  --color-pane-plum-strong: #bb7ba0;
 }
 
 @theme inline {
@@ -37,6 +51,16 @@
   --color-paper: var(--color-paper);
   --color-border: var(--color-border);
   --color-surface-active: var(--color-surface-active);
+  --color-pane-sand: var(--color-pane-sand);
+  --color-pane-sand-strong: var(--color-pane-sand-strong);
+  --color-pane-sage: var(--color-pane-sage);
+  --color-pane-sage-strong: var(--color-pane-sage-strong);
+  --color-pane-terracotta: var(--color-pane-terracotta);
+  --color-pane-terracotta-strong: var(--color-pane-terracotta-strong);
+  --color-pane-sky: var(--color-pane-sky);
+  --color-pane-sky-strong: var(--color-pane-sky-strong);
+  --color-pane-plum: var(--color-pane-plum);
+  --color-pane-plum-strong: var(--color-pane-plum-strong);
 
   --font-serif: var(--font-newsreader);
   --font-sans: var(--font-jakarta);

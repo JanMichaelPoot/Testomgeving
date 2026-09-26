@@ -2781,3 +2781,26 @@ Stripe, Claude API, Resend, PostHog).
       tests (nieuw: paneellogica voor beide wizards), `tsc`, lint; in de browser de
       kaartenwizard met werelden alleen en met alle antwoorden bekeken (geen
       afkapping in de brede ruit).
+
+- [x] Stap 59 — "Jouw venster" duidelijker en gekleurd, op verzoek van Jan
+      ("heel veel keuzes leiden niet tot een wijziging in de zijruit"). Oorzaak:
+      leeftijd, afstand, doel en de zaterdagvraag hadden geen ruit, en in de
+      kaartenwizard waren losse antwoorden samengevoegd of weggevallen. Nu heeft
+      **elk antwoord een eigen ruit** (kaartenwizard 14 ruiten: wat speelt er,
+      doel, leeftijd, waar, afstand, op zaterdag, verrassing, moeite, tijd,
+      budget, wat trekt je, hoe, met wie, harde grenzen; de klassieke wizard
+      heeft "sta open voor" i.p.v. de kaartkeuzes), twee per rij of één brede
+      ruit voor langere antwoorden. Leeftijd en afstand tellen mee als
+      schuif-antwoord zodra ze zijn aangeraakt of afwijken van hun standaard.
+      **Kleur**: elke wizardpagina heeft een eigen tint (zand, salie, terracotta,
+      hemelblauw, pruim; nieuwe `--color-pane-*`-tokens in `globals.css`): een
+      beantwoorde ruit heeft die tint met een gekleurde balk links, een lege ruit
+      een gestippelde rand en label in de sterkere tint. **Duidelijker**: de
+      ruiten van de openstaande pagina hebben een gekleurde omlijning, zodat te
+      zien is waar een antwoord landt; de mobiele antwoordstrip krijgt dezelfde
+      kleuren. Ruiten zijn 72px hoog met 14/15px tekst (twee regels).
+      Getest: 214 tests (o.a. dat elk wizardantwoord een gevulde ruit oplevert),
+      `tsc`, lint, productiebuild; in de browser de kaartenwizard op pagina 2 en
+      pagina 5 bekeken. Bekend: de lange verrassingstekst ("Verras me volledig,
+      neem me mee naar iets wilds") wordt in een smalle ruit op twee regels
+      afgekapt.
