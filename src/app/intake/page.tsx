@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/window/SiteHeader";
-import { IntakeWizard } from "@/components/window/IntakeWizard";
+import { IntakeEntry } from "@/components/window/IntakeEntry";
+import { buildCardLibrary } from "@/lib/discovery/cardLibrary";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 
@@ -17,7 +18,7 @@ export default async function IntakePage() {
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
       <main className="mx-auto flex w-full max-w-6xl flex-1 items-start justify-center px-6 py-12 sm:px-10 sm:py-16">
-        <IntakeWizard dict={dict.intake} />
+        <IntakeEntry dict={dict.intake} library={buildCardLibrary(locale)} />
       </main>
     </div>
   );

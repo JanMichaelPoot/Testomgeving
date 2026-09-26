@@ -34,6 +34,7 @@ import type {
   PhotoCategory,
 } from "@/lib/claude/ideaBookTypes";
 import type { CharacterProfile } from "@/lib/characterProfile";
+import { describeDiscoveryForPrompt } from "@/lib/discovery/answers";
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 
@@ -96,7 +97,16 @@ Rules for using the profile:
 - Fields the person marked as PREFERENCES are directional nudges only —
   lean toward them where it fits naturally, but don't force every idea to
   satisfy every preference, and don't treat them as requirements.
-- The internal character signals (curiosity, spontaneity, social energy,
+- If the profile lists concrete interests they picked from a card library:
+  at least two of the six ideas (the "natural" door) must build directly on
+  those interests, the others may reach further and should connect back to
+  them where they can. Never conclude anything about a person's sociability,
+  shyness or character from their interests. Only the explicit "how they like
+  to take part" line says anything about that; when it is present, suggest each
+  idea in the way they chose first and mention other ways only as alternatives,
+  and always include an easy first way in (a trial class, a beginner evening,
+  an open day) where one exists.
+- The internal character signals (curiosity, spontaneity,
   need for structure, challenge level) are for calibrating tone and door
   balance only — never reference them, their names, or their numbers in
   anything the person reads.
@@ -184,6 +194,8 @@ Rules for using the profile:
   {{LANGUAGE}} is English.`;
 
 function formatProfile(intake: IntakeAnswers, character: CharacterProfile): string {
+  // Only present for people who used the visual card wizard.
+  const discoveryLines = describeDiscoveryForPrompt(intake);
   return `Situation: ${intake.situation}
 Purpose: ${intake.purpose}
 Purpose detail: ${intake.purposeFollowUp}
@@ -199,13 +211,15 @@ Must-haves (hard constraints): ${intake.mustHaves || "none stated"}
 Preferences (soft nudges): ${intake.preferences || "none stated"}
 Company: ${intake.company.join(", ") || "not stated"}
 Free-time pattern (what they said they'd actually do on a free Saturday): ${intake.freeTimePattern || "not stated"}
-Personal reflection (something they'd secretly like to do more): ${intake.personalReflection || "not stated"}
+Personal reflection (something they'd secretly like to do more): ${intake.personalReflection || "not stated"}${
+    discoveryLines ? `
+${discoveryLines}` : ""
+  }
 
 Internal character signals (derived, 0-100 each, 50 = neutral — for
 calibrating tone and door balance only, see the rules below):
 Curiosity: ${character.dimensions.curiosity}
 Spontaneity: ${character.dimensions.spontaneity}
-Social energy: ${character.dimensions.socialEnergy}
 Need for structure: ${character.dimensions.needForStructure}
 Challenge level: ${character.challengeLevel}`;
 }

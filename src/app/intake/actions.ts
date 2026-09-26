@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { SESSION_COOKIE_NAME } from "@/lib/session";
 import { getLocale, type Locale } from "@/lib/language";
+import { sanitizeDiscoveryAnswers } from "@/lib/discovery/answers";
 
 // The rich profile ("DNA") collected by the intake wizard. Stored whole in
 // intake_answers.raw_json — see supabase/migrations/0001_init.sql for why
@@ -41,6 +42,15 @@ export interface IntakeAnswers {
   // since forcing it would read as an interview, but strongly invited via
   // suggestion chips.
   personalReflection: string;
+  // Added by the visual card wizard (docs/discovery-taxonomy.md). Optional so
+  // sessions and drafts from the legacy wizard stay valid. Ids refer to
+  // src/lib/discovery; they are re-validated on the server in submitIntake.
+  interests?: string[];
+  interestDomains?: string[];
+  // Explicit "how do you like to do this" answers (SocialFormat ids, or "any"/"varies").
+  socialFormats?: string[];
+  // True when they asked to be surprised instead of picking interests.
+  surpriseMe?: boolean;
 }
 
 // The locale is not answered by the user in the wizard — it's whatever the
@@ -63,7 +73,15 @@ export async function submitIntake(answers: IntakeAnswers) {
     throw new Error(sessionError?.message ?? "Could not start a session");
   }
 
-  const stored: StoredIntake = { ...answers, locale };
+  // The card wizard's ids come from the browser: keep only real ones.
+  const discovery = sanitizeDiscoveryAnswers(answers);
+  const stored: StoredIntake = {
+    ...answers,
+    ...discovery,
+    // The card wizard no longer asks for the kind of possibility up front.
+    solutionTypes: answers.solutionTypes?.length ? answers.solutionTypes : ["activity"],
+    locale,
+  };
 
   const { error: answersError } = await supabase
     .from("intake_answers")

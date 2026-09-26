@@ -78,6 +78,9 @@ export function describeDiscoveryProfile(character: CharacterProfile, locale: Lo
 
   const distinctive = (Object.keys(values) as Axis[])
     .map((axis) => ({ axis, value: values[axis], distance: Math.abs(values[axis] - 50) }))
+    // Never voice a social-energy line: it is no longer derived (see characterProfile.ts)
+    // and a reflection like "you enjoy your own company" would be a label, not something they said.
+    .filter((entry) => entry.axis !== "socialEnergy")
     .filter((entry) => entry.distance >= DISTINCTIVE_THRESHOLD)
     .sort((a, b) => b.distance - a.distance)
     .slice(0, MAX_LINES);

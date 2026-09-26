@@ -86,3 +86,27 @@ describe("minutesLeft", () => {
     expect(minutesLeft(-1)).toBe(3);
   });
 });
+
+describe("buildWindowPanes for the card wizard", () => {
+  it("swaps the Saturday pane for what they picked", () => {
+    const panes = buildWindowPanes(defaults, dict, defaults, new Set(), { interestLabels: [] });
+    expect(panes).toHaveLength(8);
+    expect(panes.map((p) => p.id)).toContain("interests");
+    expect(panes.map((p) => p.id)).not.toContain("saturday");
+  });
+
+  it("shows the first two picks and how many more", () => {
+    const labels = ["Hardlopen", "Yoga", "Schaken", "Origami"];
+    const values = byId(buildWindowPanes(defaults, dict, defaults, new Set(), { interestLabels: labels }));
+    expect(values.interests).toBe("Hardlopen, Yoga +2");
+  });
+
+  it("shows 'surprise me' when they asked for it and picked nothing", () => {
+    const values = byId(buildWindowPanes({ ...defaults, surpriseMe: true }, dict, defaults, new Set(), { interestLabels: [] }));
+    expect(values.interests).toBe("Verras me");
+  });
+
+  it("leaves the pane empty when nothing was chosen", () => {
+    expect(byId(buildWindowPanes(defaults, dict, defaults, new Set(), { interestLabels: [] })).interests).toBeNull();
+  });
+});

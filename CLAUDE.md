@@ -2559,3 +2559,52 @@ Stripe, Claude API, Resend, PostHog).
       met een knop die alles als tekst kopieert om terug te sturen.
       Getest: `vitest` (101 tests, waarvan 15 nieuw voor de bibliotheek en de
       validator zelf), `tsc --noEmit`, `eslint` schoon.
+
+- [x] Stap 54 — Discovery Engine, fase 2: de visuele kaartenwizard achter een
+      schakelaar. Vijf pagina's blijven; pagina 1-3 ongewijzigd. **Pagina 4**
+      (`DiscoveryStep.tsx`) is nu eerst "Wat maakt je nieuwsgierig?" (10 werelden
+      als fotokaarten met accentkleur, "Verras me", "Sla over") en dan "Wat
+      spreekt je aan?" met 10 activiteitenkaarten per keer (8 uit de gekozen
+      werelden, verspreid over subdomeinen en afwisselend per wereld, plus 2
+      gestippelde "Misschien ook?"-kaarten uit niet-gekozen werelden), "Toon
+      meer" (maximaal 4 rondes), een "i" per kaart met de instapvariant, een lijst
+      met gekozen items die je met een klik weer weghaalt, "Zonder plaatjes"
+      voor lage bandbreedte/screenreaders, en pijltjestoetsen door het raster.
+      Kaartvolgorde komt uit een seed die met het concept wordt bewaard
+      (`buildCardBatches`, deterministisch, getest), dus verversen of terugkeren
+      toont dezelfde kaarten. Activiteiten met toezichtsplicht (tier 2) worden
+      verborgen voor wie op de wildheidsschuif "voorspelbaar" koos. **Pagina 5**
+      is "Hoe doe je dit het liefst?": sociale vorm (7 vormen + "maakt niet uit"
+      + "hangt van de dag af", de laatste twee staan alleen), gezelschap, dan
+      "Grenzen en wensen" (harde grenzen, voorkeuren, stiekem willen; verhuisd van
+      de oude pagina 4) en "Ik sta ook open voor…" (de oude `solutionTypes`, nu
+      optioneel en ingeklapt; leeg wordt `["activity"]`). "Jouw venster" toont
+      "Wat trekt je" in plaats van "Op zaterdag".
+      **Schakelaar**: `IntakeEntry.tsx` kiest per browsertab (sessionStorage,
+      geen cookie): `?wizard=cards|legacy` forceert, anders een dobbelworp met
+      `NEXT_PUBLIC_DISCOVERY_WIZARD_PERCENT` (standaard 0 = niemand ziet de nieuwe
+      wizard). De klassieke wizard is ongewijzigd de terugval en het voorbeeld van
+      `wizard_variant` in alle events.
+      **Data**: `IntakeAnswers` kreeg optioneel `interests`, `interestDomains`,
+      `socialFormats`, `surpriseMe` (oude sessies en concepten blijven geldig);
+      `submitIntake` laat via `sanitizeDiscoveryAnswers` alleen echte ids door
+      (de browser wordt niet vertrouwd omdat de ids in een prompt terechtkomen).
+      De server stuurt alleen slanke kaartdata (één taal, `buildCardLibrary`), zodat
+      de volledige bibliotheek niet in de browserbundel zit.
+      **Generatie (klein, bewust)**: de gekozen interesses en de expliciete
+      sociale voorkeur gaan als aparte regels in het profiel (`describeDiscoveryForPrompt`),
+      met een regel dat minstens twee ideeën op de interesses moeten voortbouwen en
+      dat sociale voorkeur uitsluitend uit het expliciete antwoord komt. De motor
+      zelf komt in fase 3/4. **Besluit 6 doorgevoerd** (ook voor de klassieke
+      wizard): sociale energie wordt niet meer uit gedrag afgeleid (vast 50) en
+      staat niet meer in de prompt of in de "Jouw ontdekprofiel"-zinnen;
+      nieuwsgierigheid meet breedte nu over de gekozen werelden.
+      **Getest**: 129 tests (nieuw: kaartlogica, sanitizing/prompt, kaartenpaneel),
+      `tsc`, lint, productiebuild; in de browser de hele kaartenwizard doorlopen op
+      desktop en 375px (geen horizontale scroll, tikdoelen 44px, events, opslag in de
+      database gecontroleerd) en één echte testgeneratie (≈€0,13): de gekozen
+      escape room en "alleen komen, samen doen" zijn duidelijk terug te zien, maar
+      een gekozen "lederwerk" haalde het boek niet (er was geen lokaal aanbod
+      gevonden en het model verzon een uitleg): precies wat de selectiemotor van
+      fase 3/4 moet afdwingen, zie het ontwerprapport.
+

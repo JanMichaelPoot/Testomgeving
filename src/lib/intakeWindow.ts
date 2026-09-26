@@ -46,11 +46,27 @@ function sliderAnswered(
   return touched.has(id) || answers[id] !== defaults[id];
 }
 
+// The card wizard swaps the "on a Saturday" pane for what they picked.
+export interface WindowPaneExtras {
+  /** Labels (visitor's language) of the picked activities, in the order picked. */
+  interestLabels?: string[];
+}
+
+function interestsPane(answers: IntakeAnswers, dict: Dictionary["intake"], labels: string[]): string | null {
+  if (labels.length > 0) {
+    const shown = labels.slice(0, 2).join(", ");
+    const more = labels.length > 2 ? ` +${labels.length - 2}` : "";
+    return truncateAtWord(`${shown}${more}`, MAX_PANE_TEXT_LENGTH);
+  }
+  return answers.surpriseMe ? dict.discovery.panePlaceholder : null;
+}
+
 export function buildWindowPanes(
   answers: IntakeAnswers,
   dict: Dictionary["intake"],
   defaults: IntakeAnswers,
-  touchedSliders: ReadonlySet<string>
+  touchedSliders: ReadonlySet<string>,
+  extras?: WindowPaneExtras
 ): WindowPaneValue[] {
   const t = dict.window.panes;
   const slider = (id: SliderId, options: Option[]) =>
@@ -63,7 +79,9 @@ export function buildWindowPanes(
     // their situation in their own words.
     { id: "situation", label: t.situation, value: clean(answers.situation) ?? clean(answers.purposeFollowUp) },
     { id: "where", label: t.where, value: clean(answers.location) },
-    { id: "saturday", label: t.saturday, value: labelFor(dict.freeTimePattern.options, answers.freeTimePattern) },
+    extras?.interestLabels
+      ? { id: "interests", label: t.interests, value: interestsPane(answers, dict, extras.interestLabels) }
+      : { id: "saturday", label: t.saturday, value: labelFor(dict.freeTimePattern.options, answers.freeTimePattern) },
     { id: "surprise", label: t.surprise, value: slider("practicalToWild", dict.practicalToWild.options) },
     { id: "time", label: t.time, value: slider("timeAvailable", dict.timeAvailable.options) },
     { id: "budget", label: t.budget, value: slider("budget", dict.budget.options) },

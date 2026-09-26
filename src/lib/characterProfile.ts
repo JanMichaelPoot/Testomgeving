@@ -74,7 +74,6 @@ export function computeCharacterProfile(answers: IntakeAnswers): CharacterProfil
   const freeTimePattern = answers.freeTimePattern || "";
   const practicalToWild = answers.practicalToWild || "either";
   const effort = answers.effort || "";
-  const company = answers.company ?? [];
   const solutionTypes = answers.solutionTypes ?? [];
   const personalReflection = (answers.personalReflection || "").trim();
   const wildness = wildnessScore(practicalToWild);
@@ -96,10 +95,15 @@ export function computeCharacterProfile(answers: IntakeAnswers): CharacterProfil
     curiosity -= 20;
     note("freeTimePattern=stayhome → -20 curiosity");
   }
-  const breadthDelta = clamp((solutionTypes.length - 2) * 6, -12, 24);
+  // Breadth of what they are open to: the worlds picked in the card wizard when there
+  // are any, otherwise the kinds of possibility (classic wizard). Someone who asked to
+  // be surprised gets no adjustment: that is a choice, not a narrow taste.
+  const interestDomains = answers.interestDomains ?? [];
+  const breadth = interestDomains.length > 0 ? interestDomains.length : solutionTypes.length;
+  const breadthDelta = answers.surpriseMe ? 0 : clamp((breadth - 2) * 6, -12, 24);
   if (breadthDelta !== 0) {
     curiosity += breadthDelta;
-    note(`solutionTypes breadth (${solutionTypes.length}) → ${breadthDelta > 0 ? "+" : ""}${breadthDelta} curiosity`);
+    note(`breadth (${breadth}) → ${breadthDelta > 0 ? "+" : ""}${breadthDelta} curiosity`);
   }
   curiosity += (wildness - 50) * 0.2;
   if (personalReflection.length > 3) {
@@ -125,39 +129,13 @@ export function computeCharacterProfile(answers: IntakeAnswers): CharacterProfil
   spontaneity += (wildness - 50) * 0.3;
 
   // --- Social energy -------------------------------------------------------
-  // Fase 5 — company is now multi-select, so each selected option
-  // contributes its own delta independently rather than an else-if chain
-  // (someone can pick e.g. both "family" and "friends" at once).
-  let socialEnergy = 50;
-  if (company.includes("alone")) {
-    socialEnergy -= 25;
-    note("company includes alone → -25 socialEnergy");
-  }
-  if (company.includes("friends")) {
-    socialEnergy += 20;
-    note("company includes friends → +20 socialEnergy");
-  }
-  if (company.includes("family")) {
-    socialEnergy += 10;
-  }
-  if (company.includes("colleagues")) {
-    socialEnergy += 5;
-  }
-  if (freeTimePattern === "ask") {
-    socialEnergy += 15;
-    note("freeTimePattern=ask → +15 socialEnergy");
-  } else if (freeTimePattern === "stayhome") {
-    socialEnergy -= 15;
-    note("freeTimePattern=stayhome → -15 socialEnergy");
-  } else if (freeTimePattern === "familiar") {
-    socialEnergy -= 5;
-  } else if (freeTimePattern === "spontaneous") {
-    socialEnergy += 5;
-  }
-  if (solutionTypes.includes("conversation")) {
-    socialEnergy += 10;
-    note("solutionTypes includes conversation → +10 socialEnergy");
-  }
+  // Deliberately NOT derived. It used to be guessed from the free-Saturday answer, who
+  // joins and the "conversation" option, i.e. a shy or sociable label inferred from
+  // behaviour and choices. The discovery brief rules that out: how someone likes to take
+  // part is only ever what they say explicitly (IntakeAnswers.socialFormats), and it is
+  // passed to the idea generator as that stated preference, not as a trait score. The
+  // field stays at the neutral 50 so stored data and the admin export keep their shape.
+  const socialEnergy = 50;
 
   // --- Need for structure ---------------------------------------------------
   let needForStructure = 50;
@@ -186,7 +164,7 @@ export function computeCharacterProfile(answers: IntakeAnswers): CharacterProfil
     dimensions: {
       curiosity: Math.round(clamp(curiosity)),
       spontaneity: Math.round(clamp(spontaneity)),
-      socialEnergy: Math.round(clamp(socialEnergy)),
+      socialEnergy,
       needForStructure: Math.round(clamp(needForStructure)),
     },
     challengeLevel: Math.round(clamp(challengeLevel)),

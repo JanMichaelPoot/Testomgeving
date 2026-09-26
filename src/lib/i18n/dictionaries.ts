@@ -290,9 +290,40 @@ export interface Dictionary {
       timeLeft: string; // {n}
       almostDone: string;
       panes: Record<
-        "situation" | "where" | "saturday" | "surprise" | "time" | "budget" | "effort" | "secret",
+        "situation" | "where" | "saturday" | "interests" | "surprise" | "time" | "budget" | "effort" | "secret",
         string
       >;
+    };
+    // The visual interest step of the card wizard (docs/discovery-taxonomy.md).
+    discovery: {
+      pages: {
+        interests: { heading: string; subheading: string };
+        final: { heading: string; subheading: string };
+      };
+      domainStep: {
+        surpriseMe: string;
+        skip: string;
+        chosenCount: string; // {n}
+      };
+      cardStep: {
+        heading: string;
+        hint: string;
+        more: string;
+        noMore: string;
+        maybeAlso: string;
+        chosenCount: string; // {n}
+        none: string;
+        textOnly: string;
+        infoOpen: string; // {label}
+        infoClose: string;
+        entryLabel: string;
+        changeDomains: string;
+        selected: string;
+      };
+      social: { label: string; sub: string; options: Option[] };
+      limitsHeading: string;
+      alsoOpenTo: string;
+      panePlaceholder: string; // shown in "Jouw venster" when they asked to be surprised
     };
     stepWord: string;
     ofWord: string;
@@ -740,6 +771,7 @@ const nl: Dictionary = {
         situation: "Wat speelt er",
         where: "Waar",
         saturday: "Op zaterdag",
+        interests: "Wat trekt je",
         surprise: "Verrassing",
         time: "Tijd",
         budget: "Budget",
@@ -748,6 +780,56 @@ const nl: Dictionary = {
       },
     },
     pageTitle: "Open een Venster — WINDOW",
+    discovery: {
+      pages: {
+        interests: {
+          heading: "Wat maakt je nieuwsgierig?",
+          subheading: "Tik aan wat je aanspreekt, ook als je het nog nooit deed. Weinig of veel, allebei is goed.",
+        },
+        final: {
+          heading: "Hoe doe je dit het liefst?",
+          subheading: "Bijna klaar.",
+        },
+      },
+      domainStep: {
+        surpriseMe: "Verras me: ik weet het nog niet",
+        skip: "Sla deze stap over",
+        chosenCount: "{n} gekozen",
+      },
+      cardStep: {
+        heading: "Wat spreekt je aan?",
+        hint: "Klik aan wat je leuk lijkt, ook als je het nog nooit deed.",
+        more: "Toon meer",
+        noMore: "Dat was alles voor nu",
+        maybeAlso: "Misschien ook?",
+        chosenCount: "{n} gekozen",
+        none: "Nog niets gekozen. Dat mag ook.",
+        textOnly: "Zonder plaatjes",
+        infoOpen: "Meer over {label}",
+        infoClose: "Verberg uitleg",
+        entryLabel: "Zo begin je:",
+        changeDomains: "Andere werelden kiezen",
+        selected: "geselecteerd",
+      },
+      social: {
+        label: "Hoe doe je dit het liefst?",
+        sub: "Dit bepaalt alleen hoe we iets voorstellen, niet wat. Kies gerust meer dan één.",
+        options: [
+          { value: "solo", label: "Alleen" },
+          { value: "drop_in_alone", label: "Alleen komen, samen doen" },
+          { value: "duo", label: "Met één ander" },
+          { value: "small_group", label: "In een kleine groep" },
+          { value: "large_group", label: "In een grotere groep" },
+          { value: "with_known", label: "Met mensen die ik ken" },
+          { value: "online", label: "Online" },
+          { value: "any", label: "Maakt me niet uit" },
+          { value: "varies", label: "Hangt van de dag af" },
+        ],
+      },
+      limitsHeading: "Grenzen en wensen",
+      alsoOpenTo: "Ik sta ook open voor…",
+      panePlaceholder: "Verras me",
+    },
     stepWord: "Stap",
     ofWord: "van",
     back: "Terug",
@@ -1351,6 +1433,7 @@ const en: Dictionary = {
         situation: "What's going on",
         where: "Where",
         saturday: "On a Saturday",
+        interests: "What draws you",
         surprise: "Surprise",
         time: "Time",
         budget: "Budget",
@@ -1359,6 +1442,56 @@ const en: Dictionary = {
       },
     },
     pageTitle: "Open a Window — WINDOW",
+    discovery: {
+      pages: {
+        interests: {
+          heading: "What makes you curious?",
+          subheading: "Tap what appeals to you, even if you've never done it. A few or many, both are fine.",
+        },
+        final: {
+          heading: "How do you like to do this?",
+          subheading: "Almost done.",
+        },
+      },
+      domainStep: {
+        surpriseMe: "Surprise me: I don't know yet",
+        skip: "Skip this step",
+        chosenCount: "{n} chosen",
+      },
+      cardStep: {
+        heading: "What appeals to you?",
+        hint: "Tap what sounds good, even if you've never tried it.",
+        more: "Show more",
+        noMore: "That's all for now",
+        maybeAlso: "Maybe also?",
+        chosenCount: "{n} chosen",
+        none: "Nothing chosen yet. That's fine too.",
+        textOnly: "Without pictures",
+        infoOpen: "More about {label}",
+        infoClose: "Hide details",
+        entryLabel: "How to start:",
+        changeDomains: "Choose other worlds",
+        selected: "selected",
+      },
+      social: {
+        label: "How do you like to do this?",
+        sub: "This only decides how we suggest something, not what. Pick more than one if you like.",
+        options: [
+          { value: "solo", label: "On my own" },
+          { value: "drop_in_alone", label: "Come alone, do it together" },
+          { value: "duo", label: "With one other person" },
+          { value: "small_group", label: "In a small group" },
+          { value: "large_group", label: "In a larger group" },
+          { value: "with_known", label: "With people I know" },
+          { value: "online", label: "Online" },
+          { value: "any", label: "Doesn't matter to me" },
+          { value: "varies", label: "Depends on the day" },
+        ],
+      },
+      limitsHeading: "Limits and wishes",
+      alsoOpenTo: "I'm also open to…",
+      panePlaceholder: "Surprise me",
+    },
     stepWord: "Step",
     ofWord: "of",
     back: "Back",

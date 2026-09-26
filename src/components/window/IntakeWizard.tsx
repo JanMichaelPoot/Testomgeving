@@ -11,6 +11,8 @@ import { submitIntake, type IntakeAnswers } from "@/app/intake/actions";
 import { WindowMark } from "@/components/window/WindowMark";
 import { IntakeAnswerStrip, IntakeWindowPanel } from "@/components/window/IntakeWindowPanel";
 import { buildWindowPanes, minutesLeft } from "@/lib/intakeWindow";
+import { DiscoveryStep, type DiscoveryStage } from "@/components/window/discovery/DiscoveryStep";
+import { buildCardBatches, hidesSupervisedActivities, type CardLibrary } from "@/lib/discovery/cards";
 import type { Dictionary, Option } from "@/lib/i18n/dictionaries";
 
 type StepId = keyof IntakeAnswers;
@@ -28,7 +30,20 @@ type FieldConfig =
       suggestions?: string[];
     }
   | { id: StepId; type: "chips"; label: string; sub?: string; options: Option[] }
-  | { id: StepId; type: "multi-chips"; label: string; sub?: string; options: Option[] }
+  | {
+      id: StepId;
+      type: "multi-chips";
+      label: string;
+      sub?: string;
+      options: Option[];
+      // Optional fields never block "Verder"; collapsible ones start folded.
+      optional?: boolean;
+      collapsible?: boolean;
+    }
+  // Card wizard only:
+  | { id: StepId; type: "discovery" }
+  | { id: StepId; type: "social"; label: string; sub?: string; options: Option[] }
+  | { id: StepId; type: "section"; label: string; sub?: string }
   | { id: StepId; type: "slider"; label: string; sub?: string; options: Option[] }
   | { id: StepId; type: "location"; label: string; sub?: string; placeholder: string };
 
@@ -40,13 +55,15 @@ interface PageConfig {
   fields: FieldConfig[];
 }
 
-function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
+type WizardVariant = "legacy" | "cards";
+
+function buildPages(answers: IntakeAnswers, dict: IntakeDict, variant: WizardVariant): PageConfig[] {
   const purposeKey = answers.purpose as keyof IntakeDict["purposeFollowUp"];
   const followUp = dict.purposeFollowUp[purposeKey] ?? dict.purposeFollowUp.self;
   const companySubKey = answers.purpose as keyof IntakeDict["company"]["sub"];
   const companySub = dict.company.sub[companySubKey] ?? dict.company.sub.self;
 
-  return [
+  const legacy: PageConfig[] = [
     {
       id: "situation",
       heading: dict.pages.situation.heading,
@@ -200,6 +217,75 @@ function buildPages(answers: IntakeAnswers, dict: IntakeDict): PageConfig[] {
       ],
     },
   ];
+  if (variant !== "cards") return legacy;
+
+  // The card wizard keeps the first three pages as they are. Page 4 becomes the
+  // visual interest step, and page 5 gathers how they like to take part, who joins,
+  // and the optional limits and wishes (these moved over from the old page 4).
+  const d = dict.discovery;
+  return [
+    legacy[0],
+    legacy[1],
+    legacy[2],
+    {
+      id: "interests",
+      heading: d.pages.interests.heading,
+      subheading: d.pages.interests.subheading,
+      fields: [{ id: "interests", type: "discovery" }],
+    },
+    {
+      id: "final",
+      heading: d.pages.final.heading,
+      subheading: d.pages.final.subheading,
+      fields: [
+        { id: "socialFormats", type: "social", label: d.social.label, sub: d.social.sub, options: d.social.options },
+        {
+          id: "company",
+          type: "multi-chips",
+          label: dict.company.label,
+          sub: companySub,
+          options: dict.company.options,
+        },
+        { id: "mustHaves", type: "section", label: d.limitsHeading, sub: dict.opennessIntro },
+        {
+          id: "mustHaves",
+          type: "text",
+          label: dict.mustHaves.label,
+          sub: dict.mustHaves.sub,
+          placeholder: dict.mustHaves.placeholder,
+          optional: true,
+          suggestions: dict.mustHaves.suggestions,
+        },
+        {
+          id: "preferences",
+          type: "text",
+          label: dict.preferences.label,
+          sub: dict.preferences.sub,
+          placeholder: dict.preferences.placeholder,
+          optional: true,
+          suggestions: dict.preferences.suggestions,
+        },
+        {
+          id: "personalReflection",
+          type: "text",
+          label: dict.personalReflection.label,
+          sub: dict.personalReflection.sub,
+          placeholder: dict.personalReflection.placeholder,
+          optional: true,
+          optionalHint: dict.personalReflection.optionalHint,
+          suggestions: dict.personalReflection.suggestions,
+        },
+        {
+          id: "solutionTypes",
+          type: "multi-chips",
+          label: d.alsoOpenTo,
+          options: dict.solutionTypes.options,
+          optional: true,
+          collapsible: true,
+        },
+      ],
+    },
+  ];
 }
 
 // Neutral defaults for slider-backed fields — the middle option of each
@@ -222,6 +308,10 @@ const EMPTY_ANSWERS: IntakeAnswers = {
   preferences: "",
   personalReflection: "",
   company: [],
+  interests: [],
+  interestDomains: [],
+  socialFormats: [],
+  surpriseMe: false,
 };
 
 // Draft persistence — sessionStorage only (cleared on tab close and never
@@ -231,13 +321,25 @@ const EMPTY_ANSWERS: IntakeAnswers = {
 // try/catch since storage can throw or be unavailable (private browsing).
 const DRAFT_KEY = "window-intake-draft-v1";
 
-// Which wizard the visitor saw. "legacy" is the current text-chip wizard; the
-// visual discovery wizard will report its own value so both can be compared.
-const WIZARD_VARIANT = "legacy";
+function newSeed(): string {
+  return Math.random().toString(36).slice(2, 10);
+}
+
+// State of the card wizard's interest step, kept with the draft so a refresh or a
+// step back shows the same cards in the same order.
+interface DiscoveryState {
+  stage: DiscoveryStage;
+  batchesShown: number;
+  seed: string;
+  textOnly: boolean;
+}
+
+const INITIAL_DISCOVERY: DiscoveryState = { stage: "domains", batchesShown: 1, seed: "", textOnly: false };
 
 interface IntakeDraft {
   page: number;
   answers: IntakeAnswers;
+  discovery?: DiscoveryState;
 }
 
 function loadDraft(): IntakeDraft | null {
@@ -245,11 +347,12 @@ function loadDraft(): IntakeDraft | null {
   try {
     const raw = window.sessionStorage.getItem(DRAFT_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as { page?: number; answers?: Partial<IntakeAnswers> };
+    const parsed = JSON.parse(raw) as { page?: number; answers?: Partial<IntakeAnswers>; discovery?: Partial<DiscoveryState> };
     if (!parsed.answers) return null;
     return {
       page: typeof parsed.page === "number" ? parsed.page : 0,
       answers: { ...EMPTY_ANSWERS, ...parsed.answers },
+      discovery: { ...INITIAL_DISCOVERY, ...parsed.discovery },
     };
   } catch {
     return null;
@@ -328,8 +431,8 @@ function ChipOption({
 
 function canContinuePage(page: PageConfig, answers: IntakeAnswers): boolean {
   return page.fields.every((field) => {
-    if (field.type === "slider") return true;
-    if (field.type === "multi-chips") return (answers[field.id] as string[]).length > 0;
+    if (field.type === "slider" || field.type === "discovery" || field.type === "social" || field.type === "section") return true;
+    if (field.type === "multi-chips") return field.optional || (answers[field.id] as string[]).length > 0;
     if (field.type === "text") {
       if (field.optional) return true;
       return (answers[field.id] as string).trim().length > 1;
@@ -339,13 +442,24 @@ function canContinuePage(page: PageConfig, answers: IntakeAnswers): boolean {
   });
 }
 
-export function IntakeWizard({ dict }: { dict: IntakeDict }) {
+export function IntakeWizard({
+  dict,
+  variant = "legacy",
+  library,
+}: {
+  dict: IntakeDict;
+  variant?: WizardVariant;
+  // Slim card data for the card wizard (see src/lib/discovery/cardLibrary.ts).
+  library?: CardLibrary;
+}) {
   const [page, setPage] = useState(0);
   const [answers, setAnswers] = useState<IntakeAnswers>(EMPTY_ANSWERS);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
   const [touchedSliders, setTouchedSliders] = useState<Set<StepId>>(new Set());
+  const [discovery, setDiscovery] = useState<DiscoveryState>(INITIAL_DISCOVERY);
+  const discoveryStartedAt = useRef<number>(0);
 
   // Measurement (fase 0 of the discovery upgrade): time per page and in total,
   // so drop-off and fill-in time are known before anything about the wizard
@@ -369,7 +483,9 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setPage(draft.page);
       setAnswers(draft.answers);
+      setDiscovery({ ...INITIAL_DISCOVERY, ...draft.discovery, seed: draft.discovery?.seed || newSeed() });
     } else {
+      setDiscovery({ ...INITIAL_DISCOVERY, seed: newSeed() });
       // No real draft to protect: pick up what the landing page's start form
       // sent along (?situation=). Read once on mount, never re-applied.
       const fromLanding = readSituationFromUrl();
@@ -379,15 +495,16 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
     }
     setHydrated(true);
     startedAt.current = performance.now();
-    trackEvent("intake_started", { wizard_variant: WIZARD_VARIANT, restored: !!draft && !isBlankDraft(draft) });
-  }, []);
+    trackEvent("intake_started", { wizard_variant: variant, restored: !!draft && !isBlankDraft(draft) });
+    // `variant` never changes for a mounted wizard (IntakeEntry decides it first).
+  }, [variant]);
 
   useEffect(() => {
     if (!hydrated) return;
-    saveDraft({ page, answers });
-  }, [hydrated, page, answers]);
+    saveDraft({ page, answers, discovery });
+  }, [hydrated, page, answers, discovery]);
 
-  const pages = useMemo(() => buildPages(answers, dict), [answers, dict]);
+  const pages = useMemo(() => buildPages(answers, dict, variant), [answers, dict, variant]);
   const currentPage = pages[page];
 
   // One "viewed" event per page shown (drop-off = viewed but never completed).
@@ -395,7 +512,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
     if (!hydrated) return;
     pageEnteredAt.current = performance.now();
     trackEvent("intake_page_viewed", {
-      wizard_variant: WIZARD_VARIANT,
+      wizard_variant: variant,
       page: pages[page].id,
       index: page,
       of: pages.length,
@@ -427,8 +544,89 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
     });
   }
 
+  // "No preference" and "depends on the day" stand alone; a specific form removes them.
+  function toggleSocial(value: string) {
+    setAnswers((prev) => {
+      const current = prev.socialFormats ?? [];
+      const neutral = value === "any" || value === "varies";
+      if (neutral) return { ...prev, socialFormats: current.includes(value) ? [] : [value] };
+      const withoutNeutral = current.filter((v) => v !== "any" && v !== "varies");
+      return {
+        ...prev,
+        socialFormats: withoutNeutral.includes(value) ? withoutNeutral.filter((v) => v !== value) : [...withoutNeutral, value],
+      };
+    });
+  }
+
+  // --- the card wizard's interest step -----------------------------------------
+  const isInterestsPage = variant === "cards" && !!library && currentPage.id === "interests";
+  const interests = answers.interests ?? [];
+  const interestDomains = answers.interestDomains ?? [];
+
+  // A stable string for the memo below (the array itself is new on every render).
+  const domainKey = interestDomains.join(",");
+
+  const batches = useMemo(() => {
+    if (!library || !discovery.seed) return [];
+    return buildCardBatches({
+      activities: library.activities,
+      domainIds: library.domains.map((d) => d.id),
+      chosenDomains: domainKey ? domainKey.split(",") : [],
+      seed: discovery.seed,
+      hideSupervised: hidesSupervisedActivities(answers.practicalToWild),
+    });
+  }, [library, discovery.seed, domainKey, answers.practicalToWild]);
+
+  function toggleDomain(id: string) {
+    const on = !interestDomains.includes(id);
+    trackEvent("discovery_domain_toggled", { wizard_variant: variant, domain: id, on });
+    setAnswers((prev) => ({
+      ...prev,
+      surpriseMe: false,
+      interestDomains: on ? [...(prev.interestDomains ?? []), id] : (prev.interestDomains ?? []).filter((d) => d !== id),
+    }));
+  }
+
+  function toggleSurprise() {
+    setAnswers((prev) => ({ ...prev, surpriseMe: !prev.surpriseMe, interestDomains: [] }));
+  }
+
+  // batch -1 = removed from the "your picks" chips rather than from a card.
+  function toggleCard(id: string, batch: number) {
+    const on = !interests.includes(id);
+    trackEvent("discovery_card_toggled", { wizard_variant: variant, activity_id: id, on, batch });
+    setAnswers((prev) => {
+      const current = prev.interests ?? [];
+      return { ...prev, interests: on ? [...current, id] : current.filter((x) => x !== id) };
+    });
+  }
+
+  function showMoreCards() {
+    trackEvent("discovery_more_clicked", { wizard_variant: variant, batches: discovery.batchesShown + 1 });
+    setDiscovery((d) => ({ ...d, batchesShown: d.batchesShown + 1 }));
+  }
+
+  function skipInterests() {
+    trackEvent("discovery_skipped", { wizard_variant: variant });
+    setAnswers((prev) => ({ ...prev, interests: [], interestDomains: [], surpriseMe: false }));
+    setDiscovery((d) => ({ ...d, stage: "domains", batchesShown: 1 }));
+    setPage((prev) => prev + 1);
+  }
+
+  // Entering the interest step: start its timer and, on the way back from a later page,
+  // open on the cards if there already are picks.
+  useEffect(() => {
+    if (isInterestsPage) discoveryStartedAt.current = performance.now();
+  }, [isInterestsPage]);
+
   function goBack() {
-    trackEvent("intake_page_back", { wizard_variant: WIZARD_VARIANT, page: currentPage.id, index: page });
+    // Inside the interest step "Terug" first returns from the cards to the worlds.
+    if (isInterestsPage && discovery.stage === "cards") {
+      trackEvent("intake_page_back", { wizard_variant: variant, page: "interests", stage: "cards", index: page });
+      setDiscovery((d) => ({ ...d, stage: "domains", batchesShown: 1 }));
+      return;
+    }
+    trackEvent("intake_page_back", { wizard_variant: variant, page: currentPage.id, index: page });
     setError(null);
     setPage((prev) => Math.max(0, prev - 1));
   }
@@ -436,8 +634,30 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
   function goNext() {
     if (!canContinue) return;
 
+    // Worlds -> cards: still the same page.
+    if (isInterestsPage && discovery.stage === "domains") {
+      trackEvent("discovery_stage_completed", {
+        wizard_variant: variant,
+        stage: "domains",
+        selected: interestDomains.length,
+        surprise: !!answers.surpriseMe,
+        duration_ms: Math.round(performance.now() - discoveryStartedAt.current),
+      });
+      setDiscovery((d) => ({ ...d, stage: "cards", batchesShown: 1 }));
+      return;
+    }
+    if (isInterestsPage) {
+      trackEvent("discovery_stage_completed", {
+        wizard_variant: variant,
+        stage: "cards",
+        selected: interests.length,
+        batches_shown: discovery.batchesShown,
+        duration_ms: Math.round(performance.now() - discoveryStartedAt.current),
+      });
+    }
+
     trackEvent("intake_page_completed", {
-      wizard_variant: WIZARD_VARIANT,
+      wizard_variant: variant,
       page: currentPage.id,
       index: page,
       duration_ms: Math.round(performance.now() - pageEnteredAt.current),
@@ -450,7 +670,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
 
     setError(null);
     trackEvent("intake_submitted", {
-      wizard_variant: WIZARD_VARIANT,
+      wizard_variant: variant,
       pages: pages.length,
       total_ms: startedAt.current === null ? null : Math.round(performance.now() - startedAt.current),
     });
@@ -462,7 +682,7 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
           clearDraft();
           throw err;
         }
-        trackEvent("intake_submit_failed", { wizard_variant: WIZARD_VARIANT });
+        trackEvent("intake_submit_failed", { wizard_variant: variant });
         setError(err instanceof Error ? err.message : dict.errorGeneric);
       }
     });
@@ -537,6 +757,27 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
       }
       case "multi-chips": {
         const labelId = `field-${field.id}-label`;
+        if (field.collapsible) {
+          const selectedCount = (answers[field.id] as string[]).length;
+          return (
+            <details key={field.id} className="rounded-lg border border-border bg-paper px-4 py-3" open={selectedCount > 0}>
+              <summary className="cursor-pointer text-sm font-medium text-ink">
+                {field.label}
+                {selectedCount > 0 ? ` (${selectedCount})` : ""}
+              </summary>
+              <div role="group" aria-label={field.label} className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                {field.options.map((option) => (
+                  <ChipOption
+                    key={option.value}
+                    label={option.label}
+                    selected={(answers[field.id] as string[]).includes(option.value)}
+                    onClick={() => toggleMultiChip(field.id, option.value)}
+                  />
+                ))}
+              </div>
+            </details>
+          );
+        }
         return (
           <div key={field.id}>
             <p id={labelId} className="font-medium text-ink">
@@ -559,6 +800,62 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
                   />
                 );
               })}
+            </div>
+          </div>
+        );
+      }
+      case "discovery":
+        if (!library) return null;
+        return (
+          <DiscoveryStep
+            key="discovery"
+            stage={discovery.stage}
+            library={library}
+            dict={dict.discovery}
+            chosenDomains={interestDomains}
+            interests={interests}
+            surpriseMe={!!answers.surpriseMe}
+            batches={batches}
+            batchesShown={discovery.batchesShown}
+            textOnly={discovery.textOnly}
+            onToggleDomain={toggleDomain}
+            onToggleSurprise={toggleSurprise}
+            onSkip={skipInterests}
+            onToggleCard={toggleCard}
+            onMore={showMoreCards}
+            onBackToDomains={() => setDiscovery((d) => ({ ...d, stage: "domains", batchesShown: 1 }))}
+            onTextOnly={(textOnly) => setDiscovery((d) => ({ ...d, textOnly }))}
+          />
+        );
+      case "section":
+        return (
+          <div key={`section-${field.label}`} className="border-t border-border pt-8">
+            <h2 className="font-sans text-xl font-semibold tracking-[-0.02em] text-ink">{field.label}</h2>
+            {field.sub && (
+              <p className="mt-3 rounded-lg border border-border bg-surface-active px-4 py-3 text-sm text-ink/70">
+                {field.sub}
+              </p>
+            )}
+          </div>
+        );
+      case "social": {
+        const labelId = `field-${field.id}-label`;
+        const current = answers.socialFormats ?? [];
+        return (
+          <div key={field.id}>
+            <p id={labelId} className="font-medium text-ink">
+              {field.label}
+            </p>
+            {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
+            <div role="group" aria-labelledby={labelId} className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+              {field.options.map((option) => (
+                <ChipOption
+                  key={option.value}
+                  label={option.label}
+                  selected={current.includes(option.value)}
+                  onClick={() => toggleSocial(option.value)}
+                />
+              ))}
             </div>
           </div>
         );
@@ -602,7 +899,16 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
   }
 
   const progressPercent = ((page + 1) / pages.length) * 100;
-  const windowPanes = buildWindowPanes(answers, dict, EMPTY_ANSWERS, touchedSliders);
+  const activityLabel = new Map((library?.activities ?? []).map((a) => [a.id, a.label]));
+  const windowPanes = buildWindowPanes(
+    answers,
+    dict,
+    EMPTY_ANSWERS,
+    touchedSliders,
+    variant === "cards"
+      ? { interestLabels: interests.map((id) => activityLabel.get(id)).filter((l): l is string => !!l) }
+      : undefined
+  );
   const timeLeft = minutesLeft(page);
 
   return (
@@ -635,9 +941,11 @@ export function IntakeWizard({ dict }: { dict: IntakeDict }) {
 
         <div key={currentPage.id} className="animate-window-page-in flex-1 px-6 pb-4 pt-8 sm:px-10">
           <h1 className="font-sans text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
-            {currentPage.heading}
+            {isInterestsPage && discovery.stage === "cards" ? dict.discovery.cardStep.heading : currentPage.heading}
           </h1>
-          <p className="mt-2 text-ink/60">{currentPage.subheading}</p>
+          <p className="mt-2 text-ink/60">
+            {isInterestsPage && discovery.stage === "cards" ? dict.discovery.cardStep.hint : currentPage.subheading}
+          </p>
           {currentPage.intro && (
             <p className="mt-4 rounded-lg border border-border bg-surface-active px-4 py-3 text-sm text-ink/70">
               {currentPage.intro}

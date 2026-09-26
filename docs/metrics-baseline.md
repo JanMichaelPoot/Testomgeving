@@ -34,13 +34,30 @@ kun je toch controleren wat er zou worden verstuurd: open de console en lees
 | `checkout_pay_clicked` | Betaalknop, voor de doorverwijzing naar Stripe | `is_gift` |
 | `plan_viewed` | Idea Book geopend na betaling | (bestond al) |
 
-`wizard_variant` is nu `legacy`. De nieuwe kaartenwizard krijgt een eigen waarde, zodat beide
-naast elkaar vergeleken kunnen worden (A/B via een PostHog-feature flag).
+`wizard_variant` is `legacy` (de klassieke wizard) of `cards` (de visuele kaartenwizard), zodat
+beide naast elkaar vergeleken kunnen worden. Welke variant iemand krijgt staat in
+`NEXT_PUBLIC_DISCOVERY_WIZARD_PERCENT` (0-100, standaard 0 = niemand); `/intake?wizard=cards`
+en `/intake?wizard=legacy` forceren een variant om te testen. De keuze staat per browsertab
+in sessionStorage (geen cookie).
+
+Extra events van de kaartenwizard (alleen ids en aantallen, nooit tekst):
+
+| Event | Wanneer | Eigenschappen |
+|---|---|---|
+| `discovery_domain_toggled` | Wereld aan- of uitgezet | `domain`, `on` |
+| `discovery_stage_completed` | "Verder" op de werelden of op de kaarten | `stage`, `selected`, `duration_ms`, `batches_shown`, `surprise` |
+| `discovery_card_toggled` | Activiteit aan- of uitgezet | `activity_id`, `on`, `batch` (-1 = via de gekozen-lijst) |
+| `discovery_more_clicked` | "Toon meer" | `batches` |
+| `discovery_skipped` | "Sla deze stap over" | |
+
+De pagina-events (`intake_page_viewed`, `intake_page_completed`) gelden ook voor de kaartenwizard,
+met `page = interests` voor pagina 4. Vergelijk de varianten door de funnel en de invultijd
+uit te splitsen op `wizard_variant`.
 
 ## Insights om aan te maken in PostHog
 
 1. **Funnel "Van landing tot betaling"**: `landing_viewed` → `landing_start_submitted` →
-   `intake_started` → `intake_page_viewed` (page = about) → (page = dials) → (page = openness)
+   `intake_started` → `intake_page_viewed` (page = about) → (page = dials) → (page = openness, in de kaartenwizard: interests)
    → (page = final) → `intake_submitted` → `checkout_viewed` → `checkout_pay_clicked` →
    `plan_viewed`. Uitval per stap = het verschil tussen twee opeenvolgende stappen.
 2. **Invultijd per pagina**: gemiddelde en mediaan van `duration_ms` op `intake_page_completed`,
