@@ -4,6 +4,8 @@
 // full library (both languages, art direction, safety notes) must not end up in
 // the browser bundle; the server sends only what a card needs.
 
+import { hashSeed, mulberry32, shuffled } from "@/lib/discovery/rng";
+
 export interface CardActivity {
   id: string;
   domain: string;
@@ -37,39 +39,6 @@ export interface CardSlot {
 export const CARDS_PER_BATCH = 10;
 export const EXT_PER_BATCH = 2;
 export const MAX_BATCHES = 4;
-
-// --- seeded randomness ---------------------------------------------------------
-// The order must survive a refresh or a step back, so it comes from a seed that is
-// kept with the draft rather than from Math.random() on every render.
-
-function hashSeed(text: string): number {
-  let h = 1779033703 ^ text.length;
-  for (let i = 0; i < text.length; i++) {
-    h = Math.imul(h ^ text.charCodeAt(i), 3432918353);
-    h = (h << 13) | (h >>> 19);
-  }
-  return h >>> 0;
-}
-
-function mulberry32(seed: number) {
-  let a = seed;
-  return () => {
-    a |= 0;
-    a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-function shuffled<T>(list: readonly T[], rnd: () => number): T[] {
-  const out = [...list];
-  for (let i = out.length - 1; i > 0; i--) {
-    const j = Math.floor(rnd() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]];
-  }
-  return out;
-}
 
 /** One domain's activities, ordered so consecutive cards come from different sub-domains. */
 function orderWithinDomain(items: CardActivity[], rnd: () => number): CardActivity[] {

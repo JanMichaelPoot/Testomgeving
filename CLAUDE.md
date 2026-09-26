@@ -2608,3 +2608,51 @@ Stripe, Claude API, Resend, PostHog).
       gevonden en het model verzon een uitleg): precies wat de selectiemotor van
       fase 3/4 moet afdwingen, zie het ontwerprapport.
 
+
+- [x] Stap 55 — Discovery Engine, fase 3: de selectiemotor
+      (`src/lib/discovery/engine/`, uitleg in `docs/discovery-engine.md`).
+      Nog **niet aangesloten op de generatie** (dat is fase 4): fase 3 levert de
+      motor, de regressietests en de evaluatie. De motor is deterministisch en
+      maakt geen AI-aanroep. Uit de gekozen kaarten, de sociale keuze, de schuiven
+      en de vrije-tekst-grenzen kiest hij zeven zaden: 2 vertrouwd (natural),
+      1 onverwacht, 2 aangrenzend (discovery), 1 stretch en 1 wildcard, elk met een
+      keten (`chain`/`via`) die uitlegt waarom, een gecureerde combinatie
+      (`hybrid`) waar mogelijk, de sociale vorm om mee te openen en `verify`-vlaggen
+      voor wat het onderzoek moet controleren. Onverwacht komt vóór aangrenzend zodat
+      de partner van een gecureerde combinatie niet als gewone buur wordt opgesoupeerd.
+      **Harde filters** alleen op een bekend conflict (onbekend laat door met vlag):
+      budget, inspanning, toezichtsplicht bij "voorspelbaar", een expliciet gekozen
+      sociale vorm (niet "maakt niet uit"), en uit de vrije tekst alleen wat
+      betrouwbaar leesbaar is (één duidelijke wens buiten/binnen, "geen groepen",
+      "gratis"; tegenstrijdig of onduidelijk wordt genegeerd); wat niet filterbaar is
+      (rolstoel, hond, dieet, alcohol, kinderen) wordt als `verify` doorgegeven. Twee
+      echte bugs door de tests gevonden en gefixt: samengestelde woorden ("Rolstoeltoegankelijk"
+      is de eigen chip van de wizard, "hondvriendelijk" de placeholder) werden door
+      `\b`-woordgrenzen gemist, en een gecureerde combinatie werd weggekaapt door de
+      aangrenzend-stap. **Diversiteit**: max. 2 per wereld en niet twee uit één
+      subdomein (liever een zwakkere verbinding dan een derde uit één wereld),
+      thema's stapelen niet (bruggen met al gekozen ideeën kosten score),
+      herhaling: wat in de laatste twee sessies getoond is komt niet terug, tenzij
+      opnieuw gekozen (de geschiedenis zelf is fase 5). Bruggen wegen naar zeldzaamheid
+      en stemmingstags tellen nooit mee.
+      **Evaluatie** (`scripts/discovery-shadow.ts`, 200 synthetische profielen van
+      zeven soorten, incl. tegenstrijdige): de harde criteria E1 (constraints), E3
+      (herhaling over drie sessies), E4 (één wildcard), E5 (sociale keuze), E6
+      (toezicht) hebben 0 schendingen, ook over 4 extra reeksen van 300 profielen.
+      Zacht: zes ideeën 100%, ≥4 werelden 100%, ≤2 per wereld 98,5%, alle vier de
+      richtingen 98%, niche krijgt 2 ideeën in de eigen wereld 100%, onverwacht is
+      uitlegbaar 100%. Gemiddeld 5,8 werelden per boek, 186 van 200 activiteiten
+      komen voor. Bekend: hubs (Creatief schrijven in 22% van de boeken, vooral bij
+      sterk beperkte profielen) en een milde stretch bij sterk beperkte profielen
+      (`direction_relaxed:stretch` bij ±20%). **Vergelijking met de huidige generatie**
+      (`scripts/discovery-baseline.ts`, 93 bestaande testboeken, vooral van Jan zelf,
+      dus indicatief): boeken met fotocategorie hebben gemiddeld 3,5 van 12
+      categorieën, en dezelfde signaalwoorden keren steeds terug (speurtocht in 14
+      van 93 boeken, keramiek 13, stilte/stille 13/13, heide 13); letterlijk dezelfde
+      titel over verschillende boeken is zeldzaam (2%). Herhaling voor dezelfde
+      bezoeker over sessies is niet te meten omdat de app geen bezoekeridentiteit
+      heeft; de motor lost dat wel af zodra fase 5 de geschiedenis levert. Bewust niet
+      gedaan: 200 boeken door Claude laten schrijven voor een blinde vergelijking
+      (≈€26); die beoordeling hoort bij fase 4/6 met echte, geïntegreerde boeken.
+      Getest: 152 tests (nieuw: 23 voor de motor, waaronder de E1-E8-regressie op twee
+      reeksen van 200 profielen), `tsc`, lint.
