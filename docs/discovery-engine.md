@@ -52,8 +52,8 @@ sessielengte en veel hobby's zijn "doorlopend", dus dat zou te veel wegfilteren.
 - Thema's stapelen niet: een idee dat zijn bruggen deelt met al gekozen ideeën scoort lager
   (vier wandelingen achter elkaar is geen spreiding).
 - **Herhaling**: wat de bezoeker in de laatste twee sessies zag (`history`) komt niet terug,
-  behalve wat hij of zij opnieuw kiest. De geschiedenis zelf komt uit fase 5; de motor accepteert
-  haar al.
+  behalve wat hij of zij opnieuw kiest. De geschiedenis komt uit het optionele apparaatgeheugen
+  (zie hieronder); zonder geheugen is `history` leeg.
 - De wildcard heeft een voorkeur voor werelden die de bezoeker nog nooit zag.
 
 ## Bruggen
@@ -101,3 +101,27 @@ wildcard), E5 (sociale keuze gerespecteerd én voorop), E6 (toezichtsplicht), E2
 - **Tijd en afstand tellen niet mee** in de selectie (zie hierboven).
 - **Alles is concept.** De kenmerken in de bibliotheek zijn nog niet door kenners getoetst; de motor
   is zo goed als zijn data.
+
+## Herhalingsgeheugen (opt-in) en keuzes wijzigen (fase 5)
+
+**Herhalingsgeheugen.** Alleen na een expliciete keuze op de betaalpagina (schakelaar, standaard
+uit): er komt een willekeurige apparaatcode in een first-party cookie (`window_device_id`,
+httpOnly, 12 maanden). In de database staat alleen de SHA-256 daarvan, nooit de code zelf en nooit
+een e-mailadres (`discovery_history`, migratie 0015). De rij wordt bij het afrekenen aangemaakt
+(de generatie draait later zonder toegang tot cookies), na de generatie vult
+`recordShown` de `activity_id`'s van het boek in, en de volgende generatie voor hetzelfde apparaat
+leest via `loadShownBefore` wat de laatste twee boeken toonden en geeft dat als `history` aan de
+motor. Een betaald boek zonder ideeën telt niet als sessie. Rijen ouder dan 12 maanden worden bij
+elke schrijfactie verwijderd. Uitzetten (schakelaar) of "Vergeet dit apparaat" (privacypagina)
+verwijdert alle rijen van het apparaat en het cookie. Alles is best effort: ontbreekt de tabel of
+faalt een query, dan wordt het boek gewoon zonder geheugen gemaakt. Code: `discovery/history.ts`
+(zuivere hulpfuncties), `discovery/historyStore.ts` (cookie + database).
+
+**Keuzes wijzigen vóór betaling.** De betaalpagina toont "Jouw keuzes", per wizardpagina gegroepeerd
+(`checkoutChoices.ts`), elk met een link `/intake?edit=1&page=N`. De wizard start dan met de
+opgeslagen antwoorden en de variant waarin ze gegeven zijn; opnieuw versturen vervangt de
+antwoorden **in dezelfde sessie** (`replaceIntake`), dus geen dubbele sessies en de betaalpagina,
+Stripe-metadata en het geheugen blijven naar één sessie wijzen. Wijzigen kan tot het boek wordt
+gemaakt of de bestelling betaald is (`isSessionLocked`); daarna start opnieuw versturen een nieuwe
+sessie zodat niemand zijn invoer kwijtraakt. Wijzigen ná betaling (bijv. één gratis herbouw) is
+bewust niet gebouwd: dat hangt samen met de prijsstrategie.

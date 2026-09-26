@@ -11,6 +11,7 @@ import { recordTermsAcceptance, recordDigitalDeliveryConsent } from "@/lib/conse
 import { LEGAL_VERSIONS } from "@/lib/legal/versions";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { disableDeviceMemory, enableDeviceMemory, getDeviceId } from "@/lib/discovery/historyStore";
 
 // Model C digital sale compliance: two separate, independently required
 // checkboxes on /checkout (see CheckoutPanel.tsx) — termsAccepted (the
@@ -24,7 +25,10 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 export async function createCheckoutSession(
   termsAccepted: boolean,
   digitalDeliveryConsent: boolean,
-  giftRecipientEmail?: string
+  giftRecipientEmail?: string,
+  // The optional "remember what I was shown on this device" choice (fase 5): true = opt in,
+  // false = opt out (and delete what was stored), undefined = leave as it is.
+  rememberDevice?: boolean
 ) {
   const locale = await getLocale();
   const dict = getDictionary(locale).checkout;
@@ -147,6 +151,10 @@ export async function createCheckoutSession(
     .update({ status: "converged" })
     .eq("id", sessionId);
 
+  // Best effort and never a reason to block a payment.
+  if (rememberDevice === true) await enableDeviceMemory(supabase, sessionId);
+  else if (rememberDevice === false) await disableDeviceMemory(supabase);
+
   redirect(checkoutSession.url);
 }
 
@@ -158,6 +166,10 @@ export async function skipPaymentForTesting() {
   if (!sessionId) {
     throw new Error("No active session.");
   }
+
+  // A device that already opted in keeps its memory in test mode too, the same as the
+  // real checkout's switch, which starts on for such a device.
+  if (await getDeviceId()) await enableDeviceMemory(createServiceRoleClient(), sessionId);
 
   redirect(`/plan?test_session_id=${encodeURIComponent(sessionId)}`);
 }

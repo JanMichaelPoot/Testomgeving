@@ -2707,3 +2707,51 @@ Stripe, Claude API, Resend, PostHog).
       (≈$28 per 200 boeken, half via Batch) hoort bij fase 6; het percentage
       `unverified_website` over veel boeken; hub-bias van de motor.
       Getest: 176 tests (nieuw: 24 voor research/seed-pijplijn), `tsc`, lint.
+
+- [x] Stap 57 — Discovery Engine, fase 5: optioneel herhalingsgeheugen en keuzes
+      wijzigen vóór betaling (uitleg in `docs/discovery-engine.md`).
+      **Herhalingsgeheugen (opt-in, besluit 3 uit het ontwerp)**: een schakelaar
+      op de betaalpagina, standaard uit en los van de twee verplichte
+      vinkjes. Aan = een willekeurige apparaatcode in een first-party cookie
+      (`window_device_id`, httpOnly, 12 maanden); in de database staat alleen de
+      SHA-256 ervan (`discovery_history`, migratie
+      `0015_discovery_history.sql`, **nog handmatig uit te voeren in de
+      Supabase SQL Editor**), nooit de code zelf en nooit een e-mailadres. De rij
+      wordt bij het afrekenen gemaakt (`createCheckoutSession` kreeg een vierde
+      parameter `rememberDevice`; de generatie draait later in `after()` zonder
+      cookies), `finishPlanGeneration` leest wat de laatste twee boeken van het
+      apparaat toonden (`loadShownBefore`) als `history` voor de motor en schrijft
+      daarna de `activity_id`'s van het nieuwe boek (`recordShown`). Een betaald
+      boek zonder ideeën telt niet als sessie; rijen ouder dan 12 maanden worden bij
+      elke schrijfactie verwijderd (geen aparte cronjob). Uitzetten of
+      "Vergeet dit apparaat" op de privacypagina (`forgetDevice`) verwijdert alle
+      rijen van het apparaat en het cookie. Privacyverklaring (nl + en) kreeg een
+      sectie "apparaatgeheugen" — **laat die tekst juridisch controleren**, zoals
+      het ontwerp al vroeg. Alles is best effort: zonder tabel of bij een falende
+      query wordt het boek gewoon zonder geheugen gemaakt (één waarschuwing in de
+      log; live bevestigd). Alleen boeken uit de seed-pijplijn hebben
+      `activity_id`'s, dus alleen die bouwen geheugen op. De testbypass
+      ("Betaling overslaan") houdt een bestaande opt-in aan.
+      **Keuzes wijzigen (besluit 7: alleen vóór betaling)**: de betaalpagina toont
+      "Jouw keuzes" per wizardpagina (`src/lib/checkoutChoices.ts`), elk met een
+      "Wijzig"-link naar `/intake?edit=1&page=N`; "Terug" opent ook de bewerkmodus in
+      plaats van een lege wizard. De wizard start met de opgeslagen antwoorden en in
+      de variant waarin ze gegeven zijn (legacy of kaarten); opnieuw versturen
+      vervangt de antwoorden **in dezelfde sessie** (`replaceIntake` in
+      `src/lib/intakeEdit.ts`): geen dubbele sessies. Wijzigen kan zolang er geen
+      boek wordt gemaakt of klaar is en er geen betaalde bestelling is
+      (`isSessionLocked`); anders start `submitIntake` een nieuwe sessie, zodat
+      niemand invoer kwijtraakt, en toont `/intake?edit=1` een melding. Wijzigen ná
+      betaling (één gratis herbouw) is bewust niet gebouwd: dat hangt samen met de
+      prijsstrategie.
+      **Getest**: 208 tests (nieuw: 32 voor hash/cookie/opslag/keuzesamenvatting/
+      wijzigen, waaronder E3 met drie opeenvolgende boeken en echte geheugenlogica),
+      `tsc`, lint, productiebuild. In de browser: hele flow met de kaartenwizard
+      tot de betaalpagina met "Jouw keuzes", "Wijzig" opent pagina 4 met de
+      opgeslagen keuzes en de melding, een gekozen activiteit weghalen en opnieuw
+      versturen werkt de rij in de database bij (zelfde `session_id`, geen nieuwe
+      rij), de privacypagina toont de knop alleen bij een cookie en wist dat.
+      **Niet live getest**: opslaan en teruglezen van het geheugen tegen de
+      database, omdat migratie 0015 nog niet is uitgevoerd (alleen met nagebootste
+      Supabase-client getest). Zodra 0015 draait: twee testboeken achter elkaar met
+      hetzelfde cookie en kijken of het tweede niets herhaalt.

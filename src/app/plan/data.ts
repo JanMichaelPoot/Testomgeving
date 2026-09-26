@@ -3,6 +3,7 @@ import { getStripe } from "@/lib/stripe";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { generateIdeaBook, type GeneratedIdeaBook } from "@/lib/claude/generateIdeaBook";
 import { generateIdeaBookFromSeeds, shouldUseEngine } from "@/lib/claude/generateFromSeeds";
+import { loadShownBefore, recordShown } from "@/lib/discovery/historyStore";
 import { renderIdeaBookPdf } from "@/lib/pdf/ideaBook";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
 import { recordAuditLogEntry } from "@/lib/auditLog";
@@ -311,7 +312,14 @@ async function finishPlanGeneration(
     let generated: GeneratedIdeaBook;
     if (shouldUseEngine(profile)) {
       try {
-        generated = (await generateIdeaBookFromSeeds(profile, locale, characterProfile, { sessionId: pendingRow.session_id })).book;
+        // Only devices that opted in on the checkout page have a history (empty otherwise).
+        const history = await loadShownBefore(supabase, pendingRow.session_id);
+        generated = (await generateIdeaBookFromSeeds(profile, locale, characterProfile, { sessionId: pendingRow.session_id, history })).book;
+        await recordShown(
+          supabase,
+          pendingRow.session_id,
+          [...generated.ideas, generated.wildcard].flatMap((idea) => (idea.activity_id ? [idea.activity_id] : [])),
+        );
       } catch (err) {
         console.error("WINDOW: seed pipeline failed, falling back to the classic generation", err);
         generated = await generateIdeaBook(profile, locale, characterProfile);

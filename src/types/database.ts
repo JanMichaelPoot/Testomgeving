@@ -410,6 +410,32 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["local_research_cache"]["Insert"]>;
         Relationships: [];
       };
+      // Optional, opt-in repetition memory keyed on a hashed device id (never an e-mail),
+      // see supabase/migrations/0015_discovery_history.sql.
+      discovery_history: {
+        Row: {
+          session_id: string;
+          device_hash: string;
+          activity_ids: string[];
+          created_at: string;
+        };
+        Insert: {
+          session_id: string;
+          device_hash: string;
+          activity_ids?: string[];
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["discovery_history"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "discovery_history_session_id_fkey";
+            columns: ["session_id"];
+            isOneToOne: true;
+            referencedRelation: "sessions";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       // Deliberately has no foreign key to any other table — see
       // supabase/migrations/0008_audit_log.sql for why this row can never
       // be traced back to a session or person.

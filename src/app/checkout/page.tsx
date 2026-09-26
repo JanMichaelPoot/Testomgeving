@@ -11,6 +11,10 @@ import { LUXURY_ILLUSTRATIONS } from "@/lib/illustrations";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { formatPrice } from "@/lib/pricing";
+import { DOMAINS, getActivity } from "@/lib/discovery/library";
+import { buildChoiceGroups } from "@/lib/checkoutChoices";
+import { getDeviceId } from "@/lib/discovery/historyStore";
+import type { StoredIntake } from "@/app/intake/actions";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -32,7 +36,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
 
   const { data: intake } = await supabase
     .from("intake_answers")
-    .select("id")
+    .select("id, raw_json")
     .eq("session_id", sessionId)
     .order("created_at", { ascending: false })
     .limit(1)
@@ -44,13 +48,26 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
   const dict = getDictionary(locale);
   const price = formatPrice(locale);
 
+  // "Jouw keuzes": what the book will be based on, each group with a link to change it.
+  const groups = buildChoiceGroups(
+    intake.raw_json as unknown as StoredIntake,
+    dict.intake,
+    dict.checkout.choicesGroups,
+    dict.checkout.choicesSurprise,
+    {
+      activity: (id) => getActivity(id)?.label[locale] ?? null,
+      domain: (id) => DOMAINS.find((d) => d.id === id)?.short[locale] ?? null,
+    },
+  );
+  const rememberInitially = (await getDeviceId()) !== null;
+
   return (
     <div className="flex min-h-full flex-col bg-cream">
       <SiteHeader locale={locale} dict={dict.header} />
       <TestModeBanner dict={dict.checkout} />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-12 sm:px-10">
         <Link
-          href="/intake"
+          href="/intake?edit=1"
           className="mb-8 inline-flex items-center gap-2 text-sm text-ink/60 transition-colors hover:text-ink"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -114,11 +131,41 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
                 </li>
               ))}
             </ol>
+
+            <h2 className="mt-10 text-sm font-medium text-ink">{dict.checkout.choicesHeading}</h2>
+            <p className="mt-1 text-xs text-ink/50">{dict.checkout.choicesHint}</p>
+            <dl className="mt-4 divide-y divide-border rounded-lg border border-border">
+              {groups.map((group) => (
+                <div key={group.id} className="flex items-start justify-between gap-4 px-4 py-3">
+                  <div className="min-w-0">
+                    <dt className="text-xs font-medium uppercase tracking-widest text-ink/45">{group.label}</dt>
+                    <dd className="mt-1 text-sm leading-relaxed text-ink/80">
+                      {group.lines.length > 0 ? (
+                        group.lines.map((line, i) => (
+                          <span key={i} className="block break-words">
+                            {line}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-ink/40">{dict.checkout.choicesNone}</span>
+                      )}
+                    </dd>
+                  </div>
+                  <Link
+                    href={`/intake?edit=1&page=${group.page}`}
+                    className="shrink-0 rounded-md px-2 py-1 text-xs font-medium text-accent underline underline-offset-2 hover:text-accent-dark"
+                  >
+                    {dict.checkout.choicesEdit}
+                    <span className="sr-only"> — {group.label}</span>
+                  </Link>
+                </div>
+              ))}
+            </dl>
           </div>
 
           {/* Right: gift/waiver/payment */}
           <div className="lg:pl-0">
-            <CheckoutPanel dict={dict.checkout} price={price} />
+            <CheckoutPanel dict={dict.checkout} price={price} rememberInitially={rememberInitially} />
           </div>
         </div>
       </main>

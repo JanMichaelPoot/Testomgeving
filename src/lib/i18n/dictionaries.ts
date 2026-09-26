@@ -64,6 +64,8 @@ export interface Dictionary {
     privacyTitle: string;
     privacyHeading: string;
     privacyIntro: string;
+    privacyForgetButton: string;
+    privacyForgetNone: string;
     // `id` gives every section a stable, locale-independent anchor
     // (e.g. "#cookies") — the heading text itself differs per locale, so
     // it can't double as the anchor the way it used to.
@@ -110,6 +112,14 @@ export interface Dictionary {
       contact: string;
     };
     giftToggleLabel: string;
+    memoryLabel: string;
+    memoryHint: string;
+    choicesHeading: string;
+    choicesHint: string;
+    choicesEdit: string;
+    choicesNone: string;
+    choicesSurprise: string;
+    choicesGroups: { situation: string; about: string; dials: string; interests: string; final: string };
     giftEmailLabel: string;
     giftEmailPlaceholder: string;
     ctaIdle: string;
@@ -332,6 +342,8 @@ export interface Dictionary {
     opening: string;
     makeThisReal: string;
     errorGeneric: string;
+    editBanner: string;
+    editLocked: string;
     pages: {
       situation: { heading: string; subheading: string };
       about: { heading: string; subheading: string };
@@ -467,6 +479,8 @@ const nl: Dictionary = {
   legal: {
     privacyTitle: "Privacybeleid — WINDOW",
     privacyHeading: "Privacybeleid",
+    privacyForgetButton: "Vergeet dit apparaat",
+    privacyForgetNone: "Op dit apparaat wordt niets onthouden.",
     privacyIntro:
       "Kort en concreet: dit is wat er met jouw gegevens gebeurt wanneer je een Idea Book aanvraagt bij WINDOW.",
     privacySections: [
@@ -489,6 +503,11 @@ const nl: Dictionary = {
         id: "bewaartermijn",
         heading: "Hoe lang we het bewaren",
         body: "Je intake-antwoorden blijven gekoppeld aan een anonieme sessie, niet aan je naam of e-mailadres. Pas zodra je betaalt, koppelen we je e-mailadres aan die sessie om je Idea Book te kunnen versturen. Bestel- en toestemmingsgegevens bewaren we zolang dat nodig is om een bestelling aantoonbaar te houden.",
+      },
+      {
+        id: "apparaatgeheugen",
+        heading: "Optioneel: onthouden wat je al zag",
+        body: "Alleen als je dat op de betaalpagina aanvinkt, slaan we 12 maanden een willekeurige code op in een cookie op je apparaat en — uitsluitend gekoppeld aan een gehashte versie van die code — welke activiteiten je Idea Books lieten zien, zodat het volgende ze niet herhaalt. Geen naam, geen e-mailadres. Zet het uit bij het afrekenen of druk hieronder op 'Vergeet dit apparaat' en alles wat voor het apparaat is opgeslagen wordt direct verwijderd; rijen vervallen ook na 12 maanden.",
       },
       {
         id: "rechten",
@@ -592,6 +611,21 @@ const nl: Dictionary = {
       contact: "Contact",
     },
     giftToggleLabel: "Dit is een cadeau — stuur het naar iemand anders",
+    memoryLabel: "Onthoud wat ik op dit apparaat heb gezien, zodat een volgend Idea Book het niet herhaalt",
+    memoryHint:
+      "Optioneel. Slaat 12 maanden een willekeurige code op in een cookie op dit apparaat, en alleen welke activiteiten je boeken lieten zien. Geen naam of e-mailadres. Je kunt het hier of op de privacypagina uitzetten en dan wordt alles verwijderd.",
+    choicesHeading: "Jouw keuzes",
+    choicesHint: "Kijk ze nog één keer na. Je kunt alles nog wijzigen voordat je betaalt.",
+    choicesEdit: "Wijzig",
+    choicesNone: "Niets ingevuld",
+    choicesSurprise: "Verras me",
+    choicesGroups: {
+      situation: "Wat speelt er",
+      about: "Over jou",
+      dials: "Jouw stijl",
+      interests: "Wat je trekt",
+      final: "Hoe je het doet",
+    },
     giftEmailLabel: "E-mailadres van de ontvanger",
     giftEmailPlaceholder: "naam@voorbeeld.nl",
     ctaIdle: "Betalen en mijn PDF ontvangen — {price}",
@@ -837,6 +871,8 @@ const nl: Dictionary = {
     opening: "Wordt geopend…",
     makeThisReal: "Maak het echt",
     errorGeneric: "Er ging iets mis. Probeer het opnieuw.",
+    editBanner: "Je past je keuzes aan. Je Idea Book is nog niet gemaakt.",
+    editLocked: "Dit Idea Book is al gemaakt, dus de keuzes kunnen niet meer worden gewijzigd.",
     pages: {
       situation: {
         heading: "Jouw situatie",
@@ -1129,6 +1165,8 @@ const en: Dictionary = {
   legal: {
     privacyTitle: "Privacy Policy — WINDOW",
     privacyHeading: "Privacy Policy",
+    privacyForgetButton: "Forget this device",
+    privacyForgetNone: "Nothing is remembered on this device.",
     privacyIntro:
       "Short and concrete: here's what happens to your data when you request an Idea Book from WINDOW.",
     privacySections: [
@@ -1151,6 +1189,11 @@ const en: Dictionary = {
         id: "bewaartermijn",
         heading: "How long we keep it",
         body: "Your intake answers stay linked to an anonymous session, not to your name or email. Only once you pay do we link your email address to that session, so we can send your Idea Book. Order and consent records are kept for as long as needed to keep an order demonstrable.",
+      },
+      {
+        id: "apparaatgeheugen",
+        heading: "Optional: remembering what you were shown",
+        body: "Only if you tick it on the checkout page, we store a random code in a cookie on your device for 12 months, and — linked only to a hashed version of that code — which activities your Idea Books showed, so the next one doesn't repeat them. No name, no e-mail address. Switch it off at checkout or press 'Forget this device' below and everything stored for the device is deleted straight away; rows also expire after 12 months.",
       },
       {
         id: "rechten",
@@ -1254,6 +1297,21 @@ const en: Dictionary = {
       contact: "Contact",
     },
     giftToggleLabel: "This is a gift — send it to someone else",
+    memoryLabel: "Remember what I was shown on this device, so a next Idea Book doesn't repeat it",
+    memoryHint:
+      "Optional. Stores a random code in a cookie on this device for 12 months, and only which activities your books showed. No name or e-mail address. You can switch it off here or on the privacy page and everything is deleted.",
+    choicesHeading: "Your choices",
+    choicesHint: "Check them once more. You can still change everything before you pay.",
+    choicesEdit: "Change",
+    choicesNone: "Nothing filled in",
+    choicesSurprise: "Surprise me",
+    choicesGroups: {
+      situation: "What's going on",
+      about: "About you",
+      dials: "Your style",
+      interests: "What draws you",
+      final: "How you like to do it",
+    },
     giftEmailLabel: "Recipient's email address",
     giftEmailPlaceholder: "name@example.com",
     ctaIdle: "Pay and get my PDF — {price}",
@@ -1499,6 +1557,8 @@ const en: Dictionary = {
     opening: "Opening…",
     makeThisReal: "Make this real",
     errorGeneric: "Something went wrong. Please try again.",
+    editBanner: "You're adjusting your choices. Your Idea Book has not been made yet.",
+    editLocked: "This Idea Book has already been made, so its choices can no longer be changed.",
     pages: {
       situation: {
         heading: "Your situation",

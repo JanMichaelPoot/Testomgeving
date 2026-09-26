@@ -52,9 +52,12 @@ function ComplianceCheckbox({
 export function CheckoutPanel({
   dict,
   price,
+  rememberInitially = false,
 }: {
   dict: Dictionary["checkout"];
   price: string;
+  // True for a visitor whose device already has the opt-in cookie (fase 5).
+  rememberInitially?: boolean;
 }) {
   // Two independent, never-pre-checked checkboxes — digital delivery +
   // withdrawal waiver combined (allowed to be one checkbox per the
@@ -64,6 +67,9 @@ export function CheckoutPanel({
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [isGift, setIsGift] = useState(false);
   const [giftEmail, setGiftEmail] = useState("");
+  // Optional repetition memory: never pre-ticked for a new visitor, and its own consent,
+  // unrelated to the two compliance checkboxes below.
+  const [remember, setRemember] = useState(rememberInitially);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -88,7 +94,8 @@ export function CheckoutPanel({
         await createCheckoutSession(
           termsAccepted,
           digitalDeliveryConsent,
-          isGift ? giftEmail : undefined
+          isGift ? giftEmail : undefined,
+          remember
         );
       } catch (err) {
         // Next.js redirect() throws internally on success (to Stripe
@@ -136,6 +143,32 @@ export function CheckoutPanel({
             />
           </div>
         )}
+      </div>
+
+      {/* Optional repetition memory (fase 5): its own choice, off unless switched on. */}
+      <div className="mb-6 rounded-lg border border-border bg-cream p-5">
+        <div className="flex items-start justify-between gap-4">
+          <span id="memory-label" className="text-sm font-medium text-ink">
+            {dict.memoryLabel}
+          </span>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={remember}
+            aria-labelledby="memory-label"
+            onClick={() => setRemember((r) => !r)}
+            className={`relative mt-0.5 h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
+              remember ? "bg-accent" : "bg-ink/15"
+            }`}
+          >
+            <span
+              className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200 ${
+                remember ? "translate-x-6" : "translate-x-1"
+              }`}
+            />
+          </button>
+        </div>
+        <p className="mt-2 text-xs leading-relaxed text-ink/60">{dict.memoryHint}</p>
       </div>
 
       {/* Disclaimer */}

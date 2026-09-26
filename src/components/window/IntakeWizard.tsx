@@ -446,11 +446,16 @@ export function IntakeWizard({
   dict,
   variant = "legacy",
   library,
+  initial,
 }: {
   dict: IntakeDict;
   variant?: WizardVariant;
   // Slim card data for the card wizard (see src/lib/discovery/cardLibrary.ts).
   library?: CardLibrary;
+  // Changing choices before paying (fase 5): the stored answers of the session in the
+  // cookie and the page to open on. Takes precedence over any draft in this tab, and
+  // submitting replaces those answers in place instead of starting a new session.
+  initial?: { answers: IntakeAnswers; page: number };
 }) {
   const [page, setPage] = useState(0);
   const [answers, setAnswers] = useState<IntakeAnswers>(EMPTY_ANSWERS);
@@ -477,10 +482,16 @@ export function IntakeWizard({
     // can only be read after mount, to keep server and first-client render
     // identical for hydration. Not a subscription, so the cascading-render
     // caution behind this rule doesn't apply here.
-    const draft = loadDraft();
-    if (draft && !isBlankDraft(draft)) {
-      // One-time hydration-safe restore from sessionStorage, not a render loop.
+    const draft = initial ? null : loadDraft();
+    if (initial) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
+      setAnswers({ ...EMPTY_ANSWERS, ...initial.answers });
+      setPage(initial.page);
+      // Stored answers were all given on purpose: show every dial as answered.
+      setTouchedSliders(new Set<StepId>(["ageCategory", "searchDistance", "practicalToWild", "timeAvailable", "budget", "effort"]));
+      setDiscovery({ ...INITIAL_DISCOVERY, seed: newSeed() });
+    } else if (draft && !isBlankDraft(draft)) {
+      // One-time hydration-safe restore from sessionStorage, not a render loop.
       setPage(draft.page);
       setAnswers(draft.answers);
       setDiscovery({ ...INITIAL_DISCOVERY, ...draft.discovery, seed: draft.discovery?.seed || newSeed() });
@@ -495,8 +506,9 @@ export function IntakeWizard({
     }
     setHydrated(true);
     startedAt.current = performance.now();
-    trackEvent("intake_started", { wizard_variant: variant, restored: !!draft && !isBlankDraft(draft) });
-    // `variant` never changes for a mounted wizard (IntakeEntry decides it first).
+    trackEvent("intake_started", { wizard_variant: variant, restored: !!draft && !isBlankDraft(draft), editing: !!initial });
+    // `variant` and `initial` never change for a mounted wizard (IntakeEntry decides them first).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variant]);
 
   useEffect(() => {
@@ -676,7 +688,7 @@ export function IntakeWizard({
     });
     startTransition(async () => {
       try {
-        await submitIntake(answers);
+        await submitIntake(answers, initial ? { edit: true } : {});
       } catch (err) {
         if (isRedirectError(err)) {
           clearDraft();
@@ -920,6 +932,11 @@ export function IntakeWizard({
       {/* Right: form */}
       <div className="flex flex-1 flex-col">
         <div className="px-6 pt-8 sm:px-10">
+          {initial && (
+            <p className="mb-4 rounded-lg border border-border bg-surface-active px-4 py-3 text-sm text-ink/70" role="status">
+              {dict.editBanner}
+            </p>
+          )}
           <div className="flex items-center justify-between gap-4">
             <span className="inline-flex items-center gap-2 rounded-full bg-surface-active px-3 py-1 text-xs font-medium text-ink/70">
               <WindowMark className="h-3.5 w-3.5" />

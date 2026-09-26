@@ -3,7 +3,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createServiceRoleClient } from "@/lib/supabase/server";
-import { SESSION_COOKIE_NAME } from "@/lib/session";
+import { SESSION_COOKIE_NAME, getSessionId } from "@/lib/session";
+import { replaceIntake } from "@/lib/intakeEdit";
 import { getLocale, type Locale } from "@/lib/language";
 import { sanitizeDiscoveryAnswers } from "@/lib/discovery/answers";
 
@@ -59,19 +60,9 @@ export interface IntakeAnswers {
 // that's already mid-generation. See src/app/plan/data.ts.
 export type StoredIntake = IntakeAnswers & { locale: Locale };
 
-export async function submitIntake(answers: IntakeAnswers) {
+export async function submitIntake(answers: IntakeAnswers, opts: { edit?: boolean } = {}) {
   const supabase = createServiceRoleClient();
   const locale = await getLocale();
-
-  const { data: session, error: sessionError } = await supabase
-    .from("sessions")
-    .insert({ status: "started" })
-    .select("id")
-    .single();
-
-  if (sessionError || !session) {
-    throw new Error(sessionError?.message ?? "Could not start a session");
-  }
 
   // The card wizard's ids come from the browser: keep only real ones.
   const discovery = sanitizeDiscoveryAnswers(answers);
@@ -82,6 +73,25 @@ export async function submitIntake(answers: IntakeAnswers) {
     solutionTypes: answers.solutionTypes?.length ? answers.solutionTypes : ["activity"],
     locale,
   };
+
+  // Changing choices before paying (fase 5): the answers of the session in the cookie are
+  // replaced in place. If that is no longer possible (nothing stored, or the book is
+  // already being made or paid for) this falls through and starts a fresh session, so a
+  // person never loses their input.
+  if (opts.edit) {
+    const existing = await getSessionId();
+    if (existing && (await replaceIntake(supabase, existing, stored))) redirect("/checkout");
+  }
+
+  const { data: session, error: sessionError } = await supabase
+    .from("sessions")
+    .insert({ status: "started" })
+    .select("id")
+    .single();
+
+  if (sessionError || !session) {
+    throw new Error(sessionError?.message ?? "Could not start a session");
+  }
 
   const { error: answersError } = await supabase
     .from("intake_answers")
