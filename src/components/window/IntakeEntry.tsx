@@ -9,7 +9,9 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 type Variant = "legacy" | "cards";
 
-const VARIANT_KEY = "window-wizard-variant-v1";
+// v2: the v1 key held draws made while the card wizard was off (default 0), which would
+// keep those tabs on the classic wizard now that everybody gets the card wizard.
+const VARIANT_KEY = "window-wizard-variant-v2";
 
 // Share of visitors who get the card wizard when nothing is configured.
 const DEFAULT_CARD_WIZARD_PERCENT = 100;
