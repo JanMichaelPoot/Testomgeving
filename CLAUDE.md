@@ -2929,3 +2929,16 @@ Stripe, Claude API, Resend, PostHog).
       Gevonden, niet aangepast: de knop "Betaling overslaan" werkt ook op Production (geeft een gratis
       boek); moet achter een vlag vóór de echte lancering. Getest: 263 tests, `tsc`, lint; het
       formulier bekeken op 390 px (geen horizontale scroll, keuzes zichtbaar geselecteerd).
+
+- [x] Stap 68 — De beeld-intake ("Het venster") en de nieuwe landing staan nu standaard
+      voor iedereen aan, op verzoek van Jan (die op windowinto.nl nog de oude landing zag
+      omdat `NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT` niet in Vercel bestond en de standaard
+      0 was). Eén gedeelde helper in `src/lib/vensterLanding.ts`
+      (`associationWizardPercent`, `DEFAULT_ASSOCIATION_WIZARD_PERCENT = 100`) wordt zowel door
+      de landing (`showVensterLanding`) als door `IntakeEntry` gebruikt, zodat beide altijd
+      samen aan of uit staan. Uitzetten: de variabele op `0` zetten (of een lagere waarde voor
+      een geleidelijke uitrol; de landing blijft dan klassiek, `?venster=1` en
+      `?wizard=associations` forceren nog steeds). De opslagsleutel van de gekozen variant is
+      `v3`, zodat tabbladen met een eerder getrokken "cards"/"legacy" ook de nieuwe intake
+      krijgen. Getest: 264 tests (landing en percentage), `tsc`, lint; lokaal toont `/` de
+      nieuwe hero en een tabblad met een oude `v2`-keuze krijgt de beeld-intake.

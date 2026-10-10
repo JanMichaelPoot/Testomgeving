@@ -8,12 +8,15 @@ import type { CardLibrary } from "@/lib/discovery/cards";
 import type { IntakeAnswers } from "@/app/intake/actions";
 import { usesCardWizard } from "@/lib/checkoutChoices";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import { associationWizardPercent } from "@/lib/vensterLanding";
 
 type Variant = "legacy" | "cards" | "associations";
 
 // v2: the v1 key held draws made while the card wizard was off (default 0), which would
 // keep those tabs on the classic wizard now that everybody gets the card wizard.
-const VARIANT_KEY = "window-wizard-variant-v2";
+// v3: v2 held draws made while the image intake was off (default 0), which would keep those
+// tabs on the card wizard now that everybody gets the image intake.
+const VARIANT_KEY = "window-wizard-variant-v3";
 
 // Share of visitors who get the card wizard when nothing is configured.
 const DEFAULT_CARD_WIZARD_PERCENT = 100;
@@ -26,12 +29,10 @@ const DEFAULT_CARD_WIZARD_PERCENT = 100;
 //      the card wizard. The default is 100 (everyone); set 0 to switch it off again.
 // Rendering waits for the decision so the server and the first client render agree.
 // The image intake ("Het venster") is a third variant: ?wizard=associations forces it, and
-// NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT (default 0) is the share of visitors who get it in a
-// fresh draw, before the card/legacy draw below. Jan sets it (100 on the test preview).
+// NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT (default 100, everybody; 0 switches it off) is the share
+// of visitors who get it in a fresh draw, before the card/legacy draw below.
 function associationPercent(): number {
-  const configured = process.env.NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT;
-  const parsed = configured === undefined || configured.trim() === "" ? NaN : Number(configured);
-  return Number.isFinite(parsed) ? parsed : 0;
+  return associationWizardPercent(process.env.NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT);
 }
 
 function decideVariant(): Variant {
