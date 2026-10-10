@@ -2942,3 +2942,16 @@ Stripe, Claude API, Resend, PostHog).
       `v3`, zodat tabbladen met een eerder getrokken "cards"/"legacy" ook de nieuwe intake
       krijgen. Getest: 264 tests (landing en percentage), `tsc`, lint; lokaal toont `/` de
       nieuwe hero en een tabblad met een oude `v2`-keuze krijgt de beeld-intake.
+
+- [x] Stap 69 — PDF: de lijnen over de foto's bovenaan de pagina's weggehaald. Oorzaak: de
+      donkere overgang onder de foto was opgebouwd uit 8 (ideepagina's) of 40 (cover) gestapelde,
+      halfdoorzichtige rechthoeken die elkaar 1 punt overlapten; die dubbel getekende punt gaf een
+      donkere lijn op elke rand (bij 200 dpi zichtbaar op de ideepagina's; op de cover is de
+      oorzaak dezelfde maar niet apart gemeten). Nu één afbeelding van 1×256 pixels met een
+      alfaverloop (`src/lib/pdf/scrim.ts`, zelf geschreven PNG-encoder, ca. 1 KB, met
+      interpolatievlag), op de ideepagina's met 78% en op de cover met 82% dekking. De harde
+      grijze rechthoek achter het logo op de fotocover is dezelfde afbeelding, omgekeerd.
+      Bestandsgrootte ongewijzigd (2,4 MB), foto's onaangeroerd. Getest: 268 tests (nieuw:
+      `scrim.test.ts`), `tsc`, lint; voorbeeldboeken opnieuw gerenderd en de bovenkant bij 200 dpi
+      bekeken. Daarnaast een voorstel gepubliceerd (artifact "Venster Beleving") over immersie,
+      variatie, landing-richtingen en het algoritme; nog niets daarvan gebouwd.

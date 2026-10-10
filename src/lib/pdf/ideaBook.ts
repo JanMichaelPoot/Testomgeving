@@ -2,7 +2,11 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import fontkit from "@pdf-lib/fontkit";
 import {
+  degrees,
+  PDFBool,
+  PDFDict,
   PDFDocument,
+  PDFName,
   PDFString,
   clip,
   endPath,
@@ -20,6 +24,7 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { mapsSearchUrl } from "@/lib/maps";
 import { ideaPhoto } from "@/lib/illustrations";
+import { buildScrimPng } from "@/lib/pdf/scrim";
 import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
 import {
   EXPERIENCE_DIMENSIONS,
@@ -235,6 +240,24 @@ interface Images {
   background: PDFImage;
   logoCream: PDFImage; // reversed wordmark — for dark photo/scrim backgrounds
   logoColor: PDFImage; // walnut wordmark — for light surface-page backgrounds
+  scrim: PDFImage; // 1px-wide alpha gradient (transparent top to opaque bottom), see scrim.ts
+}
+
+// Asks the viewer to interpolate a stretched image (and its alpha mask) instead of showing it
+// in blocks. The scrim is 1 pixel wide and stretched over a whole page, so without this some
+// viewers would show its 256 rows as visible steps.
+function smoothImage(doc: PDFDocument, image: PDFImage) {
+  try {
+    const stream = doc.context.lookup(image.ref);
+    const dict = (stream as { dict?: PDFDict }).dict;
+    if (!dict) return;
+    dict.set(PDFName.of("Interpolate"), PDFBool.True);
+    const mask = dict.get(PDFName.of("SMask"));
+    const maskStream = mask ? doc.context.lookup(mask) : undefined;
+    (maskStream as { dict?: PDFDict } | undefined)?.dict?.set(PDFName.of("Interpolate"), PDFBool.True);
+  } catch {
+    // Purely cosmetic: without the flag the gradient still has 256 fine steps.
+  }
 }
 
 // "Cover" fit (like CSS background-size: cover): scales so both dimensions
@@ -351,7 +374,9 @@ export async function renderIdeaBookPdf(
     background: await doc.embedJpg(backgroundBytes),
     logoCream: await doc.embedPng(logoCreamBytes),
     logoColor: await doc.embedPng(logoColorBytes),
+    scrim: await doc.embedPng(buildScrimPng([PWA4_SCRIM_RGB.red * 255, PWA4_SCRIM_RGB.green * 255, PWA4_SCRIM_RGB.blue * 255].map(Math.round) as [number, number, number])),
   };
+  smoothImage(doc, images.scrim);
 
   // One photo per idea (plus the wildcard), chosen by that idea's own
   // photo_category — see ideaCategoryPhoto()/PHOTO_CATEGORIES in
@@ -670,39 +695,27 @@ export async function renderIdeaBookPdf(
       cursor -= 16;
     }
   } else {
-  // Full-bleed photo, a bottom scrim (the same stacked-band technique as the idea pages'
-  // hero), the cream wordmark near the top, and the eyebrow/title/tagline set into the
+  // Full-bleed photo, a bottom scrim (the same gradient image as the idea pages' hero), the cream wordmark near the top, and the eyebrow/title/tagline set into the
   // dark part of the scrim.
   {
     drawFullBleedImage(images.cover);
 
     const scrimHeight = PAGE_HEIGHT * 0.58;
-    const steps = 40;
-    const bandHeight = scrimHeight / steps;
-    for (let i = 0; i < steps; i++) {
-      const t = 1 - i / steps;
-      page.drawRectangle({
-        x: 0,
-        y: i * bandHeight,
-        width: PAGE_WIDTH,
-        height: bandHeight + 1,
-        color: PWA4_SCRIM_RGB,
-        opacity: 0.82 * t * t,
-      });
-    }
+    page.drawImage(images.scrim, { x: 0, y: 0, width: PAGE_WIDTH, height: scrimHeight, opacity: 0.82 });
 
-    // A soft vignette behind the top-left wordmark, independent of the
-    // scrim below — the cover photo can vary in brightness at that corner,
-    // and the mark needs to read reliably regardless.
+    // A soft fade behind the wordmark at the top, independent of the scrim below: the cover
+    // photo can vary in brightness there, and the mark needs to read reliably regardless. The
+    // same gradient image, turned upside down so it is dark at the top edge. (A plain
+    // rectangle here showed as a hard-edged grey box in the corner.)
     const logoHeight = 16;
     const logoWidth = logoHeight * (images.logoCream.width / images.logoCream.height);
-    page.drawRectangle({
-      x: 0,
-      y: PAGE_HEIGHT - PWA4_BODY_PAD_X * 2 - logoHeight,
-      width: logoWidth + PWA4_BODY_PAD_X * 2,
-      height: PWA4_BODY_PAD_X * 2 + logoHeight,
-      color: PWA4_SCRIM_RGB,
-      opacity: 0.3,
+    page.drawImage(images.scrim, {
+      x: PAGE_WIDTH,
+      y: PAGE_HEIGHT,
+      width: PAGE_WIDTH,
+      height: 110,
+      rotate: degrees(180),
+      opacity: 0.7,
     });
     page.drawImage(images.logoCream, {
       x: PWA4_BODY_PAD_X,
@@ -1053,7 +1066,7 @@ export async function renderIdeaBookPdf(
               end: { x: dotX, y: dotY - stepHeights[i] },
               thickness: 0.8,
               color: PWA4_INK_MUTED,
-              opacity: 0.45,
+              opacity: 0.7,
             });
           }
           page.drawCircle({ x: dotX, y: dotY, size: 3.4, color: i === 0 ? PWA4_ACCENT : PWA4_SURFACE_INVERSE });
@@ -1445,8 +1458,8 @@ export async function renderIdeaBookPdf(
   }
 
   // Hero photo (top-aligned, any cover-fit overflow hidden by the opaque body
-  // rectangle drawn afterwards), a bottom-anchored scrim (stacked bands — pdf-lib
-  // has no real gradient fill), the door/wildcard badge top-left, and the title
+  // rectangle drawn afterwards), a bottom-anchored scrim (one alpha-gradient image, see
+  // scrim.ts — stacked rectangles left a visible line at every band edge), the door/wildcard badge top-left, and the title
   // with the subtitle beneath it.
   function drawHero(
     photo: PDFImage,
@@ -1456,19 +1469,7 @@ export async function renderIdeaBookPdf(
     const { width, height } = coverFitSize(photo, PAGE_WIDTH, hero.height);
     page.drawImage(photo, { x: (PAGE_WIDTH - width) / 2, y: PAGE_HEIGHT - height, width, height });
 
-    const steps = 8;
-    const bandHeight = hero.height / steps;
-    for (let i = 0; i < steps; i++) {
-      const t = 1 - i / steps;
-      page.drawRectangle({
-        x: 0,
-        y: heroBottomY + i * bandHeight,
-        width: PAGE_WIDTH,
-        height: bandHeight + 1,
-        color: PWA4_SCRIM_RGB,
-        opacity: 0.78 * t * t,
-      });
-    }
+    page.drawImage(images.scrim, { x: 0, y: heroBottomY, width: PAGE_WIDTH, height: hero.height, opacity: 0.78 });
     page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: heroBottomY, color: PWA4_SURFACE_PAGE });
 
     const padX = PWA4_SPACE_4;
