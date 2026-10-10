@@ -1,64 +1,43 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { WindowMark } from "@/components/window/WindowMark";
+import type { ProgressStage } from "@/types/database";
+import { activePhaseFor } from "@/lib/progressStage";
 
-const MESSAGE_INTERVAL_MS = 2500;
 const POLL_INTERVAL_MS = 5000;
 const TICK_MS = 200;
 
-// Fase 5 (PDF & Share) — rebuilt this screen's progress bar after noticing
-// two real problems with the original version, not just a cosmetic ask:
-//
-// 1. The bar's percentage was driven by the message-rotation index (4
-//    messages, 2.5s apart) rather than real elapsed time, so it reached
-//    100% after ~10 seconds — while actual generation (a Claude call, PDF
-//    render, and Supabase upload) usually takes well past that. The bar
-//    then sat frozen at "done" for tens of seconds, which reads as broken,
-//    not reassuring.
-// 2. The auto-refresh was a one-shot setTimeout, not a repeating poll. A
-//    router.refresh() on an App Router page like this one re-renders this
-//    same client component in place rather than remounting it, so the
-//    effect (gated on [messages.length, router], neither of which change
-//    between polls) never re-ran — meaning it only ever checked once,
-//    5 seconds in, and then never again if the book wasn't ready yet.
-//
-// The bar below is now driven by real elapsed time (via a ref, so it
-// survives those in-place re-renders) on a curve that never quite reaches
-// 100% on its own — completion is the page actually navigating to the
-// finished Idea Book, not a number here — and the poll is a genuine
-// repeating interval.
+// The bar is driven by real elapsed time (via a ref, so it survives the in-place
+// re-renders of router.refresh()) on a curve that never quite reaches 100% on its own:
+// completion is the page actually navigating to the finished Idea Book. The poll is a
+// genuine repeating interval. (Fase 5 of the original build; see git history.)
 const PROGRESS_CAP = 92;
-const PROGRESS_TAU_MS = 20000;
+const PROGRESS_TAU_MS = 35000;
 
 export function GeneratingScreen({
   heading,
-  messages,
+  phases,
   autoRefreshNote,
+  stage = null,
+  visual,
 }: {
   heading: string;
-  messages: string[];
+  phases: string[];
   autoRefreshNote: string;
+  stage?: ProgressStage | null;
+  /** Optional picture above the heading (the person's own window); a spinning mark otherwise. */
+  visual?: ReactNode;
 }) {
   const router = useRouter();
-  const [messageIndex, setMessageIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
-
-  // A ref, not state: set once when the effect below first runs and left
-  // alone after that, so it isn't reset by a router.refresh()-triggered
-  // re-render the way a piece of state recomputed from props would be.
-  // (Set inside the effect rather than inline during render — reading the
-  // clock is an impure operation React's rules don't allow during render.)
   const startRef = useRef<number | null>(null);
+  const active = activePhaseFor(stage);
 
   useEffect(() => {
     if (startRef.current === null) startRef.current = Date.now();
-
-    const messageTimer = setInterval(() => {
-      setMessageIndex((prev) => (prev + 1) % messages.length);
-    }, MESSAGE_INTERVAL_MS);
 
     const progressTimer = setInterval(() => {
       const elapsedMs = Date.now() - (startRef.current ?? Date.now());
@@ -66,27 +45,27 @@ export function GeneratingScreen({
       setElapsedSeconds(Math.floor(elapsedMs / 1000));
     }, TICK_MS);
 
-    // A real repeating poll, not a one-shot timeout — keeps checking every
-    // 5s for as long as this screen stays mounted (i.e. for as long as
-    // generation is still pending).
     const pollTimer = setInterval(() => router.refresh(), POLL_INTERVAL_MS);
 
     return () => {
-      clearInterval(messageTimer);
       clearInterval(progressTimer);
       clearInterval(pollTimer);
     };
-  }, [messages.length, router]);
+  }, [router]);
 
   return (
     <main className="flex min-h-full flex-1 flex-col items-center justify-center bg-accent-dark px-6 py-16 text-center">
-      <div className="relative mx-auto mb-10 h-24 w-24">
-        <div className="animate-window-spin-slow absolute inset-0 rounded-2xl border-2 border-gold/40" />
-        <div className="absolute inset-3 rounded-xl border border-accent/50" />
-        <div className="absolute inset-0 flex items-center justify-center text-white">
-          <WindowMark onDark className="h-9 w-9" />
+      {visual ? (
+        <div className="mx-auto mb-8 w-44 sm:w-52">{visual}</div>
+      ) : (
+        <div className="relative mx-auto mb-10 h-24 w-24">
+          <div className="animate-window-spin-slow absolute inset-0 rounded-2xl border-2 border-gold/40" />
+          <div className="absolute inset-3 rounded-xl border border-accent/50" />
+          <div className="absolute inset-0 flex items-center justify-center text-white">
+            <WindowMark onDark className="h-9 w-9" />
+          </div>
         </div>
-      </div>
+      )}
 
       <h1 className="font-serif text-2xl font-semibold text-white sm:text-3xl">{heading}</h1>
 
@@ -98,13 +77,35 @@ export function GeneratingScreen({
       </div>
       <p className="mt-2 text-xs tabular-nums text-white/35">{elapsedSeconds}s</p>
 
-      <p
-        className="mt-6 min-h-6 text-sm text-white/60 transition-opacity duration-300"
-        key={messageIndex}
-      >
-        {messages[messageIndex]}
-      </p>
-      <p className="mt-10 text-xs text-white/30">{autoRefreshNote}</p>
+      <ol className="mt-8 flex w-full max-w-xs flex-col gap-3 text-left" aria-live="polite">
+        {phases.map((phase, i) => {
+          const done = i < active;
+          const now = i === active;
+          return (
+            <li
+              key={phase}
+              className={`flex items-center gap-3 text-sm ${done ? "text-white/70" : now ? "font-semibold text-white" : "text-white/35"}`}
+              aria-current={now ? "step" : undefined}
+            >
+              <span
+                aria-hidden="true"
+                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
+                  done ? "border-gold bg-gold" : now ? "animate-spin border-gold border-t-transparent motion-reduce:animate-none" : "border-white/25"
+                }`}
+              >
+                {done && (
+                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                    <path d="M3.5 8.5l3 3 6-7" stroke="currentColor" className="text-accent-dark" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </span>
+              {phase}
+            </li>
+          );
+        })}
+      </ol>
+
+      <p className="mt-10 max-w-sm text-xs leading-relaxed text-white/45">{autoRefreshNote}</p>
     </main>
   );
 }

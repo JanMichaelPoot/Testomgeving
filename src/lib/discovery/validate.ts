@@ -157,3 +157,57 @@ export function validateLibrary({ vocabulary, activities, hybrids }: LibraryInpu
 
   return { errors, warnings };
 }
+
+// --- association images ("Het venster") ------------------------------------------
+// The image intake's cards (src/lib/discovery/associations.json): nine per round,
+// real tags, both languages, axes within -1..1, and scenes without people or hands
+// (an association image calls up a feeling; a hand makes it about doing).
+const HAND_WORDS = /\b(hand|hands|finger|fingers|arm|arms|foot|feet)\b/i;
+
+export interface AssociationCardInput {
+  id: string;
+  round: string;
+  label: { nl?: string; en?: string };
+  scene: string;
+  image: string;
+  tagWeights: Record<string, number>;
+  axes: { social: number; energy: number; setting: number; novelty: number };
+  status: string;
+}
+
+export function validateAssociations(cards: readonly AssociationCardInput[], vocabulary: Vocabulary): Issues {
+  const errors: string[] = [];
+  const warnings: string[] = [];
+  const err = (m: string) => errors.push(m);
+  const tags = new Set(vocabulary.tags.map((t) => t.id));
+  const ids = new Set<string>();
+  const perRound = new Map<string, number>();
+
+  for (const c of cards) {
+    const at = `association "${c.id}"`;
+    if (!SLUG.test(c.id)) err(`${at}: id must be lowercase words joined by "-"`);
+    if (ids.has(c.id)) err(`${at}: duplicate id`);
+    ids.add(c.id);
+    if (!["places", "moments", "senses"].includes(c.round)) err(`${at}: unknown round "${c.round}"`);
+    perRound.set(c.round, (perRound.get(c.round) ?? 0) + 1);
+    if (!filled(c.label?.nl) || !filled(c.label?.en)) err(`${at}: label needs nl and en`);
+    if (!filled(c.scene)) err(`${at}: scene is needed for the image`);
+    if (PEOPLE_WORDS.test(c.scene) || HAND_WORDS.test(c.scene.replace(/no hands in frame/i, ""))) err(`${at}: scene must not ask for people or hands`);
+    if (!/^\/illustrations\/.+\.(jpg|png|webp)$/.test(c.image)) err(`${at}: image must be a public /illustrations/ path`);
+    const entries = Object.entries(c.tagWeights ?? {});
+    if (entries.length < 2 || entries.length > 5) err(`${at}: needs 2-5 tagWeights`);
+    for (const [t, w] of entries) {
+      if (!tags.has(t)) err(`${at}: unknown tag "${t}"`);
+      if (!(typeof w === "number" && w > 0 && w <= 1)) err(`${at}: tag weight of "${t}" must be in (0, 1]`);
+    }
+    for (const k of ["social", "energy", "setting", "novelty"] as const) {
+      const v = c.axes?.[k];
+      if (!(typeof v === "number" && v >= -1 && v <= 1)) err(`${at}: axis "${k}" must be a number in -1..1`);
+    }
+    if (!(STATUSES as readonly string[]).includes(c.status) || c.status === "retired") err(`${at}: status must be concept, reviewed or live`);
+  }
+  for (const round of ["places", "moments", "senses"]) {
+    if ((perRound.get(round) ?? 0) !== 9) err(`round "${round}": needs exactly 9 cards (has ${perRound.get(round) ?? 0})`);
+  }
+  return { errors, warnings };
+}

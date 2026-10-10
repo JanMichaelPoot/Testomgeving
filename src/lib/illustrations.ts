@@ -41,3 +41,12 @@ export function ideaCategoryPhoto(category: PhotoCategory, variantSeed: number):
   const variants = IDEA_CATEGORY_PHOTOS[category] ?? IDEA_CATEGORY_PHOTOS.nature_outdoor;
   return variants[variantSeed % variants.length];
 }
+
+// "Het venster" fase 5: books from the selection engine know which library activity each
+// idea is about (IdeaBookEntry.activity_id), and every activity has its own photo
+// (public/illustrations/discovery/<id>.jpg, all 200 present). That photo fits the idea far
+// better than the shared category photo, so it wins; older books without activity_id keep
+// the category photo. Used identically on /plan, /shared/[id] and in the PDF.
+export function ideaPhoto(idea: { activity_id?: string; photo_category: PhotoCategory }, variantSeed: number): string {
+  return idea.activity_id ? `/illustrations/discovery/${idea.activity_id}.jpg` : ideaCategoryPhoto(idea.photo_category, variantSeed);
+}

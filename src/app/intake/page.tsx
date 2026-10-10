@@ -8,6 +8,8 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { loadEditableIntake } from "@/lib/intakeEdit";
+import { buildAssociationLibrary } from "@/lib/discovery/associations";
+import { VENSTER_PAGES } from "@/lib/vensterPages";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -31,7 +33,9 @@ export default async function IntakePage(props: PageProps<"/intake">) {
       const answers: IntakeAnswers = { ...stored };
       delete (answers as Partial<typeof stored>).locale;
       const requested = Number(Array.isArray(searchParams.page) ? searchParams.page[0] : searchParams.page);
-      initial = { answers, page: Number.isInteger(requested) ? Math.min(Math.max(requested, 0), 4) : 0 };
+      // The image intake has eight screens, the other wizards five.
+      const lastPage = answers.intakeVariant === "associations" ? VENSTER_PAGES.length - 1 : 4;
+      initial = { answers, page: Number.isInteger(requested) ? Math.min(Math.max(requested, 0), lastPage) : 0 };
     } else if (sessionId) {
       editLocked = true;
     }
@@ -40,14 +44,21 @@ export default async function IntakePage(props: PageProps<"/intake">) {
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
-      <main className="mx-auto flex w-full max-w-6xl flex-1 items-start justify-center px-6 py-12 sm:px-10 sm:py-16">
+      <main className="mx-auto flex w-full max-w-6xl flex-1 items-start justify-center px-4 py-6 sm:px-10 sm:py-16">
         <div className="flex w-full max-w-5xl flex-col gap-4">
           {editLocked && (
             <p className="rounded-lg border border-border bg-surface-active px-4 py-3 text-sm text-ink/70" role="status">
               {dict.intake.editLocked}
             </p>
           )}
-          <IntakeEntry dict={dict.intake} library={buildCardLibrary(locale)} initial={initial} />
+          <IntakeEntry
+            dict={dict.intake}
+            vensterDict={dict.venster}
+            library={buildCardLibrary(locale)}
+            associations={buildAssociationLibrary(locale)}
+            initial={initial}
+            purpose={searchParams.for === "gift" ? "gift" : "self"}
+          />
         </div>
       </main>
     </div>

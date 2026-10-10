@@ -125,3 +125,32 @@ Stripe-metadata en het geheugen blijven naar één sessie wijzen. Wijzigen kan t
 gemaakt of de bestelling betaald is (`isSessionLocked`); daarna start opnieuw versturen een nieuwe
 sessie zodat niemand zijn invoer kwijtraakt. Wijzigen ná betaling (bijv. één gratis herbouw) is
 bewust niet gebouwd: dat hangt samen met de prijsstrategie.
+
+## De beeld-intake ("Het venster", okt. 2026)
+
+De derde wizardvariant (`associations`) vraagt geen activiteiten maar **associatiebeelden**: 27
+kaarten in drie rondes (plekken, momenten, zintuigen; `src/lib/discovery/associations.json`). Een
+kaart heeft 2-5 `tagWeights` uit `vocabulary.json` en vier assen (`social`, `energy`, `setting`,
+`novelty`, elk -1..1). `applyImageIntake` (`discovery/imageIntake.ts`) vertaalt bij het versturen,
+één keer, wat de motor al begrijpt:
+
+- **interesses**: `associationsToEngineInput` scoort elke activiteit die door de harde filters komt
+  op gewogen tag-overlap met het tagprofiel van de gekozen beelden (generieke tags tellen half),
+  plus een bonus voor gekozen werelden, plus hoe goed de activiteit op de assen past (sociale vorm,
+  intensiteit, binnen/buiten). Zes stuks, één per wereld, nooit twee uit één subdomein; een kleine
+  gezaaide ruis voorkomt dat dezelfde beelden altijd dezelfde activiteiten geven. Gemeten met
+  `scripts/discovery-shadow.ts --profile associations --n 500`: E1-E6 0 overtredingen, 5,8 werelden
+  per boek (gelijk aan de kaartenwizard).
+- **`practicalToWild`** uit de `novelty`-as en **`effort`** uit de `energy`-as (de vraag-audit liet
+  zien dat beide de motor hard sturen, dus ze mogen niet op een standaardwaarde blijven staan).
+- Niet gevraagd en dus leeg: `purposeFollowUp`, `freeTimePattern`, `situation`. De prompt leest
+  lege velden als "not stated".
+
+"Niet helemaal" op het beloningsscherm voegt tags toe (`associationCorrections`, gewicht 2,5) die
+ook als `preferences` meegaan. `imagesBehind` vindt per idee het gekozen beeld met de meeste overlap,
+voor de regel "Omdat je X koos" in de prompt, op `/plan` en in de PDF.
+
+**Leeftijd** stuurt sinds fase 1.5 ook de keuze (`agePenalty` in `engine/select.ts`): een zachte
+weging op intensiteit, veiligheidsniveau, niveau, sociale vorm en kosten voor 18-24, 55-64, 65+ en
+onder 18. Nooit een uitsluiting: wie zelf iets zwaars kiest, krijgt het nog steeds.
+`--ages` in het shadow-script toont de verschuiving per leeftijdsgroep.

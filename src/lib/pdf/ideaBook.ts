@@ -1,12 +1,25 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import fontkit from "@pdf-lib/fontkit";
-import { PDFDocument, PDFString, rgb, type PDFFont, type PDFPage, type PDFImage, type RGB } from "pdf-lib";
+import {
+  PDFDocument,
+  PDFString,
+  clip,
+  endPath,
+  popGraphicsState,
+  pushGraphicsState,
+  rectangle,
+  rgb,
+  type PDFFont,
+  type PDFPage,
+  type PDFImage,
+  type RGB,
+} from "pdf-lib";
 import { DIFFICULTY_LABELS, type GeneratedIdeaBook, type IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { mapsSearchUrl } from "@/lib/maps";
-import { ideaCategoryPhoto } from "@/lib/illustrations";
+import { ideaPhoto } from "@/lib/illustrations";
 import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
 import {
   EXPERIENCE_DIMENSIONS,
@@ -88,13 +101,17 @@ const MARGIN = 60; // continuation-page overflow safety net only, see newPageIfN
 //
 // Every px figure in the spec is 96 CSS px/in; PDF points are 72/in, so
 // every constant below is the spec's px value × 0.75.
-const PWA4_INK = rgb(0.227, 0.157, 0.125); // #3A2820
+// "Het venster" fase 6: the book now speaks the site's brand: walnut ink (#3C2920, the site's
+// --color-accent-dark) and gold (#B08A4A, --color-gold) instead of the old orange accent, and
+// Newsreader + Plus Jakarta Sans (the site's fonts, OFL, bundled in ./fonts) instead of Noto.
+const PWA4_INK = rgb(0.235, 0.161, 0.125); // #3C2920
 const PWA4_INK_MUTED = rgb(0.42, 0.369, 0.298); // #6B5E4C
 const PWA4_INK_INVERSE = rgb(1, 0.988, 0.965); // #FFFCF6
 const PWA4_SURFACE_PAGE = rgb(1, 0.996, 0.984); // #FFFEFB
 const PWA4_SURFACE_PANEL = rgb(0.965, 0.953, 0.933); // #F6F3EE
 const PWA4_SURFACE_INVERSE = PWA4_INK; // #3A2820 — same value, named per the design token
-const PWA4_ACCENT = rgb(0.851, 0.549, 0.29); // #D98C4A
+const PWA4_ACCENT = rgb(0.69, 0.541, 0.29); // #B08A4A (gold)
+const PWA4_GOLD_LIGHT = rgb(0.824, 0.718, 0.478); // #D2B77A
 const PWA4_SCRIM_RGB = rgb(0.102, 0.071, 0.047); // rgba(26,18,12,*)
 
 const PWA4_BODY_PAD_X = 21; // space-6, 28px
@@ -230,6 +247,37 @@ function coverFitSize(image: PDFImage, boxWidth: number, boxHeight: number) {
   return { width: image.width * scale, height: image.height * scale };
 }
 
+// Characters the brand fonts lack, mapped to something they have; anything else unknown is
+// dropped. Applied to every string of the book before drawing (see renderIdeaBookPdf).
+const GLYPH_FALLBACKS: Record<string, string> = {
+  "→": "->", "←": "<-", "⇒": "=>", "✓": "v", "✔": "v", "✗": "x", "★": "*", "☆": "*", "•": "·",
+  "\u00a0": " ", "\u2009": " ", "\u202f": " ", "\u200b": "",
+};
+
+export function glyphFilter(fonts: PDFFont[]): (text: string) => string {
+  const sets = fonts.map((f) => new Set(f.getCharacterSet()));
+  const ok = (cp: number) => sets.every((set) => set.has(cp));
+  return (text: string) => {
+    let out = "";
+    for (const ch of text) {
+      const cp = ch.codePointAt(0)!;
+      if (ch === "\n" || ok(cp)) out += ch;
+      else if (GLYPH_FALLBACKS[ch] !== undefined && [...GLYPH_FALLBACKS[ch]].every((c) => ok(c.codePointAt(0)!))) out += GLYPH_FALLBACKS[ch];
+    }
+    return out;
+  };
+}
+
+/** Every string in the book passed through `clean`; structure and non-strings untouched. */
+export function makeBookPrintable<T>(value: T, clean: (text: string) => string): T {
+  if (typeof value === "string") return clean(value) as T;
+  if (Array.isArray(value)) return value.map((v) => makeBookPrintable(v, clean)) as T;
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, makeBookPrintable(v, clean)])) as T;
+  }
+  return value;
+}
+
 // What the renderer may know about the person beyond the generated book — all
 // optional: without it the idea pages simply leave out the company cell, the
 // budget status and the derived "it fits" sentence.
@@ -237,14 +285,24 @@ export interface IdeaBookPdfContext {
   company?: string[]; // stored intake values, e.g. ["alone"]
   budget?: string; // "free" | "25" | "100" | "allin"
   timeAvailable?: string; // "hour" | "halfday" | "fullday" | "weekend"
+  // "Het venster" fase 6: books from the image intake get the person's own window on the
+  // cover (four panes of chosen images, public paths), the window sill and, for a gift, the
+  // recipient's name. Without it the cover keeps its photo.
+  window?: {
+    panes: { label: string; images: string[]; placeholder?: string }[];
+    sill: string;
+    recipientName?: string;
+    dateLabel: string;
+  };
 }
 
 export async function renderIdeaBookPdf(
-  book: GeneratedIdeaBook,
+  inputBook: GeneratedIdeaBook,
   title: string,
   locale: Locale,
   context: IdeaBookPdfContext = {}
 ): Promise<Uint8Array> {
+  let book = inputBook;
   const dict = getDictionary(locale);
   const chrome = dict.pdfChrome;
   // Fase 5 (PDF & Share) — the printed book now reflects the same
@@ -255,8 +313,6 @@ export async function renderIdeaBookPdf(
   // the exact same pure helpers the web viewer uses (src/lib/possibilityMap.ts)
   // so the two experiences can never quietly drift apart.
   const mapCopy = dict.plan.book;
-  const orderedIdeas = orderIdeasByDoor(book.ideas);
-  const oneThingIndex = pickOneThingIndex(book.ideas);
   // Fixed page plan (cover, profile, overview, one page per ordered idea,
   // wildcard) — used to print real "p. N" references on the overview page
   // instead of a placeholder.
@@ -266,16 +322,22 @@ export async function renderIdeaBookPdf(
   doc.registerFontkit(fontkit);
 
   const [serifBytes, sansBytes, sansBoldBytes] = await Promise.all([
-    readFile(path.join(FONTS_DIR, "NotoSerif-Bold.ttf")),
-    readFile(path.join(FONTS_DIR, "NotoSans-Regular.ttf")),
-    readFile(path.join(FONTS_DIR, "NotoSans-Bold.ttf")),
+    readFile(path.join(FONTS_DIR, "Newsreader-Medium.ttf")),
+    readFile(path.join(FONTS_DIR, "PlusJakartaSans-Regular.ttf")),
+    readFile(path.join(FONTS_DIR, "PlusJakartaSans-Bold.ttf")),
   ]);
 
   const fonts: Fonts = {
-    serif: await doc.embedFont(serifBytes),
-    sans: await doc.embedFont(sansBytes),
-    sansBold: await doc.embedFont(sansBoldBytes),
+    serif: await doc.embedFont(serifBytes, { subset: true }),
+    sans: await doc.embedFont(sansBytes, { subset: true }),
+    sansBold: await doc.embedFont(sansBoldBytes, { subset: true }),
   };
+  // The brand fonts cover Latin text (all Dutch and English diacritics, €, curly quotes) but
+  // not the long tail Noto had (arrows, symbols, emoji). Anything outside every font's
+  // character set is replaced or dropped before drawing, so no glyph ever renders as a box.
+  book = makeBookPrintable(book, glyphFilter([fonts.serif, fonts.sans, fonts.sansBold]));
+  const orderedIdeas = orderIdeasByDoor(book.ideas);
+  const oneThingIndex = pickOneThingIndex(book.ideas);
 
   const [coverBytes, backgroundBytes, logoCreamBytes, logoColorBytes] = await Promise.all([
     readFile(path.join(IMAGES_DIR, "cover.jpg")),
@@ -298,13 +360,122 @@ export async function renderIdeaBookPdf(
   // committed asset — never a live Gemini call) rather than up front,
   // since which categories are needed depends on this specific book.
   const ideaPhotoCache = new Map<string, PDFImage>();
-  async function loadIdeaPhoto(category: IdeaBookEntry["photo_category"], variantSeed: number): Promise<PDFImage> {
-    const publicPath = ideaCategoryPhoto(category, variantSeed);
+  // "Het venster" fase 5: an idea from the selection engine uses its activity's own photo.
+  async function loadIdeaPhoto(idea: IdeaBookEntry, variantSeed: number): Promise<PDFImage> {
+    const publicPath = ideaPhoto(idea, variantSeed);
     const cached = ideaPhotoCache.get(publicPath);
     if (cached) return cached;
     const bytes = await readFile(path.join(process.cwd(), "public", publicPath));
     const image = await doc.embedJpg(bytes);
     ideaPhotoCache.set(publicPath, image);
+    return image;
+  }
+
+  // The person's window, drawn the way WindowFrame draws it on the site: an arch on top, four
+  // panes with walnut mullions, each pane a collage of its chosen photos (clipped to its cell),
+  // an empty pane in cream, a fine gold line along the inside of the frame.
+  async function drawCoverWindow(
+    target: PDFPage,
+    panes: NonNullable<IdeaBookPdfContext["window"]>["panes"],
+    x0: number,
+    y0: number,
+    w: number,
+    h: number,
+  ) {
+    const pad = 9;
+    const gap = 5;
+    const ix = x0 + pad;
+    const iy = y0 + pad;
+    const iw = w - pad * 2;
+    const ih = h - pad * 2;
+    const top = iy + ih;
+    const qw = (iw - gap) / 2;
+    const qh = (ih - gap) / 2;
+    const cells = [
+      { x: ix, y: iy + qh + gap },
+      { x: ix + qw + gap, y: iy + qh + gap },
+      { x: ix, y: iy },
+      { x: ix + qw + gap, y: iy },
+    ];
+    target.drawRectangle({ x: x0, y: y0, width: w, height: h, color: rgb(0.17, 0.11, 0.085) });
+
+    for (const [i, pane] of panes.slice(0, 4).entries()) {
+      const cell = cells[i];
+      const photos = pane.images.slice(0, 4);
+      if (photos.length === 0) {
+        target.drawRectangle({ x: cell.x, y: cell.y, width: qw, height: qh, color: pane.placeholder ? PWA4_GOLD_LIGHT : rgb(0.949, 0.925, 0.882) });
+        if (pane.placeholder) {
+          const pw = fonts.serif.widthOfTextAtSize(pane.placeholder, 12);
+          target.drawText(pane.placeholder, { x: cell.x + (qw - pw) / 2, y: cell.y + qh / 2 - 4, size: 12, font: fonts.serif, color: PWA4_INK });
+        }
+      } else {
+        // 1 photo fills the cell; 2 side by side; 3 = one tall + two small; 4 = a 2x2 grid.
+        const g = 1.5;
+        const slots =
+          photos.length === 1
+            ? [{ x: 0, y: 0, w: qw, h: qh }]
+            : photos.length === 2
+              ? [{ x: 0, y: 0, w: (qw - g) / 2, h: qh }, { x: (qw + g) / 2, y: 0, w: (qw - g) / 2, h: qh }]
+              : photos.length === 3
+                ? [
+                    { x: 0, y: 0, w: (qw - g) / 2, h: qh },
+                    { x: (qw + g) / 2, y: (qh + g) / 2, w: (qw - g) / 2, h: (qh - g) / 2 },
+                    { x: (qw + g) / 2, y: 0, w: (qw - g) / 2, h: (qh - g) / 2 },
+                  ]
+                : [
+                    { x: 0, y: (qh + g) / 2, w: (qw - g) / 2, h: (qh - g) / 2 },
+                    { x: (qw + g) / 2, y: (qh + g) / 2, w: (qw - g) / 2, h: (qh - g) / 2 },
+                    { x: 0, y: 0, w: (qw - g) / 2, h: (qh - g) / 2 },
+                    { x: (qw + g) / 2, y: 0, w: (qw - g) / 2, h: (qh - g) / 2 },
+                  ];
+        for (const [k, src] of photos.entries()) {
+          const slot = slots[k];
+          let img: PDFImage;
+          try {
+            img = await loadPublicJpg(src);
+          } catch {
+            continue; // a missing photo leaves its slot dark rather than failing the book
+          }
+          const fit = coverFitSize(img, slot.w, slot.h);
+          const sx = cell.x + slot.x;
+          const sy = cell.y + slot.y;
+          target.pushOperators(pushGraphicsState(), rectangle(sx, sy, slot.w, slot.h), clip(), endPath());
+          target.drawImage(img, { x: sx + (slot.w - fit.width) / 2, y: sy + (slot.h - fit.height) / 2, width: fit.width, height: fit.height });
+          target.pushOperators(popGraphicsState());
+        }
+      }
+      // Pane label on a soft dark band at the bottom of the cell.
+      target.drawRectangle({ x: cell.x, y: cell.y, width: qw, height: 15, color: PWA4_SCRIM_RGB, opacity: 0.45 });
+      target.drawText(pane.label.toUpperCase(), { x: cell.x + 5, y: cell.y + 4.5, size: 6.5, font: fonts.sansBold, color: PWA4_INK_INVERSE });
+    }
+
+    // The arch: fill the two top corners with the frame colour, then the gold line.
+    const rx = iw / 2;
+    const ry = ih * 0.3;
+    const k = 0.5523;
+    const frame = rgb(0.17, 0.11, 0.085);
+    const left = `M 0 0 L 0 ${ry} C 0 ${ry - k * ry} ${rx - k * rx} 0 ${rx} 0 Z`;
+    const right = `M ${iw} 0 L ${iw} ${ry} C ${iw} ${ry - k * ry} ${rx + k * rx} 0 ${rx} 0 Z`;
+    target.drawSvgPath(left, { x: ix, y: top, color: frame });
+    target.drawSvgPath(right, { x: ix, y: top, color: frame });
+    // The outer frame follows the same arch, a little larger, so the frame keeps its width.
+    const orx = w / 2;
+    const ory = ry + pad;
+    const outerLeft = `M 0 0 L 0 ${ory} C 0 ${ory - k * ory} ${orx - k * orx} 0 ${orx} 0 Z`;
+    const outerRight = `M ${w} 0 L ${w} ${ory} C ${w} ${ory - k * ory} ${orx + k * orx} 0 ${orx} 0 Z`;
+    target.drawSvgPath(outerLeft, { x: x0, y: y0 + h, color: PWA4_INK });
+    target.drawSvgPath(outerRight, { x: x0, y: y0 + h, color: PWA4_INK });
+    const outline = `M 0 ${ih} L 0 ${ry} C 0 ${ry - k * ry} ${rx - k * rx} 0 ${rx} 0 C ${rx + k * rx} 0 ${iw} ${ry - k * ry} ${iw} ${ry} L ${iw} ${ih} Z`;
+    target.drawSvgPath(outline, { x: ix, y: top, borderColor: PWA4_GOLD_LIGHT, borderWidth: 0.9, opacity: 0, borderOpacity: 0.85 });
+  }
+
+  // Any public JPG (association and domain photos for the cover), cached per path.
+  const publicJpgCache = new Map<string, PDFImage>();
+  async function loadPublicJpg(publicPath: string): Promise<PDFImage> {
+    const cached = publicJpgCache.get(publicPath);
+    if (cached) return cached;
+    const image = await doc.embedJpg(await readFile(path.join(process.cwd(), "public", publicPath)));
+    publicJpgCache.set(publicPath, image);
     return image;
   }
 
@@ -446,10 +617,62 @@ export async function renderIdeaBookPdf(
     y = rowY - rowHeight;
   }
 
-  // --- Page 1: Cover — full-bleed photo, a bottom scrim (the same stacked-
-  // band technique as the idea pages' hero), the cream wordmark near the
-  // top, and the eyebrow/title/tagline set into the dark part of the scrim.
+  // --- Page 1: Cover. Image-intake books: the person's own window on walnut ("Het venster"
+  // fase 6). Everyone else: the full-bleed photo with a scrim, as before.
   page = addPage();
+  if (context.window) {
+    const win = context.window;
+    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT, color: PWA4_INK });
+
+    const logoHeight = 16;
+    const logoWidth = logoHeight * (images.logoCream.width / images.logoCream.height);
+    page.drawImage(images.logoCream, { x: (PAGE_WIDTH - logoWidth) / 2, y: PAGE_HEIGHT - 56, width: logoWidth, height: logoHeight });
+
+    // The window: 240pt wide, 4:3 portrait, centred.
+    const w = 240;
+    const h = (w * 4) / 3;
+    const x0 = (PAGE_WIDTH - w) / 2;
+    const y0 = PAGE_HEIGHT - 110 - h;
+    await drawCoverWindow(page, win.panes, x0, y0, w, h);
+
+    // Sill: the text answers under the window, on a slightly lighter walnut band.
+    let cursor = y0 - 6;
+    if (win.sill) {
+      const lines = wrapText(win.sill, fonts.sans, 9.5, w + 40, 2);
+      const bandH = lines.length * 13 + 12;
+      page.drawRectangle({ x: x0 - 20 + 6, y: cursor - bandH, width: w + 40 - 12, height: bandH, color: rgb(0.357, 0.247, 0.184) });
+      let ly = cursor - 15;
+      for (const line of lines) {
+        const lw = fonts.sans.widthOfTextAtSize(line, 9.5);
+        page.drawText(line, { x: (PAGE_WIDTH - lw) / 2, y: ly, size: 9.5, font: fonts.sans, color: PWA4_GOLD_LIGHT });
+        ly -= 13;
+      }
+      cursor -= bandH;
+    }
+
+    const centred = (text: string, font: PDFFont, size: number, color: RGB, atY: number, tracking = 0) => {
+      const tw = [...text].reduce((sum, ch) => sum + font.widthOfTextAtSize(ch, size) + tracking, 0) - tracking;
+      drawTrackedLine(text, font, size, color, (PAGE_WIDTH - tw) / 2, atY, tracking);
+    };
+    const v = dict.venster;
+    const name = (win.recipientName ?? "").trim();
+    const coverTitle = name ? v.pdf.coverTitleGift.replace("{name}", name) : v.pdf.coverTitle;
+    cursor -= 46;
+    centred(`${chrome.coverEyebrow} · ${win.dateLabel}`.toUpperCase(), fonts.sansBold, 8.5, PWA4_GOLD_LIGHT, cursor, 1.1);
+    cursor -= 40;
+    for (const line of wrapText(coverTitle, fonts.serif, 32, PWA4_CONTENT_WIDTH, 2)) {
+      centred(line, fonts.serif, 32, PWA4_INK_INVERSE, cursor);
+      cursor -= 38;
+    }
+    cursor -= 2;
+    for (const line of wrapText(chrome.coverTagline, fonts.sans, 11, 360, 3)) {
+      centred(line, fonts.sans, 11, rgb(0.886, 0.851, 0.788), cursor);
+      cursor -= 16;
+    }
+  } else {
+  // Full-bleed photo, a bottom scrim (the same stacked-band technique as the idea pages'
+  // hero), the cream wordmark near the top, and the eyebrow/title/tagline set into the
+  // dark part of the scrim.
   {
     drawFullBleedImage(images.cover);
 
@@ -497,6 +720,8 @@ export async function renderIdeaBookPdf(
     drawParagraph(title, fonts.serif, 34, PWA4_INK_INVERSE, 8, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
     y -= PWA4_SPACE_3;
     drawParagraph(chrome.coverTagline, fonts.sans, 12, PWA4_INK_INVERSE, 5, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
+  }
+
   }
 
   // --- Page 2: Profile — a top photo band (no overlay — the text sits on
@@ -1298,7 +1523,7 @@ export async function renderIdeaBookPdf(
 
   for (const [i, { idea }] of orderedIdeas.entries()) {
     page = addPage();
-    const photo = await loadIdeaPhoto(idea.photo_category, nextPhotoVariant(idea.photo_category));
+    const photo = await loadIdeaPhoto(idea, nextPhotoVariant(idea.photo_category));
     drawIdeaPage(idea, photo, { number: i + 1, badge: dict.plan.book.doors[idea.door as "natural"]?.label ?? "" });
   }
 
@@ -1307,10 +1532,7 @@ export async function renderIdeaBookPdf(
   // wildcard instead of carrying a number and a door.
   page = addPage();
   {
-    const wildcardPhoto = await loadIdeaPhoto(
-      book.wildcard.photo_category,
-      nextPhotoVariant(book.wildcard.photo_category)
-    );
+    const wildcardPhoto = await loadIdeaPhoto(book.wildcard, nextPhotoVariant(book.wildcard.photo_category));
     drawIdeaPage(book.wildcard, wildcardPhoto, {
       number: null,
       badge: book.labels.wildcard_heading || chrome.wildcardFallbackHeading,

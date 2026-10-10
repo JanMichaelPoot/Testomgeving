@@ -11,7 +11,9 @@ import { IdeaFeedback } from "@/components/window/IdeaFeedback";
 import { ShareButton } from "@/components/window/ShareButton";
 import { commitToIdea, submitIdeaFeedback, type IdeaFeedbackValue } from "@/app/plan/actions";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
-import { ideaCategoryPhoto } from "@/lib/illustrations";
+import { ideaPhoto } from "@/lib/illustrations";
+import { mapsSearchUrl } from "@/lib/maps";
+import type { BecauseLine, VensterEcho } from "@/lib/vensterReveal";
 import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
 import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
 import type { PlanEcho } from "@/lib/planEcho";
@@ -125,6 +127,11 @@ export interface PlanRevealProps {
   initialCommittedKey: string | null;
   echo: PlanEcho;
   dateLabel: string;
+  // Books from the image intake ("Het venster"): the chosen images as the echo, and per idea
+  // key the image behind it. Absent for older books and the other wizards.
+  vensterEcho?: VensterEcho | null;
+  because?: Record<string, BecauseLine>;
+  vensterDict?: Dictionary["venster"];
 }
 
 // The paid result, as one scrolling page: an echo of what the person told us,
@@ -147,6 +154,9 @@ export function PlanReveal({
   initialCommittedKey,
   echo,
   dateLabel,
+  vensterEcho = null,
+  because = {},
+  vensterDict,
 }: PlanRevealProps) {
   const t = planDict.reveal;
 
@@ -259,7 +269,17 @@ export function PlanReveal({
 
   const trackPdf = (source: string) => () => trackEvent("plan_pdf_downloaded", { planId, source });
 
-  const headline = echo.situation ? (
+  const headline = vensterEcho ? (
+    <>
+      {vensterEcho.sentence}
+      {vensterEcho.wrote && (
+        <>
+          {" "}
+          <span className="italic text-accent">{vensterEcho.wrote}</span>
+        </>
+      )}
+    </>
+  ) : echo.situation ? (
     <>
       {t.headingSaid.replace("{situation}", echo.situation)}{" "}
       <span className="italic text-accent">{t.headingClosing}</span>
@@ -305,9 +325,20 @@ export function PlanReveal({
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
           {t.eyebrow.replace("{date}", dateLabel)}
         </p>
-        <h1 className="max-w-4xl text-balance font-serif text-4xl font-normal leading-[1.08] tracking-[-0.01em] text-ink sm:text-5xl lg:text-6xl">
-          {headline}
-        </h1>
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <h1 className="max-w-4xl text-balance font-serif text-4xl font-normal leading-[1.08] tracking-[-0.01em] text-ink sm:text-5xl lg:text-6xl">
+            {headline}
+          </h1>
+          {vensterEcho && vensterEcho.images.length > 0 && (
+            <div className="flex shrink-0 gap-2">
+              {vensterEcho.images.map((img) => (
+                <span key={img.src} className="relative h-14 w-14 overflow-hidden rounded-md ring-2 ring-gold sm:h-16 sm:w-16">
+                  <Image src={img.src} alt={img.alt} fill sizes="64px" className="object-cover" />
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
         {echo.chips.length > 0 && (
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-sm text-ink/65">{t.basedOn}</span>
@@ -329,7 +360,7 @@ export function PlanReveal({
           <div className="grid overflow-hidden rounded-lg border border-border bg-paper md:grid-cols-2">
             <div className="relative h-64 md:h-auto md:min-h-[460px]">
               <Image
-                src={ideaCategoryPhoto(featured.photo_category, featuredIndex!)}
+                src={ideaPhoto(featured, featuredIndex!)}
                 alt=""
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
@@ -369,6 +400,15 @@ export function PlanReveal({
                 </div>
               </div>
 
+              {because[featuredKey] && (
+                <div className="flex items-center gap-3 rounded-md bg-surface-active p-2.5 pr-4">
+                  <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-sm">
+                    <Image src={because[featuredKey].src} alt={because[featuredKey].label} fill sizes="44px" className="object-cover" />
+                  </span>
+                  <span className="text-sm font-semibold text-accent-dark">{because[featuredKey].text}</span>
+                </div>
+              )}
+
               <div className="flex flex-col gap-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
                   {t.whyHeading}
@@ -377,6 +417,18 @@ export function PlanReveal({
                   {featured.why_it_fits}
                 </p>
               </div>
+
+              {featured.location && vensterDict && (
+                <a
+                  href={mapsSearchUrl(featured.location.name, featured.location.city)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-accent underline underline-offset-2 hover:text-accent-dark"
+                >
+                  <span aria-hidden="true">⌖</span>
+                  {vensterDict.reveal.placeLabel}: {[featured.location.name, featured.location.city].filter(Boolean).join(", ")} · {vensterDict.reveal.mapLink}
+                </a>
+              )}
 
               {featured.first_action && (
                 <div className="rounded-md bg-accent-dark p-5">
@@ -488,7 +540,7 @@ export function PlanReveal({
                     >
                       <div className="relative h-[150px]">
                         <Image
-                          src={ideaCategoryPhoto(idea.photo_category, originalIndex)}
+                          src={ideaPhoto(idea, originalIndex)}
                           alt=""
                           fill
                           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
@@ -595,7 +647,7 @@ export function PlanReveal({
               </div>
               <div className="relative h-64 md:h-auto md:min-h-[360px]">
                 <Image
-                  src={ideaCategoryPhoto(wildcard.photo_category, ideas.length)}
+                  src={ideaPhoto(wildcard, ideas.length)}
                   alt=""
                   fill
                   sizes="(min-width: 768px) 50vw, 100vw"

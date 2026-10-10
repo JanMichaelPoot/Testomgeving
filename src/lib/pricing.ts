@@ -1,10 +1,21 @@
 import type { Locale } from "@/lib/locale";
 
-// Single price point for the MVP — adjust anywhere in the €2-5 range from
-// the product brief. Kept in cents since that's what Stripe expects.
+// Single price point for the MVP. Kept in cents since that's what Stripe expects.
+// The default stays €3,50; a deployment can set NEXT_PUBLIC_WINDOW_PRICE_CENTS (e.g. 600
+// on the "Het venster" test preview, Jan 4 Oct 2026). The same value feeds the page copy,
+// the Stripe line item (checkout/actions.ts) and the order record, so they cannot differ.
+// NEXT_PUBLIC_ so the browser shows the same number (inlined at build time).
+export const DEFAULT_PRICE_CENTS = 350;
+
+export function priceCentsFrom(raw: string | undefined): number {
+  const n = Number((raw ?? "").trim());
+  // Whole cents between €1 and €50 only: a typo must never turn into a free or absurd price.
+  return Number.isInteger(n) && n >= 100 && n <= 5000 ? n : DEFAULT_PRICE_CENTS;
+}
+
 export const WINDOW_PLAN_PRICE = {
   currency: "eur",
-  amountCents: 350,
+  amountCents: priceCentsFrom(process.env.NEXT_PUBLIC_WINDOW_PRICE_CENTS),
 } as const;
 
 // Formatted manually (not via Intl.NumberFormat) so the output is always

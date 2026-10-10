@@ -1,0 +1,623 @@
+[
+  {
+    "id": "place-forest-edge",
+    "round": "places",
+    "label": {
+      "nl": "Een stille bosrand",
+      "en": "A quiet forest edge"
+    },
+    "scene": "The edge of a beech forest at golden hour, low sun through the trunks, a mossy path leading in, empty and still.",
+    "image": "/illustrations/idea-book/categories/nature_outdoor-1.jpg",
+    "tagWeights": {
+      "nature": 1,
+      "stillness": 0.8,
+      "outdoors": 0.9,
+      "discovery": 0.3
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.3,
+      "setting": 1,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-workshop",
+    "round": "places",
+    "label": {
+      "nl": "Een werkplaats met zaagsel",
+      "en": "A workshop full of sawdust"
+    },
+    "scene": "A sunlit woodworking bench with curls of fresh sawdust, a wooden block plane and clamps, dust hanging in a beam of light.",
+    "image": "/illustrations/discovery/houtbewerking.jpg",
+    "tagWeights": {
+      "craft": 1,
+      "making": 0.9,
+      "technique": 0.6,
+      "focus": 0.5
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0.1,
+      "setting": -0.8,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-kitchen-table",
+    "round": "places",
+    "label": {
+      "nl": "Een volle keukentafel",
+      "en": "A crowded kitchen table"
+    },
+    "scene": "A long wooden kitchen table crowded with shared dishes, bread, glasses and a vase of flowers, chairs pulled out, warm evening light.",
+    "image": "/illustrations/discovery/domains/together.jpg",
+    "tagWeights": {
+      "conviviality": 1,
+      "food": 0.9,
+      "teamwork": 0.4,
+      "play": 0.3
+    },
+    "axes": {
+      "social": 0.9,
+      "energy": 0,
+      "setting": -0.8,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-still-water",
+    "round": "places",
+    "label": {
+      "nl": "Stil water bij zonsopgang",
+      "en": "Still water at sunrise"
+    },
+    "scene": "A mirror-flat lake at sunrise with thin mist on the water, reeds in the foreground, pink and orange sky.",
+    "image": "/illustrations/discovery/open-water.jpg",
+    "tagWeights": {
+      "water": 1,
+      "stillness": 0.8,
+      "nature": 0.6,
+      "balance": 0.4
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.4,
+      "setting": 1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-reading-room",
+    "round": "places",
+    "label": {
+      "nl": "Een oude leeszaal",
+      "en": "An old reading room"
+    },
+    "scene": "A grand old library reading room with green desk lamps, tall wooden shelves and a ladder, soft afternoon light.",
+    "image": "/illustrations/discovery/archief.jpg",
+    "tagWeights": {
+      "history": 1,
+      "story": 0.8,
+      "learning": 0.7,
+      "focus": 0.5
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-under-stars",
+    "round": "places",
+    "label": {
+      "nl": "Onder de sterren",
+      "en": "Under the stars"
+    },
+    "scene": "A deep blue night sky full of stars and the Milky Way above a dark meadow, a blanket and a lantern on the grass.",
+    "image": "/illustrations/discovery/sterrenkijken.jpg",
+    "tagWeights": {
+      "stars": 1,
+      "outdoors": 0.7,
+      "discovery": 0.7,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.3,
+      "setting": 1,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-light-studio",
+    "round": "places",
+    "label": {
+      "nl": "Een atelier vol licht",
+      "en": "A studio full of light"
+    },
+    "scene": "An airy artist studio with tall windows, an easel, jars of vivid paint and brushes, white light pouring in.",
+    "image": "/illustrations/discovery/ateliers.jpg",
+    "tagWeights": {
+      "color": 1,
+      "making": 0.8,
+      "craft": 0.5,
+      "focus": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.3,
+      "setting": -0.8,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-rain-window",
+    "round": "places",
+    "label": {
+      "nl": "Regen tegen het raam",
+      "en": "Rain against the window"
+    },
+    "scene": "Raindrops running down a window pane, blurred city lights behind, a steaming mug and an open notebook on the sill.",
+    "image": "/illustrations/step-situation.jpg",
+    "tagWeights": {
+      "story": 0.8,
+      "stillness": 0.7,
+      "language": 0.5,
+      "learning": 0.4
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.9,
+      "setting": -1,
+      "novelty": -0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-warm-corner",
+    "round": "places",
+    "label": {
+      "nl": "Een warm hoekje",
+      "en": "A warm corner"
+    },
+    "scene": "A cosy armchair corner with a knitted throw, a warm floor lamp and plants, late evening glow.",
+    "image": "/illustrations/discovery/domains/restful.jpg",
+    "tagWeights": {
+      "conviviality": 0.6,
+      "balance": 0.7,
+      "stillness": 0.6,
+      "caring": 0.5
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": -0.8,
+      "setting": -1,
+      "novelty": -0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-clay",
+    "round": "moments",
+    "label": {
+      "nl": "Handen vol klei",
+      "en": "Hands full of clay"
+    },
+    "scene": "Wet clay spinning on a potter's wheel, fingerprints in the clay and water glistening, no hands in frame.",
+    "image": "/illustrations/discovery/pottenbakken.jpg",
+    "tagWeights": {
+      "making": 1,
+      "craft": 0.8,
+      "focus": 0.5,
+      "color": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.2,
+      "setting": -0.6,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-start",
+    "round": "moments",
+    "label": {
+      "nl": "Vlak voor de start",
+      "en": "Just before the start"
+    },
+    "scene": "A white start line on a running track at dawn, long shadows, empty lanes stretching ahead.",
+    "image": "/illustrations/discovery/hardlopen.jpg",
+    "tagWeights": {
+      "competition": 1,
+      "challenge": 0.8,
+      "suspense": 0.7,
+      "movement": 0.6
+    },
+    "axes": {
+      "social": 0.4,
+      "energy": 0.9,
+      "setting": 0.3,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-laughing",
+    "round": "moments",
+    "label": {
+      "nl": "Samen hard lachen",
+      "en": "Laughing together"
+    },
+    "scene": "A table mid-game with scattered cards, dice and half-empty glasses, confetti and warm string lights, nobody in frame.",
+    "image": "/illustrations/discovery/spelavond-thuis.jpg",
+    "tagWeights": {
+      "conviviality": 1,
+      "play": 0.8,
+      "teamwork": 0.6,
+      "roleplay": 0.3
+    },
+    "axes": {
+      "social": 1,
+      "energy": 0.3,
+      "setting": -0.3,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-piece-fits",
+    "round": "moments",
+    "label": {
+      "nl": "Het stukje dat past",
+      "en": "The piece that fits"
+    },
+    "scene": "A jigsaw puzzle nearly finished on a wooden table, the last piece lying next to its gap, soft side light.",
+    "image": "/illustrations/discovery/legpuzzels.jpg",
+    "tagWeights": {
+      "puzzling": 1,
+      "strategy": 0.7,
+      "precision": 0.6,
+      "focus": 0.6
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.6,
+      "setting": -0.8,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-rhythm",
+    "round": "moments",
+    "label": {
+      "nl": "Ritme in je lijf",
+      "en": "Rhythm in your body"
+    },
+    "scene": "An empty dance floor with coloured spotlights and motion-blurred light streaks, a speaker glowing at the side.",
+    "image": "/illustrations/discovery/dansen.jpg",
+    "tagWeights": {
+      "rhythm": 1,
+      "movement": 0.9,
+      "sound": 0.6,
+      "balance": 0.4
+    },
+    "axes": {
+      "social": 0.4,
+      "energy": 0.8,
+      "setting": -0.2,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-summit",
+    "round": "moments",
+    "label": {
+      "nl": "Boven komen",
+      "en": "Reaching the top"
+    },
+    "scene": "A rocky summit above the clouds at sunrise, a small cairn of stones in the foreground, vast view.",
+    "image": "/illustrations/discovery/klimmen.jpg",
+    "tagWeights": {
+      "height": 1,
+      "challenge": 0.9,
+      "outdoors": 0.7,
+      "movement": 0.6
+    },
+    "axes": {
+      "social": 0,
+      "energy": 1,
+      "setting": 0.9,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-growing",
+    "round": "moments",
+    "label": {
+      "nl": "Iets zien groeien",
+      "en": "Watching something grow"
+    },
+    "scene": "Bright green seedlings pushing out of dark soil in terracotta pots, droplets of water, morning light.",
+    "image": "/illustrations/discovery/tuinieren.jpg",
+    "tagWeights": {
+      "growing": 1,
+      "nature": 0.7,
+      "caring": 0.7,
+      "outdoors": 0.4
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.3,
+      "setting": 0.6,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-lost-in-story",
+    "round": "moments",
+    "label": {
+      "nl": "Verdwalen in een verhaal",
+      "en": "Getting lost in a story"
+    },
+    "scene": "An open old book glowing in lamplight, pages fanning, a map and a pressed flower tucked inside.",
+    "image": "/illustrations/discovery/lezen.jpg",
+    "tagWeights": {
+      "story": 1,
+      "roleplay": 0.6,
+      "language": 0.5,
+      "history": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.7,
+      "setting": -0.9,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-stillness",
+    "round": "moments",
+    "label": {
+      "nl": "Helemaal stil worden",
+      "en": "Becoming completely still"
+    },
+    "scene": "A single round cushion on a wooden floor facing a window with soft fog outside, perfect calm.",
+    "image": "/illustrations/discovery/meditatie.jpg",
+    "tagWeights": {
+      "stillness": 1,
+      "balance": 0.8,
+      "focus": 0.5,
+      "nature": 0.3
+    },
+    "axes": {
+      "social": -0.8,
+      "energy": -1,
+      "setting": 0,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-wood",
+    "round": "senses",
+    "label": {
+      "nl": "Houtgeur",
+      "en": "The smell of wood"
+    },
+    "scene": "A stack of freshly cut timber with visible grain and resin, warm amber tones, a few wood shavings.",
+    "image": "/illustrations/discovery/ambachten.jpg",
+    "tagWeights": {
+      "craft": 0.8,
+      "making": 0.7,
+      "nature": 0.5,
+      "technique": 0.3
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0,
+      "setting": -0.2,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-salt",
+    "round": "senses",
+    "label": {
+      "nl": "Zout op je huid",
+      "en": "Salt on your skin"
+    },
+    "scene": "A bright turquoise sea with white foam breaking on a sandy beach, sparkling sun, a salt-crusted rope on the sand.",
+    "image": "/illustrations/discovery/zeilen.jpg",
+    "tagWeights": {
+      "water": 1,
+      "outdoors": 0.8,
+      "movement": 0.5,
+      "discovery": 0.3
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0.5,
+      "setting": 1,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-wind",
+    "round": "senses",
+    "label": {
+      "nl": "Wind in je gezicht",
+      "en": "Wind in your face"
+    },
+    "scene": "A winding dyke road through green polders under a dramatic sky, grass bending in a strong wind.",
+    "image": "/illustrations/discovery/fietsen.jpg",
+    "tagWeights": {
+      "movement": 0.9,
+      "outdoors": 0.9,
+      "challenge": 0.4,
+      "discovery": 0.4
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.7,
+      "setting": 1,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-grass",
+    "round": "senses",
+    "label": {
+      "nl": "Gras onder blote voeten",
+      "en": "Grass under bare feet"
+    },
+    "scene": "Close-up of lush green grass with dew drops and a few daisies in early summer sun.",
+    "image": "/illustrations/discovery/picknick.jpg",
+    "tagWeights": {
+      "nature": 1,
+      "balance": 0.6,
+      "outdoors": 0.7,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.3,
+      "setting": 1,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-candlelight",
+    "round": "senses",
+    "label": {
+      "nl": "Kaarslicht",
+      "en": "Candlelight"
+    },
+    "scene": "Several candles of different heights glowing on a dark wooden table, warm golden light and soft shadows.",
+    "image": "/illustrations/discovery/theeceremonie.jpg",
+    "tagWeights": {
+      "stillness": 0.8,
+      "conviviality": 0.6,
+      "balance": 0.5,
+      "story": 0.3
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.9,
+      "setting": -1,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-bass",
+    "round": "senses",
+    "label": {
+      "nl": "Een diepe bas",
+      "en": "A deep bass"
+    },
+    "scene": "A loudspeaker cone mid-vibration in deep purple and red light, a haze of smoke in the background.",
+    "image": "/illustrations/discovery/concert.jpg",
+    "tagWeights": {
+      "sound": 1,
+      "rhythm": 0.9,
+      "conviviality": 0.4,
+      "suspense": 0.3
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0.6,
+      "setting": -0.6,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-herbs",
+    "round": "senses",
+    "label": {
+      "nl": "Kruiden uit de tuin",
+      "en": "Herbs from the garden"
+    },
+    "scene": "A basket of freshly picked rosemary, basil and mint on a garden table, vivid greens, soft sun.",
+    "image": "/illustrations/discovery/kruiden.jpg",
+    "tagWeights": {
+      "food": 0.9,
+      "growing": 0.8,
+      "nature": 0.6,
+      "caring": 0.4
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.2,
+      "setting": 0.5,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-cold-water",
+    "round": "senses",
+    "label": {
+      "nl": "Koud water",
+      "en": "Cold water"
+    },
+    "scene": "Icy blue clear water with light rays and bubbles just below the surface of a lake.",
+    "image": "/illustrations/discovery/zwemmen.jpg",
+    "tagWeights": {
+      "water": 1,
+      "challenge": 0.8,
+      "suspense": 0.4,
+      "outdoors": 0.6
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0.7,
+      "setting": 1,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-old-book",
+    "round": "senses",
+    "label": {
+      "nl": "Het kraken van een oud boek",
+      "en": "The creak of an old book"
+    },
+    "scene": "An antique leather-bound book lying open, yellowed pages and a ribbon marker, dust in warm lamplight.",
+    "image": "/illustrations/discovery/handschriften.jpg",
+    "tagWeights": {
+      "history": 0.9,
+      "collecting": 0.6,
+      "story": 0.7,
+      "retro": 0.5
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.8,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  }
+]

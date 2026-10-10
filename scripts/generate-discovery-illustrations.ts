@@ -11,6 +11,12 @@
 //   npx tsx scripts/generate-discovery-illustrations.ts --concurrency 4
 //   npx tsx scripts/generate-discovery-illustrations.ts --sheet 3x3     cheaper: 9 photos per generated image
 //   npx tsx scripts/generate-discovery-illustrations.ts --sheet 2x2 --limit 1   test one sheet
+//   npx tsx scripts/generate-discovery-illustrations.ts --associations --sheet 2x2 --dry-run   cost, no calls
+//   npx tsx scripts/generate-discovery-illustrations.ts --associations --sheet 2x2 --limit 1
+//                                    the association images of the image intake ("Het venster"),
+//                                    1000px wide, into public/illustrations/associations/<id>.jpg;
+//                                    associations.json then points at the new file (status stays
+//                                    "concept" until Jan has approved the image)
 //
 // --sheet: the image model charges per generated image, not per pixel, so ONE 2K
 // image holding a grid of photos costs the same as one single photo. The sheet is
@@ -22,28 +28,44 @@
 //
 // Reads GEMINI_API_KEY from .env.local. Output: public/illustrations/discovery/<id>.jpg
 // (and domains/<domain>.jpg), 4:3, resized to 800px wide and JPEG-compressed.
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import { generateIllustration } from "../src/lib/gemini";
 import { ALL_ACTIVITIES, DOMAINS } from "../src/lib/discovery/library";
 import { sliceSheet } from "../src/lib/discovery/sheetSlicer";
+import { ASSOCIATIONS } from "../src/lib/discovery/associations";
 
 if (!process.env.GEMINI_API_KEY && existsSync(".env.local")) process.loadEnvFile(".env.local");
-if (!process.env.GEMINI_API_KEY) {
+if (!process.env.GEMINI_API_KEY && !process.argv.includes("--dry-run")) {
   console.error("GEMINI_API_KEY is not set (expected in .env.local).");
   process.exit(1);
 }
 
+const ASSOCIATION_MODE = process.argv.includes("--associations");
 const OUT = path.join(process.cwd(), "public/illustrations/discovery");
-const WIDTH = 800;
+const ASSOCIATION_OUT = path.join(process.cwd(), "public/illustrations/associations");
+const ASSOCIATIONS_JSON = path.join(process.cwd(), "src/lib/discovery/associations.json");
+const WIDTH = ASSOCIATION_MODE ? 1000 : 800;
+
+// Association images (bouwopdracht "Het venster", fase 2): a mood, a place, a texture or a
+// fall of light, never a recognisable hobby set-up, so the images call up a feeling instead
+// of giving the idea away. Vivid colour is welcome; the brand lives in the frame around the
+// photo, not in a filter over it. The colour follows the subject (no domain accent).
+const ASSOCIATION_STYLE =
+  "Photorealistic contemporary editorial photograph in a premium travel-magazine style, evocative rather than explanatory: " +
+  "a mood, a place, a texture or a fall of light, never a recognisable hobby set-up with equipment laid out. " +
+  "One clear subject that reads at thumbnail size, warm natural light, vivid saturated colour that follows the subject itself, " +
+  "simple uncluttered composition, shallow depth of field, crisp detail. " +
+  "Strictly no people, no faces, no hands, no body parts, no text, no letters, no logos.";
 
 // Same photographic language as the rest of the site (warm walnut, linen, cream),
 // with ONE bold accent colour per domain so the cards are recognisable at a
 // glance and the wizard doesn't turn beige. No people: it avoids stereotypes
 // about who does which hobby and generation glitches with faces and hands.
 function stylePrefix(colorName: string, hex: string) {
+  if (!hex) return ASSOCIATION_STYLE;
   return (
     "Photorealistic contemporary editorial photograph in a premium travel-magazine style. " +
     "Warm natural light, a warm neutral base of walnut wood, linen and cream, " +
@@ -67,14 +89,15 @@ const SHEET_STYLE =
   "Strictly no people, no faces, no hands, no text, no letters, no logos anywhere.";
 
 function sheetPrompt(cells: Job[], cols: number, rows: number) {
-  const lines = cells.map((c, i) => `${i + 1}. (${c.colorName}, ${c.hex}) ${c.scene}.`);
+  const lines = cells.map((c, i) => (c.hex ? `${i + 1}. (${c.colorName}, ${c.hex}) ${c.scene}.` : `${i + 1}. ${c.scene}.`));
+  const style = cells.some((c) => !c.hex) ? ASSOCIATION_STYLE.replace("photograph in", "photographs in") : SHEET_STYLE;
   return {
     prefix:
-      `${SHEET_STYLE} Create ONE single image that is a grid of ${cols} columns by ${rows} rows: ${cells.length} separate photographs of exactly equal size, ` +
+      `${style} Create ONE single image that is a grid of ${cols} columns by ${rows} rows: ${cells.length} separate photographs of exactly equal size, ` +
       "arranged in reading order (left to right, then top to bottom), divided by clean, straight, plain pure-white gutters about 3% of the image width wide, " +
       "with a plain white margin around the whole grid. Every photograph fills its own cell completely, edge to edge, in landscape 4:3 orientation, " +
       "with no border, frame, caption or number, and is a fully independent photograph with its own subject and composition; nothing may cross a gutter. " +
-      "The photographs, each with its own accent colour in brackets:",
+      (cells.some((c) => !c.hex) ? "The photographs:" : "The photographs, each with its own accent colour in brackets:"),
     subject: lines.join(" "),
   };
 }
@@ -100,11 +123,18 @@ const onlyDomain = value("domain");
 const force = flag("force");
 
 const jobs: Job[] = [];
+if (ASSOCIATION_MODE) {
+  for (const c of ASSOCIATIONS) {
+    if (only && !only.includes(c.id)) continue;
+    jobs.push({ file: path.join(ASSOCIATION_OUT, `${c.id}.jpg`), label: c.id, scene: c.scene, colorName: "", hex: "" });
+  }
+}
 for (const d of DOMAINS) {
+  if (ASSOCIATION_MODE) break;
   if (only || onlyDomain) break; // domain cards are skipped when targeting specific activities
   jobs.push({ file: path.join(OUT, "domains", `${d.id}.jpg`), label: `domain ${d.id}`, scene: d.scene, colorName: d.colorName, hex: d.color });
 }
-if (!flag("domains-only")) {
+if (!flag("domains-only") && !ASSOCIATION_MODE) {
   for (const a of ALL_ACTIVITIES) {
     if (a.status === "retired") continue;
     if (only && !only.includes(a.id)) continue;
@@ -254,7 +284,26 @@ async function runSheets() {
   finish(failed);
 }
 
+// Points associations.json at the generated images that exist now (keeps the stand-in otherwise).
+function linkAssociationImages() {
+  if (!ASSOCIATION_MODE) return;
+  const data = JSON.parse(readFileSync(ASSOCIATIONS_JSON, "utf8")) as { id: string; image: string }[];
+  let changed = 0;
+  for (const c of data) {
+    const target = `/illustrations/associations/${c.id}.jpg`;
+    if (c.image !== target && existsSync(path.join(ASSOCIATION_OUT, `${c.id}.jpg`))) {
+      c.image = target;
+      changed++;
+    }
+  }
+  if (changed) {
+    writeFileSync(ASSOCIATIONS_JSON, `${JSON.stringify(data, null, 2)}\n`);
+    console.log(`associations.json now points at ${changed} new image(s). Review them, then set "status" to "reviewed".`);
+  }
+}
+
 function finish(failed: number): never {
+  linkAssociationImages();
   if (quotaHit) {
     console.log(
       "\nStopped: the Gemini account refused further requests (402 = billing/credit, 429 = spend-based rate limit).\n" +
@@ -267,6 +316,23 @@ function finish(failed: number): never {
 }
 
 async function main() {
+  if (flag("dry-run")) {
+    // No API call and no cost: what would be made, and roughly what it would cost.
+    // Same packing as runSheets: full sheets from the largest grid down to 2x2, the rest one by one.
+    let images = batch.length;
+    if (sheetSpec) {
+      let left = todo.length;
+      images = 0;
+      for (let n = gridN; n >= 2; n--) while (left >= n * n) {
+        images++;
+        left -= n * n;
+      }
+      images += left;
+    }
+    console.log(`${todo.length} photo(s) missing of ${jobs.length}; ${images} generated image(s) at $0.134 = about $${(images * 0.134).toFixed(2)}`);
+    for (const j of todo.slice(0, 40)) console.log(`  ${j.label}: ${j.scene}`);
+    return;
+  }
   if (sheetSpec) return runSheets();
   console.log(`${jobs.length} photos in scope, ${todo.length} missing${force ? " (forcing all)" : ""}, generating ${batch.length}, ${concurrency} at a time`);
   let next = 0;

@@ -10,12 +10,17 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { ALL_ACTIVITIES, DOMAINS, HYBRIDS, SUB_DOMAINS, TAGS, VOCABULARY } from "../src/lib/discovery/library";
 import { SOCIAL_FORMATS } from "../src/lib/discovery/types";
-import { validateLibrary } from "../src/lib/discovery/validate";
+import { validateAssociations, validateLibrary } from "../src/lib/discovery/validate";
+import { ASSOCIATIONS } from "../src/lib/discovery/associations";
 
 const args = new Set(process.argv.slice(2));
 const PUBLIC = path.join(process.cwd(), "public/illustrations/discovery");
 
-const { errors, warnings } = validateLibrary({ vocabulary: VOCABULARY, activities: ALL_ACTIVITIES, hybrids: HYBRIDS });
+const library = validateLibrary({ vocabulary: VOCABULARY, activities: ALL_ACTIVITIES, hybrids: HYBRIDS });
+// The association images of the image intake are checked in the same run.
+const associations = validateAssociations(ASSOCIATIONS, VOCABULARY);
+const errors = [...library.errors, ...associations.errors];
+const warnings = [...library.warnings, ...associations.warnings];
 
 const imageFile = (id: string) => path.join(PUBLIC, `${id}.jpg`);
 const domainFile = (id: string) => path.join(PUBLIC, "domains", `${id}.jpg`);

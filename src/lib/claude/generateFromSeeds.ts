@@ -19,6 +19,7 @@ import type { EngineResult, Seed } from "@/lib/discovery/engine";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
 import { TAGS, getActivity } from "@/lib/discovery/library";
+import { getAssociation, imagesBehind } from "@/lib/discovery/associations";
 
 // The Idea Book pipeline for people who used the card wizard (phase 4 of the discovery
 // upgrade). Four steps, only two of which cost money:
@@ -31,8 +32,13 @@ import { TAGS, getActivity } from "@/lib/discovery/library";
 // See docs/discovery-api-costs.md for the measured numbers.
 
 /** Who goes through the seed pipeline: anyone who used the card wizard's interest step. */
-export function shouldUseEngine(intake: Pick<IntakeAnswers, "interests" | "interestDomains" | "surpriseMe">): boolean {
-  return (intake.interests?.length ?? 0) > 0 || (intake.interestDomains?.length ?? 0) > 0 || intake.surpriseMe === true;
+export function shouldUseEngine(intake: Pick<IntakeAnswers, "interests" | "interestDomains" | "surpriseMe" | "intakeVariant">): boolean {
+  return (
+    intake.intakeVariant === "associations" ||
+    (intake.interests?.length ?? 0) > 0 ||
+    (intake.interestDomains?.length ?? 0) > 0 ||
+    intake.surpriseMe === true
+  );
 }
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
@@ -98,7 +104,7 @@ const FORMAT_TEXT: Record<string, string> = {
   online: "online",
 };
 
-function why(seed: Seed, locale: Locale): string {
+function why(seed: Seed, locale: Locale, fromImages = false): string {
   const label = (id: string) => getActivity(id)?.label[locale] ?? id;
   const via = seed.via.map((t) => TAG_LABEL.get(t)?.[locale] ?? t).join(", ");
   if (seed.hybrid) {
@@ -106,6 +112,11 @@ function why(seed: Seed, locale: Locale): string {
   }
   switch (seed.direction) {
     case "familiar":
+      if (fromImages) {
+        return seed.chain.length > 1
+          ? `Close to an activity their chosen images point to (${label(seed.chain[0])}).`
+          : "One of the activities their chosen images point to most directly.";
+      }
       return seed.chain.length > 1 ? `Close to something they picked (${label(seed.chain[0])}).` : "They picked this themselves on the cards.";
     case "adjacent":
       return `Related to something they picked: ${seed.chain.map(label).join(" → ")}${via ? ` (shared: ${via})` : ""}.`;
@@ -122,8 +133,16 @@ function why(seed: Seed, locale: Locale): string {
   }
 }
 
-function seedBlock(seed: Seed, index: number, research: SeedResearch | undefined, locale: Locale): string {
+function seedBlock(
+  seed: Seed,
+  index: number,
+  research: SeedResearch | undefined,
+  locale: Locale,
+  chosenImages: readonly string[] = [],
+): string {
   const a = getActivity(seed.activityId)!;
+  // Image intake: the chosen image that lies behind this idea, for "Omdat je X koos".
+  const behind = imagesBehind(a.tags, chosenImages, 1).map((id) => getAssociation(id)?.label.en).filter(Boolean)[0];
   const name = seed.hybrid ? seed.hybrid.label[locale] : a.label[locale];
   const forms = [seed.lead, ...seed.alsoFormats].filter((f): f is NonNullable<typeof f> => !!f).map((f) => FORMAT_TEXT[f]);
   const take = seed.lead
@@ -137,7 +156,8 @@ function seedBlock(seed: Seed, index: number, research: SeedResearch | undefined
   return [
     `Idea ${index + 1} — ${seed.direction === "wildcard" ? "WILDCARD (the separate wildcard slot)" : `door: ${seed.door}`}`,
     `  Activity: ${name}`,
-    `  Why it was chosen: ${why(seed, locale)}`,
+    `  Why it was chosen: ${why(seed, locale, chosenImages.length > 0)}`,
+    behind ? `  Image behind it: "${behind}" (the chosen image this idea connects to; name it in why_it_fits)` : null,
     `  How to take part: ${take}`,
     `  Easy way in: ${a.entry ? a.entry[locale] : "not known; suggest a beginner-friendly first step"}`,
     a.safety.tier === 2 && a.safety.note
@@ -261,7 +281,12 @@ export async function generateIdeaBookFromSeeds(
   intake: IntakeAnswers,
   locale: Locale,
   characterProfile: CharacterProfile,
-  opts: { sessionId?: string; history?: readonly string[] } = {},
+  opts: {
+    sessionId?: string;
+    history?: readonly string[];
+    /** Called as the pipeline passes its steps, for the honest waiting screen. Never awaited for long. */
+    onProgress?: (stage: "selected" | "researched") => Promise<void> | void;
+  } = {},
 ): Promise<{ book: GeneratedIdeaBook; report: SeedPipelineReport }> {
   // 1. Select the seeds.
   const engine: EngineResult = runEngine(
@@ -269,6 +294,7 @@ export async function generateIdeaBookFromSeeds(
   );
   const seeds = engine.seeds;
   if (seeds.length < 6) throw new Error("The selection engine could not find enough activities for this profile.");
+  await opts.onProgress?.("selected");
 
   // 2. Research, grouped and cached (once, outside the retry loop below).
   const research = await researchSeeds({
@@ -277,6 +303,7 @@ export async function generateIdeaBookFromSeeds(
     searchDistance: intake.searchDistance,
     locale,
   });
+  await opts.onProgress?.("researched");
 
   // 3. Write the ideas (one retry on a malformed answer, without repeating the research).
   const language = languageLabel(locale);
@@ -285,7 +312,7 @@ export async function generateIdeaBookFromSeeds(
 
 The seven ideas to write (in this order; Idea ${seeds.length} is the wildcard):
 
-${seeds.map((s, i) => seedBlock(s, i, research.byActivity.get(s.activityId), locale)).join("\n\n")}
+${seeds.map((s, i) => seedBlock(s, i, research.byActivity.get(s.activityId), locale, intake.associations ?? [])).join("\n\n")}
 
 Call the create_idea_book tool exactly once: ${seeds.length - 1} entries in "ideas" (Ideas 1-${seeds.length - 1}, same order) plus the wildcard entry for Idea ${seeds.length}.`;
 

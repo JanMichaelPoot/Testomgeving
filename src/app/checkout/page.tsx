@@ -7,6 +7,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { CheckoutPanel } from "@/components/window/CheckoutPanel";
 import { TestModeBanner } from "@/components/window/TestModeBanner";
+import { testFeedbackEnabled } from "@/lib/testFeedback";
 import { LUXURY_ILLUSTRATIONS } from "@/lib/illustrations";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -15,6 +16,7 @@ import { DOMAINS, getActivity } from "@/lib/discovery/library";
 import { buildChoiceGroups } from "@/lib/checkoutChoices";
 import { getDeviceId } from "@/lib/discovery/historyStore";
 import type { StoredIntake } from "@/app/intake/actions";
+import { VensterOrderSummary } from "@/components/window/VensterOrderSummary";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -60,14 +62,20 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
     },
   );
   const rememberInitially = (await getDeviceId()) !== null;
+  const stored = intake.raw_json as unknown as StoredIntake;
+  // The image intake shows its window as the order ("Het venster", fase 5).
+  const venster = stored.intakeVariant === "associations";
 
   return (
     <div className="flex min-h-full flex-col bg-cream">
       <SiteHeader locale={locale} dict={dict.header} />
-      <TestModeBanner dict={dict.checkout} />
+      <TestModeBanner
+        dict={dict.checkout}
+        notice={testFeedbackEnabled(process.env.NEXT_PUBLIC_TEST_FEEDBACK) ? dict.venster.testBanner : undefined}
+      />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-12 sm:px-10">
         <Link
-          href="/intake?edit=1"
+          href={venster ? "/intake?edit=1&page=7" : "/intake?edit=1"}
           className="mb-8 inline-flex items-center gap-2 text-sm text-ink/60 transition-colors hover:text-ink"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -87,6 +95,11 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
 
         <div className="grid gap-6 rounded-lg border border-border bg-paper p-8 sm:p-10 lg:grid-cols-[1fr_1.1fr]">
           {/* Left: order summary */}
+          {venster ? (
+            <div className="lg:border-r lg:border-border lg:pr-10">
+              <VensterOrderSummary intake={stored} dict={dict} price={price} locale={locale} />
+            </div>
+          ) : (
           <div className="lg:border-r lg:border-border lg:pr-10">
             {/* Same still life as the landing hero, cropped wider here —
                 an intentional bookend: the window that's about to open. */}
@@ -162,6 +175,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
               ))}
             </dl>
           </div>
+          )}
 
           {/* Right: gift/waiver/payment */}
           <div className="lg:pl-0">

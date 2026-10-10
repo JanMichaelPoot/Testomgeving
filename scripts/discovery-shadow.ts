@@ -5,10 +5,13 @@
 //   npx tsx scripts/discovery-shadow.ts                 200 profiles, summary
 //   npx tsx scripts/discovery-shadow.ts --n 500 --seed abc
 //   npx tsx scripts/discovery-shadow.ts --show 5        also print 5 example results
+//   npx tsx scripts/discovery-shadow.ts --profile associations   visitors of the image intake ("Het venster")
+//   npx tsx scripts/discovery-shadow.ts --ages          share of heavy/supervised ideas per age group (fase 1.5)
 import { getActivity } from "../src/lib/discovery/library";
 import { defaultEngineLibrary } from "../src/lib/discovery/engine";
 import { evaluate, runProfiles } from "../src/lib/discovery/engine/evaluate";
 import { syntheticProfiles } from "../src/lib/discovery/engine/synthetic";
+import { syntheticAssociationProfiles } from "../src/lib/discovery/engine/syntheticAssociations";
 
 const args = process.argv.slice(2);
 const value = (name: string) => {
@@ -20,7 +23,22 @@ const seed = value("seed") ?? "shadow-1";
 const show = Number(value("show") ?? 0);
 
 const lib = defaultEngineLibrary();
-const profiles = syntheticProfiles(n, seed, lib);
+const kind = value("profile") ?? "cards";
+const profiles = kind === "associations" ? syntheticAssociationProfiles(n, seed) : syntheticProfiles(n, seed, lib);
+
+// Age weighting report: the same visitors with only their age changed.
+if (args.includes("--ages")) {
+  console.log(`\nAge weighting, ${n} ${kind} profiles per age group (same visitors, only the age differs):`);
+  console.log("  age       heavy (intensity 3)   supervised (tier 2)   advanced (level 2)");
+  for (const age of ["", "18-24", "35-44", "55-64", "65plus"]) {
+    const ps = kind === "associations"
+      ? syntheticAssociationProfiles(n, seed, { ageCategory: age })
+      : syntheticProfiles(n, seed, lib).map((p) => ({ ...p, input: { ...p.input, ageCategory: age } }));
+    const seeds = runProfiles(ps, lib).flatMap((r) => r.result.seeds.map((x) => getActivity(x.activityId)!));
+    const share = (f: (a: NonNullable<ReturnType<typeof getActivity>>) => boolean) => `${((seeds.filter(f).length / seeds.length) * 100).toFixed(1)}%`.padEnd(22);
+    console.log(`  ${(age || "(none)").padEnd(9)} ${share((a) => a.intensity === 3)}${share((a) => a.safety.tier === 2)}${share((a) => a.level === 2)}`);
+  }
+}
 const runs = runProfiles(profiles, lib);
 const report = evaluate(runs, lib);
 

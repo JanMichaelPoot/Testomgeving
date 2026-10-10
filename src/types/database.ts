@@ -14,6 +14,8 @@ export type IdeaStatus = "generated" | "liked" | "skipped" | "refined";
 export type PaymentStatus = "pending" | "succeeded" | "failed" | "refunded";
 
 export type PlanStatus = "pending" | "ready" | "failed";
+// How far a pending Idea Book has come (0016_progress_stage.sql).
+export type ProgressStage = "selected" | "researched" | "written" | "rendered";
 
 // Model C digital sale compliance (see supabase/migrations
 // /0010_digital_sales_compliance.sql) — which legal document a
@@ -172,6 +174,9 @@ export interface Database {
           generated_at: string | null;
           email_sent_at: string | null;
           pdf_version: number;
+          // "Het venster" (0016_progress_stage.sql). Optional on purpose: until that
+          // migration has run the column is simply absent.
+          progress_stage?: ProgressStage | null;
           created_at: string;
         };
         Insert: {
@@ -197,6 +202,7 @@ export interface Database {
           generated_at?: string | null;
           email_sent_at?: string | null;
           pdf_version?: number;
+          progress_stage?: ProgressStage | null;
           created_at?: string;
         };
         Update: Partial<
@@ -384,6 +390,29 @@ export interface Database {
         Update: Partial<
           Database["public"]["Tables"]["legal_documents"]["Insert"]
         >;
+        Relationships: [];
+      };
+      // Tester answers on the test preview, see supabase/migrations/0017_test_feedback.sql.
+      test_feedback: {
+        Row: {
+          id: string;
+          plan_id: string | null;
+          flow_score: number | null;
+          would_pay: "yes" | "maybe" | "no" | null;
+          doubt: string | null;
+          locale: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          plan_id?: string | null;
+          flow_score?: number | null;
+          would_pay?: "yes" | "maybe" | "no" | null;
+          doubt?: string | null;
+          locale?: string | null;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["test_feedback"]["Insert"]>;
         Relationships: [];
       };
       // Shared, anonymous cache of local research results (activity x place), see

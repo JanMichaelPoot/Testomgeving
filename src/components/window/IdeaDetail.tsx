@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { mapsSearchUrl } from "@/lib/maps";
-import { ideaCategoryPhoto } from "@/lib/illustrations";
+import { ideaPhoto } from "@/lib/illustrations";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/lib/language";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -54,7 +54,7 @@ export function IdeaDetail({
       {/* Hero photo */}
       <div className="relative h-48 bg-accent-dark sm:h-56">
         <Image
-          src={ideaCategoryPhoto(idea.photo_category, photoIndex)}
+          src={ideaPhoto(idea, photoIndex)}
           alt=""
           fill
           sizes="(min-width: 640px) 640px, 100vw"

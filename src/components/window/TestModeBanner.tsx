@@ -8,7 +8,9 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 // A slim, low-key dev banner — deliberately not a boxed alert in the main
 // flow. Testers still need this button, but it shouldn't out-compete the
 // real checkout for a paying visitor's attention.
-export function TestModeBanner({ dict }: { dict: Dictionary["checkout"] }) {
+// On the test preview (NEXT_PUBLIC_TEST_FEEDBACK=1) it also tells testers which test card to use
+// ("Het venster", fase 8), because they should go through the real Stripe test checkout.
+export function TestModeBanner({ dict, notice }: { dict: Dictionary["checkout"]; notice?: string }) {
   const [isPending, startTransition] = useTransition();
 
   function handleSkipPayment() {
@@ -24,7 +26,7 @@ export function TestModeBanner({ dict }: { dict: Dictionary["checkout"] }) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-amber-200 bg-amber-50 px-6 py-2 text-xs sm:px-10">
       <span className="font-medium text-amber-800">
-        {dict.testModeLabel} — {dict.testModeHelper}
+        {notice ?? `${dict.testModeLabel} — ${dict.testModeHelper}`}
       </span>
       <button
         type="button"

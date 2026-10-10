@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { PlanReveal } from "@/components/window/PlanReveal";
+import { TestFeedback } from "@/components/window/TestFeedback";
+import { testFeedbackEnabled } from "@/lib/testFeedback";
+import { formatPrice } from "@/lib/pricing";
 import { GeneratingScreen } from "@/components/window/GeneratingScreen";
 import {
   getOrCreateWindowPlan,
   getOrCreateTestWindowPlan,
   getSignedPdfUrl,
   getIntakeEchoForSession,
+  getWindowAnswersForSession,
   PlanNotReadyError,
 } from "@/app/plan/data";
 import { retryPlanGeneration } from "@/app/plan/actions";
@@ -14,6 +18,11 @@ import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getLocale, type Locale } from "@/lib/language";
 import { getSessionId } from "@/lib/session";
 import { buildPlanEcho } from "@/lib/planEcho";
+import { buildBecauseLines, buildVensterEcho } from "@/lib/vensterReveal";
+import { WindowFrame } from "@/components/window/WindowFrame";
+import { buildVensterPanes } from "@/lib/vensterPanes";
+import { buildAssociationLibrary } from "@/lib/discovery/associations";
+import { DOMAINS } from "@/lib/discovery/library";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -26,10 +35,24 @@ export async function generateMetadata(): Promise<Metadata> {
 // but that background work still runs inside this same serverless function
 // invocation (via Vercel's waitUntil) and gets killed the moment the
 // function's own timeout hits — raising maxDuration is what actually buys it
-// the ~60-100s it needs. NB: this is capped by the Vercel plan regardless of
-// this number — Hobby hard-caps at 60s, so on Hobby this only helps once the
-// project is on Pro or above.
+// the ~60-100s it needs. With Fluid compute (on by default for new Vercel
+// projects) the ceiling is 300s on every plan, Hobby included; only without
+// Fluid compute does Hobby cap functions at 60s (Vercel docs, "Configuring
+// Maximum Duration", checked 4 Oct 2026). Check Settings -> Functions in
+// Vercel. PENDING_TIMEOUT_MS in data.ts must stay above this value.
 export const maxDuration = 120;
+
+// The person's own window, opening pane by pane, on the waiting screen (image intake only).
+async function waitingWindow(sessionId: string | null, locale: Locale, dict: Dictionary) {
+  const answers = sessionId ? await getWindowAnswersForSession(sessionId) : null;
+  if (!answers) return undefined;
+  const panes = buildVensterPanes(
+    answers,
+    { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })) },
+    dict.venster,
+  );
+  return <WindowFrame panes={panes} size="hero" title={dict.venster.nav.windowTitle} animateOpen />;
+}
 
 function ErrorState({
   message,
@@ -145,8 +168,10 @@ export default async function PlanPage(props: PageProps<"/plan">) {
         return (
           <GeneratingScreen
             heading={dict.plan.generating.heading}
-            messages={dict.plan.generating.messages}
+            phases={dict.plan.generating.phases}
             autoRefreshNote={dict.plan.generating.autoRefreshNote}
+            stage={err.stage}
+            visual={await waitingWindow(err.sessionId, locale, dict)}
           />
         );
       }
@@ -203,7 +228,11 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   // plan's own session (not the cookie), so it also works for someone
   // opening the emailed link — and only ever shown here, never on the
   // public /shared/[id] page.
-  const echo = buildPlanEcho(await getIntakeEchoForSession(plan.session_id), dict.intake);
+  const echoSource = await getIntakeEchoForSession(plan.session_id);
+  const echo = buildPlanEcho(echoSource, dict.intake);
+  // Books from the image intake echo the chosen images and say which image lies behind an idea.
+  const vensterEcho = buildVensterEcho(echoSource, locale, dict.venster);
+  const because = buildBecauseLines(ideas, wildcard, echoSource, locale, dict.venster);
   const dateLabel = new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", {
     day: "numeric",
     month: "long",
@@ -235,7 +264,13 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           initialCommittedKey={plan.committed_idea_key ?? null}
           echo={echo}
           dateLabel={dateLabel}
+          vensterEcho={vensterEcho}
+          because={because}
+          vensterDict={dict.venster}
         />
+        {testFeedbackEnabled(process.env.NEXT_PUBLIC_TEST_FEEDBACK) && (
+          <TestFeedback planId={plan.id} locale={locale} price={formatPrice(locale)} dict={dict.venster.feedback} />
+        )}
       </main>
     </div>
   );

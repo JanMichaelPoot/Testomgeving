@@ -4,7 +4,10 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { generateIdeaBook, type GeneratedIdeaBook } from "@/lib/claude/generateIdeaBook";
 import { generateIdeaBookFromSeeds, shouldUseEngine } from "@/lib/claude/generateFromSeeds";
 import { loadShownBefore, recordShown } from "@/lib/discovery/historyStore";
-import { renderIdeaBookPdf } from "@/lib/pdf/ideaBook";
+import { renderIdeaBookPdf, type IdeaBookPdfContext } from "@/lib/pdf/ideaBook";
+import { buildSill, buildVensterPanes } from "@/lib/vensterPanes";
+import { buildAssociationLibrary } from "@/lib/discovery/associations";
+import { DOMAINS } from "@/lib/discovery/library";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
 import { recordAuditLogEntry } from "@/lib/auditLog";
 import { computeCharacterProfile, type CharacterProfile } from "@/lib/characterProfile";
@@ -14,7 +17,7 @@ import { WINDOW_PLAN_PRICE } from "@/lib/pricing";
 import { getSignedPdfUrl } from "@/lib/pdfAccess";
 import type { Locale } from "@/lib/language";
 import type { StoredIntake } from "@/app/intake/actions";
-import type { Database } from "@/types/database";
+import type { Database, ProgressStage } from "@/types/database";
 
 // Re-exported so existing callers (src/app/plan/page.tsx) can keep
 // importing every plan-related helper from this one module; the
@@ -27,8 +30,36 @@ type WindowPlanRow = Database["public"]["Tables"]["window_plans"]["Row"];
 type ServiceRoleClient = ReturnType<typeof createServiceRoleClient>;
 
 export class PlanNotReadyError extends Error {
-  constructor(message: string, public reason: "unpaid" | "generating" | "failed") {
+  constructor(
+    message: string,
+    public reason: "unpaid" | "generating" | "failed",
+    // For "generating": how far the book has come (null = just started), shown on the
+    // waiting screen. See 0016_progress_stage.sql.
+    public stage: ProgressStage | null = null,
+    // The session the book belongs to, so the waiting screen can show the person's window.
+    public sessionId: string | null = null,
+  ) {
     super(message);
+  }
+}
+
+// A generation that is still in flight, with the step it has reached.
+type Generating = { generating: true; stage: ProgressStage | null };
+
+function isGenerating(value: unknown): value is Generating {
+  return typeof value === "object" && value !== null && "generating" in value;
+}
+
+const STILL_GENERATING = "We're still putting your Idea Book together — this usually takes 1 to 2 minutes.";
+
+// Best effort: a missing column (migration 0016 not run yet) or a failed write must never
+// stop a paid book from being made, so errors are only logged.
+async function setProgressStage(supabase: ServiceRoleClient, planId: string, stage: ProgressStage): Promise<void> {
+  try {
+    const { error } = await supabase.from("window_plans").update({ progress_stage: stage }).eq("id", planId);
+    if (error) console.warn(`WINDOW: could not record progress stage "${stage}" (run migration 0016?): ${error.message}`);
+  } catch (err) {
+    console.warn(`WINDOW: could not record progress stage "${stage}":`, err);
   }
 }
 
@@ -111,12 +142,12 @@ async function findExistingPlan(
 async function resolveExistingPlan(
   supabase: ServiceRoleClient,
   existing: WindowPlanRow | null
-): Promise<WindowPlanRow | "generating" | "failed" | null> {
+): Promise<WindowPlanRow | Generating | "failed" | null> {
   if (!existing) return null;
   if (existing.status === "ready") return existing;
   if (existing.status === "pending") {
     const age = Date.now() - new Date(existing.created_at).getTime();
-    if (age < PENDING_TIMEOUT_MS) return "generating";
+    if (age < PENDING_TIMEOUT_MS) return { generating: true, stage: existing.progress_stage ?? null };
     await supabase.from("window_plans").update({ status: "failed" }).eq("id", existing.id);
     return null;
   }
@@ -135,9 +166,9 @@ async function resolveExistingPlan(
 async function resolveAfterConcurrentInsert(
   supabase: ServiceRoleClient,
   sessionId: string
-): Promise<WindowPlanRow | "generating"> {
+): Promise<WindowPlanRow | Generating> {
   const resolved = await resolveExistingPlan(supabase, await findExistingPlan(supabase, sessionId));
-  return resolved && resolved !== "failed" ? resolved : "generating";
+  return resolved && resolved !== "failed" ? resolved : { generating: true, stage: null };
 }
 
 // Shared by generateAndSavePlan and getCharacterProfileForSession (Fase 4)
@@ -169,6 +200,11 @@ export async function getIntakeEchoForSession(sessionId: string): Promise<{
   timeAvailable?: string;
   budget?: string;
   company?: string[];
+  // The image intake ("Het venster"): which images, for whom, and the optional open answer.
+  intakeVariant?: string;
+  associations?: string[];
+  purpose?: string;
+  personalReflection?: string;
 } | null> {
   try {
     const intake = await fetchStoredIntake(createServiceRoleClient(), sessionId);
@@ -179,6 +215,10 @@ export async function getIntakeEchoForSession(sessionId: string): Promise<{
       timeAvailable: intake.timeAvailable,
       budget: intake.budget,
       company: Array.isArray(intake.company) ? intake.company : [],
+      intakeVariant: intake.intakeVariant,
+      associations: Array.isArray(intake.associations) ? intake.associations : [],
+      purpose: intake.purpose,
+      personalReflection: intake.personalReflection,
     };
   } catch (err) {
     console.error("Failed to load intake echo:", err);
@@ -210,7 +250,31 @@ export async function getCharacterProfileForSession(
 // 2: idea pages rebuilt as magazine spreads (experience profile, schedule,
 // takeaways, "make it yours", investment/location cards) — see
 // src/lib/pdf/ideaContent.ts.
-const PDF_VERSION = 2;
+// 3: "Het venster" — Newsreader + Plus Jakarta Sans instead of Noto, gold instead of orange,
+// the person's own window on the cover (image intake), activity photos per idea.
+const PDF_VERSION = 3;
+
+// The cover window of an image-intake book (null otherwise): same panes as on the site.
+function coverWindowFor(profile: StoredIntake, locale: Locale): IdeaBookPdfContext["window"] {
+  if (profile.intakeVariant !== "associations") return undefined;
+  const dict = getDictionary(locale);
+  const panes = buildVensterPanes(
+    profile,
+    { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })) },
+    dict.venster,
+  );
+  return {
+    panes: panes.map((p) => ({ label: p.label, images: p.images.map((i) => i.src), placeholder: p.placeholder })),
+    sill: buildSill(profile, dict.intake, dict.venster),
+    recipientName: profile.purpose === "gift" ? profile.recipientName : undefined,
+    dateLabel: new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "Europe/Amsterdam",
+    }).format(new Date()),
+  };
+}
 
 // Explicit request: every test-mode generation (the "Betaling overslaan"
 // bypass, never a real purchase) also sends the real order-confirmation
@@ -314,7 +378,13 @@ async function finishPlanGeneration(
       try {
         // Only devices that opted in on the checkout page have a history (empty otherwise).
         const history = await loadShownBefore(supabase, pendingRow.session_id);
-        generated = (await generateIdeaBookFromSeeds(profile, locale, characterProfile, { sessionId: pendingRow.session_id, history })).book;
+        generated = (
+          await generateIdeaBookFromSeeds(profile, locale, characterProfile, {
+            sessionId: pendingRow.session_id,
+            history,
+            onProgress: (stage) => setProgressStage(supabase, pendingRow.id, stage),
+          })
+        ).book;
         await recordShown(
           supabase,
           pendingRow.session_id,
@@ -328,14 +398,17 @@ async function finishPlanGeneration(
       generated = await generateIdeaBook(profile, locale, characterProfile);
     }
     console.log(`WINDOW: generateIdeaBook (Claude, total) took ${Date.now() - generateStartedAt}ms`);
+    await setProgressStage(supabase, pendingRow.id, "written");
 
     const pdfStartedAt = Date.now();
     const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale, {
       company: profile.company,
       budget: profile.budget,
       timeAvailable: profile.timeAvailable,
+      window: coverWindowFor(profile, locale),
     });
     console.log(`WINDOW: renderIdeaBookPdf took ${Date.now() - pdfStartedAt}ms`);
+    await setProgressStage(supabase, pendingRow.id, "rendered");
 
     const pdfPath = `${pendingRow.session_id}/idea-book.pdf`;
 
@@ -434,11 +507,8 @@ export async function getOrCreateWindowPlan(
     .maybeSingle();
 
   const existingPlan = await resolveExistingPlan(supabase, await findExistingPlan(supabase, sessionId));
-  if (existingPlan === "generating") {
-    throw new PlanNotReadyError(
-      "We're still putting your Idea Book together — refresh in a moment.",
-      "generating"
-    );
+  if (isGenerating(existingPlan)) {
+    throw new PlanNotReadyError(STILL_GENERATING, "generating", existingPlan.stage, sessionId);
   }
   if (existingPlan === "failed") {
     throw new PlanNotReadyError(
@@ -462,11 +532,8 @@ export async function getOrCreateWindowPlan(
   } catch (err) {
     if (err instanceof ConcurrentGenerationError) {
       const resolved = await resolveAfterConcurrentInsert(supabase, sessionId);
-      if (resolved === "generating") {
-        throw new PlanNotReadyError(
-          "We're still putting your Idea Book together — refresh in a moment.",
-          "generating"
-        );
+      if (isGenerating(resolved)) {
+        throw new PlanNotReadyError(STILL_GENERATING, "generating", resolved.stage, sessionId);
       }
       return resolved;
     }
@@ -580,10 +647,7 @@ export async function getOrCreateWindowPlan(
     }
   });
 
-  throw new PlanNotReadyError(
-    "We're putting your Idea Book together — this usually takes under a minute.",
-    "generating"
-  );
+  throw new PlanNotReadyError(STILL_GENERATING, "generating", null, sessionId);
 }
 
 // Bypass so the Idea Book can be reviewed without a real Stripe payment.
@@ -593,11 +657,8 @@ export async function getOrCreateTestWindowPlan(
   const supabase = createServiceRoleClient();
 
   const existingPlan = await resolveExistingPlan(supabase, await findExistingPlan(supabase, sessionId));
-  if (existingPlan === "generating") {
-    throw new PlanNotReadyError(
-      "We're still putting your Idea Book together — refresh in a moment.",
-      "generating"
-    );
+  if (isGenerating(existingPlan)) {
+    throw new PlanNotReadyError(STILL_GENERATING, "generating", existingPlan.stage, sessionId);
   }
   if (existingPlan === "failed") {
     throw new PlanNotReadyError(
@@ -613,11 +674,8 @@ export async function getOrCreateTestWindowPlan(
   } catch (err) {
     if (err instanceof ConcurrentGenerationError) {
       const resolved = await resolveAfterConcurrentInsert(supabase, sessionId);
-      if (resolved === "generating") {
-        throw new PlanNotReadyError(
-          "We're still putting your Idea Book together — refresh in a moment.",
-          "generating"
-        );
+      if (isGenerating(resolved)) {
+        throw new PlanNotReadyError(STILL_GENERATING, "generating", resolved.stage, sessionId);
       }
       return resolved;
     }
@@ -680,8 +738,16 @@ export async function getOrCreateTestWindowPlan(
     }
   });
 
-  throw new PlanNotReadyError(
-    "We're putting your Idea Book together — this usually takes under a minute.",
-    "generating"
-  );
+  throw new PlanNotReadyError(STILL_GENERATING, "generating", null, sessionId);
+}
+
+// "Het venster" fase 4: the person's own window on the waiting screen. Only for the image
+// intake; null otherwise or when anything fails (it is decoration).
+export async function getWindowAnswersForSession(sessionId: string): Promise<StoredIntake | null> {
+  try {
+    const intake = await fetchStoredIntake(createServiceRoleClient(), sessionId);
+    return intake?.intakeVariant === "associations" ? intake : null;
+  } catch {
+    return null;
+  }
 }

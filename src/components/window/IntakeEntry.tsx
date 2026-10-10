@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { IntakeWizard } from "@/components/window/IntakeWizard";
+import { AssociationWizard } from "@/components/window/AssociationWizard";
+import type { AssociationLibrary } from "@/lib/discovery/associationProfile";
 import type { CardLibrary } from "@/lib/discovery/cards";
 import type { IntakeAnswers } from "@/app/intake/actions";
 import { usesCardWizard } from "@/lib/checkoutChoices";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-type Variant = "legacy" | "cards";
+type Variant = "legacy" | "cards" | "associations";
 
 // v2: the v1 key held draws made while the card wizard was off (default 0), which would
 // keep those tabs on the classic wizard now that everybody gets the card wizard.
@@ -23,17 +25,34 @@ const DEFAULT_CARD_WIZARD_PERCENT = 100;
 //   3. otherwise a random draw with NEXT_PUBLIC_DISCOVERY_WIZARD_PERCENT % chance of
 //      the card wizard. The default is 100 (everyone); set 0 to switch it off again.
 // Rendering waits for the decision so the server and the first client render agree.
+// The image intake ("Het venster") is a third variant: ?wizard=associations forces it, and
+// NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT (default 0) is the share of visitors who get it in a
+// fresh draw, before the card/legacy draw below. Jan sets it (100 on the test preview).
+function associationPercent(): number {
+  const configured = process.env.NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT;
+  const parsed = configured === undefined || configured.trim() === "" ? NaN : Number(configured);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
 function decideVariant(): Variant {
   try {
     const forced = new URLSearchParams(window.location.search).get("wizard");
-    if (forced === "cards" || forced === "legacy") {
+    if (forced === "cards" || forced === "legacy" || forced === "associations") {
       window.sessionStorage.setItem(VARIANT_KEY, forced);
       return forced;
     }
     const stored = window.sessionStorage.getItem(VARIANT_KEY);
-    if (stored === "cards" || stored === "legacy") return stored;
+    if (stored === "cards" || stored === "legacy" || stored === "associations") return stored;
   } catch {
     // Storage unavailable: fall through to a fresh draw that simply is not remembered.
+  }
+  if (Math.random() * 100 < associationPercent()) {
+    try {
+      window.sessionStorage.setItem(VARIANT_KEY, "associations");
+    } catch {
+      // Nothing to do.
+    }
+    return "associations";
   }
   const configured = process.env.NEXT_PUBLIC_DISCOVERY_WIZARD_PERCENT;
   const parsed = configured === undefined || configured.trim() === "" ? NaN : Number(configured);
@@ -49,13 +68,21 @@ function decideVariant(): Variant {
 
 export function IntakeEntry({
   dict,
+  vensterDict,
   library,
+  associations,
   initial,
+  purpose,
 }: {
   dict: Dictionary["intake"];
+  vensterDict: Dictionary["venster"];
   library: CardLibrary;
+  // Slim association data for the image intake (src/lib/discovery/associations.ts).
+  associations: AssociationLibrary;
   // Changing choices before paying: the stored answers to start from (see IntakeWizard).
   initial?: { answers: IntakeAnswers; page: number };
+  // From the landing page's gift button (?for=gift). Only the image intake uses it.
+  purpose?: "self" | "gift";
 }) {
   const [variant, setVariant] = useState<Variant | null>(null);
 
@@ -63,9 +90,29 @@ export function IntakeEntry({
     // One-time read of sessionStorage / the URL, which only exists after mount.
     // Editing keeps the wizard the answers were given in.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setVariant(initial ? (usesCardWizard(initial.answers) ? "cards" : "legacy") : decideVariant());
+    setVariant(
+      initial
+        ? initial.answers.intakeVariant === "associations"
+          ? "associations"
+          : usesCardWizard(initial.answers)
+            ? "cards"
+            : "legacy"
+        : decideVariant(),
+    );
   }, [initial]);
 
   if (!variant) return <div className="min-h-[60vh] w-full max-w-5xl" aria-hidden="true" />;
+  if (variant === "associations") {
+    return (
+      <AssociationWizard
+        intakeDict={dict}
+        dict={vensterDict}
+        library={associations}
+        domains={library.domains.map((d) => ({ id: d.id, label: d.label }))}
+        initial={initial}
+        initialPurpose={purpose}
+      />
+    );
+  }
   return <IntakeWizard dict={dict} variant={variant} library={library} initial={initial} />;
 }

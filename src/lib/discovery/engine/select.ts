@@ -33,6 +33,30 @@ const DOOR_ORDER: IdeaDoor[] = ["natural", "discovery", "unexpected", "stretch"]
 
 const WILDNESS: Record<string, number> = { grounded: 0, practical: 0, either: 1, unexpected: 2, wild: 3 };
 
+/**
+ * Soft age weighting (Jan, 4 Oct 2026: age must also steer which ideas are chosen, not only the
+ * tone). Activities have no age field, so this reads facets they already have: intensity,
+ * safety tier, level, social form and cost. It only shifts a score, it never excludes: someone
+ * of 70 who picks climbing can still get climbing. Positive = less likely, negative = a nudge
+ * towards. An empty or unknown age changes nothing. Shown to Jan before use (fase 1.5).
+ */
+export function agePenalty(a: Activity, ageCategory: string | undefined): number {
+  const intensity = a.intensity ?? 1;
+  const formats = a.formats ?? [];
+  switch (ageCategory) {
+    case "65plus":
+      return (intensity === 3 ? 0.5 : intensity === 2 ? 0.15 : 0) + (a.safety.tier === 2 ? 0.4 : 0) + (a.level === 2 ? 0.2 : 0);
+    case "55-64":
+      return (intensity === 3 ? 0.25 : 0) + (a.safety.tier === 2 ? 0.2 : 0);
+    case "under18":
+      return (a.safety.tier === 2 ? 0.5 : 0) + (a.cost === 3 ? 0.2 : 0) - (formats.includes("drop_in_alone") || formats.includes("large_group") ? 0.1 : 0);
+    case "18-24":
+      return (a.cost === 3 ? 0.15 : 0) - (formats.includes("drop_in_alone") || formats.includes("large_group") ? 0.1 : 0) - (a.cost !== null && a.cost <= 1 ? 0.1 : 0);
+    default:
+      return 0;
+  }
+}
+
 /** How demanding an activity is for a beginner: used to hand out doors when nothing is known. */
 export function challenge(a: Activity): number {
   return (a.level ?? 1) + (a.intensity ?? 1) * 0.7 + (a.safety.tier === 2 ? 1 : 0) + (a.cost ?? 1) / 3;
@@ -47,6 +71,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
   const constraints = resolveConstraints(input);
   const history = new Set(input.history ?? []);
 
+  const age = (a: Activity) => agePenalty(a, input.ageCategory);
   const pickedIds = [...new Set(input.interests)].filter((id) => byId.has(id));
   const pickSet = new Set(pickedIds);
 
@@ -169,7 +194,10 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
     for (const d of domains) {
       if (chosen.length === 6) break;
       const inDomain = pool.filter((a) => a.domain === d && a.entry);
-      const pickOne = shuffled(inDomain.length ? inDomain : pool.filter((a) => a.domain === d), rnd)[0];
+      // The age weighting nudges which one of the domain's activities is shown first.
+      const pickOne = shuffled(inDomain.length ? inDomain : pool.filter((a) => a.domain === d), rnd)
+        .map((a, i) => ({ a, k: i * 0.01 + age(a) }))
+        .sort((x, y) => x.k - y.k)[0]?.a;
       if (pickOne) chosen.push(pickOne);
     }
     // Doors by how demanding it is: the gentlest first.
@@ -194,7 +222,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
       if (!picked && !near) continue;
       // A second familiar idea prefers another world when the person picked from several.
       const spread = 0.35 * (domainCount.get(a.domain) ?? 0);
-      cands.push({ a, score: (picked ? 2 : rel(a)) + rnd() * 0.3 - spread });
+      cands.push({ a, score: (picked ? 2 : rel(a) - age(a)) + rnd() * 0.3 - spread });
     }
     const top = best(cands);
     if (!top) {
@@ -218,7 +246,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
           if (!from || !to || !pickSet.has(p) || !pool.includes(to) || to.domain === from.domain) continue;
           cands.push({
             a: to,
-            score: 2.5 + graph.bridge(from, to) * 0.15 + rnd() * 0.3 - redundancy(to),
+            score: 2.5 + graph.bridge(from, to) * 0.15 + rnd() * 0.3 - redundancy(to) - age(to),
             chain: [p, q],
             via: graph.shared(from, to).slice(0, 2),
             hybrid: { partnerId: p, label: h.label },
@@ -234,7 +262,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
             const b1 = graph.bridge(p, m);
             if (b1 < BRIDGE_MIN) continue;
             if (graph.bridge(m, x) < BRIDGE_MIN) continue;
-            const score = Math.min(graph.sim(p, m), graph.sim(m, x)) + rnd() * 0.05 - redundancy(x);
+            const score = Math.min(graph.sim(p, m), graph.sim(m, x)) + rnd() * 0.05 - redundancy(x) - age(x);
             if (!top || score > top.score) top = { a: x, score, chain: [p.id, m.id, x.id], via: graph.shared(m, x).slice(0, 2) };
           }
         }
@@ -248,11 +276,11 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
         .filter((x) => !pickedDomains.has(x.domain) && rel(x) < 0.3 && bestBridgeTo(x) >= BRIDGE_MIN)
         .map((x) => {
           const p = nearestRef(x)!;
-          return { a: x, score: bestBridgeTo(x) * 0.1 + rnd() * 0.05 - redundancy(x), chain: [p.id, x.id], via: graph.shared(p, x).slice(0, 2) };
+          return { a: x, score: bestBridgeTo(x) * 0.1 + rnd() * 0.05 - redundancy(x) - age(x), chain: [p.id, x.id], via: graph.shared(p, x).slice(0, 2) };
         });
     // (d) anything from a world they did not pick
     const anyFar = (): Cand<Path>[] =>
-      pool.filter((a) => !pickedDomains.has(a.domain)).map((x) => ({ a: x, score: rnd(), chain: [x.id], via: [] }));
+      pool.filter((a) => !pickedDomains.has(a.domain)).map((x) => ({ a: x, score: rnd() - age(x), chain: [x.id], via: [] }));
 
     const found = firstFit<Path>([strong, oneStep, anyFar]);
     if (found) {
@@ -269,7 +297,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
         .map<Cand>((a) => {
           const r = rel(a);
           const novelty = pickedDomains.has(a.domain) ? 0 : 0.15;
-          return { a, score: r * (1 - Math.abs(r - 0.38)) + novelty + rnd() * 0.05 - redundancy(a) };
+          return { a, score: r * (1 - Math.abs(r - 0.38)) + novelty + rnd() * 0.05 - redundancy(a) - age(a) };
         });
     const found = firstFit([set(0.2, 0.6, BRIDGE_MIN), set(0.1, 0.75, 1.2)]);
     if (!found) {
@@ -308,7 +336,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
         .filter((a) => !pickSet.has(a.id) && graph.bridge(a, p0) >= minBridge)
         .map((a) => ({ a, m: magnitude(a) }))
         .filter(({ m }) => m.total >= minTotal && (!m.down || minBridge === 0) && (!strict || m.total <= target + 1))
-        .map<Cand>(({ a, m }) => ({ a, score: 2 - Math.abs(m.total - target) + graph.bridge(a, p0) * 0.15 + rnd() * 0.2 - redundancy(a) }));
+        .map<Cand>(({ a, m }) => ({ a, score: 2 - Math.abs(m.total - target) + graph.bridge(a, p0) * 0.15 + rnd() * 0.2 - redundancy(a) - age(a) }));
     const found = firstFit([set(1.5, 1, true), set(0.8, 1, true), set(0.8, 0.7, false), set(0, 0.5, false)]);
     if (found) {
       if (found.set > 1) notes.push("direction_relaxed:stretch");
@@ -320,8 +348,8 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
 
   // --- fill: never fewer than six regular seeds when the pool allows it -------------------
   while (seeds.length < 6) {
-    const top = best(pool.filter((a) => !pickSet.has(a.id) && rel(a) > 0.05).map<Cand>((a) => ({ a, score: rel(a) + rnd() * 0.05 })))
-      ?? best(pool.map<Cand>((a) => ({ a, score: rnd() })));
+    const top = best(pool.filter((a) => !pickSet.has(a.id) && rel(a) > 0.05).map<Cand>((a) => ({ a, score: rel(a) + rnd() * 0.05 - age(a) })))
+      ?? best(pool.map<Cand>((a) => ({ a, score: rnd() - age(a) })));
     if (!top) break;
     notes.push("filled");
     const from = nearestRef(top.a);
@@ -332,7 +360,8 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
   {
     const historyDomains = new Set([...history].map((id) => byId.get(id)?.domain).filter(Boolean) as string[]);
     const cands = pool.filter((a) => !pickedDomains.has(a.domain) && canUse(a, 1));
-    const weightOf = (a: Activity) => (1 + 2 * bestBridgeTo(a) + (historyDomains.has(a.domain) ? 0 : 2)) / (1 + redundancy(a) * 4);
+    const weightOf = (a: Activity) =>
+      ((1 + 2 * bestBridgeTo(a) + (historyDomains.has(a.domain) ? 0 : 2)) / (1 + redundancy(a) * 4)) * Math.exp(-2 * age(a));
     const total = cands.reduce((s, a) => s + weightOf(a), 0);
     let roll = rnd() * total;
     let chosen: Activity | undefined;

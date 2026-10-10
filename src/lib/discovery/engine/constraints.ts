@@ -43,7 +43,8 @@ export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting
   // and "hondvriendelijk" is what the placeholder suggests.
   if (/(rolstoel|wheelchair|toegankelijk|accessible|slecht ter been|mobility)/.test(t)) verify.push("accessibility");
   if (/(hond(?!erd)|\bdogs?\b|huisdier|\bpets?\b)/.test(t)) verify.push("pet_friendly");
-  if (/(allergie|allergy|allergic|dieet|\bdiet\b|vegetarisch|vegan|halal|koosjer|kosher)/.test(t)) verify.push("dietary");
+  // "Geen vis of schaaldieren" is one of the image intake's chips: a dietary limit too.
+  if (/(allergie|allergy|allergic|dieet|\bdiet\b|vegetarisch|vegan|halal|koosjer|kosher|\bvis\b|\bfish\b|schaaldier|shellfish)/.test(t)) verify.push("dietary");
   if (/alcohol/.test(t)) verify.push("alcohol");
   if (/(kinderen|\bkids\b|children|\bbaby)/.test(t)) verify.push("children");
 

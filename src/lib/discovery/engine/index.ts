@@ -4,7 +4,7 @@ import { DISCOVERY_MIN_STATUS } from "@/lib/discovery/cardLibrary";
 import { selectSeeds, type EngineLibrary } from "@/lib/discovery/engine/select";
 import type { EngineInput, EngineResult } from "@/lib/discovery/engine/types";
 
-export { selectSeeds, challenge } from "@/lib/discovery/engine/select";
+export { selectSeeds, challenge, agePenalty } from "@/lib/discovery/engine/select";
 export type { EngineLibrary } from "@/lib/discovery/engine/select";
 export { resolveConstraints, passesConstraints, parseMustHaves } from "@/lib/discovery/engine/constraints";
 export { buildGraph, BRIDGE_MIN } from "@/lib/discovery/engine/graph";

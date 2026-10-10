@@ -7,6 +7,7 @@ import { SESSION_COOKIE_NAME, getSessionId } from "@/lib/session";
 import { replaceIntake } from "@/lib/intakeEdit";
 import { getLocale, type Locale } from "@/lib/language";
 import { sanitizeDiscoveryAnswers } from "@/lib/discovery/answers";
+import { applyImageIntake } from "@/lib/discovery/imageIntake";
 
 // The rich profile ("DNA") collected by the intake wizard. Stored whole in
 // intake_answers.raw_json — see supabase/migrations/0001_init.sql for why
@@ -52,6 +53,15 @@ export interface IntakeAnswers {
   socialFormats?: string[];
   // True when they asked to be surprised instead of picking interests.
   surpriseMe?: boolean;
+  // Added by the image intake ("Het venster", WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md).
+  // Which intake produced these answers; absent for the legacy and card wizards.
+  intakeVariant?: "associations";
+  // Ids of the association images chosen (src/lib/discovery/associations.json).
+  associations?: string[];
+  // Tags added under "Niet helemaal" when the reflection did not fit.
+  associationCorrections?: string[];
+  // For a gift: the recipient's first name, for the cover and the greeting. Optional.
+  recipientName?: string;
 }
 
 // The locale is not answered by the user in the wizard — it's whatever the
@@ -66,13 +76,16 @@ export async function submitIntake(answers: IntakeAnswers, opts: { edit?: boolea
 
   // The card wizard's ids come from the browser: keep only real ones.
   const discovery = sanitizeDiscoveryAnswers(answers);
-  const stored: StoredIntake = {
+  let stored: StoredIntake = {
     ...answers,
     ...discovery,
     // The card wizard no longer asks for the kind of possibility up front.
     solutionTypes: answers.solutionTypes?.length ? answers.solutionTypes : ["activity"],
     locale,
   };
+  // The image intake asks for images instead of activities and dials: translate them here,
+  // once, so every later step (checkout, engine, prompt, PDF) reads the same answers.
+  if (answers.intakeVariant === "associations") stored = applyImageIntake(stored, locale);
 
   // Changing choices before paying (fase 5): the answers of the session in the cookie are
   // replaced in place. If that is no longer possible (nothing stored, or the book is

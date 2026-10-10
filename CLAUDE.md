@@ -2804,3 +2804,128 @@ Stripe, Claude API, Resend, PostHog).
       pagina 5 bekeken. Bekend: de lange verrassingstekst ("Verras me volledig,
       neem me mee naar iets wilds") wordt in een smalle ruit op twee regels
       afgekapt.
+
+- [x] Stap 60 — "Het venster" fase 0: eerlijk wachten
+      (`WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md`). Het wachtscherm toont nu de
+      echte stap van de generatie in plaats van roterende berichten: nieuwe kolom
+      `window_plans.progress_stage` (`selected` → `researched` → `written` → `rendered`,
+      migratie `0016_progress_stage.sql`, **nog handmatig uit te
+      voeren in de Supabase SQL Editor**; zonder de kolom blijft alles werken, het scherm
+      blijft dan op de eerste stap staan). `data.ts` schrijft de stap best effort
+      (`setProgressStage`), de seed-pijplijn meldt `selected`/`researched` via een nieuwe
+      `onProgress`-callback, `PlanNotReadyError` draagt de stap mee naar
+      `GeneratingScreen` (vijf fases, `src/lib/progressStage.ts`). Copy: "1 à 2 minuten"
+      in plaats van "minder dan een minuut" (wachtscherm en checkout-stappen, nl + en).
+      De comment bij `maxDuration` in `plan/page.tsx` is bijgewerkt: met Fluid compute is
+      het plafond 300 s, ook op Hobby. `maxDuration` (120) en `PENDING_TIMEOUT_MS` (150 s)
+      bewust ongewijzigd; Jan controleert of Fluid compute aan staat.
+      Getest: 217 tests (nieuw: fasemapping, geen minuutbelofte meer), `tsc`, lint.
+
+- [x] Stap 61 — "Het venster" fase 1: de beelden als data, de vertaallaag en leeftijd in de
+      selectie. **Vraag-audit** (`WindowInto/WINDOW_Vraag-audit_Fase1-1.md`, door Jan bevestigd
+      met één wijziging: leeftijd blijft en moet ook de keuze sturen). **Data**: 27
+      associatiekaarten in `src/lib/discovery/associations.json` (plekken, momenten, zintuigen,
+      9 per ronde; `tagWeights`, assen `social/energy/setting/novelty`, Engelse scène zonder
+      mensen of handen, `status: concept`, `image` wijst voorlopig naar een bestaande foto tot
+      fase 2), gecontroleerd door `validateAssociations` (ook in `taxonomy:check`).
+      **Vertaallaag**: `associationProfile.ts` (zuiver, ook in de browser: tagprofiel, assen,
+      afgeleide schuiven, reflectiezin) en `associations.ts` (server: `associationsToEngineInput`,
+      `imagesBehind`, promptregels). `applyImageIntake` (`imageIntake.ts`) draait in
+      `submitIntake` voor `intakeVariant: "associations"`: interesses, `practicalToWild` en
+      `effort` uit de beelden, niet-gevraagde velden leeg, correcties als voorkeuren, voornaam van
+      de ontvanger bij een cadeau. Nieuwe optionele velden in `IntakeAnswers`: `intakeVariant`,
+      `associations`, `associationCorrections`, `recipientName`. **Prompt**: lege velden heten nu
+      "not stated" (geen verzonnen leeftijd meer), de gekozen beelden gaan mee met de instructie
+      ze hooguit één keer per idee te noemen, per idee een regel "Image behind it", en bij een
+      cadeau wordt het boek aan de ontvanger geschreven. **Leeftijd** (fase 1.5): zachte weging
+      `agePenalty` in `select.ts` (nooit uitsluiten). **Chip-parser**: "geen vis/schaaldieren"
+      telt nu als dieetwens. Shadow-run (500 beeldprofielen): E1-E6 0, 5,8 werelden per boek
+      (kaartenwizard 5,8); tier-2-activiteiten bij 65+ 0,9% tegen 6,5% zonder leeftijd.
+      Getest: 242 tests (nieuw: 25), `tsc`, lint.
+
+- [x] Stap 62 — "Het venster" fase 2 (alleen de code): `scripts/generate-discovery-illustrations.ts`
+      kreeg `--associations` (eigen beeldregie: een sfeer, plek, textuur of lichtval, geen
+      hobby-opstelling, felle kleur die het onderwerp volgt, geen mensen of lichaamsdelen; 1000px
+      breed, naar `public/illustrations/associations/<id>.jpg`; daarna wijst
+      `associations.json` vanzelf naar het nieuwe beeld) en `--dry-run` (geen API-call, toont wat
+      gemaakt wordt en de kosten). **Nog niet gedraaid**: kost geld en wacht op Jans akkoord.
+      Kosten volgens de dry-run: `--sheet 3x3` 3 beelden ≈ $0,40; `--sheet 2x2` 9 beelden ≈ $1,21
+      (27 is geen viervoud: 6 vellen + 3 losse; de bouwopdracht noemde $0,94). Tot dan tonen de
+      rondes bestaande foto's als stand-in.
+
+- [x] Stap 63 — "Het venster" fase 3 en 4: de beeld-intake en het venster.
+      **Wizard** `AssociationWizard.tsx` als derde variant (`?wizard=associations`, of
+      `NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT`, standaard 0; `legacy` en `cards` ongewijzigd).
+      Acht schermen in drie hoofdstukken: werelden (+ "Verras me"), plekken, momenten,
+      zintuigen (optioneel), "Je venster krijgt vorm" (reflectiezin uit het tagprofiel, "Niet
+      helemaal" voegt tot drie tags toe), "Waar en hoeveel ruimte?" (plaats met de bestaande
+      PDOK-suggesties, reisafstand, tijd, budget), "Met wie?" (gezelschap → hoe, leeftijd,
+      harde grenzen als chips + vrij veld) en één optionele vraag ("Wat zou je stiekem vaker
+      willen doen?"). Swipe-modus op de telefoon (aanwijzer-gebaren, knoppen in de onderbalk).
+      Cadeau: `/intake?for=gift` (de landingsknop), zelfde flow met andere woorden en een
+      optionele voornaam. Copy in `src/lib/i18n/venster.ts` (`dict.venster`, nl + en). Concept in
+      sessionStorage, wijzigen via `/intake?edit=1&page=N` (pagina's in `vensterPages.ts`).
+      Events: `association_round_completed`, `association_swipe`, `association_reflection`
+      plus de bestaande intake-events met `wizard_variant: "associations"`.
+      **Venster** `WindowFrame.tsx`: boogkozijn met vier ruiten (werelden, plekken, momenten,
+      zintuigen) die zich vullen met de gekozen foto's (collage met roedes), "Verras me" als
+      gouden ruit, tekstantwoorden als vensterbank (`vensterPanes.ts`). In de intake (sticky
+      paneel op computer, icoon + overlay op telefoon, groot op het reflectiescherm), op de
+      betaalpagina en op het wachtscherm (ruiten openen één voor één).
+      Getest: 255 tests (nieuw: ruiten, vensterbank, chips-parser in nl en en, paginalinks,
+      gelijke copy-sleutels nl/en), `tsc`, lint; in de browser de hele intake op 390 en 1280 px
+      (ook cadeau) doorgelopen met screenshots.
+
+- [x] Stap 64 — "Het venster" fase 5: betaalpagina, prijs en onthulling. **Betaalpagina** voor
+      de beeld-intake: links het venster als de bestelling (ruit = link naar die stap), titel,
+      prijs, drie regels "wat je krijgt", wijziglinks; rechts `CheckoutPanel` ongewijzigd
+      (juridische teksten letterlijk). **Prijs** configureerbaar via
+      `NEXT_PUBLIC_WINDOW_PRICE_CENTS` (standaard 350; 600 voor de testversie), dezelfde waarde
+      voor tekst, Stripe en de bestelrij. **Onthulling** (`PlanReveal`): echo "Je koos een stille
+      bosrand, handen vol klei en houtgeur." met de beelden als miniaturen (+ "Je schreef …"),
+      bij het uitgelichte idee de strook "Omdat je X koos" (`vensterReveal.ts`, via
+      `imagesBehind`) en een kaartlink bij een echte plek. **Foto per idee**: boeken uit de motor
+      tonen de eigen foto van de activiteit (`ideaPhoto`, alle 200 aanwezig) in plaats van de
+      categoriefoto, op `/plan`, in de detailweergave en in de PDF; oude boeken houden de
+      categoriefoto. Getest: 259 tests, `tsc`, lint.
+
+- [x] Stap 65 — "Het venster" fase 6: de PDF in de merklijn. De PDF gebruikt nu dezelfde
+      lettertypen als de site (Newsreader + Plus Jakarta Sans, SIL OFL, in
+      `src/lib/pdf/fonts/`; de oude Noto-bestanden staan er nog maar worden niet meer gebruikt)
+      en goud (#B08A4A) als accent. Elke tekst gaat eerst door `glyphFilter`: tekens die de
+      lettertypen missen worden vervangen (→ wordt ->, ✓ wordt v) of weggelaten, zodat er nooit
+      meer lege vakjes verschijnen. **Omslag voor de beeld-intake**: walnoot met het eigen venster
+      van de koper (vier ruiten met de gekozen beelden, boogvorm, gouden rand), de vensterbank
+      ("Laren · Een halve dag · Tot €100 · met een partner"), datum en de titel "Een venster
+      voor jou" (cadeau: "Een venster voor {naam}"). Boeken uit de andere wizards houden de
+      fotomslag. Idee-pagina's tonen de eigen activiteitsfoto (`ideaPhoto`). `PDF_VERSION` = 3.
+      `scripts/render-sample-pdfs.ts` maakt drie voorbeeldboeken zonder API-call (beeld-intake,
+      kaarten, klassiek): 2,4 / 1,0 / 2,1 MB, elk 10 pagina's, visueel gecontroleerd.
+      Niet gebouwd uit de bouwopdracht: een miniatuur van het bronbeeld per idee-pagina en de
+      nieuwe pagina's "één ding", klikbare kaart en slotpagina; de bestaande, gedetailleerde
+      boekopbouw is bewust behouden. Getest: 258 tests (nieuw: tekenfilter), `tsc`, lint.
+
+- [x] Stap 66 — "Het venster" fase 7: landing. Nieuwe hero `VensterHero.tsx`: de foto
+      `landing-hero.jpg` in hetzelfde walnoten boogkozijn als het venster, H1 "Ontdek wat er
+      mogelijk is *voor jou.*", badge "Nieuw · {prijs} · geen account" en twee knoppen: "Open je
+      venster" (`/intake?wizard=associations`) en "Geef een venster cadeau" (`…&for=gift`). De
+      stappenstrip toont de drie hoofdstukken van de beeld-intake; het eerlijke voorbeeldblok blijft.
+      Alleen zichtbaar als `NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT` 100 is (de testpreview) of met
+      `?venster=1` (`src/lib/vensterLanding.ts`); daaronder blijft de klassieke landing, omdat een
+      bezoeker die de klassieke wizard trekt anders in een andere flow belandt dan de pagina belooft.
+      Eindcontrole: landing op 390/768/1280 (geen horizontale scroll) en de hele beeld-intake op
+      390, 768 en 1280 px, zelf en cadeau, zonder consolefouten. Niet in de cloud te testen: versturen
+      naar checkout en verder (vraagt echte Supabase/Stripe-sleutels).
+
+- [x] Stap 67 — "Het venster" fase 8: testversie. Met `NEXT_PUBLIC_TEST_FEEDBACK=1` (alleen op de
+      Vercel-preview) toont de testbalk op de betaalpagina "Testversie · betaal met testkaart 4242 …"
+      en staat onder het boek een korte vragenlijst (`TestFeedback.tsx`: gevoel 1–5, "Zou je {prijs}
+      betalen?", vrij veld). Score en betaalantwoord gaan als PostHog-event `test_feedback_submitted`
+      (zonder vrije tekst); alles samen in de nieuwe tabel `test_feedback` (migratie
+      `0017_test_feedback.sql`, **nog handmatig uit te voeren**; RLS aan zonder policies, alleen de
+      server-action `submitTestFeedback` schrijft, met de service role, en weigert als de vlag uit
+      staat). Stappenplan voor Jan in `docs/test-preview.md` (branch, migraties 0014–0017, Preview-
+      variabelen, Stripe-testwebhook, Deployment Protection, Fluid compute, ≈$1,50 per 10 tests).
+      Gevonden, niet aangepast: de knop "Betaling overslaan" werkt ook op Production (geeft een gratis
+      boek); moet achter een vlag vóór de echte lancering. Getest: 263 tests, `tsc`, lint; het
+      formulier bekeken op 390 px (geen horizontale scroll, keuzes zichtbaar geselecteerd).

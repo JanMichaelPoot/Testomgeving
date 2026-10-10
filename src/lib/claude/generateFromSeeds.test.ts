@@ -95,3 +95,9 @@ describe("photo category and scores of a seed", () => {
     expect(supervised.feasibility).toBeLessThan(base.feasibility);
   });
 });
+
+describe("the image intake in the pipeline", () => {
+  it("always goes through the seed pipeline, also with nothing chosen", () => {
+    expect(shouldUseEngine({ intakeVariant: "associations", interests: [], interestDomains: [] })).toBe(true);
+  });
+});

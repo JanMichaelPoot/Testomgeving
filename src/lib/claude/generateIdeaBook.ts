@@ -34,6 +34,7 @@ import type {
   PhotoCategory,
 } from "@/lib/claude/ideaBookTypes";
 import type { CharacterProfile } from "@/lib/characterProfile";
+import { describeAssociationsForPrompt } from "@/lib/discovery/associations";
 import { describeDiscoveryForPrompt } from "@/lib/discovery/answers";
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
@@ -193,20 +194,43 @@ Rules for using the profile:
   all idea fields, all labels) in {{LANGUAGE}}, not English, unless
   {{LANGUAGE}} is English.`;
 
+// An answer the intake did not ask for (the image intake leaves several out on purpose, see
+// WindowInto/WINDOW_Vraag-audit_Fase1-1.md) must read as "not stated", never as a default
+// value the person did not choose, or the model would build on something nobody said.
+const stated = (v: string | undefined | null) => (v && v.trim() ? v.trim() : "not stated");
+
+/** Extra instructions when the book is a gift: everything describes the recipient. */
+function giftLines(intake: IntakeAnswers): string {
+  if (intake.purpose !== "gift") return "";
+  const name = (intake.recipientName ?? "").trim();
+  return `
+This Idea Book is a GIFT${name ? ` for ${name}` : ""}. Someone else answered the questions FOR the recipient: every
+answer, image and limit describes the recipient. Write the whole book to the recipient, addressing them as "you"${name ? ` (you may use the name ${name} once, in profile_summary)` : ""}.
+In why_it_fits say "the images chosen for you" or "chosen with you in mind", never "you picked" or "you chose".`;
+}
+
 export function formatProfile(intake: IntakeAnswers, character: CharacterProfile): string {
   // Only present for people who used the visual card wizard.
   const discoveryLines = describeDiscoveryForPrompt(intake);
-  return `Situation: ${intake.situation}
-Purpose: ${intake.purpose}
-Purpose detail: ${intake.purposeFollowUp}
-Age bracket: ${intake.ageCategory}
-Location: ${intake.location}
-Search distance: ${intake.searchDistance}
-Comfort-zone-to-wild dial (how safe/predictable vs. surprising/adventurous): ${intake.practicalToWild}
-Time available: ${intake.timeAvailable}
-Budget: ${intake.budget}
-Willingness to put in effort: ${intake.effort}
-Open to these kinds of possibilities: ${intake.solutionTypes.join(", ")}
+  // Only present for people who used the image intake ("Het venster").
+  const imageLines = describeAssociationsForPrompt(intake.associations ?? [], intake.associationCorrections ?? []);
+  const imageNote = imageLines
+    ? `
+${imageLines}
+The activities under "Concrete activities they picked" were derived from these images by WINDOW, not picked by the
+person: never say they picked an activity; refer to the images instead.`
+    : "";
+  return `Situation: ${stated(intake.situation)}
+Purpose: ${stated(intake.purpose)}
+Purpose detail: ${stated(intake.purposeFollowUp)}
+Age bracket: ${stated(intake.ageCategory)}
+Location: ${stated(intake.location)}
+Search distance: ${stated(intake.searchDistance)}
+Comfort-zone-to-wild dial (how safe/predictable vs. surprising/adventurous): ${stated(intake.practicalToWild)}
+Time available: ${stated(intake.timeAvailable)}
+Budget: ${stated(intake.budget)}
+Willingness to put in effort: ${stated(intake.effort)}
+Open to these kinds of possibilities: ${intake.solutionTypes.join(", ") || "not stated"}
 Must-haves (hard constraints): ${intake.mustHaves || "none stated"}
 Preferences (soft nudges): ${intake.preferences || "none stated"}
 Company: ${intake.company.join(", ") || "not stated"}
@@ -214,7 +238,7 @@ Free-time pattern (what they said they'd actually do on a free Saturday): ${inta
 Personal reflection (something they'd secretly like to do more): ${intake.personalReflection || "not stated"}${
     discoveryLines ? `
 ${discoveryLines}` : ""
-  }
+  }${imageNote}${giftLines(intake)}
 
 Internal character signals (derived, 0-100 each, 50 = neutral — for
 calibrating tone and door balance only, see the rules below):

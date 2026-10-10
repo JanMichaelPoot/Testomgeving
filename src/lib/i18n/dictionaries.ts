@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/locale";
+import { vensterEn, vensterNl, type VensterDictionary } from "@/lib/i18n/venster";
 
 export interface Option {
   value: string;
@@ -16,6 +17,8 @@ interface FollowUpCopy {
 }
 
 export interface Dictionary {
+  // The image intake and its window ("Het venster"); see src/lib/i18n/venster.ts.
+  venster: VensterDictionary;
   header: {
     switchLanguage: string;
     navHowItWorks: string;
@@ -155,6 +158,9 @@ export interface Dictionary {
     generating: {
       heading: string;
       messages: string[];
+      // The real steps of the generation, driven by window_plans.progress_stage (fase 0 of
+      // "Het venster"): translated, chosen, places found, written, laid out.
+      phases: string[];
       autoRefreshNote: string;
     };
     eyebrow: string;
@@ -422,6 +428,7 @@ export interface Dictionary {
 }
 
 const nl: Dictionary = {
+  venster: vensterNl,
   header: {
     switchLanguage: "Taal wisselen",
     navHowItWorks: "Hoe het werkt",
@@ -601,7 +608,7 @@ const nl: Dictionary = {
     stepsHeading: "Wat er nu gebeurt",
     steps: [
       "Je betaalt eenmalig {price} via Stripe — met het e-mailadres waar we ook je Idea Book naartoe sturen.",
-      "Binnen een minuut stellen we jouw Idea Book samen.",
+      "In 1 à 2 minuten stellen we jouw Idea Book samen.",
       "Je ziet 'm meteen hier, en we mailen 'm ook naar je.",
     ],
     disclaimer:
@@ -676,7 +683,15 @@ const nl: Dictionary = {
         "Je wildcard krijgt een laatste check…",
         "Je Idea Book wordt opgemaakt…",
       ],
-      autoRefreshNote: "Dit duurt meestal minder dan een minuut. Deze pagina ververst zichzelf.",
+      phases: [
+        "Je keuzes vertaald",
+        "Zeven deuren gekozen",
+        "Plekken bij jou in de buurt zoeken",
+        "Je ideeën schrijven",
+        "Je boek opmaken",
+      ],
+      autoRefreshNote:
+        "Dit duurt meestal 1 à 2 minuten. Je Idea Book komt ook in je mail, dus je mag dit scherm gerust sluiten.",
     },
     eyebrow: "Jouw Idea Book",
     possibilitiesHeading: "Jouw mogelijkheden",
@@ -1115,6 +1130,7 @@ const nl: Dictionary = {
 };
 
 const en: Dictionary = {
+  venster: vensterEn,
   header: {
     switchLanguage: "Switch language",
     navHowItWorks: "How it works",
@@ -1293,7 +1309,7 @@ const en: Dictionary = {
     stepsHeading: "What happens next",
     steps: [
       "You pay {price} once via Stripe — using the email address we'll also send your Idea Book to.",
-      "Within a minute, we put your Idea Book together.",
+      "In 1 to 2 minutes, we put your Idea Book together.",
       "You'll see it right here, and we'll email you a copy too.",
     ],
     disclaimer:
@@ -1368,7 +1384,15 @@ const en: Dictionary = {
         "Giving your wildcard one last check…",
         "Laying out your Idea Book…",
       ],
-      autoRefreshNote: "This usually takes under a minute. This page refreshes itself.",
+      phases: [
+        "Your choices translated",
+        "Seven doors chosen",
+        "Finding places near you",
+        "Writing your ideas",
+        "Laying out your book",
+      ],
+      autoRefreshNote:
+        "This usually takes 1 to 2 minutes. Your Idea Book is also on its way to your inbox, so feel free to close this screen.",
     },
     eyebrow: "Your Idea Book",
     possibilitiesHeading: "Your possibilities",

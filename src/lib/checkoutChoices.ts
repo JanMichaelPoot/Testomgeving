@@ -23,7 +23,11 @@ const MAX_TEXT = 110;
 const MAX_ITEMS_SHOWN = 6;
 
 /** The card wizard stores interest ids; the legacy wizard never does. */
-export function usesCardWizard(answers: Pick<IntakeAnswers, "interests" | "interestDomains" | "surpriseMe">): boolean {
+export function usesCardWizard(
+  answers: Pick<IntakeAnswers, "interests" | "interestDomains" | "surpriseMe"> & Partial<Pick<IntakeAnswers, "intakeVariant">>,
+): boolean {
+  // The image intake also stores interests (derived from the images), but is its own wizard.
+  if (answers.intakeVariant === "associations") return false;
   return (
     (answers.interests?.length ?? 0) > 0 || (answers.interestDomains?.length ?? 0) > 0 || answers.surpriseMe === true
   );
