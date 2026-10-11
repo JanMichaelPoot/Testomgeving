@@ -13,6 +13,9 @@
 //   npx tsx scripts/generate-discovery-illustrations.ts --sheet 2x2 --limit 1   test one sheet
 //   npx tsx scripts/generate-discovery-illustrations.ts --associations --sheet 2x2 --dry-run   cost, no calls
 //   npx tsx scripts/generate-discovery-illustrations.ts --associations --sheet 2x2 --limit 1
+//   npx tsx scripts/generate-discovery-illustrations.ts --hero --sheet 3x3 --dry-run
+//                                    the pool of landing-hero photos (src/lib/discovery/heroPool.json),
+//                                    900px wide, into public/illustrations/hero-pool/<id>.jpg
 //                                    the association images of the image intake ("Het venster"),
 //                                    1000px wide, into public/illustrations/associations/<id>.jpg;
 //                                    associations.json then points at the new file (status stays
@@ -36,6 +39,7 @@ import { generateIllustration } from "../src/lib/gemini";
 import { ALL_ACTIVITIES, DOMAINS } from "../src/lib/discovery/library";
 import { sliceSheet } from "../src/lib/discovery/sheetSlicer";
 import { ASSOCIATIONS } from "../src/lib/discovery/associations";
+import { HERO_POOL } from "../src/lib/heroPool";
 
 if (!process.env.GEMINI_API_KEY && existsSync(".env.local")) process.loadEnvFile(".env.local");
 if (!process.env.GEMINI_API_KEY && !process.argv.includes("--dry-run")) {
@@ -43,11 +47,14 @@ if (!process.env.GEMINI_API_KEY && !process.argv.includes("--dry-run")) {
   process.exit(1);
 }
 
-const ASSOCIATION_MODE = process.argv.includes("--associations");
+const HERO_MODE = process.argv.includes("--hero");
+const ASSOCIATION_MODE = process.argv.includes("--associations") || HERO_MODE;
 const OUT = path.join(process.cwd(), "public/illustrations/discovery");
 const ASSOCIATION_OUT = path.join(process.cwd(), "public/illustrations/associations");
+const HERO_OUT = path.join(process.cwd(), "public/illustrations/hero-pool");
 const ASSOCIATIONS_JSON = path.join(process.cwd(), "src/lib/discovery/associations.json");
-const WIDTH = ASSOCIATION_MODE ? 1000 : 800;
+const HERO_JSON = path.join(process.cwd(), "src/lib/discovery/heroPool.json");
+const WIDTH = HERO_MODE ? 900 : ASSOCIATION_MODE ? 1000 : 800;
 
 // Association images (bouwopdracht "Het venster", fase 2): a mood, a place, a texture or a
 // fall of light, never a recognisable hobby set-up, so the images call up a feeling instead
@@ -123,7 +130,12 @@ const onlyDomain = value("domain");
 const force = flag("force");
 
 const jobs: Job[] = [];
-if (ASSOCIATION_MODE) {
+if (HERO_MODE) {
+  for (const h of HERO_POOL) {
+    if (only && !only.includes(h.id)) continue;
+    jobs.push({ file: path.join(HERO_OUT, `${h.id}.jpg`), label: h.id, scene: h.scene, colorName: "", hex: "" });
+  }
+} else if (ASSOCIATION_MODE) {
   for (const c of ASSOCIATIONS) {
     if (only && !only.includes(c.id)) continue;
     jobs.push({ file: path.join(ASSOCIATION_OUT, `${c.id}.jpg`), label: c.id, scene: c.scene, colorName: "", hex: "" });
@@ -222,7 +234,7 @@ async function runSheets() {
   // Keep a domain's cells together so a sheet shares one accent colour where possible.
   const order = new Map(DOMAINS.map((d, i) => [d.id, i]));
   const domainOf = (label: string) => ALL_ACTIVITIES.find((a) => a.id === label)?.domain ?? "";
-  activityJobs.sort((a, b) => (order.get(domainOf(a.label)) ?? 0) - (order.get(domainOf(b.label)) ?? 0));
+  if (!ASSOCIATION_MODE) activityJobs.sort((a, b) => (order.get(domainOf(a.label)) ?? 0) - (order.get(domainOf(b.label)) ?? 0));
 
   // Fill 3x3 sheets first, then smaller grids (2x2) for what is left, so almost nothing
   // has to be generated one by one.
@@ -287,18 +299,21 @@ async function runSheets() {
 // Points associations.json at the generated images that exist now (keeps the stand-in otherwise).
 function linkAssociationImages() {
   if (!ASSOCIATION_MODE) return;
-  const data = JSON.parse(readFileSync(ASSOCIATIONS_JSON, "utf8")) as { id: string; image: string }[];
+  const jsonFile = HERO_MODE ? HERO_JSON : ASSOCIATIONS_JSON;
+  const outDir = HERO_MODE ? HERO_OUT : ASSOCIATION_OUT;
+  const publicDir = HERO_MODE ? "hero-pool" : "associations";
+  const data = JSON.parse(readFileSync(jsonFile, "utf8")) as { id: string; image: string }[];
   let changed = 0;
   for (const c of data) {
-    const target = `/illustrations/associations/${c.id}.jpg`;
-    if (c.image !== target && existsSync(path.join(ASSOCIATION_OUT, `${c.id}.jpg`))) {
+    const target = `/illustrations/${publicDir}/${c.id}.jpg`;
+    if (c.image !== target && existsSync(path.join(outDir, `${c.id}.jpg`))) {
       c.image = target;
       changed++;
     }
   }
   if (changed) {
-    writeFileSync(ASSOCIATIONS_JSON, `${JSON.stringify(data, null, 2)}\n`);
-    console.log(`associations.json now points at ${changed} new image(s). Review them, then set "status" to "reviewed".`);
+    writeFileSync(jsonFile, `${JSON.stringify(data, null, 2)}\n`);
+    console.log(`${path.basename(jsonFile)} now points at ${changed} new image(s). Review them, then set "status" to "reviewed".`);
   }
 }
 

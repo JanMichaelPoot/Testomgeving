@@ -10,6 +10,7 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { formatPrice } from "@/lib/pricing";
 import { VensterHero } from "@/components/window/VensterHero";
 import { showVensterLanding, VENSTER_SELF_HREF } from "@/lib/vensterLanding";
+import { randomHero } from "@/lib/heroPool";
 
 export default async function Home(props: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -31,7 +32,7 @@ export default async function Home(props: {
 
       <main className="w-full flex-1">
         {venster ? (
-          <VensterHero dict={dict.venster.landing} price={price} />
+          <VensterHero dict={dict.venster.landing} price={price} heroSrc={randomHero().image} />
         ) : (
           <section className="mx-auto w-full max-w-[84rem] px-6 pt-12 sm:px-10 sm:pt-16">
             <div className="grid w-full items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">

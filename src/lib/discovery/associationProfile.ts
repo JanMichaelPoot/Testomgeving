@@ -18,6 +18,8 @@ export interface AssociationAxes {
 /** What the wizard and the scoring need of one card. */
 export interface AssociationCardData {
   id: string;
+  /** The family the card is a variant of (see associationSampling.ts); the card's own id when it stands alone. */
+  family?: string;
   round: AssociationRound;
   tagWeights: Record<string, number>;
   axes: AssociationAxes;

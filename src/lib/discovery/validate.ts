@@ -159,13 +159,17 @@ export function validateLibrary({ vocabulary, activities, hybrids }: LibraryInpu
 }
 
 // --- association images ("Het venster") ------------------------------------------
-// The image intake's cards (src/lib/discovery/associations.json): nine per round,
-// real tags, both languages, axes within -1..1, and scenes without people or hands
-// (an association image calls up a feeling; a hand makes it about doing).
+// The image intake's cards (src/lib/discovery/associations.json): per round nine FAMILIES of at
+// least three variants each (same feeling, other image: a visitor sees one variant per family, so
+// a second session shows other images), real tags, both languages, axes within -1..1, and scenes
+// without people or hands (an association image calls up a feeling; a hand makes it about doing).
+export const ASSOCIATION_FAMILIES_PER_ROUND = 9;
+export const ASSOCIATION_MIN_VARIANTS = 3;
 const HAND_WORDS = /\b(hand|hands|finger|fingers|arm|arms|foot|feet)\b/i;
 
 export interface AssociationCardInput {
   id: string;
+  family?: string;
   round: string;
   label: { nl?: string; en?: string };
   scene: string;
@@ -181,7 +185,7 @@ export function validateAssociations(cards: readonly AssociationCardInput[], voc
   const err = (m: string) => errors.push(m);
   const tags = new Set(vocabulary.tags.map((t) => t.id));
   const ids = new Set<string>();
-  const perRound = new Map<string, number>();
+  const families = new Map<string, AssociationCardInput[]>();
 
   for (const c of cards) {
     const at = `association "${c.id}"`;
@@ -189,7 +193,8 @@ export function validateAssociations(cards: readonly AssociationCardInput[], voc
     if (ids.has(c.id)) err(`${at}: duplicate id`);
     ids.add(c.id);
     if (!["places", "moments", "senses"].includes(c.round)) err(`${at}: unknown round "${c.round}"`);
-    perRound.set(c.round, (perRound.get(c.round) ?? 0) + 1);
+    const family = c.family ?? c.id;
+    families.set(family, [...(families.get(family) ?? []), c]);
     if (!filled(c.label?.nl) || !filled(c.label?.en)) err(`${at}: label needs nl and en`);
     if (!filled(c.scene)) err(`${at}: scene is needed for the image`);
     if (PEOPLE_WORDS.test(c.scene) || HAND_WORDS.test(c.scene.replace(/no hands in frame/i, ""))) err(`${at}: scene must not ask for people or hands`);
@@ -206,8 +211,23 @@ export function validateAssociations(cards: readonly AssociationCardInput[], voc
     }
     if (!(STATUSES as readonly string[]).includes(c.status) || c.status === "retired") err(`${at}: status must be concept, reviewed or live`);
   }
+  // A family is one feeling in several images: the variants must agree on round, tags and axes,
+  // otherwise which image a visitor happens to see would change what we read from the choice.
+  const familiesPerRound = new Map<string, number>();
+  for (const [family, members] of families) {
+    const head = members[0];
+    if (!members.some((m) => m.id === family)) err(`family "${family}": no card has the family's own id`);
+    if (members.length < ASSOCIATION_MIN_VARIANTS) err(`family "${family}": needs at least ${ASSOCIATION_MIN_VARIANTS} variants (has ${members.length})`);
+    for (const m of members) {
+      if (m.round !== head.round) err(`association "${m.id}": round differs from its family "${family}"`);
+      if (JSON.stringify(m.tagWeights) !== JSON.stringify(head.tagWeights)) err(`association "${m.id}": tagWeights differ from its family "${family}"`);
+      if (JSON.stringify(m.axes) !== JSON.stringify(head.axes)) err(`association "${m.id}": axes differ from its family "${family}"`);
+    }
+    familiesPerRound.set(head.round, (familiesPerRound.get(head.round) ?? 0) + 1);
+  }
   for (const round of ["places", "moments", "senses"]) {
-    if ((perRound.get(round) ?? 0) !== 9) err(`round "${round}": needs exactly 9 cards (has ${perRound.get(round) ?? 0})`);
+    const n = familiesPerRound.get(round) ?? 0;
+    if (n !== ASSOCIATION_FAMILIES_PER_ROUND) err(`round "${round}": needs exactly ${ASSOCIATION_FAMILIES_PER_ROUND} families (has ${n})`);
   }
   return { errors, warnings };
 }

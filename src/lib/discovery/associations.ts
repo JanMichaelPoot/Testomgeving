@@ -50,6 +50,7 @@ export function buildAssociationLibrary(locale: "nl" | "en"): AssociationLibrary
   return {
     cards: ASSOCIATIONS.map((c) => ({
       id: c.id,
+      family: c.family,
       round: c.round,
       label: c.label[locale],
       image: c.image,

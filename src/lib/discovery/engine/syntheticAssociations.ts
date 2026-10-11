@@ -23,7 +23,10 @@ export function syntheticAssociationProfiles(n: number, seed: string, opts: { ag
     const chosen: string[] = [];
     for (const round of ["places", "moments", "senses"] as const) {
       if (round === "senses" && rnd() < 0.35) continue;
-      const cards = shuffled(ASSOCIATIONS.filter((c) => c.round === round), rnd);
+      // One variant per family, like a visitor sees them (never the same feeling twice).
+      const byFamily = new Map<string, (typeof ASSOCIATIONS)[number]>();
+      for (const c of shuffled(ASSOCIATIONS.filter((x) => x.round === round), rnd)) if (!byFamily.has(c.family ?? c.id)) byFamily.set(c.family ?? c.id, c);
+      const cards = shuffled([...byFamily.values()], rnd);
       chosen.push(...cards.slice(0, 1 + Math.floor(rnd() * 4)).map((c) => c.id));
     }
     const interestDomains = surprise ? [] : shuffled(domains, rnd).slice(0, Math.floor(rnd() * 3));

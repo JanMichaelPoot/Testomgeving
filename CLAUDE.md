@@ -2955,3 +2955,28 @@ Stripe, Claude API, Resend, PostHog).
       `scrim.test.ts`), `tsc`, lint; voorbeeldboeken opnieuw gerenderd en de bovenkant bij 200 dpi
       bekeken. Daarnaast een voorstel gepubliceerd (artifact "Venster Beleving") over immersie,
       variatie, landing-richtingen en het algoritme; nog niets daarvan gebouwd.
+
+- [x] Stap 70 — "Venster Beleving" P0: variatie in de beelden. Elke van de 27 associatiekaarten is nu
+      een **familie** met drie varianten (de kaart zelf, `-b`, `-c`: zelfde ronde, tagwichten en
+      assen, ander beeld en andere beschrijving), samen 81 kaarten. Een bezoeker ziet per ronde
+      negen kaarten, precies één variant per familie, dus wat we uit een keuze lezen hangt nooit af
+      van welke variant getoond werd. `associationSampling.ts` kiest de varianten per seed
+      (deterministisch; verversen toont dezelfde kaarten), liefst varianten die deze browser nog niet
+      zag (`associationSeen.ts`, localStorage, max. 150), anders de langst geleden geziene. Gekozen
+      kaarten blijven staan. De volgorde hangt alleen van seed en ronde af, en elke familie beslist
+      een gelijkspel met een eigen generator, zodat een keuze geen andere kaart laat verspringen
+      (bij de browsercontrole bleek dat eerst wel te gebeuren; nu met een test vastgelegd). De
+      "gezien"-lijst wordt bij het begin van de sessie in de draft vastgezet, anders gaf een
+      verversing andere kaarten. De validator (`validate.ts`) eist 9 families per ronde, minstens 3
+      varianten en gelijke ronde/tagwichten/assen per familie.
+      **Landing**: een poel van 27 hero-foto's (`heroPool.json`, `heroPool.ts`, `randomHero()`),
+      per bezoek een andere (de landing is dynamisch). **Beelden** (alles in één keer, Gemini, 3x3-
+      vellen, ≈$1,61 voor 81 kaarten + 27 hero's, plus ≈$0,13 om 4 afgekeurde beelden opnieuw te
+      maken: een baan met tekst en schaduwen van mensen, whiskyglazen, een merk-bordspel en iemand
+      op een zeilboot): `public/illustrations/associations/` (81) en `hero-pool/` (27). Alle
+      contactvellen zijn bekeken; de beelden staan nog op `status: concept` tot Jan ze goedkeurt.
+      `scripts/generate-discovery-illustrations.ts` kreeg `--hero`. Bekend: hero-beelden komen uit
+      3x3-vellen (±700 px bron), dus op retina iets zacht. Getest: 279 tests (nieuw: sampler,
+      hero-poel), `tsc`, lint, productiebuild; in de browser: negen kaarten per ronde, een tweede
+      sessie in dezelfde browser toont 0 van de 9 eerdere beelden, kiezen en verversen laten niets
+      verspringen, de venstercollage gebruikt de nieuwe beelden, de hero wisselt per verzoek.

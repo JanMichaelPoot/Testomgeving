@@ -10,7 +10,9 @@ import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
 import { submitIntake, type IntakeAnswers } from "@/app/intake/actions";
 import { domainImage } from "@/lib/discovery/paths";
-import { reflectionSentence, type AssociationLibrary, type AssociationRound } from "@/lib/discovery/associationProfile";
+import { ASSOCIATION_ROUNDS, reflectionSentence, type AssociationCard, type AssociationLibrary, type AssociationRound } from "@/lib/discovery/associationProfile";
+import { sampleRoundCards } from "@/lib/discovery/associationSampling";
+import { loadSeen, recordSeen } from "@/lib/associationSeen";
 import { buildSill, buildVensterPanes } from "@/lib/vensterPanes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { VENSTER_PAGES, type VensterPageId } from "@/lib/vensterPages";
@@ -64,6 +66,14 @@ interface Draft {
   answers: IntakeAnswers;
   limitChips: string[];
   limitText: string;
+  /** Which images of each round this session shows (see associationSampling.ts). */
+  seed: string;
+  /** The images this browser had seen when the session began; fixed, so the cards stay put on a reload. */
+  seen?: string[];
+}
+
+function newSeed(): string {
+  return Math.random().toString(36).slice(2, 10);
 }
 
 function loadDraft(): Draft | null {
@@ -72,7 +82,7 @@ function loadDraft(): Draft | null {
     if (!raw) return null;
     const d = JSON.parse(raw) as Partial<Draft>;
     if (!d.answers) return null;
-    return { page: d.page ?? 0, answers: { ...EMPTY, ...d.answers }, limitChips: d.limitChips ?? [], limitText: d.limitText ?? "" };
+    return { page: d.page ?? 0, answers: { ...EMPTY, ...d.answers }, limitChips: d.limitChips ?? [], limitText: d.limitText ?? "", seed: d.seed || newSeed(), seen: Array.isArray(d.seen) ? d.seen : undefined };
   } catch {
     return null;
   }
@@ -165,6 +175,10 @@ export function AssociationWizard({
   const [windowOpen, setWindowOpen] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Which variant of every card family this session shows; the images this browser saw before
+  // are read once, so the cards do not shift while the visitor is choosing.
+  const [seed, setSeed] = useState("");
+  const [seenBefore, setSeenBefore] = useState<string[]>([]);
   const [isPending, startTransition] = useTransition();
   const pageEnteredAt = useRef(0);
   const startedAt = useRef(0);
@@ -184,6 +198,8 @@ export function AssociationWizard({
       setLimitChips(split.chips);
       setLimitText(split.text);
       setPage(Math.min(Math.max(initial.page, 0), VENSTER_PAGES.length - 1));
+      setSeed(newSeed());
+      setSeenBefore(loadSeen());
     } else {
       const draft = loadDraft();
       if (draft && (draft.page > 0 || (draft.answers.associations ?? []).length > 0)) {
@@ -191,6 +207,11 @@ export function AssociationWizard({
         setLimitChips(draft.limitChips);
         setLimitText(draft.limitText);
         setPage(draft.page);
+        setSeed(draft.seed);
+        setSeenBefore(draft.seen ?? loadSeen());
+      } else {
+        setSeed(newSeed());
+        setSeenBefore(loadSeen());
       }
       /* eslint-enable react-hooks/set-state-in-effect */
     }
@@ -202,8 +223,8 @@ export function AssociationWizard({
   }, []);
 
   useEffect(() => {
-    if (hydrated) saveDraft({ page, answers, limitChips, limitText });
-  }, [hydrated, page, answers, limitChips, limitText]);
+    if (hydrated && seed) saveDraft({ page, answers, limitChips, limitText, seed, seen: seenBefore });
+  }, [hydrated, page, answers, limitChips, limitText, seed, seenBefore]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -216,8 +237,26 @@ export function AssociationWizard({
   // --- derived ---------------------------------------------------------------------------
   const chosen = answers.associations ?? [];
   const round = ROUND_OF[pageId];
-  const roundCards = round ? library.cards.filter((c) => c.round === round) : [];
+  // One variant per card family, nine cards a round; chosen cards always stay in their round.
+  const chosenKey = chosen.join("|");
+  const decks = useMemo(() => {
+    const out = {} as Record<AssociationRound, AssociationCard[]>;
+    for (const r of ASSOCIATION_ROUNDS) {
+      out[r] = seed
+        ? sampleRoundCards(library.cards, r, { seed, seen: seenBefore, keep: chosenKey ? chosenKey.split("|") : [] })
+        : library.cards.filter((c) => c.round === r && (c.family ?? c.id) === c.id);
+    }
+    return out;
+    // `chosenKey` only keeps what is already picked in place; it cannot change another family.
+  }, [library.cards, seed, seenBefore, chosenKey]);
+  const roundCards = round ? decks[round] : [];
   const chosenInRound = roundCards.filter((c) => chosen.includes(c.id)).length;
+
+  // Remember which images this round showed, so the next visit prefers other ones.
+  const shownKey = round ? decks[round].map((c) => c.id).join("|") : "";
+  useEffect(() => {
+    if (hydrated && seed && shownKey) recordSeen(shownKey.split("|"));
+  }, [hydrated, seed, shownKey]);
 
   const panes = useMemo(
     () =>
@@ -376,7 +415,7 @@ export function AssociationWizard({
 
   const roundPage = (r: AssociationRound) => {
     const copy = dict.rounds[r];
-    const cards = library.cards.filter((c) => c.round === r);
+    const cards = decks[r];
     const current = cards[swipeIdx];
     const nextCard = cards[swipeIdx + 1];
     return (

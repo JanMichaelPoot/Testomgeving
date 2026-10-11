@@ -22,14 +22,15 @@ const QUIET = ["place-forest-edge", "place-still-water", "moment-stillness", "se
 const BUSY = ["place-kitchen-table", "moment-laughing", "moment-rhythm", "sense-bass"];
 
 describe("association data", () => {
-  it("is valid: nine per round, real tags, both languages, no people in the scenes", () => {
+  it("is valid: nine families per round with three variants each, real tags, both languages, no people in the scenes", () => {
     const { errors } = validateAssociations(ASSOCIATIONS, VOCABULARY);
     expect(errors).toEqual([]);
   });
 
   it("gives the browser one language and no art direction", () => {
     const lib = buildAssociationLibrary("nl");
-    expect(lib.cards).toHaveLength(27);
+    expect(lib.cards).toHaveLength(81);
+    expect(new Set(lib.cards.map((c) => c.family)).size).toBe(27);
     expect(lib.cards[0]).not.toHaveProperty("scene");
     expect(typeof lib.cards[0].label).toBe("string");
     expect(lib.correctionTags.every((t) => lib.tagLabels[t])).toBe(true);
