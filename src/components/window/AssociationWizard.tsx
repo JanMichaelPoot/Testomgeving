@@ -839,7 +839,7 @@ export function AssociationWizard({
       : dict.nav.next;
 
   return (
-    <div className="w-full pb-28 lg:pb-0">
+    <div className="w-full pb-[calc(7rem+env(safe-area-inset-bottom))] lg:pb-0">
       {/* Progress: three chapters plus the optional last question, and the window icon on a phone. */}
       <div className="mb-6 flex items-center gap-3">
         <div className="flex flex-1 items-center gap-1.5" aria-hidden="true">
@@ -867,7 +867,7 @@ export function AssociationWizard({
       )}
 
       <div className={cn("grid gap-10", !isReflection && "lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px]")}>
-        <div key={pageId} className="animate-window-page-in min-w-0">
+        <div key={pageId} className="animate-window-page-fade min-w-0">
           {body}
           {error && (
             <p className="mt-4 text-sm text-red-600" role="alert">
@@ -875,7 +875,10 @@ export function AssociationWizard({
             </p>
           )}
           {!isReflection && (
-            <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-cream/95 px-4 py-3 backdrop-blur lg:static lg:mt-10 lg:border-0 lg:bg-transparent lg:px-0 lg:py-0">
+            <div
+              data-testid="wizard-bar"
+              className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-cream/95 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur lg:static lg:mt-10 lg:border-0 lg:bg-transparent lg:px-0 lg:pb-0 lg:pt-0"
+            >
               {swiping && (
                 <div className="mx-auto flex max-w-sm items-center justify-center gap-6 sm:hidden">
                   <button

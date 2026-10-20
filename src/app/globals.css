@@ -72,6 +72,11 @@
   --radius-lg: 18px;
 }
 
+/* Keep a field that gets focus (phone keyboard open) clear of the fixed bottom bar. */
+html {
+  scroll-padding-bottom: 7rem;
+}
+
 body {
   background: var(--color-cream);
   color: var(--color-ink);
@@ -99,6 +104,18 @@ body {
   }
 }
 
+/* Opacity only, on purpose: a transform that stays on after the animation (forwards) turns the
+   element into the containing block of its position:fixed children, so the fixed bottom bar of
+   the image intake ended up at the end of the content instead of on the screen. */
+@keyframes window-page-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes window-spin-slow {
   to {
     transform: rotate(360deg);
@@ -111,6 +128,10 @@ body {
 
 .animate-window-page-in {
   animation: window-page-in 0.35s ease forwards;
+}
+
+.animate-window-page-fade {
+  animation: window-page-fade 0.3s ease backwards;
 }
 
 .animate-window-spin-slow {

@@ -2980,3 +2980,20 @@ Stripe, Claude API, Resend, PostHog).
       hero-poel), `tsc`, lint, productiebuild; in de browser: negen kaarten per ronde, een tweede
       sessie in dezelfde browser toont 0 van de 9 eerdere beelden, kiezen en verversen laten niets
       verspringen, de venstercollage gebruikt de nieuwe beelden, de hero wisselt per verzoek.
+
+- [x] Stap 71 — "Route 1 + 2" P0-1: opties onderaan de beeld-intake onbereikbaar op telefoon
+      (bouwopdracht `WINDOW_Bouwopdracht_Route1-2.md`). **Oorzaak**: de vaste balk (Terug + Verder)
+      zat binnen `.animate-window-page-in`, waarvan de animatie met `forwards` de eindstand
+      `transform: translateX(0)` behoudt. Een element met een transform is voor `position: fixed`-
+      kinderen de containing block, dus de balk stond niet vast aan het scherm maar aan de onderkant
+      van de inhoud, bovenop de laatste opties. Eerst gereproduceerd met Playwright: op elk scherm
+      stond de balk 136 px boven de onderkant van het scherm (375, 390 en 412 px). **Fix**: nieuwe
+      klas `.animate-window-page-fade` (alleen opacity, `backwards`) voor `AssociationWizard`; de oude
+      klas blijft ongewijzigd voor `IntakeWizard` (legacy en cards, die niet aangeraakt mogen worden).
+      Verder: onderpadding en balk houden rekening met `env(safe-area-inset-bottom)`, en
+      `html { scroll-padding-bottom: 7rem }` houdt een gefocust veld boven de balk (**niet** bewezen
+      door de test: die slaagt ook zonder, dus een voorzorg). **Tests**: Playwright (nieuw als
+      devDependency, `npm run test:e2e`, `playwright.config.ts`, `e2e/intake-mobile.spec.ts`): 21
+      tests (7 schermen x 3 telefoonformaten: balk vast aan het scherm, laatste optie boven de balk en
+      niet bedekt, aanklikbaar) plus een toetsenbordtest op 390x420. Alleen Chromium, niet op een
+      echte iPhone of Android. `tsc`, lint, 279 unit-tests, `npm run build` schoon.
