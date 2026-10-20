@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { vensterEn, vensterNl, type VensterDictionary } from "@/lib/i18n/venster";
+import { parseMustHaves } from "@/lib/discovery/engine/constraints";
 
 // R1.1: the first group of images is called "direction" (Richting / Direction), not "worlds",
 // everywhere the person sees it. The internal names (interestDomains, dict.worlds, ...) stay.
@@ -51,6 +52,17 @@ describe("image intake copy (R1.1)", () => {
       }
     });
   }
+
+  for (const [name, dict] of both) {
+    it(`${name}: the budget question already covers "free", so there is no such hard limit chip`, () => {
+      expect(dict.who.limitChips.filter((c) => /gratis|free/i.test(c))).toEqual([]);
+    });
+  }
+
+  it("still reads a typed wish for something free as a constraint", () => {
+    expect(parseMustHaves("Het moet gratis zijn").free).toBe(true);
+    expect(parseMustHaves("must be free of charge").free).toBe(true);
+  });
 
   it("has the same shape in nl and en", () => {
     const shape = (v: unknown): unknown =>

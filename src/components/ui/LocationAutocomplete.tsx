@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { displayPlace } from "@/lib/place";
 
 // A plain text input backed by PDOK city/region suggestions
 // (src/app/api/location-suggest/route.ts). Degrades to a normal free-text
@@ -11,15 +12,24 @@ export function LocationAutocomplete({
   onChange,
   placeholder,
   id,
+  tidy = false,
 }: {
   value: string;
   onChange: (value: string) => void;
   placeholder: string;
   id?: string;
+  /** Show "Laren, Noord-Holland" for "Laren, Laren, Noord-Holland" (display only; the value that is
+   *  stored and what the suggest route returns stay as they are). Off for the other wizards. */
+  tidy?: boolean;
 }) {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // The value that was not typed in this session (a picked suggestion or a restored answer): it is
+  // shown tidied until the person edits it. Anything they type is shown, and stored, as typed.
+  const [untyped, setUntyped] = useState<string | null>(value || null);
+  const shown = tidy && untyped !== null && value === untyped ? displayPlace(value) : value;
+  const label = (text: string) => (tidy ? displayPlace(text) : text);
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -49,6 +59,7 @@ export function LocationAutocomplete({
   }, [value]);
 
   function select(suggestion: string) {
+    setUntyped(suggestion);
     onChange(suggestion);
     setSuggestions([]);
     setOpen(false);
@@ -63,8 +74,9 @@ export function LocationAutocomplete({
         aria-autocomplete="list"
         aria-expanded={open && suggestions.length > 0}
         aria-controls={id ? `${id}-listbox` : undefined}
-        value={value}
+        value={shown}
         onChange={(e) => {
+          setUntyped(null);
           onChange(e.target.value);
           setOpen(true);
         }}
@@ -91,7 +103,7 @@ export function LocationAutocomplete({
                 onClick={() => select(suggestion)}
                 className="block w-full px-4 py-2 text-left text-sm text-ink transition-colors hover:bg-surface-active"
               >
-                {suggestion}
+                {label(suggestion)}
               </button>
             </li>
           ))}

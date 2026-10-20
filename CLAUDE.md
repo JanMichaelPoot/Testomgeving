@@ -3057,3 +3057,25 @@ Stripe, Claude API, Resend, PostHog).
       cadeau voor "Anna") en 1280 px (stap 2). Opgemerkt, niet aangepast: in het cadeau-profiel
       staat nog "het liefst op je eentje" (tweede persoon voor de ontvanger); het profielscherm
       wordt in R2.1 herbouwd.
+
+- [x] Stap 74 — "Route 1 + 2" R1.2: kleine fixes in de beeld-intake. **(1)** De chip "Gratis" (en
+      "Free of charge") is uit de harde grenzen: de budgetvraag ("Hou het gratis") dekt dat. Een zelf
+      getypt "gratis" blijft door `parseMustHaves` als wens gelezen worden (test). **(2)** "Onder 18"
+      verschijnt alleen als het venster een cadeau is (`ageOptionsFor`, `src/lib/ageOptions.ts`); voor
+      jezelf begint de rij bij 18–24, maar een al gekozen "Onder 18" (oud concept, wijzigen) blijft
+      zichtbaar. Het cadeaulabel is "Hoe oud is {name}?" (met "diegene" als er geen naam is); de
+      opdracht noemde "hij/zij", maar een voornaamwoord raden doen we niet. **(3)** Plaatsnaam
+      ontdubbeld in de weergave (`displayPlace`, `src/lib/place.ts`): "Laren, Laren, Noord-Holland"
+      toont als "Laren, Noord-Holland" in de suggestielijst en (tot je zelf typt) in het veld, in het
+      echo-chipje op `/plan` en op het wachtscherm. Opgeslagen waarde, `/api/location-suggest`, de
+      onderzoekssleutel (`placeKey`) en de vensterbank (die toont al alleen het eerste deel) zijn
+      ongewijzigd; `LocationAutocomplete` kreeg een opt-in `tidy`-prop zodat legacy en cards niet
+      veranderen. **(4)** Een uitgeschakelde knop is nu platte greige (nieuwe tokens
+      `--color-disabled`, `-border`, `-ink`, uit `Toestanden.dc.html`) met `cursor: not-allowed` en
+      `aria-disabled`, niet meer dezelfde walnootvulling op halve dekking. Let op: `Button` is
+      gedeeld, dus dit geldt voor alle schermen (ook legacy en cards), alleen voor het
+      uitgeschakelde geval. **(5)** "Overslaan?" is "Overslaan". Tests: `place.test.ts`,
+      `ageOptions.test.ts`, uitbreiding van `vensterCopy.test.ts`. 315 unit-tests, `tsc`, lint, build
+      en 22 Playwright-tests schoon; in de browser op 390 px gezien: zelf zonder "Onder 18" en
+      "Gratis", cadeau mét "Onder 18", de uitgeschakelde knop (computed: greige, not-allowed),
+      suggestie "Laren, Noord-Holland" bij opgeslagen "Laren, Laren, Noord-Holland", en "Overslaan".

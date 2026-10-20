@@ -16,6 +16,7 @@ import { loadSeen, recordSeen } from "@/lib/associationSeen";
 import { buildSill, buildVensterPanes } from "@/lib/vensterPanes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { VENSTER_PAGES, type VensterPageId } from "@/lib/vensterPages";
+import { ageOptionsFor } from "@/lib/ageOptions";
 
 // The image intake ("Het venster", WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md, fase 3).
 // Eight short screens in three chapters:
@@ -675,6 +676,7 @@ export function AssociationWizard({
               </label>
               <p className="mt-1 text-sm text-ink/60">{dict.room.locationSub}</p>
               <LocationAutocomplete
+                tidy
                 id="location"
                 value={answers.location}
                 onChange={(v) => set("location", v)}
@@ -764,7 +766,7 @@ export function AssociationWizard({
               <legend className="font-semibold text-ink">{pick(dict.who.ageLabel, dict.who.ageLabelGift)}</legend>
               <p className="mt-1 text-sm text-ink/60">{dict.who.ageSub}</p>
               <div className="mt-3 flex flex-wrap gap-2">
-                {intakeDict.ageCategory.options.map((o) => (
+                {ageOptionsFor(intakeDict.ageCategory.options, gift, answers.ageCategory).map((o) => (
                   <Chip key={o.value} selected={answers.ageCategory === o.value} onClick={() => set("ageCategory", answers.ageCategory === o.value ? "" : o.value)}>
                     {o.label}
                   </Chip>
@@ -932,7 +934,7 @@ export function AssociationWizard({
                   {primaryLabel}
                 </Button>
                 {isLast && !answers.personalReflection.trim() && !isPending && (
-                  <span className="hidden text-sm text-ink/50 sm:inline">{dict.extra.skip}?</span>
+                  <span className="hidden text-sm text-ink/50 sm:inline">{dict.extra.skip}</span>
                 )}
               </div>
             </div>

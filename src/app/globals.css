@@ -23,6 +23,10 @@
   --color-paper: #fffdfa;
   --color-border: #ded8ce;
   --color-surface-active: #f2ece1;
+  /* A button that cannot be pressed (Toestanden.dc.html): flat greige, clearly not the live fill. */
+  --color-disabled: #e7e0d4;
+  --color-disabled-border: #c9bfae;
+  --color-disabled-ink: #6b665f;
 
   /* Pane tones of the intake's "Jouw venster": one soft tint per wizard page (the fill of
      an answered pane) with a stronger sibling for its accent bar and for the outline of
@@ -51,6 +55,9 @@
   --color-paper: var(--color-paper);
   --color-border: var(--color-border);
   --color-surface-active: var(--color-surface-active);
+  --color-disabled: var(--color-disabled);
+  --color-disabled-border: var(--color-disabled-border);
+  --color-disabled-ink: var(--color-disabled-ink);
   --color-pane-sand: var(--color-pane-sand);
   --color-pane-sand-strong: var(--color-pane-sand-strong);
   --color-pane-sage: var(--color-pane-sage);

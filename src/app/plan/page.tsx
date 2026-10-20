@@ -25,6 +25,7 @@ import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
 import { elapsedSinceNow } from "@/lib/progressStage";
+import { displayPlace } from "@/lib/place";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -177,7 +178,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
             orderRefLabel={orderRef ? g.orderRef.replace("{ref}", orderRef) : null}
             stage={err.stage}
             meta={err.info?.meta ?? null}
-            place={waiting.place}
+            place={displayPlace(waiting.place)}
             elapsedMs={elapsedSinceNow(err.info?.startedAt)}
             visual={waitingWindow(waiting.answers, locale, dict)}
           />

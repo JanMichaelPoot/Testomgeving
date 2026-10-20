@@ -13,7 +13,7 @@ const sizes = {
 // pair — or any two buttons on the same row — always lines up on the same
 // baseline instead of drifting with each button's own text size.
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/35 focus-visible:ring-offset-2 focus-visible:ring-offset-cream disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/35 focus-visible:ring-offset-2 focus-visible:ring-offset-cream disabled:cursor-not-allowed disabled:border-disabled-border disabled:bg-disabled disabled:text-disabled-ink disabled:shadow-none disabled:hover:border-disabled-border disabled:hover:bg-disabled disabled:hover:shadow-none disabled:active:scale-100";
 
 const variants = {
   // Deep walnut fill with a restrained gold accent that only appears on
@@ -61,6 +61,7 @@ export function Button({
   return (
     <button
       className={classes}
+      aria-disabled={(props as ComponentPropsWithoutRef<"button">).disabled || undefined}
       {...(props as ComponentPropsWithoutRef<"button">)}
     />
   );

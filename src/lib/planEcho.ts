@@ -1,4 +1,5 @@
 import type { Dictionary, Option } from "@/lib/i18n/dictionaries";
+import { displayPlace } from "@/lib/place";
 
 // The "echo" at the top of /plan: the buyer's own words from the intake,
 // quoted back ("Je zei: ‘ik verveel me al weken.’") plus the handful of
@@ -50,7 +51,7 @@ export interface EchoSource {
 export function buildPlanEcho(source: EchoSource | null, dict: Dictionary["intake"]): PlanEcho {
   if (!source) return { situation: null, chips: [] };
 
-  const location = (source.location ?? "").replace(/\s+/g, " ").trim();
+  const location = displayPlace((source.location ?? "").replace(/\s+/g, " ").trim());
   const companyLabels = (source.company ?? [])
     .map((value) => labelFor(dict.company.options, value))
     .filter((label): label is string => Boolean(label));
