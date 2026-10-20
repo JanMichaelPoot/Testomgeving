@@ -3,55 +3,84 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { WindowMark } from "@/components/window/WindowMark";
-import type { ProgressStage } from "@/types/database";
-import { activePhaseFor } from "@/lib/progressStage";
+import type { ProgressMeta, ProgressStage } from "@/types/database";
+import { activePhaseFor, isStalled, phaseLabels, type PhaseCopy } from "@/lib/progressStage";
+import { trackEvent } from "@/lib/posthog/client";
 
 const POLL_INTERVAL_MS = 5000;
 const TICK_MS = 200;
 
-// The bar is driven by real elapsed time (via a ref, so it survives the in-place
-// re-renders of router.refresh()) on a curve that never quite reaches 100% on its own:
-// completion is the page actually navigating to the finished Idea Book. The poll is a
-// genuine repeating interval. (Fase 5 of the original build; see git history.)
+// The bar and the timer run on real time: the server tells us how long the generation has
+// already been running (from the pending row's own timestamp), the client adds the time since
+// then with Date.now(), so a reload or a tab in the background does not reset or freeze them.
+// The bar follows a curve that never quite reaches 100% on its own: completion is the page
+// actually navigating to the finished Idea Book. The poll is a genuine repeating interval.
 const PROGRESS_CAP = 92;
 const PROGRESS_TAU_MS = 35000;
 
 export function GeneratingScreen({
   heading,
-  phases,
+  copy,
   autoRefreshNote,
+  stalledNote,
+  orderRefLabel = null,
   stage = null,
+  meta = null,
+  place = null,
+  elapsedMs = null,
   visual,
 }: {
   heading: string;
-  phases: string[];
+  copy: PhaseCopy;
   autoRefreshNote: string;
+  /** Shown instead of the note once nothing has finished for a long time. */
+  stalledNote: string;
+  /** "Order reference: WI-…", when there is an order. */
+  orderRefLabel?: string | null;
   stage?: ProgressStage | null;
+  /** The real numbers the pipeline recorded at its steps (counts only). */
+  meta?: ProgressMeta | null;
+  /** The place the person searched around, for "12 places found near …". */
+  place?: string | null;
+  /** How long the generation has been running, measured by the server at render time. */
+  elapsedMs?: number | null;
   /** Optional picture above the heading (the person's own window); a spinning mark otherwise. */
   visual?: ReactNode;
 }) {
   const router = useRouter();
-  const [progress, setProgress] = useState(0);
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
-  const startRef = useRef<number | null>(null);
+  const [elapsed, setElapsed] = useState(elapsedMs ?? 0);
+  // (elapsed at the last server render, the client time of that render)
+  const baseRef = useRef<{ base: number; at: number }>({ base: elapsedMs ?? 0, at: 0 });
+  const stalledReported = useRef(false);
   const active = activePhaseFor(stage);
+  const stalled = isStalled(elapsed);
+  const labels = phaseLabels(copy, active, meta, place);
+
+  // On mount and at every new server render (every poll) the clock is anchored to the server's
+  // measurement; between renders it runs on the client's own time.
+  useEffect(() => {
+    baseRef.current = { base: elapsedMs ?? baseRef.current.base, at: Date.now() };
+  }, [elapsedMs]);
 
   useEffect(() => {
-    if (startRef.current === null) startRef.current = Date.now();
-
-    const progressTimer = setInterval(() => {
-      const elapsedMs = Date.now() - (startRef.current ?? Date.now());
-      setProgress(PROGRESS_CAP * (1 - Math.exp(-elapsedMs / PROGRESS_TAU_MS)));
-      setElapsedSeconds(Math.floor(elapsedMs / 1000));
-    }, TICK_MS);
-
-    const pollTimer = setInterval(() => router.refresh(), POLL_INTERVAL_MS);
-
+    const tick = setInterval(() => setElapsed(baseRef.current.base + (Date.now() - baseRef.current.at)), TICK_MS);
+    const poll = setInterval(() => router.refresh(), POLL_INTERVAL_MS);
     return () => {
-      clearInterval(progressTimer);
-      clearInterval(pollTimer);
+      clearInterval(tick);
+      clearInterval(poll);
     };
   }, [router]);
+
+  useEffect(() => {
+    if (!stalled || stalledReported.current) return;
+    stalledReported.current = true;
+    trackEvent("generation_stalled", { stage: stage ?? "start", seconds: Math.round(elapsed / 1000) });
+    // Reported once per screen; the elapsed time at that moment is all we need.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stalled, stage]);
+
+  const progress = stalled ? PROGRESS_CAP : PROGRESS_CAP * (1 - Math.exp(-elapsed / PROGRESS_TAU_MS));
+  const elapsedSeconds = Math.floor(elapsed / 1000);
 
   return (
     <main className="flex min-h-full flex-1 flex-col items-center justify-center bg-accent-dark px-6 py-16 text-center">
@@ -78,19 +107,23 @@ export function GeneratingScreen({
       <p className="mt-2 text-xs tabular-nums text-white/35">{elapsedSeconds}s</p>
 
       <ol className="mt-8 flex w-full max-w-xs flex-col gap-3 text-left" aria-live="polite">
-        {phases.map((phase, i) => {
+        {labels.map((label, i) => {
           const done = i < active;
           const now = i === active;
           return (
             <li
-              key={phase}
+              key={i}
               className={`flex items-center gap-3 text-sm ${done ? "text-white/70" : now ? "font-semibold text-white" : "text-white/35"}`}
               aria-current={now ? "step" : undefined}
             >
               <span
                 aria-hidden="true"
                 className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
-                  done ? "border-gold bg-gold" : now ? "animate-spin border-gold border-t-transparent motion-reduce:animate-none" : "border-white/25"
+                  done
+                    ? "border-gold bg-gold"
+                    : now
+                      ? `border-gold border-t-transparent ${stalled ? "" : "animate-spin motion-reduce:animate-none"}`
+                      : "border-white/25"
                 }`}
               >
                 {done && (
@@ -99,13 +132,20 @@ export function GeneratingScreen({
                   </svg>
                 )}
               </span>
-              {phase}
+              {label}
             </li>
           );
         })}
       </ol>
 
-      <p className="mt-10 max-w-sm text-xs leading-relaxed text-white/45">{autoRefreshNote}</p>
+      {stalled ? (
+        <div className="mt-10 max-w-sm" role="status">
+          <p className="text-sm leading-relaxed text-white/80">{stalledNote}</p>
+          {orderRefLabel && <p className="mt-2 text-xs tabular-nums text-white/50">{orderRefLabel}</p>}
+        </div>
+      ) : (
+        <p className="mt-10 max-w-sm text-xs leading-relaxed text-white/45">{autoRefreshNote}</p>
+      )}
     </main>
   );
 }

@@ -10,7 +10,7 @@ import {
   getOrCreateTestWindowPlan,
   getSignedPdfUrl,
   getIntakeEchoForSession,
-  getWindowAnswersForSession,
+  getWaitingContext,
   PlanNotReadyError,
 } from "@/app/plan/data";
 import { retryPlanGeneration } from "@/app/plan/actions";
@@ -24,6 +24,7 @@ import { buildVensterPanes } from "@/lib/vensterPanes";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
+import { elapsedSinceNow } from "@/lib/progressStage";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -43,8 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export const maxDuration = 120;
 
 // The person's own window, opening pane by pane, on the waiting screen (image intake only).
-async function waitingWindow(sessionId: string | null, locale: Locale, dict: Dictionary) {
-  const answers = sessionId ? await getWindowAnswersForSession(sessionId) : null;
+function waitingWindow(answers: Awaited<ReturnType<typeof getWaitingContext>>["answers"], locale: Locale, dict: Dictionary) {
   if (!answers) return undefined;
   const panes = buildVensterPanes(
     answers,
@@ -165,13 +165,21 @@ export default async function PlanPage(props: PageProps<"/plan">) {
       if (err.reason === "generating") {
         // Full-screen takeover, no site header — matches the WINDOW
         // prototype's dedicated dark "generating" screen.
+        const waiting = err.sessionId ? await getWaitingContext(err.sessionId) : { answers: null, place: null };
+        const g = dict.plan.generating;
+        const orderRef = err.info?.orderRef ?? null;
         return (
           <GeneratingScreen
-            heading={dict.plan.generating.heading}
-            phases={dict.plan.generating.phases}
-            autoRefreshNote={dict.plan.generating.autoRefreshNote}
+            heading={g.heading}
+            copy={g}
+            autoRefreshNote={g.autoRefreshNote}
+            stalledNote={orderRef ? g.stalledOrder : g.stalledGeneric}
+            orderRefLabel={orderRef ? g.orderRef.replace("{ref}", orderRef) : null}
             stage={err.stage}
-            visual={await waitingWindow(err.sessionId, locale, dict)}
+            meta={err.info?.meta ?? null}
+            place={waiting.place}
+            elapsedMs={elapsedSinceNow(err.info?.startedAt)}
+            visual={waitingWindow(waiting.answers, locale, dict)}
           />
         );
       }

@@ -17,7 +17,8 @@ import { WINDOW_PLAN_PRICE } from "@/lib/pricing";
 import { getSignedPdfUrl } from "@/lib/pdfAccess";
 import type { Locale } from "@/lib/language";
 import type { StoredIntake } from "@/app/intake/actions";
-import type { Database, ProgressStage } from "@/types/database";
+import type { Database, ProgressMeta, ProgressStage } from "@/types/database";
+import { mergeProgressMeta } from "@/lib/progressStage";
 
 // Re-exported so existing callers (src/app/plan/page.tsx) can keep
 // importing every plan-related helper from this one module; the
@@ -38,13 +39,27 @@ export class PlanNotReadyError extends Error {
     public stage: ProgressStage | null = null,
     // The session the book belongs to, so the waiting screen can show the person's window.
     public sessionId: string | null = null,
+    // For "generating": what the waiting screen needs besides the stage: when the generation
+    // started (the pending row's own timestamp, so the timer is real time), the numbers the
+    // pipeline recorded, and the order number for the "taking long" message.
+    public info: GeneratingInfo | null = null,
   ) {
     super(message);
   }
 }
 
+export type GeneratingInfo = { startedAt: string | null; meta: ProgressMeta | null; orderRef: string | null };
+
 // A generation that is still in flight, with the step it has reached.
-type Generating = { generating: true; stage: ProgressStage | null };
+type Generating = { generating: true; stage: ProgressStage | null; meta: ProgressMeta | null; startedAt: string | null };
+
+function generatingError(g: Generating, sessionId: string, orderRef: string | null = null): PlanNotReadyError {
+  return new PlanNotReadyError(STILL_GENERATING, "generating", g.stage, sessionId, {
+    startedAt: g.startedAt,
+    meta: g.meta,
+    orderRef,
+  });
+}
 
 function isGenerating(value: unknown): value is Generating {
   return typeof value === "object" && value !== null && "generating" in value;
@@ -52,14 +67,32 @@ function isGenerating(value: unknown): value is Generating {
 
 const STILL_GENERATING = "We're still putting your Idea Book together — this usually takes 1 to 2 minutes.";
 
-// Best effort: a missing column (migration 0016 not run yet) or a failed write must never
-// stop a paid book from being made, so errors are only logged.
-async function setProgressStage(supabase: ServiceRoleClient, planId: string, stage: ProgressStage): Promise<void> {
+// Best effort in the sense that a failed write never stops a paid book from being made, but
+// never silent: every failure is logged as an error. The numbers (progress_meta, migration 0018)
+// are written together with the stage; if that column is missing the stage is still written
+// on its own, so the waiting screen keeps moving.
+async function setProgressStage(
+  supabase: ServiceRoleClient,
+  planId: string,
+  stage: ProgressStage,
+  meta?: ProgressMeta,
+): Promise<void> {
   try {
-    const { error } = await supabase.from("window_plans").update({ progress_stage: stage }).eq("id", planId);
-    if (error) console.warn(`WINDOW: could not record progress stage "${stage}" (run migration 0016?): ${error.message}`);
+    const { error } = await supabase
+      .from("window_plans")
+      .update(meta ? { progress_stage: stage, progress_meta: meta } : { progress_stage: stage })
+      .eq("id", planId);
+    if (!error) return;
+    if (meta) {
+      console.error(`WINDOW: could not record progress "${stage}" with numbers (run migration 0018?): ${error.message}`);
+      const retry = await supabase.from("window_plans").update({ progress_stage: stage }).eq("id", planId);
+      if (!retry.error) return;
+      console.error(`WINDOW: could not record progress stage "${stage}" (run migration 0016?): ${retry.error.message}`);
+      return;
+    }
+    console.error(`WINDOW: could not record progress stage "${stage}" (run migration 0016?): ${error.message}`);
   } catch (err) {
-    console.warn(`WINDOW: could not record progress stage "${stage}":`, err);
+    console.error(`WINDOW: could not record progress stage "${stage}":`, err);
   }
 }
 
@@ -147,7 +180,14 @@ async function resolveExistingPlan(
   if (existing.status === "ready") return existing;
   if (existing.status === "pending") {
     const age = Date.now() - new Date(existing.created_at).getTime();
-    if (age < PENDING_TIMEOUT_MS) return { generating: true, stage: existing.progress_stage ?? null };
+    if (age < PENDING_TIMEOUT_MS) {
+      return {
+        generating: true,
+        stage: existing.progress_stage ?? null,
+        meta: existing.progress_meta ?? null,
+        startedAt: existing.created_at,
+      };
+    }
     await supabase.from("window_plans").update({ status: "failed" }).eq("id", existing.id);
     return null;
   }
@@ -168,7 +208,7 @@ async function resolveAfterConcurrentInsert(
   sessionId: string
 ): Promise<WindowPlanRow | Generating> {
   const resolved = await resolveExistingPlan(supabase, await findExistingPlan(supabase, sessionId));
-  return resolved && resolved !== "failed" ? resolved : { generating: true, stage: null };
+  return resolved && resolved !== "failed" ? resolved : { generating: true, stage: null, meta: null, startedAt: null };
 }
 
 // Shared by generateAndSavePlan and getCharacterProfileForSession (Fase 4)
@@ -374,6 +414,7 @@ async function finishPlanGeneration(
     // research pipeline; everyone else the classic one. If the seed pipeline fails for any reason
     // the paid book is still delivered through the classic pipeline.
     let generated: GeneratedIdeaBook;
+    let progressMeta: ProgressMeta = {};
     if (shouldUseEngine(profile)) {
       try {
         // Only devices that opted in on the checkout page have a history (empty otherwise).
@@ -382,7 +423,11 @@ async function finishPlanGeneration(
           await generateIdeaBookFromSeeds(profile, locale, characterProfile, {
             sessionId: pendingRow.session_id,
             history,
-            onProgress: (stage) => setProgressStage(supabase, pendingRow.id, stage),
+            onProgress: (stage, meta) => {
+              // Every step adds its numbers to the earlier ones; one write holds them all.
+              progressMeta = mergeProgressMeta(progressMeta, meta);
+              return setProgressStage(supabase, pendingRow.id, stage, progressMeta);
+            },
           })
         ).book;
         await recordShown(
@@ -508,7 +553,7 @@ export async function getOrCreateWindowPlan(
 
   const existingPlan = await resolveExistingPlan(supabase, await findExistingPlan(supabase, sessionId));
   if (isGenerating(existingPlan)) {
-    throw new PlanNotReadyError(STILL_GENERATING, "generating", existingPlan.stage, sessionId);
+    throw generatingError(existingPlan, sessionId, paymentRow?.order_number ?? null);
   }
   if (existingPlan === "failed") {
     throw new PlanNotReadyError(
@@ -533,7 +578,7 @@ export async function getOrCreateWindowPlan(
     if (err instanceof ConcurrentGenerationError) {
       const resolved = await resolveAfterConcurrentInsert(supabase, sessionId);
       if (isGenerating(resolved)) {
-        throw new PlanNotReadyError(STILL_GENERATING, "generating", resolved.stage, sessionId);
+        throw generatingError(resolved, sessionId, paymentRow?.order_number ?? null);
       }
       return resolved;
     }
@@ -647,7 +692,7 @@ export async function getOrCreateWindowPlan(
     }
   });
 
-  throw new PlanNotReadyError(STILL_GENERATING, "generating", null, sessionId);
+  throw generatingError({ generating: true, stage: null, meta: null, startedAt: ctx.pendingRow.created_at }, sessionId, paymentRow?.order_number ?? null);
 }
 
 // Bypass so the Idea Book can be reviewed without a real Stripe payment.
@@ -658,7 +703,7 @@ export async function getOrCreateTestWindowPlan(
 
   const existingPlan = await resolveExistingPlan(supabase, await findExistingPlan(supabase, sessionId));
   if (isGenerating(existingPlan)) {
-    throw new PlanNotReadyError(STILL_GENERATING, "generating", existingPlan.stage, sessionId);
+    throw generatingError(existingPlan, sessionId);
   }
   if (existingPlan === "failed") {
     throw new PlanNotReadyError(
@@ -675,7 +720,7 @@ export async function getOrCreateTestWindowPlan(
     if (err instanceof ConcurrentGenerationError) {
       const resolved = await resolveAfterConcurrentInsert(supabase, sessionId);
       if (isGenerating(resolved)) {
-        throw new PlanNotReadyError(STILL_GENERATING, "generating", resolved.stage, sessionId);
+        throw generatingError(resolved, sessionId);
       }
       return resolved;
     }
@@ -738,7 +783,7 @@ export async function getOrCreateTestWindowPlan(
     }
   });
 
-  throw new PlanNotReadyError(STILL_GENERATING, "generating", null, sessionId);
+  throw generatingError({ generating: true, stage: null, meta: null, startedAt: ctx.pendingRow.created_at }, sessionId);
 }
 
 // "Het venster" fase 4: the person's own window on the waiting screen. Only for the image
@@ -749,5 +794,20 @@ export async function getWindowAnswersForSession(sessionId: string): Promise<Sto
     return intake?.intakeVariant === "associations" ? intake : null;
   } catch {
     return null;
+  }
+}
+
+// What the waiting screen shows of the person's own answers, from one read: the answers for the
+// window (image intake only) and the place they searched around. Never throws; it is decoration.
+export async function getWaitingContext(
+  sessionId: string,
+): Promise<{ answers: StoredIntake | null; place: string | null }> {
+  try {
+    const intake = await fetchStoredIntake(createServiceRoleClient(), sessionId);
+    if (!intake) return { answers: null, place: null };
+    const place = typeof intake.location === "string" && intake.location.trim() ? intake.location.trim() : null;
+    return { answers: intake.intakeVariant === "associations" ? intake : null, place };
+  } catch {
+    return { answers: null, place: null };
   }
 }

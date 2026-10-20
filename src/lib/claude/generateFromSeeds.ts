@@ -285,7 +285,7 @@ export async function generateIdeaBookFromSeeds(
     sessionId?: string;
     history?: readonly string[];
     /** Called as the pipeline passes its steps, for the honest waiting screen. Never awaited for long. */
-    onProgress?: (stage: "selected" | "researched") => Promise<void> | void;
+    onProgress?: (stage: "selected" | "researched", meta?: { ideas?: number; places?: number }) => Promise<void> | void;
   } = {},
 ): Promise<{ book: GeneratedIdeaBook; report: SeedPipelineReport }> {
   // 1. Select the seeds.
@@ -294,7 +294,7 @@ export async function generateIdeaBookFromSeeds(
   );
   const seeds = engine.seeds;
   if (seeds.length < 6) throw new Error("The selection engine could not find enough activities for this profile.");
-  await opts.onProgress?.("selected");
+  await opts.onProgress?.("selected", { ideas: seeds.length });
 
   // 2. Research, grouped and cached (once, outside the retry loop below).
   const research = await researchSeeds({
@@ -303,7 +303,10 @@ export async function generateIdeaBookFromSeeds(
     searchDistance: intake.searchDistance,
     locale,
   });
-  await opts.onProgress?.("researched");
+  // Only what was really found: distinct places over all seven ideas (name + city).
+  const foundPlaces = new Set<string>();
+  for (const r of research.byActivity.values()) for (const o of r.options) foundPlaces.add(`${o.name}|${o.city}`.toLowerCase());
+  await opts.onProgress?.("researched", { places: foundPlaces.size });
 
   // 3. Write the ideas (one retry on a malformed answer, without repeating the research).
   const language = languageLabel(locale);

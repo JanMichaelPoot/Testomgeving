@@ -2997,3 +2997,40 @@ Stripe, Claude API, Resend, PostHog).
       tests (7 schermen x 3 telefoonformaten: balk vast aan het scherm, laatste optie boven de balk en
       niet bedekt, aanklikbaar) plus een toetsenbordtest op 390x420. Alleen Chromium, niet op een
       echte iPhone of Android. `tsc`, lint, 279 unit-tests, `npm run build` schoon.
+
+- [x] Stap 72 — "Route 1 + 2" P0-2: het wachtscherm blijft niet meer hangen op een lege boog zonder
+      vinkjes. **Twee oorzaken**, lokaal gereproduceerd met een nagemaakte `pending`-rij (geen
+      generatie): (1) de ruiten van het venster bleven voor altijd onzichtbaar: `WindowFrame` gaf ze
+      `motion-safe:animate-window-fade-in motion-safe:opacity-0`, maar Tailwind kent `motion-safe:`
+      alleen voor eigen utilities, dus de animatie-klas genereerde geen CSS terwijl `opacity-0` dat
+      wel deed (gecontroleerd in de gecompileerde stylesheet). Nu een gewone CSS-klas
+      `.window-pane-open` (`backwards`, alleen bij `prefers-reduced-motion: no-preference`), met een
+      test die het terugzetten van `motion-safe:opacity-0` afvangt. Bestond sinds Stap 63. (2) De
+      database van de testomgeving miste migraties 0014-0017 (o.a. `progress_stage`), waardoor de
+      stap nooit werd opgeslagen en het scherm op fase 1 bleef; Jan heeft ze gedraaid. **Verbeterd**:
+      echte tellingen bij afgeronde stappen ("{n} deuren gekozen", "{n} plekken rond {plaats}
+      gevonden"), alleen als de pijplijn ze kende (nieuwe kolom `progress_meta jsonb`, migratie
+      `0018_progress_meta.sql`, **nog te draaien**; zonder de kolom wordt de stap nog gewoon
+      opgeslagen, zonder getal, en loggen we een fout). Aantal plekken = unieke naam+plaats uit het
+      lokale onderzoek van de zeven ideeën; geen getal bekend (klassieke pijplijn, 0 plekken) = alleen
+      het vinkje. De teller loopt op echte tijd: de server rekent `created_at` van de rij om naar
+      verstreken tijd en de client telt vanaf elke poll verder met `Date.now()`, dus een herlaad of
+      tabwissel zet hem niet terug. **Vangnet**: na 120 s (`STALL_AFTER_MS`, gelijk aan `maxDuration`
+      en dus niet de 150 s uit de opdracht, want op 150 s zet de server de rij zelf op `failed` en
+      zag niemand de melding) toont het scherm "Het duurt langer dan normaal…", met een
+      bestelreferentie als die er is (betaalde order: "We mailen je Idea Book zodra het klaar is";
+      testrun zonder order: "Even geduld, je boek is nog onderweg", omdat we dan niets beloven over
+      e-mail), het draaiende rondje stopt, en `generation_stalled { stage, seconds }` gaat naar
+      PostHog (nooit tekst). Titel "Je Idea Book wordt samengesteld…" is "We openen je venster…" (en
+      "Opening your window…"). Fouten bij het opslaan van de stap zijn nu `console.error` i.p.v.
+      `warn`. Getest: 291 unit-tests (nieuw o.a. `phaseLabels`, `elapsedSince`, `isStalled`, nl + en),
+      `tsc`, lint, build, 22 Playwright-tests, en in de browser drie nagemaakte rijen (net gestart,
+      onderweg, vastgelopen op 122 s). **Echte testgeneratie** (testbypass, beeld-intake, ± €0,14,
+      migratie 0018 gedraaid): ±55 s, de rij liep `selected` {ideas: 7} -> `researched` -> `ready`/
+      `rendered` en het scherm sprong vanzelf naar het boek. Daarbij een eigen fout gevonden: elke
+      stap *verving* `progress_meta`, dus na "researched" was `{ideas: 7}` weg (`{places: 10}` bleef).
+      Nu worden de getallen samengevoegd (`mergeProgressMeta`, met tests); de samengevoegde weergave
+      ("7 deuren gekozen", "10 plekken rond … gevonden") is met een nagemaakte rij gezien, **niet**
+      opnieuw in een tweede betaalde run. De plaatsnaam in die regel toont nog "Laren, Laren,
+      Noord-Holland" (dubbel; R1.2 ruimt dat op). De weergave in een browser die daadwerkelijk frames
+      tekent is niet gezien (de testbrowser tekent niet zolang niemand kijkt).

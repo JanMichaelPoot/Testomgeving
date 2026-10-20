@@ -84,7 +84,7 @@ function Pane({ pane, size, index, animateOpen }: { pane: WindowPane; size: keyo
   );
   const className = cn(
     "relative block overflow-hidden bg-cream",
-    animateOpen && "motion-safe:animate-window-fade-in motion-safe:opacity-0",
+    animateOpen && "window-pane-open",
     pane.href && "transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
   );
   const style = animateOpen ? { animationDelay: `${index * 450}ms` } : undefined;

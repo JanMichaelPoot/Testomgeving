@@ -126,6 +126,17 @@ body {
   animation: window-fade-in 0.5s ease forwards;
 }
 
+/* A pane of the window that opens one after the other (animateOpen). Written as plain CSS on
+   purpose: "motion-safe:animate-window-fade-in" generates nothing (Tailwind only knows
+   motion-safe: for its own utilities) while "motion-safe:opacity-0" did, which left every pane
+   invisible for good. "backwards" shows the start state during the delay and nothing after the
+   end, so with reduced motion (no animation at all) the panes are simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  .window-pane-open {
+    animation: window-fade-in 0.5s ease backwards;
+  }
+}
+
 .animate-window-page-in {
   animation: window-page-in 0.35s ease forwards;
 }

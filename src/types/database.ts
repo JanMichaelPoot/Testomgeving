@@ -16,6 +16,8 @@ export type PaymentStatus = "pending" | "succeeded" | "failed" | "refunded";
 export type PlanStatus = "pending" | "ready" | "failed";
 // How far a pending Idea Book has come (0016_progress_stage.sql).
 export type ProgressStage = "selected" | "researched" | "written" | "rendered";
+// What the generation knew at a step (0018_progress_meta.sql): counts only.
+export type ProgressMeta = { ideas?: number; places?: number };
 
 // Model C digital sale compliance (see supabase/migrations
 // /0010_digital_sales_compliance.sql) — which legal document a
@@ -177,6 +179,8 @@ export interface Database {
           // "Het venster" (0016_progress_stage.sql). Optional on purpose: until that
           // migration has run the column is simply absent.
           progress_stage?: ProgressStage | null;
+          // 0018_progress_meta.sql, optional for the same reason.
+          progress_meta?: ProgressMeta | null;
           created_at: string;
         };
         Insert: {
@@ -203,6 +207,7 @@ export interface Database {
           email_sent_at?: string | null;
           pdf_version?: number;
           progress_stage?: ProgressStage | null;
+          progress_meta?: ProgressMeta | null;
           created_at?: string;
         };
         Update: Partial<

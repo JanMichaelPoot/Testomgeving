@@ -161,6 +161,17 @@ export interface Dictionary {
       // The real steps of the generation, driven by window_plans.progress_stage (fase 0 of
       // "Het venster"): translated, chosen, places found, written, laid out.
       phases: string[];
+      // The same five steps once they are done, and the lines with a real number in them
+      // ({n}, {place}); see phaseLabels in src/lib/progressStage.ts.
+      phasesDone: string[];
+      doorsDone: string;
+      placesDone: string;
+      placesDoneNear: string;
+      // Shown when nothing new has happened for STALL_AFTER_MS: with an order (we mail the
+      // book) and without one (a test run).
+      stalledOrder: string;
+      stalledGeneric: string;
+      orderRef: string; // {ref}
       autoRefreshNote: string;
     };
     eyebrow: string;
@@ -676,7 +687,7 @@ const nl: Dictionary = {
     retryButton: "Probeer opnieuw",
     errorFallback: "Er ging iets mis.",
     generating: {
-      heading: "Je Idea Book wordt samengesteld…",
+      heading: "We openen je venster…",
       messages: [
         "Je situatie wordt gelezen…",
         "Zes mogelijkheden worden bedacht…",
@@ -690,6 +701,19 @@ const nl: Dictionary = {
         "Je ideeën schrijven",
         "Je boek opmaken",
       ],
+      phasesDone: [
+        "Je keuzes vertaald",
+        "Zeven deuren gekozen",
+        "Plekken in de buurt gevonden",
+        "Je ideeën geschreven",
+        "Je boek opgemaakt",
+      ],
+      doorsDone: "{n} deuren gekozen",
+      placesDone: "{n} plekken gevonden",
+      placesDoneNear: "{n} plekken rond {place} gevonden",
+      stalledOrder: "Het duurt langer dan normaal. We mailen je Idea Book zodra het klaar is.",
+      stalledGeneric: "Het duurt langer dan normaal. Even geduld, je boek is nog onderweg.",
+      orderRef: "Bestelreferentie: {ref}",
       autoRefreshNote:
         "Dit duurt meestal 1 à 2 minuten. Je Idea Book komt ook in je mail, dus je mag dit scherm gerust sluiten.",
     },
@@ -1377,7 +1401,7 @@ const en: Dictionary = {
     retryButton: "Try again",
     errorFallback: "Something went wrong.",
     generating: {
-      heading: "Putting your Idea Book together…",
+      heading: "Opening your window…",
       messages: [
         "Reading through your situation…",
         "Coming up with six possibilities…",
@@ -1391,6 +1415,19 @@ const en: Dictionary = {
         "Writing your ideas",
         "Laying out your book",
       ],
+      phasesDone: [
+        "Your choices translated",
+        "Seven doors chosen",
+        "Places nearby found",
+        "Your ideas written",
+        "Your book laid out",
+      ],
+      doorsDone: "{n} doors chosen",
+      placesDone: "{n} places found",
+      placesDoneNear: "{n} places found near {place}",
+      stalledOrder: "This is taking longer than usual. We'll email your Idea Book as soon as it's ready.",
+      stalledGeneric: "This is taking longer than usual. Hang on, your book is still on its way.",
+      orderRef: "Order reference: {ref}",
       autoRefreshNote:
         "This usually takes 1 to 2 minutes. Your Idea Book is also on its way to your inbox, so feel free to close this screen.",
     },
