@@ -3034,3 +3034,26 @@ Stripe, Claude API, Resend, PostHog).
       opnieuw in een tweede betaalde run. De plaatsnaam in die regel toont nog "Laren, Laren,
       Noord-Holland" (dubbel; R1.2 ruimt dat op). De weergave in een browser die daadwerkelijk frames
       tekent is niet gezien (de testbrowser tekent niet zolang niemand kijkt).
+
+- [x] Stap 73 — "Route 1 + 2" R1.1: titels, stepper en "Richting" in de beeld-intake (alleen tekst,
+      geen API-kosten; besluit B2 stond nog OPEN, de standaard "Richting" is gebruikt). **Stepper**:
+      "1 · Jouw beelden · 2 · Praktisch · 3 · Met wie · 4 · Jouw venster" (`dict.chapters`, ook de
+      kleine labels boven de koppen en de landingsstrook). **Koppen** (zelf en cadeau): "Waar gaat je
+      nieuwsgierigheid naartoe?", "Welk moment zou je vaker willen beleven?", "Wat raakt je
+      zintuigen?", "Hoeveel ruimte maak je vrij?", "Met wie, en wat moet kloppen?", profielscherm
+      "Zo kijken wij door jouw venster" (cadeau: "…door het venster van {name}", daarvoor kreeg
+      `reflection` een `headingGift`); "Welke werelden…" is "Kies één tot vier richtingen. Of laat
+      ons kiezen." (en "We kiezen de richtingen voor je"). **Ruitlabels** in het venster, de
+      PDF-cover en op de betaalpagina: Richting · Plek · Moment · Zintuig (en Direction · Place ·
+      Moment · Sense). **Puntjes** binnen stap 1 (Richting · Plek · Moment · Zintuig) laten zien waar
+      je bent in het lange eerste hoofdstuk; op het profielscherm zijn ze alle vier afgerond.
+      Interne namen (`interestDomains`, `dict.worlds`, paginanummers, bestandsnamen) zijn niet
+      veranderd. De kaartenwizard houdt zijn eigen "Andere werelden kiezen" (die variant is niet
+      aangeraakt). Het vierde stepper-hoofdstuk heet nu "Jouw venster" maar toont nog het
+      optionele slotvraagscherm; R2.1 verplaatst het profielscherm daarheen (B4). Test
+      `vensterCopy.test.ts`: geen zichtbare tekst meer met "wereld/world", gift-koppen houden
+      `{name}`, zelf-koppen niet, nl en en hebben dezelfde vorm. 302 unit-tests, `tsc`, lint, build
+      en 22 Playwright-tests schoon; in de browser bekeken op 390 px (stap 1, profielscherm als
+      cadeau voor "Anna") en 1280 px (stap 2). Opgemerkt, niet aangepast: in het cadeau-profiel
+      staat nog "het liefst op je eentje" (tweede persoon voor de ontvanger); het profielscherm
+      wordt in R2.1 herbouwd.

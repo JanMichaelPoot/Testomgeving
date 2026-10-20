@@ -605,7 +605,7 @@ export function AssociationWizard({
         return (
           <div className="rounded-2xl bg-accent-dark px-5 py-7 text-paper sm:px-8 sm:py-9">
             <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-light">{dict.reflection.kicker}</p>
-            <h1 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">{dict.reflection.heading}</h1>
+            <h1 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">{pick(dict.reflection.heading, dict.reflection.headingGift)}</h1>
             <div className="mx-auto mt-6 w-56 sm:w-64">
               <WindowFrame panes={panes} size="hero" title={windowTitle} />
             </div>
@@ -859,6 +859,22 @@ export function AssociationWizard({
           <WindowFrame panes={panes} size="icon" title={windowTitle} />
         </button>
       </div>
+
+      {/* Inside the long first chapter: where we are among direction, place, moment and sense. */}
+      {chapter === 0 && (
+        <ol className="-mt-3 mb-6 flex items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.08em]" aria-label={dict.chapters.images}>
+          {[dict.panes.worlds, dict.panes.places, dict.panes.moments, dict.panes.senses].map((label, i) => (
+            <li
+              key={label}
+              aria-current={i === page ? "step" : undefined}
+              className={cn("flex items-center gap-1.5", i === page ? "text-ink" : i < page ? "text-ink/60" : "text-ink/35")}
+            >
+              <span aria-hidden="true" className={cn("h-2 w-2 rounded-full", i === page ? "bg-accent-dark" : i < page ? "bg-gold" : "bg-border")} />
+              {label}
+            </li>
+          ))}
+        </ol>
+      )}
 
       {initial && (
         <p className="mb-5 rounded-lg border border-border bg-surface-active px-4 py-3 text-sm text-ink/70" role="status">

@@ -41,6 +41,7 @@ export interface VensterDictionary {
   reflection: {
     kicker: string;
     heading: string;
+    headingGift: string; // {name}
     prefix: string;
     prefixGift: string;
     and: string;
@@ -137,21 +138,21 @@ export const vensterNl: VensterDictionary = {
       "Kies een handvol beelden die je aantrekken. Wij maken er een Idea Book van, met echte plekken bij jou in de buurt.",
     heroAlt: "Een open raam met zacht licht en een uitzicht naar buiten",
     chapters: [
-      { title: "Wat trekt je", body: "Kies beelden die je aantrekken. Geen vragenlijst." },
-      { title: "Waar en hoeveel ruimte", body: "Plaats, tijd en budget, voor echte adressen." },
+      { title: "Jouw beelden", body: "Kies beelden die je aantrekken. Geen vragenlijst." },
+      { title: "Praktisch", body: "Plaats, tijd en budget, voor echte adressen." },
       { title: "Met wie", body: "En je harde grenzen. Dan is je venster vol." },
     ],
   },
-  chapters: { images: "Wat trekt je", room: "Waar en hoeveel", who: "Met wie", extra: "Nog één ding" },
+  chapters: { images: "Jouw beelden", room: "Praktisch", who: "Met wie", extra: "Jouw venster" },
   recipientFallback: "diegene",
   recipientLabel: "Voor wie is dit venster?",
   recipientPlaceholder: "Voornaam (mag leeg blijven)",
   worlds: {
-    heading: "Welke werelden trekken je?",
-    headingGift: "Welke werelden zouden {name} trekken?",
-    sub: "Kies er één tot vier. Of laat ons je verrassen.",
+    heading: "Waar gaat je nieuwsgierigheid naartoe?",
+    headingGift: "Waar gaat de nieuwsgierigheid van {name} naartoe?",
+    sub: "Kies één tot vier richtingen. Of laat ons kiezen.",
     surprise: "Verras me",
-    surpriseSub: "We kiezen de werelden voor je",
+    surpriseSub: "We kiezen de richtingen voor je",
     chosen: "{n} gekozen",
   },
   rounds: {
@@ -163,14 +164,14 @@ export const vensterNl: VensterDictionary = {
     },
     moments: {
       kicker: "Ronde 2 van 3 · momenten",
-      heading: "Welk moment wil je vaker voelen?",
-      headingGift: "Welk moment gun je {name}?",
+      heading: "Welk moment zou je vaker willen beleven?",
+      headingGift: "Welk moment zou {name} vaker willen beleven?",
       sub: "Niet wat je gaat doen, maar hoe het voelt.",
     },
     senses: {
       kicker: "Ronde 3 van 3 · zintuigen · mag je overslaan",
-      heading: "Wat wil je ruiken, voelen of horen?",
-      headingGift: "Wat zou {name} willen ruiken, voelen of horen?",
+      heading: "Wat raakt je zintuigen?",
+      headingGift: "Wat raakt de zintuigen van {name}?",
       sub: "Een laatste laag. Kies wat er bij je opkomt.",
     },
   },
@@ -190,7 +191,8 @@ export const vensterNl: VensterDictionary = {
   },
   reflection: {
     kicker: "Je venster",
-    heading: "Je venster krijgt vorm.",
+    heading: "Zo kijken wij door jouw venster",
+    headingGift: "Zo kijken wij door het venster van {name}",
     prefix: "Dit lezen we in je beelden:",
     prefixGift: "Dit lezen we in de beelden voor {name}:",
     and: "en",
@@ -210,8 +212,8 @@ export const vensterNl: VensterDictionary = {
     },
   },
   room: {
-    heading: "Waar en hoeveel ruimte?",
-    headingGift: "Waar en hoeveel ruimte heeft {name}?",
+    heading: "Hoeveel ruimte maak je vrij?",
+    headingGift: "Hoeveel ruimte maakt {name} vrij?",
     locationLabel: "Waar woon je ongeveer?",
     locationLabelGift: "Waar woont {name} ongeveer?",
     locationSub: "Voor echte adressen bij jou in de buurt. Plaats of regio is genoeg.",
@@ -226,8 +228,8 @@ export const vensterNl: VensterDictionary = {
     budgetLabel: "Wat mag het kosten?",
   },
   who: {
-    heading: "Met wie?",
-    headingGift: "Met wie gaat {name}?",
+    heading: "Met wie, en wat moet kloppen?",
+    headingGift: "Met wie gaat {name}, en wat moet kloppen?",
     companyLabel: "Wie gaat er mee?",
     companyLabelGift: "Met wie zou {name} gaan?",
     howLabel: "En hoe het liefst?",
@@ -289,7 +291,7 @@ export const vensterNl: VensterDictionary = {
     windowClose: "Sluiten",
     windowTitle: "Jouw venster",
   },
-  panes: { worlds: "Werelden", places: "Plekken", moments: "Momenten", senses: "Zintuigen", surprise: "Verras me" },
+  panes: { worlds: "Richting", places: "Plek", moments: "Moment", senses: "Zintuig", surprise: "Verras me" },
   sill: { empty: "Elke keuze krijgt een plek in je venster.", with: "met" },
   checkout: {
     heading: "Je venster is vol.",
@@ -344,21 +346,21 @@ export const vensterEn: VensterDictionary = {
     subcopy: "Pick a handful of images that pull you in. We turn them into an Idea Book, with real places near you.",
     heroAlt: "An open window with soft light and a view outside",
     chapters: [
-      { title: "What draws you", body: "Pick images that pull you in. No questionnaire." },
-      { title: "Where and how much room", body: "Place, time and budget, for real addresses." },
+      { title: "Your images", body: "Pick images that pull you in. No questionnaire." },
+      { title: "Practical", body: "Place, time and budget, for real addresses." },
       { title: "With whom", body: "And your hard limits. Then your window is full." },
     ],
   },
-  chapters: { images: "What draws you", room: "Where and how much", who: "With whom", extra: "One more thing" },
+  chapters: { images: "Your images", room: "Practical", who: "With whom", extra: "Your window" },
   recipientFallback: "them",
   recipientLabel: "Who is this window for?",
   recipientPlaceholder: "First name (optional)",
   worlds: {
-    heading: "Which worlds draw you in?",
-    headingGift: "Which worlds would draw {name} in?",
+    heading: "Where does your curiosity go?",
+    headingGift: "Where does {name}'s curiosity go?",
     sub: "Pick one to four. Or let us surprise you.",
     surprise: "Surprise me",
-    surpriseSub: "We'll pick the worlds for you",
+    surpriseSub: "We'll pick the directions for you",
     chosen: "{n} chosen",
   },
   rounds: {
@@ -370,14 +372,14 @@ export const vensterEn: VensterDictionary = {
     },
     moments: {
       kicker: "Round 2 of 3 · moments",
-      heading: "Which moment would you like to feel more often?",
-      headingGift: "Which moment would you wish for {name}?",
+      heading: "Which moment would you like to experience more often?",
+      headingGift: "Which moment would {name} like to experience more often?",
       sub: "Not what you'll do, but how it feels.",
     },
     senses: {
       kicker: "Round 3 of 3 · senses · feel free to skip",
-      heading: "What would you like to smell, feel or hear?",
-      headingGift: "What would {name} like to smell, feel or hear?",
+      heading: "What touches your senses?",
+      headingGift: "What touches {name}'s senses?",
       sub: "One last layer. Pick whatever comes up.",
     },
   },
@@ -397,7 +399,8 @@ export const vensterEn: VensterDictionary = {
   },
   reflection: {
     kicker: "Your window",
-    heading: "Your window is taking shape.",
+    heading: "How we look through your window",
+    headingGift: "How we look through {name}'s window",
     prefix: "Here's what we read in your images:",
     prefixGift: "Here's what we read in the images for {name}:",
     and: "and",
@@ -417,8 +420,8 @@ export const vensterEn: VensterDictionary = {
     },
   },
   room: {
-    heading: "Where, and how much room?",
-    headingGift: "Where, and how much room does {name} have?",
+    heading: "How much room are you making?",
+    headingGift: "How much room is {name} making?",
     locationLabel: "Roughly where do you live?",
     locationLabelGift: "Roughly where does {name} live?",
     locationSub: "For real addresses near you. A town or region is enough.",
@@ -433,8 +436,8 @@ export const vensterEn: VensterDictionary = {
     budgetLabel: "What may it cost?",
   },
   who: {
-    heading: "With whom?",
-    headingGift: "Who will {name} go with?",
+    heading: "With whom, and what has to fit?",
+    headingGift: "Who will {name} go with, and what has to fit?",
     companyLabel: "Who's coming along?",
     companyLabelGift: "Who would {name} go with?",
     howLabel: "And how, ideally?",
@@ -496,7 +499,7 @@ export const vensterEn: VensterDictionary = {
     windowClose: "Close",
     windowTitle: "Your window",
   },
-  panes: { worlds: "Worlds", places: "Places", moments: "Moments", senses: "Senses", surprise: "Surprise me" },
+  panes: { worlds: "Direction", places: "Place", moments: "Moment", senses: "Sense", surprise: "Surprise me" },
   sill: { empty: "Every choice finds a place in your window.", with: "with" },
   checkout: {
     heading: "Your window is full.",
