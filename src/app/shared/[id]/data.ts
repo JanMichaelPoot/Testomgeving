@@ -23,3 +23,31 @@ export async function getSharedIdeaBook(id: string): Promise<SharedIdeaBook | nu
 
   return data;
 }
+
+// What the preview card of a shared book may know about the person's window: only WHICH images
+// were chosen, never any other answer (no open answer, place, age or company). Narrow on purpose:
+// nothing else leaves this function. Null for books made with the other intakes.
+export type SharedWindowSource = { associations: string[]; interestDomains: string[]; surpriseMe: boolean };
+
+const strings = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : []);
+
+export async function getSharedWindowSource(planId: string): Promise<SharedWindowSource | null> {
+  try {
+    const supabase = createServiceRoleClient();
+    const { data: plan } = await supabase.from("window_plans").select("session_id").eq("id", planId).eq("status", "ready").maybeSingle();
+    if (!plan) return null;
+    const { data: intake } = await supabase
+      .from("intake_answers")
+      .select("raw_json")
+      .eq("session_id", plan.session_id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    const raw = intake?.raw_json as Record<string, unknown> | null | undefined;
+    if (!raw || raw.intakeVariant !== "associations") return null;
+    return { associations: strings(raw.associations), interestDomains: strings(raw.interestDomains), surpriseMe: raw.surpriseMe === true };
+  } catch {
+    // Decoration: a failed read just means the card falls back to the cover photo.
+    return null;
+  }
+}

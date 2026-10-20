@@ -313,6 +313,7 @@ export function PlanReveal({
           url={shareUrl}
           label={planDict.shareButtonLabel}
           copiedLabel={planDict.shareCopiedLabel}
+          whatsappLabel={planDict.shareWhatsappLabel}
           className={shareClassName}
         />
       </div>
@@ -689,6 +690,7 @@ export function PlanReveal({
               url={shareUrl}
               label={planDict.shareButtonLabel}
               copiedLabel={planDict.shareCopiedLabel}
+              whatsappLabel={planDict.shareWhatsappLabel}
               className={cn(shareClassName, "min-h-12 px-6")}
             />
           </div>

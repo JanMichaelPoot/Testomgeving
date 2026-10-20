@@ -4,13 +4,23 @@ import { IdeaDetail } from "@/components/window/IdeaDetail";
 import { WindowMark } from "@/components/window/WindowMark";
 import { SharedPageView, SharedCtaLink } from "@/components/window/SharedPageTracking";
 import { getSharedIdeaBook } from "./data";
+import { ShareButton } from "@/components/window/ShareButton";
+import { sharedMetadata } from "@/lib/shareCard";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/locale";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const dict = getDictionary(await getLocale());
+export async function generateMetadata(props: PageProps<"/shared/[id]">): Promise<Metadata> {
+  // In the language the book was written in (a link is read by whoever receives it), with the
+  // number of doors in it; a deleted link gets the generic card text in the site's language.
+  const { id } = await props.params;
+  const plan = await getSharedIdeaBook(id);
+  const dict = getDictionary(plan ? (plan.language === "en" ? "en" : "nl") : await getLocale());
+  const doors = plan
+    ? (Array.isArray(plan.ideas_json) ? plan.ideas_json.length : 0) +
+      (plan.wildcard_json && typeof plan.wildcard_json === "object" && Object.keys(plan.wildcard_json).length > 0 ? 1 : 0)
+    : 0;
   // A shared link is the one page on this site truly meant to be posted
   // into a chat or social feed — without its own openGraph/twitter block,
   // Next.js metadata merging leaves the *root* layout's generic title in
@@ -21,19 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // person's actual title and One Thing pick. Next.js wires a file with
   // that name into openGraph/twitter metadata automatically, so pointing
   // this at the old static cover.jpg would just fight it for no reason.
-  return {
-    title: dict.shared.pageTitle,
-    openGraph: {
-      title: dict.shared.pageTitle,
-      description: dict.shared.intro,
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: dict.shared.pageTitle,
-      description: dict.shared.intro,
-    },
-  };
+  return { ...sharedMetadata(dict.shared, doors), title: dict.shared.pageTitle };
 }
 
 export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
@@ -130,7 +128,7 @@ export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
           </div>
         )}
 
-        <div className="mt-10">
+        <div className="mt-10 flex flex-wrap items-center gap-3">
           <SharedCtaLink
             href="/intake?utm_source=shared_book&utm_medium=idea_book"
             planId={plan.id}
@@ -138,6 +136,12 @@ export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
           >
             {bookDict.shared.ctaLabel}
           </SharedCtaLink>
+          <ShareButton
+            url={`${process.env.NEXT_PUBLIC_SITE_URL}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
+            label={bookDict.shared.shareLabel}
+            copiedLabel={bookDict.plan.shareCopiedLabel}
+            whatsappLabel={bookDict.plan.shareWhatsappLabel}
+          />
         </div>
       </main>
     </div>

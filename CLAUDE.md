@@ -3079,3 +3079,32 @@ Stripe, Claude API, Resend, PostHog).
       en 22 Playwright-tests schoon; in de browser op 390 px gezien: zelf zonder "Onder 18" en
       "Gratis", cadeau mét "Onder 18", de uitgeschakelde knop (computed: greige, not-allowed),
       suggestie "Laren, Noord-Holland" bij opgeslagen "Laren, Laren, Noord-Holland", en "Overslaan".
+
+- [x] Stap 75 — "Route 1 + 2" R1.3: deelpreview voor `/shared/[id]` (WhatsApp, iMessage, Slack,
+      LinkedIn, X, Facebook). De bestaande `opengraph-image.tsx` (coverfoto + paneel met titel en
+      "één ding") is herbouwd volgens de opdracht: links het venster van de koper (de eerste foto
+      van elk van de vier ruiten in het boogkozijn met gouden rand), rechts het logo (`windowinto-
+      cream.png`) en één regel "7 deuren uit één venster" ("7 doors from one window"; de wildcard
+      telt als deur, 6 + 1), in Newsreader op walnoot. Bij boeken van legacy en cards (of als er niets
+      gekozen is) staat de vaste coverfoto in dezelfde boog; een verwijderde link krijgt een
+      algemene kaart. **Privacy**: de kaart kent alleen welke beelden gekozen zijn
+      (`getSharedWindowSource`, een smalle query die niets anders teruggeeft); geen open antwoord,
+      plaats, leeftijd, profieltekst of naam. De "Een venster voor {voornaam}"-variant uit de
+      opdracht is **niet** gebouwd: er bestaat geen schakelaar waarmee de gever dat aanzet, dus de
+      kaart toont nooit een naam. **Grootte**: Satori levert een PNG van ± 450 KB (WhatsApp laat
+      previews vaak vallen boven ± 300 KB), dus de kaart wordt met `sharp` naar JPEG omgezet:
+      41-55 KB; lukt dat niet dan gaat de PNG mee. `sharp` is nu een eigen dependency in
+      `package.json` (zat al in `node_modules` via Next en wordt door `sheetSlicer.ts` gebruikt;
+      `npm install` tilde de sharp-familie in het lock-bestand van 0.35.4 naar 0.35.5). **Metadata**
+      (`generateMetadata` per boek, in de taal van het boek, met het aantal deuren): `og:title`
+      "Een venster vol mogelijkheden", `og:description` met de regel, `twitter:card =
+      summary_large_image`, `og:image` (jpeg, 1200x630). **Deelknop**: staat nu ook op
+      `/shared/[id]` (label "Deel dit Idea Book") naast die op `/plan`; waar de browser geen
+      deelmenu heeft (computer) kopieert hij de link en toont een WhatsApp-link
+      (`wa.me/?text=…`, event `idea_book_share_whatsapp_clicked`). Nieuwe pure helpers in
+      `src/lib/shareCard.ts` (regel, metadata, veilige beeldpaden) met tests; 321 unit-tests, `tsc`,
+      lint, build en 22 Playwright-tests schoon. Gezien lokaal: de kaart voor een beeld-intake-boek,
+      voor een boek zonder venster (cover) en voor een niet-bestaande link; de meta-tags in de
+      HTML; de WhatsApp-link na een klik zonder `navigator.share`. **Nog niet gezien**: de preview
+      in echte WhatsApp (vraagt een publieke URL, dus de Vercel-preview of productie) en de
+      Engelse kaart (geen Engels boek in de database).

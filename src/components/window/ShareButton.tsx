@@ -12,14 +12,18 @@ export function ShareButton({
   url,
   label,
   copiedLabel,
+  whatsappLabel,
   className,
 }: {
   url: string;
   label: string;
   copiedLabel: string;
+  /** When given, a browser without the share sheet (a computer) gets a WhatsApp link next to the copy. */
+  whatsappLabel?: string;
   className?: string;
 }) {
   const [copied, setCopied] = useState(false);
+  const [showWhatsapp, setShowWhatsapp] = useState(false);
 
   async function handleShare() {
     trackEvent("idea_book_share_clicked", { url });
@@ -34,6 +38,8 @@ export function ShareButton({
       }
     }
 
+    // No share sheet here: the link is copied, and WhatsApp (the app most links go to) is one tap away.
+    if (whatsappLabel) setShowWhatsapp(true);
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
@@ -45,15 +51,28 @@ export function ShareButton({
   }
 
   return (
-    <button
-      type="button"
-      onClick={handleShare}
-      className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-paper px-6 py-3 text-sm font-medium text-ink shadow-sm transition-colors hover:bg-ink/5",
-        className
+    <>
+      <button
+        type="button"
+        onClick={handleShare}
+        className={cn(
+          "inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-paper px-6 py-3 text-sm font-medium text-ink shadow-sm transition-colors hover:bg-ink/5",
+          className
+        )}
+      >
+        {copied ? copiedLabel : label}
+      </button>
+      {showWhatsapp && whatsappLabel && (
+        <a
+          href={`https://wa.me/?text=${encodeURIComponent(url)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackEvent("idea_book_share_whatsapp_clicked")}
+          className="inline-flex min-h-11 items-center text-sm font-semibold text-accent underline"
+        >
+          {whatsappLabel}
+        </a>
       )}
-    >
-      {copied ? copiedLabel : label}
-    </button>
+    </>
   );
 }

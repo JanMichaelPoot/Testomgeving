@@ -181,6 +181,7 @@ export interface Dictionary {
     emailedCopy: string;
     shareButtonLabel: string;
     shareCopiedLabel: string;
+    shareWhatsappLabel: string;
     book: {
       back: string;
       next: string;
@@ -260,6 +261,11 @@ export interface Dictionary {
     bannerHeading: string;
     bannerSub: string;
     bannerCta: string;
+    // The preview card shown when the link is pasted into WhatsApp and the like (R1.3).
+    ogTitle: string;
+    cardLine: string; // {n}
+    cardLineOne: string;
+    shareLabel: string; // the share button on the shared page itself
   };
   email: {
     subjectSuffix: string;
@@ -724,6 +730,7 @@ const nl: Dictionary = {
     emailedCopy: "We hebben ook een kopie gemaild.",
     shareButtonLabel: "Deel je Idea Book",
     shareCopiedLabel: "Link gekopieerd!",
+    shareWhatsappLabel: "Of stuur via WhatsApp",
     book: {
       back: "Terug",
       next: "Verder",
@@ -804,6 +811,10 @@ const nl: Dictionary = {
     bannerHeading: "Idee uit een WINDOW Idea Book",
     bannerSub: "Wil jij ook jouw persoonlijke ideeën?",
     bannerCta: "Maak er een",
+    ogTitle: "Een venster vol mogelijkheden",
+    cardLine: "{n} deuren uit één venster",
+    cardLineOne: "Eén deur uit één venster",
+    shareLabel: "Deel dit Idea Book",
   },
   email: {
     subjectSuffix: "je mogelijkheden zijn klaar",
@@ -1438,6 +1449,7 @@ const en: Dictionary = {
     emailedCopy: "We've also emailed a copy.",
     shareButtonLabel: "Share your Idea Book",
     shareCopiedLabel: "Link copied!",
+    shareWhatsappLabel: "Or send via WhatsApp",
     book: {
       back: "Back",
       next: "Next",
@@ -1518,6 +1530,10 @@ const en: Dictionary = {
     bannerHeading: "An idea from a WINDOW Idea Book",
     bannerSub: "Want your own personal ideas?",
     bannerCta: "Make one",
+    ogTitle: "A window full of possibilities",
+    cardLine: "{n} doors from one window",
+    cardLineOne: "One door from one window",
+    shareLabel: "Share this Idea Book",
   },
   email: {
     subjectSuffix: "your possibilities are ready",
