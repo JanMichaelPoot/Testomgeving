@@ -47,7 +47,7 @@ export function buildVensterEcho(source: VensterEchoSource | null, locale: "nl" 
   const gift = source.purpose === "gift";
   const wrote = formatSituationForEcho(source.personalReflection);
   return {
-    sentence: (gift ? dict.reveal.choseGift : dict.reveal.chose).replace("{list}", list(labels, dict.reflection.and)),
+    sentence: (gift ? dict.reveal.choseGift : dict.reveal.chose).replace("{list}", list(labels, dict.profile.and)),
     images: shown.map((c) => ({ src: c!.image, alt: c!.label[locale] })),
     wrote: wrote ? dict.reveal.wrote.replace("{text}", wrote.replace(/[.!?…]$/u, "")) : null,
   };

@@ -8,8 +8,11 @@ import {
   ASSOCIATION_ROUNDS,
   averageAxes,
   deriveDials,
+  effectiveAxes,
+  sanitizeAxesOverride,
   tagProfile,
   type AssociationAxes,
+  type AxesOverride,
   type AssociationCardData,
   type AssociationLibrary,
   type AssociationRound,
@@ -139,14 +142,17 @@ export function associationsToEngineInput(input: {
   corrections?: readonly string[];
   interestDomains: readonly string[];
   surpriseMe?: boolean;
+  /** Axes the person moved on the profile screen; they replace what the images say for that axis. */
+  axesOverride?: AxesOverride;
   /** The answers the hard filters read; the two derived dials are filled in here. */
   constraints: { budget: string; timeAvailable: string; mustHaves: string; socialFormats: readonly string[]; ageCategory: string };
   seed: string;
   activities?: readonly Activity[];
 }): AssociationEngineInput {
   const chosen = input.associationIds.filter((id) => byId.has(id));
-  const axes = averageAxes(ASSOCIATIONS, chosen);
-  const dials = deriveDials(axes, chosen.length > 0);
+  const axes = effectiveAxes(averageAxes(ASSOCIATIONS, chosen), input.axesOverride);
+  // Moving a slider is an answer too, also when no image was chosen.
+  const dials = deriveDials(axes, chosen.length > 0 || Object.keys(sanitizeAxesOverride(input.axesOverride)).length > 0);
   const interestDomains = [...input.interestDomains];
   const base = { interestDomains, ...dials };
 

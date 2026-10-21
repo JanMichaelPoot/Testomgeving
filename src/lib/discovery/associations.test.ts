@@ -7,7 +7,7 @@ import {
   imagesBehind,
   sanitizeAssociations,
 } from "@/lib/discovery/associations";
-import { averageAxes, deriveDials, reflectionSentence, tagProfile, topTags } from "@/lib/discovery/associationProfile";
+import { averageAxes, deriveDials, tagProfile, topTags } from "@/lib/discovery/associationProfile";
 import { validateAssociations } from "@/lib/discovery/validate";
 import { VOCABULARY, getActivity } from "@/lib/discovery/library";
 import { defaultEngineLibrary, agePenalty, selectSeeds } from "@/lib/discovery/engine";
@@ -95,32 +95,8 @@ describe("associationsToEngineInput", () => {
   });
 });
 
-describe("reflection", () => {
+describe("dials", () => {
   const lib = buildAssociationLibrary("nl");
-  const copy = {
-    prefix: "Dit lezen we in je beelden:",
-    and: "en",
-    nothing: "Nog niets",
-    leanings: { alone: "op je eentje", together: "samen", calm: "in een rustig tempo", active: "met vaart", inside: "binnen", outside: "buiten" },
-  };
-
-  it("names the three strongest tags and how the images lean", () => {
-    const { sentence, words } = reflectionSentence(lib, QUIET, [], copy);
-    expect(words).toHaveLength(3);
-    expect(words).toContain("stilte");
-    expect(sentence).toMatch(/^Dit lezen we in je beelden: .+ en .+, buiten, in een rustig tempo\.$/);
-  });
-
-  it("lets a correction change the words", () => {
-    const before = reflectionSentence(lib, QUIET, [], copy).words;
-    const after = reflectionSentence(lib, QUIET, ["food", "conviviality"], copy).words;
-    expect(after).not.toEqual(before);
-    expect(after).toContain("eten");
-  });
-
-  it("is honest when there is nothing to read", () => {
-    expect(reflectionSentence(lib, [], [], copy)).toEqual({ sentence: "Nog niets", words: [] });
-  });
 
   it("derives neutral dials when nothing was chosen", () => {
     expect(deriveDials(averageAxes(lib.cards, []), false)).toEqual({ practicalToWild: "either", effort: "some" });
@@ -175,6 +151,31 @@ describe("applyImageIntake", () => {
     locale: "nl",
   } as StoredIntake;
 
+  it("lets the sliders of the profile screen replace the axis the images gave (effort follows energy, practicalToWild follows novelty)", () => {
+    const calm = applyImageIntake({ ...base, axesOverride: { energy: -1, novelty: -1 } }, "nl", "seed");
+    expect(calm.effort).toBe("minimal");
+    expect(calm.practicalToWild).toBe("grounded");
+    expect(calm.axesOverride).toEqual({ energy: -1, novelty: -1 });
+    const wild = applyImageIntake({ ...base, axesOverride: { energy: 1, novelty: 1 } }, "nl", "seed");
+    expect(wild.effort).toBe("committed");
+    expect(wild.practicalToWild).toBe("wild");
+    // an axis that was not moved keeps what the images say
+    const onlyNovelty = applyImageIntake({ ...base, axesOverride: { novelty: 1 } }, "nl", "seed");
+    expect(onlyNovelty.effort).toBe("minimal");
+    expect(onlyNovelty.practicalToWild).toBe("wild");
+  });
+
+  it("does not trust the browser for the sliders: garbage is dropped, numbers are clamped", () => {
+    const out = applyImageIntake({ ...base, axesOverride: { energy: 99, social: "x", setting: -5, evil: 1 } as never }, "nl", "seed");
+    expect(out.axesOverride).toEqual({ energy: 1, setting: -1 });
+    expect(applyImageIntake({ ...base, axesOverride: undefined }, "nl", "seed").axesOverride).toEqual({});
+  });
+
+  it("counts a moved slider even when no image was chosen", () => {
+    const out = applyImageIntake({ ...base, associations: [], associationCorrections: [], axesOverride: { energy: -1 } }, "nl", "seed");
+    expect(out.effort).toBe("minimal");
+  });
+
   it("replaces the dials and interests by what the images say, and empties what was not asked", () => {
     const out = applyImageIntake(base, "nl", "seed");
     expect(out.effort).toBe("minimal");
@@ -202,6 +203,12 @@ describe("the engine on image-intake visitors", () => {
     const cards = evaluate(runProfiles(syntheticProfiles(200, "t", lib), lib), lib);
     expect(assoc.rates.fourDomains).toBeGreaterThanOrEqual(cards.rates.fourDomains - 0.01);
     expect(assoc.rates.seedsAtLeastSix).toBe(1);
+  }, 120_000);
+
+  it("still meets E1-E6 when visitors also move the sliders of the profile screen (R2.1)", () => {
+    const withSliders = evaluate(runProfiles(syntheticAssociationProfiles(300, "sliders", { overrides: true }), lib), lib);
+    for (const list of Object.values(withSliders.violations)) expect(list).toEqual([]);
+    expect(withSliders.rates.seedsAtLeastSix).toBe(1);
   }, 120_000);
 });
 

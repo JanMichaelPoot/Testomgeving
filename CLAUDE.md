@@ -3108,3 +3108,46 @@ Stripe, Claude API, Resend, PostHog).
       HTML; de WhatsApp-link na een klik zonder `navigator.share`. **Nog niet gezien**: de preview
       in echte WhatsApp (vraagt een publieke URL, dus de Vercel-preview of productie) en de
       Engelse kaart (geen Engels boek in de database).
+
+- [x] Stap 76 — "Route 1 + 2" R2.1: het zoekprofiel aan het einde van de intake ("Zo kijken wij door
+      jouw venster"). Besluiten B3 en B4 stonden nog OPEN; de standaarden zijn gebruikt. **Nieuwe
+      volgorde** (7 schermen, `vensterPages.ts`): Richting, Plek, Moment, Zintuig, Praktisch, Met wie,
+      Jouw venster (profiel) en dan de betaalpagina. Het oude profielscherm na de beeldrondes en het
+      losse slotvraagscherm zijn vervallen; de slotvraag is "Wat missen we nog?" op het profiel
+      (`personalReflection`). Het stepper-hoofdstuk "Jouw venster" toont nu echt dat scherm. Oude
+      concepten (sessionStorage, zonder versie) worden op de nieuwe volgorde afgebeeld
+      (`migrateDraftPage`: oud scherm 4 en 5 worden "Praktisch", 6 "Met wie", 7 profiel), nooit een
+      crash; de betaalpagina krijgt een extra link "Profiel of schuiven bijsturen". **Het scherm**
+      (`ProfileStep.tsx`, logica in `discovery/profileStory.ts`, alles deterministisch uit vaste
+      zinsdelen in `dict.venster.profile`, geen AI-aanroep): het venster; miniaturen van de
+      beelden die het zwaarst wegen (bij een spanningsveld altijd één van elke kant); een verhaal van
+      3-4 zinnen (je koos X, Y en Z / daarin lezen we A en B / we zoeken dus iets … / daarbij houden
+      we rekening met tijd, budget, plaats en gezelschap); "Wat opvalt": het spanningsveld (twee
+      beelden die op één as minstens ±0,5 uit elkaar liggen, dan een zin per as), anders de sterkste as
+      (|gemiddelde| ≥ 0,2), anders "wijzen niet één kant op"; vier schuiven (alleen-samen, rust-actie,
+      binnen-buiten, vertrouwd-nieuw) op vijf standen, startend bij wat de beelden zeggen;
+      "Dit zoeken we" (max. 3) en "Dit laten we weg" (max. 2), live meebewegend; "Wat missen we
+      nog?" met drie startzinnen uit de eigen keuzes (combinaties als natuur + verhaal, anders per
+      tag, bewust zonder ik-vorm zodat ze ook bij een cadeau kloppen); de teaser "Eén van je zeven
+      deuren zal je verrassen"; "Klopt, open mijn venster" (naar de betaalpagina) en "Bijsturen"
+      (extra tags, de oude "Niet helemaal"-chips). Op een telefoon staan schuiven en filters in het
+      uitklapblok "Bekijk en stuur bij" (standaard dicht), op een computer altijd open en zonder
+      sticky paneel. Cadeau: eigen zinnen met de naam, nooit "je koos" over de ontvanger.
+      **Eerlijkheid**: elke "laten we weg"-regel hoort bij een filter dat echt actief is (test op
+      `resolveConstraints`); tijd en afstand staan onder "zoeken" omdat ze het onderzoek en de tekst
+      sturen, niet omdat de motor erop filtert. **`axesOverride`**: de schuiven zijn opgeslagen als
+      `IntakeAnswers.axesOverride` (alleen aangeraakte assen, -1..1), server-side gesaneerd; ze
+      vervangen per as wat de beelden zeggen, dus `effort` volgt energie en `practicalToWild`
+      volgt nieuwheid (ook zonder gekozen beeld). **Gemeten**: shadow-run met `--overrides`
+      (`scripts/discovery-shadow.ts`, 4 op de 10 bezoekers verschuiven 1-4 schuiven), 3 x 500
+      profielen: E1-E6 telkens 0 schendingen; als test vastgelegd (300 profielen).
+      **Events**: nieuw `profile_viewed`, `profile_agreed {adjusted}`, `profile_axis_changed
+      {axis}`, `profile_reflection {has_reflection}` (nooit tekst, labels of plaats); het oude
+      `association_reflection` is vervallen. `reflectionSentence` en de teksten van het oude scherm
+      zijn verwijderd. Getest: 349 unit-tests (nieuw: 23 voor het profiel, 3 voor de schuiven in
+      `applyImageIntake`, migratie van concepten, slider-regressie), `tsc`, lint, build, 22
+      Playwright-tests (nu ook het profielscherm op 375, 390 en 412 px); in de browser op 390 en
+      1280 px bekeken, een schuif live verplaatst, en een volledige run tot de betaalpagina waarbij
+      `axesOverride`, `personalReflection` en de afgeleide `effort` in `raw_json` bleken te staan
+      (testsessie opgeruimd). **Niet gezien**: een echte generatie met schuiven (geen betaalde
+      aanroep gedaan), de Engelse versie van het scherm in de browser, een echte telefoon.

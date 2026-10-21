@@ -38,7 +38,7 @@ describe("image intake copy (R1.1)", () => {
         dict.rounds.places.headingGift,
         dict.rounds.moments.headingGift,
         dict.rounds.senses.headingGift,
-        dict.reflection.headingGift,
+        dict.profile.headingGift,
         dict.room.headingGift,
         dict.who.headingGift,
       ]) {
@@ -47,7 +47,7 @@ describe("image intake copy (R1.1)", () => {
     });
 
     it(`${name}: the self headings never talk about someone else`, () => {
-      for (const heading of [dict.worlds.heading, dict.rounds.moments.heading, dict.reflection.heading, dict.room.heading, dict.who.heading]) {
+      for (const heading of [dict.worlds.heading, dict.rounds.moments.heading, dict.profile.heading, dict.room.heading, dict.who.heading]) {
         expect(heading).not.toContain("{name}");
       }
     });

@@ -81,6 +81,9 @@ export function VensterOrderSummary({
         <Link href={edit(VENSTER_EDIT_PAGE.who)} className="font-medium text-accent underline underline-offset-2 hover:text-accent-dark">
           {v.checkout.editWho}
         </Link>
+        <Link href={edit(VENSTER_EDIT_PAGE.profile)} className="font-medium text-accent underline underline-offset-2 hover:text-accent-dark">
+          {v.checkout.editProfile}
+        </Link>
       </div>
     </div>
   );

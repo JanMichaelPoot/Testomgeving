@@ -10,15 +10,15 @@ const VIEWPORTS = [
   { name: "412x915", width: 412, height: 915 },
 ];
 
-// The screens that have the bottom bar (the profile screen, index 4, has its own buttons).
+// Every screen has the bottom bar (Back + Next, or "Klopt, open mijn venster" on the profile).
 const SCREENS = [
   { index: 0, id: "worlds" },
   { index: 1, id: "places" },
   { index: 2, id: "moments" },
   { index: 3, id: "senses" },
-  { index: 5, id: "room" },
-  { index: 6, id: "who" },
-  { index: 7, id: "extra" },
+  { index: 4, id: "room" },
+  { index: 5, id: "who" },
+  { index: 6, id: "profile" },
 ];
 
 async function openScreen(page: Page, index: number) {
@@ -27,6 +27,7 @@ async function openScreen(page: Page, index: number) {
     sessionStorage.setItem(
       "window-venster-draft-v1",
       JSON.stringify({
+        v: 2,
         page: i,
         answers: { associations: ["place-forest-edge"], interestDomains: ["nature"] },
         limitChips: [],
@@ -103,7 +104,7 @@ test.describe("keyboard open on a phone", () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
 
   test("a focused free-text field stays above the bar", async ({ page }) => {
-    await openScreen(page, 6);
+    await openScreen(page, 5);
     // A phone keyboard takes about half the screen.
     await page.setViewportSize({ width: 390, height: 420 });
     const field = page.locator("main textarea, main input:not([type]), main input[type='text']").last();

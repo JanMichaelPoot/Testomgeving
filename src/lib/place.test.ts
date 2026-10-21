@@ -25,3 +25,15 @@ describe("displayPlace", () => {
     expect(displayPlace(" , ,")).toBe("");
   });
 });
+
+import { shortPlace } from "@/lib/place";
+
+describe("shortPlace", () => {
+  it("keeps the first part and drops 'Gemeente' and friends", () => {
+    expect(shortPlace("Laren, Laren, Noord-Holland")).toBe("Laren");
+    expect(shortPlace("Gemeente Utrecht")).toBe("Utrecht");
+    expect(shortPlace("Provincie Zeeland")).toBe("Zeeland");
+    expect(shortPlace("")).toBe("");
+    expect(shortPlace(undefined)).toBe("");
+  });
+});

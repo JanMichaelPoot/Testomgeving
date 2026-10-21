@@ -6,6 +6,7 @@
 //   npx tsx scripts/discovery-shadow.ts --n 500 --seed abc
 //   npx tsx scripts/discovery-shadow.ts --show 5        also print 5 example results
 //   npx tsx scripts/discovery-shadow.ts --profile associations   visitors of the image intake ("Het venster")
+//   ... --profile associations --overrides                         the same, also moving the profile screen's sliders
 //   npx tsx scripts/discovery-shadow.ts --ages          share of heavy/supervised ideas per age group (fase 1.5)
 import { getActivity } from "../src/lib/discovery/library";
 import { defaultEngineLibrary } from "../src/lib/discovery/engine";
@@ -24,7 +25,9 @@ const show = Number(value("show") ?? 0);
 
 const lib = defaultEngineLibrary();
 const kind = value("profile") ?? "cards";
-const profiles = kind === "associations" ? syntheticAssociationProfiles(n, seed) : syntheticProfiles(n, seed, lib);
+// --overrides: about four in ten image-intake visitors also move sliders of the profile screen.
+const profiles =
+  kind === "associations" ? syntheticAssociationProfiles(n, seed, { overrides: args.includes("--overrides") }) : syntheticProfiles(n, seed, lib);
 
 // Age weighting report: the same visitors with only their age changed.
 if (args.includes("--ages")) {

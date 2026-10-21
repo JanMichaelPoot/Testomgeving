@@ -15,6 +15,34 @@ export interface AssociationAxes {
   novelty: number;
 }
 
+export const AXIS_IDS = ["social", "energy", "setting", "novelty"] as const;
+export type AxisId = (typeof AXIS_IDS)[number];
+
+/** The axes a person moved themselves on the profile screen; absent axes keep what the images say. */
+export type AxesOverride = Partial<Record<AxisId, number>>;
+
+/** Only known axes, finite numbers, clamped to -1..1 and rounded to two decimals (the browser is not trusted). */
+export function sanitizeAxesOverride(raw: unknown): AxesOverride {
+  if (!raw || typeof raw !== "object") return {};
+  const out: AxesOverride = {};
+  for (const axis of AXIS_IDS) {
+    const v = (raw as Record<string, unknown>)[axis];
+    if (typeof v === "number" && Number.isFinite(v)) out[axis] = Math.round(Math.max(-1, Math.min(1, v)) * 100) / 100;
+  }
+  return out;
+}
+
+/** The axes that count: what the images say, except where the person moved a slider. */
+export function effectiveAxes(fromImages: AssociationAxes, override: AxesOverride | undefined): AssociationAxes {
+  const o = sanitizeAxesOverride(override);
+  return {
+    social: o.social ?? fromImages.social,
+    energy: o.energy ?? fromImages.energy,
+    setting: o.setting ?? fromImages.setting,
+    novelty: o.novelty ?? fromImages.novelty,
+  };
+}
+
 /** What the wizard and the scoring need of one card. */
 export interface AssociationCardData {
   id: string;
@@ -107,32 +135,4 @@ export function axisLeanings(axes: AssociationAxes): { social?: "alone" | "toget
     ...(lean(axes.energy) !== 0 ? { energy: lean(axes.energy) < 0 ? "calm" : "active" } : {}),
     ...(lean(axes.setting) !== 0 ? { setting: lean(axes.setting) < 0 ? "inside" : "outside" } : {}),
   };
-}
-
-/**
- * The reflection shown when the window is full: "Dit lezen we in je beelden: {words}{tail}.
- * Klopt dat?". Fixed sentence parts only, so it can never say something strange.
- */
-export function reflectionSentence(
-  library: Pick<AssociationLibrary, "cards" | "tagLabels">,
-  chosen: readonly string[],
-  corrections: readonly string[],
-  copy: {
-    prefix: string;
-    and: string;
-    nothing: string;
-    leanings: { alone: string; together: string; calm: string; active: string; inside: string; outside: string };
-  },
-): { sentence: string; words: string[] } {
-  const profile = tagProfile(library.cards, chosen, corrections);
-  // What they added under "Niet helemaal" comes first: it is what they just told us.
-  const ordered = [...corrections, ...topTags(profile, 6).filter((t) => !corrections.includes(t))].slice(0, 3);
-  const words = ordered.map((t) => (library.tagLabels[t] ?? t).toLowerCase());
-  if (words.length === 0) return { sentence: copy.nothing, words: [] };
-  const list = words.length === 1 ? words[0] : `${words.slice(0, -1).join(", ")} ${copy.and} ${words[words.length - 1]}`;
-  const lean = axisLeanings(averageAxes(library.cards, chosen));
-  const tail = [lean.setting && copy.leanings[lean.setting], lean.energy && copy.leanings[lean.energy], lean.social && copy.leanings[lean.social]]
-    .filter((x): x is string => !!x)
-    .slice(0, 2);
-  return { sentence: `${copy.prefix} ${list}${tail.length ? `, ${tail.join(", ")}` : ""}.`, words };
 }

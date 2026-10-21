@@ -2,6 +2,7 @@ import { hashSeed, mulberry32, shuffled } from "@/lib/discovery/rng";
 import { SOCIAL_FORMATS } from "@/lib/discovery/types";
 import { ASSOCIATIONS, associationsToEngineInput } from "@/lib/discovery/associations";
 import type { SyntheticProfile } from "@/lib/discovery/engine/synthetic";
+import { AXIS_IDS, type AxesOverride } from "@/lib/discovery/associationProfile";
 
 // Synthetic visitors of the image intake ("Het venster"): they choose images instead of
 // activities, the way the wizard lets them (1-5 per round, the senses round sometimes
@@ -14,7 +15,17 @@ const TIMES = ["hour", "halfday", "fullday", "weekend"];
 const AGES = ["", "18-24", "25-34", "35-44", "45-54", "55-64", "65plus"];
 const MUST_HAVES = ["Moet buiten zijn", "Moet binnen kunnen", "Gratis", "Geen groepen", "Rolstoeltoegankelijk", "Geen alcohol"];
 
-export function syntheticAssociationProfiles(n: number, seed: string, opts: { ageCategory?: string } = {}): SyntheticProfile[] {
+const SLIDER_STEPS = [-1, -0.5, 0, 0.5, 1];
+
+/**
+ * `overrides`: about four in ten visitors also move one to four sliders of the profile screen
+ * (R2.1), on the five positions the screen offers, so the regression covers the sliders too.
+ */
+export function syntheticAssociationProfiles(
+  n: number,
+  seed: string,
+  opts: { ageCategory?: string; overrides?: boolean } = {},
+): SyntheticProfile[] {
   const rnd = mulberry32(hashSeed(`assoc-${seed}`));
   const domains = [...new Set(["movement", "creative", "nature", "history", "games", "collecting", "tech", "solo_explore", "together", "restful"])];
   const out: SyntheticProfile[] = [];
@@ -37,7 +48,14 @@ export function syntheticAssociationProfiles(n: number, seed: string, opts: { ag
     const timeAvailable = TIMES[Math.floor(rnd() * TIMES.length)];
     const ageCategory = opts.ageCategory ?? AGES[Math.floor(rnd() * AGES.length)];
     const mustHaves = rnd() < 0.25 ? MUST_HAVES[Math.floor(rnd() * MUST_HAVES.length)] : "";
+    const axesOverride: AxesOverride = {};
+    if (opts.overrides && rnd() < 0.4) {
+      for (const axis of shuffled([...AXIS_IDS], rnd).slice(0, 1 + Math.floor(rnd() * 4))) {
+        axesOverride[axis] = SLIDER_STEPS[Math.floor(rnd() * SLIDER_STEPS.length)];
+      }
+    }
     const derived = associationsToEngineInput({
+      axesOverride,
       associationIds: surprise ? [] : chosen,
       interestDomains,
       surpriseMe: surprise,

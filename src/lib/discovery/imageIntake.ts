@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import type { StoredIntake } from "@/app/intake/actions";
 import { TAGS } from "@/lib/discovery/library";
 import { associationsToEngineInput, sanitizeAssociations } from "@/lib/discovery/associations";
+import { sanitizeAxesOverride } from "@/lib/discovery/associationProfile";
 
 // Server side of the image intake ("Het venster"): turns what the image intake stores into
 // the answers the rest of the app already reads. Applied once in submitIntake, so checkout,
@@ -14,6 +15,7 @@ import { associationsToEngineInput, sanitizeAssociations } from "@/lib/discovery
 //   fixed       solutionTypes = ["activity"]
 //   left empty  purposeFollowUp, freeTimePattern, situation (read as "not stated")
 //   from images preferences = the tags added under "Niet helemaal"
+//   the person's own sliders on the profile screen (axesOverride) replace the axis the images gave
 
 const MAX_NAME = 40;
 
@@ -24,12 +26,14 @@ export function cleanRecipientName(raw: unknown): string {
 
 export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed: string = randomUUID()): StoredIntake {
   const { associations, associationCorrections } = sanitizeAssociations(stored);
+  const axesOverride = sanitizeAxesOverride(stored.axesOverride);
   const purpose = stored.purpose === "gift" ? "gift" : "self";
   const derived = associationsToEngineInput({
     associationIds: associations,
     corrections: associationCorrections,
     interestDomains: stored.interestDomains ?? [],
     surpriseMe: stored.surpriseMe,
+    axesOverride,
     constraints: {
       budget: stored.budget,
       timeAvailable: stored.timeAvailable,
@@ -48,6 +52,7 @@ export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed
     recipientName: purpose === "gift" ? cleanRecipientName(stored.recipientName) : "",
     associations,
     associationCorrections,
+    axesOverride,
     interests: derived.interests,
     interestDomains: derived.interestDomains,
     practicalToWild: derived.practicalToWild,

@@ -54,10 +54,12 @@ describe("the image intake's limit chips", () => {
 
 describe("venster pages", () => {
   it("has eight screens and edit links that point at real ones", () => {
-    expect(VENSTER_PAGES).toHaveLength(8);
+    expect(VENSTER_PAGES).toHaveLength(7);
     for (const page of Object.values(VENSTER_EDIT_PAGE)) expect(page).toBeLessThan(VENSTER_PAGES.length);
     expect(VENSTER_PAGES[VENSTER_EDIT_PAGE.room]).toBe("room");
     expect(VENSTER_PAGES[VENSTER_EDIT_PAGE.who]).toBe("who");
+    expect(VENSTER_PAGES[VENSTER_EDIT_PAGE.profile]).toBe("profile");
+    expect(VENSTER_PAGES.at(-1)).toBe("profile"); // the profile is the last screen, right before the checkout
   });
 
   it("has the same copy keys in both languages", () => {

@@ -38,20 +38,73 @@ export interface VensterDictionary {
     skip: string;
     of: string; // {i}, {n}
   };
-  reflection: {
+  // The last screen of the image intake: "Zo kijken wij door jouw venster" (R2.1). Fixed sentence
+  // parts only, assembled in src/lib/discovery/profileStory.ts; nothing here is generated.
+  profile: {
     kicker: string;
     heading: string;
     headingGift: string; // {name}
-    prefix: string;
-    prefixGift: string;
+    chose: string; // {list}
+    choseGift: string; // {name} {list}
+    readOne: string; // {a}
+    readTwo: string; // {a} {b}
+    seek: string; // {parts}
+    seekNeutral: string;
+    leanings: { inside: string; outside: string; calm: string; active: string; alone: string; together: string };
+    practical: string; // {list}
     and: string;
-    nothing: string;
-    question: string;
-    yes: string;
-    no: string;
+    time: Record<string, string>;
+    budget: Record<string, string>;
+    near: string; // {place}
+    company: Record<string, string>; // noun phrases: "een partner"
+    withWho: string; // with {list}
+    noCompany: string;
+    tension: Record<"social" | "energy" | "setting" | "novelty", string>;
+    tensionGift: Record<"social" | "energy" | "setting" | "novelty", string>; // {name}
+    strong: Record<"social" | "energy" | "setting" | "novelty", { low: string; high: string }>;
+    strongGift: Record<"social" | "energy" | "setting" | "novelty", { low: string; high: string }>;
+    balanced: string;
+    balancedGift: string;
+    open: string;
+    openGift: string; // {name}
+    tensionLabel: string;
+    axesTitle: string;
+    axes: Record<"social" | "energy" | "setting" | "novelty", { label: string; low: string; high: string }>;
+    seekTitle: string;
+    omitTitle: string;
+    seekLines: {
+      formats: Record<string, string>;
+      outdoor: string;
+      indoor: string;
+      effortMinimal: string;
+      effortCommitted: string;
+      budget: Record<string, string>;
+      time: Record<string, string>;
+      distance: Record<string, string>;
+    };
+    omitLines: {
+      noGroups: string;
+      needsInside: string;
+      needsOutside: string;
+      formats: string;
+      supervised: string;
+      effortMinimal: string;
+      effortSome: string;
+      costFree: string;
+      costMid: string;
+    };
+    missTitle: string;
+    missTitleGift: string; // {name}
+    missSub: string;
+    missPlaceholder: string;
+    suggestions: Record<string, string>;
+    combos: { tags: [string, string]; text: string }[];
+    teaser: string;
+    agree: string;
+    adjust: string;
+    adjustDone: string;
     fixPrompt: string;
-    fixDone: string;
-    leanings: { alone: string; together: string; calm: string; active: string; inside: string; outside: string };
+    moreTitle: string;
   };
   room: {
     heading: string;
@@ -81,14 +134,6 @@ export interface VensterDictionary {
     limitChips: string[];
     limitsPlaceholder: string;
   };
-  extra: {
-    heading: string;
-    headingGift: string;
-    sub: string;
-    placeholder: string;
-    suggestions: string[];
-    skip: string;
-  };
   nav: { back: string; next: string; submit: string; submitting: string; windowOpen: string; windowClose: string; windowTitle: string };
   panes: { worlds: string; places: string; moments: string; senses: string; surprise: string };
   sill: { empty: string; with: string };
@@ -99,6 +144,7 @@ export interface VensterDictionary {
     editImages: string;
     editRoom: string;
     editWho: string;
+    editProfile: string;
   };
   reveal: {
     chose: string; // {list}
@@ -189,27 +235,156 @@ export const vensterNl: VensterDictionary = {
     skip: "Overslaan",
     of: "{i} van {n}",
   },
-  reflection: {
-    kicker: "Je venster",
+  profile: {
+    kicker: "Jouw venster",
     heading: "Zo kijken wij door jouw venster",
     headingGift: "Zo kijken wij door het venster van {name}",
-    prefix: "Dit lezen we in je beelden:",
-    prefixGift: "Dit lezen we in de beelden voor {name}:",
-    and: "en",
-    nothing: "We zien nog weinig in je beelden. Dat mag: dan verrassen we je.",
-    question: "Klopt dat?",
-    yes: "Klopt, verder",
-    no: "Niet helemaal",
-    fixPrompt: "Wat zoek je meer? Kies er tot drie.",
-    fixDone: "Zo klopt het, verder",
+    chose: "Je koos {list}.",
+    choseGift: "Voor {name} koos je {list}.",
+    readOne: "Daarin lezen we {a}.",
+    readTwo: "Daarin lezen we {a} en {b}.",
+    seek: "We zoeken dus iets {parts}.",
+    seekNeutral: "We zoeken dus iets dat bij die beelden past.",
     leanings: {
-      alone: "het liefst op je eentje",
-      together: "het liefst samen",
-      calm: "in een rustig tempo",
-      active: "met wat vaart",
       inside: "binnen",
       outside: "buiten",
+      calm: "in een rustig tempo",
+      active: "met wat vaart",
+      alone: "om alleen te doen",
+      together: "om samen te doen",
     },
+    practical: "Daarbij houden we rekening met {list}.",
+    and: "en",
+    time: { hour: "een uur of twee", halfday: "een halve dag", fullday: "een hele dag", weekend: "een heel weekend" },
+    budget: { free: "gratis", "25": "tot €25", "100": "tot €100", allin: "zonder budgetgrens" },
+    near: "rond {place}",
+    company: { partner: "een partner", friends: "vrienden", family: "familie", colleagues: "collega's" },
+    withWho: "met {list}",
+    noCompany: "zonder gezelschap",
+    tension: {
+      energy: "Je koos rust én spanning. Dat is geen tegenspraak: je zoekt iets waar je helemaal in kunt opgaan.",
+      novelty: "Je koos vertrouwd én onbekend. Dat is geen tegenspraak: je zoekt herkenning met een verrassing erin.",
+      social: "Je koos samen én alleen. Dat is geen tegenspraak: je zoekt een plek om erbij te horen én om even apart te zijn.",
+      setting: "Je koos binnen én buiten. Dat is geen tegenspraak: voor jou telt de sfeer, niet de plek.",
+    },
+    tensionGift: {
+      energy: "Er zit rust én spanning in deze keuze. Dat is geen tegenspraak: {name} zoekt iets om helemaal in op te gaan.",
+      novelty: "Er zit vertrouwd én onbekend in deze keuze. Dat is geen tegenspraak: {name} zoekt herkenning met een verrassing erin.",
+      social: "Er zit samen én alleen in deze keuze. Dat is geen tegenspraak: {name} zoekt een plek om erbij te horen én om even apart te zijn.",
+      setting: "Er zit binnen én buiten in deze keuze. Dat is geen tegenspraak: voor {name} telt de sfeer, niet de plek.",
+    },
+    strong: {
+      energy: { low: "Je beelden ademen rust. Dat nemen we serieus: niets dat jaagt.", high: "Je beelden hebben vaart. Dat nemen we serieus: iets met energie." },
+      novelty: { low: "Je beelden voelen vertrouwd. Dat nemen we serieus: eerst herkenning, dan pas een verrassing.", high: "Je beelden willen iets nieuws. Dat nemen we serieus: liever onbekend dan bekend." },
+      social: { low: "Je beelden vragen om tijd alleen. Dat nemen we serieus: ruimte om in je eentje op te gaan in iets.", high: "Je beelden vragen om gezelschap. Dat nemen we serieus: iets om samen te doen." },
+      setting: { low: "Je beelden zijn thuis binnen. Dat nemen we serieus: beschut en warm.", high: "Je beelden zijn buiten thuis. Dat nemen we serieus: lucht, licht en ruimte." },
+    },
+    strongGift: {
+      energy: { low: "Deze beelden ademen rust. Dat nemen we serieus: niets dat jaagt.", high: "Deze beelden hebben vaart. Dat nemen we serieus: iets met energie." },
+      novelty: { low: "Deze beelden voelen vertrouwd. Dat nemen we serieus: eerst herkenning, dan pas een verrassing.", high: "Deze beelden willen iets nieuws. Dat nemen we serieus: liever onbekend dan bekend." },
+      social: { low: "Deze beelden vragen om tijd alleen. Dat nemen we serieus: ruimte om in je eentje op te gaan in iets.", high: "Deze beelden vragen om gezelschap. Dat nemen we serieus: iets om samen te doen." },
+      setting: { low: "Deze beelden zijn thuis binnen. Dat nemen we serieus: beschut en warm.", high: "Deze beelden zijn buiten thuis. Dat nemen we serieus: lucht, licht en ruimte." },
+    },
+    balanced: "Je beelden wijzen niet één kant op. Dat maakt het spannend: we laten je meerdere kanten zien.",
+    balancedGift: "Deze beelden wijzen niet één kant op. Dat maakt het spannend: we laten meerdere kanten zien.",
+    open: "Je venster staat nog open. Geen probleem: dan verrassen we je.",
+    openGift: "Het venster staat nog open. Geen probleem: dan verrassen we {name}.",
+    tensionLabel: "Wat opvalt",
+    axesTitle: "Stuur zelf bij",
+    axes: {
+      social: { label: "Alleen of samen", low: "Alleen", high: "Samen" },
+      energy: { label: "Rust of actie", low: "Rust", high: "Actie" },
+      setting: { label: "Binnen of buiten", low: "Binnen", high: "Buiten" },
+      novelty: { label: "Vertrouwd of nieuw", low: "Vertrouwd", high: "Nieuw" },
+    },
+    seekTitle: "Dit zoeken we",
+    omitTitle: "Dit laten we weg",
+    seekLines: {
+      formats: {
+        solo: "Op je eigen tempo, alleen",
+        drop_in_alone: "Alleen komen, samen doen",
+        duo: "Met z'n tweeën",
+        small_group: "In een klein groepje",
+        large_group: "Met een grotere groep",
+        with_known: "Met mensen die je al kent",
+        online: "Ook online",
+      },
+      outdoor: "Buiten",
+      indoor: "Binnen",
+      effortMinimal: "Rustig, zonder zware inspanning",
+      effortCommitted: "Mag flinke inspanning kosten",
+      budget: { free: "Gratis", "25": "Tot €25", "100": "Tot €100" },
+      time: { hour: "Past in een uur of twee", halfday: "Past in een halve dag", fullday: "Past in een hele dag", weekend: "Ook voor een heel weekend" },
+      distance: { city: "In je eigen plaats", hour: "Tot een uur reizen", anywhere: "Heel Nederland" },
+    },
+    omitLines: {
+      noGroups: "Groepsactiviteiten",
+      needsInside: "Dingen die binnen moeten",
+      needsOutside: "Dingen die buiten moeten",
+      formats: "Wat niet past bij hoe je het liefst samen bent",
+      supervised: "Activiteiten waarvoor je een instructeur of toezicht nodig hebt",
+      effortMinimal: "Zware inspanning, zoals hardlopen of klimmen",
+      effortSome: "Extreme inspanning",
+      costFree: "Alles met een prijskaartje",
+      costMid: "Activiteiten boven de €50",
+    },
+    missTitle: "Wat missen we nog?",
+    missTitleGift: "Wat missen we nog voor {name}?",
+    missSub: "Optioneel. Eén zin is genoeg, en het telt zwaar mee.",
+    missPlaceholder: "Bijvoorbeeld: meer tijd in de natuur…",
+    suggestions: {
+      stillness: "Even helemaal stil zijn",
+      outdoors: "Meer tijd buiten doorbrengen",
+      nature: "Meer tijd in de natuur",
+      focus: "Ergens helemaal in opgaan",
+      balance: "Iets doen dat in balans brengt",
+      conviviality: "Aan een lange tafel zitten",
+      story: "Een verhaal vertellen of horen",
+      movement: "Meer bewegen",
+      discovery: "Iets ontdekken wat nog onbekend is",
+      craft: "Een vak leren van iemand die het kan",
+      making: "Iets maken met de handen",
+      challenge: "Eens een uitdaging aangaan",
+      water: "Bij het water zijn",
+      history: "Plekken met een verhaal bezoeken",
+      caring: "Voor iets of iemand zorgen",
+      suspense: "Iets spannends meemaken",
+      technique: "Uitzoeken hoe iets werkt",
+      food: "Samen koken of proeven",
+      teamwork: "Iets samen voor elkaar krijgen",
+      play: "Gewoon weer eens spelen",
+      learning: "Iets nieuws leren",
+      color: "Met kleur aan de slag",
+      language: "Met taal bezig zijn",
+      roleplay: "In een rol stappen",
+      rhythm: "Iets met ritme doen",
+      sound: "Luisteren naar klank, of die zelf maken",
+      growing: "Iets laten groeien",
+      stars: "Naar de sterren kijken",
+      competition: "Een potje strijden",
+      puzzling: "Puzzelen tot het klopt",
+      strategy: "Iets slims bedenken en uitvoeren",
+      precision: "Iets heel precies doen",
+      height: "Hoog staan en uitkijken",
+      collecting: "Iets verzamelen en ordenen",
+      retro: "Iets met vroeger doen",
+    },
+    combos: [
+      { tags: ["nature", "story"], text: "Een middag in de natuur met een goed verhaal" },
+      { tags: ["nature", "stillness"], text: "Een stille ochtend buiten, zonder agenda" },
+      { tags: ["making", "conviviality"], text: "Samen iets maken, met thee erbij" },
+      { tags: ["food", "conviviality"], text: "Lang aan tafel, met iets lekkers dat je samen maakt" },
+      { tags: ["movement", "water"], text: "In beweging zijn bij het water" },
+      { tags: ["craft", "history"], text: "Een oud vak leren van iemand die het kan" },
+      { tags: ["challenge", "outdoors"], text: "Buiten iets doen dat een beetje spannend is" },
+      { tags: ["learning", "focus"], text: "Een middag ergens echt in verdiepen" },
+    ],
+    teaser: "Eén van je zeven deuren zal je verrassen.",
+    agree: "Klopt, open mijn venster",
+    adjust: "Bijsturen",
+    adjustDone: "Klaar met bijsturen",
+    fixPrompt: "Wat zoek je meer? Kies er tot drie.",
+    moreTitle: "Bekijk en stuur bij",
   },
   room: {
     heading: "Hoeveel ruimte maak je vrij?",
@@ -273,14 +448,6 @@ export const vensterNl: VensterDictionary = {
     ],
     limitsPlaceholder: "Nog iets anders dat écht niet kan?",
   },
-  extra: {
-    heading: "Wat zou je stiekem vaker willen doen?",
-    headingGift: "Wat zou {name} stiekem vaker willen doen?",
-    sub: "Optioneel, maar dit telt zwaar mee in je boek.",
-    placeholder: "Ik zou best vaker…",
-    suggestions: ["Iets maken met mijn handen", "Er in mijn eentje op uit gaan", "Meer tijd in de natuur", "Iets nieuws leren"],
-    skip: "Overslaan",
-  },
   nav: {
     back: "Terug",
     next: "Verder",
@@ -303,6 +470,7 @@ export const vensterNl: VensterDictionary = {
     editImages: "Beelden wijzigen",
     editRoom: "Plaats, tijd of budget wijzigen",
     editWho: "Met wie of grenzen wijzigen",
+    editProfile: "Profiel of schuiven bijsturen",
   },
   reveal: {
     chose: "Je koos {list}.",
@@ -396,27 +564,156 @@ export const vensterEn: VensterDictionary = {
     skip: "Skip",
     of: "{i} of {n}",
   },
-  reflection: {
+  profile: {
     kicker: "Your window",
     heading: "How we look through your window",
     headingGift: "How we look through {name}'s window",
-    prefix: "Here's what we read in your images:",
-    prefixGift: "Here's what we read in the images for {name}:",
-    and: "and",
-    nothing: "There's not much to read in your images yet. That's fine: we'll surprise you.",
-    question: "Does that feel right?",
-    yes: "Yes, continue",
-    no: "Not quite",
-    fixPrompt: "What are you after more? Pick up to three.",
-    fixDone: "That's it, continue",
+    chose: "You chose {list}.",
+    choseGift: "For {name} you chose {list}.",
+    readOne: "In them we read {a}.",
+    readTwo: "In them we read {a} and {b}.",
+    seek: "So we're looking for something {parts}.",
+    seekNeutral: "So we're looking for something that fits those images.",
     leanings: {
-      alone: "ideally on your own",
-      together: "ideally together",
-      calm: "at a calm pace",
-      active: "with some speed",
       inside: "indoors",
       outside: "outdoors",
+      calm: "at a calm pace",
+      active: "with some pace",
+      alone: "to do alone",
+      together: "to do together",
     },
+    practical: "We're keeping in mind {list}.",
+    and: "and",
+    time: { hour: "an hour or two", halfday: "half a day", fullday: "a full day", weekend: "a whole weekend" },
+    budget: { free: "keeping it free", "25": "up to €25", "100": "up to €100", allin: "no budget limit" },
+    near: "around {place}",
+    company: { partner: "a partner", friends: "friends", family: "family", colleagues: "colleagues" },
+    withWho: "with {list}",
+    noCompany: "going solo",
+    tension: {
+      energy: "You chose calm and tension. That's no contradiction: you're looking for something to lose yourself in.",
+      novelty: "You chose familiar and unknown. That's no contradiction: you're looking for recognition with a surprise in it.",
+      social: "You chose together and alone. That's no contradiction: you're looking for a place to belong and to be apart for a while.",
+      setting: "You chose indoors and outdoors. That's no contradiction: for you the mood counts, not the place.",
+    },
+    tensionGift: {
+      energy: "There is calm and tension in this choice. That's no contradiction: {name} is looking for something to lose themselves in.",
+      novelty: "There is familiar and unknown in this choice. That's no contradiction: {name} is looking for recognition with a surprise in it.",
+      social: "There is together and alone in this choice. That's no contradiction: {name} is looking for a place to belong and to be apart for a while.",
+      setting: "There is indoors and outdoors in this choice. That's no contradiction: for {name} the mood counts, not the place.",
+    },
+    strong: {
+      energy: { low: "Your images breathe calm. We take that seriously: nothing that rushes.", high: "Your images have pace. We take that seriously: something with energy." },
+      novelty: { low: "Your images feel familiar. We take that seriously: recognition first, a surprise later.", high: "Your images want something new. We take that seriously: unknown rather than known." },
+      social: { low: "Your images ask for time alone. We take that seriously: room to lose yourself in something.", high: "Your images ask for company. We take that seriously: something to do together." },
+      setting: { low: "Your images are at home indoors. We take that seriously: sheltered and warm.", high: "Your images are at home outdoors. We take that seriously: air, light and space." },
+    },
+    strongGift: {
+      energy: { low: "These images breathe calm. We take that seriously: nothing that rushes.", high: "These images have pace. We take that seriously: something with energy." },
+      novelty: { low: "These images feel familiar. We take that seriously: recognition first, a surprise later.", high: "These images want something new. We take that seriously: unknown rather than known." },
+      social: { low: "These images ask for time alone. We take that seriously: room to lose yourself in something.", high: "These images ask for company. We take that seriously: something to do together." },
+      setting: { low: "These images are at home indoors. We take that seriously: sheltered and warm.", high: "These images are at home outdoors. We take that seriously: air, light and space." },
+    },
+    balanced: "Your images don't point one way. That makes it exciting: we'll show you several sides.",
+    balancedGift: "These images don't point one way. That makes it exciting: we'll show several sides.",
+    open: "Your window is still open. No problem: we'll surprise you.",
+    openGift: "The window is still open. No problem: we'll surprise {name}.",
+    tensionLabel: "What stands out",
+    axesTitle: "Steer it yourself",
+    axes: {
+      social: { label: "Alone or together", low: "Alone", high: "Together" },
+      energy: { label: "Calm or action", low: "Calm", high: "Action" },
+      setting: { label: "Indoors or outdoors", low: "Indoors", high: "Outdoors" },
+      novelty: { label: "Familiar or new", low: "Familiar", high: "New" },
+    },
+    seekTitle: "What we look for",
+    omitTitle: "What we leave out",
+    seekLines: {
+      formats: {
+        solo: "At your own pace, alone",
+        drop_in_alone: "Come alone, do it together",
+        duo: "Just the two of you",
+        small_group: "In a small group",
+        large_group: "With a bigger group",
+        with_known: "With people you already know",
+        online: "Online too",
+      },
+      outdoor: "Outdoors",
+      indoor: "Indoors",
+      effortMinimal: "Calm, without heavy effort",
+      effortCommitted: "May take real effort",
+      budget: { free: "Free", "25": "Up to €25", "100": "Up to €100" },
+      time: { hour: "Fits in an hour or two", halfday: "Fits in half a day", fullday: "Fits in a full day", weekend: "Also for a whole weekend" },
+      distance: { city: "In your own town", hour: "Up to an hour's travel", anywhere: "All of the Netherlands" },
+    },
+    omitLines: {
+      noGroups: "Group activities",
+      needsInside: "Things that have to be indoors",
+      needsOutside: "Things that have to be outdoors",
+      formats: "What doesn't fit how you like to be together",
+      supervised: "Activities that need an instructor or supervision",
+      effortMinimal: "Heavy effort, like running or climbing",
+      effortSome: "Extreme effort",
+      costFree: "Anything with a price tag",
+      costMid: "Activities over €50",
+    },
+    missTitle: "What are we missing?",
+    missTitleGift: "What are we missing for {name}?",
+    missSub: "Optional. One sentence is enough, and it weighs heavily.",
+    missPlaceholder: "For example: more time in nature…",
+    suggestions: {
+      stillness: "Be completely still for a while",
+      outdoors: "Spend more time outdoors",
+      nature: "Spend more time in nature",
+      focus: "Lose yourself in something",
+      balance: "Do something that brings balance",
+      conviviality: "Sit at a long table",
+      story: "Tell or hear a story",
+      movement: "Move more",
+      discovery: "Discover something still unknown",
+      craft: "Learn a craft from someone who knows it",
+      making: "Make something with your hands",
+      challenge: "Take on a challenge",
+      water: "Be by the water",
+      history: "Visit places with a story",
+      caring: "Look after something or someone",
+      suspense: "Live through something exciting",
+      technique: "Find out how something works",
+      food: "Cook or taste together",
+      teamwork: "Get something done together",
+      play: "Just play again",
+      learning: "Learn something new",
+      color: "Work with colour",
+      language: "Work with language",
+      roleplay: "Step into a role",
+      rhythm: "Do something with rhythm",
+      sound: "Listen to sound, or make it yourself",
+      growing: "Make something grow",
+      stars: "Look at the stars",
+      competition: "Have a go at a contest",
+      puzzling: "Puzzle until it fits",
+      strategy: "Think up something clever and carry it out",
+      precision: "Do something very precisely",
+      height: "Stand high and look out",
+      collecting: "Collect and arrange something",
+      retro: "Do something from the old days",
+    },
+    combos: [
+      { tags: ["nature", "story"], text: "An afternoon in nature with a good story" },
+      { tags: ["nature", "stillness"], text: "A quiet morning outdoors, with no agenda" },
+      { tags: ["making", "conviviality"], text: "Make something together, with tea" },
+      { tags: ["food", "conviviality"], text: "A long time at the table, with something tasty you made together" },
+      { tags: ["movement", "water"], text: "Be on the move by the water" },
+      { tags: ["craft", "history"], text: "Learn an old craft from someone who knows it" },
+      { tags: ["challenge", "outdoors"], text: "Do something outdoors that is a little scary" },
+      { tags: ["learning", "focus"], text: "Dive properly into something for an afternoon" },
+    ],
+    teaser: "One of your seven doors will surprise you.",
+    agree: "That's right, open my window",
+    adjust: "Adjust",
+    adjustDone: "Done adjusting",
+    fixPrompt: "What do you want more of? Pick up to three.",
+    moreTitle: "View and adjust",
   },
   room: {
     heading: "How much room are you making?",
@@ -480,14 +777,6 @@ export const vensterEn: VensterDictionary = {
     ],
     limitsPlaceholder: "Anything else that really can't happen?",
   },
-  extra: {
-    heading: "What would you secretly love to do more often?",
-    headingGift: "What would {name} secretly love to do more often?",
-    sub: "Optional, but it weighs heavily in your book.",
-    placeholder: "I'd love to…",
-    suggestions: ["Make something with my hands", "Head out on my own", "Spend more time in nature", "Learn something new"],
-    skip: "Skip",
-  },
   nav: {
     back: "Back",
     next: "Continue",
@@ -510,6 +799,7 @@ export const vensterEn: VensterDictionary = {
     editImages: "Change images",
     editRoom: "Change place, time or budget",
     editWho: "Change company or limits",
+    editProfile: "Adjust your profile or sliders",
   },
   reveal: {
     chose: "You chose {list}.",

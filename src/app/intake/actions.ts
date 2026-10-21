@@ -60,6 +60,9 @@ export interface IntakeAnswers {
   associations?: string[];
   // Tags added under "Niet helemaal" when the reflection did not fit.
   associationCorrections?: string[];
+  // The four sliders of "Zo kijken wij door jouw venster": where the person moved an axis away
+  // from what their images said (-1 .. 1). Only the axes they touched. Sanitised on the server.
+  axesOverride?: { social?: number; energy?: number; setting?: number; novelty?: number };
   // For a gift: the recipient's first name, for the cover and the greeting. Optional.
   recipientName?: string;
 }

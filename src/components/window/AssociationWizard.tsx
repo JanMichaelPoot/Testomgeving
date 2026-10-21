@@ -10,18 +10,23 @@ import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
 import { submitIntake, type IntakeAnswers } from "@/app/intake/actions";
 import { domainImage } from "@/lib/discovery/paths";
-import { ASSOCIATION_ROUNDS, reflectionSentence, type AssociationCard, type AssociationLibrary, type AssociationRound } from "@/lib/discovery/associationProfile";
+import { ASSOCIATION_ROUNDS, type AssociationCard, type AssociationLibrary, type AssociationRound, type AxisId } from "@/lib/discovery/associationProfile";
+import { buildProfileStory } from "@/lib/discovery/profileStory";
+import { ProfileStep } from "@/components/window/ProfileStep";
+import { shortPlace } from "@/lib/place";
 import { sampleRoundCards } from "@/lib/discovery/associationSampling";
 import { loadSeen, recordSeen } from "@/lib/associationSeen";
 import { buildSill, buildVensterPanes } from "@/lib/vensterPanes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { VENSTER_PAGES, type VensterPageId } from "@/lib/vensterPages";
+import { DRAFT_VERSION, VENSTER_PAGES, migrateDraftPage, type VensterPageId } from "@/lib/vensterPages";
 import { ageOptionsFor } from "@/lib/ageOptions";
 
 // The image intake ("Het venster", WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md, fase 3).
-// Eight short screens in three chapters:
-//   0 worlds · 1 places · 2 moments · 3 senses (optional) · 4 "your window takes shape"
-//   5 where and how much room · 6 with whom (+ age, hard limits) · 7 one optional open question
+// Seven short screens in four chapters (see vensterPages.ts):
+//   0 direction · 1 places · 2 moments · 3 senses (optional)      "Jouw beelden"
+//   4 where and how much room                                      "Praktisch"
+//   5 with whom (+ age, hard limits)                               "Met wie"
+//   6 "Zo kijken wij door jouw venster": the profile, the sliders, the one open line   "Jouw venster"
 // Every image lands in the window (WindowFrame), which stays in view: a sticky panel on a
 // computer, an icon that opens it on a phone. Only questions that change the search are
 // asked (vraag-audit, WindowInto/WINDOW_Vraag-audit_Fase1-1.md); the server derives the rest
@@ -63,6 +68,8 @@ const EMPTY: IntakeAnswers = {
 };
 
 interface Draft {
+  /** Layout version (vensterPages.ts); drafts without one use the old eight screens. */
+  v?: number;
   page: number;
   answers: IntakeAnswers;
   limitChips: string[];
@@ -83,7 +90,7 @@ function loadDraft(): Draft | null {
     if (!raw) return null;
     const d = JSON.parse(raw) as Partial<Draft>;
     if (!d.answers) return null;
-    return { page: d.page ?? 0, answers: { ...EMPTY, ...d.answers }, limitChips: d.limitChips ?? [], limitText: d.limitText ?? "", seed: d.seed || newSeed(), seen: Array.isArray(d.seen) ? d.seen : undefined };
+    return { v: DRAFT_VERSION, page: migrateDraftPage(d.page ?? 0, d.v), answers: { ...EMPTY, ...d.answers }, limitChips: d.limitChips ?? [], limitText: d.limitText ?? "", seed: d.seed || newSeed(), seen: Array.isArray(d.seen) ? d.seen : undefined };
   } catch {
     return null;
   }
@@ -91,7 +98,7 @@ function loadDraft(): Draft | null {
 
 function saveDraft(d: Draft) {
   try {
-    window.sessionStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+    window.sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...d, v: DRAFT_VERSION }));
   } catch {
     // Storage unavailable: the draft is simply not kept.
   }
@@ -172,7 +179,8 @@ export function AssociationWizard({
   const [hydrated, setHydrated] = useState(false);
   const [mode, setMode] = useState<"grid" | "swipe">("grid");
   const [swipeIdx, setSwipeIdx] = useState(0);
-  const [fixing, setFixing] = useState(false);
+  // "Bijsturen" on the profile screen: the extra tags under "what do you want more of" are open.
+  const [adjusting, setAdjusting] = useState(false);
   const [windowOpen, setWindowOpen] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -231,6 +239,7 @@ export function AssociationWizard({
     if (!hydrated) return;
     pageEnteredAt.current = now();
     trackEvent("intake_page_viewed", { wizard_variant: "associations", page: pageId, index: page, of: VENSTER_PAGES.length });
+    if (pageId === "profile") trackEvent("profile_viewed");
     // Only when the page changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated, page]);
@@ -268,12 +277,30 @@ export function AssociationWizard({
   );
   const sill = buildSill(answers, intakeDict, dict);
 
-  const reflection = reflectionSentence(library, chosen, answers.associationCorrections ?? [], {
-    prefix: pick(dict.reflection.prefix, dict.reflection.prefixGift),
-    and: dict.reflection.and,
-    nothing: dict.reflection.nothing,
-    leanings: dict.reflection.leanings,
-  });
+  // The profile screen's sentences are built from fixed parts (profileStory.ts), cheap enough to
+  // compute on every render of that screen.
+  const profile =
+    pageId === "profile"
+      ? buildProfileStory(
+          {
+            cards: library.cards,
+            tagLabels: library.tagLabels,
+            chosen,
+            corrections: answers.associationCorrections ?? [],
+            override: answers.axesOverride,
+            place: shortPlace(answers.location),
+            timeAvailable: answers.timeAvailable,
+            budget: answers.budget,
+            searchDistance: answers.searchDistance,
+            company: answers.company,
+            socialFormats: answers.socialFormats ?? [],
+            mustHaves: [...limitChips, limitText.trim()].filter(Boolean).join("; "),
+            gift,
+            name,
+          },
+          dict.profile,
+        )
+      : null;
 
   const canContinue = (() => {
     switch (pageId) {
@@ -332,7 +359,7 @@ export function AssociationWizard({
   function go(to: number) {
     setError(null);
     setNotice(null);
-    setFixing(false);
+    setAdjusting(false);
     setSwipeIdx(0);
     setPage(to);
     setWindowOpen(false);
@@ -355,16 +382,25 @@ export function AssociationWizard({
       go(page + 1);
       return;
     }
+    // The last screen: they agree with how we read their window, and go to the checkout.
+    trackEvent("profile_agreed", {
+      adjusted: Object.keys(answers.axesOverride ?? {}).length > 0 || (answers.associationCorrections ?? []).length > 0,
+    });
+    trackEvent("profile_reflection", { has_reflection: answers.personalReflection.trim().length > 0 });
     submit();
   }
 
-  function reflectionAnswer(agreed: boolean) {
-    if (!agreed) {
-      setFixing(true);
-      return;
-    }
-    trackEvent("association_reflection", { agreed: !fixing, corrections: answers.associationCorrections ?? [] });
-    next();
+  function setAxis(axis: AxisId, value: number) {
+    trackEvent("profile_axis_changed", { axis });
+    setAnswers((prev) => ({ ...prev, axesOverride: { ...(prev.axesOverride ?? {}), [axis]: value } }));
+  }
+
+  function toggleCorrection(tag: string) {
+    setAnswers((prev) => {
+      const cur = prev.associationCorrections ?? [];
+      if (!cur.includes(tag) && cur.length >= 3) return prev;
+      return { ...prev, associationCorrections: toggle(cur, tag) };
+    });
   }
 
   function submit() {
@@ -410,7 +446,7 @@ export function AssociationWizard({
   }
 
   // --- pieces --------------------------------------------------------------------------------
-  const chapter = page <= 4 ? 0 : page === 5 ? 1 : page === 6 ? 2 : 3;
+  const chapter = page <= 3 ? 0 : page === 4 ? 1 : page === 5 ? 2 : 3;
   const chapterNames = [dict.chapters.images, dict.chapters.room, dict.chapters.who, dict.chapters.extra];
   const windowTitle = dict.nav.windowTitle;
 
@@ -602,67 +638,27 @@ export function AssociationWizard({
       case "moments":
       case "senses":
         return roundPage(pageId);
-      case "reflection":
-        return (
-          <div className="rounded-2xl bg-accent-dark px-5 py-7 text-paper sm:px-8 sm:py-9">
-            <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-light">{dict.reflection.kicker}</p>
-            <h1 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">{pick(dict.reflection.heading, dict.reflection.headingGift)}</h1>
-            <div className="mx-auto mt-6 w-56 sm:w-64">
-              <WindowFrame panes={panes} size="hero" title={windowTitle} />
-            </div>
-            <p className="mt-6 font-serif text-xl leading-snug sm:text-2xl" aria-live="polite">
-              {reflection.sentence} {reflection.words.length > 0 && <em>{dict.reflection.question}</em>}
-            </p>
-            {fixing && (
-              <div className="mt-5">
-                <p className="text-sm font-semibold text-gold-light">{dict.reflection.fixPrompt}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {library.correctionTags.map((t) => {
-                    const on = (answers.associationCorrections ?? []).includes(t);
-                    return (
-                      <button
-                        key={t}
-                        type="button"
-                        aria-pressed={on}
-                        onClick={() =>
-                          setAnswers((prev) => {
-                            const cur = prev.associationCorrections ?? [];
-                            if (!cur.includes(t) && cur.length >= 3) return prev;
-                            return { ...prev, associationCorrections: toggle(cur, t) };
-                          })
-                        }
-                        className={cn(
-                          "min-h-11 rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                          on ? "bg-gold-light text-accent-dark" : "bg-accent text-gold-light hover:bg-walnut-light/40",
-                        )}
-                      >
-                        {library.tagLabels[t]}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-            <div className="mt-7 flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={() => reflectionAnswer(true)}
-                className="min-h-12 rounded-full bg-gold-light px-6 text-sm font-bold text-accent-dark transition hover:bg-gold"
-              >
-                {fixing ? dict.reflection.fixDone : dict.reflection.yes}
-              </button>
-              {!fixing && reflection.words.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => reflectionAnswer(false)}
-                  className="min-h-12 rounded-full border border-walnut-light px-6 text-sm font-semibold text-paper transition hover:border-gold-light"
-                >
-                  {dict.reflection.no}
-                </button>
-              )}
-            </div>
-          </div>
-        );
+      case "profile":
+        return profile ? (
+          <ProfileStep
+            copy={dict.profile}
+            story={profile}
+            override={answers.axesOverride ?? {}}
+            onAxis={setAxis}
+            heading={pick(dict.profile.heading, dict.profile.headingGift)}
+            windowView={<WindowFrame panes={panes} size="hero" title={windowTitle} />}
+            sill={sill || undefined}
+            missTitle={pick(dict.profile.missTitle, dict.profile.missTitleGift)}
+            reflection={answers.personalReflection}
+            onReflection={(text) => set("personalReflection", text)}
+            adjusting={adjusting}
+            onToggleAdjust={() => setAdjusting((v) => !v)}
+            correctionTags={library.correctionTags}
+            tagLabels={library.tagLabels}
+            corrections={answers.associationCorrections ?? []}
+            onToggleCorrection={toggleCorrection}
+          />
+        ) : null;
       case "room":
         return (
           <div className="space-y-7">
@@ -794,40 +790,12 @@ export function AssociationWizard({
           </div>
         );
       }
-      case "extra":
-        return (
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{dict.chapters.extra}</p>
-            <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.extra.heading, dict.extra.headingGift)}</h1>
-            <p className="mt-2 text-ink/60">{dict.extra.sub}</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {dict.extra.suggestions.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => set("personalReflection", s)}
-                  className="rounded-full border border-border bg-paper px-3.5 py-1.5 text-xs text-ink/70 transition-colors hover:border-ink/40 hover:text-ink"
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-            <textarea
-              value={answers.personalReflection}
-              onChange={(e) => set("personalReflection", e.target.value.slice(0, 400))}
-              placeholder={dict.extra.placeholder}
-              aria-label={pick(dict.extra.heading, dict.extra.headingGift)}
-              rows={4}
-              className="mt-4 w-full rounded-lg border border-border bg-paper px-4 py-3 leading-relaxed text-ink outline-none placeholder:text-ink/35 focus:border-ink"
-            />
-          </div>
-        );
     }
   })();
 
   if (!hydrated) return <div className="min-h-[70vh] w-full" aria-hidden="true" />;
 
-  const isReflection = pageId === "reflection";
+  const isProfile = pageId === "profile";
   // On a phone, while swiping through a round, the bottom bar holds the yes/no buttons.
   const swiping = mode === "swipe" && !!round && swipeIdx < roundCards.length;
   const isLast = page === VENSTER_PAGES.length - 1;
@@ -835,7 +803,7 @@ export function AssociationWizard({
   const primaryLabel = isLast
     ? isPending
       ? dict.nav.submitting
-      : dict.nav.submit
+      : dict.profile.agree
     : optionalRound
       ? dict.roundUi.skip
       : dict.nav.next;
@@ -884,7 +852,7 @@ export function AssociationWizard({
         </p>
       )}
 
-      <div className={cn("grid gap-10", !isReflection && "lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px]")}>
+      <div className={cn("grid gap-10", !isProfile && "lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px]")}>
         <div key={pageId} className="animate-window-page-fade min-w-0">
           {body}
           {error && (
@@ -892,7 +860,7 @@ export function AssociationWizard({
               {error}
             </p>
           )}
-          {!isReflection && (
+          {(
             <div
               data-testid="wizard-bar"
               className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-cream/95 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur lg:static lg:mt-10 lg:border-0 lg:bg-transparent lg:px-0 lg:pb-0 lg:pt-0"
@@ -933,20 +901,12 @@ export function AssociationWizard({
                 <Button onClick={next} disabled={!canContinue || isPending} className="flex-1 lg:flex-none lg:min-w-56">
                   {primaryLabel}
                 </Button>
-                {isLast && !answers.personalReflection.trim() && !isPending && (
-                  <span className="hidden text-sm text-ink/50 sm:inline">{dict.extra.skip}</span>
-                )}
               </div>
             </div>
           )}
-          {isReflection && (
-            <button type="button" onClick={back} className="mt-4 text-sm font-semibold text-accent underline">
-              {dict.nav.back}
-            </button>
-          )}
         </div>
 
-        {!isReflection && (
+        {!isProfile && (
           <aside className="hidden lg:block">
             <div className="sticky top-8 rounded-2xl border border-border bg-paper p-6">
               <p className="font-serif text-xl text-ink">{windowTitle}</p>
