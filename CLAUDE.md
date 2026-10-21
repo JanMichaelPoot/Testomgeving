@@ -3392,3 +3392,24 @@ Stripe, Claude API, Resend, PostHog).
       uitgevoerd) en `checkout_pay_clicked` (vraagt een Stripe-sessie). Tijdelijke instellingen in
       `.env.local` (testvlag, nep-sleutel) zijn teruggezet, het testrijtje in `test_feedback` en de nagemaakte
       rij zijn verwijderd. 436 unit-tests, `tsc`, lint, build en 22 Playwright-tests schoon.
+
+- [x] Stap 82 — PostHog met de echte sleutel gecontroleerd (Jan vulde `NEXT_PUBLIC_POSTHOG_KEY` in en draaide
+      migratie 0020). **Gecontroleerd**: de sleutel is een geldige projectsleutel op de EU-server (`eu-assets`
+      geeft 200, `us-assets` 404; `NEXT_PUBLIC_POSTHOG_HOST` is EU), dus de beveiligingsregel in `src/proxy.ts`
+      past; migratie 0020 is live (alle vier de nieuwe kolommen leesbaar); een volledige proef met de
+      vragenlijst schreef alle antwoorden weg (`flow_score`, `profile_score`, `doors_score`, `door_pick`,
+      `door_kind`, `would_pay`, `doubt`), het testrijtje is daarna verwijderd. **Echte vondst**: PostHog
+      stuurt zijn projectinstellingen mee naar de browser en in Jans project stonden **sessie-opnames en
+      autocapture aan** (`/array/<sleutel>/config`: `sessionRecording` gevuld, `autocapture_opt_out: false`);
+      de browser laadde daardoor `posthog-recorder.js` en `surveys.js`. Opnames bevatten de tekst op het
+      scherm (profiel, ideeën, plaatsen) en autocapture stuurt de tekst van elke aangeklikte knop mee
+      (ook titels van ideeën, zoals in de vragenlijst), precies wat de eventcatalogus uit R2.4 wil
+      voorkomen en wat de cookiebanner niet belooft. `initPostHog` zet nu zelf alles uit
+      (`POSTHOG_CONFIG` in `src/lib/posthog/client.ts`: `autocapture`, `disable_session_recording`,
+      `disable_surveys`, `capture_heatmaps`, `capture_dead_clicks`, `rageclick`, `capture_pageleave`,
+      `capture_performance`, `advanced_disable_flags` allemaal uit), met een test; daarna laadt de browser
+      alleen nog `eu.i.posthog.com/e/` (geen config, recorder, surveys of flags). **Let op**: de proefrun
+      van vóór die fix (± 16:59-17:10 UTC op 21 oktober, vanaf `localhost`) kan `$autocapture`-events en
+      mogelijk een opname in Jans PostHog hebben achtergelaten; Jan kan die verwijderen. In `docs/
+      analytics-events.md` staat een alinea "Wat PostHog bewust niet doet". **Niet gezien**: Jans PostHog-
+      dashboard zelf (geen toegang).

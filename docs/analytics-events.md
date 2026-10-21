@@ -15,6 +15,15 @@ ja/nee ("heeft iemand iets ingevuld?"), nooit de tekst zelf.
 De vrije tekst van de testvragenlijst ("Waar twijfelde je?") staat **alleen** in Supabase, in de
 tabel `test_feedback` (niet leesbaar vanuit de browser).
 
+## Wat PostHog bewust niet doet
+
+PostHog stelt in zijn eigen projectinstellingen dingen aan die in de browser terechtkomen (sessie-opnames,
+autocapture van klikken met knoptekst, enquêtes, heatmaps). De app zet die allemaal **uit**, wat het
+project ook zegt (`POSTHOG_CONFIG` in `src/lib/posthog/client.ts`, met een test): alleen de events uit
+deze lijst gaan weg. Zonder dat zouden opnames de tekst op het scherm (profiel, titels van ideeën,
+plaatsen) bevatten en zouden klikken de tekst van de knop meesturen. Je hoeft dus geen `$autocapture`- of
+opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session replay en Autocapture uit.
+
 ## Waar je het ziet
 
 1. **Sleutel instellen** (eenmalig): `NEXT_PUBLIC_POSTHOG_KEY` is de *project*-sleutel van PostHog
