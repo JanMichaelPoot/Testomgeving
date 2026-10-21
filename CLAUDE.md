@@ -3413,3 +3413,15 @@ Stripe, Claude API, Resend, PostHog).
       mogelijk een opname in Jans PostHog hebben achtergelaten; Jan kan die verwijderen. In `docs/
       analytics-events.md` staat een alinea "Wat PostHog bewust niet doet". **Niet gezien**: Jans PostHog-
       dashboard zelf (geen toegang).
+
+- [x] Stap 83 — De testvragenlijst verscheen op Jans Vercel-testomgeving niet (screenshot van `/plan` zonder
+      vragenlijst). **Oorzaak in de omgeving, niet in de code**: de variabelen `NEXT_PUBLIC_TEST_FEEDBACK` en
+      `NEXT_PUBLIC_WINDOW_PRICE_CENTS` bestonden in het Vercel-project `testomgeving` nog niet (in de lijst
+      stond er geen van beide); mijn eerdere antwoord had dat ten onrechte als "wel aanwezig" voorgesteld.
+      `NEXT_PUBLIC_*` wordt bij de build vastgelegd, dus na het aanmaken is een redeploy zonder buildcache nodig.
+      **Aangepast**: `testFeedbackEnabled` (`src/lib/testFeedback.ts`) accepteert nu ook `true`, `yes` en `on`
+      en negeert spaties en aanhalingstekens (voorheen alleen exact `1`: een waarde als `"1"` of `true` zette
+      de vlag stilletjes uit); test aangepast. `docs/test-preview.md` kreeg een lijstje veelgemaakte fouten
+      (variabele bestaat niet, verkeerde omgeving, geen nieuwe build, waarde) en een controle (testbalk + €6,00
+      op de betaalpagina). **Niet gezien**: of de vragenlijst nu op Jans deployment verschijnt; dat hangt van
+      de variabelen en de redeploy daar af.

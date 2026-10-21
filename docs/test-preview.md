@@ -33,6 +33,22 @@ Testboeken komen dus in dezelfde tabellen; ze zijn herkenbaar aan Stripe-testbet
 Anthropic-, Resend-, PostHog- en Supabase-sleutels: zelfde als Production (staan ze nu alleen op
 *Production*, vink dan ook *Preview* aan). Na het aanpassen: *Redeploy* van de preview.
 
+**Veelgemaakte fouten bij deze variabelen**
+- *De variabelen bestaan nog niet.* `NEXT_PUBLIC_TEST_FEEDBACK` en `NEXT_PUBLIC_WINDOW_PRICE_CENTS`
+  staan niet standaard in Vercel; maak ze aan met *Create New* (Key, Value, omgeving). Zet **Sensitive** uit:
+  het zijn publieke instellingen.
+- *Verkeerde omgeving.* De scope hierboven (alleen Preview) werkt alleen als je een preview-adres opent.
+  Is je project zelf de testomgeving (zoals `testomgeving` met alles op Production), kies dan **Production**.
+  Controleer in de lijst dat in de kolom *Environments* de omgeving staat die jouw adres gebruikt.
+- *Niet opnieuw gebouwd.* `NEXT_PUBLIC_*` wordt tijdens de build in de code gezet: een nieuwe waarde
+  doet niets voor bestaande deployments. *Deployments → ⋯ → Redeploy* en zet **Use existing Build Cache** uit.
+- *De waarde.* De vlag staat aan bij `1` (ook `true`, `yes` en `on`; spaties en aanhalingstekens worden genegeerd).
+  `0`, `false` of leeg is uit. De prijs moet een heel aantal centen tussen 100 en 5000 zijn; iets anders valt
+  stilletjes terug op 350.
+
+**Controle**: zie je na de redeploy op de betaalpagina de testbalk en de prijs €6,00, dan staat de vlag aan
+en verschijnt onder het boek de vragenlijst. Zie je nog €3,50, dan heeft de build de variabele niet gekregen.
+
 ## 4. Stripe-webhook voor de preview (Stripe in **testmodus**)
 1. Stripe Dashboard → schakel *Test mode* aan → *Developers → Webhooks → Add endpoint*.
 2. Endpoint-URL: `<preview-URL>/api/stripe/webhook`.

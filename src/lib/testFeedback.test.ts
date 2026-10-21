@@ -2,10 +2,9 @@ import { describe, expect, it } from "vitest";
 import { cleanTestFeedback, DOUBT_MAX, testFeedbackEnabled } from "./testFeedback";
 
 describe("test feedback", () => {
-  it("is only on with exactly 1", () => {
-    expect(testFeedbackEnabled("1")).toBe(true);
-    expect(testFeedbackEnabled(undefined)).toBe(false);
-    expect(testFeedbackEnabled("true")).toBe(false);
+  it("is on for 1 and the usual ways of writing a switch, off for everything else", () => {
+    for (const on of ["1", " 1 ", '"1"', "'1'", "true", "TRUE", "yes", "on"]) expect(testFeedbackEnabled(on)).toBe(true);
+    for (const off of [undefined, "", "0", "false", "off", "no", "2", "enabled"]) expect(testFeedbackEnabled(off)).toBe(false);
   });
   it("drops invalid values and empty submissions", () => {
     expect(cleanTestFeedback({ flowScore: 9, wouldPay: "sure" as never, doubt: "  " })).toBeNull();

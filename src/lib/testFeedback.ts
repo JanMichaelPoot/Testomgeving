@@ -23,8 +23,13 @@ export interface TestFeedbackInput {
 
 export const DOUBT_MAX = 1000;
 
+/**
+ * On for "1", and for the other ways people write a switch in a dashboard ("true", "yes", "on", with stray
+ * spaces or quotes). Anything else, including "0", "false" and empty, is off.
+ */
 export function testFeedbackEnabled(raw: string | undefined): boolean {
-  return raw === "1";
+  const value = (raw ?? "").trim().replace(/^["']|["']$/g, "").trim().toLowerCase();
+  return value === "1" || value === "true" || value === "yes" || value === "on";
 }
 
 const score = (v: unknown): number | null => (Number.isInteger(v) && (v as number) >= 1 && (v as number) <= 5 ? (v as number) : null);
