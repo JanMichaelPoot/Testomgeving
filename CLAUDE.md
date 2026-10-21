@@ -3151,3 +3151,43 @@ Stripe, Claude API, Resend, PostHog).
       `axesOverride`, `personalReflection` en de afgeleide `effort` in `raw_json` bleken te staan
       (testsessie opgeruimd). **Niet gezien**: een echte generatie met schuiven (geen betaalde
       aanroep gedaan), de Engelse versie van het scherm in de browser, een echte telefoon.
+
+- [x] Stap 77 — "Route 1 + 2" R2.2: de draad per deur ("Zo kwamen we hierop"): jouw beeld, wat we
+      erin lazen, de deur, de echte plek, elk met een klein onderschrift dat zegt waar het vandaan
+      komt. **Data**: `associations.ts` kreeg `sourceTagsFor` (de hoogstens twee tags die zowel op de
+      activiteit als op een gekozen beeld zitten; stemmingstags tellen half, net als in de motor),
+      `buildAssociationSources`, `parseAssociationSources` en `AssociationSources`; `sourceTags`
+      zit ook in het resultaat van `associationsToEngineInput`. `select.ts` en `graph.ts` zijn niet
+      aangeraakt. Nieuwe kolom `window_plans.association_sources` (migratie
+      `0019_association_sources.sql`, **nog handmatig uit te voeren**), formaat
+      `{ version: 2, sources, sourceTags }` per activiteit; het oude platte formaat
+      `{activiteit: [beelden]}` wordt nog gelezen; rommel of niets geeft geen draad.
+      `finishPlanGeneration` slaat het bij het klaarzetten van het boek op (alleen voor de
+      beeld-intake en alleen voor ideeën met een `activity_id`); ontbreekt de kolom nog (Postgres
+      `42703`) dan wordt het boek gewoon zonder draad opgeslagen en staat er een foutregel in de
+      log. **Weergave**: `components/plan/IdeaThread.tsx` (`<ol>`, miniatuur met het beeldlabel als
+      alt-tekst; telefoon verticaal met verbindingslijn, computer horizontaal; een schakel die niet
+      in de data zit valt weg, zonder beeld én zonder woorden geen draad); logica in
+      `lib/ideaThread.ts` (`buildIdeaThreads`, `threadSentence`). Op `/plan`: bij "Als je er maar
+      één kiest" in plaats van de strook "Omdat je X koos" (die blijft voor boeken zonder opgeslagen
+      bronnen) en bij elke deur in het ideevenster. **Niet** op `/shared/[id]` (persoonlijke
+      keuzes). **PDF**: één zin aan het eind van "Waarom dit bij jou past" ("Bij deze deur hoort
+      het beeld ‘…’: daarin lazen we … en …"; zonder pijltje, dat glyph hebben de lettertypen niet);
+      `PDF_VERSION` is 4. Teksten (`dict.venster.thread`, nl + en). Getest: 366 unit-tests (nieuw:
+      17, o.a. dat elke genoemde tag aan beide kanten staat, het oude formaat, het onderdeel zonder
+      data), `tsc`, lint, build, 22 Playwright-tests; het onderdeel op 390 en 1280 px bekeken met
+      echte data (tijdelijke testpagina, verwijderd); een voorbeeld-PDF waarin de regel op alle 7
+      ideepagina's staat zonder afkapping; een ouder boek op `/plan` werkt ongewijzigd.
+      **Gecontroleerd in een echt boek** (migratie 0019 gedraaid): het testboek `38f24d5e-…` is
+      aangevuld met `scratch/backfill-thread.ts`, dat dezelfde `buildAssociationSources` gebruikt
+      als de generatie (de opgeslagen ideeën en gekozen beelden, geen nieuwe generatie, geen
+      kosten). Vier deuren naast de data gelegd (de uitgelichte "Tellen tijdens je wandeling",
+      begraafplaats, lasergamen, fietsroute); de beelden, woorden en de plek (Westerheideroute,
+      Laren) klopten, ook op 390 px. **Daarbij een eerlijkheidsprobleem gevonden en gefixt**: de
+      opgeslagen `sourceTags` komen uit álle gekozen beelden, maar de draad toont maar één beeld;
+      "Proeven bij het theehuis" liet bij "Confetti na de grap" het woord *ontdekken* zien, dat
+      van de bosrand kwam. `buildIdeaThreads` toont nu alleen woorden die het getoonde beeld zelf
+      draagt (opgeslagen data ongewijzigd; test erbij). Dat het schrijfpad in `finishPlanGeneration`
+      echt de kolom vult is **niet** live gezien (dat vraagt een nieuwe generatie); alleen de code
+      en de terugval bij een ontbrekende kolom zijn gelezen en getypecheckt. Ook niet gezien: de
+      Engelse weergave.

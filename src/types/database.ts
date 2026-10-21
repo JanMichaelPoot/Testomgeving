@@ -181,6 +181,8 @@ export interface Database {
           progress_stage?: ProgressStage | null;
           // 0018_progress_meta.sql, optional for the same reason.
           progress_meta?: ProgressMeta | null;
+          // 0019_association_sources.sql: the thread per door (see discovery/associations.ts).
+          association_sources?: unknown | null;
           created_at: string;
         };
         Insert: {
@@ -208,6 +210,7 @@ export interface Database {
           pdf_version?: number;
           progress_stage?: ProgressStage | null;
           progress_meta?: ProgressMeta | null;
+          association_sources?: unknown | null;
           created_at?: string;
         };
         Update: Partial<

@@ -1,5 +1,5 @@
 import associationsJson from "@/lib/discovery/associations.json";
-import { TAGS, getActivities } from "@/lib/discovery/library";
+import { TAGS, getActivities, getActivity } from "@/lib/discovery/library";
 import { DISCOVERY_MIN_STATUS } from "@/lib/discovery/cardLibrary";
 import { passesConstraints, resolveConstraints } from "@/lib/discovery/engine/constraints";
 import { agePenalty } from "@/lib/discovery/engine/select";
@@ -120,6 +120,8 @@ export interface AssociationEngineInput {
   effort: string;
   /** Per chosen activity: the images (ids) that weighed most, strongest first. */
   sources: Record<string, string[]>;
+  /** Per chosen activity: the (at most two) tags through which the images and the activity meet. */
+  sourceTags: Record<string, string[]>;
 }
 
 /**
@@ -135,6 +137,73 @@ export function imagesBehind(activityTags: readonly string[], chosenIds: readonl
     .sort((x, y) => y.w - x.w || x.id.localeCompare(y.id))
     .slice(0, n)
     .map((x) => x.id);
+}
+
+/**
+ * The tags through which the chosen images and an activity meet: tags the activity has AND at
+ * least one chosen image carries, strongest first (mood-only tags count half, as in the engine).
+ * Never a tag that is not on both sides, so the thread on /plan only shows real connections.
+ */
+export function sourceTagsFor(activityTags: readonly string[], chosenIds: readonly string[], n = 2): string[] {
+  const cards = chosenIds.map((id) => byId.get(id)).filter((c): c is AssociationCardFull => !!c);
+  return [...new Set(activityTags)]
+    .map((t) => ({ t, w: cards.reduce((s, c) => s + (c.tagWeights[t] ?? 0), 0) * (GENERIC.has(t) ? 0.5 : 1) }))
+    .filter((x) => x.w > 0)
+    .sort((a, b) => b.w - a.w || a.t.localeCompare(b.t))
+    .slice(0, n)
+    .map((x) => x.t);
+}
+
+/**
+ * What a finished book remembers about how its doors came about (window_plans.association_sources,
+ * migration 0019): per activity the images and the tags behind it, at the moment of writing.
+ * Version 2. A plain {activityId: [imageIds]} object (what associationsToEngineInput returned
+ * before) is still read; see parseAssociationSources.
+ */
+export interface AssociationSources {
+  version: 2;
+  sources: Record<string, string[]>;
+  sourceTags: Record<string, string[]>;
+}
+
+/** For every idea that came from the library (it has an activity_id): its images and tags. */
+export function buildAssociationSources(
+  ideas: readonly { activity_id?: string | null }[],
+  chosenIds: readonly string[],
+): AssociationSources {
+  const sources: Record<string, string[]> = {};
+  const sourceTags: Record<string, string[]> = {};
+  for (const idea of ideas) {
+    const activity = idea.activity_id ? getActivity(idea.activity_id) : undefined;
+    if (!activity) continue;
+    const images = imagesBehind(activity.tags, chosenIds, 2);
+    const tags = sourceTagsFor(activity.tags, chosenIds, 2);
+    if (images.length) sources[activity.id] = images;
+    if (tags.length) sourceTags[activity.id] = tags;
+  }
+  return { version: 2, sources, sourceTags };
+}
+
+const stringList = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x is string => typeof x === "string").slice(0, 4) : []);
+
+/** Reads what is stored, in either format; null for nothing or for something that is not ours. */
+export function parseAssociationSources(raw: unknown): AssociationSources | null {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const obj = raw as Record<string, unknown>;
+  const pick = (map: unknown): Record<string, string[]> => {
+    const out: Record<string, string[]> = {};
+    if (map && typeof map === "object" && !Array.isArray(map)) {
+      for (const [id, list] of Object.entries(map as Record<string, unknown>)) {
+        const items = stringList(list);
+        if (items.length) out[id] = items;
+      }
+    }
+    return out;
+  };
+  if (obj.version === 2) return { version: 2, sources: pick(obj.sources), sourceTags: pick(obj.sourceTags) };
+  // The old shape: just the images per activity.
+  const legacy = pick(obj);
+  return Object.keys(legacy).length ? { version: 2, sources: legacy, sourceTags: {} } : null;
 }
 
 export function associationsToEngineInput(input: {
@@ -158,7 +227,7 @@ export function associationsToEngineInput(input: {
 
   if (chosen.length === 0 && (input.corrections ?? []).length === 0) {
     // Nothing to read: worlds alone (or "verras me") go to the engine as they are.
-    return { interests: [], ...base, sources: {} };
+    return { interests: [], ...base, sources: {}, sourceTags: {} };
   }
 
   const profile = tagProfile(ASSOCIATIONS, chosen, input.corrections ?? []);
@@ -210,12 +279,15 @@ export function associationsToEngineInput(input: {
   }
 
   const sources: Record<string, string[]> = {};
+  const sourceTags: Record<string, string[]> = {};
   for (const a of picked) {
     const behind = imagesBehind(a.tags, chosen, 2);
     if (behind.length) sources[a.id] = behind;
+    const tags = sourceTagsFor(a.tags, chosen, 2);
+    if (tags.length) sourceTags[a.id] = tags;
   }
 
-  return { interests: picked.map((a) => a.id), ...base, sources };
+  return { interests: picked.map((a) => a.id), ...base, sources, sourceTags };
 }
 
 /** Labels of the chosen images, per round, for the prompt (English; the book is written in the person's language). */

@@ -11,7 +11,9 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { renderIdeaBookPdf, type IdeaBookPdfContext } from "../src/lib/pdf/ideaBook";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "../src/lib/claude/ideaBookTypes";
-import { buildAssociationLibrary } from "../src/lib/discovery/associations";
+import { buildAssociationLibrary, buildAssociationSources } from "../src/lib/discovery/associations";
+import { buildIdeaThreads, threadSentence } from "../src/lib/ideaThread";
+import { ideaKey, WILDCARD_KEY } from "../src/lib/ideaKeys";
 import { DOMAINS } from "../src/lib/discovery/library";
 import { getDictionary } from "../src/lib/i18n/dictionaries";
 import { buildSill, buildVensterPanes } from "../src/lib/vensterPanes";
@@ -77,11 +79,20 @@ async function main() {
     sill: buildSill(intake, dict.intake, dict.venster),
     dateLabel: "5 oktober 2026",
   };
+  // The thread per door (R2.2): the line each idea page of an image-intake book gets.
+  const sample = book(true);
+  const all = [...sample.ideas, sample.wildcard];
+  const threads = buildIdeaThreads(sample.ideas, sample.wildcard, buildAssociationSources(all, intake.associations), locale);
+  const threadLines: Record<string, string> = {};
+  all.forEach((idea, i) => {
+    const line = threadSentence(threads[i < sample.ideas.length ? ideaKey(i) : WILDCARD_KEY], dict.venster.thread, dict.venster.profile.and);
+    if (line && idea.activity_id) threadLines[idea.activity_id] = line;
+  });
   const base: IdeaBookPdfContext = { company: ["partner"], budget: "100", timeAvailable: "halfday" };
   const out = path.join(process.cwd(), "scratch");
   await mkdir(out, { recursive: true });
   for (const [kind, b, ctx] of [
-    ["associations", book(true), { ...base, window: windowContext }],
+    ["associations", book(true), { ...base, window: windowContext, threadLines }],
     ["cards", book(true), base],
     ["legacy", book(false), base],
   ] as const) {

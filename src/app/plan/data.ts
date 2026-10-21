@@ -19,6 +19,9 @@ import type { Locale } from "@/lib/language";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database, ProgressMeta, ProgressStage } from "@/types/database";
 import { mergeProgressMeta } from "@/lib/progressStage";
+import { buildAssociationSources, type AssociationSources } from "@/lib/discovery/associations";
+import { buildIdeaThreads, threadSentence } from "@/lib/ideaThread";
+import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
 
 // Re-exported so existing callers (src/app/plan/page.tsx) can keep
 // importing every plan-related helper from this one module; the
@@ -117,6 +120,8 @@ class SupersededGenerationError extends Error {}
 // The Postgres/PostgREST error code for a unique-constraint violation —
 // see migration 0012_prevent_concurrent_plan_generation.sql.
 const UNIQUE_VIOLATION_CODE = "23505";
+// Postgres: the column does not exist (a migration that has not been run yet).
+const UNDEFINED_COLUMN_CODE = "42703";
 
 // A "pending" row older than this is assumed to belong to a crashed/failed
 // attempt (e.g. the server process died mid-generation, or was killed by
@@ -292,7 +297,7 @@ export async function getCharacterProfileForSession(
 // src/lib/pdf/ideaContent.ts.
 // 3: "Het venster" — Newsreader + Plus Jakarta Sans instead of Noto, gold instead of orange,
 // the person's own window on the cover (image intake), activity photos per idea.
-const PDF_VERSION = 3;
+const PDF_VERSION = 4;
 
 // The cover window of an image-intake book (null otherwise): same panes as on the site.
 function coverWindowFor(profile: StoredIntake, locale: Locale): IdeaBookPdfContext["window"] {
@@ -445,12 +450,32 @@ async function finishPlanGeneration(
     console.log(`WINDOW: generateIdeaBook (Claude, total) took ${Date.now() - generateStartedAt}ms`);
     await setProgressStage(supabase, pendingRow.id, "written");
 
+    // The thread per door (R2.2): which images and tags lie behind each idea from the library,
+    // kept with the book and said in one line on the PDF page. Image intake only.
+    let associationSources: AssociationSources | null = null;
+    const threadLines: Record<string, string> = {};
+    if (profile.intakeVariant === "associations") {
+      const all = [...generated.ideas, generated.wildcard];
+      const built = buildAssociationSources(all, profile.associations ?? []);
+      if (Object.keys(built.sources).length + Object.keys(built.sourceTags).length > 0) {
+        associationSources = built;
+        const copy = getDictionary(locale).venster;
+        const threads = buildIdeaThreads(generated.ideas, generated.wildcard, built, locale);
+        all.forEach((idea, i) => {
+          const key = i < generated.ideas.length ? ideaKey(i) : WILDCARD_KEY;
+          const line = threadSentence(threads[key], copy.thread, copy.profile.and);
+          if (line && idea.activity_id) threadLines[idea.activity_id] = line;
+        });
+      }
+    }
+
     const pdfStartedAt = Date.now();
     const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale, {
       company: profile.company,
       budget: profile.budget,
       timeAvailable: profile.timeAvailable,
       window: coverWindowFor(profile, locale),
+      threadLines,
     });
     console.log(`WINDOW: renderIdeaBookPdf took ${Date.now() - pdfStartedAt}ms`);
     await setProgressStage(supabase, pendingRow.id, "rendered");
@@ -474,23 +499,26 @@ async function finishPlanGeneration(
     // on demand, freshly minted on every /plan render (see plan/page.tsx).
     const pdfUrl = uploadError ? null : pdfPath;
 
-    const { data: updated, error: updateError } = await supabase
-      .from("window_plans")
-      .update({
-        status: "ready",
-        profile_summary: generated.profile_summary,
-        must_haves: generated.must_haves,
-        preferences: generated.preferences,
-        ideas_json: generated.ideas,
-        wildcard_json: generated.wildcard as unknown as Record<string, unknown>,
-        labels_json: generated.labels,
-        pdf_url: pdfUrl,
-        generated_at: new Date().toISOString(),
-        pdf_version: PDF_VERSION,
-      })
-      .eq("id", pendingRow.id)
-      .select("*")
-      .single();
+    const readyUpdate = {
+      status: "ready" as const,
+      profile_summary: generated.profile_summary,
+      must_haves: generated.must_haves,
+      preferences: generated.preferences,
+      ideas_json: generated.ideas,
+      wildcard_json: generated.wildcard as unknown as Record<string, unknown>,
+      labels_json: generated.labels,
+      pdf_url: pdfUrl,
+      generated_at: new Date().toISOString(),
+      pdf_version: PDF_VERSION,
+    };
+    const saveReady = (extra: Record<string, unknown>) =>
+      supabase.from("window_plans").update({ ...readyUpdate, ...extra }).eq("id", pendingRow.id).select("*").single();
+    let { data: updated, error: updateError } = await saveReady(associationSources ? { association_sources: associationSources } : {});
+    if (updateError?.code === UNDEFINED_COLUMN_CODE && associationSources) {
+      // Migration 0019 has not been run yet: the book is still saved, only without its thread.
+      console.error(`WINDOW: could not save the thread per door (run migration 0019?): ${updateError.message}`);
+      ({ data: updated, error: updateError } = await saveReady({}));
+    }
 
     if (updateError?.code === UNIQUE_VIOLATION_CODE) {
       throw new SupersededGenerationError();

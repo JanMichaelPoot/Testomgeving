@@ -8,12 +8,14 @@ import { DoorIcon } from "@/components/window/DoorIcon";
 import { IdeaDetail } from "@/components/window/IdeaDetail";
 import { IdeaDialog } from "@/components/window/IdeaDialog";
 import { IdeaFeedback } from "@/components/window/IdeaFeedback";
+import { IdeaThread } from "@/components/plan/IdeaThread";
 import { ShareButton } from "@/components/window/ShareButton";
 import { commitToIdea, submitIdeaFeedback, type IdeaFeedbackValue } from "@/app/plan/actions";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { ideaPhoto } from "@/lib/illustrations";
 import { mapsSearchUrl } from "@/lib/maps";
 import type { BecauseLine, VensterEcho } from "@/lib/vensterReveal";
+import type { IdeaThreadData } from "@/lib/ideaThread";
 import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
 import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
 import type { PlanEcho } from "@/lib/planEcho";
@@ -131,6 +133,8 @@ export interface PlanRevealProps {
   // key the image behind it. Absent for older books and the other wizards.
   vensterEcho?: VensterEcho | null;
   because?: Record<string, BecauseLine>;
+  // Per idea key: how that door came about (image, tags, door, place). Only books that stored it.
+  threads?: Record<string, IdeaThreadData>;
   vensterDict?: Dictionary["venster"];
 }
 
@@ -156,6 +160,7 @@ export function PlanReveal({
   dateLabel,
   vensterEcho = null,
   because = {},
+  threads = {},
   vensterDict,
 }: PlanRevealProps) {
   const t = planDict.reveal;
@@ -401,13 +406,17 @@ export function PlanReveal({
                 </div>
               </div>
 
-              {because[featuredKey] && (
+              {threads[featuredKey] && vensterDict ? (
+                <IdeaThread thread={threads[featuredKey]} copy={vensterDict.thread} />
+              ) : (
+                because[featuredKey] && (
                 <div className="flex items-center gap-3 rounded-md bg-surface-active p-2.5 pr-4">
                   <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-sm">
                     <Image src={because[featuredKey].src} alt={because[featuredKey].label} fill sizes="44px" className="object-cover" />
                   </span>
                   <span className="text-sm font-semibold text-accent-dark">{because[featuredKey].text}</span>
                 </div>
+                )
               )}
 
               <div className="flex flex-col gap-2">
@@ -714,6 +723,7 @@ export function PlanReveal({
               dict={pdfChromeDict}
               isWildcard={selected.isWildcard}
             />
+            {selectedKey && threads[selectedKey] && vensterDict && <IdeaThread thread={threads[selectedKey]} copy={vensterDict.thread} />}
             {canInteract && (
               <div className="flex flex-col gap-4 rounded-lg border border-border bg-paper p-4 sm:p-5">
                 <IdeaFeedback

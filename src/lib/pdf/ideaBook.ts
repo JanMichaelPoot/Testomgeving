@@ -317,6 +317,9 @@ export interface IdeaBookPdfContext {
     recipientName?: string;
     dateLabel: string;
   };
+  // R2.2: per activity id the thread behind the door in one sentence ("Bij deze deur hoort het
+  // beeld ... daarin lazen we ..."), added to "Waarom dit bij jou past". Only real connections.
+  threadLines?: Record<string, string>;
 }
 
 export async function renderIdeaBookPdf(
@@ -1326,7 +1329,8 @@ export async function renderIdeaBookPdf(
           ? fillTemplate(pageLabels.matchTimeBudget, { time: timeLabel.toLowerCase(), budget: budgetLabel.toLowerCase() })
           : fillTemplate(pageLabels.matchTime, { time: timeLabel.toLowerCase() });
     }
-    const matchText = [idea.why_it_fits, fitSentence].filter(Boolean).join(" ");
+    const threadLine = idea.activity_id ? context.threadLines?.[idea.activity_id] : undefined;
+    const matchText = [idea.why_it_fits, fitSentence, threadLine].filter(Boolean).join(" ");
 
     const companyLabels = (context.company ?? [])
       .map((v) => optionLabel(intakeDict.company.options, v))

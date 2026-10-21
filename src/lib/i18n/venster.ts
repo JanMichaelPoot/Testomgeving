@@ -155,6 +155,17 @@ export interface VensterDictionary {
     placeLabel: string;
     mapLink: string;
   };
+  // The thread per door: image -> what we read in it -> the door -> the real place (R2.2).
+  thread: {
+    heading: string;
+    imageCaption: string;
+    tagsCaption: string;
+    doorCaption: string;
+    placeCaption: string;
+    pdfBoth: string; // {image} {tags}
+    pdfImage: string; // {image}
+    pdfTags: string; // {tags}
+  };
   feedback: {
     heading: string;
     sub: string;
@@ -480,6 +491,16 @@ export const vensterNl: VensterDictionary = {
     becauseGift: "Gekozen met {image} in gedachten",
     placeLabel: "Waar",
     mapLink: "Op de kaart",
+  },
+  thread: {
+    heading: "Zo kwamen we hierop",
+    imageCaption: "Jouw beeld",
+    tagsCaption: "Wat we erin lazen",
+    doorCaption: "De deur die daarbij past",
+    placeCaption: "Echte plek, uit ons onderzoek",
+    pdfBoth: "Bij deze deur hoort het beeld ‘{image}’: daarin lazen we {tags}.",
+    pdfImage: "Bij deze deur hoort het beeld ‘{image}’.",
+    pdfTags: "In de gekozen beelden lazen we {tags}.",
   },
   feedback: {
     heading: "Je helpt ons enorm",
@@ -809,6 +830,16 @@ export const vensterEn: VensterDictionary = {
     becauseGift: "Chosen with {image} in mind",
     placeLabel: "Where",
     mapLink: "On the map",
+  },
+  thread: {
+    heading: "How we got here",
+    imageCaption: "Your image",
+    tagsCaption: "What we read in it",
+    doorCaption: "The door that fits",
+    placeCaption: "A real place, from our research",
+    pdfBoth: "This door follows from the image ‘{image}’, in which we read {tags}.",
+    pdfImage: "This door follows from the image ‘{image}’.",
+    pdfTags: "In the chosen images we read {tags}.",
   },
   feedback: {
     heading: "You're helping us a lot",
