@@ -62,7 +62,17 @@ export function buildAssociationLibrary(locale: "nl" | "en"): AssociationLibrary
     })),
     tagLabels: Object.fromEntries(TAGS.map((t) => [t.id, t.label[locale]])),
     correctionTags: CORRECTION_TAGS.filter((t) => TAGS.some((x) => x.id === t)),
+    worldExamples: worldExamples(locale),
   };
+}
+
+/** The labels of the activities of every world, for the examples on the direction cards (R3: more dynamic directions). */
+function worldExamples(locale: "nl" | "en"): Record<string, { label: string; sub: string }[]> {
+  const out: Record<string, { label: string; sub: string }[]> = {};
+  for (const a of getActivities({ minStatus: DISCOVERY_MIN_STATUS })) {
+    (out[a.domain] ??= []).push({ label: a.label[locale], sub: a.sub });
+  }
+  return out;
 }
 
 const MAX_PER_ROUND = 5;

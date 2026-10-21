@@ -65,6 +65,8 @@ export interface AssociationLibrary {
   tagLabels: Record<string, string>;
   /** Tags offered as corrections under "Niet helemaal": the ones that can be read from images. */
   correctionTags: string[];
+  /** Per world (domain id) the activities in it, for the changing examples on the direction cards. */
+  worldExamples?: Record<string, { label: string; sub: string }[]>;
 }
 
 /** Weight of a tag the person added themselves under "Niet helemaal". */

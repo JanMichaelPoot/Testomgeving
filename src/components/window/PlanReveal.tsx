@@ -12,6 +12,7 @@ import { IdeaThread } from "@/components/plan/IdeaThread";
 import { IdeaMore } from "@/components/plan/IdeaMore";
 import { pdfPageNumbers } from "@/lib/claude/ideaLayers";
 import { ShareButton } from "@/components/window/ShareButton";
+import { InviteShare } from "@/components/window/InviteShare";
 import { commitToIdea, submitIdeaFeedback, type IdeaFeedbackValue } from "@/app/plan/actions";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { ideaPhoto } from "@/lib/illustrations";
@@ -138,6 +139,8 @@ export interface PlanRevealProps {
   // Per idea key: how that door came about (image, tags, door, place). Only books that stored it.
   threads?: Record<string, IdeaThreadData>;
   vensterDict?: Dictionary["venster"];
+  /** The site's address, for the invitation card's link. */
+  siteUrl?: string;
 }
 
 // The paid result, as one scrolling page: an echo of what the person told us,
@@ -164,6 +167,7 @@ export function PlanReveal({
   because = {},
   threads = {},
   vensterDict,
+  siteUrl,
 }: PlanRevealProps) {
   const t = planDict.reveal;
 
@@ -709,6 +713,9 @@ export function PlanReveal({
               className={cn(shareClassName, "min-h-12 px-6")}
             />
           </div>
+          {vensterDict && siteUrl && (
+            <InviteShare locale={locale} copy={vensterDict.invite} siteUrl={siteUrl} source="plan" className="w-full" />
+          )}
         </div>
       </section>
 

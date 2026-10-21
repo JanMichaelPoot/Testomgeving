@@ -1942,5 +1942,647 @@
       "novelty": -0.1
     },
     "status": "concept"
+  },
+  {
+    "id": "place-long-lane",
+    "family": "place-long-lane",
+    "round": "places",
+    "label": {
+      "nl": "Een lange baan met één doel",
+      "en": "A long lane with a single target"
+    },
+    "scene": "A long empty indoor lane with one round bullseye paper target at the far end under a warm lamp and a polished wooden bench in the foreground, calm and quiet.",
+    "image": "/illustrations/associations/place-long-lane.jpg",
+    "tagWeights": {
+      "precision": 1,
+      "focus": 0.9,
+      "technique": 0.5,
+      "competition": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.5,
+      "setting": -0.7,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-long-lane-b",
+    "family": "place-long-lane",
+    "round": "places",
+    "label": {
+      "nl": "Een lange baan met één doel",
+      "en": "A long lane with a single target"
+    },
+    "scene": "A sunlit open field with a row of paper targets on wooden frames at different distances, low morning light, nobody there.",
+    "image": "/illustrations/associations/place-long-lane-b.jpg",
+    "tagWeights": {
+      "precision": 1,
+      "focus": 0.9,
+      "technique": 0.5,
+      "competition": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.5,
+      "setting": -0.7,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-long-lane-c",
+    "family": "place-long-lane",
+    "round": "places",
+    "label": {
+      "nl": "Een lange baan met één doel",
+      "en": "A long lane with a single target"
+    },
+    "scene": "A wooden bench in a quiet range with a pair of ear defenders resting beside a small paper target, soft window light.",
+    "image": "/illustrations/associations/place-long-lane-c.jpg",
+    "tagWeights": {
+      "precision": 1,
+      "focus": 0.9,
+      "technique": 0.5,
+      "competition": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.5,
+      "setting": -0.7,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-arena-lights",
+    "family": "place-arena-lights",
+    "round": "places",
+    "label": {
+      "nl": "Een arena vol licht",
+      "en": "An arena full of light"
+    },
+    "scene": "A dark indoor arena with glowing neon strips along the walls and drifting fog, empty, coloured beams crossing the room.",
+    "image": "/illustrations/associations/place-arena-lights.jpg",
+    "tagWeights": {
+      "suspense": 0.8,
+      "play": 0.8,
+      "teamwork": 0.7,
+      "competition": 0.5
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": 0.8,
+      "setting": -0.9,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-arena-lights-b",
+    "family": "place-arena-lights",
+    "round": "places",
+    "label": {
+      "nl": "Een arena vol licht",
+      "en": "An arena full of light"
+    },
+    "scene": "An empty laser-tag arena with blue and purple beams cutting through fog and angular barriers.",
+    "image": "/illustrations/associations/place-arena-lights-b.jpg",
+    "tagWeights": {
+      "suspense": 0.8,
+      "play": 0.8,
+      "teamwork": 0.7,
+      "competition": 0.5
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": 0.8,
+      "setting": -0.9,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-arena-lights-c",
+    "family": "place-arena-lights",
+    "round": "places",
+    "label": {
+      "nl": "Een arena vol licht",
+      "en": "An arena full of light"
+    },
+    "scene": "A dark room with a ceiling of glowing coloured light tubes and mirrored walls, empty and humming.",
+    "image": "/illustrations/associations/place-arena-lights-c.jpg",
+    "tagWeights": {
+      "suspense": 0.8,
+      "play": 0.8,
+      "teamwork": 0.7,
+      "competition": 0.5
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": 0.8,
+      "setting": -0.9,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-race-circuit",
+    "family": "place-race-circuit",
+    "round": "places",
+    "label": {
+      "nl": "Een circuit met banden en vlaggen",
+      "en": "A circuit with tyre walls and flags"
+    },
+    "scene": "An empty race circuit with red and white kerbs, tyre barriers and chequered flags in low golden sun.",
+    "image": "/illustrations/associations/place-race-circuit.jpg",
+    "tagWeights": {
+      "competition": 1,
+      "movement": 0.8,
+      "challenge": 0.6,
+      "technique": 0.5
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.9,
+      "setting": 0.7,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-race-circuit-b",
+    "family": "place-race-circuit",
+    "round": "places",
+    "label": {
+      "nl": "Een circuit met banden en vlaggen",
+      "en": "A circuit with tyre walls and flags"
+    },
+    "scene": "A chequered flag on a pole at the start line of an empty track, motion in the fabric, blurred grandstand behind.",
+    "image": "/illustrations/associations/place-race-circuit-b.jpg",
+    "tagWeights": {
+      "competition": 1,
+      "movement": 0.8,
+      "challenge": 0.6,
+      "technique": 0.5
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.9,
+      "setting": 0.7,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-race-circuit-c",
+    "family": "place-race-circuit",
+    "round": "places",
+    "label": {
+      "nl": "Een circuit met banden en vlaggen",
+      "en": "A circuit with tyre walls and flags"
+    },
+    "scene": "Red and white painted tyre walls curving along an empty track in warm evening light, an empty marshal post in the distance.",
+    "image": "/illustrations/associations/place-race-circuit-c.jpg",
+    "tagWeights": {
+      "competition": 1,
+      "movement": 0.8,
+      "challenge": 0.6,
+      "technique": 0.5
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.9,
+      "setting": 0.7,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-dead-centre",
+    "family": "moment-dead-centre",
+    "round": "moments",
+    "label": {
+      "nl": "Precies in de roos",
+      "en": "Dead centre"
+    },
+    "scene": "Close-up of a paper target with a single arrow exactly in the centre, shallow depth of field, soft light.",
+    "image": "/illustrations/associations/moment-dead-centre.jpg",
+    "tagWeights": {
+      "precision": 1,
+      "focus": 0.9,
+      "competition": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.2,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-dead-centre-b",
+    "family": "moment-dead-centre",
+    "round": "moments",
+    "label": {
+      "nl": "Precies in de roos",
+      "en": "Dead centre"
+    },
+    "scene": "A dartboard with one dart in the bullseye, close-up, warm pub light, blurred background.",
+    "image": "/illustrations/associations/moment-dead-centre-b.jpg",
+    "tagWeights": {
+      "precision": 1,
+      "focus": 0.9,
+      "competition": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.2,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-dead-centre-c",
+    "family": "moment-dead-centre",
+    "round": "moments",
+    "label": {
+      "nl": "Precies in de roos",
+      "en": "Dead centre"
+    },
+    "scene": "An archery target with one arrow in the golden centre in a green field, morning light.",
+    "image": "/illustrations/associations/moment-dead-centre-c.jpg",
+    "tagWeights": {
+      "precision": 1,
+      "focus": 0.9,
+      "competition": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.2,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-countdown",
+    "family": "moment-countdown",
+    "round": "moments",
+    "label": {
+      "nl": "Het aftellen, de klok loopt",
+      "en": "The countdown, the clock is running"
+    },
+    "scene": "A large digital countdown clock showing 00:10 in glowing red digits on a dark wall next to a locked door.",
+    "image": "/illustrations/associations/moment-countdown.jpg",
+    "tagWeights": {
+      "suspense": 1,
+      "puzzling": 0.6,
+      "teamwork": 0.5,
+      "challenge": 0.6
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.5,
+      "setting": -0.8,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-countdown-b",
+    "family": "moment-countdown",
+    "round": "moments",
+    "label": {
+      "nl": "Het aftellen, de klok loopt",
+      "en": "The countdown, the clock is running"
+    },
+    "scene": "An old kitchen timer with a red marker nearly at zero standing on a wooden table, sharp focus.",
+    "image": "/illustrations/associations/moment-countdown-b.jpg",
+    "tagWeights": {
+      "suspense": 1,
+      "puzzling": 0.6,
+      "teamwork": 0.5,
+      "challenge": 0.6
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.5,
+      "setting": -0.8,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-countdown-c",
+    "family": "moment-countdown",
+    "round": "moments",
+    "label": {
+      "nl": "Het aftellen, de klok loopt",
+      "en": "The countdown, the clock is running"
+    },
+    "scene": "An hourglass with the last grains of sand falling in front of a locked iron door, dramatic side light.",
+    "image": "/illustrations/associations/moment-countdown-c.jpg",
+    "tagWeights": {
+      "suspense": 1,
+      "puzzling": 0.6,
+      "teamwork": 0.5,
+      "challenge": 0.6
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.5,
+      "setting": -0.8,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-scoreboard",
+    "family": "moment-scoreboard",
+    "round": "moments",
+    "label": {
+      "nl": "Het scorebord na een spannende ronde",
+      "en": "The scoreboard after a close round"
+    },
+    "scene": "An old-fashioned flip-number scoreboard showing a narrow lead in a warm club room, empty chairs around.",
+    "image": "/illustrations/associations/moment-scoreboard.jpg",
+    "tagWeights": {
+      "competition": 0.7,
+      "teamwork": 0.9,
+      "conviviality": 0.8,
+      "play": 0.6
+    },
+    "axes": {
+      "social": 0.9,
+      "energy": 0.6,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-scoreboard-b",
+    "family": "moment-scoreboard",
+    "round": "moments",
+    "label": {
+      "nl": "Het scorebord na een spannende ronde",
+      "en": "The scoreboard after a close round"
+    },
+    "scene": "A golden trophy cup on a small podium with confetti drifting down in an empty hall under bright light.",
+    "image": "/illustrations/associations/moment-scoreboard-b.jpg",
+    "tagWeights": {
+      "competition": 0.7,
+      "teamwork": 0.9,
+      "conviviality": 0.8,
+      "play": 0.6
+    },
+    "axes": {
+      "social": 0.9,
+      "energy": 0.6,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-scoreboard-c",
+    "family": "moment-scoreboard",
+    "round": "moments",
+    "label": {
+      "nl": "Het scorebord na een spannende ronde",
+      "en": "The scoreboard after a close round"
+    },
+    "scene": "A flip-number scoreboard in a school gym showing a narrow lead, polished floor reflecting the light.",
+    "image": "/illustrations/associations/moment-scoreboard-c.jpg",
+    "tagWeights": {
+      "competition": 0.7,
+      "teamwork": 0.9,
+      "conviviality": 0.8,
+      "play": 0.6
+    },
+    "axes": {
+      "social": 0.9,
+      "energy": 0.6,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-click-metal",
+    "family": "sense-click-metal",
+    "round": "senses",
+    "label": {
+      "nl": "Het klikken van een mechanisme",
+      "en": "The click of a mechanism"
+    },
+    "scene": "Macro of a polished brass lock mechanism with small cogs in warm light, crisp detail.",
+    "image": "/illustrations/associations/sense-click-metal.jpg",
+    "tagWeights": {
+      "technique": 0.9,
+      "precision": 0.8,
+      "puzzling": 0.4
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.2,
+      "setting": -0.5,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-click-metal-b",
+    "family": "sense-click-metal",
+    "round": "senses",
+    "label": {
+      "nl": "Het klikken van een mechanisme",
+      "en": "The click of a mechanism"
+    },
+    "scene": "An old padlock with a key half turned and brass cogs visible behind it, dark wood background.",
+    "image": "/illustrations/associations/sense-click-metal-b.jpg",
+    "tagWeights": {
+      "technique": 0.9,
+      "precision": 0.8,
+      "puzzling": 0.4
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.2,
+      "setting": -0.5,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-click-metal-c",
+    "family": "sense-click-metal",
+    "round": "senses",
+    "label": {
+      "nl": "Het klikken van een mechanisme",
+      "en": "The click of a mechanism"
+    },
+    "scene": "An open mechanical pocket watch with gears and springs visible, warm side light.",
+    "image": "/illustrations/associations/sense-click-metal-c.jpg",
+    "tagWeights": {
+      "technique": 0.9,
+      "precision": 0.8,
+      "puzzling": 0.4
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.2,
+      "setting": -0.5,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-engine-roar",
+    "family": "sense-engine-roar",
+    "round": "senses",
+    "label": {
+      "nl": "Het brullen van een motor",
+      "en": "The roar of an engine"
+    },
+    "scene": "Close-up of a shiny exhaust pipe with heat haze over asphalt, vibrating air, golden light.",
+    "image": "/illustrations/associations/sense-engine-roar.jpg",
+    "tagWeights": {
+      "movement": 0.8,
+      "challenge": 0.7,
+      "technique": 0.6,
+      "competition": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.9,
+      "setting": 0.5,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-engine-roar-b",
+    "family": "sense-engine-roar",
+    "round": "senses",
+    "label": {
+      "nl": "Het brullen van een motor",
+      "en": "The roar of an engine"
+    },
+    "scene": "A chrome motorbike exhaust with heat shimmer on an empty road at dusk.",
+    "image": "/illustrations/associations/sense-engine-roar-b.jpg",
+    "tagWeights": {
+      "movement": 0.8,
+      "challenge": 0.7,
+      "technique": 0.6,
+      "competition": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.9,
+      "setting": 0.5,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-engine-roar-c",
+    "family": "sense-engine-roar",
+    "round": "senses",
+    "label": {
+      "nl": "Het brullen van een motor",
+      "en": "The roar of an engine"
+    },
+    "scene": "A racing tyre and a glowing orange brake disc right after a run, close-up, shallow depth of field.",
+    "image": "/illustrations/associations/sense-engine-roar-c.jpg",
+    "tagWeights": {
+      "movement": 0.8,
+      "challenge": 0.7,
+      "technique": 0.6,
+      "competition": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.9,
+      "setting": 0.5,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-drumroll",
+    "family": "sense-drumroll",
+    "round": "senses",
+    "label": {
+      "nl": "Het drumroffel voor de start",
+      "en": "The drumroll before the start"
+    },
+    "scene": "A snare drum with two drumsticks resting on it under a single spotlight on an empty stage, dust floating in the light.",
+    "image": "/illustrations/associations/sense-drumroll.jpg",
+    "tagWeights": {
+      "suspense": 1,
+      "sound": 0.7,
+      "rhythm": 0.5,
+      "play": 0.3
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.4,
+      "setting": -0.6,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-drumroll-b",
+    "family": "sense-drumroll",
+    "round": "senses",
+    "label": {
+      "nl": "Het drumroffel voor de start",
+      "en": "The drumroll before the start"
+    },
+    "scene": "A set of kettle drums on an empty stage under a spotlight, dramatic dark background.",
+    "image": "/illustrations/associations/sense-drumroll-b.jpg",
+    "tagWeights": {
+      "suspense": 1,
+      "sound": 0.7,
+      "rhythm": 0.5,
+      "play": 0.3
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.4,
+      "setting": -0.6,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-drumroll-c",
+    "family": "sense-drumroll",
+    "round": "senses",
+    "label": {
+      "nl": "Het drumroffel voor de start",
+      "en": "The drumroll before the start"
+    },
+    "scene": "A row of red start lights above an empty racetrack just before the green, dusk, dramatic.",
+    "image": "/illustrations/associations/sense-drumroll-c.jpg",
+    "tagWeights": {
+      "suspense": 1,
+      "sound": 0.7,
+      "rhythm": 0.5,
+      "play": 0.3
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.4,
+      "setting": -0.6,
+      "novelty": 0.3
+    },
+    "status": "concept"
   }
 ]

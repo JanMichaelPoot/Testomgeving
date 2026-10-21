@@ -700,5 +700,146 @@
     },
     "scene": "a bowling lane with pins and a bright ball",
     "status": "concept"
+  },
+  {
+    "id": "stadsspel",
+    "domain": "games",
+    "sub": "puzzles",
+    "label": {
+      "nl": "Stadsspel of outdoor escape",
+      "en": "City game or outdoor escape game"
+    },
+    "tags": [
+      "puzzling",
+      "teamwork",
+      "discovery",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een stadsspel met een app of kaart, zelf te starten, ongeveer twee uur",
+      "en": "A city game with an app or map, start it yourself, about two hours"
+    },
+    "scene": "a folded paper map with a dotted route, a magnifying glass and a brass compass on a stone bench in a cobbled street",
+    "status": "concept"
+  },
+  {
+    "id": "escape-doos",
+    "domain": "games",
+    "sub": "puzzles",
+    "label": {
+      "nl": "Escape-doos thuis",
+      "en": "Escape box at home"
+    },
+    "tags": [
+      "puzzling",
+      "teamwork",
+      "story",
+      "suspense"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kant-en-klare escape-doos of printbaar spel, vanavond thuis te spelen",
+      "en": "A ready-made escape box or printable game, playable at home tonight"
+    },
+    "scene": "a closed wooden puzzle box with brass padlocks, old keys and a folded cryptic note on a dark table in candlelight",
+    "status": "concept"
+  },
+  {
+    "id": "vr-arcade",
+    "domain": "games",
+    "sub": "digital_action",
+    "label": {
+      "nl": "VR-arcade",
+      "en": "VR arcade"
+    },
+    "tags": [
+      "play",
+      "technique",
+      "suspense",
+      "teamwork"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een uur VR in een speelhal, headset en uitleg inbegrepen",
+      "en": "An hour of VR at an arcade, headset and briefing included"
+    },
+    "scene": "a virtual reality headset resting on a pedestal in a dark room washed in neon blue and magenta light",
+    "status": "concept"
+  },
+  {
+    "id": "simracen",
+    "domain": "games",
+    "sub": "digital_action",
+    "label": {
+      "nl": "Simracen",
+      "en": "Sim racing"
+    },
+    "tags": [
+      "competition",
+      "technique",
+      "precision",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een sessie op een racesimulator bij een simcentrum, met uitleg",
+      "en": "A session on a racing simulator at a sim centre, with a briefing"
+    },
+    "scene": "a racing simulator cockpit with a steering wheel, pedals and a curved screen showing a track at dusk",
+    "status": "concept"
   }
 ]

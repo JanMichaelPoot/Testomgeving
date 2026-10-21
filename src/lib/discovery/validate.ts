@@ -159,11 +159,11 @@ export function validateLibrary({ vocabulary, activities, hybrids }: LibraryInpu
 }
 
 // --- association images ("Het venster") ------------------------------------------
-// The image intake's cards (src/lib/discovery/associations.json): per round nine FAMILIES of at
+// The image intake's cards (src/lib/discovery/associations.json): per round at least nine FAMILIES of at
 // least three variants each (same feeling, other image: a visitor sees one variant per family, so
 // a second session shows other images), real tags, both languages, axes within -1..1, and scenes
 // without people or hands (an association image calls up a feeling; a hand makes it about doing).
-export const ASSOCIATION_FAMILIES_PER_ROUND = 9;
+export const ASSOCIATION_MIN_FAMILIES_PER_ROUND = 9; // a visitor sees nine; a round may hold more
 export const ASSOCIATION_MIN_VARIANTS = 3;
 const HAND_WORDS = /\b(hand|hands|finger|fingers|arm|arms|foot|feet)\b/i;
 
@@ -227,7 +227,7 @@ export function validateAssociations(cards: readonly AssociationCardInput[], voc
   }
   for (const round of ["places", "moments", "senses"]) {
     const n = familiesPerRound.get(round) ?? 0;
-    if (n !== ASSOCIATION_FAMILIES_PER_ROUND) err(`round "${round}": needs exactly ${ASSOCIATION_FAMILIES_PER_ROUND} families (has ${n})`);
+    if (n < ASSOCIATION_MIN_FAMILIES_PER_ROUND) err(`round "${round}": needs at least ${ASSOCIATION_MIN_FAMILIES_PER_ROUND} families (has ${n})`);
   }
   return { errors, warnings };
 }

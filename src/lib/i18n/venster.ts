@@ -184,6 +184,27 @@ export interface VensterDictionary {
     /** The PDF's extra page: its small heading and the line above the idea's title. */
     pdfEyebrow: string;
   };
+  // The general invitation card people can share (not personal): the page /delen and the button on /plan.
+  invite: {
+    button: string;
+    heading: string;
+    sub: string;
+    formatStory: string;
+    formatSquare: string;
+    formatLabel: string;
+    share: string;
+    download: string;
+    whatsapp: string;
+    copyLink: string;
+    copied: string;
+    previewAlt: string;
+    /** The text that goes with the picture and the link. */
+    shareText: string;
+    /** On the card itself. */
+    cardHeadline: string;
+    cardSub: string;
+    cardCta: string;
+  };
   feedback: {
     heading: string;
     sub: string;
@@ -533,6 +554,24 @@ export const vensterNl: VensterDictionary = {
     relatedHeading: "Ook in deze richting",
     nextHeading: "Daarna",
     pdfEyebrow: "Meer over deze deur",
+  },
+  invite: {
+    button: "Deel een uitnodiging",
+    heading: "Nodig iemand uit om een venster te openen",
+    sub: "Een afbeelding voor je verhaal of chat. Er staat niets persoonlijks op: alleen de uitnodiging.",
+    formatStory: "Verhaal",
+    formatSquare: "Vierkant",
+    formatLabel: "Formaat",
+    share: "Deel de afbeelding",
+    download: "Download afbeelding",
+    whatsapp: "Open WhatsApp met de link",
+    copyLink: "Kopieer link",
+    copied: "Link gekopieerd",
+    previewAlt: "Voorbeeld van de uitnodiging",
+    shareText: "Ontdek wat er mogelijk is, voor jou. Open een venster:",
+    cardHeadline: "Ontdek wat er mogelijk is voor jou.",
+    cardSub: "Kies een paar beelden. Krijg zeven deuren, alleen voor jou.",
+    cardCta: "Open je venster",
   },
   feedback: {
     heading: "Je helpt ons enorm",
@@ -886,6 +925,24 @@ export const vensterEn: VensterDictionary = {
     relatedHeading: "Also in this direction",
     nextHeading: "Next",
     pdfEyebrow: "More about this door",
+  },
+  invite: {
+    button: "Share an invitation",
+    heading: "Invite someone to open a window",
+    sub: "A picture for your story or chat. Nothing personal on it, just the invitation.",
+    formatStory: "Story",
+    formatSquare: "Square",
+    formatLabel: "Format",
+    share: "Share the picture",
+    download: "Download picture",
+    whatsapp: "Open WhatsApp with the link",
+    copyLink: "Copy link",
+    copied: "Link copied",
+    previewAlt: "Preview of the invitation",
+    shareText: "Discover what's possible, for you. Open a window:",
+    cardHeadline: "Discover what's possible for you.",
+    cardSub: "Pick a few images. Get seven doors, just for you.",
+    cardCta: "Open your window",
   },
   feedback: {
     heading: "You're helping us a lot",

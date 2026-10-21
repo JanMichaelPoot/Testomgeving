@@ -708,5 +708,379 @@
     },
     "scene": "a folded judo belt and gi on a tatami mat in morning light",
     "status": "concept"
+  },
+  {
+    "id": "schietles",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Schietles (sportschieten)",
+      "en": "Target shooting lesson"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "technique",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende schietvereniging of schietsportcentrum, met een instructeur; de vereniging regelt leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised shooting club or range, with an instructor; the club arranges age limits and legal requirements."
+      }
+    },
+    "entry": {
+      "nl": "Introductieles bij een schietvereniging, instructeur en materiaal aanwezig",
+      "en": "Intro lesson at a shooting club, instructor and equipment provided"
+    },
+    "scene": "a paper shooting target with a tight cluster of holes near the bullseye, hanging at the end of a quiet indoor range lane in warm light",
+    "status": "concept"
+  },
+  {
+    "id": "kleiduifschieten",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Kleiduifschieten",
+      "en": "Clay pigeon shooting"
+    },
+    "tags": [
+      "precision",
+      "outdoors",
+      "competition",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende schietvereniging of schietsportcentrum, met een instructeur; de vereniging regelt leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised shooting club or range, with an instructor; the club arranges age limits and legal requirements."
+      }
+    },
+    "entry": {
+      "nl": "Introductie bij een kleiduifclub of schietbaan, begeleiding en materiaal inbegrepen",
+      "en": "Introduction at a clay-target club or range, guidance and equipment included"
+    },
+    "scene": "bright orange clay discs flying against a pale sky above a green field, slightly blurred with motion",
+    "status": "concept"
+  },
+  {
+    "id": "bijlwerpen",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Bijlwerpen",
+      "en": "Axe throwing"
+    },
+    "tags": [
+      "precision",
+      "competition",
+      "play",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een uur bijlwerpen met uitleg bij een bijlwerpcentrum, bijlen aanwezig",
+      "en": "An hour of axe throwing with instruction at an axe-throwing venue, axes provided"
+    },
+    "scene": "a wooden target board with a single axe stuck near the centre in a dim lane lit by warm bulbs",
+    "status": "concept"
+  },
+  {
+    "id": "karten",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Karten",
+      "en": "Go-karting"
+    },
+    "tags": [
+      "competition",
+      "movement",
+      "challenge",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een proefsessie op een kartbaan, helm en kart inbegrepen",
+      "en": "A trial session on a kart track, helmet and kart included"
+    },
+    "scene": "a row of colourful go-karts on an empty circuit with tyre barriers in low sun",
+    "status": "concept"
+  },
+  {
+    "id": "via-ferrata",
+    "domain": "movement",
+    "sub": "climbing",
+    "label": {
+      "nl": "Via ferrata",
+      "en": "Via ferrata"
+    },
+    "tags": [
+      "height",
+      "challenge",
+      "outdoors",
+      "balance"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "drop_in_alone",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen met een gids of op een erkende route met klimset en instructie.",
+        "en": "Only with a guide or on a recognised route with a climbing set and instruction."
+      }
+    },
+    "entry": {
+      "nl": "Begeleide introductietocht met klimset, helm en gids",
+      "en": "Guided introductory tour with climbing set, helmet and guide"
+    },
+    "scene": "a steel cable and iron rungs running up a limestone cliff wall above a distant green valley",
+    "status": "concept"
+  },
+  {
+    "id": "wildwaterraften",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Wildwaterraften",
+      "en": "White-water rafting"
+    },
+    "tags": [
+      "water",
+      "teamwork",
+      "challenge",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen met een professionele gids en veiligheidsmateriaal, op een geschikte rivier.",
+        "en": "Only with a professional guide and safety equipment, on a suitable river."
+      }
+    },
+    "entry": {
+      "nl": "Begeleide afdaling voor beginners met gids, helm en zwemvest",
+      "en": "Guided descent for beginners with a guide, helmet and life jacket"
+    },
+    "scene": "an empty inflatable raft with paddles riding churning white water between wet rocks",
+    "status": "concept"
+  },
+  {
+    "id": "zweefvliegen",
+    "domain": "movement",
+    "sub": "climbing",
+    "label": {
+      "nl": "Zweefvliegen (proefvlucht)",
+      "en": "Gliding (trial flight)"
+    },
+    "tags": [
+      "height",
+      "technique",
+      "challenge",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen als proefvlucht bij een erkende zweefvliegclub, met een instructeur.",
+        "en": "Only as a trial flight at a recognised gliding club, with an instructor."
+      }
+    },
+    "entry": {
+      "nl": "Proefvlucht met instructeur bij een zweefvliegclub",
+      "en": "Trial flight with an instructor at a gliding club"
+    },
+    "scene": "a white glider standing on a grass airfield under towering cumulus clouds",
+    "status": "concept"
+  },
+  {
+    "id": "quad-buggy",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Quad- of buggytocht",
+      "en": "Quad or buggy off-road tour"
+    },
+    "tags": [
+      "outdoors",
+      "movement",
+      "challenge",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Begeleide tocht voor beginners, voertuig en helm inbegrepen",
+      "en": "Guided tour for beginners, vehicle and helmet included"
+    },
+    "scene": "a muddy quad bike parked on a sandy forest track with shallow puddles",
+    "status": "concept"
+  },
+  {
+    "id": "minigolf",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Minigolf",
+      "en": "Mini golf"
+    },
+    "tags": [
+      "play",
+      "precision",
+      "competition",
+      "conviviality"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een ronde op een minigolfbaan, club en bal te leen",
+      "en": "A round on a mini golf course, club and ball provided"
+    },
+    "scene": "a colourful miniature golf course with a small windmill obstacle and a golf ball resting near the hole",
+    "status": "concept"
+  },
+  {
+    "id": "boogparcours-3d",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "3D-boogparcours",
+      "en": "3D archery trail"
+    },
+    "tags": [
+      "precision",
+      "outdoors",
+      "nature",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen op een parcours van een vereniging, met instructeur of na een introductie.",
+        "en": "Only on a club trail, with an instructor or after an introduction."
+      }
+    },
+    "entry": {
+      "nl": "Introductie en wandelroute bij een handboogvereniging, boog en pijlen te leen",
+      "en": "Introduction and woodland trail at an archery club, bow and arrows provided"
+    },
+    "scene": "a lifelike foam deer target standing between tree trunks along a woodland path in dappled light",
+    "status": "concept"
   }
 ]

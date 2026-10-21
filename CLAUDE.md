@@ -3281,6 +3281,70 @@ Stripe, Claude API, Resend, PostHog).
       3.057-3.208 uit ($0,044 per call), lagen 5.106 in / 2.706 uit ($0,037); zonder herpoging
       ≈$0,187, met de herpoging ≈$0,229. Dat is +$0,042 (±€0,039, +29%) tegen de $0,145 van vóór
       R2.3, dus **boven de B5-grens van +€0,03** (de splitsing kost ≈$0,01 extra invoer); Jan kende dat
-      verschil vooraf. Deze generatie is niet opnieuw met de nieuwe herpoging-afvanger gedaan.
+      verschil vooraf. Deze generatie is niet opnieuw met de nieuwe herpoging-afvanger gedaan. Jan heeft daarna de extra kosten (±€0,039 per boek) akkoord
+      verklaard: de lagen blijven zoals ze zijn.
       Bekend (niet door deze stap): `vitest` meldt bij de zware associatietests ("Timeout calling
       onTaskUpdate") één werker-time-out; hij verschijnt ook zonder deze wijziging en alle tests slagen.
+
+- [x] Stap 79 — Meer activiteiten en dynamischere richtingen en beelden, op verzoek van Jan (schietles,
+      kleiduifschieten, escape-achtige opties, meer afwisseling bij de richtingen en associaties;
+      akkoord op alle 14 voorgestelde activiteiten, de beeldkosten en de volgorde).
+      **Bevinding vooraf**: van de 27 associatiekaarten droegen maar 1 `competition`, 1 `precision`,
+      2 `teamwork` en 3 `suspense`: wie van schieten, karten of een escape room houdt kon dat met de
+      beelden niet aangeven, dus de motor kwam er bijna nooit bij uit.
+      **14 nieuwe activiteiten** (bibliotheek 200 -> 214, `taxonomy:check` 0 fouten en 0 waarschuwingen),
+      NL + EN, `status: concept`: schietles (sportschieten), kleiduifschieten, 3D-boogparcours,
+      bijlwerpen, karten, quad- of buggytocht, minigolf, via ferrata, wildwaterraften, zweefvliegen
+      (proefvlucht), stadsspel of outdoor escape, escape-doos thuis, VR-arcade, simracen. Escape room,
+      boogschieten en lasergamen bestonden al. Alles wat toezicht vraagt (schietles, kleiduifschieten,
+      boogparcours, via ferrata, wildwaterraften, zweefvliegen) is tier 2 met een instapnotitie die
+      alleen de begeleide, legale weg noemt ("erkende vereniging, met instructeur; de vereniging regelt
+      leeftijd en wettelijke voorwaarden"); **laat de schiet-notities nog juridisch controleren**.
+      Foto's: 14 stuks (2 vellen 3x3 + 1 los, ≈$0,40), allemaal bekeken: geen mensen, geen wapens (een
+      schietschijf met gaatjes, schijven in de lucht, een 3D-schietdoel), ruim goed.
+      **Associaties 27 -> 36 families (81 -> 108 kaarten)**: 9 nieuwe families voor spanning,
+      precisie en samen winnen, elk met drie varianten: plekken (een lange baan met één doel, een arena
+      vol licht, een circuit met banden en vlaggen), momenten (precies in de roos, het aftellen, het
+      scorebord na een spannende ronde), zintuigen (het klikken van een mechanisme, het brullen van een
+      motor, het drumroffel voor de start). 27 beelden (3 vellen 3x3, ≈$0,40) plus één opnieuw ($0,13,
+      een mensvormig doel werd een rond doel). Per sessie ziet iemand nu **negen van de twaalf families
+      per ronde** (`sampleRoundCards`/`chooseFamilies` in `associationSampling.ts`): de keuze hangt
+      alleen van seed en ronde af (een gekozen kaart verschuift niets), en elke as houdt minstens twee
+      gevoelens aan beide kanten (novelty: één), voor zover de pool ze heeft (getest op 300 seeds per
+      ronde); in 200 sessies komt elke familie voor. De validator eist nu minstens 9 families per ronde.
+      **Richtingen dynamischer**: elke richtingkaart toont per sessie 3 voorbeeldactiviteiten uit die
+      richting (één per subgroep waar het kan, andere bij een nieuwe sessie, hetzelfde bij verversen), via
+      `worldExamples` in `buildAssociationLibrary` en `sampleWorldExamples`. **Bewust niet gedaan: wisselende
+      foto's per richting** (de 20 extra richtingfoto's uit het voorstel): het venster, de PDF-omslag en de
+      deelpreview tonen de vaste richtingfoto, dus een gekozen variant zou daar niet terugkomen; dat zou
+      "dit koos je" niet kloppend maken. De varianten `legacy` en `cards` zijn niet aangeraakt (de nieuwe
+      activiteiten verschijnen wel vanzelf in hun kaartenstap, want de bibliotheek is gedeeld).
+      **Bereikbaarheid** (`scratch/reach.ts`, 40 seeds per profiel): schietles komt in 16-17 van 40 boeken
+      voor bij wie "baan/in de roos/klik" kiest (ook bij richting Sport), kleiduifschieten bij precisie +
+      buiten (3/40), 3D-boogparcours 5/40, bijlwerpen 6-17/40, karten, simracen en VR-arcade bij
+      spanning of racen. Per boek komt hooguit één van de drie schietvormen voor: ze delen één subgroep
+      en de motor staat er maar één per subgroep toe. Wie op de schuif "voorspelbaar" koos, krijgt
+      activiteiten met toezicht niet (bestaande regel). Shadow-run (500 beeldprofielen): E1-E6 nul
+      schendingen, 210 van 214 activiteiten komen voor.
+      Getest: 417 unit-tests, `tsc`, lint, `npm run build`, 22 Playwright-tests; in de browser de richtingen
+      (verschillende voorbeelden per nieuwe sessie, geen horizontale scroll op 390 px) en een ronde met
+      nieuwe kaarten.
+
+- [x] Stap 80 — Algemene deelafbeelding om mensen naar de app uit te nodigen (Instagram-verhaal, WhatsApp-status
+      of -chat), op verzoek van Jan: niet persoonlijk, alleen een uitnodiging. `src/app/share-card/[card]/route.tsx`
+      maakt met `ImageResponse` (als de deelpreview) vier JPEG's bij de build: verhaal 1080x1920 en vierkant
+      1080x1080, elk in NL en EN (`/share-card/story-nl`, ...; 83-130 KB): het boogkozijn met vier vaste
+      foto's (bosrand, kleiwiel, arena, kaarslicht), de wordmark, "Ontdek wat er mogelijk is voor jou." en
+      "Open je venster" met het adres (nooit localhost: dan windowinto.nl); bij het verhaal staat alles in
+      de middenband, buiten de knoppen van de app. Er staat niets van een bezoeker op. `InviteShare.tsx`: op
+      een telefoon "Deel de afbeelding" via het deelmenu van het toestel (Web Share met bestand: daar staan
+      Instagram en WhatsApp in), overal "Download afbeelding", "Open WhatsApp met de link" en "Kopieer link"
+      (de link is de landing met `utm_source=share_card&utm_medium=story|square`); de knop voor het
+      deelmenu verschijnt alleen waar de browser dat kan. Plekken: de nieuwe pagina `/delen` (ook in de
+      footer, en in de sitemap) en een knop "Deel een uitnodiging" onder de deelknoppen op `/plan`.
+      Events `invite_card_opened`, `invite_card_shared {format, method, source}`, nooit tekst. Copy in
+      `dict.venster.invite` (nl + en), pure helpers in `src/lib/shareInvite.ts`. Instagram rechtstreeks
+      posten kan niet vanuit een website; het deelmenu is de route. Niet gezien: het echte deelmenu op een
+      telefoon en hoe de afbeelding in Instagram of WhatsApp aankomt (de testbrowser heeft dat niet).
+      Getest: 7 nieuwe tests (slugs, adres, copy, de component), kaarten opgehaald en bekeken, `/delen` en
+      `/plan` op 390 px (tikdoelen 44-48 px, geen horizontale scroll).

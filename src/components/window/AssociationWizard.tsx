@@ -14,7 +14,7 @@ import { ASSOCIATION_ROUNDS, type AssociationCard, type AssociationLibrary, type
 import { buildProfileStory } from "@/lib/discovery/profileStory";
 import { ProfileStep } from "@/components/window/ProfileStep";
 import { shortPlace } from "@/lib/place";
-import { sampleRoundCards } from "@/lib/discovery/associationSampling";
+import { sampleRoundCards, sampleWorldExamples } from "@/lib/discovery/associationSampling";
 import { loadSeen, recordSeen } from "@/lib/associationSeen";
 import { buildSill, buildVensterPanes } from "@/lib/vensterPanes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -247,14 +247,13 @@ export function AssociationWizard({
   // --- derived ---------------------------------------------------------------------------
   const chosen = answers.associations ?? [];
   const round = ROUND_OF[pageId];
-  // One variant per card family, nine cards a round; chosen cards always stay in their round.
+  // One variant per card family, nine of the twelve families a round; chosen cards always stay in their round.
   const chosenKey = chosen.join("|");
   const decks = useMemo(() => {
     const out = {} as Record<AssociationRound, AssociationCard[]>;
     for (const r of ASSOCIATION_ROUNDS) {
-      out[r] = seed
-        ? sampleRoundCards(library.cards, r, { seed, seen: seenBefore, keep: chosenKey ? chosenKey.split("|") : [] })
-        : library.cards.filter((c) => c.round === r && (c.family ?? c.id) === c.id);
+      // Before the session seed exists (the first render) a fixed seed gives the same nine as the server drew.
+      out[r] = sampleRoundCards(library.cards, r, { seed: seed || "initial", seen: seenBefore, keep: chosenKey ? chosenKey.split("|") : [] });
     }
     return out;
     // `chosenKey` only keeps what is already picked in place; it cannot change another family.
@@ -606,8 +605,12 @@ export function AssociationWizard({
                     )}
                   >
                     <Image src={domainImage(d.id)} alt="" fill sizes="(min-width: 1024px) 170px, 45vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
-                    <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-3 pb-3 pt-10 text-sm font-semibold leading-snug text-white">
+                    <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent px-3 pb-3 pt-12 text-sm font-semibold leading-snug text-white">
                       {d.label}
+                      {/* A few examples from this direction, other ones in every session. */}
+                      <span className="mt-1 line-clamp-2 block text-[11px] font-normal leading-snug text-white/85">
+                        {sampleWorldExamples(library.worldExamples?.[d.id] ?? [], seed || "initial", d.id).join(" · ")}
+                      </span>
                     </span>
                     <span className="absolute right-2 top-2">{on ? <Check /> : <span className="block h-7 w-7 rounded-full border-2 border-white/80 bg-black/10" />}</span>
                   </button>

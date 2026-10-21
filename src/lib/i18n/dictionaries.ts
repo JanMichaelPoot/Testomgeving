@@ -38,6 +38,7 @@ export interface Dictionary {
     legalHeading: string;
     navHowItWorks: string;
     navExamples: string;
+    navInvite: string;
   };
   consent: { message: string; accept: string; decline: string };
   landing: {
@@ -465,6 +466,7 @@ const nl: Dictionary = {
     legalHeading: "Juridisch",
     navHowItWorks: "Hoe het werkt",
     navExamples: "Voorbeelden",
+    navInvite: "Deel een uitnodiging",
   },
   consent: {
     message:
@@ -1185,6 +1187,7 @@ const en: Dictionary = {
     legalHeading: "Legal",
     navHowItWorks: "How it works",
     navExamples: "Examples",
+    navInvite: "Share an invitation",
   },
   consent: {
     message: "We only use analytics to understand how WINDOW is used — and only after you say it's okay.",

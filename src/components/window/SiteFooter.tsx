@@ -47,6 +47,9 @@ export function SiteFooter({
               <Link href="/#voorbeelden" className="transition-colors hover:text-white">
                 {dict.navExamples}
               </Link>
+              <Link href="/delen" className="transition-colors hover:text-white">
+                {dict.navInvite}
+              </Link>
               <details className="group">
                 <summary className="cursor-pointer list-none transition-colors hover:text-white">
                   {dict.priceFaqLabel}
