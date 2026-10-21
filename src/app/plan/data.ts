@@ -19,6 +19,7 @@ import type { Locale } from "@/lib/language";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database, ProgressMeta, ProgressStage } from "@/types/database";
 import { mergeProgressMeta, stageDurations } from "@/lib/progressStage";
+import { isMissingColumnError } from "@/lib/supabase/errors";
 import { buildAssociationSources, type AssociationSources } from "@/lib/discovery/associations";
 import { buildIdeaThreads, threadSentence } from "@/lib/ideaThread";
 import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
@@ -120,8 +121,6 @@ class SupersededGenerationError extends Error {}
 // The Postgres/PostgREST error code for a unique-constraint violation —
 // see migration 0012_prevent_concurrent_plan_generation.sql.
 const UNIQUE_VIOLATION_CODE = "23505";
-// Postgres: the column does not exist (a migration that has not been run yet).
-const UNDEFINED_COLUMN_CODE = "42703";
 
 // A "pending" row older than this is assumed to belong to a crashed/failed
 // attempt (e.g. the server process died mid-generation, or was killed by
@@ -525,9 +524,9 @@ async function finishPlanGeneration(
     const saveReady = (extra: Record<string, unknown>) =>
       supabase.from("window_plans").update({ ...readyUpdate, ...extra }).eq("id", pendingRow.id).select("*").single();
     let { data: updated, error: updateError } = await saveReady(associationSources ? { association_sources: associationSources } : {});
-    if (updateError?.code === UNDEFINED_COLUMN_CODE && associationSources) {
+    if (isMissingColumnError(updateError) && associationSources) {
       // Migration 0019 has not been run yet: the book is still saved, only without its thread.
-      console.error(`WINDOW: could not save the thread per door (run migration 0019?): ${updateError.message}`);
+      console.error(`WINDOW: could not save the thread per door (run migration 0019?): ${updateError?.message}`);
       ({ data: updated, error: updateError } = await saveReady({}));
     }
 

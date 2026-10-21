@@ -3348,3 +3348,47 @@ Stripe, Claude API, Resend, PostHog).
       telefoon en hoe de afbeelding in Instagram of WhatsApp aankomt (de testbrowser heeft dat niet).
       Getest: 7 nieuwe tests (slugs, adres, copy, de component), kaarten opgehaald en bekeken, `/delen` en
       `/plan` op 390 px (tikdoelen 44-48 px, geen horizontale scroll).
+
+- [x] Stap 81 — "Route 1 + 2" R2.4: testfeedback en meting (de laatste stap van de opdracht).
+      **Vragenlijst** (`TestFeedback.tsx`, alleen met `NEXT_PUBLIC_TEST_FEEDBACK=1`): van drie naar zes
+      vragen, alle optioneel: hoe de flow voelde (1-5), "Voelde je je begrepen door 'Zo kijken wij door jouw
+      venster'?" (1-5), "Snapte je waarom je deze deuren kreeg?" (1-5), "Welke deur zou je echt gaan doen?"
+      (de ideeën van jouw boek met nummer en titel, de wildcard als laatste, of "Geen van deze"), de
+      betaalvraag en "Waar twijfelde je?". `plan/page.tsx` geeft de deuren door in dezelfde volgorde als de
+      onthulling (`orderIdeasByDoor`, wildcard laatst). **PostHog** krijgt in `test_feedback_submitted`
+      `flow_score`, `profile_score`, `doors_score`, `door_pick` (1-6 het idee, 7 de wildcard, 0 = geen),
+      `door_kind` (natural, discovery, unexpected, stretch, wildcard; mijn toevoeging, zodat te zien is welke
+      richting mensen kiezen), `would_pay`, `has_doubt`, `stored`: nooit een titel of tekst. **Supabase**:
+      dezelfde cijfers staan ook in `test_feedback` (migratie `0020_test_feedback_scores.sql`, **nog
+      handmatig uit te voeren**), zodat ze niet verloren gaan zolang er geen PostHog-sleutel is; de vrije
+      tekst staat alleen in `doubt`. Zonder migratie 0020 slaat de actie de oudere antwoorden op.
+      **Echte fout gevonden en gefixt**: de terugval bij een ontbrekende kolom herkende alleen Postgres-code
+      `42703`, maar PostgREST geeft bij een schrijfactie met een onbekende kolom `PGRST204` ("Could not find
+      the 'x' column ... in the schema cache"). Bij de eerste echte proef met de nieuwe vragenlijst bleek
+      daardoor niets te worden opgeslagen (`stored: false`). Nieuw `src/lib/supabase/errors.ts`
+      (`isMissingColumnError`, beide vormen) en toegepast op de vragenlijst én op de terugval van R2.2
+      (`association_sources`, migratie 0019) in `plan/data.ts`: die zou op een database zonder die migratie
+      het hele boek als mislukt hebben afgesloten in plaats van het zonder draad op te slaan. Beide met
+      tests, en de vragenlijst daarna opnieuw live doorlopen (terugval werkt, `stored: true`).
+      **Eventcatalogus** (`src/lib/analyticsEvents.ts`) met alle 37 events en hun toegestane eigenschappen,
+      en een test (`analyticsEvents.test.ts`) die elke `trackEvent(...)`-aanroep in de broncode leest en
+      faalt bij een event dat niet in de lijst staat, een eigenschap die niet is toegestaan, een
+      eigenschapsnaam als tekst/titel/label/plaats/naam/leeftijd (booleans beginnen met `has_`), een event
+      dat niets meer verstuurt, en een overzicht dat niet klopt (mutatie-proef: een `title`-eigenschap en een
+      onbekend event laten de test falen). **Overzicht voor Jan**: `docs/analytics-events.md` (events,
+      eigenschappen, wanneer, waar te bekijken, een funnel en een tabel voor één testrun; een tabelrij per
+      event wordt door dezelfde test afgedwongen). De PostHog-sleutel is de *project*-sleutel (`phc_...`).
+      **Gemeten** (browser, `npm run dev`, `window.__windowEvents`): uit R2.1 `profile_viewed`,
+      `profile_axis_changed {axis}`, `profile_agreed {adjusted}`, `profile_reflection {has_reflection}`,
+      daarna `intake_submitted` en `checkout_viewed`; uit P0-2 `generation_stalled {stage, seconds}` met een
+      nagemaakte rij van 125 s; verder `plan_viewed`, `idea_opened`, `test_feedback_submitted`. Geen enkele
+      eigenschap bevat tekst. In dev komen `intake_started` en `checkout_viewed` dubbel door React Strict
+      Mode; in productie niet. **Verzenden**: met een nep-sleutel lokaal bevestigd dat zonder toestemming
+      niets naar PostHog gaat (`denied`), en met toestemming de browser PostHog initialiseert en per
+      gebatchte lading `https://eu.i.posthog.com/e/` aanroept (status 200); de inhoud van de berichten kon de
+      testbrowser niet tonen. **Niet gezien**: dat events in jouw PostHog-dashboard aankomen (dat vraagt jouw
+      sleutel en een testrun), de regio van jouw PostHog-project (de app en de beveiligingsregels gaan uit
+      van EU, `eu.i.posthog.com`), het volledige invoegen met de nieuwe kolommen (migratie 0020 is nog niet
+      uitgevoerd) en `checkout_pay_clicked` (vraagt een Stripe-sessie). Tijdelijke instellingen in
+      `.env.local` (testvlag, nep-sleutel) zijn teruggezet, het testrijtje in `test_feedback` en de nagemaakte
+      rij zijn verwijderd. 436 unit-tests, `tsc`, lint, build en 22 Playwright-tests schoon.

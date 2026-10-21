@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/window/SiteHeader";
 import { PlanReveal } from "@/components/window/PlanReveal";
 import { TestFeedback } from "@/components/window/TestFeedback";
 import { testFeedbackEnabled } from "@/lib/testFeedback";
+import { orderIdeasByDoor } from "@/lib/possibilityMap";
 import { formatPrice } from "@/lib/pricing";
 import { GeneratingScreen } from "@/components/window/GeneratingScreen";
 import {
@@ -258,6 +259,13 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   // controls for anyone else instead of showing buttons that would fail.
   const canInteract = (await getSessionId()) === plan.session_id;
 
+  // The ideas a tester can pick in the questionnaire, numbered the way the reveal shows them (door order,
+  // the wildcard last). Only the number and the kind of door go to the analytics, never the title.
+  const feedbackDoors = [
+    ...orderIdeasByDoor(ideas).map(({ idea }, i) => ({ number: i + 1, kind: idea.door, title: idea.title })),
+    ...(wildcard ? [{ number: ideas.length + 1, kind: "wildcard" as const, title: wildcard.title }] : []),
+  ];
+
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
@@ -285,7 +293,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           siteUrl={process.env.NEXT_PUBLIC_SITE_URL}
         />
         {testFeedbackEnabled(process.env.NEXT_PUBLIC_TEST_FEEDBACK) && (
-          <TestFeedback planId={plan.id} locale={locale} price={formatPrice(locale)} dict={dict.venster.feedback} />
+          <TestFeedback planId={plan.id} locale={locale} price={formatPrice(locale)} dict={dict.venster.feedback} doors={feedbackDoors} />
         )}
       </main>
     </div>

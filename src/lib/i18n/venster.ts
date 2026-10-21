@@ -210,6 +210,12 @@ export interface VensterDictionary {
     sub: string;
     scoreLabel: string;
     scoreOptions: string[];
+    /** R2.4: understood by the profile screen / got why these doors; both 1-5. */
+    profileLabel: string;
+    doorsLabel: string;
+    agreeOptions: string[];
+    pickLabel: string;
+    pickNone: string;
     payLabel: string; // {price}
     payOptions: { value: "yes" | "maybe" | "no"; label: string }[];
     doubtLabel: string;
@@ -575,9 +581,14 @@ export const vensterNl: VensterDictionary = {
   },
   feedback: {
     heading: "Je helpt ons enorm",
-    sub: "Dit is een testversie. Drie korte vragen, het kost een halve minuut.",
+    sub: "Dit is een testversie. Zes korte vragen, het kost ongeveer een minuut. Alles mag je overslaan.",
     scoreLabel: "Hoe voelde het om je venster te vullen?",
     scoreOptions: ["Taai", "Matig", "Prima", "Fijn", "Heerlijk"],
+    profileLabel: "Voelde je je begrepen door \u201CZo kijken wij door jouw venster\u201D?",
+    doorsLabel: "Snapte je waarom je deze deuren kreeg?",
+    agreeOptions: ["Helemaal niet", "Niet echt", "Half", "Vrij goed", "Helemaal"],
+    pickLabel: "Welke deur zou je echt gaan doen?",
+    pickNone: "Geen van deze",
     payLabel: "Zou je {price} betalen voor dit boek?",
     payOptions: [
       { value: "yes", label: "Ja" },
@@ -946,9 +957,14 @@ export const vensterEn: VensterDictionary = {
   },
   feedback: {
     heading: "You're helping us a lot",
-    sub: "This is a test version. Three short questions, half a minute.",
+    sub: "This is a test version. Six short questions, about a minute. You can skip anything.",
     scoreLabel: "How did it feel to fill your window?",
     scoreOptions: ["Tough", "So-so", "Fine", "Nice", "Lovely"],
+    profileLabel: "Did you feel understood by \u201CHow we look through your window\u201D?",
+    doorsLabel: "Did you get why you received these doors?",
+    agreeOptions: ["Not at all", "Not really", "Half", "Fairly well", "Completely"],
+    pickLabel: "Which door would you really do?",
+    pickNone: "None of these",
     payLabel: "Would you pay {price} for this book?",
     payOptions: [
       { value: "yes", label: "Yes" },

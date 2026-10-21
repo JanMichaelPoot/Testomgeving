@@ -406,6 +406,10 @@ export interface Database {
           id: string;
           plan_id: string | null;
           flow_score: number | null;
+          profile_score: number | null;
+          doors_score: number | null;
+          door_pick: number | null;
+          door_kind: "natural" | "discovery" | "unexpected" | "stretch" | "wildcard" | null;
           would_pay: "yes" | "maybe" | "no" | null;
           doubt: string | null;
           locale: string | null;
@@ -415,6 +419,10 @@ export interface Database {
           id?: string;
           plan_id?: string | null;
           flow_score?: number | null;
+          profile_score?: number | null;
+          doors_score?: number | null;
+          door_pick?: number | null;
+          door_kind?: "natural" | "discovery" | "unexpected" | "stretch" | "wildcard" | null;
           would_pay?: "yes" | "maybe" | "no" | null;
           doubt?: string | null;
           locale?: string | null;
