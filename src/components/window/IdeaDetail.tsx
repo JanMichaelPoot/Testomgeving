@@ -3,6 +3,7 @@ import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookType
 import { mapsSearchUrl } from "@/lib/maps";
 import { ideaPhoto } from "@/lib/illustrations";
 import { cn } from "@/lib/utils";
+import { IdeaMore } from "@/components/plan/IdeaMore";
 import type { Locale } from "@/lib/language";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -24,6 +25,8 @@ export function IdeaDetail({
   labels,
   dict,
   isWildcard = false,
+  moreCopy,
+  moreMode = "full",
 }: {
   idea: IdeaBookEntry;
   index: number | null;
@@ -32,6 +35,9 @@ export function IdeaDetail({
   labels: Record<string, string>;
   dict: Dictionary["pdfChrome"];
   isWildcard?: boolean;
+  // R2.3: the extra layers (feels like, three sizes, places, ...). Left out: nothing extra is shown.
+  moreCopy?: Dictionary["venster"]["more"];
+  moreMode?: "full" | "shared";
 }) {
   const practicalLine = [
     idea.practical.estimated_cost,
@@ -162,6 +168,8 @@ export function IdeaDetail({
             </p>
           </div>
         )}
+
+        {moreCopy && <IdeaMore idea={idea} copy={moreCopy} mode={moreMode} />}
       </div>
     </div>
   );

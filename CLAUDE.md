@@ -3191,3 +3191,96 @@ Stripe, Claude API, Resend, PostHog).
       echt de kolom vult is **niet** live gezien (dat vraagt een nieuwe generatie); alleen de code
       en de terugval bij een ontbrekende kolom zijn gelezen en getypecheckt. Ook niet gezien: de
       Engelse weergave.
+
+- [x] Stap 78 — "Route 1 + 2" R2.3: meer body per deur. **Eerst gerekend, daarna gebouwd** (Jan keurde
+      beide voorstellen goed: B5 = maximaal +€0,03 per boek, en "gratis" alleen als de bron of de
+      instapnotitie het steunt, geen afstanden zodat `localResearch.ts` ongewijzigd bleef).
+      **Meting** (3 bestaande boeken, `count_tokens`, geen generatie): ±2.600 tokens uitvoer per boek
+      (±370 per idee); schrijfcall ≈ $0,042, onderzoek ≈ $0,10, totaal ≈ $0,145 (€0,13), ±50 s.
+      **Schatting nieuwe lagen**: +±1.600 uitvoertokens (+±400 invoer) = +$0,017 (≈ +€0,016, +12%) en
+      +±18 s schrijftijd (±70 s totaal, onder de 120 s). De lagen "echte plekken" en "ook in deze
+      richting" kosten niets (uit het onderzoek, resp. de relatiegraaf). **Nog niet gemeten met een echte
+      generatie**: zie "Testgeneraties" hieronder, die vielen duurder en trager uit.
+      **Wat er is**: per idee uit de motor optioneel `feels_like` (2 zinnen), `sizes` (precies drie:
+      Proeven ±1 uur, Doen halve dag, Doorpakken weekend/cursus, elk titel + zin + kosten + duur),
+      `next_step`, `places` (tot 3 plekken rechtstreeks uit het onderzoek, nooit door het model
+      geschreven: naam, plaats, website, Maps-link; geen afstand) en `related` (tot 3 "ook in deze
+      richting", `relatedActivities`/`relatedActivitiesIn` in `engine/related.ts`: leest alleen
+      `graph.ts`, filtert met `passesConstraints`, sluit alle deuren van het boek uit en toont een
+      activiteit hooguit één keer). Types, validatie en harde lengtegrenzen staan in
+      `claude/ideaLayers.ts` (te lang of ontbrekend = die laag weg, nooit afgekapt; drie maten of
+      geen). `generateFromSeeds.ts`: prompt + schema (de drie velden staan in het schema, zijn in het
+      boek optioneel). Oude boeken en boeken uit de klassieke pijplijn hebben de lagen niet en tonen
+      niets extra's. **Weergave** (`components/plan/IdeaMore.tsx`): op `/plan` in het ideevenster en bij
+      "Als je er maar één kiest": op een computer altijd zichtbaar, op een telefoon achter de vouw
+      "Meer over deze deur" (twee weergaven van dezelfde lagen, met CSS gewisseld). De drie maten zijn
+      een veegrij met zichtbare volgende kaart waar weinig ruimte is en drie kolommen waar wel (een
+      container query, dus ook in het venster); plekken als lijst met "Op de kaart" en "Website"
+      (44px), "Ook in deze richting" als chips. **`/shared/[id]`** toont alleen de drie maten (geen
+      draad, geen plekken, niets persoonlijks). **PDF**: een idee met lagen krijgt een tweede pagina
+      ("Meer over deze deur", dunne foto, zelfde stijl; klikbare kaart- en websitelinks), de kaartpagina
+      en de knop "Bekijk als PDF-pagina" gebruiken dezelfde paginanummering (`pdfPageNumbers`);
+      een boek zonder lagen blijft precies 10 pagina's. De pagina meet alles vooraf en kiest de ruimste
+      van vier spaties die boven de voettekst eindigt (bij alle velden op hun maximum: slankere
+      fotostrook, strakkere ruimte, laatste redmiddel geen notities onder de plekken), dus niets loopt
+      eroverheen. `PDF_VERSION` = 5. **Duur per stap**: `finishPlanGeneration` logt nu één regel
+      "seconds per step" (`stageDurations`) en het totaal. Nieuwe copy (`dict.venster.more`, nl + en).
+      **Afwijking van de bouwopdracht**: de lagen staan bij "Meer over deze deur" ná de bestaande
+      blokken in plaats van ertussen (zo verdwijnt of verschuift niets dat er al was).
+      Getest: 395 unit-tests (nieuw: o.a. de pijplijn met een nagebootst model en onderzoek: de lagen
+      worden bewaard, plekken komen alleen uit het onderzoek, "ook in deze richting" bevat nooit een
+      deur van het boek en geen dubbele, een kapotte laag laat het boek niet falen; `relatedActivities`;
+      de paginatelling 10 / 12 / 17 en < 4 MB; `IdeaMore` zonder lagen / volledig / gedeeld),
+      `tsc`, lint, `npm run build`, 22 Playwright-tests; in de browser op 390 en 1280 px met
+      voorbeeldlagen op een testboek (daarna hersteld uit een back-up): vouw, veegrij, plekken,
+      chips, venster in drie kolommen, gedeelde pagina alleen de drie maten, geen horizontale
+      scroll (daarbij een eigen bug gevonden: de veegrij maakte de kaart breder dan het scherm, opgelost
+      met `contain: inline-size`). Voorbeeld-PDF's (`scripts/render-sample-pdfs.ts`) in 17 / 17 / 10
+      pagina's bekeken, ook met alle velden op hun maximum. **Niet gezien**: de Engelse weergave en een
+      Engelstalige generatie.
+      **Testgeneraties (twee echte, via de testbypass, Jan akkoord, ≈$0,41 samen)**: voor jezelf
+      (Utrecht) en cadeau voor Judith (Haarlem), beide in `pdf_version` 5 met 17 pagina's (1,8 / 1,5 MB).
+      *Voor jezelf*: onderzoek 19,5 s ($0,10), schrijven 67 s met 6.571 in / 5.980 uit ($0,073),
+      totaal 91 s, ≈$0,174 (was ≈$0,145: +20%; de lagen kosten ≈$0,031 = ±€0,029, dus op de grens van B5
+      = +€0,03); de uitvoer is +±2.900 tokens, bijna het dubbele van de schatting (+1.600).
+      *Cadeau*: de schrijfcall liep **twee keer** (de eerste uitkomst is weggegooid; de reden stond niet
+      in de log, nu wel: `writing attempt N failed: ...`), samen 129 s schrijven en 150 s totaal, ≈$0,235
+      (dat gebeurde met één call voor alles; zie de aanpassing hieronder).
+      Een herpoging passeert dus de 120 s van `maxDuration` en de 150 s van `PENDING_TIMEOUT_MS`.
+      Inhoud: `feels_like` is bij alle 14 ideeën goed (zintuiglijk, 2 zinnen); `sizes` ontbrak bij 2 van
+      de 7 ideeën van het cadeauboek (de validatie liet de laag weg; de reden wordt nu in `issues`
+      gelogd als `ideaN:sizes_dropped (...)`); plekken komen uit het onderzoek (geen plek bij 5 van de 14
+      ideeën); "ook in deze richting" is meestal passend, soms zwak (bv. "Zelf je fiets repareren" bij
+      imkeren). Eerlijkheid: bij "Proeven" staat een paar keer "Gratis" voor een open dag zonder
+      steun in het onderzoek, en het cadeauboek noemt het Noord-Hollands Archief (echt, maar niet uit het
+      onderzoek); de controle in `checkEntry` ziet namen in `sizes`/`next_step` niet. Eén "Proeven" duurt
+      3 uur (diorama).
+      **Aanpassing na die testgeneraties (Jan koos optie A + aanscherping)**: (1) de lagen worden
+      door een **tweede call** geschreven die tegelijk loopt met de call voor de ideeën
+      (`writeLayers`, tool `create_layers`, eigen prompt `LAYERS_SYSTEM_PROMPT`; de drie laagregels
+      zijn uit de kernprompt gehaald). De laagcall wordt niet herhaald en laat bij falen het boek
+      zonder lagen (gelogd); de kern behoudt zijn ene herpoging, die de laagcall niet opnieuw doet.
+      (2) De laagprompt is aangescherpt: noem een bedrijf, club, plek of website alleen als hij bij
+      dat idee in de geverifieerde opties staat (nooit uit het geheugen, hoe bekend ook), "Gratis"
+      alleen als die opties of de "Easy way in" het zeggen of er helemaal niets te kopen of te boeken
+      valt (thuis stil zitten, een wandeling vanaf je eigen deur), anders "vanaf ±€x" met "prijs
+      varieert", en "Proeven" duurt hooguit negentig minuten. (3) Een weggelaten maat wordt in
+      `report.issues` gelogd als `ideaN:sizes_dropped (reden)`, een mislukte schrijfpoging als
+      `writing attempt N failed: ... (ideas: n, wildcard: ja/nee)`. (4) `splitCoreAnswer`: in beide
+      cadeauboeken werd het eerste antwoord van de ideeëncall weggegooid ("verkeerd aantal ideeën")
+      en alles opnieuw betaald. Zeven items onder `ideas` zonder wildcard (het laatste is de wildcard)
+      of zeven plus een wildcard (de gegeven wildcard telt) worden nu geaccepteerd; al het andere
+      gaat nog naar de herpoging. Dat dit de werkelijke oorzaak van de weggegooide antwoorden is, is
+      een aanname (de oorzaak stond niet in de log): bij de volgende generatie laat de log het zien.
+      **Nieuwe testgeneratie** (cadeau Judith, Haarlem, vóór de splitCoreAnswer-aanpassing): geen
+      enkele maat weggelaten (`issues: none`), alle 7 ideeën hebben alle lagen, geen verzonnen
+      namen in de maten (de namen komen uit het onderzoek; "Gratis" staat alleen bij een wandeling
+      en een gratis skeelerroute uit het onderzoek), Proeven hooguit 1,5 uur. Tijd 99,7 s totaal
+      (onderzoek 23 s, schrijven 71 s met een herpoging van de kern: elke call ±35 s, de laagcall
+      35 s tegelijk), dus zonder herpoging ±65 s. Kosten: onderzoek $0,105, kern 6.085 in /
+      3.057-3.208 uit ($0,044 per call), lagen 5.106 in / 2.706 uit ($0,037); zonder herpoging
+      ≈$0,187, met de herpoging ≈$0,229. Dat is +$0,042 (±€0,039, +29%) tegen de $0,145 van vóór
+      R2.3, dus **boven de B5-grens van +€0,03** (de splitsing kost ≈$0,01 extra invoer); Jan kende dat
+      verschil vooraf. Deze generatie is niet opnieuw met de nieuwe herpoging-afvanger gedaan.
+      Bekend (niet door deze stap): `vitest` meldt bij de zware associatietests ("Timeout calling
+      onTaskUpdate") één werker-time-out; hij verschijnt ook zonder deze wijziging en alle tests slagen.

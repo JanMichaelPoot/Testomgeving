@@ -14,7 +14,15 @@ import {
   toTextArray,
 } from "@/lib/claude/generateIdeaBook";
 import { researchSeeds, type LocalOption, type SeedResearch } from "@/lib/claude/localResearch";
-import { engineInputFromIntake, runEngine } from "@/lib/discovery/engine";
+import { engineInputFromIntake, relatedActivities, runEngine } from "@/lib/discovery/engine";
+import {
+  normalizeFeelsLike,
+  normalizeNextStep,
+  normalizePlaces,
+  checkSizes,
+  normalizeSizes,
+  type RelatedActivity,
+} from "@/lib/claude/ideaLayers";
 import type { EngineResult, Seed } from "@/lib/discovery/engine";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
@@ -89,6 +97,52 @@ For every idea:
 
 Also write profile_summary (one warm, specific sentence reflecting their situation back), must_haves and
 preferences (short cleaned-up phrases echoing what they told you; do not invent new ones).
+
+Write absolutely everything in {{LANGUAGE}}, not English, unless {{LANGUAGE}} is English.`;
+
+// R2.3 "more body per door": the extra layers are written by a SECOND call that runs at the same time
+// as the one above, so the book takes about as long as the longer of the two instead of the sum
+// (one call with everything took 65 s to write and went over the time limit when it had to retry).
+// The layers are optional: if this call fails the book is delivered without them.
+const LAYERS_SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
+
+The person has just paid for their WINDOW Idea Book. Seven ideas (six regular ideas plus one wildcard) have
+ALREADY BEEN CHOSEN for them and are being written by someone else. You write ONLY the extra layers of each
+idea, in the order given. You receive the profile and the seven activities, each with the door it belongs to,
+how the person wants to take part, an easy way in, and real local options found by research.
+
+Do not swap, add, drop or rename the activities and do not change their order. Every field has a length limit:
+concise and specific reads as considered, padding reads as filler.
+
+Rules for using the profile:
+- Fields marked as MUST-HAVES are hard constraints: no size or step may violate one.
+- If the profile says the book is a GIFT, write to the recipient ("you"), never about "the buyer".
+- The internal character signals are for tone only; never name them or conclude anything about the person's
+  character from their interests.
+
+For every idea:
+- feels_like: exactly two short sentences (max ~30 words in all), present tense, second person: a sensory scene
+  of what it is like to be there (what you see, hear, smell, touch). Only what is true of this kind of activity
+  in general: no named place, no price, no promise. If the person's chosen sense images fit the idea you may let
+  one of them colour the scene, never forced and never named literally.
+- sizes: exactly three, in this order: (1) a taste: the cheapest real way to try it, about one hour and never
+  more than ninety minutes; (2) a day: about half a day, the proper first experience; (3) further: a weekend, a
+  course or a series, for when they love it. Each has a title (max ~4 words), description (one sentence, max ~16
+  words), estimated_cost and duration (both short, max ~25 characters).
+- next_step: one sentence (max ~18 words): what to do after the first time (a second go, the next level,
+  joining something).
+
+Honesty. These matter more than anything above:
+- Name a business, club, venue or website ONLY when it appears in THAT idea's verified local options. Otherwise
+  stay generic ("een lokale vereniging", "een workshop in de buurt"). Never name an organisation from memory,
+  however well known it is.
+- Write "Gratis" ONLY when that idea's verified local options or its "Easy way in" line say it is free, or when
+  nothing at all has to be bought or booked (sitting still at home, a walk from your own door). Anything that
+  depends on somebody else's offer (an open day, a trial class, a rental) gets a rough starting price ("vanaf
+  ±€10") and the description says the price varies.
+- Keep every cost approximate. Never invent a price list, opening hours or an address.
+- If an idea says it may only be done with qualified supervision, its taste is the supervised, legal first
+  step.
 
 Write absolutely everything in {{LANGUAGE}}, not English, unless {{LANGUAGE}} is English.`;
 
@@ -189,12 +243,96 @@ const ENTRY_SCHEMA = {
   required: ["title", "intro", "why_it_fits", "details", "first_action", "practical", "location", "requirements"],
 };
 
+// The layers of one idea (written by the second call).
+const LAYER_ENTRY_SCHEMA = {
+  type: "object" as const,
+  properties: {
+    feels_like: { type: "string" },
+    sizes: {
+      type: "array",
+      minItems: 3,
+      maxItems: 3,
+      items: {
+        type: "object" as const,
+        properties: {
+          title: { type: "string" },
+          description: { type: "string" },
+          estimated_cost: { type: "string" },
+          duration: { type: "string" },
+        },
+        required: ["title", "description", "estimated_cost", "duration"],
+      },
+    },
+    next_step: { type: "string" },
+  },
+  required: ["feels_like", "sizes", "next_step"],
+};
+
+interface RawLayer {
+  feels_like?: unknown;
+  sizes?: unknown;
+  next_step?: unknown;
+}
+
+/**
+ * The second call: the layers of all ideas, in the order of the seeds. Never throws and is not retried:
+ * the layers are optional, so a failure just means a book without them (and it is logged).
+ */
+async function writeLayers(system: string, user: string, count: number): Promise<RawLayer[] | null> {
+  try {
+    const startedAt = Date.now();
+    const message = await anthropic.messages.create({
+      model: CLAUDE_MODEL,
+      max_tokens: 6000,
+      system,
+      messages: [{ role: "user", content: user }],
+      tools: [
+        {
+          name: "create_layers",
+          description: "Return the extra layers of every idea.",
+          input_schema: {
+            type: "object",
+            properties: { ideas: { type: "array", minItems: count, maxItems: count, items: LAYER_ENTRY_SCHEMA } },
+            required: ["ideas"],
+          },
+        },
+      ],
+      tool_choice: { type: "tool", name: "create_layers" },
+    });
+    console.log(`WINDOW: layers call took ${Date.now() - startedAt}ms, usage=${JSON.stringify(message.usage)}`);
+    const input = extractToolInput<{ ideas?: unknown }>(message, "create_layers");
+    if (!Array.isArray(input.ideas) || input.ideas.length !== count) {
+      throw new Error(`expected ${count} entries, got ${Array.isArray(input.ideas) ? input.ideas.length : "none"}`);
+    }
+    return input.ideas as RawLayer[];
+  } catch (err) {
+    console.warn(`WINDOW: layers call failed, the book goes without them: ${err instanceof Error ? err.message : String(err)}`);
+    return null;
+  }
+}
+
 interface RawBook {
   profile_summary?: unknown;
   must_haves?: unknown;
   preferences?: unknown;
   ideas?: unknown;
   wildcard?: unknown;
+}
+
+/**
+ * The ideas call is asked for six ideas plus a separate wildcard. In both test books made for a gift, the first
+ * answer was thrown away for having "the wrong number of ideas" and the whole call was paid for again (twice
+ * the cost, and 35 s more). The two near misses that cannot be misread are accepted instead:
+ *  - seven entries under "ideas" and no wildcard: the last one is the wildcard (it is the last idea we asked for),
+ *  - seven entries under "ideas" and a wildcard: the wildcard that was given is used.
+ * Anything else is still an unusable answer (null) and goes to the retry.
+ */
+export function splitCoreAnswer(candidate: RawBook, count: number): { ideas: unknown[]; wildcard: unknown } | null {
+  if (!Array.isArray(candidate.ideas)) return null;
+  const list = candidate.ideas as unknown[];
+  if (list.length === count - 1 && candidate.wildcard) return { ideas: list, wildcard: candidate.wildcard };
+  if (list.length === count) return { ideas: list.slice(0, count - 1), wildcard: candidate.wildcard || list[count - 1] };
+  return null;
 }
 
 // --- checks against the research ------------------------------------------------------------
@@ -249,10 +387,27 @@ export function checkEntry(entry: IdeaBookEntry, options: LocalOption[], allRese
   return { entry: out, issues };
 }
 
-function buildEntry(raw: unknown, seed: Seed): IdeaBookEntry {
+function buildEntry(
+  raw: unknown,
+  seed: Seed,
+  research: SeedResearch | undefined,
+  related: RelatedActivity[],
+  layer: RawLayer | undefined,
+): IdeaBookEntry {
   const e = (raw ?? {}) as Record<string, unknown>;
   const a = getActivity(seed.activityId)!;
+  // R2.3 layers: each one is kept only when valid, so a layer can never fail the book.
+  const feels_like = normalizeFeelsLike(layer?.feels_like);
+  const sizes = normalizeSizes(layer?.sizes);
+  const next_step = normalizeNextStep(layer?.next_step);
+  const places = normalizePlaces(research?.options);
   return {
+    ...(feels_like ? { feels_like } : {}),
+    ...(sizes ? { sizes } : {}),
+    ...(next_step ? { next_step } : {}),
+    // Straight from the research (never written by the model), so each one is a verified place.
+    ...(places.length ? { places } : {}),
+    ...(related.length ? { related } : {}),
     title: toText(e.title),
     intro: toText(e.intro),
     why_it_fits: toText(e.why_it_fits),
@@ -311,13 +466,21 @@ export async function generateIdeaBookFromSeeds(
   // 3. Write the ideas (one retry on a malformed answer, without repeating the research).
   const language = languageLabel(locale);
   const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language);
-  const user = `${formatProfile(intake, characterProfile)}
+  const layersSystem = LAYERS_SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language);
+  const shared = `${formatProfile(intake, characterProfile)}
 
-The seven ideas to write (in this order; Idea ${seeds.length} is the wildcard):
+The seven ideas (in this order; Idea ${seeds.length} is the wildcard):
 
-${seeds.map((s, i) => seedBlock(s, i, research.byActivity.get(s.activityId), locale, intake.associations ?? [])).join("\n\n")}
+${seeds.map((s, i) => seedBlock(s, i, research.byActivity.get(s.activityId), locale, intake.associations ?? [])).join("\n\n")}`;
+  const user = `${shared}
 
 Call the create_idea_book tool exactly once: ${seeds.length - 1} entries in "ideas" (Ideas 1-${seeds.length - 1}, same order) plus the wildcard entry for Idea ${seeds.length}.`;
+  const layersUser = `${shared}
+
+Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", for Ideas 1-${seeds.length} in the order given (Idea ${seeds.length} is the wildcard).`;
+
+  // The layers are written at the same time as the ideas themselves, so they add no waiting time.
+  const layersPromise = writeLayers(layersSystem, layersUser, seeds.length);
 
   let raw: RawBook | null = null;
   let lastError: unknown;
@@ -350,16 +513,24 @@ Call the create_idea_book tool exactly once: ${seeds.length - 1} entries in "ide
       });
       console.log(`WINDOW: main generation call took ${Date.now() - startedAt}ms, usage=${JSON.stringify(message.usage)}`);
       const candidate = extractToolInput<RawBook>(message, "create_idea_book");
-      if (!Array.isArray(candidate.ideas) || candidate.ideas.length !== seeds.length - 1 || !candidate.wildcard) {
-        throw new Error("Claude did not return the expected number of ideas. Please try again.");
+      const split = splitCoreAnswer(candidate, seeds.length);
+      if (!split) {
+        const n = Array.isArray(candidate.ideas) ? candidate.ideas.length : "no list";
+        throw new Error(`Claude did not return the expected number of ideas (ideas: ${n}, wildcard: ${candidate.wildcard ? "yes" : "no"}). Please try again.`);
       }
-      raw = candidate;
+      if ((candidate.ideas as unknown[]).length !== seeds.length - 1 || !candidate.wildcard) {
+        console.warn(`WINDOW: the ideas call listed ${(candidate.ideas as unknown[]).length} ideas and ${candidate.wildcard ? "a" : "no"} wildcard; split it as asked instead of paying for a second call`);
+      }
+      raw = { ...candidate, ideas: split.ideas, wildcard: split.wildcard };
     } catch (err) {
       lastError = err;
+      // A failed attempt costs a full writing call again: say why, so it can be seen in the logs.
+      console.warn(`WINDOW: writing attempt ${attempt} failed: ${err instanceof Error ? err.message : String(err)}`);
       if (attempt < 2) await new Promise((r) => setTimeout(r, 1000 * attempt));
     }
   }
   if (!raw) throw lastError ?? new Error("Idea generation failed.");
+  const layers = await layersPromise;
 
   // 4. Assemble and check.
   const allHosts = new Set<string>();
@@ -367,13 +538,34 @@ Call the create_idea_book tool exactly once: ${seeds.length - 1} entries in "ide
   const issues: string[] = [];
   const regular = seeds.filter((s) => s.direction !== "wildcard");
   const wild = seeds.find((s) => s.direction === "wildcard") ?? seeds[seeds.length - 1];
+  // "Also in this direction": by code, from the relation graph, with the same hard filters as the
+  // selection. The doors of the book are never listed, and one activity is shown at most once.
+  const taken = new Set(seeds.map((s) => s.activityId));
+  const relatedFor = (seed: Seed): RelatedActivity[] => {
+    const found = relatedActivities(seed.activityId, engine.constraints, taken, 3);
+    for (const a of found) taken.add(a.id);
+    return found.map((a) => ({ id: a.id, label: a.label[locale] }));
+  };
+  // A layer the model wrote but that did not pass validation is left out; say so, so it shows in the log.
+  const layerFor = (seed: Seed): RawLayer | undefined => layers?.[seeds.indexOf(seed)];
+  const layerIssues = (label: string, seed: Seed) => {
+    if (!layers) return;
+    const sizes = checkSizes(layerFor(seed)?.sizes);
+    if (sizes.problem) issues.push(`${label}:sizes_dropped (${sizes.problem})`);
+  };
   const ideas = (raw.ideas as unknown[]).map((r, i) => {
     const seed = regular[i];
-    const checked = checkEntry(buildEntry(r, seed), research.byActivity.get(seed.activityId)?.options ?? [], allHosts);
+    layerIssues(`idea${i + 1}`, seed);
+    const checked = checkEntry(buildEntry(r, seed, research.byActivity.get(seed.activityId), relatedFor(seed), layerFor(seed)), research.byActivity.get(seed.activityId)?.options ?? [], allHosts);
     issues.push(...checked.issues.map((x) => `idea${i + 1}:${x}`));
     return checked.entry;
   });
-  const wildChecked = checkEntry(buildEntry(raw.wildcard, wild), research.byActivity.get(wild.activityId)?.options ?? [], allHosts);
+  layerIssues("wildcard", wild);
+  const wildChecked = checkEntry(
+    buildEntry(raw.wildcard, wild, research.byActivity.get(wild.activityId), relatedFor(wild), layerFor(wild)),
+    research.byActivity.get(wild.activityId)?.options ?? [],
+    allHosts,
+  );
   issues.push(...wildChecked.issues.map((x) => `wildcard:${x}`));
   if (ideas.some((i) => !i.title || !i.why_it_fits || i.details.length === 0) || !wildChecked.entry.title) {
     throw new Error("Claude returned incomplete ideas. Please try again.");

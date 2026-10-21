@@ -15,6 +15,7 @@ import {
 } from "@/app/plan/data";
 import { retryPlanGeneration } from "@/app/plan/actions";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
+import { withValidLayers } from "@/lib/claude/ideaLayers";
 import { getLocale, type Locale } from "@/lib/language";
 import { getSessionId } from "@/lib/session";
 import { buildPlanEcho } from "@/lib/planEcho";
@@ -221,11 +222,11 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   }
 
   const ideas = Array.isArray(plan.ideas_json)
-    ? (plan.ideas_json as unknown as IdeaBookEntry[])
+    ? (plan.ideas_json as unknown as IdeaBookEntry[]).map(withValidLayers)
     : [];
   const wildcard =
     plan.wildcard_json && typeof plan.wildcard_json === "object"
-      ? (plan.wildcard_json as unknown as IdeaBookEntry)
+      ? withValidLayers(plan.wildcard_json as unknown as IdeaBookEntry)
       : null;
   const labels = (plan.labels_json ?? {}) as Record<string, string>;
 

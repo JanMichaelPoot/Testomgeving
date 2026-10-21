@@ -87,3 +87,20 @@ export function phaseLabels(
     return copy.phasesDone[i] ?? todo;
   });
 }
+
+/**
+ * Seconds per step of one generation, from the moments each step finished (ms since epoch).
+ * Used for the one log line per book that shows where the time goes (R2.3: the new layers
+ * must keep the whole generation under 120 s). Steps that did not report are left out.
+ */
+export function stageDurations(startedAt: number, marks: Partial<Record<string, number>>, order: readonly string[]): Record<string, number> {
+  const out: Record<string, number> = {};
+  let previous = startedAt;
+  for (const stage of order) {
+    const at = marks[stage];
+    if (at === undefined) continue;
+    out[stage] = Math.round(((at - previous) / 1000) * 10) / 10;
+    previous = at;
+  }
+  return out;
+}

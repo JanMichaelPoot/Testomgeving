@@ -166,6 +166,24 @@ export interface VensterDictionary {
     pdfImage: string; // {image}
     pdfTags: string; // {tags}
   };
+  // More body per door (R2.3): feels like, three sizes, real places, related, what next.
+  more: {
+    heading: string;
+    feelsHeading: string;
+    sizesHeading: string;
+    /** taste, do, deepen */
+    sizeNames: [string, string, string];
+    /** A small line under each size name: roughly how big it is. */
+    sizeHints: [string, string, string];
+    placesHeading: string;
+    placesNote: string;
+    mapLink: string;
+    siteLink: string;
+    relatedHeading: string;
+    nextHeading: string;
+    /** The PDF's extra page: its small heading and the line above the idea's title. */
+    pdfEyebrow: string;
+  };
   feedback: {
     heading: string;
     sub: string;
@@ -501,6 +519,20 @@ export const vensterNl: VensterDictionary = {
     pdfBoth: "Bij deze deur hoort het beeld ‘{image}’: daarin lazen we {tags}.",
     pdfImage: "Bij deze deur hoort het beeld ‘{image}’.",
     pdfTags: "In de gekozen beelden lazen we {tags}.",
+  },
+  more: {
+    heading: "Meer over deze deur",
+    feelsHeading: "Hoe het voelt",
+    sizesHeading: "Drie maten",
+    sizeNames: ["Proeven", "Doen", "Doorpakken"],
+    sizeHints: ["± 1 uur", "Een halve dag", "Een weekend of een cursus"],
+    placesHeading: "Echte plekken",
+    placesNote: "Uit ons onderzoek. Controleer openingstijden en prijzen zelf.",
+    mapLink: "Op de kaart",
+    siteLink: "Website",
+    relatedHeading: "Ook in deze richting",
+    nextHeading: "Daarna",
+    pdfEyebrow: "Meer over deze deur",
   },
   feedback: {
     heading: "Je helpt ons enorm",
@@ -840,6 +872,20 @@ export const vensterEn: VensterDictionary = {
     pdfBoth: "This door follows from the image ‘{image}’, in which we read {tags}.",
     pdfImage: "This door follows from the image ‘{image}’.",
     pdfTags: "In the chosen images we read {tags}.",
+  },
+  more: {
+    heading: "More about this door",
+    feelsHeading: "How it feels",
+    sizesHeading: "Three sizes",
+    sizeNames: ["Taste", "Do", "Go further"],
+    sizeHints: ["About 1 hour", "Half a day", "A weekend or a course"],
+    placesHeading: "Real places",
+    placesNote: "From our research. Check opening times and prices yourself.",
+    mapLink: "On the map",
+    siteLink: "Website",
+    relatedHeading: "Also in this direction",
+    nextHeading: "Next",
+    pdfEyebrow: "More about this door",
   },
   feedback: {
     heading: "You're helping us a lot",

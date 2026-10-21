@@ -9,6 +9,8 @@ import { IdeaDetail } from "@/components/window/IdeaDetail";
 import { IdeaDialog } from "@/components/window/IdeaDialog";
 import { IdeaFeedback } from "@/components/window/IdeaFeedback";
 import { IdeaThread } from "@/components/plan/IdeaThread";
+import { IdeaMore } from "@/components/plan/IdeaMore";
+import { pdfPageNumbers } from "@/lib/claude/ideaLayers";
 import { ShareButton } from "@/components/window/ShareButton";
 import { commitToIdea, submitIdeaFeedback, type IdeaFeedbackValue } from "@/app/plan/actions";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
@@ -185,11 +187,13 @@ export function PlanReveal({
   // position here (page 1 cover, 2 profile, 3 possibility map).
   const orderedIdeas = useMemo(() => orderIdeasByDoor(ideas), [ideas]);
   const pdfPageByKey = useMemo(() => {
+    // An idea with extra layers has a second PDF page (R2.3), which pushes the later pages on.
+    const pages = pdfPageNumbers(orderedIdeas.map((e) => e.idea));
     const map = new Map<string, number>();
-    orderedIdeas.forEach(({ originalIndex }, i) => map.set(ideaKey(originalIndex), 4 + i));
-    map.set(WILDCARD_KEY, 4 + ideas.length);
+    orderedIdeas.forEach(({ originalIndex }, i) => map.set(ideaKey(originalIndex), pages.ideas[i]));
+    map.set(WILDCARD_KEY, pages.wildcard);
     return map;
-  }, [orderedIdeas, ideas.length]);
+  }, [orderedIdeas]);
 
   const ideasByDoor = useMemo(() => {
     const groups = new Map<Door, typeof orderedIdeas>(DOOR_ORDER.map((door) => [door, []]));
@@ -377,7 +381,7 @@ export function PlanReveal({
                 {planDict.book.oneThingBadge}
               </span>
             </div>
-            <div className="flex flex-col gap-5 p-6 sm:p-9 lg:p-12">
+            <div className="flex min-w-0 flex-col gap-5 p-6 sm:p-9 lg:p-12">
               <div className="flex flex-col gap-2.5">
                 {isDoor(featured.door) && (
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/60">
@@ -448,6 +452,8 @@ export function PlanReveal({
                   <p className="text-[15px] leading-relaxed text-paper">{featured.first_action}</p>
                 </div>
               )}
+
+              {vensterDict && <IdeaMore idea={featured} copy={vensterDict.more} />}
 
               <div className="flex flex-wrap items-center gap-3">
                 {featuredCommitted ? (
@@ -722,6 +728,7 @@ export function PlanReveal({
               labels={labels}
               dict={pdfChromeDict}
               isWildcard={selected.isWildcard}
+              moreCopy={vensterDict?.more}
             />
             {selectedKey && threads[selectedKey] && vensterDict && <IdeaThread thread={threads[selectedKey]} copy={vensterDict.thread} />}
             {canInteract && (

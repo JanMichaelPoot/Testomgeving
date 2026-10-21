@@ -107,3 +107,12 @@ describe("mergeProgressMeta", () => {
     expect(prev).toEqual({ ideas: 7 });
   });
 });
+
+import { stageDurations } from "@/lib/progressStage";
+
+describe("stageDurations", () => {
+  it("gives the seconds each step took, in the given order, and skips steps that did not report", () => {
+    const out = stageDurations(1_000, { selected: 1_400, written: 36_400, rendered: 38_000 }, ["selected", "researched", "written", "rendered"]);
+    expect(out).toEqual({ selected: 0.4, written: 35, rendered: 1.6 });
+  });
+});

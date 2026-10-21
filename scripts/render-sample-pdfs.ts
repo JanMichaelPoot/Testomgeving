@@ -39,8 +39,36 @@ function idea(p: Partial<IdeaBookEntry> & Pick<IdeaBookEntry, "title" | "door">)
   };
 }
 
+
+// R2.3: sample layers (how it feels, three sizes, places, related, what next) for the books that
+// come from the selection engine. `long` fills every field up to its limit to prove one page holds it.
+function layers(n: number, long = false): Partial<IdeaBookEntry> {
+  const pad = (text: string, max: number) => (long ? (text + " " + text + " " + text).slice(0, max).replace(/\s+\S*$/, "") : text);
+  return {
+    feels_like: pad("Je voelt de koele klei onder je duimen. Het draaien zoemt zacht, de rest van de wereld wordt klein.", 318),
+    sizes: [
+      { kind: "taste", title: pad("Een uurtje proberen", 46), description: pad("Eén korte proefles, je handen in de klei en meer niet.", 168), estimated_cost: "vanaf ±€15", duration: "1 uur" },
+      { kind: "do", title: pad("Een middag draaien", 46), description: pad("Een hele middag werken aan een kom die je mee naar huis neemt.", 168), estimated_cost: "±€45", duration: "3 uur" },
+      { kind: "deepen", title: pad("Een cursus van zes weken", 46), description: pad("Elke week een avond, met ruimte om je eigen stijl te vinden.", 168), estimated_cost: "±€180", duration: "6 weken" },
+    ],
+    next_step: pad("Vond je het fijn? Boek dan de middag erna, of vraag naar de cursus.", 168),
+    places: [
+      { name: `Keramiekatelier De Draaischijf ${n}`, city: "Hilversum", url: "https://example.org/draaischijf", note: "Proefles voor beginners op zaterdagochtend." },
+      { name: "Atelier Aan de Vecht", city: "Maarssen", url: null, note: "Open atelier met een kleine cursus." },
+      { name: "Klei & Co", city: "Utrecht", url: "https://example.org/klei", note: "" },
+    ],
+    related: [
+      { id: "beeldhouwen", label: "Beeldhouwen" },
+      { id: "houtbewerking", label: "Houtbewerking" },
+      { id: "tekenen", label: "Tekenen buiten" },
+    ],
+  };
+}
+
 function book(withActivities: boolean): GeneratedIdeaBook {
-  const a = (id: string) => (withActivities ? { activity_id: id } : {});
+  let n = 0;
+  // Engine books (with activity ids) carry the R2.3 layers; the classic book does not, like an old one.
+  const a = (id: string) => (withActivities ? { activity_id: id, ...layers(++n, n === 2) } : {});
   return {
     profile_summary: "Je zoekt iets voor je handen en je hoofd: rustig, buiten waar het kan, samen met je partner.",
     must_haves: ["Geen alcohol"],

@@ -20,6 +20,7 @@ import {
   type RGB,
 } from "pdf-lib";
 import { DIFFICULTY_LABELS, type GeneratedIdeaBook, type IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
+import { hasMoreLayers, pdfPageNumbers } from "@/lib/claude/ideaLayers";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { mapsSearchUrl } from "@/lib/maps";
@@ -343,6 +344,8 @@ export async function renderIdeaBookPdf(
   // wildcard) — used to print real "p. N" references on the overview page
   // instead of a placeholder.
   const FIRST_IDEA_PAGE = 4;
+  // An idea with extra layers (R2.3) has a second page, so later ideas move on by one.
+  const pdfPages = pdfPageNumbers(orderIdeasByDoor(inputBook.ideas).map((e) => e.idea), FIRST_IDEA_PAGE);
 
   const doc = await PDFDocument.create();
   doc.registerFontkit(fontkit);
@@ -802,7 +805,7 @@ export async function renderIdeaBookPdf(
         drawParagraph(mapCopy.doors[door].description, fonts.sans, 8.75, PWA4_INK_MUTED, 3, colX + cardPad, cardWidth - cardPad * 2, 2);
         y -= PWA4_SPACE_2;
         doorIdeas.forEach(({ idea, originalIndex }) => {
-          const pageNum = FIRST_IDEA_PAGE + orderedIdeas.findIndex((e) => e.originalIndex === originalIndex);
+          const pageNum = pdfPages.ideas[orderedIdeas.findIndex((e) => e.originalIndex === originalIndex)];
           const isOneThing = originalIndex === oneThingIndex;
           drawParagraph(
             `${idea.title}  ·  p. ${pageNum}`,
@@ -1519,6 +1522,175 @@ export async function renderIdeaBookPdf(
   // photo variants instead of both landing on the same one (which a
   // page-index-based seed would do whenever two same-category ideas happen
   // to land on pages of the same parity).
+  // --- R2.3 "Meer over deze deur": the second page of an idea that has the extra layers (how it
+  // feels, three sizes, real places, related activities, what next). Same tokens as the idea page,
+  // a slim photo band on top so the two pages read as one spread. Ideas without any layer (every
+  // book made before R2.3) get no second page, so their PDFs are unchanged.
+  //
+  // Every block is measured first. The text is bounded by the layer limits (ideaLayers.ts), but a
+  // book with every layer at its limit is tall, so the page picks the roomiest of three spacings
+  // that still ends above the footer: a smaller photo band, tighter gaps, and as the last resort
+  // no one-line notes under the places. Nothing is ever cut off or drawn over the footer.
+  const moreCopy = dict.venster.more;
+
+  function drawMorePage(idea: IdeaBookEntry, photo: PDFImage, badge: string) {
+    const x0 = PWA4_BODY_PAD_X;
+    const W = PWA4_CONTENT_WIDTH;
+    const PAD = 12;
+    const PILL_ROW = 9.75 + 10;
+
+    const titleLines = wrapText(idea.title, fonts.serif, 22, W, 2);
+    const feelsLines = idea.feels_like ? wrapText(idea.feels_like, fonts.serif, 13, W - PAD * 2 - 6) : null;
+    const feelsH = feelsLines ? PAD * 2 + LABEL_SIZE + 7 + feelsLines.length * 19 : 0;
+
+    const colGap = 9;
+    const colW = (W - colGap * 2) / 3;
+    const inner = colW - PAD * 2;
+    const sizeCards = (idea.sizes ?? []).map((size, i) => {
+      const titleL = wrapText(size.title, fonts.sansBold, 10.25, inner);
+      const descL = wrapText(size.description, fonts.sans, 9, inner);
+      const metaL = wrapText(`${size.estimated_cost} · ${size.duration}`, fonts.sansBold, 8.75, inner);
+      const h = PAD * 2 + LABEL_SIZE + 4 + 11 + 8 + titleL.length * 13.5 + 4 + descL.length * 12.5 + 6 + metaL.length * 12;
+      return { i, titleL, descL, metaL, h };
+    });
+    const sizesRowH = sizeCards.length ? Math.max(...sizeCards.map((c) => c.h)) : 0;
+
+    const placesNoteLines = idea.places?.length ? wrapText(moreCopy.placesNote, fonts.sans, 8.5, W) : [];
+    const placeRows = (idea.places ?? []).map((place) => {
+      const nameL = wrapText(place.city ? `${place.name}, ${place.city}` : place.name, fonts.sansBold, 10.25, W - PAD * 2);
+      const noteL = place.note ? wrapText(place.note, fonts.sans, 9.25, W - PAD * 2, 2) : [];
+      return { place, nameL, noteL };
+    });
+    const placeH = (r: { nameL: string[]; noteL: string[] }, withNotes: boolean) =>
+      PAD * 2 + r.nameL.length * 13.5 + (withNotes && r.noteL.length ? 3 + r.noteL.length * 12.5 : 0) + 6 + 14;
+
+    // Pill rows, counted the way drawPillRow wraps them.
+    const relatedLabels = (idea.related ?? []).map((r) => r.label);
+    let pillRows = 0;
+    if (relatedLabels.length) {
+      pillRows = 1;
+      let cursorX = x0;
+      for (const label of relatedLabels) {
+        const w = fonts.sansBold.widthOfTextAtSize(label, 9.75) + PWA4_SPACE_3 * 2;
+        if (cursorX + w > x0 + W && cursorX > x0) {
+          pillRows += 1;
+          cursorX = x0;
+        }
+        cursorX += w + PWA4_SPACE_2;
+      }
+    }
+    const nextLines = idea.next_step ? wrapText(idea.next_step, fonts.sans, 11, W) : [];
+
+    const levels = [
+      { band: 96, gap: 18, notes: true },
+      { band: 64, gap: 13, notes: true },
+      { band: 40, gap: 10, notes: true },
+      { band: 40, gap: 10, notes: false },
+    ];
+    const measure = (lv: (typeof levels)[number]) => {
+      let h = lv.band + 22 + (LABEL_SIZE + 9) + (titleLines.length * 28 + 12) + 20;
+      if (feelsLines) h += feelsH + lv.gap;
+      if (sizeCards.length) h += LABEL_SIZE + 8 + sizesRowH + lv.gap;
+      if (placeRows.length) {
+        h += LABEL_SIZE + 6 + placesNoteLines.length * 11.5 + 8;
+        for (const r of placeRows) h += placeH(r, lv.notes) + 7;
+        h += lv.gap - 7;
+      }
+      if (pillRows) h += LABEL_SIZE + 8 + pillRows * PILL_ROW + (pillRows - 1) * PWA4_SPACE_2 + lv.gap;
+      if (nextLines.length) h += LABEL_SIZE + 7 + nextLines.length * 15.5;
+      return h;
+    };
+    const available = PAGE_HEIGHT - IDEA_BOTTOM;
+    const level = levels.find((lv) => measure(lv) <= available) ?? levels[levels.length - 1];
+    const GAP = level.gap;
+
+    drawPhotoBand(photo, level.band);
+    let top = PAGE_HEIGHT - level.band - 22;
+
+    drawLabel(badge ? `${moreCopy.pdfEyebrow}  ·  ${badge}` : moreCopy.pdfEyebrow, x0, top, PWA4_ACCENT);
+    top -= LABEL_SIZE + 9;
+    drawTextLines(titleLines, x0, top, 22, 28, fonts.serif, PWA4_INK);
+    top -= titleLines.length * 28 + 12;
+    page.drawRectangle({ x: x0, y: top, width: W, height: 0.75, color: PWA4_GOLD_LIGHT, opacity: 0.8 });
+    top -= 20;
+
+    if (feelsLines) {
+      drawPanel(x0, top, W, feelsH, PWA4_SURFACE_PANEL);
+      page.drawRectangle({ x: x0, y: top - feelsH + 12, width: 3, height: feelsH - 24, color: PWA4_ACCENT });
+      drawLabel(moreCopy.feelsHeading, x0 + PAD + 6, top - PAD, PWA4_ACCENT);
+      drawTextLines(feelsLines, x0 + PAD + 6, top - PAD - LABEL_SIZE - 7, 13, 19, fonts.serif, PWA4_INK);
+      top -= feelsH + GAP;
+    }
+
+    if (sizeCards.length) {
+      drawLabel(moreCopy.sizesHeading, x0, top, PWA4_ACCENT);
+      top -= LABEL_SIZE + 8;
+      sizeCards.forEach((c, n) => {
+        const cx = x0 + n * (colW + colGap);
+        drawPanel(cx, top, colW, sizesRowH, PWA4_SURFACE_PANEL);
+        let ty = top - PAD;
+        drawLabel(moreCopy.sizeNames[c.i], cx + PAD, ty, PWA4_ACCENT);
+        ty -= LABEL_SIZE + 4;
+        page.drawText(moreCopy.sizeHints[c.i], { x: cx + PAD, y: textBaseline(ty, 8, 11), size: 8, font: fonts.sans, color: PWA4_INK_MUTED });
+        ty -= 11 + 8;
+        drawTextLines(c.titleL, cx + PAD, ty, 10.25, 13.5, fonts.sansBold, PWA4_INK);
+        ty -= c.titleL.length * 13.5 + 4;
+        drawTextLines(c.descL, cx + PAD, ty, 9, 12.5, fonts.sans, PWA4_INK_MUTED);
+        ty -= c.descL.length * 12.5 + 6;
+        drawTextLines(c.metaL, cx + PAD, ty, 8.75, 12, fonts.sansBold, PWA4_INK);
+      });
+      top -= sizesRowH + GAP;
+    }
+
+    if (placeRows.length) {
+      drawLabel(moreCopy.placesHeading, x0, top, PWA4_ACCENT);
+      top -= LABEL_SIZE + 6;
+      drawTextLines(placesNoteLines, x0, top, 8.5, 11.5, fonts.sans, PWA4_INK_MUTED);
+      top -= placesNoteLines.length * 11.5 + 8;
+      for (const r of placeRows) {
+        const h = placeH(r, level.notes);
+        drawPanel(x0, top, W, h, PWA4_SURFACE_PANEL, PWA4_RADIUS_SM);
+        let ty = top - PAD;
+        drawTextLines(r.nameL, x0 + PAD, ty, 10.25, 13.5, fonts.sansBold, PWA4_INK);
+        ty -= r.nameL.length * 13.5;
+        if (level.notes && r.noteL.length) {
+          ty -= 3;
+          drawTextLines(r.noteL, x0 + PAD, ty, 9.25, 12.5, fonts.sans, PWA4_INK_MUTED);
+          ty -= r.noteL.length * 12.5;
+        }
+        ty -= 6;
+        // Links: a text label with an underline and a clickable region (same technique as the idea page).
+        let lx = x0 + PAD;
+        const links: { text: string; url: string }[] = [{ text: moreCopy.mapLink, url: mapsSearchUrl(r.place.name, r.place.city) }];
+        if (r.place.url) links.push({ text: moreCopy.siteLink, url: r.place.url });
+        for (const link of links) {
+          const w = fonts.sansBold.widthOfTextAtSize(link.text, 9.25);
+          const baseline = ty - 11;
+          page.drawText(link.text, { x: lx, y: baseline, size: 9.25, font: fonts.sansBold, color: PWA4_INK });
+          page.drawRectangle({ x: lx, y: baseline - 1.5, width: w, height: 0.6, color: PWA4_INK });
+          addLinkAnnotation(page, { x: lx, y: baseline - 3, width: w, height: 14 }, link.url);
+          lx += w + 16;
+        }
+        top -= h + 7;
+      }
+      top -= GAP - 7;
+    }
+
+    if (pillRows) {
+      drawLabel(moreCopy.relatedHeading, x0, top, PWA4_ACCENT);
+      top -= LABEL_SIZE + 8;
+      y = top;
+      drawPillRow(relatedLabels, PWA4_SURFACE_PANEL, PWA4_INK);
+      top = y - GAP;
+    }
+
+    if (nextLines.length) {
+      drawLabel(moreCopy.nextHeading, x0, top, PWA4_ACCENT);
+      top -= LABEL_SIZE + 7;
+      drawTextLines(nextLines, x0, top, 11, 15.5, fonts.sans, PWA4_INK);
+    }
+  }
+
   const categoryUseCount = new Map<string, number>();
   function nextPhotoVariant(category: string): number {
     const seed = categoryUseCount.get(category) ?? 0;
@@ -1529,7 +1701,12 @@ export async function renderIdeaBookPdf(
   for (const [i, { idea }] of orderedIdeas.entries()) {
     page = addPage();
     const photo = await loadIdeaPhoto(idea, nextPhotoVariant(idea.photo_category));
-    drawIdeaPage(idea, photo, { number: i + 1, badge: dict.plan.book.doors[idea.door as "natural"]?.label ?? "" });
+    const doorBadge = dict.plan.book.doors[idea.door as "natural"]?.label ?? "";
+    drawIdeaPage(idea, photo, { number: i + 1, badge: doorBadge });
+    if (hasMoreLayers(idea)) {
+      page = addPage();
+      drawMorePage(idea, photo, doorBadge);
+    }
   }
 
   // --- Page 10: Wildcard — the same page layout, its own photo (chosen the
@@ -1542,6 +1719,10 @@ export async function renderIdeaBookPdf(
       number: null,
       badge: book.labels.wildcard_heading || chrome.wildcardFallbackHeading,
     });
+    if (hasMoreLayers(book.wildcard)) {
+      page = addPage();
+      drawMorePage(book.wildcard, wildcardPhoto, book.labels.wildcard_heading || chrome.wildcardFallbackHeading);
+    }
   }
 
   // Footer: the walnut wordmark + a short tagline + page number, on every

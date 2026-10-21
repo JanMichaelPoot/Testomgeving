@@ -18,7 +18,7 @@ import { getSignedPdfUrl } from "@/lib/pdfAccess";
 import type { Locale } from "@/lib/language";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database, ProgressMeta, ProgressStage } from "@/types/database";
-import { mergeProgressMeta } from "@/lib/progressStage";
+import { mergeProgressMeta, stageDurations } from "@/lib/progressStage";
 import { buildAssociationSources, type AssociationSources } from "@/lib/discovery/associations";
 import { buildIdeaThreads, threadSentence } from "@/lib/ideaThread";
 import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
@@ -297,7 +297,7 @@ export async function getCharacterProfileForSession(
 // src/lib/pdf/ideaContent.ts.
 // 3: "Het venster" — Newsreader + Plus Jakarta Sans instead of Noto, gold instead of orange,
 // the person's own window on the cover (image intake), activity photos per idea.
-const PDF_VERSION = 4;
+const PDF_VERSION = 5;
 
 // The cover window of an image-intake book (null otherwise): same panes as on the site.
 function coverWindowFor(profile: StoredIntake, locale: Locale): IdeaBookPdfContext["window"] {
@@ -415,6 +415,8 @@ async function finishPlanGeneration(
 
   try {
     const generateStartedAt = Date.now();
+    // When each step finished, for the one timing line per book (see stageDurations).
+    const stageMarks: Record<string, number> = {};
     // People who used the card wizard's interest step get the selection engine + grouped, cached
     // research pipeline; everyone else the classic one. If the seed pipeline fails for any reason
     // the paid book is still delivered through the classic pipeline.
@@ -431,6 +433,7 @@ async function finishPlanGeneration(
             onProgress: (stage, meta) => {
               // Every step adds its numbers to the earlier ones; one write holds them all.
               progressMeta = mergeProgressMeta(progressMeta, meta);
+              stageMarks[stage] = Date.now();
               return setProgressStage(supabase, pendingRow.id, stage, progressMeta);
             },
           })
@@ -448,6 +451,7 @@ async function finishPlanGeneration(
       generated = await generateIdeaBook(profile, locale, characterProfile);
     }
     console.log(`WINDOW: generateIdeaBook (Claude, total) took ${Date.now() - generateStartedAt}ms`);
+    stageMarks.written = Date.now();
     await setProgressStage(supabase, pendingRow.id, "written");
 
     // The thread per door (R2.2): which images and tags lie behind each idea from the library,
@@ -478,6 +482,7 @@ async function finishPlanGeneration(
       threadLines,
     });
     console.log(`WINDOW: renderIdeaBookPdf took ${Date.now() - pdfStartedAt}ms`);
+    stageMarks.rendered = Date.now();
     await setProgressStage(supabase, pendingRow.id, "rendered");
 
     const pdfPath = `${pendingRow.session_id}/idea-book.pdf`;
@@ -490,6 +495,12 @@ async function finishPlanGeneration(
         upsert: true,
       });
     console.log(`WINDOW: storage upload took ${Date.now() - uploadStartedAt}ms`);
+    console.log(
+      `WINDOW: seconds per step: ${JSON.stringify(stageDurations(generateStartedAt, stageMarks, ["selected", "researched", "written", "rendered"]))}, total ${(
+        (Date.now() - generateStartedAt) /
+        1000
+      ).toFixed(1)}s`,
+    );
 
     // Compliance/security fix (Fase 3, PDF-downloadbeveiliging): the
     // `window-plans` bucket is private as of 0011_private_pdf_storage.sql,

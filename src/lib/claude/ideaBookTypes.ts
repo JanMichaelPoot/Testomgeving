@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/locale";
+import type { IdeaLayers } from "@/lib/claude/ideaLayers";
 
 // Pure types/constants for the generated Idea Book — deliberately kept free
 // of any import that touches the Anthropic client or other server-only
@@ -77,7 +78,8 @@ export interface IdeaScores {
   challenge_level: number;
 }
 
-export interface IdeaBookEntry {
+// R2.3: the optional extra layers (feels_like, sizes, next_step, places, related) come from IdeaLayers.
+export interface IdeaBookEntry extends IdeaLayers {
   title: string;
   intro: string;
   why_it_fits: string;

@@ -7,6 +7,7 @@ import { getSharedIdeaBook } from "./data";
 import { ShareButton } from "@/components/window/ShareButton";
 import { sharedMetadata } from "@/lib/shareCard";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
+import { withValidLayers } from "@/lib/claude/ideaLayers";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/locale";
@@ -60,11 +61,11 @@ export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
   const bookDict = getDictionary(bookLocale);
 
   const ideas = Array.isArray(plan.ideas_json)
-    ? (plan.ideas_json as unknown as IdeaBookEntry[])
+    ? (plan.ideas_json as unknown as IdeaBookEntry[]).map(withValidLayers)
     : [];
   const wildcard =
     plan.wildcard_json && typeof plan.wildcard_json === "object"
-      ? (plan.wildcard_json as unknown as IdeaBookEntry)
+      ? withValidLayers(plan.wildcard_json as unknown as IdeaBookEntry)
       : null;
   const labels = (plan.labels_json ?? {}) as Record<string, string>;
 
@@ -109,6 +110,8 @@ export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
                 locale={bookLocale}
                 labels={labels}
                 dict={bookDict.pdfChrome}
+                moreCopy={bookDict.venster.more}
+                moreMode="shared"
               />
             </li>
           ))}
@@ -124,6 +127,8 @@ export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
               labels={labels}
               dict={bookDict.pdfChrome}
               isWildcard
+              moreCopy={bookDict.venster.more}
+              moreMode="shared"
             />
           </div>
         )}
