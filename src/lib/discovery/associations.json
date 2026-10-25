@@ -3884,7 +3884,7 @@
       "en": "Smoke of a wood fire"
     },
     "scene": "Thin blue smoke curling up from a smouldering wood fire at dawn in a forest clearing.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-wood-smoke.jpg",
     "tagWeights": {
       "fire": 1,
       "outdoors": 0.7,
@@ -3908,7 +3908,7 @@
       "en": "The smell of burning wood"
     },
     "scene": "A stack of split birch logs beside a glowing stove, ember light on the wood.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-wood-smoke-b.jpg",
     "tagWeights": {
       "fire": 1,
       "outdoors": 0.7,
@@ -3932,7 +3932,7 @@
       "en": "A chimney in winter"
     },
     "scene": "A snowy cottage roof with a chimney sending up a soft ribbon of smoke at dusk.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-wood-smoke-c.jpg",
     "tagWeights": {
       "fire": 1,
       "outdoors": 0.7,
@@ -3956,7 +3956,7 @@
       "en": "A warm spotlight on your face"
     },
     "scene": "A single hot theatrical spotlight beam cutting through haze onto a bare stage floor.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-spotlight.jpg",
     "tagWeights": {
       "performance": 1,
       "sound": 0.4
@@ -3978,7 +3978,7 @@
       "en": "The light of a film set"
     },
     "scene": "Large film-set lamps on stands glowing warm in a dim studio with cables on the floor.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-spotlight-b.jpg",
     "tagWeights": {
       "performance": 1,
       "sound": 0.4
@@ -4000,7 +4000,7 @@
       "en": "The glitter of a mirror ball"
     },
     "scene": "A mirror ball throwing scattered dots of light across a dark dance floor.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-spotlight-c.jpg",
     "tagWeights": {
       "performance": 1,
       "sound": 0.4
@@ -4022,7 +4022,7 @@
       "en": "Fresh-baked bread"
     },
     "scene": "Warm crusty loaves on a bakery rack in morning light with flour in the air.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-fresh-bread.jpg",
     "tagWeights": {
       "food": 1,
       "craft": 0.6,
@@ -4046,7 +4046,7 @@
       "en": "Coffee and cinnamon"
     },
     "scene": "A steaming cup of coffee beside cinnamon rolls on a wooden table by a window.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-fresh-bread-b.jpg",
     "tagWeights": {
       "food": 1,
       "craft": 0.6,
@@ -4070,7 +4070,7 @@
       "en": "A soup simmering"
     },
     "scene": "A large pot of simmering soup with steam rising in a warm farmhouse kitchen, herbs on a board.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-fresh-bread-c.jpg",
     "tagWeights": {
       "food": 1,
       "craft": 0.6,
@@ -4094,7 +4094,7 @@
       "en": "The crackle of vinyl"
     },
     "scene": "A vinyl record spinning on a turntable with the needle just touching the groove, warm lamp glow.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-vinyl-crackle.jpg",
     "tagWeights": {
       "sound": 0.9,
       "retro": 1,
@@ -4118,7 +4118,7 @@
       "en": "An old radio humming"
     },
     "scene": "A vintage wooden radio with a glowing amber dial in a dim living room.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-vinyl-crackle-b.jpg",
     "tagWeights": {
       "sound": 0.9,
       "retro": 1,
@@ -4142,7 +4142,7 @@
       "en": "A gramophone with a horn"
     },
     "scene": "An antique wind-up gramophone with a brass horn on a polished table.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-vinyl-crackle-c.jpg",
     "tagWeights": {
       "sound": 0.9,
       "retro": 1,
@@ -4166,7 +4166,7 @@
       "en": "A pulse in your ears"
     },
     "scene": "A rope bridge stretching ahead into mist, taut ropes in sharp focus with a drop below.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-heartbeat.jpg",
     "tagWeights": {
       "challenge": 0.9,
       "suspense": 0.8,
@@ -4190,7 +4190,7 @@
       "en": "Holding your breath"
     },
     "scene": "A narrow dark slide tunnel with a bright light at its end.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-heartbeat-b.jpg",
     "tagWeights": {
       "challenge": 0.9,
       "suspense": 0.8,
@@ -4214,7 +4214,7 @@
       "en": "A knot in your stomach"
     },
     "scene": "The crest of a steep wooden roller-coaster before the first drop against a blue sky, rails glinting.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-heartbeat-c.jpg",
     "tagWeights": {
       "challenge": 0.9,
       "suspense": 0.8,
@@ -4238,7 +4238,7 @@
       "en": "Cheering in the distance"
     },
     "scene": "Empty stadium stands with colourful scarves and flags hanging over the rail in late sun.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-cheering.jpg",
     "tagWeights": {
       "competition": 0.7,
       "conviviality": 0.7,
@@ -4262,7 +4262,7 @@
       "en": "Bunting along the road"
     },
     "scene": "Colourful flags and bunting along a village street on a festive day, banners swaying.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-cheering-b.jpg",
     "tagWeights": {
       "competition": 0.7,
       "conviviality": 0.7,
@@ -4286,7 +4286,7 @@
       "en": "A finish line of confetti"
     },
     "scene": "A finish-line banner with confetti and streamers drifting on the ground after a race.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-cheering-c.jpg",
     "tagWeights": {
       "competition": 0.7,
       "conviviality": 0.7,
@@ -4310,7 +4310,7 @@
       "en": "Warm fur, a soft nose"
     },
     "scene": "A sleepy golden retriever's soft muzzle resting on a rug in a sunny room.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-warm-fur.jpg",
     "tagWeights": {
       "animals": 1,
       "caring": 0.8,
@@ -4333,7 +4333,7 @@
       "en": "Paw prints in sand"
     },
     "scene": "Animal paw prints in wet sand leading along the shore at dawn.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-warm-fur-b.jpg",
     "tagWeights": {
       "animals": 1,
       "caring": 0.8,
@@ -4356,7 +4356,7 @@
       "en": "A cat on the windowsill"
     },
     "scene": "A tabby cat curled on a sunny windowsill among plants.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-warm-fur-c.jpg",
     "tagWeights": {
       "animals": 1,
       "caring": 0.8,
@@ -4379,7 +4379,7 @@
       "en": "The cool air of a cave"
     },
     "scene": "Cool mist drifting through a cave mouth with ferns hanging and light fading inside.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-cave-cool.jpg",
     "tagWeights": {
       "depths": 1,
       "discovery": 0.7,
@@ -4403,7 +4403,7 @@
       "en": "The echo of a tunnel"
     },
     "scene": "A long concrete tunnel with a bright disc of daylight at the far end.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-cave-cool-b.jpg",
     "tagWeights": {
       "depths": 1,
       "discovery": 0.7,
@@ -4427,7 +4427,7 @@
       "en": "A cellar stair going down"
     },
     "scene": "A stone spiral staircase descending into a dim brick wine cellar with a single bulb.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-cave-cool-c.jpg",
     "tagWeights": {
       "depths": 1,
       "discovery": 0.7,
@@ -4451,7 +4451,7 @@
       "en": "A brush with a single hair"
     },
     "scene": "A very fine paintbrush loaded with red paint touching a tiny painted figurine under a magnifier lamp.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-fine-brush.jpg",
     "tagWeights": {
       "miniature": 1,
       "precision": 0.8,
@@ -4475,7 +4475,7 @@
       "en": "Tiny gears"
     },
     "scene": "A tray of tiny brass watch gears and screws under a loupe in raking light.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-fine-brush-b.jpg",
     "tagWeights": {
       "miniature": 1,
       "precision": 0.8,
@@ -4499,7 +4499,7 @@
       "en": "A ship in a bottle"
     },
     "scene": "A ship in a bottle with tiny rigging, lit by a window.",
-    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "image": "/illustrations/associations/sense-fine-brush-c.jpg",
     "tagWeights": {
       "miniature": 1,
       "precision": 0.8,
