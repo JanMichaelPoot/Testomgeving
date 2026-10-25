@@ -95,6 +95,9 @@ For every idea:
   supervised, legal way in.
 - Never invent a business name, street address, ticket price, opening hours or website that is not in that idea's
   verified local options. Keep costs approximate and do not mention opening hours.
+- Write final text only. Never include a self-correction, hesitation or alternative in a step or action (no "nee,",
+  "eigenlijk", "or rather", "..." followed by a better version). Check every website address against that
+  idea's verified local options BEFORE you write it, and write it once, correctly.
 - Season and date: you are given today's date. Every idea must be realistic on that date and in the weeks after
   it, in the Dutch weather of that season. Never write about what is out of season (open-water swimming or a
   terrace evening in winter, a snow scene in autumn), and never promise a market, festival or event unless it is

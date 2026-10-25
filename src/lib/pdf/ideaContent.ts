@@ -165,6 +165,14 @@ export function parseDurationHours(text: string): number | null {
 const URL_PATTERN =
   /(?:https?:\/\/)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:nl|com|org|net|eu|be|de|fr|io|co|app|info|art|studio|amsterdam)(?:\/[^\s,;)"']*)?/i;
 
+/** The text with its first web address replaced (the address is shown on its own line, so the sentence points to it). */
+export function replaceUrl(text: string, replacement: string): string {
+  const match = text.match(URL_PATTERN);
+  if (!match) return text;
+  const trailing = match[0].match(/[.]+$/)?.[0] ?? "";
+  return text.replace(match[0], replacement + trailing);
+}
+
 // The first web address in a text ("Open steckutrecht.nl and book …"), split
 // into what to show, where to link, and the sentence without it.
 export function extractUrl(text: string): { display: string; href: string } | null {
@@ -755,6 +763,8 @@ export interface IdeaPageLabels {
   investIndication: string;
   where: string;
   startHere: string;
+  /** What stands in the sentence where its web address was, when the address is shown above it. */
+  addressAbove: string;
   budgetWithin: string;
   budgetSlightlyAbove: string;
   budgetAbove: string;
@@ -791,6 +801,7 @@ const NL_LABELS: IdeaPageLabels = {
   investIndication: "Indicatie kosten",
   where: "Waar?",
   startHere: "Begin hier",
+  addressAbove: "het adres hierboven",
   budgetWithin: "Binnen je oorspronkelijke budget.",
   budgetSlightlyAbove: "Iets boven je budget — maar mogelijk interessant als uitzondering.",
   budgetAbove: "Boven je budget — bekijk of dit de uitzondering waard is.",
@@ -827,6 +838,7 @@ const EN_LABELS: IdeaPageLabels = {
   investIndication: "Estimated cost",
   where: "Where?",
   startHere: "Start here",
+  addressAbove: "the address above",
   budgetWithin: "Within your original budget.",
   budgetSlightlyAbove: "Slightly over budget — but possibly worth it as an exception.",
   budgetAbove: "Over budget — see whether it's worth the exception.",

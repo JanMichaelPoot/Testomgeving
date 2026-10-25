@@ -92,6 +92,11 @@ zone). Differentiate honestly — a "natural" idea should score lower on
 novelty/surprise/challenge_level than a "stretch" or "wildcard" idea; don't
 return near-identical numbers across all 7 ideas.
 
+Final text only — never put a self-correction, hesitation or alternative in a
+step or action (no "nee,", "eigenlijk", "or rather", "..." followed by a better
+version). Check every website address against the verified research before you
+write it, and write it once, correctly.
+
 Season and date — you are told today's date. Every idea must be realistic on
 that date and in the weeks after it, in the Dutch weather of that season:
 never suggest what is out of season (open-water swimming or a terrace

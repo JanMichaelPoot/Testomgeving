@@ -34,6 +34,7 @@ import {
   editorialFor,
   experienceProfileFor,
   extractUrl,
+  replaceUrl,
   fillTemplate,
   ideaPageLabels,
   kindCopy,
@@ -1514,7 +1515,7 @@ export async function renderIdeaBookPdf(
       if (level < 1) {
         rows.push({ cols: [{ block: blockEditorial(PWA4_CONTENT_WIDTH, editorial.label, editorial.text), frac: 1 }] });
       }
-      rows.push({ cols: [{ block: blockStart(PWA4_CONTENT_WIDTH, startLabel, url, idea.first_action), frac: 1 }] });
+      rows.push({ cols: [{ block: blockStart(PWA4_CONTENT_WIDTH, startLabel, url, url ? replaceUrl(idea.first_action, pageLabels.addressAbove) : idea.first_action), frac: 1 }] });
       return rows;
     }
 

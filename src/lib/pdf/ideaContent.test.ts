@@ -7,6 +7,7 @@ import {
   editorialFor,
   experienceProfileFor,
   extractUrl,
+  replaceUrl,
   ideaPageLabels,
   kindCopy,
   parseDurationHours,
@@ -120,6 +121,19 @@ describe("parseDurationHours / scheduleFor", () => {
     expect(scheduleFor("food", "1 uur", "nl")).toHaveLength(3);
     expect(scheduleFor("food", "2-3 uur", "nl")).toHaveLength(4);
     expect(scheduleFor("food", "", "nl")).toHaveLength(4);
+  });
+});
+
+describe("replaceUrl", () => {
+  it("replaces the address, keeping the sentence and its final full stop", () => {
+    expect(replaceUrl("Open steckutrecht.nl en boek een plek.", "het adres hierboven")).toBe("Open het adres hierboven en boek een plek.");
+    expect(replaceUrl("Open nu https://degezel.nl/ambachten/fietsenmakerij en noteer je gegevens.", "het adres hierboven")).toBe("Open nu het adres hierboven en noteer je gegevens.");
+    expect(replaceUrl("Ga naar www.example.com/tijden.", "the address above")).toBe("Ga naar the address above.");
+  });
+
+  it("leaves a text without an address alone, and replaces only the first one", () => {
+    expect(replaceUrl("Zoek 'proefles pottenbakken Laren'.", "x")).toBe("Zoek 'proefles pottenbakken Laren'.");
+    expect(replaceUrl("a.nl en b.nl", "X")).toBe("X en b.nl");
   });
 });
 

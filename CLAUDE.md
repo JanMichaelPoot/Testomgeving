@@ -3522,3 +3522,13 @@ Stripe, Claude API, Resend, PostHog).
       voorbeeldboeken (17 / 18 / 10 pagina's) pagina voor pagina bekeken. **Niet gedaan**: de tekst op de ideepagina's
       is slechts 0,75 pt groter; veel groter past niet zonder blokken te laten vallen, dus als de lopende tekst ook
       "flink groter" moet, is dat een aparte afweging (minder blokken per pagina).
+
+- [x] Stap 87 — Een zin met een zelfcorrectie in een echt boek ("Open degelijk.nl... nee, ga naar https://degezel.nl/...")
+      gevonden bij het bekijken van de eerste echte PDF in de nieuwe look, en twee dingen gedaan. **Prompt**: beide
+      schrijfprompts (motor en klassiek) kregen de regel "alleen definitieve tekst": geen zelfcorrectie, aarzeling
+      of alternatief in een stap of actie, en elk webadres vóór het schrijven controleren tegen de geverifieerde opties
+      en één keer, goed, opschrijven. **PDF**: staat het adres groot in het "Begin hier"-blok, dan noemt de zin eronder het
+      niet nogmaals maar zegt "het adres hierboven" / "the address above" (`replaceUrl` in `ideaContent.ts`, label
+      `addressAbove`). Getest: unit-tests voor `replaceUrl`, de pdf- en claude-tests (109) en een nagemaakt boek waarin
+      het adres één keer staat. **Niet gezien**: of het model de zelfcorrectie met deze regel voortaan echt nalaat; dat
+      blijkt pas in de volgende echte boeken.
