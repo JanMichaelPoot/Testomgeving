@@ -75,6 +75,7 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
               <Field label="PDF-versie" value={String(plan.pdf_version)} />
               <Field label="E-mail verstuurd op" value={plan.email_sent_at ?? "nog niet verstuurd"} />
               <Field label="Ontvanger" value={plan.recipient_email ?? "—"} />
+              {plan.progress_meta?.email_error && <Field label="E-mailfout" value={plan.progress_meta.email_error} />}
             </>
           ) : (
             <p className="text-sm text-ink/50">Nog geen Idea Book gegenereerd voor deze order.</p>

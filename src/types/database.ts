@@ -17,7 +17,7 @@ export type PlanStatus = "pending" | "ready" | "failed";
 // How far a pending Idea Book has come (0016_progress_stage.sql).
 export type ProgressStage = "selected" | "researched" | "written" | "rendered";
 // What the generation knew at a step (0018_progress_meta.sql): counts only.
-export type ProgressMeta = { ideas?: number; places?: number };
+export type ProgressMeta = { ideas?: number; places?: number; email_error?: string };
 
 // Model C digital sale compliance (see supabase/migrations
 // /0010_digital_sales_compliance.sql) — which legal document a

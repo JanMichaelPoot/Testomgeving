@@ -75,6 +75,21 @@ const STILL_GENERATING = "We're still putting your Idea Book together — this u
 // never silent: every failure is logged as an error. The numbers (progress_meta, migration 0018)
 // are written together with the stage; if that column is missing the stage is still written
 // on its own, so the waiting screen keeps moving.
+// A mail that could not be sent leaves no trace except a log line on the host. Keep the reason with the plan
+// (progress_meta.email_error, no migration needed) so it can be read from the database and shown in the admin.
+async function recordEmailError(supabase: ServiceRoleClient, planId: string, err: unknown): Promise<void> {
+  try {
+    const { data } = await supabase.from("window_plans").select("progress_meta").eq("id", planId).single();
+    const message = (err instanceof Error ? err.message : String(err)).slice(0, 300);
+    await supabase
+      .from("window_plans")
+      .update({ progress_meta: mergeProgressMeta(data?.progress_meta, { email_error: message }) })
+      .eq("id", planId);
+  } catch (inner) {
+    console.error("WINDOW: could not record the e-mail error:", inner);
+  }
+}
+
 async function setProgressStage(
   supabase: ServiceRoleClient,
   planId: string,
@@ -703,6 +718,7 @@ export async function getOrCreateWindowPlan(
           // a genuinely undelivered order confirmation apart from a
           // delivered one.
           console.error("Failed to send order confirmation e-mail:", err);
+          await recordEmailError(supabase, plan.id, err);
         }
       }
 
@@ -799,6 +815,7 @@ export async function getOrCreateTestWindowPlan(
         emailDelivered = true;
       } catch (err) {
         console.error("Failed to send test-mode confirmation e-mail:", err);
+        await recordEmailError(supabase, plan.id, err);
       }
 
       // No real payment, so no Stripe-collected email/order either — still

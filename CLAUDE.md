@@ -3586,3 +3586,20 @@ Stripe, Claude API, Resend, PostHog).
       `... --force --only rib-boot,klein-festival,nachtmarkt` (≈ $0,40). Tot dan toont de wizard een kaart zonder eigen
       beeld niet (`hasOwnImage`), dus nooit een verkeerd plaatje bij de verkeerde woorden; de zintuigronde heeft dan de
       oude 12 families. `taxonomy:check` meldt hoeveel kaarten wachten.
+
+- [x] Stap 89 — "Ik krijg telkens geen e-mail van het boek op pootjm@hotmail.com". **Onderzocht**: in de database
+      hebben alle recente betaalde boeken `recipient_email = pootjm@hotmail.com` maar `email_sent_at = null` en
+      `audit_log.email_delivered = false` (laatste: bestelling WI-2026-000020, 25 okt 19:37): het versturen is dus elke
+      keer geprobeerd en mislukt. Lokaal werkt het wel: een gewone testmail én de echte bevestigingsmail van dat boek (PDF 1,6
+      MB als bijlage, zelfde code als in de app) werden door Resend geaccepteerd met `onboarding@resend.dev`. De
+      bestelling is dus op Jans omgeving (Vercel `testomgeving`) mislukt; de fout stond alleen in het serverlog, en de
+      Vercel-logs kan ik niet lezen. **Meest waarschijnlijke oorzaak** (niet bewezen): `EMAIL_FROM` daar wijst naar
+      `windowinto.nl`, dat in Resend nog niet geverifieerd is (open sinds Stap 51); Resend weigert dan elke mail.
+      **Aangepast**: (1) `sendEmail` (`src/lib/resend.ts`) probeert bij precies die weigering ("domain is not verified") één
+      keer opnieuw vanaf `onboarding@resend.dev`: in een testomgeving komt de mail dan aan op het adres van het
+      Resend-account (dat is dat van Jan); voor iedereen anders weigert Resend het opnieuw en blijft de fout gewoon een fout
+      (er gaat dus nooit iets verkeerd of onopgemerkt weg); met tests. (2) Een mislukte mail laat nu zijn reden achter:
+      `window_plans.progress_meta.email_error` (geen migratie nodig, zichtbaar als "E-mailfout" op de admin-orderpagina), zodat
+      de volgende keer de echte oorzaak uit de database te lezen is. **Echte oplossing voor klanten, buiten de code**:
+      `windowinto.nl` verifiëren in Resend (DNS-records) en `EMAIL_FROM` in Vercel op `WINDOW <hello@windowinto.nl>` zetten.
+      Dit werkt pas op Vercel na een deploy. Getest: `tsc`, lint, 17 e-mailtests.

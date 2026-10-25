@@ -7,7 +7,7 @@ vi.mock("resend", () => ({
   },
 }));
 
-import { sendEmail } from "@/lib/resend";
+import { TEST_SENDER, isUnverifiedDomainError, sendEmail } from "@/lib/resend";
 import { escapeHtml, emailImages, emailShell } from "@/lib/email/layout";
 import { buildIdeaBookEmail } from "@/lib/email/windowPlan";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
@@ -30,6 +30,32 @@ describe("sendEmail", () => {
     await expect(sendEmail({ from: "a@b.nl", to: "c@d.nl", subject: "s", html: "x" })).rejects.toThrow(
       /validation_error.*not verified/
     );
+  });
+
+  it("tries once more from the test sender when the sending domain is not verified, so a test setup still gets its mail", async () => {
+    send
+      .mockResolvedValueOnce({ data: null, error: { name: "validation_error", message: "The windowinto.nl domain is not verified. Please add and verify your domain." } })
+      .mockResolvedValueOnce({ data: { id: "msg_2" }, error: null });
+    await expect(sendEmail({ from: "WINDOW <hello@windowinto.nl>", to: "owner@d.nl", subject: "s", html: "x" })).resolves.toEqual({ id: "msg_2" });
+    expect(send).toHaveBeenCalledTimes(2);
+    expect(send.mock.calls[1][0].from).toBe(TEST_SENDER);
+    expect(send.mock.calls[1][0].to).toBe("owner@d.nl");
+  });
+
+  it("does not retry for other refusals, nor when it already was the test sender", async () => {
+    send.mockResolvedValue({ data: null, error: { name: "invalid_api_key", message: "API key is invalid" } });
+    await expect(sendEmail({ from: "a@b.nl", to: "c@d.nl", subject: "s", html: "x" })).rejects.toThrow(/invalid_api_key/);
+    expect(send).toHaveBeenCalledTimes(1);
+    send.mockReset();
+    send.mockResolvedValue({ data: null, error: { name: "validation_error", message: "You can only send testing emails to your own email address" } });
+    await expect(sendEmail({ from: TEST_SENDER, to: "x@y.nl", subject: "s", html: "x" })).rejects.toThrow(/own email/);
+    expect(send).toHaveBeenCalledTimes(1);
+  });
+
+  it("recognises the unverified-domain refusal only", () => {
+    expect(isUnverifiedDomainError({ message: "The windowinto.nl domain is not verified." })).toBe(true);
+    expect(isUnverifiedDomainError({ message: "You can only send testing emails to your own email address" })).toBe(false);
+    expect(isUnverifiedDomainError(null)).toBe(false);
   });
 
   it("throws when there is neither data nor an error", async () => {
