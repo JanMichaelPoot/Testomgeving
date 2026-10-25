@@ -270,6 +270,11 @@ export default async function PlanPage(props: PageProps<"/plan">) {
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10 sm:px-10 sm:py-12">
+        {plan.language !== locale && (
+          <p className="mb-6 rounded-lg border border-border bg-paper px-4 py-3 text-sm text-ink/70">
+            {dict.venster.errors.bookLanguage.replace("{language}", plan.language === "en" ? (locale === "nl" ? "Engels" : "English") : locale === "nl" ? "Nederlands" : "Dutch")}
+          </p>
+        )}
         <PlanReveal
           planId={plan.id}
           ideas={ideas}

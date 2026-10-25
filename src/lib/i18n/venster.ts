@@ -19,6 +19,7 @@ export interface VensterDictionary {
   recipientFallback: string;
   recipientLabel: string;
   recipientPlaceholder: string;
+  errors: { notFoundTitle: string; notFoundBody: string; home: string; errorTitle: string; errorBody: string; retry: string; bookLanguage: string };
   worlds: { heading: string; headingGift: string; sub: string; surprise: string; surpriseSub: string; chosen: string; more: string };
   rounds: Record<
     "places" | "moments" | "senses",
@@ -267,6 +268,15 @@ export const vensterNl: VensterDictionary = {
   recipientFallback: "diegene",
   recipientLabel: "Voor wie is dit venster?",
   recipientPlaceholder: "Voornaam (mag leeg blijven)",
+  errors: {
+    notFoundTitle: "Deze pagina bestaat niet",
+    notFoundBody: "Misschien is de link verlopen of verkeerd overgetypt. Vanaf het begin kom je er zo weer in.",
+    home: "Naar het begin",
+    errorTitle: "Er ging iets mis",
+    errorBody: "Probeer het nog eens. Blijft het misgaan, kom dan straks even terug: je antwoorden gaan niet verloren.",
+    retry: "Opnieuw proberen",
+    bookLanguage: "Dit Idea Book is in het {language} geschreven, de taal waarin je het venster opende. Een nieuw venster openen in een andere taal kan altijd.",
+  },
   worlds: {
     heading: "Waar gaat je nieuwsgierigheid naartoe?",
     headingGift: "Waar gaat de nieuwsgierigheid van {name} naartoe?",
@@ -756,6 +766,15 @@ export const vensterEn: VensterDictionary = {
   recipientFallback: "them",
   recipientLabel: "Who is this window for?",
   recipientPlaceholder: "First name (optional)",
+  errors: {
+    notFoundTitle: "This page doesn't exist",
+    notFoundBody: "The link may have expired or been mistyped. You can start again from the beginning.",
+    home: "Back to the start",
+    errorTitle: "Something went wrong",
+    errorBody: "Please try again. If it keeps going wrong, come back in a little while: your answers are not lost.",
+    retry: "Try again",
+    bookLanguage: "This Idea Book was written in {language}, the language you opened the window in. You can always open a new window in another language.",
+  },
   worlds: {
     heading: "Where does your curiosity go?",
     headingGift: "Where does {name}'s curiosity go?",

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createServiceRoleClient } from "@/lib/supabase/server";
-import { logoutAdmin } from "../actions";
+import { AdminShell } from "../ui";
 
 export const metadata: Metadata = {
   title: "Orders — WINDOW admin",
@@ -46,7 +46,7 @@ export default async function AdminOrdersPage() {
     orderIds.length
       ? supabase
           .from("window_plans")
-          .select("payment_id, status, generated_at, email_sent_at")
+          .select("payment_id, status, generated_at, email_sent_at, progress_meta")
           .in("payment_id", orderIds)
       : Promise.resolve({ data: [] as never[] }),
     orderIds.length
@@ -65,38 +65,18 @@ export default async function AdminOrdersPage() {
   const consentByOrder = new Map((consentRows ?? []).map((c) => [c.order_id, c]));
 
   return (
-    <div className="min-h-full bg-cream px-6 py-10 sm:px-10">
-      <div className="mx-auto max-w-6xl">
-        <div className="flex flex-wrap items-start justify-between gap-4 border-b border-ink/10 pb-6">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">
-              WINDOW — admin
-            </p>
-            <h1 className="mt-1 font-serif text-2xl text-ink">Orders</h1>
-            <p className="mt-1 max-w-2xl text-sm text-ink/60">
-              Elke Stripe-checkout-poging, met betaalstatus, PDF-status en
-              vastgelegde toestemming. Klik op een order voor het volledige
-              consentbewijs (versie, tijdstip, IP/user-agent, teksthash).
-              {orders && orders.length === MAX_ROWS &&
-                ` Toont de meest recente ${MAX_ROWS} orders.`}
-            </p>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link href="/admin" className="text-sm font-medium text-accent-dark hover:underline">
-              Logboek
-            </Link>
-            <form action={logoutAdmin}>
-              <button type="submit" className="text-sm font-medium text-ink/50 hover:text-ink">
-                Uitloggen
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {error && (
-          <p className="mt-6 text-sm text-red-600">Kon de orders niet laden: {error.message}</p>
-        )}
-
+    <AdminShell
+      active="/admin/orders"
+      title="Orders"
+      intro={
+        <>
+          Elke Stripe-checkout-poging, met betaalstatus, PDF-status en vastgelegde toestemming. Klik op een order voor het volledige consentbewijs (versie, tijdstip, IP/user-agent, teksthash).
+          {orders && orders.length === MAX_ROWS && ` Toont de meest recente ${MAX_ROWS} orders.`}
+        </>
+      }
+    >
+      {error && <p className="text-sm text-red-600">Kon de orders niet laden: {error.message}</p>}
+      <div>
         <div className="mt-6 overflow-x-auto rounded-lg border border-ink/10 bg-paper">
           <table className="w-full min-w-[900px] text-left text-sm">
             <thead>
@@ -146,7 +126,17 @@ export default async function AdminOrdersPage() {
                     <td className="px-4 py-3">
                       <YesNo value={Boolean(consent?.withdrawal_acknowledged)} />
                     </td>
-                    <td className="px-4 py-3 text-ink/70">{plan?.email_sent_at ? "verstuurd" : "—"}</td>
+                    <td className="px-4 py-3 text-ink/70">
+                      {plan?.email_sent_at ? (
+                        "verstuurd"
+                      ) : plan?.progress_meta?.email_error ? (
+                        <span className="text-red-600" title={plan.progress_meta.email_error}>
+                          mislukt: {plan.progress_meta.email_error.slice(0, 48)}
+                        </span>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
                   </tr>
                 );
               })}
@@ -161,7 +151,7 @@ export default async function AdminOrdersPage() {
           </table>
         </div>
       </div>
-    </div>
+    </AdminShell>
   );
 }
 

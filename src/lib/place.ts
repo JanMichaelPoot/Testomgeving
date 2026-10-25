@@ -15,7 +15,7 @@ const norm = (s: string) =>
 export function displayPlace(raw: string | null | undefined): string {
   const parts = (raw ?? "")
     .split(",")
-    .map((p) => p.trim().replace(/\s+/g, " "))
+    .map((p) => p.trim().replace(/\s+/g, " ").replace(/^(gemeente|provincie)\s+/i, ""))
     .filter(Boolean);
   const seen = new Set<string>();
   const kept: string[] = [];

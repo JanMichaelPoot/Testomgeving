@@ -1,6 +1,6 @@
 import { anthropic, CLAUDE_MODEL } from "@/lib/anthropic";
 import { WINDOW_VOICE_SYSTEM_PROMPT, extractToolInput } from "@/lib/claude/shared";
-import { languageLabel, type Locale } from "@/lib/locale";
+import { freeWord, languageLabel, type Locale } from "@/lib/locale";
 import type { IntakeAnswers } from "@/app/intake/actions";
 import type { CharacterProfile } from "@/lib/characterProfile";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
@@ -84,7 +84,7 @@ For every idea:
   "consider" or "look online".
 - first_action: one instruction the person can complete within 60 seconds of finishing reading, naming an exact
   site/app/search term/button (max ~20 words).
-- practical: estimated_cost (short, e.g. "€25–40" or "Gratis"), duration (short), difficulty ("easy",
+- practical: estimated_cost (short, e.g. "€25–40" or "{{FREE}}"), duration (short), difficulty ("easy",
   "moderate" or "demanding") and preparation (one short line, or empty).
 - location: only when the idea happens at one specific, findable place taken from the verified local options of
   THAT idea (name and city; the address only when the research gives it). Otherwise null.
@@ -143,12 +143,12 @@ For every idea:
 
 Honesty. These matter more than anything above:
 - Name a business, club, venue or website ONLY when it appears in THAT idea's verified local options. Otherwise
-  stay generic ("een lokale vereniging", "een workshop in de buurt"). Never name an organisation from memory,
+  stay generic (for example "a local club" or "a workshop nearby", written in {{LANGUAGE}}). Never name an organisation from memory,
   however well known it is.
-- Write "Gratis" ONLY when that idea's verified local options or its "Easy way in" line say it is free, or when
+- Write "{{FREE}}" ONLY when that idea's verified local options or its "Easy way in" line say it is free, or when
   nothing at all has to be bought or booked (sitting still at home, a walk from your own door). Anything that
-  depends on somebody else's offer (an open day, a trial class, a rental) gets a rough starting price ("vanaf
-  ±€10") and the description says the price varies.
+  depends on somebody else's offer (an open day, a trial class, a rental) gets a rough starting price ("from
+  about €10", in {{LANGUAGE}}) and the description says the price varies.
 - Keep every cost approximate. Never invent a price list, opening hours or an address.
 - You are given today's date. The taste, the day and the "further" size must all be realistic in this season and
   in the weeks after it; never describe something that is out of season or an event that is not one of that
@@ -531,8 +531,8 @@ export async function generateIdeaBookFromSeeds(
 
   // 3. Write the ideas (one retry on a malformed answer, without repeating the research).
   const language = languageLabel(locale);
-  const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language);
-  const layersSystem = LAYERS_SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language);
+  const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
+  const layersSystem = LAYERS_SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
   const shared = `Today is ${describeToday(now, locale)} (${isoDateNL(now)}).
 
 ${formatProfile(intake, characterProfile)}

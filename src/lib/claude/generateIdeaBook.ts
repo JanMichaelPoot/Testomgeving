@@ -4,7 +4,7 @@ import {
   WINDOW_VOICE_SYSTEM_PROMPT,
   extractToolInput,
 } from "@/lib/claude/shared";
-import { languageLabel, type Locale } from "@/lib/locale";
+import { freeWord, languageLabel, type Locale } from "@/lib/locale";
 import type { IntakeAnswers } from "@/app/intake/actions";
 import { PHOTO_CATEGORIES } from "@/lib/claude/ideaBookTypes";
 
@@ -154,8 +154,8 @@ Rules for using the profile:
   filter on '<category>' in <city>." (max ~20 words). Never a vague "think
   about" or "consider".
 - practical is a small structured object, not free text:
-  estimated_cost (short, e.g. "€25–40" or "Gratis"), duration (short,
-  e.g. "Een dagdeel"), difficulty (exactly "easy", "moderate", or
+  estimated_cost (short, e.g. "€25–40" or "{{FREE}}"), duration (short,
+  e.g. "a half day", in {{LANGUAGE}}), difficulty (exactly "easy", "moderate", or
   "demanding"), and preparation (one short line on what to arrange
   beforehand, or an empty string if nothing needs preparing).
 - location: only fill this in for ideas tied to one specific, findable
@@ -509,7 +509,7 @@ async function callClaudeForIdeaBook(
   researchBrief: string
 ): Promise<GeneratedIdeaBook> {
   const language = languageLabel(locale);
-  const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language);
+  const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
   const researchBlock = researchBrief
     ? `Verified live web research (use ONLY these names for anything
 specific — never invent a business/venue/platform/route/event name beyond

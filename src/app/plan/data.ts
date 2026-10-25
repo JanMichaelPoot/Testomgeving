@@ -19,6 +19,7 @@ import type { Locale } from "@/lib/language";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database, ProgressMeta, ProgressStage } from "@/types/database";
 import { mergeProgressMeta, stageDurations } from "@/lib/progressStage";
+import { localizeBook } from "@/lib/claude/localizeBook";
 import { isMissingColumnError } from "@/lib/supabase/errors";
 import { buildAssociationSources, type AssociationSources } from "@/lib/discovery/associations";
 import { buildIdeaThreads, threadSentence } from "@/lib/ideaThread";
@@ -464,6 +465,7 @@ async function finishPlanGeneration(
     } else {
       generated = await generateIdeaBook(profile, locale, characterProfile);
     }
+    generated = localizeBook(generated, locale);
     console.log(`WINDOW: generateIdeaBook (Claude, total) took ${Date.now() - generateStartedAt}ms`);
     stageMarks.written = Date.now();
     await setProgressStage(supabase, pendingRow.id, "written");

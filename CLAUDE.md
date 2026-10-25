@@ -3603,3 +3603,42 @@ Stripe, Claude API, Resend, PostHog).
       de volgende keer de echte oorzaak uit de database te lezen is. **Echte oplossing voor klanten, buiten de code**:
       `windowinto.nl` verifiëren in Resend (DNS-records) en `EMAIL_FROM` in Vercel op `WINDOW <hello@windowinto.nl>` zetten.
       Dit werkt pas op Vercel na een deploy. Getest: `tsc`, lint, 17 e-mailtests.
+
+- [x] Stap 90 — Vertalingen, taal naar IP, controle van de feedback en een bruikbaarder admin (verzoek van Jan na zijn
+      testbestelling op Vercel). **Eerst de e-mail**: de laatste bestelling mislukte weer met "Missing API key" op Vercel; die
+      omgeving had de sleutel nog niet (Jan zette hem erbij en deployde opnieuw; het resultaat van zijn nieuwste bestelling
+      is hierna nog niet in de database gezien). De fout over de PDF die hij kreeg was een localhost-link uit mijn eigen
+      testmail, niet de bijlage.
+      **Vertalingen (audit)**: de woordenlijsten zelf waren in orde (nl/en hebben dezelfde sleutels, geen Nederlandse tekst in
+      de Engelse lijst). Gevonden en opgelost: (1) Engelse boeken bevatten Nederlandse woorden: "Gratis" als prijs (de prompts
+      noemden dat woord letterlijk als voorbeeld, net als "een lokale vereniging", "vanaf ±€10" en "Een dagdeel"): de prompts
+      zijn nu taalneutraal (`{{FREE}}` en voorbeelden in de taal van het boek) en `localizeBook` (nieuw, met tests) vervangt
+      achteraf "Gratis/vanaf/prijs varieert" door het Engelse equivalent in een Engels boek en andersom; (2) de notities bij
+      "echte plekken" kwamen soms in het Nederlands in een Engels boek (het model nam de tekst van de website over): de
+      onderzoeksprompt eist nu vertalen en de onderzoekscache heeft een nieuwe sleutel (`|v2`) zodat oude Nederlandse notities
+      niet blijven hangen; (3) "Gemeente Groningen" als plaats in de kop van een Engels boek: `displayPlace` laat "Gemeente" en
+      "Provincie" weg; (4) een hardcoded Nederlandse tooltip in `PillSlider`; (5) formeel "u" in twee labels ("Wat heeft u
+      nodig", "Dit kunt u nu doen") nu "je"; (6) er was geen 404- of foutpagina: nu `not-found.tsx` en `error.tsx`, in de taal
+      van de bezoeker. Een boek blijft geschreven in de taal waarin het venster is geopend; zit die taal niet gelijk aan die
+      van de site, dan staat er op `/plan` een korte uitleg. Een gedeeld boek (`/shared/[id]`) toont het boek in zijn eigen taal
+      met de kop en voet in de taal van de bezoeker; dat is zo gelaten.
+      Gecontroleerd in de browser, Engelse modus: landing, alle intakeschermen (7) tot en met het profiel, betaalpagina,
+      wachtscherm, het boek, privacy, voorwaarden, herroeping, delen en 404: geen Nederlandse tekst meer behalve die uit
+      oude boeken en Nederlandse plaatsnamen uit PDOK. Niet gezien: de PDF en e-mail van een nieuw Engels boek (de oude
+      Engelse PDF is gescand: alleen "Gratis" en de Nederlandse plaatsnotities).
+      **Taal naar IP** (`detectLocale` in `src/lib/locale.ts`, `getLocale` leest de header `x-vercel-ip-country`): zonder gekozen taal
+      start NL, BE (en de Nederlandstalige gebieden) in het Nederlands, elk ander land in het Engels, behalve als de eerste taal
+      van de browser Nederlands is (een Nederlander op vakantie). De toggle blijft altijd winnen (cookie). Alleen het
+      landnummer wordt gelezen, het IP-adres zelf niet en er wordt geen cookie voor de afgeleide taal gezet. Dit vervangt de
+      vroegere regel "nooit browser-gedetecteerd". Lokaal (zonder landheader) beslist de browsertaal, zonder beide Nederlands.
+      Met tests; niet gezien op Vercel zelf met een buitenlands IP.
+      **Feedback**: het formulier onder het boek werkt (lokaal ingevuld, rij in `test_feedback`, daarna weer verwijderd); het
+      staat alleen aan met `NEXT_PUBLIC_TEST_FEEDBACK=1`.
+      **Admin** (wachtwoord als altijd): `/admin` is nu een **Overzicht** (aandacht nodig, boeken per dag, duur, mislukt/blijft
+      hangen, e-mail verstuurd met de foutreden, betalingen en omzet, hartjes en gekozen ideeën, taal), nieuw
+      **Feedback** (scores met verdeling, betaalintentie, soort deur, opmerkingen, uitleg hoe je het leest, CSV-export),
+      nieuw **Inhoud** (meest voorgestelde activiteiten en richtingen, wat mensen invullen, de bibliotheek per richting,
+      nooit voorgestelde activiteiten), **Orders** met de e-mailfout per order en het **Logboek** (het oude `/admin`) op
+      `/admin/logboek`. Alle cijfers komen uit `src/lib/adminStats.ts` (puur, 9 tests). De pagina's zelf zijn niet als ingelogde admin
+      gezien: de beveiliging weigerde mij het wachtwoord of de sessietoken te gebruiken; wel gezien: de gedeelde onderdelen
+      met voorbeeldgegevens, type- en lintcontrole en de build.

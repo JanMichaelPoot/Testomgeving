@@ -82,7 +82,6 @@ export function PillSlider({ options, value, onChange, label, touched = false }:
         {options[activeIndex]}
         <span
           aria-hidden="true"
-          title={touched ? undefined : "Standaardwaarde — nog niet aangeraakt"}
           className={cn(
             "inline-block h-1.5 w-1.5 rounded-full transition-colors",
             touched ? "bg-accent" : "border border-ink/25 bg-transparent"

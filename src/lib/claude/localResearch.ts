@@ -165,7 +165,7 @@ export function buildResearchPrompt(
     return `${i + 1}. id "${id}": ${a?.label.nl ?? id} (${a?.label.en ?? id}).${entry}`;
   });
   return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). Place: ${location || "the Netherlands"}. Search radius: ${RADIUS_TEXT[radius] ?? RADIUS_TEXT.city}.
-Write the notes in ${language}.
+Write the notes in ${language}: if the website is in another language, translate what you take from it (keep names, streets and titles as they are). A note in the wrong language is an error.
 
 For each activity below, find up to 3 real, currently operating options where a beginner can actually take part
 there, preferring a low-threshold way in (trial class, beginner evening, open day, drop-in). Combine searches
@@ -297,7 +297,8 @@ export async function researchSeeds(opts: {
   const place = placeKey(location, searchDistance);
   const radius = place.split("|")[1] ?? "city";
   // The cache is kept per month: what is open or running in June says nothing about December.
-  const cacheKey = `${place}|${today.slice(0, 7)}`;
+  // "v2": the notes are now always in the book's language; older cached notes could be in the language of the website.
+  const cacheKey = `${place}|${today.slice(0, 7)}|v2`;
   const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 

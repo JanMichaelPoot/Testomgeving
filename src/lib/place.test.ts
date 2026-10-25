@@ -5,6 +5,8 @@ describe("displayPlace", () => {
   it("drops the repeated municipality name", () => {
     expect(displayPlace("Laren, Laren, Noord-Holland")).toBe("Laren, Noord-Holland");
     expect(displayPlace("Utrecht, Utrecht")).toBe("Utrecht");
+    expect(displayPlace("Gemeente Utrecht")).toBe("Utrecht");
+    expect(displayPlace("Gemeente Groningen, Groningen")).toBe("Groningen");
   });
 
   it("ignores case, accents and stray spaces when comparing", () => {
@@ -13,7 +15,7 @@ describe("displayPlace", () => {
   });
 
   it("leaves a place without repeats exactly as it is", () => {
-    expect(displayPlace("Gemeente Utrecht")).toBe("Gemeente Utrecht");
+    expect(displayPlace("Utrecht, Noord-Holland")).toBe("Utrecht, Noord-Holland");
     expect(displayPlace("Laren, Noord-Holland")).toBe("Laren, Noord-Holland");
     expect(displayPlace("Laren")).toBe("Laren");
   });
