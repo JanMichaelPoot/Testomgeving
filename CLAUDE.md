@@ -3425,3 +3425,42 @@ Stripe, Claude API, Resend, PostHog).
       (variabele bestaat niet, verkeerde omgeving, geen nieuwe build, waarde) en een controle (testbalk + €6,00
       op de betaalpagina). **Niet gezien**: of de vragenlijst nu op Jans deployment verschijnt; dat hangt van
       de variabelen en de redeploy daar af.
+
+- [x] Stap 84 — Vier verbeteringen op verzoek van Jan (plan eerst voorgelegd, daarna gebouwd; geen enkele betaalde
+      API-aanroep: de mailbeelden komen uit bestaande foto's, het profielportret is vaste tekst).
+      **(1) Richtingenpagina** ("Waar gaat je nieuwsgierigheid naartoe?"): dezelfde raster en tegelvorm als de
+      beeldrondes (`grid-cols-2 sm:grid-cols-3`, `aspect-[4/5]`, geen vierde kolom meer), dus even grote foto's;
+      op de tegel staat alleen nog de titel, met een lichtere gradient. De voorbeeldactiviteiten (Stap 79) staan niet
+      meer op elke tegel maar als één regel onder het raster bij de laatst aangetikte richting (`hintWorld`); de
+      "Verras me"-tegel is breed zodat de laatste rij geen gat heeft. **(2) Plaatsvraag**: "Waar woon je
+      ongeveer?" is "Vanaf welke plaats zoek je?" (cadeau: "…zoeken we voor {name}?"), toelichting "We zoeken echte
+      activiteiten rond deze plaats in Nederland. Thuis, je werk of ergens anders: jij kiest.", placeholder "Typ een
+      plaats, bijvoorbeeld Utrecht…" en "In mijn plaats" is "In deze plaats" (nl + en); opslag en suggesties
+      ongewijzigd. **(3) Profielportret** ("Zo kijken wij door jouw venster", `profileStory.ts` + `dict.venster.profile`):
+      geen opsomming meer van wat gekozen is (de miniaturen en de vensterbank tonen dat al) maar één kopzin
+      ("Je zoekt gezelligheid zonder poespas, en het geduld van een echt vak.", uit een beeldzin per tag: `motifs`) en
+      twee tot vier zinnen die de keuzes lezen: een zin voor een tagpaar dat samenhoort (16 paren, `reads`) of anders
+      een zin per sterkste tag (`tagLines`, alle 37 tags), een zin die de keuzes naast wie er meegaat legt
+      (gezelligheid terwijl iemand alleen gaat, of stilte met gezelschap) en de twee sterkste leunrichtingen in
+      beeldtaal (`leanLines`, nu ook vertrouwd of nieuw). Wie er meegaat wint van wat de beelden zeggen, zodat "op eigen
+      tempo, in eigen gezelschap" nooit naast "met een partner" staat. Alles is vaste, geteste tekst (geen AI-laag: die
+      kon later nog, maar vraagt een afweging over kosten voor niet-betalers); gift-neutraal geschreven, zonder het
+      woord "wereld". `ProfileInput.place` en de zin over het praktische kader zijn vervallen. **(4) E-mail**
+      (`layout.ts`, `windowPlan.ts`, `reminder.ts`): een licht, vriendelijker ontwerp in de kleuren van het logo (oranje
+      knop, blauwe accenten, witte kaart op lichtblauw-grijs) zonder walnootbruin; een kopbeeld met vier ramen
+      (`public/email/header.jpg`), per deur een miniatuur (`public/email/thumbs/`, 240 px, uit bestaande foto's,
+      gemaakt door `scripts/make-email-assets.ts`), een opening "Je venster staat open" met het aantal deuren, het
+      profielcitaat "Zo lazen we je", een blok "Begin klein" met de eerste stap van het makkelijkste idee
+      (dezelfde keuze als "als je er maar één kiest"), de wildcard als eigen kaartje en de bestelgegevens en
+      juridische teksten klein onder de kaart. Afbeeldingen alleen bij een publiek https-adres (`emailImages`); op
+      localhost of een preview-adres zonder publiek domein bouwt de mail zonder beelden en blijft goed leesbaar
+      (genummerde bolletjes i.p.v. foto's). Er is nu ook een platte-tekstversie (`text`), en `color-scheme: light only`.
+      **Skill**: de find-skills-skill van Vercel (`vercel-labs/skills`) staat nu in `.claude/skills/find-skills/SKILL.md`
+      (rechtstreeks van GitHub gekopieerd na de tekst gelezen te hebben, zonder `npx` uit te voeren).
+      Getest: 451 unit-tests (nieuw: portretregels, tags zonder beeld, mailbeelden/-tekst/-kleuren, `emailImages`),
+      `tsc`, lint, `npm run build`, 22 Playwright-tests; in de browser de richtingenpagina (nieuwe tegels, hintregel),
+      de plaatspagina en het profiel met een echte keuze, en de mail als HTML op 800 en 375 px, met en zonder beelden.
+      **Niet gezien**: de mail in een echt mailprogramma (Hotmail/Outlook) en met de beelden van het live domein (die
+      staan pas online na een deploy); een Engelse weergave van de drie schermen in de browser.
+      Open: `windowinto.nl` is nog niet in Resend geverifieerd, en de mailvoet toont nog de placeholder
+      `[Bedrijfsnaam] · [KvK-nummer] · …`.

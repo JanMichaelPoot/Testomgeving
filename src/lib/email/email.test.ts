@@ -8,7 +8,7 @@ vi.mock("resend", () => ({
 }));
 
 import { sendEmail } from "@/lib/resend";
-import { escapeHtml, emailShell } from "@/lib/email/layout";
+import { escapeHtml, emailImages, emailShell } from "@/lib/email/layout";
 import { buildIdeaBookEmail } from "@/lib/email/windowPlan";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 
@@ -46,13 +46,14 @@ describe("escapeHtml", () => {
   });
 });
 
-const idea = (title: string, intro: string): IdeaBookEntry => ({ title, intro }) as IdeaBookEntry;
+const idea = (title: string, intro: string, extra: Partial<IdeaBookEntry> = {}): IdeaBookEntry =>
+  ({ title, intro, photo_category: "creative_workshop", ...extra }) as IdeaBookEntry;
 
 const book: GeneratedIdeaBook = {
   profile_summary: "Je zoekt <b>rust</b> & ruimte.",
   must_haves: [],
   preferences: [],
-  ideas: [idea("Klei & meer", "Een <i>echte</i> workshop"), idea("Tweede", "Intro")],
+  ideas: [idea("Klei & meer", "Een <i>echte</i> workshop"), idea("Tweede", "Intro", { first_action: "Open de site en boek een plek." })],
   wildcard: idea("Wildcard <x>", "Gek idee"),
   labels: {
     steps_heading: "",
@@ -86,7 +87,7 @@ describe("buildIdeaBookEmail", () => {
   it("states what was bought, links to the book, and shows the order data", () => {
     const { subject, html } = buildIdeaBookEmail(params);
     expect(subject).toBe("Jouw Window Idea Book: je mogelijkheden zijn klaar");
-    expect(html).toContain("Je Idea Book staat klaar");
+    expect(html).toContain("Je venster staat open");
     expect(html).toContain("https://windowinto.nl/plan?checkout_session_id=cs_test_1");
     expect(html).toContain("W-0001");
     expect(html).toContain("€3,50");
@@ -96,8 +97,64 @@ describe("buildIdeaBookEmail", () => {
   it("renders in English too", () => {
     const { subject, html } = buildIdeaBookEmail({ ...params, locale: "en" });
     expect(subject).toContain("your possibilities are ready");
-    expect(html).toContain("Your Idea Book is ready");
+    expect(html).toContain("Your window is open");
     expect(html).toContain("€3.50");
+  });
+});
+
+describe("buildIdeaBookEmail: look and content", () => {
+  const params = {
+    title: "Jouw Window Idea Book",
+    book,
+    planUrl: "https://windowinto.nl/plan?checkout_session_id=cs_test_1",
+    locale: "nl" as const,
+    siteUrl: "https://windowinto.nl",
+    order: { orderNumber: "W-0001", amountCents: 350, currency: "eur", orderDate: new Date("2026-09-25"), termsVersion: "1" },
+  };
+
+  it("is built in the logo's colours, with no walnut brown left", () => {
+    const { html } = buildIdeaBookEmail(params);
+    expect(html).toContain("#F5A623"); // the orange of the button
+    expect(html).not.toMatch(/#5B3F2F|#3C2920|#B08A4A|#F2ECE1|#F7F5F0/i);
+  });
+
+  it("shows the header and a small photo per door when the site is public, and works without them", () => {
+    const withImages = buildIdeaBookEmail(params).html;
+    expect(withImages).toContain("https://windowinto.nl/email/header.jpg");
+    expect(withImages).toContain("https://windowinto.nl/email/thumbs/categories/creative_workshop-1.jpg");
+    const local = buildIdeaBookEmail({ ...params, siteUrl: "http://localhost:3000" }).html;
+    expect(local).not.toContain("<img");
+    expect(local).toContain("Klei &amp; meer");
+  });
+
+  it("offers a first step from the book and a plain-text twin", () => {
+    const { html, text } = buildIdeaBookEmail(params);
+    expect(html).toContain("Begin klein");
+    expect(html).toContain("Open de site en boek een plek.");
+    expect(text).toContain("https://windowinto.nl/plan?checkout_session_id=cs_test_1");
+    expect(text).toContain("1. Klei & meer");
+    expect(text).toContain("W-0001");
+    expect(text).not.toMatch(/<\/?(table|td|tr|img|a|p|div|span|hr)[\s>]/i);
+  });
+
+  it("says how many doors there are, the wildcard included", () => {
+    expect(buildIdeaBookEmail(params).html).toContain("3 deuren");
+  });
+});
+
+describe("emailImages", () => {
+  it("only hands out public https addresses", () => {
+    expect(emailImages("https://windowinto.nl")?.header).toBe("https://windowinto.nl/email/header.jpg");
+    for (const bad of ["http://windowinto.nl", "http://localhost:3000", "https://localhost", "https://192.168.1.4", "", "nonsense", undefined]) {
+      expect(emailImages(bad), String(bad)).toBeNull();
+    }
+  });
+
+  it("maps an idea photo to its small twin and nothing else", () => {
+    const img = emailImages("https://windowinto.nl")!;
+    expect(img.thumb("/illustrations/discovery/escape-room.jpg")).toBe("https://windowinto.nl/email/thumbs/discovery/escape-room.jpg");
+    expect(img.thumb("/illustrations/idea-book/categories/art_culture-2.jpg")).toBe("https://windowinto.nl/email/thumbs/categories/art_culture-2.jpg");
+    expect(img.thumb("/somewhere/else.jpg")).toBeNull();
   });
 });
 

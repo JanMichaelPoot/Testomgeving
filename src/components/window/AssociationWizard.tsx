@@ -13,7 +13,6 @@ import { domainImage } from "@/lib/discovery/paths";
 import { ASSOCIATION_ROUNDS, type AssociationCard, type AssociationLibrary, type AssociationRound, type AxisId } from "@/lib/discovery/associationProfile";
 import { buildProfileStory } from "@/lib/discovery/profileStory";
 import { ProfileStep } from "@/components/window/ProfileStep";
-import { shortPlace } from "@/lib/place";
 import { sampleRoundCards, sampleWorldExamples } from "@/lib/discovery/associationSampling";
 import { loadSeen, recordSeen } from "@/lib/associationSeen";
 import { buildSill, buildVensterPanes } from "@/lib/vensterPanes";
@@ -187,6 +186,9 @@ export function AssociationWizard({
   // Which variant of every card family this session shows; the images this browser saw before
   // are read once, so the cards do not shift while the visitor is choosing.
   const [seed, setSeed] = useState("");
+  // The direction tapped last: its example activities show in one line under the grid.
+  const [hintWorld, setHintWorld] = useState<string | null>(null);
+  const hintDomain = domains.find((d) => d.id === hintWorld) ?? null;
   const [seenBefore, setSeenBefore] = useState<string[]>([]);
   const [isPending, startTransition] = useTransition();
   const pageEnteredAt = useRef(0);
@@ -287,7 +289,6 @@ export function AssociationWizard({
             chosen,
             corrections: answers.associationCorrections ?? [],
             override: answers.axesOverride,
-            place: shortPlace(answers.location),
             timeAvailable: answers.timeAvailable,
             budget: answers.budget,
             searchDistance: answers.searchDistance,
@@ -589,7 +590,8 @@ export function AssociationWizard({
                 />
               </div>
             )}
-            <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+            {/* Same grid and tile shape as the image rounds, so the photos are as large as on the other pages. */}
+            <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
               {domains.map((d) => {
                 const on = (answers.interestDomains ?? []).includes(d.id);
                 return (
@@ -597,20 +599,19 @@ export function AssociationWizard({
                     key={d.id}
                     type="button"
                     aria-pressed={on}
-                    onClick={() => toggleWorld(d.id)}
+                    onClick={() => {
+                      setHintWorld(d.id);
+                      toggleWorld(d.id);
+                    }}
                     className={cn(
-                      "group relative aspect-square overflow-hidden rounded-lg text-left transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
+                      "group relative aspect-[4/5] overflow-hidden rounded-lg text-left transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
                       on && "ring-[3px] ring-gold ring-offset-2 ring-offset-cream",
                       answers.surpriseMe && "opacity-50",
                     )}
                   >
-                    <Image src={domainImage(d.id)} alt="" fill sizes="(min-width: 1024px) 170px, 45vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
-                    <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent px-3 pb-3 pt-12 text-sm font-semibold leading-snug text-white">
+                    <Image src={domainImage(d.id)} alt="" fill sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 45vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                    <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent px-3 pb-3 pt-10 text-sm font-semibold leading-snug text-white">
                       {d.label}
-                      {/* A few examples from this direction, other ones in every session. */}
-                      <span className="mt-1 line-clamp-2 block text-[11px] font-normal leading-snug text-white/85">
-                        {sampleWorldExamples(library.worldExamples?.[d.id] ?? [], seed || "initial", d.id).join(" · ")}
-                      </span>
                     </span>
                     <span className="absolute right-2 top-2">{on ? <Check /> : <span className="block h-7 w-7 rounded-full border-2 border-white/80 bg-black/10" />}</span>
                   </button>
@@ -621,7 +622,7 @@ export function AssociationWizard({
                 aria-pressed={!!answers.surpriseMe}
                 onClick={() => setAnswers((prev) => ({ ...prev, surpriseMe: !prev.surpriseMe, interestDomains: [] }))}
                 className={cn(
-                  "flex aspect-square flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed px-3 text-center transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
+                  "col-span-2 flex min-h-28 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed px-3 text-center transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
                   answers.surpriseMe ? "border-accent-dark bg-accent-dark text-gold-light" : "border-gold bg-paper text-accent-dark",
                 )}
               >
@@ -635,6 +636,13 @@ export function AssociationWizard({
             <p className="mt-3 text-sm text-ink/60" aria-live="polite">
               {answers.surpriseMe ? dict.worlds.surpriseSub : dict.worlds.chosen.replace("{n}", String((answers.interestDomains ?? []).length))}
             </p>
+            {/* The examples that used to sit on every tile: one line for the direction touched last. */}
+            {hintDomain && !answers.surpriseMe && (
+              <p className="mt-1 text-sm text-ink/60" aria-live="polite">
+                <span className="font-semibold text-ink/75">{hintDomain.label}:</span>{" "}
+                {sampleWorldExamples(library.worldExamples?.[hintDomain.id] ?? [], seed || "initial", hintDomain.id).join(" · ")}
+              </p>
+            )}
           </div>
         );
       case "places":

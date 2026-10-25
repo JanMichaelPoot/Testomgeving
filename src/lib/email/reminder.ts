@@ -1,5 +1,5 @@
 import { sendEmail } from "@/lib/resend";
-import { EMAIL_COLORS as c, EMAIL_FONTS, emailButton, emailShell, escapeHtml } from "@/lib/email/layout";
+import { EMAIL_COLORS as c, EMAIL_FONTS, emailButton, emailEyebrow, emailImages, emailShell, escapeHtml } from "@/lib/email/layout";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/locale";
 
@@ -25,14 +25,19 @@ export async function sendFirstActionReminderEmail(params: {
     .replace("{action}", escapeHtml(firstAction));
 
   const bodyHtml = `
-    <p style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:${c.accent};">${escapeHtml(dict.heading)}</p>
-    <p style="margin:0 0 24px;font-family:${EMAIL_FONTS.serif};font-size:20px;line-height:1.5;color:${c.ink};">${intro}</p>
+    ${emailEyebrow(dict.heading, c.orangeText)}
+    <p style="margin:0 0 26px;font-family:${EMAIL_FONTS.serif};font-size:21px;line-height:1.5;color:${c.navy};">${intro}</p>
     ${emailButton(planUrl, dict.ctaLabel)}`;
 
   await sendEmail({
     from: process.env.EMAIL_FROM!,
     to,
     subject: dict.subject,
-    html: emailShell({ preheader: dict.subject, bodyHtml }),
+    html: emailShell({
+      preheader: dict.subject,
+      bodyHtml,
+      images: emailImages(process.env.NEXT_PUBLIC_SITE_URL),
+      headerAlt: "",
+    }),
   });
 }

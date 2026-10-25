@@ -79,9 +79,11 @@ export function ProfileStep({
             </ul>
           )}
 
-          <p className="mt-4 font-serif text-xl leading-snug text-ink sm:text-2xl" aria-live="polite">
-            {story.story}
-          </p>
+          {/* The portrait: one line that says what is being looked for, then a few sentences that read the choices. */}
+          <div aria-live="polite">
+            <p className="mt-4 font-serif text-2xl leading-snug text-ink sm:text-3xl">{story.headline}</p>
+            <p className="mt-3 max-w-prose text-base leading-relaxed text-ink/75 sm:text-lg">{story.story}</p>
+          </div>
 
           <div className="mt-5 rounded-2xl border border-border bg-surface-active px-5 py-4">
             <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{copy.tensionLabel}</p>

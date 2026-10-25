@@ -35,8 +35,6 @@ export interface ProfileInput {
   corrections: readonly string[];
   /** Axes the person moved themselves. */
   override?: AxesOverride;
-  /** The short place name ("Laren"), empty when not given. */
-  place: string;
   timeAvailable: string;
   budget: string;
   searchDistance: string;
@@ -55,7 +53,9 @@ export interface ProfileStory {
   pickedCards: { id: string; label: string; image: string }[];
   /** The tag words read from the images, strongest first (at most two). */
   tags: string[];
-  /** Three to four sentences. */
+  /** One line, the portrait: what this person is looking for ("Je zoekt ..., en ..."). */
+  headline: string;
+  /** Two to four sentences that read the choices, not list them. */
   story: string;
   tension: { kind: TensionKind; axis: AxisId | null; text: string };
   /** What counts: the images' axes, except where the person moved a slider. */
@@ -69,12 +69,6 @@ export interface ProfileStory {
 }
 
 const fill = (template: string, values: Record<string, string>) => template.replace(/\{(\w+)\}/g, (m, k) => values[k] ?? m);
-const lowerFirst = (s: string) => (s ? s[0].toLowerCase() + s.slice(1) : s);
-
-function joinAnd(items: string[], and: string): string {
-  if (items.length <= 1) return items[0] ?? "";
-  return `${items.slice(0, -1).join(", ")} ${and} ${items[items.length - 1]}`;
-}
 
 // --- which images weigh most ----------------------------------------------------------------
 
@@ -223,6 +217,25 @@ export function suggestMissing(profile: Record<string, number>, copy: Copy, n = 
 
 // --- the whole screen -----------------------------------------------------------------------
 
+// Tags that say "with others" and tags that say "quietly", for the two sentences that read the choices
+// against who comes along.
+const TOGETHER_TAGS = ["conviviality", "teamwork"];
+const QUIET_TAGS = ["stillness", "focus"];
+
+/** The sentence for the strongest pair of tags that were both read from the images, if any pair is written. */
+function pairSentence(top: readonly string[], copy: Copy): string | null {
+  const rank = new Map(top.map((t, i) => [t, i]));
+  let best: { text: string; score: number } | null = null;
+  for (const read of copy.reads) {
+    const a = rank.get(read.tags[0]);
+    const b = rank.get(read.tags[1]);
+    if (a === undefined || b === undefined) continue;
+    const score = a + b;
+    if (!best || score < best.score) best = { text: read.text, score };
+  }
+  return best?.text ?? null;
+}
+
 export function buildProfileStory(input: ProfileInput, copy: Copy): ProfileStory {
   const override = sanitizeAxesOverride(input.override);
   const fromImages = averageAxes(input.cards, input.chosen);
@@ -234,46 +247,58 @@ export function buildProfileStory(input: ProfileInput, copy: Copy): ProfileStory
 
   const tensionAxis = findTension(input.cards, input.chosen);
   const pickedCards = pickRepresentativeCards(input, 3, tensionAxis);
-  const ordered = [...input.corrections, ...topTags(profile, 6).filter((t) => !input.corrections.includes(t))].slice(0, 2);
-  const tags = ordered.map((t) => (input.tagLabels[t] ?? t).toLowerCase());
+  const orderedIds = [...input.corrections, ...topTags(profile, 6).filter((t) => !input.corrections.includes(t))];
+  const tags = orderedIds.slice(0, 2).map((t) => (input.tagLabels[t] ?? t).toLowerCase());
 
-  // 1. what they chose
-  const list = joinAnd(
-    pickedCards.map((c) => `‘${lowerFirst(c.label)}’`),
-    copy.and,
-  );
+  let headline: string;
   const sentences: string[] = [];
   if (pickedCards.length === 0) {
-    sentences.push(input.gift ? fill(copy.openGift, nameVars) : copy.open);
+    headline = input.gift ? copy.openHeadlineGift : copy.openHeadline;
+    sentences.push(fill(input.gift ? copy.openStoryGift : copy.openStory, nameVars));
   } else {
-    sentences.push(fill(input.gift ? copy.choseGift : copy.chose, { ...nameVars, list }));
-    // 2. what we read in them
-    if (tags.length === 1) sentences.push(fill(copy.readOne, { a: tags[0] }));
-    if (tags.length >= 2) sentences.push(fill(copy.readTwo, { a: tags[0], b: tags[1] }));
-    // 3. what we are looking for, in the words of the axes that lean clearly
+    // The headline: the two strongest tags, in images ("plekken waar handen iets te doen hebben").
+    const motifs = orderedIds.map((t) => copy.motifs[t]).filter((m): m is string => !!m);
+    if (motifs.length >= 2) headline = fill(input.gift ? copy.headlineGift : copy.headline, { ...nameVars, a: motifs[0], b: motifs[1] });
+    else if (motifs.length === 1) headline = fill(input.gift ? copy.headlineOneGift : copy.headlineOne, { ...nameVars, a: motifs[0] });
+    else headline = input.gift ? copy.headlineNoneGift : copy.headlineNone;
+
+    // What the choices say: a sentence for the pair of tags that belong together, and one that reads the
+    // choices against who comes along.
+    const top = topTags(profile, 5);
+    const read: string[] = [];
+    const pair = pairSentence(top, copy);
+    if (pair) read.push(pair);
+    const alone = input.company.length > 0 && input.company.every((v) => v === "alone");
+    const withOthers = input.company.some((v) => v !== "alone");
+    if (alone && top.some((t) => TOGETHER_TAGS.includes(t))) read.push(copy.aloneButTogether);
+    else if (withOthers && top.some((t) => QUIET_TAGS.includes(t))) read.push(copy.quietTogether);
+    // No pair of tags has a sentence of its own: say what it is to want each of the two strongest, one sentence each.
+    if (read.length === 0) {
+      const lines = orderedIds.map((id) => copy.tagLines[id]).filter((line): line is string => !!line);
+      read.push(...[...new Set(lines)].slice(0, 2));
+    }
+    sentences.push(...read.slice(0, 2));
+
+    // How it should feel: the two axes that lean hardest, in imagery, said in a fixed order.
     const lean = axisLeanings(axes);
+    // Who comes along beats what the images lean to: "on your own" next to "with your partner" would contradict itself.
+    if (lean.social === "alone" && withOthers) delete lean.social;
+    if (lean.social === "together" && alone) delete lean.social;
+    const novelty = axes.novelty <= -0.35 ? "familiar" : axes.novelty >= 0.35 ? "fresh" : null;
     const leaning = [
-      lean.setting ? { rank: Math.abs(axes.setting), order: 0, text: copy.leanings[lean.setting] } : null,
-      lean.energy ? { rank: Math.abs(axes.energy), order: 1, text: copy.leanings[lean.energy] } : null,
-      lean.social ? { rank: Math.abs(axes.social), order: 2, text: copy.leanings[lean.social] } : null,
+      lean.setting ? { rank: Math.abs(axes.setting), order: 0, text: copy.leanLines[lean.setting] } : null,
+      lean.energy ? { rank: Math.abs(axes.energy), order: 1, text: copy.leanLines[lean.energy] } : null,
+      lean.social ? { rank: Math.abs(axes.social), order: 2, text: copy.leanLines[lean.social] } : null,
+      novelty ? { rank: Math.abs(axes.novelty), order: 3, text: copy.leanLines[novelty] } : null,
     ].filter((x): x is { rank: number; order: number; text: string } => !!x);
-    // The two that lean hardest, said in a fixed order (place, pace, company).
     const parts = leaning
       .sort((a, b) => b.rank - a.rank || a.order - b.order)
       .slice(0, 2)
       .sort((a, b) => a.order - b.order)
       .map((x) => x.text);
-    sentences.push(parts.length ? fill(copy.seek, { parts: parts.join(", ") }) : copy.seekNeutral);
+    if (parts.length) sentences.push(...parts);
+    else sentences.push(copy.leanNeutral);
   }
-  // 4. the practical frame
-  const items: string[] = [];
-  if (copy.time[input.timeAvailable]) items.push(copy.time[input.timeAvailable]);
-  if (copy.budget[input.budget]) items.push(copy.budget[input.budget]);
-  if (input.place) items.push(fill(copy.near, { place: input.place }));
-  const others = input.company.filter((v) => copy.company[v]);
-  if (others.length > 0) items.push(fill(copy.withWho, { list: joinAnd(others.map((v) => copy.company[v]), copy.and) }));
-  else if (input.company.includes("alone")) items.push(copy.noCompany);
-  if (items.length > 0) sentences.push(fill(copy.practical, { list: joinAnd(items, copy.and) }));
 
   // the tension, or the strongest lean, or the plain fact that nothing leans
   let tension: ProfileStory["tension"];
@@ -293,6 +318,7 @@ export function buildProfileStory(input: ProfileInput, copy: Copy): ProfileStory
   return {
     pickedCards: pickedCards.map((c) => ({ id: c.id, label: c.label, image: c.image })),
     tags,
+    headline,
     story: sentences.join(" "),
     tension,
     axes,

@@ -25,7 +25,6 @@ function input(locale: "nl" | "en", chosen: string[], extra: Partial<ProfileInpu
     tagLabels: lib[locale].tagLabels,
     chosen,
     corrections: [],
-    place: "Laren",
     timeAvailable: "halfday",
     budget: "25",
     searchDistance: "hour",
@@ -46,31 +45,30 @@ describe("buildProfileStory", () => {
   for (const locale of ["nl", "en"] as const) {
     const copy = copyOf(locale);
 
-    it(`${locale}: is deterministic and tells 3-4 sentences that refer to the chosen images`, () => {
+    it(`${locale}: is deterministic, opens with one line about what is looked for and then reads the choices in 2-4 sentences`, () => {
       const a = buildProfileStory(input(locale, QUIET), copy);
       const b = buildProfileStory(input(locale, QUIET), copy);
       expect(a).toEqual(b);
       expect(a.pickedCards.length).toBeGreaterThanOrEqual(2);
       expect(a.pickedCards.length).toBeLessThanOrEqual(3);
-      // every picked image's label is quoted in the story
-      for (const c of a.pickedCards) expect(a.story.toLowerCase()).toContain(c.label.toLowerCase());
+      expect(a.headline).toMatch(locale === "nl" ? /^Je zoekt .+, en .+\.$/ : /^You're looking for .+, and .+\.$/);
       const sentences = a.story.split(/(?<=\.)\s+/);
-      expect(sentences.length).toBeGreaterThanOrEqual(3);
+      expect(sentences.length).toBeGreaterThanOrEqual(2);
       expect(sentences.length).toBeLessThanOrEqual(4);
-      expect(a.story).not.toMatch(/\{\w+\}/);
+      for (const text of [a.headline, a.story]) expect(text).not.toMatch(/\{\w+\}|undefined/);
     });
 
-    it(`${locale}: mentions the place and the practical frame, without a place when none was given`, () => {
-      expect(buildProfileStory(input(locale, QUIET), copy).story).toContain("Laren");
-      const without = buildProfileStory(input(locale, QUIET, { place: "" }), copy).story;
-      expect(without).not.toContain("Laren");
-      expect(without).not.toMatch(/\{\w+\}/);
+    it(`${locale}: reads the choices instead of listing them: no image label is repeated, and neither is the practical frame the sill shows`, () => {
+      const r = buildProfileStory(input(locale, QUIET), copy);
+      for (const c of r.pickedCards) expect(`${r.headline} ${r.story}`.toLowerCase()).not.toContain(c.label.toLowerCase());
+      expect(r.story).not.toMatch(/Laren|€\d/);
     });
 
     it(`${locale}: a gift talks about the recipient and never says "you chose" in the first person`, () => {
       const r = buildProfileStory(input(locale, BUSY, { gift: true, name: "Anna" }), copy);
-      expect(r.story).toContain("Anna");
-      expect(r.story).not.toMatch(/^(Je koos|You chose)/);
+      expect(r.headline).toContain("Anna");
+      expect(r.headline).not.toMatch(/^(Je zoekt|You're looking)/);
+      expect(r.story).not.toMatch(/Je koos|You chose/);
       expect(r.tension.text).not.toMatch(/\{name\}/);
     });
 
@@ -79,6 +77,7 @@ describe("buildProfileStory", () => {
       expect(r.tension.kind).toBe("open");
       expect(r.pickedCards).toEqual([]);
       expect(r.story.length).toBeGreaterThan(20);
+      expect(r.headline.length).toBeGreaterThan(10);
     });
   }
 
@@ -95,6 +94,69 @@ describe("buildProfileStory", () => {
     expect(moved.axes.energy).toBe(1);
     expect(moved.axes.social).toBe(base.axes.social);
     expect(moved.fromImages.energy).toBe(base.fromImages.energy);
+  });
+});
+
+describe("the portrait", () => {
+  const nl = copyOf("nl");
+
+  it("reads a pair of tags that belong together with one written sentence, and the strongest pair wins", () => {
+    const r = buildProfileStory(input("nl", QUIET), nl);
+    expect(nl.reads.some((x) => r.story.includes(x.text))).toBe(true);
+  });
+
+  it("reads the choices against who comes along: togetherness while alone, stillness with company", () => {
+    const together = ["place-kitchen-table", "moment-laughing", "sense-bass"];
+    expect(buildProfileStory(input("nl", together, { company: ["alone"] }), nl).story).toContain(nl.aloneButTogether);
+    expect(buildProfileStory(input("nl", together, { company: ["friends"] }), nl).story).not.toContain(nl.aloneButTogether);
+    const quiet = buildProfileStory(input("nl", QUIET, { company: ["partner"] }), nl).story;
+    expect(quiet).toContain(nl.quietTogether);
+    expect(buildProfileStory(input("nl", QUIET, { company: ["alone"] }), nl).story).not.toContain(nl.quietTogether);
+  });
+
+  it("follows a slider the person moved: the lean sentence changes with it", () => {
+    const calm = buildProfileStory(input("nl", BUSY, { override: { energy: -1 } }), nl).story;
+    const active = buildProfileStory(input("nl", BUSY, { override: { energy: 1 } }), nl).story;
+    expect(calm).toContain(nl.leanLines.calm);
+    expect(active).toContain(nl.leanLines.active);
+  });
+
+  it("has an image for every tag a person can read from the images, in both languages, and only real tags in the pairs", () => {
+    for (const locale of ["nl", "en"] as const) {
+      const copy = copyOf(locale);
+      const tags = new Set(lib[locale].cards.flatMap((c) => Object.keys(c.tagWeights)));
+      for (const t of tags) expect(copy.motifs[t], `${locale} motif ${t}`).toBeTruthy();
+      for (const t of tags) expect(copy.tagLines[t], `${locale} tag line ${t}`).toBeTruthy();
+      for (const r of copy.reads) for (const t of r.tags) expect(tags.has(t), `${locale} read tag ${t}`).toBe(true);
+    }
+  });
+
+  it("is written so it reads right for a gift too: no first person singular and no 'you chose' in any fixed sentence", () => {
+    for (const locale of ["nl", "en"] as const) {
+      const copy = copyOf(locale);
+      const all = [
+        ...Object.values(copy.motifs),
+        ...Object.values(copy.tagLines),
+        ...copy.reads.map((r) => r.text),
+        copy.aloneButTogether,
+        copy.quietTogether,
+        copy.leanNeutral,
+        ...Object.values(copy.leanLines),
+      ];
+      for (const text of all) expect(text, text).not.toMatch(/\b(ik|mezelf|mij|mijn|I|myself|my)\b|je koos|you chose/i);
+    }
+  });
+
+  it("is the same length class for every mix: a headline of at most 160 characters and at most 4 sentences", () => {
+    const ids = lib.nl.cards.filter((c) => c.family === undefined || c.family === c.id).map((c) => c.id);
+    for (const locale of ["nl", "en"] as const) {
+      for (let i = 0; i < ids.length; i++) {
+        const chosen = [ids[i], ids[(i + 5) % ids.length], ids[(i + 11) % ids.length]];
+        const r = buildProfileStory(input(locale, chosen), copyOf(locale));
+        expect(r.headline.length, r.headline).toBeLessThanOrEqual(160);
+        expect(r.story.split(/(?<=\.)\s+/).length).toBeLessThanOrEqual(4);
+      }
+    }
   });
 });
 

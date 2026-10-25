@@ -273,6 +273,13 @@ export interface Dictionary {
     heading: string;
     viewOnline: string;
     readyHeading: string;
+    lead: string; // {count}
+    quoteLabel: string;
+    firstStepHeading: string;
+    firstStepLead: string;
+    doorsLead: string;
+    wildcardTag: string;
+    headerAlt: string;
     attachmentNote: string;
     orderHeading: string;
     // Order confirmation additions (section 17): order number, price,
@@ -822,7 +829,14 @@ const nl: Dictionary = {
     subjectSuffix: "je mogelijkheden zijn klaar",
     heading: "Jouw mogelijkheden",
     viewOnline: "Bekijk je Idea Book online",
-    readyHeading: "Je Idea Book staat klaar",
+    readyHeading: "Je venster staat open",
+    lead: "Er staan {count} deuren voor je klaar, gekozen uit wat jij liet zien. Eén daarvan zag je vast niet aankomen.",
+    quoteLabel: "Zo lazen we je",
+    firstStepHeading: "Begin klein",
+    firstStepLead: "Als je er maar één kiest, begin dan hiermee:",
+    doorsLead: "Alle deuren op een rij, met de PDF in de bijlage als je ze ook offline wilt bewaren.",
+    wildcardTag: "De wildcard",
+    headerAlt: "Vier ramen op de wereld: een atelier, een waterval, een zeilboot en een luchtballon",
     attachmentNote: "De PDF zit als bijlage bij deze mail, zodat je hem ook offline kunt bewaren.",
     orderHeading: "Je bestelling",
     orderNumberLabel: "Ordernummer",
@@ -1542,7 +1556,14 @@ const en: Dictionary = {
     subjectSuffix: "your possibilities are ready",
     heading: "Your possibilities",
     viewOnline: "View your Idea Book online",
-    readyHeading: "Your Idea Book is ready",
+    readyHeading: "Your window is open",
+    lead: "{count} doors are waiting for you, chosen from what you showed us. One of them you probably didn't see coming.",
+    quoteLabel: "How we read you",
+    firstStepHeading: "Start small",
+    firstStepLead: "If you only pick one, start with this:",
+    doorsLead: "All the doors in a row, with the PDF attached if you want to keep them offline too.",
+    wildcardTag: "The wildcard",
+    headerAlt: "Four windows on the world: a studio, a waterfall, a sailboat and a hot-air balloon",
     attachmentNote: "The PDF is attached to this email, so you can keep it offline too.",
     orderHeading: "Your order",
     orderNumberLabel: "Order number",
