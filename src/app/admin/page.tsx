@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { overview, percent, ratio, type PaymentRow, type PlanRow } from "@/lib/adminStats";
+import { envChecks } from "@/lib/adminEnv";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid, formatEuro, formatSeconds } from "./ui";
 
 export const metadata: Metadata = {
@@ -31,6 +32,8 @@ export default async function AdminOverviewPage() {
   const o = overview((plans ?? []) as unknown as PlanRow[], (payments ?? []) as unknown as PaymentRow[], new Date());
   const maxDay = Math.max(1, ...o.perDay.map((d) => d.count));
   const emailRate = ratio(o.email.sent, o.email.expected);
+  const checks = envChecks(process.env);
+  const broken = checks.filter((c) => c.required && !c.ok);
 
   return (
     <AdminShell
@@ -41,10 +44,15 @@ export default async function AdminOverviewPage() {
       {planError && <p className="text-sm text-red-600">Kon de gegevens niet laden: {planError.message}</p>}
 
       <Section title="Aandacht nodig" hint="Dingen die nu iets van jou vragen. Leeg is goed.">
-        {o.attention.length === 0 ? (
+        {o.attention.length === 0 && broken.length === 0 ? (
           <p className="rounded-2xl border border-emerald-900/15 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">Niets dat aandacht vraagt.</p>
         ) : (
           <ul className="space-y-2">
+            {broken.map((c) => (
+              <li key={c.name} className="rounded-2xl border border-red-800/20 bg-red-50 px-4 py-3 text-sm text-red-900">
+                Instelling <code>{c.name}</code>: {c.detail}
+              </li>
+            ))}
             {o.attention.map((a, i) => (
               <li key={i} className={`rounded-2xl border px-4 py-3 text-sm ${a.level === "red" ? "border-red-800/20 bg-red-50 text-red-900" : "border-amber-800/20 bg-amber-50 text-amber-900"}`}>
                 {a.text}
@@ -60,6 +68,22 @@ export default async function AdminOverviewPage() {
             ))}
           </ul>
         )}
+      </Section>
+
+      <Section title="Instellingen van deze deployment" hint="Wat de draaiende site van zijn instellingen ziet (alleen of iets aanwezig is, nooit de geheime waarde). Staat hier iets als ontbrekend terwijl je het in Vercel hebt toegevoegd, dan is het niet in deze omgeving terechtgekomen: controleer of Production of Preview is aangevinkt en deploy opnieuw.">
+        <Card>
+          <ul className="space-y-1.5 text-sm">
+            {checks.map((c) => (
+              <li key={c.name} className="grid grid-cols-[1.5rem_minmax(0,15rem)_1fr] items-baseline gap-2">
+                <span className={c.ok ? "text-emerald-700" : c.required ? "text-red-700" : "text-amber-700"} aria-hidden="true">
+                  {c.ok ? "✓" : c.required ? "✗" : "–"}
+                </span>
+                <code className="truncate text-xs text-ink">{c.name}</code>
+                <span className={c.ok ? "text-ink/60" : c.required ? "text-red-800" : "text-ink/60"}>{c.detail}</span>
+              </li>
+            ))}
+          </ul>
+        </Card>
       </Section>
 
       <Section title="Boeken" hint="Een boek telt als gemaakt zodra het klaar staat. Testboeken (zonder betaling) staan apart.">

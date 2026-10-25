@@ -3642,3 +3642,12 @@ Stripe, Claude API, Resend, PostHog).
       `/admin/logboek`. Alle cijfers komen uit `src/lib/adminStats.ts` (puur, 9 tests). De pagina's zelf zijn niet als ingelogde admin
       gezien: de beveiliging weigerde mij het wachtwoord of de sessietoken te gebruiken; wel gezien: de gedeelde onderdelen
       met voorbeeldgegevens, type- en lintcontrole en de build.
+
+- [x] Stap 91 — E-mail nog steeds "Missing API key" op Vercel (de nieuwste bestelling in de database, 22:29 UTC, mislukte
+      daar opnieuw, ná Jans eerdere aanpassing van de variabelen; of er daarna nog een test is gedaan is niet te zien).
+      Ik kan Vercel zelf niet inzien, dus de admin laat nu zien wat de draaiende site van zijn instellingen ziet: nieuw
+      blok **Instellingen van deze deployment** op `/admin` (`src/lib/adminEnv.ts`, met tests): Vercel-omgeving
+      (production/preview), of `RESEND_API_KEY`, `EMAIL_FROM`, `NEXT_PUBLIC_SITE_URL` (waarschuwt voor localhost),
+      Anthropic, Stripe (test of live), Supabase en de optionele sleutels aanwezig zijn. Alleen aanwezigheid en niet-geheime
+      waarden, nooit een sleutel; ontbrekende verplichte instellingen staan ook onder "Aandacht nodig". Zo is in één
+      oogopslag te zien of de sleutel in de juiste omgeving terecht is gekomen.
