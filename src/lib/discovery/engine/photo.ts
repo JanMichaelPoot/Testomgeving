@@ -49,6 +49,39 @@ const BY_SUB: Record<string, PhotoCategory> = {
   body_breath: "wellness_relax",
   read_listen: "home_cozy",
   reflection: "home_cozy",
+  // adventure
+  heights_air: "travel_adventure",
+  deep_dark: "travel_adventure",
+  wild_water: "water_activity",
+  rough_terrain: "travel_adventure",
+  // target
+  shooting: "active_sport",
+  throwing: "active_sport",
+  fine_aim: "active_sport",
+  // speed
+  wheels: "active_sport",
+  air_flight: "travel_adventure",
+  snow_ice: "active_sport",
+  // mystery
+  puzzle_rooms: "social_games",
+  urban_explore: "travel_adventure",
+  true_crime: "art_culture",
+  // elements
+  fire_metal: "creative_workshop",
+  wood_stone: "creative_workshop",
+  wild_skills: "nature_outdoor",
+  // food
+  cooking_craft: "food_drink",
+  drink_craft: "food_drink",
+  harvest: "food_drink",
+  // stage
+  spoken_word: "music_nightlife",
+  show_craft: "music_nightlife",
+  film_media: "creative_workshop",
+  // night
+  evening_out: "music_nightlife",
+  card_chance: "social_games",
+  music_night: "music_nightlife",
 };
 
 const OVERRIDE: Record<string, PhotoCategory> = {
@@ -95,6 +128,26 @@ const OVERRIDE: Record<string, PhotoCategory> = {
   toerist: "travel_adventure",
   stadswandeling: "travel_adventure",
   legendes: "travel_adventure",
+  // foraging, farms and the sea
+  foerageren: "nature_outdoor",
+  pluktuin: "nature_outdoor",
+  boerderijdag: "nature_outdoor",
+  "wijngaard-oogst": "nature_outdoor",
+  wadlopen: "nature_outdoor",
+  "zeehonden-varen": "nature_outdoor",
+  "ijsbaden": "wellness_relax",
+  freediven: "water_activity",
+  grotduiken: "water_activity",
+  wrakduiken: "water_activity",
+  "grotten-verkennen": "travel_adventure",
+  hofjes: "art_culture",
+  stoomtrein: "travel_adventure",
+  oldtimerrit: "travel_adventure",
+  "dineren-in-het-donker": "food_drink",
+  nachtmarkt: "market_shopping",
+  "streetfoodtour": "food_drink",
+  "veiling": "market_shopping",
+  "ruilbeurs-planten": "market_shopping",
   // at home
   legpuzzels: "home_cozy",
   raadsels: "home_cozy",

@@ -17,15 +17,15 @@ describe("sampleRoundCards", () => {
     }
   });
 
-  it("draws the nine from a pool of twelve families a round, and every family comes up now and then", () => {
+  it("draws the nine from a pool of twenty-one families a round, and every family comes up now and then", () => {
     for (const round of ASSOCIATION_ROUNDS) {
       const families = new Set(cards.filter((c) => c.round === round).map(familyOf));
-      expect(families.size).toBe(12);
+      expect(families.size).toBe(21);
       const shown = new Map<string, number>();
       for (let i = 0; i < 200; i++) for (const c of sampleRoundCards(cards, round, { seed: `pool${i}` })) shown.set(familyOf(c), (shown.get(familyOf(c)) ?? 0) + 1);
       expect(new Set(shown.keys())).toEqual(families);
-      // About 150 of 200 sessions each (9 of 12), allowing for the repair step.
-      for (const n of shown.values()) expect(n).toBeGreaterThan(90);
+      // About 86 of 200 sessions each (9 of 21), allowing for the repair step.
+      for (const n of shown.values()) expect(n).toBeGreaterThan(40);
     }
   });
 
@@ -57,7 +57,7 @@ describe("sampleRoundCards", () => {
       overlaps += other.filter((id) => base.includes(id)).length;
       if (other.join() !== base.join()) orderChanges++;
     }
-    // Nine of twelve families and three variants each: far from the same nine images every time.
+    // Nine of twenty-one families and three variants each: far from the same nine images every time.
     expect(overlaps / 20).toBeLessThan(5);
     expect(orderChanges).toBeGreaterThanOrEqual(19);
   });

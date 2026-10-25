@@ -138,7 +138,8 @@
       "en": "An afternoon entry; rules and customs are explained"
     },
     "scene": "a wooden sauna interior with towels and a bucket, steam",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "ademwerk",
@@ -241,7 +242,8 @@
       "en": "A short treatment at a recognised practice"
     },
     "scene": "folded towels and candles with oil bottles on a stone",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "stilteweekend",
@@ -273,7 +275,8 @@
       "en": "Start with a day; many centres offer a short start"
     },
     "scene": "a simple monastery-like room with a bed and a window over hills",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "lezen",
@@ -677,6 +680,153 @@
       "en": "Twenty minutes seated without a screen or a goal"
     },
     "scene": "an empty chair by a sunlit window with a plant",
+    "status": "concept"
+  },
+  {
+    "id": "floattank",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Floaten in een zweeftank",
+      "en": "Floating in a flotation tank"
+    },
+    "tags": [
+      "stillness",
+      "focus",
+      "discovery",
+      "water"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een float-sessie van een uur bij een floatcentrum",
+      "en": "Book a one-hour float session at a float centre"
+    },
+    "scene": "a rounded white float pod with a soft blue glow inside and a quiet tiled room around it",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "bosbaden",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Bosbaden (shinrin-yoku)",
+      "en": "Forest bathing"
+    },
+    "tags": [
+      "stillness",
+      "nature",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe een geleide sessie of wandel zelf langzaam en let op je zintuigen",
+      "en": "Join a guided session or walk slowly and notice your senses"
+    },
+    "scene": "tall beeches with green light filtering down onto a quiet forest floor covered in moss and fern",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "klankbad",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Een klankbad",
+      "en": "A sound bath"
+    },
+    "tags": [
+      "sound",
+      "stillness",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een klankbad met klankschalen of gongs",
+      "en": "Book a sound bath with singing bowls or gongs"
+    },
+    "scene": "several brass singing bowls and a large gong on a woven mat in a candlelit room",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "thermen",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Een dag in een thermenbad",
+      "en": "A day at a thermal spa"
+    },
+    "tags": [
+      "stillness",
+      "water",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Koop een dagkaart voor een thermenbad en neem je tijd",
+      "en": "Buy a day ticket for a thermal spa and take your time"
+    },
+    "scene": "an outdoor thermal pool with steam rising and stone loungers around it in cold morning air",
+    "supply": "regional",
     "status": "concept"
   }
 ]

@@ -326,7 +326,8 @@
       "en": "Trial sailing at a sailing school or club, with a skipper"
     },
     "scene": "a small sailing boat with a taut sail on blue water, coiled ropes in the foreground",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "duiken",
@@ -363,7 +364,8 @@
       "en": "Trial dive in a swimming pool with an instructor (medical statement required)"
     },
     "scene": "a diving mask and fins on a wooden dock beside turquoise water",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "boulderen",
@@ -482,7 +484,8 @@
       "en": "Safety briefing on site; also fun with family"
     },
     "scene": "a high ropes course among tall pine trees with wooden platforms",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "vrije-val",
@@ -519,7 +522,8 @@
       "en": "Wind tunnel with an instructor; a safer start than a jump"
     },
     "scene": "a vertical wind tunnel glass chamber seen from outside, helmet and goggles on a bench",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "dansen",
@@ -770,7 +774,8 @@
       "en": "Trial class at a recognised club, no competition obligation"
     },
     "scene": "a folded judo belt and gi on a tatami mat in morning light",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "schietles",
@@ -809,7 +814,8 @@
       "en": "Intro lesson at a shooting club, instructor and equipment provided"
     },
     "scene": "a paper shooting target with a tight cluster of holes near the bullseye, hanging at the end of a quiet indoor range lane in warm light",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "kleiduifschieten",
@@ -848,7 +854,8 @@
       "en": "Introduction at a clay-target club or range, guidance and equipment included"
     },
     "scene": "bright orange clay discs flying against a pale sky above a green field, slightly blurred with motion",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "bijlwerpen",
@@ -883,7 +890,8 @@
       "en": "An hour of axe throwing with instruction at an axe-throwing venue, axes provided"
     },
     "scene": "a wooden target board with a single axe stuck near the centre in a dim lane lit by warm bulbs",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "karten",
@@ -918,7 +926,8 @@
       "en": "A trial session on a kart track, helmet and kart included"
     },
     "scene": "a row of colourful go-karts on an empty circuit with tyre barriers in low sun",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "via-ferrata",
@@ -966,7 +975,8 @@
       "en": "Guided introductory tour with climbing set, helmet and guide"
     },
     "scene": "a steel cable and iron rungs running up a limestone cliff wall above a distant green valley",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "wildwaterraften",
@@ -1014,7 +1024,8 @@
       "en": "Guided descent for beginners with a guide, helmet and life jacket"
     },
     "scene": "an empty inflatable raft with paddles riding churning white water between wet rocks",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "zweefvliegen",
@@ -1062,7 +1073,8 @@
       "en": "Trial flight with an instructor at a gliding club"
     },
     "scene": "a white glider standing on a grass airfield under towering cumulus clouds",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "quad-buggy",
@@ -1097,7 +1109,8 @@
       "en": "Guided tour for beginners, vehicle and helmet included"
     },
     "scene": "a muddy quad bike parked on a sandy forest track with shallow puddles",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "minigolf",
@@ -1172,6 +1185,309 @@
       "en": "Introduction and woodland trail at an archery club, bow and arrows provided"
     },
     "scene": "a lifelike foam deer target standing between tree trunks along a woodland path in dappled light",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "roeien",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Roeien in een boot",
+      "en": "Rowing in a boat"
+    },
+    "tags": [
+      "water",
+      "teamwork",
+      "movement",
+      "rhythm"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Proefles bij een roeivereniging; boot en instructeur zijn er",
+      "en": "Trial lesson at a rowing club; the boat and instructor are provided"
+    },
+    "scene": "a slender wooden racing boat on a calm canal at dawn with oars laid across, mist on the water",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "onderwaterhockey",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Onderwaterhockey",
+      "en": "Underwater hockey"
+    },
+    "tags": [
+      "water",
+      "teamwork",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Proefles bij een onderwatersportvereniging; masker en snorkel worden uitgeleend",
+      "en": "Trial class at an underwater-sports club; mask and snorkel are lent out"
+    },
+    "scene": "a heavy black puck on the bottom of a bright blue swimming pool with floating lane ropes above",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "trampolinepark",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Trampolinepark",
+      "en": "Trampoline park"
+    },
+    "tags": [
+      "play",
+      "movement",
+      "balance",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een uur in een trampolinepark; antislipsokken kun je ter plekke kopen",
+      "en": "Book an hour at a trampoline park; grip socks can be bought on site"
+    },
+    "scene": "a wall-to-wall trampoline floor in bright colours under high white lights with foam pits at the edge",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "calisthenics",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Calisthenics in het park",
+      "en": "Calisthenics in the park"
+    },
+    "tags": [
+      "movement",
+      "technique",
+      "challenge",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Sluit aan bij een gratis buurttraining of begin met een beginnersschema",
+      "en": "Join a free neighbourhood session or start with a beginner plan"
+    },
+    "scene": "a steel pull-up bar and parallel bars in a leafy park with chalk dust on the rails and a gym mat",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "tennis-proefles",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Tennis of squash proefles",
+      "en": "Tennis or squash trial lesson"
+    },
+    "tags": [
+      "technique",
+      "competition",
+      "movement"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een proefles bij een club; rackets zijn te leen",
+      "en": "Book a trial lesson at a club; rackets can be borrowed"
+    },
+    "scene": "a worn tennis racket and three yellow balls on a clay court baseline with white chalk lines",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "boksles",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Boksles of kickboksen",
+      "en": "Boxing or kickboxing class"
+    },
+    "tags": [
+      "technique",
+      "movement",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Proefles bij een sportschool; handschoenen mag je lenen",
+      "en": "Trial class at a gym; gloves can be borrowed"
+    },
+    "scene": "a red heavy bag hanging from a chain in a brick-walled gym with a worn floor mat and a timer clock",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "wandeltocht-lang",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Een lange wandeltocht in etappes",
+      "en": "A long-distance walk in stages"
+    },
+    "tags": [
+      "outdoors",
+      "challenge",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Kies een etappe van een lange-afstandspad en loop er een dag van",
+      "en": "Pick one stage of a long-distance path and walk a day of it"
+    },
+    "scene": "a waymark post with a painted red-white stripe on a heathland path stretching into the distance",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "zwemmen-baantjes",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Baantjes zwemmen met een plan",
+      "en": "Lap swimming with a plan"
+    },
+    "tags": [
+      "movement",
+      "focus",
+      "rhythm",
+      "water"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zwem een rustig baantje-schema en bouw op",
+      "en": "Swim a gentle lane plan and build up"
+    },
+    "scene": "a calm lane of a bright blue pool with floating lane ropes and tiles below, soft overhead light",
+    "supply": "common",
     "status": "concept"
   }
 ]

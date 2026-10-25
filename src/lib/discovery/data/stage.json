@@ -1,0 +1,701 @@
+[
+  {
+    "id": "stand-up",
+    "domain": "stage",
+    "sub": "spoken_word",
+    "label": {
+      "nl": "Stand-upcomedy: een open mic proberen",
+      "en": "Stand-up comedy: trying an open mic"
+    },
+    "tags": [
+      "performance",
+      "language",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ga eerst kijken naar een open mic en schrijf daarna vijf minuten",
+      "en": "First watch an open mic and then write five minutes"
+    },
+    "scene": "a lone microphone on a stand under a warm spotlight in front of a brick wall in an empty comedy club",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "poetry-slam",
+    "domain": "stage",
+    "sub": "spoken_word",
+    "label": {
+      "nl": "Poetry slam",
+      "en": "Poetry slam"
+    },
+    "tags": [
+      "performance",
+      "language",
+      "rhythm"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ga naar een slamavond; veel avonden hebben een open lijst",
+      "en": "Go to a slam night; many have an open list"
+    },
+    "scene": "a stool and a microphone with a pool of warm light on a small dark stage",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "storytelling",
+    "domain": "stage",
+    "sub": "spoken_word",
+    "label": {
+      "nl": "Verhalen vertellen op een podium",
+      "en": "Storytelling on stage"
+    },
+    "tags": [
+      "performance",
+      "story",
+      "language"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ga naar een vertelavond en probeer een eigen verhaal van drie minuten",
+      "en": "Go to a storytelling night and try a three-minute story of your own"
+    },
+    "scene": "a lone wooden chair and a lamp on a stage beside a tall stack of old books",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "amateurtoneel",
+    "domain": "stage",
+    "sub": "spoken_word",
+    "label": {
+      "nl": "Amateurtoneel",
+      "en": "Amateur theatre"
+    },
+    "tags": [
+      "performance",
+      "roleplay",
+      "teamwork"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ga naar een open repetitie of audities van een toneelgroep",
+      "en": "Go to an open rehearsal or auditions of a theatre group"
+    },
+    "scene": "a red velvet curtain half drawn on a school-hall stage with a painted backdrop of a village",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "debatclub",
+    "domain": "stage",
+    "sub": "spoken_word",
+    "label": {
+      "nl": "Debatclub",
+      "en": "Debate club"
+    },
+    "tags": [
+      "language",
+      "strategy",
+      "performance",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Loop een avond mee bij een debatvereniging of studiehuis",
+      "en": "Sit in on an evening at a debating society"
+    },
+    "scene": "two empty wooden lecterns facing each other under a hanging lamp in a wood-panelled hall",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "podcast-maken",
+    "domain": "stage",
+    "sub": "spoken_word",
+    "label": {
+      "nl": "Een podcast maken",
+      "en": "Making a podcast"
+    },
+    "tags": [
+      "sound",
+      "language",
+      "making",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Neem een eerste aflevering op met je telefoon en een gratis app",
+      "en": "Record a first episode with your phone and a free app"
+    },
+    "scene": "a condenser microphone with a pop filter, headphones and a folded blanket on a quiet desk",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "goochelen",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Goochelen leren",
+      "en": "Learning magic"
+    },
+    "tags": [
+      "performance",
+      "craft",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Begin met drie basiskaartkunsten of ga naar een goochelclub",
+      "en": "Start with three basic card tricks or visit a magic club"
+    },
+    "scene": "a top hat, a deck of cards fanned out and a silver coin on a dark velvet cloth",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "circusles",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Circusles: jongleren en acrobatiek",
+      "en": "Circus class: juggling and acrobatics"
+    },
+    "tags": [
+      "balance",
+      "movement",
+      "performance",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Proefles bij een circusschool of studio",
+      "en": "Trial class at a circus school or studio"
+    },
+    "scene": "three juggling balls and clubs scattered on a mat in a circus training hall with hanging aerial silks",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "aerial-silks",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Luchtacrobatiek (aerial silks)",
+      "en": "Aerial silks"
+    },
+    "tags": [
+      "balance",
+      "height",
+      "performance",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Proefles bij een circusschool, met instructeur en valmatten",
+      "en": "Trial class at a circus school, with an instructor and crash mats"
+    },
+    "scene": "two long crimson silks hanging from a high rig in a bright studio above soft mats",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "poppentheater",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Poppentheater maken en spelen",
+      "en": "Making and playing puppet theatre"
+    },
+    "tags": [
+      "making",
+      "performance",
+      "story",
+      "craft"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe een workshop poppenmaken of poppenspel bij een poppentheater",
+      "en": "Join a puppet-making or puppetry workshop at a puppet theatre"
+    },
+    "scene": "a hand-sewn wool puppet with button eyes sitting in a tiny painted wooden puppet theatre",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "cosplay",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Een cosplay-outfit maken",
+      "en": "Making a cosplay costume"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "roleplay",
+      "performance"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Begin met een eenvoudig onderdeel en vraag om tips bij een conventie of forum",
+      "en": "Start with one simple piece and ask for tips at a convention or forum"
+    },
+    "scene": "a half-finished armour piece in painted foam on a mannequin torso with sewing patterns pinned around",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "korte-film",
+    "domain": "stage",
+    "sub": "film_media",
+    "label": {
+      "nl": "Een korte film maken met je telefoon",
+      "en": "Making a short film with your phone"
+    },
+    "tags": [
+      "making",
+      "story",
+      "performance"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Schrijf een scène van drie minuten en film hem in een middag",
+      "en": "Write a three-minute scene and film it in an afternoon"
+    },
+    "scene": "a smartphone on a small tripod pointed at a tiny cardboard set with a paper moon and a lamp",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "stop-motion",
+    "domain": "stage",
+    "sub": "film_media",
+    "label": {
+      "nl": "Stop-motion animatie",
+      "en": "Stop-motion animation"
+    },
+    "tags": [
+      "making",
+      "miniature",
+      "story",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Gebruik een gratis app, klei en een lamp voor je eerste tien seconden",
+      "en": "Use a free app, clay and a lamp for your first ten seconds"
+    },
+    "scene": "a small clay figure on a miniature set under a desk lamp with a phone camera on a mount",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "hoorspel",
+    "domain": "stage",
+    "sub": "film_media",
+    "label": {
+      "nl": "Een hoorspel opnemen",
+      "en": "Recording an audio drama"
+    },
+    "tags": [
+      "sound",
+      "story",
+      "making",
+      "performance"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Neem met vrienden een scène op met zelfgemaakte geluiden",
+      "en": "Record a scene with friends using homemade sound effects"
+    },
+    "scene": "a coconut-shell pair, a rain stick and a tin tray beside a microphone on a blanket-draped table",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "lokale-radio",
+    "domain": "stage",
+    "sub": "film_media",
+    "label": {
+      "nl": "Meedraaien bij een lokale radio",
+      "en": "Joining a local radio station"
+    },
+    "tags": [
+      "sound",
+      "performance",
+      "language"
+    ],
+    "formats": [
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bel een lokale omroep en vraag naar een kennismaking",
+      "en": "Call a local broadcaster and ask for an introductory visit"
+    },
+    "scene": "an on-air sign glowing red above a studio door and a mixing desk with faders in a small booth",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "schaduwtheater",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Schaduwtheater",
+      "en": "Shadow theatre"
+    },
+    "tags": [
+      "making",
+      "performance",
+      "story",
+      "craft"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Knip een silhouet en speel een korte scène met een lamp en een laken",
+      "en": "Cut a silhouette and play a short scene with a lamp and a sheet"
+    },
+    "scene": "a lit white sheet with the crisp black silhouette of a paper bird and a tree, a lamp behind it",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "beatboxen",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Beatboxen leren",
+      "en": "Learning beatboxing"
+    },
+    "tags": [
+      "sound",
+      "rhythm",
+      "performance",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Volg een online beginnerscursus en oefen vijf geluiden",
+      "en": "Follow an online beginner course and practise five sounds"
+    },
+    "scene": "a microphone with a pop shield and a looping pedal glowing on a dark table beside a pair of headphones",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "rappen",
+    "domain": "stage",
+    "sub": "spoken_word",
+    "label": {
+      "nl": "Rappen of freestyle schrijven",
+      "en": "Rapping or freestyle writing"
+    },
+    "tags": [
+      "language",
+      "rhythm",
+      "performance",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Schrijf zestien regels op een beat en lees ze hardop voor",
+      "en": "Write sixteen bars over a beat and read them out loud"
+    },
+    "scene": "a notebook crammed with lyrics next to a small speaker and a headphone cable on a beat-up desk",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "voorlezen",
+    "domain": "stage",
+    "sub": "spoken_word",
+    "label": {
+      "nl": "Voorlezen voor publiek",
+      "en": "Reading aloud for an audience"
+    },
+    "tags": [
+      "language",
+      "performance",
+      "story",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Meld je aan als voorlezer bij een bibliotheek of verzorgingshuis",
+      "en": "Sign up as a reader at a library or care home"
+    },
+    "scene": "a warm reading armchair with an open picture book on its arm and a stack of books beside a standing lamp",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "commedia",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Maskerspel en commedia dell'arte",
+      "en": "Mask play and commedia dell'arte"
+    },
+    "tags": [
+      "performance",
+      "roleplay",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe een maskerspel-workshop bij een theaterschool of -gezelschap",
+      "en": "Join a mask-play workshop at a theatre school or company"
+    },
+    "scene": "a leather half-mask with a long nose and a feathered hat resting on a wooden crate under a spotlight",
+    "supply": "regional",
+    "status": "concept"
+  }
+]

@@ -32,6 +32,12 @@ export type Unknown<T> = T | null;
 export const SETTINGS = ["indoor", "outdoor", "both"] as const;
 export type Setting = (typeof SETTINGS)[number];
 
+// How easy it is to find a provider for this activity in the Netherlands. "regional" needs a provider within
+// reach (a club, studio or school), "rare" exists only in a few places or abroad: the engine then wants real
+// supply within the visitor's travel distance before it suggests it (see engine/select.ts and the research step).
+export const SUPPLIES = ["common", "regional", "rare"] as const;
+export type Supply = (typeof SUPPLIES)[number];
+
 // draft ("concept") -> checked by a human ("reviewed") -> shown to everyone
 // ("live"). "retired" hides an activity from new sessions but keeps its id
 // resolvable, because stored profiles may still reference it.
@@ -70,6 +76,8 @@ export interface Activity {
    */
   months?: number[];
   safety: Safety;
+  /** How easy it is to find a provider nearby. Left out = common. */
+  supply?: Supply;
   /** A low-threshold way in (trial class, beginner evening, open day). */
   entry: Unknown<Localized>;
   /** English art direction for the card photo. No people or faces. */

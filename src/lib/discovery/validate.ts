@@ -2,6 +2,7 @@ import {
   SETTINGS,
   SOCIAL_FORMATS,
   STATUSES,
+  SUPPLIES,
   type Activity,
   type Hybrid,
   type Vocabulary,
@@ -115,6 +116,8 @@ export function validateLibrary({ vocabulary, activities, hybrids }: LibraryInpu
       const ok = Array.isArray(a.months) && a.months.length > 0 && a.months.every((m) => Number.isInteger(m) && m >= 1 && m <= 12) && new Set(a.months).size === a.months.length;
       if (!ok) err(`${at}: months must be a non-empty list of distinct months 1-12 (leave it out for all year)`);
     }
+
+    if (a.supply !== undefined && !SUPPLIES.includes(a.supply)) err(`${at}: supply must be one of ${SUPPLIES.join(", ")}`);
 
     if (![0, 1, 2].includes(a.safety?.tier)) err(`${at}: safety.tier must be 0, 1 or 2`);
     if (a.safety?.tier === 2 && (!filled(a.safety.note?.nl) || !filled(a.safety.note?.en))) {

@@ -23,9 +23,9 @@ describe("discovery library", () => {
     expect(errors).toEqual([]);
   });
 
-  it("holds the agreed first version: 150-250 activities over the domains", () => {
+  it("holds a broad library: 150-700 activities over the domains", () => {
     expect(ALL_ACTIVITIES.length).toBeGreaterThanOrEqual(150);
-    expect(ALL_ACTIVITIES.length).toBeLessThanOrEqual(250);
+    expect(ALL_ACTIVITIES.length).toBeLessThanOrEqual(700);
     for (const d of DOMAINS) {
       expect(ALL_ACTIVITIES.filter((a) => a.domain === d.id).length).toBeGreaterThanOrEqual(10);
     }

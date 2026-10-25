@@ -139,6 +139,118 @@
       "color": "#D9A7A0",
       "colorName": "dusty rose",
       "scene": "a folded blanket, a cup of tea, an open book and a candle beside a window"
+    },
+    {
+      "id": "adventure",
+      "label": {
+        "nl": "Avontuur & adrenaline",
+        "en": "Adventure & adrenaline"
+      },
+      "short": {
+        "nl": "Avontuur & adrenaline",
+        "en": "Adventure & adrenaline"
+      },
+      "color": "#2F5DD0",
+      "colorName": "cobalt blue",
+      "scene": "a coiled climbing rope, a helmet, a steel carabiner and a headlamp on wet dark rock"
+    },
+    {
+      "id": "target",
+      "label": {
+        "nl": "Mikken, werpen & precisie",
+        "en": "Aiming, throwing & precision"
+      },
+      "short": {
+        "nl": "Mikken & werpen",
+        "en": "Aim & throw"
+      },
+      "color": "#F28A1E",
+      "colorName": "tangerine orange",
+      "scene": "a round painted target board with concentric rings and a tangerine bullseye on a plank wall"
+    },
+    {
+      "id": "speed",
+      "label": {
+        "nl": "Snelheid, motoren & vliegen",
+        "en": "Speed, engines & flying"
+      },
+      "short": {
+        "nl": "Snelheid & vliegen",
+        "en": "Speed & flying"
+      },
+      "color": "#C8DC2E",
+      "colorName": "acid lime yellow",
+      "scene": "a chequered flag, a steering wheel and a small balsa glider on a concrete floor"
+    },
+    {
+      "id": "mystery",
+      "label": {
+        "nl": "Mysterie, spanning & speurwerk",
+        "en": "Mystery, suspense & sleuthing"
+      },
+      "short": {
+        "nl": "Mysterie & speurwerk",
+        "en": "Mystery & sleuthing"
+      },
+      "color": "#3F3FA8",
+      "colorName": "deep indigo",
+      "scene": "a brass key, a magnifying glass, a sealed envelope and a candle on dark wood"
+    },
+    {
+      "id": "elements",
+      "label": {
+        "nl": "Vuur, ijzer, hout & overleven",
+        "en": "Fire, iron, wood & wild skills"
+      },
+      "short": {
+        "nl": "Vuur & overleven",
+        "en": "Fire & wild skills"
+      },
+      "color": "#B8662B",
+      "colorName": "burnished copper",
+      "scene": "an iron anvil, split logs, a small campfire and a leather apron on a dirt floor"
+    },
+    {
+      "id": "food",
+      "label": {
+        "nl": "Eten, drinken & proeven",
+        "en": "Food, drink & tasting"
+      },
+      "short": {
+        "nl": "Eten & proeven",
+        "en": "Food & tasting"
+      },
+      "color": "#4FC3A1",
+      "colorName": "fresh mint green",
+      "scene": "a wooden board with herbs, a loaf of bread, a bottle and a jar of olives on a linen cloth"
+    },
+    {
+      "id": "stage",
+      "label": {
+        "nl": "Podium, woord & show",
+        "en": "Stage, words & show"
+      },
+      "short": {
+        "nl": "Podium & show",
+        "en": "Stage & show"
+      },
+      "color": "#FF6F59",
+      "colorName": "bright coral",
+      "scene": "a velvet curtain, a microphone stand, a top hat and a spotlight on an empty stage"
+    },
+    {
+      "id": "night",
+      "label": {
+        "nl": "Avond uit, kans & dans",
+        "en": "Night out, chance & dancing"
+      },
+      "short": {
+        "nl": "Avond uit",
+        "en": "Night out"
+      },
+      "color": "#C21FBF",
+      "colorName": "electric magenta",
+      "scene": "a card table with poker chips, a cocktail glass and a mirror ball light on a dark bar top"
     }
   ],
   "subs": [
@@ -396,6 +508,206 @@
       "label": {
         "nl": "Reflectie",
         "en": "Reflection"
+      }
+    },
+    {
+      "id": "heights_air",
+      "domain": "adventure",
+      "label": {
+        "nl": "Hoogte & lucht",
+        "en": "Heights & air"
+      }
+    },
+    {
+      "id": "deep_dark",
+      "domain": "adventure",
+      "label": {
+        "nl": "Diep & donker",
+        "en": "Deep & dark"
+      }
+    },
+    {
+      "id": "wild_water",
+      "domain": "adventure",
+      "label": {
+        "nl": "Wild water & golven",
+        "en": "Wild water & waves"
+      }
+    },
+    {
+      "id": "rough_terrain",
+      "domain": "adventure",
+      "label": {
+        "nl": "Ruw terrein",
+        "en": "Rough terrain"
+      }
+    },
+    {
+      "id": "shooting",
+      "domain": "target",
+      "label": {
+        "nl": "Schieten",
+        "en": "Shooting"
+      }
+    },
+    {
+      "id": "throwing",
+      "domain": "target",
+      "label": {
+        "nl": "Werpen & mikken",
+        "en": "Throwing & aiming"
+      }
+    },
+    {
+      "id": "fine_aim",
+      "domain": "target",
+      "label": {
+        "nl": "Fijn mikken",
+        "en": "Fine aim"
+      }
+    },
+    {
+      "id": "wheels",
+      "domain": "speed",
+      "label": {
+        "nl": "Wielen & motoren",
+        "en": "Wheels & engines"
+      }
+    },
+    {
+      "id": "air_flight",
+      "domain": "speed",
+      "label": {
+        "nl": "Vleugels & lucht",
+        "en": "Wings & air"
+      }
+    },
+    {
+      "id": "snow_ice",
+      "domain": "speed",
+      "label": {
+        "nl": "Sneeuw & ijs",
+        "en": "Snow & ice"
+      }
+    },
+    {
+      "id": "puzzle_rooms",
+      "domain": "mystery",
+      "label": {
+        "nl": "Kamers vol raadsels",
+        "en": "Rooms full of riddles"
+      }
+    },
+    {
+      "id": "urban_explore",
+      "domain": "mystery",
+      "label": {
+        "nl": "Verborgen plekken",
+        "en": "Hidden places"
+      }
+    },
+    {
+      "id": "true_crime",
+      "domain": "mystery",
+      "label": {
+        "nl": "Zaken & sporen",
+        "en": "Cases & traces"
+      }
+    },
+    {
+      "id": "fire_metal",
+      "domain": "elements",
+      "label": {
+        "nl": "Vuur & metaal",
+        "en": "Fire & metal"
+      }
+    },
+    {
+      "id": "wood_stone",
+      "domain": "elements",
+      "label": {
+        "nl": "Hout & steen",
+        "en": "Wood & stone"
+      }
+    },
+    {
+      "id": "wild_skills",
+      "domain": "elements",
+      "label": {
+        "nl": "Overleven & kamp",
+        "en": "Wild skills & camp"
+      }
+    },
+    {
+      "id": "cooking_craft",
+      "domain": "food",
+      "label": {
+        "nl": "Koken & bakken",
+        "en": "Cooking & baking"
+      }
+    },
+    {
+      "id": "drink_craft",
+      "domain": "food",
+      "label": {
+        "nl": "Brouwen & proeven",
+        "en": "Brewing & tasting"
+      }
+    },
+    {
+      "id": "harvest",
+      "domain": "food",
+      "label": {
+        "nl": "Oogsten & foerageren",
+        "en": "Harvesting & foraging"
+      }
+    },
+    {
+      "id": "spoken_word",
+      "domain": "stage",
+      "label": {
+        "nl": "Woord op het podium",
+        "en": "Words on stage"
+      }
+    },
+    {
+      "id": "show_craft",
+      "domain": "stage",
+      "label": {
+        "nl": "Magie, circus & show",
+        "en": "Magic, circus & show"
+      }
+    },
+    {
+      "id": "film_media",
+      "domain": "stage",
+      "label": {
+        "nl": "Film, beeld & geluid",
+        "en": "Film, image & sound"
+      }
+    },
+    {
+      "id": "evening_out",
+      "domain": "night",
+      "label": {
+        "nl": "Avond uit",
+        "en": "An evening out"
+      }
+    },
+    {
+      "id": "card_chance",
+      "domain": "night",
+      "label": {
+        "nl": "Kaart & kans",
+        "en": "Cards & chance"
+      }
+    },
+    {
+      "id": "music_night",
+      "domain": "night",
+      "label": {
+        "nl": "Muziek & nachtleven",
+        "en": "Music & nightlife"
       }
     }
   ],
@@ -693,6 +1005,46 @@
       "label": {
         "nl": "Spanning",
         "en": "Suspense"
+      },
+      "generic": false
+    },
+    {
+      "id": "speed",
+      "label": {
+        "nl": "Snelheid",
+        "en": "Speed"
+      },
+      "generic": false
+    },
+    {
+      "id": "fire",
+      "label": {
+        "nl": "Vuur",
+        "en": "Fire"
+      },
+      "generic": false
+    },
+    {
+      "id": "performance",
+      "label": {
+        "nl": "Optreden",
+        "en": "Performing"
+      },
+      "generic": false
+    },
+    {
+      "id": "depths",
+      "label": {
+        "nl": "Diepte",
+        "en": "Depths"
+      },
+      "generic": false
+    },
+    {
+      "id": "chance",
+      "label": {
+        "nl": "Kans",
+        "en": "Chance"
       },
       "generic": false
     }

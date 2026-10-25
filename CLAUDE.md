@@ -3532,3 +3532,57 @@ Stripe, Claude API, Resend, PostHog).
       `addressAbove`). Getest: unit-tests voor `replaceUrl`, de pdf- en claude-tests (109) en een nagemaakt boek waarin
       het adres één keer staat. **Niet gezien**: of het model de zelfcorrectie met deze regel voortaan echt nalaat; dat
       blijkt pas in de volgende echte boeken.
+
+- [x] Stap 88 — Pakket B van het variatieplan: meer richtingen, meer activiteiten, meer beelden en een motor die de
+      lange staart optilt (op verzoek van Jan: "meer dynamische opties voor richting, plek, moment en zintuig, ook
+      escape rooms, schietles, meswerpen, cave diving, klimmen"; keuzes: pakket B, gevaarlijke dingen alleen via een
+      erkende aanbieder met instructeur en verborgen voor wie op "voorspelbaar" staat, zeldzaam aanbod alleen tonen als
+      het onderzoek een aanbieder binnen bereik vindt, alle nieuwe beelden meteen). Methode: eerst **divergeren** (ik
+      bedacht per richting veel meer kandidaten dan ik wilde houden, langs vaste lenzen: werkwoord x omgeving x sociale
+      vorm x intensiteit, "voor de kick", "stiekem toegankelijk", "een middag proberen", "wat doet het buitenland"), dan
+      **convergeren** met vaste filters: dubbelingen eruit, bestaat het aanbod in Nederland, toezicht en wet (tier 2 met
+      een notitie), seizoen, te fotograferen zonder mensen, nieuwe tagmix; vastgelegd in `docs/discovery-taxonomy.md`.
+      Dat kostte geen API-geld: ik schreef de kandidaten zelf, de validator (`taxonomy:check`) filterde.
+      **Bibliotheek 214 -> 423**: acht nieuwe richtingen (`adventure` Avontuur & adrenaline, `target` Mikken, werpen &
+      precisie, `speed` Snelheid & vliegen, `mystery` Mysterie & speurwerk, `elements` Vuur & overleven, `food` Eten &
+      proeven, `stage` Podium & show, `night` Avond uit; 25 nieuwe subgroepen, 5 nieuwe tags: speed, fire, performance,
+      depths, chance) met 171 + 38 nieuwe activiteiten, dus 18 richtingen. Onder andere meswerpen, grotduiken, grotten
+      verkennen, canyoning, abseilen, paragliden, kitesurfen, surfen, wadlopen, lockpicking, urbex-tour, bunkertocht,
+      glasblazen, mes smeden, bushcraft, overlevingstraining, stand-up, goochelen, poker, pokeravond, silent disco, DJ-workshop.
+      Alles wat toezicht vraagt (53 in totaal) heeft een tier-2-notitie "alleen via een erkende aanbieder of vereniging,
+      met instructeur"; **laat die notities nog juridisch controleren** (schieten, boogparcours, bijl- en meswerpen,
+      duiken, canyoning, parachute, kettingzaag, smeden, jetski). 20 curated combinaties erbij (`hybrids.json`, nu 50).
+      **Nieuw veld `supply`** (`common`, `regional`, `rare`; `src/lib/discovery/types.ts`, gevalideerd): ook 43 bestaande
+      activiteiten zijn gemarkeerd (nu 227 `common`, 167 `regional`, 29 `rare`). De generatie behandelt `regional` en `rare` nu als "heeft een aanbieder nodig"
+      (`seedsWithoutSupply`): vindt het onderzoek niets binnen bereik, dan wordt het idee één keer vervangen; de motor
+      zelf geeft `rare` een kleine straf (0,18) en `regional` een heel kleine (0,04), nooit voor wat de bezoeker zelf koos.
+      Bewust niet gebouwd: de variant "als wildcard met 'dichtstbijzijnde …'": het vervangen is eenvoudiger en dekt
+      dezelfde eerlijkheidseis; zeg het als je die variant toch wilt.
+      **Beelden**: associatiekaarten 36 -> 63 families (189 kaarten; 27 nieuwe families voor spanning, kans, vuur,
+      podium, diepte, dieren, miniatuur, verzamelen en nachtleven, elk met drie varianten), per ronde ziet iemand nog steeds
+      negen uit nu 21 families (`chooseFamilies` repareert met wisselingen als het aantal families groot is, zodat elke
+      as aan beide kanten minstens twee gevoelens houdt). **Richtingenpagina**: 10 van de 18 tegelijk, deterministisch
+      per sessie, met "Andere richtingen tonen" (wat je koos blijft staan; `directionOrder`, `initialDirections`,
+      `rotateDirections`). Voorbeeld-activiteiten onder elke richting komen vanzelf mee.
+      **Motor** (alle harde regels ongemoeid): `Graph.rarity` (0..1, hoe ver een activiteit van de gangbare tagmix valt),
+      een kleine bonus voor zeldzaam in elke richting en een grotere bij de wildcard (`RARE` in `select.ts`), de
+      willekeur tussen bijna gelijke scores groter, en bij het lezen van de beelden telt een tag die de helft van de
+      bibliotheek draagt minder (`tagIdf`) en krijgen zeldzame mixen een lift (`RARITY_LIFT`, `JITTER` in `associations.ts`).
+      De grafiek onthoudt per paar de brug en gelijkenis (bij 423 activiteiten werd de unexpected-stap anders te traag).
+      **Gemeten** (`scripts/discovery-variety.ts`, zelfde 300 synthetische profielen, oude en nieuwe code naast elkaar):
+      beeld-intake (nu met 18 richtingen): populairste activiteit in 11% van de boeken (was 22%), top 10 neemt 12,3% van de
+      plekken in (was 20,0%), 6,1 richtingen per boek (was 5,8), 366 verschillende activiteiten gebruikt; kaartenwizard: top
+      10 10,5% (was 14,4%). De zeldzaamheid weegt per bezoeker iets anders (deterministisch uit de seed), anders worden
+      dezelfde paar zeldzame activiteiten (sjoelen, 11%) de nieuwe hubs; "wandelen" staat nog op 11%. Een sterkere lift (0,5 en 0,6) gaf geen verbetering en is teruggedraaid. Harde regels E1-E6: 0 schendingen.
+      De evaluatie-oracle (`evaluate.ts`, "niche krijgt eigen wereld") hield nog geen rekening met seizoen en gekozen plaats
+      binnen/buiten; dat is gelijkgetrokken met de motor. Nieuwe tests: zeldzaamheid, aanbodstraf, spreiding over de
+      bibliotheek (geen activiteit in meer dan een vijfde van de boeken), aanbod zonder kosten.
+      **Beeldkosten**: ± $5,2 aan Gemini (23 vellen 3x3 + 10 losse voor 209 activiteiten en 8 richtingfoto's, 6 vellen voor
+      54 kaartbeelden). Alle 209 activiteitsbeelden en 8 richtingfoto's zijn bekeken (contactvellen); drie bevatten kleine
+      mensen (rib-boot, klein-festival, nachtmarkt): hun scène is herschreven maar het opnieuw maken mislukte.
+      **Nog niet gedaan, wacht op Gemini**: 27 kaartbeelden (de negen nieuwe zintuig-families) en die 3 herstelde
+      activiteitsfoto's: Gemini gaf eerst een uitgavenlimiet (429) en daarna 402 (prepaid saldo op). Zodra je tegoed hebt:
+      `npx tsx scripts/generate-discovery-illustrations.ts --associations --sheet 3x3` (≈ $0,40) en
+      `... --force --only rib-boot,klein-festival,nachtmarkt` (≈ $0,40). Tot dan toont de wizard een kaart zonder eigen
+      beeld niet (`hasOwnImage`), dus nooit een verkeerd plaatje bij de verkeerde woorden; de zintuigronde heeft dan de
+      oude 12 families. `taxonomy:check` meldt hoeveel kaarten wachten.

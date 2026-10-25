@@ -4,6 +4,7 @@ import {
   associationsToEngineInput,
   buildAssociationLibrary,
   describeAssociationsForPrompt,
+  hasOwnImage,
   imagesBehind,
   sanitizeAssociations,
 } from "@/lib/discovery/associations";
@@ -29,8 +30,11 @@ describe("association data", () => {
 
   it("gives the browser one language and no art direction", () => {
     const lib = buildAssociationLibrary("nl");
-    expect(lib.cards).toHaveLength(108);
-    expect(new Set(lib.cards.map((c) => c.family)).size).toBe(36);
+    // A card without its own image yet (a stand-in path) is never sent to the browser.
+    const ready = ASSOCIATIONS.filter(hasOwnImage);
+    expect(lib.cards).toHaveLength(ready.length);
+    expect(ready.length).toBeGreaterThanOrEqual(162);
+    expect(new Set(lib.cards.map((c) => c.family)).size).toBe(new Set(ready.map((c) => c.family ?? c.id)).size);
     expect(lib.cards[0]).not.toHaveProperty("scene");
     expect(typeof lib.cards[0].label).toBe("string");
     expect(lib.correctionTags.every((t) => lib.tagLabels[t])).toBe(true);

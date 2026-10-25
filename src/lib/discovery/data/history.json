@@ -31,7 +31,8 @@
       "en": "Introduction at a group day or market; costumes can often be borrowed"
     },
     "scene": "a medieval tent, shield, helmet and banner on a grass camp",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "schermen",
@@ -68,7 +69,8 @@
       "en": "Trial class at a recognised club with protective gear"
     },
     "scene": "a fencing mask and a longsword on a wooden rack in a stone hall",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "hist-dans",
@@ -296,7 +298,8 @@
       "en": "Open day or volunteer day via an archaeological society"
     },
     "scene": "an archaeological trench with a measuring tape, trowel and finds tray",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "archief",
@@ -371,7 +374,8 @@
       "en": "Only with landowner permission and within the law; join a society"
     },
     "scene": "a metal detector head over sandy soil with a small found coin",
-    "status": "concept"
+    "status": "concept",
+    "supply": "rare"
   },
   {
     "id": "handschriften",
@@ -406,7 +410,8 @@
       "en": "Start with an online reading lesson; many archives offer help"
     },
     "scene": "an old handwritten manuscript page with a quill and an ink well",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "stadswandeling",
@@ -731,6 +736,186 @@
       "en": "Start with a story walk or an audiobook"
     },
     "scene": "an old open book of folk tales with a candle on an oak table",
+    "status": "concept"
+  },
+  {
+    "id": "slagveld",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Een slagveld of historische plek bezoeken",
+      "en": "Visiting a battlefield or historic site"
+    },
+    "tags": [
+      "history",
+      "story",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies een slagveld-route met een gids of audiotour",
+      "en": "Pick a battlefield route with a guide or audio tour"
+    },
+    "scene": "a quiet green field with a weathered stone memorial and low evening mist rising",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "limesroute",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Langs de Romeinse limes",
+      "en": "Along the Roman limes"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Volg een fiets- of wandelroute langs de Romeinse limes",
+      "en": "Follow a cycling or walking route along the Roman limes"
+    },
+    "scene": "a reconstructed wooden Roman watchtower on a low river bank in dawn mist",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "middeleeuws-banket",
+    "domain": "history",
+    "sub": "lived_past",
+    "label": {
+      "nl": "Een middeleeuws banket",
+      "en": "A medieval banquet"
+    },
+    "tags": [
+      "history",
+      "food",
+      "conviviality",
+      "roleplay"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Reserveer een plek op een banket in een kasteel of herberg",
+      "en": "Book a seat at a banquet in a castle or inn"
+    },
+    "scene": "a long oak table set with pewter cups, bread and tallow candles in a stone hall",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "hema",
+    "domain": "history",
+    "sub": "lived_past",
+    "label": {
+      "nl": "Historisch zwaardvechten (HEMA)",
+      "en": "Historical sword fighting (HEMA)"
+    },
+    "tags": [
+      "history",
+      "technique",
+      "roleplay",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Proefles bij een HEMA-club; maskers en oefenwapens zijn aanwezig",
+      "en": "Trial class at a HEMA club; masks and training swords are provided"
+    },
+    "scene": "a fencing mask and two wooden-handled training swords laid crossed on a dusty wooden gym floor",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "oude-kaarten",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Oude kaarten en prenten bekijken",
+      "en": "Studying old maps and prints"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "learning",
+      "collecting"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bezoek een kaartenzaal in een archief of bibliotheek",
+      "en": "Visit a map room in an archive or library"
+    },
+    "scene": "an aged hand-coloured map of a coastline spread on a table under a green shaded reading lamp",
+    "supply": "regional",
     "status": "concept"
   }
 ]

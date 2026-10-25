@@ -1,0 +1,1101 @@
+[
+  {
+    "id": "abseilen",
+    "domain": "adventure",
+    "sub": "heights_air",
+    "label": {
+      "nl": "Abseilen",
+      "en": "Abseiling"
+    },
+    "tags": [
+      "height",
+      "challenge",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Introductie abseilen bij een klimcentrum of outdoorbedrijf, materiaal en instructeur inbegrepen",
+      "en": "Intro abseil at a climbing centre or outdoor company, gear and instructor included"
+    },
+    "scene": "a red climbing rope hanging down a weathered brick tower wall, harness gear on a hook, soft morning light",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "bungeejump",
+    "domain": "adventure",
+    "sub": "heights_air",
+    "label": {
+      "nl": "Bungeejumpen",
+      "en": "Bungee jumping"
+    },
+    "tags": [
+      "height",
+      "suspense",
+      "challenge"
+    ],
+    "formats": [
+      "duo",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Spring van een kraan of brug bij een erkende aanbieder, na een korte instructie",
+      "en": "Jump from a crane or bridge with a recognised provider, after a short briefing"
+    },
+    "scene": "a tall steel crane arm against a bright sky with a thick elastic cord hanging down, a river far below",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "tandem-parachute",
+    "domain": "adventure",
+    "sub": "heights_air",
+    "label": {
+      "nl": "Tandemparachutespringen",
+      "en": "Tandem skydive"
+    },
+    "tags": [
+      "height",
+      "suspense",
+      "challenge"
+    ],
+    "formats": [
+      "duo",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Tandemsprong met een instructeur bij een erkende parachutistenschool, op een dag met goed weer",
+      "en": "Tandem jump with an instructor at a recognised skydiving school, on a day with good weather"
+    },
+    "scene": "a small yellow-and-orange parachute canopy open over green polder fields seen from far above",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "paragliden",
+    "domain": "adventure",
+    "sub": "heights_air",
+    "label": {
+      "nl": "Paragliden (tandemvlucht)",
+      "en": "Paragliding (tandem flight)"
+    },
+    "tags": [
+      "height",
+      "nature",
+      "challenge"
+    ],
+    "formats": [
+      "duo",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Tandemvlucht met een erkende piloot, meestal in de Ardennen, Duitsland of de Alpen",
+      "en": "Tandem flight with a certified pilot, usually in the Ardennes, Germany or the Alps"
+    },
+    "scene": "a curved paraglider wing laid out on a grassy hillside launch slope with a windsock, blue sky",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "zipline",
+    "domain": "adventure",
+    "sub": "heights_air",
+    "label": {
+      "nl": "Zipline door een bos of ravijn",
+      "en": "Zipline through a forest or gorge"
+    },
+    "tags": [
+      "height",
+      "speed",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een zipline-parcours; harnas en uitleg zitten erbij",
+      "en": "Book a zipline course; harness and briefing are included"
+    },
+    "scene": "a steel cable stretching between two tall pine trees with a pulley and safety line, mist in the valley below",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "ballonvaart",
+    "domain": "adventure",
+    "sub": "heights_air",
+    "label": {
+      "nl": "Ballonvaart",
+      "en": "Hot-air balloon flight"
+    },
+    "tags": [
+      "height",
+      "stillness",
+      "discovery"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Vlucht bij zonsopgang met een erkende ballonvaarder; de start hangt af van wind en weer",
+      "en": "Sunrise flight with a licensed balloonist; take-off depends on wind and weather"
+    },
+    "scene": "a large striped hot-air balloon on a dewy field at dawn, burner flame glowing, mist over meadows",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "boomklimmen",
+    "domain": "adventure",
+    "sub": "heights_air",
+    "label": {
+      "nl": "Boomklimmen in een oude boom",
+      "en": "Tree climbing in an old tree"
+    },
+    "tags": [
+      "height",
+      "nature",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Boomklimles met touwen en harnas bij een gecertificeerde boomklimmer",
+      "en": "Tree-climbing session with ropes and harness with a certified tree climber"
+    },
+    "scene": "a thick oak with a climbing rope rising into its canopy and a small seat sling, sun through green leaves",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "grotduiken",
+    "domain": "adventure",
+    "sub": "deep_dark",
+    "label": {
+      "nl": "Grotduiken (met gids)",
+      "en": "Cave diving (with a guide)"
+    },
+    "tags": [
+      "depths",
+      "challenge",
+      "technique",
+      "water"
+    ],
+    "formats": [
+      "duo",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 2,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen met een erkende duikschool of gids, met brevet of introductieduik onder begeleiding.",
+        "en": "Only with a recognised dive school or guide, with a certificate or a supervised introductory dive."
+      }
+    },
+    "entry": {
+      "nl": "Eerst een duikbrevet, dan een introductie bij een erkende cavern-duikschool (meestal in het buitenland)",
+      "en": "First a dive certificate, then an introduction with a recognised cavern-diving school (usually abroad)"
+    },
+    "scene": "a narrow flooded cave passage with turquoise water and one beam of light across pale limestone walls",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "grotten-verkennen",
+    "domain": "adventure",
+    "sub": "deep_dark",
+    "label": {
+      "nl": "Grotten verkennen met een gids",
+      "en": "Exploring caves with a guide"
+    },
+    "tags": [
+      "depths",
+      "discovery",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Boek een tocht door de mergelgrotten of een speleo-introductie met helm en lamp",
+      "en": "Book a tour through the marl caves or a caving introduction with helmet and lamp"
+    },
+    "scene": "a dim limestone tunnel with carved chalk walls, a hanging lantern and cool mist drifting along the floor",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "freediven",
+    "domain": "adventure",
+    "sub": "deep_dark",
+    "label": {
+      "nl": "Freediven (apneu) introductie",
+      "en": "Freediving (apnea) introduction"
+    },
+    "tags": [
+      "depths",
+      "stillness",
+      "focus",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen met een erkende duikschool of gids, met brevet of introductieduik onder begeleiding.",
+        "en": "Only with a recognised dive school or guide, with a certificate or a supervised introductory dive."
+      }
+    },
+    "entry": {
+      "nl": "Proefles bij een apneuclub of duikschool, in een zwembad en met begeleiding",
+      "en": "Trial class at an apnea club or dive school, in a pool and with supervision"
+    },
+    "scene": "a long black-and-white diving line hanging straight down in clear turquoise pool water, soft light",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "snorkelen",
+    "domain": "adventure",
+    "sub": "deep_dark",
+    "label": {
+      "nl": "Snorkelen in een meer of zee",
+      "en": "Snorkelling in a lake or sea"
+    },
+    "tags": [
+      "water",
+      "nature",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Huur een masker en snorkel en begin in ondiep, rustig water",
+      "en": "Rent a mask and snorkel and start in shallow, calm water"
+    },
+    "scene": "a snorkel mask and fins lying on a wooden jetty above clear green water with sunlit weed beneath",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "ijsbaden",
+    "domain": "adventure",
+    "sub": "deep_dark",
+    "label": {
+      "nl": "IJsbaden met een instructeur",
+      "en": "Ice bathing with an instructor"
+    },
+    "tags": [
+      "water",
+      "challenge",
+      "stillness",
+      "focus"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 1,
+    "setting": "outdoor",
+    "months": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Proefsessie bij een ijsbadgroep of sauna: ademen, kort erin, opwarmen",
+      "en": "Trial session with an ice-bathing group or sauna: breathe, quick dip, warm up"
+    },
+    "scene": "a round wooden tub of icy water with floating ice pieces beside a steaming sauna cabin in the snow",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "surfles",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Surfles aan zee",
+      "en": "Surf lesson at the sea"
+    },
+    "tags": [
+      "water",
+      "balance",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een beginnersles met pak en board bij een surfschool aan de kust",
+      "en": "Book a beginner lesson with wetsuit and board at a surf school on the coast"
+    },
+    "scene": "a bright surfboard stuck upright in dune sand with grey-green waves breaking behind it",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "kitesurfen",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Kitesurfles",
+      "en": "Kitesurfing lesson"
+    },
+    "tags": [
+      "water",
+      "speed",
+      "technique",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 1,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Meerdaagse beginnerscursus bij een erkende kitesurfschool, materiaal erbij",
+      "en": "Multi-day beginner course at a recognised kitesurf school, equipment included"
+    },
+    "scene": "a large colourful kite arcing over a shallow lagoon beach, a small board lying on the sand",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "wakeboarden",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Wakeboarden aan een kabelbaan",
+      "en": "Cable wakeboarding"
+    },
+    "tags": [
+      "water",
+      "speed",
+      "balance",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Beginnersuur bij een kabelbaan: board, pak en helm worden uitgeleend",
+      "en": "Beginner hour at a cable park: board, suit and helmet are lent out"
+    },
+    "scene": "a cable wakeboard park on a lake with a taut tow line and floating ramps in low evening light",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "suppen",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Suppen (stand-up paddleboard)",
+      "en": "Stand-up paddleboarding"
+    },
+    "tags": [
+      "water",
+      "balance",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Huur een board bij een watersportcentrum of begin met een korte les",
+      "en": "Rent a board at a watersports centre or start with a short lesson"
+    },
+    "scene": "an inflatable paddleboard with a wooden paddle floating by a reed bank in still water at dawn",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "wadlopen",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Wadlopen met een gids",
+      "en": "Mudflat walking with a guide"
+    },
+    "tags": [
+      "nature",
+      "discovery",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Boek een wadlooptocht met een erkende gids; zij rekenen met het getij",
+      "en": "Book a mudflat tour with a certified guide; they work with the tide tables"
+    },
+    "scene": "wide grey tidal mudflats with ripple patterns and a long line of footprints toward a pale horizon at low tide",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "canyoning",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Canyoning",
+      "en": "Canyoning"
+    },
+    "tags": [
+      "water",
+      "height",
+      "challenge"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Eendaagse beginnerstocht met een gids, pak, helm en harnas inbegrepen",
+      "en": "One-day beginner trip with a guide, wetsuit, helmet and harness included"
+    },
+    "scene": "a narrow emerald canyon with a waterfall into a clear rock pool, slick stone walls and a rope along the rock",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "mountainbiken",
+    "domain": "adventure",
+    "sub": "rough_terrain",
+    "label": {
+      "nl": "Mountainbiken",
+      "en": "Mountain biking"
+    },
+    "tags": [
+      "movement",
+      "challenge",
+      "nature",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Huur een mountainbike en volg een gemarkeerde route in een heuvelachtig bosgebied",
+      "en": "Rent a mountain bike and follow a marked route in a hilly woodland"
+    },
+    "scene": "a muddy mountain bike leaning against a pine trunk on a sandy forest trail in morning mist",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "obstacle-run",
+    "domain": "adventure",
+    "sub": "rough_terrain",
+    "label": {
+      "nl": "Obstacle run of modderrace",
+      "en": "Obstacle or mud run"
+    },
+    "tags": [
+      "challenge",
+      "teamwork",
+      "movement"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 1,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Doe mee met een korte beginnersrace of een clubtraining",
+      "en": "Join a short beginner race or a club training"
+    },
+    "scene": "a muddy wooden wall obstacle with a rope net in a sandy dune terrain under a grey sky",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "parkour",
+    "domain": "adventure",
+    "sub": "rough_terrain",
+    "label": {
+      "nl": "Parkour of freerunning",
+      "en": "Parkour or freerunning"
+    },
+    "tags": [
+      "movement",
+      "balance",
+      "technique",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Proefles bij een parkourschool of -vereniging",
+      "en": "Trial class at a parkour school or club"
+    },
+    "scene": "concrete blocks and low walls in an empty city park at dusk with chalk marks on the stone",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "buiten-klimmen",
+    "domain": "adventure",
+    "sub": "heights_air",
+    "label": {
+      "nl": "Buiten klimmen op echte rots",
+      "en": "Climbing on real rock outdoors"
+    },
+    "tags": [
+      "height",
+      "challenge",
+      "technique",
+      "nature"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 1,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Boek een dag met een bergsportgids op een rotsgebied in de Ardennen of Duitsland",
+      "en": "Book a day with a mountain guide at a rock area in the Ardennes or Germany"
+    },
+    "scene": "a sunlit sandstone rock wall with a line of fixed bolts and a rope hanging down, green forest below",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "kajak-wildwater",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Kajak-clinic op wild water",
+      "en": "White-water kayak clinic"
+    },
+    "tags": [
+      "water",
+      "challenge",
+      "technique"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Boek een beginnersclinic bij een kanoschool op een wildwaterbaan",
+      "en": "Book a beginner clinic at a canoe school on a white-water course"
+    },
+    "scene": "a bright yellow kayak resting on rocks beside churning white water in a narrow river channel",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "wrakduiken",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Wrakduiken",
+      "en": "Wreck diving"
+    },
+    "tags": [
+      "depths",
+      "challenge",
+      "technique",
+      "water"
+    ],
+    "formats": [
+      "duo",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 2,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen met een erkende duikschool of gids, met brevet of introductieduik onder begeleiding.",
+        "en": "Only with a recognised dive school or guide, with a certificate or a supervised introductory dive."
+      }
+    },
+    "entry": {
+      "nl": "Alleen met brevet, een erkende duikschool en een gids die het wrak kent",
+      "en": "Only with a certificate, a recognised dive school and a guide who knows the wreck"
+    },
+    "scene": "the rusted bow of a sunken ship covered in green weed in dark blue water with a single shaft of light",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "klipper-zeilen",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Meezeilen op een klassiek zeilschip",
+      "en": "Sailing aboard a classic tall ship"
+    },
+    "tags": [
+      "water",
+      "teamwork",
+      "history",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een dagtocht of weekend op een klipper of tjalk als bijrijder",
+      "en": "Book a day trip or weekend aboard a clipper or barge as a deckhand guest"
+    },
+    "scene": "a tall wooden sailing ship with brown sails under a blue sky on a calm grey-green sea, coiled ropes on deck",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "modderlopen",
+    "domain": "adventure",
+    "sub": "rough_terrain",
+    "label": {
+      "nl": "Modderlopen en moddervechten",
+      "en": "Mud walking and mud play"
+    },
+    "tags": [
+      "play",
+      "outdoors",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Doe mee met een modderloop of moddervak op een vrijgegeven terrein",
+      "en": "Join a mud run or mud pit at a designated site"
+    },
+    "scene": "a thick brown mud pit with a rope slide and wooden planks leading across it under an overcast sky",
+    "supply": "regional",
+    "status": "concept"
+  }
+]

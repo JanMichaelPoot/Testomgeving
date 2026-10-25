@@ -13,7 +13,7 @@ import { domainImage } from "@/lib/discovery/paths";
 import { ASSOCIATION_ROUNDS, type AssociationCard, type AssociationLibrary, type AssociationRound, type AxisId } from "@/lib/discovery/associationProfile";
 import { buildProfileStory } from "@/lib/discovery/profileStory";
 import { ProfileStep } from "@/components/window/ProfileStep";
-import { sampleRoundCards, sampleWorldExamples } from "@/lib/discovery/associationSampling";
+import { directionOrder, initialDirections, rotateDirections, sampleRoundCards, sampleWorldExamples } from "@/lib/discovery/associationSampling";
 import { loadSeen, recordSeen } from "@/lib/associationSeen";
 import { buildSill, buildVensterPanes } from "@/lib/vensterPanes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -188,7 +188,13 @@ export function AssociationWizard({
   const [seed, setSeed] = useState("");
   // The direction tapped last: its example activities show in one line under the grid.
   const [hintWorld, setHintWorld] = useState<string | null>(null);
+  // Ten of the directions at a time; "show other directions" walks on through the rest (what is chosen stays).
+  const [rotated, setRotated] = useState<string[] | null>(null);
   const hintDomain = domains.find((d) => d.id === hintWorld) ?? null;
+  const directionKey = domains.map((d) => d.id).join("|");
+  const order = useMemo(() => directionOrder(directionKey.split("|"), seed || "initial"), [directionKey, seed]);
+  const shownIds = rotated ?? initialDirections(order, answers.interestDomains ?? []);
+  const shownDomains = shownIds.map((id) => domains.find((d) => d.id === id)).filter((d): d is { id: string; label: string } => !!d);
   const [seenBefore, setSeenBefore] = useState<string[]>([]);
   const [isPending, startTransition] = useTransition();
   const pageEnteredAt = useRef(0);
@@ -592,7 +598,7 @@ export function AssociationWizard({
             )}
             {/* Same grid and tile shape as the image rounds, so the photos are as large as on the other pages. */}
             <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
-              {domains.map((d) => {
+              {shownDomains.map((d) => {
                 const on = (answers.interestDomains ?? []).includes(d.id);
                 return (
                   <button
@@ -633,6 +639,15 @@ export function AssociationWizard({
                 <span className="text-xs opacity-75">{dict.worlds.surpriseSub}</span>
               </button>
             </div>
+            {order.length > shownDomains.length && !answers.surpriseMe && (
+              <button
+                type="button"
+                onClick={() => setRotated(rotateDirections(order, shownIds, answers.interestDomains ?? []))}
+                className="mt-3 inline-flex min-h-11 items-center rounded-lg border border-border bg-paper px-4 text-sm font-semibold text-ink transition hover:border-ink focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60"
+              >
+                {dict.worlds.more}
+              </button>
+            )}
             <p className="mt-3 text-sm text-ink/60" aria-live="polite">
               {answers.surpriseMe ? dict.worlds.surpriseSub : dict.worlds.chosen.replace("{n}", String((answers.interestDomains ?? []).length))}
             </p>

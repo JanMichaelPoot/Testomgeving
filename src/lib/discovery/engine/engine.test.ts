@@ -246,3 +246,34 @@ describe("acceptance criteria over synthetic profiles (E1-E8)", () => {
     });
   }
 });
+
+describe("variety (Stap 88): the long tail is lifted, the same few activities do not lead every book", () => {
+  it("scores rare tag mixes above hubs", async () => {
+    const { buildGraph } = await import("@/lib/discovery/engine/graph");
+    const graph = buildGraph(lib.activities, lib.tags);
+    for (const a of lib.activities) {
+      expect(graph.rarity(a)).toBeGreaterThanOrEqual(0);
+      expect(graph.rarity(a)).toBeLessThanOrEqual(1);
+    }
+    expect(graph.rarity(byId.get("glasblazen")!)).toBeGreaterThan(graph.rarity(byId.get("wandelen")!));
+  });
+
+  it("goes easy on activities that need a provider that may not be near", async () => {
+    const { supplyPenalty } = await import("@/lib/discovery/engine/select");
+    expect(supplyPenalty(byId.get("grotduiken")!)).toBeGreaterThan(supplyPenalty(byId.get("glasblazen")!));
+    expect(supplyPenalty(byId.get("glasblazen")!)).toBeGreaterThan(supplyPenalty(byId.get("wandelen")!));
+    expect(supplyPenalty(byId.get("wandelen")!)).toBe(0);
+  });
+
+  it("spreads over the library: no activity leads more than a fifth of the books, and most of the library is used", () => {
+    const books = runProfiles(syntheticProfiles(200, "variety-test", lib), lib).map((r) => new Set(r.result.seeds.map((s) => s.activityId)));
+    const count = new Map<string, number>();
+    for (const b of books) for (const id of b) count.set(id, (count.get(id) ?? 0) + 1);
+    expect(Math.max(...count.values()) / books.length).toBeLessThan(0.2);
+    expect(count.size).toBeGreaterThan(lib.activities.length * 0.6);
+  }, 120_000);
+
+  it("includes the new, exotic activities in the library the engine draws from", () => {
+    for (const id of ["grotduiken", "meswerpen", "canyoning", "schietles", "escape-room", "abseilen", "boulderen"]) expect(byId.has(id), id).toBe(true);
+  });
+});

@@ -1,0 +1,694 @@
+[
+  {
+    "id": "cryptografie",
+    "domain": "mystery",
+    "sub": "puzzle_rooms",
+    "label": {
+      "nl": "Codes kraken: cryptografie voor beginners",
+      "en": "Cracking codes: cryptography for beginners"
+    },
+    "tags": [
+      "puzzling",
+      "learning",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Begin met Caesarcodes en een gratis online cursus",
+      "en": "Start with Caesar ciphers and a free online course"
+    },
+    "scene": "a brass cipher wheel, a strip of coded letters and a pencil on a worn desk under a green lamp",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "lockpicking",
+    "domain": "mystery",
+    "sub": "puzzle_rooms",
+    "label": {
+      "nl": "Lockpicking als sport",
+      "en": "Lockpicking as a sport"
+    },
+    "tags": [
+      "craft",
+      "puzzling",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Ga naar een clubavond van een lockpickingvereniging; sloten en gereedschap zijn aanwezig",
+      "en": "Go to a club evening of a lockpicking association; locks and tools are provided"
+    },
+    "scene": "a transparent practice lock with brass pins visible and a few slim metal picks beside it on a felt cloth",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "puzzeljacht",
+    "domain": "mystery",
+    "sub": "puzzle_rooms",
+    "label": {
+      "nl": "Puzzeljacht (puzzle hunt)",
+      "en": "Puzzle hunt"
+    },
+    "tags": [
+      "puzzling",
+      "teamwork",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe mee met een lokale puzzeljacht of probeer er thuis een met vrienden",
+      "en": "Join a local puzzle hunt or try one at home with friends"
+    },
+    "scene": "a stack of folded riddles, a brass compass and a stopwatch on a map table lit by a desk lamp",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "speurtocht-kaart",
+    "domain": "mystery",
+    "sub": "puzzle_rooms",
+    "label": {
+      "nl": "Speurtocht met een cryptische kaart",
+      "en": "Treasure hunt with a cryptic map"
+    },
+    "tags": [
+      "discovery",
+      "puzzling",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een speurtocht in een stad of kasteeltuin; de aanwijzingen krijg je bij de start",
+      "en": "Book a hunt in a town or castle garden; you get the clues at the start"
+    },
+    "scene": "an aged parchment map with a dotted route and a red wax X, a brass key resting on its corner",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "detectivebox",
+    "domain": "mystery",
+    "sub": "puzzle_rooms",
+    "label": {
+      "nl": "Detectivebox: een zaak aan tafel oplossen",
+      "en": "Detective box: solving a case at the table"
+    },
+    "tags": [
+      "puzzling",
+      "story",
+      "play"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bestel een misdaaddossier-spel en los het samen op",
+      "en": "Order a crime-file game and solve it together"
+    },
+    "scene": "a sealed case-file box with a magnifying glass, a photo envelope and a tiny brass key on a dark table",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "urbex-tour",
+    "domain": "mystery",
+    "sub": "urban_explore",
+    "label": {
+      "nl": "Verlaten plekken bezoeken met een gids",
+      "en": "Visiting abandoned places with a guide"
+    },
+    "tags": [
+      "discovery",
+      "history",
+      "suspense"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Boek een tour naar een verlaten fabriek of gebouw met toestemming en een gids",
+      "en": "Book a tour to an abandoned factory or building with permission and a guide"
+    },
+    "scene": "a derelict factory hall with a shaft of dusty light, peeling green paint and a rusted iron door",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "bunkertocht",
+    "domain": "mystery",
+    "sub": "urban_explore",
+    "label": {
+      "nl": "Bunker- en fortentocht",
+      "en": "Bunker and fort tour"
+    },
+    "tags": [
+      "discovery",
+      "history",
+      "suspense"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Kies een bunkermuseum of een fort van de Waterlinie en loop mee met een rondleiding",
+      "en": "Choose a bunker museum or a Waterline fort and join a guided tour"
+    },
+    "scene": "a moss-covered concrete bunker entrance half-hidden by ferns with a rusted steel door in dusky light",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "onder-de-stad",
+    "domain": "mystery",
+    "sub": "urban_explore",
+    "label": {
+      "nl": "Onder de stad: tunnels en kelders",
+      "en": "Under the city: tunnels and cellars"
+    },
+    "tags": [
+      "depths",
+      "discovery",
+      "history"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een rondleiding door stadskelders, vestingtunnels of een rioolmuseum",
+      "en": "Book a tour of city cellars, fortress tunnels or a sewer museum"
+    },
+    "scene": "a brick-arched tunnel lit by a row of lanterns with a thin stream of water along the floor",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "nachtwandeling",
+    "domain": "mystery",
+    "sub": "urban_explore",
+    "label": {
+      "nl": "Nachtwandeling met een zaklamp",
+      "en": "Night walk with a torch"
+    },
+    "tags": [
+      "suspense",
+      "nature",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      9,
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Sluit aan bij een nachtwandeling van een natuurorganisatie of loop zelf een bekende route",
+      "en": "Join a night walk by a nature organisation or walk a familiar route yourself"
+    },
+    "scene": "a forest path at blue hour with a single warm lantern glowing between dark trunks",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "spookwandeling",
+    "domain": "mystery",
+    "sub": "urban_explore",
+    "label": {
+      "nl": "Spookwandeling en legendes bij kaarslicht",
+      "en": "Ghost walk and legends by candlelight"
+    },
+    "tags": [
+      "suspense",
+      "story",
+      "history"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een avondwandeling met een verteller door een oude binnenstad",
+      "en": "Book an evening walk with a storyteller through an old town centre"
+    },
+    "scene": "a narrow cobbled alley at night lit by a hanging lantern with thin mist at ground level",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "vuurtoren",
+    "domain": "mystery",
+    "sub": "urban_explore",
+    "label": {
+      "nl": "Een vuurtoren beklimmen",
+      "en": "Climbing a lighthouse"
+    },
+    "tags": [
+      "height",
+      "discovery",
+      "history"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Koop een kaartje voor een vuurtoren die open is voor bezoek",
+      "en": "Buy a ticket for a lighthouse that is open to visitors"
+    },
+    "scene": "a white lighthouse with a red band standing on a dune ridge under a stormy-blue sky",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "cold-case",
+    "domain": "mystery",
+    "sub": "true_crime",
+    "label": {
+      "nl": "Een cold case onderzoeken",
+      "en": "Investigating a cold case"
+    },
+    "tags": [
+      "story",
+      "puzzling",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies een afgesloten zaak uit een documentaire of archief en maak je eigen tijdlijn",
+      "en": "Pick a closed case from a documentary or archive and build your own timeline"
+    },
+    "scene": "a corkboard with red string, index cards and a desk lamp in a dim study",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "forensisch",
+    "domain": "mystery",
+    "sub": "true_crime",
+    "label": {
+      "nl": "Forensische workshop",
+      "en": "Forensics workshop"
+    },
+    "tags": [
+      "learning",
+      "puzzling",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een workshop vingerafdrukken en sporen bij een museum of wetenschapscentrum",
+      "en": "Book a fingerprints-and-traces workshop at a museum or science centre"
+    },
+    "scene": "a fingerprint dusting kit with a soft brush, powder jar and a glass slide on a white table",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "detective-wandeling",
+    "domain": "mystery",
+    "sub": "true_crime",
+    "label": {
+      "nl": "Literaire detectivewandeling",
+      "en": "Literary detective walk"
+    },
+    "tags": [
+      "story",
+      "discovery",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een wandeling in de stad van je favoriete misdaadschrijver",
+      "en": "Find a walk through the city of your favourite crime writer"
+    },
+    "scene": "a gas-lamp-style street lantern beside a brick wall with a vintage street name plate in fog",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "hofjes",
+    "domain": "mystery",
+    "sub": "urban_explore",
+    "label": {
+      "nl": "Verborgen hofjes en binnenplaatsen ontdekken",
+      "en": "Discovering hidden courtyards"
+    },
+    "tags": [
+      "discovery",
+      "history",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Volg een hofjeswandeling of loop zelf door de oude binnenstad",
+      "en": "Follow a courtyard walk or wander the old town centre yourself"
+    },
+    "scene": "a hidden courtyard garden behind a heavy wooden door with a brick path, a pump and climbing roses",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "kasteel-overnachting",
+    "domain": "mystery",
+    "sub": "urban_explore",
+    "label": {
+      "nl": "Een nacht in een kasteel of spookachtig huis",
+      "en": "A night in a castle or spooky house"
+    },
+    "tags": [
+      "suspense",
+      "history",
+      "story"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een overnachting in een kasteelhotel of historisch logement",
+      "en": "Book a night at a castle hotel or historic lodging"
+    },
+    "scene": "a stone castle tower window glowing with warm candlelight against a twilight blue sky",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "detectiveverhaal",
+    "domain": "mystery",
+    "sub": "true_crime",
+    "label": {
+      "nl": "Een detectiveverhaal schrijven",
+      "en": "Writing a detective story"
+    },
+    "tags": [
+      "story",
+      "language",
+      "making",
+      "puzzling"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bedenk een zaak, drie verdachten en een verborgen aanwijzing",
+      "en": "Invent a case, three suspects and a hidden clue"
+    },
+    "scene": "a typewriter with a half-typed page, a magnifying glass, and a cup of black coffee on a dark desk",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "spionagespel",
+    "domain": "mystery",
+    "sub": "puzzle_rooms",
+    "label": {
+      "nl": "Spionagespel in de stad",
+      "en": "Spy game in the city"
+    },
+    "tags": [
+      "play",
+      "suspense",
+      "puzzling",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe mee met een stadsspel over geheime berichten en schaduwen",
+      "en": "Join a city game of secret messages and shadowing"
+    },
+    "scene": "a worn trench-coat-coloured envelope, a pair of binoculars and a coded note on a park bench",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "paranormaal",
+    "domain": "mystery",
+    "sub": "urban_explore",
+    "label": {
+      "nl": "Paranormaal onderzoek of spokenjacht",
+      "en": "Paranormal investigation or ghost hunt"
+    },
+    "tags": [
+      "suspense",
+      "story",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een geestenjacht bij een historisch gebouw met een gids",
+      "en": "Book a ghost hunt at a historic building with a guide"
+    },
+    "scene": "a candle in a brass holder on a creaking staircase in a dim old house with long shadows",
+    "supply": "rare",
+    "status": "concept"
+  }
+]

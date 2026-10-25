@@ -11,7 +11,7 @@ import path from "node:path";
 import { ALL_ACTIVITIES, DOMAINS, HYBRIDS, SUB_DOMAINS, TAGS, VOCABULARY } from "../src/lib/discovery/library";
 import { SOCIAL_FORMATS } from "../src/lib/discovery/types";
 import { validateAssociations, validateLibrary } from "../src/lib/discovery/validate";
-import { ASSOCIATIONS } from "../src/lib/discovery/associations";
+import { ASSOCIATIONS, hasOwnImage } from "../src/lib/discovery/associations";
 
 const args = new Set(process.argv.slice(2));
 const PUBLIC = path.join(process.cwd(), "public/illustrations/discovery");
@@ -76,5 +76,10 @@ const total = errors.length + imageErrors;
 console.log(`\n${total === 0 ? "OK" : "FAILED"}: ${errors.length} errors${args.has("--images") ? `, ${imageErrors} missing photos` : ""}, ${warnings.length} warnings`);
 if (!args.has("--images") && missingImages.length + missingDomainImages.length > 0) {
   console.log(`(${missingImages.length} activity photos and ${missingDomainImages.length} domain photos still to generate: npm run taxonomy:images)`);
+}
+const waiting = ASSOCIATIONS.filter((c) => !hasOwnImage(c));
+if (waiting.length > 0) {
+  console.log(`(${waiting.length} association cards still wait for their own image and are not shown yet: npm run taxonomy:images -- --associations --sheet 3x3)`);
+  if (args.has("--images")) process.exit(1);
 }
 process.exit(total === 0 ? 0 : 1);

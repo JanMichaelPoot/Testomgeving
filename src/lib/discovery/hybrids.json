@@ -238,5 +238,165 @@
       "nl": "Fossielenwandeling langs strand of groeve",
       "en": "A fossil walk along a beach or quarry"
     }
+  },
+  {
+    "a": "bier-brouwen",
+    "b": "hist-koken",
+    "label": {
+      "nl": "Brouwen zoals de monniken (historisch bier brouwen)",
+      "en": "Brewing like the monks (historical beer brewing)"
+    }
+  },
+  {
+    "a": "kampvuuravond",
+    "b": "storytelling",
+    "label": {
+      "nl": "Verhalen rond het vuur (een verteltocht bij het kampvuur)",
+      "en": "Stories around the fire (a storytelling night at the campfire)"
+    }
+  },
+  {
+    "a": "grotten-verkennen",
+    "b": "geologie",
+    "label": {
+      "nl": "Grotten lezen als aardgeschiedenis (een geologische grottentocht)",
+      "en": "Reading caves as earth history (a geological cave tour)"
+    }
+  },
+  {
+    "a": "urbex-tour",
+    "b": "fotografie",
+    "label": {
+      "nl": "Fotograferen op verlaten plekken (een lost-places-fotowandeling met gids)",
+      "en": "Photographing abandoned places (a guided lost-places photo walk)"
+    }
+  },
+  {
+    "a": "cold-case",
+    "b": "archief",
+    "label": {
+      "nl": "Een oude zaak uitpluizen in het archief (historisch speurwerk)",
+      "en": "Digging into an old case in the archive (historical sleuthing)"
+    }
+  },
+  {
+    "a": "pasta-maken",
+    "b": "taal-leren",
+    "label": {
+      "nl": "Italiaans leren door te koken (een kookworkshop in een andere taal)",
+      "en": "Learning Italian by cooking (a cooking workshop in another language)"
+    }
+  },
+  {
+    "a": "kalligrafie",
+    "b": "handschriften",
+    "label": {
+      "nl": "Kalligrafie naar middeleeuwse handschriften",
+      "en": "Calligraphy after medieval manuscripts"
+    }
+  },
+  {
+    "a": "boomklimmen",
+    "b": "vogels",
+    "label": {
+      "nl": "Vogels spotten vanuit de boomtoppen",
+      "en": "Bird watching from the treetops"
+    }
+  },
+  {
+    "a": "karaoke",
+    "b": "taalcafe",
+    "label": {
+      "nl": "Taal oefenen met liedjes (een karaokeavond in een andere taal)",
+      "en": "Practising a language with songs (a karaoke night in another language)"
+    }
+  },
+  {
+    "a": "vuur-maken",
+    "b": "kamperen",
+    "label": {
+      "nl": "Een bushcraft-overnachting waarin je je eigen vuur maakt",
+      "en": "A bushcraft overnight where you make your own fire"
+    }
+  },
+  {
+    "a": "stop-motion",
+    "b": "diorama",
+    "label": {
+      "nl": "Een stop-motionfilm in je eigen miniatuurwereld",
+      "en": "A stop-motion film in your own miniature world"
+    }
+  },
+  {
+    "a": "podcast-maken",
+    "b": "genealogie",
+    "label": {
+      "nl": "Een familiepodcast over je voorouders",
+      "en": "A family podcast about your ancestors"
+    }
+  },
+  {
+    "a": "mountainbiken",
+    "b": "geocaching",
+    "label": {
+      "nl": "Geocachen op de mountainbike",
+      "en": "Geocaching by mountain bike"
+    }
+  },
+  {
+    "a": "orientatieloop",
+    "b": "nachtwandeling",
+    "label": {
+      "nl": "Oriëntatielopen in het donker (nachtoriëntatie)",
+      "en": "Orienteering in the dark (night orienteering)"
+    }
+  },
+  {
+    "a": "foerageren",
+    "b": "kookwetenschap",
+    "label": {
+      "nl": "Koken met wat je zelf in het bos vond",
+      "en": "Cooking with what you found in the woods yourself"
+    }
+  },
+  {
+    "a": "ijsbaden",
+    "b": "sauna",
+    "label": {
+      "nl": "Wisselbaden: sauna en ijsbad",
+      "en": "Contrast bathing: sauna and ice bath"
+    }
+  },
+  {
+    "a": "tarot",
+    "b": "journaling",
+    "label": {
+      "nl": "Tarot als schrijfprompt",
+      "en": "Tarot as a writing prompt"
+    }
+  },
+  {
+    "a": "synthesizer-bouwen",
+    "b": "muziek-maken",
+    "label": {
+      "nl": "Je eigen synthesizer bouwen en erop spelen",
+      "en": "Building your own synthesizer and playing it"
+    }
+  },
+  {
+    "a": "kaas-maken",
+    "b": "boerderijdag",
+    "label": {
+      "nl": "Kaas maken op de boerderij zelf",
+      "en": "Making cheese on the farm itself"
+    }
+  },
+  {
+    "a": "schaduwtheater",
+    "b": "sagen",
+    "label": {
+      "nl": "Schaduwspel van een oude sage",
+      "en": "A shadow play of an old legend"
+    }
   }
 ]

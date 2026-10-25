@@ -1,0 +1,868 @@
+[
+  {
+    "id": "driftles",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Driftles of skidpan-training",
+      "en": "Drift or skid-pan training"
+    },
+    "tags": [
+      "speed",
+      "technique",
+      "challenge"
+    ],
+    "formats": [
+      "duo",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Boek een beginnersles op een afgesloten oefenterrein met een instructeur in de auto",
+      "en": "Book a beginner lesson on a closed practice ground with an instructor in the car"
+    },
+    "scene": "a skid pad with curved black tyre marks on wet asphalt and orange cones under a grey sky",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "circuitdag",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Een circuitdag: zelf rijden op een racecircuit",
+      "en": "A track day: driving on a racing circuit"
+    },
+    "tags": [
+      "speed",
+      "technique",
+      "competition"
+    ],
+    "formats": [
+      "duo",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Boek een rijervaring bij een circuit met instructeur en voertuig",
+      "en": "Book a driving experience at a circuit with an instructor and car"
+    },
+    "scene": "a racing circuit kerb in red and white with a pit-lane sign and a tyre barrier in golden hour light",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "enduro-offroad",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Offroad-motorles (enduro)",
+      "en": "Off-road motorbike lesson (enduro)"
+    },
+    "tags": [
+      "speed",
+      "challenge",
+      "nature",
+      "technique"
+    ],
+    "formats": [
+      "duo",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Beginnersdag op een afgesloten terrein met instructeur; motor en uitrusting worden gehuurd",
+      "en": "Beginner day on a closed course with an instructor; bike and gear are rented"
+    },
+    "scene": "an off-road motorbike leaning on its stand on a sandy forest track, mud on the fenders, low sun",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "oldtimerrit",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Oldtimerrit of klassiekerdag",
+      "en": "Classic-car drive day"
+    },
+    "tags": [
+      "retro",
+      "speed",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Meerijden of meekijken bij een club of rit voor klassiekers",
+      "en": "Ride along or watch at a classic-car club or rally"
+    },
+    "scene": "a polished cream-coloured vintage car parked on a cobbled village square with a picnic basket on the bonnet",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "pumptrack",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Pumptrack of BMX-baan",
+      "en": "Pump track or BMX track"
+    },
+    "tags": [
+      "speed",
+      "balance",
+      "movement",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Neem je fiets of huur er een en begin met een rustige ronde",
+      "en": "Bring your bike or rent one and start with a gentle lap"
+    },
+    "scene": "a rolling asphalt pump track with humps and banked turns in a green park, a small bike on the grass",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "zeepkistenrace",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Een zeepkist bouwen en racen",
+      "en": "Build and race a soapbox cart"
+    },
+    "tags": [
+      "making",
+      "speed",
+      "competition",
+      "teamwork"
+    ],
+    "formats": [
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Bouw met vrienden een zeepkist of doe mee aan een zeepkistenrace in de buurt",
+      "en": "Build a soapbox with friends or join a local soapbox race"
+    },
+    "scene": "a hand-painted wooden soapbox racer with four small wheels at the top of a straw-bale-lined street slope",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "stoomtrein",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Meerijden op een stoomtrein",
+      "en": "A ride on a steam train"
+    },
+    "tags": [
+      "retro",
+      "discovery",
+      "history"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Koop een kaartje voor een rit met een museumstoomtrein",
+      "en": "Buy a ticket for a heritage steam train ride"
+    },
+    "scene": "a black steam locomotive puffing white steam beside a small station platform with an old lamp",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "motorvlucht",
+    "domain": "speed",
+    "sub": "air_flight",
+    "label": {
+      "nl": "Introductievlucht in een klein vliegtuig",
+      "en": "Introductory flight in a small plane"
+    },
+    "tags": [
+      "height",
+      "speed",
+      "technique"
+    ],
+    "formats": [
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Boek een proefvlucht bij een vliegschool; de piloot vliegt en jij kijkt of vliegt een stukje mee",
+      "en": "Book a trial flight at a flight school; the pilot flies and you watch or fly a little"
+    },
+    "scene": "a small white propeller plane parked on a grass airfield with a windsock and an open hangar door",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "vlieger-stunt",
+    "domain": "speed",
+    "sub": "air_flight",
+    "label": {
+      "nl": "Stuntvliegeren en vliegerfestival",
+      "en": "Stunt kites and kite festivals"
+    },
+    "tags": [
+      "play",
+      "outdoors",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Neem een stuntvlieger mee naar het strand of een vliegerfestival",
+      "en": "Take a stunt kite to the beach or to a kite festival"
+    },
+    "scene": "a large diamond kite in primary colours straining on its line over a flat dune beach, ground anchor in the sand",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "fpv-drone",
+    "domain": "speed",
+    "sub": "air_flight",
+    "label": {
+      "nl": "Droneracen (FPV)",
+      "en": "Drone racing (FPV)"
+    },
+    "tags": [
+      "speed",
+      "technique",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Ga naar een open trainingsavond van een droneclub; vaak mag je een drone lenen",
+      "en": "Visit an open training evening at a drone club; often you can borrow a drone"
+    },
+    "scene": "a small black racing drone with green LEDs resting on a hexagonal gate frame in a dark hangar",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "helikoptervlucht",
+    "domain": "speed",
+    "sub": "air_flight",
+    "label": {
+      "nl": "Helikoptervlucht boven de kust",
+      "en": "Helicopter flight over the coast"
+    },
+    "tags": [
+      "height",
+      "discovery",
+      "speed"
+    ],
+    "formats": [
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een rondvlucht bij een heliport; kies een heldere dag",
+      "en": "Book a scenic flight at a heliport; pick a clear day"
+    },
+    "scene": "a red helicopter on a helipad at the edge of a dune coast with grey sea beyond, rotor still",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "vliegsimulator",
+    "domain": "speed",
+    "sub": "air_flight",
+    "label": {
+      "nl": "Vliegsimulator-ervaring",
+      "en": "Flight-simulator experience"
+    },
+    "tags": [
+      "technique",
+      "speed",
+      "focus"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een sessie in een professionele simulator; een instructeur helpt bij het opstijgen",
+      "en": "Book a session in a professional simulator; an instructor helps with take-off"
+    },
+    "scene": "a cockpit panel of dials and switches lit in amber with a wide screen showing a runway at dusk",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "skihal",
+    "domain": "speed",
+    "sub": "snow_ice",
+    "label": {
+      "nl": "Indoor skiën of snowboarden",
+      "en": "Indoor skiing or snowboarding"
+    },
+    "tags": [
+      "speed",
+      "balance",
+      "movement",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een beginnersles in een skihal; ski's en schoenen worden gehuurd",
+      "en": "Book a beginner lesson in an indoor ski hall; skis and boots are rented"
+    },
+    "scene": "an indoor ski slope with white snow under cold ceiling lights and an empty chairlift",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "ijshockey",
+    "domain": "speed",
+    "sub": "snow_ice",
+    "label": {
+      "nl": "IJshockey proefles",
+      "en": "Ice-hockey trial class"
+    },
+    "tags": [
+      "competition",
+      "teamwork",
+      "speed"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "large_group"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "months": [
+      9,
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Proefles bij een ijshockeyclub; uitrusting wordt uitgeleend",
+      "en": "Trial class at an ice-hockey club; gear is lent out"
+    },
+    "scene": "an empty ice-hockey rink with red and blue lines, a goal net and a puck on the ice, white glare",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "sneeuwschoenen",
+    "domain": "speed",
+    "sub": "snow_ice",
+    "label": {
+      "nl": "Sneeuwschoenwandelen",
+      "en": "Snowshoe trek"
+    },
+    "tags": [
+      "nature",
+      "outdoors",
+      "discovery",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      12,
+      1,
+      2,
+      3
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een dagtocht met huur van schoenen en een gids in een skigebied",
+      "en": "Book a day trip with rented shoes and a guide in a ski area"
+    },
+    "scene": "a pair of snowshoes planted upright in deep white snow with a quiet fir forest behind, blue shadows",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "paardenrennen",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Een dag naar de paardenrennen",
+      "en": "A day at the horse races"
+    },
+    "tags": [
+      "animals",
+      "speed",
+      "conviviality",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Koop een kaartje voor een wedstrijddag; het programma legt uit hoe het werkt",
+      "en": "Buy a ticket for a race day; the programme explains how it works"
+    },
+    "scene": "a white railing curving around a green turf racetrack, a numbered board and a bright flag mast",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "strandzeilen",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Strandzeilen",
+      "en": "Land sailing on the beach"
+    },
+    "tags": [
+      "speed",
+      "outdoors",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een strandzeilsessie met een kart en een korte uitleg",
+      "en": "Book a beach land-sailing session with a kart and a short briefing"
+    },
+    "scene": "a three-wheeled sail kart with a bright triangular sail standing on a wide empty beach at low tide",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "rib-boot",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Een tocht in een speedboot of RIB",
+      "en": "A trip in a speedboat or RIB"
+    },
+    "tags": [
+      "speed",
+      "water",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 3,
+    "duration": 1,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een tocht in een RIB-boot met een schipper",
+      "en": "Book a trip in a RIB boat with a skipper"
+    },
+    "scene": "an empty grey rigid inflatable boat with an outboard motor moored at a wooden jetty on a calm blue bay at dawn, console and bench seats visible, a lighthouse far away",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "jetski",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Jetskiën op open water",
+      "en": "Jet skiing on open water"
+    },
+    "tags": [
+      "speed",
+      "water",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 3,
+    "duration": 1,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Alleen met een verhuurder of instructeur en een korte veiligheidsuitleg",
+      "en": "Only with a rental provider or instructor and a short safety briefing"
+    },
+    "scene": "a jet ski with bright stripes bouncing on small waves leaving a white wake on a large lake",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "trekkertrek",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Een trekkertrek of tractor pulling bijwonen",
+      "en": "Watching tractor pulling"
+    },
+    "tags": [
+      "speed",
+      "competition",
+      "conviviality",
+      "retro"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een regionaal evenement en neem een petje en oordoppen mee",
+      "en": "Find a regional event and bring a cap and ear plugs"
+    },
+    "scene": "a huge polished tractor with chrome exhausts at the start of a dirt strip with a weighing sled, rural fair bunting",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "wielerwedstrijd-kijken",
+    "domain": "speed",
+    "sub": "wheels",
+    "label": {
+      "nl": "Een wielerwedstrijd aan de kant kijken",
+      "en": "Watching a cycling race from the roadside"
+    },
+    "tags": [
+      "speed",
+      "conviviality",
+      "outdoors",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een lokale wielerronde of klassieker langs de route",
+      "en": "Find a local criterium or classic along the route"
+    },
+    "scene": "a roadside barrier with a finish banner and a stretch of tarmac curving through green hills",
+    "supply": "regional",
+    "status": "concept"
+  }
+]

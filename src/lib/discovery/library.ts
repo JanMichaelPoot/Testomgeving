@@ -10,6 +10,14 @@ import restful from "@/lib/discovery/data/restful.json";
 import soloExplore from "@/lib/discovery/data/solo_explore.json";
 import tech from "@/lib/discovery/data/tech.json";
 import together from "@/lib/discovery/data/together.json";
+import adventure from "@/lib/discovery/data/adventure.json";
+import target from "@/lib/discovery/data/target.json";
+import speed from "@/lib/discovery/data/speed.json";
+import mystery from "@/lib/discovery/data/mystery.json";
+import elements from "@/lib/discovery/data/elements.json";
+import food from "@/lib/discovery/data/food.json";
+import stage from "@/lib/discovery/data/stage.json";
+import night from "@/lib/discovery/data/night.json";
 export { activityImage, domainImage } from "@/lib/discovery/paths";
 import type { Activity, ActivityStatus, Domain, Hybrid, SubDomain, Tag, Vocabulary } from "@/lib/discovery/types";
 
@@ -30,6 +38,14 @@ const activityFiles: Activity[][] = [
   soloExplore,
   together,
   restful,
+  adventure,
+  target,
+  speed,
+  mystery,
+  elements,
+  food,
+  stage,
+  night,
 ] as Activity[][];
 
 export const VOCABULARY = vocabularyJson as Vocabulary;

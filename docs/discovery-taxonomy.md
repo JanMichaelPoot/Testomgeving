@@ -50,6 +50,7 @@ Regels om te onthouden:
 - **`safety.tier` 2** (alleen onder gekwalificeerd toezicht) vraagt een `note` met de legale, begeleide instap.
 - **`entry`**: de laagdrempelige eerste stap (proefles, beginnersavond, open dag).
 - **`months`** (optioneel): de maanden (1-12) waarin een beginner dit in Nederland echt kan doen, bijvoorbeeld `[6, 7, 8, 9]` voor zwemmen in open water of `[10, 11, 12, 1, 2, 3]` voor schaatsen. Laat het weg als het het hele jaar kan of er geen duidelijk seizoen is: zet het alleen als een activiteit buiten die maanden niet realistisch is. De motor stelt een activiteit buiten zijn maanden nooit voor (ook niet als iemand hem zelf koos), en de kaartenwizard en de voorbeelden onder de richtingen tonen hem dan ook niet. De validatie eist een niet-lege lijst van verschillende maanden 1-12.
+- **`supply`** (optioneel, standaard `common`): hoe makkelijk je dit in Nederland bij een aanbieder in de buurt vindt. `common` kan bijna iedereen morgen beginnen (een wandeling, schrijven); `regional` vraagt een club, studio of school binnen bereik (glasblazen, schietles); `rare` bestaat maar op een paar plekken of in het buitenland (grotduiken, paragliden, canyoning). De motor stelt `regional` en vooral `rare` iets minder snel voor, en de generatie stelt een idee met `regional` of `rare` alleen voor als het onderzoek echt een aanbieder binnen bereik vond: anders wordt het één keer vervangen. Wie zelf een `rare` activiteit koos, krijgt hem niet minder snel.
 - **`scene`**: Engelse beeldomschrijving voor de foto. **Geen mensen of gezichten** (de validatie weigert het). Beschrijf één duidelijk onderwerp.
 - **`status`**: start als `concept`. Zet op `reviewed` als iemand het heeft gecontroleerd, `live` als het voor iedereen mag.
 
@@ -102,3 +103,13 @@ ruim een kwartier.
 
 Alles staat nu op `concept`: de kenmerken zijn een eerste, door mij opgestelde inschatting,
 nog niet getoetst door kenners of gebruikers. Zie het ontwerprapport voor de reviewaanpak.
+
+## Meer activiteiten bedenken: eerst divergeren, dan convergeren
+
+Zo is de bibliotheek in oktober 2026 van 214 naar 423 activiteiten gegroeid (acht nieuwe richtingen). Gebruik hetzelfde werkwoord voor uitbreiden:
+
+1. **Divergeren**: bedenk per richting veel meer kandidaten dan je wilt houden, langs vaste lenzen: werkwoord x omgeving x sociale vorm x intensiteit, "wat doen mensen voor de kick", "wat is stiekem toegankelijk", "wat kun je een middag proberen", "wat doet een buurland dat wij hier ook kunnen". Dit is goedkoop (één batch per richting) en niet op kwaliteit gefilterd.
+2. **Convergeren** met vaste filters, in deze volgorde: dubbelingen en bijna-dubbelingen eruit (zelfde tags en subgroep); bestaat het aanbod in Nederland of binnen een reisafstand (`supply`)?; toezicht en wet (`tier 2` met een `note`: alleen de begeleide, legale weg); seizoen (`months`); is het te fotograferen zonder mensen of wapens; en zegt het iets nieuws (een tagmix die de bibliotheek nog mist).
+3. **Beoordelen** in de reviewgalerij, en pas daarna beelden maken (`npm run taxonomy:images -- --sheet 3x3`: negen foto's voor de prijs van één).
+
+Nieuwe richtingen, subgroepen en tags staan in `vocabulary.json`; een nieuwe subgroep heeft ook een regel in `engine/photo.ts` nodig (welke fotocategorie het boek erbij toont).

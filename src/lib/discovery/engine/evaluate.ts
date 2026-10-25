@@ -125,7 +125,10 @@ export function evaluate(runs: readonly Run[], lib: EngineLibrary): Report {
         const inten = a.intensity === null || a.intensity <= intCap;
         const sup = !(a.safety.tier === 2 && hide);
         const fmt = explicit.length === 0 || !a.formats || a.formats.some((f) => explicit.includes(f));
-        return cost && inten && sup && fmt;
+        // The same hard rules the engine applies: season and a stated place (indoors / outdoors).
+        const inSeasonNow = input.month === undefined || !a.months || a.months.includes(input.month);
+        const place = !(/buiten/i.test(input.mustHaves) && a.setting === "indoor") && !(/binnen/i.test(input.mustHaves) && a.setting === "outdoor");
+        return cost && inten && sup && fmt && inSeasonNow && place;
       });
       if (possible.length >= 2) {
         hits.nicheOf++;

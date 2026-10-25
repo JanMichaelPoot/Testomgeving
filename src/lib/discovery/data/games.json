@@ -250,7 +250,8 @@
       "en": "Demo game in a hobby shop; figures are lent"
     },
     "scene": "miniature armies on a detailed tabletop battlefield with terrain",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "tabletop-rpg",
@@ -319,7 +320,8 @@
       "en": "Beginner day; costume and rules are explained"
     },
     "scene": "a foam sword, a cloak and leather bracers on a wooden bench in a forest clearing",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "solo-rpg",
@@ -458,7 +460,8 @@
       "en": "An escape room with a beginner theme; team of two to six"
     },
     "scene": "old brass keys and a padlocked wooden chest with a map",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "pubquiz",
@@ -630,7 +633,8 @@
       "en": "Beginner round with instructions and equipment"
     },
     "scene": "a laser tag arena with neon lights and fog, vests on a rack",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "darten-pool",
@@ -804,7 +808,8 @@
       "en": "An hour of VR at an arcade, headset and briefing included"
     },
     "scene": "a virtual reality headset resting on a pedestal in a dark room washed in neon blue and magenta light",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "simracen",
@@ -840,6 +845,112 @@
       "en": "A session on a racing simulator at a sim centre, with a briefing"
     },
     "scene": "a racing simulator cockpit with a steering wheel, pedals and a curved screen showing a track at dusk",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "bubble-football",
+    "domain": "games",
+    "sub": "digital_action",
+    "label": {
+      "nl": "Bubble football",
+      "en": "Bubble football"
+    },
+    "tags": [
+      "play",
+      "competition",
+      "teamwork"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een uur met vrienden bij een locatie met opblaasbare ballen",
+      "en": "Book an hour with friends at a venue with inflatable suits"
+    },
+    "scene": "two large clear inflatable balls resting on an artificial grass pitch with white lines at golden hour",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "flipperkast",
+    "domain": "games",
+    "sub": "digital_action",
+    "label": {
+      "nl": "Flipperkasten en arcade",
+      "en": "Pinball and arcade"
+    },
+    "tags": [
+      "retro",
+      "play",
+      "competition"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een flippermuseum of arcadehal en begin met een kleine rol munten",
+      "en": "Find a pinball museum or arcade hall and start with a few tokens"
+    },
+    "scene": "a glowing pinball machine playfield with bumpers and neon lights in a dim arcade hall",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "rummikub-kaartclub",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Spelletjescafé",
+      "en": "Board-game café"
+    },
+    "tags": [
+      "play",
+      "conviviality",
+      "strategy"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Loop binnen bij een spelletjescafé; de medewerkers leggen een spel uit",
+      "en": "Walk into a board-game café; the staff explain a game"
+    },
+    "scene": "shelves of colourful board-game boxes behind a wooden table with a half-played game and two tea cups",
+    "supply": "regional",
     "status": "concept"
   }
 ]

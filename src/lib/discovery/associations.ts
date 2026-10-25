@@ -1,9 +1,10 @@
 import associationsJson from "@/lib/discovery/associations.json";
-import { TAGS, getActivities, getActivity } from "@/lib/discovery/library";
+import { ALL_ACTIVITIES, TAGS, getActivities, getActivity } from "@/lib/discovery/library";
 import { inSeason } from "@/lib/discovery/season";
 import { DISCOVERY_MIN_STATUS } from "@/lib/discovery/cardLibrary";
 import { passesConstraints, resolveConstraints } from "@/lib/discovery/engine/constraints";
-import { agePenalty } from "@/lib/discovery/engine/select";
+import { agePenalty, supplyPenalty } from "@/lib/discovery/engine/select";
+import { buildGraph } from "@/lib/discovery/engine/graph";
 import { hashSeed, mulberry32 } from "@/lib/discovery/rng";
 import {
   ASSOCIATION_ROUNDS,
@@ -49,10 +50,19 @@ const CORRECTION_TAGS = [
   "challenge", "play", "learning", "rhythm", "caring", "discovery", "balance",
 ];
 
+/**
+ * A card is only shown once its own image exists. New cards start with a stand-in path (another card's photo) until
+ * `npm run taxonomy:images -- --associations` has made theirs; showing that stand-in would put the wrong picture
+ * under the wrong words, so such a card is simply left out until then.
+ */
+export function hasOwnImage(c: { id: string; image: string }): boolean {
+  return c.image === `/illustrations/associations/${c.id}.jpg`;
+}
+
 /** The slim card data the wizard receives (one language; no scenes). */
 export function buildAssociationLibrary(locale: "nl" | "en", month?: number): AssociationLibrary {
   return {
-    cards: ASSOCIATIONS.map((c) => ({
+    cards: ASSOCIATIONS.filter(hasOwnImage).map((c) => ({
       id: c.id,
       family: c.family,
       round: c.round,
@@ -218,6 +228,21 @@ export function parseAssociationSources(raw: unknown): AssociationSources | null
   return Object.keys(legacy).length ? { version: 2, sources: legacy, sourceTags: {} } : null;
 }
 
+/** How much the long tail is lifted when interests are read from the images, and the random spread between close scores. */
+const RARITY_LIFT = 0.3;
+const JITTER = 0.5;
+
+// 0.4..1.6: how specific a tag is, from how many activities carry it (the library as a whole, not this pool).
+const TAG_USES = (() => {
+  const uses = new Map<string, number>();
+  for (const a of ALL_ACTIVITIES) for (const t of a.tags) uses.set(t, (uses.get(t) ?? 0) + 1);
+  return uses;
+})();
+function tagIdf(tag: string): number {
+  const share = (TAG_USES.get(tag) ?? 1) / Math.max(1, ALL_ACTIVITIES.length);
+  return Math.min(1.6, Math.max(0.4, 1 + Math.log(0.15 / Math.max(0.005, share)) * 0.35));
+}
+
 export function associationsToEngineInput(input: {
   associationIds: readonly string[];
   corrections?: readonly string[];
@@ -263,8 +288,13 @@ export function associationsToEngineInput(input: {
   );
 
   const rnd = mulberry32(hashSeed(`assoc:${input.seed}`));
+  // Variety (Stap 88): a tag that half the library carries (outdoors, nature, making) says little about one
+  // activity, so it counts by how rare it is; and activities built from rare tag mixes get a lift, so the
+  // same few hubs do not lead every book.
+  const graph = buildGraph(ALL_ACTIVITIES, TAGS);
   const raw = pool.map((a) => {
-    const tagScore = a.tags.reduce((s, t) => s + (profile[t] ?? 0) * (GENERIC.has(t) ? 0.5 : 1), 0) / Math.sqrt(Math.max(1, a.tags.length));
+    const tagScore =
+      a.tags.reduce((s, t) => s + (profile[t] ?? 0) * (GENERIC.has(t) ? 0.5 : 1) * tagIdf(t), 0) / Math.sqrt(Math.max(1, a.tags.length));
     return { a, tagScore };
   });
   const maxTag = Math.max(0.0001, ...raw.map((r) => r.tagScore));
@@ -274,13 +304,14 @@ export function associationsToEngineInput(input: {
     .map(({ a, tagScore }) => {
       const ax = activityAxes(a);
       const fit = 1 - (Math.abs(ax.social - axes.social) + Math.abs(ax.energy - axes.energy) + Math.abs(ax.setting - axes.setting)) / 6;
-      const score = tagScore / maxTag + (worlds.has(a.domain) ? 0.35 : 0) + 0.3 * fit + rnd() * 0.25 - agePenalty(a, input.constraints.ageCategory);
+      const score =
+        tagScore / maxTag + (worlds.has(a.domain) ? 0.35 : 0) + 0.3 * fit + RARITY_LIFT * graph.rarity(a) * (0.4 + 1.2 * mulberry32(hashSeed(`assoc:${input.seed}:rare:${a.id}`))()) + rnd() * JITTER - supplyPenalty(a) - agePenalty(a, input.constraints.ageCategory);
       return { a, score };
     })
     .sort((x, y) => y.score - x.score);
 
   // Up to six, spread out: one per world (measured: two per world gave fewer worlds per book
-  // than the card wizard, 5.6 vs 5.8; one per world gives 5.8). The jitter (0.25) keeps the
+  // than the card wizard, 5.6 vs 5.8; one per world gives 5.8). The jitter keeps the
   // same images from always leading to the same activities.
   const picked: Activity[] = [];
   const perDomain = new Map<string, number>();

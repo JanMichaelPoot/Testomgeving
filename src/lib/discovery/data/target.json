@@ -1,0 +1,910 @@
+[
+  {
+    "id": "meswerpen",
+    "domain": "target",
+    "sub": "throwing",
+    "label": {
+      "nl": "Meswerpen",
+      "en": "Knife throwing"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "technique",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Introductie bij een werpclub of speciale werpbaan, onder toezicht van een instructeur",
+      "en": "Introduction at a throwing club or dedicated throwing lane, under an instructor's supervision"
+    },
+    "scene": "a round wooden target board with concentric rings and small dents, spotlit against a dark plank wall",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "speerwerpen-atlatl",
+    "domain": "target",
+    "sub": "throwing",
+    "label": {
+      "nl": "Speerwerpen (atlatl)",
+      "en": "Spear throwing (atlatl)"
+    },
+    "tags": [
+      "precision",
+      "history",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Workshop prehistorisch jagen in een archeologisch openluchtmuseum, met instructeur",
+      "en": "Prehistoric hunting workshop at an archaeological open-air museum, with an instructor"
+    },
+    "scene": "a straw bale target with a painted ring in a meadow beside a reconstructed thatched stone-age hut",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "frisbeegolf",
+    "domain": "target",
+    "sub": "throwing",
+    "label": {
+      "nl": "Frisbeegolf (discgolf)",
+      "en": "Disc golf"
+    },
+    "tags": [
+      "precision",
+      "outdoors",
+      "play",
+      "competition"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Huur schijven bij een baan en speel 9 holes met uitleg op het bord",
+      "en": "Rent discs at a course and play nine holes with the rules on the sign"
+    },
+    "scene": "a chain-and-basket disc golf target standing on a mown green between trees, a lone disc in the grass",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "klootschieten",
+    "domain": "target",
+    "sub": "throwing",
+    "label": {
+      "nl": "Klootschieten of boßeln",
+      "en": "Road bowling (klootschieten)"
+    },
+    "tags": [
+      "precision",
+      "outdoors",
+      "competition",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Meedoen aan een gezellige wedstrijd op een landweg; ze lenen een bal",
+      "en": "Join a friendly match on a country lane; they lend a ball"
+    },
+    "scene": "a solid wooden ball lying on a country lane with a chalk line, flat fields and a low sun",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "werpspellen-boules",
+    "domain": "target",
+    "sub": "throwing",
+    "label": {
+      "nl": "Werpspellen: jeu de boules en korfbal-achtig mikken",
+      "en": "Throwing games: lawn bowls and crossbar aim"
+    },
+    "tags": [
+      "precision",
+      "play",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe mee op een open dag of zomeravond bij een boulesvereniging",
+      "en": "Join an open day or summer evening at a bowls club"
+    },
+    "scene": "a set of steel boules on a gravel court with a small wooden jack, dappled shade",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "petanque",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Pétanque of jeu de boules",
+      "en": "Pétanque"
+    },
+    "tags": [
+      "precision",
+      "conviviality",
+      "play",
+      "focus"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Meespelen op een open speelmiddag; ze lenen boules",
+      "en": "Join an open afternoon; they lend boules"
+    },
+    "scene": "a pair of steel boules and a small coloured jack on a raked gravel court under plane trees",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "curling",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Curling",
+      "en": "Curling"
+    },
+    "tags": [
+      "precision",
+      "teamwork",
+      "strategy",
+      "balance"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Beginnersavond op een curlingbaan; schoenen en bezems zijn te leen",
+      "en": "Beginner evening at a curling rink; shoes and brooms are provided"
+    },
+    "scene": "a polished granite curling stone with a red handle on a pale ice sheet with painted target circles",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "biljarten",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Biljarten of snooker",
+      "en": "Billiards or snooker"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "strategy",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Huur een tafel en vraag de uitbater om een korte uitleg",
+      "en": "Rent a table and ask the owner for a quick explanation"
+    },
+    "scene": "a green baize billiards table with a rack of coloured balls under a low hanging lamp, dark wood panelling",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "driving-range",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Golfen op een driving range",
+      "en": "Hitting balls at a driving range"
+    },
+    "tags": [
+      "precision",
+      "technique",
+      "focus",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Begin met een introductieles bij een golfbaan of driving range, clubs inbegrepen",
+      "en": "Start with an introductory lesson at a golf course or driving range, clubs included"
+    },
+    "scene": "a bucket of white golf balls on a mat with a long green fairway and a distant flag in morning light",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "kubb",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Kubb (Zweedse werpspel)",
+      "en": "Kubb (Swedish throwing game)"
+    },
+    "tags": [
+      "precision",
+      "strategy",
+      "play",
+      "teamwork"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Speel een potje in het park met een geleende set of op een buurtevent",
+      "en": "Play a round in the park with a borrowed set or at a neighbourhood event"
+    },
+    "scene": "a set of wooden kubb blocks and a taller king piece on a short mown lawn, long evening shadows",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "kruisboog",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Kruisboogschieten (schuttersgilde)",
+      "en": "Crossbow shooting (guild)"
+    },
+    "tags": [
+      "precision",
+      "history",
+      "focus"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Alleen via een schuttersgilde of vereniging, met een instructeur, op de eigen baan",
+      "en": "Only through a shooters' guild or club, with an instructor, on their own range"
+    },
+    "scene": "a painted wooden target disc on a stand in a brick courtyard of a guild house, flags overhead",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "luchtbukschieten",
+    "domain": "target",
+    "sub": "shooting",
+    "label": {
+      "nl": "Luchtbukschieten bij een vereniging",
+      "en": "Air-rifle target shooting at a club"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Kennismaking bij een erkende schietsportvereniging; materiaal en instructeur zijn aanwezig",
+      "en": "Introduction at a recognised target-shooting club; equipment and instructor are on site"
+    },
+    "scene": "a paper target with tight concentric rings pinned on a clean indoor range lane under cold lamps",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "paintball-airsoft",
+    "domain": "target",
+    "sub": "shooting",
+    "label": {
+      "nl": "Paintball of airsoft",
+      "en": "Paintball or airsoft"
+    },
+    "tags": [
+      "teamwork",
+      "competition",
+      "play",
+      "suspense"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een startersdag bij een speelveld, uitrusting en uitleg inbegrepen",
+      "en": "Book a starter day at a play field, gear and briefing included"
+    },
+    "scene": "a wooden barricade with brightly splattered paint on a sandy field, flag poles and tyres in the background",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "pistoolschieten",
+    "domain": "target",
+    "sub": "shooting",
+    "label": {
+      "nl": "Sportschieten met een pistool (kennismaking)",
+      "en": "Pistol sport shooting (introduction)"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen bij een erkende vereniging of aanbieder, met instructeur; zij regelen leeftijd en wettelijke voorwaarden.",
+        "en": "Only at a recognised club or provider, with an instructor; they handle age and legal conditions."
+      }
+    },
+    "entry": {
+      "nl": "Alleen kennismaking bij een erkende schietvereniging, onder strenge begeleiding",
+      "en": "Introduction only at a recognised shooting association, under strict supervision"
+    },
+    "scene": "a paper target with a ring pattern on a clean indoor range lane, a tray of brass-coloured shell casings beside it",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "blaaspijp",
+    "domain": "target",
+    "sub": "shooting",
+    "label": {
+      "nl": "Blaaspijpschieten",
+      "en": "Blowpipe target shooting"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ga naar een museum, kinderboerderij of evenement met een demonstratie en een eigen poging",
+      "en": "Visit a museum, open day or event with a demonstration and a try of your own"
+    },
+    "scene": "a long bamboo tube leaning beside a round fibre target hung from a rope in a bright workshop",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "boerengolf",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Boerengolf",
+      "en": "Farm golf"
+    },
+    "tags": [
+      "precision",
+      "outdoors",
+      "play",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een ronde bij een boerderij met weidebaan; klompen en stokken zijn te leen",
+      "en": "Book a round at a farm with a meadow course; wooden shoes and clubs provided"
+    },
+    "scene": "an old wooden clog with a hole to roll into, set in a meadow with a cow gate and tall grass",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "boomerang",
+    "domain": "target",
+    "sub": "throwing",
+    "label": {
+      "nl": "Boomerang gooien",
+      "en": "Throwing a boomerang"
+    },
+    "tags": [
+      "technique",
+      "outdoors",
+      "play",
+      "precision"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bestel een beginnersboemerang en oefen op een open veld",
+      "en": "Order a beginner boomerang and practise on an open field"
+    },
+    "scene": "a curved wooden boomerang resting on short grass in a wide empty field under a soft sky",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "katapult-schieten",
+    "domain": "target",
+    "sub": "shooting",
+    "label": {
+      "nl": "Katapultschieten op blikken",
+      "en": "Slingshot at cans"
+    },
+    "tags": [
+      "precision",
+      "play",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Probeer het op een besloten terrein of tijdens een speldag",
+      "en": "Try it on a private field or at a play day"
+    },
+    "scene": "a row of painted tin cans on a weathered fence post in a field, bright evening light",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "highlandgames",
+    "domain": "target",
+    "sub": "throwing",
+    "label": {
+      "nl": "Highland games: kogelstoten en boomstamwerpen",
+      "en": "Highland games: shot put and log toss"
+    },
+    "tags": [
+      "challenge",
+      "competition",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Doe mee met een proefdag op een atletiekvereniging of festival",
+      "en": "Join a trial day at an athletics club or festival"
+    },
+    "scene": "a heavy iron shot and a long thick wooden log lying on a mown grass field ringed with white lines",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "beugelen",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Beugelen",
+      "en": "Beugelen (Dutch hoop game)"
+    },
+    "tags": [
+      "precision",
+      "play",
+      "retro",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een beugelbaan en leg een bal door de ijzeren boog",
+      "en": "Find a beugelen lane and send a ball through the iron arch"
+    },
+    "scene": "a long raked lane with a heavy wooden ball and a low iron hoop at the far end under old trees",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "sjoelen",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Sjoelen",
+      "en": "Sjoelen (Dutch shuffleboard)"
+    },
+    "tags": [
+      "precision",
+      "play",
+      "retro",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Leen een sjoelbak of ga naar een kroeg die er een heeft",
+      "en": "Borrow a sjoelbak or visit a pub that has one"
+    },
+    "scene": "a long wooden shuffleboard with four small arches at one end and a pile of flat wooden discs",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "pitch-and-putt",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Pitch & putt",
+      "en": "Pitch and putt"
+    },
+    "tags": [
+      "precision",
+      "outdoors",
+      "technique",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Huur clubs op een kleine par-3-baan",
+      "en": "Rent clubs at a small par-3 course"
+    },
+    "scene": "a tiny golf green with a flag and short rough around it, a single white ball on the fringe",
+    "supply": "regional",
+    "status": "concept"
+  }
+]

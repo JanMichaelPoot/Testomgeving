@@ -119,15 +119,17 @@ describe("the season of the day of asking", () => {
 describe("an idea that needs somebody's offer but has none", () => {
   const seed = (activityId: string): Seed => ({ activityId, direction: "familiar", door: "natural", chain: [activityId], via: [], lead: null, alsoFormats: [], verify: [] });
 
-  it("is recognised only for paid or supervised activities, and only when the research really ran", () => {
+  it("is recognised for paid, supervised or rare activities, and only when the research really ran", () => {
     const empty = new Map([
       ["pottenbakken", withoutOptions("pottenbakken")], // paid: needs a provider
       ["wandelen", withoutOptions("wandelen")], // free: nobody has to offer it
       ["schietles", withoutOptions("schietles")], // supervised
       ["karten", { activityId: "karten", source: "none", options: [] }], // research failed: not proof
+      ["klootschieten", withoutOptions("klootschieten")], // free, but only exists in a few places: needs a provider in reach
     ]);
     const list = (...a: string[]) => seedsWithoutSupply(a.map(seed), empty as never).map((s) => s.activityId);
     expect(list("pottenbakken", "wandelen", "schietles", "karten")).toEqual(["pottenbakken", "schietles"]);
+    expect(list("klootschieten")).toEqual(["klootschieten"]);
     expect(list("pottenbakken")).toEqual(["pottenbakken"]);
   });
 

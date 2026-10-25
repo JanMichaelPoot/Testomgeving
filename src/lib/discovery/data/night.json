@@ -1,0 +1,761 @@
+[
+  {
+    "id": "karaoke",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Karaoke",
+      "en": "Karaoke"
+    },
+    "tags": [
+      "sound",
+      "performance",
+      "conviviality",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een karaokekamer met vrienden of ga naar een open karaokeavond",
+      "en": "Book a karaoke room with friends or go to an open karaoke night"
+    },
+    "scene": "a glowing neon microphone sign and a lyrics screen in an empty karaoke room with a velvet sofa",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "bingo-avond",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Bingo of een spelletjesavond",
+      "en": "Bingo or a games night"
+    },
+    "tags": [
+      "chance",
+      "play",
+      "conviviality",
+      "retro"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ga naar een bingoavond bij een buurthuis of café",
+      "en": "Go to a bingo night at a community centre or café"
+    },
+    "scene": "a bingo card with a few circled numbers and a bright wooden number drum on a plain table",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "rolschaatsdisco",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Rolschaatsdisco",
+      "en": "Roller disco"
+    },
+    "tags": [
+      "rhythm",
+      "retro",
+      "movement",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Huur skates bij een rolschaatsbaan en ga naar een discoavond",
+      "en": "Rent skates at a roller rink and go to a disco night"
+    },
+    "scene": "a roller rink with disco lights reflecting on a polished maple floor and a row of rental skates",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "silent-disco",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Silent disco",
+      "en": "Silent disco"
+    },
+    "tags": [
+      "rhythm",
+      "sound",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Koop een kaartje voor een silent disco-avond; koptelefoons worden uitgereikt",
+      "en": "Buy a ticket for a silent disco night; headphones are handed out"
+    },
+    "scene": "a field of glowing white headphones hung on a rail with colour-changing LEDs at night",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "dineren-in-het-donker",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Dineren in het donker",
+      "en": "Dining in the dark"
+    },
+    "tags": [
+      "food",
+      "discovery",
+      "suspense"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Reserveer een diner in het donker bij een restaurant dat dit aanbiedt",
+      "en": "Book a dinner in the dark at a restaurant that offers it"
+    },
+    "scene": "a dinner table set with candles in complete darkness, glasses glowing softly in the black room",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "openluchtbioscoop",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Openluchtbioscoop",
+      "en": "Open-air cinema"
+    },
+    "tags": [
+      "retro",
+      "conviviality",
+      "story"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Neem een deken mee naar een openluchtfilm in het park",
+      "en": "Bring a blanket to an open-air film in the park"
+    },
+    "scene": "a white screen lit by a projection beneath tall trees at dusk with folding chairs in rows",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "lichtfestival",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Lichtfestival of lichtjesroute",
+      "en": "Light festival or lantern walk"
+    },
+    "tags": [
+      "color",
+      "discovery",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Loop de route van een lichtkunstfestival in je stad",
+      "en": "Walk the route of a light-art festival in your city"
+    },
+    "scene": "a canal lined with glowing light installations reflecting on dark water",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "pokeravond",
+    "domain": "night",
+    "sub": "card_chance",
+    "label": {
+      "nl": "Pokeravond voor beginners",
+      "en": "Poker night for beginners"
+    },
+    "tags": [
+      "strategy",
+      "chance",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Ga naar een pokeravond voor beginners zonder geld, bij een club of café (18+)",
+      "en": "Go to a no-money beginners' poker night at a club or café (18+)"
+    },
+    "scene": "a green felt poker table with stacks of clay chips and fanned cards under a hanging lamp",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "casinoavond",
+    "domain": "night",
+    "sub": "card_chance",
+    "label": {
+      "nl": "Casinoavond met speelgeld",
+      "en": "Casino night with play money"
+    },
+    "tags": [
+      "chance",
+      "conviviality",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een casinoavond met speelgeld (18+) of organiseer er een thuis",
+      "en": "Book a casino night with play money (18+) or host one at home"
+    },
+    "scene": "a roulette wheel and stacked chips on green felt in warm low light",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "bridge",
+    "domain": "night",
+    "sub": "card_chance",
+    "label": {
+      "nl": "Bridge leren",
+      "en": "Learning bridge"
+    },
+    "tags": [
+      "strategy",
+      "teamwork",
+      "focus"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Volg een beginnerscursus bij een bridgeclub",
+      "en": "Take a beginners' course at a bridge club"
+    },
+    "scene": "a card table with four chairs and bidding boxes under a green shaded lamp",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "backgammon",
+    "domain": "night",
+    "sub": "card_chance",
+    "label": {
+      "nl": "Backgammon of dobbelspellen",
+      "en": "Backgammon or dice games"
+    },
+    "tags": [
+      "chance",
+      "strategy",
+      "play"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Koop een bord of ga naar een spelletjescafé",
+      "en": "Buy a board or go to a board-game café"
+    },
+    "scene": "a wooden backgammon board with polished checkers and two dice mid-game under a lamp",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "tarot",
+    "domain": "night",
+    "sub": "card_chance",
+    "label": {
+      "nl": "Tarotkaarten leren lezen",
+      "en": "Learning to read tarot"
+    },
+    "tags": [
+      "story",
+      "chance",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Koop een beginnersdeck en leg een kaart per dag",
+      "en": "Buy a beginner deck and draw one card a day"
+    },
+    "scene": "a spread of ornate tarot cards on dark velvet with a candle and a small crystal",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "dj-workshop",
+    "domain": "night",
+    "sub": "music_night",
+    "label": {
+      "nl": "DJ-workshop: draaien leren",
+      "en": "DJ workshop: learning to mix"
+    },
+    "tags": [
+      "sound",
+      "rhythm",
+      "technique",
+      "making"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een beginnersworkshop bij een muziekschool of dj-academie",
+      "en": "Book a beginner workshop at a music school or DJ academy"
+    },
+    "scene": "twin turntables and a mixer with glowing faders on a dark desk beside a stack of vinyl crates",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "swingdansen",
+    "domain": "night",
+    "sub": "music_night",
+    "label": {
+      "nl": "Swingdansen (lindy hop) beginnersavond",
+      "en": "Swing dancing (lindy hop) beginners' night"
+    },
+    "tags": [
+      "rhythm",
+      "retro",
+      "movement",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ga naar een beginnersles met een open dansavond erna",
+      "en": "Go to a beginners' class with an open dance evening afterwards"
+    },
+    "scene": "a polished wooden dance floor with vintage lamps and brass instruments waiting on a small stage",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "klein-festival",
+    "domain": "night",
+    "sub": "music_night",
+    "label": {
+      "nl": "Een klein festival of dorpsfeest",
+      "en": "A small festival or village fair"
+    },
+    "tags": [
+      "sound",
+      "conviviality",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies een klein festival in de buurt en ga met een vriend",
+      "en": "Pick a small festival nearby and go with a friend"
+    },
+    "scene": "colourful bunting strung between trees above closed wooden festival stalls and an empty small stage before the doors open, soft dusk light and string lights switched on",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "luisterbar",
+    "domain": "night",
+    "sub": "music_night",
+    "label": {
+      "nl": "Luisterbar of luisteravond",
+      "en": "Listening bar or listening evening"
+    },
+    "tags": [
+      "sound",
+      "stillness",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een luisterbar of platenavond en neem een plaat mee",
+      "en": "Find a listening bar or record night and bring a record"
+    },
+    "scene": "a vintage hi-fi with a vinyl record spinning in a dim wood-panelled lounge",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "jamsessie",
+    "domain": "night",
+    "sub": "music_night",
+    "label": {
+      "nl": "Een jamsessie bijwonen",
+      "en": "Dropping in on a jam session"
+    },
+    "tags": [
+      "sound",
+      "rhythm",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een jamsessie in een café; luisteren mag, meedoen kan ook",
+      "en": "Find a jam session in a café; listening is fine, joining in is welcome"
+    },
+    "scene": "a drum kit, an upright bass and a small amplifier on a low café stage under one warm lamp",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "nachtmarkt",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Een nachtmarkt of avondmarkt",
+      "en": "A night market or evening market"
+    },
+    "tags": [
+      "food",
+      "discovery",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een avondmarkt in de buurt en proef drie dingen",
+      "en": "Find an evening market nearby and taste three things"
+    },
+    "scene": "rows of wooden market stalls with glowing paper lanterns, string lights and trays of steaming food left on empty counters at blue hour, nobody around",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "live-comedy",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Een live comedy-avond",
+      "en": "A live comedy night"
+    },
+    "tags": [
+      "performance",
+      "conviviality",
+      "language"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Koop een kaartje voor een comedyclub of kleinkunsttheater",
+      "en": "Buy a ticket for a comedy club or small theatre"
+    },
+    "scene": "a small round table with two drinks facing a lit stage with a microphone and a brick wall",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "variete",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Een variété- of cabaretavond",
+      "en": "A variety or cabaret evening"
+    },
+    "tags": [
+      "performance",
+      "conviviality",
+      "retro"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Reserveer een tafeltje bij een variététheater",
+      "en": "Reserve a table at a variety theatre"
+    },
+    "scene": "a small candle-lit table before a red velvet stage curtain with gold tassels and a spotlight",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "pingpongbar",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Een pingpongbar",
+      "en": "A ping-pong bar"
+    },
+    "tags": [
+      "play",
+      "competition",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Huur een tafel per uur in een pingpongbar of -club",
+      "en": "Rent a table by the hour at a ping-pong bar or club"
+    },
+    "scene": "a green ping-pong table with a net and two paddles under a hanging neon sign in a brick-walled bar",
+    "supply": "regional",
+    "status": "concept"
+  }
+]

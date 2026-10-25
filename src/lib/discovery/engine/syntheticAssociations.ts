@@ -1,5 +1,6 @@
 import { hashSeed, mulberry32, shuffled } from "@/lib/discovery/rng";
 import { SOCIAL_FORMATS } from "@/lib/discovery/types";
+import { DOMAINS } from "@/lib/discovery/library";
 import { ASSOCIATIONS, associationsToEngineInput } from "@/lib/discovery/associations";
 import type { SyntheticProfile } from "@/lib/discovery/engine/synthetic";
 import { AXIS_IDS, type AxesOverride } from "@/lib/discovery/associationProfile";
@@ -27,7 +28,8 @@ export function syntheticAssociationProfiles(
   opts: { ageCategory?: string; overrides?: boolean } = {},
 ): SyntheticProfile[] {
   const rnd = mulberry32(hashSeed(`assoc-${seed}`));
-  const domains = [...new Set(["movement", "creative", "nature", "history", "games", "collecting", "tech", "solo_explore", "together", "restful"])];
+  // Every direction of the library: visitors can pick the newer ones (adventure, mystery, food, ...) too.
+  const domains = DOMAINS.map((d) => d.id);
   const out: SyntheticProfile[] = [];
   for (let i = 0; i < n; i++) {
     const surprise = rnd() < 0.08;

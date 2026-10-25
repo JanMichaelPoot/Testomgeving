@@ -67,6 +67,16 @@ Twee dingen moeten kloppen: wat wordt voorgesteld **bestaat** en is **nu** te do
   (zie hieronder); zonder geheugen is `history` leeg.
 - De wildcard heeft een voorkeur voor werelden die de bezoeker nog nooit zag.
 
+## Variatie: de lange staart (okt. 2026)
+
+Gemeten op dezelfde synthetische profielen (300 per soort) kwamen dezelfde paar activiteiten steeds terug: bij de beeld-intake stond "een lange wandeling" in 22% van de boeken en de tien populairste activiteiten namen 20% van alle plekken in. Drie dingen veranderden dat, zonder de harde regels te raken:
+
+- **Zeldzaamheid** (`Graph.rarity`): hoe ver een activiteit buiten de gangbare tagmix valt (0 = opgebouwd uit de meest gebruikte tags, 1 = uit zeldzame). Elke richting krijgt een kleine bonus voor zeldzaam (`RARE` in `select.ts`; de wildcard het sterkst), de eigen keuzes van de bezoeker nooit.
+- **Aanbod** (`supply`, `supplyPenalty`): `rare` krijgt een kleine straf (0,18), `regional` een heel kleine (0,04), want ze kosten een extra onderzoeksronde als er niets in de buurt is. Zie ook de vervangronde in `generateFromSeeds.ts`.
+- **Interesses uit de beelden** (`associations.ts`): een tag die de helft van de bibliotheek draagt (buiten, natuur) telt minder zwaar (`tagIdf`), zeldzame mixen krijgen een lift (`RARITY_LIFT`), en de willekeur tussen bijna gelijke scores is groter (`JITTER`).
+
+De zeldzaamheid weegt per bezoeker (seed) een beetje anders, zodat dezelfde paar zeldzame activiteiten niet de nieuwe hubs worden. Resultaat op de beeld-intake (nu ook met de nieuwe richtingen): de populairste activiteit in 11% van de boeken (was 22%), de top 10 neemt 12,3% van de plekken in (was 20,0%), 6,1 richtingen per boek (was 5,8), en 366 van 423 activiteiten komen voor. Restant: "sjoelen" (11%) en "wandelen" (11%) blijven vaak komen omdat veel profielen hun tags raken. Opnieuw meten: `npx tsx scripts/discovery-variety.ts 300`; de test "spreads over the library" in `engine.test.ts` bewaakt het minimum.
+
 ## Bruggen
 
 `graph.ts`: een brug telt zwaarder als de tag zeldzamer is (`ln(N / gebruik)`), en

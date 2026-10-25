@@ -1,0 +1,745 @@
+[
+  {
+    "id": "glasblazen",
+    "domain": "elements",
+    "sub": "fire_metal",
+    "label": {
+      "nl": "Glasblazen",
+      "en": "Glassblowing"
+    },
+    "tags": [
+      "craft",
+      "fire",
+      "making"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een proefles in een glasblazerij, onder begeleiding van een glasblazer",
+      "en": "Book a taster session at a glassblowing studio, guided by a glassblower"
+    },
+    "scene": "a glowing orange blob of glass on the end of a steel blowpipe in front of a furnace mouth",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "metaalgieten",
+    "domain": "elements",
+    "sub": "fire_metal",
+    "label": {
+      "nl": "Brons of tin gieten",
+      "en": "Casting bronze or pewter"
+    },
+    "tags": [
+      "craft",
+      "fire",
+      "making",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Alleen in een gieterij of workshop met instructeur en beschermende kleding",
+      "en": "Only at a foundry or workshop with an instructor and protective clothing"
+    },
+    "scene": "a clay mould and a crucible with bright molten metal glowing orange and throwing sparks",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "vuur-maken",
+    "domain": "elements",
+    "sub": "fire_metal",
+    "label": {
+      "nl": "Vuur maken zonder lucifer",
+      "en": "Making fire without matches"
+    },
+    "tags": [
+      "fire",
+      "nature",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Doe een bushcraftmiddag waarin je vuur maakt met vuurstaal en berkenbast",
+      "en": "Join a bushcraft afternoon where you make fire with a striker and birch bark"
+    },
+    "scene": "a ferrocerium rod, a bundle of birch bark and a small tinder nest on a flat stone",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "raku-stoken",
+    "domain": "elements",
+    "sub": "fire_metal",
+    "label": {
+      "nl": "Raku stoken",
+      "en": "Raku firing"
+    },
+    "tags": [
+      "craft",
+      "fire",
+      "making"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Doe mee met een raku-stookdag bij een pottenbakkerij, met instructeur",
+      "en": "Join a raku firing day at a pottery, with an instructor"
+    },
+    "scene": "a freshly fired raku pot glowing orange being lifted from a kiln into a bed of sawdust with smoke curling",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "mes-smeden",
+    "domain": "elements",
+    "sub": "fire_metal",
+    "label": {
+      "nl": "Een mes smeden",
+      "en": "Forging a knife"
+    },
+    "tags": [
+      "craft",
+      "fire",
+      "making",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Eendaagse workshop bij een smid, beschermende kleding en gereedschap inbegrepen",
+      "en": "One-day workshop with a blacksmith, protective clothing and tools included"
+    },
+    "scene": "a half-forged blade glowing dull red on an anvil beside a hammer in a dark forge",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "kaarsen-gieten",
+    "domain": "elements",
+    "sub": "fire_metal",
+    "label": {
+      "nl": "Kaarsen maken",
+      "en": "Candle making"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "fire"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Begin met een startersset of een korte workshop",
+      "en": "Start with a kit or a short workshop"
+    },
+    "scene": "rows of hand-poured beeswax candles cooling on a rack beside a pot of melted wax",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "houtsnijden",
+    "domain": "elements",
+    "sub": "wood_stone",
+    "label": {
+      "nl": "Een houten lepel kerven",
+      "en": "Carving a wooden spoon"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Doe een workshop kerven of begin met een mesje en een stuk berken",
+      "en": "Join a whittling workshop or start with a small knife and a piece of birch"
+    },
+    "scene": "a half-carved birch wooden spoon on a stump beside a pile of pale curled wood shavings",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "droge-stenen-muur",
+    "domain": "elements",
+    "sub": "wood_stone",
+    "label": {
+      "nl": "Een droge stenen muur bouwen",
+      "en": "Building a dry-stone wall"
+    },
+    "tags": [
+      "craft",
+      "nature",
+      "caring"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Meld je aan als vrijwilliger bij een landschapsbeheer-organisatie",
+      "en": "Sign up as a volunteer with a landscape-conservation organisation"
+    },
+    "scene": "a dry-stone wall in progress with neat layered grey stones beside a heap of sorted rocks in low sun",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "kettingzaagcursus",
+    "domain": "elements",
+    "sub": "wood_stone",
+    "label": {
+      "nl": "Kettingzaagcursus voor beginners",
+      "en": "Chainsaw course for beginners"
+    },
+    "tags": [
+      "technique",
+      "craft"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Alleen via een erkende opleider, met beschermende kleding en instructeur",
+      "en": "Only through a recognised trainer, with protective clothing and an instructor"
+    },
+    "scene": "a freshly cut oak log on a sawhorse with sawdust piles, ear defenders and chaps hanging on a nail",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "kano-uithollen",
+    "domain": "elements",
+    "sub": "wood_stone",
+    "label": {
+      "nl": "Een kano of boot bouwen",
+      "en": "Building a canoe or boat"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "water"
+    ],
+    "formats": [
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 3,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Doe mee met een bouwweekend bij een botenwerf of vereniging",
+      "en": "Join a building weekend at a boatyard or association"
+    },
+    "scene": "the curved ribs of an unfinished wooden canoe in a sunny boatyard shed with shavings on the floor",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "bushcraft",
+    "domain": "elements",
+    "sub": "wild_skills",
+    "label": {
+      "nl": "Bushcraft: een schuilplaats bouwen",
+      "en": "Bushcraft: building a shelter"
+    },
+    "tags": [
+      "nature",
+      "technique",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een bushcraftdag; je bouwt een schuilplaats van takken en varen",
+      "en": "Book a bushcraft day; you build a shelter from branches and bracken"
+    },
+    "scene": "a lean-to shelter of branches and bracken built against a leaning pine in a misty wood",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "overleven",
+    "domain": "elements",
+    "sub": "wild_skills",
+    "label": {
+      "nl": "Overlevingstraining met een nacht buiten",
+      "en": "Survival training with a night outdoors"
+    },
+    "tags": [
+      "nature",
+      "challenge",
+      "technique"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "entry": {
+      "nl": "Alleen met een erkende instructeur of organisatie, in een groep, met uitleg over veiligheid",
+      "en": "Only with a recognised instructor or organisation, in a group, with safety briefing"
+    },
+    "scene": "a small tarp stretched between two birches over a bed of pine boughs beside a dying fire ring at dusk",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "orientatieloop",
+    "domain": "elements",
+    "sub": "wild_skills",
+    "label": {
+      "nl": "Oriëntatielopen",
+      "en": "Orienteering"
+    },
+    "tags": [
+      "discovery",
+      "competition",
+      "movement",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Loop een beginnersroute bij een orientatielooppost",
+      "en": "Run a beginner course at an orienteering club"
+    },
+    "scene": "a red-and-white orienteering flag on a post in a green forest clearing, a punch box hanging below",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "knopen-touwwerk",
+    "domain": "elements",
+    "sub": "wild_skills",
+    "label": {
+      "nl": "Knopen en touwwerk leren",
+      "en": "Learning knots and rope work"
+    },
+    "tags": [
+      "craft",
+      "learning",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Leer vijf basisknopen met een stuk touw en een filmpje",
+      "en": "Learn five basic knots with a piece of rope and a video"
+    },
+    "scene": "a tangle of rope turned into neat decorative knots on a weathered wooden board",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "boomhut-nacht",
+    "domain": "elements",
+    "sub": "wild_skills",
+    "label": {
+      "nl": "Een nacht in een boomhut of tipi",
+      "en": "A night in a treehouse or tipi"
+    },
+    "tags": [
+      "nature",
+      "stillness",
+      "discovery"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een verblijf in een boomhut of tipi op een natuurcamping",
+      "en": "Book a stay in a treehouse or tipi at a nature campsite"
+    },
+    "scene": "a small wooden treehouse with a lantern glowing in its window among autumn oak branches",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "glasfusing",
+    "domain": "elements",
+    "sub": "fire_metal",
+    "label": {
+      "nl": "Glasfusing: gesmolten glas in een oven",
+      "en": "Glass fusing"
+    },
+    "tags": [
+      "craft",
+      "fire",
+      "color",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een glasfusing-workshop; jouw stuk wordt gebakken en later opgehaald",
+      "en": "Book a glass-fusing workshop; your piece is fired and collected later"
+    },
+    "scene": "small pieces of coloured glass arranged on a kiln shelf, one already melted into a glossy tile",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "wilgenvlechten",
+    "domain": "elements",
+    "sub": "wood_stone",
+    "label": {
+      "nl": "Wilgentenen vlechten",
+      "en": "Willow weaving"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een vlechtworkshop; je maakt een mand of een kerstkrans",
+      "en": "Book a weaving workshop; you make a basket or a wreath"
+    },
+    "scene": "freshly cut willow rods in warm brown and green tied in bundles beside a half-woven basket",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "houthakken",
+    "domain": "elements",
+    "sub": "wood_stone",
+    "label": {
+      "nl": "Hout hakken en stoken",
+      "en": "Splitting wood and tending a stove"
+    },
+    "tags": [
+      "craft",
+      "fire",
+      "caring",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      9,
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Help bij een bosbeheer-dag of leer het van een bosbeheerder",
+      "en": "Help on a forest-management day or learn from a forester"
+    },
+    "scene": "a chopping block beside a neat pile of split logs and a stack of kindling beside a woodshed",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "kampvuuravond",
+    "domain": "elements",
+    "sub": "fire_metal",
+    "label": {
+      "nl": "Een kampvuuravond organiseren",
+      "en": "Hosting a campfire evening"
+    },
+    "tags": [
+      "fire",
+      "conviviality",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Vraag een bosperceel of kampeerboer om een vuurplek en organiseer een avond",
+      "en": "Ask a woodland owner or campsite for a fire ring and host an evening"
+    },
+    "scene": "a campfire burning in a ring of stones with sparks rising into a dark blue night sky",
+    "supply": "regional",
+    "status": "concept"
+  }
+]

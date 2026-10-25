@@ -135,7 +135,8 @@
       "en": "Day workshop in clay, wood or stone"
     },
     "scene": "a small stone sculpture in progress with chisels and a mallet, stone dust on the bench",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "glas-mozaiek",
@@ -170,7 +171,8 @@
       "en": "Half-day workshop, materials included"
     },
     "scene": "mosaic tiles in bright colors laid out beside a half-finished mosaic",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "sieraden",
@@ -384,7 +386,8 @@
       "en": "Open studio or workshop; your own print in two hours"
     },
     "scene": "a screen-printing frame and a bright print on a table with a squeegee",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "schilderen",
@@ -567,7 +570,8 @@
       "en": "Open choir or trial rehearsal, no need to read music"
     },
     "scene": "a stack of sheet music on a piano with a tuning fork in a church hall",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "instrument",
@@ -709,6 +713,253 @@
       "en": "Writing group, or a writing prompt and thirty minutes"
     },
     "scene": "a typewriter with a sheet of paper and a mug of coffee on a desk",
+    "status": "concept"
+  },
+  {
+    "id": "graffiti",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Graffiti of muurschildering",
+      "en": "Graffiti or mural painting"
+    },
+    "tags": [
+      "color",
+      "making",
+      "technique",
+      "craft"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Doe een workshop bij een legale muur of streetartfestival",
+      "en": "Join a workshop at a legal wall or street-art festival"
+    },
+    "scene": "a wall of layered spray-painted colours with rolled paint cans and a stencil leaning against a concrete block",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "kalligrafie",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Kalligrafie",
+      "en": "Calligraphy"
+    },
+    "tags": [
+      "craft",
+      "focus",
+      "color",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Begin met een penset en een beginnerscursus",
+      "en": "Start with a pen set and a beginner course"
+    },
+    "scene": "a fountain pen, a bottle of ink and a sheet with flowing black lettering on a sloped writing desk",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "analoge-fotografie",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Analoge fotografie en de donkere kamer",
+      "en": "Analogue photography and the darkroom"
+    },
+    "tags": [
+      "craft",
+      "technique",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe een workshop in een donkere kamer; huur of koop een goedkope filmcamera",
+      "en": "Join a darkroom workshop; rent or buy a cheap film camera"
+    },
+    "scene": "a red safelight glowing over a tray of developer with a wet print and hanging film strips",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "indigo-verven",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Indigo verven",
+      "en": "Indigo dyeing"
+    },
+    "tags": [
+      "color",
+      "craft",
+      "making"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een verfworkshop; een witte doek of t-shirt neem je mee naar huis",
+      "en": "Book a dye workshop; you take home a white cloth or t-shirt"
+    },
+    "scene": "indigo-dyed cloths in deep blue with white tie-dye patterns hanging to dry on a line in a courtyard",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "parfum-maken",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Parfum maken",
+      "en": "Making perfume"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "discovery"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een geurworkshop; je mengt een eigen reukwater",
+      "en": "Book a scent workshop; you blend your own perfume"
+    },
+    "scene": "rows of amber glass bottles and strips of paper in front of an organ of tiny scent vials on a marble table",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "zeep-maken",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Zeep maken",
+      "en": "Making soap"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Start met een zeepmakersset of volg een korte workshop",
+      "en": "Start with a soap-making kit or a short workshop"
+    },
+    "scene": "cut bars of soap in soft colours with dried petals stacked on a linen cloth beside wooden moulds",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "linosnede",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Linosnedes en handdrukken",
+      "en": "Lino cutting and hand printing"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Neem deel aan een linoprintworkshop en maak een eerste kaart",
+      "en": "Join a lino-print workshop and make a first card"
+    },
+    "scene": "a carved lino block, an ink roller and a fresh print drying on a rack in a bright studio",
+    "supply": "regional",
     "status": "concept"
   }
 ]

@@ -140,7 +140,8 @@
       "en": "Robot club or a beginner kit"
     },
     "scene": "a small wheeled robot with sensors on a workbench",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "makerspace",
@@ -174,7 +175,8 @@
       "en": "Open drop-in; staff help you get started"
     },
     "scene": "a makerspace workshop with a laser cutter, tools and shelves",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "drones",
@@ -213,7 +215,8 @@
       "en": "Only within the rules (registration, flight zones); start at a club day"
     },
     "scene": "a small quadcopter drone on a grass field beside a controller",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "repair-cafe",
@@ -353,7 +356,8 @@
       "en": "Only under supervision, with protective gear"
     },
     "scene": "an anvil, a hammer and glowing iron in a dark forge",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "lassen",
@@ -389,7 +393,8 @@
       "en": "Intro course at a training centre, with equipment"
     },
     "scene": "a welding helmet and gloves on a steel workbench with sparks",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "klokken",
@@ -710,6 +715,112 @@
       "en": "A public dataset and a free tool"
     },
     "scene": "a screen showing a colorful chart beside a notebook with sketches",
+    "status": "concept"
+  },
+  {
+    "id": "radioamateur",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Radioamateur worden",
+      "en": "Becoming a radio amateur"
+    },
+    "tags": [
+      "technique",
+      "learning",
+      "puzzling"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bezoek een radioamateurvereniging en vraag naar een kennismakingsavond",
+      "en": "Visit an amateur-radio association and ask about an introductory evening"
+    },
+    "scene": "a vintage radio set with glowing dials, a Morse key and a coil of antenna wire on a workbench",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "synthesizer-bouwen",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Een synthesizer of effectpedaal bouwen",
+      "en": "Building a synthesizer or effects pedal"
+    },
+    "tags": [
+      "sound",
+      "making",
+      "technique",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bestel een bouwpakket en volg een soldeerworkshop",
+      "en": "Order a build kit and follow a soldering workshop"
+    },
+    "scene": "a circuit board with colourful knobs and patch cables laid out beside a soldering iron stand",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "motor-sleutelen",
+    "domain": "tech",
+    "sub": "repair_craft",
+    "label": {
+      "nl": "Sleutelen aan een motor of scooter",
+      "en": "Tinkering with a motorbike or scooter"
+    },
+    "tags": [
+      "technique",
+      "craft",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Ga naar een sleutelgarage waar je zelf mag klussen met begeleiding",
+      "en": "Go to a DIY garage where you can work yourself with guidance"
+    },
+    "scene": "a half-disassembled vintage scooter engine on a workbench under a hanging lamp with a tidy set of spanners",
+    "supply": "regional",
     "status": "concept"
   }
 ]

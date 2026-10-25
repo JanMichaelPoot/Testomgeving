@@ -1,9 +1,9 @@
 import { hashSeed, mulberry32, shuffled } from "@/lib/discovery/rng";
 import type { AssociationCardData, AssociationRound } from "@/lib/discovery/associationProfile";
 
-// Which images of a round one visitor sees. A round has twelve FAMILIES (one feeling each, with
+// Which images of a round one visitor sees. A round has a score of FAMILIES (one feeling each, with
 // the same tags and axes) and every family has several variants (other images of that
-// feeling). A visitor sees nine of the twelve families and exactly one variant per family, so:
+// feeling). A visitor sees nine of those families and exactly one variant per family, so:
 //   - what we read from a choice never depends on which variant happened to be shown,
 //   - every round still covers the same ground: whichever nine are shown, each axis has at least
 //     two feelings on both sides (see ENOUGH_PER_SIDE), so nobody gets a one-sided round,
@@ -86,6 +86,42 @@ export function sampleWorldExamples(
   return picked.map((e) => e.label);
 }
 
+/** How many directions (worlds) one visitor sees at a time. The library has more; "show other directions" rotates. */
+export const DIRECTIONS_SHOWN = 10;
+
+/** The directions in a fixed, seed-dependent order; the first screen shows the first ten, a rotation walks on. */
+export function directionOrder(ids: readonly string[], seed: string): string[] {
+  return shuffled([...ids], mulberry32(hashSeed(`${seed}:directions`)));
+}
+
+/**
+ * The directions on the first screen: the first ten of the order, plus any the visitor already chose
+ * (a restored draft) in place of the last unchosen ones. Never depends on choosing, so choosing a tile
+ * moves no other tile.
+ */
+export function initialDirections(order: readonly string[], chosen: readonly string[], size = DIRECTIONS_SHOWN): string[] {
+  if (order.length <= size) return [...order];
+  const window = order.slice(0, size);
+  const extras = chosen.filter((id) => order.includes(id) && !window.includes(id));
+  if (extras.length === 0) return window;
+  const keep = window.filter((id) => chosen.includes(id));
+  const rest = window.filter((id) => !chosen.includes(id)).slice(0, Math.max(0, size - keep.length - extras.length));
+  return [...keep, ...extras, ...rest];
+}
+
+/**
+ * "Show other directions": what the visitor chose stays, the rest is replaced by directions not shown yet
+ * (and, when those run out, by the ones shown longest ago). Deterministic for the same order and input.
+ */
+export function rotateDirections(order: readonly string[], current: readonly string[], chosen: readonly string[], size = DIRECTIONS_SHOWN): string[] {
+  if (order.length <= size) return [...order];
+  const kept = current.filter((id) => chosen.includes(id));
+  const taken = new Set(kept);
+  const fresh = order.filter((id) => !current.includes(id) && !taken.has(id));
+  const recycled = order.filter((id) => current.includes(id) && !taken.has(id));
+  return [...kept, ...fresh, ...recycled].slice(0, size);
+}
+
 /** The seen list after showing `shown`: those ids move to the end (most recent), the list stays short. */
 export function mergeSeen(seen: readonly string[], shown: readonly string[], cap: number = SEEN_CAP): string[] {
   const shownSet = new Set(shown);
@@ -117,7 +153,10 @@ export function chooseFamilies<T extends AssociationCardData>(order: readonly st
     if (chosen.length === surplus) return void combos.push([...chosen]);
     for (let i = start; i < order.length; i++) walk(i + 1, [...chosen, i]);
   };
-  if (surplus <= 4 && order.length <= 20) walk(0, []);
+  // With a handful of omissions every way is tried. With many (a round of twenty families shows nine) that is
+  // far too many, so the first nine are repaired by swapping in later families (see below).
+  const exhaustive = surplus <= 4 && order.length <= 20;
+  if (exhaustive) walk(0, []);
   else combos.push(Array.from({ length: surplus }, (_, i) => size + i));
   combos.sort((a, b) => b.reduce((x, y) => x + y, 0) - a.reduce((x, y) => x + y, 0));
 
@@ -128,5 +167,27 @@ export function chooseFamilies<T extends AssociationCardData>(order: readonly st
     if (lacking < best.lacking) best = { list, lacking };
     if (lacking === 0) break;
   }
-  return best.list;
+  if (exhaustive || best.lacking === 0) return best.list;
+
+  // Repair: while a side is short, swap the latest shown family for the earliest unshown one that improves it.
+  let list = [...best.list];
+  for (let guard = 0; guard < size * 3 && lack(list) > 0; guard++) {
+    const now = lack(list);
+    const rest = order.filter((f) => !list.includes(f));
+    let swapped = false;
+    outer: for (const candidate of rest) {
+      for (let i = list.length - 1; i >= 0; i--) {
+        const next = [...list];
+        next[i] = candidate;
+        if (lack(next) < now) {
+          list = next;
+          swapped = true;
+          break outer;
+        }
+      }
+    }
+    if (!swapped) break;
+  }
+  // Keep the order of the shuffle, so the grid does not depend on which swaps happened.
+  return order.filter((f) => list.includes(f));
 }

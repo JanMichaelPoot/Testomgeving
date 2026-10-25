@@ -1,0 +1,857 @@
+[
+  {
+    "id": "zuurdesem",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Brood bakken met zuurdesem",
+      "en": "Baking sourdough bread"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Vraag een scheutje zuurdesemstarter aan een bakker of volg een broodworkshop",
+      "en": "Ask a baker for a bit of sourdough starter or join a bread workshop"
+    },
+    "scene": "a scored round sourdough loaf with a golden crust on a floured wooden board, a steam-fogged window behind",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "pasta-maken",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Verse pasta maken",
+      "en": "Making fresh pasta"
+    },
+    "tags": [
+      "food",
+      "making",
+      "conviviality",
+      "craft"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een pastaworkshop of probeer deeg, ei en een deegroller thuis",
+      "en": "Book a pasta workshop or try dough, eggs and a rolling pin at home"
+    },
+    "scene": "ribbons of fresh egg pasta drying on a wooden rack over a floured counter",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "dumplings",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Dumplings vouwen",
+      "en": "Folding dumplings"
+    },
+    "tags": [
+      "food",
+      "making",
+      "conviviality"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe mee met een kookworkshop of vouw ze thuis met een kant-en-klaar deeg",
+      "en": "Join a cooking workshop or fold them at home with ready-made dough"
+    },
+    "scene": "rows of pleated dumplings on a bamboo steamer beside a small dish of dark sauce",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "open-vuur-koken",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Koken op open vuur en barbecue",
+      "en": "Cooking over open fire and barbecue"
+    },
+    "tags": [
+      "food",
+      "fire",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Doe een vuurkookworkshop of leer het van een buurman met een barbecue",
+      "en": "Join a fire-cooking workshop or learn from a neighbour with a barbecue"
+    },
+    "scene": "a glowing charcoal grill with a cast-iron pan and skewers over embers at dusk",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "fermenteren",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Fermenteren: zuurkool, kimchi en kombucha",
+      "en": "Fermenting: sauerkraut, kimchi and kombucha"
+    },
+    "tags": [
+      "food",
+      "learning",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Volg een workshop of begin met een pot kool en zout",
+      "en": "Join a workshop or start with a jar of cabbage and salt"
+    },
+    "scene": "glass jars of bubbling kimchi and sauerkraut with muslin lids on a kitchen shelf",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "chocolade-maken",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Chocolade maken",
+      "en": "Making chocolate"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "making"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een chocoladeworkshop bij een chocolatier",
+      "en": "Book a chocolate workshop with a chocolatier"
+    },
+    "scene": "tempered dark chocolate being poured on a marble slab with cacao nibs and a palette knife",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "kaas-maken",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Kaas maken",
+      "en": "Making cheese"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "making",
+      "learning"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe een kaasmaakworkshop op een boerderij of bij een kaasmakerij",
+      "en": "Join a cheese-making workshop on a farm or at a creamery"
+    },
+    "scene": "a wheel of fresh cheese curd in a wooden mould pressed under a stone, with a draped muslin cloth",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "patisserie",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Patisserie: macarons en taartjes",
+      "en": "Patisserie: macarons and tarts"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "precision"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een patisserie-workshop met uitleg van een banketbakker",
+      "en": "Book a patisserie workshop with a pastry chef"
+    },
+    "scene": "a tray of pastel macarons in neat rows beside a piping bag and a sieve of icing sugar",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "bier-brouwen",
+    "domain": "food",
+    "sub": "drink_craft",
+    "label": {
+      "nl": "Bier brouwen",
+      "en": "Brewing beer"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "making",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een brouwdag bij een brouwerij of volg een thuisbrouwcursus (18+)",
+      "en": "Book a brewing day at a brewery or take a homebrew course (18+)"
+    },
+    "scene": "copper brewing kettles and wooden barrels in a brick brewery with hop vines draped along a beam",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "wijnproeverij",
+    "domain": "food",
+    "sub": "drink_craft",
+    "label": {
+      "nl": "Wijn proeven bij een wijnmaker",
+      "en": "Wine tasting at a winemaker's"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "conviviality",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een proeverij bij een wijngaard of wijnhandel (18+)",
+      "en": "Book a tasting at a vineyard or wine merchant (18+)"
+    },
+    "scene": "a row of wine glasses with different shades on a stone table, a corked bottle and candlelight",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "cocktailworkshop",
+    "domain": "food",
+    "sub": "drink_craft",
+    "label": {
+      "nl": "Cocktails mixen",
+      "en": "Mixing cocktails"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "conviviality",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een cocktailworkshop bij een bar (18+)",
+      "en": "Book a cocktail workshop at a bar (18+)"
+    },
+    "scene": "a copper cocktail shaker, a jigger and garnish herbs on a dark bar top with ice shavings",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "sap-persen",
+    "domain": "food",
+    "sub": "drink_craft",
+    "label": {
+      "nl": "Appels persen tot sap",
+      "en": "Pressing apples into juice"
+    },
+    "tags": [
+      "food",
+      "nature",
+      "making",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      9,
+      10,
+      11
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe mee met een perssessie van een boomgaard of natuurclub",
+      "en": "Join a pressing session at an orchard or nature club"
+    },
+    "scene": "a wooden apple press with a bucket of fresh cloudy juice and crates of red apples in an orchard barn",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "foerageren",
+    "domain": "food",
+    "sub": "harvest",
+    "label": {
+      "nl": "Eetbare wilde planten zoeken",
+      "en": "Foraging for edible wild plants"
+    },
+    "tags": [
+      "food",
+      "nature",
+      "discovery",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een foerageerwandeling met een gids die de planten kent",
+      "en": "Book a foraging walk with a guide who knows the plants"
+    },
+    "scene": "a woven basket with wild garlic leaves, nettles and wild herbs on a mossy forest edge",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "pluktuin",
+    "domain": "food",
+    "sub": "harvest",
+    "label": {
+      "nl": "Fruit of bloemen plukken",
+      "en": "Picking fruit or flowers"
+    },
+    "tags": [
+      "food",
+      "nature",
+      "growing"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een pluktuin of boomgaard in de buurt en ga op een mooie dag",
+      "en": "Find a pick-your-own garden or orchard nearby and go on a nice day"
+    },
+    "scene": "a wooden crate of ripe strawberries and cherries in a sunlit pick-your-own orchard row",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "boerderijdag",
+    "domain": "food",
+    "sub": "harvest",
+    "label": {
+      "nl": "Een dag op een boerderij",
+      "en": "A day on a farm"
+    },
+    "tags": [
+      "food",
+      "nature",
+      "caring",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe een open dag of boer-voor-een-dag op een educatieve boerderij",
+      "en": "Join an open day or farmer-for-a-day at a working or educational farm"
+    },
+    "scene": "a brick farm barn doorway with milk churns and fresh straw in soft light",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "streetfoodtour",
+    "domain": "food",
+    "sub": "harvest",
+    "label": {
+      "nl": "Streetfoodtour",
+      "en": "Street-food tour"
+    },
+    "tags": [
+      "food",
+      "discovery",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een eetwandeling met een gids langs kraampjes en restaurantjes",
+      "en": "Book a food walk with a guide past stalls and small restaurants"
+    },
+    "scene": "a lantern-lit street food stall counter with steaming bao buns and paper trays at dusk",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "wijngaard-oogst",
+    "domain": "food",
+    "sub": "harvest",
+    "label": {
+      "nl": "Meehelpen met een oogst",
+      "en": "Helping with a harvest"
+    },
+    "tags": [
+      "growing",
+      "food",
+      "nature",
+      "caring"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Meld je aan als pluk- of oogstvrijwilliger bij een boer of wijngaard",
+      "en": "Sign up as a harvest volunteer with a farmer or vineyard"
+    },
+    "scene": "ripe dark grapes hanging in heavy bunches on a vine row with an empty wooden harvest crate below",
+    "supply": "rare",
+    "status": "concept"
+  },
+  {
+    "id": "ijs-maken",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "IJs en sorbet maken",
+      "en": "Making ice cream and sorbet"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "making"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Maak een eerste portie met fruit, room en een ijsmachine of een zakje zout en ijs",
+      "en": "Make a first batch with fruit, cream and an ice-cream maker or a bag of salt and ice"
+    },
+    "scene": "three scoops of pastel ice cream in a glass bowl with fruit on the side and a vintage metal scoop",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "sushi-rollen",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Sushi rollen",
+      "en": "Rolling sushi"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "making",
+      "technique"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een sushiworkshop of oefen met een bamboemat thuis",
+      "en": "Book a sushi workshop or practise with a bamboo mat at home"
+    },
+    "scene": "neat sushi rolls cut in slices on a slate plate with pickled ginger, wasabi and a bamboo mat",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "inmaken",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Jam en inmaken",
+      "en": "Jam and preserving"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "making",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "months": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Maak een eerste potje jam met seizoensfruit",
+      "en": "Make a first jar of jam with seasonal fruit"
+    },
+    "scene": "glass jars of deep red jam with gingham lids and handwritten labels on a farmhouse shelf",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "pizza-oven",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Pizza bakken in een houtoven",
+      "en": "Baking pizza in a wood-fired oven"
+    },
+    "tags": [
+      "food",
+      "fire",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Boek een pizzaworkshop bij een houtoven of een pizzatruck-ervaring",
+      "en": "Book a pizza workshop at a wood-fired oven or a pizza-truck experience"
+    },
+    "scene": "a domed clay wood-fired oven with flames glowing inside and a long wooden peel resting against it",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "kruidenlikeur",
+    "domain": "food",
+    "sub": "drink_craft",
+    "label": {
+      "nl": "Kruidenlikeur of bitter maken",
+      "en": "Making herbal liqueur or bitters"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "making",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Doe een workshop kruidenbitter (18+) of begin met een flesje en verse kruiden",
+      "en": "Join an herbal bitters workshop (18+) or start with a bottle and fresh herbs"
+    },
+    "scene": "glass bottles filled with herbs and amber liquid on a wooden shelf with dried botanicals and small funnels",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "vis-roken",
+    "domain": "food",
+    "sub": "harvest",
+    "label": {
+      "nl": "Vis roken",
+      "en": "Smoking fish"
+    },
+    "tags": [
+      "food",
+      "craft",
+      "fire"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Doe een rookworkshop bij een visrokerij of boerderij",
+      "en": "Join a smoking workshop at a smokehouse or farm"
+    },
+    "scene": "golden smoked fish hanging on racks inside a brick smokehouse with a curl of blue smoke",
+    "supply": "rare",
+    "status": "concept"
+  }
+]

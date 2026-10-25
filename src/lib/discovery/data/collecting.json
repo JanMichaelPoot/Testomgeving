@@ -714,5 +714,86 @@
     },
     "scene": "a vintage game console with cartridges and a CRT screen glow",
     "status": "concept"
+  },
+  {
+    "id": "veiling",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Een veiling of kijkdag bezoeken",
+      "en": "Visiting an auction or viewing day"
+    },
+    "tags": [
+      "collecting",
+      "discovery",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ga naar een kijkdag van een veilinghuis en bekijk de kavels",
+      "en": "Go to a viewing day at an auction house and look at the lots"
+    },
+    "scene": "rows of antique vases and a brass bell on numbered plinths in a skylit auction room",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "ruilbeurs-planten",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Een ruilbeurs voor planten of zaden",
+      "en": "A plant or seed swap"
+    },
+    "tags": [
+      "growing",
+      "collecting",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Neem stekken of zaden mee naar een ruildag in de buurt",
+      "en": "Bring cuttings or seeds to a swap day in your neighbourhood"
+    },
+    "scene": "small pots of cuttings and paper seed envelopes lined up on a trestle table in a sunny yard",
+    "supply": "regional",
+    "status": "concept"
   }
 ]

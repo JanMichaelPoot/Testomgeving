@@ -19,7 +19,7 @@ export interface VensterDictionary {
   recipientFallback: string;
   recipientLabel: string;
   recipientPlaceholder: string;
-  worlds: { heading: string; headingGift: string; sub: string; surprise: string; surpriseSub: string; chosen: string };
+  worlds: { heading: string; headingGift: string; sub: string; surprise: string; surpriseSub: string; chosen: string; more: string };
   rounds: Record<
     "places" | "moments" | "senses",
     { kicker: string; heading: string; headingGift: string; sub: string }
@@ -274,6 +274,7 @@ export const vensterNl: VensterDictionary = {
     surprise: "Verras me",
     surpriseSub: "We kiezen de richtingen voor je",
     chosen: "{n} gekozen",
+    more: "Andere richtingen tonen",
   },
   rounds: {
     places: {
@@ -321,6 +322,10 @@ export const vensterNl: VensterDictionary = {
     headlineNone: "Wat je koos wijst meerdere kanten op.",
     headlineNoneGift: "Wat er gekozen is wijst meerdere kanten op.",
     motifs: {
+      performance: "een moment in het licht, voor publiek",
+      depths: "wat diep en verborgen ligt",
+      fire: "de warmte en het geknetter van vuur",
+      chance: "de spanning van wat de kaarten brengen",
       precision: "het gevoel dat iets precies klopt",
       story: "plekken met een verhaal erachter",
       history: "sporen van vroeger",
@@ -378,6 +383,10 @@ export const vensterNl: VensterDictionary = {
       { tags: ["color", "making"], text: "Kleur die onder je handen ontstaat, en de verrassing van wat het wordt." },
     ],
     tagLines: {
+      performance: "Even in het licht staan: op een podium, met alle ogen op je gericht.",
+      depths: "Naar beneden, naar wat verborgen ligt: stiller, donkerder en vol dingen die je nog niet eerder zag.",
+      fire: "Vuur trekt: het geknetter, de warmte en het gevoel dat er iets wordt gemaakt of verteld.",
+      chance: "Er zit iets lekkers in niet weten hoe het afloopt: een kaart, een dobbelsteen, een kans.",
       precision: "Het gaat om precies, om dat ene moment waarop iets klopt tot op de millimeter.",
       story: "Een plek wordt pas echt als er een verhaal bij hoort.",
       history: "Het verleden trekt, als verhaal, als spoor in een muur, als iets dat nog nazindert.",
@@ -505,6 +514,12 @@ export const vensterNl: VensterDictionary = {
     missSub: "Optioneel. Eén zin is genoeg, en het telt zwaar mee.",
     missPlaceholder: "Bijvoorbeeld: meer tijd in de natuur…",
     suggestions: {
+      performance: "Eens op een podium staan",
+      depths: "Iets doen onder de grond of onder water",
+      animals: "Meer tijd met dieren doorbrengen",
+      fire: "Een avond rond een vuur",
+      chance: "Een avond met kaarten, dobbelstenen en spanning",
+      miniature: "Iets kleins en nauwkeurigs bouwen",
       stillness: "Even helemaal stil zijn",
       outdoors: "Meer tijd buiten doorbrengen",
       nature: "Meer tijd in de natuur",
@@ -748,6 +763,7 @@ export const vensterEn: VensterDictionary = {
     surprise: "Surprise me",
     surpriseSub: "We'll pick the directions for you",
     chosen: "{n} chosen",
+    more: "Show other directions",
   },
   rounds: {
     places: {
@@ -795,6 +811,10 @@ export const vensterEn: VensterDictionary = {
     headlineNone: "What you chose points in several directions.",
     headlineNoneGift: "What was chosen points in several directions.",
     motifs: {
+      performance: "a moment in the light, in front of an audience",
+      depths: "what lies deep and hidden",
+      fire: "the warmth and crackle of fire",
+      chance: "the thrill of what the cards will bring",
       precision: "the feeling of something fitting exactly",
       story: "places with a story behind them",
       history: "traces of the past",
@@ -852,6 +872,10 @@ export const vensterEn: VensterDictionary = {
       { tags: ["color", "making"], text: "Colour that appears under your hands, and the surprise of what it becomes." },
     ],
     tagLines: {
+      performance: "To stand in the light for a moment: on a stage, with every eye on you.",
+      depths: "Down towards what lies hidden: quieter, darker and full of things you had not seen before.",
+      fire: "Fire pulls: the crackle, the warmth and the feeling that something is being made or told.",
+      chance: "There is something good in not knowing how it ends: a card, a die, a chance.",
       precision: "It is about precision, the one moment when something fits to the millimetre.",
       story: "A place only becomes real when it has a story.",
       history: "The past pulls, as a story, as a trace in a wall, as something that still lingers.",
@@ -979,6 +1003,12 @@ export const vensterEn: VensterDictionary = {
     missSub: "Optional. One sentence is enough, and it weighs heavily.",
     missPlaceholder: "For example: more time in nature…",
     suggestions: {
+      performance: "Standing on a stage once",
+      depths: "Doing something underground or underwater",
+      animals: "Spending more time with animals",
+      fire: "An evening around a fire",
+      chance: "An evening of cards, dice and suspense",
+      miniature: "Building something small and precise",
       stillness: "Be completely still for a while",
       outdoors: "Spend more time outdoors",
       nature: "Spend more time in nature",

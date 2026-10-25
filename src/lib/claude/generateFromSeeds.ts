@@ -447,7 +447,9 @@ export function seedsWithoutSupply(seeds: readonly Seed[], byActivity: ReadonlyM
     const a = getActivity(seed.activityId);
     const r = byActivity.get(seed.activityId);
     if (!a || !r || r.source === "none") return false;
-    const needsProvider = (a.cost !== null && a.cost >= 1) || a.safety.tier === 2;
+    // Anything that costs money, needs supervision or is not available everywhere needs a provider in reach (Stap 88:
+    // "rare" and "regional" activities such as cave diving or glass blowing are only offered when the research found one).
+    const needsProvider = (a.cost !== null && a.cost >= 1) || a.safety.tier === 2 || a.supply === "rare" || a.supply === "regional";
     return needsProvider && r.options.length === 0;
   });
 }

@@ -2584,5 +2584,1934 @@
       "novelty": 0.3
     },
     "status": "concept"
+  },
+  {
+    "id": "place-stage-lit",
+    "family": "place-stage-lit",
+    "round": "places",
+    "label": {
+      "nl": "Een leeg podium met één lamp",
+      "en": "An empty stage with one light"
+    },
+    "scene": "An empty theatre stage with a single warm spotlight on bare boards and a red velvet curtain behind, dust floating in the light.",
+    "image": "/illustrations/associations/place-stage-lit.jpg",
+    "tagWeights": {
+      "performance": 1,
+      "sound": 0.5,
+      "story": 0.4,
+      "play": 0.3
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.3,
+      "setting": -0.9,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-stage-lit-b",
+    "family": "place-stage-lit",
+    "round": "places",
+    "label": {
+      "nl": "Achter de coulissen",
+      "en": "Backstage"
+    },
+    "scene": "A narrow backstage corridor lined with costume racks and glowing dressing-room mirror bulbs, warm and slightly chaotic.",
+    "image": "/illustrations/associations/place-stage-lit-b.jpg",
+    "tagWeights": {
+      "performance": 1,
+      "sound": 0.5,
+      "story": 0.4,
+      "play": 0.3
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.3,
+      "setting": -0.9,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-stage-lit-c",
+    "family": "place-stage-lit",
+    "round": "places",
+    "label": {
+      "nl": "Een zaal vol lege stoelen",
+      "en": "A hall of empty seats"
+    },
+    "scene": "Rows of red velvet theatre seats seen from the stage, softly lit, hushed and expectant.",
+    "image": "/illustrations/associations/place-stage-lit-c.jpg",
+    "tagWeights": {
+      "performance": 1,
+      "sound": 0.5,
+      "story": 0.4,
+      "play": 0.3
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.3,
+      "setting": -0.9,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-cave-dark",
+    "family": "place-cave-dark",
+    "round": "places",
+    "label": {
+      "nl": "Een grot met druipend water",
+      "en": "A cave with dripping water"
+    },
+    "scene": "Inside a limestone cave, stalactites dripping into a still turquoise pool lit by a single warm lantern.",
+    "image": "/illustrations/associations/place-cave-dark.jpg",
+    "tagWeights": {
+      "depths": 1,
+      "discovery": 0.8,
+      "suspense": 0.6,
+      "challenge": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.2,
+      "setting": 0,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-cave-dark-b",
+    "family": "place-cave-dark",
+    "round": "places",
+    "label": {
+      "nl": "Een tunnel van kalksteen",
+      "en": "A tunnel of chalk"
+    },
+    "scene": "A long narrow tunnel carved in pale chalk with a string of small lamps leading into the dark.",
+    "image": "/illustrations/associations/place-cave-dark-b.jpg",
+    "tagWeights": {
+      "depths": 1,
+      "discovery": 0.8,
+      "suspense": 0.6,
+      "challenge": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.2,
+      "setting": 0,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-cave-dark-c",
+    "family": "place-cave-dark",
+    "round": "places",
+    "label": {
+      "nl": "Een bron in de diepte",
+      "en": "A spring in the deep"
+    },
+    "scene": "A round opening in a cave roof with a beam of daylight falling into dark blue-green underground water.",
+    "image": "/illustrations/associations/place-cave-dark-c.jpg",
+    "tagWeights": {
+      "depths": 1,
+      "discovery": 0.8,
+      "suspense": 0.6,
+      "challenge": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.2,
+      "setting": 0,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-mountain-ridge",
+    "family": "place-mountain-ridge",
+    "round": "places",
+    "label": {
+      "nl": "Een bergkam boven de wolken",
+      "en": "A ridge above the clouds"
+    },
+    "scene": "A narrow rocky ridge rising above a sea of clouds at sunrise, golden light on the peaks.",
+    "image": "/illustrations/associations/place-mountain-ridge.jpg",
+    "tagWeights": {
+      "height": 1,
+      "outdoors": 0.8,
+      "challenge": 0.7,
+      "discovery": 0.4
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.6,
+      "setting": 1,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-mountain-ridge-b",
+    "family": "place-mountain-ridge",
+    "round": "places",
+    "label": {
+      "nl": "Een uitzichttoren",
+      "en": "A lookout tower"
+    },
+    "scene": "A tall wooden lookout tower on a hilltop above autumn forest, stairs spiralling up into pale sky.",
+    "image": "/illustrations/associations/place-mountain-ridge-b.jpg",
+    "tagWeights": {
+      "height": 1,
+      "outdoors": 0.8,
+      "challenge": 0.7,
+      "discovery": 0.4
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.6,
+      "setting": 1,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-mountain-ridge-c",
+    "family": "place-mountain-ridge",
+    "round": "places",
+    "label": {
+      "nl": "Een hangbrug over een kloof",
+      "en": "A bridge across a gorge"
+    },
+    "scene": "A long rope suspension bridge across a green gorge with mist below, in soft morning light.",
+    "image": "/illustrations/associations/place-mountain-ridge-c.jpg",
+    "tagWeights": {
+      "height": 1,
+      "outdoors": 0.8,
+      "challenge": 0.7,
+      "discovery": 0.4
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.6,
+      "setting": 1,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-barn-animals",
+    "family": "place-barn-animals",
+    "round": "places",
+    "label": {
+      "nl": "Een stal met warm stro",
+      "en": "A stable with warm straw"
+    },
+    "scene": "A wooden stable box with golden straw, a horse's soft head over the half-door, warm afternoon light.",
+    "image": "/illustrations/associations/place-barn-animals.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.8,
+      "nature": 0.5,
+      "growing": 0.3
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": -0.2,
+      "setting": 0.2,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-barn-animals-b",
+    "family": "place-barn-animals",
+    "round": "places",
+    "label": {
+      "nl": "Een weide met schapen",
+      "en": "A meadow with sheep"
+    },
+    "scene": "A green meadow with a small flock of sheep and lambs at golden hour, an old stone wall behind.",
+    "image": "/illustrations/associations/place-barn-animals-b.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.8,
+      "nature": 0.5,
+      "growing": 0.3
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": -0.2,
+      "setting": 0.2,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-barn-animals-c",
+    "family": "place-barn-animals",
+    "round": "places",
+    "label": {
+      "nl": "Een kippenren in de ochtend",
+      "en": "A hen run at sunrise"
+    },
+    "scene": "A rustic hen run with brown hens and a straw-filled coop, dewy grass in low pink light.",
+    "image": "/illustrations/associations/place-barn-animals-c.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.8,
+      "nature": 0.5,
+      "growing": 0.3
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": -0.2,
+      "setting": 0.2,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-forge-fire",
+    "family": "place-forge-fire",
+    "round": "places",
+    "label": {
+      "nl": "Een smidse vol vonken",
+      "en": "A forge full of sparks"
+    },
+    "scene": "A dark blacksmith's forge with orange glowing coals, sparks flying and an iron anvil in the foreground.",
+    "image": "/illustrations/associations/place-forge-fire.jpg",
+    "tagWeights": {
+      "fire": 1,
+      "craft": 0.8,
+      "technique": 0.6,
+      "making": 0.5
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.4,
+      "setting": -0.7,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-forge-fire-b",
+    "family": "place-forge-fire",
+    "round": "places",
+    "label": {
+      "nl": "Een oven die gloeit",
+      "en": "A glowing kiln"
+    },
+    "scene": "The open mouth of a glowing kiln in a dark workshop, orange light spilling onto the floor.",
+    "image": "/illustrations/associations/place-forge-fire-b.jpg",
+    "tagWeights": {
+      "fire": 1,
+      "craft": 0.8,
+      "technique": 0.6,
+      "making": 0.5
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.4,
+      "setting": -0.7,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-forge-fire-c",
+    "family": "place-forge-fire",
+    "round": "places",
+    "label": {
+      "nl": "Een houtgestookte oven",
+      "en": "A wood-fired oven"
+    },
+    "scene": "A wood-fired brick oven with roaring flames inside an arched mouth and split logs stacked beside it.",
+    "image": "/illustrations/associations/place-forge-fire-c.jpg",
+    "tagWeights": {
+      "fire": 1,
+      "craft": 0.8,
+      "technique": 0.6,
+      "making": 0.5
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.4,
+      "setting": -0.7,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-card-table",
+    "family": "place-card-table",
+    "round": "places",
+    "label": {
+      "nl": "Een tafel met kaarten en fiches",
+      "en": "A table of cards and chips"
+    },
+    "scene": "A green felt table under a low lamp with fanned playing cards and stacks of coloured chips.",
+    "image": "/illustrations/associations/place-card-table.jpg",
+    "tagWeights": {
+      "chance": 1,
+      "strategy": 0.8,
+      "competition": 0.5,
+      "conviviality": 0.4
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": -0.2,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-card-table-b",
+    "family": "place-card-table",
+    "round": "places",
+    "label": {
+      "nl": "Een spelbord midden in het spel",
+      "en": "A board game mid-play"
+    },
+    "scene": "A wooden board game mid-play with scattered small figures and dice on a table in warm lamplight.",
+    "image": "/illustrations/associations/place-card-table-b.jpg",
+    "tagWeights": {
+      "chance": 1,
+      "strategy": 0.8,
+      "competition": 0.5,
+      "conviviality": 0.4
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": -0.2,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-card-table-c",
+    "family": "place-card-table",
+    "round": "places",
+    "label": {
+      "nl": "Een dobbelsteen die rolt",
+      "en": "A rolling die"
+    },
+    "scene": "Two dice mid-roll above a worn wooden table, softly motion-blurred, warm lamp behind.",
+    "image": "/illustrations/associations/place-card-table-c.jpg",
+    "tagWeights": {
+      "chance": 1,
+      "strategy": 0.8,
+      "competition": 0.5,
+      "conviviality": 0.4
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": -0.2,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-miniature-world",
+    "family": "place-miniature-world",
+    "round": "places",
+    "label": {
+      "nl": "Een tafel vol miniatuurwereld",
+      "en": "A table of miniature world"
+    },
+    "scene": "A detailed miniature railway landscape with tiny trees, a little station and a toy train on a green table.",
+    "image": "/illustrations/associations/place-miniature-world.jpg",
+    "tagWeights": {
+      "miniature": 1,
+      "collecting": 0.6,
+      "focus": 0.7,
+      "craft": 0.5
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-miniature-world-b",
+    "family": "place-miniature-world",
+    "round": "places",
+    "label": {
+      "nl": "Een poppenhuis met licht aan",
+      "en": "A dollhouse with the lights on"
+    },
+    "scene": "A dollhouse with tiny lit rooms, miniature furniture and warm window lights at dusk.",
+    "image": "/illustrations/associations/place-miniature-world-b.jpg",
+    "tagWeights": {
+      "miniature": 1,
+      "collecting": 0.6,
+      "focus": 0.7,
+      "craft": 0.5
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-miniature-world-c",
+    "family": "place-miniature-world",
+    "round": "places",
+    "label": {
+      "nl": "Een werkbank met kleine figuurtjes",
+      "en": "A bench of tiny figurines"
+    },
+    "scene": "A craft bench with tiny painted figurines in rows, small brushes in a jar and a magnifier lamp.",
+    "image": "/illustrations/associations/place-miniature-world-c.jpg",
+    "tagWeights": {
+      "miniature": 1,
+      "collecting": 0.6,
+      "focus": 0.7,
+      "craft": 0.5
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-flea-market",
+    "family": "place-flea-market",
+    "round": "places",
+    "label": {
+      "nl": "Een rommelmarkt met oude schatten",
+      "en": "A flea market of old treasures"
+    },
+    "scene": "Tables piled with vintage cameras, brass lamps, old records and china at a sunny flea market.",
+    "image": "/illustrations/associations/place-flea-market.jpg",
+    "tagWeights": {
+      "collecting": 1,
+      "retro": 0.8,
+      "discovery": 0.6,
+      "conviviality": 0.3
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.1,
+      "setting": 0.2,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-flea-market-b",
+    "family": "place-flea-market",
+    "round": "places",
+    "label": {
+      "nl": "Een kringloopwinkel vol boeken",
+      "en": "A thrift shop full of books"
+    },
+    "scene": "A crammed thrift shop with towers of old books, mismatched chairs and a hanging lamp.",
+    "image": "/illustrations/associations/place-flea-market-b.jpg",
+    "tagWeights": {
+      "collecting": 1,
+      "retro": 0.8,
+      "discovery": 0.6,
+      "conviviality": 0.3
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.1,
+      "setting": 0.2,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-flea-market-c",
+    "family": "place-flea-market",
+    "round": "places",
+    "label": {
+      "nl": "Een kraam met munten en zegels",
+      "en": "A stall of coins and stamps"
+    },
+    "scene": "A market stall with trays of old coins, stamps and medals laid out on green velvet.",
+    "image": "/illustrations/associations/place-flea-market-c.jpg",
+    "tagWeights": {
+      "collecting": 1,
+      "retro": 0.8,
+      "discovery": 0.6,
+      "conviviality": 0.3
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.1,
+      "setting": 0.2,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-night-street",
+    "family": "place-night-street",
+    "round": "places",
+    "label": {
+      "nl": "Een straat vol neon in de nacht",
+      "en": "A neon street at night"
+    },
+    "scene": "A rainy city street at night with glowing neon signs reflecting on wet cobbles.",
+    "image": "/illustrations/associations/place-night-street.jpg",
+    "tagWeights": {
+      "conviviality": 0.6,
+      "sound": 0.5,
+      "rhythm": 0.5,
+      "discovery": 0.5
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0.5,
+      "setting": 0.3,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-night-street-b",
+    "family": "place-night-street",
+    "round": "places",
+    "label": {
+      "nl": "Een binnenstad met terraslampjes",
+      "en": "An old town with terrace lights"
+    },
+    "scene": "A lively old-town square at dusk with string lights over empty café terraces and warm windows.",
+    "image": "/illustrations/associations/place-night-street-b.jpg",
+    "tagWeights": {
+      "conviviality": 0.6,
+      "sound": 0.5,
+      "rhythm": 0.5,
+      "discovery": 0.5
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0.5,
+      "setting": 0.3,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-night-street-c",
+    "family": "place-night-street",
+    "round": "places",
+    "label": {
+      "nl": "Een dak met uitzicht op de stad",
+      "en": "A rooftop above the city"
+    },
+    "scene": "A rooftop terrace at night with fairy lights and a glittering city skyline beyond.",
+    "image": "/illustrations/associations/place-night-street-c.jpg",
+    "tagWeights": {
+      "conviviality": 0.6,
+      "sound": 0.5,
+      "rhythm": 0.5,
+      "discovery": 0.5
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0.5,
+      "setting": 0.3,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-applause",
+    "family": "moment-applause",
+    "round": "moments",
+    "label": {
+      "nl": "Het applaus na jouw optreden",
+      "en": "The applause after your act"
+    },
+    "scene": "A single bouquet of red roses lying on a stage floor in the glow of a fading spotlight, curtains swaying.",
+    "image": "/illustrations/associations/moment-applause.jpg",
+    "tagWeights": {
+      "performance": 1,
+      "challenge": 0.6,
+      "sound": 0.4,
+      "roleplay": 0.3
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0.5,
+      "setting": -0.7,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-applause-b",
+    "family": "moment-applause",
+    "round": "moments",
+    "label": {
+      "nl": "Vlak voor het gordijn open gaat",
+      "en": "Just before the curtain rises"
+    },
+    "scene": "The heavy velvet curtain edge glowing with stage light, seen from the wings, just before it opens.",
+    "image": "/illustrations/associations/moment-applause-b.jpg",
+    "tagWeights": {
+      "performance": 1,
+      "challenge": 0.6,
+      "sound": 0.4,
+      "roleplay": 0.3
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0.5,
+      "setting": -0.7,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-applause-c",
+    "family": "moment-applause",
+    "round": "moments",
+    "label": {
+      "nl": "De laatste noot",
+      "en": "The last note"
+    },
+    "scene": "A grand piano with its lid raised on a stage, last light on the keys and sheet music on the stand.",
+    "image": "/illustrations/associations/moment-applause-c.jpg",
+    "tagWeights": {
+      "performance": 1,
+      "challenge": 0.6,
+      "sound": 0.4,
+      "roleplay": 0.3
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0.5,
+      "setting": -0.7,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-leap",
+    "family": "moment-leap",
+    "round": "moments",
+    "label": {
+      "nl": "Net voor de sprong",
+      "en": "Just before the jump"
+    },
+    "scene": "The edge of a high diving platform against a bright sky with water far below.",
+    "image": "/illustrations/associations/moment-leap.jpg",
+    "tagWeights": {
+      "height": 0.8,
+      "suspense": 1,
+      "challenge": 0.9
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.9,
+      "setting": 0.7,
+      "novelty": 0.9
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-leap-b",
+    "family": "moment-leap",
+    "round": "moments",
+    "label": {
+      "nl": "De rand van een klif",
+      "en": "The edge of a cliff"
+    },
+    "scene": "The edge of a sea cliff with the blue sea far below and wind-bent grass in bright light.",
+    "image": "/illustrations/associations/moment-leap-b.jpg",
+    "tagWeights": {
+      "height": 0.8,
+      "suspense": 1,
+      "challenge": 0.9
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.9,
+      "setting": 0.7,
+      "novelty": 0.9
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-leap-c",
+    "family": "moment-leap",
+    "round": "moments",
+    "label": {
+      "nl": "De deur van een vliegtuig",
+      "en": "The door of a plane"
+    },
+    "scene": "An open aircraft door with clouds and patchwork fields far below, bright sky.",
+    "image": "/illustrations/associations/moment-leap-c.jpg",
+    "tagWeights": {
+      "height": 0.8,
+      "suspense": 1,
+      "challenge": 0.9
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.9,
+      "setting": 0.7,
+      "novelty": 0.9
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-campfire",
+    "family": "moment-campfire",
+    "round": "moments",
+    "label": {
+      "nl": "Rond het kampvuur",
+      "en": "Around the campfire"
+    },
+    "scene": "A campfire in a stone ring with simple wooden log seats around it under a dusk-blue sky, sparks rising.",
+    "image": "/illustrations/associations/moment-campfire.jpg",
+    "tagWeights": {
+      "fire": 1,
+      "conviviality": 0.8,
+      "story": 0.6,
+      "outdoors": 0.6
+    },
+    "axes": {
+      "social": 0.8,
+      "energy": -0.3,
+      "setting": 1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-campfire-b",
+    "family": "moment-campfire",
+    "round": "moments",
+    "label": {
+      "nl": "Marshmallows boven de vlammen",
+      "en": "Marshmallows over the flames"
+    },
+    "scene": "Skewered marshmallows toasting over glowing embers with warm orange light and a dark forest behind.",
+    "image": "/illustrations/associations/moment-campfire-b.jpg",
+    "tagWeights": {
+      "fire": 1,
+      "conviviality": 0.8,
+      "story": 0.6,
+      "outdoors": 0.6
+    },
+    "axes": {
+      "social": 0.8,
+      "energy": -0.3,
+      "setting": 1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-campfire-c",
+    "family": "moment-campfire",
+    "round": "moments",
+    "label": {
+      "nl": "Een vuurkorf op het terras",
+      "en": "A fire bowl on the terrace"
+    },
+    "scene": "A glowing iron fire bowl on a wooden deck with blankets over empty chairs at dusk.",
+    "image": "/illustrations/associations/moment-campfire-c.jpg",
+    "tagWeights": {
+      "fire": 1,
+      "conviviality": 0.8,
+      "story": 0.6,
+      "outdoors": 0.6
+    },
+    "axes": {
+      "social": 0.8,
+      "energy": -0.3,
+      "setting": 1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-bread-oven",
+    "family": "moment-bread-oven",
+    "round": "moments",
+    "label": {
+      "nl": "Het brood dat uit de oven komt",
+      "en": "The loaf that leaves the oven"
+    },
+    "scene": "Freshly baked golden loaves on a wooden peel at an oven door, steam rising.",
+    "image": "/illustrations/associations/moment-bread-oven.jpg",
+    "tagWeights": {
+      "food": 1,
+      "craft": 0.6,
+      "caring": 0.4
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": -0.3,
+      "setting": -0.9,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-bread-oven-b",
+    "family": "moment-bread-oven",
+    "round": "moments",
+    "label": {
+      "nl": "Deeg dat rijst",
+      "en": "Dough that rises"
+    },
+    "scene": "A bowl of risen dough under a cloth with flour dusting a wooden counter in warm morning light.",
+    "image": "/illustrations/associations/moment-bread-oven-b.jpg",
+    "tagWeights": {
+      "food": 1,
+      "craft": 0.6,
+      "caring": 0.4
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": -0.3,
+      "setting": -0.9,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-bread-oven-c",
+    "family": "moment-bread-oven",
+    "round": "moments",
+    "label": {
+      "nl": "Een taart die afkoelt",
+      "en": "A tart cooling down"
+    },
+    "scene": "A freshly baked fruit tart cooling on a wire rack by a sunny kitchen window.",
+    "image": "/illustrations/associations/moment-bread-oven-c.jpg",
+    "tagWeights": {
+      "food": 1,
+      "craft": 0.6,
+      "caring": 0.4
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": -0.3,
+      "setting": -0.9,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-secret-door",
+    "family": "moment-secret-door",
+    "round": "moments",
+    "label": {
+      "nl": "Een geheim dat open gaat",
+      "en": "A secret that opens"
+    },
+    "scene": "A bookcase swung open to reveal a narrow hidden passage lit by a single lantern.",
+    "image": "/illustrations/associations/moment-secret-door.jpg",
+    "tagWeights": {
+      "puzzling": 0.7,
+      "suspense": 0.8,
+      "discovery": 1,
+      "story": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0.2,
+      "setting": -0.2,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-secret-door-b",
+    "family": "moment-secret-door",
+    "round": "moments",
+    "label": {
+      "nl": "Een kluis met een draaiwiel",
+      "en": "A safe with a dial"
+    },
+    "scene": "An old iron safe door ajar with a brass dial and a beam of light spilling out.",
+    "image": "/illustrations/associations/moment-secret-door-b.jpg",
+    "tagWeights": {
+      "puzzling": 0.7,
+      "suspense": 0.8,
+      "discovery": 1,
+      "story": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0.2,
+      "setting": -0.2,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-secret-door-c",
+    "family": "moment-secret-door",
+    "round": "moments",
+    "label": {
+      "nl": "Een sleutel in een oud slot",
+      "en": "A key in an old lock"
+    },
+    "scene": "A heavy brass key in an old ornate keyhole of a dark wooden door.",
+    "image": "/illustrations/associations/moment-secret-door-c.jpg",
+    "tagWeights": {
+      "puzzling": 0.7,
+      "suspense": 0.8,
+      "discovery": 1,
+      "story": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0.2,
+      "setting": -0.2,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-lesson",
+    "family": "moment-first-lesson",
+    "round": "moments",
+    "label": {
+      "nl": "Voor het eerst iets leren",
+      "en": "Learning something for the first time"
+    },
+    "scene": "A shiny new beginner's acoustic guitar on a stand beside a stool and a music stand in a sunlit room.",
+    "image": "/illustrations/associations/moment-first-lesson.jpg",
+    "tagWeights": {
+      "learning": 1,
+      "technique": 0.6,
+      "discovery": 0.5,
+      "focus": 0.4
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.2,
+      "setting": -0.3,
+      "novelty": 0.9
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-lesson-b",
+    "family": "moment-first-lesson",
+    "round": "moments",
+    "label": {
+      "nl": "Je eerste stap op het ijs",
+      "en": "Your first step on the ice"
+    },
+    "scene": "New ice skates standing on the boards at the edge of a smooth empty ice rink.",
+    "image": "/illustrations/associations/moment-first-lesson-b.jpg",
+    "tagWeights": {
+      "learning": 1,
+      "technique": 0.6,
+      "discovery": 0.5,
+      "focus": 0.4
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.2,
+      "setting": -0.3,
+      "novelty": 0.9
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-lesson-c",
+    "family": "moment-first-lesson",
+    "round": "moments",
+    "label": {
+      "nl": "Nieuw gereedschap uit de doos",
+      "en": "New tools out of the box"
+    },
+    "scene": "A neatly arranged set of brand-new woodworking chisels in an open box on a workbench.",
+    "image": "/illustrations/associations/moment-first-lesson-c.jpg",
+    "tagWeights": {
+      "learning": 1,
+      "technique": 0.6,
+      "discovery": 0.5,
+      "focus": 0.4
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.2,
+      "setting": -0.3,
+      "novelty": 0.9
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-all-in",
+    "family": "moment-all-in",
+    "round": "moments",
+    "label": {
+      "nl": "Alles op één kaart",
+      "en": "All on one card"
+    },
+    "scene": "A single playing card turned over at the centre of a green felt table with a stack of chips pushed forward.",
+    "image": "/illustrations/associations/moment-all-in.jpg",
+    "tagWeights": {
+      "chance": 1,
+      "suspense": 0.8,
+      "strategy": 0.6,
+      "play": 0.5
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0.2,
+      "setting": -0.8,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-all-in-b",
+    "family": "moment-all-in",
+    "round": "moments",
+    "label": {
+      "nl": "De dobbelsteen valt",
+      "en": "The die falls"
+    },
+    "scene": "A die just landing on a wooden board game among small figures, caught in sharp focus.",
+    "image": "/illustrations/associations/moment-all-in-b.jpg",
+    "tagWeights": {
+      "chance": 1,
+      "suspense": 0.8,
+      "strategy": 0.6,
+      "play": 0.5
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0.2,
+      "setting": -0.8,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-all-in-c",
+    "family": "moment-all-in",
+    "round": "moments",
+    "label": {
+      "nl": "Het wiel draait",
+      "en": "The wheel spins"
+    },
+    "scene": "A roulette wheel blurred in motion with a small white ball skipping on its rim.",
+    "image": "/illustrations/associations/moment-all-in-c.jpg",
+    "tagWeights": {
+      "chance": 1,
+      "suspense": 0.8,
+      "strategy": 0.6,
+      "play": 0.5
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0.2,
+      "setting": -0.8,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-deep-silence",
+    "family": "moment-deep-silence",
+    "round": "moments",
+    "label": {
+      "nl": "Onder water, alles stil",
+      "en": "Underwater, everything quiet"
+    },
+    "scene": "Looking up from beneath calm turquoise water, sunbeams fanning down and a few bubbles rising.",
+    "image": "/illustrations/associations/moment-deep-silence.jpg",
+    "tagWeights": {
+      "depths": 1,
+      "water": 0.8,
+      "stillness": 0.6,
+      "balance": 0.4
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.1,
+      "setting": 0.6,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-deep-silence-b",
+    "family": "moment-deep-silence",
+    "round": "moments",
+    "label": {
+      "nl": "Zwevend boven een rif",
+      "en": "Floating above a reef"
+    },
+    "scene": "A coral reef with schools of small bright fish in clear blue water and shafts of light.",
+    "image": "/illustrations/associations/moment-deep-silence-b.jpg",
+    "tagWeights": {
+      "depths": 1,
+      "water": 0.8,
+      "stillness": 0.6,
+      "balance": 0.4
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.1,
+      "setting": 0.6,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-deep-silence-c",
+    "family": "moment-deep-silence",
+    "round": "moments",
+    "label": {
+      "nl": "Een bergmeer, helder tot op de bodem",
+      "en": "A mountain lake, clear to the bottom"
+    },
+    "scene": "A deep mountain lake with crystal clear water and rocks visible far below, green-blue.",
+    "image": "/illustrations/associations/moment-deep-silence-c.jpg",
+    "tagWeights": {
+      "depths": 1,
+      "water": 0.8,
+      "stillness": 0.6,
+      "balance": 0.4
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.1,
+      "setting": 0.6,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-collect",
+    "family": "moment-collect",
+    "round": "moments",
+    "label": {
+      "nl": "Het ontbrekende stuk in je verzameling",
+      "en": "The missing piece of your collection"
+    },
+    "scene": "An album page of old stamps with one empty slot and a magnifying glass resting beside it.",
+    "image": "/illustrations/associations/moment-collect.jpg",
+    "tagWeights": {
+      "collecting": 1,
+      "retro": 0.5,
+      "discovery": 0.5,
+      "focus": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": -0.4,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-collect-b",
+    "family": "moment-collect",
+    "round": "moments",
+    "label": {
+      "nl": "Een zeldzame vondst",
+      "en": "A rare find"
+    },
+    "scene": "A single vintage vinyl record sleeve pulled halfway out of a crate in a record shop, warm light.",
+    "image": "/illustrations/associations/moment-collect-b.jpg",
+    "tagWeights": {
+      "collecting": 1,
+      "retro": 0.5,
+      "discovery": 0.5,
+      "focus": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": -0.4,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-collect-c",
+    "family": "moment-collect",
+    "round": "moments",
+    "label": {
+      "nl": "Een vitrine vol bijzondere dingen",
+      "en": "A cabinet of curiosities"
+    },
+    "scene": "A glass display case of curiosities, shells, coins and tiny brass tools, lit from within.",
+    "image": "/illustrations/associations/moment-collect-c.jpg",
+    "tagWeights": {
+      "collecting": 1,
+      "retro": 0.5,
+      "discovery": 0.5,
+      "focus": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": -0.4,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-wood-smoke",
+    "family": "sense-wood-smoke",
+    "round": "senses",
+    "label": {
+      "nl": "Rook van een houtvuur",
+      "en": "Smoke of a wood fire"
+    },
+    "scene": "Thin blue smoke curling up from a smouldering wood fire at dawn in a forest clearing.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "fire": 1,
+      "outdoors": 0.7,
+      "stillness": 0.4,
+      "nature": 0.4
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": -0.2,
+      "setting": 0.9,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-wood-smoke-b",
+    "family": "sense-wood-smoke",
+    "round": "senses",
+    "label": {
+      "nl": "De geur van brandend hout",
+      "en": "The smell of burning wood"
+    },
+    "scene": "A stack of split birch logs beside a glowing stove, ember light on the wood.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "fire": 1,
+      "outdoors": 0.7,
+      "stillness": 0.4,
+      "nature": 0.4
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": -0.2,
+      "setting": 0.9,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-wood-smoke-c",
+    "family": "sense-wood-smoke",
+    "round": "senses",
+    "label": {
+      "nl": "Een schoorsteen in de winter",
+      "en": "A chimney in winter"
+    },
+    "scene": "A snowy cottage roof with a chimney sending up a soft ribbon of smoke at dusk.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "fire": 1,
+      "outdoors": 0.7,
+      "stillness": 0.4,
+      "nature": 0.4
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": -0.2,
+      "setting": 0.9,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-spotlight",
+    "family": "sense-spotlight",
+    "round": "senses",
+    "label": {
+      "nl": "Warm spotlight op je gezicht",
+      "en": "A warm spotlight on your face"
+    },
+    "scene": "A single hot theatrical spotlight beam cutting through haze onto a bare stage floor.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "performance": 1,
+      "sound": 0.4
+    },
+    "axes": {
+      "social": 0.4,
+      "energy": 0.3,
+      "setting": -0.8,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-spotlight-b",
+    "family": "sense-spotlight",
+    "round": "senses",
+    "label": {
+      "nl": "Het licht van een filmset",
+      "en": "The light of a film set"
+    },
+    "scene": "Large film-set lamps on stands glowing warm in a dim studio with cables on the floor.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "performance": 1,
+      "sound": 0.4
+    },
+    "axes": {
+      "social": 0.4,
+      "energy": 0.3,
+      "setting": -0.8,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-spotlight-c",
+    "family": "sense-spotlight",
+    "round": "senses",
+    "label": {
+      "nl": "De schittering van een discobol",
+      "en": "The glitter of a mirror ball"
+    },
+    "scene": "A mirror ball throwing scattered dots of light across a dark dance floor.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "performance": 1,
+      "sound": 0.4
+    },
+    "axes": {
+      "social": 0.4,
+      "energy": 0.3,
+      "setting": -0.8,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-fresh-bread",
+    "family": "sense-fresh-bread",
+    "round": "senses",
+    "label": {
+      "nl": "Versgebakken brood",
+      "en": "Fresh-baked bread"
+    },
+    "scene": "Warm crusty loaves on a bakery rack in morning light with flour in the air.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "food": 1,
+      "craft": 0.6,
+      "caring": 0.5,
+      "conviviality": 0.5
+    },
+    "axes": {
+      "social": 0.4,
+      "energy": -0.4,
+      "setting": -0.8,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-fresh-bread-b",
+    "family": "sense-fresh-bread",
+    "round": "senses",
+    "label": {
+      "nl": "Koffie en kaneel",
+      "en": "Coffee and cinnamon"
+    },
+    "scene": "A steaming cup of coffee beside cinnamon rolls on a wooden table by a window.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "food": 1,
+      "craft": 0.6,
+      "caring": 0.5,
+      "conviviality": 0.5
+    },
+    "axes": {
+      "social": 0.4,
+      "energy": -0.4,
+      "setting": -0.8,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-fresh-bread-c",
+    "family": "sense-fresh-bread",
+    "round": "senses",
+    "label": {
+      "nl": "Een soep die pruttelt",
+      "en": "A soup simmering"
+    },
+    "scene": "A large pot of simmering soup with steam rising in a warm farmhouse kitchen, herbs on a board.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "food": 1,
+      "craft": 0.6,
+      "caring": 0.5,
+      "conviviality": 0.5
+    },
+    "axes": {
+      "social": 0.4,
+      "energy": -0.4,
+      "setting": -0.8,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-vinyl-crackle",
+    "family": "sense-vinyl-crackle",
+    "round": "senses",
+    "label": {
+      "nl": "Het kraken van vinyl",
+      "en": "The crackle of vinyl"
+    },
+    "scene": "A vinyl record spinning on a turntable with the needle just touching the groove, warm lamp glow.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "sound": 0.9,
+      "retro": 1,
+      "collecting": 0.5,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.6,
+      "setting": -0.8,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-vinyl-crackle-b",
+    "family": "sense-vinyl-crackle",
+    "round": "senses",
+    "label": {
+      "nl": "Een oude radio die ruist",
+      "en": "An old radio humming"
+    },
+    "scene": "A vintage wooden radio with a glowing amber dial in a dim living room.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "sound": 0.9,
+      "retro": 1,
+      "collecting": 0.5,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.6,
+      "setting": -0.8,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-vinyl-crackle-c",
+    "family": "sense-vinyl-crackle",
+    "round": "senses",
+    "label": {
+      "nl": "Een grammofoon met trechter",
+      "en": "A gramophone with a horn"
+    },
+    "scene": "An antique wind-up gramophone with a brass horn on a polished table.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "sound": 0.9,
+      "retro": 1,
+      "collecting": 0.5,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.6,
+      "setting": -0.8,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-heartbeat",
+    "family": "sense-heartbeat",
+    "round": "senses",
+    "label": {
+      "nl": "Hartslag in je oren",
+      "en": "A pulse in your ears"
+    },
+    "scene": "A rope bridge stretching ahead into mist, taut ropes in sharp focus with a drop below.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "challenge": 0.9,
+      "suspense": 0.8,
+      "height": 0.5,
+      "movement": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.9,
+      "setting": 0.4,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-heartbeat-b",
+    "family": "sense-heartbeat",
+    "round": "senses",
+    "label": {
+      "nl": "Adem inhouden",
+      "en": "Holding your breath"
+    },
+    "scene": "A narrow dark slide tunnel with a bright light at its end.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "challenge": 0.9,
+      "suspense": 0.8,
+      "height": 0.5,
+      "movement": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.9,
+      "setting": 0.4,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-heartbeat-c",
+    "family": "sense-heartbeat",
+    "round": "senses",
+    "label": {
+      "nl": "Een knoop in je maag",
+      "en": "A knot in your stomach"
+    },
+    "scene": "The crest of a steep wooden roller-coaster before the first drop against a blue sky, rails glinting.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "challenge": 0.9,
+      "suspense": 0.8,
+      "height": 0.5,
+      "movement": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.9,
+      "setting": 0.4,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-cheering",
+    "family": "sense-cheering",
+    "round": "senses",
+    "label": {
+      "nl": "Gejuich in de verte",
+      "en": "Cheering in the distance"
+    },
+    "scene": "Empty stadium stands with colourful scarves and flags hanging over the rail in late sun.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "competition": 0.7,
+      "conviviality": 0.7,
+      "sound": 0.6,
+      "play": 0.4
+    },
+    "axes": {
+      "social": 0.9,
+      "energy": 0.6,
+      "setting": 0.5,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-cheering-b",
+    "family": "sense-cheering",
+    "round": "senses",
+    "label": {
+      "nl": "Vlaggetjes langs de weg",
+      "en": "Bunting along the road"
+    },
+    "scene": "Colourful flags and bunting along a village street on a festive day, banners swaying.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "competition": 0.7,
+      "conviviality": 0.7,
+      "sound": 0.6,
+      "play": 0.4
+    },
+    "axes": {
+      "social": 0.9,
+      "energy": 0.6,
+      "setting": 0.5,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-cheering-c",
+    "family": "sense-cheering",
+    "round": "senses",
+    "label": {
+      "nl": "Een finishlijn vol confetti",
+      "en": "A finish line of confetti"
+    },
+    "scene": "A finish-line banner with confetti and streamers drifting on the ground after a race.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "competition": 0.7,
+      "conviviality": 0.7,
+      "sound": 0.6,
+      "play": 0.4
+    },
+    "axes": {
+      "social": 0.9,
+      "energy": 0.6,
+      "setting": 0.5,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-warm-fur",
+    "family": "sense-warm-fur",
+    "round": "senses",
+    "label": {
+      "nl": "Warme vacht, zachte neus",
+      "en": "Warm fur, a soft nose"
+    },
+    "scene": "A sleepy golden retriever's soft muzzle resting on a rug in a sunny room.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.8,
+      "nature": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": -0.5,
+      "setting": 0.3,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-warm-fur-b",
+    "family": "sense-warm-fur",
+    "round": "senses",
+    "label": {
+      "nl": "Pootafdrukken in zand",
+      "en": "Paw prints in sand"
+    },
+    "scene": "Animal paw prints in wet sand leading along the shore at dawn.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.8,
+      "nature": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": -0.5,
+      "setting": 0.3,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-warm-fur-c",
+    "family": "sense-warm-fur",
+    "round": "senses",
+    "label": {
+      "nl": "Een kat in de vensterbank",
+      "en": "A cat on the windowsill"
+    },
+    "scene": "A tabby cat curled on a sunny windowsill among plants.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.8,
+      "nature": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": -0.5,
+      "setting": 0.3,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-cave-cool",
+    "family": "sense-cave-cool",
+    "round": "senses",
+    "label": {
+      "nl": "De koele lucht van een grot",
+      "en": "The cool air of a cave"
+    },
+    "scene": "Cool mist drifting through a cave mouth with ferns hanging and light fading inside.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "depths": 1,
+      "discovery": 0.7,
+      "suspense": 0.4,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0,
+      "setting": 0,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-cave-cool-b",
+    "family": "sense-cave-cool",
+    "round": "senses",
+    "label": {
+      "nl": "De echo van een tunnel",
+      "en": "The echo of a tunnel"
+    },
+    "scene": "A long concrete tunnel with a bright disc of daylight at the far end.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "depths": 1,
+      "discovery": 0.7,
+      "suspense": 0.4,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0,
+      "setting": 0,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-cave-cool-c",
+    "family": "sense-cave-cool",
+    "round": "senses",
+    "label": {
+      "nl": "Een keldertrap omlaag",
+      "en": "A cellar stair going down"
+    },
+    "scene": "A stone spiral staircase descending into a dim brick wine cellar with a single bulb.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "depths": 1,
+      "discovery": 0.7,
+      "suspense": 0.4,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0,
+      "setting": 0,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-fine-brush",
+    "family": "sense-fine-brush",
+    "round": "senses",
+    "label": {
+      "nl": "Een penseel met één haar",
+      "en": "A brush with a single hair"
+    },
+    "scene": "A very fine paintbrush loaded with red paint touching a tiny painted figurine under a magnifier lamp.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "miniature": 1,
+      "precision": 0.8,
+      "craft": 0.6,
+      "color": 0.5
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-fine-brush-b",
+    "family": "sense-fine-brush",
+    "round": "senses",
+    "label": {
+      "nl": "Kleine tandwieltjes",
+      "en": "Tiny gears"
+    },
+    "scene": "A tray of tiny brass watch gears and screws under a loupe in raking light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "miniature": 1,
+      "precision": 0.8,
+      "craft": 0.6,
+      "color": 0.5
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-fine-brush-c",
+    "family": "sense-fine-brush",
+    "round": "senses",
+    "label": {
+      "nl": "Een schip in een fles",
+      "en": "A ship in a bottle"
+    },
+    "scene": "A ship in a bottle with tiny rigging, lit by a window.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "miniature": 1,
+      "precision": 0.8,
+      "craft": 0.6,
+      "color": 0.5
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
   }
 ]

@@ -263,7 +263,8 @@
       "en": "Introduction day, or dog walking as a first task"
     },
     "scene": "a leash and a dog bowl by an animal shelter door with folded blankets",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "paardrijden",
@@ -302,7 +303,8 @@
       "en": "Trial lesson with an instructor; caring without riding is also possible"
     },
     "scene": "a saddle and bridle on a stable door with hay",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "hondensport",
@@ -338,7 +340,8 @@
       "en": "Free trial lesson at a dog club (your own dog or borrow one)"
     },
     "scene": "an agility hurdle and tunnel on a grassy field with dog toys",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "imkeren",
@@ -384,7 +387,8 @@
       "en": "Open day or introduction at an apiary, protective clothing provided"
     },
     "scene": "beehives in a flower meadow with a smoker and a veil hat",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "nachtdieren",
@@ -427,7 +431,8 @@
       "en": "An organised evening walk by a nature society"
     },
     "scene": "a bat detector and a torch on a fence post at dusk in a meadow",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "vissen",
@@ -634,7 +639,8 @@
       "en": "Autumn excursion with mycologists; never eat without an expert check"
     },
     "scene": "a wicker basket of forest mushrooms and a small knife on fallen leaves",
-    "status": "concept"
+    "status": "concept",
+    "supply": "regional"
   },
   {
     "id": "natuurbeheer",
@@ -786,6 +792,241 @@
       "en": "Only at designated spots or with a group and a buoy"
     },
     "scene": "an orange swim buoy floating on a calm lake at dawn",
+    "status": "concept"
+  },
+  {
+    "id": "zeehonden-varen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Zeehonden spotten per boot",
+      "en": "Seal-spotting boat trip"
+    },
+    "tags": [
+      "animals",
+      "nature",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een boottocht naar de zandbanken in de Waddenzee of Zeeland",
+      "en": "Book a boat trip to the sandbanks of the Wadden Sea or Zeeland"
+    },
+    "scene": "grey seals resting on a pale sandbank at low tide, calm silver water and a distant boat mast",
+    "supply": "regional",
+    "status": "concept"
+  },
+  {
+    "id": "insecten-tellen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Vlinders en insecten tellen",
+      "en": "Counting butterflies and insects"
+    },
+    "tags": [
+      "nature",
+      "animals",
+      "learning",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Doe mee aan een landelijke telling en leg je waarnemingen vast in een app",
+      "en": "Join a national count and log your sightings in an app"
+    },
+    "scene": "a small orange butterfly on purple thistle flowers in a sunlit meadow, a notebook open on a stone",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "dauwtrappen",
+    "domain": "nature",
+    "sub": "walking",
+    "label": {
+      "nl": "Dauwtrappen bij zonsopgang",
+      "en": "Dew walking at sunrise"
+    },
+    "tags": [
+      "outdoors",
+      "stillness",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Loop vroeg ochtend op blote voeten of in laarzen door nat gras",
+      "en": "Walk early in the morning barefoot or in boots through wet grass"
+    },
+    "scene": "wet meadow grass with silver dew drops catching low pink sunrise light and a mist over distant trees",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "bomen-herkennen",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Bomen herkennen en bladeren sorteren",
+      "en": "Learning to recognise trees"
+    },
+    "tags": [
+      "nature",
+      "learning",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Loop een boomroute met een zakgids of herkenningsapp",
+      "en": "Walk a tree trail with a pocket guide or identification app"
+    },
+    "scene": "a collection of oak, beech and maple leaves in autumn colours laid out in rows beside a small pocket guide",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "wolken",
+    "domain": "nature",
+    "sub": "light_sky_water",
+    "label": {
+      "nl": "Wolken en weer lezen",
+      "en": "Reading clouds and weather"
+    },
+    "tags": [
+      "stillness",
+      "nature",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ga op je rug in het gras liggen en leer vijf wolkensoorten herkennen",
+      "en": "Lie on your back in the grass and learn five cloud types"
+    },
+    "scene": "towering white cumulus clouds with grey undersides over a flat green polder horizon",
+    "supply": "common",
+    "status": "concept"
+  },
+  {
+    "id": "plogging",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Plogging: joggen en afval opruimen",
+      "en": "Plogging: jogging and clearing litter"
+    },
+    "tags": [
+      "movement",
+      "caring",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Sluit aan bij een ploggroep of neem een zak mee op je eigen route",
+      "en": "Join a plogging group or carry a bag on your own route"
+    },
+    "scene": "a canvas bag half full of collected litter beside a reusable glove on a park bench at dawn",
+    "supply": "common",
     "status": "concept"
   }
 ]
