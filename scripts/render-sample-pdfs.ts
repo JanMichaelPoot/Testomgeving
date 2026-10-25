@@ -119,11 +119,12 @@ async function main() {
   const base: IdeaBookPdfContext = { company: ["partner"], budget: "100", timeAvailable: "halfday" };
   const out = path.join(process.cwd(), "scratch");
   await mkdir(out, { recursive: true });
-  for (const [kind, b, ctx] of [
+  const jobs = [
     ["associations", book(true), { ...base, window: windowContext, threadLines }],
     ["cards", book(true), base],
     ["legacy", book(false), base],
-  ] as const) {
+  ] as const;
+  for (const [kind, b, ctx] of jobs) {
     const bytes = await renderIdeaBookPdf(b, dict.plan.eyebrow, locale, ctx);
     const file = path.join(out, `sample-${kind}.pdf`);
     await writeFile(file, bytes);

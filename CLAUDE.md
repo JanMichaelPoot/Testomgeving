@@ -3501,3 +3501,24 @@ Stripe, Claude API, Resend, PostHog).
       onderzoeksaanroep bij (±$0,03-0,06). **Niet gedekt**: websites die het schrijfmodel in de tekst noemt maar die niet in
       het onderzoek staan worden nog alleen gemeld (`unverified_website`), niet verwijderd; en of een bestaande aanbieder in
       werkelijkheid ook echt open is volgt uit wat de zoekresultaten zeggen, niet uit een eigen controle.
+
+- [x] Stap 86 — De Idea Book-PDF in een "luxe collectable"-look: Ivoor & goud, met een groter en sierlijker
+      lettertype (op verzoek van Jan, na een keuze uit drie voorgelegde opties: Ivoor & goud, Nachtblauw & goud en
+      Zon & hemel, elk met de echte renderer gerenderd; de andere twee zijn weer verwijderd). **Kleur**: een
+      object `theme` in `src/lib/pdf/ideaBook.ts` met diep leisteenblauwe inkt (#1F2A3C) op warm ivoor, goudfolie-lijnen
+      (#A8812F / #D6B866) en een kleurlaag over de warme profielfoto; het donkere "Begin hier"-blok is nu blauwgrijs
+      i.p.v. walnoot. Geen bruin meer in de kleuren; de foto's bij de ideeën zijn van zichzelf warm en zijn niet
+      ingekleurd. **Omslag**: ivoor met een fijne dubbele gouden lijn om de pagina, een groter en lichter venster
+      (300 pt breed, verguld kozijn met een dunne gouden boog), een ruitje onder de titel en onderaan
+      `windowinto.nl`; de titel is 52 pt (was 32). **Lettertype**: Cormorant Garamond SemiBold en SemiBold Italic
+      (SIL OFL, `src/lib/pdf/fonts/`, licentie `OFL-Cormorant.txt`) voor alle titels en voor het "waarom dit bij jou
+      past"-citaat, het profielcitaat, de "hoe het voelt"-scène en de slogan; Newsreader en Plus Jakarta Sans blijven
+      voor kleine tekst en labels. Groottes: ideetitel 34 pt (was 23), omslagtitel 52 (was 32), kaartkop 31
+      (was 21), prijs 23 (was 16), "waarom"-tekst 15 italic (was 10,5), staptekst 10,5 (was 9,75). Een titel die te
+      lang is zakt eerst in grootte (34, 28, 24) voor hij wordt afgekapt. Daarbij twee overlappingen opgelost (de
+      eyebrow viel over de grote kop op de profiel- en kaartpagina) en de klassieke fotocover begint hoger, omdat de
+      grotere titel anders naar een tweede pagina liep (de paginatelling-tests vingen dat op). `PDF_VERSION` is 6.
+      `scripts/render-sample-pdfs.ts` is weer zoals voorheen. Getest: de pdf-tests (34), `tsc`, lint, en de
+      voorbeeldboeken (17 / 18 / 10 pagina's) pagina voor pagina bekeken. **Niet gedaan**: de tekst op de ideepagina's
+      is slechts 0,75 pt groter; veel groter past niet zonder blokken te laten vallen, dus als de lopende tekst ook
+      "flink groter" moet, is dat een aparte afweging (minder blokken per pagina).

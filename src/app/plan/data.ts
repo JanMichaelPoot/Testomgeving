@@ -296,7 +296,7 @@ export async function getCharacterProfileForSession(
 // src/lib/pdf/ideaContent.ts.
 // 3: "Het venster" — Newsreader + Plus Jakarta Sans instead of Noto, gold instead of orange,
 // the person's own window on the cover (image intake), activity photos per idea.
-const PDF_VERSION = 5;
+const PDF_VERSION = 6;
 
 // The cover window of an image-intake book (null otherwise): same panes as on the site.
 function coverWindowFor(profile: StoredIntake, locale: Locale): IdeaBookPdfContext["window"] {

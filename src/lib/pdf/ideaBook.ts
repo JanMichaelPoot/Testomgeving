@@ -110,15 +110,73 @@ const MARGIN = 60; // continuation-page overflow safety net only, see newPageIfN
 // "Het venster" fase 6: the book now speaks the site's brand: walnut ink (#3C2920, the site's
 // --color-accent-dark) and gold (#B08A4A, --color-gold) instead of the old orange accent, and
 // Newsreader + Plus Jakarta Sans (the site's fonts, OFL, bundled in ./fonts) instead of Noto.
-const PWA4_INK = rgb(0.235, 0.161, 0.125); // #3C2920
-const PWA4_INK_MUTED = rgb(0.42, 0.369, 0.298); // #6B5E4C
-const PWA4_INK_INVERSE = rgb(1, 0.988, 0.965); // #FFFCF6
-const PWA4_SURFACE_PAGE = rgb(1, 0.996, 0.984); // #FFFEFB
-const PWA4_SURFACE_PANEL = rgb(0.965, 0.953, 0.933); // #F6F3EE
-const PWA4_SURFACE_INVERSE = PWA4_INK; // #3A2820 — same value, named per the design token
-const PWA4_ACCENT = rgb(0.69, 0.541, 0.29); // #B08A4A (gold)
-const PWA4_GOLD_LIGHT = rgb(0.824, 0.718, 0.478); // #D2B77A
-const PWA4_SCRIM_RGB = rgb(0.102, 0.071, 0.047); // rgba(26,18,12,*)
+// The colours of the whole book: ivory and gold (chosen by Jan on 25 Oct 2026 from three options, after the
+// walnut look was found to be too brown). Deep slate-blue ink on warm ivory paper, gold foil lines, and
+// a gilded window on the cover with a fine double border like a collector's edition. One object, so
+// the whole book can be re-coloured in one place.
+interface PdfTheme {
+  ink: RGB;
+  inkMuted: RGB;
+  inkInverse: RGB;
+  surfacePage: RGB;
+  surfacePanel: RGB;
+  surfaceInverse: RGB;
+  accent: RGB;
+  accentLight: RGB;
+  /** The dark colour of the gradient over photos. */
+  scrim: RGB;
+  /** A wash over the profile page's photo, so the shared warm background photo sits with the colours. */
+  wash: { color: RGB; opacity: number };
+  cover: {
+    bg: RGB;
+    /** The window's frame and mullions. */
+    frame: RGB;
+    sillBand: RGB;
+    sillText: RGB;
+    eyebrow: RGB;
+    title: RGB;
+    tagline: RGB;
+    logo: "cream" | "color";
+    /** A fine double line round the page and a small diamond rule under the title. */
+    collector: boolean;
+  };
+}
+
+const hex = (h: string): RGB => rgb(parseInt(h.slice(1, 3), 16) / 255, parseInt(h.slice(3, 5), 16) / 255, parseInt(h.slice(5, 7), 16) / 255);
+
+const theme: PdfTheme = {
+  ink: hex("#1F2A3C"),
+  inkMuted: hex("#5C6676"),
+  inkInverse: hex("#FFFDF8"),
+  surfacePage: hex("#FFFEFB"),
+  surfacePanel: hex("#F7F2E8"),
+  surfaceInverse: hex("#1F2A3C"),
+  accent: hex("#A8812F"),
+  accentLight: hex("#D6B866"),
+  scrim: hex("#0E1522"),
+  wash: { color: hex("#F8F3E8"), opacity: 0.32 },
+  cover: {
+    bg: hex("#F8F3E8"),
+    frame: hex("#B08A4A"),
+    sillBand: hex("#EFE6D3"),
+    sillText: hex("#5C4A1E"),
+    eyebrow: hex("#A8812F"),
+    title: hex("#1F2A3C"),
+    tagline: hex("#4B5566"),
+    logo: "color",
+    collector: true,
+  },
+};
+
+const PWA4_INK = theme.ink;
+const PWA4_INK_MUTED = theme.inkMuted;
+const PWA4_INK_INVERSE = theme.inkInverse;
+const PWA4_SURFACE_PAGE = theme.surfacePage;
+const PWA4_SURFACE_PANEL = theme.surfacePanel;
+const PWA4_SURFACE_INVERSE = theme.surfaceInverse;
+const PWA4_ACCENT = theme.accent;
+const PWA4_GOLD_LIGHT = theme.accentLight;
+const PWA4_SCRIM_RGB = theme.scrim;
 
 const PWA4_BODY_PAD_X = 21; // space-6, 28px
 const PWA4_SPACE_2 = 6; // 8px
@@ -231,6 +289,10 @@ function roundedRectPath(width: number, height: number, radius: number): string 
 }
 
 interface Fonts {
+  /** Cormorant Garamond SemiBold: the display face for titles (the book's "luxury" voice). */
+  display: PDFFont;
+  /** Its italic, for the tagline, the profile quote and the sensory scene. */
+  displayItalic: PDFFont;
   serif: PDFFont;
   sans: PDFFont;
   sansBold: PDFFont;
@@ -350,13 +412,17 @@ export async function renderIdeaBookPdf(
   const doc = await PDFDocument.create();
   doc.registerFontkit(fontkit);
 
-  const [serifBytes, sansBytes, sansBoldBytes] = await Promise.all([
+  const [serifBytes, displayBytes, displayItalicBytes, sansBytes, sansBoldBytes] = await Promise.all([
     readFile(path.join(FONTS_DIR, "Newsreader-Medium.ttf")),
+    readFile(path.join(FONTS_DIR, "CormorantGaramond-SemiBold.ttf")),
+    readFile(path.join(FONTS_DIR, "CormorantGaramond-SemiBoldItalic.ttf")),
     readFile(path.join(FONTS_DIR, "PlusJakartaSans-Regular.ttf")),
     readFile(path.join(FONTS_DIR, "PlusJakartaSans-Bold.ttf")),
   ]);
 
   const fonts: Fonts = {
+    display: await doc.embedFont(displayBytes, { subset: true }),
+    displayItalic: await doc.embedFont(displayItalicBytes, { subset: true }),
     serif: await doc.embedFont(serifBytes, { subset: true }),
     sans: await doc.embedFont(sansBytes, { subset: true }),
     sansBold: await doc.embedFont(sansBoldBytes, { subset: true }),
@@ -364,7 +430,7 @@ export async function renderIdeaBookPdf(
   // The brand fonts cover Latin text (all Dutch and English diacritics, €, curly quotes) but
   // not the long tail Noto had (arrows, symbols, emoji). Anything outside every font's
   // character set is replaced or dropped before drawing, so no glyph ever renders as a box.
-  book = makeBookPrintable(book, glyphFilter([fonts.serif, fonts.sans, fonts.sansBold]));
+  book = makeBookPrintable(book, glyphFilter([fonts.display, fonts.displayItalic, fonts.serif, fonts.sans, fonts.sansBold]));
   const orderedIdeas = orderIdeasByDoor(book.ideas);
   const oneThingIndex = pickOneThingIndex(book.ideas);
 
@@ -413,8 +479,8 @@ export async function renderIdeaBookPdf(
     w: number,
     h: number,
   ) {
-    const pad = 9;
-    const gap = 5;
+    const pad = 7;
+    const gap = 3.5;
     const ix = x0 + pad;
     const iy = y0 + pad;
     const iw = w - pad * 2;
@@ -428,7 +494,7 @@ export async function renderIdeaBookPdf(
       { x: ix, y: iy },
       { x: ix + qw + gap, y: iy },
     ];
-    target.drawRectangle({ x: x0, y: y0, width: w, height: h, color: rgb(0.17, 0.11, 0.085) });
+    target.drawRectangle({ x: x0, y: y0, width: w, height: h, color: theme.cover.frame });
 
     for (const [i, pane] of panes.slice(0, 4).entries()) {
       const cell = cells[i];
@@ -484,7 +550,7 @@ export async function renderIdeaBookPdf(
     const rx = iw / 2;
     const ry = ih * 0.3;
     const k = 0.5523;
-    const frame = rgb(0.17, 0.11, 0.085);
+    const frame = theme.cover.frame;
     const left = `M 0 0 L 0 ${ry} C 0 ${ry - k * ry} ${rx - k * rx} 0 ${rx} 0 Z`;
     const right = `M ${iw} 0 L ${iw} ${ry} C ${iw} ${ry - k * ry} ${rx + k * rx} 0 ${rx} 0 Z`;
     target.drawSvgPath(left, { x: ix, y: top, color: frame });
@@ -494,8 +560,10 @@ export async function renderIdeaBookPdf(
     const ory = ry + pad;
     const outerLeft = `M 0 0 L 0 ${ory} C 0 ${ory - k * ory} ${orx - k * orx} 0 ${orx} 0 Z`;
     const outerRight = `M ${w} 0 L ${w} ${ory} C ${w} ${ory - k * ory} ${orx + k * orx} 0 ${orx} 0 Z`;
-    target.drawSvgPath(outerLeft, { x: x0, y: y0 + h, color: PWA4_INK });
-    target.drawSvgPath(outerRight, { x: x0, y: y0 + h, color: PWA4_INK });
+    target.drawSvgPath(outerLeft, { x: x0, y: y0 + h, color: theme.cover.bg });
+    target.drawSvgPath(outerRight, { x: x0, y: y0 + h, color: theme.cover.bg });
+    // A hairline of the cover colour round the whole window hides the seam where the arch corners meet the frame (visible on a light cover).
+    target.drawRectangle({ x: x0 - 0.75, y: y0 - 0.75, width: w + 1.5, height: h + 1.5, borderColor: theme.cover.bg, borderWidth: 3 });
     const outline = `M 0 ${ih} L 0 ${ry} C 0 ${ry - k * ry} ${rx - k * rx} 0 ${rx} 0 C ${rx + k * rx} 0 ${iw} ${ry - k * ry} ${iw} ${ry} L ${iw} ${ih} Z`;
     target.drawSvgPath(outline, { x: ix, y: top, borderColor: PWA4_GOLD_LIGHT, borderWidth: 0.9, opacity: 0, borderOpacity: 0.85 });
   }
@@ -610,6 +678,7 @@ export async function renderIdeaBookPdf(
     const maxShiftX = Math.max(0, (width - PAGE_WIDTH) / 2);
     const x = (PAGE_WIDTH - width) / 2 + panX * maxShiftX;
     page.drawImage(image, { x, y: PAGE_HEIGHT - height, width, height });
+    page.drawRectangle({ x: 0, y: PAGE_HEIGHT - bandHeight, width: PAGE_WIDTH, height: bandHeight, color: theme.wash.color, opacity: theme.wash.opacity });
     page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT - bandHeight, color: PWA4_SURFACE_PAGE });
   }
 
@@ -653,17 +722,23 @@ export async function renderIdeaBookPdf(
   page = addPage();
   if (context.window) {
     const win = context.window;
-    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT, color: PWA4_INK });
+    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT, color: theme.cover.bg });
+    if (theme.cover.collector) {
+      // A fine double line round the page, like the border of a collector's edition.
+      page.drawRectangle({ x: 16, y: 16, width: PAGE_WIDTH - 32, height: PAGE_HEIGHT - 32, borderColor: PWA4_ACCENT, borderWidth: 1.2 });
+      page.drawRectangle({ x: 21, y: 21, width: PAGE_WIDTH - 42, height: PAGE_HEIGHT - 42, borderColor: PWA4_GOLD_LIGHT, borderWidth: 0.5 });
+    }
 
+    const coverLogo = theme.cover.logo === "color" ? images.logoColor : images.logoCream;
     const logoHeight = 16;
-    const logoWidth = logoHeight * (images.logoCream.width / images.logoCream.height);
-    page.drawImage(images.logoCream, { x: (PAGE_WIDTH - logoWidth) / 2, y: PAGE_HEIGHT - 56, width: logoWidth, height: logoHeight });
+    const logoWidth = logoHeight * (coverLogo.width / coverLogo.height);
+    page.drawImage(coverLogo, { x: (PAGE_WIDTH - logoWidth) / 2, y: PAGE_HEIGHT - 56, width: logoWidth, height: logoHeight });
 
-    // The window: 240pt wide, 4:3 portrait, centred.
-    const w = 240;
+    // The window: 300pt wide, 4:3 portrait, centred.
+    const w = 300;
     const h = (w * 4) / 3;
     const x0 = (PAGE_WIDTH - w) / 2;
-    const y0 = PAGE_HEIGHT - 110 - h;
+    const y0 = PAGE_HEIGHT - 100 - h;
     await drawCoverWindow(page, win.panes, x0, y0, w, h);
 
     // Sill: the text answers under the window, on a slightly lighter walnut band.
@@ -671,11 +746,11 @@ export async function renderIdeaBookPdf(
     if (win.sill) {
       const lines = wrapText(win.sill, fonts.sans, 9.5, w + 40, 2);
       const bandH = lines.length * 13 + 12;
-      page.drawRectangle({ x: x0 - 20 + 6, y: cursor - bandH, width: w + 40 - 12, height: bandH, color: rgb(0.357, 0.247, 0.184) });
+      page.drawRectangle({ x: x0 - 20 + 6, y: cursor - bandH, width: w + 40 - 12, height: bandH, color: theme.cover.sillBand });
       let ly = cursor - 15;
       for (const line of lines) {
         const lw = fonts.sans.widthOfTextAtSize(line, 9.5);
-        page.drawText(line, { x: (PAGE_WIDTH - lw) / 2, y: ly, size: 9.5, font: fonts.sans, color: PWA4_GOLD_LIGHT });
+        page.drawText(line, { x: (PAGE_WIDTH - lw) / 2, y: ly, size: 9.5, font: fonts.sans, color: theme.cover.sillText });
         ly -= 13;
       }
       cursor -= bandH;
@@ -688,18 +763,27 @@ export async function renderIdeaBookPdf(
     const v = dict.venster;
     const name = (win.recipientName ?? "").trim();
     const coverTitle = name ? v.pdf.coverTitleGift.replace("{name}", name) : v.pdf.coverTitle;
-    cursor -= 46;
-    centred(`${chrome.coverEyebrow} · ${win.dateLabel}`.toUpperCase(), fonts.sansBold, 8.5, PWA4_GOLD_LIGHT, cursor, 1.1);
     cursor -= 40;
-    for (const line of wrapText(coverTitle, fonts.serif, 32, PWA4_CONTENT_WIDTH, 2)) {
-      centred(line, fonts.serif, 32, PWA4_INK_INVERSE, cursor);
-      cursor -= 38;
+    centred(`${chrome.coverEyebrow} · ${win.dateLabel}`.toUpperCase(), fonts.sansBold, 8.5, theme.cover.eyebrow, cursor, 1.1);
+    cursor -= 52;
+    for (const line of wrapText(coverTitle, fonts.display, 52, PWA4_CONTENT_WIDTH, 2)) {
+      centred(line, fonts.display, 52, theme.cover.title, cursor);
+      cursor -= 52;
+    }
+    if (theme.cover.collector) {
+      // A small rule with a diamond in the middle, between the title and the tagline.
+      const mid = PAGE_WIDTH / 2;
+      page.drawLine({ start: { x: mid - 52, y: cursor + 18 }, end: { x: mid - 9, y: cursor + 18 }, thickness: 0.7, color: PWA4_ACCENT });
+      page.drawLine({ start: { x: mid + 9, y: cursor + 18 }, end: { x: mid + 52, y: cursor + 18 }, thickness: 0.7, color: PWA4_ACCENT });
+      page.drawSvgPath("M 0 -4 L 4 0 L 0 4 L -4 0 Z", { x: mid, y: cursor + 18, color: PWA4_ACCENT });
+      cursor -= 14;
     }
     cursor -= 2;
-    for (const line of wrapText(chrome.coverTagline, fonts.sans, 11, 360, 3)) {
-      centred(line, fonts.sans, 11, rgb(0.886, 0.851, 0.788), cursor);
-      cursor -= 16;
+    for (const line of wrapText(chrome.coverTagline, fonts.displayItalic, 18, 400, 3)) {
+      centred(line, fonts.displayItalic, 18, theme.cover.tagline, cursor);
+      cursor -= 23;
     }
+    centred("WINDOWINTO.NL", fonts.sansBold, 7.5, theme.cover.eyebrow, 40, 1.6);
   } else {
   // Full-bleed photo, a bottom scrim (the same gradient image as the idea pages' hero), the cream wordmark near the top, and the eyebrow/title/tagline set into the
   // dark part of the scrim.
@@ -733,12 +817,12 @@ export async function renderIdeaBookPdf(
     // Eyebrow, title and tagline, each with enough clearance for the
     // serif title's own ascenders (NotoSerif-Bold's cap-height runs well
     // above its nominal size) not to crowd the line above it.
-    y = 168;
+    y = 262; // the title is large now: start high enough that title and tagline stay on the cover
     drawTrackedLine(chrome.coverEyebrow, fonts.sansBold, 9, PWA4_INK_INVERSE, PWA4_BODY_PAD_X, y, 0.9);
-    y -= 9 + PWA4_SPACE_7;
-    drawParagraph(title, fonts.serif, 34, PWA4_INK_INVERSE, 8, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
+    y -= 9 + PWA4_SPACE_7 + 16;
+    drawParagraph(title, fonts.display, 46, PWA4_INK_INVERSE, 8, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
     y -= PWA4_SPACE_3;
-    drawParagraph(chrome.coverTagline, fonts.sans, 12, PWA4_INK_INVERSE, 5, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
+    drawParagraph(chrome.coverTagline, fonts.displayItalic, 18, PWA4_INK_INVERSE, 5, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
   }
 
   }
@@ -753,8 +837,8 @@ export async function renderIdeaBookPdf(
 
     y = PAGE_HEIGHT - bandHeight - PWA4_SPACE_7;
     drawTrackedLine(chrome.profileEyebrow, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
-    y -= 8.25 + PWA4_SPACE_2;
-    drawParagraph(book.profile_summary, fonts.serif, 15, PWA4_INK, 7, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 7);
+    y -= 8.25 + PWA4_SPACE_2 + 16; // room for the tall italic line below
+    drawParagraph(book.profile_summary, fonts.displayItalic, 21, PWA4_INK, 7, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 7);
 
     if (book.must_haves.length > 0) {
       y -= PWA4_SPACE_5;
@@ -781,8 +865,8 @@ export async function renderIdeaBookPdf(
   {
     y = PAGE_HEIGHT - MARGIN;
     drawTrackedLine(mapCopy.mapEyebrow, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
-    y -= 8.25 + PWA4_SPACE_3;
-    drawParagraph(mapCopy.mapHeading, fonts.serif, 21, PWA4_INK, 6, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
+    y -= 8.25 + PWA4_SPACE_3 + 18; // room for the large heading below
+    drawParagraph(mapCopy.mapHeading, fonts.display, 31, PWA4_INK, 6, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
     y -= 2;
     drawParagraph(mapCopy.mapIntro, fonts.sans, 10.5, PWA4_INK_MUTED, 4, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
     y -= PWA4_SPACE_7;
@@ -913,12 +997,12 @@ export async function renderIdeaBookPdf(
   const IDEA_COL_GAP = 10;
   const HERO_MIN = 156;
   const HERO_MAX = 214;
-  const HERO_TITLE_SIZE = 23;
+  const HERO_TITLE_SIZE = 34;
   const HERO_SUB_SIZE = 10.5;
   const HERO_SUB_LH = 14.5;
   const LABEL_SIZE = 7.25;
-  const BODY_SIZE = 9.75;
-  const BODY_LH = 13;
+  const BODY_SIZE = 10.5;
+  const BODY_LH = 14;
 
   // A measured piece of the page: its natural height, and how to draw it into
   // a box of at least that height (panels stretch to fill a shared row).
@@ -975,9 +1059,9 @@ export async function renderIdeaBookPdf(
   function blockMatch(width: number, label: string, body: string): Block {
     const padX = 14;
     const padY = 11;
-    const size = 10.5;
-    const lh = 15;
-    const lines = wrapText(body, fonts.sans, size, width - padX * 2 - 4, 5);
+    const size = 15;
+    const lh = 19.5;
+    const lines = wrapText(body, fonts.displayItalic, size, width - padX * 2 - 4, 5);
     const height = padY * 2 + LABEL_SIZE + 6 + lines.length * lh;
     return {
       height,
@@ -985,7 +1069,7 @@ export async function renderIdeaBookPdf(
         drawPanel(x, top, width, h, PWA4_SURFACE_PANEL);
         page.drawRectangle({ x, y: top - h, width: 2.25, height: h, color: PWA4_SURFACE_INVERSE });
         drawLabel(label, x + padX, top - padY);
-        drawTextLines(lines, x + padX, top - padY - LABEL_SIZE - 6, size, lh, fonts.sans, PWA4_INK);
+        drawTextLines(lines, x + padX, top - padY - LABEL_SIZE - 6, size, lh, fonts.displayItalic, PWA4_INK);
       },
     };
   }
@@ -1131,8 +1215,8 @@ export async function renderIdeaBookPdf(
           page.drawText(String(i + 1).padStart(2, "0"), {
             x,
             y: itemTop - 14,
-            size: 14,
-            font: fonts.serif,
+            size: 20,
+            font: fonts.display,
             color: PWA4_ACCENT,
           });
           drawTextLines(wrapped[i], x + numW, itemTop, BODY_SIZE, BODY_LH, fonts.sans, PWA4_INK);
@@ -1148,18 +1232,18 @@ export async function renderIdeaBookPdf(
   function blockInvest(width: number, labels: IdeaPageLabels, cost: string, status: string | null): Block {
     const padX = 13;
     const padY = 11;
-    const costLines = wrapText(cost, fonts.serif, 16, width - padX * 2, 2);
+    const costLines = wrapText(cost, fonts.display, 23, width - padX * 2, 2);
     const statusLines = status ? wrapText(status, fonts.sansBold, 9, width - padX * 2, 4) : [];
     const height =
-      padY * 2 + LABEL_SIZE + 6 + costLines.length * 20 + 2 + 11 + (statusLines.length > 0 ? 6 + statusLines.length * 12 : 0);
+      padY * 2 + LABEL_SIZE + 6 + costLines.length * 25 + 2 + 11 + (statusLines.length > 0 ? 6 + statusLines.length * 12 : 0);
     return {
       height,
       draw(x, top, h) {
         drawPanel(x, top, width, h, PWA4_SURFACE_PANEL);
         drawLabel(labels.invest, x + padX, top - padY);
         let cursor = top - padY - LABEL_SIZE - 6;
-        drawTextLines(costLines, x + padX, cursor, 16, 20, fonts.serif, PWA4_INK);
-        cursor -= costLines.length * 20 + 2;
+        drawTextLines(costLines, x + padX, cursor, 23, 25, fonts.display, PWA4_INK);
+        cursor -= costLines.length * 25 + 2;
         drawTextLines([labels.investIndication], x + padX, cursor, 8.5, 11, fonts.sans, PWA4_INK_MUTED);
         cursor -= 11 + 6;
         drawTextLines(statusLines, x + padX, cursor, 9, 12, fonts.sansBold, PWA4_INK);
@@ -1373,13 +1457,13 @@ export async function renderIdeaBookPdf(
     const subtitleLines = wrapText(idea.intro, fonts.sans, HERO_SUB_SIZE, PWA4_CONTENT_WIDTH, 2);
     // A long title steps down in size before it is ever cut short.
     let titleSize = HERO_TITLE_SIZE;
-    let titleLines = wrapText(idea.title, fonts.serif, titleSize, PWA4_CONTENT_WIDTH);
-    for (const smaller of [20, 17.5]) {
+    let titleLines = wrapText(idea.title, fonts.display, titleSize, PWA4_CONTENT_WIDTH);
+    for (const smaller of [28, 24]) {
       if (titleLines.length <= 2) break;
       titleSize = smaller;
-      titleLines = wrapText(idea.title, fonts.serif, titleSize, PWA4_CONTENT_WIDTH);
+      titleLines = wrapText(idea.title, fonts.display, titleSize, PWA4_CONTENT_WIDTH);
     }
-    titleLines = wrapText(idea.title, fonts.serif, titleSize, PWA4_CONTENT_WIDTH, 2);
+    titleLines = wrapText(idea.title, fonts.display, titleSize, PWA4_CONTENT_WIDTH, 2);
     const heroNeed = 14 + subtitleLines.length * HERO_SUB_LH + 6 + titleLines.length * (titleSize + 4) + 50;
     const heroMin = Math.max(HERO_MIN, heroNeed);
 
@@ -1476,7 +1560,7 @@ export async function renderIdeaBookPdf(
     const { width, height } = coverFitSize(photo, PAGE_WIDTH, hero.height);
     page.drawImage(photo, { x: (PAGE_WIDTH - width) / 2, y: PAGE_HEIGHT - height, width, height });
 
-    page.drawImage(images.scrim, { x: 0, y: heroBottomY, width: PAGE_WIDTH, height: hero.height, opacity: 0.78 });
+    page.drawImage(images.scrim, { x: 0, y: heroBottomY, width: PAGE_WIDTH, height: hero.height, opacity: 0.9 });
     page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: heroBottomY, color: PWA4_SURFACE_PAGE });
 
     const padX = PWA4_SPACE_4;
@@ -1511,7 +1595,7 @@ export async function renderIdeaBookPdf(
         x: PWA4_BODY_PAD_X,
         y: textBaseline(cursor + (hero.titleLines.length - i) * titleLh, hero.titleSize, titleLh),
         size: hero.titleSize,
-        font: fonts.serif,
+        font: fonts.display,
         color: PWA4_INK_INVERSE,
       });
     });
@@ -1539,9 +1623,9 @@ export async function renderIdeaBookPdf(
     const PAD = 12;
     const PILL_ROW = 9.75 + 10;
 
-    const titleLines = wrapText(idea.title, fonts.serif, 22, W, 2);
-    const feelsLines = idea.feels_like ? wrapText(idea.feels_like, fonts.serif, 13, W - PAD * 2 - 6) : null;
-    const feelsH = feelsLines ? PAD * 2 + LABEL_SIZE + 7 + feelsLines.length * 19 : 0;
+    const titleLines = wrapText(idea.title, fonts.display, 32, W, 2);
+    const feelsLines = idea.feels_like ? wrapText(idea.feels_like, fonts.displayItalic, 17, W - PAD * 2 - 6) : null;
+    const feelsH = feelsLines ? PAD * 2 + LABEL_SIZE + 7 + feelsLines.length * 22 : 0;
 
     const colGap = 9;
     const colW = (W - colGap * 2) / 3;
@@ -1609,8 +1693,8 @@ export async function renderIdeaBookPdf(
 
     drawLabel(badge ? `${moreCopy.pdfEyebrow}  ·  ${badge}` : moreCopy.pdfEyebrow, x0, top, PWA4_ACCENT);
     top -= LABEL_SIZE + 9;
-    drawTextLines(titleLines, x0, top, 22, 28, fonts.serif, PWA4_INK);
-    top -= titleLines.length * 28 + 12;
+    drawTextLines(titleLines, x0, top, 32, 35, fonts.display, PWA4_INK);
+    top -= titleLines.length * 35 + 12;
     page.drawRectangle({ x: x0, y: top, width: W, height: 0.75, color: PWA4_GOLD_LIGHT, opacity: 0.8 });
     top -= 20;
 
@@ -1618,7 +1702,7 @@ export async function renderIdeaBookPdf(
       drawPanel(x0, top, W, feelsH, PWA4_SURFACE_PANEL);
       page.drawRectangle({ x: x0, y: top - feelsH + 12, width: 3, height: feelsH - 24, color: PWA4_ACCENT });
       drawLabel(moreCopy.feelsHeading, x0 + PAD + 6, top - PAD, PWA4_ACCENT);
-      drawTextLines(feelsLines, x0 + PAD + 6, top - PAD - LABEL_SIZE - 7, 13, 19, fonts.serif, PWA4_INK);
+      drawTextLines(feelsLines, x0 + PAD + 6, top - PAD - LABEL_SIZE - 7, 17, 22, fonts.displayItalic, PWA4_INK);
       top -= feelsH + GAP;
     }
 
