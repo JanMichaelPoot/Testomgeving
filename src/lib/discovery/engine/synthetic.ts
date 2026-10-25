@@ -100,6 +100,8 @@ export function syntheticProfiles(n: number, seed: string, lib: EngineLibrary): 
         mustHaves: rnd() < 0.3 ? MUST_HAVES[Math.floor(rnd() * MUST_HAVES.length)] : "",
         history: [],
         seed: `${seed}-${i}`,
+        // spread over the year without touching the random stream the profiles are drawn from
+        month: (i % 12) + 1,
       },
     });
   }

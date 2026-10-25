@@ -111,6 +111,10 @@ export function validateLibrary({ vocabulary, activities, hybrids }: LibraryInpu
     if (!inRange(a.cost, 0, 3)) err(`${at}: cost must be 0-3 or null`);
     if (!inRange(a.duration, 1, 4)) err(`${at}: duration must be 1-4 or null`);
     if (a.setting !== null && !SETTINGS.includes(a.setting)) err(`${at}: setting must be indoor, outdoor, both or null`);
+    if (a.months !== undefined) {
+      const ok = Array.isArray(a.months) && a.months.length > 0 && a.months.every((m) => Number.isInteger(m) && m >= 1 && m <= 12) && new Set(a.months).size === a.months.length;
+      if (!ok) err(`${at}: months must be a non-empty list of distinct months 1-12 (leave it out for all year)`);
+    }
 
     if (![0, 1, 2].includes(a.safety?.tier)) err(`${at}: safety.tier must be 0, 1 or 2`);
     if (a.safety?.tier === 2 && (!filled(a.safety.note?.nl) || !filled(a.safety.note?.en))) {

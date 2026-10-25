@@ -35,6 +35,7 @@ import type {
 } from "@/lib/claude/ideaBookTypes";
 import type { CharacterProfile } from "@/lib/characterProfile";
 import { describeAssociationsForPrompt } from "@/lib/discovery/associations";
+import { describeToday, isoDateNL } from "@/lib/discovery/season";
 import { describeDiscoveryForPrompt } from "@/lib/discovery/answers";
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
@@ -90,6 +91,13 @@ company/context), and challenge_level (how far it pushes their comfort
 zone). Differentiate honestly — a "natural" idea should score lower on
 novelty/surprise/challenge_level than a "stretch" or "wildcard" idea; don't
 return near-identical numbers across all 7 ideas.
+
+Season and date — you are told today's date. Every idea must be realistic on
+that date and in the weeks after it, in the Dutch weather of that season:
+never suggest what is out of season (open-water swimming or a terrace
+evening in winter, a snow scene in autumn), and never promise a market,
+festival or event unless it is in the verified research (with its date or end
+date when the research gives one).
 
 Rules for using the profile:
 - Fields the person marked as MUST-HAVES are hard constraints. Never
@@ -315,7 +323,16 @@ ${language} as a compact, scannable research brief, not prose.`,
       messages: [
         {
           role: "user",
-          content: `${formatProfileForResearch(intake)}
+          content: `Today is ${describeToday(new Date(), "en")} (${isoDateNL()}).
+
+${formatProfileForResearch(intake)}
+
+Only list options that someone can take part in within the next four weeks
+from today: not something closed for the season, not something that has
+stopped, not an event whose date has passed. Seasonal offers (open-water
+swimming, outdoor pools, boat rental, ice rinks, markets, festivals) only
+count when the source shows they are running in this season, and when a
+source gives a date or an end date, state it in your note.
 
 Search for concrete, real, currently-operating options relevant to this
 person's location and search distance, their situation/purpose, budget,
@@ -507,7 +524,9 @@ or address.`;
     messages: [
       {
         role: "user",
-        content: `${formatProfile(intake, characterProfile)}
+        content: `Today is ${describeToday(new Date(), "en")} (${isoDateNL()}).
+
+${formatProfile(intake, characterProfile)}
 
 ${researchBlock}
 

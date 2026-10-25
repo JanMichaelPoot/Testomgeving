@@ -63,6 +63,12 @@ export interface Activity {
   /** 1 under an hour · 2 1-3 hours · 3 half a day or more · 4 multi-day/ongoing */
   duration: Unknown<1 | 2 | 3 | 4>;
   setting: Unknown<Setting>;
+  /**
+   * The months (1-12) in which a beginner can realistically do this in the Netherlands (open water in
+   * June-September, skating in October-March). Left out = all year, or no clear season. The engine never
+   * suggests an activity outside its months (src/lib/discovery/season.ts).
+   */
+  months?: number[];
   safety: Safety;
   /** A low-threshold way in (trial class, beginner evening, open day). */
   entry: Unknown<Localized>;

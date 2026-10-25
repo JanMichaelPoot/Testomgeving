@@ -13,7 +13,8 @@ import {
   toText,
   toTextArray,
 } from "@/lib/claude/generateIdeaBook";
-import { researchSeeds, type LocalOption, type SeedResearch } from "@/lib/claude/localResearch";
+import { researchSeeds, type LocalOption, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
+import { currentMonth, describeToday, isoDateNL } from "@/lib/discovery/season";
 import { engineInputFromIntake, relatedActivities, runEngine } from "@/lib/discovery/engine";
 import {
   normalizeFeelsLike,
@@ -94,6 +95,11 @@ For every idea:
   supervised, legal way in.
 - Never invent a business name, street address, ticket price, opening hours or website that is not in that idea's
   verified local options. Keep costs approximate and do not mention opening hours.
+- Season and date: you are given today's date. Every idea must be realistic on that date and in the weeks after
+  it, in the Dutch weather of that season. Never write about what is out of season (open-water swimming or a
+  terrace evening in winter, a snow scene in autumn), and never promise a market, festival or event unless it is
+  one of that idea's verified local options; use a date only when an option states it. If an option ends soon
+  (it has an end date), say so in the steps.
 
 Also write profile_summary (one warm, specific sentence reflecting their situation back), must_haves and
 preferences (short cleaned-up phrases echoing what they told you; do not invent new ones).
@@ -141,6 +147,9 @@ Honesty. These matter more than anything above:
   depends on somebody else's offer (an open day, a trial class, a rental) gets a rough starting price ("vanaf
   ±€10") and the description says the price varies.
 - Keep every cost approximate. Never invent a price list, opening hours or an address.
+- You are given today's date. The taste, the day and the "further" size must all be realistic in this season and
+  in the weeks after it; never describe something that is out of season or an event that is not one of that
+  idea's verified local options.
 - If an idea says it may only be done with qualified supervision, its taste is the supervised, legal first
   step.
 
@@ -205,7 +214,7 @@ function seedBlock(
       ? `no stated preference; it can be done ${forms.join(", ")}`
       : "no stated preference";
   const options = research?.options.length
-    ? research.options.map((o) => `    - ${o.name}${o.city ? ` (${o.city})` : ""}: ${o.note}${o.url ? ` — ${o.url}` : ""}`).join("\n")
+    ? research.options.map((o) => `    - ${o.name}${o.city ? ` (${o.city})` : ""}: ${o.note}${o.until ? ` (until ${o.until})` : ""}${o.url ? ` — ${o.url}` : ""}`).join("\n")
     : "    none verified: keep this idea's location null and its steps generic (Google Maps, Meetup, an exact search)";
   return [
     `Idea ${index + 1} — ${seed.direction === "wildcard" ? "WILDCARD (the separate wildcard slot)" : `door: ${seed.door}`}`,
@@ -425,10 +434,33 @@ function buildEntry(
   };
 }
 
+/**
+ * Seeds that only make sense with someone else's offer (a class, a rental, a club: they cost money or need
+ * supervision) and for which a research pass, which really ran, found no verifiable option. A failed research
+ * pass is not counted: an outage is not proof that nothing exists.
+ */
+export function seedsWithoutSupply(seeds: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>): Seed[] {
+  return seeds.filter((seed) => {
+    const a = getActivity(seed.activityId);
+    const r = byActivity.get(seed.activityId);
+    if (!a || !r || r.source === "none") return false;
+    const needsProvider = (a.cost !== null && a.cost >= 1) || a.safety.tier === 2;
+    return needsProvider && r.options.length === 0;
+  });
+}
+
+const addStats = (a: ResearchStats, b: ResearchStats): ResearchStats => ({
+  cached: a.cached + b.cached,
+  searched: a.searched + b.searched,
+  failed: a.failed + b.failed,
+  dropped: a.dropped + b.dropped,
+  ms: a.ms + b.ms,
+});
+
 export interface SeedPipelineReport {
   seeds: Seed[];
   notes: string[];
-  research: { cached: number; searched: number; failed: number };
+  research: { cached: number; searched: number; failed: number; dropped?: number };
   issues: string[];
 }
 
@@ -443,21 +475,50 @@ export async function generateIdeaBookFromSeeds(
     onProgress?: (stage: "selected" | "researched", meta?: { ideas?: number; places?: number }) => Promise<void> | void;
   } = {},
 ): Promise<{ book: GeneratedIdeaBook; report: SeedPipelineReport }> {
-  // 1. Select the seeds.
-  const engine: EngineResult = runEngine(
-    engineInputFromIntake(intake, { seed: opts.sessionId ?? `${Date.now()}`, history: opts.history }),
-  );
-  const seeds = engine.seeds;
-  if (seeds.length < 6) throw new Error("The selection engine could not find enough activities for this profile.");
-  await opts.onProgress?.("selected", { ideas: seeds.length });
+  // 1. Select the seeds, for the month the person is asking in (seasonal activities are never suggested out of season).
+  const now = new Date();
+  const month = currentMonth(now);
+  const selectionSeed = opts.sessionId ?? `${Date.now()}`;
+  const select = (exclude: readonly string[]) =>
+    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude }));
+  let engine: EngineResult = select([]);
+  if (engine.seeds.length < 6) throw new Error("The selection engine could not find enough activities for this profile.");
+  await opts.onProgress?.("selected", { ideas: engine.seeds.length });
 
   // 2. Research, grouped and cached (once, outside the retry loop below).
-  const research = await researchSeeds({
-    activityIds: seeds.map((s) => s.activityId),
-    location: intake.location,
-    searchDistance: intake.searchDistance,
-    locale,
-  });
+  const researchFor = (seedList: readonly Seed[], known?: ReadonlyMap<string, SeedResearch>) =>
+    researchSeeds({
+      activityIds: seedList.map((s) => s.activityId),
+      location: intake.location,
+      searchDistance: intake.searchDistance,
+      locale,
+      known,
+      now,
+    });
+  let research = await researchFor(engine.seeds);
+
+  // 2b. An idea that needs somebody's offer (a class, a rental, a club) but for which nothing real could be found near
+  // this person is replaced by the next-best activity, once, and only the new ones are researched (the others are
+  // passed along). If the replacement does not do better, the first selection stays.
+  const noSupply = seedsWithoutSupply(engine.seeds, research.byActivity);
+  const notes = [...engine.notes];
+  if (noSupply.length > 0) {
+    const retry = select(noSupply.map((s) => s.activityId));
+    if (retry.seeds.length >= 6) {
+      const retryResearch = await researchFor(retry.seeds, research.byActivity);
+      if (seedsWithoutSupply(retry.seeds, retryResearch.byActivity).length < noSupply.length) {
+        notes.push(...noSupply.map((s) => `replaced_no_local_offer:${s.activityId}`));
+        engine = retry;
+        research = { byActivity: retryResearch.byActivity, stats: addStats(research.stats, retryResearch.stats) };
+      } else {
+        research = { ...research, stats: addStats(research.stats, retryResearch.stats) };
+        notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
+      }
+    } else {
+      notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
+    }
+  }
+  const seeds = engine.seeds;
   // Only what was really found: distinct places over all seven ideas (name + city).
   const foundPlaces = new Set<string>();
   for (const r of research.byActivity.values()) for (const o of r.options) foundPlaces.add(`${o.name}|${o.city}`.toLowerCase());
@@ -467,7 +528,9 @@ export async function generateIdeaBookFromSeeds(
   const language = languageLabel(locale);
   const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language);
   const layersSystem = LAYERS_SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language);
-  const shared = `${formatProfile(intake, characterProfile)}
+  const shared = `Today is ${describeToday(now, locale)} (${isoDateNL(now)}).
+
+${formatProfile(intake, characterProfile)}
 
 The seven ideas (in this order; Idea ${seeds.length} is the wildcard):
 
@@ -591,7 +654,7 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
     },
   };
 
-  const report: SeedPipelineReport = { seeds, notes: engine.notes, research: research.stats, issues };
+  const report: SeedPipelineReport = { seeds, notes, research: research.stats, issues };
   console.log(
     `WINDOW: seed pipeline: ${seeds.map((s) => `${s.direction}:${s.activityId}`).join(", ")} | issues: ${issues.length ? issues.join("; ") : "none"}`,
   );

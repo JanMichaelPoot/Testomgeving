@@ -1,4 +1,5 @@
 import { SOCIAL_FORMATS, type Activity, type SocialFormat } from "@/lib/discovery/types";
+import { inSeason } from "@/lib/discovery/season";
 import type { EngineInput, ResolvedConstraints } from "@/lib/discovery/engine/types";
 
 // Hard filters. The rule that keeps them honest: an activity is only excluded on a
@@ -71,6 +72,7 @@ export function resolveConstraints(input: EngineInput): ResolvedConstraints {
     noGroups: must.noGroups,
     setting: must.setting,
     verify: must.verify,
+    month: input.month ?? null,
   };
 }
 
@@ -85,6 +87,9 @@ export interface FilterResult {
 export function passesConstraints(a: Activity, c: ResolvedConstraints): FilterResult {
   const verify: string[] = [];
   const no = { ok: false, verify };
+
+  // Out of season is a known conflict, however well the activity matches the person.
+  if (!inSeason(a, c.month)) return no;
 
   if (a.cost === null) verify.push("cost_unknown");
   else if (a.cost > c.costCap) return no;

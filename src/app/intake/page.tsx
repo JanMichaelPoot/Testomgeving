@@ -10,6 +10,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { loadEditableIntake } from "@/lib/intakeEdit";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { VENSTER_PAGES } from "@/lib/vensterPages";
+import { currentMonth } from "@/lib/discovery/season";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -18,6 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function IntakePage(props: PageProps<"/intake">) {
   const locale = await getLocale();
+  // The cards and examples offered are the ones that can be done in the month of asking.
+  const month = currentMonth();
   const dict = getDictionary(locale);
 
   // "Wijzig" on the checkout page links here with ?edit=1&page=N: start from the answers
@@ -54,8 +57,8 @@ export default async function IntakePage(props: PageProps<"/intake">) {
           <IntakeEntry
             dict={dict.intake}
             vensterDict={dict.venster}
-            library={buildCardLibrary(locale)}
-            associations={buildAssociationLibrary(locale)}
+            library={buildCardLibrary(locale, month)}
+            associations={buildAssociationLibrary(locale, month)}
             initial={initial}
             purpose={searchParams.for === "gift" ? "gift" : "self"}
           />

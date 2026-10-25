@@ -1,6 +1,8 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { anthropic } from "@/lib/anthropic";
 import { getActivity } from "@/lib/discovery/library";
+import { describeToday, isoDateNL } from "@/lib/discovery/season";
+import { verifyOptionUrls } from "@/lib/claude/verifyUrls";
 import type { Locale } from "@/lib/locale";
 
 // Local research for the seeds of an Idea Book: for each chosen activity, real and
@@ -22,6 +24,8 @@ export interface LocalOption {
   city: string;
   url: string | null;
   note: string;
+  /** The last day it can be done (a dated event, a season that ends), YYYY-MM-DD; null = ongoing or not stated. */
+  until: string | null;
 }
 
 export interface SeedResearch {
@@ -35,6 +39,8 @@ export interface ResearchStats {
   cached: number;
   searched: number;
   failed: number;
+  /** Options thrown away because their website does not exist or their date has passed. */
+  dropped: number;
   ms: number;
 }
 
@@ -67,6 +73,13 @@ const RADIUS_TEXT: Record<string, string> = {
 /** Found options are trusted for 30 days; "nothing verifiable" is remembered for 7. */
 export const FOUND_TTL_DAYS = 30;
 export const EMPTY_TTL_DAYS = 7;
+
+/** When a cached answer stops being trusted: the TTL, or earlier when an option states the day it ends. */
+export function expiryMs(options: LocalOption[], now: number): number {
+  const ttl = now + (options.length > 0 ? FOUND_TTL_DAYS : EMPTY_TTL_DAYS) * 86400000;
+  const ends = options.map((o) => (o.until ? Date.parse(`${o.until}T23:59:59+01:00`) : NaN)).filter((t) => Number.isFinite(t));
+  return ends.length ? Math.max(now, Math.min(ttl, ...ends)) : ttl;
+}
 
 export interface ResearchCache {
   get(activityIds: string[], place: string, locale: Locale): Promise<Map<string, LocalOption[]>>;
@@ -113,7 +126,7 @@ export function createSupabaseResearchCache(): ResearchCache {
           locale,
           options: e.options as unknown[],
           searched_at: new Date(now).toISOString(),
-          expires_at: new Date(now + (e.options.length > 0 ? FOUND_TTL_DAYS : EMPTY_TTL_DAYS) * 86400000).toISOString(),
+          expires_at: new Date(expiryMs(e.options, now)).toISOString(),
         }));
         const { error } = await createServiceRoleClient()
           .from("local_research_cache")
@@ -143,6 +156,7 @@ export function buildResearchPrompt(
   location: string,
   radius: string,
   locale: Locale,
+  now: Date = new Date(),
 ): string {
   const language = locale === "nl" ? "Dutch" : "English";
   const lines = activityIds.map((id, i) => {
@@ -150,7 +164,7 @@ export function buildResearchPrompt(
     const entry = a?.entry ? ` Usual way in: ${a.entry.en}.` : "";
     return `${i + 1}. id "${id}": ${a?.label.nl ?? id} (${a?.label.en ?? id}).${entry}`;
   });
-  return `Place: ${location || "the Netherlands"}. Search radius: ${RADIUS_TEXT[radius] ?? RADIUS_TEXT.city}.
+  return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). Place: ${location || "the Netherlands"}. Search radius: ${RADIUS_TEXT[radius] ?? RADIUS_TEXT.city}.
 Write the notes in ${language}.
 
 For each activity below, find up to 3 real, currently operating options where a beginner can actually take part
@@ -158,19 +172,26 @@ there, preferring a low-threshold way in (trial class, beginner evening, open da
 where one query can cover several activities (for example "creatieve workshops ${location || "Nederland"}").
 If nothing can be verified for an activity, give an empty options list instead of guessing.
 
+It must be possible to take part within the next four weeks from today. So an option does NOT count when it is
+closed for the season, has stopped running, or is an event whose date has already passed. Seasonal offers (open-
+water swimming, outdoor pools, boat rental, ice rinks, markets, festivals, garden and farm days) only count when
+the source shows they are running in this season. When the source gives a date or an end date, put the last day
+in "until" (YYYY-MM-DD); otherwise "until" is null.
+
 Activities:
 ${lines.join("\n")}
 
 Rules: only list options that appear in your search results. Give the website exactly as it appeared, or null.
-The note is one short line: what it is, and prices or times only when the source states them.
+The note is one short line: what it is, and prices or times only when the source states them. Prefer the option's own website over a listing or directory page.
 
 Finish with one JSON code block, exactly this shape:
 \`\`\`json
-[{"activity_id": "<id>", "options": [{"name": "...", "city": "...", "url": "https://..." , "note": "..."}]}]
+[{"activity_id": "<id>", "options": [{"name": "...", "city": "...", "url": "https://..." , "note": "...", "until": null}]}]
 \`\`\``;
 }
 
-function cleanOptions(raw: unknown): LocalOption[] {
+/** Options from the model or the cache; with `today` (YYYY-MM-DD) the ones whose last day has passed are left out. */
+export function cleanOptions(raw: unknown, today?: string): LocalOption[] {
   if (!Array.isArray(raw)) return [];
   const out: LocalOption[] = [];
   for (const o of raw) {
@@ -179,11 +200,14 @@ function cleanOptions(raw: unknown): LocalOption[] {
     const name = typeof r.name === "string" ? r.name.trim() : "";
     if (!name) continue;
     const url = typeof r.url === "string" && /^https?:\/\//i.test(r.url.trim()) ? r.url.trim() : null;
+    const until = typeof r.until === "string" && /^\d{4}-\d{2}-\d{2}$/.test(r.until.trim()) ? r.until.trim() : null;
+    if (today && until && until < today) continue;
     out.push({
       name,
       city: typeof r.city === "string" ? r.city.trim() : "",
       url,
       note: typeof r.note === "string" ? r.note.trim() : "",
+      until,
     });
     if (out.length === 3) break;
   }
@@ -191,7 +215,7 @@ function cleanOptions(raw: unknown): LocalOption[] {
 }
 
 /** Reads the model's JSON answer; anything malformed yields null (the caller treats it as "no research"). */
-export function parseResearchAnswer(text: string, wanted: string[]): Map<string, LocalOption[]> | null {
+export function parseResearchAnswer(text: string, wanted: string[], today?: string): Map<string, LocalOption[]> | null {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i)?.[1];
   const candidate = fenced ?? text.slice(text.indexOf("["), text.lastIndexOf("]") + 1);
   let parsed: unknown;
@@ -205,7 +229,7 @@ export function parseResearchAnswer(text: string, wanted: string[]): Map<string,
   for (const row of parsed) {
     if (!row || typeof row !== "object") continue;
     const r = row as { activity_id?: unknown; options?: unknown };
-    if (typeof r.activity_id === "string" && wanted.includes(r.activity_id)) out.set(r.activity_id, cleanOptions(r.options));
+    if (typeof r.activity_id === "string" && wanted.includes(r.activity_id)) out.set(r.activity_id, cleanOptions(r.options, today));
   }
   // An activity the model skipped counts as "searched, nothing verifiable".
   for (const id of wanted) if (!out.has(id)) out.set(id, []);
@@ -217,6 +241,7 @@ async function searchOnce(
   location: string,
   radius: string,
   locale: Locale,
+  now: Date = new Date(),
 ): Promise<Map<string, LocalOption[]> | null> {
   const startedAt = Date.now();
   const maxUses = Math.min(MAX_SEARCHES, Math.max(2, Math.ceil(activityIds.length * 0.7)));
@@ -224,7 +249,7 @@ async function searchOnce(
     model: RESEARCH_MODEL,
     max_tokens: 3500,
     system: SYSTEM,
-    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale) }],
+    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now) }],
     tools: [
       {
         type: "web_search_20250305",
@@ -243,7 +268,7 @@ async function searchOnce(
     .filter((b): b is Anthropic.TextBlock => b.type === "text")
     .map((b) => b.text)
     .join("\n");
-  return parseResearchAnswer(text, activityIds);
+  return parseResearchAnswer(text, activityIds, isoDateNL(now));
 }
 
 /**
@@ -258,25 +283,56 @@ export async function researchSeeds(opts: {
   cache?: ResearchCache | null;
   /** For tests: replaces the model call. */
   search?: typeof searchOnce;
+  /** For tests: replaces the website check; `false` skips it. */
+  verify?: typeof verifyOptionUrls | false;
+  /** For tests: the moment "now" is. */
+  now?: Date;
+  /** Answers already in hand (from an earlier pass of this same book): used as they are, never searched again. */
+  known?: ReadonlyMap<string, SeedResearch>;
 }): Promise<{ byActivity: Map<string, SeedResearch>; stats: ResearchStats }> {
   const startedAt = Date.now();
   const { activityIds, location, searchDistance, locale } = opts;
+  const now = opts.now ?? new Date();
+  const today = isoDateNL(now);
   const place = placeKey(location, searchDistance);
   const radius = place.split("|")[1] ?? "city";
+  // The cache is kept per month: what is open or running in June says nothing about December.
+  const cacheKey = `${place}|${today.slice(0, 7)}`;
   const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 
-  const cached = cache ? await cache.get(activityIds, place, locale) : new Map<string, LocalOption[]>();
-  for (const [id, options] of cached) byActivity.set(id, { activityId: id, options, source: "cache" });
+  const toLookUp = activityIds.filter((id) => !opts.known?.has(id));
+  const cached = cache ? await cache.get(toLookUp, cacheKey, locale) : new Map<string, LocalOption[]>();
+  for (const [id, stored] of cached) {
+    const options = cleanOptions(stored, today);
+    // Everything that was stored has run out since: that is a new question, not an answer.
+    if (options.length === 0 && stored.length > 0) continue;
+    byActivity.set(id, { activityId: id, options, source: "cache" });
+  }
 
+  for (const [id, r] of opts.known ?? []) if (activityIds.includes(id) && !byActivity.has(id)) byActivity.set(id, r);
   const missing = activityIds.filter((id) => !byActivity.has(id));
   let failed = 0;
+  let dropped = 0;
   if (missing.length > 0) {
     try {
-      const found = await (opts.search ?? searchOnce)(missing, location, radius, locale);
+      const found = await (opts.search ?? searchOnce)(missing, location, radius, locale, now);
       if (!found) throw new Error("the research answer could not be read");
-      for (const id of missing) byActivity.set(id, { activityId: id, options: found.get(id) ?? [], source: "search" });
-      await cache?.put(missing.map((id) => ({ activityId: id, options: found.get(id) ?? [] })), place, locale);
+      // Does what was found exist? Websites that do not answer at all are thrown away before anything is stored.
+      const checker = opts.verify === false ? null : (opts.verify ?? verifyOptionUrls);
+      await Promise.all(
+        missing.map(async (id) => {
+          let options = found.get(id) ?? [];
+          if (checker && options.length > 0) {
+            const result = await checker(options);
+            dropped += result.dropped.length;
+            for (const d of result.dropped) console.warn(`WINDOW: research option dropped (${d.reason}): ${d.option.name} ${d.option.url ?? ""}`);
+            options = result.kept;
+          }
+          byActivity.set(id, { activityId: id, options, source: "search" });
+        }),
+      );
+      await cache?.put(missing.map((id) => ({ activityId: id, options: byActivity.get(id)?.options ?? [] })), cacheKey, locale);
     } catch (err) {
       failed = missing.length;
       console.error("WINDOW: local research failed, continuing without it", err instanceof Error ? err.message : err);
@@ -284,7 +340,7 @@ export async function researchSeeds(opts: {
     }
   }
 
-  const stats: ResearchStats = { cached: cached.size, searched: missing.length - failed, failed, ms: Date.now() - startedAt };
+  const stats: ResearchStats = { cached: activityIds.length - missing.length, searched: missing.length - failed, failed, dropped, ms: Date.now() - startedAt };
   console.log(`WINDOW: local research: ${stats.cached} cached, ${stats.searched} searched, ${stats.failed} failed (${place})`);
   return { byActivity, stats };
 }

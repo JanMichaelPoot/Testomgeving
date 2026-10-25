@@ -70,6 +70,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
   const graph = buildGraph(all, lib.tags);
   const constraints = resolveConstraints(input);
   const history = new Set(input.history ?? []);
+  const excluded = new Set(input.exclude ?? []);
 
   const age = (a: Activity) => agePenalty(a, input.ageCategory);
   const pickedIds = [...new Set(input.interests)].filter((id) => byId.has(id));
@@ -79,6 +80,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
   const verifyOf = new Map<string, string[]>();
   const pool: Activity[] = [];
   for (const a of all) {
+    if (excluded.has(a.id)) continue;
     const r = passesConstraints(a, constraints);
     if (!r.ok) continue;
     if (history.has(a.id) && !pickSet.has(a.id)) continue; // not repeated across sessions

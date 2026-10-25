@@ -73,6 +73,7 @@ export function evaluate(runs: readonly Run[], lib: EngineLibrary): Report {
     for (const s of seeds) {
       const a = byId.get(s.activityId)!;
       const at = `${profile.id} ${a.id}`;
+      if (input.month !== undefined && a.months && !a.months.includes(input.month)) v.E1.push(`${at}: out of season in month ${input.month} (${a.months.join(",")})`);
       if (a.cost !== null && a.cost > costCap) v.E1.push(`${at}: cost ${a.cost} > cap ${costCap}`);
       if (a.intensity !== null && a.intensity > intCap) v.E1.push(`${at}: intensity ${a.intensity} > cap ${intCap}`);
       if (/buiten/i.test(input.mustHaves) && a.setting === "indoor") v.E1.push(`${at}: indoor but must be outdoors`);

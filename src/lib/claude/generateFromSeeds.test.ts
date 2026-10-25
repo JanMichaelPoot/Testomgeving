@@ -23,7 +23,7 @@ const baseEntry: IdeaBookEntry = {
   scores: { relevance: 1, novelty: 1, feasibility: 1, surprise: 1, shareability: 1, effort: 1, cost: 1, social_fit: 1, challenge_level: 1 },
 };
 
-const steck: LocalOption = { name: "Steck Utrecht", city: "Utrecht", url: "https://www.steckutrecht.nl/workshops", note: "workshops" };
+const steck: LocalOption = { name: "Steck Utrecht", city: "Utrecht", url: "https://www.steckutrecht.nl/workshops", note: "workshops", until: null };
 
 describe("shouldUseEngine", () => {
   it("is for people who used the interest step, in any way", () => {

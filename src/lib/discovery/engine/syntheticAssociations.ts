@@ -78,6 +78,7 @@ export function syntheticAssociationProfiles(
         mustHaves,
         history: [],
         seed: `${seed}-${i}`,
+        month: (i % 12) + 1,
       },
     });
   }

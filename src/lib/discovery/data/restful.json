@@ -534,6 +534,13 @@
     "cost": 0,
     "duration": 1,
     "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
     "safety": {
       "tier": 0
     },

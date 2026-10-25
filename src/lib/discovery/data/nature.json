@@ -61,6 +61,15 @@
     "cost": 2,
     "duration": 4,
     "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 1
     },
@@ -169,6 +178,15 @@
     "cost": 2,
     "duration": 4,
     "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 1
     },
@@ -346,6 +364,14 @@
     "cost": 2,
     "duration": 3,
     "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
     "safety": {
       "tier": 2,
       "note": {
@@ -386,6 +412,13 @@
     "cost": 1,
     "duration": 2,
     "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
     "safety": {
       "tier": 0
     },
@@ -457,6 +490,16 @@
     "cost": 1,
     "duration": 4,
     "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 0
     },
@@ -526,6 +569,15 @@
     "cost": 0,
     "duration": 2,
     "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 2,
       "note": {
@@ -565,6 +617,11 @@
     "cost": 0,
     "duration": 2,
     "setting": "outdoor",
+    "months": [
+      9,
+      10,
+      11
+    ],
     "safety": {
       "tier": 2,
       "note": {
@@ -711,6 +768,12 @@
     "cost": 0,
     "duration": 1,
     "setting": "outdoor",
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ],
     "safety": {
       "tier": 2,
       "note": {

@@ -49,6 +49,7 @@ Regels om te onthouden:
 - **`formats`**: alle sociale vormen die écht kunnen, zonder rangorde. `drop_in_alone` betekent "alleen komen, samen doen".
 - **`safety.tier` 2** (alleen onder gekwalificeerd toezicht) vraagt een `note` met de legale, begeleide instap.
 - **`entry`**: de laagdrempelige eerste stap (proefles, beginnersavond, open dag).
+- **`months`** (optioneel): de maanden (1-12) waarin een beginner dit in Nederland echt kan doen, bijvoorbeeld `[6, 7, 8, 9]` voor zwemmen in open water of `[10, 11, 12, 1, 2, 3]` voor schaatsen. Laat het weg als het het hele jaar kan of er geen duidelijk seizoen is: zet het alleen als een activiteit buiten die maanden niet realistisch is. De motor stelt een activiteit buiten zijn maanden nooit voor (ook niet als iemand hem zelf koos), en de kaartenwizard en de voorbeelden onder de richtingen tonen hem dan ook niet. De validatie eist een niet-lege lijst van verschillende maanden 1-12.
 - **`scene`**: Engelse beeldomschrijving voor de foto. **Geen mensen of gezichten** (de validatie weigert het). Beschrijf één duidelijk onderwerp.
 - **`status`**: start als `concept`. Zet op `reviewed` als iemand het heeft gecontroleerd, `live` als het voor iedereen mag.
 

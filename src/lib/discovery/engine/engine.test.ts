@@ -188,6 +188,41 @@ describe("selectSeeds", () => {
   });
 });
 
+describe("seasons", () => {
+  const picks = ["open-water", "schaatsen", "paddenstoelen"];
+  const idsOf = (month: number, extra: Partial<EngineInput> = {}) =>
+    selectSeeds({ ...BASE, interests: picks, interestDomains: ["nature"], month, ...extra }, lib).seeds.map((s) => s.activityId);
+
+  it("never suggests an activity outside its months, not even one the person picked", () => {
+    expect(idsOf(1)).not.toContain("open-water");
+    expect(idsOf(7)).not.toContain("schaatsen");
+    expect(idsOf(7)).not.toContain("paddenstoelen");
+    expect(idsOf(10)).not.toContain("open-water");
+  });
+
+  it("does suggest them in season", () => {
+    const all = new Set([...[7, 8, 9].flatMap((m) => idsOf(m)), ...[11, 12, 1].flatMap((m) => idsOf(m)), ...[10, 11].flatMap((m) => idsOf(m))]);
+    expect(all.has("open-water")).toBe(true);
+    expect(all.has("schaatsen")).toBe(true);
+    expect(all.has("paddenstoelen")).toBe(true);
+  });
+
+  it("passesConstraints is the one place that decides: an out-of-season activity is a known conflict", () => {
+    const water = byId.get("open-water")!;
+    expect(passesConstraints(water, resolveConstraints({ ...BASE, budget: "allin", month: 7 })).ok).toBe(true);
+    expect(passesConstraints(water, resolveConstraints({ ...BASE, budget: "allin", month: 1 })).ok).toBe(false);
+    expect(passesConstraints(water, resolveConstraints({ ...BASE, budget: "allin" })).ok).toBe(true); // no month: no filter
+  });
+
+  it("leaves out what must not be suggested (no real local offer was found)", () => {
+    const first = selectSeeds({ ...BASE, interests: ["pottenbakken"], seed: "x", month: 6 }, lib).seeds.map((s) => s.activityId);
+    expect(first).toContain("pottenbakken");
+    const again = selectSeeds({ ...BASE, interests: ["pottenbakken"], seed: "x", month: 6, exclude: ["pottenbakken"] }, lib).seeds.map((s) => s.activityId);
+    expect(again).not.toContain("pottenbakken");
+    expect(again.length).toBeGreaterThanOrEqual(6);
+  });
+});
+
 describe("acceptance criteria over synthetic profiles (E1-E8)", () => {
   for (const seed of ["regression-1", "regression-2"]) {
     const profiles = syntheticProfiles(200, seed, lib);

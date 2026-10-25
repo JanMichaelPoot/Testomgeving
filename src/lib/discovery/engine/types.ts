@@ -30,6 +30,10 @@ export interface EngineInput {
   history?: readonly string[];
   /** Makes the result reproducible. */
   seed: string;
+  /** Activities that must not be suggested at all, not even when picked (no real local offer was found for them). */
+  exclude?: readonly string[];
+  /** The calendar month (1-12) the person is asking in: seasonal activities outside it are never suggested. Unset = no season filter. */
+  month?: number;
 }
 
 export interface Seed {
@@ -68,6 +72,8 @@ export interface ResolvedConstraints {
   setting: "indoor" | "outdoor" | null;
   /** Things we cannot filter on (no data) but must not lose; passed on to be checked. */
   verify: string[];
+  /** The month the person asks in; an activity with `months` that leaves it out is dropped. Null = no season filter. */
+  month: number | null;
 }
 
 export interface EngineResult {

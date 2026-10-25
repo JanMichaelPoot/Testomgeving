@@ -3464,3 +3464,40 @@ Stripe, Claude API, Resend, PostHog).
       staan pas online na een deploy); een Engelse weergave van de drie schermen in de browser.
       Open: `windowinto.nl` is nog niet in Resend geverifieerd, en de mailvoet toont nog de placeholder
       `[Bedrijfsnaam] · [KvK-nummer] · …`.
+
+- [x] Stap 85 — Alleen realistische opties: ze bestaan, en ze passen bij het seizoen van het moment van vragen
+      (op verzoek van Jan). Er was nergens met een seizoen rekening gehouden: de motor kon in oktober zwemmen in
+      open water voorstellen, en het onderzoek zocht niet naar wat nu open is.
+      **Seizoen in de motor**: nieuw optioneel veld `months` (1-12) op een activiteit
+      (`src/lib/discovery/types.ts`, gevalideerd in `validate.ts`), ingevuld voor 25 duidelijk seizoensgebonden
+      activiteiten in de bibliotheek (o.a. zwemmen in open water juni-september, schaatsen oktober-maart,
+      paddenstoelen zoeken september-november, kanoën/suppen mei-september, imkeren, kamperen, via ferrata; wat het hele
+      jaar kan blijft zonder `months`). `passesConstraints` laat een activiteit buiten zijn maanden vallen, ook als de
+      persoon hem zelf koos (`EngineInput.month`, `ResolvedConstraints.month`); zonder maand wordt niet op seizoen
+      gefilterd (oudere aanroepen, tests). De maand is die van Nederland (`src/lib/discovery/season.ts`, zodat een server
+      rond middernacht UTC geen dag ernaast zit). De kaartenwizard, de voorbeelden onder de richtingen en de uit de
+      beelden afgeleide interesses tonen en kiezen alleen wat in de maand van vragen kan. Evaluatie: de synthetische
+      profielen lopen nu over alle twaalf maanden en E1 controleert het seizoen, met 0 schendingen.
+      **Onderzoek** (`localResearch.ts`): de prompt noemt de datum van vandaag en eist dat een optie in de komende vier
+      weken te doen is (niet gesloten voor het seizoen, geen verlopen evenement) en geeft een einddatum (`until`) waar de
+      bron die noemt; opties met een verstreken einddatum vallen af. De cache is per maand (`plaats|stad|2026-10`) en een
+      vermelding leeft nooit langer dan de einddatum van een optie. **Bestaat het echt?** Elke website uit het onderzoek
+      wordt vóór het opslaan met een gratis HTTP-controle bekeken (`verifyUrls.ts`): een host die niet bestaat of geen
+      openbare website is laat de optie vallen (ook tegen SSRF: geen IP-adressen, localhost of redirects volgen), een
+      verdwenen pagina op een bestaande site wordt de voorpagina, een time-out/403/429 telt niet als bewijs van het tegendeel.
+      **Geen aanbod gevonden**: een idee dat iemands aanbod nodig heeft (kosten > 0 of toezicht) en waarvoor het
+      onderzoek echt niets vond, wordt één keer vervangen (`EngineInput.exclude`); alleen de nieuwe activiteiten worden
+      onderzocht (`researchSeeds({ known })`), en blijft de vervanging niet beter dan de eerste selectie, dan blijft die met
+      een notitie `no_local_offer:<id>`. Een mislukte onderzoeksronde telt niet als "geen aanbod". **Schrijven**: beide
+      pijplijnen (motor en klassiek) krijgen de datum en seizoensregels in de prompt (geen buiten-het-seizoen-scènes, geen
+      evenement of markt dat niet in het onderzoek staat, een einddatum noemen als die bekend is).
+      **Echt gemeten** (één onderzoeksaanroep, Haiku, drie zoekopdrachten, ± $0,06): op 25 oktober vond "zwemmen in open
+      water" niets (en wordt dus ook niet voorgesteld), "schaatsen" gaf een openluchtbaan met einddatum 26 december en een
+      winterstation met einddatum 3 januari plus een jaarronde kunstijsbaan, en bij pottenbakken ving de websitecontrole een
+      verzonnen bedrijf (`dekleiloods.nl`, host bestaat niet) af dat het model wel had teruggegeven.
+      Getest: 485 unit-tests (nieuw: seizoenen en maanden, de motor per maand en met `exclude`, de websitecontrole met een
+      nagebootste fetch, de onderzoeksprompt en cache per maand, de vervangingsronde met een nagebootst model), `tsc`, lint.
+      Kosten: geen vaste extra kosten; alleen als een idee zonder aanbod wordt vervangen komt er één extra, kleine
+      onderzoeksaanroep bij (±$0,03-0,06). **Niet gedekt**: websites die het schrijfmodel in de tekst noemt maar die niet in
+      het onderzoek staan worden nog alleen gemeld (`unverified_website`), niet verwijderd; en of een bestaande aanbieder in
+      werkelijkheid ook echt open is volgt uit wat de zoekresultaten zeggen, niet uit een eigen controle.

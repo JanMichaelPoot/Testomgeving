@@ -3,6 +3,7 @@ import type { StoredIntake } from "@/app/intake/actions";
 import { TAGS } from "@/lib/discovery/library";
 import { associationsToEngineInput, sanitizeAssociations } from "@/lib/discovery/associations";
 import { sanitizeAxesOverride } from "@/lib/discovery/associationProfile";
+import { currentMonth } from "@/lib/discovery/season";
 
 // Server side of the image intake ("Het venster"): turns what the image intake stores into
 // the answers the rest of the app already reads. Applied once in submitIntake, so checkout,
@@ -42,6 +43,7 @@ export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed
       ageCategory: stored.ageCategory,
     },
     seed,
+    month: currentMonth(),
   });
   const tagLabel = new Map(TAGS.map((t) => [t.id, t.label[locale]]));
 

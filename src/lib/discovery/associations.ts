@@ -1,5 +1,6 @@
 import associationsJson from "@/lib/discovery/associations.json";
 import { TAGS, getActivities, getActivity } from "@/lib/discovery/library";
+import { inSeason } from "@/lib/discovery/season";
 import { DISCOVERY_MIN_STATUS } from "@/lib/discovery/cardLibrary";
 import { passesConstraints, resolveConstraints } from "@/lib/discovery/engine/constraints";
 import { agePenalty } from "@/lib/discovery/engine/select";
@@ -49,7 +50,7 @@ const CORRECTION_TAGS = [
 ];
 
 /** The slim card data the wizard receives (one language; no scenes). */
-export function buildAssociationLibrary(locale: "nl" | "en"): AssociationLibrary {
+export function buildAssociationLibrary(locale: "nl" | "en", month?: number): AssociationLibrary {
   return {
     cards: ASSOCIATIONS.map((c) => ({
       id: c.id,
@@ -62,14 +63,15 @@ export function buildAssociationLibrary(locale: "nl" | "en"): AssociationLibrary
     })),
     tagLabels: Object.fromEntries(TAGS.map((t) => [t.id, t.label[locale]])),
     correctionTags: CORRECTION_TAGS.filter((t) => TAGS.some((x) => x.id === t)),
-    worldExamples: worldExamples(locale),
+    worldExamples: worldExamples(locale, month),
   };
 }
 
 /** The labels of the activities of every world, for the examples on the direction cards (R3: more dynamic directions). */
-function worldExamples(locale: "nl" | "en"): Record<string, { label: string; sub: string }[]> {
+function worldExamples(locale: "nl" | "en", month?: number): Record<string, { label: string; sub: string }[]> {
   const out: Record<string, { label: string; sub: string }[]> = {};
   for (const a of getActivities({ minStatus: DISCOVERY_MIN_STATUS })) {
+    if (!inSeason(a, month)) continue; // no ice skating as an example in July
     (out[a.domain] ??= []).push({ label: a.label[locale], sub: a.sub });
   }
   return out;
@@ -227,6 +229,8 @@ export function associationsToEngineInput(input: {
   constraints: { budget: string; timeAvailable: string; mustHaves: string; socialFormats: readonly string[]; ageCategory: string };
   seed: string;
   activities?: readonly Activity[];
+  /** The month the person asks in: the activities read from the images are in season then. */
+  month?: number;
 }): AssociationEngineInput {
   const chosen = input.associationIds.filter((id) => byId.has(id));
   const axes = effectiveAxes(averageAxes(ASSOCIATIONS, chosen), input.axesOverride);
@@ -252,6 +256,7 @@ export function associationsToEngineInput(input: {
     ageCategory: input.constraints.ageCategory,
     mustHaves: input.constraints.mustHaves,
     seed: input.seed,
+    month: input.month,
   });
   const pool = (input.activities ?? getActivities({ minStatus: DISCOVERY_MIN_STATUS })).filter(
     (a) => a.status !== "retired" && passesConstraints(a, constraints).ok,

@@ -98,6 +98,16 @@
     "cost": 1,
     "duration": 3,
     "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 1
     },
@@ -133,6 +143,14 @@
     "cost": 1,
     "duration": 1,
     "setting": "both",
+    "months": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
     "safety": {
       "tier": 1
     },
@@ -168,6 +186,15 @@
     "cost": 1,
     "duration": 2,
     "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 1
     },
@@ -237,6 +264,13 @@
     "cost": 2,
     "duration": 2,
     "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
     "safety": {
       "tier": 1
     },
@@ -271,6 +305,15 @@
     "cost": 3,
     "duration": 3,
     "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 2,
       "note": {
@@ -421,6 +464,16 @@
     "cost": 2,
     "duration": 2,
     "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 1
     },
@@ -627,6 +680,16 @@
     "cost": 0,
     "duration": 2,
     "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 1
     },
@@ -882,6 +945,15 @@
     "cost": 3,
     "duration": 3,
     "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 2,
       "note": {
@@ -921,6 +993,15 @@
     "cost": 3,
     "duration": 3,
     "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 2,
       "note": {
@@ -959,6 +1040,16 @@
     "cost": 3,
     "duration": 3,
     "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "safety": {
       "tier": 2,
       "note": {

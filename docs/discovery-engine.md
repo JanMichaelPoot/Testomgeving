@@ -40,10 +40,21 @@ Een activiteit valt alleen af op een **bekend** conflict. Onbekend (`null`) laat
 | Wildheid | "Voorspelbaar" of "praktisch": activiteiten met toezichtsplicht (tier 2) verdwijnen. |
 | Sociale vorm | Alleen een **expliciete** keuze filtert: de activiteit moet minstens één gekozen vorm ondersteunen. "Maakt niet uit" en "hangt van de dag af" leggen niets op. |
 | Grenzen (vrije tekst) | Alleen wat betrouwbaar leesbaar is: één duidelijke wens voor buiten of binnen, "geen groepen", "gratis". Onduidelijk of tegenstrijdig ("buiten of binnen") wordt genegeerd in plaats van gegokt. |
+| Seizoen | Een activiteit met `months` die de maand van de vraag niet bevat valt af, ook als de persoon hem koos. De maand is die van Nederland op het moment van genereren (`season.ts`); zonder maand (oudere aanroepen en tests) wordt niet op seizoen gefilterd. |
+| Geen echt aanbod | Een activiteit waar je iemands aanbod voor nodig hebt (kosten, of toezicht) en waarvoor het onderzoek niets verifieerbaars vond, wordt één keer vervangen (`exclude`); zie hieronder. |
 | Niet filterbaar | Rolstoeltoegankelijk, hondvriendelijk, dieet of allergie, alcohol, kinderen: geen data in de bibliotheek, dus elk zaad krijgt een `verify`-vlag zodat het niet verloren gaat. De generatie behandelt de vrije tekst al als harde eis. |
 
 Tijd en zoekafstand zijn bewust géén harde filters: de duur in de bibliotheek is een typische
 sessielengte en veel hobby's zijn "doorlopend", dus dat zou te veel wegfilteren.
+
+## Echt en van dit moment
+
+Twee dingen moeten kloppen: wat wordt voorgesteld **bestaat** en is **nu** te doen.
+
+- **Seizoen in de selectie**: zie de tabel hierboven. De prompts (onderzoek en schrijven) krijgen bovendien de datum van vandaag en de regel dat alles realistisch moet zijn voor die datum en de weken erna.
+- **Onderzoek**: vraagt alleen wat de komende vier weken kan (niet gesloten voor het seizoen, geen verlopen evenement), met een einddatum (`until`) waar de bron die geeft. Het cachesleutel bevat de maand, en een cachevermelding leeft nooit langer dan de einddatum van een optie.
+- **Bestaat het?** Elke website uit het onderzoek wordt voor het opslaan met een gratis HTTP-controle bekeken (`verifyUrls.ts`): een host die niet bestaat, of geen openbare website is, laat de optie vallen; een verdwenen pagina op een bestaande site wordt de voorpagina; een time-out, 403 of 429 telt niet als bewijs van het tegendeel.
+- **Geen aanbod gevonden**: voor een idee dat aanbod nodig heeft en waar het onderzoek echt niets vond, vraagt de pijplijn de motor één keer om een vervanger en onderzoekt alleen de nieuwe activiteiten (de rest wordt meegegeven). Doet de vervanging het niet beter, dan blijft de eerste selectie, met een notitie `no_local_offer:<id>` in het rapport. Een mislukte onderzoeksronde (storing) telt niet als "geen aanbod".
 
 ## Diversiteit en herhaling
 
