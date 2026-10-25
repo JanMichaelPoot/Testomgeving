@@ -11,6 +11,7 @@ const NAV = [
   { href: "/admin/inhoud", label: "Inhoud" },
   { href: "/admin/orders", label: "Orders" },
   { href: "/admin/logboek", label: "Logboek" },
+  { href: "/admin/opruimen", label: "Opruimen" },
 ] as const;
 
 export function AdminShell({ active, title, intro, children }: { active: (typeof NAV)[number]["href"]; title: string; intro?: ReactNode; children: ReactNode }) {

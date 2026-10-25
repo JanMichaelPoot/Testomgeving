@@ -3651,3 +3651,21 @@ Stripe, Claude API, Resend, PostHog).
       Anthropic, Stripe (test of live), Supabase en de optionele sleutels aanwezig zijn. Alleen aanwezigheid en niet-geheime
       waarden, nooit een sleutel; ontbrekende verplichte instellingen staan ook onder "Aandacht nodig". Zo is in één
       oogopslag te zien of de sleutel in de juiste omgeving terecht is gekomen.
+
+- [x] Stap 92 — Testgegevens opruimen vanuit de admin (nieuw tabblad **Opruimen**, `/admin/opruimen`, op verzoek van Jan:
+      "de oude gegevens verwijderen zodat de testfase de echte gegevens niet vertekent"). **Veiligheid vooraf bedacht**: (1) een
+      echte order wordt nooit verwijderd, welke datum je ook kiest (een order is echt tenzij Stripe's eigen id een testsessie
+      is, `cs_test_...`; de toestemming- en herroepingsregels van betalende klanten moeten bewaard blijven); er is bewust geen
+      schakelaar om dat te omzeilen; (2) je kiest een datum ("alles tot en met") en wat weg mag: testboeken en testorders,
+      onafgemaakte intakes, testfeedback, logboek; (3) eerst een voorbeeld met aantallen, dan alleen verwijderen door het woord
+      VERWIJDER te typen; (4) het formulier bevat alleen de keuze, nooit rij-id's: de server bepaalt de selectie opnieuw
+      (`src/lib/adminCleanup.ts`). Verwijderd wordt in een veilige volgorde: PDF-bestanden, testfeedback, boeken, orders (de
+      toestemmingsregels van die test-orders gaan mee), sessies (met intake en apparaatgeheugen), logboek, en daarna de
+      e-mailadressen van testers waar geen sessie meer aan hangt. De onderzoekscache en de bibliotheek blijven altijd staan.
+      **Getest**: 4 unit-tests voor de selectie, en een echte proef tegen de database met verzonnen rijen uit 2020 (alleen die
+      vielen binnen de datum): testsessie, boek zonder betaling en lege sessie met PDF, feedback, logboekregel en
+      e-mailadres verdwenen; een verzonnen sessie met een betaling `cs_live_...` bleef staan en is daarna met de hand
+      opgeruimd; alle tabelaantallen waren daarna weer gelijk aan ervoor. Daarbij een voorbeeld op de echte database
+      (alleen lezen, niets verwijderd): alles tot en met vandaag zou 169 sessies, 175 boeken, 32 testorders, 154 PDF's, 4
+      feedbackregels, 107 logboekregels en 5 e-mailadressen raken, en 0 echte orders bewaren. Niet gezien: de pagina zelf
+      ingelogd (zelfde beperking als eerder).
