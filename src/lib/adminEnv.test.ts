@@ -29,4 +29,10 @@ describe("envChecks", () => {
     expect(envChecks({ EMAIL_FROM: "WINDOW <hello@windowinto.nl>" }).some((c) => c.name === "Afzenderdomein")).toBe(true);
     expect(envChecks({ EMAIL_FROM: "WINDOW <onboarding@resend.dev>" }).some((c) => c.name === "Afzenderdomein")).toBe(false);
   });
+
+  it("knows the Supabase key under its newer name too", () => {
+    expect(get(envChecks({ SUPABASE_SECRET_KEY: "sb_secret_X" }), "Supabase-servicesleutel")).toMatchObject({ ok: true });
+    expect(get(envChecks({ SUPABASE_SERVICE_ROLE_KEY: "x" }), "Supabase-servicesleutel").ok).toBe(true);
+    expect(get(envChecks({}), "Supabase-servicesleutel")).toMatchObject({ ok: false, required: true });
+  });
 });

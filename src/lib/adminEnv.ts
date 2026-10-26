@@ -37,7 +37,10 @@ export function envChecks(env: Env): EnvCheck[] {
   const stripe = env.STRIPE_SECRET_KEY?.trim();
   add("STRIPE_SECRET_KEY", has(stripe), has(stripe) ? (prefix(stripe, ["sk_test_"]) ? "aanwezig (testmodus)" : prefix(stripe, ["sk_live_"]) ? "aanwezig (LIVE-modus)" : "aanwezig") : "ontbreekt: betalen werkt niet");
   add("STRIPE_WEBHOOK_SECRET", has(env.STRIPE_WEBHOOK_SECRET), has(env.STRIPE_WEBHOOK_SECRET) ? "aanwezig" : "ontbreekt: betalingen blijven op 'pending' staan", false);
-  add("SUPABASE_SERVICE_ROLE_KEY", has(env.SUPABASE_SERVICE_ROLE_KEY), has(env.SUPABASE_SERVICE_ROLE_KEY) ? "aanwezig" : "ontbreekt: niets kan worden opgeslagen");
+  // The app accepts Supabase's newer name for the same key too (src/lib/supabase/env.ts).
+  const supabaseKey = has(env.SUPABASE_SERVICE_ROLE_KEY) ? "SUPABASE_SERVICE_ROLE_KEY" : has(env.SUPABASE_SECRET_KEY) ? "SUPABASE_SECRET_KEY" : null;
+  add("Supabase-servicesleutel", supabaseKey !== null, supabaseKey ? `aanwezig (onder de naam ${supabaseKey})` : "ontbreekt (SUPABASE_SERVICE_ROLE_KEY of SUPABASE_SECRET_KEY): niets kan worden opgeslagen");
+  add("IP_HASH_SECRET", has(env.IP_HASH_SECRET), has(env.IP_HASH_SECRET) ? "aanwezig" : "niet ingesteld: de IP-hash leunt dan op de Supabase-sleutel; zet een eigen lange willekeurige waarde", false);
   add("GEMINI_API_KEY", has(env.GEMINI_API_KEY), has(env.GEMINI_API_KEY) ? "aanwezig" : "niet nodig voor de site (alleen om beelden te maken)", false);
   add("NEXT_PUBLIC_POSTHOG_KEY", has(env.NEXT_PUBLIC_POSTHOG_KEY), has(env.NEXT_PUBLIC_POSTHOG_KEY) ? "aanwezig" : "ontbreekt: geen gedragsmeting", false);
   add("CRON_SECRET", has(env.CRON_SECRET), has(env.CRON_SECRET) ? "aanwezig" : "ontbreekt: de herinneringsmail-route is open voor iedereen", false);

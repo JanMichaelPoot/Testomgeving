@@ -3699,3 +3699,13 @@ Stripe, Claude API, Resend, PostHog).
       "dit is een cadeau" aan staat (dat adres gaat voor). Copy nl + en. Het e-mailadres bij Stripe zelf is op dit niveau niet
       te sturen (zet je `customer_email` mee, dan wordt het bij Stripe juist vergrendeld). Niet gezien in de browser met een
       echte Stripe-sessie; wel typecontrole, lint en de tests van de betaalpagina.
+
+- [x] Stap 95 — Instellingencontrole op Jans Vercel (production): alles goed behalve een **vals alarm** van mijn eigen
+      controle: de Supabase-servicesleutel stond als ontbrekend terwijl de site werkt, omdat de app die sleutel ook onder de
+      nieuwe Supabase-naam `SUPABASE_SECRET_KEY` leest (`src/lib/supabase/env.ts`) en mijn controle alleen de oude naam
+      kende; nu kent `adminEnv.ts` beide. Daarbij een echte zwakte gevonden en gefixt: de hash van het IP-adres (testlimiet)
+      leidde zijn sleutel af van alleen `SUPABASE_SERVICE_ROLE_KEY`; bij een sleutel onder de andere naam was dat een
+      lege, dus bekende sleutel (te raden). Nu wordt dezelfde resolver gebruikt als de rest van de app, en de admin raadt aan
+      een eigen `IP_HASH_SECRET` te zetten. Afzender staat op `info@vantagelabs.nl`: die moet in Resend geverifieerd zijn.
+      Nog open: `STRIPE_WEBHOOK_SECRET` (betalingen blijven 'pending', omzet 0), `NEXT_PUBLIC_POSTHOG_KEY` (geen
+      gedragsmeting, nodig voor de funnel), `CRON_SECRET` (herinneringsroute open).

@@ -1,4 +1,5 @@
 import { createHmac, createHash } from "node:crypto";
+import { SUPABASE_SERVICE_ROLE_KEY } from "@/lib/supabase/env";
 import { headers } from "next/headers";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createServiceRoleClient } from "@/lib/supabase/server";
@@ -48,7 +49,7 @@ function secret(): string {
   const explicit = (process.env.IP_HASH_SECRET ?? "").trim();
   if (explicit) return explicit;
   // No separate secret set: derive one from a key only the server has, so the hash still cannot be reversed by a guess.
-  return createHash("sha256").update(`window-ip:${process.env.SUPABASE_SERVICE_ROLE_KEY ?? ""}`).digest("hex");
+  return createHash("sha256").update(`window-ip:${SUPABASE_SERVICE_ROLE_KEY ?? ""}`).digest("hex");
 }
 
 async function requestIpHash(): Promise<string | null> {
