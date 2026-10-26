@@ -17,6 +17,8 @@ import { buildChoiceGroups } from "@/lib/checkoutChoices";
 import { getDeviceId } from "@/lib/discovery/historyStore";
 import type { StoredIntake } from "@/app/intake/actions";
 import { VensterOrderSummary } from "@/components/window/VensterOrderSummary";
+import { TestLimitNotice } from "@/components/window/TestLimitNotice";
+import { checkTestQuota } from "@/lib/testQuota";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -49,6 +51,17 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
   const locale = await getLocale();
   const dict = getDictionary(locale);
   const price = formatPrice(locale);
+
+  // Test phase: a connection that has used its test books does not get to pay for (or skip paying for) another.
+  const quota = await checkTestQuota(supabase, sessionId);
+  if (!quota.allowed) {
+    return (
+      <div className="flex min-h-full flex-col bg-cream">
+        <SiteHeader locale={locale} dict={dict.header} />
+        <TestLimitNotice copy={dict.venster.testLimit} />
+      </div>
+    );
+  }
 
   // "Jouw keuzes": what the book will be based on, each group with a link to change it.
   const groups = buildChoiceGroups(

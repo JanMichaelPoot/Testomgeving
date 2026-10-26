@@ -20,6 +20,8 @@ import type { StoredIntake } from "@/app/intake/actions";
 import type { Database, ProgressMeta, ProgressStage } from "@/types/database";
 import { mergeProgressMeta, stageDurations } from "@/lib/progressStage";
 import { localizeBook } from "@/lib/claude/localizeBook";
+import { checkTestQuota, recordTestBook } from "@/lib/testQuota";
+import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { isMissingColumnError } from "@/lib/supabase/errors";
 import { buildAssociationSources, type AssociationSources } from "@/lib/discovery/associations";
 import { buildIdeaThreads, threadSentence } from "@/lib/ideaThread";
@@ -38,7 +40,7 @@ type ServiceRoleClient = ReturnType<typeof createServiceRoleClient>;
 export class PlanNotReadyError extends Error {
   constructor(
     message: string,
-    public reason: "unpaid" | "generating" | "failed",
+    public reason: "unpaid" | "generating" | "failed" | "limit",
     // For "generating": how far the book has come (null = just started), shown on the
     // waiting screen. See 0016_progress_stage.sql.
     public stage: ProgressStage | null = null,
@@ -64,6 +66,10 @@ function generatingError(g: Generating, sessionId: string, orderRef: string | nu
     meta: g.meta,
     orderRef,
   });
+}
+
+function limitReached(sessionId: string): PlanNotReadyError {
+  return new PlanNotReadyError("The test limit for this connection has been reached.", "limit", null, sessionId);
 }
 
 function isGenerating(value: unknown): value is Generating {
@@ -369,7 +375,10 @@ async function startPlanGeneration(
   // insert, not only the final "ready" update, so even a row that ends up
   // "failed" stays traceable to the order that triggered it for admin
   // debugging (Fase 3 Task: Admin order-detail).
-  paymentId: string | null
+  paymentId: string | null,
+  // The test phase limit (src/lib/testQuota.ts): the keyed hash of the visitor's address, remembered with this
+  // session once the book has really been started. null when there is no limit or no address to count.
+  quotaIpHash: string | null = null,
 ): Promise<PlanGenerationContext> {
   const profile = await fetchStoredIntake(supabase, sessionId);
 
@@ -410,6 +419,8 @@ async function startPlanGeneration(
   if (pendingError || !pendingRow) {
     throw new Error(pendingError?.message ?? "Could not start generating the Idea Book.");
   }
+
+  await recordTestBook(supabase, quotaIpHash, sessionId);
 
   return { pendingRow, profile, characterProfile, locale, bookTitle };
 }
@@ -626,9 +637,12 @@ export async function getOrCreateWindowPlan(
   // and the page has already responded with GeneratingScreen. See
   // startPlanGeneration/finishPlanGeneration's own comments for why this
   // can't just be awaited inline.
+  const quota = await checkTestQuota(supabase, sessionId);
+  if (!quota.allowed) throw limitReached(sessionId);
+
   let ctx;
   try {
-    ctx = await startPlanGeneration(supabase, sessionId, paymentRow?.id ?? null);
+    ctx = await startPlanGeneration(supabase, sessionId, paymentRow?.id ?? null, quota.ipHash);
   } catch (err) {
     if (err instanceof ConcurrentGenerationError) {
       const resolved = await resolveAfterConcurrentInsert(supabase, sessionId);
@@ -769,9 +783,12 @@ export async function getOrCreateTestWindowPlan(
   }
   if (existingPlan) return existingPlan;
 
+  const quota = await checkTestQuota(supabase, sessionId);
+  if (!quota.allowed) throw limitReached(sessionId);
+
   let ctx;
   try {
-    ctx = await startPlanGeneration(supabase, sessionId, null);
+    ctx = await startPlanGeneration(supabase, sessionId, null, quota.ipHash);
   } catch (err) {
     if (err instanceof ConcurrentGenerationError) {
       const resolved = await resolveAfterConcurrentInsert(supabase, sessionId);
@@ -782,6 +799,10 @@ export async function getOrCreateTestWindowPlan(
     }
     throw err;
   }
+
+  // The test e-mail goes to the owner's own inbox, so only a generation the owner started (logged in to
+  // /admin in this browser) sends it. Testers who skip the payment must not fill that inbox.
+  const sendOwnerTestMail = await isAdminAuthenticated();
 
   after(async () => {
     let emailDelivered = false;
@@ -797,6 +818,7 @@ export async function getOrCreateTestWindowPlan(
       // to attach this generation to (see startPlanGeneration's `null`
       // paymentId above).
       try {
+        if (!sendOwnerTestMail) throw new Error("not the owner: no test e-mail");
         const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
         await sendIdeaBookEmail({
           to: TEST_MODE_EMAIL_RECIPIENT,
@@ -816,8 +838,10 @@ export async function getOrCreateTestWindowPlan(
         });
         emailDelivered = true;
       } catch (err) {
-        console.error("Failed to send test-mode confirmation e-mail:", err);
-        await recordEmailError(supabase, plan.id, err);
+        if (sendOwnerTestMail) {
+          console.error("Failed to send test-mode confirmation e-mail:", err);
+          await recordEmailError(supabase, plan.id, err);
+        }
       }
 
       // No real payment, so no Stripe-collected email/order either — still

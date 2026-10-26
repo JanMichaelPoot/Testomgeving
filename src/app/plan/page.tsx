@@ -18,6 +18,7 @@ import { retryPlanGeneration } from "@/app/plan/actions";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { withValidLayers } from "@/lib/claude/ideaLayers";
 import { getLocale, type Locale } from "@/lib/language";
+import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { getSessionId } from "@/lib/session";
 import { buildPlanEcho } from "@/lib/planEcho";
 import { buildBecauseLines, buildVensterEcho } from "@/lib/vensterReveal";
@@ -186,6 +187,14 @@ export default async function PlanPage(props: PageProps<"/plan">) {
             elapsedMs={elapsedSinceNow(err.info?.startedAt)}
             visual={waitingWindow(waiting.answers, locale, dict)}
           />
+        );
+      }
+      if (err.reason === "limit") {
+        return (
+          <div className="flex min-h-full flex-col">
+            <SiteHeader locale={locale} dict={dict.header} />
+            <TestLimitNotice copy={dict.venster.testLimit} />
+          </div>
         );
       }
       if (err.reason === "failed") {

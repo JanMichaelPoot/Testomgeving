@@ -11,6 +11,8 @@ import { loadEditableIntake } from "@/lib/intakeEdit";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { VENSTER_PAGES } from "@/lib/vensterPages";
 import { currentMonth } from "@/lib/discovery/season";
+import { TestLimitNotice } from "@/components/window/TestLimitNotice";
+import { checkTestQuota } from "@/lib/testQuota";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -42,6 +44,18 @@ export default async function IntakePage(props: PageProps<"/intake">) {
     } else if (sessionId) {
       editLocked = true;
     }
+  }
+
+  // Test phase: a connection that has made its test books gets the notice instead of another intake.
+  const currentSession = await getSessionId();
+  const quota = await checkTestQuota(createServiceRoleClient(), currentSession);
+  if (!quota.allowed) {
+    return (
+      <div className="flex min-h-full flex-col">
+        <SiteHeader locale={locale} dict={dict.header} />
+        <TestLimitNotice copy={dict.venster.testLimit} />
+      </div>
+    );
   }
 
   return (

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { isRealPayment, parseScope, selectForDeletion, type CleanupScope } from "@/lib/adminCleanup";
 
-const scope = (over: Partial<CleanupScope> = {}): CleanupScope => ({ before: "2026-10-25", books: true, unfinished: true, feedback: false, log: false, ...over });
+const scope = (over: Partial<CleanupScope> = {}): CleanupScope => ({ before: "2026-10-25", books: true, unfinished: true, feedback: false, log: false, quota: false, ...over });
 const get = (o: Record<string, string>) => ({ get: (n: string) => o[n] ?? null });
 
 describe("parseScope", () => {

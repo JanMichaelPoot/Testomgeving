@@ -5,6 +5,7 @@ import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { overview, percent, ratio, type PaymentRow, type PlanRow } from "@/lib/adminStats";
 import { envChecks } from "@/lib/adminEnv";
+import { quotaOverview } from "@/lib/testQuota";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid, formatEuro, formatSeconds } from "./ui";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default async function AdminOverviewPage() {
   const maxDay = Math.max(1, ...o.perDay.map((d) => d.count));
   const emailRate = ratio(o.email.sent, o.email.expected);
   const checks = envChecks(process.env);
+  const quota = await quotaOverview(supabase);
   const broken = checks.filter((c) => c.required && !c.ok);
 
   return (
@@ -140,6 +142,16 @@ export default async function AdminOverviewPage() {
           <Tile label="Omzet (gelukt)" value={formatEuro(o.payments.revenueCents)} />
         </TileGrid>
       </Section>
+
+      {quota && quota.limit !== null && (
+        <Section title="Testlimiet per internetverbinding" hint="Hoeveel verschillende verbindingen (IP-adressen) hebben een boek gemaakt, en hoeveel hebben hun limiet bereikt. Wie een boek maakt terwijl hij als admin is ingelogd, telt niet mee.">
+          <TileGrid>
+            <Tile label="Limiet per verbinding" value={quota.limit} />
+            <Tile label="Verbindingen die meededen" value={quota.addresses} sub={`${quota.books} boeken geteld`} />
+            <Tile label="Limiet bereikt" value={quota.atLimit} sub="deze mensen kunnen geen nieuw boek meer maken" />
+          </TileGrid>
+        </Section>
+      )}
 
       <Section title="Doen mensen er iets mee?" hint="Het sterkste signaal dat het boek waarde heeft: een idee waarderen ('hartje') of kiezen ('dit ga ik doen').">
         <TileGrid>

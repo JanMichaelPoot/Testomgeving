@@ -14,7 +14,7 @@ export async function cleanupAction(formData: FormData): Promise<void> {
   if (!scope) redirect("/admin/opruimen?error=scope");
   if (String(formData.get("confirm") ?? "").trim() !== CONFIRM_WORD) {
     const back = new URLSearchParams({ before: scope.before, preview: "1", error: "confirm" });
-    for (const k of ["books", "unfinished", "feedback", "log"] as const) if (scope[k]) back.set(k, "1");
+    for (const k of ["books", "unfinished", "feedback", "log", "quota"] as const) if (scope[k]) back.set(k, "1");
     redirect(`/admin/opruimen?${back.toString()}`);
   }
 

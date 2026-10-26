@@ -19,6 +19,7 @@ export interface VensterDictionary {
   recipientFallback: string;
   recipientLabel: string;
   recipientPlaceholder: string;
+  testLimit: { title: string; body: string; back: string };
   errors: { notFoundTitle: string; notFoundBody: string; home: string; errorTitle: string; errorBody: string; retry: string; bookLanguage: string };
   worlds: { heading: string; headingGift: string; sub: string; surprise: string; surpriseSub: string; chosen: string; more: string };
   rounds: Record<
@@ -268,6 +269,11 @@ export const vensterNl: VensterDictionary = {
   recipientFallback: "diegene",
   recipientLabel: "Voor wie is dit venster?",
   recipientPlaceholder: "Voornaam (mag leeg blijven)",
+  testLimit: {
+    title: "Je testboeken zijn op",
+    body: "Tijdens de test kun je met één internetverbinding twee boeken maken, en dat zijn er al twee. Dank je wel voor het testen! Je gemaakte boeken blijven te openen via de link in je mail. Wil je er toch nog een maken? Stuur dan een berichtje naar degene die je uitnodigde.",
+    back: "Naar de voorpagina",
+  },
   errors: {
     notFoundTitle: "Deze pagina bestaat niet",
     notFoundBody: "Misschien is de link verlopen of verkeerd overgetypt. Vanaf het begin kom je er zo weer in.",
@@ -766,6 +772,11 @@ export const vensterEn: VensterDictionary = {
   recipientFallback: "them",
   recipientLabel: "Who is this window for?",
   recipientPlaceholder: "First name (optional)",
+  testLimit: {
+    title: "You've used your test books",
+    body: "During the test you can make two books from one internet connection, and that makes two already. Thank you for testing! The books you made stay available through the link in your e-mail. Would you like one more? Send a quick message to whoever invited you.",
+    back: "Back to the front page",
+  },
   errors: {
     notFoundTitle: "This page doesn't exist",
     notFoundBody: "The link may have expired or been mistyped. You can start again from the beginning.",

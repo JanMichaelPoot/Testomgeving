@@ -21,6 +21,7 @@ const ROWS: { key: keyof CleanupCounts; label: string }[] = [
   { key: "pdfs", label: "PDF-bestanden" },
   { key: "feedback", label: "Testfeedback" },
   { key: "log", label: "Logboekregels" },
+  { key: "quota", label: "Tellers van de testlimiet" },
   { key: "users", label: "E-mailadressen van testers" },
 ];
 
@@ -52,6 +53,7 @@ function hidden(scope: CleanupScope) {
       {scope.unfinished && <input type="hidden" name="unfinished" value="1" />}
       {scope.feedback && <input type="hidden" name="feedback" value="1" />}
       {scope.log && <input type="hidden" name="log" value="1" />}
+      {scope.quota && <input type="hidden" name="quota" value="1" />}
     </>
   );
 }
@@ -152,6 +154,13 @@ export default async function AdminCleanupPage(props: { searchParams: Promise<Re
                   <span className="block text-xs text-ink/50">De anonieme registratie van gegenereerde boeken (het tabblad Logboek).</span>
                 </span>
               </label>
+              <label className="flex items-start gap-2">
+                <input type="checkbox" name="quota" value="1" defaultChecked={checked("quota", false)} className="mt-1" />
+                <span>
+                  <span className="text-ink">Tellers van de testlimiet</span>
+                  <span className="block text-xs text-ink/50">Het aantal boeken per internetverbinding. Wissen geeft iedereen weer het volle aantal testboeken (boeken zelf blijven staan).</span>
+                </span>
+              </label>
             </fieldset>
             <button type="submit" className="inline-flex min-h-11 items-center rounded-lg border border-ink/30 bg-paper px-5 font-medium text-ink hover:border-ink">
               Toon wat er verdwijnt
@@ -164,7 +173,7 @@ export default async function AdminCleanupPage(props: { searchParams: Promise<Re
         <Section title="2. Dit verdwijnt" hint={`Alles tot en met ${scope.before}. Nog niets is verwijderd.`}>
           <Card>
             <CountTable counts={preview} verb="die verdwijnen" />
-            {preview.books + preview.orders + preview.sessions + preview.feedback + preview.log + preview.users === 0 ? (
+            {preview.books + preview.orders + preview.sessions + preview.feedback + preview.log + preview.quota + preview.users === 0 ? (
               <p className="mt-4 text-sm text-ink/60">Er is niets om te verwijderen met deze keuze.</p>
             ) : (
               <form action={cleanupAction} className="mt-5 space-y-3 border-t border-ink/10 pt-4 text-sm">

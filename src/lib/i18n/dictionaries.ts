@@ -557,6 +557,11 @@ const nl: Dictionary = {
         body: "Alleen als je dat op de betaalpagina aanvinkt, slaan we 12 maanden een willekeurige code op in een cookie op je apparaat en — uitsluitend gekoppeld aan een gehashte versie van die code — welke activiteiten je Idea Books lieten zien, zodat het volgende ze niet herhaalt. Geen naam, geen e-mailadres. Zet het uit bij het afrekenen of druk hieronder op 'Vergeet dit apparaat' en alles wat voor het apparaat is opgeslagen wordt direct verwijderd; rijen vervallen ook na 12 maanden.",
       },
       {
+        id: "testfase",
+        heading: "Tijdens een testfase: een limiet per internetverbinding",
+        body: "Tijdens een testfase kan het aantal boeken per internetverbinding beperkt zijn. Daarvoor bewaren we niet je IP-adres, maar een versleutelde code die daaruit is afgeleid (met een geheime sleutel die alleen op onze server staat) en die we niet kunnen terugrekenen. De code staat los van je naam en e-mailadres en wordt gewist met de sessie waar hij bij hoort; alleen de eigenaar kan hem zien.",
+      },
+      {
         id: "rechten",
         heading: "Jouw rechten",
         body: "Je kunt op elk moment inzage of verwijdering van je gegevens aanvragen. Mail daarvoor naar hello@windowinto.nl.",
@@ -1282,6 +1287,11 @@ const en: Dictionary = {
         id: "apparaatgeheugen",
         heading: "Optional: remembering what you were shown",
         body: "Only if you tick it on the checkout page, we store a random code in a cookie on your device for 12 months, and — linked only to a hashed version of that code — which activities your Idea Books showed, so the next one doesn't repeat them. No name, no e-mail address. Switch it off at checkout or press 'Forget this device' below and everything stored for the device is deleted straight away; rows also expire after 12 months.",
+      },
+      {
+        id: "testfase",
+        heading: "During a test phase: a limit per internet connection",
+        body: "During a test phase the number of books per internet connection may be limited. For that we do not store your IP address, but an encrypted code derived from it (with a secret key that only exists on our server) which we cannot turn back into the address. The code is separate from your name and e-mail address and is deleted along with the session it belongs to; only the owner can see it.",
       },
       {
         id: "rechten",

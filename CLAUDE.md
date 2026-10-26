@@ -3669,3 +3669,24 @@ Stripe, Claude API, Resend, PostHog).
       (alleen lezen, niets verwijderd): alles tot en met vandaag zou 169 sessies, 175 boeken, 32 testorders, 154 PDF's, 4
       feedbackregels, 107 logboekregels en 5 e-mailadressen raken, en 0 echte orders bewaren. Niet gezien: de pagina zelf
       ingelogd (zelfde beperking als eerder).
+
+- [x] Stap 93 — Testen met ± 50 bekenden, met een limiet van twee boeken per IP-adres (op verzoek van Jan). **Limiet**
+      (`src/lib/testQuota.ts`, migratie `0021_test_quota.sql`, **nog handmatig uit te voeren**): aan met
+      `TEST_MAX_BOOKS_PER_IP=2` (leeg of 0 = geen limiet, zoals bij de echte lancering). Van het IP-adres
+      (`x-forwarded-for`, het eerste adres) wordt alleen een gesleutelde hash bewaard (HMAC, sleutel `IP_HASH_SECRET` of
+      afgeleid van de Supabase-servicesleutel), per sessie in `test_quota`; de rij verdwijnt met de sessie. Wat telt is een
+      gestart boek (pending of klaar); een mislukt boek kost de tester geen poging. De eigenaar (ingelogd op `/admin`) is nooit
+      beperkt. Zonder leesbaar IP-adres (lokaal) of zonder tabel wordt niet beperkt (de site blijft werken, met een
+      waarschuwing in het log). Afgedwongen op vier plekken: de intake (de bezoeker ziet een vriendelijke melding in plaats van de
+      wizard), de betaalpagina, de acties "afrekenen" en "betaling overslaan", en als harde grens op het moment dat een boek
+      wordt gestart (`getOrCreate*`); een bestaand boek openen blijft altijd kunnen. Meldingstekst nl + en
+      (`venster.testLimit`), privacyverklaring kreeg een korte alinea "testfase" (**laat die tekst juridisch controleren**).
+      Admin: de limiet staat in "Instellingen van deze deployment" en onder het Overzicht staat een blok "Testlimiet per
+      internetverbinding" (hoeveel verbindingen, hoeveel op hun limiet); onder **Opruimen** is een vinkje "Tellers van de
+      testlimiet" om iedereen weer het volle aantal te geven. **Een fout gevonden en gefixt**: de testmail van "Betaling overslaan"
+      ging altijd naar Jans adres; met 50 testers had dat zijn inbox gevuld. Die mail gaat nu alleen nog als de eigenaar
+      zelf is ingelogd. **Getest**: 6 unit-tests (limiet lezen, eerste IP, hash, beslissing), `tsc`, lint, en lokaal met de
+      limiet aan en een IP-header: de intake blijft werken als de tabel nog ontbreekt (fail-open, waarschuwing in het log). **Niet
+      gezien**: de limiet die echt bijt, want dat vraagt de migratie in de database; zodra die draait is dat te controleren
+      met verzonnen rijen. Plan, kosten, werkwijze in drie golven, WhatsApp-berichten (nl + en) en controlelijst staan in
+      `docs/testen-met-bekenden.md`.

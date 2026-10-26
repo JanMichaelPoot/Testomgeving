@@ -431,6 +431,13 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["test_feedback"]["Insert"]>;
         Relationships: [];
       };
+      // Test phase limit per IP address (keyed hash only), see supabase/migrations/0021_test_quota.sql.
+      test_quota: {
+        Row: { session_id: string; ip_hash: string; created_at: string };
+        Insert: { session_id: string; ip_hash: string; created_at?: string };
+        Update: Partial<Database["public"]["Tables"]["test_quota"]["Insert"]>;
+        Relationships: [];
+      };
       // Shared, anonymous cache of local research results (activity x place), see
       // supabase/migrations/0014_local_research_cache.sql.
       local_research_cache: {

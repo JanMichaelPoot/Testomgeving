@@ -25,6 +25,8 @@ export interface CleanupScope {
   feedback: boolean;
   /** The anonymous log of generated books. */
   log: boolean;
+  /** The counters of the test limit per connection (a fresh start for everyone). */
+  quota: boolean;
 }
 
 export interface CleanupSelection {
@@ -44,6 +46,7 @@ export interface CleanupCounts {
   pdfs: number;
   feedback: number;
   log: number;
+  quota: number;
   users: number;
   keptReal: number;
 }
@@ -54,8 +57,8 @@ export function parseScope(input: { get(name: string): string | null }): Cleanup
   const before = input.get("before") ?? "";
   if (!/^\d{4}-\d{2}-\d{2}$/.test(before) || Number.isNaN(Date.parse(`${before}T00:00:00Z`))) return null;
   const on = (name: string) => input.get(name) === "1" || input.get(name) === "on";
-  const scope: CleanupScope = { before, books: on("books"), unfinished: on("unfinished"), feedback: on("feedback"), log: on("log") };
-  return scope.books || scope.unfinished || scope.feedback || scope.log ? scope : null;
+  const scope: CleanupScope = { before, books: on("books"), unfinished: on("unfinished"), feedback: on("feedback"), log: on("log"), quota: on("quota") };
+  return scope.books || scope.unfinished || scope.feedback || scope.log || scope.quota ? scope : null;
 }
 
 export function cutoffOf(scope: CleanupScope): string {
@@ -156,7 +159,7 @@ async function loadSelection(supabase: ServiceRoleClient, scope: CleanupScope): 
   return selectForDeletion({ scope, sessions, plans, payments });
 }
 
-async function countWhere(supabase: ServiceRoleClient, table: "test_feedback" | "audit_log", cutoff: string): Promise<number> {
+async function countWhere(supabase: ServiceRoleClient, table: "test_feedback" | "audit_log" | "test_quota", cutoff: string): Promise<number> {
   const { count, error } = await supabase.from(table).select("id", { count: "exact", head: true }).lte("created_at", cutoff);
   if (error) throw new Error(error.message);
   return count ?? 0;
@@ -187,6 +190,7 @@ export async function previewCleanup(supabase: ServiceRoleClient, scope: Cleanup
   }
   const feedbackByDate = scope.feedback ? await countWhere(supabase, "test_feedback", cutoff) : 0;
   const log = scope.log ? await countWhere(supabase, "audit_log", cutoff) : 0;
+  const quota = scope.quota ? await countWhere(supabase, "test_quota", cutoff).catch(() => 0) : 0;
   const users = scope.books || scope.unfinished ? (await orphanUsers(supabase, cutoff, new Set(sel.sessionIds))).length : 0;
   return {
     sessions: sel.sessionIds.length,
@@ -197,6 +201,7 @@ export async function previewCleanup(supabase: ServiceRoleClient, scope: Cleanup
     // feedback of deleted books goes with them; the by-date count may overlap with it, so this is an upper bound
     feedback: Math.max(feedbackByDate, linkedFeedback),
     log,
+    quota,
     users,
     keptReal: sel.keptReal,
   };
@@ -206,7 +211,7 @@ export async function previewCleanup(supabase: ServiceRoleClient, scope: Cleanup
 export async function runCleanup(supabase: ServiceRoleClient, scope: CleanupScope): Promise<CleanupCounts> {
   const cutoff = cutoffOf(scope);
   const sel = await loadSelection(supabase, scope);
-  const counts: CleanupCounts = { sessions: 0, intakes: 0, books: 0, orders: 0, pdfs: 0, feedback: 0, log: 0, users: 0, keptReal: sel.keptReal };
+  const counts: CleanupCounts = { sessions: 0, intakes: 0, books: 0, orders: 0, pdfs: 0, feedback: 0, log: 0, quota: 0, users: 0, keptReal: sel.keptReal };
 
   // The files first: a row without a file is harmless, a file without a row is clutter nobody can find.
   for (const part of chunks(sel.pdfPaths)) {
@@ -242,6 +247,10 @@ export async function runCleanup(supabase: ServiceRoleClient, scope: CleanupScop
   if (scope.log) {
     const { count } = await supabase.from("audit_log").delete({ count: "exact" }).lte("created_at", cutoff);
     counts.log = count ?? 0;
+  }
+  if (scope.quota) {
+    const { count } = await supabase.from("test_quota").delete({ count: "exact" }).lte("created_at", cutoff);
+    counts.quota = count ?? 0;
   }
   if (scope.books || scope.unfinished) {
     for (const part of chunks(await orphanUsers(supabase, cutoff, new Set()))) {

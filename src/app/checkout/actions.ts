@@ -12,6 +12,7 @@ import { LEGAL_VERSIONS } from "@/lib/legal/versions";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { disableDeviceMemory, enableDeviceMemory, getDeviceId } from "@/lib/discovery/historyStore";
+import { checkTestQuota } from "@/lib/testQuota";
 
 // Model C digital sale compliance: two separate, independently required
 // checkboxes on /checkout (see CheckoutPanel.tsx) — termsAccepted (the
@@ -46,6 +47,11 @@ export async function createCheckoutSession(
   }
 
   const supabase = createServiceRoleClient();
+
+  // Test phase limit (src/lib/testQuota.ts): checked again here, the page is not the gate.
+  if (!(await checkTestQuota(supabase, sessionId)).allowed) {
+    throw new Error(getDictionary(locale).venster.testLimit.title);
+  }
 
   const { data: intake } = await supabase
     .from("intake_answers")
@@ -165,6 +171,10 @@ export async function skipPaymentForTesting() {
   const sessionId = await getSessionId();
   if (!sessionId) {
     throw new Error("No active session.");
+  }
+
+  if (!(await checkTestQuota(createServiceRoleClient(), sessionId)).allowed) {
+    redirect(`/plan?test_session_id=${encodeURIComponent(sessionId)}`);
   }
 
   // A device that already opted in keeps its memory in test mode too, the same as the
