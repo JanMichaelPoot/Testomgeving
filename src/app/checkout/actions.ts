@@ -29,7 +29,9 @@ export async function createCheckoutSession(
   giftRecipientEmail?: string,
   // The optional "remember what I was shown on this device" choice (fase 5): true = opt in,
   // false = opt out (and delete what was stored), undefined = leave as it is.
-  rememberDevice?: boolean
+  rememberDevice?: boolean,
+  // Where the book should be sent when that is not the address typed at Stripe. Optional.
+  deliveryEmail?: string,
 ) {
   const locale = await getLocale();
   const dict = getDictionary(locale).checkout;
@@ -96,6 +98,8 @@ export async function createCheckoutSession(
       // the /plan link) goes. Empty string, not omitted, so a later read
       // never has to distinguish "no metadata" from "not a gift".
       gift_recipient_email: giftRecipientEmail?.trim() || "",
+      // Same idea for a buyer who wants the book in another inbox than the one typed at Stripe.
+      delivery_email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(deliveryEmail?.trim() ?? "") ? deliveryEmail!.trim() : "",
     },
   });
 

@@ -124,6 +124,9 @@ export interface Dictionary {
     choicesNone: string;
     choicesSurprise: string;
     choicesGroups: { situation: string; about: string; dials: string; interests: string; final: string };
+    deliveryEmailLabel: string;
+    deliveryEmailPlaceholder: string;
+    deliveryEmailHint: string;
     giftEmailLabel: string;
     giftEmailPlaceholder: string;
     ctaIdle: string;
@@ -678,6 +681,9 @@ const nl: Dictionary = {
       interests: "Wat je trekt",
       final: "Hoe je het doet",
     },
+    deliveryEmailLabel: "Naar welk e-mailadres sturen we je boek?",
+    deliveryEmailPlaceholder: "jouw@voorbeeld.nl",
+    deliveryEmailHint: "Optioneel. Laat je het leeg, dan sturen we het naar het adres dat je bij het betalen invult.",
     giftEmailLabel: "E-mailadres van de ontvanger",
     giftEmailPlaceholder: "naam@voorbeeld.nl",
     ctaIdle: "Betalen en mijn PDF ontvangen — {price}",
@@ -1410,6 +1416,9 @@ const en: Dictionary = {
       interests: "What draws you",
       final: "How you like to do it",
     },
+    deliveryEmailLabel: "Which e-mail address should we send your book to?",
+    deliveryEmailPlaceholder: "you@example.com",
+    deliveryEmailHint: "Optional. If you leave it empty we send it to the address you enter when paying.",
     giftEmailLabel: "Recipient's email address",
     giftEmailPlaceholder: "name@example.com",
     ctaIdle: "Pay and get my PDF — {price}",

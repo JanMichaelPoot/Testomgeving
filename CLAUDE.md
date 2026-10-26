@@ -3690,3 +3690,12 @@ Stripe, Claude API, Resend, PostHog).
       gezien**: de limiet die echt bijt, want dat vraagt de migratie in de database; zodra die draait is dat te controleren
       met verzonnen rijen. Plan, kosten, werkwijze in drie golven, WhatsApp-berichten (nl + en) en controlelijst staan in
       `docs/testen-met-bekenden.md`.
+
+- [x] Stap 94 — Een tester kon bij de Stripe-testbetaling het e-mailadres niet wijzigen (Stripe vult het veld vooraf in,
+      bijvoorbeeld uit Link of uit de ingelogde Stripe-dashboardsessie, en dat voelt als vast). De betaalpagina heeft nu zelf
+      een veld "Naar welk e-mailadres sturen we je boek?" (optioneel; leeg = het adres dat bij Stripe is ingevuld), dat als
+      `delivery_email` in de Stripe-metadata gaat; `getOrCreateWindowPlan` kiest het ontvangersadres in de volgorde cadeau-adres,
+      dit veld, Stripe-adres, en bewaart dat als `recipient_email` (ook voor de herinneringsmail). Het veld is verborgen als
+      "dit is een cadeau" aan staat (dat adres gaat voor). Copy nl + en. Het e-mailadres bij Stripe zelf is op dit niveau niet
+      te sturen (zet je `customer_email` mee, dan wordt het bij Stripe juist vergrendeld). Niet gezien in de browser met een
+      echte Stripe-sessie; wel typecontrole, lint en de tests van de betaalpagina.

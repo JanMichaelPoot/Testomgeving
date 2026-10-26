@@ -679,7 +679,7 @@ export async function getOrCreateWindowPlan(
         // receipt at their own email regardless, and stays the account on
         // file above.
         const giftRecipientEmail = checkoutSession.metadata?.gift_recipient_email;
-        const deliveryEmail = giftRecipientEmail || customerEmail;
+        const deliveryEmail = giftRecipientEmail || checkoutSession.metadata?.delivery_email || customerEmail;
 
         // Captured once here rather than re-derived from Stripe later —
         // the scheduled first-action reminder (see
