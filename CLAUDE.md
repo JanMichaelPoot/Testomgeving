@@ -3709,3 +3709,19 @@ Stripe, Claude API, Resend, PostHog).
       een eigen `IP_HASH_SECRET` te zetten. Afzender staat op `info@vantagelabs.nl`: die moet in Resend geverifieerd zijn.
       Nog open: `STRIPE_WEBHOOK_SECRET` (betalingen blijven 'pending', omzet 0), `NEXT_PUBLIC_POSTHOG_KEY` (geen
       gedragsmeting, nodig voor de funnel), `CRON_SECRET` (herinneringsroute open).
+
+- [x] Stap 96 - Kennisengine, Stage A (audit en voorstel; `WINDOW_Bouwopdracht_Kennisengine.md`). **Geen applicatiecode
+      veranderd**, geen betaalde aanroepen (EUR 0). Nieuw: `docs/knowledge-engine-audit.md` (code-audit, nulmeting,
+      diagnose, voorstel, open besluiten K1-K10) en `docs/knowledge-sources.md` (bronnenregister S1-S5); enige andere
+      wijziging: `/data/sources/raw/` in `.gitignore` (de downloads staan daar, ongecommit). **Belangrijkste bevindingen
+      (alles gemeten)**: dekking is niet het hoofdknelpunt (375-398 van 423 activiteiten gebruikt in 500 boeken, populairste
+      11%), wel dun in digitaal/gaming (+-20), persoonlijke uitdagingen (6) en er is geen "thuis"-facet; de blokken
+      "invulling/overhouden/maak het van jou" komen uit 10 vaste type-sjablonen en spreken soms het idee tegen; in de
+      beeld-intake worden afgeleide activiteiten aan de schrijver als "gekozen" voorgesteld; "Als je er maar een kiest" is
+      in 72-88% van de boeken de onverwachte deur (richtingconstanten, geen passendheid); 4 activiteiten met onbekende
+      kosten passen door het filter "gratis" (25-37% van de gratis-boeken); `chain` wordt opgeslagen maar nergens getoond;
+      harde regels E1-E6 blijven 0 overtredingen in 3 x 500 profielen. **Bronnen**: S3 Wikidata (CC0) bruikbaar, klein;
+      S2 alleen als naamlijst (AI-gegenereerd); S1 (CC BY-NC-ND), S4 en S5 afwijzen. **Voorstel**: B1 harnas eerst, dan
+      activiteit-specifieke invulling + eerlijke gedachtegang, dan stapsgewijze ranking, pas daarna gerichte dekking.
+      Gedraaid: `taxonomy:check` (0 fouten), `vitest run src/lib/discovery` (167 tests), shadow-runs en eigen metingen;
+      niet gedraaid: de volledige `npm test`, tsc, lint, build (geen code veranderd). Wacht op akkoord van Jan voor Stage B.

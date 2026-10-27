@@ -47,3 +47,6 @@ supabase/.temp/
 # Playwright
 /test-results/
 /playwright-report/
+
+# Raw downloads of third-party knowledge sources (licence not yet cleared for redistribution; see docs/knowledge-sources.md)
+/data/sources/raw/
