@@ -199,6 +199,14 @@ describe("checkBook", () => {
     expect(checkBook(dup).some((f) => f.check === "duplicates:id")).toBe(true);
   });
 
+  it("warns, never fails, when one opening word starts many of the suggestions of a book (B5 fill lines)", () => {
+    const tipped = (n: number) => entry({ activity_id: `act-${n}`, fill: { timeline: ["a", "b", "c", "d"], takeaways: ["a", "b", "c"], suggestions: [`Noteer ${n}a`, `Neem ${n}b`, `Probeer ${n}c`] } });
+    const findings = checkBook(book([1, 2, 3, 4, 5, 6].map(tipped)));
+    const rep = findings.filter((f) => f.check === "fill:repetitive_opening");
+    expect(rep.map((f) => f.message)).toEqual(['6 suggestions start with "neem"', '6 suggestions start with "noteer"', '6 suggestions start with "probeer"']);
+    expect(rep.every((f) => f.severity === "warn")).toBe(true);
+  });
+
   it("isConcreteAction wants a real instruction to anchor on", () => {
     expect(isConcreteAction("Open steckutrecht.nl en boek een plek bij een proefles.")).toBe(true);
     expect(isConcreteAction("Zoek op Google Maps naar 'kleiwerkplaats Utrecht' en bel er één.")).toBe(true);

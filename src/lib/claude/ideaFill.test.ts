@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { checkFill, fillConflicts, fillContext, lineConflict, normalizeFill, withoutConflicts, type FillContext } from "@/lib/claude/ideaFill";
+import { checkFill, fillConflicts, fillContext, lineConflict, normalizeFill, repeatedOpenings, withoutConflicts, type FillContext } from "@/lib/claude/ideaFill";
 import { knowledgeEngineV2Enabled } from "@/lib/knowledgeFlags";
 import { getActivity } from "@/lib/discovery/library";
 import { kindCopy, type ActivityKind } from "@/lib/pdf/ideaContent";
@@ -111,5 +111,24 @@ describe("contradictions", () => {
   it("applies to a real activity from the library", () => {
     const act = getActivity("pottenbakken")!;
     expect(fillContext(act, "solo").solo).toBe(true);
+  });
+});
+
+describe("repeatedOpenings", () => {
+  const withTips = (suggestions: string[]) => ({ timeline: ["a", "b", "c", "d"], takeaways: ["a", "b", "c"], suggestions });
+  it("counts the first word of every suggestion over the whole book and reports what passes the limit", () => {
+    const fills = [
+      withTips(["Noteer de tijd", "Neem een mes mee", "Probeer iets nieuws"]),
+      withTips(["Noteer wat opviel", "Neem je koptelefoon mee", "Vraag door"]),
+      withTips(["Noteer één ding", "Neem water mee", "Deel een foto"]),
+      withTips(["Noteer je gevoel", "Neem je tijd", "Kies zelf"]),
+      withTips(["noteer: een stop", "Zoek een plek", "Bel een vriend"]),
+    ];
+    expect(repeatedOpenings(fills)).toEqual([{ word: "noteer", count: 5 }, { word: "neem", count: 4 }]);
+    expect(repeatedOpenings(fills, 4)).toEqual([{ word: "noteer", count: 5 }]);
+  });
+  it("is quiet for a varied book, for missing fills and for empty lines", () => {
+    expect(repeatedOpenings([withTips(["Neem x", "Probeer y", "Vraag z"]), undefined])).toEqual([]);
+    expect(repeatedOpenings([])).toEqual([]);
   });
 });

@@ -114,3 +114,23 @@ export function withoutConflicts(lines: readonly string[], ctx: FillContext): st
   const kept = lines.filter((l) => !lineConflict(l, ctx));
   return kept.length > 0 ? kept : [...lines];
 }
+
+/**
+ * Opening words that start more than `maxPer` of the "make it yours" suggestions in a whole book. A model that writes
+ * seven ideas in one call tends to reuse its favourite opening ("Noteer ..." on five of seven ideas in the first paid
+ * comparison). The prompt asks for variety; this only reports how often it still happens (monitoring, never a reason to
+ * drop a line: three lines are required).
+ */
+export function repeatedOpenings(fills: readonly (IdeaFill | undefined)[], maxPer = 3): { word: string; count: number }[] {
+  const counts = new Map<string, number>();
+  for (const fill of fills) {
+    for (const line of fill?.suggestions ?? []) {
+      const word = (line.trim().split(/\s+/)[0] ?? "").toLowerCase().replace(/[^\p{L}]/gu, "");
+      if (word) counts.set(word, (counts.get(word) ?? 0) + 1);
+    }
+  }
+  return [...counts.entries()]
+    .filter(([, count]) => count > maxPer)
+    .map(([word, count]) => ({ word, count }))
+    .sort((a, b) => b.count - a.count || a.word.localeCompare(b.word));
+}

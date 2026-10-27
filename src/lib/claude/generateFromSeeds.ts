@@ -4,7 +4,7 @@ import { freeWord, languageLabel, type Locale } from "@/lib/locale";
 import type { IntakeAnswers } from "@/app/intake/actions";
 import type { CharacterProfile } from "@/lib/characterProfile";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
-import { checkFill, fillConflicts, fillContext, type IdeaFill } from "@/lib/claude/ideaFill";
+import { checkFill, fillConflicts, fillContext, repeatedOpenings, type IdeaFill } from "@/lib/claude/ideaFill";
 import { knowledgeEngineV2Enabled } from "@/lib/knowledgeFlags";
 import {
   LOCATION_SCHEMA,
@@ -167,13 +167,28 @@ Write absolutely everything in {{LANGUAGE}}, not English, unless {{LANGUAGE}} is
 export const FILL_PROMPT_RULES = `- timeline: exactly four short lines (max ~12 words each) describing ONE possible way a first real session could
   go, in this order: arriving or starting; the main part; finishing; afterwards. Specific to THIS activity (say
   what is actually being done: the clay, the route, the board), present tense, no clock times, no claim about
-  any provider's schedule, no named business unless it is one of that idea's verified local options.
+  any provider's schedule, no named business unless it is one of that idea's verified local options. Follow the
+  route of that idea's "Easy way in" line and its verified local options; never switch the medium or the route
+  (for example from building a physical thing to using software, or from a class to doing it at home).
 - takeaways: exactly three short lines (max ~10 words each): what this person is likely to take home from THIS
   activity (a skill, something made, a feeling, a story). Nothing that every activity could say.
 - suggestions: exactly three short lines (max ~12 words each): small, concrete ways to make THIS activity theirs
   (what to bring, what to try, what to note down). They must fit the "How to take part" line: for something done
   alone, never suggest bringing or meeting other people; for an online activity, never mention travelling, parking,
-  cash or a bank card; for an indoor activity, never mention rain or sun gear.
+  cash or a bank card; for an indoor activity, never mention rain or sun gear. Vary the openings across all seven
+  ideas: no verb may start more than two of the 21 suggestions in the whole book, and a note-taking tip at most
+  twice in total. Every suggestion is written entirely in {{LANGUAGE}}, its first word included. Check the 21
+  openings before you answer and change any verb that comes up more than twice.
+`;
+
+// B5 / V1 (KNOWLEDGE_ENGINE_V2): the separately written fill lines (timeline, takeaways, suggestions) follow the route of
+// each idea's "Easy way in" line. The ideas call must follow the same route, or the page contradicts itself (a timeline
+// that solders while the first action downloads software, seen in the first paid comparison). Inserted before "For every idea:".
+export const ROUTE_CONSISTENCY_RULE = `Route. The "Easy way in" line of an idea is the route its steps and first action follow. Choose another route
+only when that idea's verified local options clearly offer it, and never switch the medium (for example from building
+a physical thing to downloading software, or from a class to something at home): the page also shows a timeline of
+that same route, written separately.
+
 `;
 
 // B5 / V2, only with KNOWLEDGE_ENGINE_V2 on and only for the image intake: the person chose pictures, never
@@ -601,7 +616,7 @@ export async function generateIdeaBookFromSeeds(
   const v2 = knowledgeEngineV2Enabled();
   const chosenImages = intake.associations ?? [];
   const honestOrigin = v2 && chosenImages.length > 0;
-  const baseSystem = honestOrigin ? SYSTEM_PROMPT.replace("For every idea:\n", () => `${HONEST_ORIGIN_RULE}For every idea:\n`) : SYSTEM_PROMPT;
+  const baseSystem = v2 ? SYSTEM_PROMPT.replace("For every idea:\n", () => `${ROUTE_CONSISTENCY_RULE}${honestOrigin ? HONEST_ORIGIN_RULE : ""}For every idea:\n`) : SYSTEM_PROMPT;
   const baseLayers = v2 ? LAYERS_SYSTEM_PROMPT.replace("\nHonesty. These matter", () => `${FILL_PROMPT_RULES}\nHonesty. These matter`) : LAYERS_SYSTEM_PROMPT;
   const system = baseSystem.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
   const layersSystem = baseLayers.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
@@ -695,6 +710,7 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   };
   // V1: the fill lines are kept only when complete and when none of them contradicts what is known about the idea
   // (done alone, online only, indoors). Otherwise the PDF falls back to its templates, which are filtered the same way.
+  const keptFills: IdeaFill[] = [];
   const fillFor = (label: string, seed: Seed): IdeaFill | undefined => {
     if (!v2 || !layers) return undefined;
     const layer = layerFor(seed);
@@ -709,6 +725,7 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
       issues.push(`${label}:fill_conflict (${conflicts.join(", ")})`);
       return undefined;
     }
+    keptFills.push(fill);
     return fill;
   };
   const ideas = (raw.ideas as unknown[]).map((r, i) => {
@@ -725,6 +742,8 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
     allHosts,
   );
   issues.push(...wildChecked.issues.map((x) => `wildcard:${x}`));
+  // Monitoring only (the prompt asks for variety): one opening word on more than three suggestions reads as a template.
+  for (const r of repeatedOpenings(keptFills)) issues.push(`fill_repetitive (${r.word} x${r.count})`);
   if (ideas.some((i) => !i.title || !i.why_it_fits || i.details.length === 0) || !wildChecked.entry.title) {
     throw new Error("Claude returned incomplete ideas. Please try again.");
   }

@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { IntakeAnswers } from "@/app/intake/actions";
 import { computeCharacterProfile } from "@/lib/characterProfile";
+import { languageLabel } from "@/lib/locale";
 
 // B5 (V1 + V2) behind KNOWLEDGE_ENGINE_V2: the model and the research are replaced, so this tests what the
 // pipeline asks for and what it does with the answer. Nothing here costs anything.
@@ -13,7 +14,7 @@ vi.mock("@/lib/claude/localResearch", async (orig) => ({
   researchSeeds: (...a: unknown[]) => researchSeeds(...a),
 }));
 
-import { FILL_PROMPT_RULES, HONEST_ORIGIN_RULE, generateIdeaBookFromSeeds, why } from "@/lib/claude/generateFromSeeds";
+import { FILL_PROMPT_RULES, HONEST_ORIGIN_RULE, ROUTE_CONSISTENCY_RULE, generateIdeaBookFromSeeds, why } from "@/lib/claude/generateFromSeeds";
 import type { Seed } from "@/lib/discovery/engine";
 
 const intake: IntakeAnswers = {
@@ -50,10 +51,12 @@ const entry = (n: number) => ({
   location: null,
   requirements: [],
 });
+// Twenty-one different opening words, so the default fills never look repetitive.
+const OPENERS = ["Neem", "Probeer", "Vraag", "Fotografeer", "Vergelijk", "Deel", "Kies", "Zoek", "Bewaar", "Luister", "Schrijf", "Teken", "Ruik", "Proef", "Bel", "Plan", "Leen", "Ruil", "Haal", "Breng", "Wacht"];
 const fillOf = (n: number, over: Record<string, unknown> = {}) => ({
   timeline: [`Start ${n}`, `Midden ${n}`, `Einde ${n}`, `Daarna ${n}`],
   takeaways: [`Mee ${n}a`, `Mee ${n}b`, `Mee ${n}c`],
-  suggestions: [`Tip ${n}a`, `Tip ${n}b`, `Tip ${n}c`],
+  suggestions: [0, 1, 2].map((k) => `${OPENERS[(n - 1) * 3 + k]} tip ${n}${"abc"[k]}`),
   ...over,
 });
 const layer = (n: number, extra: Record<string, unknown> = {}) => ({
@@ -105,6 +108,8 @@ describe("KNOWLEDGE_ENGINE_V2 off (the default): nothing changes", () => {
     expect(Object.keys(extra.tools[0].input_schema.properties.ideas.items.properties)).toEqual(["feels_like", "sizes", "next_step"]);
     expect(squash(extra.system)).not.toContain("timeline: exactly four");
     expect(squash(core.system)).not.toContain("The person chose IMAGES");
+    expect(squash(core.system)).not.toContain("Route. The");
+    expect(squash(extra.system)).not.toContain("never switch the medium");
     expect(squash(core.messages[0].content)).toContain("Related to something they picked");
     expect([...book.ideas, book.wildcard].some((i) => i.fill)).toBe(false);
   });
@@ -122,7 +127,7 @@ describe("KNOWLEDGE_ENGINE_V2 on", () => {
     expect(items.required).toEqual(["feels_like", "sizes", "next_step", "timeline", "takeaways", "suggestions"]);
     expect(items.properties.timeline.minItems).toBe(4);
     const prompt = squash(extra.system);
-    expect(prompt).toContain(squash(FILL_PROMPT_RULES).trim());
+    expect(prompt).toContain(squash(FILL_PROMPT_RULES.replaceAll("{{LANGUAGE}}", languageLabel("nl"))).trim());
     expect(prompt.indexOf("timeline: exactly four")).toBeGreaterThan(prompt.indexOf("next_step: one sentence"));
     expect(prompt.indexOf("timeline: exactly four")).toBeLessThan(prompt.indexOf("Honesty. These matter"));
   });
@@ -163,6 +168,26 @@ describe("KNOWLEDGE_ENGINE_V2 on", () => {
     const { book, report } = await run({ company: ["alone"] });
     expect([...book.ideas, book.wildcard].every((i) => !i.fill)).toBe(true);
     expect(report.issues.some((x) => x.startsWith("idea1:fill_conflict") && x.includes("suggestions:solo"))).toBe(true);
+  });
+
+  it("tells both writers to follow the route of 'Easy way in', and the layers writer to vary the openings", async () => {
+    respond();
+    await run();
+    const [core] = callsFor("create_idea_book");
+    const [extra] = callsFor("create_layers");
+    expect(squash(core.system)).toContain(squash(ROUTE_CONSISTENCY_RULE).trim());
+    expect(squash(core.system).indexOf("Route. The")).toBeLessThan(squash(core.system).indexOf("For every idea:"));
+    const layers = squash(extra.system);
+    expect(layers).toContain("never switch the medium or the route");
+    expect(layers).toContain("no verb may start more than two of the 21 suggestions in the whole book");
+    expect(layers).toContain(`written entirely in ${languageLabel("nl")}`);
+  });
+
+  it("reports an opening word that starts many suggestions, and still keeps every line", async () => {
+    respond(() => layersAnswer(sevenLayers((n) => ({ suggestions: [`Noteer a${n}`, `Noteer b${n}`, `${OPENERS[n]} c${n}`] }))));
+    const { book, report } = await run();
+    expect(report.issues).toContain("fill_repetitive (noteer x14)");
+    expect([...book.ideas, book.wildcard].every((i) => i.fill)).toBe(true);
   });
 
   it("still stores the chain of every idea (the origin the person can see)", async () => {

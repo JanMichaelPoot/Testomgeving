@@ -1,3 +1,4 @@
+import { repeatedOpenings } from "@/lib/claude/ideaFill";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { getActivity } from "@/lib/discovery/library";
 import { evaluate, type Run } from "@/lib/discovery/engine/evaluate";
@@ -141,6 +142,10 @@ export function checkBook(book: GeneratedIdeaBook, profile?: string): Finding[] 
     if (!e.activity_id) continue;
     if (seen.has(e.activity_id)) out.push({ check: "duplicates:id", severity: "error", where: label, message: `activity ${e.activity_id} appears twice in the book` });
     seen.add(e.activity_id);
+  }
+  // B5: one opening word on many of the "make it yours" suggestions reads as a template (a warning, never an error).
+  for (const r of repeatedOpenings([...book.ideas, book.wildcard].map((e) => e.fill))) {
+    out.push({ check: "fill:repetitive_opening", severity: "warn", where: "book", message: `${r.count} suggestions start with "${r.word}"` });
   }
   return out.map((f) => ({ ...f, profile }));
 }

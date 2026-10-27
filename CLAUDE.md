@@ -3801,3 +3801,21 @@ Stripe, Claude API, Resend, PostHog).
       vergeleken): hij koos "voorstel B, duidelijk beter"; B was in beide profielen v2 (A = huidig). Eén beoordelaar (de bouwer van het product), twee
       profielen, de vijf rubricvragen niet apart ingevuld: een duidelijk signaal, geen vaststelling van de 60%-drempel. **Niet gedaan**: de
       overige 18 profielen, een tweede beoordelaar, de go-criteria ingevuld.
+
+- [x] Stap 100 - Kennisengine, de twee zwakke punten van v2 (uit Stap 99), met een kleine betaalde controle (Jan: "Akkoord, draai het", daarna
+      max. $0,30 in totaal; uitgegeven **$0,201**). **Punt 1, fill spreekt de route van het idee tegen** (P01 idee 5: tijdlijn "je soldeert",
+      eerste stap "download VCV Rack"): oorzaak is dat de laagcall en de ideeëncall tegelijk lopen en elk een eigen route kozen. Opgelost met
+      dezelfde route in beide prompts (alleen met de vlag): de tijdlijnregel in `FILL_PROMPT_RULES` en een nieuw blok `ROUTE_CONSISTENCY_RULE`
+      in de ideeënprompt ("Easy way in" is de route; nooit van medium wisselen). Bewust **geen** deterministische controle: die zou op
+      trefwoorden moeten leunen en goede invullingen onterecht weggooien. **Punt 2, herhaalde "Noteer ..."-tips**: de suggestieregel vraagt nu
+      variatie over de 21 regels van het boek (geen werkwoord vaker dan twee keer, notitietips hooguit twee keer, eerst nakijken);
+      `repeatedOpenings` (`ideaFill.ts`) meldt een openingswoord op meer dan drie suggesties als `fill_repetitive (woord xN)` in de log van de
+      pijplijn en als waarschuwing `fill:repetitive_opening` in het harnas (nooit een reden om een regel te laten vallen: drie zijn verplicht).
+      **Eerste controle ($0,101)** liet een fout in mijn eigen prompt zien: de Engelse voorbeeldwerkwoorden ("ask, photograph, compare, ...")
+      werden in de Nederlandse tips overgenomen ("Ask de begeleider", "Photograph je plant"), en "Kies" stond er 5 keer in. Prompt aangepast:
+      geen voorbeeldwerkwoorden meer, "geschreven in {{LANGUAGE}}, ook het eerste woord", en "controleer de 21 openingen voor je antwoordt".
+      **Tweede controle ($0,100, P01 v2)**: de Engelse woorden zijn weg, "Noteer" staat er nog 1 keer, de route is consistent (idee 5: eerste
+      stap een DJ-workshop uit het onderzoek, tijdlijn zonder solderen), maar **"Kies" staat nog 4 keer** (grens 2): de variatieregel werkt
+      maar half. Schrijven nog ±53-58 s en $0,100-0,101 (cache warm). **Niet gedaan**: P12 opnieuw (paste niet meer in $0,30: ±$0,10 per boek),
+      een tweede beoordeling, en de "Kies"-herhaling is niet opgelost (alleen gemeld). Nieuwe `--call-reserve` in het harnas. Resultaat van
+      de laatste controle: `docs/eval/2026-10-27-v2-fixcheck-P01-full.*`. Gates: `tsc`, eslint, `taxonomy:check` (0/0), `npm run build`, volledige `npm test` (64 bestanden, 591 tests; dezelfde ene vitest-worker-time-out).

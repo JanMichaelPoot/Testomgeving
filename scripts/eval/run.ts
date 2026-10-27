@@ -13,7 +13,8 @@
 //       first in the cache), under one spending cap, and renders each book as a PDF into <out>/books.
 //   add --out <dir> for another output folder (default docs/eval), --no-write to only print the summary,
 //   --only P01,P12 to run just those fixed profiles; --book-reserve <usd> (default 0.30) is what a whole book may still
-//   cost at the very most before one is started (lower it only when the research is known to be cached).
+//   cost at the very most before one is started (lower it only when the research is known to be cached);
+//   --call-reserve <usd> (default 0.12) is what one API call may cost at the very most, kept free per call in flight.
 //
 // "--seeds-only" (the default) is free and deterministic: only the selection engine runs, no text is written.
 // "--full" calls the Claude API and costs real money, so it refuses to run without --confirm-cost <usd>
@@ -147,7 +148,7 @@ async function main() {
     }
     if (!process.env.ANTHROPIC_API_KEY && existsSync(".env.local")) process.loadEnvFile(".env.local");
     const { anthropic } = await import("../../src/lib/anthropic");
-    const meter = new BudgetMeter(cap);
+    const meter = new BudgetMeter(cap, Number(value("call-reserve") ?? 0.12));
     meter.wrap(anthropic.messages as unknown as { create: (...a: never[]) => Promise<unknown> });
     const { generateIdeaBookFromSeeds } = await import("../../src/lib/claude/generateFromSeeds");
     const { computeCharacterProfile } = await import("../../src/lib/characterProfile");
