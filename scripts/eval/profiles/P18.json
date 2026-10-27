@@ -1,0 +1,36 @@
+{
+  "id": "P18",
+  "title": "Kaarten: gezelschap en spel",
+  "kind": "cards",
+  "note": "Kaartenwizard, avondje met vrienden.",
+  "edge": false,
+  "month": 10,
+  "seed": "eval-P18",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "25-34",
+    "location": "Haarlem",
+    "searchDistance": "hour",
+    "timeAvailable": "halfday",
+    "budget": "25",
+    "mustHaves": "",
+    "socialFormats": [
+      "with_known"
+    ],
+    "company": [
+      "friends"
+    ],
+    "interestDomains": [
+      "games",
+      "night"
+    ],
+    "interests": [
+      "bordspellen",
+      "pubquiz",
+      "escape-room",
+      "kaartspellen"
+    ],
+    "practicalToWild": "either",
+    "effort": "some"
+  }
+}

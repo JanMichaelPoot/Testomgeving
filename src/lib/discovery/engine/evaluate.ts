@@ -76,8 +76,12 @@ export function evaluate(runs: readonly Run[], lib: EngineLibrary): Report {
       if (input.month !== undefined && a.months && !a.months.includes(input.month)) v.E1.push(`${at}: out of season in month ${input.month} (${a.months.join(",")})`);
       if (a.cost !== null && a.cost > costCap) v.E1.push(`${at}: cost ${a.cost} > cap ${costCap}`);
       if (a.intensity !== null && a.intensity > intCap) v.E1.push(`${at}: intensity ${a.intensity} > cap ${intCap}`);
-      if (/buiten/i.test(input.mustHaves) && a.setting === "indoor") v.E1.push(`${at}: indoor but must be outdoors`);
-      if (/binnen/i.test(input.mustHaves) && a.setting === "outdoor") v.E1.push(`${at}: outdoor but must be indoors`);
+      // "buiten of binnen" says nothing (the engine ignores a contradictory wish on purpose, see parseMustHaves):
+      // only a single, unambiguous wish is a hard limit.
+      const wantsOut = /buiten/i.test(input.mustHaves);
+      const wantsIn = /binnen/i.test(input.mustHaves);
+      if (wantsOut && !wantsIn && a.setting === "indoor") v.E1.push(`${at}: indoor but must be outdoors`);
+      if (wantsIn && !wantsOut && a.setting === "outdoor") v.E1.push(`${at}: outdoor but must be indoors`);
       if (/geen groepen/i.test(input.mustHaves) && a.formats && a.formats.every((f) => f === "small_group" || f === "large_group")) {
         v.E1.push(`${at}: group-only but "no groups"`);
       }

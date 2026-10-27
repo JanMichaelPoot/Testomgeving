@@ -25,7 +25,8 @@ export function cleanRecipientName(raw: unknown): string {
   return raw.replace(/[\r\n\t<>]/g, " ").replace(/\s+/g, " ").trim().slice(0, MAX_NAME).trim();
 }
 
-export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed: string = randomUUID()): StoredIntake {
+// `month` is only passed by the evaluation harness (scripts/eval) so a run does not depend on the date it is made on.
+export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed: string = randomUUID(), month: number = currentMonth()): StoredIntake {
   const { associations, associationCorrections } = sanitizeAssociations(stored);
   const axesOverride = sanitizeAxesOverride(stored.axesOverride);
   const purpose = stored.purpose === "gift" ? "gift" : "self";
@@ -43,7 +44,7 @@ export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed
       ageCategory: stored.ageCategory,
     },
     seed,
-    month: currentMonth(),
+    month,
   });
   const tagLabel = new Map(TAGS.map((t) => [t.id, t.label[locale]]));
 

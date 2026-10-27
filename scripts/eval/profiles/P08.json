@@ -1,0 +1,36 @@
+{
+  "id": "P08",
+  "title": "Digitale maker",
+  "kind": "images",
+  "note": "Binnen, alleen, scherm en soldeerbout.",
+  "edge": false,
+  "month": 2,
+  "seed": "eval-P08",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "18-24",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "hour",
+    "budget": "25",
+    "mustHaves": "binnen",
+    "socialFormats": [
+      "solo"
+    ],
+    "company": [
+      "alone"
+    ],
+    "interestDomains": [
+      "tech",
+      "games"
+    ],
+    "associations": [
+      "place-light-studio",
+      "place-miniature-world",
+      "moment-piece-fits",
+      "moment-first-lesson",
+      "sense-click-metal"
+    ],
+    "surpriseMe": false
+  }
+}

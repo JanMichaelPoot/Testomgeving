@@ -1,0 +1,27 @@
+{
+  "id": "P11",
+  "title": "Verras me overal",
+  "kind": "images",
+  "note": "Geen enkel beeld, geen richting: de motor moet breed spreiden.",
+  "edge": true,
+  "month": 10,
+  "seed": "eval-P11",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "35-44",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "halfday",
+    "budget": "100",
+    "mustHaves": "",
+    "socialFormats": [
+      "duo"
+    ],
+    "company": [
+      "partner"
+    ],
+    "interestDomains": [],
+    "associations": [],
+    "surpriseMe": true
+  }
+}

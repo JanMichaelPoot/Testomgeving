@@ -3725,3 +3725,25 @@ Stripe, Claude API, Resend, PostHog).
       activiteit-specifieke invulling + eerlijke gedachtegang, dan stapsgewijze ranking, pas daarna gerichte dekking.
       Gedraaid: `taxonomy:check` (0 fouten), `vitest run src/lib/discovery` (167 tests), shadow-runs en eigen metingen;
       niet gedraaid: de volledige `npm test`, tsc, lint, build (geen code veranderd). Wacht op akkoord van Jan voor Stage B.
+
+- [x] Stap 97 - Kennisengine, B1: evaluatieharnas (branch `kennis`, afgetakt van `main`; Jan gaf "Start B1"). **Gratis en
+      deterministisch**: geen enkele API-aanroep, EUR 0. Nieuw: `scripts/eval/profiles/P01-P20.json` (20 vaste profielen:
+      17 beeld-intake, 3 kaartenwizard, 4 randgevallen, 2 cadeaus, vaste `seed` en `month`), `scripts/eval/run.ts`
+      (`--engine current|v2`, `--profiles all|synthetic-cards|synthetic-images`, `--seeds-only` standaard, `--full`),
+      `scripts/eval/blind-sheet.ts` (blinde A/B-HTML met de vijf rubricvragen, aparte sleutel, CSV-export, telling),
+      `src/lib/discovery/eval/` (profielen, engine-register, runner, metingen, controles, resultaat, rapport, sheet),
+      `scripts/eval/baseline/current.json` (seeds van de huidige motor), `docs/eval/` (README + rapporten van 2026-10-27).
+      **Controles in `npm test`** (25 tests): harde grenzen (E1/E3/E4/E5/E6), duplicaten (id en genormaliseerde naam),
+      spreiding (>= 4 werelden, >= 3 fotocategorieen), precies een wildcard; voor boeken `first_action` aanwezig (fout) en
+      concreet (waarschuwing) en een exacte prijs, openingstijd of straat zonder bron in het onderzoek van dat idee (fout);
+      een momentopname-test op `current.json`; en een test dat `--full` zonder bevestigd bedrag niets draait (exitcode 2) en
+      `--engine v2` wordt geweigerd. **Reproductie van de nulmeting**: dezelfde 500 synthetische bezoekers (seed `ke-1`)
+      geven met het harnas exact de cijfers van het auditrapport (o.a. 6,01 / 6,18 werelden per boek, 41,2% / 45,8% boeken met
+      een paar dat >= 2 tags deelt, "Als je er maar een kiest" = onverwacht in 72% / 88%, 23/91 en 43/116 gratis-boeken met
+      onbekende kosten); rapporten in `docs/eval/`. **Twee keuzes buiten de opdracht**: (1) `applyImageIntake` kreeg een optionele
+      vierde parameter `month` (standaard `currentMonth()`, gedrag ongewijzigd) zodat een run niet van de datum afhangt;
+      (2) het orakel in `engine/evaluate.ts` (E1) keurde een tegenstrijdige wens ("buiten of binnen") af, terwijl de motor die
+      volgens `parseMustHaves` terecht negeert: het orakel telt nu alleen een enkelvoudige wens als harde grens (gevonden door
+      mijn eigen randgeval P10; 6 vals-positieve overtredingen weg, de motor zelf is niet aangepast). Gedraaid: `tsc --noEmit`,
+      `eslint src scripts e2e`, `taxonomy:check`, `npm run build`, volledige `npm test` (61 bestanden, 549 tests geslaagd).
+      Niet gedaan: `--full` is nooit uitgevoerd (alleen de blokkade getest); `v2` bestaat nog niet.

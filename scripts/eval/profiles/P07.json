@@ -1,0 +1,36 @@
+{
+  "id": "P07",
+  "title": "Dieet en alcoholvrij",
+  "kind": "images",
+  "note": "Vegetarisch en geen alcohol: ook niet filterbaar, alleen vlag.",
+  "edge": false,
+  "month": 11,
+  "seed": "eval-P07",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "25-34",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "halfday",
+    "budget": "100",
+    "mustHaves": "vegetarisch, geen alcohol",
+    "socialFormats": [
+      "with_known"
+    ],
+    "company": [
+      "friends"
+    ],
+    "interestDomains": [
+      "food"
+    ],
+    "associations": [
+      "place-kitchen-table",
+      "place-flea-market",
+      "moment-bread-oven",
+      "moment-campfire",
+      "sense-fresh-bread",
+      "sense-herbs"
+    ],
+    "surpriseMe": false
+  }
+}

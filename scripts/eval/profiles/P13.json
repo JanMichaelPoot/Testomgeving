@@ -1,0 +1,38 @@
+{
+  "id": "P13",
+  "title": "Cadeau voor een puber",
+  "kind": "images",
+  "note": "Cadeau voor Sam, onder 18, geen alcohol.",
+  "edge": false,
+  "month": 11,
+  "seed": "eval-P13",
+  "stored": {
+    "purpose": "gift",
+    "ageCategory": "under18",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "hour",
+    "budget": "25",
+    "mustHaves": "geen alcohol",
+    "socialFormats": [
+      "with_known"
+    ],
+    "company": [
+      "friends"
+    ],
+    "interestDomains": [
+      "speed",
+      "night"
+    ],
+    "associations": [
+      "place-arena-lights",
+      "place-night-street",
+      "moment-countdown",
+      "moment-laughing",
+      "sense-drumroll",
+      "sense-bass"
+    ],
+    "surpriseMe": false,
+    "recipientName": "Sam"
+  }
+}

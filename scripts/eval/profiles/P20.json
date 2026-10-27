@@ -1,0 +1,36 @@
+{
+  "id": "P20",
+  "title": "Kaarten: wild",
+  "kind": "cards",
+  "note": "Kaartenwizard, veel budget, alleen met instructeur.",
+  "edge": false,
+  "month": 6,
+  "seed": "eval-P20",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "25-34",
+    "location": "Haarlem",
+    "searchDistance": "hour",
+    "timeAvailable": "weekend",
+    "budget": "allin",
+    "mustHaves": "alleen met instructeur",
+    "socialFormats": [
+      "duo"
+    ],
+    "company": [
+      "partner"
+    ],
+    "interestDomains": [
+      "adventure",
+      "target"
+    ],
+    "interests": [
+      "boogschieten",
+      "abseilen",
+      "buiten-klimmen",
+      "schietles"
+    ],
+    "practicalToWild": "wild",
+    "effort": "committed"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "P19",
+  "title": "Kaarten: rust",
+  "kind": "cards",
+  "note": "Kaartenwizard, gratis en stil.",
+  "edge": false,
+  "month": 11,
+  "seed": "eval-P19",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "55-64",
+    "location": "Haarlem",
+    "searchDistance": "hour",
+    "timeAvailable": "hour",
+    "budget": "free",
+    "mustHaves": "stil",
+    "socialFormats": [
+      "solo"
+    ],
+    "company": [
+      "friends"
+    ],
+    "interestDomains": [
+      "restful",
+      "nature"
+    ],
+    "interests": [
+      "meditatie",
+      "bosbaden",
+      "lezen",
+      "journaling"
+    ],
+    "practicalToWild": "grounded",
+    "effort": "minimal"
+  }
+}

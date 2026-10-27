@@ -1,0 +1,33 @@
+{
+  "id": "P09",
+  "title": "Zeer smalle interesse",
+  "kind": "images",
+  "note": "Eén beeld per ronde rond miniaturen: weinig om op te sturen.",
+  "edge": true,
+  "month": 3,
+  "seed": "eval-P09",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "45-54",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "halfday",
+    "budget": "25",
+    "mustHaves": "",
+    "socialFormats": [
+      "solo"
+    ],
+    "company": [
+      "alone"
+    ],
+    "interestDomains": [
+      "collecting"
+    ],
+    "associations": [
+      "place-miniature-world",
+      "moment-collect",
+      "sense-fine-brush"
+    ],
+    "surpriseMe": false
+  }
+}

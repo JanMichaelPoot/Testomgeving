@@ -1,0 +1,35 @@
+{
+  "id": "P04",
+  "title": "Kleine portemonnee",
+  "kind": "images",
+  "note": "Gratis, buiten, zonder auto.",
+  "edge": false,
+  "month": 5,
+  "seed": "eval-P04",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "18-24",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "hour",
+    "budget": "free",
+    "mustHaves": "geen auto",
+    "socialFormats": [
+      "solo"
+    ],
+    "company": [
+      "alone"
+    ],
+    "interestDomains": [
+      "nature"
+    ],
+    "associations": [
+      "place-forest-edge",
+      "moment-campfire",
+      "moment-stillness",
+      "sense-wood-smoke",
+      "sense-grass"
+    ],
+    "surpriseMe": false
+  }
+}

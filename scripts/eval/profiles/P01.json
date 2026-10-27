@@ -1,0 +1,36 @@
+{
+  "id": "P01",
+  "title": "Stille creatieveling",
+  "kind": "images",
+  "note": "Eén rustige, handenwerk-gerichte bezoeker.",
+  "edge": false,
+  "month": 10,
+  "seed": "eval-P01",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "35-44",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "hour",
+    "budget": "25",
+    "mustHaves": "",
+    "socialFormats": [
+      "solo"
+    ],
+    "company": [
+      "alone"
+    ],
+    "interestDomains": [
+      "creative"
+    ],
+    "associations": [
+      "place-workshop",
+      "place-light-studio",
+      "moment-clay",
+      "moment-stillness",
+      "sense-wood",
+      "sense-candlelight"
+    ],
+    "surpriseMe": false
+  }
+}

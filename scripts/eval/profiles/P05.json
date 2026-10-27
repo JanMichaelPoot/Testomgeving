@@ -1,0 +1,37 @@
+{
+  "id": "P05",
+  "title": "Gezin met kinderen",
+  "kind": "images",
+  "note": "Hele dag, kinderen mee, geen alcohol.",
+  "edge": false,
+  "month": 6,
+  "seed": "eval-P05",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "35-44",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "fullday",
+    "budget": "100",
+    "mustHaves": "kinderen, geen alcohol",
+    "socialFormats": [
+      "with_known"
+    ],
+    "company": [
+      "family"
+    ],
+    "interestDomains": [
+      "nature",
+      "food"
+    ],
+    "associations": [
+      "place-barn-animals",
+      "place-kitchen-table",
+      "moment-growing",
+      "moment-bread-oven",
+      "sense-herbs",
+      "sense-warm-fur"
+    ],
+    "surpriseMe": false
+  }
+}

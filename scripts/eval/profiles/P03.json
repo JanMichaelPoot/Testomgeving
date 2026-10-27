@@ -1,0 +1,37 @@
+{
+  "id": "P03",
+  "title": "Avontuurzoeker met geld",
+  "kind": "images",
+  "note": "Veel budget, weekend, wil de grens op.",
+  "edge": false,
+  "month": 7,
+  "seed": "eval-P03",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "25-34",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "weekend",
+    "budget": "allin",
+    "mustHaves": "",
+    "socialFormats": [
+      "duo"
+    ],
+    "company": [
+      "partner"
+    ],
+    "interestDomains": [
+      "adventure",
+      "speed"
+    ],
+    "associations": [
+      "place-mountain-ridge",
+      "place-race-circuit",
+      "moment-leap",
+      "moment-start",
+      "sense-engine-roar",
+      "sense-heartbeat"
+    ],
+    "surpriseMe": false
+  }
+}

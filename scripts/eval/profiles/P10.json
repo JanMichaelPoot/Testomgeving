@@ -1,0 +1,41 @@
+{
+  "id": "P10",
+  "title": "Tegenstrijdige wensen",
+  "kind": "images",
+  "note": "Stilte én snelheid, binnen én buiten, onduidelijke vrije tekst.",
+  "edge": true,
+  "month": 8,
+  "seed": "eval-P10",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "35-44",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "hour",
+    "budget": "100",
+    "mustHaves": "buiten of binnen, druk maar niet druk",
+    "socialFormats": [
+      "duo"
+    ],
+    "company": [
+      "partner"
+    ],
+    "interestDomains": [
+      "restful",
+      "speed"
+    ],
+    "associations": [
+      "place-still-water",
+      "place-race-circuit",
+      "moment-deep-silence",
+      "moment-start",
+      "sense-bass",
+      "sense-cave-cool"
+    ],
+    "surpriseMe": false,
+    "axesOverride": {
+      "energy": 1,
+      "social": -1
+    }
+  }
+}

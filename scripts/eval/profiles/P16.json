@@ -1,0 +1,37 @@
+{
+  "id": "P16",
+  "title": "Weekendontsnapping",
+  "kind": "images",
+  "note": "Weekend, alleen, zonder auto, graag spannend.",
+  "edge": false,
+  "month": 5,
+  "seed": "eval-P16",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "25-34",
+    "location": "Utrecht",
+    "searchDistance": "anywhere",
+    "timeAvailable": "weekend",
+    "budget": "100",
+    "mustHaves": "geen auto",
+    "socialFormats": [
+      "solo"
+    ],
+    "company": [
+      "alone"
+    ],
+    "interestDomains": [
+      "solo_explore",
+      "adventure"
+    ],
+    "associations": [
+      "place-mountain-ridge",
+      "place-cave-dark",
+      "moment-summit",
+      "moment-secret-door",
+      "sense-wind",
+      "sense-cave-cool"
+    ],
+    "surpriseMe": false
+  }
+}

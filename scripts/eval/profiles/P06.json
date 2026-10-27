@@ -1,0 +1,37 @@
+{
+  "id": "P06",
+  "title": "Mobiliteitsbeperking",
+  "kind": "images",
+  "note": "Rolstoeltoegankelijk is een harde eis die niet te filteren is: moet als verify-vlag blijven.",
+  "edge": true,
+  "month": 9,
+  "seed": "eval-P06",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "65plus",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "halfday",
+    "budget": "25",
+    "mustHaves": "Rolstoeltoegankelijk",
+    "socialFormats": [
+      "duo"
+    ],
+    "company": [
+      "partner"
+    ],
+    "interestDomains": [
+      "creative",
+      "history"
+    ],
+    "associations": [
+      "place-reading-room",
+      "place-light-studio",
+      "moment-lost-in-story",
+      "moment-stillness",
+      "sense-old-book",
+      "sense-candlelight"
+    ],
+    "surpriseMe": false
+  }
+}

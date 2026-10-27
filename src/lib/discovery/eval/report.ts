@@ -1,0 +1,84 @@
+import type { EvalResultFile } from "@/lib/discovery/eval/results";
+
+// The Markdown report of a harness run (docs/eval/<date>-<engine>.md).
+
+const pct = (x: number, digits = 1) => `${(x * 100).toFixed(digits)}%`;
+const num = (x: number) => x.toFixed(2);
+
+export function renderReport(file: EvalResultFile): string {
+  const m = file.metrics;
+  const date = file.generatedAt.slice(0, 10);
+  const errors = file.profiles.flatMap((p) => p.findings.filter((f) => f.severity === "error"));
+  const warns = file.profiles.flatMap((p) => p.findings.filter((f) => f.severity === "warn"));
+  const lines: string[] = [];
+  const line = (s = "") => lines.push(s);
+
+  line(`# Evaluatie: engine \`${file.engine}\`, ${file.mode}`);
+  line();
+  line(`Gemaakt op ${date}. Profielen: ${file.source}. ${m.profiles} profielen, ${m.seeds} ideeën.`);
+  line(file.mode === "seeds-only" ? "Alleen de selectiemotor (gratis, deterministisch): geen tekst geschreven, geen API-kosten." : "Inclusief geschreven boeken (betaald).");
+  line();
+  line("## Harde regels (moeten 0 zijn)");
+  line();
+  line("| E1 harde eisen | E3 herhaling | E4 één wildcard | E5 sociale keuze | E6 toezicht |");
+  line("|---|---|---|---|---|");
+  line(`| ${m.violations.E1} | ${m.violations.E3} | ${m.violations.E4} | ${m.violations.E5} | ${m.violations.E6} |`);
+  line();
+  line(`Controles: **${errors.length} fouten**, ${warns.length} waarschuwingen.`);
+  line();
+  line("## Zachte criteria van de motor");
+  line();
+  line("| Maat | Aandeel profielen |");
+  line("|---|---|");
+  for (const [k, v] of Object.entries(m.rates)) line(`| ${k} | ${pct(v)} |`);
+  line();
+  line("## Diversiteit en betrouwbaarheid");
+  line();
+  line("| Maat | Waarde |");
+  line("|---|---|");
+  line(`| Werelden per boek | ${num(m.worldsPerBook)} |`);
+  line(`| Subdomeinen per boek | ${num(m.subsPerBook)} |`);
+  line(`| Fotocategorieën per boek (van 12) | ${num(m.photoCategoriesPerBook)} |`);
+  line(`| Soorten beleving per boek (van 10) | ${num(m.kindsPerBook)} |`);
+  line(`| Boeken met een paar ideeën met ≥ 2 gedeelde niet-algemene tags | ${pct(m.pairBooks)} |`);
+  line(`| Boeken met twee ideeën in één subdomein | ${pct(m.sameSubBooks)} |`);
+  line(`| Boeken waarin een richting versoepeld werd | ${pct(m.relaxedBooks)} |`);
+  line(`| Ideeën met \`verify\`-vlaggen | ${pct(m.verifySeeds)} |`);
+  line(`| Ideeën met toezichtsplicht (tier 2) | ${pct(m.tier2Seeds)} |`);
+  line(`| Ideeën met onbekende kosten | ${pct(m.costUnknownSeeds)} |`);
+  line(`| Boeken met budget *gratis* die zo'n idee bevatten | ${m.freeBudgetWithUnknownCost} / ${m.freeBudgetBooks} |`);
+  line(`| Aandeel "social" in alle ideeën | ${pct(m.socialKindShare)} |`);
+  line(`| Verschillende activiteiten gebruikt | ${m.activitiesUsed} |`);
+  line(`| Populairste activiteit | ${m.topActivity.id} in ${pct(m.topActivity.share)} van de boeken |`);
+  line(`| Top 10 activiteiten, aandeel van alle plekken | ${pct(m.top10Share)} |`);
+  line(`| "Als je er maar één kiest" per deur | ${Object.entries(m.oneThingByDoor).sort((a, b) => b[1] - a[1]).map(([d, v]) => `${d} ${pct(v, 0)}`).join(", ")} |`);
+  line();
+  if (Object.keys(m.notes).length) {
+    line("Notities van de motor (hoe vaak een terugvaloptie nodig was): " + Object.entries(m.notes).map(([k, v]) => `${k} ${v}`).join(", "));
+    line();
+  }
+
+  if (errors.length || warns.length) {
+    line("## Bevindingen");
+    line();
+    line("| Profiel | Ernst | Controle | Waar | Melding |");
+    line("|---|---|---|---|---|");
+    for (const p of file.profiles) for (const f of p.findings) line(`| ${p.id} | ${f.severity} | ${f.check} | ${f.where ?? ""} | ${f.message.replace(/\|/g, "/")} |`);
+    line();
+  }
+
+  if (file.profiles.length <= 40) {
+    line("## Per profiel");
+    line();
+    for (const p of file.profiles) {
+      line(`### ${p.id} ${p.title}${p.edge ? " (randgeval)" : ""}`);
+      line();
+      line("| Deur | Idee | Pad |");
+      line("|---|---|---|");
+      for (const s of p.seeds) line(`| ${s.door} | ${s.label.nl} | ${s.chain.length > 1 ? s.chain.join(" → ") : ""} |`);
+      if (p.notes.length) line(`\nNotities: ${p.notes.join(", ")}`);
+      line();
+    }
+  }
+  return lines.join("\n") + "\n";
+}

@@ -1,0 +1,37 @@
+{
+  "id": "P17",
+  "title": "Verzamelaar",
+  "kind": "images",
+  "note": "Archief en rommelmarkt, alleen, halve dag.",
+  "edge": false,
+  "month": 9,
+  "seed": "eval-P17",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "45-54",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "halfday",
+    "budget": "25",
+    "mustHaves": "",
+    "socialFormats": [
+      "solo"
+    ],
+    "company": [
+      "alone"
+    ],
+    "interestDomains": [
+      "collecting",
+      "history"
+    ],
+    "associations": [
+      "place-flea-market",
+      "place-reading-room",
+      "moment-collect",
+      "moment-lost-in-story",
+      "sense-old-book",
+      "sense-vinyl-crackle"
+    ],
+    "surpriseMe": false
+  }
+}

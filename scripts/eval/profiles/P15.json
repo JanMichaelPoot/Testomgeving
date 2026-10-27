@@ -1,0 +1,33 @@
+{
+  "id": "P15",
+  "title": "Weinig tijd, veel zin",
+  "kind": "images",
+  "note": "Een uur, gemengde smaak, alleen.",
+  "edge": false,
+  "month": 1,
+  "seed": "eval-P15",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "35-44",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "hour",
+    "budget": "25",
+    "mustHaves": "",
+    "socialFormats": [
+      "solo"
+    ],
+    "company": [
+      "alone"
+    ],
+    "interestDomains": [],
+    "associations": [
+      "place-night-street",
+      "place-forest-edge",
+      "moment-first-lesson",
+      "moment-laughing",
+      "sense-wind"
+    ],
+    "surpriseMe": false
+  }
+}

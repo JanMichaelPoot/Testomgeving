@@ -1,0 +1,38 @@
+{
+  "id": "P12",
+  "title": "Cadeau voor een kunstliefhebber",
+  "kind": "images",
+  "note": "Cadeau voor Anna, 55-64.",
+  "edge": false,
+  "month": 3,
+  "seed": "eval-P12",
+  "stored": {
+    "purpose": "gift",
+    "ageCategory": "55-64",
+    "location": "Haarlem",
+    "searchDistance": "city",
+    "timeAvailable": "halfday",
+    "budget": "100",
+    "mustHaves": "",
+    "socialFormats": [
+      "duo"
+    ],
+    "company": [
+      "partner"
+    ],
+    "interestDomains": [
+      "stage",
+      "creative"
+    ],
+    "associations": [
+      "place-stage-lit",
+      "place-light-studio",
+      "moment-applause",
+      "moment-clay",
+      "sense-spotlight",
+      "sense-fine-brush"
+    ],
+    "surpriseMe": false,
+    "recipientName": "Anna"
+  }
+}

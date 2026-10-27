@@ -1,0 +1,37 @@
+{
+  "id": "P14",
+  "title": "Actieve senior",
+  "kind": "images",
+  "note": "Rustig bewegen, kleine groep, geen zware inspanning.",
+  "edge": false,
+  "month": 5,
+  "seed": "eval-P14",
+  "stored": {
+    "purpose": "self",
+    "ageCategory": "65plus",
+    "location": "Utrecht",
+    "searchDistance": "city",
+    "timeAvailable": "halfday",
+    "budget": "25",
+    "mustHaves": "geen zware inspanning",
+    "socialFormats": [
+      "small_group"
+    ],
+    "company": [
+      "friends"
+    ],
+    "interestDomains": [
+      "movement",
+      "restful"
+    ],
+    "associations": [
+      "place-still-water",
+      "place-warm-corner",
+      "moment-stillness",
+      "moment-rhythm",
+      "sense-grass",
+      "sense-salt"
+    ],
+    "surpriseMe": false
+  }
+}
