@@ -105,6 +105,8 @@ function proseOf(entry: IdeaBookEntry): [string, string][] {
     ["first_action", entry.first_action],
     ...entry.details.map((d, i): [string, string] => [`details[${i}]`, d]),
     ...entry.requirements.map((r, i): [string, string] => [`requirements[${i}]`, r]),
+    // B5: the activity-specific lines are prose as well; an exact price or opening time in them needs a source too.
+    ...(["timeline", "takeaways", "suggestions"] as const).flatMap((k) => (entry.fill?.[k] ?? []).map((t, i): [string, string] => [`fill.${k}[${i}]`, t])),
   ];
 }
 

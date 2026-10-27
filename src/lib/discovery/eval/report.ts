@@ -58,6 +58,19 @@ export function renderReport(file: EvalResultFile): string {
     line();
   }
 
+  const withRun = file.profiles.filter((p) => p.run);
+  if (withRun.length) {
+    line("## Kosten, tijd en meldingen van het schrijven");
+    line();
+    line("Kosten zijn berekend uit de `usage` van elk antwoord (zelfde prijzen als docs/discovery-api-costs.md); onderzoek komt uit de cache als dezelfde activiteit, plaats en maand al is opgezocht.");
+    line();
+    line("| Profiel | $ | Seconden | Ideeën met eigen invulling (van 7) | Meldingen van de pijplijn | PDF |");
+    line("|---|---|---|---|---|---|");
+    for (const p of withRun) line(`| ${p.id} | ${p.run!.usd.toFixed(3)} | ${p.run!.seconds.toFixed(0)} | ${p.run!.fillCount} | ${p.run!.issues.length ? p.run!.issues.join("; ").replace(/\|/g, "/") : "geen"} | ${p.run!.pdf ?? ""} |`);
+    line(`| **Totaal** | **${withRun.reduce((s, p) => s + p.run!.usd, 0).toFixed(3)}** | **${withRun.reduce((s, p) => s + p.run!.seconds, 0).toFixed(0)}** | | | |`);
+    line();
+  }
+
   if (errors.length || warns.length) {
     line("## Bevindingen");
     line();

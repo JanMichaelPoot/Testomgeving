@@ -9,6 +9,7 @@ import type { Run } from "@/lib/discovery/engine/evaluate";
 import { syntheticProfiles } from "@/lib/discovery/engine/synthetic";
 import { buildBlindSheet, tallyPreferences } from "@/lib/discovery/eval/blind";
 import { checkBook, checkEntry, checkSeedRun, isConcreteAction, type Finding } from "@/lib/discovery/eval/checks";
+import { BudgetExceededError, BudgetMeter, priceOf } from "@/lib/discovery/eval/budget";
 import { EngineNotAvailableError, getEngine } from "@/lib/discovery/eval/engines";
 import { computeMetrics } from "@/lib/discovery/eval/metrics";
 import { loadEvalProfiles, toSyntheticProfile } from "@/lib/discovery/eval/profiles";
@@ -240,9 +241,17 @@ describe("report and blind sheet", () => {
 });
 
 describe("engines and the spending lock", () => {
-  it("says v2 does not exist yet instead of quietly running the current engine", () => {
-    expect(() => getEngine("v2")).toThrow(EngineNotAvailableError);
+  it("knows current and v2, and refuses an unknown engine instead of quietly running another", () => {
+    expect(getEngine("current").knowledgeV2).toBe(false);
+    expect(getEngine("v2").knowledgeV2).toBe(true);
     expect(() => getEngine("nope")).toThrow(EngineNotAvailableError);
+  });
+
+  it("v2 selects exactly what current selects, until a later phase changes the selection (this is the test that should then change)", () => {
+    const v2 = getEngine("v2");
+    const v2Runs = runWithEngine(profiles.map(toSyntheticProfile), v2);
+    const key = (r: Run) => r.sessions.map((s) => s.seeds.map((x) => `${x.direction}:${x.door}:${x.activityId}`).join(","));
+    expect(v2Runs.map(key)).toEqual(runs.map(key));
   });
 
   it("refuses a paid run without a confirmed cost, and runs nothing", () => {
@@ -254,8 +263,77 @@ describe("engines and the spending lock", () => {
     const tooLow = cli("--engine", "current", "--full", "--confirm-cost", "1", "--no-write");
     expect(tooLow.status).toBe(2);
     expect(tooLow.stdout).toContain("Nothing was run");
-    const v2 = cli("--engine", "v2", "--no-write");
-    expect(v2.stderr).toContain("not built yet");
-    expect(v2.status).toBe(2);
+    // two profiles with two engines is four books: one dollar covers the estimate, but a cap above the confirmed amount is refused
+    const aboveConfirmed = cli("--engine", "current,v2", "--only", "P01,P12", "--full", "--confirm-cost", "1", "--max-usd", "2", "--no-write");
+    expect(aboveConfirmed.status).toBe(2);
+    expect(aboveConfirmed.stderr).toContain("not above the confirmed amount");
+    const unknownProfile = cli("--engine", "current", "--only", "P99", "--no-write");
+    expect(unknownProfile.status).toBe(2);
+    expect(unknownProfile.stderr).toContain("Unknown profile");
   }, 240_000);
+
+  it("runs both engines on the free path and only the profiles asked for", () => {
+    const both = spawnSync("npx tsx scripts/eval/run.ts --engine current,v2 --only P01,P12 --no-write", { encoding: "utf8", shell: true, cwd: process.cwd(), timeout: 90_000 });
+    expect(both.status).toBe(0);
+    expect(both.stdout.match(/engine current, seeds-only/g)).toHaveLength(1);
+    expect(both.stdout.match(/engine v2, seeds-only/g)).toHaveLength(1);
+    expect(both.stdout).toContain("2 profielen");
+  }, 120_000);
+});
+
+describe("the spending meter", () => {
+  it("prices Sonnet and Haiku answers from their usage, including the cache and web searches", () => {
+    expect(priceOf("claude-sonnet-5", { input_tokens: 1_000_000, output_tokens: 1_000_000 })).toBeCloseTo(12, 6);
+    expect(priceOf("claude-haiku-4-5", { input_tokens: 1_000_000, output_tokens: 1_000_000 })).toBeCloseTo(6, 6);
+    expect(priceOf("claude-sonnet-5", { cache_creation_input_tokens: 1_000_000 })).toBeCloseTo(2.5, 6);
+    expect(priceOf("claude-sonnet-5", { cache_read_input_tokens: 1_000_000 })).toBeCloseTo(0.2, 6);
+    expect(priceOf("claude-haiku-4-5", { server_tool_use: { web_search_requests: 5 } })).toBeCloseTo(0.05, 6);
+    expect(priceOf("something-new", { input_tokens: 1_000_000 })).toBeCloseTo(2, 6); // unknown = the dearer rate
+    expect(priceOf("claude-sonnet-5", undefined)).toBe(0);
+  });
+
+  it("adds up the cost of every answer and refuses a call that could go over the cap", async () => {
+    const calls: string[] = [];
+    const target = {
+      create: async (args: { model: string }) => {
+        calls.push(args.model);
+        return { usage: { input_tokens: 10_000, output_tokens: 5_000 } }; // Sonnet: 0.02 + 0.05 = $0.07
+      },
+    };
+    const meter = new BudgetMeter(0.3, 0.12);
+    const restore = meter.wrap(target as never);
+    await target.create({ model: "claude-sonnet-5" });
+    await target.create({ model: "claude-sonnet-5" });
+    expect(meter.spent).toBeCloseTo(0.14, 6);
+    expect(meter.calls).toBe(2);
+    // 0.14 spent + the 0.12 one more call may cost = 0.26 <= 0.30: allowed. After that it is 0.21 + 0.12 > 0.30.
+    await target.create({ model: "claude-sonnet-5" });
+    await expect(target.create({ model: "claude-sonnet-5" })).rejects.toBeInstanceOf(BudgetExceededError);
+    expect(calls).toHaveLength(3);
+    expect(meter.spent).toBeCloseTo(0.21, 6);
+    restore();
+    await target.create({ model: "claude-sonnet-5" }); // the original is back
+    expect(calls).toHaveLength(4);
+  });
+
+  it("keeps room for calls that are still running, so two at once cannot both slip under the cap", async () => {
+    let release: () => void = () => {};
+    const gate = new Promise<void>((r) => (release = r));
+    const target = { create: async () => { await gate; return { usage: { input_tokens: 1000, output_tokens: 1000 } }; } };
+    const meter = new BudgetMeter(0.2, 0.12);
+    meter.wrap(target as never);
+    const first = target.create();
+    await expect(target.create()).rejects.toBeInstanceOf(BudgetExceededError); // 1 in flight x 0.12 + this one 0.12 > 0.2
+    release();
+    await first;
+  });
+
+  it("only starts a whole book when it still fits", () => {
+    const meter = new BudgetMeter(1);
+    expect(meter.canStartBook()).toBe(true);
+    meter.spent = 0.7;
+    expect(meter.canStartBook()).toBe(true);
+    meter.spent = 0.71;
+    expect(meter.canStartBook()).toBe(false);
+  });
 });

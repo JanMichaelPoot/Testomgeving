@@ -35,7 +35,17 @@ npx tsx scripts/eval/run.ts --engine current --full
 
 **Betaald, daarom vergrendeld.** Zonder `--confirm-cost` toont het commando alleen wat een run zou kosten (20 boeken ≈ $4,60 bovengrens) en stopt met exitcode 2. Pas met `--confirm-cost <bedrag>` dat de schatting dekt worden boeken echt geschreven. Een `--full`-run gebruikt de maand van vandaag (de schrijfpijplijn kent geen vaste maand), dus die run is niet bit-voor-bit herhaalbaar.
 
-`--engine v2` bestaat nog niet en wordt geweigerd met een duidelijke melding.
+### Twee versies naast elkaar, met een harde bovengrens (B6)
+
+```bash
+npx tsx scripts/eval/run.ts --engine current,v2 --only P01,P12 --full --confirm-cost 1 --max-usd 1
+```
+
+`--engine v2` is de kennisengine tot nu toe: **dezelfde selectie** als `current` (een test legt dat vast), maar het boek wordt geschreven en gerenderd met `KNOWLEDGE_ENGINE_V2` aan (B5: eigen invulling per activiteit, eerlijke herkomst, zichtbare keten). Verschillen zie je dus alleen in een `--full`-run. Met meerdere engines schrijft het script per profiel eerst het ene en dan het andere boek, zodat het tweede boek het onderzoek van het eerste uit de cache haalt.
+
+- `--only P01,P12` draait alleen die vaste profielen. In een `--full`-run krijgen alle profielen de maand van vandaag (de schrijfpijplijn leest de klok), zodat de seeds in het rapport dezelfde zijn als die van de geschreven boeken.
+- `--max-usd` is een **harde grens**: elk antwoord van de API wordt uit zijn eigen `usage` doorgerekend (`src/lib/discovery/eval/budget.ts`) en het script start geen aanroep (of boek) meer die het totaal over de grens zou kunnen brengen. Standaard is de grens het bevestigde bedrag; hij mag niet hoger zijn dan `--confirm-cost`.
+- Het rapport krijgt een tabel met kosten, seconden, meldingen van de pijplijn (`fill_conflict`, `sizes_dropped`, ...) en het aantal ideeën met eigen invulling. Elk boek wordt ook als PDF weggeschreven in `docs/eval/books/<datum>-<profiel>-<engine>.pdf` (zonder het persoonlijke venster op de omslag); lees die pas ná de blinde beoordeling, want de bestandsnaam noemt de engine.
 
 ## Wat er gemeten en gecontroleerd wordt
 

@@ -22,7 +22,28 @@ export interface EvalSeedRow {
 
 export interface EvalBookLite {
   profile_summary: string;
-  ideas: { door: string; title: string; intro: string; why_it_fits: string; first_action: string; activity_id?: string }[];
+  ideas: {
+    door: string;
+    title: string;
+    intro: string;
+    why_it_fits: string;
+    first_action: string;
+    activity_id?: string;
+    /** B5: the activity-specific lines, when the writer produced them (KNOWLEDGE_ENGINE_V2 only). */
+    fill?: { timeline: string[]; takeaways: string[]; suggestions: string[] };
+  }[];
+}
+
+/** What one written book cost and how it went (a --full run only). */
+export interface EvalRunInfo {
+  usd: number;
+  seconds: number;
+  /** The pipeline's own issues ("idea3:fill_conflict (...)", "idea5:sizes_dropped (...)", ...). */
+  issues: string[];
+  /** Ideas (of 7) that carry the activity-specific fill. */
+  fillCount: number;
+  /** Where the PDF of this book was written, relative to the project. */
+  pdf?: string;
 }
 
 export interface EvalProfileResult {
@@ -36,6 +57,7 @@ export interface EvalProfileResult {
   notes: string[];
   seeds: EvalSeedRow[];
   book?: EvalBookLite;
+  run?: EvalRunInfo;
   findings: Finding[];
 }
 
@@ -53,7 +75,7 @@ export function liteBook(book: GeneratedIdeaBook): EvalBookLite {
   const all = [...book.ideas, book.wildcard];
   return {
     profile_summary: book.profile_summary,
-    ideas: all.map((e) => ({ door: e.door, title: e.title, intro: e.intro, why_it_fits: e.why_it_fits, first_action: e.first_action, activity_id: e.activity_id })),
+    ideas: all.map((e) => ({ door: e.door, title: e.title, intro: e.intro, why_it_fits: e.why_it_fits, first_action: e.first_action, activity_id: e.activity_id, ...(e.fill ? { fill: e.fill } : {}) })),
   };
 }
 
@@ -65,6 +87,7 @@ export function buildResults(args: {
   lib: EngineLibrary;
   titles?: Record<string, { title: string; kind: string; edge: boolean; brief?: string[] }>;
   books?: Record<string, GeneratedIdeaBook>;
+  runInfo?: Record<string, EvalRunInfo>;
   generatedAt?: string;
 }): EvalResultFile {
   const { runs, lib } = args;
@@ -91,6 +114,7 @@ export function buildResults(args: {
         };
       }),
       ...(book ? { book: liteBook(book) } : {}),
+      ...(args.runInfo?.[run.profile.id] ? { run: args.runInfo[run.profile.id] } : {}),
       findings: [...checkSeedRun(run, lib), ...(book ? checkBook(book, run.profile.id) : [])],
     };
   });
