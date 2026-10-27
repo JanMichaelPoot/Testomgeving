@@ -5,6 +5,7 @@ import { hashSeed, mulberry32, shuffled } from "@/lib/discovery/rng";
 import { BRIDGE_MIN, buildGraph } from "@/lib/discovery/engine/graph";
 import { passesConstraints, resolveConstraints } from "@/lib/discovery/engine/constraints";
 import type { Direction, EngineInput, EngineResult, Seed } from "@/lib/discovery/engine/types";
+import { WEIGHTS_CURRENT, type Weights } from "@/lib/discovery/engine/weights";
 
 // The selection engine. Six regular seeds in four directions, plus one wildcard:
 //   familiar x2   the pick itself, or a direct neighbour of it
@@ -33,16 +34,13 @@ const DOOR_ORDER: IdeaDoor[] = ["natural", "discovery", "unexpected", "stretch"]
 
 const WILDNESS: Record<string, number> = { grounded: 0, practical: 0, either: 1, unexpected: 2, wild: 3 };
 
-/** How strongly each direction leans towards the long tail (see Graph.rarity). The person's own picks are never touched. */
-const RARE = { familiar: 0.12, adjacent: 0.2, unexpected: 0.25, stretch: 0.15, wildcard: 1.5 } as const;
-
 /**
  * Activities that need a provider within reach cost the research step an extra round when none is found, so
  * they are slightly less likely than ones anyone can start tomorrow. "rare" ones are only worth it when the
  * match is good. Activities the person picked themselves are not penalised.
  */
-export function supplyPenalty(a: Activity): number {
-  return a.supply === "rare" ? 0.18 : a.supply === "regional" ? 0.04 : 0;
+export function supplyPenalty(a: Activity, supply: Weights["supply"] = WEIGHTS_CURRENT.supply): number {
+  return a.supply === "rare" ? supply.rare : a.supply === "regional" ? supply.regional : 0;
 }
 
 /**
@@ -74,13 +72,20 @@ export function challenge(a: Activity): number {
   return (a.level ?? 1) + (a.intensity ?? 1) * 0.7 + (a.safety.tier === 2 ? 1 : 0) + (a.cost ?? 1) / 3;
 }
 
-export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResult {
+export interface SelectOptions {
+  /** The ranking weights (weights.ts). Default: what shipped before B4. */
+  weights?: Weights;
+}
+
+export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: SelectOptions = {}): EngineResult {
+  const W = opts.weights ?? WEIGHTS_CURRENT;
+  const RARE = W.rare;
   const rnd = mulberry32(hashSeed(input.seed));
   const notes: string[] = [];
   const all = lib.activities.filter((a) => a.status !== "retired");
   const byId = new Map(all.map((a) => [a.id, a]));
   const graph = buildGraph(all, lib.tags);
-  const constraints = resolveConstraints(input);
+  const constraints = resolveConstraints(input, { strictFreeCost: W.strictFreeCost });
   const history = new Set(input.history ?? []);
   const excluded = new Set(input.exclude ?? []);
 
@@ -88,8 +93,8 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
   // Variety: lift the long tail (rare tag mixes) and go easy on things that need a provider that may not be near.
   // The lift is not the same for everybody: each visitor (seed) weighs an activity's rarity a little differently,
   // so the same few rare activities do not become the new hubs.
-  const rare = (a: Activity) => graph.rarity(a) * (0.4 + 1.2 * mulberry32(hashSeed(`${input.seed}:rare:${a.id}`))());
-  const supplyCost = (a: Activity) => supplyPenalty(a);
+  const rare = (a: Activity) => graph.rarity(a) * (W.rareJitter.base + W.rareJitter.spread * mulberry32(hashSeed(`${input.seed}:rare:${a.id}`))());
+  const supplyCost = (a: Activity) => supplyPenalty(a, W.supply);
   const pickedIds = [...new Set(input.interests)].filter((id) => byId.has(id));
   const pickSet = new Set(pickedIds);
 
@@ -141,10 +146,16 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
   // Themes should not pile up: an idea that shares its connections with ideas already
   // chosen (four walks in a row) scores lower, so the set stays varied in feel, not
   // just in world.
+  // B4: and an idea that shares two or more real tags with one already chosen is a variation of it (sharedPairPenalty).
   const redundancy = (a: Activity) => {
     let sum = 0;
-    for (const u of seeds) sum += graph.bridge(a, byId.get(u.activityId)!);
-    return sum * 0.05;
+    let pairs = 0;
+    for (const u of seeds) {
+      const other = byId.get(u.activityId)!;
+      sum += graph.bridge(a, other);
+      if (W.sharedPairPenalty > 0 && graph.shared(a, other).length >= 2) pairs++;
+    }
+    return sum * W.redundancyPerBridge + pairs * W.sharedPairPenalty;
   };
 
   const formatsFor = (a: Activity): { lead: SocialFormat | null; also: SocialFormat[] } => {
@@ -153,6 +164,24 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
     const lead = wanted.find((f) => a.formats!.includes(f)) ?? null;
     const also = a.formats.filter((f) => f !== lead);
     return { lead, also };
+  };
+
+  // How well an idea fits the person, measured: 1 for their own pick, else the similarity to the nearest pick (0..1);
+  // with nothing to compare to it is neutral (0.5), never favourable.
+  const fitOf = (a: Activity) => (explore ? 0.5 : pickSet.has(a.id) ? 1 : Math.min(1, rel(a)));
+  const reasonsOf = (a: Activity, direction: Direction, extra: Partial<Pick<Seed, "chain" | "via" | "hybrid">>): string[] => {
+    const out: string[] = [];
+    if (pickSet.has(a.id)) out.push("picked");
+    else if (direction === "explore") out.push("explore");
+    else {
+      if (extra.hybrid) out.push(`hybrid:${extra.hybrid.partnerId}`);
+      if (extra.chain && extra.chain.length > 1) out.push(`chain:${extra.chain.join(">")}`);
+      if (extra.via && extra.via.length > 0) out.push(`bridge:${extra.via.join("+")}`);
+      if (!pickedDomains.has(a.domain)) out.push("new_world");
+    }
+    out.push(`direction:${direction}`);
+    for (const v of verifyOf.get(a.id) ?? []) out.push(`verify:${v}`);
+    return out;
   };
 
   function commit(a: Activity, direction: Direction, extra: Partial<Pick<Seed, "chain" | "via" | "hybrid">> = {}, door?: IdeaDoor) {
@@ -167,6 +196,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
       lead,
       alsoFormats: also,
       verify: verifyOf.get(a.id) ?? [],
+      ...(W.explain ? { fit: fitOf(a), reasons: reasonsOf(a, direction, extra) } : {}),
     });
     used.add(a.id);
     domainCount.set(a.domain, (domainCount.get(a.domain) ?? 0) + 1);
@@ -237,11 +267,11 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
     const cands: Cand[] = [];
     for (const a of pool) {
       const picked = pickSet.has(a.id);
-      const near = pickedDomains.has(a.domain) && rel(a) >= 0.4;
+      const near = pickedDomains.has(a.domain) && rel(a) >= W.familiar.nearRel;
       if (!picked && !near) continue;
       // A second familiar idea prefers another world when the person picked from several.
-      const spread = 0.35 * (domainCount.get(a.domain) ?? 0);
-      cands.push({ a, score: (picked ? 2 : rel(a) - age(a) + RARE.familiar * rare(a) - supplyCost(a)) + rnd() * 0.3 - spread });
+      const spread = W.familiar.spreadPerSameDomain * (domainCount.get(a.domain) ?? 0);
+      cands.push({ a, score: (picked ? W.familiar.pickedScore : rel(a) - age(a) + RARE.familiar * rare(a) - supplyCost(a)) + rnd() * W.familiar.noise - spread });
     }
     const top = best(cands);
     if (!top) {
@@ -265,7 +295,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
           if (!from || !to || !pickSet.has(p) || !pool.includes(to) || to.domain === from.domain) continue;
           cands.push({
             a: to,
-            score: 2.5 + graph.bridge(from, to) * 0.15 + rnd() * 0.3 - redundancy(to) - age(to) + RARE.unexpected * rare(to) - supplyCost(to),
+            score: W.unexpected.hybridBase + graph.bridge(from, to) * W.unexpected.hybridBridge + rnd() * W.unexpected.hybridNoise - redundancy(to) - age(to) + RARE.unexpected * rare(to) - supplyCost(to),
             chain: [p, q],
             via: graph.shared(from, to).slice(0, 2),
             hybrid: { partnerId: p, label: h.label },
@@ -273,7 +303,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
         }
       }
       for (const x of pool) {
-        if (pickedDomains.has(x.domain) || rel(x) >= 0.3) continue;
+        if (pickedDomains.has(x.domain) || rel(x) >= W.unexpected.farRelMax) continue;
         let top: Cand<Path> | null = null;
         for (const p of refs) {
           for (const m of all) {
@@ -281,7 +311,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
             const b1 = graph.bridge(p, m);
             if (b1 < BRIDGE_MIN) continue;
             if (graph.bridge(m, x) < BRIDGE_MIN) continue;
-            const score = Math.min(graph.sim(p, m), graph.sim(m, x)) + rnd() * 0.15 - redundancy(x) - age(x) + RARE.unexpected * rare(x) - supplyCost(x);
+            const score = Math.min(graph.sim(p, m), graph.sim(m, x)) + rnd() * W.unexpected.chainNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) - supplyCost(x);
             if (!top || score > top.score) top = { a: x, score, chain: [p.id, m.id, x.id], via: graph.shared(m, x).slice(0, 2) };
           }
         }
@@ -292,10 +322,10 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
     // (c) one step with a real bridge
     const oneStep = (): Cand<Path>[] =>
       pool
-        .filter((x) => !pickedDomains.has(x.domain) && rel(x) < 0.3 && bestBridgeTo(x) >= BRIDGE_MIN)
+        .filter((x) => !pickedDomains.has(x.domain) && rel(x) < W.unexpected.farRelMax && bestBridgeTo(x) >= BRIDGE_MIN)
         .map((x) => {
           const p = nearestRef(x)!;
-          return { a: x, score: bestBridgeTo(x) * 0.1 + rnd() * 0.15 - redundancy(x) - age(x) + RARE.unexpected * rare(x) - supplyCost(x), chain: [p.id, x.id], via: graph.shared(p, x).slice(0, 2) };
+          return { a: x, score: bestBridgeTo(x) * W.unexpected.oneStepBridge + rnd() * W.unexpected.oneStepNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) - supplyCost(x), chain: [p.id, x.id], via: graph.shared(p, x).slice(0, 2) };
         });
     // (d) anything from a world they did not pick
     const anyFar = (): Cand<Path>[] =>
@@ -315,8 +345,8 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
         .filter((a) => !pickSet.has(a.id) && rel(a) >= lo && rel(a) < hi && bestBridgeTo(a) >= minBridge)
         .map<Cand>((a) => {
           const r = rel(a);
-          const novelty = pickedDomains.has(a.domain) ? 0 : 0.15;
-          return { a, score: r * (1 - Math.abs(r - 0.38)) + novelty + rnd() * 0.15 - redundancy(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a) };
+          const novelty = pickedDomains.has(a.domain) ? 0 : W.adjacent.noveltyOtherWorld;
+          return { a, score: r * (1 - Math.abs(r - W.adjacent.peak)) + novelty + rnd() * W.adjacent.noise - redundancy(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a) };
         });
     const found = firstFit([set(0.2, 0.6, BRIDGE_MIN), set(0.1, 0.75, 1.2)]);
     if (!found) {
@@ -349,13 +379,13 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
       };
     };
     // How much "more" is fitting for this person: gentle for the cautious, bigger for the adventurous.
-    const target = [1, 1.2, 2, 2.8][scale] ?? 1.2;
+    const target = W.stretch.targetByWildness[scale] ?? 1.2;
     const set = (minBridge: number, minTotal: number, strict: boolean) => () =>
       pool
         .filter((a) => !pickSet.has(a.id) && graph.bridge(a, p0) >= minBridge)
         .map((a) => ({ a, m: magnitude(a) }))
         .filter(({ m }) => m.total >= minTotal && (!m.down || minBridge === 0) && (!strict || m.total <= target + 1))
-        .map<Cand>(({ a, m }) => ({ a, score: 2 - Math.abs(m.total - target) + graph.bridge(a, p0) * 0.15 + rnd() * 0.2 - redundancy(a) - age(a) + RARE.stretch * rare(a) - supplyCost(a) }));
+        .map<Cand>(({ a, m }) => ({ a, score: W.stretch.base - Math.abs(m.total - target) + graph.bridge(a, p0) * W.stretch.bridge + rnd() * W.stretch.noise - redundancy(a) - age(a) + RARE.stretch * rare(a) - supplyCost(a) }));
     const found = firstFit([set(1.5, 1, true), set(0.8, 1, true), set(0.8, 0.7, false), set(0, 0.5, false)]);
     if (found) {
       if (found.set > 1) notes.push("direction_relaxed:stretch");
@@ -380,7 +410,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary): EngineResul
     const historyDomains = new Set([...history].map((id) => byId.get(id)?.domain).filter(Boolean) as string[]);
     const cands = pool.filter((a) => !pickedDomains.has(a.domain) && canUse(a, 1));
     const weightOf = (a: Activity) =>
-      ((1 + 2 * bestBridgeTo(a) + (historyDomains.has(a.domain) ? 0 : 2)) / (1 + redundancy(a) * 4)) * Math.exp(-2 * age(a)) * (0.5 + RARE.wildcard * rare(a)) * Math.exp(-3 * supplyCost(a));
+      ((1 + W.wildcard.bridge * bestBridgeTo(a) + (historyDomains.has(a.domain) ? 0 : W.wildcard.newWorld)) / (1 + redundancy(a) * W.wildcard.redundancyFactor)) * Math.exp(-W.wildcard.ageDecay * age(a)) * (W.wildcard.baseRare + RARE.wildcard * rare(a)) * Math.exp(-W.wildcard.supplyDecay * supplyCost(a));
     const total = cands.reduce((s, a) => s + weightOf(a), 0);
     let roll = rnd() * total;
     let chosen: Activity | undefined;

@@ -18,6 +18,7 @@ import {
 import { researchSeeds, type LocalOption, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
 import { currentMonth, describeToday, isoDateNL } from "@/lib/discovery/season";
 import { engineInputFromIntake, relatedActivities, runEngine } from "@/lib/discovery/engine";
+import { WEIGHTS_V2 } from "@/lib/discovery/engine/weights";
 import {
   normalizeFeelsLike,
   normalizeNextStep,
@@ -513,6 +514,8 @@ function buildEntry(
     photo_category: photoCategoryFor(a),
     door: seed.door,
     scores: scoresForSeed(seed, a),
+    ...(seed.fit !== undefined ? { fit: Math.round(seed.fit * 100) } : {}),
+    ...(seed.reasons ? { reasons: seed.reasons } : {}),
     activity_id: a.id,
     chain: seed.chain,
   };
@@ -561,12 +564,14 @@ export async function generateIdeaBookFromSeeds(
     onProgress?: (stage: "selected" | "researched", meta?: { ideas?: number; places?: number }) => Promise<void> | void;
   } = {},
 ): Promise<{ book: GeneratedIdeaBook; report: SeedPipelineReport }> {
+  // KNOWLEDGE_ENGINE_V2 (off by default): B4 ranking weights for the selection, B5 fill lines and honest wording for the writing.
+  const v2 = knowledgeEngineV2Enabled();
   // 1. Select the seeds, for the month the person is asking in (seasonal activities are never suggested out of season).
   const now = new Date();
   const month = currentMonth(now);
   const selectionSeed = opts.sessionId ?? `${Date.now()}`;
   const select = (exclude: readonly string[]) =>
-    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude }));
+    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude }), v2 ? { weights: WEIGHTS_V2 } : undefined);
   let engine: EngineResult = select([]);
   if (engine.seeds.length < 6) throw new Error("The selection engine could not find enough activities for this profile.");
   await opts.onProgress?.("selected", { ideas: engine.seeds.length });
@@ -613,7 +618,6 @@ export async function generateIdeaBookFromSeeds(
   // 3. Write the ideas (one retry on a malformed answer, without repeating the research).
   const language = languageLabel(locale);
   // B5 (KNOWLEDGE_ENGINE_V2, off by default): activity-specific fill lines (V1) and honest origin wording (V2).
-  const v2 = knowledgeEngineV2Enabled();
   const chosenImages = intake.associations ?? [];
   const honestOrigin = v2 && chosenImages.length > 0;
   const baseSystem = v2 ? SYSTEM_PROMPT.replace("For every idea:\n", () => `${ROUTE_CONSISTENCY_RULE}${honestOrigin ? HONEST_ORIGIN_RULE : ""}For every idea:\n`) : SYSTEM_PROMPT;

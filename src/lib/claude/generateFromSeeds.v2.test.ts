@@ -112,6 +112,8 @@ describe("KNOWLEDGE_ENGINE_V2 off (the default): nothing changes", () => {
     expect(squash(extra.system)).not.toContain("never switch the medium");
     expect(squash(core.messages[0].content)).toContain("Related to something they picked");
     expect([...book.ideas, book.wildcard].some((i) => i.fill)).toBe(false);
+    // B4: the selection keeps its old weights and the ideas carry no measured fit.
+    expect([...book.ideas, book.wildcard].some((i) => i.fit !== undefined || i.reasons !== undefined)).toBe(false);
   });
 });
 
@@ -188,6 +190,18 @@ describe("KNOWLEDGE_ENGINE_V2 on", () => {
     const { book, report } = await run();
     expect(report.issues).toContain("fill_repetitive (noteer x14)");
     expect([...book.ideas, book.wildcard].every((i) => i.fill)).toBe(true);
+  });
+
+  it("selects with the B4 ranking: every idea carries its measured fit and the reasons that led to it", async () => {
+    respond();
+    const { book } = await run();
+    for (const idea of [...book.ideas, book.wildcard]) {
+      expect(idea.fit).toBeGreaterThanOrEqual(0);
+      expect(idea.fit).toBeLessThanOrEqual(100);
+      expect(idea.reasons?.some((r) => r.startsWith("direction:"))).toBe(true);
+    }
+    // The most direct idea fits better than the most far-out one.
+    expect(Math.max(...book.ideas.map((i) => i.fit ?? 0))).toBeGreaterThan(Math.min(...book.ideas.map((i) => i.fit ?? 0)));
   });
 
   it("still stores the chain of every idea (the origin the person can see)", async () => {

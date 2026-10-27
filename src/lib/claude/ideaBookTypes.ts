@@ -93,6 +93,10 @@ export interface IdeaBookEntry extends IdeaLayers {
   photo_category: PhotoCategory;
   door: IdeaDoor;
   scores: IdeaScores;
+  /** B4 (KNOWLEDGE_ENGINE_V2): how well this idea fits the person, measured by the selection (0-100). "If you only pick one" uses it when present. */
+  fit?: number;
+  /** B4 (KNOWLEDGE_ENGINE_V2): the signals that led to this idea ("picked", "bridge:craft+sound", "chain:a>b>c", ...). */
+  reasons?: string[];
   // Set by the seed pipeline (src/lib/claude/generateFromSeeds.ts): which library activity this
   // idea is about and the path from the person's own pick to it (activity ids). Absent on books
   // made before that pipeline existed.

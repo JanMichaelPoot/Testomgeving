@@ -226,7 +226,7 @@ async function main() {
   for (const eng of engines) {
     const runs = runWithEngine(profiles, eng);
     const titles = Object.fromEntries(evalProfiles.map((p) => [p.id, { title: p.title, kind: p.kind, edge: !!p.edge, brief: briefOf(p) }]));
-    const result = buildResults({ engine: eng.name, mode, source, runs, lib: eng.library, titles, books: full ? (books[eng.name] ?? {}) : undefined, runInfo: full ? runInfo[eng.name] : undefined });
+    const result = buildResults({ engine: eng.name, mode, source, runs, lib: eng.library, evalOptions: { strictFreeCost: eng.weights.strictFreeCost }, titles, books: full ? (books[eng.name] ?? {}) : undefined, runInfo: full ? runInfo[eng.name] : undefined });
 
     const m = result.metrics;
     const errors = result.profiles.flatMap((p) => p.findings.filter((f) => f.severity === "error"));

@@ -1,6 +1,6 @@
 import type { GeneratedIdeaBook } from "@/lib/claude/ideaBookTypes";
 import { getActivity } from "@/lib/discovery/library";
-import type { Run } from "@/lib/discovery/engine/evaluate";
+import type { EvaluateOptions, Run } from "@/lib/discovery/engine/evaluate";
 import type { EngineLibrary } from "@/lib/discovery/engine/select";
 import { checkBook, checkSeedRun, type Finding } from "@/lib/discovery/eval/checks";
 import { computeMetrics, type Metrics } from "@/lib/discovery/eval/metrics";
@@ -88,6 +88,8 @@ export function buildResults(args: {
   titles?: Record<string, { title: string; kind: string; edge: boolean; brief?: string[] }>;
   books?: Record<string, GeneratedIdeaBook>;
   runInfo?: Record<string, EvalRunInfo>;
+  /** What the oracle should also enforce for this engine (B4: unknown cost never passes a free budget). */
+  evalOptions?: EvaluateOptions;
   generatedAt?: string;
 }): EvalResultFile {
   const { runs, lib } = args;
@@ -115,7 +117,7 @@ export function buildResults(args: {
       }),
       ...(book ? { book: liteBook(book) } : {}),
       ...(args.runInfo?.[run.profile.id] ? { run: args.runInfo[run.profile.id] } : {}),
-      findings: [...checkSeedRun(run, lib), ...(book ? checkBook(book, run.profile.id) : [])],
+      findings: [...checkSeedRun(run, lib, undefined, args.evalOptions), ...(book ? checkBook(book, run.profile.id) : [])],
     };
   });
   return {
@@ -123,7 +125,7 @@ export function buildResults(args: {
     mode: args.mode,
     source: args.source,
     generatedAt: args.generatedAt ?? new Date().toISOString(),
-    metrics: computeMetrics(runs, lib),
+    metrics: computeMetrics(runs, lib, args.evalOptions),
     profiles,
   };
 }

@@ -52,7 +52,12 @@ export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting
   return { setting, noGroups, verify, free };
 }
 
-export function resolveConstraints(input: EngineInput): ResolvedConstraints {
+export interface ResolveOptions {
+  /** B4 (weights.strictFreeCost): an activity with an unknown cost does not pass a "free" budget. */
+  strictFreeCost?: boolean;
+}
+
+export function resolveConstraints(input: EngineInput, opts: ResolveOptions = {}): ResolvedConstraints {
   const must = parseMustHaves(input.mustHaves ?? "");
 
   const explicit = input.socialFormats.filter((f): f is SocialFormat => (SOCIAL_FORMATS as readonly string[]).includes(f));
@@ -73,6 +78,7 @@ export function resolveConstraints(input: EngineInput): ResolvedConstraints {
     setting: must.setting,
     verify: must.verify,
     month: input.month ?? null,
+    ...(opts.strictFreeCost ? { strictFreeCost: true } : {}),
   };
 }
 
@@ -91,8 +97,11 @@ export function passesConstraints(a: Activity, c: ResolvedConstraints): FilterRe
   // Out of season is a known conflict, however well the activity matches the person.
   if (!inSeason(a, c.month)) return no;
 
-  if (a.cost === null) verify.push("cost_unknown");
-  else if (a.cost > c.costCap) return no;
+  if (a.cost === null) {
+    // Unknown is not "free": with the strict rule nobody who asked for free is offered something we cannot vouch for.
+    if (c.strictFreeCost && c.costCap === 0) return no;
+    verify.push("cost_unknown");
+  } else if (a.cost > c.costCap) return no;
   else if (c.nearBudgetCost !== null && a.cost === c.nearBudgetCost) verify.push("cost_near_budget");
 
   if (a.intensity !== null && a.intensity > c.intensityCap) return no;

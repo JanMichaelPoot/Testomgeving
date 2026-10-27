@@ -50,7 +50,12 @@ export function runProfiles(profiles: readonly SyntheticProfile[], lib: EngineLi
 
 const rate = (hits: number, of: number) => (of === 0 ? 1 : hits / of);
 
-export function evaluate(runs: readonly Run[], lib: EngineLibrary): Report {
+export interface EvaluateOptions {
+  /** B4: with the strict rule an activity of unknown cost must not be offered to someone who asked for free. */
+  strictFreeCost?: boolean;
+}
+
+export function evaluate(runs: readonly Run[], lib: EngineLibrary, opts: EvaluateOptions = {}): Report {
   const byId = new Map(lib.activities.map((a) => [a.id, a]));
   const graph = buildGraph(lib.activities.filter((a) => a.status !== "retired"), lib.tags);
   const v: Report["violations"] = { E1: [], E3: [], E4: [], E5: [], E6: [] };
@@ -75,6 +80,7 @@ export function evaluate(runs: readonly Run[], lib: EngineLibrary): Report {
       const at = `${profile.id} ${a.id}`;
       if (input.month !== undefined && a.months && !a.months.includes(input.month)) v.E1.push(`${at}: out of season in month ${input.month} (${a.months.join(",")})`);
       if (a.cost !== null && a.cost > costCap) v.E1.push(`${at}: cost ${a.cost} > cap ${costCap}`);
+      if (opts.strictFreeCost && costCap === 0 && a.cost === null) v.E1.push(`${at}: unknown cost offered for a free budget`);
       if (a.intensity !== null && a.intensity > intCap) v.E1.push(`${at}: intensity ${a.intensity} > cap ${intCap}`);
       // "buiten of binnen" says nothing (the engine ignores a contradictory wish on purpose, see parseMustHaves):
       // only a single, unambiguous wish is a hard limit.
@@ -125,7 +131,7 @@ export function evaluate(runs: readonly Run[], lib: EngineLibrary): Report {
     // E8: a niche gets its own world in at least two of the six ideas (when that is possible).
     if (profile.archetype === "niche" && profile.nicheDomain) {
       const possible = lib.activities.filter((a) => a.domain === profile.nicheDomain && a.status !== "retired").filter((a) => {
-        const cost = a.cost === null || a.cost <= costCap;
+        const cost = a.cost === null ? !(opts.strictFreeCost && costCap === 0) : a.cost <= costCap;
         const inten = a.intensity === null || a.intensity <= intCap;
         const sup = !(a.safety.tier === 2 && hide);
         const fmt = explicit.length === 0 || !a.formats || a.formats.some((f) => explicit.includes(f));

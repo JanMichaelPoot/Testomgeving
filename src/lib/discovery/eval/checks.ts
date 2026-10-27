@@ -1,7 +1,7 @@
 import { repeatedOpenings } from "@/lib/claude/ideaFill";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { getActivity } from "@/lib/discovery/library";
-import { evaluate, type Run } from "@/lib/discovery/engine/evaluate";
+import { evaluate, type EvaluateOptions, type Run } from "@/lib/discovery/engine/evaluate";
 import type { EngineLibrary } from "@/lib/discovery/engine/select";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import type { Activity } from "@/lib/discovery/types";
@@ -33,13 +33,13 @@ const normalise = (s: string) =>
     .trim();
 
 /** `lookup` resolves an activity id; it is the shipped library unless a test plants something else. */
-export function checkSeedRun(run: Run, lib: EngineLibrary, lookup: (id: string) => Activity | undefined = getActivity): Finding[] {
+export function checkSeedRun(run: Run, lib: EngineLibrary, lookup: (id: string) => Activity | undefined = getActivity, evalOpts: EvaluateOptions = {}): Finding[] {
   const out: Finding[] = [];
   const profile = run.profile.id;
   const push = (check: string, message: string, severity: Finding["severity"] = "error") => out.push({ check, severity, profile, message });
 
   // 1. Hard limits. engine/evaluate.ts writes them out again from the input, so a bug in the engine's own filter cannot hide itself.
-  const report = evaluate([run], lib);
+  const report = evaluate([run], lib, evalOpts);
   for (const [rule, list] of Object.entries(report.violations)) for (const m of list) push(`hard:${rule}`, m);
 
   const seeds = run.result.seeds;

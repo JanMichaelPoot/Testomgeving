@@ -255,12 +255,15 @@ describe("engines and the spending lock", () => {
     expect(() => getEngine("nope")).toThrow(EngineNotAvailableError);
   });
 
-  it("v2 selects exactly what current selects, until a later phase changes the selection (this is the test that should then change)", () => {
+  it("v2 selects differently from current (B4) but keeps every hard limit on the 20 fixed profiles", () => {
     const v2 = getEngine("v2");
     const v2Runs = runWithEngine(profiles.map(toSyntheticProfile), v2);
     const key = (r: Run) => r.sessions.map((s) => s.seeds.map((x) => `${x.direction}:${x.door}:${x.activityId}`).join(","));
-    expect(v2Runs.map(key)).toEqual(runs.map(key));
-  });
+    expect(v2Runs.map(key)).not.toEqual(runs.map(key));
+    expect(v2.weights.strictFreeCost).toBe(true);
+    expect(getEngine("current").weights.strictFreeCost).toBe(false);
+    for (const run of v2Runs) expect(errorsOf(checkSeedRun(run, v2.library, undefined, { strictFreeCost: true })), run.profile.id).toEqual([]);
+  }, 60_000);
 
   it("refuses a paid run without a confirmed cost, and runs nothing", () => {
     const cli = (...args: string[]) =>

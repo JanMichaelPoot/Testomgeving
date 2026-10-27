@@ -54,8 +54,29 @@ const ONE_THING_WEIGHTS = {
   surprise: 0.15,
 };
 
+// B4 (KNOWLEDGE_ENGINE_V2): books from the selection engine carry a measured `fit`. The older pick leaned on constants per
+// direction (a far-out idea always scored 56 for relevance, whatever the person had picked), which made the unexpected
+// door win in 72-88% of the books. With a measured fit, relevance is what the selection actually found.
+// Tuned on 500 synthetic visitors per wizard (scripts/eval/run.ts, seed ke-1): the unexpected door won 72-91% before; with
+// these weights it wins about 23-28% and the familiar door 53-70%. The balance is a knife edge: moving `fit` by 0.02 moves
+// the unexpected share by about ten points, so re-measure (docs/eval/README.md) before changing any of these.
+const ONE_THING_WEIGHTS_FIT = {
+  fit: 0.32,
+  feasibility: 0.3,
+  novelty: 0.19,
+  surprise: 0.19,
+};
+
 function oneThingScore(idea: IdeaBookEntry): number {
   const s = idea.scores;
+  if (typeof idea.fit === "number") {
+    return (
+      idea.fit * ONE_THING_WEIGHTS_FIT.fit +
+      s.feasibility * ONE_THING_WEIGHTS_FIT.feasibility +
+      s.novelty * ONE_THING_WEIGHTS_FIT.novelty +
+      s.surprise * ONE_THING_WEIGHTS_FIT.surprise
+    );
+  }
   return (
     s.relevance * ONE_THING_WEIGHTS.relevance +
     s.feasibility * ONE_THING_WEIGHTS.feasibility +

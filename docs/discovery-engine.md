@@ -77,6 +77,23 @@ Gemeten op dezelfde synthetische profielen (300 per soort) kwamen dezelfde paar 
 
 De zeldzaamheid weegt per bezoeker (seed) een beetje anders, zodat dezelfde paar zeldzame activiteiten niet de nieuwe hubs worden. Resultaat op de beeld-intake (nu ook met de nieuwe richtingen): de populairste activiteit in 11% van de boeken (was 22%), de top 10 neemt 12,3% van de plekken in (was 20,0%), 6,1 richtingen per boek (was 5,8), en 366 van 423 activiteiten komen voor. Restant: "sjoelen" (11%) en "wandelen" (11%) blijven vaak komen omdat veel profielen hun tags raken. Opnieuw meten: `npx tsx scripts/discovery-variety.ts 300`; de test "spreads over the library" in `engine.test.ts` bewaakt het minimum.
 
+## Ranking in stappen (B4, achter `KNOWLEDGE_ENGINE_V2`)
+
+Alle getallen die de selectie sturen staan in `engine/weights.ts`, met een uitleg per getal. Er zijn twee sets: `WEIGHTS_CURRENT` (precies wat vóór B4 draaide; een test legt de seeds ervan vast) en `WEIGHTS_V2` (alleen met de vlag aan, en in het harnas als engine `v2`). Een hoge score koopt nooit een harde grens terug: de harde regels staan in `constraints.ts` en zijn geen gewicht.
+
+| Stap | Wat | Waar |
+|---|---|---|
+| 1 Kandidaten | de pool: alles wat door de filters komt, plus buurdomeinen | `select.ts` (pool) |
+| 2 Harde grenzen | `passesConstraints`; met `strictFreeCost` komt een onbekende prijs niet meer door een gratis budget | `constraints.ts` |
+| 3 Relevantie | tag-overlap, werelden, associaties | bestaand |
+| 4 Nieuwheid en diversiteit | de straf voor gedeelde bruggen, plus `sharedPairPenalty`: een idee dat twee of meer echte tags deelt met een al gekozen idee is een variatie daarop | `redundancy()` |
+| 5 Deur-fit | bestaande deurlogica | ongewijzigd |
+| 6 Uitleg | per zaad `fit` (gemeten relevantie, 0..1; 1 = eigen keuze, 0,5 = niets om mee te vergelijken) en `reasons[]` (`picked`, `bridge:…`, `chain:…`, `new_world`, `verify:…`) | `commit()` |
+
+**"Als je er maar één kiest"** gebruikt bij boeken met een `fit` die gemeten fit (0,32) naast haalbaarheid (0,30), nieuwheid (0,19) en verrassing (0,19) in plaats van de constanten per richting (`possibilityMap.ts`). Boeken zonder `fit` (oude boeken, de klassieke pijplijn, vlag uit) blijven zoals ze waren. Let op: de verdeling over de deuren is gevoelig voor deze gewichten (0,02 meer op `fit` verschuift het aandeel onverwacht met ± 10 punten); meet opnieuw na elke wijziging.
+
+Niet gewijzigd: het facet `niveau` (402 van 423 activiteiten staan op 0; dat is een bibliotheekkwestie, geen gewicht) en de graaf en deurlogica zelf.
+
 ## Bruggen
 
 `graph.ts`: een brug telt zwaarder als de tag zeldzamer is (`ln(N / gebruik)`), en
@@ -104,8 +121,8 @@ wildcard), E5 (sociale keuze gerespecteerd én voorop), E6 (toezichtsplicht), E2
 - Te weinig variatie in een bepaald soort boek? Kijk eerst met `--show` naar de ketens
   (`chain`/`via`); zwakke verbindingen los je meestal op met betere tags in de bibliotheek, niet in
   de motor.
-- Gewichten en drempels staan bovenaan `select.ts` en `graph.ts` (`BRIDGE_MIN`, de banden voor
-  "aangrenzend", `target` voor stretch).
+- Gewichten staan in `engine/weights.ts` (zie "Ranking in stappen"); drempels in `graph.ts`
+  (`BRIDGE_MIN`) en de banden voor "aangrenzend" en `target` voor stretch in `select.ts`/`weights.ts`.
 - Na elke wijziging: `npm test`. De regressietest draait op twee vaste reeksen van 200 profielen.
 
 ## Bekende beperkingen

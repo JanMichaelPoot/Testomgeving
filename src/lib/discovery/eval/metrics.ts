@@ -1,6 +1,6 @@
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { getActivity, TAGS } from "@/lib/discovery/library";
-import { evaluate, type Run } from "@/lib/discovery/engine/evaluate";
+import { evaluate, type EvaluateOptions, type Run } from "@/lib/discovery/engine/evaluate";
 import type { EngineLibrary } from "@/lib/discovery/engine/select";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
@@ -44,8 +44,8 @@ export interface Metrics {
 const GENERIC = new Set(TAGS.filter((t) => t.generic).map((t) => t.id));
 const share = (n: number, d: number) => (d === 0 ? 0 : n / d);
 
-export function computeMetrics(runs: readonly Run[], lib: EngineLibrary): Metrics {
-  const report = evaluate(runs, lib);
+export function computeMetrics(runs: readonly Run[], lib: EngineLibrary, opts: EvaluateOptions = {}): Metrics {
+  const report = evaluate(runs, lib, opts);
   let worlds = 0, subs = 0, cats = 0, kinds = 0, pairBooks = 0, sameSubBooks = 0, relaxed = 0;
   let verify = 0, tier2 = 0, costUnknown = 0, seedTotal = 0, social = 0, freeBooks = 0, freeUnknown = 0;
   const oneThing = new Map<string, number>();
@@ -89,7 +89,7 @@ export function computeMetrics(runs: readonly Run[], lib: EngineLibrary): Metric
 
     // "If you only pick one": the real pick function on the real scores, the six regular ideas only.
     const regular = run.result.seeds.filter((s) => s.direction !== "wildcard");
-    const entries = regular.map((s) => ({ door: s.door, scores: scoresForSeed(s, getActivity(s.activityId)!) }) as unknown as IdeaBookEntry);
+    const entries = regular.map((s) => ({ door: s.door, scores: scoresForSeed(s, getActivity(s.activityId)!), ...(s.fit !== undefined ? { fit: Math.round(s.fit * 100) } : {}) }) as unknown as IdeaBookEntry);
     const pick = pickOneThingIndex(entries);
     if (pick !== null) oneThing.set(regular[pick].door, (oneThing.get(regular[pick].door) ?? 0) + 1);
   }

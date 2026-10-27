@@ -53,6 +53,10 @@ export interface Seed {
   alsoFormats: SocialFormat[];
   /** Things the research step must confirm, e.g. "cost_unknown", "accessibility". */
   verify: string[];
+  /** B4 (weights.explain): how well this idea fits the person, measured (0..1; 1 = their own pick, 0.5 = nothing to compare to). */
+  fit?: number;
+  /** B4 (weights.explain): the signals that led to this idea ("picked", "bridge:craft+sound", "chain:a>b>c", "new_world", "verify:cost_unknown", ...). */
+  reasons?: string[];
 }
 
 export interface ResolvedConstraints {
@@ -74,6 +78,8 @@ export interface ResolvedConstraints {
   verify: string[];
   /** The month the person asks in; an activity with `months` that leaves it out is dropped. Null = no season filter. */
   month: number | null;
+  /** B4: unknown cost does not pass a free budget (weights.strictFreeCost). Absent = the rule of before B4. */
+  strictFreeCost?: boolean;
 }
 
 export interface EngineResult {
