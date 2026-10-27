@@ -3747,3 +3747,29 @@ Stripe, Claude API, Resend, PostHog).
       mijn eigen randgeval P10; 6 vals-positieve overtredingen weg, de motor zelf is niet aangepast). Gedraaid: `tsc --noEmit`,
       `eslint src scripts e2e`, `taxonomy:check`, `npm run build`, volledige `npm test` (61 bestanden, 549 tests geslaagd).
       Niet gedaan: `--full` is nooit uitgevoerd (alleen de blokkade getest); `v2` bestaat nog niet.
+
+- [x] Stap 98 - Kennisengine, B5: V1 en V2 (branch `kennis`, Jan gaf "Start B5"; keuze volgens audit K3). **Alles achter de vlag
+      `KNOWLEDGE_ENGINE_V2`** (`src/lib/knowledgeFlags.ts`, standaard uit, accepteert 1/true/yes/on): zonder vlag is het gedrag
+      onveranderd (bestaande tests bewijzen dat o.a. het laagschema nog exact `feels_like, sizes, next_step` heeft). Geen betaalde
+      aanroepen gedaan, EUR 0; de kosten van de aanpassing zijn dus nog **niet gemeten** (schatting uit de audit: +$0,005-0,012 per boek).
+      **V1, activiteit-specifieke invulling**: de parallelle laagcall schrijft met de vlag ook `timeline` (4 regels), `takeaways` (3)
+      en `suggestions` (3) per idee (`FILL_PROMPT_RULES`, schema-uitbreiding in `generateFromSeeds.ts`); ze komen als `fill` op het idee
+      (`IdeaBookEntry.fill`). Nieuw `src/lib/claude/ideaFill.ts`: `checkFill` (exact 4/3/3 regels, elk <= 110 tekens, anders weg, nooit
+      afgekapt) en een deterministische **controle op tegenspraak** (`fillContext`, `lineConflict`, `fillConflicts`, `withoutConflicts`):
+      wie alleen gaat krijgt geen "neem iemand mee" of "nieuwe gezichten", een online-only idee geen pinpas of parkeren, een binnenidee
+      geen regenjas (nl + en; alleen bij een bekend feit). Een fill die conflicteert of onvolledig is wordt weggelaten en gelogd als
+      `ideaN:fill_conflict (...)` of `ideaN:fill_dropped (...)`; de rest van het boek blijft heel. De PDF (`ideaBook.ts`,
+      `scheduleFromLines` in `ideaContent.ts`) drukt de eigen regels af als ze er zijn en geldig zijn, anders de oude sjablonen; met de
+      vlag aan worden ook sjabloonregels die het idee tegenspreken overgeslagen (de vier tijdlijnregels van een sjabloon niet: dat zijn
+      vaste posities). Pagina-aantal ongewijzigd (10), gecontroleerd met een gerenderd voorbeeld.
+      **V2, eerlijke herkomst en zichtbare keten**: (a) alleen voor de beeld-intake noemt `why()` een door ons afgeleide activiteit niet
+      meer "gekozen" ("Reached from their images, not picked by them: ..."), en de schrijfprompt krijgt `HONEST_ORIGIN_RULE` ("the
+      person chose IMAGES, not activities"); de kaartenwizard blijft zoals het was (daar kiest de persoon wel activiteiten). (b) de
+      opgeslagen `chain` is zichtbaar: `buildIdeaThreads(..., { showPath })` voegt `path` toe (de activiteiten tussen beeld en deur,
+      nooit de deur zelf) en `IdeaThread` toont een extra schakel met het onderschrift "Waar je beelden naartoe wezen: door ons
+      afgeleid, niet door jou gekozen"; de PDF-zin krijgt er "Onderweg kwamen we langs X: dat leiden wij uit je beelden af..." bij
+      (nl + en, `pathCaption`/`pdfPath`). Niet gebouwd: een keten voor boeken van de kaartenwizard (die hebben geen draad op `/plan`).
+      **Getest**: 580 tests geslaagd (nieuw: `ideaFill.test.ts`, `generateFromSeeds.v2.test.ts`, `ideaBook.fill.test.ts`, 6 in
+      `ideaThread.test.ts`), `tsc --noEmit`, eslint, `taxonomy:check`, `npm run build` schoon; de ene vitest-worker-time-out
+      ("Timeout calling onTaskUpdate") staat er nog, ouder dan deze stap. **Niet gedaan**: een echte generatie met de vlag aan (wacht op
+      Jans akkoord op een bedrag, zie B6), de websitevariant van de zichtbare keten voor boeken zonder draad, en de blinde vergelijking.

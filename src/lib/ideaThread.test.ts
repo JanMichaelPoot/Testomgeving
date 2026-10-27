@@ -198,3 +198,54 @@ describe("IdeaThread (component)", () => {
     expect(html).not.toContain(copy.placeCaption);
   });
 });
+
+describe("the visible chain (B5 / V2, only with the option)", () => {
+  const sources = buildAssociationSources([{ activity_id: "pottenbakken" }], CHOSEN);
+  const withChain = (chain: string[]) => ({ ...idea("Pottenbakken", "pottenbakken"), chain }) as IdeaBookEntry;
+
+  it("adds nothing without the option, whatever the chain is", () => {
+    const thread = buildIdeaThreads([withChain(["meditatie", "pottenbakken"])], null, sources, "nl")["idea-0"];
+    expect(thread.path).toBeUndefined();
+  });
+
+  it("with the option shows the activities between the images and the door, but never the door itself", () => {
+    const one = buildIdeaThreads([withChain(["meditatie", "pottenbakken"])], null, sources, "nl", { showPath: true })["idea-0"];
+    expect(one.path).toBe(getActivity("meditatie")!.label.nl);
+    const two = buildIdeaThreads([withChain(["meditatie", "kalligrafie", "pottenbakken"])], null, sources, "en", { showPath: true })["idea-0"];
+    expect(two.path).toBe(`${getActivity("meditatie")!.label.en} → ${getActivity("kalligrafie")!.label.en}`);
+  });
+
+  it("has no path for a door that is the direct reading of the images (chain of one), or without a chain", () => {
+    expect(buildIdeaThreads([withChain(["pottenbakken"])], null, sources, "nl", { showPath: true })["idea-0"].path).toBeUndefined();
+    expect(buildIdeaThreads([idea("A", "pottenbakken")], null, sources, "nl", { showPath: true })["idea-0"].path).toBeUndefined();
+  });
+
+  it("skips an id that is not in the library instead of printing it", () => {
+    const thread = buildIdeaThreads([withChain(["bestaat-niet", "pottenbakken"])], null, sources, "nl", { showPath: true })["idea-0"];
+    expect(thread.path).toBeUndefined();
+  });
+
+  it("says in both languages that the activities in between are derived by us, not chosen", () => {
+    for (const locale of ["nl", "en"] as const) {
+      const copy = getDictionary(locale).venster.thread;
+      expect(copy.pathCaption.length).toBeGreaterThan(10);
+      const base = { image: { src: "/x.jpg", label: "Handen vol klei" }, tags: ["vakmanschap"], title: "T", place: null };
+      const line = threadSentence({ ...base, path: "Meditatie" }, copy, "en")!;
+      expect(line).toContain("Meditatie");
+      expect(line).not.toMatch(/[→›]/);
+      expect(threadSentence(base, copy, "en")).not.toContain("Meditatie");
+    }
+  });
+
+  it("renders as an extra link between 'what we read' and the door, with its own caption", () => {
+    const copy = getDictionary("nl").venster.thread;
+    const html = renderToStaticMarkup(
+      createElement(IdeaThread, { thread: { image: null, tags: ["vakmanschap"], path: "Meditatie → Kalligrafie", title: "Pottenbakken", place: null }, copy }),
+    );
+    expect((html.match(/<li/g) ?? []).length).toBe(3);
+    expect(html).toContain("Meditatie → Kalligrafie");
+    expect(html).toContain(copy.pathCaption);
+    expect(html.indexOf(copy.tagsCaption)).toBeLessThan(html.indexOf(copy.pathCaption));
+    expect(html.indexOf(copy.pathCaption)).toBeLessThan(html.indexOf(copy.doorCaption));
+  });
+});

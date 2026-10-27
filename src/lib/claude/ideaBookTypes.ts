@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/locale";
 import type { IdeaLayers } from "@/lib/claude/ideaLayers";
+import type { IdeaFill } from "@/lib/claude/ideaFill";
 
 // Pure types/constants for the generated Idea Book — deliberately kept free
 // of any import that touches the Anthropic client or other server-only
@@ -97,6 +98,9 @@ export interface IdeaBookEntry extends IdeaLayers {
   // made before that pipeline existed.
   activity_id?: string;
   chain?: string[];
+  // B5 / V1 (only with KNOWLEDGE_ENGINE_V2 on): the PDF's "way to spend it", "take away" and "make it yours"
+  // lines written for this idea. Absent = the PDF uses its per-kind templates, as before.
+  fill?: IdeaFill;
 }
 
 export interface GeneratedIdeaBook {

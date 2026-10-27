@@ -4,6 +4,8 @@ import { freeWord, languageLabel, type Locale } from "@/lib/locale";
 import type { IntakeAnswers } from "@/app/intake/actions";
 import type { CharacterProfile } from "@/lib/characterProfile";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
+import { checkFill, fillConflicts, fillContext, type IdeaFill } from "@/lib/claude/ideaFill";
+import { knowledgeEngineV2Enabled } from "@/lib/knowledgeFlags";
 import {
   LOCATION_SCHEMA,
   PRACTICAL_SCHEMA,
@@ -158,6 +160,38 @@ Honesty. These matter more than anything above:
 
 Write absolutely everything in {{LANGUAGE}}, not English, unless {{LANGUAGE}} is English.`;
 
+// B5 / V1, only with KNOWLEDGE_ENGINE_V2 on. The PDF's "possible way to spend it", "what you take away" and
+// "make it yours" blocks were taken from ten fixed templates per kind of activity and sometimes contradicted the
+// idea. These lines are inserted into the layers prompt (before its "Honesty" part) and the three fields are
+// added to the layers schema; the book is checked against them afterwards (src/lib/claude/ideaFill.ts).
+export const FILL_PROMPT_RULES = `- timeline: exactly four short lines (max ~12 words each) describing ONE possible way a first real session could
+  go, in this order: arriving or starting; the main part; finishing; afterwards. Specific to THIS activity (say
+  what is actually being done: the clay, the route, the board), present tense, no clock times, no claim about
+  any provider's schedule, no named business unless it is one of that idea's verified local options.
+- takeaways: exactly three short lines (max ~10 words each): what this person is likely to take home from THIS
+  activity (a skill, something made, a feeling, a story). Nothing that every activity could say.
+- suggestions: exactly three short lines (max ~12 words each): small, concrete ways to make THIS activity theirs
+  (what to bring, what to try, what to note down). They must fit the "How to take part" line: for something done
+  alone, never suggest bringing or meeting other people; for an online activity, never mention travelling, parking,
+  cash or a bank card; for an indoor activity, never mention rain or sun gear.
+`;
+
+// B5 / V2, only with KNOWLEDGE_ENGINE_V2 on and only for the image intake: the person chose pictures, never
+// activities. The activities the selection derived from those pictures were presented to the writer as things
+// they "picked" ("Related to something they picked"), and the text followed. Inserted before "For every idea:".
+export const HONEST_ORIGIN_RULE = `The person chose IMAGES, not activities. An activity that is not marked as "chosen" was reached by us from
+their images. Never write that they picked, chose or selected an activity, and never claim an interest they did
+not state. Say what their images pointed to ("the image of candlelight pointed towards quiet, and this shares
+that quiet") and, where an idea has an "Image behind it" line, you may name that image once.
+
+`;
+
+const FILL_SCHEMA_FIELDS = {
+  timeline: { type: "array", minItems: 4, maxItems: 4, items: { type: "string" } },
+  takeaways: { type: "array", minItems: 3, maxItems: 3, items: { type: "string" } },
+  suggestions: { type: "array", minItems: 3, maxItems: 3, items: { type: "string" } },
+};
+
 const TAG_LABEL = new Map(TAGS.map((t) => [t.id, t.label]));
 
 const FORMAT_TEXT: Record<string, string> = {
@@ -170,9 +204,32 @@ const FORMAT_TEXT: Record<string, string> = {
   online: "online",
 };
 
-function why(seed: Seed, locale: Locale, fromImages = false): string {
+/**
+ * The "Why it was chosen" line of one seed. `honest` (KNOWLEDGE_ENGINE_V2 and the image intake) never calls a
+ * derived activity "picked": the person chose images, and the activities in between are what we read from them.
+ */
+export function why(seed: Seed, locale: Locale, fromImages = false, honest = false): string {
   const label = (id: string) => getActivity(id)?.label[locale] ?? id;
   const via = seed.via.map((t) => TAG_LABEL.get(t)?.[locale] ?? t).join(", ");
+  if (honest && fromImages) {
+    const sharing = via ? ` (shared: ${via})` : "";
+    if (seed.hybrid) {
+      return `A combination the person did not ask for but that grows out of what their chosen images point to (${label(seed.hybrid.partnerId)}): "${seed.hybrid.label[locale]}".`;
+    }
+    switch (seed.direction) {
+      case "adjacent":
+        return `Reached from their images, not picked by them: their images point towards ${seed.chain.map(label).join(" → ")}${sharing}.`;
+      case "unexpected":
+        return `Far from what their images point to, reached by a path that starts at what the images suggest: ${seed.chain.map(label).join(" → ")}${sharing}. They did not pick any of it.`;
+      case "stretch":
+        return `A step beyond their comfort zone, starting from what their images point to (${label(seed.chain[0])})${via ? `, still sharing: ${via}` : ""}.`;
+      case "wildcard":
+        return seed.chain.length > 1
+          ? `A random prompt from a direction their images did not point to, loosely tied to ${label(seed.chain[0])}.`
+          : "A random prompt from a direction their images did not point to.";
+      default:
+    }
+  }
   if (seed.hybrid) {
     return `A combination the person did not ask for but that grows out of what they picked (${label(seed.hybrid.partnerId)}): "${seed.hybrid.label[locale]}".`;
   }
@@ -205,6 +262,7 @@ function seedBlock(
   research: SeedResearch | undefined,
   locale: Locale,
   chosenImages: readonly string[] = [],
+  honest = false,
 ): string {
   const a = getActivity(seed.activityId)!;
   // Image intake: the chosen image that lies behind this idea, for "Omdat je X koos".
@@ -222,7 +280,7 @@ function seedBlock(
   return [
     `Idea ${index + 1} — ${seed.direction === "wildcard" ? "WILDCARD (the separate wildcard slot)" : `door: ${seed.door}`}`,
     `  Activity: ${name}`,
-    `  Why it was chosen: ${why(seed, locale, chosenImages.length > 0)}`,
+    `  Why it was chosen: ${why(seed, locale, chosenImages.length > 0, honest)}`,
     behind ? `  Image behind it: "${behind}" (the chosen image this idea connects to; name it in why_it_fits)` : null,
     `  How to take part: ${take}`,
     `  Easy way in: ${a.entry ? a.entry[locale] : "not known; suggest a beginner-friendly first step"}`,
@@ -255,42 +313,48 @@ const ENTRY_SCHEMA = {
   required: ["title", "intro", "why_it_fits", "details", "first_action", "practical", "location", "requirements"],
 };
 
-// The layers of one idea (written by the second call).
-const LAYER_ENTRY_SCHEMA = {
-  type: "object" as const,
-  properties: {
-    feels_like: { type: "string" },
-    sizes: {
-      type: "array",
-      minItems: 3,
-      maxItems: 3,
-      items: {
-        type: "object" as const,
-        properties: {
-          title: { type: "string" },
-          description: { type: "string" },
-          estimated_cost: { type: "string" },
-          duration: { type: "string" },
+// The layers of one idea (written by the second call). With KNOWLEDGE_ENGINE_V2 the three "fill" lists are added.
+function layerEntrySchema(v2: boolean) {
+  return {
+    type: "object" as const,
+    properties: {
+      feels_like: { type: "string" },
+      sizes: {
+        type: "array",
+        minItems: 3,
+        maxItems: 3,
+        items: {
+          type: "object" as const,
+          properties: {
+            title: { type: "string" },
+            description: { type: "string" },
+            estimated_cost: { type: "string" },
+            duration: { type: "string" },
+          },
+          required: ["title", "description", "estimated_cost", "duration"],
         },
-        required: ["title", "description", "estimated_cost", "duration"],
       },
+      next_step: { type: "string" },
+      ...(v2 ? FILL_SCHEMA_FIELDS : {}),
     },
-    next_step: { type: "string" },
-  },
-  required: ["feels_like", "sizes", "next_step"],
-};
+    required: ["feels_like", "sizes", "next_step", ...(v2 ? ["timeline", "takeaways", "suggestions"] : [])],
+  };
+}
 
 interface RawLayer {
   feels_like?: unknown;
   sizes?: unknown;
   next_step?: unknown;
+  timeline?: unknown;
+  takeaways?: unknown;
+  suggestions?: unknown;
 }
 
 /**
  * The second call: the layers of all ideas, in the order of the seeds. Never throws and is not retried:
  * the layers are optional, so a failure just means a book without them (and it is logged).
  */
-async function writeLayers(system: string, user: string, count: number): Promise<RawLayer[] | null> {
+async function writeLayers(system: string, user: string, count: number, v2 = false): Promise<RawLayer[] | null> {
   try {
     const startedAt = Date.now();
     const message = await anthropic.messages.create({
@@ -304,7 +368,7 @@ async function writeLayers(system: string, user: string, count: number): Promise
           description: "Return the extra layers of every idea.",
           input_schema: {
             type: "object",
-            properties: { ideas: { type: "array", minItems: count, maxItems: count, items: LAYER_ENTRY_SCHEMA } },
+            properties: { ideas: { type: "array", minItems: count, maxItems: count, items: layerEntrySchema(v2) } },
             required: ["ideas"],
           },
         },
@@ -405,6 +469,7 @@ function buildEntry(
   research: SeedResearch | undefined,
   related: RelatedActivity[],
   layer: RawLayer | undefined,
+  fill?: IdeaFill,
 ): IdeaBookEntry {
   const e = (raw ?? {}) as Record<string, unknown>;
   const a = getActivity(seed.activityId)!;
@@ -420,6 +485,7 @@ function buildEntry(
     // Straight from the research (never written by the model), so each one is a verified place.
     ...(places.length ? { places } : {}),
     ...(related.length ? { related } : {}),
+    ...(fill ? { fill } : {}),
     title: toText(e.title),
     intro: toText(e.intro),
     why_it_fits: toText(e.why_it_fits),
@@ -531,15 +597,21 @@ export async function generateIdeaBookFromSeeds(
 
   // 3. Write the ideas (one retry on a malformed answer, without repeating the research).
   const language = languageLabel(locale);
-  const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
-  const layersSystem = LAYERS_SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
+  // B5 (KNOWLEDGE_ENGINE_V2, off by default): activity-specific fill lines (V1) and honest origin wording (V2).
+  const v2 = knowledgeEngineV2Enabled();
+  const chosenImages = intake.associations ?? [];
+  const honestOrigin = v2 && chosenImages.length > 0;
+  const baseSystem = honestOrigin ? SYSTEM_PROMPT.replace("For every idea:\n", () => `${HONEST_ORIGIN_RULE}For every idea:\n`) : SYSTEM_PROMPT;
+  const baseLayers = v2 ? LAYERS_SYSTEM_PROMPT.replace("\nHonesty. These matter", () => `${FILL_PROMPT_RULES}\nHonesty. These matter`) : LAYERS_SYSTEM_PROMPT;
+  const system = baseSystem.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
+  const layersSystem = baseLayers.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
   const shared = `Today is ${describeToday(now, locale)} (${isoDateNL(now)}).
 
 ${formatProfile(intake, characterProfile)}
 
 The seven ideas (in this order; Idea ${seeds.length} is the wildcard):
 
-${seeds.map((s, i) => seedBlock(s, i, research.byActivity.get(s.activityId), locale, intake.associations ?? [])).join("\n\n")}`;
+${seeds.map((s, i) => seedBlock(s, i, research.byActivity.get(s.activityId), locale, chosenImages, honestOrigin)).join("\n\n")}`;
   const user = `${shared}
 
 Call the create_idea_book tool exactly once: ${seeds.length - 1} entries in "ideas" (Ideas 1-${seeds.length - 1}, same order) plus the wildcard entry for Idea ${seeds.length}.`;
@@ -548,7 +620,7 @@ Call the create_idea_book tool exactly once: ${seeds.length - 1} entries in "ide
 Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", for Ideas 1-${seeds.length} in the order given (Idea ${seeds.length} is the wildcard).`;
 
   // The layers are written at the same time as the ideas themselves, so they add no waiting time.
-  const layersPromise = writeLayers(layersSystem, layersUser, seeds.length);
+  const layersPromise = writeLayers(layersSystem, layersUser, seeds.length, v2);
 
   let raw: RawBook | null = null;
   let lastError: unknown;
@@ -621,16 +693,34 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
     const sizes = checkSizes(layerFor(seed)?.sizes);
     if (sizes.problem) issues.push(`${label}:sizes_dropped (${sizes.problem})`);
   };
+  // V1: the fill lines are kept only when complete and when none of them contradicts what is known about the idea
+  // (done alone, online only, indoors). Otherwise the PDF falls back to its templates, which are filtered the same way.
+  const fillFor = (label: string, seed: Seed): IdeaFill | undefined => {
+    if (!v2 || !layers) return undefined;
+    const layer = layerFor(seed);
+    const { fill, problem } = checkFill({ timeline: layer?.timeline, takeaways: layer?.takeaways, suggestions: layer?.suggestions });
+    if (!fill) {
+      issues.push(`${label}:fill_dropped (${problem})`);
+      return undefined;
+    }
+    const activity = getActivity(seed.activityId);
+    const conflicts = activity ? fillConflicts(fill, fillContext(activity, seed.lead, intake.company)) : [];
+    if (conflicts.length > 0) {
+      issues.push(`${label}:fill_conflict (${conflicts.join(", ")})`);
+      return undefined;
+    }
+    return fill;
+  };
   const ideas = (raw.ideas as unknown[]).map((r, i) => {
     const seed = regular[i];
     layerIssues(`idea${i + 1}`, seed);
-    const checked = checkEntry(buildEntry(r, seed, research.byActivity.get(seed.activityId), relatedFor(seed), layerFor(seed)), research.byActivity.get(seed.activityId)?.options ?? [], allHosts);
+    const checked = checkEntry(buildEntry(r, seed, research.byActivity.get(seed.activityId), relatedFor(seed), layerFor(seed), fillFor(`idea${i + 1}`, seed)), research.byActivity.get(seed.activityId)?.options ?? [], allHosts);
     issues.push(...checked.issues.map((x) => `idea${i + 1}:${x}`));
     return checked.entry;
   });
   layerIssues("wildcard", wild);
   const wildChecked = checkEntry(
-    buildEntry(raw.wildcard, wild, research.byActivity.get(wild.activityId), relatedFor(wild), layerFor(wild)),
+    buildEntry(raw.wildcard, wild, research.byActivity.get(wild.activityId), relatedFor(wild), layerFor(wild), fillFor("wildcard", wild)),
     research.byActivity.get(wild.activityId)?.options ?? [],
     allHosts,
   );

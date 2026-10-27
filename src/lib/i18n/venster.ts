@@ -185,6 +185,9 @@ export interface VensterDictionary {
     pdfBoth: string; // {image} {tags}
     pdfImage: string; // {image}
     pdfTags: string; // {tags}
+    // B5 / V2, only shown with KNOWLEDGE_ENGINE_V2: the activities between the image and the door, derived by us.
+    pathCaption: string;
+    pdfPath: string; // {path}
   };
   // More body per door (R2.3): feels like, three sizes, real places, related, what next.
   more: {
@@ -693,6 +696,8 @@ export const vensterNl: VensterDictionary = {
     pdfBoth: "Bij deze deur hoort het beeld ‘{image}’: daarin lazen we {tags}.",
     pdfImage: "Bij deze deur hoort het beeld ‘{image}’.",
     pdfTags: "In de gekozen beelden lazen we {tags}.",
+    pathCaption: "Waar je beelden naartoe wezen: door ons afgeleid, niet door jou gekozen",
+    pdfPath: "Onderweg kwamen we langs {path}: dat leiden wij uit je beelden af, het is niet iets dat je zelf koos.",
   },
   more: {
     heading: "Meer over deze deur",
@@ -1196,6 +1201,8 @@ export const vensterEn: VensterDictionary = {
     pdfBoth: "This door follows from the image ‘{image}’, in which we read {tags}.",
     pdfImage: "This door follows from the image ‘{image}’.",
     pdfTags: "In the chosen images we read {tags}.",
+    pathCaption: "Where your images pointed: derived by us, not chosen by you",
+    pdfPath: "On the way we passed {path}: we derive that from your images, it is not something you picked.",
   },
   more: {
     heading: "More about this door",

@@ -868,14 +868,18 @@ export interface ScheduleStep {
 // Three steps for a short idea (an hour or so has no real "afterwards"),
 // otherwise four.
 export function scheduleFor(kind: ActivityKind, durationText: string, locale: Locale): ScheduleStep[] {
+  return scheduleFromLines(kindCopy(kind, locale).timeline, durationText, locale);
+}
+
+/** The same four labelled steps from any four lines (the per-kind template, or the lines written for this idea). */
+export function scheduleFromLines(lines: readonly string[], durationText: string, locale: Locale): ScheduleStep[] {
   const labels = ideaPageLabels(locale);
-  const copy = kindCopy(kind, locale);
   const hours = parseDurationHours(durationText);
   const all: ScheduleStep[] = [
-    { label: labels.scheduleStart, text: copy.timeline[0] },
-    { label: labels.scheduleDuring, text: copy.timeline[1] },
-    { label: labels.scheduleFinish, text: copy.timeline[2] },
-    { label: labels.scheduleAfter, text: copy.timeline[3] },
+    { label: labels.scheduleStart, text: lines[0] },
+    { label: labels.scheduleDuring, text: lines[1] },
+    { label: labels.scheduleFinish, text: lines[2] },
+    { label: labels.scheduleAfter, text: lines[3] },
   ];
   return hours !== null && hours <= 1.5 ? all.slice(0, 3) : all;
 }

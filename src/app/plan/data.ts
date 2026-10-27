@@ -25,6 +25,7 @@ import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { isMissingColumnError } from "@/lib/supabase/errors";
 import { buildAssociationSources, type AssociationSources } from "@/lib/discovery/associations";
 import { buildIdeaThreads, threadSentence } from "@/lib/ideaThread";
+import { knowledgeEngineV2Enabled } from "@/lib/knowledgeFlags";
 import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
 
 // Re-exported so existing callers (src/app/plan/page.tsx) can keep
@@ -491,7 +492,7 @@ async function finishPlanGeneration(
       if (Object.keys(built.sources).length + Object.keys(built.sourceTags).length > 0) {
         associationSources = built;
         const copy = getDictionary(locale).venster;
-        const threads = buildIdeaThreads(generated.ideas, generated.wildcard, built, locale);
+        const threads = buildIdeaThreads(generated.ideas, generated.wildcard, built, locale, { showPath: knowledgeEngineV2Enabled() });
         all.forEach((idea, i) => {
           const key = i < generated.ideas.length ? ideaKey(i) : WILDCARD_KEY;
           const line = threadSentence(threads[key], copy.thread, copy.profile.and);

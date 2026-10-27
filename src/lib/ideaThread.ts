@@ -1,5 +1,5 @@
 import { getAssociation, type AssociationSources } from "@/lib/discovery/associations";
-import { TAGS } from "@/lib/discovery/library";
+import { TAGS, getActivity } from "@/lib/discovery/library";
 import { ideaKey, WILDCARD_KEY } from "@/lib/ideaKeys";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -14,6 +14,12 @@ export interface IdeaThreadData {
   image: { src: string; label: string } | null;
   /** Labels of the (at most two) tags through which the image and the activity meet. */
   tags: string[];
+  /**
+   * B5 / V2 (only with KNOWLEDGE_ENGINE_V2): the activities our selection passed through between the person's
+   * images and this door, e.g. "Meditatie → Stilteretraite". They are derived by us, never chosen by the person,
+   * and are shown (and captioned) as such. Null when the door is the direct reading of the images.
+   */
+  path?: string | null;
   /** The door: the idea's title. */
   title: string;
   /** "Name, City" of the real place, when the idea has one. */
@@ -28,6 +34,7 @@ export function buildIdeaThreads(
   wildcard: IdeaBookEntry | null,
   sources: AssociationSources | null,
   locale: "nl" | "en",
+  opts: { showPath?: boolean } = {},
 ): Record<string, IdeaThreadData> {
   if (!sources) return {};
   const labels = tagLabel(locale);
@@ -46,9 +53,13 @@ export function buildIdeaThreads(
     // A thread needs at least one thing the person recognises: the image or the words we read.
     if (!card && tags.length === 0) return;
     const place = idea.location ? [idea.location.name, idea.location.city].filter(Boolean).join(", ") : "";
+    // The chain ends at the idea itself; what stands before it is the way our selection got here.
+    const via = opts.showPath && idea.chain && idea.chain.length > 1 ? idea.chain.slice(0, -1) : [];
+    const path = via.map((a) => getActivity(a)?.label[locale]).filter((l): l is string => !!l);
     out[key] = {
       image: card ? { src: card.image, label: card.label[locale] } : null,
       tags,
+      ...(path.length > 0 ? { path: path.join(" → ") } : {}),
       title: idea.title,
       place: place || null,
     };
@@ -63,8 +74,8 @@ export function threadSentence(thread: IdeaThreadData | undefined, copy: Diction
   if (!thread) return null;
   const tags = thread.tags.length <= 1 ? thread.tags.join("") : `${thread.tags.slice(0, -1).join(", ")} ${and} ${thread.tags[thread.tags.length - 1]}`;
   const image = thread.image?.label.replace(/^./, (c) => c.toLowerCase());
-  if (image && tags) return copy.pdfBoth.replace("{image}", image).replace("{tags}", tags);
-  if (image) return copy.pdfImage.replace("{image}", image);
-  if (tags) return copy.pdfTags.replace("{tags}", tags);
-  return null;
+  const base = image && tags ? copy.pdfBoth.replace("{image}", image).replace("{tags}", tags) : image ? copy.pdfImage.replace("{image}", image) : tags ? copy.pdfTags.replace("{tags}", tags) : null;
+  if (!base) return null;
+  // V2: the activities in between, said as what they are (derived by us).
+  return thread.path ? `${base} ${copy.pdfPath.replace("{path}", thread.path)}` : base;
 }

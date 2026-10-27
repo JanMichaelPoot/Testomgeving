@@ -40,9 +40,13 @@ import {
   kindCopy,
   pickStable,
   scheduleFor,
+  scheduleFromLines,
   timeFits,
   type IdeaPageLabels,
 } from "@/lib/pdf/ideaContent";
+import { fillConflicts, fillContext, normalizeFill, withoutConflicts } from "@/lib/claude/ideaFill";
+import { getActivity } from "@/lib/discovery/library";
+import { knowledgeEngineV2Enabled } from "@/lib/knowledgeFlags";
 
 // pdf-lib has no first-class "add a hyperlink" API, so a clickable region
 // is a manually-built Link annotation — a standard, documented technique
@@ -1433,15 +1437,26 @@ export async function renderIdeaBookPdf(
     ].filter((c): c is GlanceCell => c !== null);
 
     const profileRows = EXPERIENCE_DIMENSIONS.map((d) => ({ name: pageLabels.dimensions[d], score: profile[d] }));
-    const schedule = scheduleFor(kind, durationText, locale);
+    // B5 / V1: lines written for this very idea (only exist for books made with KNOWLEDGE_ENGINE_V2 on); re-checked here
+    // because a stored book is read back as it was saved. Without them: the per-kind templates, as always.
+    const fill = idea.fill ? normalizeFill(idea.fill) : undefined;
+    const activity = idea.activity_id ? getActivity(idea.activity_id) : undefined;
+    const fillCtx = activity ? fillContext(activity, null, context.company) : null;
+    const ownFill = fill && !(fillCtx && fillConflicts(fill, fillCtx).length > 0) ? fill : undefined;
+    // With the flag on, a template line that contradicts the idea (a solo idea that says "bring someone you enjoy") is skipped too.
+    const v2 = knowledgeEngineV2Enabled();
+    const templateLines = (lines: readonly string[]) => (v2 && fillCtx ? withoutConflicts(lines, fillCtx) : [...lines]);
+    const schedule = ownFill ? scheduleFromLines(ownFill.timeline, durationText, locale) : scheduleFor(kind, durationText, locale);
 
     // Prefer lines no earlier page of this book has used, so several ideas of
     // the same kind don't all carry the same checklist.
     const seed = idea.title;
-    const takeaways = pickStable(copy.takeaways, 3, seed, usedTakeaways);
-    const suggestions = pickStable(copy.suggestions, 3, seed + "·", usedSuggestions);
-    takeaways.forEach((t) => usedTakeaways.add(t));
-    suggestions.forEach((t) => usedSuggestions.add(t));
+    const takeaways = ownFill ? ownFill.takeaways : pickStable(templateLines(copy.takeaways), 3, seed, usedTakeaways);
+    const suggestions = ownFill ? ownFill.suggestions : pickStable(templateLines(copy.suggestions), 3, seed + "·", usedSuggestions);
+    if (!ownFill) {
+      takeaways.forEach((t) => usedTakeaways.add(t));
+      suggestions.forEach((t) => usedSuggestions.add(t));
+    }
     const editorial = editorialFor(idea.door, seed, locale);
 
     // Steps: the idea's own steps, plus what to bring when the idea lists
