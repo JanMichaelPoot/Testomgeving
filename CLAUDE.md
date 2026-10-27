@@ -3773,3 +3773,31 @@ Stripe, Claude API, Resend, PostHog).
       `ideaThread.test.ts`), `tsc --noEmit`, eslint, `taxonomy:check`, `npm run build` schoon; de ene vitest-worker-time-out
       ("Timeout calling onTaskUpdate") staat er nog, ouder dan deze stap. **Niet gedaan**: een echte generatie met de vlag aan (wacht op
       Jans akkoord op een bedrag, zie B6), de websitevariant van de zichtbare keten voor boeken zonder draad, en de blinde vergelijking.
+
+- [x] Stap 99 - Kennisengine, B6 (eerste, kleine betaalde vergelijking; Jan gaf "twee profielparen, max $1,00"). **Geen go/no-go**:
+      twee profielparen zijn een eerste indruk, geen 60%-voorkeur. Gebouwd (gratis): engine `v2` in het harnas (dezelfde selectie als
+      `current`, vastgelegd door een test; boek geschreven en gerenderd met `KNOWLEDGE_ENGINE_V2` aan), `--engine current,v2`, `--only`,
+      `--max-usd` met een budgetmeter (`src/lib/discovery/eval/budget.ts`: rekent elk antwoord uit zijn eigen `usage` en start geen
+      aanroep of boek meer dat het totaal over de grens kan brengen), `--book-reserve`, kosten/seconden/meldingen/invulling per boek in
+      het rapport, een PDF per boek (`docs/eval/books/`, niet in git), en de nieuwe invulregels vallen onder de controle op prijzen en
+      openingstijden zonder bron. Een `--full`-run gebruikt voor alle profielen de maand van vandaag. **Gedraaid**: P01 (stille creatieveling,
+      alleen, Utrecht) en P12 (cadeau, duo, Haarlem), elk met de huidige versie en met v2, `sessionId` gelijk zodat de seeds gelijk zijn;
+      **totaal $0,809 van de $1,00** (3 boeken in de eerste run $0,705, daarna het vierde apart: de reserve van $0,30 per boek paste
+      toen niet meer onder de grens terwijl dat boek met cache ±$0,10 kostte). **Kosten**: onderzoek kostte bij een koud boek
+      $0,20-0,24 (twee rondes: ook de vervangingsronde van Stap 85; veel meer dan de $0,10 van Stap 56-78) en is het grootste deel van
+      $0,28-0,32 per ongecachet boek; alleen het schrijven: huidig $0,083, v2 $0,099 (P01) en $0,104 (P12), dus **+$0,016-0,021 per
+      boek (+19-25%)**, meer dan de audit-schatting van +$0,005-0,012. **Tijd**: de laagcall is nu de lange (P01: 31 s -> 55 s, het
+      schrijven duurt ±36 -> ±55 s). **Inhoud** (gelezen, niet gemeten): v2 gaf 14/14 ideeën een eigen invulling, geen `fill_dropped` of
+      `fill_conflict`; de invulling is activiteit-specifiek en past bij alleen/duo (huidig: een café-sjabloon bij een zuurdesemworkshop);
+      de herkomst klopt beter (huidig: "Je koos kalligrafie", "Je dacht aan een cosplay-outfit" terwijl dat afgeleid is; v2: "wees naar",
+      "dit komt nergens uit je beelden vandaan"). **Gevonden zwakke punten van v2**: (1) P01 idee 5: de invulling zegt "je soldeert" terwijl
+      de eerste stap een gratis softwaresynthesizer (VCV Rack) is: de tegenspraakcontrole ziet alleen alleen/online/binnen, niet dit;
+      (2) vijf van zeven tips in P01 beginnen met "Noteer ...": herhaling; (3) de controle `first_action:vague` waarschuwt bij P01 idee 4.
+      Bij de huidige versie vond de controle een fout in P12 (openingstijden "13.00-17.00" zonder bron); dat is één boek en dus geen bewijs
+      dat v2 dat beter doet. Harde regels E1-E6: 0 in beide. **Blinde vergelijking**: `docs/eval/blind-b6-ronde-1.html` met
+      `docs/eval/books-blind/P01-A.pdf` ... `P12-B.pdf`; de sleutel staat in `blind-b6-ronde-1.key.json` (niet openen voor je klaar bent; het
+      blad toont alleen titel, intro, waarom en eerste stap, de invulregels staan alleen in de PDF's). Gates: `tsc`, eslint, `taxonomy:check`
+      (0/0), `npm run build`, volledige `npm test` (64 bestanden, 586 tests; dezelfde ene vitest-worker-time-out). **Uitslag van Jans blinde beoordeling** (achteraf met de sleutel
+      vergeleken): hij koos "voorstel B, duidelijk beter"; B was in beide profielen v2 (A = huidig). Eén beoordelaar (de bouwer van het product), twee
+      profielen, de vijf rubricvragen niet apart ingevuld: een duidelijk signaal, geen vaststelling van de 60%-drempel. **Niet gedaan**: de
+      overige 18 profielen, een tweede beoordelaar, de go-criteria ingevuld.

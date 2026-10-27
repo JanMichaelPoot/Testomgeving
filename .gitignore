@@ -50,3 +50,7 @@ supabase/.temp/
 
 # Raw downloads of third-party knowledge sources (licence not yet cleared for redistribution; see docs/knowledge-sources.md)
 /data/sources/raw/
+
+# Eval books as PDF: large, regenerate with scripts/eval/run.ts --full
+/docs/eval/books/
+/docs/eval/books-blind/

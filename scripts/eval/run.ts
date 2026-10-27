@@ -12,7 +12,8 @@
 //       writes the same profiles with both engines, interleaved (so the second book finds the research of the
 //       first in the cache), under one spending cap, and renders each book as a PDF into <out>/books.
 //   add --out <dir> for another output folder (default docs/eval), --no-write to only print the summary,
-//   --only P01,P12 to run just those fixed profiles.
+//   --only P01,P12 to run just those fixed profiles; --book-reserve <usd> (default 0.30) is what a whole book may still
+//   cost at the very most before one is started (lower it only when the research is known to be cached).
 //
 // "--seeds-only" (the default) is free and deterministic: only the selection engine runs, no text is written.
 // "--full" calls the Claude API and costs real money, so it refuses to run without --confirm-cost <usd>
@@ -162,7 +163,7 @@ async function main() {
     for (const p of evalProfiles) {
       if (stopped) break;
       for (const eng of engines) {
-        if (!meter.canStartBook()) {
+        if (!meter.canStartBook(Number(value("book-reserve") ?? 0.3))) {
           console.log(`Stopping before ${p.id}/${eng.name}: $${meter.spent.toFixed(3)} spent of the $${cap.toFixed(2)} cap, a whole book might not fit any more.`);
           stopped = true;
           break;

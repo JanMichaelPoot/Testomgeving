@@ -1,0 +1,691 @@
+{
+ "engine": "v2",
+ "mode": "full",
+ "source": "scripts/eval/profiles (2 vaste profielen: P01, P12)",
+ "generatedAt": "2026-10-27T21:10:48.899Z",
+ "metrics": {
+  "profiles": 2,
+  "seeds": 14,
+  "violations": {
+   "E1": 0,
+   "E3": 0,
+   "E4": 0,
+   "E5": 0,
+   "E6": 0
+  },
+  "rates": {
+   "seedsAtLeastSix": 1,
+   "fourDomains": 1,
+   "maxTwoPerDomain": 1,
+   "allDirections": 1,
+   "nicheOwnWorld": 1,
+   "unexpectedHasBridge": 1,
+   "noRelaxation": 1
+  },
+  "notes": {},
+  "worldsPerBook": 6.5,
+  "subsPerBook": 7,
+  "photoCategoriesPerBook": 6,
+  "kindsPerBook": 5.5,
+  "pairBooks": 0,
+  "sameSubBooks": 0,
+  "relaxedBooks": 0,
+  "verifySeeds": 0.14285714285714285,
+  "tier2Seeds": 0,
+  "costUnknownSeeds": 0,
+  "freeBudgetBooks": 0,
+  "freeBudgetWithUnknownCost": 0,
+  "socialKindShare": 0.21428571428571427,
+  "oneThingByDoor": {
+   "unexpected": 1
+  },
+  "activitiesUsed": 13,
+  "topActivity": {
+   "id": "muziek-maken",
+   "share": 1
+  },
+  "top10Share": 0.7857142857142857
+ },
+ "profiles": [
+  {
+   "id": "P01",
+   "title": "Stille creatieveling",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 35-44, Utrecht",
+    "budget 25, tijd hour, gezelschap solo",
+    "koos beelden: Een werkplaats met zaagsel, Een atelier vol licht, Handen vol klei, Helemaal stil worden, Houtgeur, Kaarslicht",
+    "richtingen: creative"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "zuurdesem",
+     "label": {
+      "nl": "Brood bakken met zuurdesem",
+      "en": "Baking sourdough bread"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Brood bakken met zuurdesem"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "meditatie",
+     "label": {
+      "nl": "Meditatie",
+      "en": "Meditation"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Meditatie"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "architectuur",
+     "label": {
+      "nl": "Architectuurwandeling",
+      "en": "Architecture walk"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Kalligrafie",
+      "Architectuurwandeling"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "houthakken",
+     "label": {
+      "nl": "Hout hakken en stoken",
+      "en": "Splitting wood and tending a stove"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Kaarsen maken",
+      "Hout hakken en stoken"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "muziek-maken",
+     "label": {
+      "nl": "Muziek maken of dj'en",
+      "en": "Music production or DJing"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Een synthesizer of effectpedaal bouwen",
+      "Muziek maken of dj'en"
+     ],
+     "lead": "solo",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "stand-up",
+     "label": {
+      "nl": "Stand-upcomedy: een open mic proberen",
+      "en": "Stand-up comedy: trying an open mic"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Een cosplay-outfit maken",
+      "Stand-upcomedy: een open mic proberen"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "miniaturen",
+     "label": {
+      "nl": "Miniaturen schilderen",
+      "en": "Miniature painting"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Kalligrafie",
+      "Miniaturen schilderen"
+     ],
+     "lead": "solo",
+     "verify": [
+      "cost_near_budget"
+     ]
+    }
+   ],
+   "book": {
+    "profile_summary": "Je hebt een vrij uur voor jezelf in Utrecht en een zwak voor alles wat met je handen en in alle rust gemaakt wordt.",
+    "ideas": [
+     {
+      "door": "natural",
+      "title": "Je eigen zuurdesembrood",
+      "intro": "Een middag met je handen in het deeg, voor brood dat helemaal van jou is.",
+      "why_it_fits": "De beelden van een werkplaats vol zaagsel wezen naar iets met geur en geduld, en dit deelt dat.",
+      "first_action": "Open desemworkshop.nl en bekijk de eerstvolgende beschikbare datum voor de workshop.",
+      "activity_id": "zuurdesem",
+      "fill": {
+       "timeline": [
+        "Je weegt bloem, water en zout zorgvuldig af.",
+        "Je kneedt en vouwt het deeg in rustige herhalingen.",
+        "Het brood gaat de hete oven in en kleurt goudbruin.",
+        "Je snijdt de knapperige korst open en proeft het resultaat."
+       ],
+       "takeaways": [
+        "Een eigen zuurdesemstarter om mee verder te bakken",
+        "Gevoel voor geduld en ritme in een proces",
+        "Een vers gebakken brood om te delen of te bewaren"
+       ],
+       "suggestions": [
+        "Noteer de rijstijd zodat je het later kunt herhalen",
+        "Neem een scherp mes mee voor het aansnijden",
+        "Probeer eens een ander graan toe te voegen"
+       ]
+      }
+     },
+     {
+      "door": "natural",
+      "title": "Tien minuten stilte",
+      "intro": "Een proefles zenmeditatie om te voelen hoe het is om even helemaal stil te worden.",
+      "why_it_fits": "Je beeld van helemaal stil worden wijst recht naar dit soort zitten, zonder iets te hoeven doen.",
+      "first_action": "Open zen.nl/utrecht en bekijk de eerstvolgende proefles, zonder verplichtingen.",
+      "activity_id": "meditatie",
+      "fill": {
+       "timeline": [
+        "Je zoekt een rustige plek en gaat stilzitten.",
+        "Je volgt je ademhaling terwijl gedachten voorbijkomen.",
+        "Een zachte bel of stem sluit de sessie af.",
+        "Je merkt hoe je lijf en hoofd iets lichter aanvoelen."
+       ],
+       "takeaways": [
+        "Een gevoel van innerlijke rust en stilte",
+        "Een eenvoudige ademhalingstechniek om te hergebruiken",
+        "Meer besef van je eigen gedachtestroom"
+       ],
+       "suggestions": [
+        "Zet je telefoon op stil voor je begint",
+        "Kies een vaste plek die rustig aanvoelt",
+        "Noteer achteraf kort hoe je je voelt"
+       ]
+      }
+     },
+     {
+      "door": "discovery",
+      "title": "Utrecht door andermans ogen",
+      "intro": "Een wandeling langs gebouwen die je normaal voorbijloopt, nu met opzet bekeken.",
+      "why_it_fits": "Een studio vol licht leidde je, via kalligrafie en kleur, naar deze blik op de lijnen van de stad.",
+      "first_action": "Open stadsgids030.nl/stadswandeling-utrecht-architectuurwandeling en lees de startlocatie Mariaplaats.",
+      "activity_id": "architectuur",
+      "fill": {
+       "timeline": [
+        "Je start bij een opvallend gebouw op de route.",
+        "Je loopt van pand naar pand en leest de details.",
+        "De route eindigt bij een laatste markant bouwwerk.",
+        "Je bekijkt onderweg gemaakte foto's nog eens terug."
+       ],
+       "takeaways": [
+        "Een nieuwe blik op gebouwen die je al kende",
+        "Kennis over bouwstijlen en stadsgeschiedenis",
+        "Een paar foto's van favoriete details"
+       ],
+       "suggestions": [
+        "Neem een paar comfortabele schoenen mee",
+        "Maak foto's van details die je opvallen",
+        "Noteer een gebouw om later nog eens te bezoeken"
+       ]
+      }
+     },
+     {
+      "door": "discovery",
+      "title": "Drie minuten eigen film",
+      "intro": "Schrijf een korte scène en film hem nog dezelfde middag met je telefoon.",
+      "why_it_fits": "Handen vol klei wees, via het idee van optreden, naar dit maken van je eigen korte verhaal.",
+      "first_action": "Open een notitie-app en schrijf de eerste zin van je scène van drie minuten.",
+      "activity_id": "korte-film",
+      "fill": {
+       "timeline": [
+        "Je bedenkt een korte scène en kiest een locatie.",
+        "Je filmt verschillende shots vanuit verschillende hoeken.",
+        "Je bekijkt de beelden terug op je telefoon.",
+        "Je knipt de beste momenten tot één kort fragment."
+       ],
+       "takeaways": [
+        "Een zelfgemaakt filmpje om terug te kijken",
+        "Gevoel voor beeld, timing en compositie",
+        "Meer vertrouwen om verhalen te vertellen"
+       ],
+       "suggestions": [
+        "Schrijf van tevoren drie korte scènes op",
+        "Let op het licht voordat je begint te filmen",
+        "Bewaar je favoriete shot apart"
+       ]
+      }
+     },
+     {
+      "door": "unexpected",
+      "title": "Zelf een synthesizer bouwen",
+      "intro": "Bouw en bespeel je eigen klankmachine, van losse onderdelen tot eerste geluid.",
+      "why_it_fits": "De werkplaats vol zaagsel uit je beelden past bij dit zelf in elkaar zetten van iets dat klinkt.",
+      "first_action": "Download gratis VCV Rack via een Google-zoekopdracht en open het programma voor je eerste patch.",
+      "activity_id": "muziek-maken",
+      "fill": {
+       "timeline": [
+        "Je krijgt uitleg over de onderdelen en bedrading.",
+        "Je soldeert en test stap voor stap de schakelingen.",
+        "Het instrument komt tot leven met een eerste klank.",
+        "Je experimenteert met knoppen om nieuwe geluiden te maken."
+       ],
+       "takeaways": [
+        "Een zelfgebouwd instrument om verder te bespelen",
+        "Basiskennis van elektronica en geluidsopwekking",
+        "Een gevoel van trots op iets zelfgemaakts"
+       ],
+       "suggestions": [
+        "Noteer welke instelling welk geluid geeft",
+        "Neem een koptelefoon mee om rustig te testen",
+        "Vraag door over onderdelen die je nog niet kent"
+       ]
+      }
+     },
+     {
+      "door": "stretch",
+      "title": "Op zoek naar zeldzame planten",
+      "intro": "Struin langs ongewone cactussen en planten, verder dan je gebruikelijke route.",
+      "why_it_fits": "Een studio vol licht en kleur bracht je hier, net iets voorbij je gewone paden.",
+      "first_action": "Open Google Maps en zoek 'cactussen en vetplanten Utrecht' om een specialist in de buurt te vinden.",
+      "activity_id": "cactussen",
+      "fill": {
+       "timeline": [
+        "Je loopt langs tafels vol ongewone planten.",
+        "Je vraagt een kweker naar verzorging en herkomst.",
+        "Je kiest voorzichtig een plant om mee te nemen.",
+        "Je zoekt thuis een goede plek voor je aanwinst."
+       ],
+       "takeaways": [
+        "Een nieuwe plant voor op je vensterbank",
+        "Kennis over verzorging van bijzondere soorten",
+        "Een beginnend oog voor ongewone vormen"
+       ],
+       "suggestions": [
+        "Zoek vooraf online naar een plantenruilbeurs bij jou in de buurt",
+        "Neem iets mee om de plant in te vervoeren",
+        "Vraag naar de juiste hoeveelheid licht en water"
+       ]
+      }
+     },
+     {
+      "door": "wildcard",
+      "title": "Oren open, ogen open",
+      "intro": "Zet een koptelefoon op en laat een app je door de stad fluisteren.",
+      "why_it_fits": "Dit komt nergens uit je beelden vandaan, maar juist dat maakt het een goede afwijking.",
+      "first_action": "Open podwalk-tours.nl en start de gratis eerste audiowandeling van 60 minuten in Utrecht.",
+      "activity_id": "audiowandeling",
+      "fill": {
+       "timeline": [
+        "Je start de app en zet je koptelefoon op.",
+        "Je volgt de stem langs aangewezen stops in de stad.",
+        "Bij de laatste stop eindigt het verhaal van de route.",
+        "Je neemt de koptelefoon af en kijkt om je heen."
+       ],
+       "takeaways": [
+        "Onverwachte verhalen over bekende plekken",
+        "Een nieuwe manier om alleen de stad te verkennen",
+        "Een route om later aan iemand door te vertellen"
+       ],
+       "suggestions": [
+        "Laad de app van tevoren volledig op je telefoon",
+        "Zet je koptelefoon op comfortabel volume",
+        "Noteer een stop die je nog eens wilt bezoeken"
+       ]
+      }
+     }
+    ]
+   },
+   "run": {
+    "usd": 0.09892600000000001,
+    "seconds": 56.077,
+    "issues": [
+     "idea3:location_not_in_research:Mariaplaats (startpunt)"
+    ],
+    "fillCount": 7,
+    "pdf": "docs/eval/books/2026-10-27-P01-v2.pdf"
+   },
+   "findings": [
+    {
+     "check": "first_action:vague",
+     "severity": "warn",
+     "where": "idea4",
+     "message": "first action is not concrete: \"Open een notitie-app en schrijf de eerste zin van je scène van drie minuten.\"",
+     "profile": "P01"
+    }
+   ]
+  },
+  {
+   "id": "P12",
+   "title": "Cadeau voor een kunstliefhebber",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "cadeau voor Anna, leeftijd 55-64, Haarlem",
+    "budget 100, tijd halfday, gezelschap duo",
+    "koos beelden: Een leeg podium met één lamp, Een atelier vol licht, Het applaus na jouw optreden, Handen vol klei, Warm spotlight op je gezicht, Een penseel met één haar",
+    "richtingen: stage, creative"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "linosnede",
+     "label": {
+      "nl": "Linosnedes en handdrukken",
+      "en": "Lino cutting and hand printing"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Linosnedes en handdrukken"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "ijs-maken",
+     "label": {
+      "nl": "IJs en sorbet maken",
+      "en": "Making ice cream and sorbet"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "IJs en sorbet maken"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "bonsai",
+     "label": {
+      "nl": "Bonsai",
+      "en": "Bonsai"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Diorama's en landschapsbouw",
+      "Bonsai"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "korte-film",
+     "label": {
+      "nl": "Een korte film maken met je telefoon",
+      "en": "Making a short film with your phone"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Goochelen leren",
+      "Een korte film maken met je telefoon"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "muziek-maken",
+     "label": {
+      "nl": "Muziek maken of dj'en",
+      "en": "Music production or DJing"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Een synthesizer of effectpedaal bouwen",
+      "Muziek maken of dj'en"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "monumenten",
+     "label": {
+      "nl": "Kastelen, kerken en monumenten bezoeken",
+      "en": "Castles, churches and heritage sites"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Linosnedes en handdrukken",
+      "Kastelen, kerken en monumenten bezoeken"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "kamperen",
+     "label": {
+      "nl": "Kamperen of bivakkeren",
+      "en": "Camping or bivouac"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Diorama's en landschapsbouw",
+      "Kamperen of bivakkeren"
+     ],
+     "lead": "duo",
+     "verify": []
+    }
+   ],
+   "book": {
+    "profile_summary": "Anna, dit boekje is voor jou samengesteld rond stilte, vakmanschap en licht — gemaakt om samen met je partner te ontdekken, op een rustige halve dag.",
+    "ideas": [
+     {
+      "door": "natural",
+      "title": "Een wereld op een plankje",
+      "intro": "Een hele dag samen een miniatuurlandschap bouwen tot het precies klopt.",
+      "why_it_fits": "Een van de beelden die voor je gekozen zijn, 'een studio vol licht', wijst recht naar dit soort geduldig maakwerk.",
+      "first_action": "Open bentinkmodelspoor.nl/workshops/28496-bosgrond-spoor-diorama.html en bekijk de eerstvolgende datum.",
+      "activity_id": "diorama",
+      "fill": {
+       "timeline": [
+        "Jullie kiezen samen een schaalmodel en een thema voor het tafereel.",
+        "Je legt laag voor laag grond, mos en kleine figuren neer.",
+        "Het landschap krijgt zijn laatste details en droogtijd.",
+        "Je neemt het plankje mee naar huis om trots neer te zetten."
+       ],
+       "takeaways": [
+        "Een zelfgebouwd miniatuurlandschap om thuis te bewaren",
+        "Geduld en een vaste hand voor klein werk",
+        "Een gedeeld project om samen op terug te kijken"
+       ],
+       "suggestions": [
+        "Neem een foto van elke bouwfase voor het verhaal erachter",
+        "Kies samen vooraf een thema, bijvoorbeeld bos of spoorweg",
+        "Bewaar een reserve-onderdeeltje als aandenken"
+       ]
+      }
+     },
+     {
+      "door": "natural",
+      "title": "Bouw je eigen geluid",
+      "intro": "Samen een bouwpakket in elkaar solderen tot er geluid uit komt.",
+      "why_it_fits": "Het beeld 'handen vol klei' wees naar maken met je handen, en dit is precies dat, maar dan met draad en soldeertin.",
+      "first_action": "Zoek nu op Google 'synthesizer bouwpakket beginners' en bekijk de eerste drie opties.",
+      "activity_id": "synthesizer-bouwen",
+      "fill": {
+       "timeline": [
+        "Jullie pakken het bouwpakket uit en lezen samen het schema.",
+        "Om de beurt solderen jullie onderdelen op de printplaat.",
+        "Je test de schakeling en stelt de eerste klank bij.",
+        "Je sluit het apparaat aan en speelt de eerste noten."
+       ],
+       "takeaways": [
+        "Een zelfgebouwd stukje elektronica dat echt werkt",
+        "Basiskennis van solderen en eenvoudige schakelingen",
+        "Het geluid van iets dat jullie samen maakten"
+       ],
+       "suggestions": [
+        "Zoek vooraf een bouwpakket op dat bij jullie smaak past",
+        "Noteer welke instelling het mooiste geluid geeft",
+        "Neem een krukje mee voor comfortabel soldeerwerk"
+       ]
+      }
+     },
+     {
+      "door": "discovery",
+      "title": "Onder één schijnwerper",
+      "intro": "Een proefles jongleren en acrobatiek, samen, zonder publiek dat meekijkt.",
+      "why_it_fits": "Je beeld van 'een leeg podium met één licht' bracht ons hier via het leren goochelen dat je beelden al raakten.",
+      "first_action": "Zoek nu op Google Maps naar 'Sportclub HLC Haarlem' en open hun contactpagina.",
+      "activity_id": "circusles",
+      "fill": {
+       "timeline": [
+        "Jullie warmen samen op met rekoefeningen en lichte balans.",
+        "Een instructeur leert jullie een eerste jongleertruc en een acrobatische beweging.",
+        "Jullie oefenen de combinatie samen tot die lukt.",
+        "Je verlaat de zaal met spierpijn en een voldaan gevoel."
+       ],
+       "takeaways": [
+        "Een eerste geslaagde jongleer- of acrobatietruc",
+        "Meer lichaamsbalans en zelfvertrouwen op de vloer",
+        "Een anekdote over je debuut onder het licht"
+       ],
+       "suggestions": [
+        "Draag kleding waarin je makkelijk kunt bewegen",
+        "Film stiekem jullie beste poging voor later",
+        "Noteer welke truc je nog verder wilt oefenen"
+       ]
+      }
+     },
+     {
+      "door": "discovery",
+      "title": "Koken bij open vuur",
+      "intro": "Samen grillen en roken boven echt vuur, de hele middag lang.",
+      "why_it_fits": "Het vuur uit het glasfusing-idee keert hier terug, maar dan knapperend onder een pan in plaats van in een oven.",
+      "first_action": "Open outdoorcookingexperiencecenter.nl/product/open-vuur-bbq-workshop en kies een datum voor twee.",
+      "activity_id": "open-vuur-koken",
+      "fill": {
+       "timeline": [
+        "Jullie maken samen het vuur aan en wachten op de juiste gloed.",
+        "Een instructeur leert jullie grillen, roken en werken met een vuurplaat.",
+        "Jullie bereiden samen een gerecht volledig op open vuur.",
+        "Je proeft het resultaat samen aan een lange tafel."
+       ],
+       "takeaways": [
+        "Nieuwe vuurkooktechnieken om thuis te herhalen",
+        "Een gedeelde maaltijd die je zelf bereidde",
+        "Meer vertrouwen met open vuur en gloeiende kolen"
+       ],
+       "suggestions": [
+        "Draag kleding die tegen rook en vonken kan",
+        "Noteer de gaartijd van jullie favoriete gerecht",
+        "Neem een weersbestendige jas mee voor buiten"
+       ]
+      }
+     },
+     {
+      "door": "unexpected",
+      "title": "Beats maken, samen",
+      "intro": "Een laagdrempelige studio-middag waarin je samen een eigen track in elkaar zet.",
+      "why_it_fits": "'Handen vol klei' wees naar zelf iets vormen, en hier vorm je geluid in plaats van materiaal.",
+      "first_action": "Open haarlemstudio.nl en bekijk de eerstvolgende beschikbare datum voor de Beats Workshop.",
+      "activity_id": "muziek-maken",
+      "fill": {
+       "timeline": [
+        "Jullie maken kennis met de software of de bouwkit.",
+        "Je experimenteert samen met geluid, ritme en melodie.",
+        "Jullie zetten de eerste eigen beat of klankpatroon in elkaar.",
+        "Je luistert samen terug naar wat jullie zojuist maakten."
+       ],
+       "takeaways": [
+        "Een zelfgemaakt muziekfragment om te bewaren",
+        "Eerste gevoel voor synthesizers en productiesoftware",
+        "Een nieuwe gezamenlijke interesse om op voort te bouwen"
+       ],
+       "suggestions": [
+        "Neem een koptelefoon mee als je die liever gebruikt",
+        "Sla jullie beat op om later terug te luisteren",
+        "Noteer welk geluid je het meest verraste"
+       ]
+      }
+     },
+     {
+      "door": "stretch",
+      "title": "Hamerslag en gloeiend ijzer",
+      "intro": "Een introductiemiddag smeden waarin je zelf een mes maakt, onder begeleiding.",
+      "why_it_fits": "Dezelfde 'handen vol klei' die naar bouwen wees, brengt je hier naar heet metaal in plaats van koud materiaal.",
+      "first_action": "Open openbarewerkplaats.nl en reserveer een plek bij 'Introductie Smeden', alleen onder begeleiding.",
+      "activity_id": "smeden",
+      "fill": {
+       "timeline": [
+        "Jullie krijgen beschermende kleding en een korte veiligheidsinstructie.",
+        "Onder begeleiding verhit je samen het metaal in de smidse.",
+        "Om de beurt hameren jullie het gloeiende staal in vorm.",
+        "Je koelt het werkstuk af en bekijkt samen het resultaat."
+       ],
+       "takeaways": [
+        "Een zelfgesmeed metalen voorwerp om te bewaren",
+        "Respect voor vuur, kracht en precisie samen",
+        "Een onverwacht verhaal over je eerste keer smeden"
+       ],
+       "suggestions": [
+        "Draag dichte schoenen en kleding zonder losse mouwen",
+        "Vraag of je het werkstuk zelf mag afwerken",
+        "Noteer welk onderdeel van het proces je verraste"
+       ]
+      }
+     },
+     {
+      "door": "wildcard",
+      "title": "Licht jagen in alle vroegte",
+      "intro": "Samen vroeg op pad met je telefoon of camera, op zoek naar het eerste ochtendlicht.",
+      "why_it_fits": "Niet iets waar je beelden rechtstreeks naar wezen, maar 'een studio vol licht' keert hier terug in het licht zelf.",
+      "first_action": "Zet vanavond je wekker een uur voor zonsopkomst en kies een plek op Google Maps.",
+      "activity_id": "natuurfotografie",
+      "fill": {
+       "timeline": [
+        "Jullie vertrekken vroeg, nog voor de zon goed op is.",
+        "Jullie zoeken samen licht, dieren en interessante composities.",
+        "Je maakt een reeks foto's terwijl het licht verandert.",
+        "Jullie bekijken samen de mooiste plaatjes terug."
+       ],
+       "takeaways": [
+        "Een serie zelfgemaakte natuurfoto's om te bewaren",
+        "Een scherper oog voor licht en compositie",
+        "Een rustig gedeeld moment vroeg op de dag"
+       ],
+       "suggestions": [
+        "Zet je telefoon of camera op vliegtuigstand voor rust",
+        "Noteer de mooiste plek voor een volgende keer",
+        "Sta vroeg op voor het beste ochtendlicht"
+       ]
+      }
+     }
+    ]
+   },
+   "run": {
+    "usd": 0.10445199999999999,
+    "seconds": 63.126,
+    "issues": [],
+    "fillCount": 7,
+    "pdf": "docs/eval/books/2026-10-27-P12-v2.pdf"
+   },
+   "findings": []
+  }
+ ]
+}
