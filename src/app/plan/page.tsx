@@ -295,7 +295,9 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           planDict={dict.plan}
           pdfUrl={pdfUrl}
           shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
-          showEmailedCopy={!testSessionId}
+          showEmailedCopy={!testSessionId && !!plan.email_sent_at}
+          // Only a recorded failure counts: while the mail is still being sent neither note is shown.
+          emailNotSent={!testSessionId && !plan.email_sent_at && !!plan.progress_meta?.email_error}
           canInteract={canInteract}
           initialFeedback={plan.feedback_json ?? {}}
           initialCommittedKey={plan.committed_idea_key ?? null}

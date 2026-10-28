@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
+import { explainEmailError } from "@/lib/emailErrors";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -76,6 +77,9 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
               <Field label="E-mail verstuurd op" value={plan.email_sent_at ?? "nog niet verstuurd"} />
               <Field label="Ontvanger" value={plan.recipient_email ?? "—"} />
               {plan.progress_meta?.email_error && <Field label="E-mailfout" value={plan.progress_meta.email_error} />}
+              {explainEmailError(plan.progress_meta?.email_error) && (
+                <Field label="Oorzaak en oplossing" value={`${explainEmailError(plan.progress_meta?.email_error)!.cause} ${explainEmailError(plan.progress_meta?.email_error)!.fix}`} />
+              )}
             </>
           ) : (
             <p className="text-sm text-ink/50">Nog geen Idea Book gegenereerd voor deze order.</p>

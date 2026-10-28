@@ -183,6 +183,7 @@ export interface Dictionary {
     wildcardFallback: string;
     downloadPdf: string;
     emailedCopy: string;
+    emailNotSent: string;
     shareButtonLabel: string;
     shareCopiedLabel: string;
     shareWhatsappLabel: string;
@@ -748,6 +749,7 @@ const nl: Dictionary = {
     wildcardFallback: "De wildcard",
     downloadPdf: "Download PDF",
     emailedCopy: "We hebben ook een kopie gemaild.",
+    emailNotSent: "De e-mail met je boek is niet aangekomen. Download de PDF hier: hij blijft beschikbaar.",
     shareButtonLabel: "Deel je Idea Book",
     shareCopiedLabel: "Link gekopieerd!",
     shareWhatsappLabel: "Of stuur via WhatsApp",
@@ -1483,6 +1485,7 @@ const en: Dictionary = {
     wildcardFallback: "The wildcard",
     downloadPdf: "Download PDF",
     emailedCopy: "We've also emailed a copy.",
+    emailNotSent: "The e-mail with your book did not arrive. Download the PDF here: it stays available.",
     shareButtonLabel: "Share your Idea Book",
     shareCopiedLabel: "Link copied!",
     shareWhatsappLabel: "Or send via WhatsApp",

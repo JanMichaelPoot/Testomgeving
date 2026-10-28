@@ -4,6 +4,8 @@
 // Everything here is aggregate. Nothing in it identifies a person: the rows come from tables that are
 // already anonymous apart from the e-mail address, and that address is not read here.
 
+import { explainEmailError } from "@/lib/emailErrors";
+
 export interface PlanRow {
   id: string;
   created_at: string;
@@ -122,7 +124,14 @@ export function overview(plans: readonly PlanRow[], payments: readonly PaymentRo
   for (const p of stuck.slice(0, 5)) attention.push({ level: "red", text: `Een Idea Book is blijven hangen (${p.created_at.slice(0, 16).replace("T", " ")} UTC).`, planId: p.id });
   for (const p of failed.filter((x) => t - Date.parse(x.created_at) < 7 * DAY).slice(0, 5)) attention.push({ level: "red", text: `Generatie mislukt (${p.created_at.slice(0, 16).replace("T", " ")} UTC).`, planId: p.id });
   const unsent = paidReady.filter((p) => !p.email_sent_at && t - Date.parse(p.created_at) < 14 * DAY);
-  if (unsent.length) attention.push({ level: "red", text: `${unsent.length} betaald boek${unsent.length === 1 ? "" : "en"} zonder verstuurde e-mail (laatste 14 dagen). Zie de reden onder "E-mail".` });
+  if (unsent.length) {
+    // Say what to do when the stored reason is one we know (the Resend sandbox refusal is the usual one).
+    const help = explainEmailError(unsent.map((p) => p.progress_meta?.email_error).find((m) => explainEmailError(m)));
+    attention.push({
+      level: "red",
+      text: `${unsent.length} betaald boek${unsent.length === 1 ? "" : "en"} zonder verstuurde e-mail (laatste 14 dagen).${help ? ` ${help.cause} ${help.fix}` : ' Zie de reden onder "E-mail".'}`,
+    });
+  }
   const pendingPayments = payments.filter((p) => p.status === "pending" && t - Date.parse(p.created_at) > DAY);
   if (pendingPayments.length > 0) attention.push({ level: "amber", text: `${pendingPayments.length} betaling${pendingPayments.length === 1 ? "" : "en"} staat nog op "pending" na een dag: controleer of de Stripe-webhook naar /api/stripe/webhook wijst.` });
 

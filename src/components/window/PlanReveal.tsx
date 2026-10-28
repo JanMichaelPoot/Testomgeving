@@ -123,6 +123,8 @@ export interface PlanRevealProps {
   pdfUrl: string | null;
   shareUrl: string;
   showEmailedCopy: boolean;
+  /** The delivery e-mail failed (recorded); the PDF here is then the only copy the buyer gets. */
+  emailNotSent?: boolean;
   // Only the session that generated this plan may react to / commit to ideas
   // (server-side ownership check in plan/actions.ts). Someone who arrived via
   // the emailed link without that cookie can read everything, but the
@@ -158,6 +160,7 @@ export function PlanReveal({
   pdfUrl,
   shareUrl,
   showEmailedCopy,
+  emailNotSent = false,
   canInteract,
   initialFeedback,
   initialCommittedKey,
@@ -330,6 +333,7 @@ export function PlanReveal({
           className={shareClassName}
         />
       </div>
+      {emailNotSent && <p className="mt-2 text-right text-xs text-ink/70">{planDict.emailNotSent}</p>}
       {showEmailedCopy && (
         <p className="mt-2 text-right text-xs text-ink/60">{planDict.emailedCopy}</p>
       )}
