@@ -348,7 +348,16 @@ business/venue/route/event/platform's name, its city, a one-line
 description of what it is, and its website URL exactly as it appears in
 your search results (only include a URL you actually saw in the results —
 never guess one). If you cannot verify anything real for a theme, say so
-explicitly rather than inventing a name.`,
+explicitly rather than inventing a name.
+
+An option only counts when it is in or near the person's location (never a
+venue in another city or country as a substitute), and its own website or a
+source from the last 12 months shows that it exists and is operating now. A
+closed, permanently closed, relocated or "coming soon" venue does not count,
+and neither does one that is only mentioned in old articles. When a search
+result shows a review score for an option (Google, Tripadvisor, its own
+page), add it with its source; never estimate one. When more than three
+options qualify, keep the best rated ones (more reviews counts for more).`,
         },
       ],
       tools: [
@@ -359,10 +368,10 @@ explicitly rather than inventing a name.`,
           // this caps the worst case (a very open-ended profile triggering
           // many searches) without changing the common case.
           max_uses: 4,
+          // No forced country: the person may be anywhere (a "NL" here pulls a search for Madrid towards the Netherlands).
           user_location: {
             type: "approximate",
             city: intake.location || null,
-            country: "NL",
           },
         },
       ],

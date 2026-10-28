@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { isPublicWebAddress, verifyOptionUrls, type Fetcher } from "@/lib/claude/verifyUrls";
 import type { LocalOption } from "@/lib/claude/localResearch";
 
-const opt = (name: string, url: string | null): LocalOption => ({ name, city: "Utrecht", url, note: "", until: null });
+const opt = (name: string, url: string | null): LocalOption => ({ name, city: "Utrecht", url, note: "", until: null, rating: null });
 
 /** A fetcher that answers per URL: a number is a status, an Error is thrown. */
 function fetcherFor(answers: Record<string, number | Error>): Fetcher & ReturnType<typeof vi.fn> {

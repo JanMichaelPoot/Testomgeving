@@ -2,7 +2,10 @@ import type Anthropic from "@anthropic-ai/sdk";
 import { anthropic } from "@/lib/anthropic";
 import { getActivity } from "@/lib/discovery/library";
 import { describeToday, isoDateNL } from "@/lib/discovery/season";
+import { cleanRating, type Rating } from "@/lib/claude/rating";
 import { verifyOptionUrls } from "@/lib/claude/verifyUrls";
+
+export type { Rating };
 import type { Locale } from "@/lib/locale";
 
 // Local research for the seeds of an Idea Book: for each chosen activity, real and
@@ -26,6 +29,35 @@ export interface LocalOption {
   note: string;
   /** The last day it can be done (a dated event, a season that ends), YYYY-MM-DD; null = ongoing or not stated. */
   until: string | null;
+  /** A review score that a search result actually showed, with its source; null when none was found. Never estimated. */
+  rating: Rating | null;
+}
+
+/** The most options kept per activity. The model may return one more, so the best rated can be chosen. */
+export const MAX_OPTIONS = 3;
+const MAX_CANDIDATES = 6;
+// A venue with few reviews should not beat a well-known one on a single 5.0: the score is pulled towards this
+// prior (4.0, worth 20 reviews) before options are compared. An unknown review count counts as 3.
+const PRIOR_SCORE = 4.0;
+const PRIOR_WEIGHT = 20;
+/** Rated this low (after the pull) an option is only kept when nothing better exists. */
+const POOR_SCORE = 3.5;
+
+export function adjustedScore(r: Rating): number {
+  const n = r.reviews ?? 3;
+  return (r.score * n + PRIOR_SCORE * PRIOR_WEIGHT) / (n + PRIOR_WEIGHT);
+}
+
+/**
+ * The options worth showing: best rated first (see adjustedScore), the unrated after them in the order given, a poorly
+ * rated one only when it is all there is. At most MAX_OPTIONS. Deterministic, and stable when applied twice.
+ */
+export function rankOptions(options: LocalOption[]): LocalOption[] {
+  const rated = options.filter((o) => o.rating).sort((a, b) => adjustedScore(b.rating!) - adjustedScore(a.rating!));
+  const unrated = options.filter((o) => !o.rating);
+  const bestRated = rated[0] ? adjustedScore(rated[0].rating!) : 0;
+  const keptRated = bestRated >= POOR_SCORE ? rated.filter((o) => adjustedScore(o.rating!) >= POOR_SCORE) : rated;
+  return [...keptRated, ...unrated].slice(0, MAX_OPTIONS);
 }
 
 export interface SeedResearch {
@@ -64,7 +96,7 @@ export function placeKey(location: string, searchDistance: string): string {
 
 const RADIUS_TEXT: Record<string, string> = {
   city: "in the city itself and its immediate surroundings",
-  region: "within roughly an hour's travel",
+  region: "within roughly an hour's travel of the place",
   nl: "anywhere in the Netherlands (including online options)",
 };
 
@@ -148,8 +180,10 @@ const MAX_SEARCHES = 5;
 const SYSTEM = `You are a meticulous local-options researcher for WINDOW, a possibility-discovery app.
 Your only job is to use web search to find REAL, CURRENTLY OPERATING businesses, venues, clubs, routes, event
 series or platforms where a beginner can take part in the activities you are given. Always verify with a search
-and never rely on memory or a plausible-sounding guess. Never invent a name or a URL. You finish with exactly
-one JSON code block and nothing after it.`;
+and never rely on memory or a plausible-sounding guess. Never invent a name or a URL. An empty answer is a good
+answer: "nothing verifiable in or near this place" is correct and expected whenever the search does not clearly
+show a venue that exists and is open now; a wrong venue in a paid book is far worse than none. You finish with
+exactly one JSON code block and nothing after it.`;
 
 export function buildResearchPrompt(
   activityIds: string[],
@@ -167,7 +201,7 @@ export function buildResearchPrompt(
   return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). Place: ${location || "the Netherlands"}. Search radius: ${RADIUS_TEXT[radius] ?? RADIUS_TEXT.city}.
 Write the notes in ${language}: if the website is in another language, translate what you take from it (keep names, streets and titles as they are). A note in the wrong language is an error.
 
-For each activity below, find up to 3 real, currently operating options where a beginner can actually take part
+For each activity below, find up to 4 real, currently operating options where a beginner can actually take part
 there, preferring a low-threshold way in (trial class, beginner evening, open day, drop-in). Combine searches
 where one query can cover several activities (for example "creatieve workshops ${location || "Nederland"}").
 If nothing can be verified for an activity, give an empty options list instead of guessing.
@@ -178,6 +212,20 @@ water swimming, outdoor pools, boat rental, ice rinks, markets, festivals, garde
 the source shows they are running in this season. When the source gives a date or an end date, put the last day
 in "until" (YYYY-MM-DD); otherwise "until" is null.
 
+An option only counts when ALL of these are true:
+- It is in or near the place above (the same city or region). Never offer a venue in another city or country as a
+  substitute, and never write a city that the source does not show for that venue.
+- Its own official website, or a source from the last 12 months, shows that it exists and is operating now. A venue
+  that is closed, permanently closed, relocated, "coming soon", bankrupt or only remembered in old articles or
+  reviews does not count. A listing that merely says such a venue exists in a country or region does not count.
+- It really offers this activity to beginners, not something merely similar.
+If no option meets all three, the options list for that activity is empty. Do not fill it up.
+
+Ratings: when a search result shows a review score for an option (Google, Tripadvisor, the venue's own page, ...), give it as
+"rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Google"} (scale 5 or 10; "reviews" null when not stated).
+Never estimate or remember a score: "rating" is null when the results do not show one. When more than 3 options qualify,
+keep the 3 with the highest ratings (more reviews counts for more), and never pick a poorly rated option over a better one.
+
 Activities:
 ${lines.join("\n")}
 
@@ -186,7 +234,7 @@ The note is one short line: what it is, and prices or times only when the source
 
 Finish with one JSON code block, exactly this shape:
 \`\`\`json
-[{"activity_id": "<id>", "options": [{"name": "...", "city": "...", "url": "https://..." , "note": "...", "until": null}]}]
+[{"activity_id": "<id>", "options": [{"name": "...", "city": "...", "url": "https://..." , "note": "...", "until": null, "rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Google"}}]}]
 \`\`\``;
 }
 
@@ -208,10 +256,11 @@ export function cleanOptions(raw: unknown, today?: string): LocalOption[] {
       url,
       note: typeof r.note === "string" ? r.note.trim() : "",
       until,
+      rating: cleanRating(r.rating),
     });
-    if (out.length === 3) break;
+    if (out.length === MAX_CANDIDATES) break;
   }
-  return out;
+  return rankOptions(out);
 }
 
 /** Reads the model's JSON answer; anything malformed yields null (the caller treats it as "no research"). */
@@ -255,7 +304,8 @@ async function searchOnce(
         type: "web_search_20250305",
         name: "web_search",
         max_uses: maxUses,
-        ...(radius === "nl" ? {} : { user_location: { type: "approximate", city: location || null, country: "NL" } }),
+        // No country here: the person may be anywhere, and a forced "NL" would pull a search for Madrid towards the Netherlands.
+        ...(radius === "nl" ? {} : { user_location: { type: "approximate", city: location || null } }),
       } as Anthropic.Messages.WebSearchTool20250305,
     ],
   });
@@ -298,7 +348,8 @@ export async function researchSeeds(opts: {
   const radius = place.split("|")[1] ?? "city";
   // The cache is kept per month: what is open or running in June says nothing about December.
   // "v2": the notes are now always in the book's language; older cached notes could be in the language of the website.
-  const cacheKey = `${place}|${today.slice(0, 7)}|v2`;
+  // "v3": options now carry ratings and passed the stricter "is it really open" rules; older answers are not trusted.
+  const cacheKey = `${place}|${today.slice(0, 7)}|v3`;
   const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 
@@ -320,7 +371,8 @@ export async function researchSeeds(opts: {
       const found = await (opts.search ?? searchOnce)(missing, location, radius, locale, now);
       if (!found) throw new Error("the research answer could not be read");
       // Does what was found exist? Websites that do not answer at all are thrown away before anything is stored.
-      const checker = opts.verify === false ? null : (opts.verify ?? verifyOptionUrls);
+      // In production the page itself is read too (closed for good, parked domain, wrong business); see verifyUrls.ts.
+      const checker = opts.verify === false ? null : (opts.verify ?? ((o: LocalOption[]) => verifyOptionUrls(o, undefined, undefined, { content: true })));
       await Promise.all(
         missing.map(async (id) => {
           let options = found.get(id) ?? [];

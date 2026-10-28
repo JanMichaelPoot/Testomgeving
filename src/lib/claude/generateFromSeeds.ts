@@ -30,7 +30,8 @@ import {
 import type { EngineResult, Seed } from "@/lib/discovery/engine";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
-import { TAGS, getActivity } from "@/lib/discovery/library";
+import { ALL_ACTIVITIES, TAGS, getActivity } from "@/lib/discovery/library";
+import type { Activity } from "@/lib/discovery/types";
 import { getAssociation, imagesBehind } from "@/lib/discovery/associations";
 
 // The Idea Book pipeline for people who used the card wizard (phase 4 of the discovery
@@ -90,7 +91,9 @@ For every idea:
 - practical: estimated_cost (short, e.g. "€25–40" or "{{FREE}}"), duration (short), difficulty ("easy",
   "moderate" or "demanding") and preparation (one short line, or empty).
 - location: only when the idea happens at one specific, findable place taken from the verified local options of
-  THAT idea (name and city; the address only when the research gives it). Otherwise null.
+  THAT idea (name and city; the address only when the research gives it). Otherwise null. The options are listed
+  best rated first: when you name one, take the first that fits, and never a lower rated one without a reason from
+  the person's profile. Never state a rating yourself; it is shown separately.
 - requirements: up to 4 short items (a few words each) to arrange, buy or bring; empty when nothing is needed.
 - Follow the "How to take part" line: open with the form the person chose and mention other forms only as
   alternatives. Use the "Easy way in" as the starting point, adapted to the local option where there is one.
@@ -291,8 +294,16 @@ function seedBlock(
       ? `no stated preference; it can be done ${forms.join(", ")}`
       : "no stated preference";
   const options = research?.options.length
-    ? research.options.map((o) => `    - ${o.name}${o.city ? ` (${o.city})` : ""}: ${o.note}${o.until ? ` (until ${o.until})` : ""}${o.url ? ` — ${o.url}` : ""}`).join("\n")
-    : "    none verified: keep this idea's location null and its steps generic (Google Maps, Meetup, an exact search)";
+    ? research.options
+        .map(
+          (o) =>
+            `    - ${o.name}${o.city ? ` (${o.city})` : ""}: ${o.note}${o.until ? ` (until ${o.until})` : ""}` +
+            `${o.rating ? ` [rated ${o.rating.score}/5${o.rating.reviews !== null ? `, ${o.rating.reviews} reviews` : ""}, ${o.rating.source}]` : ""}${o.url ? ` — ${o.url}` : ""}`,
+        )
+        .join("\n")
+    : needsProvider(a)
+      ? "    NONE FOUND near this person: do not name, claim or imply that any venue, club, hall or provider exists there. Keep the location null and write the idea as something to find out first (ask whether anyone near them offers it), never as a place to go."
+      : "    none verified: keep this idea's location null and its steps generic (Google Maps, Meetup, an exact search)";
   return [
     `Idea ${index + 1} — ${seed.direction === "wildcard" ? "WILDCARD (the separate wildcard slot)" : `door: ${seed.door}`}`,
     `  Activity: ${name}`,
@@ -531,12 +542,20 @@ export function seedsWithoutSupply(seeds: readonly Seed[], byActivity: ReadonlyM
     const a = getActivity(seed.activityId);
     const r = byActivity.get(seed.activityId);
     if (!a || !r || r.source === "none") return false;
-    // Anything that costs money, needs supervision or is not available everywhere needs a provider in reach (Stap 88:
-    // "rare" and "regional" activities such as cave diving or glass blowing are only offered when the research found one).
-    const needsProvider = (a.cost !== null && a.cost >= 1) || a.safety.tier === 2 || a.supply === "rare" || a.supply === "regional";
-    return needsProvider && r.options.length === 0;
+    return needsProvider(a) && r.options.length === 0;
   });
 }
+
+/**
+ * Anything that costs money, needs supervision or is not available everywhere needs a provider in reach (Stap 88:
+ * "rare" and "regional" activities such as cave diving or glass blowing are only offered when the research found one).
+ */
+export function needsProvider(a: Activity): boolean {
+  return (a.cost !== null && a.cost >= 1) || a.safety.tier === 2 || a.supply === "rare" || a.supply === "regional";
+}
+
+/** Rounds of replacing ideas whose provider could not be found. The last round only allows activities that need none. */
+export const SUPPLY_ROUNDS = 2;
 
 const addStats = (a: ResearchStats, b: ResearchStats): ResearchStats => ({
   cached: a.cached + b.cached,
@@ -591,22 +610,30 @@ export async function generateIdeaBookFromSeeds(
   // 2b. An idea that needs somebody's offer (a class, a rental, a club) but for which nothing real could be found near
   // this person is replaced by the next-best activity, once, and only the new ones are researched (the others are
   // passed along). If the replacement does not do better, the first selection stays.
-  const noSupply = seedsWithoutSupply(engine.seeds, research.byActivity);
+  // Only real offers are shown (Jan: "alleen reële mogelijkheden in de betreffende plek"): a second round replaces what is
+  // still without a provider, and in that last round only activities that need nobody's offer are allowed at all.
   const notes = [...engine.notes];
-  if (noSupply.length > 0) {
-    const retry = select(noSupply.map((s) => s.activityId));
-    if (retry.seeds.length >= 6) {
-      const retryResearch = await researchFor(retry.seeds, research.byActivity);
-      if (seedsWithoutSupply(retry.seeds, retryResearch.byActivity).length < noSupply.length) {
-        notes.push(...noSupply.map((s) => `replaced_no_local_offer:${s.activityId}`));
-        engine = retry;
-        research = { byActivity: retryResearch.byActivity, stats: addStats(research.stats, retryResearch.stats) };
-      } else {
-        research = { ...research, stats: addStats(research.stats, retryResearch.stats) };
-        notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
-      }
-    } else {
+  const tried: string[] = [];
+  for (let round = 1; round <= SUPPLY_ROUNDS; round++) {
+    const noSupply = seedsWithoutSupply(engine.seeds, research.byActivity);
+    if (noSupply.length === 0) break;
+    tried.push(...noSupply.map((s) => s.activityId));
+    const lastRound = round === SUPPLY_ROUNDS;
+    const exclude = lastRound ? [...tried, ...ALL_ACTIVITIES.filter(needsProvider).map((a) => a.id)] : tried;
+    const retry = select(exclude);
+    if (retry.seeds.length < 6) {
       notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
+      break;
+    }
+    const retryResearch = await researchFor(retry.seeds, research.byActivity);
+    if (seedsWithoutSupply(retry.seeds, retryResearch.byActivity).length < noSupply.length) {
+      notes.push(...noSupply.map((s) => `replaced_no_local_offer:${s.activityId}`));
+      engine = retry;
+      research = { byActivity: retryResearch.byActivity, stats: addStats(research.stats, retryResearch.stats) };
+    } else {
+      // No better: keep what we have, but still try the last round (only activities that need nobody's offer).
+      research = { ...research, stats: addStats(research.stats, retryResearch.stats) };
+      if (lastRound) notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
     }
   }
   const seeds = engine.seeds;

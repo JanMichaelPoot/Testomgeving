@@ -3939,3 +3939,35 @@ Stripe, Claude API, Resend, PostHog).
       de server het ziet (kan IPv6 zijn en dus afwijken van een "wat is mijn IP"-site) en of het is vrijgesteld; `/admin` toont de instelling
       onder "Instellingen van deze deployment". Werkt pas na instellen en opnieuw deployen. Getest: unit-tests, `tsc`, eslint; niet in een echte
       Vercel-omgeving gezien.
+
+- [x] Stap 107 - "Alleen reële mogelijkheden, en de best beoordeelde" (Jan zag een indoor skihal in Madrid aangeboden die er volgens hem niet is).
+      **Wat er in dat boek echt stond** (rechtstreeks uit de database, sessie met locatie "Madrid, Spanje"): het skihal-idee had **geen** plek en
+      geen website, het onderzoek had niets gevonden, maar het idee bleef staan en de schrijver schreef "Zoek op Google 'indoor skihal Madrid
+      beginnersles'": dat suggereert dat zo'n hal er is. Oorzaken: (1) een idee zonder aanbieder werd maar één keer vervangen, en alleen als de
+      vervanger strikt beter was; (2) de schrijfprompt liet bij "geen aanbieder" gewoon generieke stappen schrijven; (3) het onderzoek forceerde
+      `country: "NL"` in de zoeklocatie (ook in de klassieke pijplijn), wat een zoekopdracht voor Madrid naar Nederland trekt; (4) niets controleerde
+      of een gevonden plek nog bestaat; (5) er waren geen beoordelingen. **Aangepast**: (a) **twee vervangrondes** (`SUPPLY_ROUNDS`): blijft een idee dat
+      een aanbieder nodig heeft (`needsProvider`: kost geld, toezicht, zeldzaam of regionaal) zonder echte aanbieder, dan wordt het vervangen, en in
+      de laatste ronde mogen alleen activiteiten die niemands aanbod nodig hebben (gratis, gewoon, geen toezicht); zo blijft er geen "hal" over waar
+      niets is; blijft er toch zo'n idee, dan zegt de schrijver uitdrukkelijk dat er niets is gevonden en dat het geen plek is om naartoe te gaan.
+      (b) **Onderzoeksprompt strenger**: een optie telt alleen als hij in of vlak bij de plaats ligt (nooit een venue in een andere stad of land als
+      vervanger), zijn eigen site of een bron van de laatste 12 maanden laat zien dat hij nu open is (gesloten, verhuisd, "coming soon" telt niet),
+      en een lege lijst is een goed antwoord; geen `country: "NL"` meer. (c) **Paginacontrole** (gratis, `verifyUrls.ts` met `content: true`): de
+      pagina wordt gelezen (max. 150 KB) en de optie valt af als de site zegt dat het bedrijf definitief gesloten is (nl, en, es, de, fr), een geparkeerd
+      of te-koop-domein is, of geen enkel woord van de naam op de pagina staat; een redirect wordt alleen gevolgd binnen dezelfde site. Een geblokkeerde
+      of onleesbare pagina blijft staan (geen bewijs van het tegendeel). (d) **Beoordelingen**: het onderzoek vraagt per optie een score alleen als een
+      zoekresultaat die liet zien (met bron, schaal 5 of 10, aantal), nooit geschat; `rating.ts` (zonder bron geen rating), `rankOptions` zet de beste
+      eerst (score naar een prior 4,0 van 20 beoordelingen getrokken, zodat één 5,0 met drie reviews een bekende plek met 4,7 niet verslaat), laat een
+      slecht beoordeelde alleen staan als er niets beters is (< 3,5) en houdt er hooguit drie over uit maximaal zes kandidaten; de schrijver krijgt de
+      opties beste-eerst met de score en mag nooit zelf een score noemen. De score staat onder "Echte plekken" op `/plan` ("Beoordeeld met 4,5/5 op
+      Tripadvisor (1725 beoordelingen)"); **niet in de PDF** (de meetlogica van de pagina is gevoelig; zeg het als je dat ook wilt). (e) Onderzoekscache
+      `v3` zodat oude, niet gecontroleerde antwoorden (ook de Madrid-antwoorden van vandaag) niet meer worden gebruikt. De klassieke pijplijn kreeg
+      dezelfde regels in zijn onderzoeksprompt en dezelfde `country`-fix.
+      **Echt gemeten** (2 onderzoeksaanroepen, Haiku, ± $0,10): Madrid, skihal -> Snozone Madrid (Arroyomolinos, een eind buiten de stad) met 4,5/5 uit
+      1725 Tripadvisor-beoordelingen; zijn eigen site (nu opgehaald) is bereikbaar en toont boekbare data deze week, dus ik kan niet bevestigen dat
+      die hal er niet is (wel dat hij niet "in" Madrid zelf ligt). Utrecht: "De Kleiloods" (host bestaat niet) en "Sophie Potterie" (naam niet op de
+      pagina) vielen af, "Ceramics of the Night" bleef; geen beoordelingen gevonden voor Utrecht, dus daar zonder score. **Niet gedaan**: een
+      volledig nieuw boek voor Madrid (≈ $0,15) om het eind-tot-eind te zien; scores in de PDF; de zichtbaarheid van een controle op "open nu" blijft
+      best effort (een site die niets zegt over sluiting kan toch dicht zijn). Getest: 663 tests (nieuw: ratings en rangschikking, de promptregels, de
+      pagina-controle in vier talen, redirects binnen dezelfde site, twee vervangrondes met een laatste ronde zonder aanbieder-afhankelijke
+      activiteiten), `tsc`, eslint, `npm run build`. Kosten: één extra onderzoeksronde (± $0,03-0,06) alleen als een idee nog zonder aanbieder blijft.

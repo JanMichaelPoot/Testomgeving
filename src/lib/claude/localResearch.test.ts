@@ -30,7 +30,7 @@ function memoryCache(initial: Record<string, LocalOption[]> = {}) {
   return { cache, store };
 }
 
-const opt = (name: string, until: string | null = null): LocalOption => ({ name, city: "Utrecht", url: `https://${name.toLowerCase().replace(/\W/g, "")}.nl`, note: "workshop", until });
+const opt = (name: string, until: string | null = null): LocalOption => ({ name, city: "Utrecht", url: `https://${name.toLowerCase().replace(/\W/g, "")}.nl`, note: "workshop", until, rating: null });
 const NOW = new Date("2026-10-25T10:00:00Z");
 
 describe("placeKey", () => {
@@ -101,7 +101,7 @@ describe("parseResearchAnswer", () => {
   it("reads the fenced JSON block", () => {
     const answer = 'Some notes.\n```json\n[{"activity_id":"pottenbakken","options":[{"name":"Klei Atelier","city":"Utrecht","url":"https://klei.nl","note":"proefles"}]}]\n```';
     const out = parseResearchAnswer(answer, wanted)!;
-    expect(out.get("pottenbakken")).toEqual([{ name: "Klei Atelier", city: "Utrecht", url: "https://klei.nl", note: "proefles", until: null }]);
+    expect(out.get("pottenbakken")).toEqual([{ name: "Klei Atelier", city: "Utrecht", url: "https://klei.nl", note: "proefles", until: null, rating: null }]);
   });
 
   it("treats an activity the model skipped as searched-but-nothing-found", () => {
@@ -146,7 +146,7 @@ describe("researchSeeds", () => {
   });
 
   it("uses cached answers and only searches for what is missing", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v2": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v3": [opt("Yoga Studio")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt(id)]])));
     const { byActivity, stats } = await researchSeeds({ ...args, activityIds: ["hardlopen", "yoga"], cache, search });
     expect(search.mock.calls[0][0]).toEqual(["hardlopen"]);
@@ -155,14 +155,14 @@ describe("researchSeeds", () => {
   });
 
   it("makes no call at all when everything is cached", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v2": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v3": [opt("Yoga Studio")] });
     const search = vi.fn();
     await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).not.toHaveBeenCalled();
   });
 
   it("does not share answers between different places or radii", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v2": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v3": [opt("Yoga Studio")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, []])));
     await researchSeeds({ ...args, location: "Haarlem", activityIds: ["yoga"], cache, search });
     await researchSeeds({ ...args, searchDistance: "hour", activityIds: ["yoga"], cache, search });
@@ -173,7 +173,7 @@ describe("researchSeeds", () => {
     const { cache, store } = memoryCache();
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [] as LocalOption[]])));
     await researchSeeds({ ...args, activityIds: ["larp"], cache, search });
-    expect(store.get("larp|utrecht|city|2026-10|v2")).toEqual([]);
+    expect(store.get("larp|utrecht|city|2026-10|v3")).toEqual([]);
     await researchSeeds({ ...args, activityIds: ["larp"], cache, search });
     expect(search).toHaveBeenCalledTimes(1);
   });
@@ -200,7 +200,7 @@ describe("researchSeeds", () => {
   });
 
   it("searches again when every cached option has run out since", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v2": [opt("Herfstmarkt", "2026-10-10")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v3": [opt("Herfstmarkt", "2026-10-10")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuwe markt", "2026-11-15")]])));
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).toHaveBeenCalledTimes(1);
@@ -219,7 +219,7 @@ describe("researchSeeds", () => {
     warn.mockRestore();
     expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Echt"]);
     expect(stats.dropped).toBe(1);
-    expect(store.get("yoga|utrecht|city|2026-10|v2")?.map((o) => o.name)).toEqual(["Echt"]);
+    expect(store.get("yoga|utrecht|city|2026-10|v3")?.map((o) => o.name)).toEqual(["Echt"]);
   });
 
   it("works without a cache", async () => {

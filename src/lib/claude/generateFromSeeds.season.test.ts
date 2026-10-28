@@ -15,7 +15,8 @@ vi.mock("@/lib/claude/localResearch", async (orig) => ({
   researchSeeds: (...a: unknown[]) => researchSeeds(...a),
 }));
 
-import { generateIdeaBookFromSeeds, seedsWithoutSupply } from "@/lib/claude/generateFromSeeds";
+import { generateIdeaBookFromSeeds, needsProvider, seedsWithoutSupply } from "@/lib/claude/generateFromSeeds";
+import { getActivity } from "@/lib/discovery/library";
 
 const intake: IntakeAnswers = {
   situation: "",
@@ -153,15 +154,29 @@ describe("an idea that needs somebody's offer but has none", () => {
     expect(second.activityIds.join()).not.toBe(first.activityIds.join());
   });
 
-  it("tries one replacement round when nothing can be found, never a loop, and says what happened", async () => {
+  it("tries two replacement rounds at most, never a loop: the second only allows activities that need nobody's offer", async () => {
     researchSeeds.mockImplementation(async (opts: unknown) => ({
       byActivity: new Map(ids(opts).map((id) => [id, withoutOptions(id)])),
       stats: { cached: 0, searched: ids(opts).length, failed: 0, dropped: 0, ms: 1 },
     }));
     const { report } = await run();
-    expect(researchSeeds).toHaveBeenCalledTimes(2); // one replacement round at most, never a loop
-    // either the replacement had fewer ideas without an offer (and was used), or it did no better (and the first stays)
-    expect(report.notes.some((n) => /^(replaced_)?no_local_offer:/.test(n))).toBe(true);
+    expect(researchSeeds).toHaveBeenCalledTimes(3); // the first research, the first replacement, the provider-free one
+    // the last round can only pick activities that need no provider, so nothing is left without an offer
+    const last = researchSeeds.mock.calls[2][0] as { activityIds: string[] };
+    for (const id of last.activityIds) expect(needsProvider(getActivity(id)!), id).toBe(false);
+    for (const s of report.seeds) expect(seedsWithoutSupply([s], new Map([[s.activityId, withoutOptions(s.activityId)]]) as never)).toEqual([]);
+    expect(report.notes.some((n) => /^replaced_no_local_offer:/.test(n))).toBe(true);
+  });
+
+  it("tells the writer, for an idea that still has no provider, not to imply that a venue exists", async () => {
+    researchSeeds.mockImplementation(async (opts: unknown) => ({
+      byActivity: new Map(ids(opts).map((id) => [id, withoutOptions(id)])),
+      stats: { cached: 0, searched: ids(opts).length, failed: 0, dropped: 0, ms: 1 },
+    }));
+    await run();
+    // (in this run the free ideas have no options either: that wording is for free ones)
+    const core = create.mock.calls.map((c) => c[0]).find((a) => a.tools[0].name === "create_idea_book");
+    expect(core.messages[0].content).toContain("none verified: keep this idea's location null");
   });
 
   it("does not replace anything after a failed research pass", async () => {

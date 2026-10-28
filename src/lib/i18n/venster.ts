@@ -200,6 +200,11 @@ export interface VensterDictionary {
     sizeHints: [string, string, string];
     placesHeading: string;
     placesNote: string;
+    /** "{score}" on a 0-5 scale, "{source}" where it was read, "{reviews}" the count (the part in [] is left out when unknown). */
+    ratingLine: string;
+    ratingReviews: string;
+    /** The decimal separator of the language, for the score. */
+    ratingDecimal: string;
     mapLink: string;
     siteLink: string;
     relatedHeading: string;
@@ -707,6 +712,9 @@ export const vensterNl: VensterDictionary = {
     sizeHints: ["± 1 uur", "Een halve dag", "Een weekend of een cursus"],
     placesHeading: "Echte plekken",
     placesNote: "Uit ons onderzoek. Controleer openingstijden en prijzen zelf.",
+    ratingLine: "Beoordeeld met {score}/5 op {source}{reviews}",
+    ratingReviews: " ({n} beoordelingen)",
+    ratingDecimal: ",",
     mapLink: "Op de kaart",
     siteLink: "Website",
     relatedHeading: "Ook in deze richting",
@@ -1212,6 +1220,9 @@ export const vensterEn: VensterDictionary = {
     sizeHints: ["About 1 hour", "Half a day", "A weekend or a course"],
     placesHeading: "Real places",
     placesNote: "From our research. Check opening times and prices yourself.",
+    ratingLine: "Rated {score}/5 on {source}{reviews}",
+    ratingReviews: " ({n} reviews)",
+    ratingDecimal: ".",
     mapLink: "On the map",
     siteLink: "Website",
     relatedHeading: "Also in this direction",

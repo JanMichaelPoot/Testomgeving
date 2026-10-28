@@ -5,6 +5,8 @@
 // that broke a length limit simply has no such layer: the rest of the idea is shown as it always
 // was, and the book never fails because of a layer.
 
+import { storedRating, type Rating } from "@/lib/claude/rating";
+
 /** The three sizes of one door, in this fixed order. */
 export const SIZE_KINDS = ["taste", "do", "deepen"] as const;
 export type SizeKind = (typeof SIZE_KINDS)[number];
@@ -23,6 +25,8 @@ export interface IdeaPlace {
   city: string;
   url: string | null;
   note: string;
+  /** A review score a search result showed (with its source), or absent. */
+  rating?: Rating;
 }
 
 /** Another activity in the same direction, chosen by code from the relation graph. */
@@ -125,7 +129,8 @@ export function normalizePlaces(value: unknown, max = 3): IdeaPlace[] {
     if (seen.has(key)) continue;
     seen.add(key);
     const url = typeof r.url === "string" && /^https?:\/\//i.test(r.url.trim()) ? r.url.trim() : null;
-    out.push({ name, city, url, note: clean(r.note) });
+    const rating = storedRating(r.rating);
+    out.push({ name, city, url, note: clean(r.note), ...(rating ? { rating } : {}) });
     if (out.length === max) break;
   }
   return out;

@@ -73,6 +73,14 @@ function Layers({ idea, copy, mode }: { idea: IdeaBookEntry; copy: More; mode: "
                   {place.city && <span className="font-normal text-ink/60">, {place.city}</span>}
                 </p>
                 {place.note && <p className="mt-0.5 text-sm leading-relaxed text-ink/75">{place.note}</p>}
+                {place.rating && (
+                  <p className="mt-0.5 text-xs text-ink/60">
+                    {copy.ratingLine
+                      .replace("{score}", place.rating.score.toFixed(1).replace(".", copy.ratingDecimal))
+                      .replace("{source}", place.rating.source)
+                      .replace("{reviews}", place.rating.reviews !== null ? copy.ratingReviews.replace("{n}", String(place.rating.reviews)) : "")}
+                  </p>
+                )}
                 <p className="mt-1 flex flex-wrap gap-x-4">
                   <a
                     href={mapsSearchUrl(place.name, place.city)}
