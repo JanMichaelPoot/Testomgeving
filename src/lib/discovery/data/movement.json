@@ -33,7 +33,13 @@
       "en": "Beginner group or trial session at a running club"
     },
     "scene": "a pair of running shoes on a wet forest path at sunrise, a bright jacket hanging on a fence post",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q105674"
+      }
+    ]
   },
   {
     "id": "nordic-walking",
@@ -237,7 +243,19 @@
       "en": "A quiet hour or morning swim"
     },
     "scene": "lane ropes seen from the edge of a pool, goggles and a towel on a tiled bench",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q6388"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "zwemmen"
+      ],
+      "en": []
+    }
   },
   {
     "id": "kanoen",

@@ -256,7 +256,19 @@
       "en": "Start with your grandparents; online archives are free"
     },
     "scene": "a hand-drawn family tree on aged parchment with a fountain pen, an old leather-bound family bible and a magnifier on a wooden desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q47307"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "genealogie"
+      ],
+      "en": []
+    }
   },
   {
     "id": "opgraving",

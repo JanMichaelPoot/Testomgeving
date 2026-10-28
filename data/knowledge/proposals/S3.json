@@ -1,0 +1,457 @@
+{
+  "source_id": "S3",
+  "accept": {
+    "checkers": {
+      "domain": "games",
+      "note": "dammen: eenvoudig te leren, overal te spelen"
+    },
+    "sudoku": {
+      "domain": "games",
+      "note": "puzzel voor in je eentje; legpuzzels en raadsels bestaan al, sudoku niet"
+    },
+    "yo yo": {
+      "domain": "games",
+      "note": "jojo: klein, goedkoop, met trucs om te leren"
+    },
+    "proplifting": {
+      "domain": "nature",
+      "note": "afgedankte planten redden en stekken; past bij kamerplanten, maar is een eigen activiteit"
+    },
+    "beachcombing": {
+      "domain": "nature",
+      "note": "strandjutten: gratis, buiten, elk seizoen"
+    },
+    "balloon modelling": {
+      "domain": "creative",
+      "note": "ballonmodelleren: workshop of zelf leren"
+    },
+    "floral design": {
+      "domain": "creative",
+      "note": "bloemsierkunst: cursus of workshop"
+    },
+    "quilting": {
+      "domain": "creative",
+      "note": "quilten: naaien bestaat al, quilten is een eigen vorm"
+    },
+    "cardmaking": {
+      "domain": "creative",
+      "note": "kaarten maken: laagdrempelig, thuis"
+    },
+    "conlanging": {
+      "domain": "creative",
+      "note": "eigen taal bedenken: past bij verhaal en taal"
+    },
+    "video production": {
+      "domain": "creative",
+      "note": "videoproductie: korte film maken met een telefoon"
+    },
+    "leather crafting": {
+      "domain": "creative",
+      "note": "leerbewerking: workshop; er is nog geen lederwerk in de bibliotheek"
+    },
+    "rock balancing": {
+      "domain": "restful",
+      "note": "stenen stapelen: rustig, buiten, gratis"
+    },
+    "postcrossing": {
+      "domain": "collecting",
+      "note": "ansichtkaarten ruilen met onbekenden: laagdrempelig, thuis"
+    },
+    "groundhopping": {
+      "domain": "solo_explore",
+      "note": "stadions bezoeken: zelf op pad, past bij voetbal en reizen"
+    },
+    "pole dance": {
+      "domain": "movement",
+      "note": "paaldansen: proefles bij een studio"
+    },
+    "skipping rope": {
+      "domain": "movement",
+      "note": "touwtjespringen: goedkoop en buiten of thuis"
+    },
+    "pilates": {
+      "domain": "movement",
+      "note": "pilates: proefles; yoga bestaat al, pilates niet"
+    },
+    "roller skating": {
+      "domain": "movement",
+      "note": "rolschaatsen: baan of park; rolschaatsdisco is de avondvariant"
+    },
+    "contributing to wikimedia projects": {
+      "domain": "tech",
+      "note": "bijdragen aan Wikipedia en Wikimedia: digitaal vrijwilligerswerk, een dun gebied"
+    },
+    "open source software development": {
+      "domain": "tech",
+      "note": "meebouwen aan open-source: digitaal, vaak thuis"
+    }
+  },
+  "unsure": {
+    "peak bagging": {
+      "domain": "movement",
+      "note": "groepen bergtoppen afvinken; in Nederland weinig toppen, eerder voor reizen"
+    },
+    "hang gliding": {
+      "domain": "speed",
+      "note": "deltavliegen: toezicht nodig; paragliden bestaat al"
+    },
+    "zip line": {
+      "domain": "adventure",
+      "note": "tokkelbaan: klimparken hebben die al"
+    },
+    "cross country skiing": {
+      "domain": "movement",
+      "note": "langlaufen: seizoensgebonden en elders"
+    },
+    "xiangqi": {
+      "domain": "games",
+      "note": "Chinees schaken: aangrenzend aan schaken, maar een ander spel"
+    },
+    "street photographer": {
+      "domain": "creative",
+      "note": "straatfotografie als activiteit; fotografie bestaat al"
+    },
+    "science communication": {
+      "domain": "tech",
+      "note": "wetenschap uitleggen aan anderen; vaag als activiteit"
+    },
+    "astrology": {
+      "domain": "restful",
+      "note": "geen waarheidsclaims; alleen als verhaal of spel"
+    },
+    "shortwave listening": {
+      "domain": "tech",
+      "note": "radiosignalen van ver ontvangen; radioamateur bestaat al"
+    },
+    "dxing": {
+      "domain": "tech",
+      "note": "verre radio- en tv-signalen ontvangen; zie shortwave listening"
+    },
+    "retrocomputing": {
+      "domain": "tech",
+      "note": "oude computers draaiend houden; retrogaming bestaat al"
+    },
+    "pigeon keeping": {
+      "domain": "nature",
+      "note": "colombofilie: club nodig"
+    },
+    "ant keeping": {
+      "domain": "nature",
+      "note": "mierenkolonie houden: thuis"
+    },
+    "butterfly watching": {
+      "domain": "nature",
+      "note": "vlinders kijken: seizoen, buiten"
+    },
+    "magnet fishing": {
+      "domain": "adventure",
+      "note": "magneetvissen: regels per gemeente, gevaar voor vondsten"
+    },
+    "trail running": {
+      "domain": "movement",
+      "note": "trailrunning: hardlopen bestaat al"
+    },
+    "figure sawing": {
+      "domain": "creative",
+      "note": "figuurzagen: houtbewerking bestaat al"
+    },
+    "historical reenactment": {
+      "domain": "history",
+      "note": "reënactment: kijk of de bibliotheek het al heeft onder een andere naam"
+    },
+    "local historian": {
+      "domain": "history",
+      "note": "heemkunde: lokale geschiedenis uitzoeken"
+    },
+    "pin trading": {
+      "domain": "collecting",
+      "note": "pins ruilen"
+    },
+    "sneaker collecting": {
+      "domain": "collecting",
+      "note": "sneakers verzamelen: duur"
+    },
+    "art collecting": {
+      "domain": "collecting",
+      "note": "kunst verzamelen: duur, vaak niet voor beginners"
+    },
+    "ghost hunting": {
+      "domain": "mystery",
+      "note": "spookwandeling bestaat al; zelf spoken zoeken is iets anders"
+    },
+    "cemeterying": {
+      "domain": "history",
+      "note": "begraafplaatsen bezoeken als tijdverdrijf; kijk of een wandeling het al dekt"
+    },
+    "reading for recreation": {
+      "domain": "restful",
+      "note": "lezen; zie ook merge"
+    }
+  },
+  "merge": {
+    "amateur astronomy": {
+      "into": "telescoop",
+      "note": "sterrenkijken en telescoop bestaan al"
+    },
+    "candlemaking": {
+      "into": "kaarsen-gieten"
+    },
+    "kart racing": {
+      "into": "karten"
+    },
+    "caving": {
+      "into": "grotten-verkennen"
+    },
+    "scuba diving": {
+      "into": "duiken"
+    },
+    "fossil searching": {
+      "into": "fossielen"
+    },
+    "amateur geology": {
+      "into": "geologie"
+    },
+    "amateur archaeology": {
+      "into": "opgraving"
+    },
+    "aircraft spotting": {
+      "into": "spotten"
+    },
+    "railfanning": {
+      "into": "spotten"
+    },
+    "bus spotting": {
+      "into": "spotten"
+    },
+    "ship spotter": {
+      "into": "spotten"
+    },
+    "rail transport modelling": {
+      "into": "modeltreinen"
+    },
+    "fishkeeping": {
+      "into": "aquarium"
+    },
+    "ship modelling": {
+      "into": "modelbouw"
+    },
+    "garage kit": {
+      "into": "modelbouw"
+    },
+    "military miniaturism": {
+      "into": "modelbouw"
+    },
+    "cardboard modeling": {
+      "into": "modelbouw"
+    },
+    "ceramic art": {
+      "into": "pottenbakken"
+    },
+    "art of sculpture": {
+      "into": "beeldhouwen"
+    },
+    "wildcrafting": {
+      "into": "foerageren"
+    },
+    "food gardening": {
+      "into": "tuinieren"
+    },
+    "gardening": {
+      "into": "tuinieren"
+    },
+    "magic trick": {
+      "into": "goochelen"
+    },
+    "board gaming": {
+      "into": "bordspellen"
+    },
+    "board game": {
+      "into": "bordspellen"
+    },
+    "card game": {
+      "into": "kaartspellen"
+    },
+    "role playing game": {
+      "into": "tabletop-rpg",
+      "note": "ook solo-rpg bestaat; kies wat bedoeld is"
+    },
+    "dance": {
+      "into": "dansen"
+    },
+    "3d printing": {
+      "into": "ontwerp-print"
+    },
+    "embroidery": {
+      "into": "borduren-weven"
+    },
+    "weaving": {
+      "into": "borduren-weven"
+    },
+    "knitting": {
+      "into": "breien-haken"
+    },
+    "crocheting": {
+      "into": "breien-haken"
+    },
+    "paintball": {
+      "into": "paintball-airsoft"
+    },
+    "jogging": {
+      "into": "hardlopen"
+    },
+    "metal detecting": {
+      "into": "metaaldetectie"
+    },
+    "soap making": {
+      "into": "zeep-maken"
+    },
+    "snorkeling": {
+      "into": "snorkelen"
+    },
+    "sailing": {
+      "into": "zeilen"
+    },
+    "camping": {
+      "into": "kamperen"
+    },
+    "sewing": {
+      "into": "naaien"
+    },
+    "rowing": {
+      "into": "roeien"
+    },
+    "cosplay": {
+      "into": "cosplay"
+    },
+    "backgammon": {
+      "into": "backgammon"
+    },
+    "tavli": {
+      "into": "backgammon",
+      "note": "variant van backgammon"
+    },
+    "jigsaw puzzle": {
+      "into": "legpuzzels"
+    },
+    "crossword": {
+      "into": "raadsels"
+    },
+    "equestrianism": {
+      "into": "paardrijden"
+    },
+    "beatboxing": {
+      "into": "beatboxen"
+    },
+    "hobby electronics": {
+      "into": "elektronica"
+    },
+    "drone flying": {
+      "into": "drones"
+    },
+    "jewelry design": {
+      "into": "sieraden"
+    },
+    "stamp collecting": {
+      "into": "munten-zegels"
+    },
+    "coin collecting": {
+      "into": "munten-zegels"
+    },
+    "comic book collecting": {
+      "into": "strips"
+    },
+    "kite flying": {
+      "into": "vlieger-stunt"
+    },
+    "scrapbooking": {
+      "into": "collage"
+    },
+    "reading": {
+      "into": "lezen"
+    }
+  },
+  "reject": {
+    "cat culture": "geen activiteit",
+    "content creator": "beroep, geen activiteit",
+    "do it yourselfing": "te algemeen (klussen)",
+    "genealogist": "een persoon; genealogie is al gekoppeld",
+    "physician writer": "beroep, geen activiteit",
+    "autistic special interest": "geen activiteit; gevoelig onderwerp",
+    "hobby tunneling": "gevaarlijk en vaak onwettig",
+    "mine exploration": "gevaarlijk en vaak onwettig",
+    "elevator surfing": "levensgevaarlijk",
+    "virtual influencer": "geen activiteit",
+    "virtual idol": "geen activiteit",
+    "virtual singer": "geen activiteit",
+    "virtual talent": "geen activiteit",
+    "vrchat streamer": "geen activiteit",
+    "battleboarding": "online fandom, geen activiteit",
+    "benchmarking": "geen hobby-activiteit",
+    "argument diagram": "geen activiteit",
+    "regional writer": "beroep, geen activiteit",
+    "ideas bank": "geen activiteit",
+    "textile trades": "beroepen, geen activiteit",
+    "fanboy": "geen activiteit",
+    "letterhack": "geen activiteit",
+    "maker culture": "te algemeen; ambachten en technieken bestaan al",
+    "spotting hobby": "te algemeen; spotten bestaat al",
+    "collecting hobby": "te algemeen",
+    "rail transport hobby": "te algemeen; modeltreinen en spotten bestaan al",
+    "animal fancy": "te algemeen",
+    "county collecting": "te specifiek (Verenigd Koninkrijk)",
+    "historical toy bazaar": "geen duidelijke activiteit",
+    "bird song competition": "te specifiek, elders",
+    "bird walking": "regionale traditie elders",
+    "festival goer": "gedekt door festivals",
+    "recreation in second life": "online spel, geen duidelijke activiteit",
+    "crickets as pets": "te specifiek",
+    "yogastyles": "gedekt door yoga",
+    "autograph collecting": "weinig doenbaar",
+    "breweriana": "te specifiek verzamelen",
+    "corkscrews collector": "te specifiek verzamelen",
+    "jewish papercut": "te specifiek",
+    "viking knit": "te specifiek",
+    "euraudax": "te specifiek",
+    "sherlockian game": "te specifiek",
+    "hot glue gun": "een gereedschap, geen activiteit",
+    "mw dx": "variant van dxing",
+    "tv and fm dx": "variant van dxing",
+    "coin roll hunting": "te specifiek (Verenigde Staten)",
+    "seed growing": "te vaag; zie tuinieren",
+    "marketing for open source software": "werk, geen hobby",
+    "guitar performance": "gedekt door muziek leren",
+    "magic collecting": "te specifiek",
+    "photo collector": "persoon, geen activiteit",
+    "ground calligraphy": "te specifiek",
+    "model maker": "persoon, geen activiteit",
+    "model engineering": "gedekt door modelbouw en RC-modellen",
+    "pigeon sport": "gedekt door colombofilie, niet kleiduifschieten",
+    "squirrel fishing": "te specifiek",
+    "tenkara fishing": "variant van vissen",
+    "fly fishing": "variant van vissen",
+    "ice fishing": "variant van vissen en seizoensgebonden",
+    "literary tourism": "gedekt door wandelingen en boekwinkels",
+    "extreme cycling": "te vaag en gevaarlijk om aan te raden",
+    "model building": "gedekt door modelbouw",
+    "collecting scale model cars": "gedekt door modelbouw",
+    "paper model": "gedekt door modelbouw",
+    "modelling with clay": "gedekt door pottenbakken en beeldhouwen",
+    "house of cards": "speelgoed, geen activiteit",
+    "hula hoop": "kinderspel; niet als volwassen activiteit voorgesteld",
+    "motorcycling": "toezicht en rijbewijs; motorlessen bestaan al",
+    "backpacking": "te algemeen; reizen"
+  },
+  "nl_labels": {
+    "rock balancing": "Stenen stapelen",
+    "open source software development": "Meebouwen aan open-source software",
+    "conlanging": "Een eigen taal bedenken",
+    "contributing to wikimedia projects": "Bijdragen aan Wikipedia en Wikimedia",
+    "butterfly watching": "Vlinders kijken",
+    "sneaker collecting": "Sneakers verzamelen",
+    "ghost hunting": "Spokenjacht",
+    "pin trading": "Pins ruilen",
+    "ant keeping": "Mieren houden",
+    "cemeterying": "Begraafplaatsen bezoeken",
+    "reading for recreation": "Lezen voor je plezier"
+  }
+}

@@ -113,3 +113,26 @@ Zo is de bibliotheek in oktober 2026 van 214 naar 423 activiteiten gegroeid (ach
 3. **Beoordelen** in de reviewgalerij, en pas daarna beelden maken (`npm run taxonomy:images -- --sheet 3x3`: negen foto's voor de prijs van één).
 
 Nieuwe richtingen, subgroepen en tags staan in `vocabulary.json`; een nieuwe subgroep heeft ook een regel in `engine/photo.ts` nodig (welke fotocategorie het boek erbij toont).
+
+## Kennismodel en import van een bron (B2 en B3)
+
+Een activiteit kan, naast de gewone velden, vier optionele velden hebben (`src/lib/discovery/types.ts`, gevalideerd door `taxonomy:check`):
+
+| Veld | Wat | Regel |
+|---|---|---|
+| `aliases {nl[], en[]}` | andere namen die mensen gebruiken | alleen voor het vinden van dubbelen en het koppelen van een import, nooit getoond; een alias mag niet de naam of alias van een andere activiteit zijn (vergeleken per taal, na normaliseren) |
+| `provenance {source_id, method, source_record_id?, last_verified_at?}` | waar het record vandaan komt als het niet van ons is | `method` is `curated`, `source` of `inferred_ai`; `source` vraagt een `source_record_id`; geen veld = door ons geschreven; `inferred_ai` is een suggestie, geen feit |
+| `source_links [{source_id, source_record_id}]` | externe records waarmee deze activiteit is samengevoegd | één extern record hoort bij precies één activiteit; een gekoppeld record wordt niet opnieuw geïmporteerd |
+| `reviewed_by {by, at}` | wie het controleerde en wanneer | verplicht zodra `status` `reviewed` of `live` is |
+
+Onbekend blijft `null` (nooit `0`, `false` of een tekst als "unknown"); een test controleert dat.
+
+**Een bron importeren** (`scripts/knowledge/import.ts`, logica in `src/lib/knowledge/`, nu alleen S3 = Wikidata):
+
+```bash
+npx tsx scripts/knowledge/import.ts --source S3                  # proef: alleen aantallen, schrijft niets
+npx tsx scripts/knowledge/import.ts --source S3 --write          # staging, reviewwachtrij, logboek en rapport
+npx tsx scripts/knowledge/import.ts --source S3 --write --apply  # schrijft ook de samenvoegingen (koppeling + bijnamen) in de bibliotheek
+```
+
+De ruwe bron staat niet in git (`data/sources/raw/S3/hobby.json`; zie `docs/knowledge-sources.md`). Wat er gebeurt: een record wordt alleen **automatisch** samengevoegd bij een gelijke genormaliseerde naam in dezelfde taal (label of alias); gedeelde woorden leiden alleen tot een kandidaat voor een mens ("schaken" is niet "correspondentieschaak"). Wat overblijft gaat naar `data/knowledge/review-queue.json` (maximaal 80, `--queue-cap`), wat de regels afwijzen (onveilig, vakterm, te algemeen, geen label) of wat onder de grens valt staat met een reden in `docs/knowledge/import-S3.md`. **Niets wordt zomaar een activiteit**: een nieuwe activiteit schrijf je zelf (tags, kenmerken, scène, NL-label) en begint op `concept`. Beslissingen zet je in de wachtrij in `decision`: `"accept"`, `"reject"` of `"merge:<activiteit-id>"`; een volgende run bewaart ze. Voorstellen van de lezer van de bron staan in `data/knowledge/proposals/<bron>.json` (accept, unsure, merge, reject, op genormaliseerd Engels label) en zijn geen beslissingen. Twee keer draaien geeft dezelfde bestanden.

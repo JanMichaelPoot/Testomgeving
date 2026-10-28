@@ -1,4 +1,6 @@
+import { normalizeName } from "@/lib/discovery/names";
 import {
+  PROVENANCE_METHODS,
   SETTINGS,
   SOCIAL_FORMATS,
   STATUSES,
@@ -32,6 +34,8 @@ const PEOPLE_WORDS = /\b(person|people|man|men|woman|women|child|children|kid|bo
 
 const inRange = (v: number | null, lo: number, hi: number) => v === null || (Number.isInteger(v) && v >= lo && v <= hi);
 const filled = (s: unknown) => typeof s === "string" && s.trim().length > 0;
+const isIsoDate = (s: unknown) =>
+  typeof s === "string" && /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(s)) && new Date(s).toISOString().slice(0, 10) === s;
 
 export function validateLibrary({ vocabulary, activities, hybrids }: LibraryInput): Issues {
   const errors: string[] = [];
@@ -69,6 +73,8 @@ export function validateLibrary({ vocabulary, activities, hybrids }: LibraryInpu
   const labelSeen = new Map<string, string>();
   const tagUse = new Map<string, number>();
   const subUse = new Map<string, number>();
+  const aliasClaims: { key: string; lang: "nl" | "en"; owner: string; alias: string }[] = [];
+  const linkSeen = new Map<string, string>();
 
   for (const a of activities) {
     const at = `activity "${a.id}"`;
@@ -130,10 +136,78 @@ export function validateLibrary({ vocabulary, activities, hybrids }: LibraryInpu
     else if (PEOPLE_WORDS.test(a.scene)) err(`${at}: scene mentions people/faces; photos never show people`);
     if (!STATUSES.includes(a.status)) err(`${at}: status must be one of ${STATUSES.join(", ")}`);
 
+    // Knowledge model (B2): aliases, provenance, source links, reviewer. All optional; absent changes nothing.
+    if (a.aliases !== undefined) {
+      const own = new Set([normalizeName(a.label?.nl), normalizeName(a.label?.en)]);
+      for (const lang of ["nl", "en"] as const) {
+        const list = a.aliases?.[lang];
+        if (!Array.isArray(list)) {
+          err(`${at}: aliases.${lang} must be a list`);
+          continue;
+        }
+        for (const alias of list) {
+          if (!filled(alias)) {
+            err(`${at}: aliases.${lang} has an empty alias`);
+            continue;
+          }
+          const key = normalizeName(alias);
+          if (key === "") err(`${at}: alias "${alias}" has no letters or digits`);
+          else if (own.has(key)) err(`${at}: alias "${alias}" is the activity's own name`);
+          else aliasClaims.push({ key, lang, owner: a.id, alias });
+        }
+        if (new Set(list.map(normalizeName)).size !== list.length) err(`${at}: aliases.${lang} has duplicates`);
+      }
+    }
+    if (a.provenance !== undefined) {
+      const p = a.provenance;
+      if (!filled(p?.source_id)) err(`${at}: provenance.source_id is missing`);
+      if (!(PROVENANCE_METHODS as readonly string[]).includes(p?.method)) err(`${at}: provenance.method must be one of ${PROVENANCE_METHODS.join(", ")}`);
+      if (p?.method === "source" && !filled(p.source_record_id)) err(`${at}: provenance.method "source" needs source_record_id`);
+      if (p?.last_verified_at !== undefined && !isIsoDate(p.last_verified_at)) err(`${at}: provenance.last_verified_at must be a real date (YYYY-MM-DD)`);
+    }
+    if (a.source_links !== undefined) {
+      if (!Array.isArray(a.source_links)) err(`${at}: source_links must be a list`);
+      else
+        for (const link of a.source_links) {
+          if (!filled(link?.source_id) || !filled(link?.source_record_id)) err(`${at}: every source link needs source_id and source_record_id`);
+          else {
+            const key = `${link.source_id}:${link.source_record_id}`;
+            const other = linkSeen.get(key);
+            if (other) err(`${at}: source record ${key} is also linked to "${other}"; one record is one activity`);
+            linkSeen.set(key, a.id);
+          }
+        }
+    }
+    if (a.status === "reviewed" || a.status === "live") {
+      if (!filled(a.reviewed_by?.by) || !isIsoDate(a.reviewed_by?.at)) err(`${at}: status "${a.status}" needs reviewed_by {by, at: YYYY-MM-DD}`);
+    }
+
     if (a.status !== "retired") {
       const unknown = [a.formats, a.intensity, a.level, a.cost, a.duration, a.setting].filter((v) => v === null).length;
       if (unknown >= 3) warn(`${at}: ${unknown} facets unknown; consider verifying`);
     }
+  }
+
+  // An alias is a claim "this name means that activity": it may not also be the name or alias of another one.
+  // Compared per language and after normalisation, so "Bread-making" and "bread making" collide.
+  const nameOwners = new Map<string, Set<string>>();
+  for (const a of activities) {
+    for (const lang of ["nl", "en"] as const) {
+      const key = `${lang}:${normalizeName(a.label?.[lang])}`;
+      if (!nameOwners.has(key)) nameOwners.set(key, new Set());
+      nameOwners.get(key)!.add(a.id);
+    }
+  }
+  const aliasOwners = new Map<string, Set<string>>();
+  for (const c of aliasClaims) {
+    const key = `${c.lang}:${c.key}`;
+    if (!aliasOwners.has(key)) aliasOwners.set(key, new Set());
+    aliasOwners.get(key)!.add(c.owner);
+  }
+  for (const c of aliasClaims) {
+    const key = `${c.lang}:${c.key}`;
+    const others = [...(nameOwners.get(key) ?? []), ...(aliasOwners.get(key) ?? [])].filter((id) => id !== c.owner);
+    if (others.length) err(`activity "${c.owner}": ${c.lang} alias "${c.alias}" is also a name or alias of "${[...new Set(others)].join('", "')}"`);
   }
 
   // --- hybrids ------------------------------------------------------------

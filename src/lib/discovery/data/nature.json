@@ -151,7 +151,13 @@
       "en": "Free app and a first cache nearby"
     },
     "scene": "a small camouflaged cache container hidden in tree roots with a handheld GPS",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q14930"
+      }
+    ]
   },
   {
     "id": "kamperen",
@@ -232,7 +238,19 @@
       "en": "Morning walk with a bird-watching group; binoculars can be borrowed"
     },
     "scene": "binoculars and a field guide on a wooden hide ledge overlooking reeds",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q685629"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "vogelen"
+      ],
+      "en": []
+    }
   },
   {
     "id": "dierenasiel",
@@ -388,7 +406,19 @@
     },
     "scene": "beehives in a flower meadow with a smoker and a veil hat",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q176353"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "bijenhouderij"
+      ],
+      "en": []
+    }
   },
   {
     "id": "nachtdieren",
@@ -640,7 +670,19 @@
     },
     "scene": "a wicker basket of forest mushrooms and a small knife on fallen leaves",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q2391676"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "plukken van paddenstoelen"
+      ],
+      "en": []
+    }
   },
   {
     "id": "natuurbeheer",

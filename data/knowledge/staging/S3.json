@@ -1,0 +1,2952 @@
+{
+  "source_id": "S3",
+  "records": [
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1293",
+      "labels": {
+        "nl": "dammen",
+        "en": "checkers"
+      },
+      "descriptions": {
+        "nl": "bordspel",
+        "en": "board game"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q6388",
+      "labels": {
+        "nl": "zwemmen",
+        "en": "swimming"
+      },
+      "descriptions": {
+        "en": "self propulsion of a person through water or other liquid; mainly on the water surface"
+      },
+      "outcome": "merged",
+      "activityId": "zwemmen",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q11411",
+      "labels": {
+        "nl": "backgammon",
+        "en": "backgammon"
+      },
+      "descriptions": {
+        "nl": "bordspel",
+        "en": "one of the oldest board games for two players"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "backgammon"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q11629",
+      "labels": {
+        "nl": "schilderkunst",
+        "en": "painting"
+      },
+      "descriptions": {
+        "nl": "vorm van vrije beeldende kunst, vervaardigd door een kunstschilder",
+        "en": "practice of applying paint, pigment, color or other medium to a surface"
+      },
+      "outcome": "merged",
+      "activityId": "schilderen",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q11633",
+      "labels": {
+        "nl": "fotografie",
+        "en": "photography"
+      },
+      "descriptions": {
+        "nl": "artistiek werkveld",
+        "en": "art, science, and practice of creating durable images by recording light or other electromagnetic radiation"
+      },
+      "outcome": "merged",
+      "activityId": "fotografie",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q11634",
+      "labels": {
+        "nl": "beeldhouwkunst",
+        "en": "art of sculpture"
+      },
+      "descriptions": {
+        "nl": "een van de beeldende kunsten",
+        "en": "branch of the visual arts that operates in three dimensions"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q11639",
+      "labels": {
+        "nl": "dans",
+        "en": "dance"
+      },
+      "descriptions": {
+        "nl": "ritmische beweging van het lichaam",
+        "en": "rhythmic movement of the body"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "hist-dans"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q11642",
+      "labels": {
+        "nl": "pottenbakken",
+        "en": "pottery"
+      },
+      "descriptions": {
+        "nl": "ambacht waarmee uit klei keramiek gemaakt wordt",
+        "en": "craft of making objects from clay"
+      },
+      "outcome": "merged",
+      "activityId": "pottenbakken",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q12681",
+      "labels": {
+        "nl": "kalligrafie",
+        "en": "calligraphy"
+      },
+      "descriptions": {
+        "nl": "kunst van het schoonschrift",
+        "en": "visual art related to writing"
+      },
+      "outcome": "merged",
+      "activityId": "kalligrafie",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q14930",
+      "labels": {
+        "nl": "geocaching",
+        "en": "geocaching"
+      },
+      "descriptions": {
+        "nl": "buitensport",
+        "en": "outdoor recreational activity"
+      },
+      "outcome": "merged",
+      "activityId": "geocaching",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q18281",
+      "labels": {
+        "nl": "borduren",
+        "en": "embroidery"
+      },
+      "descriptions": {
+        "nl": "het maken van versieringen met naald en garen",
+        "en": "art or handicraft of decorating fabric or other materials with needle and thread or yarn"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "borduren-weven"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q34362",
+      "labels": {
+        "nl": "astrologie",
+        "en": "astrology"
+      },
+      "descriptions": {
+        "nl": "studie van verondersteld verband tussen gebeurtenissen op aarde en de stand van de hemellichamen",
+        "en": "ensemble of traditions, beliefs and divinations that interpret the positions of the planets and other celestial bodies; along with their correlation with terrestrial events"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q37260",
+      "labels": {
+        "nl": "schrijven",
+        "en": "writing"
+      },
+      "descriptions": {
+        "nl": "het vastleggen van tekst met behulp van tekens of symbolen van een schrift",
+        "en": "persistent representation of language"
+      },
+      "outcome": "rejected",
+      "reason": "too_generic"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q38695",
+      "labels": {
+        "nl": "koken",
+        "en": "cooking"
+      },
+      "descriptions": {
+        "nl": "bereiden van voedsel voor consumptie",
+        "en": "preparing food for consumption by the application of heat"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q44914",
+      "labels": {
+        "nl": "sudoku",
+        "en": "sudoku"
+      },
+      "descriptions": {
+        "nl": "Logische puzzel",
+        "en": "logic-based number-placement puzzle"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q47307",
+      "labels": {
+        "nl": "genealogie",
+        "en": "genealogy"
+      },
+      "descriptions": {
+        "nl": "Deelgebied van de geschiedenis; studie van families, hun afstamming, en hun geschiedenis.",
+        "en": "study of families, family history, and lineages using oral interviews, historical records, and genetic analysis; results displayed in charts or narratives demonstrating kinship and pedigrees among family members"
+      },
+      "outcome": "merged",
+      "activityId": "genealogie",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q53121",
+      "labels": {
+        "nl": "fietsen",
+        "en": "cycling"
+      },
+      "descriptions": {
+        "nl": "het rijden met een fiets",
+        "en": "riding a bicycle (transportation, sport, exercise, recreation...)"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q64365",
+      "labels": {
+        "nl": "bonsai",
+        "en": "bonsai"
+      },
+      "descriptions": {
+        "nl": "kunst van het miniatuurbomen kweken",
+        "en": "miniature tree"
+      },
+      "outcome": "merged",
+      "activityId": "bonsai",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q83207",
+      "labels": {
+        "nl": "kruiswoordpuzzel",
+        "en": "crossword"
+      },
+      "descriptions": {
+        "nl": "raadsel waarbij woorden in elkaar loodrecht kruisende vakjes moeten worden ingevuld",
+        "en": "word puzzle game"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "raadsels"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q83357",
+      "labels": {
+        "nl": "origami",
+        "en": "origami"
+      },
+      "descriptions": {
+        "en": "traditional Japanese art of paper folding"
+      },
+      "outcome": "merged",
+      "activityId": "origami",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q96443",
+      "labels": {
+        "nl": "aquaristiek",
+        "en": "fishkeeping"
+      },
+      "descriptions": {
+        "nl": "het houden van vissen en waterplanten in een aquarium als hobby",
+        "en": "hobby practiced by aquarists"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q105674",
+      "labels": {
+        "nl": "hardlopen",
+        "en": "running"
+      },
+      "descriptions": {
+        "nl": "vorm van atletiek",
+        "en": "activity that involves the rapid terrestrial locomotion of feet"
+      },
+      "outcome": "merged",
+      "activityId": "hardlopen",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q108458",
+      "labels": {
+        "nl": "meditatie",
+        "en": "meditation"
+      },
+      "descriptions": {
+        "nl": "spirituele praktijk",
+        "en": "mental practice of focus on a particular object, thought or activity"
+      },
+      "outcome": "merged",
+      "activityId": "meditatie",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q124946",
+      "labels": {
+        "nl": "tuinieren",
+        "en": "gardening"
+      },
+      "descriptions": {
+        "en": "practice of growing and cultivating plants"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "tuinieren"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q128391",
+      "labels": {
+        "en": "comic book collecting"
+      },
+      "descriptions": {
+        "en": "hobby that treats comic books and related items as collectibles or artwork to be sought after and preserved"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q131436",
+      "labels": {
+        "nl": "bordspel",
+        "en": "board game"
+      },
+      "descriptions": {
+        "nl": "spel dat op een tevoren gemarkeerd oppervlak wordt gespeeld",
+        "en": "game that involves counters or pieces moved or placed on a pre-marked surface or \"board\", according to a set of rules"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "bordspellen",
+        "rummikub-kaartclub"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q142554",
+      "labels": {
+        "nl": "cosplay",
+        "en": "cosplay"
+      },
+      "descriptions": {
+        "nl": "vorm van performancekunst",
+        "en": "type of performance art"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "cosplay"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q142714",
+      "labels": {
+        "nl": "kaartspel",
+        "en": "card game"
+      },
+      "descriptions": {
+        "nl": "spel waar speelkaarten bij gebruikt worden",
+        "en": "game using playing cards as the primary device"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "kaartspellen",
+        "ruilkaarten"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q160738",
+      "labels": {
+        "nl": "rollenspel",
+        "en": "role-playing game"
+      },
+      "descriptions": {
+        "nl": "spel dat plaats vindt in een fantasiewereld",
+        "en": "game in which players assume the roles of characters in a fictional setting"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "tabletop-rpg",
+        "solo-rpg"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q176353",
+      "labels": {
+        "nl": "bijenhouderij",
+        "en": "beekeeping"
+      },
+      "descriptions": {
+        "en": "care and breeding of honey bees"
+      },
+      "outcome": "merged",
+      "activityId": "imkeren",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q179226",
+      "labels": {
+        "nl": "paardrijden",
+        "en": "equestrianism"
+      },
+      "descriptions": {
+        "nl": "voortbewegen te paard",
+        "en": "horse riding"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "paardrijden"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q181008",
+      "labels": {
+        "nl": "legpuzzel",
+        "en": "jigsaw puzzle"
+      },
+      "descriptions": {
+        "nl": "puzzel waarbij in elkaar passende stukken samen een afbeelding vormen",
+        "en": "type of tiling puzzle"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "legpuzzels"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q183621",
+      "labels": {
+        "nl": "jojo",
+        "en": "yo-yo"
+      },
+      "descriptions": {
+        "nl": "speelgoed",
+        "en": "toy"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q185727",
+      "labels": {
+        "nl": "radioamateurisme",
+        "en": "amateur radio"
+      },
+      "descriptions": {
+        "nl": "experimenteren met radiotechniek als hobby",
+        "en": "use of designated radio frequency spectrum for purposes of non-commercial exchange of messages"
+      },
+      "outcome": "merged",
+      "activityId": "zendamateur",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q185925",
+      "labels": {
+        "nl": "grafische vormgeving",
+        "en": "graphic design"
+      },
+      "descriptions": {
+        "nl": "het voorbereiden en creëren van woorden en beelden voor commerciële toepassingen zoals de productie van boeken, posters, reclame en verpakkingen",
+        "en": "visual design of content in various media"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q191448",
+      "labels": {
+        "nl": "Chinees schaken",
+        "en": "xiangqi"
+      },
+      "descriptions": {
+        "nl": "bordspel voor 2 personen",
+        "en": "chess variant native to China"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "schaken"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q192296",
+      "labels": {
+        "nl": "weven",
+        "en": "weaving"
+      },
+      "descriptions": {
+        "nl": "economische activiteit",
+        "en": "technology for the production of textiles"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "borduren-weven",
+        "wilgenvlechten",
+        "ambachten"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q192420",
+      "labels": {
+        "nl": "karting",
+        "en": "kart racing"
+      },
+      "descriptions": {
+        "en": "motorsport"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q192520",
+      "labels": {
+        "nl": "zeilen",
+        "en": "sailing"
+      },
+      "descriptions": {
+        "nl": "navigatie en voortbeweging door de wind",
+        "en": "propulsion of a vehicle and the control of its movement with large (usually fabric) foils called sails"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "zeilen",
+        "strandzeilen",
+        "klipper-zeilen"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q192832",
+      "labels": {
+        "nl": "paintball",
+        "en": "paintball"
+      },
+      "descriptions": {
+        "nl": "sport waarbij men elkaar beschiet met verfballetjes",
+        "en": "sport that originated in the United States"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "lasergamen",
+        "paintball-airsoft"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q193188",
+      "labels": {
+        "nl": "breien",
+        "en": "knitting"
+      },
+      "descriptions": {
+        "nl": "een werkwijze om van doorlopend garen en met behulp van twee of meer naalden textiel te maken",
+        "en": "forming and interlacing of loops using needles according to a prescribed manner or pattern, either by machine or by hand"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "breien-haken"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q199657",
+      "labels": {
+        "nl": "lezen",
+        "en": "reading"
+      },
+      "descriptions": {
+        "nl": "cognitief proces van het decoderen van symbolen om betekenis af te leiden",
+        "en": "cognitive process of decoding symbols to derive meaning; a form of language processing"
+      },
+      "outcome": "rejected",
+      "reason": "too_generic"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q200341",
+      "labels": {
+        "nl": "recreatiespeleologie",
+        "en": "caving"
+      },
+      "descriptions": {
+        "en": "recreational pastime of exploring wild cave systems"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q208147",
+      "labels": {
+        "nl": "Deltavliegen",
+        "en": "hang gliding"
+      },
+      "descriptions": {
+        "nl": "ongemotoriseerde luchtvaartsport",
+        "en": "air sport or recreational activity"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q208165",
+      "labels": {
+        "nl": "verzamelen",
+        "en": "collecting"
+      },
+      "descriptions": {
+        "en": "activity of seeking out and acquiring items of interest"
+      },
+      "outcome": "rejected",
+      "reason": "too_generic"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q208386",
+      "labels": {
+        "nl": "haken",
+        "en": "crocheting"
+      },
+      "descriptions": {
+        "nl": "handwerktechniek",
+        "en": "technique of creating lace or fabric from thread using a hook"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "breien-haken"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q213608",
+      "labels": {
+        "nl": "beatbox",
+        "en": "beatboxing"
+      },
+      "descriptions": {
+        "en": "vocal percussion involving imitation of drum machines, turntablism, and other musical instruments using one's mouth, lips, tongue, and voice, connected with hip-hop culture"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q213934",
+      "labels": {
+        "nl": "kanoën en kajakken",
+        "en": "canoeing and kayaking"
+      },
+      "descriptions": {
+        "en": "group of sports"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q218998",
+      "labels": {
+        "nl": "paaldansen",
+        "en": "pole dance"
+      },
+      "descriptions": {
+        "nl": "Dans en acrobatiek",
+        "en": "form of performing art"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q229367",
+      "labels": {
+        "nl": "3D-printen",
+        "en": "3D printing"
+      },
+      "descriptions": {
+        "nl": "productieproces waarmee objecten laag voor laag tot een 3D-object worden geprint",
+        "en": "layer-by-layer additive process used to make a three-dimensional object"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "ontwerp-print",
+        "zeefdruk",
+        "linosnede"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q244158",
+      "labels": {
+        "nl": "touwtjespringen",
+        "en": "skipping rope"
+      },
+      "descriptions": {
+        "nl": "sport- of spel",
+        "en": "game in which one or more participants jump over a swung rope"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q266177",
+      "labels": {
+        "nl": "Plakboek",
+        "en": "scrapbooking"
+      },
+      "descriptions": {
+        "en": "method for preserving personal and family history in the form of a scrapbook"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q272460",
+      "labels": {
+        "nl": "pilates",
+        "en": "pilates"
+      },
+      "descriptions": {
+        "nl": "systeem om lichamelijke gezondheid te bevorderen",
+        "en": "physical fitness system"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q354276",
+      "labels": {
+        "en": "military miniaturism"
+      },
+      "descriptions": {
+        "en": "hobby that covers military themed miniaturism"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q389525",
+      "labels": {
+        "nl": "Retrocomputing",
+        "en": "retrocomputing"
+      },
+      "descriptions": {
+        "en": "running old computer technology in modern times as heritage and as a hobby"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q455550",
+      "labels": {
+        "nl": "kamperen",
+        "en": "camping"
+      },
+      "descriptions": {
+        "nl": "overnachten in de buitenlucht, meestal in een tent, caravan of camper",
+        "en": "outdoor recreational activity"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "kamperen"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q472328",
+      "labels": {
+        "nl": "wetenschapscommunicatie",
+        "en": "science communication"
+      },
+      "descriptions": {
+        "nl": "openbare communicatie van wetenschapsgerelateerde onderwerpen aan niet-deskundigen",
+        "en": "public communication of science-related topics to non-experts"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q492202",
+      "labels": {
+        "nl": "rugzaktoerisme",
+        "en": "backpacking"
+      },
+      "descriptions": {
+        "en": "low-cost, lightweight, independent and often international travel"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q520611",
+      "labels": {
+        "nl": "mountainbiken",
+        "en": "mountain biking"
+      },
+      "descriptions": {
+        "nl": "sport",
+        "en": "bicycle sport"
+      },
+      "outcome": "merged",
+      "activityId": "mountainbiken",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q533943",
+      "labels": {
+        "en": "Tyrosemiophilia"
+      },
+      "descriptions": {
+        "en": "hobby of collecting cheese labels"
+      },
+      "outcome": "rejected",
+      "reason": "technical_term"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q551835",
+      "labels": {
+        "nl": "medisch auteur",
+        "en": "physician writer"
+      },
+      "descriptions": {
+        "en": "physicians who write creatively in literary fields outside their practice of medicine"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q560575",
+      "labels": {
+        "nl": "amateurastronomie",
+        "en": "amateur astronomy"
+      },
+      "descriptions": {
+        "en": "hobby whose participants enjoy watching the sky"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q578361",
+      "labels": {
+        "nl": "kaartenhuis",
+        "en": "house of cards"
+      },
+      "descriptions": {
+        "en": "construction set"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q601641",
+      "labels": {
+        "nl": "vliegtuigspotten",
+        "en": "aircraft spotting"
+      },
+      "descriptions": {
+        "nl": "het bekijken en fotograferen van vliegtuigen door liefhebbers",
+        "en": "hobby of observing and tracking aircraft, usually through photography or videography"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q608003",
+      "labels": {
+        "nl": "motorfietsen",
+        "en": "motorcycling"
+      },
+      "descriptions": {
+        "en": "riding a motorcycle"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q623272",
+      "labels": {
+        "nl": "modelspoorwegbouw",
+        "en": "rail transport modelling"
+      },
+      "descriptions": {
+        "nl": "schaalmodel van een trein",
+        "en": "modeling trains hobby"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q643420",
+      "labels": {
+        "nl": "postcrossing",
+        "en": "postcrossing"
+      },
+      "descriptions": {
+        "en": "hobby about exchanging postcards"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q652122",
+      "labels": {
+        "nl": "naaien",
+        "en": "sewing"
+      },
+      "descriptions": {
+        "nl": "ambacht dat materialen door middel van naald en draad verbindt",
+        "en": "craft of fastening or attaching objects using stitches made with a needle and thread"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "naaien"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q657069",
+      "labels": {
+        "nl": "reënactment",
+        "en": "historical reenactment"
+      },
+      "descriptions": {
+        "nl": "naspelen van historische gebeurtenissen",
+        "en": "activity where people recreate aspects of a historical event"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q685629",
+      "labels": {
+        "nl": "vogelen",
+        "en": "birdwatching"
+      },
+      "descriptions": {
+        "nl": "observatie van vogels als recreatieve activiteit",
+        "en": "observation of birds as a recreational activity or citizen science"
+      },
+      "outcome": "merged",
+      "activityId": "vogels",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q805333",
+      "labels": {
+        "nl": "ballonmodelleren",
+        "en": "balloon modelling"
+      },
+      "descriptions": {
+        "en": "shaping of special modelling balloons"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q816261",
+      "labels": {
+        "nl": "joggen",
+        "en": "jogging"
+      },
+      "descriptions": {
+        "nl": "langere tijd met een constante snelheid vol te houden en zo de lichamelijke conditie te verbeteren , duursport",
+        "en": "form of trotting or running at a slow or leisurely pace"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "plogging"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q816871",
+      "labels": {
+        "nl": "houtbewerking",
+        "en": "woodworking"
+      },
+      "descriptions": {
+        "nl": "bewerken van hout voor constructie- of kunstdoeleinden",
+        "en": "process of making objects from wood"
+      },
+      "outcome": "merged",
+      "activityId": "houtbewerking",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q844865",
+      "labels": {
+        "nl": "DX",
+        "en": "DXing"
+      },
+      "descriptions": {
+        "nl": "radio",
+        "en": "hobby of receiving and identifying distant radio or TV signals"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q848763",
+      "labels": {
+        "en": "amateur chemistry"
+      },
+      "descriptions": {
+        "en": "pursuit of chemistry as a hobby"
+      },
+      "outcome": "rejected",
+      "reason": "unsafe_or_restricted"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q856075",
+      "labels": {
+        "nl": "postzegels verzamelen",
+        "en": "stamp collecting"
+      },
+      "descriptions": {
+        "en": "collecting of postage stamps and related objects"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q878120",
+      "labels": {
+        "nl": "hoepel",
+        "en": "hula hoop"
+      },
+      "descriptions": {
+        "nl": "type speelgoed",
+        "en": "toy"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q898886",
+      "labels": {
+        "nl": "vliegvissen",
+        "en": "fly fishing"
+      },
+      "descriptions": {
+        "en": "angling method"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q917912",
+      "labels": {
+        "nl": "modelbouw",
+        "en": "model building"
+      },
+      "descriptions": {
+        "nl": "maken van schaalmodellen",
+        "en": "hobby of building physical models"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q929883",
+      "labels": {
+        "nl": "bouwplaat",
+        "en": "paper model"
+      },
+      "descriptions": {
+        "en": "model made of paper, kids usually make it"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q957817",
+      "labels": {
+        "en": "literary tourism"
+      },
+      "descriptions": {
+        "en": "tourism based on places associated with locations and events from literary texts"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q968853",
+      "labels": {
+        "en": "Tavli"
+      },
+      "descriptions": {
+        "nl": "bordspel",
+        "en": "board game"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q985912",
+      "labels": {
+        "nl": "Garage kit",
+        "en": "garage kit"
+      },
+      "descriptions": {
+        "en": "hobby of making, painting, or collecting resin models"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1073309",
+      "labels": {
+        "nl": "Shortwave listening",
+        "en": "shortwave listening"
+      },
+      "descriptions": {
+        "en": "hobby of listening to shortwave radio broadcasts"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1096878",
+      "labels": {
+        "nl": "scubaduiken",
+        "en": "scuba diving"
+      },
+      "descriptions": {
+        "en": "underwater diving where the diver breathes from apparatus (scuba) which is completely independent of surface supply"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1154882",
+      "labels": {
+        "nl": "tokkelbaan",
+        "en": "zip-line"
+      },
+      "descriptions": {
+        "en": "transportation system"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1186844",
+      "labels": {
+        "nl": "leerbewerking",
+        "en": "leather crafting"
+      },
+      "descriptions": {
+        "en": "practice of making leather into craft objects or works of art"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1204356",
+      "labels": {
+        "nl": "ROM-hacking",
+        "en": "ROM hacking"
+      },
+      "descriptions": {
+        "nl": "Wijzigingsproces van digitale inhoud",
+        "en": "process of modifying a ROM image or ROM file of a video game"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1304613",
+      "labels": {
+        "en": "hot glue gun"
+      },
+      "descriptions": {
+        "en": "hand-held, pistol-like device used to apply melted glue that can bind to a large variety of materials"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1313678",
+      "labels": {
+        "nl": "ijsvissen",
+        "en": "ice fishing"
+      },
+      "descriptions": {
+        "nl": "vistechniek",
+        "en": "winter activity of catching fish in frozen-over bodies of water"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1323158",
+      "labels": {
+        "en": "rock balancing"
+      },
+      "descriptions": {
+        "en": "installation rock art requiring skill"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1413626",
+      "labels": {},
+      "descriptions": {
+        "en": "academic discipline"
+      },
+      "outcome": "rejected",
+      "reason": "no_label"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1437510",
+      "labels": {
+        "nl": "munten verzamelen",
+        "en": "coin collecting"
+      },
+      "descriptions": {
+        "nl": "verzamelgebied",
+        "en": "collecting of coins or other forms of minted legal tender"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "munten-zegels"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1453674",
+      "labels": {
+        "en": "posting"
+      },
+      "descriptions": {
+        "en": "the act of creating and publishing a post on social media"
+      },
+      "outcome": "rejected",
+      "reason": "too_generic"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1460219",
+      "labels": {
+        "nl": "bloemsierkunst",
+        "en": "floral design"
+      },
+      "descriptions": {
+        "nl": "siervoorwerp dat grotendeels bestaat uit snijbloemen",
+        "en": "manual and artistic design of flowers and plants decoration"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1503604",
+      "labels": {
+        "nl": "Breweriana",
+        "en": "Breweriana"
+      },
+      "descriptions": {
+        "en": "beer artifacts with a brewery brand name"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1535038",
+      "labels": {
+        "en": "amateur geology"
+      },
+      "descriptions": {
+        "en": "non-professional study of rocks"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1547701",
+      "labels": {
+        "nl": "groundhoppen",
+        "en": "groundhopping"
+      },
+      "descriptions": {
+        "en": "visiting as many association football stadiums as possible"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1595570",
+      "labels": {
+        "nl": "heemkundige",
+        "en": "local historian"
+      },
+      "descriptions": {
+        "en": "someone who researches their local area's history"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1645946",
+      "labels": {
+        "en": "argument diagram"
+      },
+      "descriptions": {
+        "en": "visual diagram of structured arguments"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1707432",
+      "labels": {
+        "nl": "rolschaatsen",
+        "en": "roller skating"
+      },
+      "descriptions": {
+        "en": "sport, activity, or form of transportation involving shoes with small wheels attached to the soles"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1757816",
+      "labels": {
+        "nl": "Strandjutten",
+        "en": "beachcombing"
+      },
+      "descriptions": {
+        "nl": "het zoeken op het strand naar aangespoelde spullen",
+        "en": "looking for beach collectables"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1789159",
+      "labels": {
+        "nl": "eekhoornvissen",
+        "en": "squirrel fishing"
+      },
+      "descriptions": {
+        "en": "recreational activity"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q1920065",
+      "labels": {
+        "nl": "quilten",
+        "en": "quilting"
+      },
+      "descriptions": {
+        "nl": "Handwerktechniek",
+        "en": "process of sewing layers of fabric together to make a padded material"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q2025345",
+      "labels": {
+        "en": "Marketing for open-source software"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q2093999",
+      "labels": {
+        "nl": "trailrunning",
+        "en": "trail running"
+      },
+      "descriptions": {
+        "en": "mountain and forest sport"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "hardlopen"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q2278340",
+      "labels": {
+        "en": "Sherlockian game"
+      },
+      "descriptions": {
+        "en": "pastime of attempting to resolve anomalies and clarify implied details about Sherlock Holmes"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q2391676",
+      "labels": {
+        "nl": "plukken van paddenstoelen",
+        "en": "mushroom hunting"
+      },
+      "descriptions": {
+        "en": "activity of gathering mushrooms in the wild"
+      },
+      "outcome": "merged",
+      "activityId": "paddenstoelen",
+      "tier": "exact"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q2396572",
+      "labels": {
+        "nl": "colombofilie",
+        "en": "pigeon keeping"
+      },
+      "descriptions": {
+        "en": "art and science of breeding domestic pigeons"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q2471422",
+      "labels": {
+        "nl": "snorkelen",
+        "en": "snorkeling"
+      },
+      "descriptions": {
+        "nl": "met een snorkel onder water zwemmen",
+        "en": "swimming while breathing through a snorkel"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "snorkelen"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q2880401",
+      "labels": {
+        "nl": "figuurzagen",
+        "en": "figure sawing"
+      },
+      "descriptions": {},
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q2947235",
+      "labels": {
+        "en": "maker culture"
+      },
+      "descriptions": {
+        "en": "community interested in do-it-yourself (technical) pursuits, from repairing household items to producing one's own food, clothes or technical items"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q2987950",
+      "labels": {
+        "nl": "kaartenmaken",
+        "en": "cardmaking"
+      },
+      "descriptions": {
+        "en": "craft of hand-making greeting cards"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q2991771",
+      "labels": {
+        "nl": "verzamelen in het wild",
+        "en": "wildcrafting"
+      },
+      "descriptions": {
+        "en": "collecting wild food resources (by humans)"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q3027784",
+      "labels": {
+        "nl": "MilSim",
+        "en": "MilSim"
+      },
+      "descriptions": {
+        "en": "military simulation by civilians"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q3066334",
+      "labels": {
+        "en": "fanboy"
+      },
+      "descriptions": {
+        "en": "boy or man who is an extremely or overly enthusiastic fan of someone or something"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q3272195",
+      "labels": {
+        "nl": "busspotten",
+        "en": "bus spotting"
+      },
+      "descriptions": {
+        "nl": "beknopte omschrijving wat de hobby busspotter is",
+        "en": "hobby"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q4112103",
+      "labels": {
+        "en": "virtual singer"
+      },
+      "descriptions": {
+        "en": "singer that uses a digital avatar"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q4227987",
+      "labels": {},
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "no_label"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q4227990",
+      "labels": {},
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "no_label"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q4764936",
+      "labels": {
+        "en": "animal fancy"
+      },
+      "descriptions": {
+        "en": "hobby involving the breeding of pets or domestic animals"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q5002983",
+      "labels": {
+        "en": "butterfly watching"
+      },
+      "descriptions": {
+        "en": "observing butterflies as a hobby"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q5038257",
+      "labels": {
+        "en": "Cardboard modeling"
+      },
+      "descriptions": {
+        "en": "Construction of models with cardboard and paper"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q5141552",
+      "labels": {
+        "en": "coin roll hunting"
+      },
+      "descriptions": {
+        "en": "hobby of searching change pulled from circulation for collectible coins"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q5177787",
+      "labels": {
+        "en": "county collecting"
+      },
+      "descriptions": {
+        "en": "hobby"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q5185065",
+      "labels": {
+        "en": "Crickets as pets"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q5359732",
+      "labels": {
+        "en": "elevator surfing"
+      },
+      "descriptions": {
+        "en": "activity involving riding on top of elevators"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q6068080",
+      "labels": {
+        "en": "Historical Toy Bazaar"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q6189617",
+      "labels": {
+        "nl": "sieraadontwerp",
+        "en": "jewelry design"
+      },
+      "descriptions": {
+        "nl": "kunst van het maken van sieraden",
+        "en": "art of designing and creating jewelry"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "sieraden"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q6190092",
+      "labels": {
+        "en": "Jewish papercut"
+      },
+      "descriptions": {
+        "en": "Jewish paper cutting"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q6533642",
+      "labels": {
+        "en": "letterhack"
+      },
+      "descriptions": {
+        "en": "fan who is regularly published in magazine letter columns"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q6578799",
+      "labels": {
+        "en": "TV and FM DX"
+      },
+      "descriptions": {
+        "en": "long-distance reception of signals on the VHF or UHF frequency bands"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q6720247",
+      "labels": {
+        "en": "MW DX"
+      },
+      "descriptions": {
+        "en": "long-distance reception of mediumwave radio signals"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q6819872",
+      "labels": {
+        "en": "mermaiding"
+      },
+      "descriptions": {
+        "en": "swimming wearing a mermaid costume"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q6864117",
+      "labels": {
+        "en": "mine exploration"
+      },
+      "descriptions": {
+        "en": "hobby of visiting abandoned mines"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q6888325",
+      "labels": {
+        "en": "model engineering"
+      },
+      "descriptions": {
+        "en": "pursuit of constructing proportionally scaled miniature working representations of full-sized machines"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q7096425",
+      "labels": {
+        "en": "open-source software development"
+      },
+      "descriptions": {
+        "en": "freely accessible creation and refinement of computer programs"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q7157849",
+      "labels": {
+        "nl": "groepering van bergtoppen",
+        "en": "peak bagging"
+      },
+      "descriptions": {
+        "en": "goal to reach a collection of summits, published in the form of a list"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q7193351",
+      "labels": {
+        "en": "pigeon sport"
+      },
+      "descriptions": {
+        "en": "any sport using domestic pigeons"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q7303063",
+      "labels": {
+        "en": "recreation in Second Life"
+      },
+      "descriptions": {
+        "en": "competitive entertainment"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q7547485",
+      "labels": {
+        "en": "sneaker collecting"
+      },
+      "descriptions": {
+        "en": "person who collects, trades, or admires sneakers as a hobby"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q7699903",
+      "labels": {
+        "en": "Tenkara fishing"
+      },
+      "descriptions": {
+        "en": "style of fishing"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q7919304",
+      "labels": {
+        "en": "velology"
+      },
+      "descriptions": {
+        "en": "study and collection of vehicle tax discs"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q8963721",
+      "labels": {
+        "nl": "genealoog",
+        "en": "genealogist"
+      },
+      "descriptions": {
+        "en": "person specializing in genealogy"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q10284385",
+      "labels": {
+        "nl": "straatfotograaf",
+        "en": "street photographer"
+      },
+      "descriptions": {
+        "nl": "persoon die het leven op straat documenteert",
+        "en": "job and/or hobby"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q10289413",
+      "labels": {
+        "en": "ghost hunting"
+      },
+      "descriptions": {
+        "en": "process of investigating locations supposedly haunted by ghosts"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q10331372",
+      "labels": {
+        "nl": "modelbouwer",
+        "en": "model maker"
+      },
+      "descriptions": {
+        "en": "professional or amateur craftsperson who creates a three-dimensional representation of a design or concept"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q10860243",
+      "labels": {
+        "en": "ideas bank"
+      },
+      "descriptions": {
+        "en": "resource for the posting, exchange, discussion, and polishing of new ideas"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q11854486",
+      "labels": {
+        "en": "spotting hobby"
+      },
+      "descriptions": {
+        "en": "hobby of searching for and observing a particular kind of object"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q12014035",
+      "labels": {
+        "nl": "wandelen",
+        "en": "hiking"
+      },
+      "descriptions": {
+        "nl": "langzaam lopen voor plezier- of sportdoeleinden",
+        "en": "walking as a hobby, sport, or leisure activity"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q12051052",
+      "labels": {
+        "nl": "verzamelhobby",
+        "en": "collecting hobby"
+      },
+      "descriptions": {
+        "en": "type of hobby involving collecting items"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q12301261",
+      "labels": {
+        "nl": "amateurarcheologie",
+        "en": "amateur archaeology"
+      },
+      "descriptions": {
+        "en": "the practice of engaging in archaeological work for personal interest and enjoyment rather than as a professional career"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q12310706",
+      "labels": {
+        "en": "Euraudax"
+      },
+      "descriptions": {
+        "en": "Marching/hiking concept"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q12360812",
+      "labels": {
+        "en": "metal detecting"
+      },
+      "descriptions": {
+        "en": "activity and hobby of using a metal detector"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q12996592",
+      "labels": {
+        "nl": "videoproductie",
+        "en": "video production"
+      },
+      "descriptions": {
+        "en": "process of producing video content"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "coop-games"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q13464614",
+      "labels": {
+        "nl": "keramische kunst",
+        "en": "ceramic art"
+      },
+      "descriptions": {
+        "nl": "kunstvorm gebaseerd op klei",
+        "en": "art objects made from clay and other raw materials by the process of pottery"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q15710020",
+      "labels": {
+        "en": "art postcard collecting"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q17023567",
+      "labels": {
+        "en": "Ground calligraphy"
+      },
+      "descriptions": {
+        "en": "Writing characters on the ground"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q17141620",
+      "labels": {
+        "en": "pin trading"
+      },
+      "descriptions": {
+        "en": "culture and practice of trading pins"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q18544844",
+      "labels": {
+        "nl": "Langlaufen",
+        "en": "cross-country skiing"
+      },
+      "descriptions": {
+        "en": "form of snow skiing"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q18654351",
+      "labels": {
+        "en": "bird walking"
+      },
+      "descriptions": {
+        "en": "traditional leisure activity in Chinese-speaking regions in which people take caged songbirds outdoors and enjoy their singing while socialising"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q19201615",
+      "labels": {
+        "nl": "verzamelen van schaalmodellen van auto's",
+        "en": "collecting scale model cars"
+      },
+      "descriptions": {
+        "en": "purposeful gathering of scale model cars"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q19642588",
+      "labels": {
+        "en": "conlanging"
+      },
+      "descriptions": {
+        "en": "art of creating constructed languages"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q20820138",
+      "labels": {
+        "nl": "boetseren",
+        "en": "modelling with clay"
+      },
+      "descriptions": {
+        "nl": "met de hand vormen maken van een zachte massa, vb klei"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q21140478",
+      "labels": {
+        "en": "regional writer"
+      },
+      "descriptions": {
+        "en": "writer whose work is focused on the details of a particular geographic region or local culture and whose texts are centred on the themes of home, village and countryside"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q21368803",
+      "labels": {
+        "nl": "roeien",
+        "en": "rowing"
+      },
+      "descriptions": {
+        "nl": "met behulp van riemen een boot handmatig vooruit stuwen",
+        "en": "act of propelling a boat using the motion of oars in the water"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "roeien"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q24236999",
+      "labels": {
+        "nl": "virtueel idool",
+        "en": "virtual idol"
+      },
+      "descriptions": {
+        "en": "computer-created fictional idol"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q25424426",
+      "labels": {},
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "no_label"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q25452298",
+      "labels": {},
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "no_label"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q29349255",
+      "labels": {
+        "en": "candlemaking"
+      },
+      "descriptions": {
+        "en": "activity consisting of making candles"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q30589378",
+      "labels": {
+        "nl": "magneetvissen",
+        "en": "magnet fishing"
+      },
+      "descriptions": {
+        "en": "searching outdoor waters for ferromagnetic objects using a magnet tied to a rope"
+      },
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "vissen"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q30594741",
+      "labels": {
+        "en": "ant keeping"
+      },
+      "descriptions": {
+        "en": "hobby involving keeping of ant colonies in enclosures"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q31916432",
+      "labels": {
+        "nl": "kunstverzamelen",
+        "en": "art collecting"
+      },
+      "descriptions": {
+        "en": "activity of seeking out and acquiring artistic works"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q39086989",
+      "labels": {
+        "en": "eclipse chasing"
+      },
+      "descriptions": {
+        "en": "pursuit of eclipses for study and enjoyment"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q45999579",
+      "labels": {
+        "nl": "goocheltruc",
+        "en": "magic trick"
+      },
+      "descriptions": {
+        "nl": "Een illusie of effect uitgevoerd door een goochelaar ter vermaak",
+        "en": "illusion or effect performed by a magician for entertainment"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q56231782",
+      "labels": {
+        "nl": "vliegeren",
+        "en": "kite flying"
+      },
+      "descriptions": {
+        "en": "activity"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q56604702",
+      "labels": {
+        "en": "textile trades"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q60793147",
+      "labels": {
+        "nl": "kattenliefhebbers",
+        "en": "cat culture"
+      },
+      "descriptions": {
+        "nl": "subcultuur draaiend om katten",
+        "en": "human activity related to cats"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q65288884",
+      "labels": {
+        "en": "benchmarking"
+      },
+      "descriptions": {
+        "en": "field pastime"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q67135649",
+      "labels": {
+        "nl": "speciale interesse",
+        "en": "autistic special interest"
+      },
+      "descriptions": {
+        "en": "narrow and passionate interest experienced by autistic people that can spark positive feelings"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q68489725",
+      "labels": {
+        "en": "soap-making"
+      },
+      "descriptions": {
+        "en": "process of making soap"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q96091536",
+      "labels": {
+        "nl": "tunnelbouw als hobby",
+        "en": "hobby tunneling"
+      },
+      "descriptions": {
+        "en": "form of recreation involving constructive excavation"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q103839085",
+      "labels": {
+        "en": "nesophilia"
+      },
+      "descriptions": {
+        "en": "strong interest for islands"
+      },
+      "outcome": "rejected",
+      "reason": "technical_term"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q105095276",
+      "labels": {
+        "nl": "virtuele influencer",
+        "en": "virtual influencer"
+      },
+      "descriptions": {
+        "en": "computer generated character used for social media marketing"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q105107179",
+      "labels": {
+        "en": "guitar performance"
+      },
+      "descriptions": {
+        "en": "performance of music on the guitar"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q107022968",
+      "labels": {
+        "nl": "gamen",
+        "en": "video gaming"
+      },
+      "descriptions": {
+        "nl": "spelen van video- en computerspellen",
+        "en": "playing or collecting video games"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q108572898",
+      "labels": {
+        "nl": "proplifting",
+        "en": "proplifting"
+      },
+      "descriptions": {
+        "nl": "deel van plant meenemen om te stekken",
+        "en": "Practice of taking discarded plant material and propagating new plants from them"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q108686383",
+      "labels": {
+        "en": "cemeterying"
+      },
+      "descriptions": {
+        "en": "visiting cemeteries as a research activity or as a pastime"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q109459317",
+      "labels": {
+        "nl": "contentmaker",
+        "en": "content creator"
+      },
+      "descriptions": {
+        "nl": "persoon die digitale media maakt",
+        "en": "occupation involving creating online media content"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q109577660",
+      "labels": {
+        "en": "reading for recreation"
+      },
+      "descriptions": {},
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "lezen",
+        "handschriften",
+        "voorlezen"
+      ]
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q110581477",
+      "labels": {
+        "en": "magic collecting"
+      },
+      "descriptions": {
+        "en": "collecting of memorabilia from the performing art of magic"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q113958154",
+      "labels": {
+        "nl": "doe het zelf",
+        "en": "do-it-yourselfing"
+      },
+      "descriptions": {
+        "nl": "activiteit van doe-het-zelvers",
+        "en": "activity of DIYers"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q117219727",
+      "labels": {
+        "en": "photo collector"
+      },
+      "descriptions": {
+        "en": "person who collects photographs"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q117741476",
+      "labels": {
+        "en": "rail transport hobby"
+      },
+      "descriptions": {
+        "en": "specialised field of trains and rail transport"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q118793301",
+      "labels": {
+        "en": "virtual talent"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q119061362",
+      "labels": {
+        "en": "bird song competition"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q122699620",
+      "labels": {
+        "en": "Battleboarding"
+      },
+      "descriptions": {
+        "en": "type of online activity"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q122820085",
+      "labels": {
+        "en": "hobby electronics"
+      },
+      "descriptions": {
+        "en": "hobby activity involving developing, building and testing analog and/or digital electronic circuits and devices"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q123514571",
+      "labels": {
+        "en": "VRChat streamer"
+      },
+      "descriptions": {
+        "en": "online streamer who broadcasts VRChat content"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q125947645",
+      "labels": {
+        "nl": "Scheepsmodelbouw",
+        "en": "ship modelling"
+      },
+      "descriptions": {
+        "nl": "hobby/ambacht van het bouwen van scheeps- en botenmodellen",
+        "en": "hobby/craft of building model ships and boats"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q125985509",
+      "labels": {
+        "en": "seed growing"
+      },
+      "descriptions": {
+        "en": "activity, hobby"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q130217525",
+      "labels": {
+        "nl": "handtekeningen verzamelen",
+        "en": "autograph collecting"
+      },
+      "descriptions": {
+        "en": "hobby of collecting famous people's autographs"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q130374573",
+      "labels": {
+        "en": "drone flying"
+      },
+      "descriptions": {
+        "en": "activity"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q130424957",
+      "labels": {
+        "en": "Yogastyles"
+      },
+      "descriptions": {
+        "en": "styles of yoga"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q131455699",
+      "labels": {
+        "nl": "verzamelen van wapens",
+        "en": "weapon collecting"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "unsafe_or_restricted"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q131618305",
+      "labels": {
+        "en": "Viking Knit"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q131939127",
+      "labels": {},
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "no_label"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q132492967",
+      "labels": {
+        "nl": "scheepsspotter",
+        "en": "ship spotter"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q133854923",
+      "labels": {
+        "en": "aircraft spotting photography"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q133861825",
+      "labels": {
+        "en": "corkscrews collector"
+      },
+      "descriptions": {
+        "en": "hobby"
+      },
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q134715708",
+      "labels": {
+        "en": "contributing to Wikimedia projects"
+      },
+      "descriptions": {
+        "en": "type of digital volunteering activities such as Wikipedia editing"
+      },
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q134727783",
+      "labels": {
+        "en": "extreme cycling"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q136457624",
+      "labels": {
+        "en": "fossil searching"
+      },
+      "descriptions": {
+        "en": "human hobby activity"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q136499958",
+      "labels": {
+        "en": "food gardening"
+      },
+      "descriptions": {
+        "en": "hobby of growing eatable foods such as mushrooms or strawberries"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q136524228",
+      "labels": {},
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "no_label"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q138744729",
+      "labels": {
+        "en": "railfanning"
+      },
+      "descriptions": {
+        "en": "recreational hobby of observing trains"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q140051212",
+      "labels": {
+        "nl": "amateurdichter"
+      },
+      "descriptions": {
+        "nl": "persoon die als hobby gedichten schrijven heeft"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q140875969",
+      "labels": {
+        "en": "festival-goer"
+      },
+      "descriptions": {},
+      "outcome": "rejected",
+      "reason": "proposal_reject"
+    },
+    {
+      "source_id": "S3",
+      "source_record_id": "Q141585202",
+      "labels": {
+        "en": "Board gaming"
+      },
+      "descriptions": {
+        "en": "Activity involving the playing of board games"
+      },
+      "outcome": "rejected",
+      "reason": "below_queue_cap"
+    }
+  ]
+}

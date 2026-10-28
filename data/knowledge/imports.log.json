@@ -1,0 +1,30 @@
+{
+  "imports": [
+    {
+      "source_id": "S3",
+      "imported_at": "2026-10-28",
+      "input_sha256": "3865b0afb799f706",
+      "fingerprint": "5aa4a5ef6d28be4e",
+      "records": 219,
+      "merged": 17,
+      "merged_new": 17,
+      "names_added": 7,
+      "in_review": 80,
+      "rejected": 122,
+      "queue_cap": 80
+    },
+    {
+      "source_id": "S3",
+      "imported_at": "2026-10-28",
+      "input_sha256": "3865b0afb799f706",
+      "fingerprint": "1047a2ad7e1247db",
+      "records": 219,
+      "merged": 17,
+      "merged_new": 0,
+      "names_added": 0,
+      "in_review": 80,
+      "rejected": 122,
+      "queue_cap": 80
+    }
+  ]
+}

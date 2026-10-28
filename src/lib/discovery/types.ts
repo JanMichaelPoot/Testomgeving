@@ -51,6 +51,27 @@ export interface Safety {
   note?: Localized;
 }
 
+// Where a record comes from, when it does not come from us. Absent = written by this project (method "curated").
+// "inferred_ai" never counts as a verified fact: an AI-derived value or label stays a suggestion until a human has
+// reviewed it (status "reviewed" and `reviewed_by`).
+export const PROVENANCE_METHODS = ["curated", "source", "inferred_ai"] as const;
+export type ProvenanceMethod = (typeof PROVENANCE_METHODS)[number];
+
+export interface Provenance {
+  source_id: string;
+  /** The record's id in the source (a Wikidata Q-number, for instance). Required when method is "source". */
+  source_record_id?: string;
+  method: ProvenanceMethod;
+  /** YYYY-MM-DD, when a human last checked the record against its source. */
+  last_verified_at?: string;
+}
+
+/** An external record this activity is known to be the same as (a merge, not an origin). */
+export interface SourceLink {
+  source_id: string;
+  source_record_id: string;
+}
+
 export interface Activity {
   /** Stable technical key. Never rename: profiles and history reference it. */
   id: string;
@@ -85,6 +106,17 @@ export interface Activity {
   /** Optional alt text; defaults to the label. */
   alt?: Localized;
   status: ActivityStatus;
+  /**
+   * Other names people use for this activity, per language. Only for finding duplicates and matching imports:
+   * never shown. No alias may equal the name or alias of another activity.
+   */
+  aliases?: { nl: string[]; en: string[] };
+  /** Where the record comes from if not from us (see Provenance). Absent = curated by this project. */
+  provenance?: Provenance;
+  /** External records this activity was matched to by an import; a record already linked is not imported again. */
+  source_links?: SourceLink[];
+  /** Who checked this activity and when. Required once status is "reviewed" or "live". */
+  reviewed_by?: { by: string; at: string };
 }
 
 export interface Domain {

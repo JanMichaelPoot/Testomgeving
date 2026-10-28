@@ -3858,3 +3858,47 @@ Stripe, Claude API, Resend, PostHog).
       **Blinde beoordeling**: `docs/eval/blind-b6-ronde-2.html` met `docs/eval/books-blind/P03-A.pdf` ... `P05-B.pdf`; de sleutel staat in
       `blind-b6-ronde-2.key.json` (niet openen voor je klaar bent). Rapporten: `docs/eval/2026-10-28-{current,v2}-only-P05-P18-P03-full.*`
       (bevatten P18 als mislukte regel). Geen codewijziging.
+
+- [x] Stap 104 - Kennisengine, B6 ronde 2 beoordeeld en fase B2 (kennismodel) en B3 (import van S3) gebouwd (Jan: "Voorstel B bij
+      blind-b6-ronde-2 is duidelijk beter en start fase B2 en B3"). **Eerst de uitslag (eerlijk)**: de sleutel van ronde 2 zegt dat
+      voorstel B in beide profielen (P03, P05) de **huidige** versie was, niet v2. In ronde 1 koos Jan ook B, en dat was toen v2. Samen: vier
+      profielparen, twee keer v2 duidelijk beter, twee keer de huidige versie duidelijk beter, één beoordelaar. Dat is **geen bewijs** dat v2
+      beter is en ook geen bewijs van het tegendeel; de B6-drempel is niet gehaald en v2 blijft achter de vlag. De vijf rubricvragen zijn niet
+      apart ingevuld, dus de reden is niet te lezen. Mogelijke oorzaken (niet bewezen): de herhaling in de tips bij v2 (`vraag` 4 keer bij P05),
+      of dat een kortere, minder volle invulling beter leest. **Niet in B2/B3 gebruikt**: dit werk staat los van v2.
+      **B2, kennismodel (klein, achter niets)**: `Activity` kreeg vier optionele velden: `aliases {nl,en}`, `provenance {source_id, method,
+      source_record_id?, last_verified_at?}`, `source_links [{source_id, source_record_id}]` en `reviewed_by {by, at}`, gevalideerd in `validate.ts`
+      (alias niet gelijk aan een eigen of andere naam of alias, per taal en genormaliseerd; `method` `source` vraagt een record-id; echte datums;
+      een record hoort bij één activiteit; `reviewed`/`live` vraagt `reviewed_by`). `source_links` is een afwijking van het auditvoorstel (één
+      `provenance`): provenance zegt waar een record **vandaan komt**, een koppeling zegt dat een bestaand record **hetzelfde is als** een extern
+      record; één veld kan niet allebei zijn. Gedeelde naamnormalisatie in `src/lib/discovery/names.ts`. Bewust niet toegevoegd (geen
+      consument): `kind`, `short_description`, extra facetten, een "thuis"-facet. Onbekend blijft `null`; een test controleert dat geen facet een
+      vervangwaarde gebruikt. De bestaande set laadt ongewijzigd (`taxonomy:check` 0/0).
+      **B3, importpijplijn voor S3 (Wikidata, CC0)**: `src/lib/knowledge/` (parse, normalize, match, screen, importer; zuiver en getest) en
+      `scripts/knowledge/import.ts` (leest en schrijft bestanden; `--write`, `--apply`, `--queue-cap`). De logica staat in `src/` en niet in
+      `scripts/knowledge/{parse,...}` zoals de opdracht noemt, zodat vitest hem kan testen. **Regels**: alleen een gelijke genormaliseerde naam in
+      dezelfde taal voegt automatisch samen (label of alias), nooit over talen heen; gedeelde woorden geven alleen een kandidaat voor een mens
+      ("schaken" is niet "correspondentieschaak", "boulderen" niet "klimmen"); niets wordt automatisch een activiteit. **Resultaat op S3**: 219
+      records: **17 samengevoegd** (alle handmatig nagekeken: zwemmen, schilderen, fotografie, pottenbakken, kalligrafie, geocaching, genealogie,
+      bonsai, origami, hardlopen, meditatie, imkeren, zendamateur, mountainbiken, vogels, houtbewerking, paddenstoelen; 7 nieuwe NL-bijnamen, 17
+      koppelingen, in 7 databestanden), **80 in review** (21 voorstel nieuw, 25 twijfel, 34 "hebben we al onder een andere naam"), **122 afgewezen**
+      (69 op voorstel van de lezer, 38 onder de grens van de wachtrij, 7 zonder label, 4 te algemeen, 2 onveilig, 2 vakterm). Rapport:
+      `docs/knowledge/import-S3.md`; wachtrij `data/knowledge/review-queue.json`; staging, logboek en voorstellen in `data/knowledge/`.
+      **Belangrijkste bevinding**: naamvergelijking mist wat de bibliotheek al heeft onder andere woorden (amateurastronomie is `telescoop`,
+      kaarsen maken is `kaarsen-gieten`, kartracing is `karten`, grotten is `grotten-verkennen`, fossielen zoeken is `fossielen`): van de ± 158 niet
+      gevonden records bleken er een stuk of 50 al gedekt. Die staan als "merge"-voorstel in de wachtrij (jij bevestigt met `"merge:<id>"`); ze
+      vinden kan niet zonder semantiek of een mens. Echt nieuw zijn er 21 voorstellen (o.a. dammen, sudoku, jojo, proplifting, strandjutten,
+      ballonmodelleren, bloemsierkunst, quilten, kaarten maken, conlanging, videoproductie, lederwerk, stenen stapelen, postcrossing, groundhoppen,
+      paaldansen, touwtjespringen, pilates, rolschaatsen, bijdragen aan Wikimedia, open-source meebouwen), dus ± 21 in plaats van de 22 uit Stage A.
+      **Keuzes die ik zelf maakte (K2, K5)**: alleen S3 (de enige bron met een schone licentie en NL); wachtrijgrens 80 (het voorbeeld uit de
+      audit); mijn voorstellen zijn **voorstellen, geen beslissingen** (de lezer is dezelfde assistent die de bron las, niet Jan). Geen AI-vertalingen
+      gedaan (€0): 11 wachtrij-items missen een NL-label en vragen een vertaling (`inferred_ai` tot gereviewd). **Idempotent**: twee keer draaien geeft
+      byte-voor-byte dezelfde staging-, wachtrij- en rapportbestanden en één logregel (getest en op de echte data gecontroleerd).
+      Getest: 639 tests (nieuw: 13 voor het kennismodel, 19 voor de import), `tsc`, eslint, `taxonomy:check` (0/0), `npm run build`. **Nog te
+      doen door Jan**: de wachtrij beoordelen (21 + 25 + 34 regels, zie het rapport) en daarna de goedgekeurde nieuwe activiteiten laten schrijven
+      (tags, kenmerken, scène, NL-label, `concept`, foto's ± $0,13 per vel van negen); wil je dat ik dat doe, geef de goedgekeurde lijst.
+      **Aanvulling (Nederlandse labels)**: de 11 wachtrij-items zonder NL-label uit Wikidata hebben nu een voorgesteld NL-label (bv. "Stenen
+      stapelen", "Meebouwen aan open-source software", "Spokenjacht"), gezet in `nl_labels` van `data/knowledge/proposals/S3.json` en in het
+      rapport getoond als "… (vertaald voorstel)". Het zijn vertalingen door de assistent (`inferred_ai`, €0): ze staan in een eigen veld
+      `nl_suggestion` en nooit in `labels.nl`, dat blijft brondata. Jan zei de voorstellen te onderschrijven; hij heeft de wachtrij nog niet
+      beslist (`decision` staat overal op `null`), dus er is niets samengevoegd of aangemaakt op basis daarvan.

@@ -212,7 +212,13 @@
       "en": "Beginner workshop, tree included"
     },
     "scene": "a bonsai tree in a ceramic pot with pruning shears",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q64365"
+      }
+    ]
   },
   {
     "id": "origami",
@@ -248,7 +254,13 @@
       "en": "A pack of paper and one video"
     },
     "scene": "colorful origami cranes on a table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q83357"
+      }
+    ]
   },
   {
     "id": "munten-zegels",
@@ -497,7 +509,19 @@
       "en": "Intro day at an amateur-radio society; licence comes later"
     },
     "scene": "a vintage radio transceiver with dials and a headset",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q185727"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "radioamateurisme"
+      ],
+      "en": []
+    }
   },
   {
     "id": "rc-modellen",

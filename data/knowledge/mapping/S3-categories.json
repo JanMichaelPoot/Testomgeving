@@ -1,0 +1,5 @@
+{
+  "source_id": "S3",
+  "note": "Wikidata has no hobby categories in the S3 query (instance or subclass of hobby, without sports and art forms), so there is nothing to map from. A domain for a new candidate comes from a person's proposal (data/knowledge/proposals/S3.json) or, for a merge, from the activity it merges into. A source that does have categories (for example a later S2 name list) puts its mapping here: { \"<source category>\": { \"domain\": \"<domain id>\", \"sub\": \"<sub id>\" } }.",
+  "categories": {}
+}

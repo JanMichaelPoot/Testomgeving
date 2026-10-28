@@ -33,7 +33,13 @@
       "en": "Single workshop or trial class, everything supplied"
     },
     "scene": "a potter's wheel with a wet clay bowl, ceramic tools and an apron on a stool",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q11642"
+      }
+    ]
   },
   {
     "id": "houtbewerking",
@@ -68,7 +74,13 @@
       "en": "Beginner course at a workshop, tools provided"
     },
     "scene": "a wooden workbench with chisels, a plane and fresh wood shavings",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q816871"
+      }
+    ]
   },
   {
     "id": "lederwerk",
@@ -424,7 +436,19 @@
       "en": "Painting workshop with materials, no talent needed"
     },
     "scene": "an easel with a canvas, paint tubes and brushes in jars near a window",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q11629"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "schilderkunst"
+      ],
+      "en": []
+    }
   },
   {
     "id": "tekenen",
@@ -500,7 +524,13 @@
       "en": "A photo walk with your phone or a beginner course"
     },
     "scene": "a vintage camera on a windowsill with a blurred street view behind it",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q11633"
+      }
+    ]
   },
   {
     "id": "collage",
@@ -785,7 +815,13 @@
     },
     "scene": "a fountain pen, a bottle of ink and a sheet with flowing black lettering on a sloped writing desk",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q12681"
+      }
+    ]
   },
   {
     "id": "analoge-fotografie",

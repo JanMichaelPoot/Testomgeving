@@ -69,7 +69,13 @@
       "en": "Ten minutes with a free app"
     },
     "scene": "a meditation cushion beside a window with a plant and a small bell",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q108458"
+      }
+    ]
   },
   {
     "id": "wandelmeditatie",

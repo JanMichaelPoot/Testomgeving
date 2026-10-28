@@ -794,7 +794,13 @@
     },
     "scene": "a muddy mountain bike leaning against a pine trunk on a sandy forest trail in morning mist",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q520611"
+      }
+    ]
   },
   {
     "id": "obstacle-run",
