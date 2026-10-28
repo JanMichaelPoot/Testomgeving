@@ -6,7 +6,8 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 
 // Test phase: a limited number of books per IP address, so a link passed around on WhatsApp cannot run up the bill.
 //   - TEST_MAX_BOOKS_PER_IP (e.g. "2") switches it on; unset or 0 = no limit (the real launch).
-//   - The owner (logged in to /admin in this browser) is never limited.
+//   - The owner (logged in to /admin in this browser) is never limited, and neither is an address listed in
+//     TEST_QUOTA_EXEMPT_IPS (comma-separated, e.g. your own home or office address; set in Vercel, never in the repo).
 //   - Only a keyed hash of the address is stored, in test_quota (migration 0021).
 //   - What counts is a started book (pending or ready). A book that failed does not count against the person.
 //   - Without a readable address (local development) nothing is limited; if the table is missing, nothing is limited
@@ -24,6 +25,25 @@ export function firstIp(forwardedFor: string | null | undefined, realIp?: string
   const first = (forwardedFor ?? "").split(",")[0]?.trim();
   const ip = first || (realIp ?? "").trim();
   return ip ? ip : null;
+}
+
+/** The addresses in TEST_QUOTA_EXEMPT_IPS: separated by commas, semicolons or spaces, compared case-insensitively. */
+export function parseExemptIps(raw: string | undefined): string[] {
+  return (raw ?? "")
+    .replace(/^"|"$/g, "")
+    .split(/[,;\s]+/)
+    .map((x) => x.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+export function isExemptIp(ip: string | null, list: string[]): boolean {
+  return ip !== null && list.includes(ip.trim().toLowerCase());
+}
+
+/** The visitor's address as the server sees it (what to put in TEST_QUOTA_EXEMPT_IPS). Null when it cannot be read. */
+export async function requestIp(): Promise<string | null> {
+  const h = await headers();
+  return firstIp(h.get("x-forwarded-for"), h.get("x-real-ip"));
 }
 
 export function hashIp(ip: string, secret: string): string {
@@ -53,8 +73,7 @@ function secret(): string {
 }
 
 async function requestIpHash(): Promise<string | null> {
-  const h = await headers();
-  const ip = firstIp(h.get("x-forwarded-for"), h.get("x-real-ip"));
+  const ip = await requestIp();
   return ip ? hashIp(ip, secret()) : null;
 }
 
@@ -83,6 +102,10 @@ export async function checkTestQuota(supabase: Supabase, sessionId: string | nul
   if (limit === null) return decide({ limit, used: 0, owner: false, ipHash: null, sessionAlreadyCounted: false });
   const owner = await isAdminAuthenticated();
   if (owner) return decide({ limit, used: 0, owner, ipHash: null, sessionAlreadyCounted: false });
+  // An exempt address is treated like the owner: no limit, nothing recorded.
+  if (isExemptIp(await requestIp(), parseExemptIps(process.env.TEST_QUOTA_EXEMPT_IPS))) {
+    return decide({ limit, used: 0, owner: true, ipHash: null, sessionAlreadyCounted: false });
+  }
   const ipHash = await requestIpHash();
   if (!ipHash) return decide({ limit, used: 0, owner, ipHash, sessionAlreadyCounted: false });
   try {

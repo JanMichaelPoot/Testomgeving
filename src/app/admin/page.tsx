@@ -5,7 +5,7 @@ import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { overview, percent, ratio, type PaymentRow, type PlanRow } from "@/lib/adminStats";
 import { envChecks } from "@/lib/adminEnv";
-import { quotaOverview } from "@/lib/testQuota";
+import { isExemptIp, parseExemptIps, quotaOverview, requestIp } from "@/lib/testQuota";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid, formatEuro, formatSeconds } from "./ui";
 
 export const metadata: Metadata = {
@@ -35,6 +35,8 @@ export default async function AdminOverviewPage() {
   const emailRate = ratio(o.email.sent, o.email.expected);
   const checks = envChecks(process.env);
   const quota = await quotaOverview(supabase);
+  const myIp = await requestIp();
+  const myIpExempt = isExemptIp(myIp, parseExemptIps(process.env.TEST_QUOTA_EXEMPT_IPS));
   const broken = checks.filter((c) => c.required && !c.ok);
 
   return (
@@ -150,6 +152,10 @@ export default async function AdminOverviewPage() {
             <Tile label="Verbindingen die meededen" value={quota.addresses} sub={`${quota.books} boeken geteld`} />
             <Tile label="Limiet bereikt" value={quota.atLimit} sub="deze mensen kunnen geen nieuw boek meer maken" />
           </TileGrid>
+          <p className="mt-3 text-sm text-ink/70">
+            Jouw adres zoals de server het ziet: <strong>{myIp ?? "niet leesbaar"}</strong>
+            {myIpExempt ? " (staat in TEST_QUOTA_EXEMPT_IPS: onbeperkt)" : ". Zet dit in TEST_QUOTA_EXEMPT_IPS in Vercel om ook zonder inloggen onbeperkt te zijn."}
+          </p>
         </Section>
       )}
 

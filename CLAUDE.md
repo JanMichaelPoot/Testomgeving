@@ -3932,3 +3932,10 @@ Stripe, Claude API, Resend, PostHog).
       vaste profielen veranderd (de ruis en de zeldzaamheid hangen van de hele set af); `scripts/eval/baseline/current.json` is ververst (E1-E6 nog 0, ook
       voor 500 profielen in beide wizards en beide versies), en de test "zelfde seeds elke keer" kreeg een ruimere time-out (60 s) omdat een tweede
       volledige run bij 455 activiteiten net boven de 5 s uitkwam. Getest: 642 tests, `tsc`, eslint, `taxonomy:check --images`, `npm run build`.
+
+- [x] Stap 106 - De testlimiet (Stap 93) stopte Jan zelf ("Je testboeken zijn op" vanaf zijn eigen verbinding): alleen een ingelogde admin was
+      vrijgesteld, per browser. Nieuw: `TEST_QUOTA_EXEMPT_IPS` (komma-gescheiden adressen, in Vercel, nooit in de repo) werkt als de
+      eigenaar: geen limiet en niets geregistreerd (`parseExemptIps`, `isExemptIp`, getest). Het admin-blok "Testlimiet" toont het adres zoals
+      de server het ziet (kan IPv6 zijn en dus afwijken van een "wat is mijn IP"-site) en of het is vrijgesteld; `/admin` toont de instelling
+      onder "Instellingen van deze deployment". Werkt pas na instellen en opnieuw deployen. Getest: unit-tests, `tsc`, eslint; niet in een echte
+      Vercel-omgeving gezien.

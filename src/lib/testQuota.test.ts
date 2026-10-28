@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { decide, firstIp, hashIp, parseLimit } from "@/lib/testQuota";
+import { decide, firstIp, hashIp, isExemptIp, parseExemptIps, parseLimit } from "@/lib/testQuota";
 
 describe("parseLimit", () => {
   it("reads a positive whole number, and nothing else switches the limit on", () => {
@@ -43,5 +43,23 @@ describe("decide", () => {
     expect(decide({ ...base, used: 2, sessionAlreadyCounted: true }).allowed).toBe(true);
     expect(decide({ ...base, used: 9, limit: null }).allowed).toBe(true);
     expect(decide({ ...base, used: 9, ipHash: null }).allowed).toBe(true);
+  });
+});
+
+describe("exempt addresses", () => {
+  it("reads a list separated by commas, semicolons or spaces, ignoring quotes, blanks and case", () => {
+    expect(parseExemptIps('"162.120.187.203, 2001:DB8::1;10.0.0.1  "')).toEqual(["162.120.187.203", "2001:db8::1", "10.0.0.1"]);
+    expect(parseExemptIps(undefined)).toEqual([]);
+    expect(parseExemptIps("  ")).toEqual([]);
+  });
+
+  it("matches exactly, so a neighbouring address stays limited", () => {
+    const list = parseExemptIps("162.120.187.203");
+    expect(isExemptIp("162.120.187.203", list)).toBe(true);
+    expect(isExemptIp(" 162.120.187.203 ", list)).toBe(true);
+    expect(isExemptIp("162.120.187.20", list)).toBe(false);
+    expect(isExemptIp("162.120.187.2031", list)).toBe(false);
+    expect(isExemptIp(null, list)).toBe(false);
+    expect(isExemptIp("162.120.187.203", [])).toBe(false);
   });
 });

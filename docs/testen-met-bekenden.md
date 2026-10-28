@@ -72,3 +72,9 @@ Dat geeft iedereen weer het volle aantal; doe het dus liefst eenmalig voor een g
 `/admin` → *Opruimen*: kies de dag vóór je echte start en wis de testgegevens (testboeken, feedback, logboek, tellers). Zet daarna `TEST_MAX_BOOKS_PER_IP` weg of op `0`
 en zet `NEXT_PUBLIC_TEST_FEEDBACK` uit, tenzij je de vragenlijst wilt houden. Let op: de knop "Betaling overslaan" op de betaalpagina staat nog voor iedereen aan;
 haal die weg (of zet hem achter een vlag) vóór de echte lancering.
+
+## Zelf onbeperkt testen
+
+Ben je niet ingelogd op `/admin` in de browser waarmee je test, dan tel je mee als iedereen. Twee manieren om onbeperkt te zijn:
+1. Log in op `/admin` in die browser (werkt per browser).
+2. Zet je eigen adres in Vercel in `TEST_QUOTA_EXEMPT_IPS` (komma-gescheiden) en deploy opnieuw. Op `/admin`, in het blok "Testlimiet", staat je adres zoals de server het ziet; dat kan een IPv6-adres zijn en dus anders dan wat een "wat is mijn IP"-site toont. Zet het adres uit het admin-blok erin (en eventueel allebei).

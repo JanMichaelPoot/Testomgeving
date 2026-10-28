@@ -47,6 +47,8 @@ export function envChecks(env: Env): EnvCheck[] {
   add("NEXT_PUBLIC_TEST_FEEDBACK", true, has(env.NEXT_PUBLIC_TEST_FEEDBACK) ? `ingesteld op "${env.NEXT_PUBLIC_TEST_FEEDBACK}" (vragenlijst onder het boek)` : "niet ingesteld (geen vragenlijst)", false);
   const limit = Number((env.TEST_MAX_BOOKS_PER_IP ?? "").trim());
   add("TEST_MAX_BOOKS_PER_IP", true, Number.isInteger(limit) && limit > 0 ? `${limit} boek(en) per internetverbinding (testlimiet aan; jij bent als ingelogde admin onbeperkt)` : "niet ingesteld: geen limiet", false);
+  const exempt = (env.TEST_QUOTA_EXEMPT_IPS ?? "").split(/[,;\s]+/).filter(Boolean).length;
+  add("TEST_QUOTA_EXEMPT_IPS", true, exempt ? `${exempt} adres(sen) zonder testlimiet` : "niet ingesteld: alleen ingelogd als admin ben je onbeperkt", false);
   add("NEXT_PUBLIC_WINDOW_PRICE_CENTS", true, has(env.NEXT_PUBLIC_WINDOW_PRICE_CENTS) ? `${env.NEXT_PUBLIC_WINDOW_PRICE_CENTS} cent` : "standaard (350 cent)", false);
   return checks;
 }
