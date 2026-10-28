@@ -33,7 +33,19 @@
       "en": "Beginner workshop or a starter kit"
     },
     "scene": "a breadboard with LEDs, wires and a microcontroller on a desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q122820085"
+      }
+    ],
+    "aliases": {
+      "nl": [],
+      "en": [
+        "hobby electronics"
+      ]
+    }
   },
   {
     "id": "ontwerp-print",
@@ -68,7 +80,21 @@
       "en": "Print one design at a makerspace or library"
     },
     "scene": "a 3D printer printing a small object in colorful filament",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q229367"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "3D-printen"
+      ],
+      "en": [
+        "3D printing"
+      ]
+    }
   },
   {
     "id": "coderen",
@@ -216,7 +242,19 @@
     },
     "scene": "a small quadcopter drone on a grass field beside a controller",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q130374573"
+      }
+    ],
+    "aliases": {
+      "nl": [],
+      "en": [
+        "drone flying"
+      ]
+    }
   },
   {
     "id": "repair-cafe",
@@ -466,7 +504,21 @@
       "en": "Public observatory evening"
     },
     "scene": "a refractor telescope on a tripod on a rooftop at twilight",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q560575"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "amateurastronomie"
+      ],
+      "en": [
+        "amateur astronomy"
+      ]
+    }
   },
   {
     "id": "citizen-science",
@@ -575,7 +627,19 @@
       "en": "Excursion with a guide or a map of your region"
     },
     "scene": "a layered rock cliff with a hammer and a notebook on the ground",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q1535038"
+      }
+    ],
+    "aliases": {
+      "nl": [],
+      "en": [
+        "amateur geology"
+      ]
+    }
   },
   {
     "id": "weerstation",
@@ -822,5 +886,197 @@
     "scene": "a half-disassembled vintage scooter engine on a workbench under a hanging lamp with a tidy set of spanners",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "kortegolf-luisteren",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Kortegolf luisteren",
+      "en": "Shortwave listening"
+    },
+    "tags": [
+      "sound",
+      "retro",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een online ontvanger (webSDR) om stations van over de hele wereld te beluisteren",
+      "en": "An online receiver (WebSDR) for listening to stations from around the world"
+    },
+    "scene": "a vintage shortwave radio with a glowing frequency dial, a notebook of station logs and headphones on a desk",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q1073309",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "dxen",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "DX'en: verre signalen ontvangen",
+      "en": "DXing: catching distant signals"
+    },
+    "tags": [
+      "sound",
+      "collecting",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een radio met een goede antenne of een webSDR, en een logboek van wat je vangt",
+      "en": "A radio with a good antenna or a WebSDR, and a logbook of what you catch"
+    },
+    "scene": "a radio receiver with a long wire antenna by a window and a logbook of received call signs with a world map pinned behind it",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q844865",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "retrocomputing",
+    "domain": "tech",
+    "sub": "repair_craft",
+    "label": {
+      "nl": "Retrocomputing: oude computers aan de praat",
+      "en": "Retrocomputing: reviving old computers"
+    },
+    "tags": [
+      "retro",
+      "technique",
+      "puzzling"
+    ],
+    "formats": [
+      "solo",
+      "small_group",
+      "online",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een retrocomputerbeurs of -club bezoeken en een oude computer zien opstarten",
+      "en": "Visit a retro-computer fair or club and watch an old computer boot"
+    },
+    "scene": "a beige 1980s home computer with a chunky keyboard and a green-text monitor on a workbench with floppy disks and a screwdriver",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q389525",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "wikipedia-bijdragen",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Bijdragen aan Wikipedia en Wikimedia",
+      "en": "Contributing to Wikipedia and Wikimedia"
+    },
+    "tags": [
+      "language",
+      "caring",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Verbeter één zin of voeg één bron toe aan een artikel over iets wat je goed kent",
+      "en": "Improve one sentence or add one source to an article about something you know well"
+    },
+    "scene": "a laptop showing an encyclopedia-style article with a footnote list, beside a notebook of sources and a mug",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q134715708",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "open-source",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Meebouwen aan open-source software",
+      "en": "Contributing to open-source software"
+    },
+    "tags": [
+      "making",
+      "puzzling",
+      "teamwork",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies een 'good first issue' bij een klein project en los één kleine bug op",
+      "en": "Pick a 'good first issue' in a small project and fix one small bug"
+    },
+    "scene": "a laptop with a code editor showing a small bug fix and a sticky note checklist next to a mechanical keyboard",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q7096425",
+      "method": "curated"
+    }
   }
 ]

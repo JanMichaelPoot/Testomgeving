@@ -18,11 +18,14 @@ export interface LibraryIndex {
   names: Map<string, { activityId: string; tier: NameTier }[]>;
   /** `${source_id}:${source_record_id}` -> activity id. */
   links: Map<string, string>;
+  /** Records an activity was written FROM (its provenance), same key. */
+  origins: Map<string, string>;
 }
 
 export function buildIndex(activities: Activity[]): LibraryIndex {
   const names: LibraryIndex["names"] = new Map();
   const links: LibraryIndex["links"] = new Map();
+  const origins: LibraryIndex["origins"] = new Map();
   const add = (lang: "nl" | "en", raw: string | undefined, activityId: string, tier: NameTier) => {
     const n = normalizeName(raw);
     if (!n) return;
@@ -37,11 +40,13 @@ export function buildIndex(activities: Activity[]): LibraryIndex {
       for (const alias of a.aliases?.[lang] ?? []) add(lang, alias, a.id, "alias");
     }
     for (const l of a.source_links ?? []) links.set(`${l.source_id}:${l.source_record_id}`, a.id);
+    if (a.provenance?.source_record_id) origins.set(`${a.provenance.source_id}:${a.provenance.source_record_id}`, a.id);
   }
-  return { activities, byId: new Map(activities.map((a) => [a.id, a])), names, links };
+  return { activities, byId: new Map(activities.map((a) => [a.id, a])), names, links, origins };
 }
 
 export type MatchResult =
+  | { kind: "added"; activityId: string }
   | { kind: "linked"; activityId: string; tier: "exact" | "alias"; lang?: "nl" | "en" }
   | { kind: "merge"; activityId: string; tier: "exact" | "alias"; lang: "nl" | "en" }
   | { kind: "ambiguous"; candidates: string[] }
@@ -75,6 +80,9 @@ export function similarActivities(rec: NormalizedRecord, index: LibraryIndex, li
 }
 
 export function matchRecord(rec: NormalizedRecord, index: LibraryIndex): MatchResult {
+  // An activity that was written from this record (a reviewed "accept") is not a merge and not a candidate any more.
+  const origin = index.origins.get(`${rec.source_id}:${rec.source_record_id}`);
+  if (origin) return { kind: "added", activityId: origin };
   const hits: { activityId: string; tier: NameTier; lang: "nl" | "en" }[] = [];
   for (const lang of ["nl", "en"] as const) {
     const n = rec.names[lang];

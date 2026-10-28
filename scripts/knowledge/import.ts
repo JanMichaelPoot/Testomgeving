@@ -15,7 +15,7 @@ import { validateLibrary } from "../../src/lib/discovery/validate";
 import { HYBRIDS } from "../../src/lib/discovery/library";
 import { DEFAULT_QUEUE_CAP, applyMerges, buildReport, fingerprint, runImport } from "../../src/lib/knowledge/importer";
 import { parseWikidata } from "../../src/lib/knowledge/parseWikidata";
-import type { ProposalFile, QueueEntry } from "../../src/lib/knowledge/types";
+import type { Decision, ProposalFile, QueueEntry } from "../../src/lib/knowledge/types";
 
 const args = process.argv.slice(2);
 const flag = (n: string) => args.includes(`--${n}`);
@@ -46,14 +46,16 @@ const proposals = readJson<ProposalFile | null>(path.join(KNOWLEDGE, "proposals"
 const queueFile = readJson<{ entries: QueueEntry[] }>(path.join(KNOWLEDGE, "review-queue.json"), { entries: [] });
 const previousQueue = queueFile.entries.filter((e) => e.source_id === source);
 const queueCap = Number(value("queue-cap") ?? DEFAULT_QUEUE_CAP);
+// Decisions live apart from the queue (which is regenerated), so they last: data/knowledge/decisions/<source>.json.
+const decisionFile = readJson<{ decisions: Record<string, Decision> } | null>(path.join(KNOWLEDGE, "decisions", `${source}.json`), null);
 
-const result = runImport({ records, library: ALL_ACTIVITIES, proposals, previousQueue, queueCap });
+const result = runImport({ records, library: ALL_ACTIVITIES, proposals, previousQueue, decisions: decisionFile?.decisions, queueCap });
 const newMerges = result.merges.filter((m) => !m.alreadyLinked);
 const aliasCount = newMerges.reduce((n, m) => n + m.addAliases.nl.length + m.addAliases.en.length, 0);
 const byReason = new Map<string, number>();
 for (const r of result.rejected) byReason.set(r.reason, (byReason.get(r.reason) ?? 0) + 1);
 
-console.log(`${source}: ${result.records} records -> ${result.merges.length} merged (${newMerges.length} new, ${aliasCount} new names), ${result.queue.length} in review, ${result.rejected.length} rejected`);
+console.log(`${source}: ${result.records} records -> ${result.merges.length} merged (${newMerges.length} new, ${aliasCount} new names), ${result.added.length} written as new activities, ${result.queue.length} in review, ${result.rejected.length} rejected`);
 console.log(`  rejected by reason: ${[...byReason.entries()].map(([k, v]) => `${k} ${v}`).join(", ") || "-"}`);
 console.log(`  review queue: ${result.queue.length} of max ${queueCap}; proposed accept ${result.queue.filter((q) => q.proposal?.verdict === "accept").length}, unsure ${result.queue.filter((q) => q.proposal?.verdict === "unsure").length}, needs Dutch label ${result.queue.filter((q) => q.needs_nl_label).length}`);
 
@@ -89,6 +91,7 @@ if (flag("apply")) {
 // 2. Staging: every record with what happened to it, before anything is reviewed.
 const outcome = new Map<string, Record<string, unknown>>();
 for (const m of result.merges) outcome.set(m.source_record_id, { outcome: "merged", activityId: m.activityId, tier: m.tier });
+for (const x of result.added) outcome.set(x.source_record_id, { outcome: "added", activityId: x.activityId });
 for (const q of result.queue) outcome.set(q.source_record_id, { outcome: "review", reason: q.reason, candidates: q.candidates });
 for (const r of result.rejected) outcome.set(r.source_record_id, { outcome: "rejected", reason: r.reason });
 const staging = {
@@ -121,6 +124,7 @@ if (!last || last.fingerprint !== print || last.input_sha256 !== inputHash) {
     records: result.records,
     merged: result.merges.length,
     merged_new: newMerges.length,
+    added: result.added.length,
     names_added: aliasCount,
     in_review: result.queue.length,
     rejected: result.rejected.length,

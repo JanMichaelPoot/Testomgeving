@@ -207,6 +207,26 @@ describe("the import as a whole", () => {
     expect(buildReport({ result: run2, library: lib3, domainLabels: labels, sourceName: "t" })).toBe(buildReport({ result: run1, library: lib2, domainLabels: labels, sourceName: "t" }));
   });
 
+  it("a decision file outlives the queue: it decides records that are not in the queue, and 'merge:<id>' is reviewed, before and after the names became aliases", () => {
+    const decisions = { Q12: "reject" as const, Q16: "merge:klimmen" as const, Q13: "accept" as const };
+    const run1 = runImport({ records, library: lib, proposals, decisions });
+    expect(run1.rejected.find((x) => x.source_record_id === "Q12")!.reason).toBe("reviewer_reject");
+    expect(run1.merges.find((m) => m.source_record_id === "Q16")).toMatchObject({ activityId: "klimmen", tier: "reviewed", alreadyLinked: false });
+    const lib2 = applyMerges(lib, run1.merges, "S3");
+    expect(lib2.find((a) => a.id === "klimmen")!.aliases?.nl).toContain("indoor klimmen");
+    const run2 = runImport({ records, library: lib2, proposals, decisions });
+    expect(run2.merges.find((m) => m.source_record_id === "Q16")).toMatchObject({ tier: "reviewed", alreadyLinked: true });
+    expect(fingerprint(run2)).toBe(fingerprint(run1));
+  });
+
+  it("a record an activity was written from is 'added', not a merge, not a candidate, and not reviewed again", () => {
+    const written = act("dammen", "Dammen", "Checkers", { provenance: { source_id: "S3", source_record_id: "Q13", method: "curated" } });
+    const r = runImport({ records, library: [...lib, written], proposals, decisions: { Q13: "accept" } });
+    expect(r.added).toEqual([{ source_record_id: "Q13", activityId: "dammen" }]);
+    expect(r.merges.some((m) => m.source_record_id === "Q13")).toBe(false);
+    expect(r.queue.some((q) => q.source_record_id === "Q13")).toBe(false);
+  });
+
   it("adds a name the library lacks as an alias, once, and keeps the library valid", () => {
     const withAlias = runImport({ records: [rec("Q20", "chess", "schaakspel")], library: lib });
     expect(withAlias.merges[0].addAliases).toEqual({ nl: ["schaakspel"], en: [] });
@@ -225,6 +245,6 @@ describe("the import as a whole", () => {
 
   it("never turns a record into an activity: the import result contains no Activity objects", () => {
     const r = runImport({ records, library: lib, proposals });
-    expect(Object.keys(r).sort()).toEqual(["merges", "queue", "records", "rejected", "source_id"]);
+    expect(Object.keys(r).sort()).toEqual(["added", "merges", "queue", "records", "rejected", "source_id"]);
   });
 });

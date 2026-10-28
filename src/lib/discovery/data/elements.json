@@ -220,7 +220,19 @@
     },
     "scene": "rows of hand-poured beeswax candles cooling on a rack beside a pot of melted wax",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q29349255"
+      }
+    ],
+    "aliases": {
+      "nl": [],
+      "en": [
+        "candlemaking"
+      ]
+    }
   },
   {
     "id": "houtsnijden",

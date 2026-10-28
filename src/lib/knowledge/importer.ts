@@ -3,7 +3,7 @@ import type { Activity } from "@/lib/discovery/types";
 import { buildIndex, matchRecord, newAliasesFor } from "@/lib/knowledge/match";
 import { normalizeRecord } from "@/lib/knowledge/normalize";
 import { autoReject, queueScore } from "@/lib/knowledge/screen";
-import type { ImportResult, Merge, ProposalFile, QueueEntry, RawRecord, RejectedEntry } from "@/lib/knowledge/types";
+import type { Decision, ImportResult, Merge, ProposalFile, QueueEntry, RawRecord, RejectedEntry } from "@/lib/knowledge/types";
 import { normalizeName } from "@/lib/discovery/names";
 
 // The whole import as one pure function: records + library + earlier decisions in, merges + review queue +
@@ -18,6 +18,8 @@ export interface ImportInput {
   proposals?: ProposalFile | null;
   /** The review queue as it was last written; decisions in it survive a new run. */
   previousQueue?: QueueEntry[];
+  /** Decisions kept apart from the queue (data/knowledge/decisions/<source>.json). They win over the queue's and last for ever. */
+  decisions?: Record<string, Decision>;
   queueCap?: number;
 }
 
@@ -28,6 +30,7 @@ export function runImport(input: ImportInput): ImportResult {
   const previous = new Map((input.previousQueue ?? []).map((e) => [e.source_record_id, e]));
 
   const merges: Merge[] = [];
+  const added: ImportResult["added"] = [];
   const candidates: QueueEntry[] = [];
   const rejected: RejectedEntry[] = [];
   const reject = (r: RawRecord, reason: RejectedEntry["reason"], note?: string) =>
@@ -35,19 +38,32 @@ export function runImport(input: ImportInput): ImportResult {
 
   for (const raw of input.records) {
     const rec = normalizeRecord(raw);
-    const decided = previous.get(raw.source_record_id)?.decision ?? null;
+    const decided = input.decisions?.[raw.source_record_id] ?? previous.get(raw.source_record_id)?.decision ?? null;
     const m = matchRecord(rec, index);
 
+    if (m.kind === "added") {
+      added.push({ source_record_id: raw.source_record_id, activityId: m.activityId });
+      continue;
+    }
+
+    // A merge a person decided is "reviewed" whether or not the names also match: after the names were added as
+    // aliases a second run would otherwise call the same merge an alias match, and the report would change.
+    const reviewedMerge = typeof decided === "string" && decided.startsWith("merge:");
     if (m.kind === "linked") {
-      merges.push({ source_record_id: raw.source_record_id, activityId: m.activityId, tier: m.tier, ...(m.lang ? { lang: m.lang } : {}), addAliases: { nl: [], en: [] }, alreadyLinked: true });
+      merges.push({
+        source_record_id: raw.source_record_id,
+        activityId: m.activityId,
+        ...(reviewedMerge ? { tier: "reviewed" as const } : { tier: m.tier, ...(m.lang ? { lang: m.lang } : {}) }),
+        addAliases: { nl: [], en: [] },
+        alreadyLinked: true,
+      });
       continue;
     }
     if (m.kind === "merge") {
       merges.push({
         source_record_id: raw.source_record_id,
         activityId: m.activityId,
-        tier: m.tier,
-        lang: m.lang,
+        ...(reviewedMerge ? { tier: "reviewed" as const } : { tier: m.tier, lang: m.lang }),
         addAliases: newAliasesFor(rec, index),
         alreadyLinked: false,
       });
@@ -117,7 +133,7 @@ export function runImport(input: ImportInput): ImportResult {
 
   const byRecord = (a: { source_record_id: string }, b: { source_record_id: string }) =>
     Number(a.source_record_id.slice(1)) - Number(b.source_record_id.slice(1));
-  return { source_id, records: input.records.length, merges: merges.sort(byRecord), queue, rejected: rejected.sort(byRecord) };
+  return { source_id, records: input.records.length, merges: merges.sort(byRecord), added: added.sort(byRecord), queue, rejected: rejected.sort(byRecord) };
 }
 
 /**
@@ -182,8 +198,9 @@ const REASON_NL: Record<string, string> = {
 export function buildReport({ result, library, domainLabels, sourceName }: ReportInput): string {
   const byId = new Map(library.map((a) => [a.id, a]));
   const domainOf = (id: string) => byId.get(id)?.domain ?? "?";
-  const rows = new Map<string, { merged: number; review: number }>();
-  const row = (d: string) => rows.get(d) ?? { merged: 0, review: 0 };
+  const rows = new Map<string, { merged: number; review: number; added: number }>();
+  const row = (d: string) => rows.get(d) ?? { merged: 0, review: 0, added: 0 };
+  for (const x of result.added) rows.set(domainOf(x.activityId), { ...row(domainOf(x.activityId)), added: row(domainOf(x.activityId)).added + 1 });
   for (const m of result.merges) rows.set(domainOf(m.activityId), { ...row(domainOf(m.activityId)), merged: row(domainOf(m.activityId)).merged + 1 });
   for (const q of result.queue) {
     const d = q.proposal?.domain ?? (q.candidates[0] ? domainOf(q.candidates[0]) : "(geen domein)");
@@ -192,9 +209,9 @@ export function buildReport({ result, library, domainLabels, sourceName }: Repor
   const label = (d: string) => domainLabels[d] ?? d;
   const lines: string[] = [];
   lines.push(`# Import ${result.source_id}: ${sourceName}`, "");
-  lines.push(`Records in de bron: **${result.records}** · samengevoegd met een bestaande activiteit: **${result.merges.length}** · in review: **${result.queue.length}** · afgewezen: **${result.rejected.length}** · rechtstreeks toegevoegd als activiteit: **0** (niets gaat live zonder review).`, "");
-  lines.push("## Per domein", "", "| Domein | Samengevoegd | In review |", "|---|---|---|");
-  for (const d of [...rows.keys()].sort()) lines.push(`| ${label(d)} | ${rows.get(d)!.merged} | ${rows.get(d)!.review} |`);
+  lines.push(`Records in de bron: **${result.records}** · samengevoegd met een bestaande activiteit: **${result.merges.length}** · als nieuwe activiteit geschreven (status concept): **${result.added.length}** · nog in review: **${result.queue.length}** · afgewezen: **${result.rejected.length}**. Niets wordt automatisch een activiteit: nieuwe activiteiten zijn na een beslissing door een mens geschreven.`, "");
+  lines.push("## Per domein", "", "| Domein | Samengevoegd | Nieuw geschreven | In review |", "|---|---|---|---|");
+  for (const d of [...rows.keys()].sort()) lines.push(`| ${label(d)} | ${rows.get(d)!.merged} | ${rows.get(d)!.added} | ${rows.get(d)!.review} |`);
   // Built from the library AFTER the merges were written, so a first and a second run print the same report.
   lines.push("", "## Samengevoegd", "", "| Record | Activiteit | Hoe | Bijnamen van de activiteit |", "|---|---|---|---|");
   for (const m of result.merges) {
@@ -202,6 +219,8 @@ export function buildReport({ result, library, domainLabels, sourceName }: Repor
     const names = [...(a?.aliases?.nl ?? []).map((n) => `nl: ${n}`), ...(a?.aliases?.en ?? []).map((n) => `en: ${n}`)].join(", ") || "-";
     lines.push(`| ${m.source_record_id} | ${m.activityId} | ${m.tier}${m.lang ? ` (${m.lang})` : ""} | ${names} |`);
   }
+  lines.push("", "## Nieuw geschreven (status concept)", "", "| Record | Activiteit | Domein |", "|---|---|---|");
+  for (const x of result.added) lines.push(`| ${x.source_record_id} | ${x.activityId} | ${label(domainOf(x.activityId))} |`);
   const byReason = new Map<string, number>();
   for (const r of result.rejected) byReason.set(r.reason, (byReason.get(r.reason) ?? 0) + 1);
   lines.push("", "## Afgewezen, per reden", "", "| Reden | Aantal |", "|---|---|");

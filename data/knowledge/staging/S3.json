@@ -12,9 +12,8 @@
         "nl": "bordspel",
         "en": "board game"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "dammen"
     },
     {
       "source_id": "S3",
@@ -41,11 +40,9 @@
         "nl": "bordspel",
         "en": "one of the oldest board games for two players"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "backgammon"
-      ]
+      "outcome": "merged",
+      "activityId": "backgammon",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -88,9 +85,9 @@
         "nl": "een van de beeldende kunsten",
         "en": "branch of the visual arts that operates in three dimensions"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "beeldhouwen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -103,11 +100,9 @@
         "nl": "ritmische beweging van het lichaam",
         "en": "rhythmic movement of the body"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "hist-dans"
-      ]
+      "outcome": "merged",
+      "activityId": "dansen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -165,11 +160,9 @@
         "nl": "het maken van versieringen met naald en garen",
         "en": "art or handicraft of decorating fabric or other materials with needle and thread or yarn"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "borduren-weven"
-      ]
+      "outcome": "merged",
+      "activityId": "borduren-weven",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -182,9 +175,8 @@
         "nl": "studie van verondersteld verband tussen gebeurtenissen op aarde en de stand van de hemellichamen",
         "en": "ensemble of traditions, beliefs and divinations that interpret the positions of the planets and other celestial bodies; along with their correlation with terrestrial events"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "rejected",
+      "reason": "reviewer_reject"
     },
     {
       "source_id": "S3",
@@ -211,8 +203,13 @@
         "nl": "bereiden van voedsel voor consumptie",
         "en": "preparing food for consumption by the application of heat"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "kook-club",
+        "hist-koken",
+        "ander-land"
+      ]
     },
     {
       "source_id": "S3",
@@ -225,9 +222,8 @@
         "nl": "Logische puzzel",
         "en": "logic-based number-placement puzzle"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "sudoku"
     },
     {
       "source_id": "S3",
@@ -255,8 +251,11 @@
         "nl": "het rijden met een fiets",
         "en": "riding a bicycle (transportation, sport, exercise, recreation...)"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "wielerwedstrijd-kijken"
+      ]
     },
     {
       "source_id": "S3",
@@ -284,11 +283,9 @@
         "nl": "raadsel waarbij woorden in elkaar loodrecht kruisende vakjes moeten worden ingevuld",
         "en": "word puzzle game"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "raadsels"
-      ]
+      "outcome": "merged",
+      "activityId": "raadsels",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -315,9 +312,9 @@
         "nl": "het houden van vissen en waterplanten in een aquarium als hobby",
         "en": "hobby practiced by aquarists"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "aquarium",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -359,11 +356,9 @@
       "descriptions": {
         "en": "practice of growing and cultivating plants"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "tuinieren"
-      ]
+      "outcome": "merged",
+      "activityId": "tuinieren",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -374,8 +369,9 @@
       "descriptions": {
         "en": "hobby that treats comic books and related items as collectibles or artwork to be sought after and preserved"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "strips",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -388,12 +384,9 @@
         "nl": "spel dat op een tevoren gemarkeerd oppervlak wordt gespeeld",
         "en": "game that involves counters or pieces moved or placed on a pre-marked surface or \"board\", according to a set of rules"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "bordspellen",
-        "rummikub-kaartclub"
-      ]
+      "outcome": "merged",
+      "activityId": "bordspellen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -406,11 +399,9 @@
         "nl": "vorm van performancekunst",
         "en": "type of performance art"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "cosplay"
-      ]
+      "outcome": "merged",
+      "activityId": "cosplay",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -423,12 +414,9 @@
         "nl": "spel waar speelkaarten bij gebruikt worden",
         "en": "game using playing cards as the primary device"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "kaartspellen",
-        "ruilkaarten"
-      ]
+      "outcome": "merged",
+      "activityId": "kaartspellen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -441,12 +429,9 @@
         "nl": "spel dat plaats vindt in een fantasiewereld",
         "en": "game in which players assume the roles of characters in a fictional setting"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "tabletop-rpg",
-        "solo-rpg"
-      ]
+      "outcome": "merged",
+      "activityId": "tabletop-rpg",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -473,11 +458,9 @@
         "nl": "voortbewegen te paard",
         "en": "horse riding"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "paardrijden"
-      ]
+      "outcome": "merged",
+      "activityId": "paardrijden",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -490,11 +473,9 @@
         "nl": "puzzel waarbij in elkaar passende stukken samen een afbeelding vormen",
         "en": "type of tiling puzzle"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "legpuzzels"
-      ]
+      "outcome": "merged",
+      "activityId": "legpuzzels",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -507,9 +488,8 @@
         "nl": "speelgoed",
         "en": "toy"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "jojo"
     },
     {
       "source_id": "S3",
@@ -537,8 +517,9 @@
         "nl": "het voorbereiden en creëren van woorden en beelden voor commerciële toepassingen zoals de productie van boeken, posters, reclame en verpakkingen",
         "en": "visual design of content in various media"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
     },
     {
       "source_id": "S3",
@@ -551,11 +532,8 @@
         "nl": "bordspel voor 2 personen",
         "en": "chess variant native to China"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "schaken"
-      ]
+      "outcome": "rejected",
+      "reason": "reviewer_reject"
     },
     {
       "source_id": "S3",
@@ -568,13 +546,9 @@
         "nl": "economische activiteit",
         "en": "technology for the production of textiles"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "borduren-weven",
-        "wilgenvlechten",
-        "ambachten"
-      ]
+      "outcome": "merged",
+      "activityId": "borduren-weven",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -586,9 +560,9 @@
       "descriptions": {
         "en": "motorsport"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "karten",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -601,13 +575,9 @@
         "nl": "navigatie en voortbeweging door de wind",
         "en": "propulsion of a vehicle and the control of its movement with large (usually fabric) foils called sails"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "zeilen",
-        "strandzeilen",
-        "klipper-zeilen"
-      ]
+      "outcome": "merged",
+      "activityId": "zeilen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -620,12 +590,9 @@
         "nl": "sport waarbij men elkaar beschiet met verfballetjes",
         "en": "sport that originated in the United States"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "lasergamen",
-        "paintball-airsoft"
-      ]
+      "outcome": "merged",
+      "activityId": "paintball-airsoft",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -638,11 +605,9 @@
         "nl": "een werkwijze om van doorlopend garen en met behulp van twee of meer naalden textiel te maken",
         "en": "forming and interlacing of loops using needles according to a prescribed manner or pattern, either by machine or by hand"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "breien-haken"
-      ]
+      "outcome": "merged",
+      "activityId": "breien-haken",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -655,8 +620,9 @@
         "nl": "cognitief proces van het decoderen van symbolen om betekenis af te leiden",
         "en": "cognitive process of decoding symbols to derive meaning; a form of language processing"
       },
-      "outcome": "rejected",
-      "reason": "too_generic"
+      "outcome": "merged",
+      "activityId": "lezen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -668,9 +634,9 @@
       "descriptions": {
         "en": "recreational pastime of exploring wild cave systems"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "grotten-verkennen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -683,9 +649,8 @@
         "nl": "ongemotoriseerde luchtvaartsport",
         "en": "air sport or recreational activity"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "deltavliegen"
     },
     {
       "source_id": "S3",
@@ -711,11 +676,9 @@
         "nl": "handwerktechniek",
         "en": "technique of creating lace or fabric from thread using a hook"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "breien-haken"
-      ]
+      "outcome": "merged",
+      "activityId": "breien-haken",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -727,8 +690,9 @@
       "descriptions": {
         "en": "vocal percussion involving imitation of drum machines, turntablism, and other musical instruments using one's mouth, lips, tongue, and voice, connected with hip-hop culture"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "beatboxen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -740,8 +704,9 @@
       "descriptions": {
         "en": "group of sports"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
     },
     {
       "source_id": "S3",
@@ -754,9 +719,8 @@
         "nl": "Dans en acrobatiek",
         "en": "form of performing art"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "paaldansen"
     },
     {
       "source_id": "S3",
@@ -769,13 +733,9 @@
         "nl": "productieproces waarmee objecten laag voor laag tot een 3D-object worden geprint",
         "en": "layer-by-layer additive process used to make a three-dimensional object"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "ontwerp-print",
-        "zeefdruk",
-        "linosnede"
-      ]
+      "outcome": "merged",
+      "activityId": "ontwerp-print",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -788,9 +748,8 @@
         "nl": "sport- of spel",
         "en": "game in which one or more participants jump over a swung rope"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "touwtjespringen"
     },
     {
       "source_id": "S3",
@@ -802,8 +761,9 @@
       "descriptions": {
         "en": "method for preserving personal and family history in the form of a scrapbook"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "collage",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -816,9 +776,8 @@
         "nl": "systeem om lichamelijke gezondheid te bevorderen",
         "en": "physical fitness system"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "pilates"
     },
     {
       "source_id": "S3",
@@ -829,8 +788,9 @@
       "descriptions": {
         "en": "hobby that covers military themed miniaturism"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "modelbouw",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -842,9 +802,8 @@
       "descriptions": {
         "en": "running old computer technology in modern times as heritage and as a hobby"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "retrocomputing"
     },
     {
       "source_id": "S3",
@@ -857,11 +816,9 @@
         "nl": "overnachten in de buitenlucht, meestal in een tent, caravan of camper",
         "en": "outdoor recreational activity"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "kamperen"
-      ]
+      "outcome": "merged",
+      "activityId": "kamperen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -874,9 +831,8 @@
         "nl": "openbare communicatie van wetenschapsgerelateerde onderwerpen aan niet-deskundigen",
         "en": "public communication of science-related topics to non-experts"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "rejected",
+      "reason": "reviewer_reject"
     },
     {
       "source_id": "S3",
@@ -941,8 +897,9 @@
       "descriptions": {
         "en": "hobby whose participants enjoy watching the sky"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "telescoop",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -968,9 +925,9 @@
         "nl": "het bekijken en fotograferen van vliegtuigen door liefhebbers",
         "en": "hobby of observing and tracking aircraft, usually through photography or videography"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "spotten",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -996,9 +953,9 @@
         "nl": "schaalmodel van een trein",
         "en": "modeling trains hobby"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "modeltreinen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1010,9 +967,8 @@
       "descriptions": {
         "en": "hobby about exchanging postcards"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "postcrossing"
     },
     {
       "source_id": "S3",
@@ -1025,11 +981,9 @@
         "nl": "ambacht dat materialen door middel van naald en draad verbindt",
         "en": "craft of fastening or attaching objects using stitches made with a needle and thread"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "naaien"
-      ]
+      "outcome": "merged",
+      "activityId": "naaien",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1042,9 +996,9 @@
         "nl": "naspelen van historische gebeurtenissen",
         "en": "activity where people recreate aspects of a historical event"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "re-enactment",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1071,9 +1025,8 @@
       "descriptions": {
         "en": "shaping of special modelling balloons"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "ballonmodelleren"
     },
     {
       "source_id": "S3",
@@ -1086,11 +1039,9 @@
         "nl": "langere tijd met een constante snelheid vol te houden en zo de lichamelijke conditie te verbeteren , duursport",
         "en": "form of trotting or running at a slow or leisurely pace"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "plogging"
-      ]
+      "outcome": "merged",
+      "activityId": "hardlopen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1118,9 +1069,8 @@
         "nl": "radio",
         "en": "hobby of receiving and identifying distant radio or TV signals"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "dxen"
     },
     {
       "source_id": "S3",
@@ -1144,8 +1094,9 @@
       "descriptions": {
         "en": "collecting of postage stamps and related objects"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "munten-zegels",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1223,8 +1174,9 @@
         "nl": "bordspel",
         "en": "board game"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "backgammon",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1236,8 +1188,9 @@
       "descriptions": {
         "en": "hobby of making, painting, or collecting resin models"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "modelbouw",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1249,9 +1202,8 @@
       "descriptions": {
         "en": "hobby of listening to shortwave radio broadcasts"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "kortegolf-luisteren"
     },
     {
       "source_id": "S3",
@@ -1263,8 +1215,9 @@
       "descriptions": {
         "en": "underwater diving where the diver breathes from apparatus (scuba) which is completely independent of surface supply"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "duiken",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1276,9 +1229,8 @@
       "descriptions": {
         "en": "transportation system"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "tokkelbaan"
     },
     {
       "source_id": "S3",
@@ -1290,9 +1242,9 @@
       "descriptions": {
         "en": "practice of making leather into craft objects or works of art"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "lederwerk",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1305,8 +1257,9 @@
         "nl": "Wijzigingsproces van digitale inhoud",
         "en": "process of modifying a ROM image or ROM file of a video game"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
     },
     {
       "source_id": "S3",
@@ -1343,9 +1296,8 @@
       "descriptions": {
         "en": "installation rock art requiring skill"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "stenen-stapelen"
     },
     {
       "source_id": "S3",
@@ -1368,11 +1320,9 @@
         "nl": "verzamelgebied",
         "en": "collecting of coins or other forms of minted legal tender"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "munten-zegels"
-      ]
+      "outcome": "merged",
+      "activityId": "munten-zegels",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1397,9 +1347,8 @@
         "nl": "siervoorwerp dat grotendeels bestaat uit snijbloemen",
         "en": "manual and artistic design of flowers and plants decoration"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "bloemschikken"
     },
     {
       "source_id": "S3",
@@ -1423,8 +1372,9 @@
       "descriptions": {
         "en": "non-professional study of rocks"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "geologie",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1436,9 +1386,8 @@
       "descriptions": {
         "en": "visiting as many association football stadiums as possible"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "groundhoppen"
     },
     {
       "source_id": "S3",
@@ -1450,9 +1399,9 @@
       "descriptions": {
         "en": "someone who researches their local area's history"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "archief",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1476,9 +1425,8 @@
       "descriptions": {
         "en": "sport, activity, or form of transportation involving shoes with small wheels attached to the soles"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "rolschaatsen"
     },
     {
       "source_id": "S3",
@@ -1491,9 +1439,8 @@
         "nl": "het zoeken op het strand naar aangespoelde spullen",
         "en": "looking for beach collectables"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "strandjutten"
     },
     {
       "source_id": "S3",
@@ -1519,9 +1466,8 @@
         "nl": "Handwerktechniek",
         "en": "process of sewing layers of fabric together to make a padded material"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "quilten"
     },
     {
       "source_id": "S3",
@@ -1543,11 +1489,9 @@
       "descriptions": {
         "en": "mountain and forest sport"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "hardlopen"
-      ]
+      "outcome": "merged",
+      "activityId": "hardlopen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1585,9 +1529,8 @@
       "descriptions": {
         "en": "art and science of breeding domestic pigeons"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "duiven-houden"
     },
     {
       "source_id": "S3",
@@ -1600,11 +1543,9 @@
         "nl": "met een snorkel onder water zwemmen",
         "en": "swimming while breathing through a snorkel"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "snorkelen"
-      ]
+      "outcome": "merged",
+      "activityId": "snorkelen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1614,9 +1555,8 @@
         "en": "figure sawing"
       },
       "descriptions": {},
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "figuurzagen"
     },
     {
       "source_id": "S3",
@@ -1640,9 +1580,8 @@
       "descriptions": {
         "en": "craft of hand-making greeting cards"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "kaarten-maken"
     },
     {
       "source_id": "S3",
@@ -1654,8 +1593,9 @@
       "descriptions": {
         "en": "collecting wild food resources (by humans)"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "foerageren",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1667,8 +1607,9 @@
       "descriptions": {
         "en": "military simulation by civilians"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
     },
     {
       "source_id": "S3",
@@ -1693,9 +1634,9 @@
         "nl": "beknopte omschrijving wat de hobby busspotter is",
         "en": "hobby"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "spotten",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1746,9 +1687,9 @@
       "descriptions": {
         "en": "observing butterflies as a hobby"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "insecten-tellen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1759,8 +1700,9 @@
       "descriptions": {
         "en": "Construction of models with cardboard and paper"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "modelbouw",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1829,11 +1771,9 @@
         "nl": "kunst van het maken van sieraden",
         "en": "art of designing and creating jewelry"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "sieraden"
-      ]
+      "outcome": "merged",
+      "activityId": "sieraden",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -1892,8 +1832,9 @@
       "descriptions": {
         "en": "swimming wearing a mermaid costume"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
     },
     {
       "source_id": "S3",
@@ -1928,9 +1869,8 @@
       "descriptions": {
         "en": "freely accessible creation and refinement of computer programs"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "open-source"
     },
     {
       "source_id": "S3",
@@ -1942,9 +1882,8 @@
       "descriptions": {
         "en": "goal to reach a collection of summits, published in the form of a list"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "bergtoppen-afvinken"
     },
     {
       "source_id": "S3",
@@ -1979,9 +1918,8 @@
       "descriptions": {
         "en": "person who collects, trades, or admires sneakers as a hobby"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "rejected",
+      "reason": "reviewer_reject"
     },
     {
       "source_id": "S3",
@@ -2004,8 +1942,9 @@
       "descriptions": {
         "en": "study and collection of vehicle tax discs"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
     },
     {
       "source_id": "S3",
@@ -2031,9 +1970,8 @@
         "nl": "persoon die het leven op straat documenteert",
         "en": "job and/or hobby"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "straatfotografie"
     },
     {
       "source_id": "S3",
@@ -2044,9 +1982,9 @@
       "descriptions": {
         "en": "process of investigating locations supposedly haunted by ghosts"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "paranormaal",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2096,8 +2034,11 @@
         "nl": "langzaam lopen voor plezier- of sportdoeleinden",
         "en": "walking as a hobby, sport, or leisure activity"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "wandelmaatje"
+      ]
     },
     {
       "source_id": "S3",
@@ -2122,8 +2063,9 @@
       "descriptions": {
         "en": "the practice of engaging in archaeological work for personal interest and enjoyment rather than as a professional career"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "opgraving",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2146,8 +2088,9 @@
       "descriptions": {
         "en": "activity and hobby of using a metal detector"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "metaaldetectie",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2159,11 +2102,9 @@
       "descriptions": {
         "en": "process of producing video content"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "coop-games"
-      ]
+      "outcome": "merged",
+      "activityId": "korte-film",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2176,9 +2117,9 @@
         "nl": "kunstvorm gebaseerd op klei",
         "en": "art objects made from clay and other raw materials by the process of pottery"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "pottenbakken",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2187,8 +2128,11 @@
         "en": "art postcard collecting"
       },
       "descriptions": {},
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "postcrossing"
+      ]
     },
     {
       "source_id": "S3",
@@ -2211,9 +2155,8 @@
       "descriptions": {
         "en": "culture and practice of trading pins"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "pins-ruilen"
     },
     {
       "source_id": "S3",
@@ -2225,9 +2168,8 @@
       "descriptions": {
         "en": "form of snow skiing"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "langlaufen"
     },
     {
       "source_id": "S3",
@@ -2263,9 +2205,8 @@
       "descriptions": {
         "en": "art of creating constructed languages"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "eigen-taal"
     },
     {
       "source_id": "S3",
@@ -2303,11 +2244,9 @@
         "nl": "met behulp van riemen een boot handmatig vooruit stuwen",
         "en": "act of propelling a boat using the motion of oars in the water"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "roeien"
-      ]
+      "outcome": "merged",
+      "activityId": "roeien",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2347,8 +2286,9 @@
       "descriptions": {
         "en": "activity consisting of making candles"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "kaarsen-gieten",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2360,11 +2300,8 @@
       "descriptions": {
         "en": "searching outdoor waters for ferromagnetic objects using a magnet tied to a rope"
       },
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "vissen"
-      ]
+      "outcome": "added",
+      "activityId": "magneetvissen"
     },
     {
       "source_id": "S3",
@@ -2375,9 +2312,8 @@
       "descriptions": {
         "en": "hobby involving keeping of ant colonies in enclosures"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "mieren-houden"
     },
     {
       "source_id": "S3",
@@ -2389,9 +2325,8 @@
       "descriptions": {
         "en": "activity of seeking out and acquiring artistic works"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "rejected",
+      "reason": "reviewer_reject"
     },
     {
       "source_id": "S3",
@@ -2402,8 +2337,9 @@
       "descriptions": {
         "en": "pursuit of eclipses for study and enjoyment"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
     },
     {
       "source_id": "S3",
@@ -2416,9 +2352,9 @@
         "nl": "Een illusie of effect uitgevoerd door een goochelaar ter vermaak",
         "en": "illusion or effect performed by a magician for entertainment"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "goochelen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2430,8 +2366,9 @@
       "descriptions": {
         "en": "activity"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "vlieger-stunt",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2491,8 +2428,9 @@
       "descriptions": {
         "en": "process of making soap"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "zeep-maken",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2555,8 +2493,11 @@
         "nl": "spelen van video- en computerspellen",
         "en": "playing or collecting video games"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "coop-games"
+      ]
     },
     {
       "source_id": "S3",
@@ -2569,9 +2510,8 @@
         "nl": "deel van plant meenemen om te stekken",
         "en": "Practice of taking discarded plant material and propagating new plants from them"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "proplifting"
     },
     {
       "source_id": "S3",
@@ -2582,9 +2522,9 @@
       "descriptions": {
         "en": "visiting cemeteries as a research activity or as a pastime"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "begraafplaats",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2607,13 +2547,9 @@
         "en": "reading for recreation"
       },
       "descriptions": {},
-      "outcome": "review",
-      "reason": "similar_existing",
-      "candidates": [
-        "lezen",
-        "handschriften",
-        "voorlezen"
-      ]
+      "outcome": "merged",
+      "activityId": "lezen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2706,8 +2642,9 @@
       "descriptions": {
         "en": "hobby activity involving developing, building and testing analog and/or digital electronic circuits and devices"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "elektronica",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2732,9 +2669,9 @@
         "nl": "hobby/ambacht van het bouwen van scheeps- en botenmodellen",
         "en": "hobby/craft of building model ships and boats"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "merged",
+      "activityId": "modelbouw",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2770,8 +2707,9 @@
       "descriptions": {
         "en": "activity"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "drones",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2822,8 +2760,9 @@
         "en": "ship spotter"
       },
       "descriptions": {},
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "spotten",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2832,8 +2771,12 @@
         "en": "aircraft spotting photography"
       },
       "descriptions": {},
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "similar_existing",
+      "candidates": [
+        "spotten",
+        "fotografie"
+      ]
     },
     {
       "source_id": "S3",
@@ -2856,9 +2799,8 @@
       "descriptions": {
         "en": "type of digital volunteering activities such as Wikipedia editing"
       },
-      "outcome": "review",
-      "reason": "new_candidate",
-      "candidates": []
+      "outcome": "added",
+      "activityId": "wikipedia-bijdragen"
     },
     {
       "source_id": "S3",
@@ -2879,8 +2821,9 @@
       "descriptions": {
         "en": "human hobby activity"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "fossielen",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2891,8 +2834,9 @@
       "descriptions": {
         "en": "hobby of growing eatable foods such as mushrooms or strawberries"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "tuinieren",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2911,8 +2855,9 @@
       "descriptions": {
         "en": "recreational hobby of observing trains"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "spotten",
+      "tier": "reviewed"
     },
     {
       "source_id": "S3",
@@ -2923,8 +2868,9 @@
       "descriptions": {
         "nl": "persoon die als hobby gedichten schrijven heeft"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "review",
+      "reason": "new_candidate",
+      "candidates": []
     },
     {
       "source_id": "S3",
@@ -2945,8 +2891,9 @@
       "descriptions": {
         "en": "Activity involving the playing of board games"
       },
-      "outcome": "rejected",
-      "reason": "below_queue_cap"
+      "outcome": "merged",
+      "activityId": "bordspellen",
+      "tier": "reviewed"
     }
   ]
 }

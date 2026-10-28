@@ -651,5 +651,45 @@
     },
     "scene": "a market stall with an unusual vegetable in close-up, such as romanesco",
     "status": "concept"
+  },
+  {
+    "id": "groundhoppen",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Groundhoppen: stadions bezoeken",
+      "en": "Groundhopping: visiting stadiums"
+    },
+    "tags": [
+      "collecting",
+      "competition",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een amateurwedstrijd in een stadion of dorp dat je nog niet kent",
+      "en": "An amateur match at a stadium or village you do not know yet"
+    },
+    "scene": "an empty small-town football stand with weathered seats, a floodlight pole and a corner flag at dusk",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q1547701",
+      "method": "curated"
+    }
   }
 ]

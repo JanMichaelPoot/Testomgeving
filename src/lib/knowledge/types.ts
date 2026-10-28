@@ -99,6 +99,8 @@ export interface ImportResult {
   source_id: string;
   records: number;
   merges: Merge[];
+  /** Records an activity has been written from (status concept in the library); no longer in review. */
+  added: { source_record_id: string; activityId: string }[];
   queue: QueueEntry[];
   rejected: RejectedEntry[];
 }

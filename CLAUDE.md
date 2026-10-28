@@ -3902,3 +3902,33 @@ Stripe, Claude API, Resend, PostHog).
       rapport getoond als "… (vertaald voorstel)". Het zijn vertalingen door de assistent (`inferred_ai`, €0): ze staan in een eigen veld
       `nl_suggestion` en nooit in `labels.nl`, dat blijft brondata. Jan zei de voorstellen te onderschrijven; hij heeft de wachtrij nog niet
       beslist (`decision` staat overal op `null`), dus er is niets samengevoegd of aangemaakt op basis daarvan.
+
+- [x] Stap 105 - Kennisengine B3: beslissingen vastgelegd en de goedgekeurde activiteiten geschreven (Jan: "zet de beslissingen en schrijf de
+      nieuwe activiteiten; de 25 twijfelgevallen op accept, behalve Q34362, Q191448, Q472328, Q31916432, Q7547485 (afgewezen) en Q2093999,
+      Q109577660, Q11411 (gemerged)"). **Beslissingen** staan nu apart van de wachtrij in `data/knowledge/decisions/S3.json` (blijven gelden bij elke
+      run): 105 beslissingen = 32 accept, 68 merge, 5 reject. Jans akkoord op "alle voorstellen" is ook toegepast op de 23 merge-voorstellen die onder de
+      wachtrijgrens van 80 vielen. **Zeven "accept"-voorstellen bleken al te bestaan en zijn door mij omgezet naar merge (Jan kan dat omkeren)**: reënactment
+      -> `re-enactment`, begraafplaatsen bezoeken -> `begraafplaats`, videoproductie -> `korte-film` (stage), spokenjacht -> `paranormaal` ("Paranormaal
+      onderzoek of spokenjacht"), vlinders kijken -> `insecten-tellen` ("Vlinders en insecten tellen"), heemkunde -> `archief` ("Lokaal archief en oude
+      kranten uitzoeken"), lederbewerking -> `lederwerk`. Mijn eerdere opmerking dat er nog geen lederwerk in de bibliotheek stond was onjuist. Ik ontdekte
+      dit pas bij het schrijven (de validator meldde `korte-film` dubbel); de naamvergelijking van de import ziet dit soort dubbelen niet, dus
+      controleer het bij elke volgende bron. Mogelijk nog te dicht bij bestaand (wel geschreven): `rolschaatsen` naast `skaten` en `rolschaatsdisco`,
+      `tokkelbaan` naast `klimpark`, `straatfotografie` naast `fotografie`.
+      **32 nieuwe activiteiten** (bibliotheek 423 -> 455, `taxonomy:check --images` 0 fouten, 0 waarschuwingen, alle op `concept`, `provenance
+      {S3, <Q-nummer>, curated}`): dammen, sudoku, jojo'en, proplifting, strandjutten, duiven houden, mieren houden, ballonmodelleren, bloemschikken,
+      quilten, kaarten maken, een eigen taal bedenken, figuurzagen, straatfotografie, stenen stapelen, postcrossing, pins ruilen, groundhoppen,
+      paaldansen, touwtjespringen, pilates, rolschaatsen, bergtoppen afvinken, langlaufen, kortegolf luisteren, DX'en, retrocomputing, bijdragen aan
+      Wikipedia, meebouwen aan open-source, deltavliegen, tokkelbaan en magneetvissen. Alles wat toezicht vraagt (deltavliegen, tokkelbaan,
+      magneetvissen) is `tier 2` met een instapnotitie; **laat die notities juridisch controleren**, net als de eerdere. Kenmerken, tags, NL- en
+      EN-teksten en beeldbeschrijvingen zijn door mij opgesteld (een eerste inschatting, zoals de rest van de set). De elf NL-labels uit
+      `nl_labels` zijn waar ze het label vormden vertaald door de assistent. **Beelden**: 32 foto's via Gemini, 5 aanvragen (3 vellen 3x3 + 2
+      deelraster + 1 los), ≈ $0,67; alle 32 op een contactvel bekeken: geen mensen of handen; kleine tekstachtige vlakken (krantenpuzzel, het
+      artikel op de Wikipedia-foto, een zwak "Encyclopedie article"), zoals eerder bij voorwerpen die tekst dragen.
+      **Importer**: nieuwe uitkomst "nieuw geschreven" (`added`, herkend aan `provenance.source_record_id`), `decisions` als invoer, een door een mens
+      beslist merge heet altijd `reviewed` (anders veranderde het rapport bij de tweede run omdat de namen dan als alias matchten). Resultaat op S3:
+      219 records: 85 samengevoegd (17 automatisch + 68 beslist; 116 nieuwe bijnamen), 32 nieuw geschreven, 14 nog in review (de best scorende
+      records waar niemand een mening over had; de wachtrij is met de beslissingen ruimer geworden, grens 80), 88 afgewezen (5 door Jan, 69 op voorstel).
+      Drie keer draaien geeft dezelfde bestanden. **Gevolg van een grotere bibliotheek**: de selectie van de huidige motor is voor veel van de 20
+      vaste profielen veranderd (de ruis en de zeldzaamheid hangen van de hele set af); `scripts/eval/baseline/current.json` is ververst (E1-E6 nog 0, ook
+      voor 500 profielen in beide wizards en beide versies), en de test "zelfde seeds elke keer" kreeg een ruimere time-out (60 s) omdat een tweede
+      volledige run bij 455 activiteiten net boven de 5 s uitkwam. Getest: 642 tests, `tsc`, eslint, `taxonomy:check --images`, `npm run build`.

@@ -32,7 +32,37 @@
       "en": "A starter kit and one evening"
     },
     "scene": "a plastic model ship partly assembled with glue, paints and tweezers",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q354276"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q985912"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q5038257"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q125947645"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "Garage kit",
+        "Scheepsmodelbouw"
+      ],
+      "en": [
+        "military miniaturism",
+        "garage kit",
+        "Cardboard modeling",
+        "ship modelling"
+      ]
+    }
   },
   {
     "id": "miniaturen",
@@ -105,7 +135,21 @@
       "en": "Visit a model railway society or exhibition"
     },
     "scene": "a model railway landscape with a tiny steam train and trees",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q623272"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "modelspoorwegbouw"
+      ],
+      "en": [
+        "rail transport modelling"
+      ]
+    }
   },
   {
     "id": "diorama",
@@ -296,7 +340,27 @@
       "en": "Visit a swap meet or a collectors' society"
     },
     "scene": "a coin album and a stamp album with a magnifier and tweezers",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q856075"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q1437510"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "postzegels verzamelen",
+        "munten verzamelen"
+      ],
+      "en": [
+        "stamp collecting",
+        "coin collecting"
+      ]
+    }
   },
   {
     "id": "vinyl",
@@ -403,7 +467,19 @@
       "en": "Excursion with a geological society"
     },
     "scene": "an ammonite fossil and mineral specimens on a rock with a hammer",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q136457624"
+      }
+    ],
+    "aliases": {
+      "nl": [],
+      "en": [
+        "fossil searching"
+      ]
+    }
   },
   {
     "id": "strips",
@@ -438,7 +514,19 @@
       "en": "Visit a comic shop or library; read one series first"
     },
     "scene": "a stack of comic books and manga on a windowsill",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q128391"
+      }
+    ],
+    "aliases": {
+      "nl": [],
+      "en": [
+        "comic book collecting"
+      ]
+    }
   },
   {
     "id": "cactussen",
@@ -593,7 +681,38 @@
       "en": "Bring binoculars and go to a spotters' hill"
     },
     "scene": "binoculars on a railing overlooking an airport runway",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q601641"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q3272195"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q132492967"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q138744729"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "vliegtuigspotten",
+        "busspotten",
+        "scheepsspotter"
+      ],
+      "en": [
+        "aircraft spotting",
+        "bus spotting",
+        "ship spotter",
+        "railfanning"
+      ]
+    }
   },
   {
     "id": "vulpennen",
@@ -700,7 +819,21 @@
       "en": "A small aquarium, or visit a society"
     },
     "scene": "a planted freshwater aquarium with colorful fish and mossy rocks",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q96443"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "aquaristiek"
+      ],
+      "en": [
+        "fishkeeping"
+      ]
+    }
   },
   {
     "id": "retrogaming",
@@ -819,5 +952,81 @@
     "scene": "small pots of cuttings and paper seed envelopes lined up on a trestle table in a sunny yard",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "postcrossing",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Postcrossing: ansichtkaarten ruilen",
+      "en": "Postcrossing: swapping postcards"
+    },
+    "tags": [
+      "collecting",
+      "caring",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Meld je gratis aan bij Postcrossing en stuur je eerste kaart",
+      "en": "Sign up free at Postcrossing and send your first card"
+    },
+    "scene": "a stack of colourful postcards from different countries with foreign stamps, a pen and a small map on a desk",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q643420",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "pins-ruilen",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Pins ruilen",
+      "en": "Pin trading"
+    },
+    "tags": [
+      "collecting",
+      "color",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een ruilbeurs of ruildag, of begin met een kleine verzameling en ruil met een vriend",
+      "en": "A swap meet or swap day, or start with a small collection and trade with a friend"
+    },
+    "scene": "an enamel pin collection arranged on a corkboard beside a canvas bag covered in colourful badges",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q17141620",
+      "method": "curated"
+    }
   }
 ]

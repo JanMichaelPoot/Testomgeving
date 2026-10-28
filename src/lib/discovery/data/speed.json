@@ -371,7 +371,21 @@
     },
     "scene": "a large diamond kite in primary colours straining on its line over a flat dune beach, ground anchor in the sand",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q56231782"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "vliegeren"
+      ],
+      "en": [
+        "kite flying"
+      ]
+    }
   },
   {
     "id": "fpv-drone",
@@ -864,5 +878,56 @@
     "scene": "a roadside barrier with a finish banner and a stretch of tarmac curving through green hills",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "deltavliegen",
+    "domain": "speed",
+    "sub": "air_flight",
+    "label": {
+      "nl": "Deltavliegen (tandemvlucht)",
+      "en": "Hang gliding (tandem flight)"
+    },
+    "tags": [
+      "height",
+      "speed",
+      "challenge"
+    ],
+    "formats": [
+      "duo",
+      "with_known",
+      "drop_in_alone"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder of vereniging, met instructeur of gids.",
+        "en": "Only through a recognised provider or club, with an instructor or guide."
+      }
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een tandemvlucht bij een erkende school of vereniging, vaak in het buitenland of met een sleepstart",
+      "en": "A tandem flight at a recognised school or club, often abroad or with a tow launch"
+    },
+    "scene": "a colourful delta wing glider spread on a green hill launch site with a windsock and a harness laid beside it",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q208147",
+      "method": "curated"
+    }
   }
 ]

@@ -235,7 +235,21 @@
     },
     "scene": "a top hat, a deck of cards fanned out and a silver coin on a dark velvet cloth",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q45999579"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "goocheltruc"
+      ],
+      "en": [
+        "magic trick"
+      ]
+    }
   },
   {
     "id": "circusles",
@@ -383,7 +397,21 @@
     },
     "scene": "a half-finished armour piece in painted foam on a mannequin torso with sewing patterns pinned around",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q142554"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "cosplay"
+      ],
+      "en": [
+        "cosplay"
+      ]
+    }
   },
   {
     "id": "korte-film",
@@ -418,7 +446,21 @@
     },
     "scene": "a smartphone on a small tripod pointed at a tiny cardboard set with a paper moon and a lamp",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q12996592"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "videoproductie"
+      ],
+      "en": [
+        "video production"
+      ]
+    }
   },
   {
     "id": "stop-motion",
@@ -592,7 +634,21 @@
     },
     "scene": "a microphone with a pop shield and a looping pedal glowing on a dark table beside a pair of headphones",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q213608"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "beatbox"
+      ],
+      "en": [
+        "beatboxing"
+      ]
+    }
   },
   {
     "id": "rappen",

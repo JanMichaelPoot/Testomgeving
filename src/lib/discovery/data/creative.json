@@ -38,8 +38,20 @@
       {
         "source_id": "S3",
         "source_record_id": "Q11642"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q13464614"
       }
-    ]
+    ],
+    "aliases": {
+      "nl": [
+        "keramische kunst"
+      ],
+      "en": [
+        "ceramic art"
+      ]
+    }
   },
   {
     "id": "houtbewerking",
@@ -114,7 +126,21 @@
       "en": "One-off workshop, for example making a wallet"
     },
     "scene": "leather pieces, a stitching awl and waxed thread on a workbench",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q1186844"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "leerbewerking"
+      ],
+      "en": [
+        "leather crafting"
+      ]
+    }
   },
   {
     "id": "beeldhouwen",
@@ -148,7 +174,21 @@
     },
     "scene": "a small stone sculpture in progress with chisels and a mallet, stone dust on the bench",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q11634"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "beeldhouwkunst"
+      ],
+      "en": [
+        "art of sculpture"
+      ]
+    }
   },
   {
     "id": "glas-mozaiek",
@@ -220,7 +260,21 @@
       "en": "Beginner workshop in silversmithing or beading"
     },
     "scene": "jewelry pliers, silver wire and beads on a velvet tray",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q6189617"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "sieraadontwerp"
+      ],
+      "en": [
+        "jewelry design"
+      ]
+    }
   },
   {
     "id": "breien-haken",
@@ -258,7 +312,27 @@
       "en": "Knitting café or starter kit; also easy to learn online"
     },
     "scene": "balls of colorful wool and knitting needles in a wicker basket",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q193188"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q208386"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "breien",
+        "haken"
+      ],
+      "en": [
+        "knitting",
+        "crocheting"
+      ]
+    }
   },
   {
     "id": "borduren-weven",
@@ -295,7 +369,27 @@
       "en": "Starter kit or workshop; start very small"
     },
     "scene": "an embroidery hoop with colorful floral thread and a needle",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q18281"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q192296"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "borduren",
+        "weven"
+      ],
+      "en": [
+        "embroidery",
+        "weaving"
+      ]
+    }
   },
   {
     "id": "naaien",
@@ -329,7 +423,21 @@
       "en": "Sewing café or beginner lesson on the organiser's machine"
     },
     "scene": "a vintage sewing machine with fabric, pins and spools of thread",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q652122"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "naaien"
+      ],
+      "en": [
+        "sewing"
+      ]
+    }
   },
   {
     "id": "papier-boek",
@@ -566,7 +674,21 @@
       "en": "An evening with magazines, scissors and glue"
     },
     "scene": "paper cutouts, scissors and glue on a table forming a colorful collage",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q266177"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "Plakboek"
+      ],
+      "en": [
+        "scrapbooking"
+      ]
+    }
   },
   {
     "id": "koor",
@@ -961,7 +1083,19 @@
     },
     "scene": "cut bars of soap in soft colours with dried petals stacked on a linen cloth beside wooden moulds",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q68489725"
+      }
+    ],
+    "aliases": {
+      "nl": [],
+      "en": [
+        "soap-making"
+      ]
+    }
   },
   {
     "id": "linosnede",
@@ -997,5 +1131,276 @@
     "scene": "a carved lino block, an ink roller and a fresh print drying on a rack in a bright studio",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "ballonmodelleren",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Ballonmodelleren",
+      "en": "Balloon modelling"
+    },
+    "tags": [
+      "craft",
+      "play",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een beginnersworkshop of een zakje modelleerballonnen met een pompje",
+      "en": "A beginners' workshop or a bag of modelling balloons with a pump"
+    },
+    "scene": "a colourful balloon dog and a twisted balloon flower on a table with a pump and bags of long balloons",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q805333",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "bloemschikken",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Bloemschikken",
+      "en": "Floral design"
+    },
+    "tags": [
+      "craft",
+      "color",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een bloemschikworkshop waar alles wordt geleverd",
+      "en": "A flower-arranging workshop where everything is supplied"
+    },
+    "scene": "a loose seasonal bouquet being arranged in a ceramic vase with scissors, ribbon and stems on a wooden table",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q1460219",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "quilten",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Quilten",
+      "en": "Quilting"
+    },
+    "tags": [
+      "craft",
+      "color",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een beginnersles of quiltcafé; stof en naaimachine zijn vaak aanwezig",
+      "en": "A beginners' class or quilting café; fabric and sewing machines are often there"
+    },
+    "scene": "patchwork quilt squares in warm colours pinned on a table with a rotary cutter, a ruler and spools of thread",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q1920065",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "kaarten-maken",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Kaarten maken",
+      "en": "Cardmaking"
+    },
+    "tags": [
+      "craft",
+      "color",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een paar vellen karton, stempels en een lijmstift: een kaart voor iemand die je lief is",
+      "en": "A few sheets of card, stamps and a glue stick: a card for someone you care about"
+    },
+    "scene": "handmade greeting cards with stamped flowers and washi tape next to a paper trimmer on a craft desk",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q2987950",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "eigen-taal",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Een eigen taal bedenken",
+      "en": "Inventing your own language"
+    },
+    "tags": [
+      "language",
+      "story",
+      "puzzling"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis tool om klanken en woorden te maken, en één zin in jouw taal",
+      "en": "A free tool for sounds and words, and one sentence in your language"
+    },
+    "scene": "a notebook with invented alphabet characters and a hand-drawn map beside a word list and a pencil",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q19642588",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "straatfotografie",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Straatfotografie",
+      "en": "Street photography"
+    },
+    "tags": [
+      "story",
+      "technique",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een uur wandelen met je telefoon en één opdracht, bijvoorbeeld alleen schaduwen of deuren",
+      "en": "An hour's walk with your phone and one brief, for instance only shadows or doors"
+    },
+    "scene": "a quiet cobbled street corner with long afternoon shadows, a bicycle against a wall and a camera lying on a stone bench",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q10284385",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "figuurzagen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Figuurzagen",
+      "en": "Scroll-saw fretwork"
+    },
+    "tags": [
+      "craft",
+      "technique",
+      "precision"
+    ],
+    "formats": [
+      "solo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een beginnerscursus bij een hobbyclub of volksuniversiteit",
+      "en": "A beginners' course at a hobby club or adult-education centre"
+    },
+    "scene": "a fine fretwork scroll saw with a half-cut thin plywood ornament and a pencil pattern on a bright workshop table",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q2880401",
+      "method": "curated"
+    }
   }
 ]

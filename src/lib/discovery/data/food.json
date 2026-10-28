@@ -480,7 +480,21 @@
     },
     "scene": "a woven basket with wild garlic leaves, nettles and wild herbs on a mossy forest edge",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q2991771"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "verzamelen in het wild"
+      ],
+      "en": [
+        "wildcrafting"
+      ]
+    }
   },
   {
     "id": "pluktuin",

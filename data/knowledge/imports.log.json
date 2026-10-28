@@ -25,6 +25,48 @@
       "in_review": 80,
       "rejected": 122,
       "queue_cap": 80
+    },
+    {
+      "source_id": "S3",
+      "imported_at": "2026-10-28",
+      "input_sha256": "3865b0afb799f706",
+      "fingerprint": "2d833a176d2b881f",
+      "records": 219,
+      "merged": 84,
+      "merged_new": 67,
+      "added": 32,
+      "names_added": 116,
+      "in_review": 15,
+      "rejected": 88,
+      "queue_cap": 80
+    },
+    {
+      "source_id": "S3",
+      "imported_at": "2026-10-28",
+      "input_sha256": "3865b0afb799f706",
+      "fingerprint": "68687cc357503b3c",
+      "records": 219,
+      "merged": 84,
+      "merged_new": 0,
+      "added": 32,
+      "names_added": 0,
+      "in_review": 15,
+      "rejected": 88,
+      "queue_cap": 80
+    },
+    {
+      "source_id": "S3",
+      "imported_at": "2026-10-28",
+      "input_sha256": "3865b0afb799f706",
+      "fingerprint": "538ffe85c809f331",
+      "records": 219,
+      "merged": 85,
+      "merged_new": 1,
+      "added": 32,
+      "names_added": 2,
+      "in_review": 14,
+      "rejected": 88,
+      "queue_cap": 80
     }
   ]
 }

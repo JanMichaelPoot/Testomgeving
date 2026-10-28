@@ -32,7 +32,21 @@
     },
     "scene": "a medieval tent, shield, helmet and banner on a grass camp",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q657069"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "reënactment"
+      ],
+      "en": [
+        "historical reenactment"
+      ]
+    }
   },
   {
     "id": "schermen",
@@ -311,7 +325,21 @@
     },
     "scene": "an archaeological trench with a measuring tape, trowel and finds tray",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q12301261"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "amateurarcheologie"
+      ],
+      "en": [
+        "amateur archaeology"
+      ]
+    }
   },
   {
     "id": "archief",
@@ -346,7 +374,21 @@
       "en": "Look up a street or family name in a digital newspaper archive"
     },
     "scene": "a stack of old newspapers and a magnifier on an archive table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q1595570"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "heemkundige"
+      ],
+      "en": [
+        "local historian"
+      ]
+    }
   },
   {
     "id": "metaaldetectie",
@@ -387,7 +429,19 @@
     },
     "scene": "a metal detector head over sandy soil with a small found coin",
     "status": "concept",
-    "supply": "rare"
+    "supply": "rare",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q12360812"
+      }
+    ],
+    "aliases": {
+      "nl": [],
+      "en": [
+        "metal detecting"
+      ]
+    }
   },
   {
     "id": "handschriften",
@@ -712,7 +766,19 @@
       "en": "A guided tour or your own walk, with respect for the place"
     },
     "scene": "an old cemetery gate with ivy and a gravel path, autumn leaves",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q108686383"
+      }
+    ],
+    "aliases": {
+      "nl": [],
+      "en": [
+        "cemeterying"
+      ]
+    }
   },
   {
     "id": "sagen",

@@ -359,7 +359,21 @@
     },
     "scene": "a dim limestone tunnel with carved chalk walls, a hanging lantern and cool mist drifting along the floor",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q200341"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "recreatiespeleologie"
+      ],
+      "en": [
+        "caving"
+      ]
+    }
   },
   {
     "id": "freediven",
@@ -440,7 +454,21 @@
     },
     "scene": "a snorkel mask and fins lying on a wooden jetty above clear green water with sunlit weed beneath",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q2471422"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "snorkelen"
+      ],
+      "en": [
+        "snorkeling"
+      ]
+    }
   },
   {
     "id": "ijsbaden",
@@ -1103,5 +1131,101 @@
     "scene": "a thick brown mud pit with a rope slide and wooden planks leading across it under an overcast sky",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "tokkelbaan",
+    "domain": "adventure",
+    "sub": "heights_air",
+    "label": {
+      "nl": "Tokkelbaan",
+      "en": "Zip line"
+    },
+    "tags": [
+      "height",
+      "speed",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen in een erkend klimpark of bij een tokkelbaan met instructie en gecontroleerd materiaal.",
+        "en": "Only in a recognised climbing park or at a zip line with instruction and inspected equipment."
+      }
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een tokkelbaan in een klimpark, met instructie en een veiligheidscheck",
+      "en": "A zip line in a climbing park, with instruction and a safety check"
+    },
+    "scene": "a steel zip-line cable stretching between two tall pines with a harness and pulley hanging at the start platform",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q1154882",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "magneetvissen",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Magneetvissen",
+      "en": "Magnet fishing"
+    },
+    "tags": [
+      "water",
+      "collecting",
+      "challenge"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen in een georganiseerde sessie of met toestemming van de eigenaar of gemeente; een gevaarlijke vondst (munitie, scherp metaal) blijft liggen en wordt gemeld.",
+        "en": "Only in an organised session or with the owner's or municipality's permission; a dangerous find (ammunition, sharp metal) is left where it lies and reported."
+      }
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een georganiseerde magneetvis-sessie of schoonmaakactie, met toestemming van de eigenaar of gemeente",
+      "en": "An organised magnet-fishing session or clean-up, with the permission of the owner or municipality"
+    },
+    "scene": "a strong neodymium magnet on a rope lowered beside a canal quay with rusty metal finds laid out on a tarp",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q30589378",
+      "method": "curated"
+    }
   }
 ]

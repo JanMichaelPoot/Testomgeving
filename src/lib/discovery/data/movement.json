@@ -38,8 +38,26 @@
       {
         "source_id": "S3",
         "source_record_id": "Q105674"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q816261"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q2093999"
       }
-    ]
+    ],
+    "aliases": {
+      "nl": [
+        "joggen",
+        "trailrunning"
+      ],
+      "en": [
+        "jogging",
+        "trail running"
+      ]
+    }
   },
   {
     "id": "nordic-walking",
@@ -345,7 +363,21 @@
     },
     "scene": "a small sailing boat with a taut sail on blue water, coiled ropes in the foreground",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q192520"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "zeilen"
+      ],
+      "en": [
+        "sailing"
+      ]
+    }
   },
   {
     "id": "duiken",
@@ -383,7 +415,21 @@
     },
     "scene": "a diving mask and fins on a wooden dock beside turquoise water",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q1096878"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "scubaduiken"
+      ],
+      "en": [
+        "scuba diving"
+      ]
+    }
   },
   {
     "id": "boulderen",
@@ -577,7 +623,21 @@
       "en": "Beginner class where you don't need a partner"
     },
     "scene": "a pair of dance shoes on a polished wooden dance floor under warm spotlights",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q11639"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "dans"
+      ],
+      "en": [
+        "dance"
+      ]
+    }
   },
   {
     "id": "padel",
@@ -945,7 +1005,21 @@
     },
     "scene": "a row of colourful go-karts on an empty circuit with tyre barriers in low sun",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q192420"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "karting"
+      ],
+      "en": [
+        "kart racing"
+      ]
+    }
   },
   {
     "id": "via-ferrata",
@@ -1249,7 +1323,21 @@
     },
     "scene": "a slender wooden racing boat on a calm canal at dawn with oars laid across, mist on the water",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q21368803"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "roeien"
+      ],
+      "en": [
+        "rowing"
+      ]
+    }
   },
   {
     "id": "onderwaterhockey",
@@ -1507,5 +1595,247 @@
     "scene": "a calm lane of a bright blue pool with floating lane ropes and tiles below, soft overhead light",
     "supply": "common",
     "status": "concept"
+  },
+  {
+    "id": "paaldansen",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Paaldansen",
+      "en": "Pole dance"
+    },
+    "tags": [
+      "movement",
+      "rhythm",
+      "balance"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een proefles voor beginners bij een studio",
+      "en": "A trial class for beginners at a studio"
+    },
+    "scene": "a polished chrome pole in a bright dance studio with a mirror wall, floor mats and a pair of grip shoes",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q218998",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "touwtjespringen",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Touwtjespringen",
+      "en": "Skipping rope"
+    },
+    "tags": [
+      "rhythm",
+      "movement",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een springtouw van een paar euro en tien minuten op het plein",
+      "en": "A skipping rope that costs a few euros and ten minutes in the square"
+    },
+    "scene": "a leather jump rope coiled on sunlit paving with chalk hopscotch lines",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q244158",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "pilates",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Pilates",
+      "en": "Pilates"
+    },
+    "tags": [
+      "movement",
+      "balance",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een proefles matpilates voor beginners",
+      "en": "A trial mat-pilates class for beginners"
+    },
+    "scene": "an exercise mat with a small pilates ball and a resistance band in a bright airy studio",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q272460",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "rolschaatsen",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Rolschaatsen",
+      "en": "Roller skating"
+    },
+    "tags": [
+      "movement",
+      "balance",
+      "speed"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Skates huren en een uur oefenen op een rolschaatsbaan of een glad parkpad",
+      "en": "Rent skates and practise for an hour on a roller rink or a smooth park path"
+    },
+    "scene": "a pair of retro quad roller skates with bright wheels on a smooth wooden rink floor with protective knee pads beside them",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q1707432",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "bergtoppen-afvinken",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Bergtoppen afvinken: de hoogste punten",
+      "en": "Peak bagging: ticking off high points"
+    },
+    "tags": [
+      "outdoors",
+      "collecting",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "De hoogste punten van de provincies of een lijst heuvels op een kaart; één per weekend",
+      "en": "The highest points of the provinces or a list of hills on a map; one per weekend"
+    },
+    "scene": "a stone summit marker on a grassy hilltop with a hiking map and a small notebook with a list of ticked peaks",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q7157849",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "langlaufen",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Langlaufen",
+      "en": "Cross-country skiing"
+    },
+    "tags": [
+      "movement",
+      "outdoors",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      12,
+      1,
+      2,
+      3
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een eerste les bij een langlaufschool of een weekend met gehuurde ski's",
+      "en": "A first lesson at a cross-country ski school or a weekend with rented skis"
+    },
+    "scene": "a pair of narrow cross-country skis and poles leaning against a wooden hut beside a groomed snowy track",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q18544844",
+      "method": "curated"
+    }
   }
 ]

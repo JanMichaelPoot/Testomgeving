@@ -393,7 +393,26 @@
     },
     "scene": "a wooden backgammon board with polished checkers and two dice mid-game under a lamp",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q11411"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q968853"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "backgammon"
+      ],
+      "en": [
+        "backgammon",
+        "Tavli"
+      ]
+    }
   },
   {
     "id": "tarot",

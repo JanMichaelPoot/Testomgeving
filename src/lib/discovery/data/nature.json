@@ -201,7 +201,21 @@
       "en": "One night in a trekker's cabin or at a small campsite"
     },
     "scene": "a small tent glowing at dusk beside a lake with a lantern",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q455550"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "kamperen"
+      ],
+      "en": [
+        "camping"
+      ]
+    }
   },
   {
     "id": "vogels",
@@ -322,7 +336,21 @@
     },
     "scene": "a saddle and bridle on a stable door with hay",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q179226"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "paardrijden"
+      ],
+      "en": [
+        "equestrianism"
+      ]
+    }
   },
   {
     "id": "hondensport",
@@ -543,7 +571,26 @@
       "en": "A community garden with an open morning, or a planter on your balcony"
     },
     "scene": "a wooden crate of vegetables, gardening gloves and a trowel in a raised bed",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q124946"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q136499958"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "tuinieren"
+      ],
+      "en": [
+        "gardening",
+        "food gardening"
+      ]
+    }
   },
   {
     "id": "kamerplanten",
@@ -921,7 +968,19 @@
     },
     "scene": "a small orange butterfly on purple thistle flowers in a sunlit meadow, a notebook open on a stone",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q5002983"
+      }
+    ],
+    "aliases": {
+      "nl": [],
+      "en": [
+        "butterfly watching"
+      ]
+    }
   },
   {
     "id": "dauwtrappen",
@@ -1070,5 +1129,160 @@
     "scene": "a canvas bag half full of collected litter beside a reusable glove on a park bench at dawn",
     "supply": "common",
     "status": "concept"
+  },
+  {
+    "id": "proplifting",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Proplifting: afgedankte planten redden",
+      "en": "Proplifting: rescuing discarded plants"
+    },
+    "tags": [
+      "growing",
+      "caring",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Vraag een tuincentrum of plantenwinkel naar afgeschreven planten en zet een stek in een glas water",
+      "en": "Ask a garden centre or plant shop for discarded plants and put a cutting in a glass of water"
+    },
+    "scene": "a wilted plant cutting in a glass jar of water on a sunny windowsill beside small clay pots",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q108572898",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "strandjutten",
+    "domain": "nature",
+    "sub": "light_sky_water",
+    "label": {
+      "nl": "Strandjutten",
+      "en": "Beachcombing"
+    },
+    "tags": [
+      "nature",
+      "collecting",
+      "water"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een wandeling langs de vloedlijn, het liefst na een storm of bij laagwater",
+      "en": "A walk along the tide line, ideally after a storm or at low tide"
+    },
+    "scene": "driftwood, shells and a smooth piece of sea glass collected on wet sand at the waterline in morning light",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q1757816",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "duiven-houden",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Duiven houden (colombofilie)",
+      "en": "Pigeon keeping (racing pigeons)"
+    },
+    "tags": [
+      "animals",
+      "caring",
+      "competition"
+    ],
+    "formats": [
+      "solo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 3,
+    "duration": 4,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open dag of kennismaking bij een colombofiele vereniging",
+      "en": "An open day or introduction at a pigeon-fanciers' club"
+    },
+    "scene": "a wooden pigeon loft with white and grey homing pigeons on a perch in warm light, a leg ring and a feed scoop on a shelf",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q2396572",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "mieren-houden",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Mieren houden",
+      "en": "Ant keeping"
+    },
+    "tags": [
+      "animals",
+      "nature",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een mierennest (formicarium) van een gespecialiseerde winkel of kweker",
+      "en": "An ant nest (formicarium) from a specialist shop or breeder"
+    },
+    "scene": "a glass ant farm formicarium with tunnels and a small colony in pale sand, softly lit on a shelf",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q30594741",
+      "method": "curated"
+    }
   }
 ]

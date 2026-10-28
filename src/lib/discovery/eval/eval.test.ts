@@ -54,7 +54,7 @@ describe("the 20 fixed profiles", () => {
   it("give the same seeds every time (the run does not depend on the date)", () => {
     const again = runWithEngine(profiles.map(toSyntheticProfile), engine);
     expect(again.map((r) => r.result.seeds.map((s) => s.activityId))).toEqual(runs.map((r) => r.result.seeds.map((s) => s.activityId)));
-  });
+  }, 60_000); // a second full run over the whole library; the default 5 s is too tight now that it has grown
 
   it("pass every deterministic check on the current engine: hard limits, duplicates, spread, one wildcard", () => {
     const findings = runs.flatMap((r) => checkSeedRun(r, engine.library));

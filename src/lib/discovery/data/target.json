@@ -525,7 +525,21 @@
     },
     "scene": "a wooden barricade with brightly splattered paint on a sandy field, flag poles and tyres in the background",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q192832"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "paintball"
+      ],
+      "en": [
+        "paintball"
+      ]
+    }
   },
   {
     "id": "pistoolschieten",

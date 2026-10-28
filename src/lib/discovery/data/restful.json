@@ -316,7 +316,26 @@
       "en": "Pick a slim book by someone you don't know yet"
     },
     "scene": "an open novel on a blanket with a mug beside a rainy window",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "S3",
+        "source_record_id": "Q199657"
+      },
+      {
+        "source_id": "S3",
+        "source_record_id": "Q109577660"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "lezen"
+      ],
+      "en": [
+        "reading",
+        "reading for recreation"
+      ]
+    }
   },
   {
     "id": "luisterboek",
@@ -834,5 +853,43 @@
     "scene": "an outdoor thermal pool with steam rising and stone loungers around it in cold morning air",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "stenen-stapelen",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Stenen stapelen",
+      "en": "Rock balancing"
+    },
+    "tags": [
+      "balance",
+      "stillness",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een stille oever of strand met platte stenen; begin met drie",
+      "en": "A quiet bank or beach with flat stones; start with three"
+    },
+    "scene": "a tall balanced stack of smooth grey stones on a riverbank at low sun with blurred water behind",
+    "status": "concept",
+    "provenance": {
+      "source_id": "S3",
+      "source_record_id": "Q1323158",
+      "method": "curated"
+    }
   }
 ]
