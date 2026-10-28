@@ -216,11 +216,9 @@ export interface Dictionary {
         "natural" | "discovery" | "unexpected" | "stretch",
         { label: string; description: string }
       >;
-      // Repeat-use nudge on the closing "done" screen.
-      doneReturnCta: string;
     };
     // "Verleiding" Fase 2 — the scrolling /plan reveal page (echo header,
-    // "if you only pick one" card, four doors, sealed wildcard, closing
+    // "if you only pick one" card, four doors, sealed wildcard
     // band). See src/components/window/PlanReveal.tsx.
     reveal: {
       eyebrow: string; // {date}
@@ -247,8 +245,6 @@ export interface Dictionary {
       wildcardSealedSub: string;
       wildcardOpenCta: string;
       wildcardOpenEyebrow: string;
-      closingHeading: string;
-      closingSub: string;
       dialogClose: string;
       feedbackPrompt: string;
       feedbackUp: string;
@@ -787,7 +783,6 @@ const nl: Dictionary = {
           description: "Net buiten je comfortzone. Groter, spannender, nog steeds haalbaar.",
         },
       },
-      doneReturnCta: "Kom later terug voor een nieuw venster",
     },
     reveal: {
       eyebrow: "Jouw Idea Book · {date}",
@@ -814,8 +809,6 @@ const nl: Dictionary = {
       wildcardSealedSub: "Het past niet netjes in een deur. Open hem pas als je er klaar voor bent.",
       wildcardOpenCta: "Open de wildcard",
       wildcardOpenEyebrow: "De wildcard",
-      closingHeading: "Over twee weken: hoe ging je eerste stap?",
-      closingSub: "Wie weet kijk je er dan anders tegenaan. Een nieuw venster openen kan altijd.",
       dialogClose: "Sluiten",
       feedbackPrompt: "Spreekt dit je aan?",
       feedbackUp: "Spreekt me aan",
@@ -1523,7 +1516,6 @@ const en: Dictionary = {
           description: "Just outside your comfort zone. Bigger, more exciting, still doable.",
         },
       },
-      doneReturnCta: "Come back later for a new window",
     },
     reveal: {
       eyebrow: "Your Idea Book · {date}",
@@ -1550,8 +1542,6 @@ const en: Dictionary = {
       wildcardSealedSub: "It doesn't fit neatly behind any door. Open it only when you're ready.",
       wildcardOpenCta: "Open the wildcard",
       wildcardOpenEyebrow: "The wildcard",
-      closingHeading: "In two weeks: how did your first step go?",
-      closingSub: "You may see it differently by then. Opening a new window is always possible.",
       dialogClose: "Close",
       feedbackPrompt: "Does this appeal to you?",
       feedbackUp: "Appeals to me",

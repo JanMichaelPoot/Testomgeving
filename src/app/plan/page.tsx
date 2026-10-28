@@ -307,7 +307,6 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           because={because}
           threads={threads}
           vensterDict={dict.venster}
-          siteUrl={process.env.NEXT_PUBLIC_SITE_URL}
         />
         {testFeedbackEnabled(process.env.NEXT_PUBLIC_TEST_FEEDBACK) && (
           <TestFeedback planId={plan.id} locale={locale} price={formatPrice(locale)} dict={dict.venster.feedback} doors={feedbackDoors} />

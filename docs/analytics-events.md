@@ -77,7 +77,6 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `one_thing_committed` | "Dit ga ik doen" | `planId`, `ideaKey`, `isOneThing` |
 | `wildcard_revealed` | de wildcard opengemaakt | `planId` |
 | `plan_pdf_downloaded` | de PDF geopend | `planId`, `source` |
-| `idea_book_done_return_clicked` | "Kom later terug" geklikt | `planId` |
 | `idea_book_share_clicked` | "Deel je Idea Book" ingedrukt | `url` |
 | `idea_book_share_whatsapp_clicked` | WhatsApp-link na het delen geklikt | – |
 | `shared_idea_book_viewed` | een gedeeld boek bekeken | `planId` |

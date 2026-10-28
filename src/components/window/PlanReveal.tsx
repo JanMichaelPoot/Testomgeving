@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState, useSyncExternalStore, useTransition } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { DoorIcon } from "@/components/window/DoorIcon";
 import { IdeaDetail } from "@/components/window/IdeaDetail";
@@ -12,7 +11,6 @@ import { IdeaThread } from "@/components/plan/IdeaThread";
 import { IdeaMore } from "@/components/plan/IdeaMore";
 import { pdfPageNumbers } from "@/lib/claude/ideaLayers";
 import { ShareButton } from "@/components/window/ShareButton";
-import { InviteShare } from "@/components/window/InviteShare";
 import { commitToIdea, submitIdeaFeedback, type IdeaFeedbackValue } from "@/app/plan/actions";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { ideaPhoto } from "@/lib/illustrations";
@@ -142,12 +140,11 @@ export interface PlanRevealProps {
   threads?: Record<string, IdeaThreadData>;
   vensterDict?: Dictionary["venster"];
   /** The site's address, for the invitation card's link. */
-  siteUrl?: string;
 }
 
 // The paid result, as one scrolling page: an echo of what the person told us,
 // the single idea we'd start with, all six ideas grouped behind four doors,
-// the sealed wildcard, and a closing band. Replaces the earlier two-screen
+// the sealed wildcard. Replaces the earlier two-screen
 // stepper (IdeaBookViewer).
 export function PlanReveal({
   planId,
@@ -170,7 +167,6 @@ export function PlanReveal({
   because = {},
   threads = {},
   vensterDict,
-  siteUrl,
 }: PlanRevealProps) {
   const t = planDict.reveal;
 
@@ -682,46 +678,6 @@ export function PlanReveal({
           )}
         </section>
       )}
-
-      {/* F — closing band */}
-      <section className="pt-14 sm:pt-16">
-        <div className="flex flex-col gap-6 rounded-lg border border-border bg-paper p-6 sm:p-8 md:flex-row md:items-center md:justify-between md:gap-8">
-          <div className="flex flex-col gap-1">
-            <p className="font-serif text-2xl text-ink">{t.closingHeading}</p>
-            <p className="text-sm text-ink/70">{t.closingSub}</p>
-            <Link
-              href="/intake?utm_source=idea_book_done&utm_medium=return_cta"
-              onClick={() => trackEvent("idea_book_done_return_clicked", { planId })}
-              className="mt-2 inline-flex min-h-11 items-center text-sm font-medium text-accent-dark underline underline-offset-2 hover:text-accent"
-            >
-              {planDict.book.doneReturnCta}
-            </Link>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            {pdfUrl && (
-              <Button
-                href={pdfUrl}
-                target="_blank"
-                rel="noreferrer"
-                variant="secondary"
-                onClick={trackPdf("closing")}
-              >
-                {planDict.downloadPdf}
-              </Button>
-            )}
-            <ShareButton
-              url={shareUrl}
-              label={planDict.shareButtonLabel}
-              copiedLabel={planDict.shareCopiedLabel}
-              whatsappLabel={planDict.shareWhatsappLabel}
-              className={cn(shareClassName, "min-h-12 px-6")}
-            />
-          </div>
-          {vensterDict && siteUrl && (
-            <InviteShare locale={locale} copy={vensterDict.invite} siteUrl={siteUrl} source="plan" className="w-full" />
-          )}
-        </div>
-      </section>
 
       <IdeaDialog
         open={selected !== null}

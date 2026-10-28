@@ -57,7 +57,6 @@ export const ANALYTICS_EVENTS = {
   one_thing_committed: { when: "'Dit ga ik doen' pressed", props: ["planId", "ideaKey", "isOneThing"] },
   wildcard_revealed: { when: "the sealed wildcard opened", props: ["planId"] },
   plan_pdf_downloaded: { when: "the PDF opened", props: ["planId", "source"] },
-  idea_book_done_return_clicked: { when: "'Kom later terug' clicked", props: ["planId"] },
 
   // --- sharing
   idea_book_share_clicked: { when: "'Deel je Idea Book' pressed", props: ["url"] },
