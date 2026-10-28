@@ -1,0 +1,833 @@
+{
+ "engine": "v2",
+ "mode": "full",
+ "source": "scripts/eval/profiles (3 vaste profielen: P05, P18, P03)",
+ "generatedAt": "2026-10-28T09:20:33.394Z",
+ "metrics": {
+  "profiles": 3,
+  "seeds": 21,
+  "violations": {
+   "E1": 0,
+   "E3": 0,
+   "E4": 0,
+   "E5": 0,
+   "E6": 0
+  },
+  "rates": {
+   "seedsAtLeastSix": 1,
+   "fourDomains": 1,
+   "maxTwoPerDomain": 1,
+   "allDirections": 1,
+   "nicheOwnWorld": 1,
+   "unexpectedHasBridge": 1,
+   "noRelaxation": 1
+  },
+  "notes": {},
+  "worldsPerBook": 6,
+  "subsPerBook": 6.666666666666667,
+  "photoCategoriesPerBook": 4.666666666666667,
+  "kindsPerBook": 4.666666666666667,
+  "pairBooks": 0.6666666666666666,
+  "sameSubBooks": 0.3333333333333333,
+  "relaxedBooks": 0,
+  "verifySeeds": 0.38095238095238093,
+  "tier2Seeds": 0.09523809523809523,
+  "costUnknownSeeds": 0,
+  "freeBudgetBooks": 0,
+  "freeBudgetWithUnknownCost": 0,
+  "socialKindShare": 0.19047619047619047,
+  "oneThingByDoor": {
+   "unexpected": 0.3333333333333333,
+   "natural": 0.6666666666666666
+  },
+  "activitiesUsed": 21,
+  "topActivity": {
+   "id": "klimmen",
+   "share": 0.3333333333333333
+  },
+  "top10Share": 0.47619047619047616
+ },
+ "profiles": [
+  {
+   "id": "P03",
+   "title": "Avontuurzoeker met geld",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 25-34, Utrecht",
+    "budget allin, tijd weekend, gezelschap duo",
+    "koos beelden: Een bergkam boven de wolken, Een circuit met banden en vlaggen, Net voor de sprong, Vlak voor de start, Het brullen van een motor, Hartslag in je oren",
+    "richtingen: adventure, speed"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "klimmen",
+     "label": {
+      "nl": "Klimmen met touw",
+      "en": "Rope climbing"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Klimmen met touw"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "bungeejump",
+     "label": {
+      "nl": "Bungeejumpen",
+      "en": "Bungee jumping"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Bungeejumpen"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "oldtimerrit",
+     "label": {
+      "nl": "Oldtimerrit of klassiekerdag",
+      "en": "Classic-car drive day"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Pumptrack of BMX-baan",
+      "Oldtimerrit of klassiekerdag"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "weerstation",
+     "label": {
+      "nl": "Weer volgen en een weerstation",
+      "en": "Weather observing"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Overlevingstraining met een nacht buiten",
+      "Weer volgen en een weerstation"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "orientatieloop",
+     "label": {
+      "nl": "Oriëntatielopen",
+      "en": "Orienteering"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Nachtwandeling met een zaklamp",
+      "Oriëntatielopen"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "obstacle-run",
+     "label": {
+      "nl": "Obstacle run of modderrace",
+      "en": "Obstacle or mud run"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Paintball of airsoft",
+      "Obstacle run of modderrace"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "sterrenkijken",
+     "label": {
+      "nl": "Sterrenkijken",
+      "en": "Stargazing"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Nachtwandeling met een zaklamp",
+      "Sterrenkijken"
+     ],
+     "lead": "duo",
+     "verify": []
+    }
+   ],
+   "book": {
+    "profile_summary": "",
+    "ideas": [
+     {
+      "door": "natural",
+      "title": "Klimmen met touw, samen omhoog",
+      "intro": "Een introductieles klimmen waarbij je elkaar zekert en samen de muur op gaat.",
+      "why_it_fits": "Je beeld van een puls in je oren wijst recht naar dit soort spanning onder je handen.",
+      "first_action": "Open www.klimmuur-utrecht.nl/introductieles en bekijk de eerstvolgende beschikbare datum.",
+      "activity_id": "klimmen",
+      "fill": {
+       "timeline": [
+        "Jullie melden je bij de balie en krijgen klimschoenen en een gordel.",
+        "De instructeur legt het zekeren uit en jullie klimmen om beurten.",
+        "Na een paar routes daalt de spanning en de spieren voelen het.",
+        "Jullie bespreken na bij de bar wie het hoogst kwam."
+       ],
+       "takeaways": [
+        "Een eerste gevoel voor zekeren en vertrouwen.",
+        "Een verhaal over die ene lastige overhang.",
+        "Meer lef om hoogte op te zoeken."
+       ],
+       "suggestions": [
+        "Draag kleding waarin je goed kunt bewegen.",
+        "Probeer om beurten te zekeren voor elkaar.",
+        "Noteer welke route het spannendst voelde."
+       ]
+      }
+     },
+     {
+      "door": "natural",
+      "title": "Net voor de sprong",
+      "intro": "Een bungeejump bij een erkende aanbieder, met instructie vlak voor de val.",
+      "why_it_fits": "Het beeld van 'net voor de sprong' is precies het moment waar deze hele ervaring om draait.",
+      "first_action": "Zoek nu op Google 'bungeejumpen erkende aanbieder Nederland' en open de eerste betrouwbare link.",
+      "activity_id": "bungeejump",
+      "fill": {
+       "timeline": [
+        "Jullie melden je aan bij de erkende aanbieder en krijgen een korte instructie.",
+        "De gordel wordt gecontroleerd en jullie klimmen naar het platform.",
+        "Om beurten springen jullie, met het touw dat opvangt.",
+        "Jullie wisselen ademloos verhalen uit over het gevoel van de val."
+       ],
+       "takeaways": [
+        "Een onvergetelijk moment van pure adrenaline.",
+        "Bewijs dat je durfde te springen.",
+        "Een gedeeld verhaal om nooit te vergeten."
+       ],
+       "suggestions": [
+        "Zoek vooraf een erkende aanbieder via een exacte zoekopdracht.",
+        "Film elkaars sprong als aandenken.",
+        "Bespreek vooraf wie als eerste springt."
+       ]
+      }
+     },
+     {
+      "door": "discovery",
+      "title": "Een ritje in het verleden",
+      "intro": "Stap samen in een klassieke Fiat 500 en rijd een halve dag door het landschap rond Utrecht.",
+      "why_it_fits": "Je beelden wezen naar snelheid op een pumptrack; dit deelt diezelfde kick, alleen met chroom en benzinegeur.",
+      "first_action": "Open www.dagjeweg.nl/tip/13948/Classic-Wheels en bekijk de beschikbare data voor de halve dag.",
+      "activity_id": "oldtimerrit",
+      "fill": {
+       "timeline": [
+        "Jullie halen de Fiat 500 op en wennen aan het schakelen.",
+        "Samen rijden jullie een vaste route door dorpen rond Utrecht.",
+        "Bij een pauzeplek genieten jullie van de stilte na de motor.",
+        "Terug bij de verhuurder wisselen jullie indrukken van de rit uit."
+       ],
+       "takeaways": [
+        "Gevoel voor het rijden van een klassieke auto.",
+        "Een route door het Utrechtse platteland ontdekt.",
+        "Verhalen over de eigenheid van oldtimers."
+       ],
+       "suggestions": [
+        "Neem een camera mee voor onderweg.",
+        "Wissel van bestuurder halverwege de rit.",
+        "Kies vooraf een rustige route buiten de stad."
+       ]
+      }
+     },
+     {
+      "door": "discovery",
+      "title": "De lucht lezen, samen",
+      "intro": "Een korte cursus waarin je leert een weerstation bij te houden en het weer zelf te voorspellen.",
+      "why_it_fits": "Het geluid van een motor zat in je beelden; hier vertaalt die energie zich naar de kracht van wind en onweer.",
+      "first_action": "Open meteo-maarssen.nl/lezingen.html en vind de eerstvolgende startdatum van de cursus.",
+      "activity_id": "weerstation",
+      "fill": {
+       "timeline": [
+        "Jullie installeren samen een regenmeter in de tuin of op het balkon.",
+        "Elke dag noteren jullie temperatuur, wind en neerslag in een dagboek.",
+        "Na een week vergelijken jullie patronen en opvallende uitschieters.",
+        "Jullie bespreken welke voorspelling het beste uitkwam."
+       ],
+       "takeaways": [
+        "Een eigen bijgehouden weerdagboek.",
+        "Inzicht in lokale weerpatronen.",
+        "Gevoel voor het voorspellen van weer."
+       ],
+       "suggestions": [
+        "Plaats de regenmeter op een vaste, open plek.",
+        "Vergelijk jullie metingen met een weerapp.",
+        "Noteer bijzondere wolkformaties apart."
+       ]
+      }
+     },
+     {
+      "door": "unexpected",
+      "title": "Nachtoriëntatie door het donker",
+      "intro": "Loop met kaart en kompas een beginnersroute uit, in het donker, samen op zoek naar de volgende post.",
+      "why_it_fits": "Jullie beeld van een circuit met vlaggen en bochten keert hier terug als een parcours vol verborgen posten.",
+      "first_action": "Open argus.nolb.nl en bekijk de eerstvolgende beginnersvriendelijke trainingsavond.",
+      "activity_id": "orientatieloop",
+      "fill": {
+       "timeline": [
+        "Jullie krijgen een kaart en kompas uitgereikt bij de vereniging.",
+        "Samen zoeken jullie in het donker de eerste controleposten.",
+        "Bij elke gevonden post groeit het vertrouwen in de kaart.",
+        "Terug bij start vergelijken jullie jullie route met anderen."
+       ],
+       "takeaways": [
+        "Vaardigheid om een kaart te lezen in het donker.",
+        "Vertrouwen in je eigen oriëntatievermogen.",
+        "Een avontuurlijk verhaal over verdwaalde paden."
+       ],
+       "suggestions": [
+        "Neem een extra zaklamp mee voor de zekerheid.",
+        "Bepaal samen wie de kaart vasthoudt.",
+        "Onthoud markante punten langs de route."
+       ]
+      }
+     },
+     {
+      "door": "stretch",
+      "title": "Door de modder, samen vooruit",
+      "intro": "Een korte beginnersrace vol modder en obstakels, waar je elkaar erdoorheen trekt.",
+      "why_it_fits": "Het geluid van een motor in je beelden klinkt hier terug in de herrie en adrenaline van de startlijn.",
+      "first_action": "Zoek nu op Google 'obstacle run beginnersrace Utrecht herfst 2026' en open de eerste evenementpagina.",
+      "activity_id": "obstacle-run",
+      "fill": {
+       "timeline": [
+        "Jullie verzamelen bij de start en smeren modder als bescherming.",
+        "Samen kruipen, klimmen en zeulen jullie over het parcours.",
+        "Bij de finish spoelen jullie af en vangen jullie adem.",
+        "Onder een deken bespreken jullie het zwaarste obstakel van de dag."
+       ],
+       "takeaways": [
+        "Fysiek bewijs dat je samen doorzette.",
+        "Een modderig maar trots groepsgevoel.",
+        "Verhalen over het zwaarste obstakel."
+       ],
+       "suggestions": [
+        "Trek kleding aan die vies mag worden.",
+        "Help elkaar over de hogere obstakels heen.",
+        "Bewaar een foto van de modderigste moment."
+       ]
+      }
+     },
+     {
+      "door": "wildcard",
+      "title": "Een avond onder de sterren",
+      "intro": "Een open avond bij een sterrenwacht waar je samen door een telescoop naar de nachtelijke hemel kijkt.",
+      "why_it_fits": "We hadden dit niet voorspeld vanuit jullie beelden, maar de stilte van een nachtwandeling leidt hier recht naartoe.",
+      "first_action": "Open meteo-maarssen.nl/lezingen.html en check de eerstvolgende sterrenkijkavond in Utrecht of Het Gooi.",
+      "activity_id": "sterrenkijken",
+      "fill": {
+       "timeline": [
+        "Jullie arriveren net na zonsondergang en wennen aan het donker.",
+        "Een gids wijst sterrenbeelden aan en laat jullie door een telescoop kijken.",
+        "Tegen het einde zoeken jullie zelf een bekende ster of planeet.",
+        "Nagenietend rijden jullie terug, nog pratend over wat jullie zagen."
+       ],
+       "takeaways": [
+        "Een rustig, verwonderd gevoel onder een sterrenhemel.",
+        "Kennis van een paar sterrenbeelden.",
+        "Een stil, gedeeld moment samen."
+       ],
+       "suggestions": [
+        "Breng een warme deken mee tegen de kou.",
+        "Download vooraf een sterrenkaart-app.",
+        "Kies een avond zonder volle maan."
+       ]
+      }
+     }
+    ]
+   },
+   "run": {
+    "usd": 0.15979100000000002,
+    "seconds": 69.798,
+    "issues": [],
+    "fillCount": 7,
+    "pdf": "docs/eval/books/2026-10-28-P03-v2.pdf"
+   },
+   "findings": []
+  },
+  {
+   "id": "P05",
+   "title": "Gezin met kinderen",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 35-44, Utrecht",
+    "budget 100, tijd fullday, gezelschap with_known",
+    "koos beelden: Een stal met warm stro, Een volle keukentafel, Iets zien groeien, Het brood dat uit de oven komt, Kruiden uit de tuin, Warme vacht, zachte neus",
+    "richtingen: nature, food",
+    "harde grenzen: kinderen, geen alcohol"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "nachtmarkt",
+     "label": {
+      "nl": "Een nachtmarkt of avondmarkt",
+      "en": "A night market or evening market"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Een nachtmarkt of avondmarkt"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "children"
+     ]
+    },
+    {
+     "activityId": "wijngaard-oogst",
+     "label": {
+      "nl": "Meehelpen met een oogst",
+      "en": "Helping with a harvest"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Meehelpen met een oogst"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "children"
+     ]
+    },
+    {
+     "activityId": "bingo-avond",
+     "label": {
+      "nl": "Bingo of een spelletjesavond",
+      "en": "Bingo or a games night"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Meubels restaureren",
+      "Bingo of een spelletjesavond"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "children"
+     ]
+    },
+    {
+     "activityId": "glasblazen",
+     "label": {
+      "nl": "Glasblazen",
+      "en": "Glassblowing"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Meubels restaureren",
+      "Glasblazen"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "cost_near_budget",
+      "alcohol",
+      "children"
+     ]
+    },
+    {
+     "activityId": "oude-kaarten",
+     "label": {
+      "nl": "Oude kaarten en prenten bekijken",
+      "en": "Studying old maps and prints"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Cactussen en zeldzame planten verzamelen",
+      "Munten en postzegels verzamelen",
+      "Oude kaarten en prenten bekijken"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "children"
+     ]
+    },
+    {
+     "activityId": "wandeltocht-lang",
+     "label": {
+      "nl": "Een lange wandeltocht in etappes",
+      "en": "A long-distance walk in stages"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Meehelpen met een oogst",
+      "Een lange wandeltocht in etappes"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "children"
+     ]
+    },
+    {
+     "activityId": "stoomtrein",
+     "label": {
+      "nl": "Meerijden op een stoomtrein",
+      "en": "A ride on a steam train"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Meubels restaureren",
+      "Meerijden op een stoomtrein"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "children"
+     ]
+    }
+   ],
+   "book": {
+    "profile_summary": "Een dag met tijd en ruimte voor het gezin, waarin je het liefst dingen doet met mensen die je al kent.",
+    "ideas": [
+     {
+      "door": "natural",
+      "title": "Avondmarkt met je mensen",
+      "intro": "Een avond vol kraampjes, geuren en proeven, samen met de mensen die je al kent.",
+      "why_it_fits": "Het beeld van de volle keukentafel wijst recht naar dit soort gedeelde, geurige avonden.",
+      "first_action": "Zet vrijdagavond in je agenda en stuur je gezelschap het adres van de markt in IJsselstein.",
+      "activity_id": "nachtmarkt",
+      "fill": {
+       "timeline": [
+        "Jullie komen aan bij de ingang en ruiken meteen het eten.",
+        "Jullie lopen langs kramen en proeven om de beurt iets nieuws.",
+        "Jullie zoeken een plek en eten samen iets warms.",
+        "Jullie wandelen terug, napratend over de leukste vondst."
+       ],
+       "takeaways": [
+        "Een nieuwe favoriete smaak ontdekt.",
+        "Een gezellige avond samen beleefd.",
+        "Een verhaal om thuis door te vertellen."
+       ],
+       "suggestions": [
+        "Neem contant geld mee voor kleine kraampjes.",
+        "Probeer iets dat je nog nooit geproefd hebt.",
+        "Spreek van tevoren af wie wat trakteert."
+       ]
+      }
+     },
+     {
+      "door": "natural",
+      "title": "Een dag oogsten met de handen",
+      "intro": "Een dag buiten, tussen de planten, met echt werk dat je samen aanpakt.",
+      "why_it_fits": "Kruiden uit de tuin was een van je beelden, en dit brengt je letterlijk tussen het gewas.",
+      "first_action": "Open stadswijngaardutrecht.nl/vrijwilligers en vul het aanmeldformulier in voor jou en je gezelschap.",
+      "activity_id": "wijngaard-oogst",
+      "fill": {
+       "timeline": [
+        "Jullie melden je bij de ingang en krijgen manden uitgereikt.",
+        "Jullie plukken samen fruit of groenten tussen de rijen.",
+        "Jullie wegen en sorteren de oogst met de andere vrijwilligers.",
+        "Jullie nemen een tas vol verse oogst mee naar huis."
+       ],
+       "takeaways": [
+        "Een tas vol zelfgeplukte groenten of fruit.",
+        "Besef van hoeveel werk eten kost.",
+        "Een warm gevoel van samen iets nuttigs doen."
+       ],
+       "suggestions": [
+        "Draag kleding die vies mag worden.",
+        "Vraag de boer naar het beste seizoen.",
+        "Neem een eigen mand of tas mee."
+       ]
+      }
+     },
+     {
+      "door": "discovery",
+      "title": "Kijkdag bij het veilinghuis",
+      "intro": "Ronddwalen tussen kavels vol kunst, antiek en kleine schatten, zonder iets te hoeven kopen.",
+      "why_it_fits": "Je beelden wezen naar het verzamelen van zeldzame dingen, en een kijkdag is precies dat, zonder cactus.",
+      "first_action": "Open veilinghuispeerdeman.nl en noteer het eerstvolgende weekend met kijkdag.",
+      "activity_id": "veiling",
+      "fill": {
+       "timeline": [
+        "Jullie lopen de zaal in en pakken een kavellijst.",
+        "Jullie bekijken samen de meubels, kunst en bijzondere stukken.",
+        "Jullie bespreken welke kavels jullie het interessantst vinden.",
+        "Jullie vertrekken met ideeën over wat je ooit zou willen bieden."
+       ],
+       "takeaways": [
+        "Een scherper oog voor bijzondere spullen.",
+        "Een gesprek over smaak en waarde.",
+        "Een verhaal over het mooiste kavel dat je zag."
+       ],
+       "suggestions": [
+        "Schrijf namen op van kavels die opvallen.",
+        "Vraag de medewerker naar de geschatte waarde.",
+        "Bekijk vooraf de kavellijst online."
+       ]
+      }
+     },
+     {
+      "door": "discovery",
+      "title": "Snuffelen bij de postzegelhandel",
+      "intro": "Een rustige middag tussen muntenbakjes en postzegelalbums, op zoek naar iets bijzonders.",
+      "why_it_fits": "Hetzelfde verzamelgevoel dat je beelden opriepen, nu in de vorm van munten en zegels.",
+      "first_action": "Bel 030 234 2040 om te vragen wanneer de winkel rustig genoeg is voor een eerste bezoek met kinderen.",
+      "activity_id": "munten-zegels",
+      "fill": {
+       "timeline": [
+        "Jullie stappen de winkel of beurs binnen en bekijken de tafels.",
+        "Jullie zoeken samen naar munten of postzegels die opvallen.",
+        "Jullie praten met de verkoper over herkomst en waarde.",
+        "Jullie gaan naar huis met een nieuw stuk voor de collectie."
+       ],
+       "takeaways": [
+        "Een eerste stukje van een eigen collectie.",
+        "Meer kennis over herkomst en zeldzaamheid.",
+        "Een rustig moment samen, weg van schermen."
+       ],
+       "suggestions": [
+        "Breng een leeg album mee voor nieuwe vondsten.",
+        "Vraag naar het verhaal achter een bijzonder stuk.",
+        "Zoek vooraf op welk thema jullie aanspreekt."
+       ]
+      }
+     },
+     {
+      "door": "unexpected",
+      "title": "Zelf een sieraad smeden",
+      "intro": "Een laagdrempelige workshop waarin je met je handen iets blijvends maakt, samen met wie je meeneemt.",
+      "why_it_fits": "Zoals het brood dat de oven verlaat, is dit het moment waarop jullie samen iets uit het niets maken.",
+      "first_action": "Open beadsandbasics.com/nl/workshops en reserveer een datum voor jou en je gezelschap.",
+      "activity_id": "sieraden",
+      "fill": {
+       "timeline": [
+        "Jullie komen binnen en kiezen samen materialen uit.",
+        "Jullie leren de basistechniek en beginnen aan jullie ontwerp.",
+        "Jullie werken rustig verder tot het sieraad af is.",
+        "Jullie nemen het zelfgemaakte sieraad meteen mee naar huis."
+       ],
+       "takeaways": [
+        "Een zelfgemaakt sieraad om te dragen.",
+        "Nieuwe handvaardigheid met kralen of metaal.",
+        "Trots gevoel over iets eigenhandig gemaakts."
+       ],
+       "suggestions": [
+        "Kies vooraf een kleur die bij je past.",
+        "Noteer welke techniek je het leukst vond.",
+        "Draag kleding zonder losse mouwen."
+       ]
+      }
+     },
+     {
+      "door": "stretch",
+      "title": "Je eerste meerdaagse wandeltocht",
+      "intro": "Twee dagen lopen over een bewegwijzerde route, met overnachting en alle ruimte om te groeien in het tempo.",
+      "why_it_fits": "Zoals je beeld van iets dat groeit, bouwt deze tocht zich dag na dag langzaam op.",
+      "first_action": "Zoek in Google 'bewegwijzerde tweedaagse wandelroute Utrecht omgeving' en kies een startpunt.",
+      "activity_id": "trektocht",
+      "fill": {
+       "timeline": [
+        "Jullie starten bij het beginpunt en zoeken de eerste markering.",
+        "Jullie wandelen urenlang door bos, veld en over paden.",
+        "Jullie rusten onderweg en genieten van het uitzicht.",
+        "Jullie komen moe maar voldaan aan bij het eindpunt."
+       ],
+       "takeaways": [
+        "Fysiek bewijs dat je een lange afstand aankon.",
+        "Rust in je hoofd na uren buiten lopen.",
+        "Een gedeeld avontuur om op terug te kijken."
+       ],
+       "suggestions": [
+        "Pak stevige schoenen en genoeg water in.",
+        "Plan vooraf waar jullie kunnen overnachten.",
+        "Houd een kaart bij de hand voor markeringen."
+       ]
+      }
+     },
+     {
+      "door": "wildcard",
+      "title": "Een ritje in de oldtimer",
+      "intro": "Een halve dag achter het stuur van een klassieke Fiat 500, gewoon om te voelen hoe dat is.",
+      "why_it_fits": "Je beeld van de volle keukentafel gaat over samen ergens middenin zitten, en deze rit is precies dat met een motorkap.",
+      "first_action": "Open dagjeweg.nl/tip/13948/Classic-Wheels en vraag naar beschikbaarheid voor een zaterdag.",
+      "activity_id": "oldtimerrit",
+      "fill": {
+       "timeline": [
+        "Jullie stappen in bij de klassieke auto en voelen het leer.",
+        "Jullie rijden samen een route door en rond Utrecht.",
+        "Jullie stoppen onderweg voor een foto bij de auto.",
+        "Jullie stappen uit, nagenietend van het ritje."
+       ],
+       "takeaways": [
+        "Een foto bij een opvallende klassieke auto.",
+        "Een verhaal over een ritje uit een ander tijdperk.",
+        "Gevoel van iets bijzonders samen beleefd."
+       ],
+       "suggestions": [
+        "Trek warme kleding aan voor open ramen.",
+        "Vraag de chauffeur naar het bouwjaar.",
+        "Leg van tevoren de route samen vast."
+       ]
+      }
+     }
+    ]
+   },
+   "run": {
+    "usd": 0.10109800000000002,
+    "seconds": 60.584,
+    "issues": [
+     "fill_repetitive (vraag x4)"
+    ],
+    "fillCount": 7,
+    "pdf": "docs/eval/books/2026-10-28-P05-v2.pdf"
+   },
+   "findings": [
+    {
+     "check": "fill:repetitive_opening",
+     "severity": "warn",
+     "where": "book",
+     "message": "4 suggestions start with \"vraag\"",
+     "profile": "P05"
+    }
+   ]
+  },
+  {
+   "id": "P18",
+   "title": "Kaarten: gezelschap en spel",
+   "kind": "cards",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 25-34, Haarlem",
+    "budget 25, tijd halfday, gezelschap with_known",
+    "koos activiteiten: Moderne bordspellen, Pubquiz, Escape room, Kaartspellen (bridge, klaverjassen)",
+    "richtingen: games, night"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "escape-room",
+     "label": {
+      "nl": "Escape room",
+      "en": "Escape room"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Escape room"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "bordspellen",
+     "label": {
+      "nl": "Moderne bordspellen",
+      "en": "Modern board games"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Moderne bordspellen"
+     ],
+     "lead": "with_known",
+     "verify": []
+    },
+    {
+     "activityId": "minigolf",
+     "label": {
+      "nl": "Minigolf",
+      "en": "Mini golf"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Moderne bordspellen",
+      "Minigolf"
+     ],
+     "lead": "with_known",
+     "verify": []
+    },
+    {
+     "activityId": "biljarten",
+     "label": {
+      "nl": "Biljarten of snooker",
+      "en": "Billiards or snooker"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Moderne bordspellen",
+      "Biljarten of snooker"
+     ],
+     "lead": "with_known",
+     "verify": []
+    },
+    {
+     "activityId": "breien-haken",
+     "label": {
+      "nl": "Breien of haken",
+      "en": "Knitting or crocheting"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Kaartspellen (bridge, klaverjassen)",
+      "Breien of haken"
+     ],
+     "lead": "with_known",
+     "verify": []
+    },
+    {
+     "activityId": "wielerwedstrijd-kijken",
+     "label": {
+      "nl": "Een wielerwedstrijd aan de kant kijken",
+      "en": "Watching a cycling race from the roadside"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Pubquiz",
+      "Een wielerwedstrijd aan de kant kijken"
+     ],
+     "lead": "with_known",
+     "verify": []
+    },
+    {
+     "activityId": "spionagespel",
+     "label": {
+      "nl": "Spionagespel in de stad",
+      "en": "Spy game in the city"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Escape room",
+      "Spionagespel in de stad"
+     ],
+     "lead": "with_known",
+     "verify": []
+    }
+   ],
+   "findings": []
+  }
+ ]
+}

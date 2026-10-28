@@ -3840,3 +3840,21 @@ Stripe, Claude API, Resend, PostHog).
       toont die onder "Aandacht nodig" en op het orderdetail ("Oorzaak en oplossing"). **Niet gedaan**: een knop "mail opnieuw
       versturen" in de admin voor mislukte orders (nuttig zodra het domein geverifieerd is; zeg het als je die wilt). Gates:
       `tsc`, eslint, `npm run build`, volledige `npm test` (66 bestanden, 607 tests; dezelfde ene vitest-worker-time-out).
+
+- [x] Stap 103 - Kennisengine, B6 ronde 2 (Jan: "Doe B6, met budget van $1,20"; uitgegeven **$1,124**). Drie nieuwe profielen,
+      elk met de huidige versie en met v2 (`--engine current,v2 --full`, harde grens `--max-usd 1.2`): P03 (avontuurzoeker met geld),
+      P05 (gezin met kinderen, Utrecht) en P18 (kaartenwizard, avondje met vrienden, Haarlem). **Gelukt: P03 en P05** (4 boeken).
+      **Niet gelukt: P18**: het onderzoek voor dat profiel kostte $0,17 en daarna bleef er onder de reserve per boek te weinig
+      over om te schrijven; een tweede poging met kleinere reserves schreef alleen het huidige boek ($0,078) en kon v2 niet meer
+      betalen. P18 is dus **niet** in de blinde vergelijking en de halve resultaten zijn verwijderd (het onderzoek staat wel in de
+      cache). Dus samen met ronde 1 vier profielparen (P01, P12, P03, P05), niet de zes of meer waar de go-criteria om vragen.
+      **Gemeten**: harde regels E1/E3/E4/E5/E6 0 overtredingen in beide; de selectie was voor P03 en P05 gelijk in beide versies, dus
+      verschillen zitten in het schrijven en in "Als je er maar één kiest" (huidig: onverwacht in 100%; v2: vertrouwd 67%,
+      onverwacht 33%). v2: 14 van 14 ideeën met eigen invulling (huidig 0 van 14), geen `fill_dropped` of `fill_conflict`. Meldingen:
+      v2 `fill_repetitive (vraag x4)` bij P05 (de herhaling die in Stap 100 niet was opgelost, nu met "vraag" in plaats van "Kies"); huidig
+      `unverified_website:booking.com` bij P05. Kosten: v2 $0,160 (P03, onderzoek deels uit cache) en $0,101 (P05, onderzoek geheel
+      uit cache); huidig $0,290 en $0,242 (beide met koud onderzoek), dus niet direct vergelijkbaar; de meerkosten van alleen het
+      schrijven blijven rond de +$0,016-0,021 uit Stap 99. Tijd: v2 61-70 s, huidig 73-110 s (inclusief onderzoek).
+      **Blinde beoordeling**: `docs/eval/blind-b6-ronde-2.html` met `docs/eval/books-blind/P03-A.pdf` ... `P05-B.pdf`; de sleutel staat in
+      `blind-b6-ronde-2.key.json` (niet openen voor je klaar bent). Rapporten: `docs/eval/2026-10-28-{current,v2}-only-P05-P18-P03-full.*`
+      (bevatten P18 als mislukte regel). Geen codewijziging.
