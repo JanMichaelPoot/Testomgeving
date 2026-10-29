@@ -1,13 +1,41 @@
-// Feature flag of the knowledge-engine work (WINDOW_Bouwopdracht_Kennisengine.md, rule 10): everything that
-// B5 adds (activity-specific "fill" lines, honest origin wording, the visible chain) only runs when
-// KNOWLEDGE_ENGINE_V2 is switched on. Off by default; it is switched on only after the comparison of B6 is positive.
+// Feature flags of the knowledge-engine work (WINDOW_Bouwopdracht_Kennisengine.md, rule 10). They are off by default and
+// switched on only after a positive comparison. Since the improvement plan (docs/verbeterplan-windowinto.md, D9) there
+// are two, because the two halves of the old KNOWLEDGE_ENGINE_V2 were measured differently:
 //
-// Server side only (a plain, non-public environment variable). Components that need to know get the result as a prop.
+//   KNOWLEDGE_RANKING_V2  B4: the stepwise ranking (weights WEIGHTS_V2) and the measured `fit`/`reasons` per idea.
+//                         Measured well (docs/eval/2026-10-28-b4-ranking.md): fewer variations of one thing, no unknown
+//                         costs for a free budget.
+//   KNOWLEDGE_WRITING_V2  B5: activity-specific fill lines, honest origin wording, the visible chain. The blind comparison
+//                         split 2-2 (Stap 104), so it stays off until a clearer result.
+//
+// The old KNOWLEDGE_ENGINE_V2 still works as "both on", so an existing deployment behaves as before until it is changed.
+//
+// Server side only (plain, non-public environment variables). Components that need to know get the result as a prop.
 
 const TRUE_VALUES = new Set(["1", "true", "yes", "on"]);
 
-/** Whether the V2 behaviour is on. Accepts 1/true/yes/on, in any case, with stray quotes or spaces. */
-export function knowledgeEngineV2Enabled(value: string | undefined = process.env.KNOWLEDGE_ENGINE_V2): boolean {
+function isOn(value: string | undefined): boolean {
   if (!value) return false;
   return TRUE_VALUES.has(value.trim().replace(/^["']|["']$/g, "").toLowerCase());
+}
+
+/** B4 on: the stepwise ranking and `fit`/`reasons`. KNOWLEDGE_RANKING_V2, or the legacy KNOWLEDGE_ENGINE_V2. */
+export function knowledgeRankingV2Enabled(
+  value: string | undefined = process.env.KNOWLEDGE_RANKING_V2,
+  legacy: string | undefined = process.env.KNOWLEDGE_ENGINE_V2,
+): boolean {
+  return isOn(value) || isOn(legacy);
+}
+
+/** B5 on: fill lines, honest origin wording, visible chain. KNOWLEDGE_WRITING_V2, or the legacy KNOWLEDGE_ENGINE_V2. */
+export function knowledgeWritingV2Enabled(
+  value: string | undefined = process.env.KNOWLEDGE_WRITING_V2,
+  legacy: string | undefined = process.env.KNOWLEDGE_ENGINE_V2,
+): boolean {
+  return isOn(value) || isOn(legacy);
+}
+
+/** Whether the legacy flag alone is on (both halves). Kept for the harness and old call sites. */
+export function knowledgeEngineV2Enabled(value: string | undefined = process.env.KNOWLEDGE_ENGINE_V2): boolean {
+  return isOn(value);
 }

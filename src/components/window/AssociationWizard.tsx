@@ -1,14 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState, useTransition, type PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Button } from "@/components/ui/Button";
 import { LocationAutocomplete } from "@/components/ui/LocationAutocomplete";
 import { WindowFrame, type WindowPaneKey } from "@/components/window/WindowFrame";
 import { cn } from "@/lib/utils";
-import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
-import { submitIntake, type IntakeAnswers } from "@/app/intake/actions";
+import { saveIntake, type IntakeAnswers } from "@/app/intake/actions";
+import { CheckoutPanel } from "@/components/window/CheckoutPanel";
+import { TestModeBanner } from "@/components/window/TestModeBanner";
 import { domainImage } from "@/lib/discovery/paths";
 import { ASSOCIATION_ROUNDS, type AssociationCard, type AssociationLibrary, type AssociationRound, type AxisId } from "@/lib/discovery/associationProfile";
 import { buildProfileStory } from "@/lib/discovery/profileStory";
@@ -19,6 +20,7 @@ import { buildSill, buildVensterPanes } from "@/lib/vensterPanes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { DRAFT_VERSION, VENSTER_PAGES, migrateDraftPage, type VensterPageId } from "@/lib/vensterPages";
 import { ageOptionsFor } from "@/lib/ageOptions";
+import { currentBudget } from "@/lib/budgetOptions";
 
 // The image intake ("Het venster", WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md, fase 3).
 // Seven short screens in four chapters (see vensterPages.ts):
@@ -154,6 +156,18 @@ function Chip({ selected, onClick, children }: { selected: boolean; onClick: () 
   );
 }
 
+/** What the last screen needs to take the payment itself (the separate checkout page is gone for this intake, D3). */
+export interface WizardPayment {
+  dict: Dictionary["checkout"];
+  price: string;
+  /** True for a visitor whose device already has the opt-in cookie (herhalingsgeheugen). */
+  rememberInitially: boolean;
+  /** The text of the test banner on the test preview; the banner itself always shows (it holds the "skip payment" test button). */
+  testNotice?: string;
+  /** Stripe sent the visitor back after a cancelled or failed payment. */
+  paymentFailed: boolean;
+}
+
 export function AssociationWizard({
   intakeDict,
   dict,
@@ -161,6 +175,7 @@ export function AssociationWizard({
   domains,
   initial,
   initialPurpose = "self",
+  payment,
 }: {
   intakeDict: Dictionary["intake"];
   dict: Dictionary["venster"];
@@ -170,6 +185,7 @@ export function AssociationWizard({
   initial?: { answers: IntakeAnswers; page: number };
   /** From the landing page's two buttons (?for=gift). */
   initialPurpose?: "self" | "gift";
+  payment: WizardPayment;
 }) {
   const [page, setPage] = useState(0);
   const [answers, setAnswers] = useState<IntakeAnswers>({ ...EMPTY, purpose: initialPurpose });
@@ -180,6 +196,8 @@ export function AssociationWizard({
   const [swipeIdx, setSwipeIdx] = useState(0);
   // "Bijsturen" on the profile screen: the extra tags under "what do you want more of" are open.
   const [adjusting, setAdjusting] = useState(false);
+  // "Meer opgeven" on the situation screen (age, how, hard limits); it also opens by itself when one of them has an answer.
+  const [moreToggled, setMoreToggled] = useState(false);
   const [windowOpen, setWindowOpen] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -196,7 +214,6 @@ export function AssociationWizard({
   const shownIds = rotated ?? initialDirections(order, answers.interestDomains ?? []);
   const shownDomains = shownIds.map((id) => domains.find((d) => d.id === id)).filter((d): d is { id: string; label: string } => !!d);
   const [seenBefore, setSeenBefore] = useState<string[]>([]);
-  const [isPending, startTransition] = useTransition();
   const pageEnteredAt = useRef(0);
   const startedAt = useRef(0);
 
@@ -211,7 +228,7 @@ export function AssociationWizard({
     if (initial) {
       const split = splitLimits(initial.answers.mustHaves ?? "", dict.who.limitChips);
       /* eslint-disable react-hooks/set-state-in-effect -- one-time, hydration-safe restore */
-      setAnswers({ ...EMPTY, ...initial.answers });
+      setAnswers({ ...EMPTY, ...initial.answers, budget: currentBudget(initial.answers.budget ?? "") });
       setLimitChips(split.chips);
       setLimitText(split.text);
       setPage(Math.min(Math.max(initial.page, 0), VENSTER_PAGES.length - 1));
@@ -220,7 +237,11 @@ export function AssociationWizard({
     } else {
       const draft = loadDraft();
       if (draft && (draft.page > 0 || (draft.answers.associations ?? []).length > 0)) {
-        setAnswers({ ...draft.answers, purpose: draft.answers.purpose === "gift" || initialPurpose === "gift" ? "gift" : "self" });
+        setAnswers({
+          ...draft.answers,
+          budget: currentBudget(draft.answers.budget ?? ""),
+          purpose: draft.answers.purpose === "gift" || initialPurpose === "gift" ? "gift" : "self",
+        });
         setLimitChips(draft.limitChips);
         setLimitText(draft.limitText);
         setPage(draft.page);
@@ -315,10 +336,8 @@ export function AssociationWizard({
       case "places":
       case "moments":
         return chosenInRound > 0;
-      case "room":
-        return !!answers.timeAvailable && !!answers.budget;
-      case "who":
-        return answers.company.length > 0;
+      case "situation":
+        return !!answers.timeAvailable && !!answers.budget && answers.company.length > 0;
       default:
         return true;
     }
@@ -384,16 +403,8 @@ export function AssociationWizard({
       trackEvent("association_round_completed", { round, selected: chosenInRound, mode, duration_ms: duration });
     }
     trackEvent("intake_page_completed", { wizard_variant: "associations", page: pageId, index: page, duration_ms: duration });
-    if (page < VENSTER_PAGES.length - 1) {
-      go(page + 1);
-      return;
-    }
-    // The last screen: they agree with how we read their window, and go to the checkout.
-    trackEvent("profile_agreed", {
-      adjusted: Object.keys(answers.axesOverride ?? {}).length > 0 || (answers.associationCorrections ?? []).length > 0,
-    });
-    trackEvent("profile_reflection", { has_reflection: answers.personalReflection.trim().length > 0 });
-    submit();
+    // The last screen has no "next": paying is on that screen itself (saveForPayment below).
+    if (page < VENSTER_PAGES.length - 1) go(page + 1);
   }
 
   function setAxis(axis: AxisId, value: number) {
@@ -409,27 +420,33 @@ export function AssociationWizard({
     });
   }
 
-  function submit() {
+  // Set once the answers are stored: a second try (a failed payment start) then replaces them in the same session.
+  const stored = useRef(false);
+
+  /** Stores the answers right before the payment starts; throws (with a message for the visitor) when that is not allowed. */
+  async function saveForPayment() {
     const mustHaves = [...limitChips, limitText.trim()].filter(Boolean).join("; ");
     const final: IntakeAnswers = { ...answers, mustHaves, intakeVariant: "associations" };
+    trackEvent("profile_agreed", {
+      adjusted: Object.keys(answers.axesOverride ?? {}).length > 0 || (answers.associationCorrections ?? []).length > 0,
+    });
+    trackEvent("profile_reflection", { has_reflection: answers.personalReflection.trim().length > 0 });
     trackEvent("intake_submitted", {
       wizard_variant: "associations",
       pages: VENSTER_PAGES.length,
       total_ms: msSince(startedAt.current),
       images: (final.associations ?? []).length,
     });
-    startTransition(async () => {
-      try {
-        await submitIntake(final, initial ? { edit: true } : {});
-      } catch (err) {
-        if (isRedirectError(err)) {
-          clearDraft();
-          throw err;
-        }
-        trackEvent("intake_submit_failed", { wizard_variant: "associations" });
-        setError(dict.errorGeneric);
-      }
-    });
+    let result: Awaited<ReturnType<typeof saveIntake>>;
+    try {
+      result = await saveIntake(final, initial || stored.current ? { edit: true } : {});
+    } catch (err) {
+      trackEvent("intake_submit_failed", { wizard_variant: "associations" });
+      throw new Error(dict.errorGeneric, { cause: err });
+    }
+    if (!result.ok) throw new Error(dict.testLimit.body);
+    stored.current = true;
+    clearDraft();
   }
 
   // --- swipe gesture -------------------------------------------------------------------------
@@ -452,8 +469,8 @@ export function AssociationWizard({
   }
 
   // --- pieces --------------------------------------------------------------------------------
-  const chapter = page <= 3 ? 0 : page === 4 ? 1 : page === 5 ? 2 : 3;
-  const chapterNames = [dict.chapters.images, dict.chapters.room, dict.chapters.who, dict.chapters.extra];
+  const chapter = page <= 3 ? 0 : page === 4 ? 1 : 2;
+  const chapterNames = [dict.chapters.images, dict.chapters.situation, dict.chapters.extra];
   const windowTitle = dict.nav.windowTitle;
 
   const roundPage = (r: AssociationRound) => {
@@ -683,14 +700,53 @@ export function AssociationWizard({
             tagLabels={library.tagLabels}
             corrections={answers.associationCorrections ?? []}
             onToggleCorrection={toggleCorrection}
+            payment={
+              <section id="bestellen" aria-labelledby="order-title" className="scroll-mt-24 overflow-hidden rounded-lg border border-border bg-paper">
+                <TestModeBanner dict={payment.dict} notice={payment.testNotice} beforeSkip={saveForPayment} />
+                <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr]">
+                  <div>
+                    <h2 id="order-title" className="font-serif text-2xl leading-tight text-ink sm:text-3xl">
+                      {pick(dict.checkout.heading, dict.checkout.headingGift)}
+                    </h2>
+                    <div className="mt-5 flex items-baseline gap-2 rounded-lg bg-surface-active px-4 py-3">
+                      <span className="font-serif text-3xl font-semibold text-ink">{payment.price}</span>
+                      <span className="text-xs text-ink/50">{payment.dict.priceCaption}</span>
+                    </div>
+                    <ul className="mt-6 flex flex-col gap-3">
+                      {dict.checkout.whatYouGet.map((line) => (
+                        <li key={line} className="flex items-start gap-3 text-sm leading-relaxed text-ink/75">
+                          <span aria-hidden="true" className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-light text-accent-dark">
+                            <svg width="9" height="9" viewBox="0 0 12 10" fill="none">
+                              <path d="M1 5l3.5 4L11 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </span>
+                          {line}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    {payment.paymentFailed && (
+                      <p className="mb-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+                        {payment.dict.errorPaymentFailed}
+                      </p>
+                    )}
+                    <CheckoutPanel dict={payment.dict} price={payment.price} rememberInitially={payment.rememberInitially} beforePay={saveForPayment} />
+                  </div>
+                </div>
+              </section>
+            }
           />
         ) : null;
-      case "room":
+      case "situation": {
+        const how = [...new Map(answers.company.flatMap((c) => dict.who.howOptions[c] ?? []).map((o) => [o.value, o])).values()];
+        const hasMore = (answers.socialFormats ?? []).length > 0 || !!answers.ageCategory || limitChips.length > 0 || limitText.trim().length > 0;
+        const showMore = moreToggled || hasMore;
         return (
           <div className="space-y-7">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{dict.chapters.room}</p>
-              <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.room.heading, dict.room.headingGift)}</h1>
+              <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{dict.chapters.situation}</p>
+              <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.situation.heading, dict.situation.headingGift)}</h1>
             </div>
             <div>
               <label htmlFor="location" className="block font-semibold text-ink">
@@ -735,16 +791,6 @@ export function AssociationWizard({
                 ))}
               </div>
             </fieldset>
-          </div>
-        );
-      case "who": {
-        const how = [...new Map(answers.company.flatMap((c) => dict.who.howOptions[c] ?? []).map((o) => [o.value, o])).values()];
-        return (
-          <div className="space-y-7">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{dict.chapters.who}</p>
-              <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.who.heading, dict.who.headingGift)}</h1>
-            </div>
             <fieldset>
               <legend className="font-semibold text-ink">{pick(dict.who.companyLabel, dict.who.companyLabelGift)}</legend>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -765,6 +811,21 @@ export function AssociationWizard({
                 ))}
               </div>
             </fieldset>
+            <div>
+              <button
+                type="button"
+                onClick={() => setMoreToggled((v) => !v)}
+                aria-expanded={showMore}
+                aria-controls="situation-more"
+                className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent-dark underline underline-offset-2 hover:text-accent"
+              >
+                <span aria-hidden="true">{showMore ? "−" : "+"}</span>
+                {dict.situation.moreLabel}
+              </button>
+              <p className="mt-0.5 text-sm text-ink/60">{dict.situation.moreSub}</p>
+            </div>
+            {showMore && (
+              <div id="situation-more" className="space-y-7">
             {how.length > 0 && (
               <fieldset>
                 <legend className="font-semibold text-ink">{dict.who.howLabel}</legend>
@@ -813,6 +874,8 @@ export function AssociationWizard({
                 className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/35 focus:border-ink"
               />
             </fieldset>
+              </div>
+            )}
           </div>
         );
       }
@@ -826,13 +889,7 @@ export function AssociationWizard({
   const swiping = mode === "swipe" && !!round && swipeIdx < roundCards.length;
   const isLast = page === VENSTER_PAGES.length - 1;
   const optionalRound = pageId === "senses" && chosenInRound === 0;
-  const primaryLabel = isLast
-    ? isPending
-      ? dict.nav.submitting
-      : dict.profile.agree
-    : optionalRound
-      ? dict.roundUi.skip
-      : dict.nav.next;
+  const primaryLabel = optionalRound ? dict.roundUi.skip : dict.nav.next;
 
   return (
     <div className="w-full pb-[calc(7rem+env(safe-area-inset-bottom))] lg:pb-0">
@@ -917,16 +974,19 @@ export function AssociationWizard({
               )}
               <div className={cn("mx-auto flex max-w-6xl items-center gap-3", swiping && "hidden sm:flex")}>
                 {page > 0 && (
-                  <Button variant="secondary" onClick={back} disabled={isPending} aria-label={dict.nav.back} className="px-4">
+                  <Button variant="secondary" onClick={back} aria-label={dict.nav.back} className="px-4">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                       <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     <span className="hidden sm:inline">{dict.nav.back}</span>
                   </Button>
                 )}
-                <Button onClick={next} disabled={!canContinue || isPending} className="flex-1 lg:flex-none lg:min-w-56">
-                  {primaryLabel}
-                </Button>
+                {/* The last screen pays itself (the order block above): only "Terug" stays in the bar. */}
+                {!isLast && (
+                  <Button onClick={next} disabled={!canContinue} className="flex-1 lg:flex-none lg:min-w-56">
+                    {primaryLabel}
+                  </Button>
+                )}
               </div>
             </div>
           )}

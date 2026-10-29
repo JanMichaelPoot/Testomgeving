@@ -34,6 +34,7 @@ export function ProfileStep({
   tagLabels,
   corrections,
   onToggleCorrection,
+  payment,
 }: {
   copy: Copy;
   story: ProfileStory;
@@ -52,6 +53,8 @@ export function ProfileStep({
   tagLabels: Record<string, string>;
   corrections: string[];
   onToggleCorrection: (tag: string) => void;
+  /** The order block (price, what you get, the payment): the last thing on the screen, so there is no separate checkout page. */
+  payment: ReactNode;
 }) {
   // On a phone the sliders and the filters sit in a block that starts closed; on a computer it is always open.
   const [moreOpen, setMoreOpen] = useState(false);
@@ -244,6 +247,7 @@ export function ProfileStep({
           <p className="mt-6 font-serif text-lg italic text-accent-dark">{copy.teaser}</p>
         </div>
       </div>
+      <div className="mt-12">{payment}</div>
     </div>
   );
 }

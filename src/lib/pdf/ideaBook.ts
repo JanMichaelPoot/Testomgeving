@@ -46,7 +46,7 @@ import {
 } from "@/lib/pdf/ideaContent";
 import { fillConflicts, fillContext, normalizeFill, withoutConflicts } from "@/lib/claude/ideaFill";
 import { getActivity } from "@/lib/discovery/library";
-import { knowledgeEngineV2Enabled } from "@/lib/knowledgeFlags";
+import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 
 // pdf-lib has no first-class "add a hyperlink" API, so a clickable region
 // is a manually-built Link annotation — a standard, documented technique
@@ -1444,7 +1444,7 @@ export async function renderIdeaBookPdf(
     const fillCtx = activity ? fillContext(activity, null, context.company) : null;
     const ownFill = fill && !(fillCtx && fillConflicts(fill, fillCtx).length > 0) ? fill : undefined;
     // With the flag on, a template line that contradicts the idea (a solo idea that says "bring someone you enjoy") is skipped too.
-    const v2 = knowledgeEngineV2Enabled();
+    const v2 = knowledgeWritingV2Enabled();
     const templateLines = (lines: readonly string[]) => (v2 && fillCtx ? withoutConflicts(lines, fillCtx) : [...lines]);
     const schedule = ownFill ? scheduleFromLines(ownFill.timeline, durationText, locale) : scheduleFor(kind, durationText, locale);
 

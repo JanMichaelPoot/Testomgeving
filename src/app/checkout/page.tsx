@@ -16,7 +16,7 @@ import { DOMAINS, getActivity } from "@/lib/discovery/library";
 import { buildChoiceGroups } from "@/lib/checkoutChoices";
 import { getDeviceId } from "@/lib/discovery/historyStore";
 import type { StoredIntake } from "@/app/intake/actions";
-import { VensterOrderSummary } from "@/components/window/VensterOrderSummary";
+import { VENSTER_EDIT_PAGE } from "@/lib/vensterPages";
 import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { checkTestQuota } from "@/lib/testQuota";
 
@@ -48,6 +48,11 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
 
   if (!intake) redirect("/intake");
 
+  // The image intake pays on its last screen (the profile): there is no separate order page for it any more.
+  if ((intake.raw_json as unknown as StoredIntake).intakeVariant === "associations") {
+    redirect(`/intake?edit=1&page=${VENSTER_EDIT_PAGE.profile}${paymentFailed ? "&payment=cancelled" : ""}`);
+  }
+
   const locale = await getLocale();
   const dict = getDictionary(locale);
   const price = formatPrice(locale);
@@ -75,9 +80,6 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
     },
   );
   const rememberInitially = (await getDeviceId()) !== null;
-  const stored = intake.raw_json as unknown as StoredIntake;
-  // The image intake shows its window as the order ("Het venster", fase 5).
-  const venster = stored.intakeVariant === "associations";
 
   return (
     <div className="flex min-h-full flex-col bg-cream">
@@ -88,7 +90,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
       />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-12 sm:px-10">
         <Link
-          href={venster ? "/intake?edit=1&page=7" : "/intake?edit=1"}
+          href="/intake?edit=1"
           className="mb-8 inline-flex items-center gap-2 text-sm text-ink/60 transition-colors hover:text-ink"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -108,11 +110,6 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
 
         <div className="grid gap-6 rounded-lg border border-border bg-paper p-8 sm:p-10 lg:grid-cols-[1fr_1.1fr]">
           {/* Left: order summary */}
-          {venster ? (
-            <div className="lg:border-r lg:border-border lg:pr-10">
-              <VensterOrderSummary intake={stored} dict={dict} price={price} locale={locale} />
-            </div>
-          ) : (
           <div className="lg:border-r lg:border-border lg:pr-10">
             {/* Same still life as the landing hero, cropped wider here —
                 an intentional bookend: the window that's about to open. */}
@@ -188,7 +185,6 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
               ))}
             </dl>
           </div>
-          )}
 
           {/* Right: gift/waiver/payment */}
           <div className="lg:pl-0">

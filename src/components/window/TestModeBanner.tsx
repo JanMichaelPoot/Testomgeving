@@ -10,12 +10,13 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 // real checkout for a paying visitor's attention.
 // On the test preview (NEXT_PUBLIC_TEST_FEEDBACK=1) it also tells testers which test card to use
 // ("Het venster", fase 8), because they should go through the real Stripe test checkout.
-export function TestModeBanner({ dict, notice }: { dict: Dictionary["checkout"]; notice?: string }) {
+export function TestModeBanner({ dict, notice, beforeSkip }: { dict: Dictionary["checkout"]; notice?: string; beforeSkip?: () => Promise<void> }) {
   const [isPending, startTransition] = useTransition();
 
   function handleSkipPayment() {
     startTransition(async () => {
       try {
+        await beforeSkip?.();
         await skipPaymentForTesting();
       } catch (err) {
         if (isRedirectError(err)) throw err;

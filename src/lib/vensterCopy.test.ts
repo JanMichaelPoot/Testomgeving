@@ -25,7 +25,7 @@ describe("image intake copy (R1.1)", () => {
     });
 
     it(`${name}: the stepper and the pane labels follow the agreed names`, () => {
-      expect(Object.values(dict.chapters)).toHaveLength(4);
+      expect(Object.values(dict.chapters)).toHaveLength(3);
       expect(dict.panes.worlds).toBe(name === "nl" ? "Richting" : "Direction");
       expect(dict.panes.places).toBe(name === "nl" ? "Plek" : "Place");
       expect(dict.panes.moments).toBe("Moment");
@@ -39,15 +39,14 @@ describe("image intake copy (R1.1)", () => {
         dict.rounds.moments.headingGift,
         dict.rounds.senses.headingGift,
         dict.profile.headingGift,
-        dict.room.headingGift,
-        dict.who.headingGift,
+        dict.situation.headingGift,
       ]) {
         expect(heading).toContain("{name}");
       }
     });
 
     it(`${name}: the self headings never talk about someone else`, () => {
-      for (const heading of [dict.worlds.heading, dict.rounds.moments.heading, dict.profile.heading, dict.room.heading, dict.who.heading]) {
+      for (const heading of [dict.worlds.heading, dict.rounds.moments.heading, dict.profile.heading, dict.situation.heading]) {
         expect(heading).not.toContain("{name}");
       }
     });

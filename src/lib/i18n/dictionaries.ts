@@ -1111,10 +1111,9 @@ const nl: Dictionary = {
     budget: {
       label: "Jouw budget",
       options: [
-        { value: "free", label: "Hou het gratis" },
         { value: "25", label: "Tot €25" },
         { value: "100", label: "Tot €100" },
-        { value: "allin", label: "Ga all-in" },
+        { value: "allin", label: "Maakt niet uit" },
       ],
     },
     effort: {
@@ -1844,10 +1843,10 @@ const en: Dictionary = {
     budget: {
       label: "Your budget",
       options: [
-        { value: "free", label: "Keep it free" },
+        // (no "free" choice since D5; "up to €25" already includes everything that costs nothing)
         { value: "25", label: "Up to €25" },
         { value: "100", label: "Up to €100" },
-        { value: "allin", label: "Go all in" },
+        { value: "allin", label: "Doesn't matter" },
       ],
     },
     effort: {

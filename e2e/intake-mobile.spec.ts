@@ -16,9 +16,8 @@ const SCREENS = [
   { index: 1, id: "places" },
   { index: 2, id: "moments" },
   { index: 3, id: "senses" },
-  { index: 4, id: "room" },
-  { index: 5, id: "who" },
-  { index: 6, id: "profile" },
+  { index: 4, id: "situation" },
+  { index: 5, id: "profile" },
 ];
 
 async function openScreen(page: Page, index: number) {
@@ -27,7 +26,7 @@ async function openScreen(page: Page, index: number) {
     sessionStorage.setItem(
       "window-venster-draft-v1",
       JSON.stringify({
-        v: 2,
+        v: 3,
         page: i,
         answers: { associations: ["place-forest-edge"], interestDomains: ["nature"] },
         limitChips: [],
@@ -94,6 +93,11 @@ for (const vp of VIEWPORTS) {
         // The lowest option ends above the bar and nothing of the bar is on top of it.
         expect(g!.lastBottom).toBeLessThanOrEqual(g!.barTop + 1);
         expect(g!.coveredByBar).toBe(false);
+        // On the profile screen the lowest element is the pay button, disabled until the two legal boxes are ticked: reachable is enough.
+        if (screen.id === "profile") {
+          await expect(page.locator('[data-e2e-last="1"]')).toBeDisabled();
+          return;
+        }
         await page.locator('[data-e2e-last="1"]').click({ timeout: 5000 });
       });
     }

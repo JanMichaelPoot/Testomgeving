@@ -1,10 +1,12 @@
 "use server";
 
+import { currentBudget } from "@/lib/budgetOptions";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { SESSION_COOKIE_NAME, getSessionId } from "@/lib/session";
 import { replaceIntake } from "@/lib/intakeEdit";
+import { checkTestQuota } from "@/lib/testQuota";
 import { getLocale, type Locale } from "@/lib/language";
 import { sanitizeDiscoveryAnswers } from "@/lib/discovery/answers";
 import { applyImageIntake } from "@/lib/discovery/imageIntake";
@@ -73,7 +75,12 @@ export interface IntakeAnswers {
 // that's already mid-generation. See src/app/plan/data.ts.
 export type StoredIntake = IntakeAnswers & { locale: Locale };
 
-export async function submitIntake(answers: IntakeAnswers, opts: { edit?: boolean } = {}) {
+/**
+ * Stores the answers (a new session, or the answers of the session in the cookie when editing) and sets the session cookie.
+ * Shared by `submitIntake` (the older wizards, which continue on /checkout) and `saveIntake` (the image intake, which pays on
+ * the same page).
+ */
+async function persistIntake(answers: IntakeAnswers, opts: { edit?: boolean } = {}): Promise<void> {
   const supabase = createServiceRoleClient();
   const locale = await getLocale();
 
@@ -84,6 +91,8 @@ export async function submitIntake(answers: IntakeAnswers, opts: { edit?: boolea
     ...discovery,
     // The card wizard no longer asks for the kind of possibility up front.
     solutionTypes: answers.solutionTypes?.length ? answers.solutionTypes : ["activity"],
+    // "Gratis" is no longer a choice (D5): an old tab or draft that still sends it gets the lowest band.
+    budget: currentBudget(answers.budget),
     locale,
   };
   // The image intake asks for images instead of activities and dials: translate them here,
@@ -96,7 +105,7 @@ export async function submitIntake(answers: IntakeAnswers, opts: { edit?: boolea
   // person never loses their input.
   if (opts.edit) {
     const existing = await getSessionId();
-    if (existing && (await replaceIntake(supabase, existing, stored))) redirect("/checkout");
+    if (existing && (await replaceIntake(supabase, existing, stored))) return;
   }
 
   const { data: session, error: sessionError } = await supabase
@@ -128,6 +137,21 @@ export async function submitIntake(answers: IntakeAnswers, opts: { edit?: boolea
     maxAge: 60 * 60 * 24 * 7,
     path: "/",
   });
+}
 
+export async function submitIntake(answers: IntakeAnswers, opts: { edit?: boolean } = {}) {
+  await persistIntake(answers, opts);
   redirect("/checkout");
+}
+
+/**
+ * The image intake pays on its last screen (improvement plan D3): the answers are stored right before the payment starts, and
+ * the page stays where it is. Returns whether the visitor may go on; a connection that has used its test books is refused.
+ */
+export async function saveIntake(answers: IntakeAnswers, opts: { edit?: boolean } = {}): Promise<{ ok: true } | { ok: false; reason: "limit" }> {
+  const existing = await getSessionId();
+  const quota = await checkTestQuota(createServiceRoleClient(), existing);
+  if (!quota.allowed) return { ok: false, reason: "limit" };
+  await persistIntake(answers, opts);
+  return { ok: true };
 }

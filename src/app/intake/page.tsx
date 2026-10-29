@@ -13,6 +13,9 @@ import { VENSTER_PAGES } from "@/lib/vensterPages";
 import { currentMonth } from "@/lib/discovery/season";
 import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { checkTestQuota } from "@/lib/testQuota";
+import { formatPrice } from "@/lib/pricing";
+import { getDeviceId } from "@/lib/discovery/historyStore";
+import { testFeedbackEnabled } from "@/lib/testFeedback";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -75,6 +78,14 @@ export default async function IntakePage(props: PageProps<"/intake">) {
             associations={buildAssociationLibrary(locale, month)}
             initial={initial}
             purpose={searchParams.for === "gift" ? "gift" : "self"}
+            payment={{
+              dict: dict.checkout,
+              price: formatPrice(locale),
+              rememberInitially: (await getDeviceId()) !== null,
+              testNotice: testFeedbackEnabled(process.env.NEXT_PUBLIC_TEST_FEEDBACK) ? dict.venster.testBanner : undefined,
+              // Stripe sends the buyer back here (via /checkout) after a cancelled or failed payment.
+              paymentFailed: searchParams.payment === "cancelled",
+            }}
           />
         </div>
       </main>

@@ -15,7 +15,7 @@ export interface VensterDictionary {
     heroAlt: string;
     chapters: { title: string; body: string }[];
   };
-  chapters: { images: string; room: string; who: string; extra: string };
+  chapters: { images: string; situation: string; extra: string };
   recipientFallback: string;
   recipientLabel: string;
   recipientPlaceholder: string;
@@ -120,15 +120,14 @@ export interface VensterDictionary {
     suggestions: Record<string, string>;
     combos: { tags: [string, string]; text: string }[];
     teaser: string;
-    agree: string;
     adjust: string;
     adjustDone: string;
     fixPrompt: string;
     moreTitle: string;
   };
+  /** The merged "Jouw situatie" screen (place, time, budget, company; the rest behind "more"). */
+  situation: { heading: string; headingGift: string; moreLabel: string; moreSub: string };
   room: {
-    heading: string;
-    headingGift: string;
     locationLabel: string;
     locationLabelGift: string;
     locationSub: string;
@@ -139,8 +138,6 @@ export interface VensterDictionary {
     budgetLabel: string;
   };
   who: {
-    heading: string;
-    headingGift: string;
     companyLabel: string;
     companyLabelGift: string;
     howLabel: string;
@@ -161,10 +158,6 @@ export interface VensterDictionary {
     heading: string;
     headingGift: string;
     whatYouGet: string[];
-    editImages: string;
-    editRoom: string;
-    editWho: string;
-    editProfile: string;
   };
   reveal: {
     chose: string; // {list}
@@ -273,7 +266,7 @@ export const vensterNl: VensterDictionary = {
       { title: "Met wie", body: "En je harde grenzen. Dan is je venster vol." },
     ],
   },
-  chapters: { images: "Jouw beelden", room: "Praktisch", who: "Met wie", extra: "Jouw venster" },
+  chapters: { images: "Jouw beelden", situation: "Jouw situatie", extra: "Jouw venster" },
   recipientFallback: "diegene",
   recipientLabel: "Voor wie is dit venster?",
   recipientPlaceholder: "Voornaam (mag leeg blijven)",
@@ -591,15 +584,18 @@ export const vensterNl: VensterDictionary = {
       { tags: ["learning", "focus"], text: "Een middag ergens echt in verdiepen" },
     ],
     teaser: "Eén van je zeven deuren zal je verrassen.",
-    agree: "Klopt, open mijn venster",
     adjust: "Bijsturen",
     adjustDone: "Klaar met bijsturen",
     fixPrompt: "Wat zoek je meer? Kies er tot drie.",
     moreTitle: "Bekijk en stuur bij",
   },
+  situation: {
+    heading: "Waar, wanneer en met wie?",
+    headingGift: "Waar, wanneer en met wie voor {name}?",
+    moreLabel: "Meer opgeven",
+    moreSub: "Optioneel: leeftijd, hoe je het liefst doet en harde grenzen.",
+  },
   room: {
-    heading: "Hoeveel ruimte maak je vrij?",
-    headingGift: "Hoeveel ruimte maakt {name} vrij?",
     locationLabel: "Vanaf welke plaats zoek je?",
     locationLabelGift: "Vanaf welke plaats zoeken we voor {name}?",
     locationSub: "We zoeken echte activiteiten rond deze plaats in Nederland. Thuis, je werk of ergens anders: jij kiest.",
@@ -614,8 +610,6 @@ export const vensterNl: VensterDictionary = {
     budgetLabel: "Wat mag het kosten?",
   },
   who: {
-    heading: "Met wie, en wat moet kloppen?",
-    headingGift: "Met wie gaat {name}, en wat moet kloppen?",
     companyLabel: "Wie gaat er mee?",
     companyLabelGift: "Met wie zou {name} gaan?",
     howLabel: "En hoe het liefst?",
@@ -678,10 +672,6 @@ export const vensterNl: VensterDictionary = {
       "Per idee een echte plek bij jou in de buurt en een eerste stap",
       "Een PDF met jouw venster op de cover, ook in je mail",
     ],
-    editImages: "Beelden wijzigen",
-    editRoom: "Plaats, tijd of budget wijzigen",
-    editWho: "Met wie of grenzen wijzigen",
-    editProfile: "Profiel of schuiven bijsturen",
   },
   reveal: {
     chose: "Je koos {list}.",
@@ -781,7 +771,7 @@ export const vensterEn: VensterDictionary = {
       { title: "With whom", body: "And your hard limits. Then your window is full." },
     ],
   },
-  chapters: { images: "Your images", room: "Practical", who: "With whom", extra: "Your window" },
+  chapters: { images: "Your images", situation: "Your situation", extra: "Your window" },
   recipientFallback: "them",
   recipientLabel: "Who is this window for?",
   recipientPlaceholder: "First name (optional)",
@@ -1099,15 +1089,18 @@ export const vensterEn: VensterDictionary = {
       { tags: ["learning", "focus"], text: "Dive properly into something for an afternoon" },
     ],
     teaser: "One of your seven doors will surprise you.",
-    agree: "That's right, open my window",
     adjust: "Adjust",
     adjustDone: "Done adjusting",
     fixPrompt: "What do you want more of? Pick up to three.",
     moreTitle: "View and adjust",
   },
+  situation: {
+    heading: "Where, when and with whom?",
+    headingGift: "Where, when and with whom for {name}?",
+    moreLabel: "Add more",
+    moreSub: "Optional: age, how you like to do it, and hard limits.",
+  },
   room: {
-    heading: "How much room are you making?",
-    headingGift: "How much room is {name} making?",
     locationLabel: "Which place do you search from?",
     locationLabelGift: "Which place do we search from for {name}?",
     locationSub: "We look for real activities around this place in the Netherlands. Home, work or somewhere else: your call.",
@@ -1122,8 +1115,6 @@ export const vensterEn: VensterDictionary = {
     budgetLabel: "What may it cost?",
   },
   who: {
-    heading: "With whom, and what has to fit?",
-    headingGift: "Who will {name} go with, and what has to fit?",
     companyLabel: "Who's coming along?",
     companyLabelGift: "Who would {name} go with?",
     howLabel: "And how, ideally?",
@@ -1186,10 +1177,6 @@ export const vensterEn: VensterDictionary = {
       "A real place near you and a first step for every idea",
       "A PDF with your window on the cover, also in your inbox",
     ],
-    editImages: "Change images",
-    editRoom: "Change place, time or budget",
-    editWho: "Change company or limits",
-    editProfile: "Adjust your profile or sliders",
   },
   reveal: {
     chose: "You chose {list}.",

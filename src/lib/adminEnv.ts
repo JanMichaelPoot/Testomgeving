@@ -3,6 +3,8 @@
 // beyond its public prefix (re_, sk_test_, ...). A setting that is added in the host's dashboard but is not
 // in the environment this deployment runs in (wrong environment ticked, not redeployed) shows up here as missing.
 
+import { knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
+
 export interface EnvCheck {
   name: string;
   ok: boolean;
@@ -49,6 +51,8 @@ export function envChecks(env: Env): EnvCheck[] {
   add("TEST_MAX_BOOKS_PER_IP", true, Number.isInteger(limit) && limit > 0 ? `${limit} boek(en) per internetverbinding (testlimiet aan; jij bent als ingelogde admin onbeperkt)` : "niet ingesteld: geen limiet", false);
   const exempt = (env.TEST_QUOTA_EXEMPT_IPS ?? "").split(/[,;\s]+/).filter(Boolean).length;
   add("TEST_QUOTA_EXEMPT_IPS", true, exempt ? `${exempt} adres(sen) zonder testlimiet` : "niet ingesteld: alleen ingelogd als admin ben je onbeperkt", false);
+  add("Kennisengine: ranking (B4)", true, knowledgeRankingV2Enabled(env.KNOWLEDGE_RANKING_V2, env.KNOWLEDGE_ENGINE_V2) ? "aan (KNOWLEDGE_RANKING_V2 of het oude KNOWLEDGE_ENGINE_V2)" : "uit", false);
+  add("Kennisengine: schrijven (B5)", true, knowledgeWritingV2Enabled(env.KNOWLEDGE_WRITING_V2, env.KNOWLEDGE_ENGINE_V2) ? "aan (KNOWLEDGE_WRITING_V2 of het oude KNOWLEDGE_ENGINE_V2)" : "uit", false);
   add("NEXT_PUBLIC_WINDOW_PRICE_CENTS", true, has(env.NEXT_PUBLIC_WINDOW_PRICE_CENTS) ? `${env.NEXT_PUBLIC_WINDOW_PRICE_CENTS} cent` : "standaard (350 cent)", false);
   return checks;
 }

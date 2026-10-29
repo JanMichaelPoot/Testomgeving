@@ -53,11 +53,15 @@ export function CheckoutPanel({
   dict,
   price,
   rememberInitially = false,
+  beforePay,
 }: {
   dict: Dictionary["checkout"];
   price: string;
   // True for a visitor whose device already has the opt-in cookie (fase 5).
   rememberInitially?: boolean;
+  // Runs right before the payment starts. The image intake pays on its last screen, so it stores the answers here (the
+  // session the payment belongs to does not exist before that). If it throws, nothing is paid and the message is shown.
+  beforePay?: () => Promise<void>;
 }) {
   // Two independent, never-pre-checked checkboxes — digital delivery +
   // withdrawal waiver combined (allowed to be one checkbox per the
@@ -94,6 +98,7 @@ export function CheckoutPanel({
     setError(null);
     startTransition(async () => {
       try {
+        await beforePay?.();
         await createCheckoutSession(
           termsAccepted,
           digitalDeliveryConsent,

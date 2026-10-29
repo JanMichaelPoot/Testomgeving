@@ -5,7 +5,7 @@ import type { IntakeAnswers } from "@/app/intake/actions";
 import type { CharacterProfile } from "@/lib/characterProfile";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { checkFill, fillConflicts, fillContext, repeatedOpenings, type IdeaFill } from "@/lib/claude/ideaFill";
-import { knowledgeEngineV2Enabled } from "@/lib/knowledgeFlags";
+import { knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import {
   LOCATION_SCHEMA,
   PRACTICAL_SCHEMA,
@@ -584,13 +584,15 @@ export async function generateIdeaBookFromSeeds(
   } = {},
 ): Promise<{ book: GeneratedIdeaBook; report: SeedPipelineReport }> {
   // KNOWLEDGE_ENGINE_V2 (off by default): B4 ranking weights for the selection, B5 fill lines and honest wording for the writing.
-  const v2 = knowledgeEngineV2Enabled();
+  // Two flags (D9): B4 ranking and B5 writing are switched on separately.
+  const ranking = knowledgeRankingV2Enabled();
+  const v2 = knowledgeWritingV2Enabled();
   // 1. Select the seeds, for the month the person is asking in (seasonal activities are never suggested out of season).
   const now = new Date();
   const month = currentMonth(now);
   const selectionSeed = opts.sessionId ?? `${Date.now()}`;
   const select = (exclude: readonly string[]) =>
-    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude }), v2 ? { weights: WEIGHTS_V2 } : undefined);
+    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude }), ranking ? { weights: WEIGHTS_V2 } : undefined);
   let engine: EngineResult = select([]);
   if (engine.seeds.length < 6) throw new Error("The selection engine could not find enough activities for this profile.");
   await opts.onProgress?.("selected", { ideas: engine.seeds.length });

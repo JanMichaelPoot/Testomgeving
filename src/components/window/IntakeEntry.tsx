@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { IntakeWizard } from "@/components/window/IntakeWizard";
-import { AssociationWizard } from "@/components/window/AssociationWizard";
+import { AssociationWizard, type WizardPayment } from "@/components/window/AssociationWizard";
 import type { AssociationLibrary } from "@/lib/discovery/associationProfile";
 import type { CardLibrary } from "@/lib/discovery/cards";
 import type { IntakeAnswers } from "@/app/intake/actions";
@@ -74,6 +74,7 @@ export function IntakeEntry({
   associations,
   initial,
   purpose,
+  payment,
 }: {
   dict: Dictionary["intake"];
   vensterDict: Dictionary["venster"];
@@ -84,6 +85,8 @@ export function IntakeEntry({
   initial?: { answers: IntakeAnswers; page: number };
   // From the landing page's gift button (?for=gift). Only the image intake uses it.
   purpose?: "self" | "gift";
+  // What the image intake's last screen needs to take the payment (the older wizards still use /checkout).
+  payment: WizardPayment;
 }) {
   const [variant, setVariant] = useState<Variant | null>(null);
 
@@ -112,6 +115,7 @@ export function IntakeEntry({
         domains={library.domains.map((d) => ({ id: d.id, label: d.label }))}
         initial={initial}
         initialPurpose={purpose}
+        payment={payment}
       />
     );
   }

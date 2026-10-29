@@ -67,7 +67,10 @@ een lijst kaarten.
    preferences; gezelschap. Geen aparte taalvraag meer — de site-brede
    taalkeuze bepaalt ook de taal van het Idea Book.
 3. **Checkout** — disclaimer + verplichte herroepingsrecht-checkbox, CTA
-   "Make this real" → Stripe Checkout (geen kandidaat-selectie meer)
+   "Make this real" → Stripe Checkout (geen kandidaat-selectie meer). Bij de
+   beeld-intake ("Het venster") staat dit blok onderaan het laatste scherm (het
+   profiel, Stap 108); de aparte `/checkout`-pagina blijft alleen voor de oudere
+   kaarten- en klassieke wizard.
 4. **Idea Book** — het betaalde resultaat: profielsamenvatting, 6-7
    gepersonaliseerde mogelijkheden, en één apart gekaderde "wildcard".
    Meerpagina's-PDF (cover, profiel, per-idee pagina's, wildcard-pagina) en
@@ -3971,3 +3974,24 @@ Stripe, Claude API, Resend, PostHog).
       best effort (een site die niets zegt over sluiting kan toch dicht zijn). Getest: 663 tests (nieuw: ratings en rangschikking, de promptregels, de
       pagina-controle in vier talen, redirects binnen dezelfde site, twee vervangrondes met een laatste ronde zonder aanbieder-afhankelijke
       activiteiten), `tsc`, eslint, `npm run build`. Kosten: één extra onderzoeksronde (± $0,03-0,06) alleen als een idee nog zonder aanbieder blijft.
+
+- [x] Stap 108 - Verbeterplan, Fase 0 en een eerste deel van Fase 1 (Jan: "Behalve D6 en D7 neem ik het advies over"; het plan staat in
+      `docs/verbeterplan-windowinto.md`). **Nog niet gebouwd uit Fase 1**: D1 (één as, zeven vensters), D2 (luiken Dichtbij/Verder kijken/Onontdekt op
+      `/plan`), D4 (Route B), D8 (thuis/online-facet), D10 (nieuwe domeinen, activiteiten en beeldfamilies, ± $2,3 aan beelden vraagt jouw akkoord) en de
+      nieuwe events bij die onderdelen. **D6 (gratis voorproefje en prijstest) en D7 (eerst Nederland) heeft Jan niet overgenomen en niet vervangen**:
+      er is niets van een voorproefje gebouwd; zeg wat je daar in plaats van wilt.
+      **Gedaan**: (1) **D9, twee vlaggen** (`src/lib/knowledgeFlags.ts`): `KNOWLEDGE_RANKING_V2` (B4: gewichten, `fit`, `reasons`) en `KNOWLEDGE_WRITING_V2`
+      (B5: eigen invulling, eerlijke herkomst, zichtbare keten); `KNOWLEDGE_ENGINE_V2` blijft werken als beide aan; de admin toont ze apart. (2) **D5, budget**:
+      de keuze "gratis" is weg; de schaal is "tot €25 · tot €100 · maakt niet uit" (`budgetOptions.ts`, `currentBudget`: een opgeslagen "free" telt als "25", de motor
+      kent "free" nog voor oude data). (3) **D3, betalen op het profielscherm**: de beeld-intake heeft nu zes schermen (Richting, Plek, Moment, Zintuig, Situatie,
+      Profiel; "Praktisch" en "Met wie" zijn samengevoegd tot "Waar, wanneer en met wie?" met "Meer opgeven" voor leeftijd, hoe en harde grenzen); drie
+      stepper-hoofdstukken; oude concepten worden naar de nieuwe volgorde omgezet (`DRAFT_VERSION` 3, `migrateDraftPage`). Het profielscherm eindigt met het
+      bestelblok (prijs, wat je krijgt, cadeau, e-mailadres, geheugen, disclaimer, de twee verplichte herroepingsrecht-vinkjes en de betaalknop); de knop
+      "Klopt, open mijn venster" en de aparte `/checkout`-stap zijn vervallen voor deze variant. Vlak voor het betalen slaat `saveIntake` de antwoorden op (zelfde
+      sessie bij wijzigen, testlimiet gecontroleerd); `CheckoutPanel` kreeg `beforePay` en `TestModeBanner` `beforeSkip`. `/checkout` stuurt een beeld-intake door naar
+      `/intake?edit=1&page=5` (ook na een geannuleerde betaling, met de foutmelding). De juridische teksten en de plek van de vinkjes boven de betaalknop zijn
+      letterlijk dezelfde; `VensterOrderSummary` is verwijderd. **Laat de samengevoegde betaalpagina juridisch controleren** (D3). Getest: 668 van 670 tests (de 2
+      falers waren mijn eigen verouderde telling van vier hoofdstukken, daarna aangepast en geslaagd), `tsc`, eslint, `npm run build`, `taxonomy:check` (0/0), 19
+      Playwright-tests (profiel: de betaalknop is het laagste element en uitgeschakeld tot de vinkjes aan staan) en in de browser het profielscherm met bestelblok
+      (geen horizontale scroll). **Niet gezien**: een echte Stripe-sessie vanaf het nieuwe scherm (testbetaling met jouw testkaart nodig), de annuleer-route,
+      en de Engelse tekst "Your window is full." boven de prijs leest wat vreemd (bestaande copy).

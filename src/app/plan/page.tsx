@@ -30,7 +30,7 @@ import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
 import { elapsedSinceNow } from "@/lib/progressStage";
 import { parseAssociationSources } from "@/lib/discovery/associations";
 import { buildIdeaThreads } from "@/lib/ideaThread";
-import { knowledgeEngineV2Enabled } from "@/lib/knowledgeFlags";
+import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import { displayPlace } from "@/lib/place";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -257,7 +257,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   const vensterEcho = buildVensterEcho(echoSource, locale, dict.venster);
   const because = buildBecauseLines(ideas, wildcard, echoSource, locale, dict.venster);
   // The thread per door (R2.2), from what the book stored when it was written; absent for older books.
-  const threads = buildIdeaThreads(ideas, wildcard, parseAssociationSources(plan.association_sources), locale, { showPath: knowledgeEngineV2Enabled() });
+  const threads = buildIdeaThreads(ideas, wildcard, parseAssociationSources(plan.association_sources), locale, { showPath: knowledgeWritingV2Enabled() });
   const dateLabel = new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", {
     day: "numeric",
     month: "long",
