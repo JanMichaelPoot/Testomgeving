@@ -26,10 +26,3 @@ export function safeIllustrationPath(src: string): string | null {
   return /^\/illustrations\/[A-Za-z0-9_\-/]+\.jpg$/.test(src) && !src.includes("..") ? src : null;
 }
 
-/** The first picture of each pane, in order; null for a pane that has none yet. */
-export function paneCardImages(panes: { images: { src: string }[] }[]): (string | null)[] {
-  return panes.slice(0, 4).map((p) => {
-    const first = p.images[0]?.src;
-    return first ? safeIllustrationPath(first) : null;
-  });
-}

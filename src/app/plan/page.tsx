@@ -23,7 +23,8 @@ import { getSessionId } from "@/lib/session";
 import { buildPlanEcho } from "@/lib/planEcho";
 import { buildBecauseLines, buildVensterEcho } from "@/lib/vensterReveal";
 import { WindowFrame } from "@/components/window/WindowFrame";
-import { buildVensterPanes } from "@/lib/vensterPanes";
+import { buildWindowItems, windowImageHref } from "@/lib/vensterPanes";
+import { WindowDownload } from "@/components/window/WindowDownload";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
@@ -53,12 +54,18 @@ export const maxDuration = 120;
 // The person's own window, opening pane by pane, on the waiting screen (image intake only).
 function waitingWindow(answers: Awaited<ReturnType<typeof getWaitingContext>>["answers"], locale: Locale, dict: Dictionary) {
   if (!answers) return undefined;
-  const panes = buildVensterPanes(
+  const items = buildWindowItems(
     answers,
     { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })) },
     dict.venster,
   );
-  return <WindowFrame panes={panes} size="hero" title={dict.venster.nav.windowTitle} animateOpen />;
+  const href = windowImageHref(answers);
+  return (
+    <div className="flex flex-col items-center">
+      <WindowFrame items={items} size="hero" title={dict.venster.nav.windowTitle} animateOpen className="max-w-[320px]" />
+      {href && <WindowDownload href={href} label={dict.venster.nav.windowDownload} images={items.length} />}
+    </div>
+  );
 }
 
 function ErrorState({

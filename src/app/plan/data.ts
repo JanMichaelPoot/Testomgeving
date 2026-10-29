@@ -5,7 +5,7 @@ import { generateIdeaBook, type GeneratedIdeaBook } from "@/lib/claude/generateI
 import { generateIdeaBookFromSeeds, shouldUseEngine } from "@/lib/claude/generateFromSeeds";
 import { loadShownBefore, recordShown } from "@/lib/discovery/historyStore";
 import { renderIdeaBookPdf, type IdeaBookPdfContext } from "@/lib/pdf/ideaBook";
-import { buildSill, buildVensterPanes } from "@/lib/vensterPanes";
+import { buildSill, buildWindowItems } from "@/lib/vensterPanes";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
@@ -325,13 +325,13 @@ const PDF_VERSION = 6;
 function coverWindowFor(profile: StoredIntake, locale: Locale): IdeaBookPdfContext["window"] {
   if (profile.intakeVariant !== "associations") return undefined;
   const dict = getDictionary(locale);
-  const panes = buildVensterPanes(
+  const items = buildWindowItems(
     profile,
     { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })) },
     dict.venster,
   );
   return {
-    panes: panes.map((p) => ({ label: p.label, images: p.images.map((i) => i.src), placeholder: p.placeholder })),
+    items,
     sill: buildSill(profile, dict.intake, dict.venster),
     recipientName: profile.purpose === "gift" ? profile.recipientName : undefined,
     dateLabel: new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", {

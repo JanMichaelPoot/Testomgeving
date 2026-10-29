@@ -16,7 +16,7 @@ import { buildIdeaThreads, threadSentence } from "../src/lib/ideaThread";
 import { ideaKey, WILDCARD_KEY } from "../src/lib/ideaKeys";
 import { DOMAINS } from "../src/lib/discovery/library";
 import { getDictionary } from "../src/lib/i18n/dictionaries";
-import { buildSill, buildVensterPanes } from "../src/lib/vensterPanes";
+import { buildSill, buildWindowItems } from "../src/lib/vensterPanes";
 
 const SCORES = { relevance: 70, novelty: 60, feasibility: 75, surprise: 50, shareability: 60, effort: 50, cost: 40, social_fit: 60, challenge_level: 50 };
 
@@ -97,13 +97,13 @@ async function main() {
     budget: "100",
     company: ["partner"],
   };
-  const panes = buildVensterPanes(
+  const items = buildWindowItems(
     intake,
     { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })) },
     dict.venster,
   );
   const windowContext: IdeaBookPdfContext["window"] = {
-    panes: panes.map((p) => ({ label: p.label, images: p.images.map((i) => i.src), placeholder: p.placeholder })),
+    items,
     sill: buildSill(intake, dict.intake, dict.venster),
     dateLabel: "5 oktober 2026",
   };

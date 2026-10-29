@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Button } from "@/components/ui/Button";
 import { LocationAutocomplete } from "@/components/ui/LocationAutocomplete";
-import { WindowFrame, type WindowPaneKey } from "@/components/window/WindowFrame";
+import { WindowFrame, type WindowKind } from "@/components/window/WindowFrame";
+import { WindowDownload } from "@/components/window/WindowDownload";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/posthog/client";
 import { saveIntake, type IntakeAnswers } from "@/app/intake/actions";
@@ -16,7 +17,7 @@ import { buildProfileStory } from "@/lib/discovery/profileStory";
 import { ProfileStep } from "@/components/window/ProfileStep";
 import { directionOrder, initialDirections, rotateDirections, sampleRoundCards, sampleWorldExamples } from "@/lib/discovery/associationSampling";
 import { loadSeen, recordSeen } from "@/lib/associationSeen";
-import { buildSill, buildVensterPanes } from "@/lib/vensterPanes";
+import { buildSill, buildWindowItems, windowImageHref } from "@/lib/vensterPanes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { DRAFT_VERSION, VENSTER_PAGES, migrateDraftPage, type VensterPageId } from "@/lib/vensterPages";
 import { ageOptionsFor } from "@/lib/ageOptions";
@@ -35,7 +36,7 @@ import { currentBudget } from "@/lib/budgetOptions";
 
 type PageId = VensterPageId;
 const ROUND_OF: Partial<Record<PageId, AssociationRound>> = { places: "places", moments: "moments", senses: "senses" };
-const PANE_OF: Partial<Record<PageId, WindowPaneKey>> = { worlds: "worlds", places: "places", moments: "moments", senses: "senses" };
+const PANE_OF: Partial<Record<PageId, WindowKind>> = { worlds: "worlds", places: "places", moments: "moments", senses: "senses" };
 const MAX_PER_ROUND = 5;
 const MAX_WORLDS = 4;
 const SWIPE_THRESHOLD = 90;
@@ -296,13 +297,9 @@ export function AssociationWizard({
     if (hydrated && seed && shownKey) recordSeen(shownKey.split("|"));
   }, [hydrated, seed, shownKey]);
 
-  const panes = useMemo(
-    () =>
-      buildVensterPanes(answers, { cards: library.cards, domains }, dict, {
-        active: PANE_OF[pageId],
-      }),
-    [answers, library.cards, domains, dict, pageId],
-  );
+  const windowItems = useMemo(() => buildWindowItems(answers, { cards: library.cards, domains }, dict), [answers, library.cards, domains, dict]);
+  const activeKind = PANE_OF[pageId];
+  const exportHref = windowImageHref(answers);
   const sill = buildSill(answers, intakeDict, dict);
 
   // The profile screen's sentences are built from fixed parts (profileStory.ts), cheap enough to
@@ -689,8 +686,12 @@ export function AssociationWizard({
             override={answers.axesOverride ?? {}}
             onAxis={setAxis}
             heading={pick(dict.profile.heading, dict.profile.headingGift)}
-            windowView={<WindowFrame panes={panes} size="hero" title={windowTitle} />}
-            sill={sill || undefined}
+            windowView={
+              <div className="flex flex-col items-center">
+                <WindowFrame items={windowItems} size="hero" sill={sill || undefined} title={windowTitle} className="max-w-[320px]" />
+                {exportHref && <WindowDownload href={exportHref} label={dict.nav.windowDownload} images={windowItems.length} />}
+              </div>
+            }
             missTitle={pick(dict.profile.missTitle, dict.profile.missTitleGift)}
             reflection={answers.personalReflection}
             onReflection={(text) => set("personalReflection", text)}
@@ -909,7 +910,7 @@ export function AssociationWizard({
           className="w-10 shrink-0 lg:hidden"
           aria-label={dict.nav.windowOpen}
         >
-          <WindowFrame panes={panes} size="icon" title={windowTitle} />
+          <WindowFrame items={windowItems} size="icon" title={windowTitle} />
         </button>
       </div>
 
@@ -997,7 +998,7 @@ export function AssociationWizard({
             <div className="sticky top-8 rounded-2xl border border-border bg-paper p-6">
               <p className="font-serif text-xl text-ink">{windowTitle}</p>
               <div className="mx-auto mt-4 w-full max-w-[280px]">
-                <WindowFrame panes={panes} size="panel" sill={sill || undefined} title={windowTitle} />
+                <WindowFrame items={windowItems} size="panel" sill={sill || undefined} title={windowTitle} activeKind={activeKind} />
               </div>
               {!sill && <p className="mt-4 text-sm text-ink/50">{dict.sill.empty}</p>}
             </div>
@@ -1016,7 +1017,7 @@ export function AssociationWizard({
           <div className="w-full max-w-xs rounded-2xl bg-paper p-5" onClick={(e) => e.stopPropagation()}>
             <p className="font-serif text-xl text-ink">{windowTitle}</p>
             <div className="mx-auto mt-4 w-60">
-              <WindowFrame panes={panes} size="panel" sill={sill || undefined} title={windowTitle} />
+              <WindowFrame items={windowItems} size="panel" sill={sill || undefined} title={windowTitle} activeKind={activeKind} />
             </div>
             <Button className="mt-5 w-full" onClick={() => setWindowOpen(false)}>
               {dict.nav.windowClose}

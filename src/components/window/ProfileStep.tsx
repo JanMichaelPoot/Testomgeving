@@ -24,7 +24,6 @@ export function ProfileStep({
   onAxis,
   heading,
   windowView,
-  sill,
   missTitle,
   reflection,
   onReflection,
@@ -41,9 +40,8 @@ export function ProfileStep({
   override: AxesOverride;
   onAxis: (axis: AxisId, value: number) => void;
   heading: string;
-  /** The window (WindowFrame) at hero size. */
+  /** The window (WindowFrame) at hero size, with the text answers on its sill. */
   windowView: ReactNode;
-  sill?: string;
   missTitle: string;
   reflection: string;
   onReflection: (text: string) => void;
@@ -68,7 +66,6 @@ export function ProfileStep({
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-12">
         <div className="mx-auto w-44 sm:w-56 lg:mx-0 lg:w-full">
           {windowView}
-          {sill && <p className="mt-3 text-center text-sm text-ink/55 lg:text-left">{sill}</p>}
         </div>
 
         <div className="min-w-0">

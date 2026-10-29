@@ -1,53 +1,82 @@
 import type { IntakeAnswers } from "@/app/intake/actions";
-import type { WindowPane, WindowPaneKey } from "@/components/window/WindowFrame";
 import type { AssociationCard } from "@/lib/discovery/associationProfile";
 import { domainImage } from "@/lib/discovery/paths";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import { WINDOW_MAX_PANES, type WindowItem } from "@/lib/windowLayout";
 
-// What the window shows for a set of answers ("Het venster", fase 4). Pure, so the wizard
-// (browser) and checkout, the waiting screen and /plan (server) draw exactly the same window.
+// What the window shows for a set of answers (the generative window, src/lib/windowLayout.ts). Pure, so the wizard
+// (browser), the waiting screen and /plan (server), the PDF cover and the share images all draw exactly the same window
+// from the same ordered choices.
 
 type Answers = Partial<
   Pick<IntakeAnswers, "interestDomains" | "surpriseMe" | "associations" | "location" | "timeAvailable" | "budget" | "company">
 >;
 
 export interface PaneLibrary {
-  cards: Pick<AssociationCard, "id" | "round" | "label" | "image">[];
+  cards: Pick<AssociationCard, "id" | "round" | "label" | "image" | "tagWeights" | "axes">[];
   domains: { id: string; label: string }[];
 }
 
-export function buildVensterPanes(
-  answers: Answers,
-  lib: PaneLibrary,
-  dict: Dictionary["venster"],
-  opts: { active?: WindowPaneKey; hrefs?: Partial<Record<WindowPaneKey, string>> } = {},
-): WindowPane[] {
-  const chosen = answers.associations ?? [];
+/** 1 (familiar) .. 7 (far out) from the novelty axis (-1..1) of an image. */
+export function levelFromNovelty(novelty: number): number {
+  const v = Math.round(1 + ((Math.max(-1, Math.min(1, novelty)) + 1) / 2) * 6);
+  return Math.max(1, Math.min(7, v));
+}
+
+/**
+ * The window's items in the order the person chose them: the directions first, then the images in the order they were
+ * tapped. Weight = how much of the profile's overall tag mass the image carries (the more it shares with the rest of the
+ * choices, the more central it is), scaled so the strongest is 1; a direction counts 0.8 (an explicit choice).
+ */
+export function buildWindowItems(answers: Answers, lib: PaneLibrary, dict: Dictionary["venster"]): WindowItem[] {
   const card = new Map(lib.cards.map((c) => [c.id, c]));
   const domainLabel = new Map(lib.domains.map((d) => [d.id, d.label]));
-  const imagesOf = (round: AssociationCard["round"]) =>
-    chosen
-      .map((id) => card.get(id))
-      .filter((c): c is PaneLibrary["cards"][number] => !!c && c.round === round)
-      .map((c) => ({ src: c.image, alt: c.label }));
+  const chosen = (answers.associations ?? []).map((id) => card.get(id)).filter((c): c is PaneLibrary["cards"][number] => !!c);
 
-  const worlds = (answers.interestDomains ?? []).map((id) => ({ src: domainImage(id), alt: domainLabel.get(id) ?? id }));
-  const panes: WindowPane[] = [
-    {
-      key: "worlds",
-      label: dict.panes.worlds,
-      images: worlds,
-      ...(answers.surpriseMe && worlds.length === 0 ? { placeholder: dict.panes.surprise } : {}),
-    },
-    { key: "places", label: dict.panes.places, images: imagesOf("places") },
-    { key: "moments", label: dict.panes.moments, images: imagesOf("moments") },
-    { key: "senses", label: dict.panes.senses, images: imagesOf("senses") },
-  ];
-  return panes.map((p) => ({
-    ...p,
-    ...(opts.active === p.key ? { active: true } : {}),
-    ...(opts.hrefs?.[p.key] ? { href: opts.hrefs[p.key] } : {}),
+  const profile = new Map<string, number>();
+  for (const c of chosen) for (const [tag, w] of Object.entries(c.tagWeights)) profile.set(tag, (profile.get(tag) ?? 0) + w);
+  const mass = (c: PaneLibrary["cards"][number]) => {
+    const entries = Object.entries(c.tagWeights);
+    const total = entries.reduce((n, [, w]) => n + w, 0);
+    return total > 0 ? entries.reduce((n, [tag, w]) => n + w * (profile.get(tag) ?? 0), 0) / total : 0;
+  };
+  const max = Math.max(0, ...chosen.map(mass));
+
+  const items: WindowItem[] = (answers.interestDomains ?? []).map((id) => ({
+    id: `w:${id}`,
+    kind: "worlds",
+    image: domainImage(id),
+    label: domainLabel.get(id) ?? id,
+    weight: 0.8,
+    level: 3,
+    tags: [id],
   }));
+  if (answers.surpriseMe && items.length === 0) {
+    items.push({ id: "w:surprise", kind: "worlds", label: dict.panes.surprise, placeholder: dict.panes.surprise, weight: 0.5, level: 4, tags: ["surprise"] });
+  }
+  for (const c of chosen) {
+    items.push({
+      id: c.id,
+      kind: c.round,
+      image: c.image,
+      label: c.label,
+      weight: max > 0 ? Math.round((mass(c) / max) * 100) / 100 : 0.5,
+      level: levelFromNovelty(c.axes.novelty),
+      tags: Object.keys(c.tagWeights),
+    });
+  }
+  return items;
+}
+
+/** The address of the downloadable picture of this window (ids only, no text). Null when there is nothing to draw. */
+export function windowImageHref(answers: Answers): string | null {
+  const ids = [...(answers.interestDomains ?? []).map((d) => `w:${d}`), ...(answers.associations ?? [])].slice(0, WINDOW_MAX_PANES * 2);
+  const surprise = answers.surpriseMe && (answers.interestDomains ?? []).length === 0;
+  if (ids.length === 0 && !surprise) return null;
+  const query = new URLSearchParams();
+  if (ids.length) query.set("c", ids.join(","));
+  if (surprise) query.set("s", "1");
+  return `/api/window-image?${query.toString()}`;
 }
 
 /** The window sill: the text answers in one short line ("Laren · Een halve dag · Tot €25 · met een partner"). */

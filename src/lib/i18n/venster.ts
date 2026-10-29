@@ -151,7 +151,7 @@ export interface VensterDictionary {
     limitChips: string[];
     limitsPlaceholder: string;
   };
-  nav: { back: string; next: string; submit: string; submitting: string; windowOpen: string; windowClose: string; windowTitle: string };
+  nav: { back: string; next: string; submit: string; submitting: string; windowOpen: string; windowClose: string; windowTitle: string; windowDownload: string };
   panes: { worlds: string; places: string; moments: string; senses: string; surprise: string };
   sill: { empty: string; with: string };
   checkout: {
@@ -661,6 +661,7 @@ export const vensterNl: VensterDictionary = {
     windowOpen: "Bekijk je venster",
     windowClose: "Sluiten",
     windowTitle: "Jouw venster",
+    windowDownload: "Download je venster als afbeelding",
   },
   panes: { worlds: "Richting", places: "Plek", moments: "Moment", senses: "Zintuig", surprise: "Verras me" },
   sill: { empty: "Elke keuze krijgt een plek in je venster.", with: "met" },
@@ -1166,6 +1167,7 @@ export const vensterEn: VensterDictionary = {
     windowOpen: "See your window",
     windowClose: "Close",
     windowTitle: "Your window",
+    windowDownload: "Download your window as a picture",
   },
   panes: { worlds: "Direction", places: "Place", moments: "Moment", senses: "Sense", surprise: "Surprise me" },
   sill: { empty: "Every choice finds a place in your window.", with: "with" },

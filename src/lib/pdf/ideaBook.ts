@@ -47,6 +47,7 @@ import {
 import { fillConflicts, fillContext, normalizeFill, withoutConflicts } from "@/lib/claude/ideaFill";
 import { getActivity } from "@/lib/discovery/library";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
+import { layoutWindow, type WindowItem } from "@/lib/windowLayout";
 
 // pdf-lib has no first-class "add a hyperlink" API, so a clickable region
 // is a manually-built Link annotation — a standard, documented technique
@@ -377,10 +378,10 @@ export interface IdeaBookPdfContext {
   budget?: string; // "free" | "25" | "100" | "allin"
   timeAvailable?: string; // "hour" | "halfday" | "fullday" | "weekend"
   // "Het venster" fase 6: books from the image intake get the person's own window on the
-  // cover (four panes of chosen images, public paths), the window sill and, for a gift, the
+  // cover (the generative window of the chosen images, public paths), the window sill and, for a gift, the
   // recipient's name. Without it the cover keeps its photo.
   window?: {
-    panes: { label: string; images: string[]; placeholder?: string }[];
+    items: WindowItem[];
     sill: string;
     recipientName?: string;
     dateLabel: string;
@@ -473,104 +474,52 @@ export async function renderIdeaBookPdf(
     return image;
   }
 
-  // The person's window, drawn the way WindowFrame draws it on the site: an arch on top, four
-  // panes with walnut mullions, each pane a collage of its chosen photos (clipped to its cell),
-  // an empty pane in cream, a fine gold line along the inside of the frame.
-  async function drawCoverWindow(
-    target: PDFPage,
-    panes: NonNullable<IdeaBookPdfContext["window"]>["panes"],
-    x0: number,
-    y0: number,
-    w: number,
-    h: number,
-  ) {
-    const pad = 7;
-    const gap = 3.5;
-    const ix = x0 + pad;
-    const iy = y0 + pad;
-    const iw = w - pad * 2;
-    const ih = h - pad * 2;
-    const top = iy + ih;
-    const qw = (iw - gap) / 2;
-    const qh = (ih - gap) / 2;
-    const cells = [
-      { x: ix, y: iy + qh + gap },
-      { x: ix + qw + gap, y: iy + qh + gap },
-      { x: ix, y: iy },
-      { x: ix + qw + gap, y: iy },
-    ];
+  // The person's window, drawn from the same rectangles as the website (src/lib/windowLayout.ts): a walnut frame,
+  // one pane for every chosen image (clipped to its pane), a plain pane where nothing is chosen yet, a gold
+  // placeholder pane for "Verras me", and a fine gold line along the inside of the frame.
+  async function drawCoverWindow(target: PDFPage, items: WindowItem[], x0: number, y0: number, w: number, h: number) {
+    const layout = layoutWindow(items);
+    const sx = w / layout.width;
+    const sy = h / layout.height;
     target.drawRectangle({ x: x0, y: y0, width: w, height: h, color: theme.cover.frame });
-
-    for (const [i, pane] of panes.slice(0, 4).entries()) {
-      const cell = cells[i];
-      const photos = pane.images.slice(0, 4);
-      if (photos.length === 0) {
-        target.drawRectangle({ x: cell.x, y: cell.y, width: qw, height: qh, color: pane.placeholder ? PWA4_GOLD_LIGHT : rgb(0.949, 0.925, 0.882) });
-        if (pane.placeholder) {
-          const pw = fonts.serif.widthOfTextAtSize(pane.placeholder, 12);
-          target.drawText(pane.placeholder, { x: cell.x + (qw - pw) / 2, y: cell.y + qh / 2 - 4, size: 12, font: fonts.serif, color: PWA4_INK });
+    for (const pane of layout.panes) {
+      const item = pane.item === null ? null : layout.shown[pane.item];
+      const px = x0 + pane.x * sx;
+      const pw = pane.w * sx;
+      const ph = pane.h * sy;
+      const py = y0 + h - (pane.y + pane.h) * sy; // PDF y runs upwards
+      if (item?.image) {
+        let img: PDFImage | null = null;
+        try {
+          img = await loadPublicJpg(item.image);
+        } catch {
+          img = null; // a missing photo leaves its pane plain rather than failing the book
         }
-      } else {
-        // 1 photo fills the cell; 2 side by side; 3 = one tall + two small; 4 = a 2x2 grid.
-        const g = 1.5;
-        const slots =
-          photos.length === 1
-            ? [{ x: 0, y: 0, w: qw, h: qh }]
-            : photos.length === 2
-              ? [{ x: 0, y: 0, w: (qw - g) / 2, h: qh }, { x: (qw + g) / 2, y: 0, w: (qw - g) / 2, h: qh }]
-              : photos.length === 3
-                ? [
-                    { x: 0, y: 0, w: (qw - g) / 2, h: qh },
-                    { x: (qw + g) / 2, y: (qh + g) / 2, w: (qw - g) / 2, h: (qh - g) / 2 },
-                    { x: (qw + g) / 2, y: 0, w: (qw - g) / 2, h: (qh - g) / 2 },
-                  ]
-                : [
-                    { x: 0, y: (qh + g) / 2, w: (qw - g) / 2, h: (qh - g) / 2 },
-                    { x: (qw + g) / 2, y: (qh + g) / 2, w: (qw - g) / 2, h: (qh - g) / 2 },
-                    { x: 0, y: 0, w: (qw - g) / 2, h: (qh - g) / 2 },
-                    { x: (qw + g) / 2, y: 0, w: (qw - g) / 2, h: (qh - g) / 2 },
-                  ];
-        for (const [k, src] of photos.entries()) {
-          const slot = slots[k];
-          let img: PDFImage;
-          try {
-            img = await loadPublicJpg(src);
-          } catch {
-            continue; // a missing photo leaves its slot dark rather than failing the book
-          }
-          const fit = coverFitSize(img, slot.w, slot.h);
-          const sx = cell.x + slot.x;
-          const sy = cell.y + slot.y;
-          target.pushOperators(pushGraphicsState(), rectangle(sx, sy, slot.w, slot.h), clip(), endPath());
-          target.drawImage(img, { x: sx + (slot.w - fit.width) / 2, y: sy + (slot.h - fit.height) / 2, width: fit.width, height: fit.height });
+        if (img) {
+          const fit = coverFitSize(img, pw, ph);
+          target.pushOperators(pushGraphicsState(), rectangle(px, py, pw, ph), clip(), endPath());
+          target.drawImage(img, { x: px + (pw - fit.width) / 2, y: py + (ph - fit.height) / 2, width: fit.width, height: fit.height });
           target.pushOperators(popGraphicsState());
+          continue;
         }
       }
-      // Pane label on a soft dark band at the bottom of the cell.
-      target.drawRectangle({ x: cell.x, y: cell.y, width: qw, height: 15, color: PWA4_SCRIM_RGB, opacity: 0.45 });
-      target.drawText(pane.label.toUpperCase(), { x: cell.x + 5, y: cell.y + 4.5, size: 6.5, font: fonts.sansBold, color: PWA4_INK_INVERSE });
+      target.drawRectangle({ x: px, y: py, width: pw, height: ph, color: item?.placeholder ? PWA4_GOLD_LIGHT : rgb(0.949, 0.925, 0.882) });
+      if (item?.placeholder) {
+        const size = Math.min(12, ph / 4);
+        const tw = fonts.serif.widthOfTextAtSize(item.placeholder, size);
+        if (tw < pw - 4) target.drawText(item.placeholder, { x: px + (pw - tw) / 2, y: py + ph / 2 - size / 3, size, font: fonts.serif, color: PWA4_INK });
+      }
     }
-
-    // The arch: fill the two top corners with the frame colour, then the gold line.
-    const rx = iw / 2;
-    const ry = ih * 0.3;
-    const k = 0.5523;
-    const frame = theme.cover.frame;
-    const left = `M 0 0 L 0 ${ry} C 0 ${ry - k * ry} ${rx - k * rx} 0 ${rx} 0 Z`;
-    const right = `M ${iw} 0 L ${iw} ${ry} C ${iw} ${ry - k * ry} ${rx + k * rx} 0 ${rx} 0 Z`;
-    target.drawSvgPath(left, { x: ix, y: top, color: frame });
-    target.drawSvgPath(right, { x: ix, y: top, color: frame });
-    // The outer frame follows the same arch, a little larger, so the frame keeps its width.
-    const orx = w / 2;
-    const ory = ry + pad;
-    const outerLeft = `M 0 0 L 0 ${ory} C 0 ${ory - k * ory} ${orx - k * orx} 0 ${orx} 0 Z`;
-    const outerRight = `M ${w} 0 L ${w} ${ory} C ${w} ${ory - k * ory} ${orx + k * orx} 0 ${orx} 0 Z`;
-    target.drawSvgPath(outerLeft, { x: x0, y: y0 + h, color: theme.cover.bg });
-    target.drawSvgPath(outerRight, { x: x0, y: y0 + h, color: theme.cover.bg });
-    // A hairline of the cover colour round the whole window hides the seam where the arch corners meet the frame (visible on a light cover).
-    target.drawRectangle({ x: x0 - 0.75, y: y0 - 0.75, width: w + 1.5, height: h + 1.5, borderColor: theme.cover.bg, borderWidth: 3 });
-    const outline = `M 0 ${ih} L 0 ${ry} C 0 ${ry - k * ry} ${rx - k * rx} 0 ${rx} 0 C ${rx + k * rx} 0 ${iw} ${ry - k * ry} ${iw} ${ry} L ${iw} ${ih} Z`;
-    target.drawSvgPath(outline, { x: ix, y: top, borderColor: PWA4_GOLD_LIGHT, borderWidth: 0.9, opacity: 0, borderOpacity: 0.85 });
+    const g = layout.glass;
+    target.drawRectangle({
+      x: x0 + g.x * sx,
+      y: y0 + h - (g.y + g.h) * sy,
+      width: g.w * sx,
+      height: g.h * sy,
+      borderColor: PWA4_GOLD_LIGHT,
+      borderWidth: 0.9,
+      borderOpacity: 0.85,
+    });
   }
 
   // Any public JPG (association and domain photos for the cover), cached per path.
@@ -744,7 +693,7 @@ export async function renderIdeaBookPdf(
     const h = (w * 4) / 3;
     const x0 = (PAGE_WIDTH - w) / 2;
     const y0 = PAGE_HEIGHT - 100 - h;
-    await drawCoverWindow(page, win.panes, x0, y0, w, h);
+    await drawCoverWindow(page, win.items, x0, y0, w, h);
 
     // Sill: the text answers under the window, on a slightly lighter walnut band.
     let cursor = y0 - 6;

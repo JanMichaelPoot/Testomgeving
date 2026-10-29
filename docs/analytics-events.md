@@ -67,6 +67,7 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `profile_agreed` | "Klopt, open mijn venster" | `adjusted` (is er bijgestuurd?) |
 | `profile_axis_changed` | een schuif op het profielscherm verplaatst | `axis` |
 | `profile_reflection` | bij akkoord: is "Wat missen we nog?" ingevuld | `has_reflection` |
+| `window_exported` | de afbeelding van het venster gedownload | `images` (aantal beelden) |
 | `checkout_viewed` | betaalpagina getoond | – |
 | `checkout_pay_clicked` | "Maak het echt" ingedrukt | `is_gift` |
 | `generation_stalled` | wachtscherm langer dan 120 s | `stage`, `seconds` |

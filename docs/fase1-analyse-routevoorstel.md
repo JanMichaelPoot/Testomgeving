@@ -178,3 +178,20 @@ Te wijzigen (indicatief; niets is gedaan):
 5. **Exporteren** ([JAN]): ja als afbeelding (goedkoop, hergebruikt `share-card`), print later.
 6. **Praktische rij**: alleen plaats verplicht, de rest voorgevuld: akkoord?
 7. Mag ik **Stap 108 committen** als basislijn?
+
+## 10. Antwoorden van Jan (29 oktober 2026)
+
+| # | Besluit |
+|---|---|
+| 1 | **Nee** op "gratis resultaten vóór het betalen": er komt geen gratis inspiratie of resultatenpagina. Gratis blijft alleen het venster (met het profielportret). De omkering in sectie 0, punt 1 vervalt daarmee. |
+| 1 | Eén route, akkoord. |
+| 1 | De nieuwe niveau-namen (Vertrouwd, Praktisch, Verwant, Inspirerend, Verrassend, Uitdagend, Onontdekt), akkoord. |
+| 1 | Een dynamisch vormgegeven venster waarvan de ruiten zich dynamisch vormen: ja. |
+| 2 | Betaalmodel **A**: één aankoop per plan (zoals nu). |
+| 3 | "Praktisch" als selectieregel op het tweede vertrouwde slot: ja. |
+| 4 | Venster-regel: "ja". **Aanname van mij:** advies B (de breedte van het profiel bepaalt de raamstijl), gecombineerd met "aantal ruiten = aantal keuzes" binnen 3 tot 24. Zeg het als je A bedoelde. |
+| 5 | Exporteren als afbeelding: ja. |
+| 6 | Praktische rij (alleen plaats verplicht, de rest voorgevuld): ja. |
+| 7 | Stap 108 committen als basislijn: akkoord (commit `ba7ab64`, niet gepusht). |
+
+**Gevolg voor de route:** Kies (gemengd beeldraster met live venster en praktische rij) → Jouw venster (afgerond venster, profielportret en bestelblok, betalen vóór de resultaten) → wachtscherm → `/plan` (zeven niveaus met concrete uitwerking). Wat daarvan nog niet gebouwd is staat in Stap 109.

@@ -45,6 +45,7 @@ export const ANALYTICS_EVENTS = {
   profile_reflection: { when: "profile agreed: did they fill 'Wat missen we nog?'", props: ["has_reflection"] },
 
   // --- checkout and waiting
+  window_exported: { when: "the picture of the window downloaded", props: ["images"] },
   checkout_viewed: { when: "checkout page shown", props: [] },
   checkout_pay_clicked: { when: "'Maak het echt' pressed", props: ["is_gift"] },
   generation_stalled: { when: "the waiting screen passed 120 s", props: ["stage", "seconds"] },

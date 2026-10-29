@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { paneCardImages, safeIllustrationPath, shareCardLine, sharedMetadata } from "@/lib/shareCard";
+import { safeIllustrationPath, shareCardLine, sharedMetadata } from "@/lib/shareCard";
 
 describe("share card text", () => {
   it("counts the doors in both languages and keeps the singular right", () => {
@@ -34,23 +34,7 @@ describe("sharedMetadata", () => {
   });
 });
 
-describe("paneCardImages", () => {
-  it("takes the first picture per pane, null for an empty pane, at most four", () => {
-    const panes = [
-      { images: [{ src: "/illustrations/discovery/domains/nature.jpg" }, { src: "/illustrations/discovery/domains/games.jpg" }] },
-      { images: [{ src: "/illustrations/associations/place-forest-edge.jpg" }] },
-      { images: [] },
-      { images: [{ src: "/illustrations/associations/sense-wood-b.jpg" }] },
-      { images: [{ src: "/illustrations/associations/extra.jpg" }] },
-    ];
-    expect(paneCardImages(panes)).toEqual([
-      "/illustrations/discovery/domains/nature.jpg",
-      "/illustrations/associations/place-forest-edge.jpg",
-      null,
-      "/illustrations/associations/sense-wood-b.jpg",
-    ]);
-  });
-
+describe("safeIllustrationPath", () => {
   it("only lets our own illustrations into the card", () => {
     expect(safeIllustrationPath("/illustrations/associations/a-b_c.jpg")).toBe("/illustrations/associations/a-b_c.jpg");
     expect(safeIllustrationPath("/illustrations/../.env.jpg")).toBeNull();

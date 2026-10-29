@@ -5,10 +5,12 @@ import { ImageResponse } from "next/og";
 import sharp from "sharp";
 import { getSharedIdeaBook, getSharedWindowSource } from "./data";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { buildVensterPanes } from "@/lib/vensterPanes";
+import { buildWindowItems } from "@/lib/vensterPanes";
+import { WindowArt, paneDataUris } from "@/lib/windowArt";
+import { WINDOW_HEIGHT, layoutWindow } from "@/lib/windowLayout";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
-import { paneCardImages, shareCardLine } from "@/lib/shareCard";
+import { shareCardLine } from "@/lib/shareCard";
 
 // The card WhatsApp, iMessage, Slack, LinkedIn, X and Facebook show when a /shared/[id] link is
 // pasted (R1.3). Next.js wires a file with this name into openGraph/twitter metadata by itself.
@@ -38,9 +40,7 @@ const CREAM = "#F7F5F0";
 
 const ARCH_W = 380;
 const ARCH_H = 500;
-const FRAME = 10;
 const BORDER = 4;
-const GAP = 6;
 
 async function dataUri(file: string): Promise<string> {
   const bytes = await readFile(file);
@@ -62,78 +62,37 @@ export default async function Image({ params }: { params: Promise<{ id: string }
   const doors = ideas + wildcard;
   const line = doors > 0 ? shareCardLine(dict.shared, doors) : dict.shared.ogTitle;
 
-  // The window: first photo of each of the four panes. Without a window source (other intakes,
-  // or nothing chosen) the cover photo fills the arch.
+  // The window: every chosen image in its own pane, the same layout as on the site and in the PDF. Without a window
+  // source (other intakes, or nothing chosen) the cover photo fills a plain frame instead.
   const source = plan ? await getSharedWindowSource(plan.id) : null;
-  let paneImages: (string | null)[] = [];
-  if (source) {
-    const panes = buildVensterPanes(
-      source,
-      { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })) },
-      dict.venster,
-    );
-    paneImages = paneCardImages(panes);
-  }
-  const hasWindow = paneImages.some(Boolean);
+  const items = source
+    ? buildWindowItems(
+        source,
+        { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })) },
+        dict.venster,
+      )
+    : [];
+  const hasWindow = items.length > 0;
+  const layout = hasWindow ? layoutWindow(items) : null;
+  const scale = ARCH_H / WINDOW_HEIGHT;
 
   const [serifBytes, logo] = await Promise.all([
     readFile(path.join(FONTS_DIR, "Newsreader-Medium.ttf")),
     dataUri(path.join(PUBLIC_DIR, "logo/windowinto-cream.png")),
   ]);
-
-  // The border and the padding both sit inside ARCH_W x ARCH_H: what is left is the glass.
-  const innerW = ARCH_W - 2 * (FRAME + BORDER);
-  const innerH = ARCH_H - 2 * (FRAME + BORDER);
-  const paneW = (innerW - GAP) / 2;
-  const paneH = (innerH - GAP) / 2;
-  const paneUris = hasWindow
-    ? await Promise.all(paneImages.map((src) => (src ? dataUri(path.join(PUBLIC_DIR, src)) : Promise.resolve(null))))
-    : [];
+  const paneUris = layout ? await paneDataUris(layout, scale) : [];
   const cover = hasWindow ? null : await dataUri(path.join(PUBLIC_DIR, "illustrations/idea-book/cover.jpg"));
 
   const png = new ImageResponse(
     (
       <div style={{ height: "100%", width: "100%", display: "flex", alignItems: "center", backgroundColor: WALNUT, padding: "0 96px" }}>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: GAP,
-            width: ARCH_W,
-            height: ARCH_H,
-            padding: FRAME,
-            border: `${BORDER}px solid ${GOLD}`,
-            borderTopLeftRadius: ARCH_W / 2,
-            borderTopRightRadius: ARCH_W / 2,
-            borderBottomLeftRadius: 22,
-            borderBottomRightRadius: 22,
-            backgroundColor: CREAM,
-            overflow: "hidden",
-          }}
-        >
-          {cover ? (
-            <img src={cover} alt="" width={innerW} height={innerH} style={{ objectFit: "cover" }} />
-          ) : (
-            paneUris.map((uri, i) => (
-              <div
-                key={i}
-                style={{
-                  display: "flex",
-                  width: paneW,
-                  height: paneH,
-                  overflow: "hidden",
-                  backgroundColor: "rgba(60,41,32,0.12)",
-                  borderTopLeftRadius: i === 0 ? paneW : 4,
-                  borderTopRightRadius: i === 1 ? paneW : 4,
-                  borderBottomLeftRadius: 4,
-                  borderBottomRightRadius: 4,
-                }}
-              >
-                {uri && <img src={uri} alt="" width={paneW} height={paneH} style={{ objectFit: "cover" }} />}
-              </div>
-            ))
-          )}
-        </div>
+        {layout ? (
+          <WindowArt layout={layout} uris={paneUris} scale={scale} />
+        ) : (
+          <div style={{ display: "flex", width: Math.round(ARCH_W), height: ARCH_H, border: `${BORDER}px solid ${GOLD}`, overflow: "hidden", backgroundColor: CREAM }}>
+            {cover && <img src={cover} alt="" width={Math.round(ARCH_W) - 2 * BORDER} height={ARCH_H - 2 * BORDER} style={{ objectFit: "cover" }} />}
+          </div>
+        )}
 
         <div style={{ display: "flex", flexDirection: "column", marginLeft: 80, flex: 1 }}>
           <img src={logo} alt="" width={300} height={89} />

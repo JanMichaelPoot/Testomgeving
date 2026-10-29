@@ -3995,3 +3995,27 @@ Stripe, Claude API, Resend, PostHog).
       Playwright-tests (profiel: de betaalknop is het laagste element en uitgeschakeld tot de vinkjes aan staan) en in de browser het profielscherm met bestelblok
       (geen horizontale scroll). **Niet gezien**: een echte Stripe-sessie vanaf het nieuwe scherm (testbetaling met jouw testkaart nodig), de annuleer-route,
       en de Engelse tekst "Your window is full." boven de prijs leest wat vreemd (bestaande copy).
+
+- [x] Stap 109 - Fase 2 van de brief "één route, generatief venster, rijkere aanbevelingen": het venster vormt zich zelf. Geen betaalde
+      aanroepen (€0), niet gecommit. **Aannames**: Jans "ja" op de venster-regel is gelezen als advies B (de breedte van het profiel bepaalt de
+      raamstijl), gecombineerd met één ruit per keuze (3 tot 24); het niveau van een keuze komt uit de nieuwheidsas
+      (`levelFromNovelty`), omdat de niveau-indeling nog niet in de motor zit; de algemene uitnodigingsafbeelding (`/share-card`) is bewust
+      ongemoeid gelaten (die is niet persoonlijk). **Indeling** (`src/lib/windowLayout.ts`, zuiver, 77 tests): een vast kozijn van 300 x 400
+      eenheden (3:4) met een bovenlicht (rij ruiten) en een raster rijen x kolommen; de oplosser kiest per aantal keuzes de beste (bovenlicht,
+      kolommen, rijen) en elke keuze houdt een eigen ruit, symmetrisch, zonder overlap of rest. Stijl naar breedte van het profiel (effectief aantal
+      tags, `windowBreadth`): breed = schuifraam (fijn, twee schuiven), gemengd = T-raam (bovenlicht), gefocust = groot glas; de sterkste keuzes komen in het
+      bovenlicht; minder dan drie keuzes = lege gearceerde ruiten; meer dan 24 = de 24 sterkste in keuzevolgorde. Deterministisch: dezelfde keuzes
+      in dezelfde volgorde geven hetzelfde venster. **Eén indeling, vier plekken**: `WindowFrame` (website: ruiten absoluut in procenten met CSS-overgang,
+      dus elke tik voegt een ruit toe en de rest schuift naar zijn nieuwe plek), de PDF-omslag (`drawCoverWindow` tekent dezelfde rechthoeken),
+      de deelpreview (`/shared/[id]/opengraph-image`) en de nieuwe download. **Download**: `/api/window-image?c=<ids>&s=1` (alleen id's van gekozen
+      beelden, richtingen als `w:<id>`, "verras me" als `s=1`; niets wat iemand typte; max. 48 id's, onbekende genegeerd, 400 zonder iets
+      geldigs) geeft een JPEG van 1080 x 1500 op crème met de dorpel en het logo (176 KB); knop "Download je venster als afbeelding"
+      (`WindowDownload`, event `window_exported {images}`) op het profielscherm en het wachtscherm. De tekstantwoorden staan nu op de dorpel van het
+      venster (voorheen eronder). **Gevonden en gefixt onderweg**: Satori gaf een 500 ("reading 'trim'") omdat een stijl-sleutel met waarde
+      `undefined` meegegeven werd; nu alleen als er een verloop is. **Getest**: 750 van 751 unit-tests slaagden, de ene faler (de regel dat
+      `WindowFrame` geen verborgen-tot-geanimeerd-startstand mag noemen, ook niet in een commentaar) is aangepast en geslaagd; `tsc`, eslint,
+      `npm run build`, 19 Playwright-tests; in de browser de live opbouw en het profielscherm op 390 px (geen horizontale scroll, tekst op de dorpel),
+      de download-JPEG bekeken (T-raam met bovenlicht, 7 keuzes), een voorbeeld-PDF met de nieuwe omslag (17 pagina's). De ene vitest-worker-time-out
+      ("onTaskUpdate") staat er nog, ouder dan deze stap. **Niet gezien**: de deelpreview (`opengraph-image`) in een echte WhatsApp, de Engelse weergave,
+      een echte telefoon. Nog niet gebouwd uit de brief: de gemengde route (één raster met praktische rij), de zeven niveaus in de motor en op `/plan`
+      ("Praktisch" als selectieregel), tags per plek/moment/zintuig, het verwijderen van het "gratis"-filter uit de vrije tekst en de nieuwe events.
