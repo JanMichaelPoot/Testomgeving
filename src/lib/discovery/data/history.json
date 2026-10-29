@@ -995,5 +995,77 @@
     "scene": "an aged hand-coloured map of a coastline spread on a table under a green shaded reading lamp",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "regency-bal",
+    "domain": "history",
+    "sub": "lived_past",
+    "label": {
+      "nl": "Een historische balavond",
+      "en": "A historical ball evening"
+    },
+    "tags": [
+      "roleplay",
+      "history",
+      "performance",
+      "rhythm",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een balavond in historische stijl waar de passen aan het begin worden uitgelegd",
+      "en": "A ball in period style where the steps are explained at the start"
+    },
+    "scene": "a candlelit ballroom with a polished parquet floor, long gowns draped over a chair and fans on a console",
+    "status": "concept",
+    "supply": "rare"
+  },
+  {
+    "id": "buitenplaats",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Een historische buitenplaats",
+      "en": "A historic country estate"
+    },
+    "tags": [
+      "history",
+      "outdoors",
+      "retro",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een buitenplaats of kasteeltuin bezoeken, met een rondleiding of audiotour",
+      "en": "Visit a country estate or castle garden, with a tour or audio guide"
+    },
+    "scene": "a manor house reflected in a moat with clipped hedges and a gravel path in soft morning light",
+    "status": "concept"
   }
 ]

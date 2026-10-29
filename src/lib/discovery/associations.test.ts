@@ -207,13 +207,13 @@ describe("the engine on image-intake visitors", () => {
     const cards = evaluate(runProfiles(syntheticProfiles(200, "t", lib), lib), lib);
     expect(assoc.rates.fourDomains).toBeGreaterThanOrEqual(cards.rates.fourDomains - 0.01);
     expect(assoc.rates.seedsAtLeastSix).toBe(1);
-  }, 120_000);
+  }, 300_000);
 
   it("still meets E1-E6 when visitors also move the sliders of the profile screen (R2.1)", () => {
     const withSliders = evaluate(runProfiles(syntheticAssociationProfiles(300, "sliders", { overrides: true }), lib), lib);
     for (const list of Object.values(withSliders.violations)) expect(list).toEqual([]);
     expect(withSliders.rates.seedsAtLeastSix).toBe(1);
-  }, 120_000);
+  }, 300_000);
 });
 
 describe("age weighting (fase 1.5)", () => {

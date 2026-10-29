@@ -891,5 +891,109 @@
       "source_record_id": "Q1323158",
       "method": "curated"
     }
+  },
+  {
+    "id": "spa-dag",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Een spadag",
+      "en": "A spa day"
+    },
+    "tags": [
+      "stillness",
+      "water",
+      "conviviality"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een dagarrangement met warm water, sauna en eventueel een massage",
+      "en": "A day package with warm water, sauna and optionally a massage"
+    },
+    "scene": "a quiet spa pool room with folded white towels, a wooden bucket, eucalyptus sprigs and soft steam over the water",
+    "status": "concept"
+  },
+  {
+    "id": "wellnessweekend",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Een wellnessweekend",
+      "en": "A wellness weekend"
+    },
+    "tags": [
+      "stillness",
+      "water",
+      "conviviality",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een weekend in een wellnesshotel, vaak als pakket met kamer, ontbijt en toegang tot de spa",
+      "en": "A weekend at a wellness hotel, often a package with room, breakfast and spa access"
+    },
+    "scene": "a hotel room bed with a folded bathrobe, slippers and a tea tray beside a window over green hills",
+    "status": "concept"
+  },
+  {
+    "id": "hammam",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Hammam of Turks stoombad",
+      "en": "Hammam or Turkish steam bath"
+    },
+    "tags": [
+      "water",
+      "stillness",
+      "conviviality"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een hammam-ritueel van een uur: stoom, schrobben en zeepschuim",
+      "en": "A one-hour hammam ritual: steam, scrub and soap foam"
+    },
+    "scene": "a Turkish hammam with a warm marble slab, copper bowls, a woven cotton towel and soft steam",
+    "status": "concept",
+    "supply": "regional"
   }
 ]

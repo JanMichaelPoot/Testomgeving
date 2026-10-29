@@ -48,6 +48,8 @@ export function renderReport(file: EvalResultFile): string {
   line(`| Ideeën met onbekende kosten | ${pct(m.costUnknownSeeds)} |`);
   line(`| Boeken met budget *gratis* die zo'n idee bevatten | ${m.freeBudgetWithUnknownCost} / ${m.freeBudgetBooks} |`);
   line(`| Aandeel "social" in alle ideeën | ${pct(m.socialKindShare)} |`);
+  line(`| Boeken waarin alle 7 niveaus voorkomen | ${pct(m.levelCompleteBooks)} |`);
+  line(`| Uitvoerbaarheid (0-1) van niveau 1 Vertrouwd / niveau 2 Praktisch | ${num(m.practicalityByLevel.level1)} / ${num(m.practicalityByLevel.level2)} |`);
   line(`| Verschillende activiteiten gebruikt | ${m.activitiesUsed} |`);
   line(`| Populairste activiteit | ${m.topActivity.id} in ${pct(m.topActivity.share)} van de boeken |`);
   line(`| Top 10 activiteiten, aandeel van alle plekken | ${pct(m.top10Share)} |`);

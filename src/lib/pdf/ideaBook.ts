@@ -25,6 +25,7 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { mapsSearchUrl } from "@/lib/maps";
 import { ideaPhoto } from "@/lib/illustrations";
+import { isDiscoveryLevel, levelName } from "@/lib/discoveryLevels";
 import { buildScrimPng } from "@/lib/pdf/scrim";
 import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
 import {
@@ -1750,7 +1751,8 @@ export async function renderIdeaBookPdf(
   for (const [i, { idea }] of orderedIdeas.entries()) {
     page = addPage();
     const photo = await loadIdeaPhoto(idea, nextPhotoVariant(idea.photo_category));
-    const doorBadge = dict.plan.book.doors[idea.door as "natural"]?.label ?? "";
+    // Fase 3: a book from the engine names the discovery level; older books keep naming the door.
+    const doorBadge = isDiscoveryLevel(idea.level) ? levelName(idea.level, locale) : (dict.plan.book.doors[idea.door as "natural"]?.label ?? "");
     drawIdeaPage(idea, photo, { number: i + 1, badge: doorBadge });
     if (hasMoreLayers(idea)) {
       page = addPage();

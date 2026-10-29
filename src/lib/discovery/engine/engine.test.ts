@@ -35,10 +35,14 @@ describe("parseMustHaves", () => {
     expect(parseMustHaves("niet per se buiten").setting).toBeNull();
   });
 
-  it("recognises 'no groups' and 'free'", () => {
+  it("recognises 'no groups', and no longer reads 'free' as a filter (Fase 3)", () => {
     expect(parseMustHaves("geen groepen").noGroups).toBe(true);
-    expect(parseMustHaves("Gratis graag").free).toBe(true);
     expect(parseMustHaves("").noGroups).toBe(false);
+    expect(parseMustHaves("Gratis graag")).not.toHaveProperty("free");
+    // The budget alone sets the cost limit: a typed "gratis" does not tighten it.
+    const open = resolveConstraints({ ...BASE, budget: "100", mustHaves: "Gratis graag" });
+    expect(open.costCap).toBe(3);
+    expect(open.nearBudgetCost).toBe(3);
   });
 
   it("flags what it cannot filter (no data) so it is not lost", () => {

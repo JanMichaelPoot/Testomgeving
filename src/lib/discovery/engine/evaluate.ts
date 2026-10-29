@@ -71,7 +71,7 @@ export function evaluate(runs: readonly Run[], lib: EngineLibrary, opts: Evaluat
     if (!result.notes.some((n) => /^(direction_|filled|pool_small)/.test(n))) hits.clean++;
 
     // E1: hard constraints, straight from the input.
-    const costCap = /gratis/i.test(input.mustHaves) ? 0 : (COST_CAP[input.budget] ?? 2);
+    const costCap = COST_CAP[input.budget] ?? 2;
     const intCap = INTENSITY_CAP[input.effort] ?? 2;
     const explicit = input.socialFormats.filter((f) => f !== "any" && f !== "varies");
     const hide = input.practicalToWild === "grounded" || input.practicalToWild === "practical";

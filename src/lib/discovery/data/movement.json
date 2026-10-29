@@ -1837,5 +1837,92 @@
       "source_record_id": "Q18544844",
       "method": "curated"
     }
+  },
+  {
+    "id": "sloep-varen",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Een sloep of electroboot huren",
+      "en": "Renting a canal boat"
+    },
+    "tags": [
+      "water",
+      "outdoors",
+      "conviviality",
+      "discovery"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een sloep of electroboot huren voor een rondje grachten of plassen; vaak geen vaarbewijs nodig",
+      "en": "Rent a small boat for a trip round the canals or lakes; often no licence needed"
+    },
+    "scene": "a small wooden canal boat with cushions moored at a green quay under willow trees",
+    "status": "concept",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  },
+  {
+    "id": "natuurbad",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Zwemmen in een natuurbad",
+      "en": "Swimming in a natural pool"
+    },
+    "tags": [
+      "water",
+      "outdoors",
+      "nature",
+      "movement"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een middag zwemmen in een natuurbad of zwemvijver; vaak entree onder €10",
+      "en": "An afternoon swimming in a natural pool or swimming pond; often entry under €10"
+    },
+    "scene": "a natural swimming pond with reeds, a wooden jetty and a folded towel on the grass",
+    "status": "concept",
+    "supply": "regional",
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ]
   }
 ]

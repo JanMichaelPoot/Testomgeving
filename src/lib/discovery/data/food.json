@@ -867,5 +867,40 @@
     "scene": "golden smoked fish hanging on racks inside a brick smokehouse with a curl of blue smoke",
     "supply": "rare",
     "status": "concept"
+  },
+  {
+    "id": "high-tea",
+    "domain": "food",
+    "sub": "drink_craft",
+    "label": {
+      "nl": "High tea",
+      "en": "High tea"
+    },
+    "tags": [
+      "food",
+      "conviviality",
+      "retro",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een high tea in een landhuis of tuinkamer; reserveren kan vaak eenvoudig",
+      "en": "High tea in a country house or garden room; booking is often simple"
+    },
+    "scene": "a three-tier stand with scones, small cakes and a porcelain teapot on a lace tablecloth by a window",
+    "status": "concept"
   }
 ]

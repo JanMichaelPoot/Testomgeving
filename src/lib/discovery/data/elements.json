@@ -753,5 +753,41 @@
     "scene": "a campfire burning in a ring of stones with sparks rising into a dark blue night sky",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "goudsmeden",
+    "domain": "elements",
+    "sub": "fire_metal",
+    "label": {
+      "nl": "Goud- en zilversmeden",
+      "en": "Goldsmithing and silversmithing"
+    },
+    "tags": [
+      "craft",
+      "fire",
+      "technique",
+      "precision"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een dagworkshop: een eigen ring zagen, solderen en polijsten",
+      "en": "A day workshop: saw, solder and polish your own ring"
+    },
+    "scene": "a goldsmith's bench with a soldering torch flame on a silver ring, files, a mallet and a leather skin below",
+    "status": "concept",
+    "supply": "regional"
   }
 ]

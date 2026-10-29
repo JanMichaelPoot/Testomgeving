@@ -398,5 +398,85 @@
       "nl": "Schaduwspel van een oude sage",
       "en": "A shadow play of an old legend"
     }
+  },
+  {
+    "a": "kostuumontwerp",
+    "b": "regency-bal",
+    "label": {
+      "nl": "Je eigen kostuum ontwerpen en dragen op een historische balavond",
+      "en": "Designing your own costume and wearing it to a historical ball"
+    }
+  },
+  {
+    "a": "goudsmeden",
+    "b": "mineralen-edelstenen",
+    "label": {
+      "nl": "Een ring smeden met een edelsteen die je zelf hebt uitgezocht",
+      "en": "Forging a ring with a gemstone you chose yourself"
+    }
+  },
+  {
+    "a": "opera-bezoek",
+    "b": "kostuumontwerp",
+    "label": {
+      "nl": "De kostuumafdeling van een opera van binnen zien",
+      "en": "Seeing the costume department of an opera from the inside"
+    }
+  },
+  {
+    "a": "spa-dag",
+    "b": "klankbad",
+    "label": {
+      "nl": "Een spadag met klankbad en stilte",
+      "en": "A spa day with a sound bath and silence"
+    }
+  },
+  {
+    "a": "poppenhuis",
+    "b": "stop-motion",
+    "label": {
+      "nl": "Een stop-motionfilm opnemen in een poppenhuis",
+      "en": "Shooting a stop-motion film inside a dollhouse"
+    }
+  },
+  {
+    "a": "speeldozen",
+    "b": "synthesizer-bouwen",
+    "label": {
+      "nl": "Een eigen muziekdoos met een mechaniek bouwen",
+      "en": "Building your own music box with a mechanism"
+    }
+  },
+  {
+    "a": "brocante-antiek",
+    "b": "restaureren",
+    "label": {
+      "nl": "Een gevonden antiek stuk zelf restaureren",
+      "en": "Restoring an antique find yourself"
+    }
+  },
+  {
+    "a": "high-tea",
+    "b": "buitenplaats",
+    "label": {
+      "nl": "High tea op een historische buitenplaats",
+      "en": "High tea on a historic country estate"
+    }
+  },
+  {
+    "a": "kledingruil",
+    "b": "upcycle-kleding",
+    "label": {
+      "nl": "Kleding ruilen en meteen opknappen met zichtbaar herstel",
+      "en": "Swapping clothes and refreshing them with visible mending on the spot"
+    }
+  },
+  {
+    "a": "natuurbad",
+    "b": "bosbaden",
+    "label": {
+      "nl": "Bosbaden en daarna een duik in een natuurbad",
+      "en": "Forest bathing and then a dip in a natural pool"
+    }
   }
 ]

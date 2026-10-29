@@ -4019,3 +4019,52 @@ Stripe, Claude API, Resend, PostHog).
       ("onTaskUpdate") staat er nog, ouder dan deze stap. **Niet gezien**: de deelpreview (`opengraph-image`) in een echte WhatsApp, de Engelse weergave,
       een echte telefoon. Nog niet gebouwd uit de brief: de gemengde route (één raster met praktische rij), de zeven niveaus in de motor en op `/plan`
       ("Praktisch" als selectieregel), tags per plek/moment/zintuig, het verwijderen van het "gratis"-filter uit de vrije tekst en de nieuwe events.
+
+- [x] Stap 110 - Fase 3 van de brief "één route, generatief venster, rijkere aanbevelingen": rijkere associaties en aanbevelingen
+      (Jan: "Commit en push, ga door met Fase 3"; Stap 109 is daarop gecommit en gepusht, `7ba1c88` op `kennis`). **Niet gecommit.**
+      Beeldkosten ≈ $1,34 (9 vellen 3x3 + 1 los, binnen de ± $2,3 voor D10 die Jan overnam); geen andere betaalde aanroepen.
+      **Zeven ontdekkingsniveaus in de motor** (`src/lib/discoveryLevels.ts`, client-veilig; `engine/levels.ts`): elk zaad krijgt `level` 1-7
+      (Vertrouwd, Praktisch, Verwant, Inspirerend, Verrassend, Uitdagend, Onontdekt; nl + en). De zeven zaden (2 vertrouwd, 2 aangrenzend,
+      onverwacht, stretch, wildcard) vallen één op één op de niveaus: van de twee vertrouwde is de praktischste niveau 2, van de twee
+      aangrenzende de best passende niveau 3; een krappe pool laat het hogere niveau leeg in plaats van een zaad in een verkeerd niveau te
+      zetten; verkennen (zonder keuzes) geeft 1-6 op volgorde van hoe veeleisend. De volgorde van de lijst blijft op deur (de volgorde van het
+      boek en de baseline-test). Het niveau gaat mee op `IdeaBookEntry.level` (`generateFromSeeds`), staat als etiket op `/plan` ("Niveau 3 ·
+      Verwant", bij het uitgelichte idee en op elke kaart) en als badge in de PDF (boeken zonder niveau houden het deurlabel). **"Praktisch"**
+      (`practicality()`, 0-1, afgeleid uit kosten, duur, niveau, toezicht, aanbod, alleen-doen en instap; een onbekend feit telt als middelmatig):
+      `WEIGHTS_V2.familiar.practicalBonus` 0,3 laat het tweede vertrouwde slot naar het makkelijkst te starten leunen; `WEIGHTS_CURRENT` heeft 0,
+      dus zonder vlag verandert de selectie niet. Gemeten op 500 beeldbezoekers: 100% van de boeken heeft alle 7 niveaus; uitvoerbaarheid van
+      niveau 1 / niveau 2 is 0,85 / 0,93 (v2) en 0,82 / 0,92 (huidig); de verdeling van "Als je er maar één kiest" is ongewijzigd (huidig: onverwacht
+      88%, v2: onverwacht 27%, vertrouwd 53%). De profieldimensies richting, plek, moment en zintuig worden **niet** apart opgeslagen: richting is de
+      gekozen wereld, de andere drie zijn de ronde waarin een beeld zit, met de tags van de beelden als spectrum (aanname; thema, sfeer en
+      uitvoerbaarheid zijn eveneens afgeleid uit bestaande facetten, niet per activiteit bijgeschreven). **"Gratis" is geen filter meer**:
+      `parseMustHaves` leest een getypt "gratis" niet meer (de tekst gaat nog wel als wens naar de schrijver; het budget bepaalt de kostengrens);
+      de oracle E1 en drie tests volgen. Een oude opgeslagen budgetwaarde `free` werkt nog als klasse 0 (de wizard biedt hem niet meer aan).
+      **Bibliotheek 455 -> 496** (41 nieuwe activiteiten in de gaten uit de brief, bestaande domeinen en subgroepen, dus zonder woordenlijstwijziging,
+      `status: concept`, alleen tier 0 en 1 dus geen nieuwe toezichtnotities): wellness (spadag, wellnessweekend, hammam), mode en textiel
+      (kostuumontwerp, hoeden maken, patroontekenen, kleding herstellen en upcyclen, macramé, spinnen en verven, modeillustratie, vintagekleding,
+      schoenen maken), juwelen en ambacht (mineralen en edelstenen, edelstenen slijpen, goud- en zilversmeden, kralen rijgen, emailleren, een
+      eigen sieraad ontwerpen), cultuur en podium (opera, ballet en musical bijwonen, klassieke zang, een historische balavond, theatrale make-up,
+      achter de schermen bij een theater), romantiek en nostalgie (speeldozen, poppenhuis, antieke poppen, brocante en antiek, high tea, historische
+      buitenplaats, stomme film met live muziek), creatief-sociaal (naaicafé, schilderavond, schrijfcirkel, kledingruil, meeschilderen aan een
+      muurschildering) en praktisch buiten (nestkast bouwen, sloep huren, natuurbad, open tuinen). Seizoensgebonden items hebben `months`.
+      **10 gecureerde combinaties** (`hybrids.json`), onder meer de ketens uit de brief (kostuumontwerp + historische balavond, goudsmeden +
+      edelstenen, spadag + klankbad, opera + kostuumafdeling, high tea + buitenplaats). **Associatiekaarten 63 -> 72 families (189 -> 216 kaarten)**:
+      per ronde drie nieuwe families (plek: stoomruimte, stoffenatelier, salon vol antiek; moment: het doek gaat open, een steen vangt het licht,
+      de eerste steek; zintuig: warme stoom, zijde en fluweel, het tinkelen van een speeldoos), elk met drie varianten; per ronde nu 24 families,
+      negen per sessie. Alle 68 beelden (41 + 27) op contactvellen bekeken: geen mensen of leesbare tekst; antieke poppen en getekende
+      modefiguren zijn voorwerpen/tekeningen. `taxonomy:check --images`: 0 fouten, 0 ontbrekende foto's, 0 waarschuwingen. **Beeldherkomst**
+      (`src/lib/imageProvenance.json` + `.ts` + test): per pad een bron en licentie; een test faalt als een beeld onder `/public` geen regel heeft
+      (vond meteen de domeinfoto's in een submap). Alles is met Gemini uit eigen prompts gemaakt (geen stock of derde partij); drie door Jan
+      aangeleverde bestanden (`hero-fan/hero.jpg`, `outdoor/situation.jpg`, `outdoor/openness.jpg`) staan als `confirm`: hun oorsprong kon uit de repo niet
+      worden vastgesteld en moet vóór de lancering worden bevestigd; **controleer ook de gebruiksvoorwaarden van Google voor gegenereerde beelden
+      bij commercieel gebruik**. **Compactere tegels** (`AssociationWizard.tsx`): drie kolommen op een telefoon (een ronde van negen is 3x3 op één
+      scherm), kleinere labelband en vinkje; de richtingenpagina zit mee (10 + de brede "Verras me"-tegel). Het harnas meldt nu ook "boeken met alle 7
+      niveaus" en de uitvoerbaarheid van niveau 1 en 2. **Baseline van de 20 vaste profielen ververst** (grotere bibliotheek; E1-E6 nog 0,
+      ook voor 3 x 500 profielen in beide wizards en beide versies).
+      Getest: 765 tests (nieuw: `levels.test.ts` met 14 tests, `imageProvenance.test.ts`; vier bestaande tests aangepast: 24 families i.p.v. 21,
+      een time-out van 120 naar 300 s voor de twee schaduw-runs (de motor is met 496 activiteiten trager), een regel voor de domeinfoto's, en de
+      aanname dat elk idee "ook in deze richting" heeft, die niet houdt voor een activiteit met weinig buren zoals knopen), `tsc`, eslint, `npm run
+      build`, 19 Playwright-tests; de compacte tegels in de browser op 390 px. **Niet gebouwd**: de gemengde route (één raster met beeldkeuze, venster
+      en praktische rij op één scherm), `/plan` in zeven niveaus in plaats van de vier deuren (nu alleen etiket en volgorde van het boek: de
+      indeling hoort bij Fase 4), een semantische associatielaag (betekenisketens lopen via tags, gecureerde combinaties en de graaf), de events uit
+      Fase 5 en een echte betaalde generatie met de nieuwe activiteiten.

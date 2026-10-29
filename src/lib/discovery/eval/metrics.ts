@@ -2,6 +2,7 @@ import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { getActivity, TAGS } from "@/lib/discovery/library";
 import { evaluate, type EvaluateOptions, type Run } from "@/lib/discovery/engine/evaluate";
 import type { EngineLibrary } from "@/lib/discovery/engine/select";
+import { practicality } from "@/lib/discovery/engine/levels";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
 import { pickOneThingIndex } from "@/lib/possibilityMap";
@@ -36,6 +37,12 @@ export interface Metrics {
   socialKindShare: number;
   /** Which door "Als je er maar één kiest" picks, as a share of books. */
   oneThingByDoor: Record<string, number>;
+  /** Fase 3: share of books in which all seven discovery levels occur (a full set of seven seeds). */
+  levelCompleteBooks: number;
+  /** Fase 3: how often each level occurs, as a share of books. */
+  levelShare: Record<string, number>;
+  /** Fase 3: mean practicality (engine/levels.ts) of the seed on level 1 (Vertrouwd) and level 2 (Praktisch). */
+  practicalityByLevel: { level1: number; level2: number };
   activitiesUsed: number;
   topActivity: { id: string; share: number };
   top10Share: number;
@@ -49,6 +56,8 @@ export function computeMetrics(runs: readonly Run[], lib: EngineLibrary, opts: E
   let worlds = 0, subs = 0, cats = 0, kinds = 0, pairBooks = 0, sameSubBooks = 0, relaxed = 0;
   let verify = 0, tier2 = 0, costUnknown = 0, seedTotal = 0, social = 0, freeBooks = 0, freeUnknown = 0;
   const oneThing = new Map<string, number>();
+  const levelCount = new Map<number, number>();
+  let levelComplete = 0, p1 = 0, p1n = 0, p2 = 0, p2n = 0;
   const perActivity = new Map<string, number>();
   const slots = new Map<string, number>();
 
@@ -87,6 +96,14 @@ export function computeMetrics(runs: readonly Run[], lib: EngineLibrary, opts: E
       if (as.some((a) => a.cost === null)) freeUnknown++;
     }
 
+    const levels = new Set(run.result.seeds.map((s) => s.level).filter((l): l is NonNullable<typeof l> => l !== undefined));
+    if (levels.size === 7) levelComplete++;
+    for (const l of levels) levelCount.set(l, (levelCount.get(l) ?? 0) + 1);
+    for (const s of run.result.seeds) {
+      if (s.level === 1) { p1 += practicality(getActivity(s.activityId)!); p1n++; }
+      if (s.level === 2) { p2 += practicality(getActivity(s.activityId)!); p2n++; }
+    }
+
     // "If you only pick one": the real pick function on the real scores, the six regular ideas only.
     const regular = run.result.seeds.filter((s) => s.direction !== "wildcard");
     const entries = regular.map((s) => ({ door: s.door, scores: scoresForSeed(s, getActivity(s.activityId)!), ...(s.fit !== undefined ? { fit: Math.round(s.fit * 100) } : {}) }) as unknown as IdeaBookEntry);
@@ -118,6 +135,9 @@ export function computeMetrics(runs: readonly Run[], lib: EngineLibrary, opts: E
     freeBudgetWithUnknownCost: freeUnknown,
     socialKindShare: share(social, seedTotal),
     oneThingByDoor: Object.fromEntries([...oneThing.entries()].map(([door, c]) => [door, share(c, n)])),
+    levelCompleteBooks: share(levelComplete, n),
+    levelShare: Object.fromEntries([1, 2, 3, 4, 5, 6, 7].map((l) => [String(l), share(levelCount.get(l) ?? 0, n)])),
+    practicalityByLevel: { level1: share(p1, p1n), level2: share(p2, p2n) },
     activitiesUsed: perActivity.size,
     topActivity: ranked.length ? { id: ranked[0][0], share: share(ranked[0][1], n) } : { id: "", share: 0 },
     top10Share: share(topSlots, seedTotal),

@@ -10,6 +10,7 @@ import { IdeaFeedback } from "@/components/window/IdeaFeedback";
 import { IdeaThread } from "@/components/plan/IdeaThread";
 import { IdeaMore } from "@/components/plan/IdeaMore";
 import { pdfPageNumbers } from "@/lib/claude/ideaLayers";
+import { isDiscoveryLevel, levelName } from "@/lib/discoveryLevels";
 import { ShareButton } from "@/components/window/ShareButton";
 import { commitToIdea, submitIdeaFeedback, type IdeaFeedbackValue } from "@/app/plan/actions";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
@@ -387,12 +388,18 @@ export function PlanReveal({
             </div>
             <div className="flex min-w-0 flex-col gap-5 p-6 sm:p-9 lg:p-12">
               <div className="flex flex-col gap-2.5">
-                {isDoor(featured.door) && (
+                {isDiscoveryLevel(featured.level) ? (
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/60">
-                    {t.doorLabel
-                      .replace("{n}", String(DOOR_ORDER.indexOf(featured.door) + 1))
-                      .replace("{label}", planDict.book.doors[featured.door].label)}
+                    {t.levelLabel.replace("{n}", String(featured.level)).replace("{label}", levelName(featured.level, locale))}
                   </p>
+                ) : (
+                  isDoor(featured.door) && (
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/60">
+                      {t.doorLabel
+                        .replace("{n}", String(DOOR_ORDER.indexOf(featured.door) + 1))
+                        .replace("{label}", planDict.book.doors[featured.door].label)}
+                    </p>
+                  )
                 )}
                 <h2
                   id="one-thing-title"
@@ -578,6 +585,11 @@ export function PlanReveal({
                           {idea.title}
                         </h4>
                         <p className="text-[13px] text-ink/65">{metaParts(idea, locale).join(" · ")}</p>
+                        {isDiscoveryLevel(idea.level) && (
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-gold">
+                            {t.levelLabel.replace("{n}", String(idea.level)).replace("{label}", levelName(idea.level, locale))}
+                          </p>
+                        )}
                         <div className="flex items-center justify-between pt-1">
                           <button
                             type="button"

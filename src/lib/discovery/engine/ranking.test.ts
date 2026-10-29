@@ -38,11 +38,11 @@ describe("unknown is never a favourable answer (strictFreeCost)", () => {
     expect(r.verify).toContain("cost_unknown");
   });
 
-  it("with the strict rule it does not pass a free budget or a stated 'gratis', but still passes a paid budget", () => {
-    for (const input of [{ ...BASE, budget: "free" }, { ...BASE, budget: "100", mustHaves: "graag gratis" }]) {
-      const c = resolveConstraints(input, { strictFreeCost: true });
-      expect(passesConstraints(unknownCost[0], c).ok).toBe(false);
-    }
+  it("with the strict rule it does not pass a free budget, but still passes a paid budget (a typed 'gratis' is no filter)", () => {
+    const c = resolveConstraints({ ...BASE, budget: "free" }, { strictFreeCost: true });
+    expect(passesConstraints(unknownCost[0], c).ok).toBe(false);
+    const typed = resolveConstraints({ ...BASE, budget: "100", mustHaves: "graag gratis" }, { strictFreeCost: true });
+    expect(passesConstraints(unknownCost[0], typed).ok).toBe(true);
     const paid = resolveConstraints({ ...BASE, budget: "25" }, { strictFreeCost: true });
     expect(passesConstraints(unknownCost[0], paid).ok).toBe(true);
   });

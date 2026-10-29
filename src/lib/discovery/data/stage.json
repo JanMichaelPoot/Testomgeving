@@ -753,5 +753,223 @@
     "scene": "a leather half-mask with a long nose and a feathered hat resting on a wooden crate under a spotlight",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "opera-bezoek",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Een opera bijwonen",
+      "en": "Attending an opera"
+    },
+    "tags": [
+      "performance",
+      "story",
+      "sound"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een studentenvoorstelling, matinee of openbare repetitie: vaak voordeliger dan een première",
+      "en": "A student show, matinee or open rehearsal: often cheaper than an opening night"
+    },
+    "scene": "a gilded opera house with red velvet seats, a lit stage curtain and a crystal chandelier",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "ballet-bezoek",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Een ballet bijwonen",
+      "en": "Attending a ballet"
+    },
+    "tags": [
+      "performance",
+      "rhythm",
+      "story",
+      "movement"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een matinee of open repetitie bijwonen, vaak met een inleiding vooraf",
+      "en": "Attend a matinee or open rehearsal, often with an introduction beforehand"
+    },
+    "scene": "a theatre stage with soft spotlights and a ballet barre in the wings, pointe shoes in a pool of light",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "musical-bezoek",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Een musical bijwonen",
+      "en": "Attending a musical"
+    },
+    "tags": [
+      "performance",
+      "story",
+      "sound",
+      "rhythm"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een middagvoorstelling of restkaarten voor een avond",
+      "en": "An afternoon performance or last-minute tickets for an evening"
+    },
+    "scene": "a bright theatre auditorium with a painted city-street stage set and a playbill in the foyer",
+    "status": "concept"
+  },
+  {
+    "id": "theatermake-up",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Theatrale make-up",
+      "en": "Stage make-up"
+    },
+    "tags": [
+      "craft",
+      "performance",
+      "color",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop: van ouder lijken tot fantasiefiguur",
+      "en": "A workshop: from ageing a look to a fantasy creature"
+    },
+    "scene": "a dressing-room mirror with round bulbs, greasepaint sticks, brushes and a wig stand",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "theater-backstage",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Achter de schermen bij een theater",
+      "en": "Behind the scenes at a theatre"
+    },
+    "tags": [
+      "performance",
+      "story",
+      "discovery",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een rondleiding achter de schermen bij een schouwburg of operahuis",
+      "en": "A behind-the-scenes tour of a theatre or opera house"
+    },
+    "scene": "a theatre backstage with rope rigging, flight cases, a prop table and a work light over an empty stage",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "stomme-film",
+    "domain": "stage",
+    "sub": "film_media",
+    "label": {
+      "nl": "Stomme film met live muziek",
+      "en": "Silent film with live music"
+    },
+    "tags": [
+      "story",
+      "sound",
+      "retro",
+      "performance"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een stomme film met live pianobegeleiding in een filmhuis of museum",
+      "en": "A silent film with live piano accompaniment at an arthouse cinema or museum"
+    },
+    "scene": "a vintage cinema auditorium with a piano beside a screen that glows with flickering black-and-white light",
+    "status": "concept",
+    "supply": "regional"
   }
 ]

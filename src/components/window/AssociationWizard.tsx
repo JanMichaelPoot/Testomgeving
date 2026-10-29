@@ -133,7 +133,7 @@ const toggle = (list: string[], v: string) => (list.includes(v) ? list.filter((x
 
 function Check() {
   return (
-    <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gold-light text-accent-dark shadow">
+    <span aria-hidden="true" className="flex h-6 w-6 items-center justify-center rounded-full bg-gold-light text-accent-dark shadow sm:h-7 sm:w-7">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
         <path d="M3.5 8.5l3 3 6-7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
@@ -561,7 +561,7 @@ export function AssociationWizard({
           </div>
         ) : null}
 
-        <div className={cn("mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3", mode === "swipe" && "hidden sm:grid")}>
+        <div className={cn("mt-5 grid grid-cols-3 gap-2 sm:gap-3", mode === "swipe" && "hidden sm:grid")}>
           {cards.map((c) => {
             const on = chosen.includes(c.id);
             return (
@@ -575,11 +575,11 @@ export function AssociationWizard({
                   on && "ring-[3px] ring-gold ring-offset-2 ring-offset-cream",
                 )}
               >
-                <Image src={c.image} alt="" fill sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 45vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
-                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-3 pb-3 pt-10 text-sm font-semibold leading-snug text-white">
+                <Image src={c.image} alt="" fill sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-2 pb-2 pt-8 text-xs font-semibold leading-tight text-white sm:px-3 sm:pb-3 sm:pt-10 sm:text-sm sm:leading-snug">
                   {c.label}
                 </span>
-                <span className="absolute right-2 top-2">{on ? <Check /> : <span className="block h-7 w-7 rounded-full border-2 border-white/80 bg-black/10" />}</span>
+                <span className="absolute right-1.5 top-1.5 sm:right-2 sm:top-2">{on ? <Check /> : <span className="block h-6 w-6 rounded-full border-2 border-white/80 bg-black/10 sm:h-7 sm:w-7" />}</span>
               </button>
             );
           })}
@@ -611,7 +611,7 @@ export function AssociationWizard({
               </div>
             )}
             {/* Same grid and tile shape as the image rounds, so the photos are as large as on the other pages. */}
-            <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
+            <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
               {shownDomains.map((d) => {
                 const on = (answers.interestDomains ?? []).includes(d.id);
                 return (
@@ -629,11 +629,11 @@ export function AssociationWizard({
                       answers.surpriseMe && "opacity-50",
                     )}
                   >
-                    <Image src={domainImage(d.id)} alt="" fill sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 45vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
-                    <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent px-3 pb-3 pt-10 text-sm font-semibold leading-snug text-white">
+                    <Image src={domainImage(d.id)} alt="" fill sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                    <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent px-2 pb-2 pt-8 text-xs font-semibold leading-tight text-white sm:px-3 sm:pb-3 sm:pt-10 sm:text-sm sm:leading-snug">
                       {d.label}
                     </span>
-                    <span className="absolute right-2 top-2">{on ? <Check /> : <span className="block h-7 w-7 rounded-full border-2 border-white/80 bg-black/10" />}</span>
+                    <span className="absolute right-1.5 top-1.5 sm:right-2 sm:top-2">{on ? <Check /> : <span className="block h-6 w-6 rounded-full border-2 border-white/80 bg-black/10 sm:h-7 sm:w-7" />}</span>
                   </button>
                 );
               })}

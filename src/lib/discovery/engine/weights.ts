@@ -27,7 +27,14 @@ export interface Weights {
   sharedPairPenalty: number;
 
   // --- per direction ---------------------------------------------------------------------------------
-  familiar: { pickedScore: number; nearRel: number; noise: number; spreadPerSameDomain: number };
+  familiar: {
+    pickedScore: number;
+    nearRel: number;
+    noise: number;
+    spreadPerSameDomain: number;
+    /** Fase 3 "Praktisch": added to the SECOND familiar slot, times the activity's practicality (engine/levels.ts). 0 = off. */
+    practicalBonus: number;
+  };
   unexpected: { hybridBase: number; hybridBridge: number; hybridNoise: number; chainNoise: number; oneStepBridge: number; oneStepNoise: number; farRelMax: number };
   adjacent: { noise: number; noveltyOtherWorld: number; peak: number };
   stretch: { base: number; bridge: number; noise: number; targetByWildness: readonly number[] };
@@ -46,7 +53,7 @@ export const WEIGHTS_CURRENT: Weights = {
   supply: { rare: 0.18, regional: 0.04 },
   redundancyPerBridge: 0.05,
   sharedPairPenalty: 0,
-  familiar: { pickedScore: 2, nearRel: 0.4, noise: 0.3, spreadPerSameDomain: 0.35 },
+  familiar: { pickedScore: 2, nearRel: 0.4, noise: 0.3, spreadPerSameDomain: 0.35, practicalBonus: 0 },
   unexpected: { hybridBase: 2.5, hybridBridge: 0.15, hybridNoise: 0.3, chainNoise: 0.15, oneStepBridge: 0.1, oneStepNoise: 0.15, farRelMax: 0.3 },
   adjacent: { noise: 0.15, noveltyOtherWorld: 0.15, peak: 0.38 },
   stretch: { base: 2, bridge: 0.15, noise: 0.2, targetByWildness: [1, 1.2, 2, 2.8] },
@@ -61,6 +68,9 @@ export const WEIGHTS_V2: Weights = {
   // The penalty is of the order of a whole "adjacent" score so it decides between near-equal candidates without
   // overriding a clearly better one; the diversity rules in select.ts (domain/sub-domain caps) still apply on top.
   sharedPairPenalty: 0.45,
+  // Fase 3: the second familiar idea is the one that is easiest to start. About the size of the noise, so it decides
+  // between near-equal candidates (two of the person's own picks, say) without replacing a clearly closer one.
+  familiar: { ...WEIGHTS_CURRENT.familiar, practicalBonus: 0.3 },
   strictFreeCost: true,
   explain: true,
 };

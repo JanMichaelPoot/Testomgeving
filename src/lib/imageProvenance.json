@@ -1,0 +1,69 @@
+{
+  "note": "Source and licence of every image the product shows (Fase 3). Rules are matched top to bottom on the path under /public, first match wins (a '*' matches within one folder level, '**' across levels). A test (imageProvenance.test.ts) fails when an image has no rule, so a new image cannot ship without a recorded source. 'confirm' marks an image whose origin this project could not establish from its own history: it must be confirmed by the owner before the commercial launch.",
+  "generatedStatement": "Generated with Google's Gemini image model through the API from our own text prompts. No third-party photograph or artwork was used as input. Rights follow Google's terms for generated output at the time of use; this is not a stock or licensed photograph. Check those terms again before commercial launch.",
+  "rules": [
+    {
+      "match": "illustrations/hero-fan/hero.jpg",
+      "source": "Supplied by the project owner (file Hero_goed.jpeg, 2026)",
+      "license": "Supplied by the project owner; original tool and licence not recorded in the repository",
+      "confirm": true
+    },
+    {
+      "match": "illustrations/outdoor/situation.jpg",
+      "source": "Supplied by the project owner (file Foto1.jpeg, 2026)",
+      "license": "Supplied by the project owner; original tool and licence not recorded in the repository",
+      "confirm": true
+    },
+    {
+      "match": "illustrations/outdoor/openness.jpg",
+      "source": "Supplied by the project owner (file Foto4.jpeg, 2026)",
+      "license": "Supplied by the project owner; original tool and licence not recorded in the repository",
+      "confirm": true
+    },
+    {
+      "match": "illustrations/discovery/**",
+      "source": "Gemini image model, scripts/generate-discovery-illustrations.ts (one photo per activity and per world)",
+      "license": "generated"
+    },
+    {
+      "match": "illustrations/associations/*.jpg",
+      "source": "Gemini image model, scripts/generate-discovery-illustrations.ts --associations (image-intake cards)",
+      "license": "generated"
+    },
+    {
+      "match": "illustrations/hero-pool/*.jpg",
+      "source": "Gemini image model, scripts/generate-discovery-illustrations.ts --hero (landing hero pool)",
+      "license": "generated"
+    },
+    {
+      "match": "illustrations/idea-book/**",
+      "source": "Gemini image model, scripts/generate-idea-book-illustrations.ts and generate-idea-category-illustrations.ts (Idea Book cover and category photos)",
+      "license": "generated"
+    },
+    {
+      "match": "illustrations/luxury/*.jpg",
+      "source": "Gemini image model, scripts/generate-luxury-illustrations.ts",
+      "license": "generated"
+    },
+    {
+      "match": "illustrations/outdoor/*.jpg",
+      "source": "Gemini image model, scripts/generate-outdoor-illustrations.ts",
+      "license": "generated"
+    },
+    {
+      "match": "illustrations/*.jpg",
+      "source": "Gemini image model, scripts/generate-illustrations.ts (earlier landing and wizard images)",
+      "license": "generated"
+    },
+    {
+      "match": "logo/*",
+      "source": "The WindowInto logo: icon redrawn with Gemini (scripts/generate-logo-icon.ts) and processed with sharp (scripts/process-logo-icon.ts)",
+      "license": "generated"
+    },
+    {
+      "match": "email/**",
+      "source": "Cropped and resized copies of images listed above (scripts/make-email-assets.ts)",
+      "license": "derived"
+    }
+  ]
+}

@@ -4513,5 +4513,647 @@
       "novelty": 0
     },
     "status": "concept"
+  },
+  {
+    "id": "place-steam-room",
+    "family": "place-steam-room",
+    "round": "places",
+    "label": {
+      "nl": "Een warme ruimte vol stoom",
+      "en": "A warm room full of steam"
+    },
+    "scene": "A tiled steam room with wooden benches and soft clouds of steam, warm amber light, empty.",
+    "image": "/illustrations/associations/place-steam-room.jpg",
+    "tagWeights": {
+      "stillness": 0.9,
+      "water": 0.8,
+      "conviviality": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.9,
+      "setting": -0.9,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-steam-room-b",
+    "family": "place-steam-room",
+    "round": "places",
+    "label": {
+      "nl": "Een stil thermaal bad",
+      "en": "A quiet thermal pool"
+    },
+    "scene": "A still indoor thermal pool under a vaulted ceiling with steam rising from the surface, soft light, empty.",
+    "image": "/illustrations/associations/place-steam-room-b.jpg",
+    "tagWeights": {
+      "stillness": 0.9,
+      "water": 0.8,
+      "conviviality": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.9,
+      "setting": -0.9,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-steam-room-c",
+    "family": "place-steam-room",
+    "round": "places",
+    "label": {
+      "nl": "Een saunahut aan het water",
+      "en": "A sauna cabin by the water"
+    },
+    "scene": "A wooden sauna cabin on a lakeshore at dusk with a lit window and steam from the chimney, a towel on the rail.",
+    "image": "/illustrations/associations/place-steam-room-c.jpg",
+    "tagWeights": {
+      "stillness": 0.9,
+      "water": 0.8,
+      "conviviality": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.9,
+      "setting": -0.9,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-fabric-atelier",
+    "family": "place-fabric-atelier",
+    "round": "places",
+    "label": {
+      "nl": "Een atelier vol stoffen",
+      "en": "An atelier full of fabric"
+    },
+    "scene": "A bright atelier wall of folded fabric rolls in rich colours, a cutting table with shears and a tape measure.",
+    "image": "/illustrations/associations/place-fabric-atelier.jpg",
+    "tagWeights": {
+      "craft": 0.9,
+      "color": 0.8,
+      "making": 0.6,
+      "story": 0.3
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.2,
+      "setting": -0.9,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-fabric-atelier-b",
+    "family": "place-fabric-atelier",
+    "round": "places",
+    "label": {
+      "nl": "Een rek vol kostuums",
+      "en": "A rack of costumes"
+    },
+    "scene": "A long rack of embroidered costumes and velvet capes in a workshop with a mannequin and spools of thread.",
+    "image": "/illustrations/associations/place-fabric-atelier-b.jpg",
+    "tagWeights": {
+      "craft": 0.9,
+      "color": 0.8,
+      "making": 0.6,
+      "story": 0.3
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.2,
+      "setting": -0.9,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-fabric-atelier-c",
+    "family": "place-fabric-atelier",
+    "round": "places",
+    "label": {
+      "nl": "Een naaimachine bij het raam",
+      "en": "A sewing machine by the window"
+    },
+    "scene": "A vintage sewing machine on a wooden table by a sunny window, thread spools and a half-sewn linen garment.",
+    "image": "/illustrations/associations/place-fabric-atelier-c.jpg",
+    "tagWeights": {
+      "craft": 0.9,
+      "color": 0.8,
+      "making": 0.6,
+      "story": 0.3
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.2,
+      "setting": -0.9,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-antique-parlour",
+    "family": "place-antique-parlour",
+    "round": "places",
+    "label": {
+      "nl": "Een salon vol antiek",
+      "en": "A parlour full of antiques"
+    },
+    "scene": "A Victorian parlour with a patterned rug, an antique clock, lace doilies and a velvet armchair in afternoon light.",
+    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "tagWeights": {
+      "retro": 1,
+      "collecting": 0.7,
+      "story": 0.6,
+      "stillness": 0.3
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-antique-parlour-b",
+    "family": "place-antique-parlour",
+    "round": "places",
+    "label": {
+      "nl": "Een kast vol curiosa",
+      "en": "A cabinet of curiosities"
+    },
+    "scene": "A glass-fronted cabinet of curiosities with shells, brass instruments, small porcelain figures and old keys.",
+    "image": "/illustrations/associations/place-antique-parlour-b.jpg",
+    "tagWeights": {
+      "retro": 1,
+      "collecting": 0.7,
+      "story": 0.6,
+      "stillness": 0.3
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-antique-parlour-c",
+    "family": "place-antique-parlour",
+    "round": "places",
+    "label": {
+      "nl": "Een zolder met oude koffers",
+      "en": "An attic of old trunks"
+    },
+    "scene": "An attic with leather trunks, a dressmaker's dummy under a sheet, dust in a sunbeam and a rolled carpet.",
+    "image": "/illustrations/associations/place-antique-parlour-c.jpg",
+    "tagWeights": {
+      "retro": 1,
+      "collecting": 0.7,
+      "story": 0.6,
+      "stillness": 0.3
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-curtain-rise",
+    "family": "moment-curtain-rise",
+    "round": "moments",
+    "label": {
+      "nl": "Het doek gaat open",
+      "en": "The curtain rises"
+    },
+    "scene": "A heavy red velvet stage curtain parting to the first line of light, a hush in the empty stalls.",
+    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "tagWeights": {
+      "performance": 0.9,
+      "story": 0.8,
+      "sound": 0.5,
+      "suspense": 0.4
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.2,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-curtain-rise-b",
+    "family": "moment-curtain-rise",
+    "round": "moments",
+    "label": {
+      "nl": "De ouverture begint",
+      "en": "The overture begins"
+    },
+    "scene": "An orchestra pit with music stands lit from below, a conductor's baton on the podium, the stage dark beyond.",
+    "image": "/illustrations/associations/moment-curtain-rise-b.jpg",
+    "tagWeights": {
+      "performance": 0.9,
+      "story": 0.8,
+      "sound": 0.5,
+      "suspense": 0.4
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.2,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-curtain-rise-c",
+    "family": "moment-curtain-rise",
+    "round": "moments",
+    "label": {
+      "nl": "Het licht dimt in de zaal",
+      "en": "The house lights dim"
+    },
+    "scene": "A theatre auditorium as the chandelier fades, rows of velvet seats glowing at the edges, the stage lit gold.",
+    "image": "/illustrations/associations/moment-curtain-rise-c.jpg",
+    "tagWeights": {
+      "performance": 0.9,
+      "story": 0.8,
+      "sound": 0.5,
+      "suspense": 0.4
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.2,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-gem-sparkle",
+    "family": "moment-gem-sparkle",
+    "round": "moments",
+    "label": {
+      "nl": "Een steen vangt het licht",
+      "en": "A stone catches the light"
+    },
+    "scene": "A cut gemstone on dark velvet catching a single beam of light and scattering coloured sparks.",
+    "image": "/illustrations/associations/moment-gem-sparkle.jpg",
+    "tagWeights": {
+      "collecting": 0.7,
+      "color": 0.9,
+      "discovery": 0.6,
+      "precision": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-gem-sparkle-b",
+    "family": "moment-gem-sparkle",
+    "round": "moments",
+    "label": {
+      "nl": "De loep boven een diamant",
+      "en": "A loupe over a diamond"
+    },
+    "scene": "A jeweller's loupe resting over a faceted stone on a white cloth, tiny rainbow reflections.",
+    "image": "/illustrations/associations/moment-gem-sparkle-b.jpg",
+    "tagWeights": {
+      "collecting": 0.7,
+      "color": 0.9,
+      "discovery": 0.6,
+      "precision": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-gem-sparkle-c",
+    "family": "moment-gem-sparkle",
+    "round": "moments",
+    "label": {
+      "nl": "Een geode wordt opengebroken",
+      "en": "A geode cracked open"
+    },
+    "scene": "A geode split open to show glittering purple crystals on a workbench beside a small hammer.",
+    "image": "/illustrations/associations/moment-gem-sparkle-c.jpg",
+    "tagWeights": {
+      "collecting": 0.7,
+      "color": 0.9,
+      "discovery": 0.6,
+      "precision": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-stitch",
+    "family": "moment-first-stitch",
+    "round": "moments",
+    "label": {
+      "nl": "De eerste steek",
+      "en": "The first stitch"
+    },
+    "scene": "A needle pulling a bright thread through cream fabric, the first stitch in an embroidery hoop, close up.",
+    "image": "/illustrations/associations/moment-first-stitch.jpg",
+    "tagWeights": {
+      "craft": 0.9,
+      "making": 0.7,
+      "focus": 0.5,
+      "color": 0.3
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.3,
+      "setting": -0.8,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-stitch-b",
+    "family": "moment-first-stitch",
+    "round": "moments",
+    "label": {
+      "nl": "De eerste knoop",
+      "en": "The first knot"
+    },
+    "scene": "Cotton cord looped into the first knot on a wooden dowel, a few loose strands, soft window light.",
+    "image": "/illustrations/associations/moment-first-stitch-b.jpg",
+    "tagWeights": {
+      "craft": 0.9,
+      "making": 0.7,
+      "focus": 0.5,
+      "color": 0.3
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.3,
+      "setting": -0.8,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-stitch-c",
+    "family": "moment-first-stitch",
+    "round": "moments",
+    "label": {
+      "nl": "Het wiel begint te draaien",
+      "en": "The wheel starts to turn"
+    },
+    "scene": "A spinning wheel just starting to turn, a thread of wool twisting out of a fluffy cloud of fleece.",
+    "image": "/illustrations/associations/moment-first-stitch-c.jpg",
+    "tagWeights": {
+      "craft": 0.9,
+      "making": 0.7,
+      "focus": 0.5,
+      "color": 0.3
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.3,
+      "setting": -0.8,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-warm-steam",
+    "family": "sense-warm-steam",
+    "round": "senses",
+    "label": {
+      "nl": "Warme stoom en eucalyptus",
+      "en": "Warm steam and eucalyptus"
+    },
+    "scene": "Eucalyptus sprigs and a wooden ladle over hot stones with a curl of steam, warm light.",
+    "image": "/illustrations/associations/sense-warm-steam.jpg",
+    "tagWeights": {
+      "stillness": 1,
+      "water": 0.7,
+      "nature": 0.3
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.9,
+      "setting": -0.5,
+      "novelty": -0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-warm-steam-b",
+    "family": "sense-warm-steam",
+    "round": "senses",
+    "label": {
+      "nl": "Warm water tot aan je kin",
+      "en": "Warm water up to your chin"
+    },
+    "scene": "The surface of a hot spring pool with rising steam and a few floating petals, early evening blue light.",
+    "image": "/illustrations/associations/sense-warm-steam-b.jpg",
+    "tagWeights": {
+      "stillness": 1,
+      "water": 0.7,
+      "nature": 0.3
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.9,
+      "setting": -0.5,
+      "novelty": -0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-warm-steam-c",
+    "family": "sense-warm-steam",
+    "round": "senses",
+    "label": {
+      "nl": "Hout dat tikt in de warmte",
+      "en": "Wood ticking in the warmth"
+    },
+    "scene": "Cedar sauna benches with beads of resin and a small thermometer, glowing in dim amber light.",
+    "image": "/illustrations/associations/sense-warm-steam-c.jpg",
+    "tagWeights": {
+      "stillness": 1,
+      "water": 0.7,
+      "nature": 0.3
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.9,
+      "setting": -0.5,
+      "novelty": -0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-silk-velvet",
+    "family": "sense-silk-velvet",
+    "round": "senses",
+    "label": {
+      "nl": "Zijde, fluweel en linnen",
+      "en": "Silk, velvet and linen"
+    },
+    "scene": "A close-up spread of silk, deep velvet and rough linen in folds with soft raking light, tactile and rich.",
+    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "tagWeights": {
+      "craft": 0.8,
+      "color": 0.6,
+      "retro": 0.4,
+      "making": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-silk-velvet-b",
+    "family": "sense-silk-velvet",
+    "round": "senses",
+    "label": {
+      "nl": "De glans van satijn",
+      "en": "The shine of satin"
+    },
+    "scene": "Satin ribbon rippling across a wooden table with a glass button jar and a pair of silver scissors.",
+    "image": "/illustrations/associations/sense-silk-velvet-b.jpg",
+    "tagWeights": {
+      "craft": 0.8,
+      "color": 0.6,
+      "retro": 0.4,
+      "making": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-silk-velvet-c",
+    "family": "sense-silk-velvet",
+    "round": "senses",
+    "label": {
+      "nl": "Een rol kant",
+      "en": "A roll of lace"
+    },
+    "scene": "A roll of antique lace unrolled across a dark wood table beside pearl buttons and a thimble.",
+    "image": "/illustrations/associations/sense-silk-velvet-c.jpg",
+    "tagWeights": {
+      "craft": 0.8,
+      "color": 0.6,
+      "retro": 0.4,
+      "making": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-music-box",
+    "family": "sense-music-box",
+    "round": "senses",
+    "label": {
+      "nl": "Het tinkelen van een speeldoos",
+      "en": "The tinkle of a music box"
+    },
+    "scene": "An open antique music box with a slowly turning brass cylinder and a tiny gilded carousel, soft lamp glow.",
+    "image": "/illustrations/associations/sense-music-box.jpg",
+    "tagWeights": {
+      "sound": 0.8,
+      "retro": 1,
+      "story": 0.5,
+      "stillness": 0.3
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-music-box-b",
+    "family": "sense-music-box",
+    "round": "senses",
+    "label": {
+      "nl": "Een koekoeksklok die slaat",
+      "en": "A cuckoo clock striking"
+    },
+    "scene": "A carved wooden cuckoo clock with its little door open and pendulum swinging, warm cabin light.",
+    "image": "/illustrations/associations/sense-music-box-b.jpg",
+    "tagWeights": {
+      "sound": 0.8,
+      "retro": 1,
+      "story": 0.5,
+      "stillness": 0.3
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-music-box-c",
+    "family": "sense-music-box",
+    "round": "senses",
+    "label": {
+      "nl": "Een pianola in een stille kamer",
+      "en": "A pianola in a quiet room"
+    },
+    "scene": "An upright player piano with a paper roll turning and keys moving on their own, dusty sunlight.",
+    "image": "/illustrations/associations/sense-music-box-c.jpg",
+    "tagWeights": {
+      "sound": 0.8,
+      "retro": 1,
+      "story": 0.5,
+      "stillness": 0.3
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.5
+    },
+    "status": "concept"
   }
 ]

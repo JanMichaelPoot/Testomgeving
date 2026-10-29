@@ -7,7 +7,7 @@ import type { EngineInput, ResolvedConstraints } from "@/lib/discovery/engine/ty
 // for the research step instead.
 
 // A cost class is a RANGE (0 free, 1 up to 15, 2 15-50, 3 over 50), so "up to 25" still fits class 2:
-// a beginner workshop or trial class at 25 exists there. Only "free" is exact. Where the range can
+// a beginner workshop or trial class at 25 exists there. Only "free" (an old stored budget; the wizard no longer offers it) is exact. Where the range can
 // reach past the budget the activity passes with a "cost_near_budget" flag, and the writer is told to
 // say the price varies (a person's own pick is otherwise silently dropped: pottery is class 2).
 const COST_CAP: Record<string, 0 | 1 | 2 | 3> = { free: 0, "25": 2, "100": 3, allin: 3 };
@@ -20,7 +20,7 @@ const INTENSITY_CAP: Record<string, 0 | 1 | 2 | 3> = { minimal: 1, some: 2, comm
  * Deliberately narrow: everything else is left to the idea generator, which already
  * treats the text as hard constraints. Dutch and English.
  */
-export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting" | "noGroups" | "verify"> & { free: boolean } {
+export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting" | "noGroups" | "verify"> {
   const t = ` ${text.toLowerCase()} `;
   const verify: string[] = [];
   let setting: "indoor" | "outdoor" | null = null;
@@ -37,7 +37,8 @@ export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting
   if (wantsIndoor && !wantsOutdoor) setting = "indoor";
 
   const noGroups = /\b(geen groepen?|niet in (een )?groep|no groups?|not in (a )?group|zonder groep)\b/.test(t);
-  const free = /\b(gratis|kosteloos|free of charge|zero cost)\b/.test(t);
+  // "Gratis" is deliberately not read here (Fase 3): free is not something to filter on, only a fact about an
+  // activity's price. The text still reaches the writer as a stated wish; the budget sets the cost limit.
 
   // No accessibility or pet data in the library: cannot filter, must be checked.
   // No word boundary at the start: the wizard's own chip is the compound "Rolstoeltoegankelijk",
@@ -49,7 +50,7 @@ export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting
   if (/alcohol/.test(t)) verify.push("alcohol");
   if (/(kinderen|\bkids\b|children|\bbaby)/.test(t)) verify.push("children");
 
-  return { setting, noGroups, verify, free };
+  return { setting, noGroups, verify };
 }
 
 export interface ResolveOptions {
@@ -64,12 +65,11 @@ export function resolveConstraints(input: EngineInput, opts: ResolveOptions = {}
   // "No preference" and "depends on the day" (or nothing chosen) impose nothing.
   const formats = explicit.length > 0 ? explicit : null;
 
-  let costCap = COST_CAP[input.budget] ?? 2;
-  if (must.free) costCap = 0;
+  const costCap = COST_CAP[input.budget] ?? 2;
 
   return {
     costCap,
-    nearBudgetCost: must.free ? null : (NEAR_BUDGET[input.budget] ?? null),
+    nearBudgetCost: NEAR_BUDGET[input.budget] ?? null,
     intensityCap: INTENSITY_CAP[input.effort] ?? 2,
     // Only offered to people who said they are open to something less predictable.
     hideSupervised: input.practicalToWild === "grounded" || input.practicalToWild === "practical",

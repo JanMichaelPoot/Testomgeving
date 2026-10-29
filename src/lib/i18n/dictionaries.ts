@@ -228,6 +228,7 @@ export interface Dictionary {
       basedOn: string;
       doorWord: string; // {n}
       doorLabel: string; // {n}, {label}
+      levelLabel: string; // {n}, {label}: the discovery level (Fase 3)
       whyHeading: string;
       firstStepHeading: string;
       commitCta: string;
@@ -792,6 +793,7 @@ const nl: Dictionary = {
       basedOn: "Gemaakt op basis van",
       doorWord: "Deur {n}",
       doorLabel: "Deur {n} · {label}",
+      levelLabel: "Niveau {n} · {label}",
       whyHeading: "Waarom dit bij jou past",
       firstStepHeading: "Eerste stap",
       commitCta: "Dit ga ik doen",
@@ -1524,6 +1526,7 @@ const en: Dictionary = {
       basedOn: "Made from",
       doorWord: "Door {n}",
       doorLabel: "Door {n} · {label}",
+      levelLabel: "Level {n} · {label}",
       whyHeading: "Why this fits you",
       firstStepHeading: "First step",
       commitCta: "I'm going to do this",

@@ -1,3 +1,4 @@
+import type { DiscoveryLevel } from "@/lib/discoveryLevels";
 import type { Locale } from "@/lib/locale";
 import type { IdeaLayers } from "@/lib/claude/ideaLayers";
 import type { IdeaFill } from "@/lib/claude/ideaFill";
@@ -92,6 +93,8 @@ export interface IdeaBookEntry extends IdeaLayers {
   image_suggestion: string;
   photo_category: PhotoCategory;
   door: IdeaDoor;
+  /** Fase 3: the discovery level, 1 (Vertrouwd) to 7 (Onontdekt). Set by the seed pipeline; absent on older books. */
+  level?: DiscoveryLevel;
   scores: IdeaScores;
   /** B4 (KNOWLEDGE_ENGINE_V2): how well this idea fits the person, measured by the selection (0-100). "If you only pick one" uses it when present. */
   fit?: number;

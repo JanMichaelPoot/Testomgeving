@@ -1028,5 +1028,218 @@
       "source_record_id": "Q17141620",
       "method": "curated"
     }
+  },
+  {
+    "id": "vintage-kleding",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Vintagekleding struinen",
+      "en": "Vintage clothing hunt"
+    },
+    "tags": [
+      "collecting",
+      "retro",
+      "color",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een middag vintage- en kringloopwinkels langs, met passen en combineren",
+      "en": "An afternoon through vintage and charity shops, trying on and combining"
+    },
+    "scene": "a rail of vintage dresses and a velvet blazer, with leather shoes and a felt hat on a shelf above",
+    "status": "concept"
+  },
+  {
+    "id": "mineralen-edelstenen",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Mineralen en edelstenen",
+      "en": "Minerals and gemstones"
+    },
+    "tags": [
+      "collecting",
+      "discovery",
+      "color",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een mineralen- of edelsteenbeurs of museum bezoeken en leren herkennen",
+      "en": "Visit a mineral or gem fair or museum and learn to recognise stones"
+    },
+    "scene": "polished gemstones, amethyst geodes and a jeweller's loupe on a dark velvet cloth",
+    "status": "concept"
+  },
+  {
+    "id": "speeldozen",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Speeldozen en muziekautomaten",
+      "en": "Music boxes and mechanical instruments"
+    },
+    "tags": [
+      "collecting",
+      "retro",
+      "sound",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een museum of beurs met speeldozen en muziekautomaten bezoeken",
+      "en": "Visit a museum or fair with music boxes and mechanical instruments"
+    },
+    "scene": "an antique wooden music box open to show its brass comb and pinned cylinder beside porcelain figurines",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "poppenhuis",
+    "domain": "collecting",
+    "sub": "small_building",
+    "label": {
+      "nl": "Een poppenhuis inrichten",
+      "en": "Furnishing a dollhouse"
+    },
+    "tags": [
+      "miniature",
+      "craft",
+      "story",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop poppenhuis inrichten of een miniatuurkamer bouwen",
+      "en": "A workshop furnishing a dollhouse or building a miniature room"
+    },
+    "scene": "a victorian dollhouse room with tiny furniture, a rug and a miniature lamp under warm light",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "antieke-poppen",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Antieke poppen",
+      "en": "Antique dolls"
+    },
+    "tags": [
+      "collecting",
+      "retro",
+      "caring",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een poppenmuseum of poppenbeurs bezoeken, of een oude pop leren restaureren",
+      "en": "Visit a doll museum or fair, or learn to restore an old doll"
+    },
+    "scene": "a shelf of porcelain antique dolls in lace dresses with a small repair kit of brushes and glue",
+    "status": "concept",
+    "supply": "rare"
+  },
+  {
+    "id": "brocante-antiek",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Brocante- en antiekmarkt",
+      "en": "Brocante and antiques market"
+    },
+    "tags": [
+      "collecting",
+      "retro",
+      "discovery",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een antiek- of brocantemarkt afstruinen en zoeken naar iets met een verhaal",
+      "en": "Browse an antiques or brocante market and look for something with a story"
+    },
+    "scene": "a market table of antique brass candlesticks, porcelain cups, old keys and lace linen",
+    "status": "concept"
   }
 ]

@@ -524,6 +524,7 @@ function buildEntry(
     image_suggestion: a.scene,
     photo_category: photoCategoryFor(a),
     door: seed.door,
+    ...(seed.level ? { level: seed.level } : {}),
     scores: scoresForSeed(seed, a),
     ...(seed.fit !== undefined ? { fit: Math.round(seed.fit * 100) } : {}),
     ...(seed.reasons ? { reasons: seed.reasons } : {}),

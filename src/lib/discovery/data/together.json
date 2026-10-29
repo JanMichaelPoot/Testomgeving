@@ -660,5 +660,156 @@
     },
     "scene": "a laptop showing a chat window and a mug on a sofa arm",
     "status": "concept"
+  },
+  {
+    "id": "naaicafe",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Naaicafé",
+      "en": "Sewing café"
+    },
+    "tags": [
+      "craft",
+      "conviviality",
+      "making",
+      "caring"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een naaicafé of herstelavond: neem je eigen project mee, anderen helpen",
+      "en": "A sewing café or mending night: bring your own project, others help"
+    },
+    "scene": "a long table with sewing machines, fabric offcuts, thread spools and mugs of tea",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "schrijfcirkel",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Schrijfcirkel",
+      "en": "Writing circle"
+    },
+    "tags": [
+      "language",
+      "story",
+      "conviviality",
+      "focus"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een schrijfcirkel in een bibliotheek of buurthuis: tien minuten schrijven op een prompt, daarna voorlezen",
+      "en": "A writing circle at a library or community centre: ten minutes writing on a prompt, then reading aloud"
+    },
+    "scene": "notebooks and pens on a library table with a lamp, a prompt card and cups of coffee",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "kledingruil",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Kledingruilfeest",
+      "en": "Clothes swap"
+    },
+    "tags": [
+      "collecting",
+      "conviviality",
+      "caring",
+      "color"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Neem kleding mee die je niet meer draagt en ga naar huis met iets nieuws",
+      "en": "Bring clothes you no longer wear and go home with something new"
+    },
+    "scene": "clothes racks and folded sweaters on tables with hangers and a mirror in a community hall",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "muurschildering",
+    "domain": "together",
+    "sub": "organise",
+    "label": {
+      "nl": "Meeschilderen aan een muurschildering",
+      "en": "Joining a mural project"
+    },
+    "tags": [
+      "color",
+      "teamwork",
+      "making",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Meehelpen aan een muurschildering of buurtkunstproject, vaak met begeleiding van een kunstenaar",
+      "en": "Help paint a mural or neighbourhood art project, often guided by an artist"
+    },
+    "scene": "a half-painted wall mural with scaffolding, paint buckets, rollers and a colour chart",
+    "status": "concept",
+    "supply": "regional",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
   }
 ]

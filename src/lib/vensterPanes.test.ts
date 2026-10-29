@@ -75,7 +75,7 @@ describe("the image intake's limit chips", () => {
     it(`are all understood by the must-have parser (${locale})`, () => {
       for (const chip of getDictionary(locale).venster.who.limitChips) {
         const r = parseMustHaves(chip);
-        const understood = r.setting !== null || r.noGroups || r.free || r.verify.length > 0;
+        const understood = r.setting !== null || r.noGroups || r.verify.length > 0;
         expect(understood, chip).toBe(true);
       }
     });

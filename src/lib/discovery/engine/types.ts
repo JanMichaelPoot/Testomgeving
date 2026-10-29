@@ -1,5 +1,6 @@
 import type { IdeaDoor } from "@/lib/claude/ideaBookTypes";
 import type { SocialFormat } from "@/lib/discovery/types";
+import type { DiscoveryLevel } from "@/lib/discoveryLevels";
 
 // The selection engine: from what a person picked and stated, choose the six
 // ideas plus a wildcard (as "seeds": which activity, in which direction, why,
@@ -41,6 +42,8 @@ export interface Seed {
   direction: Direction;
   /** The door the idea belongs to in the Idea Book. */
   door: IdeaDoor;
+  /** Fase 3: the discovery level, 1 (Vertrouwd) to 7 (Onontdekt), one per seed in a full set (see engine/levels.ts). */
+  level?: DiscoveryLevel;
   /** Activity ids from the person's own pick to this seed (2-3 long for a chain). */
   chain: string[];
   /** The bridge tags that connect the steps. */

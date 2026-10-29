@@ -192,3 +192,25 @@ voor de regel "Omdat je X koos" in de prompt, op `/plan` en in de PDF.
 weging op intensiteit, veiligheidsniveau, niveau, sociale vorm en kosten voor 18-24, 55-64, 65+ en
 onder 18. Nooit een uitsluiting: wie zelf iets zwaars kiest, krijgt het nog steeds.
 `--ages` in het shadow-script toont de verschuiving per leeftijdsgroep.
+
+## De zeven ontdekkingsniveaus (Fase 3, okt. 2026)
+
+Elk zaad krijgt een `level` van 1 tot 7 (`engine/levels.ts`, namen in `src/lib/discoveryLevels.ts`). Een niveau ordent de aanbevelingen van "het dichtst bij wat je koos" tot "het nieuwst"; het is geen stap en geen pagina. De zeven zaden (2 vertrouwd, 2 aangrenzend, 1 onverwacht, 1 stretch, 1 wildcard) vallen één op één op de zeven niveaus:
+
+| Niveau | Naam | Welk zaad |
+|---|---|---|
+| 1 | Vertrouwd | van de twee vertrouwde ideeën het minst praktische |
+| 2 | Praktisch | van de twee vertrouwde ideeën het praktischste |
+| 3 | Verwant | van de twee aangrenzende ideeën het best passende (`fit`, anders de volgorde van kiezen) |
+| 4 | Inspirerend | de andere aangrenzende |
+| 5 | Verrassend | onverwacht |
+| 6 | Uitdagend | stretch |
+| 7 | Onontdekt | wildcard |
+
+Heeft een groep minder zaden dan niveaus (een krappe pool), dan blijft het hogere niveau leeg in plaats van dat een zaad in een niveau valt waar het niet bij hoort; een groep met meer zaden (de aanvulstap) zet de extra's op het hoogste niveau van die groep. Zonder keuzes (verkennen) krijgen de zes gewone zaden, op volgorde van hoe veeleisend ze zijn, de niveaus 1 tot 6.
+
+**Praktisch** is afgeleid, niet opgeslagen: `practicality(activiteit)` (0 tot 1) weegt kosten, duur, niveau, toezicht, aanbod, of je het alleen kunt doen en of er een instap is; een onbekend feit telt als middelmatig, nooit als gunstig. Met `WEIGHTS_V2` (`familiar.practicalBonus` 0,3) leunt het tweede vertrouwde slot daarnaast naar wat het makkelijkst te starten is; met `WEIGHTS_CURRENT` verandert de selectie niet (alleen het etiket), zodat de baseline van de 20 profielen hetzelfde blijft behalve door de grotere bibliotheek. De profieldimensies richting, plek, moment en zintuig worden niet apart opgeslagen: richting is de gekozen wereld, de rest is de ronde waarin een beeld zit (`kind` in het venster), met de tags van de beelden als spectrum.
+
+**Gratis is geen filter meer**: een getypt "gratis" in de vrije tekst beperkt de kosten niet meer (`parseMustHaves` leest het niet; de tekst gaat nog wel als wens naar de schrijver). Het budget bepaalt de kostengrens. Alleen een oude opgeslagen budgetwaarde `free` (de wizard biedt hem niet meer aan) werkt nog als klasse 0.
+
+Het harnas meldt "boeken waarin alle 7 niveaus voorkomen" en de uitvoerbaarheid van niveau 1 en 2 (`docs/eval/`).

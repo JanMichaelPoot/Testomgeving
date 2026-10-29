@@ -5,6 +5,7 @@ import { hashSeed, mulberry32, shuffled } from "@/lib/discovery/rng";
 import { BRIDGE_MIN, buildGraph } from "@/lib/discovery/engine/graph";
 import { passesConstraints, resolveConstraints } from "@/lib/discovery/engine/constraints";
 import type { Direction, EngineInput, EngineResult, Seed } from "@/lib/discovery/engine/types";
+import { assignLevels, practicality } from "@/lib/discovery/engine/levels";
 import { WEIGHTS_CURRENT, type Weights } from "@/lib/discovery/engine/weights";
 
 // The selection engine. Six regular seeds in four directions, plus one wildcard:
@@ -271,7 +272,9 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
       if (!picked && !near) continue;
       // A second familiar idea prefers another world when the person picked from several.
       const spread = W.familiar.spreadPerSameDomain * (domainCount.get(a.domain) ?? 0);
-      cands.push({ a, score: (picked ? W.familiar.pickedScore : rel(a) - age(a) + RARE.familiar * rare(a) - supplyCost(a)) + rnd() * W.familiar.noise - spread });
+      // Fase 3: the second slot is the "Praktisch" level, so it leans towards what is easiest to start.
+      const practical = i === 1 ? W.familiar.practicalBonus * practicality(a) : 0;
+      cands.push({ a, score: (picked ? W.familiar.pickedScore : rel(a) - age(a) + RARE.familiar * rare(a) - supplyCost(a)) + rnd() * W.familiar.noise - spread + practical });
     }
     const top = best(cands);
     if (!top) {
@@ -435,7 +438,9 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     const regular = seeds.filter((s) => s.direction !== "wildcard");
     const wildcard = seeds.filter((s) => s.direction === "wildcard");
     const ordered = [...regular].sort((a, b) => DOOR_ORDER.indexOf(a.door) - DOOR_ORDER.indexOf(b.door));
-    return { seeds: [...ordered, ...wildcard], constraints, notes };
+    const levels = assignLevels(seeds, byId);
+    const withLevel = (list: Seed[]) => list.map((s) => (levels.has(s.activityId) ? { ...s, level: levels.get(s.activityId) } : s));
+    return { seeds: withLevel([...ordered, ...wildcard]), constraints, notes };
   }
 }
 

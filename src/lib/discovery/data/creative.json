@@ -1402,5 +1402,544 @@
       "source_record_id": "Q2880401",
       "method": "curated"
     }
+  },
+  {
+    "id": "kostuumontwerp",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Kostuumontwerp",
+      "en": "Costume design"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "roleplay",
+      "story",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop bij een toneelgroep of kostuumatelier: schetsen, stof kiezen, een eerste patroon",
+      "en": "A workshop at a theatre group or costume studio: sketching, choosing fabric, a first pattern"
+    },
+    "scene": "a costume designer's table with fabric swatches, a mannequin draped in half-pinned velvet, pins and sketches",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "hoeden-maken",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Hoeden maken",
+      "en": "Millinery (hat making)"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "color",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een beginnersworkshop: vilt of stro in vorm stomen en versieren",
+      "en": "A beginner workshop: steaming felt or straw into shape and trimming it"
+    },
+    "scene": "a wooden hat block with a steamed felt hat, ribbons and millinery wire on a workbench",
+    "status": "concept",
+    "supply": "rare"
+  },
+  {
+    "id": "patroontekenen",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Patroontekenen en kleding ontwerpen",
+      "en": "Pattern drafting and clothing design"
+    },
+    "tags": [
+      "technique",
+      "precision",
+      "craft",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een cursus met een eenvoudige rok of top als eerste project",
+      "en": "A course with a simple skirt or top as the first project"
+    },
+    "scene": "large sheets of pattern paper with curved lines, tailor's chalk, a measuring tape and a french curve ruler",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "upcycle-kleding",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Kleding herstellen en upcyclen",
+      "en": "Visible mending and upcycling clothes"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "color",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een herstelavond: een kapot kledingstuk met zichtbaar borduursel een nieuw leven geven",
+      "en": "A mending evening: give a damaged garment new life with visible embroidery"
+    },
+    "scene": "a denim jacket with colourful visible stitching, embroidery thread skeins and a darning needle on a table",
+    "status": "concept"
+  },
+  {
+    "id": "macrame",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Macramé",
+      "en": "Macramé"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "rhythm",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een beginnersworkshop: een wandkleed of plantenhanger knopen",
+      "en": "A beginner workshop: knot a wall hanging or plant hanger"
+    },
+    "scene": "cream cotton cord knotted into a wall hanging on a wooden dowel with a few thread tassels",
+    "status": "concept"
+  },
+  {
+    "id": "spinnen",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Wol spinnen en verven",
+      "en": "Spinning and dyeing wool"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "rhythm",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een middag spinnen met een spinnewiel of spindel, soms met natuurlijk verven",
+      "en": "An afternoon of spinning with a wheel or drop spindle, sometimes with natural dyeing"
+    },
+    "scene": "a wooden spinning wheel beside baskets of carded wool in natural colours and a skein of hand-dyed yarn",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "modeillustratie",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Modeillustratie",
+      "en": "Fashion illustration"
+    },
+    "tags": [
+      "color",
+      "technique",
+      "story",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een middag modetekenen met stiften en aquarel, zonder voorkennis",
+      "en": "An afternoon of fashion sketching with markers and watercolour, no experience needed"
+    },
+    "scene": "a sketchbook page of elongated fashion outlines with watercolour washes, markers and fabric swatches clipped beside it",
+    "status": "concept"
+  },
+  {
+    "id": "schoenmaken",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Schoenen maken",
+      "en": "Shoemaking"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "precision",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een introductiedag bij een schoenmaker: een eenvoudige leren schoen of sandaal",
+      "en": "An introduction day with a shoemaker: a simple leather shoe or sandal"
+    },
+    "scene": "a cobbler's bench with leather hide, wooden lasts, awls and a half-finished leather shoe",
+    "status": "concept",
+    "supply": "rare"
+  },
+  {
+    "id": "edelstenen-slijpen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Edelstenen slijpen",
+      "en": "Gem cutting"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "technique",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een introductie bij een slijperij of sieradenatelier",
+      "en": "An introduction at a lapidary or jewellery studio"
+    },
+    "scene": "a small faceting machine with a cut gemstone, polishing laps and tweezers on a bench",
+    "status": "concept",
+    "supply": "rare"
+  },
+  {
+    "id": "kralen-rijgen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Kralen rijgen",
+      "en": "Beading"
+    },
+    "tags": [
+      "craft",
+      "color",
+      "rhythm",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een uurtje kralen rijgen aan tafel bij een winkel of café",
+      "en": "An hour of beading at a table in a shop or café"
+    },
+    "scene": "bowls of glass beads in many colours with a beading board and a half-strung necklace",
+    "status": "concept"
+  },
+  {
+    "id": "emailleren",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Emailleren",
+      "en": "Enamelling"
+    },
+    "tags": [
+      "craft",
+      "color",
+      "fire",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een workshop emailleren: kleine sieraden in een oventje",
+      "en": "An enamelling workshop: small pieces of jewellery fired in a kiln"
+    },
+    "scene": "small copper discs with bright enamel glaze, a kiln tray and jars of fine powder",
+    "status": "concept",
+    "supply": "rare"
+  },
+  {
+    "id": "sieraad-ontwerpen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Een eigen sieraad ontwerpen",
+      "en": "Designing your own jewellery"
+    },
+    "tags": [
+      "craft",
+      "technique",
+      "color",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop sieraadontwerp: schetsen en een model in was snijden",
+      "en": "A jewellery design workshop: sketching and carving a wax model"
+    },
+    "scene": "a jeweller's sketch of a ring with a pencil, a carved wax ring model and a ring sizer",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "operazang",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Klassieke zang en opera",
+      "en": "Classical singing and opera"
+    },
+    "tags": [
+      "sound",
+      "technique",
+      "performance",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een proefles klassieke zang: ademhaling, houding en een eerste aria",
+      "en": "A trial lesson in classical singing: breathing, posture and a first aria"
+    },
+    "scene": "a grand piano with sheet music of an aria and a tuning fork in a warm rehearsal room",
+    "status": "concept",
+    "supply": "regional"
+  },
+  {
+    "id": "schilder-avond",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Een gezamenlijke schilderavond",
+      "en": "A group painting evening"
+    },
+    "tags": [
+      "color",
+      "conviviality",
+      "making",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een schilderavond met stap-voor-stap uitleg, geen ervaring nodig",
+      "en": "A painting evening with step-by-step guidance, no experience needed"
+    },
+    "scene": "easels holding the same half-painted landscape canvas, paint palettes, brushes and glasses on a long table",
+    "status": "concept"
+  },
+  {
+    "id": "nestkast-bouwen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Een nestkast of insectenhotel bouwen",
+      "en": "Building a nest box or insect hotel"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "animals",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een bouwpakket of workshop via een natuurvereniging of tuincentrum",
+      "en": "A kit or workshop through a nature society or garden centre"
+    },
+    "scene": "a wooden birdhouse with a round entrance hole on a workbench with a hammer, nails and cut planks",
+    "status": "concept"
   }
 ]

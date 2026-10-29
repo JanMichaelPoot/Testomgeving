@@ -1284,5 +1284,50 @@
       "source_record_id": "Q30594741",
       "method": "curated"
     }
+  },
+  {
+    "id": "open-tuinen",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Open tuinen bezoeken",
+      "en": "Visiting open gardens"
+    },
+    "tags": [
+      "growing",
+      "outdoors",
+      "discovery",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een open tuinendag of -route bezoeken en ideeën opdoen",
+      "en": "Visit an open garden day or route and pick up ideas"
+    },
+    "scene": "a cottage garden border with foxgloves and roses and a gravel path to a wooden gate",
+    "status": "concept",
+    "supply": "regional",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
   }
 ]

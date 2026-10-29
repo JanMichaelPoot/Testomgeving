@@ -58,9 +58,9 @@ describe("image intake copy (R1.1)", () => {
     });
   }
 
-  it("still reads a typed wish for something free as a constraint", () => {
-    expect(parseMustHaves("Het moet gratis zijn").free).toBe(true);
-    expect(parseMustHaves("must be free of charge").free).toBe(true);
+  it("does not read a typed wish for something free as a filter either (Fase 3): price is a fact about an activity", () => {
+    expect(parseMustHaves("Het moet gratis zijn")).not.toHaveProperty("free");
+    expect(parseMustHaves("must be free of charge")).not.toHaveProperty("free");
   });
 
   it("has the same shape in nl and en", () => {
