@@ -5,6 +5,8 @@ import type { EngineLibrary } from "@/lib/discovery/engine/select";
 import { checkBook, checkSeedRun, type Finding } from "@/lib/discovery/eval/checks";
 import { computeMetrics, type Metrics } from "@/lib/discovery/eval/metrics";
 import type { EngineName } from "@/lib/discovery/eval/engines";
+import { summariseQuality, type QualitySummary } from "@/lib/discovery/eval/quality";
+import type { QaContext } from "@/lib/claude/qualityGate";
 
 // What one harness run leaves behind: the metrics, the checks and, per profile, the seven ideas
 // (and, for a `--full` run, the written book). The same file feeds the Markdown report and the blind A/B sheet.
@@ -69,6 +71,8 @@ export interface EvalResultFile {
   generatedAt: string;
   metrics: Metrics;
   profiles: EvalProfileResult[];
+  /** Fase 3: the release gate and the quality counts of the written books (a --full run only). */
+  quality?: QualitySummary;
 }
 
 export function liteBook(book: GeneratedIdeaBook): EvalBookLite {
@@ -88,6 +92,8 @@ export function buildResults(args: {
   titles?: Record<string, { title: string; kind: string; edge: boolean; brief?: string[] }>;
   books?: Record<string, GeneratedIdeaBook>;
   runInfo?: Record<string, EvalRunInfo>;
+  /** Fase 3: month, budget, time and language per profile, for the quality checks of a written book. */
+  qaContexts?: Record<string, QaContext>;
   /** What the oracle should also enforce for this engine (B4: unknown cost never passes a free budget). */
   evalOptions?: EvaluateOptions;
   generatedAt?: string;
@@ -117,7 +123,7 @@ export function buildResults(args: {
       }),
       ...(book ? { book: liteBook(book) } : {}),
       ...(args.runInfo?.[run.profile.id] ? { run: args.runInfo[run.profile.id] } : {}),
-      findings: [...checkSeedRun(run, lib, undefined, args.evalOptions), ...(book ? checkBook(book, run.profile.id) : [])],
+      findings: [...checkSeedRun(run, lib, undefined, args.evalOptions), ...(book ? checkBook(book, run.profile.id, args.qaContexts?.[run.profile.id]) : [])],
     };
   });
   return {
@@ -127,5 +133,6 @@ export function buildResults(args: {
     generatedAt: args.generatedAt ?? new Date().toISOString(),
     metrics: computeMetrics(runs, lib, args.evalOptions),
     profiles,
+    ...(args.books && Object.keys(args.books).length > 0 ? { quality: summariseQuality(args.books, profiles.flatMap((p) => p.findings), args.runInfo) } : {}),
   };
 }

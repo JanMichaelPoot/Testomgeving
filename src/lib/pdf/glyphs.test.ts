@@ -24,13 +24,13 @@ describe("glyphFilter", () => {
 
   it("maps arrows and checkmarks to characters the fonts have and drops unknown symbols", async () => {
     const clean = glyphFilter(await brandFonts());
-    expect(clean("Open → boek ✓")).toBe("Open -> boek v");
+    expect(clean("Open → boek ✓")).toBe("Open – boek v");
     expect(clean("Kijk 🌲 hier")).toBe("Kijk  hier");
   });
 
   it("cleans every string of a nested book but leaves the structure alone", async () => {
     const clean = glyphFilter(await brandFonts());
     const book = { title: "A → B", n: 3, list: ["✓ klaar", null], nested: { x: "★" } };
-    expect(makeBookPrintable(book, clean)).toEqual({ title: "A -> B", n: 3, list: ["v klaar", null], nested: { x: "*" } });
+    expect(makeBookPrintable(book, clean)).toEqual({ title: "A – B", n: 3, list: ["v klaar", null], nested: { x: "*" } });
   });
 });

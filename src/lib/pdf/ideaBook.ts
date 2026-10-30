@@ -342,7 +342,7 @@ function coverFitSize(image: PDFImage, boxWidth: number, boxHeight: number) {
 // Characters the brand fonts lack, mapped to something they have; anything else unknown is
 // dropped. Applied to every string of the book before drawing (see renderIdeaBookPdf).
 const GLYPH_FALLBACKS: Record<string, string> = {
-  "→": "->", "←": "<-", "⇒": "=>", "✓": "v", "✔": "v", "✗": "x", "★": "*", "☆": "*", "•": "·",
+  "→": "–", "←": "–", "⇒": "–", "✓": "v", "✔": "v", "✗": "x", "★": "*", "☆": "*", "•": "·",
   "\u00a0": " ", "\u2009": " ", "\u202f": " ", "\u200b": "",
 };
 
@@ -411,7 +411,7 @@ export async function renderIdeaBookPdf(
   // Fixed page plan (cover, profile, overview, one page per ordered idea,
   // wildcard) — used to print real "p. N" references on the overview page
   // instead of a placeholder.
-  const FIRST_IDEA_PAGE = 4;
+  const FIRST_IDEA_PAGE = 3; // 1 cover, 2 profile and possibility map on one page
   // An idea with extra layers (R2.3) has a second page, so later ideas move on by one.
   const pdfPages = pdfPageNumbers(orderIdeasByDoor(inputBook.ideas).map((e) => e.idea), FIRST_IDEA_PAGE);
 
@@ -786,10 +786,35 @@ export async function renderIdeaBookPdf(
   // (if present) must-have/preference pill rows.
   page = addPage();
   {
-    const bandHeight = 280;
+    // The page holds the profile AND the possibility map, so the photo band gives way to long content: a long summary, many
+    // chips or many ideas behind one door each cost a measured amount of height (reference: a two-line summary, one chip row
+    // per label and two ideas per door row leave about 80 pt free under a band of 120 pt).
+    const chipRows = (items: string[]) => {
+      if (items.length === 0) return 0;
+      let rows = 1;
+      let cursorX = PWA4_BODY_PAD_X;
+      for (const item of items) {
+        const w = fonts.sansBold.widthOfTextAtSize(item, 9.75) + PWA4_SPACE_3 * 2;
+        if (cursorX + w > PWA4_BODY_PAD_X + PWA4_CONTENT_WIDTH && cursorX > PWA4_BODY_PAD_X) {
+          rows += 1;
+          cursorX = PWA4_BODY_PAD_X;
+        }
+        cursorX += w + PWA4_SPACE_2;
+      }
+      return rows;
+    };
+    const summaryLineCount = wrapText(book.profile_summary, fonts.displayItalic, 21, PWA4_CONTENT_WIDTH, 7).length;
+    const doorRows = DOOR_ORDER.filter((door) => orderedIdeas.some(({ idea }) => idea.door === door)).map((door) => orderedIdeas.filter(({ idea }) => idea.door === door).length);
+    const mapLines = [Math.max(doorRows[0] ?? 0, doorRows[1] ?? 0), Math.max(doorRows[2] ?? 0, doorRows[3] ?? 0)].reduce((sum, n) => sum + n, 0);
+    const extraHeight =
+      (summaryLineCount - 2) * 30 +
+      (book.must_haves.length > 0 ? (chipRows(book.must_haves) - 1) * 28 : -58) +
+      (book.preferences.length > 0 ? (chipRows(book.preferences) - 1) * 28 : -58) +
+      (mapLines - 4) * 14;
+    const bandHeight = Math.max(24, Math.min(150, Math.round(120 + (80 - extraHeight) - 30)));
     drawPhotoBand(images.background, bandHeight, 0.15);
 
-    y = PAGE_HEIGHT - bandHeight - PWA4_SPACE_7;
+    y = PAGE_HEIGHT - bandHeight - PWA4_SPACE_5;
     drawTrackedLine(chrome.profileEyebrow, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
     y -= 8.25 + PWA4_SPACE_2 + 16; // room for the tall italic line below
     drawParagraph(book.profile_summary, fonts.displayItalic, 21, PWA4_INK, 7, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 7);
@@ -799,6 +824,7 @@ export async function renderIdeaBookPdf(
       drawTrackedLine(chrome.mustHaves, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
       y -= 8.25 + PWA4_SPACE_2;
       drawPillRow(book.must_haves, PWA4_SURFACE_INVERSE, PWA4_INK_INVERSE);
+      y -= PWA4_SPACE_3;
     }
 
     if (book.preferences.length > 0) {
@@ -809,21 +835,20 @@ export async function renderIdeaBookPdf(
     }
   }
 
-  // --- Page 3: Possibility Map — no photo. A plain header, one
-  // surface-panel door card per door that has ideas in it (title,
-  // description, and a numbered mini-list with real "p. N" page
-  // references), and the "if you only pick one" dark CTA panel (reusing
-  // pwa4DrawCta, defined below — function declarations are hoisted, so
-  // calling it here before its own declaration is safe).
-  page = addPage();
+  // --- Possibility map, on the same page as the profile (Fase 3: two half-empty pages became one full one).
+  // One surface-panel door card per door that has ideas in it (title, description, and a numbered
+  // mini-list with real "p. N" page references), and the "if you only pick one" dark CTA panel
+  // (reusing pwa4DrawCta, defined below — function declarations are hoisted, so calling it here
+  // before its own declaration is safe).
   {
-    y = PAGE_HEIGHT - MARGIN;
+    y -= PWA4_SPACE_5;
+    page.drawRectangle({ x: PWA4_BODY_PAD_X, y, width: PWA4_CONTENT_WIDTH, height: 0.75, color: PWA4_GOLD_LIGHT, opacity: 0.8 });
+    y -= PWA4_SPACE_5;
     drawTrackedLine(mapCopy.mapEyebrow, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
-    y -= 8.25 + PWA4_SPACE_3 + 18; // room for the large heading below
-    drawParagraph(mapCopy.mapHeading, fonts.display, 31, PWA4_INK, 6, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
+    y -= 8.25 + PWA4_SPACE_3 + 15; // room for the heading below
+    drawParagraph(mapCopy.mapHeading, fonts.display, 26, PWA4_INK, 5, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
     y -= 2;
-    drawParagraph(mapCopy.mapIntro, fonts.sans, 10.5, PWA4_INK_MUTED, 4, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
-    y -= PWA4_SPACE_7;
+    y -= PWA4_SPACE_4; // the intro line of the old map page is gone: the page has to hold the profile as well
 
     const doorsWithIdeas = DOOR_ORDER.filter((door) => orderedIdeas.some(({ idea }) => idea.door === door));
     const cardGap = PWA4_SPACE_4;
@@ -1340,6 +1365,7 @@ export async function renderIdeaBookPdf(
     value ? options.find((o) => o.value === value)?.label ?? null : null;
   const pageLabels = ideaPageLabels(locale);
   const usedTakeaways = new Set<string>();
+  const usedFitWords = new Set<string>();
   const usedSuggestions = new Set<string>();
 
   function drawIdeaPage(idea: IdeaBookEntry, photo: PDFImage, opts: { number: number | null; badge: string }) {
@@ -1363,12 +1389,21 @@ export async function renderIdeaBookPdf(
 
     const timeLabel = optionLabel(intakeDict.timeAvailable.options, context.timeAvailable);
     const budgetLabel = optionLabel(intakeDict.budget.options, context.budget);
+    // The "it fits" sentence names this idea's own duration and price and is never the same on two ideas of one book: the first wording
+    // nobody used yet is taken, and when all are used the sentence is left out rather than repeated.
     let fitSentence: string | null = null;
     if (timeLabel && timeFits(durationText, context.timeAvailable)) {
-      fitSentence =
-        status === "within" && budgetLabel
-          ? fillTemplate(pageLabels.matchTimeBudget, { time: timeLabel.toLowerCase(), budget: budgetLabel.toLowerCase() })
-          : fillTemplate(pageLabels.matchTime, { time: timeLabel.toLowerCase() });
+      const withBudget = status === "within" && !!budgetLabel;
+      const pool = withBudget ? pageLabels.fitTimeBudget : pageLabels.fitTime;
+      // Values sit mid-sentence in most wordings: a leading capital ("Gratis", "Een halve dag") is lowered, the sentence is capitalised again.
+      const lowerFirst = (t: string) => (/^[A-ZÀ-Ý][a-zà-ÿ]/.test(t) ? t.charAt(0).toLowerCase() + t.slice(1) : t);
+      const values = { time: timeLabel.toLowerCase(), budget: (budgetLabel ?? "").toLowerCase(), duration: lowerFirst(durationText), cost: lowerFirst(costText) };
+      const unused = pickStable(pool, pool.length, idea.title, usedFitWords).find((t) => !usedFitWords.has(t));
+      if (unused) {
+        usedFitWords.add(unused);
+        const filled = fillTemplate(unused, values);
+        fitSentence = filled.charAt(0).toUpperCase() + filled.slice(1);
+      }
     }
     const threadLine = idea.activity_id ? context.threadLines?.[idea.activity_id] : undefined;
     const matchText = [idea.why_it_fits, fitSentence, threadLine].filter(Boolean).join(" ");
@@ -1416,7 +1451,11 @@ export async function renderIdeaBookPdf(
     }
     const practicalSteps = steps.slice(0, 3);
 
-    const url = extractUrl(idea.first_action);
+    // "Begin hier" goes straight to where it starts: the address in the action itself, else the website of a verified place of this
+    // idea (found by the research and checked), else nothing.
+    const ownUrl = extractUrl(idea.first_action);
+    const placeSite = idea.places?.find((p) => p.url)?.url;
+    const url = ownUrl ?? (placeSite ? extractUrl(placeSite) : null);
     const startLabel = book.labels.first_action_heading || pageLabels.startHere;
 
     const subtitleLines = wrapText(idea.intro, fonts.sans, HERO_SUB_SIZE, PWA4_CONTENT_WIDTH, 2);
@@ -1479,7 +1518,7 @@ export async function renderIdeaBookPdf(
       if (level < 1) {
         rows.push({ cols: [{ block: blockEditorial(PWA4_CONTENT_WIDTH, editorial.label, editorial.text), frac: 1 }] });
       }
-      rows.push({ cols: [{ block: blockStart(PWA4_CONTENT_WIDTH, startLabel, url, url ? replaceUrl(idea.first_action, pageLabels.addressAbove) : idea.first_action), frac: 1 }] });
+      rows.push({ cols: [{ block: blockStart(PWA4_CONTENT_WIDTH, startLabel, url, ownUrl ? replaceUrl(idea.first_action, pageLabels.addressAbove) : idea.first_action), frac: 1 }] });
       return rows;
     }
 

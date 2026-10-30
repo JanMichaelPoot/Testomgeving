@@ -5,13 +5,13 @@ import { getDictionary } from "./dictionaries";
 const LOCALES = ["nl", "en"] as const;
 
 describe("home copy", () => {
-  it("nl and en have the same shape: four differentiators, three sample pages, the same FAQ questions in the same order", () => {
+  it("nl and en have the same shape: four differentiators, four sample pages, the same FAQ questions in the same order", () => {
     const nl = getHomeCopy("nl");
     const en = getHomeCopy("en");
     expect(nl.differentiators.items).toHaveLength(4);
     expect(en.differentiators.items).toHaveLength(4);
-    expect(nl.sample.spreads).toHaveLength(3);
-    expect(en.sample.spreads).toHaveLength(3);
+    expect(nl.sample.spreads).toHaveLength(4);
+    expect(en.sample.spreads).toHaveLength(4);
     expect(nl.faq.items.map((i) => i.id)).toEqual(en.faq.items.map((i) => i.id));
     expect(nl.inside.perIdea).toHaveLength(en.inside.perIdea.length);
     // The FAQ covers what the brief asks for.

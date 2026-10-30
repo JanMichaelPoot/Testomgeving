@@ -57,17 +57,27 @@ const pageCount = async (b: GeneratedIdeaBook) => (await PDFDocument.load(await 
 
 describe("the PDF with the R2.3 layers", () => {
   it("is exactly as long as before for a book without layers (old books keep their PDF)", async () => {
-    expect(await pageCount(book([]))).toBe(10);
+    expect(await pageCount(book([]))).toBe(9);
   });
 
   it("gives an idea with layers one extra page, and only that idea", async () => {
-    expect(await pageCount(book([2, 7]))).toBe(12);
+    expect(await pageCount(book([2, 7]))).toBe(11);
   }, 30_000);
 
   it("is at most seven pages longer, and stays small", async () => {
     const bytes = await renderIdeaBookPdf(book([1, 2, 3, 4, 5, 6, 7]), "Titel", "nl");
-    expect((await PDFDocument.load(bytes)).getPageCount()).toBe(17);
+    expect((await PDFDocument.load(bytes)).getPageCount()).toBe(16);
     expect(bytes.length).toBeLessThan(4 * 1024 * 1024);
+  }, 30_000);
+});
+
+describe("the profile page", () => {
+  it("holds the profile, the chips and the four doors on one page, even with a long summary and many chips", async () => {
+    const b = book([]);
+    b.profile_summary = "Je zit al maanden vooral op de bank na het werk en wilt in de weekenden weer iets doen waar je energie van krijgt, het liefst samen met je partner en niet te ver van huis, zonder gedoe en zonder dat het meteen een hele onderneming wordt.";
+    b.must_haves = ["Geen honden", "Rolstoeltoegankelijk", "Geen alcohol", "Binnen als het regent", "Niet te duur"];
+    b.preferences = ["Graag iets buiten", "Houdt van koffie en kunst", "Liever kleine groepen", "Geen vroege starts", "Iets met water"];
+    expect(await pageCount(b)).toBe(9);
   }, 30_000);
 });
 

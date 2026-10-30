@@ -1,4 +1,5 @@
 import { repeatedOpenings } from "@/lib/claude/ideaFill";
+import { qaBook, type QaContext } from "@/lib/claude/qualityGate";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { getActivity } from "@/lib/discovery/library";
 import { evaluate, type EvaluateOptions, type Run } from "@/lib/discovery/engine/evaluate";
@@ -134,7 +135,10 @@ export function checkEntry(entry: IdeaBookEntry, label: string): Finding[] {
   return out;
 }
 
-export function checkBook(book: GeneratedIdeaBook, profile?: string): Finding[] {
+/** The release gate fails on these; the rest of the quality findings are counted and shown. */
+const GATE_CODES = new Set(["exposed_reasoning", "repeated_sentence"]);
+
+export function checkBook(book: GeneratedIdeaBook, profile?: string, qa?: QaContext): Finding[] {
   const entries: [IdeaBookEntry, string][] = [...book.ideas.map((e, i): [IdeaBookEntry, string] => [e, `idea${i + 1}`]), [book.wildcard, "wildcard"]];
   const out = entries.flatMap(([e, label]) => checkEntry(e, label));
   const seen = new Set<string>();
@@ -146,6 +150,12 @@ export function checkBook(book: GeneratedIdeaBook, profile?: string): Finding[] 
   // B5: one opening word on many of the "make it yours" suggestions reads as a template (a warning, never an error).
   for (const r of repeatedOpenings([...book.ideas, book.wildcard].map((e) => e.fill))) {
     out.push({ check: "fill:repetitive_opening", severity: "warn", where: "book", message: `${r.count} suggestions start with "${r.word}"` });
+  }
+  // Fase 3: what the quality gate looks for, on the finished book. Whatever is left here got past the repairs of the pipeline.
+  if (qa) {
+    for (const issue of qaBook(book, qa)) {
+      out.push({ check: `quality:${issue.code}`, severity: GATE_CODES.has(issue.code) ? "error" : "warn", where: issue.where, message: issue.detail });
+    }
   }
   return out.map((f) => ({ ...f, profile }));
 }

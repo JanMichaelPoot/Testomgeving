@@ -121,7 +121,7 @@ export function experienceProfileFor(
 
 // --- Budget status -----------------------------------------------------------
 
-const BUDGET_CAP: Record<string, number> = { free: 0, "25": 25, "100": 100, allin: Infinity };
+export const BUDGET_CAP: Record<string, number> = { free: 0, "25": 25, "100": 100, allin: Infinity };
 
 export type BudgetStatus = "within" | "slightlyAbove" | "above";
 
@@ -768,8 +768,9 @@ export interface IdeaPageLabels {
   budgetWithin: string;
   budgetSlightlyAbove: string;
   budgetAbove: string;
-  matchTime: string; // {time}
-  matchTimeBudget: string; // {time}, {budget}
+  // The "it fits" sentence has several wordings so that no two ideas of a book carry the same one; each uses what the idea itself says.
+  fitTime: string[]; // {time}, {duration}
+  fitTimeBudget: string[]; // {time}, {budget}, {cost}
 }
 
 const NL_LABELS: IdeaPageLabels = {
@@ -805,8 +806,22 @@ const NL_LABELS: IdeaPageLabels = {
   budgetWithin: "Binnen je oorspronkelijke budget.",
   budgetSlightlyAbove: "Iets boven je budget — maar mogelijk interessant als uitzondering.",
   budgetAbove: "Boven je budget — bekijk of dit de uitzondering waard is.",
-  matchTime: "Het past bij de tijd die je hebt ({time}).",
-  matchTimeBudget: "Het past bij de tijd ({time}) en het budget ({budget}) dat je opgaf.",
+  fitTime: [
+    "{duration} past in de tijd die je hebt ({time}).",
+    "Je hebt {time}; dit past daar prima in.",
+    "Dit past in je agenda: {duration}, en jij hebt {time}.",
+    "Met {time} voor jezelf is dit goed te doen.",
+    "Het past in de ruimte die je vrijmaakt ({time}).",
+    "De duur ({duration}) sluit aan bij wat je aangaf: {time}.",
+  ],
+  fitTimeBudget: [
+    "{duration} voor {cost}: dat past bij je tijd ({time}) en je budget ({budget}).",
+    "Reken op {cost}; dat blijft binnen je budget ({budget}) en past in {time}.",
+    "Met {cost} en {duration} zit je goed binnen wat je opgaf ({time}, {budget}).",
+    "Dit kost ongeveer {cost}, en jij hebt {time} en {budget} gekozen: het klopt.",
+    "Binnen {budget} blijf je met {cost}, en {time} is genoeg.",
+    "Past in je tijd ({time}) en kost ongeveer {cost}, dus ruim binnen {budget}.",
+  ],
 };
 
 const EN_LABELS: IdeaPageLabels = {
@@ -842,8 +857,22 @@ const EN_LABELS: IdeaPageLabels = {
   budgetWithin: "Within your original budget.",
   budgetSlightlyAbove: "Slightly over budget — but possibly worth it as an exception.",
   budgetAbove: "Over budget — see whether it's worth the exception.",
-  matchTime: "It fits the time you have ({time}).",
-  matchTimeBudget: "It fits the time ({time}) and the budget ({budget}) you gave.",
+  fitTime: [
+    "{duration} fits the time you have ({time}).",
+    "You have {time}; this fits comfortably.",
+    "It fits your schedule: {duration}, and you have {time}.",
+    "With {time} to yourself, this is easy to do.",
+    "It fits the room you are making ({time}).",
+    "The length ({duration}) matches what you said: {time}.",
+  ],
+  fitTimeBudget: [
+    "{duration} for {cost}: it fits your time ({time}) and your budget ({budget}).",
+    "Count on {cost}; that stays within your budget ({budget}) and fits in {time}.",
+    "With {cost} and {duration} you are well within what you gave ({time}, {budget}).",
+    "This costs about {cost}, and you chose {time} and {budget}: it works.",
+    "You stay within {budget} at {cost}, and {time} is enough.",
+    "It fits your time ({time}) and costs about {cost}, well within {budget}.",
+  ],
 };
 
 export function ideaPageLabels(locale: Locale): IdeaPageLabels {
@@ -893,7 +922,7 @@ export function fillTemplate(template: string, values: Record<string, string>): 
 // ("hour" | "halfday" | "fullday" | "weekend"). False when it clearly doesn't
 // and also when either side can't be read — the caller then just leaves the
 // "it fits" sentence out rather than claiming something it can't back up.
-const AVAILABLE_HOURS: Record<string, number> = { hour: 2, halfday: 4, fullday: 8, weekend: 48 };
+export const AVAILABLE_HOURS: Record<string, number> = { hour: 2, halfday: 4, fullday: 8, weekend: 48 };
 
 export function timeFits(durationText: string, timeValue: string | undefined): boolean {
   if (!timeValue || !(timeValue in AVAILABLE_HOURS)) return false;

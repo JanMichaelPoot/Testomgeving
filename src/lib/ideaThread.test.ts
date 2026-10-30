@@ -225,15 +225,16 @@ describe("the visible chain (B5 / V2, only with the option)", () => {
     expect(thread.path).toBeUndefined();
   });
 
-  it("says in both languages that the activities in between are derived by us, not chosen", () => {
+  it("says in both languages that the activities in between are derived by us, not chosen, and keeps them out of the printed sentence", () => {
     for (const locale of ["nl", "en"] as const) {
       const copy = getDictionary(locale).venster.thread;
       expect(copy.pathCaption.length).toBeGreaterThan(10);
       const base = { image: { src: "/x.jpg", label: "Handen vol klei" }, tags: ["vakmanschap"], title: "T", place: null };
+      // Fase 3: the path is shown on the page of the book but never printed: on paper it read as the machinery talking.
       const line = threadSentence({ ...base, path: "Meditatie" }, copy, "en")!;
-      expect(line).toContain("Meditatie");
-      expect(line).not.toMatch(/[→›]/);
-      expect(threadSentence(base, copy, "en")).not.toContain("Meditatie");
+      expect(line).not.toContain("Meditatie");
+      expect(line).not.toMatch(/[→›]|leiden wij|derive/i);
+      expect(threadSentence(base, copy, "en")).toBe(line);
     }
   });
 

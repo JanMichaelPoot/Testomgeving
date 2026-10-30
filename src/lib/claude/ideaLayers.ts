@@ -157,11 +157,11 @@ export function hasMoreLayers(idea: IdeaLayers): boolean {
 
 /**
  * PDF page numbers of the ideas (in door order) and of the wildcard. Page 1 is the cover, 2 the
- * profile, 3 the possibility map, so the first idea is on page 4; an idea with extra layers has
+ * profile with the possibility map, so the first idea is on page 3; an idea with extra layers has
  * a second page, which pushes everything after it on by one. The renderer and the web page both
  * use this, so "view as PDF page" can never point at the wrong page.
  */
-export function pdfPageNumbers(orderedIdeas: readonly IdeaLayers[], first = 4): { ideas: number[]; wildcard: number } {
+export function pdfPageNumbers(orderedIdeas: readonly IdeaLayers[], first = 3): { ideas: number[]; wildcard: number } {
   const ideas: number[] = [];
   let next = first;
   for (const idea of orderedIdeas) {

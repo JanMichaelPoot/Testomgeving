@@ -83,11 +83,11 @@ import { pdfPageNumbers, withValidLayers, type IdeaLayers } from "@/lib/claude/i
 describe("pdfPageNumbers", () => {
   const layered = { feels_like: "Koel." };
   it("is the old numbering when no idea has a layer", () => {
-    expect(pdfPageNumbers([{}, {}, {}])).toEqual({ ideas: [4, 5, 6], wildcard: 7 });
+    expect(pdfPageNumbers([{}, {}, {}])).toEqual({ ideas: [3, 4, 5], wildcard: 6 });
   });
 
   it("pushes later pages on by one for every idea that has a second page", () => {
-    expect(pdfPageNumbers([layered, {}, layered, {}])).toEqual({ ideas: [4, 6, 7, 9], wildcard: 10 });
+    expect(pdfPageNumbers([layered, {}, layered, {}])).toEqual({ ideas: [3, 5, 6, 8], wildcard: 9 });
   });
 });
 

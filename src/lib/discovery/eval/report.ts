@@ -60,6 +60,30 @@ export function renderReport(file: EvalResultFile): string {
     line();
   }
 
+  if (file.quality) {
+    const q = file.quality;
+    line("## Kwaliteitspoort van het geschreven boek");
+    line();
+    line(q.releaseGate.pass ? "**Poort: geslaagd.** Geen zichtbare redenering en geen herhaalde zinnen in een boek." : `**Poort: NIET geslaagd.** ${q.releaseGate.failures.join("; ")}.`);
+    line();
+    line("| Maat | Waarde |");
+    line("|---|---|");
+    line(`| Boeken / ideeën | ${q.books} / ${q.ideas} |`);
+    line(`| Zichtbare redenering (pijltjes, "leiden wij af") | ${q.counts.exposed_reasoning} |`);
+    line(`| Dezelfde zin op twee ideeën | ${q.counts.repeated_sentence} |`);
+    line(`| Seizoensfouten | ${q.counts.season} |`);
+    line(`| Type en binnen/buiten spreken elkaar tegen | ${q.counts.type_setting} |`);
+    line(`| Tijdchip klopt niet bij de activiteit | ${q.counts.time_chip} |`);
+    line(`| "Ook in deze richting" zonder verband | ${q.counts.related} |`);
+    line(`| Boeken zonder idee dat de beschikbare tijd vult | ${q.counts.coverage_time} |`);
+    line(`| Boeken met te weinig ideeën die het budget benutten | ${q.counts.coverage_budget} |`);
+    line(`| Ideeën met een echte plek uit het onderzoek | ${q.ideasWithPlace} van ${q.ideas} (${pct(q.placeRate)}), waarvan ${q.ideasWithPlaceSite} met website |`);
+    line(`| Kosten / gemiddelde duur | $${q.totalUsd.toFixed(3)} / ${q.avgSeconds.toFixed(0)} s |`);
+    line();
+    line("Plekken zijn geverifieerd door de websitecontrole van het onderzoek (host en pagina); een Google Places-controle is bewust niet gebouwd.");
+    line();
+  }
+
   const withRun = file.profiles.filter((p) => p.run);
   if (withRun.length) {
     line("## Kosten, tijd en meldingen van het schrijven");

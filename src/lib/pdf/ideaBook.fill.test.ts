@@ -51,18 +51,18 @@ afterEach(() => vi.unstubAllEnvs());
 
 describe("the idea page with a fill", () => {
   it("stays on one page per idea: a fill is the same size as the template it replaces", async () => {
-    expect((await render(book())).getPageCount()).toBe(10);
-    expect((await render(book({ fill: FILL }))).getPageCount()).toBe(10);
+    expect((await render(book())).getPageCount()).toBe(9);
+    expect((await render(book({ fill: FILL }))).getPageCount()).toBe(9);
   });
 
   it("does not break on a stored fill that is malformed (it is checked again when read)", async () => {
     const broken = { timeline: ["a"], takeaways: [], suggestions: "x" } as unknown as IdeaFill;
-    expect((await render(book({ fill: broken }))).getPageCount()).toBe(10);
+    expect((await render(book({ fill: broken }))).getPageCount()).toBe(9);
   });
 
   it("with the option on, still renders for a solo person whose template lines would conflict", async () => {
     vi.stubEnv("KNOWLEDGE_ENGINE_V2", "1");
-    expect((await render(book(), ["alone"])).getPageCount()).toBe(10);
+    expect((await render(book(), ["alone"])).getPageCount()).toBe(9);
     // The decision itself is covered in ideaFill.test.ts; here: a solo idea has template lines left to print.
     const copy = kindCopy("social", "nl");
     expect(copy.suggestions.length).toBeGreaterThanOrEqual(3);

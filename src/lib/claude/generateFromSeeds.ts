@@ -1,4 +1,6 @@
 import { anthropic, CLAUDE_MODEL } from "@/lib/anthropic";
+import { runQualityGate } from "@/lib/claude/qualityRepair";
+import type { QaIssue } from "@/lib/claude/qualityGate";
 import { WINDOW_VOICE_SYSTEM_PROMPT, extractToolInput } from "@/lib/claude/shared";
 import { freeWord, languageLabel, type Locale } from "@/lib/locale";
 import type { IntakeAnswers } from "@/app/intake/actions";
@@ -109,6 +111,17 @@ For every idea:
   terrace evening in winter, a snow scene in autumn), and never promise a market, festival or event unless it is
   one of that idea's verified local options; use a date only when an option states it. If an option ends soon
   (it has an end date), say so in the steps.
+
+- Use what the person gave (the profile lists their time, budget, company and distance). Across the seven ideas: at
+  least one idea must fill the time they have (say its real duration honestly); at least two ideas must have an
+  estimated_cost that uses 40-100% of their budget and never goes above it; the others may cost less. Never inflate a
+  price to hit this: base the cost on the activity's typical cost and the verified local options, and when an idea
+  cannot reach it, leave it cheaper. Respect the company (alone, partner, friends, family), the distance and every
+  hard limit in every idea.
+- Every idea has its own wording. Never reuse a sentence, or the same sentence frame, across ideas (not even "this
+  fits your time and budget"): say what makes THIS idea suit THIS person.
+- Never show the machinery: no arrows, no talk about images, choices, how the idea was found or what "we derived".
+  Plain, finished sentences; no colons chaining several clauses together.
 
 Also write profile_summary (one warm, specific sentence reflecting their situation back), must_haves and
 preferences (short cleaned-up phrases echoing what they told you; do not invent new ones).
@@ -572,6 +585,8 @@ export interface SeedPipelineReport {
   notes: string[];
   research: { cached: number; searched: number; failed: number; dropped?: number };
   issues: string[];
+  /** The quality gate: what it found before repairing and what was still wrong afterwards. */
+  qa?: { found: QaIssue[]; remaining: QaIssue[] };
 }
 
 export async function generateIdeaBookFromSeeds(
@@ -786,7 +801,7 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   }
 
   const list = (v: unknown) => (Array.isArray(v) ? v.map(toText).filter(Boolean) : []);
-  const book: GeneratedIdeaBook = {
+  const assembled: GeneratedIdeaBook = {
     profile_summary: toText(raw.profile_summary),
     must_haves: list(raw.must_haves),
     preferences: list(raw.preferences),
@@ -805,7 +820,13 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
     },
   };
 
-  const report: SeedPipelineReport = { seeds, notes, research: research.stats, issues };
+  // 5. The quality gate (Fase 3): takes the machinery out of the text, fixes chips that contradict the activity, rewrites only the
+  // ideas that repeat a sentence or name something out of season (at most twice each) and runs one grammar pass. Fails soft.
+  const gate = await runQualityGate(assembled, { locale, month, budget: intake.budget, timeAvailable: intake.timeAvailable });
+  const book = gate.book;
+  issues.push(...gate.log.map((l) => `qa:${l}`), ...gate.remaining.map((r) => `qa_remaining:${r.code}@${r.where}`));
+
+  const report: SeedPipelineReport = { seeds, notes, research: research.stats, issues, qa: { found: gate.foundBefore, remaining: gate.remaining } };
   console.log(
     `WINDOW: seed pipeline: ${seeds.map((s) => `${s.direction}:${s.activityId}`).join(", ")} | issues: ${issues.length ? issues.join("; ") : "none"}`,
   );

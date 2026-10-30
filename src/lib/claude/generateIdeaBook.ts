@@ -1,4 +1,6 @@
 import type Anthropic from "@anthropic-ai/sdk";
+import { runQualityGate } from "@/lib/claude/qualityRepair";
+import { currentMonth } from "@/lib/discovery/season";
 import { anthropic, CLAUDE_MODEL } from "@/lib/anthropic";
 import {
   WINDOW_VOICE_SYSTEM_PROMPT,
@@ -607,7 +609,11 @@ export async function generateIdeaBook(
 
   for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
-      return await callClaudeForIdeaBook(intake, locale, characterProfile, researchBrief);
+      const written = await callClaudeForIdeaBook(intake, locale, characterProfile, researchBrief);
+      // The same quality gate as the engine pipeline (qualityGate.ts): machinery out of the text, repeats and out-of-season ideas rewritten.
+      const gate = await runQualityGate(written, { locale, month: currentMonth(), budget: intake.budget, timeAvailable: intake.timeAvailable });
+      if (gate.log.length > 0) console.log(`WINDOW: quality gate: ${gate.log.join("; ")}`);
+      return gate.book;
     } catch (err) {
       lastError = err;
       if (attempt < attempts) {

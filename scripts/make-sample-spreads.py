@@ -3,13 +3,12 @@
   npx tsx scripts/generate-example-idea-book.ts     # first: re-render the example PDFs with the current renderer
   python scripts/make-sample-spreads.py              # then: cut the spreads (needs PyMuPDF: pip install pymupdf)
 
-Pages (1-based): the cover, and two idea pages. The overview (page 3) and the profile page (page 2) are left out for now: in the
-current layout they are half empty, which sells the book short; the Phase 3 layout rework should bring them back (edit PAGES).
+Pages (1-based): the cover, the profile page (profile and the four doors on one page since Phase 3) and two idea pages.
 """
 import os
 import pymupdf
 
-PAGES = {1: "cover", 4: "idea-1", 7: "idea-2"}
+PAGES = {1: "cover", 2: "profile", 3: "idea-1", 5: "idea-2"}
 WIDTH = 1000
 
 root = os.path.join(os.path.dirname(__file__), "..", "public", "examples")

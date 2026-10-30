@@ -65,12 +65,12 @@ test.describe("sample book lightbox", () => {
     await page.keyboard.press("Enter");
     const dialog = page.locator("dialog[open]");
     await expect(dialog).toBeVisible();
-    await expect(dialog).toContainText("Pagina 1 van 3");
+    await expect(dialog).toContainText("Pagina 1 van 4");
     await page.keyboard.press("ArrowRight");
-    await expect(dialog).toContainText("Pagina 2 van 3");
+    await expect(dialog).toContainText("Pagina 2 van 4");
     await page.keyboard.press("ArrowLeft");
     await page.keyboard.press("ArrowLeft");
-    await expect(dialog).toContainText("Pagina 3 van 3");
+    await expect(dialog).toContainText("Pagina 4 van 4");
     await page.keyboard.press("Escape");
     await expect(page.locator("dialog[open]")).toHaveCount(0);
     await expect(first).toBeFocused();

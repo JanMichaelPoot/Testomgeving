@@ -82,6 +82,7 @@ export function threadSentence(thread: IdeaThreadData | undefined, copy: Diction
   // Chosen by the person themselves: said first, and the reading of the images comes after as what it adds.
   const base = thread.own ? (read ? `${copy.pdfOwn} ${read}` : copy.pdfOwn) : read;
   if (!base) return null;
-  // V2: the activities in between, said as what they are (derived by us).
-  return thread.path ? `${base} ${copy.pdfPath.replace("{path}", thread.path)}` : base;
+  // The activities in between ("Onderweg kwamen we langs ...: dat leiden wij uit je beelden af") are shown on the page of the book (IdeaThread), but not
+  // printed: on paper they read as the machinery talking (Fase 3, the review's "exposed reasoning").
+  return base;
 }

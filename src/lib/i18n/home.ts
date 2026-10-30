@@ -84,6 +84,7 @@ const NL: HomeCopy = {
     counter: "Pagina {n} van {total}",
     spreads: [
       { name: "Omslag", alt: "Omslag van een voorbeeldboek: een houten bureau bij een raam met een kompas en een opengeslagen dagboek" },
+      { name: "Je profiel", alt: "De profielpagina uit het voorbeeldboek: je profiel in een zin, je grenzen en voorkeuren, en de vier deuren met het idee dat het best past" },
       { name: "Een idee", alt: "Een ideepagina uit het voorbeeldboek: waarom het bij je past, tijd, niveau, een mogelijke invulling, stappen, kosten en een eerste stap" },
       { name: "Nog een idee", alt: "Een tweede ideepagina uit het voorbeeldboek, met dezelfde opbouw: waarom, stappen, kosten en een eerste stap" },
     ],
@@ -187,6 +188,7 @@ const EN: HomeCopy = {
     counter: "Page {n} of {total}",
     spreads: [
       { name: "Cover", alt: "Cover of a sample book: a wooden desk by a window with a compass and an open journal" },
+      { name: "Your profile", alt: "The profile page from the sample book: your profile in one sentence, your limits and preferences, and the four doors with the idea that fits best" },
       { name: "An idea", alt: "An idea page from the sample book: why it fits you, time, level, a possible plan, steps, cost and a first step" },
       { name: "Another idea", alt: "A second idea page from the sample book, with the same layout: why, steps, cost and a first step" },
     ],

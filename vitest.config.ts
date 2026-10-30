@@ -11,6 +11,9 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["src/**/*.test.ts"],
+    // The quality gate's grammar pass is one more model call per book; the older pipeline tests count their calls, so it is off here
+    // and switched on explicitly by the tests of the gate itself.
+    env: { WINDOW_QA_GRAMMAR: "0" },
   },
   resolve: {
     alias: {

@@ -18,7 +18,7 @@ import { TrustBlock } from "@/components/window/TrustBlock";
 import { getHomeCopy, TESTIMONIALS } from "@/lib/i18n/home";
 
 // The pages of the sample book shown on the homepage (see scripts/make-sample-spreads.py): the cover and two idea pages.
-const SAMPLE_SPREADS = ["cover", "idea-1", "idea-2"] as const;
+const SAMPLE_SPREADS = ["cover", "profile", "idea-1", "idea-2"] as const;
 
 export default async function Home(props: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

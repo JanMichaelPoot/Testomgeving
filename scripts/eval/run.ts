@@ -24,7 +24,6 @@
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { getActivity } from "../../src/lib/discovery/library";
-import { currentMonth } from "../../src/lib/discovery/season";
 import { getAssociation } from "../../src/lib/discovery/associations";
 import { syntheticProfiles } from "../../src/lib/discovery/engine/synthetic";
 import { syntheticAssociationProfiles } from "../../src/lib/discovery/engine/syntheticAssociations";
@@ -35,6 +34,7 @@ import { intakeFor, loadEvalProfiles, toSyntheticProfile, type EvalProfile } fro
 import { runWithEngine } from "../../src/lib/discovery/eval/run";
 import { buildResults, type EvalRunInfo } from "../../src/lib/discovery/eval/results";
 import { renderReport } from "../../src/lib/discovery/eval/report";
+import { currentMonth } from "../../src/lib/discovery/season";
 import type { GeneratedIdeaBook } from "../../src/lib/claude/ideaBookTypes";
 
 const args = process.argv.slice(2);
@@ -226,11 +226,17 @@ async function main() {
   for (const eng of engines) {
     const runs = runWithEngine(profiles, eng);
     const titles = Object.fromEntries(evalProfiles.map((p) => [p.id, { title: p.title, kind: p.kind, edge: !!p.edge, brief: briefOf(p) }]));
-    const result = buildResults({ engine: eng.name, mode, source, runs, lib: eng.library, evalOptions: { strictFreeCost: eng.weights.strictFreeCost }, titles, books: full ? (books[eng.name] ?? {}) : undefined, runInfo: full ? runInfo[eng.name] : undefined });
+    // A written book is made in the month of today (the pipeline reads the clock), so the quality checks use that month.
+    const qaContexts = full ? Object.fromEntries(evalProfiles.map((p) => { const i = intakeFor(p); return [p.id, { locale: "nl" as const, month: currentMonth(), budget: i.budget, timeAvailable: i.timeAvailable }]; })) : undefined;
+    const result = buildResults({ engine: eng.name, mode, source, runs, lib: eng.library, evalOptions: { strictFreeCost: eng.weights.strictFreeCost }, qaContexts, titles, books: full ? (books[eng.name] ?? {}) : undefined, runInfo: full ? runInfo[eng.name] : undefined });
 
     const m = result.metrics;
     const errors = result.profiles.flatMap((p) => p.findings.filter((f) => f.severity === "error"));
     if (errors.length) anyErrors = true;
+    if (result.quality) {
+      const q = result.quality;
+      console.log(`kwaliteitspoort: ${q.releaseGate.pass ? "geslaagd" : "NIET geslaagd (" + q.releaseGate.failures.join("; ") + ")"} | seizoen ${q.counts.season} | tijdchip ${q.counts.time_chip} | tijd niet gevuld ${q.counts.coverage_time} | budget niet benut ${q.counts.coverage_budget} | plek bij ${(q.placeRate * 100).toFixed(0)}% van de ideeën`);
+    }
     console.log(`\n${source}: ${m.profiles} profielen, engine ${eng.name}, ${mode}`);
     console.log(`harde regels E1/E3/E4/E5/E6: ${m.violations.E1}/${m.violations.E3}/${m.violations.E4}/${m.violations.E5}/${m.violations.E6}`);
     console.log(`werelden/boek ${m.worldsPerBook.toFixed(2)} | fotocategorieën ${m.photoCategoriesPerBook.toFixed(2)} | paar met ≥2 tags ${(m.pairBooks * 100).toFixed(1)}% | One Thing ${Object.entries(m.oneThingByDoor).map(([d, v]) => `${d} ${(v * 100).toFixed(0)}%`).join(", ")}`);
