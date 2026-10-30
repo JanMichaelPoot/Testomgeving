@@ -19,7 +19,7 @@ const SCREENS = [
 
 async function openScreen(page: Page, index: number) {
   await page.addInitScript((i) => {
-    sessionStorage.setItem("window-wizard-variant-v3", "images2");
+    sessionStorage.setItem("window-wizard-variant-v4", "images2");
     sessionStorage.setItem(
       "window-venster-draft-images2",
       JSON.stringify({

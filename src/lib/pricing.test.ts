@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatPrice, formatAmount, priceCentsFrom, WINDOW_PLAN_PRICE } from "./pricing";
+import { formatPrice, formatAmount, PRICE_CENTS, WINDOW_PLAN_PRICE } from "./pricing";
 
 describe("formatPrice", () => {
   it("uses a comma decimal separator for nl", () => {
@@ -37,13 +37,9 @@ describe("formatAmount", () => {
   });
 });
 
-describe("priceCentsFrom", () => {
-  it("takes a configured price in whole cents", () => {
-    expect(priceCentsFrom("600")).toBe(600);
-    expect(priceCentsFrom(" 600 ")).toBe(600);
-  });
-
-  it("falls back to the default for anything odd", () => {
-    for (const raw of [undefined, "", "6", "6.00", "0", "-600", "99999", "abc"]) expect(priceCentsFrom(raw)).toBe(750);
+describe("the price", () => {
+  it("is EUR 7,50 and lives in code: a leftover NEXT_PUBLIC_WINDOW_PRICE_CENTS can no longer change it", () => {
+    expect(PRICE_CENTS).toBe(750);
+    expect(WINDOW_PLAN_PRICE.amountCents).toBe(750);
   });
 });

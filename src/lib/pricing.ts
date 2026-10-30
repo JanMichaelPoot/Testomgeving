@@ -1,21 +1,15 @@
 import type { Locale } from "@/lib/locale";
 
 // Single price point for the MVP. Kept in cents since that's what Stripe expects.
-// The default is €7,50 per product (Jan, 30 Oct 2026; it was €3,50). A deployment can set NEXT_PUBLIC_WINDOW_PRICE_CENTS
-// to override it (e.g. 600 on the "Het venster" test preview, Jan 4 Oct 2026); leave it unset for the default. The same value feeds the page copy,
-// the Stripe line item (checkout/actions.ts) and the order record, so they cannot differ.
-// NEXT_PUBLIC_ so the browser shows the same number (inlined at build time).
-export const DEFAULT_PRICE_CENTS = 750;
-
-export function priceCentsFrom(raw: string | undefined): number {
-  const n = Number((raw ?? "").trim());
-  // Whole cents between €1 and €50 only: a typo must never turn into a free or absurd price.
-  return Number.isInteger(n) && n >= 100 && n <= 5000 ? n : DEFAULT_PRICE_CENTS;
-}
+// €7,50 per product (Jan, 30 Oct 2026; it was €3,50). The price lives in code only: an environment variable used to override it
+// (NEXT_PUBLIC_WINDOW_PRICE_CENTS, 600 on the test preview) and a leftover value on Vercel kept the live site at €6,00 after this
+// default changed, so that override is gone. To change the price, change this number. The same value feeds the page copy, the
+// Stripe line item (checkout/actions.ts) and the order record, so they cannot differ.
+export const PRICE_CENTS = 750;
 
 export const WINDOW_PLAN_PRICE = {
   currency: "eur",
-  amountCents: priceCentsFrom(process.env.NEXT_PUBLIC_WINDOW_PRICE_CENTS),
+  amountCents: PRICE_CENTS,
 } as const;
 
 // Formatted manually (not via Intl.NumberFormat) so the output is always

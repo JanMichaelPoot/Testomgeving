@@ -22,10 +22,12 @@ export function showVensterLanding(percentRaw: string | undefined, query: string
 export const VENSTER_SELF_HREF = "/intake";
 export const VENSTER_GIFT_HREF = "/intake?for=gift";
 
-// Share (0-100) of visitors who get the two-page image intake ("images2", docs/fase4-opzet.md) in a fresh draw. Default 0: nobody
-// until it is switched on; ?wizard=images2 forces it for one tab. The draw for it comes first; the rest go on to the
-// four-round image intake (NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT).
+// Share (0-100) of visitors who get the two-page image intake ("images2", docs/fase4-opzet.md) in a fresh draw. Default 100:
+// everybody (Jan, 30 Oct 2026: the four-round intake must not be what visitors see); set NEXT_PUBLIC_IMAGES2_PERCENT to 0 to switch
+// it off again. The draw for it comes first; the rest go on to the four-round image intake (NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT).
+export const DEFAULT_IMAGES2_PERCENT = 100;
+
 export function images2WizardPercent(raw: string | undefined): number {
   const parsed = raw === undefined || raw.trim() === "" ? NaN : Number(raw);
-  return Number.isFinite(parsed) ? Math.max(0, Math.min(100, parsed)) : 0;
+  return Number.isFinite(parsed) ? Math.max(0, Math.min(100, parsed)) : DEFAULT_IMAGES2_PERCENT;
 }

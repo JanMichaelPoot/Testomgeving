@@ -17,7 +17,8 @@ type Variant = "legacy" | "cards" | "associations" | "images2";
 // keep those tabs on the classic wizard now that everybody gets the card wizard.
 // v3: v2 held draws made while the image intake was off (default 0), which would keep those
 // tabs on the card wizard now that everybody gets the image intake.
-const VARIANT_KEY = "window-wizard-variant-v3";
+// v4: v3 held draws made while the two-page intake was off (default 0), which would keep those tabs on the four-round intake.
+const VARIANT_KEY = "window-wizard-variant-v4";
 
 // Share of visitors who get the card wizard when nothing is configured.
 const DEFAULT_CARD_WIZARD_PERCENT = 100;
@@ -50,7 +51,7 @@ function decideVariant(canImages2: boolean): Variant {
   } catch {
     // Storage unavailable: fall through to a fresh draw that simply is not remembered.
   }
-  // The two-page image intake first (default 0 %: nobody until it is switched on).
+  // The two-page image intake first (default 100 %: everybody; NEXT_PUBLIC_IMAGES2_PERCENT=0 switches it off).
   if (canImages2 && Math.random() * 100 < images2WizardPercent(process.env.NEXT_PUBLIC_IMAGES2_PERCENT)) {
     try {
       window.sessionStorage.setItem(VARIANT_KEY, "images2");

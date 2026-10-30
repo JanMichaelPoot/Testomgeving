@@ -21,11 +21,12 @@ describe("the two-page intake: screens", () => {
   });
 
   it("is off by default and clamps the percentage", () => {
-    expect(images2WizardPercent(undefined)).toBe(0);
-    expect(images2WizardPercent("")).toBe(0);
+    expect(images2WizardPercent(undefined)).toBe(100);
+    expect(images2WizardPercent("")).toBe(100);
+    expect(images2WizardPercent("0")).toBe(0);
     expect(images2WizardPercent("25")).toBe(25);
     expect(images2WizardPercent("400")).toBe(100);
-    expect(images2WizardPercent("abc")).toBe(0);
+    expect(images2WizardPercent("abc")).toBe(100);
   });
 });
 

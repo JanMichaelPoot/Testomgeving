@@ -26,7 +26,7 @@ Testboeken komen dus in dezelfde tabellen; ze zijn herkenbaar aan Stripe-testbet
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | je `pk_test_…` |
 | `STRIPE_WEBHOOK_SECRET` | het `whsec_…` van de test-webhook uit stap 4 |
 | `NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT` | `100` (iedereen krijgt de beeld-intake en de venster-landing) |
-| `NEXT_PUBLIC_WINDOW_PRICE_CENTS` | `600` |
+| `NEXT_PUBLIC_IMAGES2_PERCENT` | leeg laten of `100` (de twee-pagina-intake voor iedereen) |
 | `NEXT_PUBLIC_TEST_FEEDBACK` | `1` (testbanner met testkaart + vragenlijst onder het boek) |
 | `NEXT_PUBLIC_SITE_URL` | de preview-URL (anders wijzen deel- en Stripe-terugkeerlinks naar Production) |
 

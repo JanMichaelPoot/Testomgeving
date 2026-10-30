@@ -22,7 +22,7 @@ const SCREENS = [
 
 async function openScreen(page: Page, index: number) {
   await page.addInitScript((i) => {
-    sessionStorage.setItem("window-wizard-variant-v3", "associations");
+    sessionStorage.setItem("window-wizard-variant-v4", "associations");
     sessionStorage.setItem(
       "window-venster-draft-v1",
       JSON.stringify({
