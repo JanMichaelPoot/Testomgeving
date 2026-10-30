@@ -1924,5 +1924,264 @@
       8,
       9
     ]
+  },
+  {
+    "id": "ballet-beginners",
+    "domain": "movement",
+    "sub": "dance",
+    "label": {
+      "nl": "Ballet voor volwassen beginners",
+      "en": "Ballet for adult beginners"
+    },
+    "tags": [
+      "movement",
+      "balance",
+      "rhythm",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Veel dansscholen bieden een proefles ballet voor volwassenen op zonder voorkennis",
+      "en": "Many dance schools offer a trial ballet class for adults with no experience needed"
+    },
+    "scene": "A ballet barre along a mirrored wall in an empty bright studio, a pair of pointe shoes hanging from the barre.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "flamenco",
+    "domain": "movement",
+    "sub": "dance",
+    "label": {
+      "nl": "Flamenco leren",
+      "en": "Learning flamenco"
+    },
+    "tags": [
+      "rhythm",
+      "movement",
+      "performance",
+      "sound"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een proefles flamenco leert je het ritme en de eerste passen in een uur",
+      "en": "A trial flamenco class teaches you the rhythm and first steps in an hour"
+    },
+    "scene": "A wooden dance floor with a pair of black flamenco shoes, a red fringed shawl and a fan on a chair in a warmly lit studio.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "buikdans",
+    "domain": "movement",
+    "sub": "dance",
+    "label": {
+      "nl": "Buikdans",
+      "en": "Belly dance"
+    },
+    "tags": [
+      "movement",
+      "rhythm",
+      "balance",
+      "performance"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een beginnersles buikdans, vaak met een gratis proefles in een kleine groep",
+      "en": "A beginner belly dance class, often with a free trial lesson in a small group"
+    },
+    "scene": "Sequined hip scarves with golden coins draped over a studio mirror, finger cymbals and a sheer veil on a bench.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "bollywood",
+    "domain": "movement",
+    "sub": "dance",
+    "label": {
+      "nl": "Bollywooddans",
+      "en": "Bollywood dance"
+    },
+    "tags": [
+      "rhythm",
+      "movement",
+      "conviviality",
+      "performance"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een feestelijke proefles Bollywood waarin je een korte choreografie leert",
+      "en": "A festive Bollywood trial class where you learn a short choreography"
+    },
+    "scene": "Bright dupattas in magenta and gold hanging in a dance studio with garlands of marigolds and a portable speaker.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "kpop-dans",
+    "domain": "movement",
+    "sub": "dance",
+    "label": {
+      "nl": "K-popdans",
+      "en": "K-pop dance"
+    },
+    "tags": [
+      "rhythm",
+      "movement",
+      "play",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een K-popdanssessie waarin je een refrein van je favoriete nummer leert",
+      "en": "A K-pop dance session where you learn a chorus of your favourite song"
+    },
+    "scene": "A mirrored studio wall with neon light strips, a pair of white sneakers and a portable speaker on the floor.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "zumba",
+    "domain": "movement",
+    "sub": "dance",
+    "label": {
+      "nl": "Zumba of dansfitness",
+      "en": "Zumba or dance fitness"
+    },
+    "tags": [
+      "rhythm",
+      "movement",
+      "play",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een losse les zumba kun je bijna overal zonder abonnement meedoen",
+      "en": "You can join a single zumba class almost anywhere without a membership"
+    },
+    "scene": "A bright fitness studio with coloured floor lines, a mirror wall, a bluetooth speaker and a water bottle.",
+    "supply": "common",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "ballroom",
+    "domain": "movement",
+    "sub": "dance",
+    "label": {
+      "nl": "Stijldansen en ballroom",
+      "en": "Ballroom and social dance"
+    },
+    "tags": [
+      "rhythm",
+      "movement",
+      "balance",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Veel dansscholen starten elk seizoen een beginnerscursus, je kunt ook alleen komen",
+      "en": "Many dance schools start a beginner course each season, and you can come alone"
+    },
+    "scene": "A polished parquet ballroom floor with a chandelier reflected in it and a pair of satin dance shoes near the edge.",
+    "supply": "common",
+    "status": "concept",
+    "image_pending": true
   }
 ]

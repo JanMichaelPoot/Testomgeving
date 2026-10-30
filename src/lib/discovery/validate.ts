@@ -54,6 +54,7 @@ export function validateLibrary({ vocabulary, activities, hybrids }: LibraryInpu
     if (!HEX.test(d.color)) err(`domain "${d.id}": color must be a #RRGGBB hex`);
     if (!filled(d.colorName)) err(`domain "${d.id}": colorName is needed for the image prompt`);
     if (!filled(d.scene)) err(`domain "${d.id}": scene is needed for the domain card photo`);
+    if (d.image_pending !== undefined && d.image_pending !== true) err(`domain "${d.id}": image_pending must be true or left out`);
   }
   const subById = new Map(vocabulary.subs.map((s) => [s.id, s]));
   if (subById.size !== vocabulary.subs.length) err("sub-domains: duplicate ids");
@@ -135,6 +136,7 @@ export function validateLibrary({ vocabulary, activities, hybrids }: LibraryInpu
     if (!filled(a.scene) || a.scene.trim().length < 20) err(`${at}: scene (image art direction) is missing or too short`);
     else if (PEOPLE_WORDS.test(a.scene)) err(`${at}: scene mentions people/faces; photos never show people`);
     if (!STATUSES.includes(a.status)) err(`${at}: status must be one of ${STATUSES.join(", ")}`);
+    if (a.image_pending !== undefined && a.image_pending !== true) err(`${at}: image_pending must be true or left out`);
 
     // Knowledge model (B2): aliases, provenance, source links, reviewer. All optional; absent changes nothing.
     if (a.aliases !== undefined) {

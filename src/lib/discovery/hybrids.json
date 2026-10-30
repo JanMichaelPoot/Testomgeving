@@ -478,5 +478,85 @@
       "nl": "Bosbaden en daarna een duik in een natuurbad",
       "en": "Forest bathing and then a dip in a natural pool"
     }
+  },
+  {
+    "a": "tas-maken",
+    "b": "vintage-kleding",
+    "label": {
+      "nl": "Een tas maken van tweedehands leer en vintagestoffen",
+      "en": "Making a bag from second-hand leather and vintage fabric"
+    }
+  },
+  {
+    "a": "zijde-schilderen",
+    "b": "open-tuinen",
+    "label": {
+      "nl": "Sjaals schilderen met de kleuren van een bezochte tuin",
+      "en": "Painting scarves with the colours of a garden you visited"
+    }
+  },
+  {
+    "a": "ballet-beginners",
+    "b": "ballet-bezoek",
+    "label": {
+      "nl": "Zelf aan de barre staan en daarna zien hoe het hoort",
+      "en": "Standing at the barre yourself and then seeing how it is done"
+    }
+  },
+  {
+    "a": "flamenco",
+    "b": "instrument",
+    "label": {
+      "nl": "Flamenco leren en daarna de gitaar oppakken",
+      "en": "Learning flamenco and then picking up the guitar"
+    }
+  },
+  {
+    "a": "make-up-workshop",
+    "b": "theatermake-up",
+    "label": {
+      "nl": "Make-up leren en daarna een theatrale look maken",
+      "en": "Learning make-up and then creating a theatrical look"
+    }
+  },
+  {
+    "a": "parfum-ontdekken",
+    "b": "parfum-maken",
+    "label": {
+      "nl": "Geuren leren kennen en je eigen parfum samenstellen",
+      "en": "Getting to know scents and composing your own perfume"
+    }
+  },
+  {
+    "a": "bloemenmarkt",
+    "b": "droogbloemen",
+    "label": {
+      "nl": "Bloemen kopen op de markt en er thuis een droogkrans van maken",
+      "en": "Buying flowers at the market and drying them into a wreath at home"
+    }
+  },
+  {
+    "a": "modemuseum",
+    "b": "patroontekenen",
+    "label": {
+      "nl": "Historische kleding bekijken en er een patroon van tekenen",
+      "en": "Looking at historic clothing and drawing a pattern from it"
+    }
+  },
+  {
+    "a": "stijladvies",
+    "b": "kledingruil",
+    "label": {
+      "nl": "Je kleuren leren kennen en ruilen wat niet past",
+      "en": "Getting to know your colours and swapping what does not suit you"
+    }
+  },
+  {
+    "a": "ballroom",
+    "b": "regency-bal",
+    "label": {
+      "nl": "Stijldansen leren voor een historische balavond",
+      "en": "Learning ballroom dancing for a historical ball"
+    }
   }
 ]

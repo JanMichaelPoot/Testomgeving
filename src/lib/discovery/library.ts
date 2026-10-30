@@ -18,6 +18,7 @@ import elements from "@/lib/discovery/data/elements.json";
 import food from "@/lib/discovery/data/food.json";
 import stage from "@/lib/discovery/data/stage.json";
 import night from "@/lib/discovery/data/night.json";
+import style from "@/lib/discovery/data/style.json";
 export { activityImage, domainImage } from "@/lib/discovery/paths";
 import type { Activity, ActivityStatus, Domain, Hybrid, SubDomain, Tag, Vocabulary } from "@/lib/discovery/types";
 
@@ -46,10 +47,14 @@ const activityFiles: Activity[][] = [
   food,
   stage,
   night,
+  style,
 ] as Activity[][];
 
 export const VOCABULARY = vocabularyJson as Vocabulary;
-export const DOMAINS: Domain[] = VOCABULARY.domains;
+/** Every domain in vocabulary.json, including ones whose card photo is still to be made (validation reads this). */
+export const ALL_DOMAINS: Domain[] = VOCABULARY.domains;
+/** The domains a visitor can see: those without a pending card photo. */
+export const DOMAINS: Domain[] = VOCABULARY.domains.filter((d) => !d.image_pending);
 export const SUB_DOMAINS: SubDomain[] = VOCABULARY.subs;
 export const TAGS: Tag[] = VOCABULARY.tags;
 export const HYBRIDS = hybridsJson as Hybrid[];
@@ -69,12 +74,18 @@ export function filterByStatus(
   return list.filter((a) => STATUS_RANK[a.status] >= min);
 }
 
+/** Written but not yet shown: the card photo (of the activity or of its whole domain) is still to be made. */
+const pendingDomains = new Set(VOCABULARY.domains.filter((d) => d.image_pending).map((d) => d.id));
+export function isImagePending(a: Pick<Activity, "domain" | "image_pending">): boolean {
+  return a.image_pending === true || pendingDomains.has(a.domain);
+}
+
 /**
  * The activities to show or draw from. `minStatus` lets production show only
- * reviewed/live items while concepts are still being checked.
+ * reviewed/live items while concepts are still being checked. Activities whose photo is still pending are left out.
  */
 export function getActivities(opts: { minStatus?: Exclude<ActivityStatus, "retired"> } = {}): Activity[] {
-  return filterByStatus(ALL_ACTIVITIES, opts.minStatus);
+  return filterByStatus(ALL_ACTIVITIES, opts.minStatus).filter((a) => !isImagePending(a));
 }
 
 /** Resolves any id, including retired ones, so stored profiles keep working. */

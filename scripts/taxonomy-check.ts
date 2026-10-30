@@ -8,7 +8,7 @@
 // The same validation runs in `npm test` (src/lib/discovery/library.test.ts).
 import { existsSync } from "node:fs";
 import path from "node:path";
-import { ALL_ACTIVITIES, DOMAINS, HYBRIDS, SUB_DOMAINS, TAGS, VOCABULARY } from "../src/lib/discovery/library";
+import { ALL_ACTIVITIES, ALL_DOMAINS, DOMAINS, HYBRIDS, SUB_DOMAINS, TAGS, VOCABULARY, isImagePending } from "../src/lib/discovery/library";
 import { SOCIAL_FORMATS } from "../src/lib/discovery/types";
 import { validateAssociations, validateLibrary } from "../src/lib/discovery/validate";
 import { ASSOCIATIONS, hasOwnImage } from "../src/lib/discovery/associations";
@@ -27,7 +27,13 @@ const warnings = [...library.warnings, ...associations.warnings, ...registers.wa
 
 const imageFile = (id: string) => path.join(PUBLIC, `${id}.jpg`);
 const domainFile = (id: string) => path.join(PUBLIC, "domains", `${id}.jpg`);
-const missingImages = ALL_ACTIVITIES.filter((a) => a.status !== "retired" && !existsSync(imageFile(a.id)));
+// Activities (and domains) flagged image_pending are written but not shown yet: they wait for their photo.
+const pendingActivities = ALL_ACTIVITIES.filter((a) => a.status !== "retired" && isImagePending(a));
+const pendingDomains = ALL_DOMAINS.filter((d) => d.image_pending);
+const missingImages = ALL_ACTIVITIES.filter((a) => a.status !== "retired" && !isImagePending(a) && !existsSync(imageFile(a.id)));
+// A flag that is still set although the photo exists is a leftover: remove it so the activity goes live.
+for (const a of ALL_ACTIVITIES) if (a.image_pending && existsSync(imageFile(a.id))) warnings.push(`activity "${a.id}": has a photo but is still flagged image_pending (remove the flag)`);
+for (const d of pendingDomains) if (existsSync(domainFile(d.id))) warnings.push(`domain "${d.id}": has a photo but is still flagged image_pending (remove the flag)`);
 const missingDomainImages = DOMAINS.filter((d) => !existsSync(domainFile(d.id)));
 
 if (args.has("--report")) {
@@ -36,7 +42,7 @@ if (args.has("--report")) {
   console.log(`\n${live.length} activities (${ALL_ACTIVITIES.length - live.length} retired), ${HYBRIDS.length} hybrids, ${SUB_DOMAINS.length} sub-domains, ${TAGS.length} tags\n`);
 
   console.log("Per domain:");
-  for (const d of DOMAINS) {
+  for (const d of ALL_DOMAINS) {
     const items = live.filter((a) => a.domain === d.id);
     const pct = live.length ? Math.round((items.length / live.length) * 100) : 0;
     const subs = SUB_DOMAINS.filter((s) => s.domain === d.id).map((s) => `${s.id}:${items.filter((a) => a.sub === s.id).length}`);
@@ -80,9 +86,13 @@ console.log(`\n${total === 0 ? "OK" : "FAILED"}: ${errors.length} errors${args.h
 if (!args.has("--images") && missingImages.length + missingDomainImages.length > 0) {
   console.log(`(${missingImages.length} activity photos and ${missingDomainImages.length} domain photos still to generate: npm run taxonomy:images)`);
 }
+if (pendingActivities.length > 0 || pendingDomains.length > 0) {
+  console.log(`(${pendingActivities.length} activities and ${pendingDomains.length} domains are written but wait for their photo and are not shown yet: npm run taxonomy:images)`);
+}
 const waiting = ASSOCIATIONS.filter((c) => !hasOwnImage(c));
 if (waiting.length > 0) {
   console.log(`(${waiting.length} association cards still wait for their own image and are not shown yet: npm run taxonomy:images -- --associations --sheet 3x3)`);
   if (args.has("--images")) process.exit(1);
 }
-process.exit(total === 0 ? 0 : 1);
+const pendingBlocks = args.has("--images") && (pendingActivities.length > 0 || pendingDomains.length > 0);
+process.exit(total === 0 && !pendingBlocks ? 0 : 1);

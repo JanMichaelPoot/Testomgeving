@@ -10,17 +10,19 @@ Gegenereerd door `scripts/register-report.ts`. Niet met de hand aanpassen: pas `
 
 | Register | Activiteiten | Aandeel | Families (72) | Aandeel | Kaarten (216) |
 | --- | --- | --- | --- | --- | --- |
-| Sierlijk en expressief | 98 | 20% | 17 | 24% | 51 |
-| Warm en verzorgend | 115 | 23% | 15 | 21% | 45 |
-| Technisch en scherp | 166 | 33% | 20 | 28% | 60 |
-| Rust en natuur | 117 | 24% | 20 | 28% | 60 |
-| **Totaal** | 496 | 100% | 72 | 100% | 216 |
+| Sierlijk en expressief | 120 | 23% | 34 | 33% | 102 |
+| Warm en verzorgend | 121 | 23% | 24 | 24% | 72 |
+| Technisch en scherp | 166 | 32% | 22 | 22% | 66 |
+| Rust en natuur | 117 | 22% | 22 | 22% | 66 |
+| **Totaal** | 524 | 100% | 102 | 100% | 306 |
+
+Hiervan wachten **28 activiteiten** (496 zichtbaar) en **90 kaarten** (216 zichtbaar) nog op hun foto en zijn dus nog niet te zien voor bezoekers; het register telt ze wel mee.
 
 ## 2. Activiteiten per richting
 
 | Richting | Totaal | Sierlijk en expressief | Warm en verzorgend | Technisch en scherp | Rust en natuur |
 | --- | --- | --- | --- | --- | --- |
-| Sport, beweging & avontuur | 46 | 3 (7%) | 2 (4%) | 26 (57%) | 15 (33%) |
+| Sport, beweging & avontuur | 53 | 9 (17%) | 3 (6%) | 26 (49%) | 15 (28%) |
 | Creatief, kunst, muziek & ambacht | 49 | 25 (51%) | 16 (33%) | 5 (10%) | 3 (6%) |
 | Natuur, dieren & buiten | 31 | 1 (3%) | 13 (42%) | 1 (3%) | 16 (52%) |
 | Geschiedenis, cultuur & re-enactment | 27 | 5 (19%) | 4 (15%) | 3 (11%) | 15 (56%) |
@@ -38,14 +40,15 @@ Gegenereerd door `scripts/register-report.ts`. Niet met de hand aanpassen: pas `
 | Eten, drinken & proeven | 24 | 6 (25%) | 14 (58%) | 2 (8%) | 2 (8%) |
 | Podium, woord & show | 26 | 21 (81%) | 2 (8%) | 2 (8%) | 1 (4%) |
 | Avond uit, kans & dans | 21 | 11 (52%) | 6 (29%) | 4 (19%) | 0 |
+| Mode, stijl & schoonheid | 21 | 16 (76%) | 5 (24%) | 0 | 0 |
 
 ## 3. Associatiefamilies per ronde
 
 | Ronde | Families | Sierlijk en expressief | Warm en verzorgend | Technisch en scherp | Rust en natuur |
 | --- | --- | --- | --- | --- | --- |
-| places | 24 | 7 | 4 | 6 | 7 |
-| moments | 24 | 4 | 5 | 10 | 5 |
-| senses | 24 | 6 | 6 | 4 | 8 |
+| places | 34 | 13 | 7 | 6 | 8 |
+| moments | 34 | 8 | 9 | 11 | 6 |
+| senses | 34 | 13 | 8 | 5 | 8 |
 
 ## 4. Wat een register op de vier assen betekent
 
@@ -53,10 +56,10 @@ Gemiddelde van de families (sociaal: -1 alleen, +1 samen · energie: -1 rustig, 
 
 | Register | Sociaal | Energie | Binnen/buiten | Nieuwheid |
 | --- | --- | --- | --- | --- |
-| Sierlijk en expressief | 0.02 | -0.02 | -0.71 | 0.18 |
-| Warm en verzorgend | 0.05 | -0.41 | -0.45 | -0.18 |
-| Technisch en scherp | 0.18 | 0.30 | -0.24 | 0.35 |
-| Rust en natuur | -0.24 | -0.11 | 0.36 | 0.21 |
+| Sierlijk en expressief | -0.05 | -0.06 | -0.80 | 0.16 |
+| Warm en verzorgend | 0.06 | -0.43 | -0.40 | -0.18 |
+| Technisch en scherp | 0.11 | 0.25 | -0.31 | 0.31 |
+| Rust en natuur | -0.25 | -0.14 | 0.42 | 0.19 |
 
 ## 5. Dekking van de thema's uit het plan
 
@@ -64,19 +67,19 @@ Het register zegt hoe breed het aanbod is; deze tabel zegt of de **onderwerpen d
 
 | Thema | Activiteiten | Families | Voorbeelden |
 | --- | --- | --- | --- |
-| Dans | 6 | 1 | Dansen (salsa, swing, latin); Paaldansen; Historische dans; Een ballet bijwonen |
-| Opera, theater, podium | 14 | 4 | Improvisatietheater; Klassieke zang en opera; Alleen naar de film of het theater; Een open podium bezoeken |
+| Dans | 11 | 5 | Dansen (salsa, swing, latin); Paaldansen; Ballet voor volwassen beginners; Flamenco leren |
+| Opera, theater, podium | 14 | 6 | Improvisatietheater; Klassieke zang en opera; Alleen naar de film of het theater; Een open podium bezoeken |
 | Poppen, miniaturen, speeldozen | 7 | 3 | Wargaming met miniaturen; Miniaturen schilderen; Diorama's en landschapsbouw; Speeldozen en muziekautomaten |
-| Sieraden en edelstenen | 7 | 1 | Sieraden maken; Kralen rijgen; Emailleren; Een eigen sieraad ontwerpen |
-| Tassen en leer | 1 | 0 | Lederwerk |
-| Make-up, kapsel, nagels | 1 | 0 | Theatrale make-up |
-| Mode, kleding, stoffen | 18 | 3 | Breien of haken; Kleding naaien of verstellen; Quilten; Kostuumontwerp |
-| Bloemen en boeketten | 3 | 0 | Bloemschikken; Open tuinen bezoeken; Fruit of bloemen plukken |
-| Parfum en geur | 2 | 0 | Parfum maken; Zeep maken |
-| Thee, salon, antiek | 5 | 2 | Specialty koffie en thee proeven; Antieke poppen; Brocante- en antiekmarkt; Theeceremonie of theeproeverij |
-| Spa en wellness | 6 | 2 | Sauna of thermen; Massage of wellnessdag; Een dag in een thermenbad; Een spadag |
+| Sieraden en edelstenen | 7 | 4 | Sieraden maken; Kralen rijgen; Emailleren; Een eigen sieraad ontwerpen |
+| Tassen en leer | 3 | 2 | Lederwerk; Een tas ontwerpen en maken; Een leren portemonnee of kaartenhouder maken |
+| Make-up, kapsel, nagels | 4 | 2 | Theatrale make-up; Make-upworkshop: leer je eigen look; Kapsel- en vlechtworkshop; Nagelstyling en nail art leren |
+| Mode, kleding, stoffen | 20 | 7 | Breien of haken; Kleding naaien of verstellen; Quilten; Kostuumontwerp |
+| Bloemen en boeketten | 5 | 4 | Bloemschikken; Open tuinen bezoeken; Fruit of bloemen plukken; Een krans of boeket van droogbloemen maken |
+| Parfum en geur | 3 | 1 | Parfum maken; Zeep maken; Parfumerie bezoeken en geuren leren herkennen |
+| Thee, salon, antiek | 5 | 4 | Specialty koffie en thee proeven; Antieke poppen; Brocante- en antiekmarkt; Theeceremonie of theeproeverij |
+| Spa en wellness | 6 | 4 | Sauna of thermen; Massage of wellnessdag; Een dag in een thermenbad; Een spadag |
 
-Thema's zonder één associatiefamilie: **Tassen en leer, Make-up, kapsel, nagels, Bloemen en boeketten, Parfum en geur**.
+Thema's zonder één associatiefamilie: **geen**.
 
 ## 6. Balanstest voor het plan (18 per pagina, drie keer verversen)
 
@@ -91,5 +94,5 @@ Let op: pagina 1 toont **kaarten**, niet families (elke familie heeft drie varia
 
 ## 7. Hoe goed voorspellen de bestaande tags het register?
 
-Alleen op tags (zonder de handmatige tabel) zou 310 van 496 activiteiten (63%) en 56 van 72 families (78%) hetzelfde register krijgen. De rest is nodig als handmatige uitzondering, vooral voor sierlijk en verzorgend: de huidige tags (er is geen tag voor mode, dans, sieraden of schoonheid) kunnen die kant niet zelf uitdrukken. Daarom staat het register in een eigen tabel en is `deriveRegister` alleen een vangnet.
+Alleen op tags (zonder de handmatige tabel) zou 324 van 524 activiteiten (62%) en 80 van 102 families (78%) hetzelfde register krijgen. De rest is nodig als handmatige uitzondering, vooral voor sierlijk en verzorgend: de huidige tags (er is geen tag voor mode, dans, sieraden of schoonheid) kunnen die kant niet zelf uitdrukken. Daarom staat het register in een eigen tabel en is `deriveRegister` alleen een vangnet.
 

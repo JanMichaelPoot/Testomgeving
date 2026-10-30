@@ -1,0 +1,769 @@
+[
+  {
+    "id": "tas-maken",
+    "domain": "style",
+    "sub": "making_wear",
+    "label": {
+      "nl": "Een tas ontwerpen en maken",
+      "en": "Designing and making a bag"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "style",
+      "color"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een dagworkshop waarin je met een patroon en materiaal je eigen tas maakt",
+      "en": "A day workshop where you make your own bag from a pattern and materials"
+    },
+    "scene": "A half-finished leather tote bag on a cutting mat with a paper pattern, an awl, a roll of thread and brass buckles, warm studio light.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "portemonnee-maken",
+    "domain": "style",
+    "sub": "making_wear",
+    "label": {
+      "nl": "Een leren portemonnee of kaartenhouder maken",
+      "en": "Making a leather wallet or card holder"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "precision",
+      "style"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een korte workshop met alle materiaal erbij; je neemt je eigen exemplaar mee naar huis",
+      "en": "A short workshop with all materials included; you take your own piece home"
+    },
+    "scene": "A hand-stitched leather card holder beside stitching irons, waxed thread and a creasing tool on a wooden bench.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "zijde-schilderen",
+    "domain": "style",
+    "sub": "making_wear",
+    "label": {
+      "nl": "Een zijden sjaal schilderen",
+      "en": "Painting a silk scarf"
+    },
+    "tags": [
+      "making",
+      "color",
+      "craft",
+      "style"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een middagworkshop zijdeschilderen: je gaat met een eigen sjaal naar huis",
+      "en": "An afternoon silk-painting workshop: you go home with a scarf of your own"
+    },
+    "scene": "A white silk scarf stretched on a frame with bright dye swirls spreading through the fabric and small pots of colour beside it.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "blokdruk-textiel",
+    "domain": "style",
+    "sub": "making_wear",
+    "label": {
+      "nl": "Stof bedrukken met houten blokken",
+      "en": "Printing fabric with wooden blocks"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "color",
+      "style"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een beginnersworkshop blokdruk: patronen stempelen op linnen of katoen",
+      "en": "A beginner block-printing workshop: stamping patterns on linen or cotton"
+    },
+    "scene": "Carved wooden printing blocks and a linen cloth with a repeating floral print, an ink pad and rolled-up fabric on a table.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "sneakers-customizen",
+    "domain": "style",
+    "sub": "making_wear",
+    "label": {
+      "nl": "Sneakers customizen",
+      "en": "Customising sneakers"
+    },
+    "tags": [
+      "making",
+      "color",
+      "play",
+      "style"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Neem een paar eigen schoenen mee naar een customworkshop en verf ze om",
+      "en": "Bring a pair of your own shoes to a customising workshop and repaint them"
+    },
+    "scene": "A pair of white sneakers half painted with bold colour, acrylic markers, paint pots and brushes spread around them.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "haaraccessoires",
+    "domain": "style",
+    "sub": "making_wear",
+    "label": {
+      "nl": "Haarspelden en haaraccessoires maken",
+      "en": "Making hair clips and hair accessories"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "color",
+      "style"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een uurtje knutselen met lint, stof en kleine parels, ook thuis te doen",
+      "en": "An hour of crafting with ribbon, fabric and small pearls, also doable at home"
+    },
+    "scene": "Handmade hair clips, ribbons and fabric scrunchies spread over a linen cloth with small pearls and scissors.",
+    "supply": "common",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "stijladvies",
+    "domain": "style",
+    "sub": "scene_style",
+    "label": {
+      "nl": "Kleuranalyse en stijladvies",
+      "en": "Colour analysis and style advice"
+    },
+    "tags": [
+      "color",
+      "learning",
+      "discovery",
+      "style"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een kleuranalyse of stijlsessie bij een kleur- en stijladviseur",
+      "en": "Book a colour analysis or style session with a colour and style adviser"
+    },
+    "scene": "Colour draping swatches in warm and cool tones fanned out beside a mirror and a stack of fabric samples.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "make-up-workshop",
+    "domain": "style",
+    "sub": "look_care",
+    "label": {
+      "nl": "Make-upworkshop: leer je eigen look",
+      "en": "Make-up workshop: find your own look"
+    },
+    "tags": [
+      "color",
+      "learning",
+      "technique",
+      "style"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een make-upworkshop van een paar uur, vaak met een eigen palet om mee te oefenen",
+      "en": "A make-up workshop of a few hours, often with your own palette to practise with"
+    },
+    "scene": "A make-up palette and brushes on a vanity table beside a small round mirror, loose blush powder dusted across the surface, soft light.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "kapsel-vlechten",
+    "domain": "style",
+    "sub": "look_care",
+    "label": {
+      "nl": "Kapsel- en vlechtworkshop",
+      "en": "Hairstyling and braiding workshop"
+    },
+    "tags": [
+      "technique",
+      "learning",
+      "caring",
+      "style"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop vlechten en opsteken, of oefen met een vriendin of een oefenhoofd",
+      "en": "A workshop on braiding and updos, or practise with a friend or a practice head"
+    },
+    "scene": "A long braided hairpiece draped over a wooden mannequin head, hair pins, a comb and satin ribbons on a dressing table.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "nagelstyling",
+    "domain": "style",
+    "sub": "look_care",
+    "label": {
+      "nl": "Nagelstyling en nail art leren",
+      "en": "Learning nail styling and nail art"
+    },
+    "tags": [
+      "precision",
+      "color",
+      "learning",
+      "style"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een beginnerscursus nail art, of begin met een startset thuis",
+      "en": "A beginner nail art course, or start with a starter kit at home"
+    },
+    "scene": "Rows of nail polish bottles in pastel shades beside tiny gems, fine brushes and a practice tip display on a pale pink marble tray.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "cosmetica-maken",
+    "domain": "style",
+    "sub": "look_care",
+    "label": {
+      "nl": "Natuurlijke cosmetica maken",
+      "en": "Making natural cosmetics"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "caring",
+      "style"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop waarin je lippenbalsem, crème en zeep van natuurlijke grondstoffen maakt",
+      "en": "A workshop where you make lip balm, cream and soap from natural ingredients"
+    },
+    "scene": "Glass jars of homemade skin cream and lip balm with dried petals, beeswax pellets and a small wooden spoon on a linen cloth.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "gezichtsbehandeling",
+    "domain": "style",
+    "sub": "look_care",
+    "label": {
+      "nl": "Een gezichtsbehandeling bij een schoonheidsspecialist",
+      "en": "A facial at a beautician"
+    },
+    "tags": [
+      "caring",
+      "stillness",
+      "style"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een proefbehandeling of geef er een cadeaubon voor",
+      "en": "Book a trial treatment or give a gift voucher for one"
+    },
+    "scene": "A calm treatment room with a rolled white towel on a bed, small glass bottles of serum and a candle, soft morning light.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "parfum-ontdekken",
+    "domain": "style",
+    "sub": "flowers_scent",
+    "label": {
+      "nl": "Parfumerie bezoeken en geuren leren herkennen",
+      "en": "Visiting a perfumery and learning to know scents"
+    },
+    "tags": [
+      "discovery",
+      "learning",
+      "style",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Loop een parfumerie binnen en vraag om een geurenproeverij met proefstrips",
+      "en": "Walk into a perfumery and ask for a scent tasting with test strips"
+    },
+    "scene": "Rows of crystal perfume bottles in a shop window with paper testing strips and a small tray of coffee beans to reset the nose.",
+    "supply": "common",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "droogbloemen",
+    "domain": "style",
+    "sub": "flowers_scent",
+    "label": {
+      "nl": "Een krans of boeket van droogbloemen maken",
+      "en": "Making a wreath or bouquet of dried flowers"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "color",
+      "nature",
+      "style"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een middag droogbloemen binden, met of zonder workshop",
+      "en": "An afternoon of binding dried flowers, with or without a workshop"
+    },
+    "scene": "A wreath of dried flowers in dusty pink and ochre, with bundles of lavender and pampas grass on a rustic table.",
+    "supply": "common",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "bloemenmarkt",
+    "domain": "style",
+    "sub": "flowers_scent",
+    "label": {
+      "nl": "De bloemenmarkt of de veiling bezoeken",
+      "en": "Visiting a flower market or auction"
+    },
+    "tags": [
+      "color",
+      "discovery",
+      "growing",
+      "style"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Ga op een ochtend naar een bloemenmarkt en kies één bos die je mooi vindt",
+      "en": "Go to a flower market one morning and choose one bunch you like"
+    },
+    "scene": "Buckets of freshly cut tulips and ranunculus in every colour at a covered flower market stall, early morning light.",
+    "supply": "common",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "modeshow",
+    "domain": "style",
+    "sub": "scene_style",
+    "label": {
+      "nl": "Een modeshow of modebeurs bijwonen",
+      "en": "Attending a fashion show or fashion fair"
+    },
+    "tags": [
+      "style",
+      "performance",
+      "color",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Zoek een lokale modeshow, vintagebeurs of ontwerpersmarkt",
+      "en": "Look for a local fashion show, vintage fair or designers' market"
+    },
+    "scene": "A long catwalk lit by spotlights with a row of empty gilded chairs on either side and a shimmering backdrop.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "modemuseum",
+    "domain": "style",
+    "sub": "scene_style",
+    "label": {
+      "nl": "Een modemuseum of kostuumcollectie bezoeken",
+      "en": "Visiting a fashion museum or costume collection"
+    },
+    "tags": [
+      "history",
+      "style",
+      "color",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Bezoek een museum met een kostuum- of modecollectie en kies één jurk om lang te bekijken",
+      "en": "Visit a museum with a costume or fashion collection and pick one dress to look at for a long time"
+    },
+    "scene": "A glass display with an embroidered historic gown on a dress form in a softly lit museum gallery.",
+    "supply": "common",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "personal-shopping",
+    "domain": "style",
+    "sub": "scene_style",
+    "label": {
+      "nl": "Een middag personal shopping",
+      "en": "An afternoon of personal shopping"
+    },
+    "tags": [
+      "style",
+      "discovery",
+      "learning",
+      "conviviality"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Veel winkels en warenhuizen bieden een gratis of goedkope stijlafspraak met een personal shopper",
+      "en": "Many shops and department stores offer a free or cheap style appointment with a personal shopper"
+    },
+    "scene": "A boutique rail with carefully chosen dresses on velvet hangers beside a fitting-room curtain and a large mirror.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "capsule-garderobe",
+    "domain": "style",
+    "sub": "scene_style",
+    "label": {
+      "nl": "Je garderobe uitzoeken: een capsule samenstellen",
+      "en": "Sorting your wardrobe: building a capsule"
+    },
+    "tags": [
+      "style",
+      "focus",
+      "puzzling",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Haal alles uit je kast en kies twaalf stukken die bij elkaar passen",
+      "en": "Take everything out of your wardrobe and choose twelve pieces that go together"
+    },
+    "scene": "An open wardrobe sorted by colour, a few folded knits on a shelf and a rail with a small edited set of neutral pieces.",
+    "supply": "common",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "fotoshoot",
+    "domain": "style",
+    "sub": "scene_style",
+    "label": {
+      "nl": "Een fotoshoot laten maken",
+      "en": "Having a photoshoot done"
+    },
+    "tags": [
+      "style",
+      "color",
+      "performance",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek een portret- of stijlshoot bij een fotograaf, of ga met een vriendin op pad met statief",
+      "en": "Book a portrait or style shoot with a photographer, or go out with a friend and a tripod"
+    },
+    "scene": "A photography studio corner with a paper backdrop, softbox lights and a vintage chair, a camera on a tripod.",
+    "supply": "regional",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "moodboard",
+    "domain": "style",
+    "sub": "scene_style",
+    "label": {
+      "nl": "Een stijl-moodboard maken",
+      "en": "Making a style mood board"
+    },
+    "tags": [
+      "style",
+      "color",
+      "making",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Verzamel stofjes, tijdschriftknipsels en kleuren op een prikbord, thuis of met een vriendin",
+      "en": "Gather fabric swatches, magazine clippings and colours on a board, at home or with a friend"
+    },
+    "scene": "A cork board covered with fabric swatches, magazine clippings, colour chips and a pressed flower, pinned neatly.",
+    "supply": "common",
+    "status": "concept",
+    "image_pending": true
+  }
+]

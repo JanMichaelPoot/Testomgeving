@@ -107,6 +107,12 @@ export interface Activity {
   alt?: Localized;
   status: ActivityStatus;
   /**
+   * The activity is written and classified but its card photo is not made yet. While true it is left out of
+   * everything a visitor or the engine sees (getActivities), so a new item can be added ahead of its photo without
+   * showing a broken card. Remove the flag when the photo exists (npm run taxonomy:check --images tells which).
+   */
+  image_pending?: boolean;
+  /**
    * Other names people use for this activity, per language. Only for finding duplicates and matching imports:
    * never shown. No alias may equal the name or alias of another activity.
    */
@@ -129,6 +135,8 @@ export interface Domain {
   colorName: string;
   /** Art direction for the domain card photo. */
   scene: string;
+  /** The domain card photo is not made yet: the whole domain stays hidden (DOMAINS) until it is. */
+  image_pending?: boolean;
 }
 
 export interface SubDomain {

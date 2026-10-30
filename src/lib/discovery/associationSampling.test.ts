@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { ASSOCIATIONS } from "@/lib/discovery/associations";
+import { ASSOCIATIONS, hasOwnImage } from "@/lib/discovery/associations";
 import { ASSOCIATION_ROUNDS } from "@/lib/discovery/associationProfile";
 import { ENOUGH_PER_SIDE, mergeSeen, sampleRoundCards, sampleWorldExamples, SEEN_CAP } from "@/lib/discovery/associationSampling";
 
-const cards = ASSOCIATIONS;
+// What a visitor can meet: cards whose own image exists (the wizard is never given the rest).
+const cards = ASSOCIATIONS.filter(hasOwnImage);
 const ids = (list: { id: string }[]) => list.map((c) => c.id);
 const familyOf = (c: { id: string; family?: string }) => c.family ?? c.id;
 

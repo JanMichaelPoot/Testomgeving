@@ -4135,3 +4135,32 @@ Stripe, Claude API, Resend, PostHog).
       beslis dat in Fase 4 met de data erbij. **Structurele leegtes per richting** (sectie 2 van het rapport): Techniek heeft 0 sierlijke activiteiten,
       Avontuur 0 sierlijk en 0 warm, Mikken 0 sierlijk en 0 rust, Ontspanning 0 technisch; een pagina 2 die uit die richtingen trekt kan een register niet
       vullen, dus de samensteller moet over richtingen heen kiezen. Gates: `tsc --noEmit`, eslint, `taxonomy-check` (0/0), volledige `npm test`.
+
+- [x] Stap 114 - Twee beeldpagina's, Fase 2 (Jan: "Commit en push, ga door met Fase 2"; Stap 113 is daarop gecommit en gepusht naar `kennis`, `e1b5625`). Alleen data en
+      tekst: €0, niets zichtbaar voor bezoekers, niet gecommit. **Kern: alles wat nieuw is blijft onzichtbaar tot de foto's er zijn (Fase 3)**, zodat er geen kapotte
+      kaart kan verschijnen en de motor zich vooralsnog precies hetzelfde gedraagt (de baseline-test op de 20 vaste profielen en de regressiereeksen slagen
+      ongewijzigd). Daarvoor: optioneel veld `image_pending: true` op een activiteit of een domein (`types.ts`); `getActivities()` laat zulke activiteiten weg en
+      `DOMAINS` laat zo'n domein weg (`ALL_DOMAINS` blijft voor validatie en het fotoscript), `getActivity(id)` vindt ze nog. Nieuwe associatiekaarten waren al
+      verborgen tot hun eigen beeld bestaat (`hasOwnImage`); de synthetische bezoekers van de evaluatie en de sampler-test trekken nu ook alleen uit zichtbare kaarten
+      (dat was een stille aanname). Nieuwe controles: `taxonomy-check` meldt wat op een foto wacht, waarschuwt voor een vlag die nog staat terwijl de foto er is, en
+      `--images` faalt zolang er iets wacht; een test eist dat elke zichtbare activiteit een foto heeft. **Inhoud**: (1) nieuw domein `style` "Mode, stijl & schoonheid"
+      (accent champagnegoud #C9A44A, vier subgroepen) met 21 activiteiten: tas ontwerpen, leren portemonnee, zijde schilderen, blokdruk, sneakers customizen,
+      haaraccessoires, kleuranalyse en stijladvies, make-upworkshop, kapsel en vlechten, nagelstyling, natuurlijke cosmetica, gezichtsbehandeling, parfumerie bezoeken,
+      droogbloemen, bloemenmarkt, modeshow, modemuseum, personal shopping, capsulegarderobe, fotoshoot en stijl-moodboard; (2) zeven dansvormen in een nieuwe
+      subgroep `movement/dance`: ballet voor volwassen beginners, flamenco, buikdans, Bollywood, K-pop, zumba, stijldansen en ballroom (ik zette ze in Beweging in
+      plaats van in het nieuwe domein: dans is beweging, en zo blijft het nieuwe domein over stijl gaan); (3) nieuwe tag `style` ("Stijl"; op alle nieuwe stijlitems, op geen
+      bestaand item, omdat dat de graaf van de motor zou veranderen: bestaande modeactiviteiten als kostuumontwerp, hoeden en vintagekleding krijgen de tag in een
+      latere stap), met teksten in de profielzin (motief, tagregel, aanzet) in nl en en; (4) tien gecureerde combinaties (`hybrids.json`, nu 70); (5) 30 nieuwe
+      associatiefamilies van drie varianten = 90 kaarten (10 plek, 10 moment, 10 zintuig; register: 17 sierlijk, 9 warm, 2 rust, 2 technisch), gericht op de
+      thema's uit het rapport: kleedkamer met lampjes, balzaal, etalage, bloemenwinkel, juwelier, danszaal, theesalon, garderobe, pioenentuin, badhuis; de eerste dans,
+      het pasmoment, de spiegel voor het uitgaan, boeket plukken, cadeau uitpakken, het sieraad dat klikt, thee inschenken, een vlecht, de eerste sneeuw, tandwielen;
+      parfum, een lange jurk, poeder en kwast, balletschoenen, pioenen, glinsterende facetten, een strijkje, leer van een tas, lavendel, een tikkend uurwerk. Geen
+      mensen of handen in de beeldomschrijvingen (de validator bewaakt dat); (6) de roulette-variant (`moment-all-in-c`, "Het wiel draait") heeft een nieuwe scène
+      zonder kansspel (een watermolenrad); het oude beeld blijft staan tot Fase 3 (`--force --only moment-all-in-c`). Elke nieuwe activiteit en familie staat in
+      `register.json`. Alle nieuwe activiteiten zijn niveau 0 en tier 0 (geen toezicht, dus geen nieuwe juridische veiligheidsnotities). **Meting** (rapport,
+      `docs/register-rapport.md`): activiteiten 524 (sierlijk 120 / warm 121 / technisch 166 / rust 117), families 102 (sierlijk 34 / warm 24 / technisch 22 / rust 22),
+      kaarten 306; elk thema uit het plan heeft nu minstens één familie. **Eerlijk**: de pool wordt hiermee sierlijk-lastiger (33% van de families), dus de samensteller
+      van Fase 4 moet echt per register trekken en niet op volgorde; en de tag `style` verbindt de nieuwe items onderling maar nog niet met de bestaande mode-activiteiten.
+      **Kosten Fase 3** (dry-run, geen aanroep): 90 kaartbeelden = 10 vellen 3x3 = $1,34; 28 activiteitsfoto's + 1 domeinfoto = 5 aanvragen = $0,67; plus 1 beeld voor
+      de watermolen = $0,13; samen ≈ $2,14, binnen het goedgekeurde plafond van $2,5. Niet in dit bedrag: een nieuwe hero-poel. Gates: `tsc --noEmit`, eslint,
+      `taxonomy-check` (0 fouten, 0 waarschuwingen), volledige `npm test` (782 tests).

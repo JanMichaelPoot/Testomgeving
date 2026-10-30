@@ -1,5 +1,5 @@
 import associationsJson from "@/lib/discovery/associations.json";
-import { ALL_ACTIVITIES, TAGS, getActivities, getActivity } from "@/lib/discovery/library";
+import { TAGS, getActivities, getActivity } from "@/lib/discovery/library";
 import { inSeason } from "@/lib/discovery/season";
 import { DISCOVERY_MIN_STATUS } from "@/lib/discovery/cardLibrary";
 import { passesConstraints, resolveConstraints } from "@/lib/discovery/engine/constraints";
@@ -232,14 +232,17 @@ export function parseAssociationSources(raw: unknown): AssociationSources | null
 const RARITY_LIFT = 0.3;
 const JITTER = 0.5;
 
+// What a visitor can meet: not the activities whose photo is still to be made.
+const SHOWN_ACTIVITIES = getActivities();
+
 // 0.4..1.6: how specific a tag is, from how many activities carry it (the library as a whole, not this pool).
 const TAG_USES = (() => {
   const uses = new Map<string, number>();
-  for (const a of ALL_ACTIVITIES) for (const t of a.tags) uses.set(t, (uses.get(t) ?? 0) + 1);
+  for (const a of SHOWN_ACTIVITIES) for (const t of a.tags) uses.set(t, (uses.get(t) ?? 0) + 1);
   return uses;
 })();
 function tagIdf(tag: string): number {
-  const share = (TAG_USES.get(tag) ?? 1) / Math.max(1, ALL_ACTIVITIES.length);
+  const share = (TAG_USES.get(tag) ?? 1) / Math.max(1, SHOWN_ACTIVITIES.length);
   return Math.min(1.6, Math.max(0.4, 1 + Math.log(0.15 / Math.max(0.005, share)) * 0.35));
 }
 
@@ -291,7 +294,7 @@ export function associationsToEngineInput(input: {
   // Variety (Stap 88): a tag that half the library carries (outdoors, nature, making) says little about one
   // activity, so it counts by how rare it is; and activities built from rare tag mixes get a lift, so the
   // same few hubs do not lead every book.
-  const graph = buildGraph(ALL_ACTIVITIES, TAGS);
+  const graph = buildGraph(SHOWN_ACTIVITIES, TAGS);
   const raw = pool.map((a) => {
     const tagScore =
       a.tags.reduce((s, t) => s + (profile[t] ?? 0) * (GENERIC.has(t) ? 0.5 : 1) * tagIdf(t), 0) / Math.sqrt(Math.max(1, a.tags.length));

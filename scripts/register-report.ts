@@ -7,8 +7,8 @@
 // Deterministic: the same library gives the same file. No API calls, no cost.
 import { writeFileSync } from "node:fs";
 import path from "node:path";
-import { ALL_ACTIVITIES, DOMAINS } from "../src/lib/discovery/library";
-import { ASSOCIATIONS } from "../src/lib/discovery/associations";
+import { ALL_ACTIVITIES, ALL_DOMAINS, isImagePending } from "../src/lib/discovery/library";
+import { ASSOCIATIONS, hasOwnImage } from "../src/lib/discovery/associations";
 import {
   REGISTERS,
   familyOf,
@@ -43,17 +43,17 @@ const cardCounts = countRegisters(ASSOCIATIONS.map((c) => registerOfCard(c)));
 
 // --- themes the plan names; matched by hand for the cards, by label for the activities --------------------------
 const THEMES: { id: string; label: string; activity: RegExp; families: string[] }[] = [
-  { id: "dance", label: "Dans", activity: /\bdans|ballet|flamenco|salsa|swing|ballroom|paaldans|rolschaatsdisco/i, families: ["moment-rhythm"] },
-  { id: "stage", label: "Opera, theater, podium", activity: /opera|musical|theater|toneel|cabaret|variét|podium|circus/i, families: ["place-stage-lit", "moment-applause", "moment-curtain-rise", "sense-spotlight"] },
+  { id: "dance", label: "Dans", activity: /\bdans|ballet|flamenco|salsa|swing|ballroom|paaldans|rolschaatsdisco/i, families: ["moment-rhythm", "place-dance-studio", "moment-first-dance", "place-ballroom", "sense-ballet-shoes"] },
+  { id: "stage", label: "Opera, theater, podium", activity: /opera|musical|theater|toneel|cabaret|variét|podium|circus/i, families: ["place-stage-lit", "moment-applause", "moment-curtain-rise", "sense-spotlight", "place-dressing-room", "sense-strings"] },
   { id: "dolls", label: "Poppen, miniaturen, speeldozen", activity: /\bpop(pen|penhuis|pentheater)?\b|miniatuur|miniaturen|speeldoz|diorama/i, families: ["place-miniature-world", "sense-music-box", "sense-fine-brush"] },
-  { id: "jewelry", label: "Sieraden en edelstenen", activity: /sieraad|sieraden|juweel|edelsteen|kralen|goud|zilver|mineralen|emailleren/i, families: ["moment-gem-sparkle"] },
-  { id: "bags", label: "Tassen en leer", activity: /\btas(sen)?\b|handtas|portemonnee|lederwerk/i, families: [] },
-  { id: "makeup", label: "Make-up, kapsel, nagels", activity: /make-up|schmink|nagel|kapsel|beauty/i, families: [] },
-  { id: "fashion", label: "Mode, kleding, stoffen", activity: /\bmode|kleding|naaien|kostuum|hoeden|schoenen|patroon|vintage|quilt|stoffen|breien|haken/i, families: ["place-fabric-atelier", "sense-silk-velvet", "moment-first-stitch"] },
-  { id: "flowers", label: "Bloemen en boeketten", activity: /bloem|pluktuin|boeket|open tuinen/i, families: [] },
-  { id: "perfume", label: "Parfum en geur", activity: /parfum|geur|zeep maken/i, families: [] },
-  { id: "salon", label: "Thee, salon, antiek", activity: /\bthee|high tea|salon|antiek|brocante/i, families: ["place-antique-parlour", "place-flea-market"] },
-  { id: "wellness", label: "Spa en wellness", activity: /\bspa|wellness|massage|hammam|sauna|thermen/i, families: ["place-steam-room", "sense-warm-steam"] },
+  { id: "jewelry", label: "Sieraden en edelstenen", activity: /sieraad|sieraden|juweel|edelsteen|kralen|goud|zilver|mineralen|emailleren/i, families: ["moment-gem-sparkle", "place-jeweller", "moment-clasp", "sense-facets"] },
+  { id: "bags", label: "Tassen en leer", activity: /\btas(sen)?\b|handtas|portemonnee|lederwerk/i, families: ["place-shop-window", "sense-leather-bag"] },
+  { id: "makeup", label: "Make-up, kapsel, nagels", activity: /make-up|schmink|nagel|kapsel|beauty/i, families: ["sense-powder-brush", "moment-braid"] },
+  { id: "fashion", label: "Mode, kleding, stoffen", activity: /\bmode|kleding|naaien|kostuum|hoeden|schoenen|patroon|vintage|quilt|stoffen|breien|haken/i, families: ["place-fabric-atelier", "sense-silk-velvet", "moment-first-stitch", "moment-fitting", "place-wardrobe", "sense-long-dress", "moment-mirror-evening"] },
+  { id: "flowers", label: "Bloemen en boeketten", activity: /bloem|pluktuin|boeket|open tuinen/i, families: ["place-flower-shop", "moment-pick-bouquet", "place-peony-garden", "sense-peonies"] },
+  { id: "perfume", label: "Parfum en geur", activity: /parfum|geur|zeep maken/i, families: ["sense-perfume"] },
+  { id: "salon", label: "Thee, salon, antiek", activity: /\bthee|high tea|salon|antiek|brocante/i, families: ["place-antique-parlour", "place-flea-market", "place-tea-salon", "moment-tea-pour"] },
+  { id: "wellness", label: "Spa en wellness", activity: /\bspa|wellness|massage|hammam|sauna|thermen/i, families: ["place-steam-room", "sense-warm-steam", "place-bathhouse", "sense-lavender"] },
 ];
 
 // --- how well the tags alone predict the hand-made register ------------------------------------------------------
@@ -83,11 +83,15 @@ out(header(["Register", "Activiteiten", "Aandeel", "Families (72)", "Aandeel", "
 for (const r of REGISTERS) out(row([label(r), actCounts[r], pct(actCounts[r], live.length), famCounts[r], pct(famCounts[r], families.size), cardCounts[r]]));
 out(row(["**Totaal**", live.length, "100%", families.size, "100%", ASSOCIATIONS.length]));
 out();
+const hiddenActs = live.filter((a) => isImagePending(a)).length;
+const hiddenCards = ASSOCIATIONS.filter((c) => !hasOwnImage(c)).length;
+out(`Hiervan wachten **${hiddenActs} activiteiten** (${live.length - hiddenActs} zichtbaar) en **${hiddenCards} kaarten** (${ASSOCIATIONS.length - hiddenCards} zichtbaar) nog op hun foto en zijn dus nog niet te zien voor bezoekers; het register telt ze wel mee.`);
+out();
 
 out("## 2. Activiteiten per richting");
 out();
 out(header(["Richting", "Totaal", ...REGISTERS.map(label)]));
-for (const d of DOMAINS) {
+for (const d of ALL_DOMAINS) {
   const items = live.filter((a) => a.domain === d.id);
   const c = countRegisters(items.map((a) => registerOfActivity(a)));
   out(row([d.label.nl, items.length, ...REGISTERS.map((r) => (c[r] ? `${c[r]} (${pct(c[r], items.length)})` : "0"))]));

@@ -36,7 +36,7 @@ import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 import { generateIllustration } from "../src/lib/gemini";
-import { ALL_ACTIVITIES, DOMAINS } from "../src/lib/discovery/library";
+import { ALL_ACTIVITIES, ALL_DOMAINS as DOMAINS } from "../src/lib/discovery/library";
 import { sliceSheet } from "../src/lib/discovery/sheetSlicer";
 import { ASSOCIATIONS } from "../src/lib/discovery/associations";
 import { HERO_POOL } from "../src/lib/heroPool";

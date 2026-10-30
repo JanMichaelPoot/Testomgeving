@@ -251,6 +251,21 @@
       "color": "#C21FBF",
       "colorName": "electric magenta",
       "scene": "a card table with poker chips, a cocktail glass and a mirror ball light on a dark bar top"
+    },
+    {
+      "id": "style",
+      "label": {
+        "nl": "Mode, stijl & schoonheid",
+        "en": "Fashion, style & beauty"
+      },
+      "short": {
+        "nl": "Stijl & schoonheid",
+        "en": "Style & beauty"
+      },
+      "color": "#C9A44A",
+      "colorName": "champagne gold",
+      "scene": "a still life of a silk scarf, a small leather handbag, a cut-glass perfume bottle and a make-up brush with blush powder on a pale marble surface",
+      "image_pending": true
     }
   ],
   "subs": [
@@ -709,6 +724,46 @@
         "nl": "Muziek & nachtleven",
         "en": "Music & nightlife"
       }
+    },
+    {
+      "id": "making_wear",
+      "domain": "style",
+      "label": {
+        "nl": "Mode & accessoires maken",
+        "en": "Making fashion & accessories"
+      }
+    },
+    {
+      "id": "look_care",
+      "domain": "style",
+      "label": {
+        "nl": "Uiterlijk & verzorging",
+        "en": "Look & care"
+      }
+    },
+    {
+      "id": "scene_style",
+      "domain": "style",
+      "label": {
+        "nl": "Stijl beleven",
+        "en": "Experiencing style"
+      }
+    },
+    {
+      "id": "flowers_scent",
+      "domain": "style",
+      "label": {
+        "nl": "Bloemen & geur",
+        "en": "Flowers & scent"
+      }
+    },
+    {
+      "id": "dance",
+      "domain": "movement",
+      "label": {
+        "nl": "Dans",
+        "en": "Dance"
+      }
     }
   ],
   "tags": [
@@ -1045,6 +1100,14 @@
       "label": {
         "nl": "Kans",
         "en": "Chance"
+      },
+      "generic": false
+    },
+    {
+      "id": "style",
+      "label": {
+        "nl": "Stijl",
+        "en": "Style"
       },
       "generic": false
     }

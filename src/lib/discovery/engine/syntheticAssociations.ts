@@ -1,7 +1,7 @@
 import { hashSeed, mulberry32, shuffled } from "@/lib/discovery/rng";
 import { SOCIAL_FORMATS } from "@/lib/discovery/types";
 import { DOMAINS } from "@/lib/discovery/library";
-import { ASSOCIATIONS, associationsToEngineInput } from "@/lib/discovery/associations";
+import { ASSOCIATIONS, associationsToEngineInput, hasOwnImage } from "@/lib/discovery/associations";
 import type { SyntheticProfile } from "@/lib/discovery/engine/synthetic";
 import { AXIS_IDS, type AxesOverride } from "@/lib/discovery/associationProfile";
 
@@ -38,7 +38,7 @@ export function syntheticAssociationProfiles(
       if (round === "senses" && rnd() < 0.35) continue;
       // One variant per family, like a visitor sees them (never the same feeling twice).
       const byFamily = new Map<string, (typeof ASSOCIATIONS)[number]>();
-      for (const c of shuffled(ASSOCIATIONS.filter((x) => x.round === round), rnd)) if (!byFamily.has(c.family ?? c.id)) byFamily.set(c.family ?? c.id, c);
+      for (const c of shuffled(ASSOCIATIONS.filter((x) => x.round === round && hasOwnImage(x)), rnd)) if (!byFamily.has(c.family ?? c.id)) byFamily.set(c.family ?? c.id, c);
       const cards = shuffled([...byFamily.values()], rnd);
       chosen.push(...cards.slice(0, 1 + Math.floor(rnd() * 4)).map((c) => c.id));
     }

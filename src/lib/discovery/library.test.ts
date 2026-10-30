@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { readdirSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 import {
   ALL_ACTIVITIES,
+  ALL_DOMAINS,
   DOMAINS,
   HYBRIDS,
   TAGS,
@@ -11,6 +12,7 @@ import {
   filterByStatus,
   getActivities,
   getActivity,
+  isImagePending,
 } from "@/lib/discovery/library";
 import { validateLibrary } from "@/lib/discovery/validate";
 import type { Activity } from "@/lib/discovery/types";
@@ -76,7 +78,26 @@ describe("discovery library", () => {
 
   it("filters by review status", () => {
     expect(getActivities({ minStatus: "live" })).toEqual([]); // nothing reviewed yet
-    expect(getActivities().length).toBe(ALL_ACTIVITIES.length);
+    expect(getActivities().length).toBe(ALL_ACTIVITIES.filter((a) => !isImagePending(a)).length);
+  });
+
+  it("leaves out an activity whose photo is pending, and a whole domain whose photo is pending, but still resolves their ids", () => {
+    const pending = ALL_ACTIVITIES.filter((a) => isImagePending(a));
+    expect(pending.length).toBeGreaterThan(0); // Phase 2 of the two-image-pages plan: written, waiting for photos
+    for (const a of pending) {
+      expect(getActivities().some((x) => x.id === a.id), a.id).toBe(false);
+      expect(getActivity(a.id)).toBe(a);
+    }
+    for (const d of ALL_DOMAINS.filter((x) => x.image_pending)) {
+      expect(DOMAINS.some((x) => x.id === d.id), d.id).toBe(false);
+      expect(ALL_ACTIVITIES.filter((a) => a.domain === d.id).every((a) => isImagePending(a)), d.id).toBe(true);
+    }
+  });
+
+  it("has a photo for every activity that is shown, and no leftover pending flag once the photo exists", () => {
+    const dir = path.join(process.cwd(), "public", "illustrations", "discovery");
+    for (const a of getActivities()) expect(existsSync(path.join(dir, `${a.id}.jpg`)), `photo of ${a.id}`).toBe(true);
+    for (const a of ALL_ACTIVITIES.filter((x) => x.image_pending)) expect(existsSync(path.join(dir, `${a.id}.jpg`)), `${a.id} has a photo: remove image_pending`).toBe(false);
   });
 
   it("derives a stable image path from the id", () => {
