@@ -84,10 +84,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
   return (
     <div className="flex min-h-full flex-col bg-cream">
       <SiteHeader locale={locale} dict={dict.header} />
-      <TestModeBanner
-        dict={dict.checkout}
-        notice={testFeedbackEnabled(process.env.NEXT_PUBLIC_TEST_FEEDBACK) ? dict.venster.testBanner : undefined}
-      />
+      <TestModeBanner notice={testFeedbackEnabled(process.env.NEXT_PUBLIC_TEST_FEEDBACK) ? dict.venster.testBanner : undefined} />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-12 sm:px-10">
         <Link
           href="/intake?edit=1"

@@ -4182,3 +4182,21 @@ Stripe, Claude API, Resend, PostHog).
       versoepeling van een bewaker, geen verbetering; (3) twee tests gingen uit van precies 24 families per ronde en trokken nog uit alle kaarten: nu 34 en alleen zichtbare
       kaarten. **Nog niet gedaan uit het plan**: een nieuwe hero-poel, de tag `style` op bestaande modeactiviteiten, en alles van Fase 4 (de twee pagina's zelf).
       Gates: `tsc --noEmit`, eslint, `taxonomy-check --images`, volledige `npm test` (782 tests).
+
+- [x] Stap 116 - Vier wijzigingen op verzoek van Jan, plus de technische opzet voor Fase 4 (Stap 115 is daarop gecommit en gepusht, `6771578`). Gecommit en gepusht op Jans verzoek.
+      **(1) Bedrijfsgegevens van VantageLabs** op de juiste plekken, uit één bron (`src/lib/company.ts`, `COMPANY`/`COMPANY_LINE` nl en en): in de voet van elke
+      pagina (onder het copyright, ook op de landingspagina), in de privacyverklaring onder "Bedrijfsgegevens" (de footerlink wijst daarheen) en in de voet van de
+      bestelbevestigingsmail; de placeholders `[Bedrijfsnaam] · [KvK-nummer] · …` zijn weg. Er staat: VantageLabs (eenmanszaak) · KvK 42198388 · vestigingsnummer
+      000067049303 · Breeweg 9, 1251 DX Laren. **Er is geen btw-nummer meegeleverd en dat staat er dus niet**; een eenmanszaak met btw-plicht moet het op facturen en
+      meestal op de site tonen, voeg het toe in `company.ts` zodra je het hebt. Het copyrightregeltje zegt nu "WindowInto" in plaats van "WINDOW". **(2) "Betaling overslaan
+      (test)" verwijderd**: de knop, de server-actie `skipPaymentForTesting` en de bijbehorende teksten zijn weg; `TestModeBanner` toont alleen nog de testkaartmelding van de
+      testversie en niets zonder die vlag. **Daarbij het achterliggende gat dichtgezet**: `/plan?test_session_id=…` (een boek zonder betaling openen of laten maken) werkt
+      nu alleen als je ingelogd bent op `/admin`; voor iedereen anders geeft het "geen betaling gevonden". Dat was de feitelijke omweg (Stap 67 meldde die al); zonder dit
+      was het verwijderen van de knop cosmetisch geweest. Gevolg: testers moeten met de Stripe-testkaart betalen. **(3) Prijs naar €7,50** per product: standaard van 350 naar
+      750 cent (`DEFAULT_PRICE_CENTS`); tekst, Stripe en de bestelrij lezen dezelfde waarde. **Let op in Vercel**: staat daar `NEXT_PUBLIC_WINDOW_PRICE_CENTS` nog op 600 (of een
+      andere waarde), dan wint die; verwijder de variabele (of zet 750) en deploy opnieuw, want `NEXT_PUBLIC_*` wordt bij de build vastgelegd. Lokaal gezien: faq "€7.50". Het
+      herroepingsrecht, de bevestigingsmail en de PDF lezen het bedrag van de bestelling zelf, dus oude bestellingen houden hun eigen prijs. **(4) Opzet Fase 4** in
+      `docs/fase4-opzet.md`: aparte variant `images2` achter een percentage (standaard 0), pure samplers `sampleBalancedBatch` en `composeConcretePage` met tests, vloer van 2
+      van 18 per register plus een derde buiten het meest gekozen register (i.p.v. 20%, zie Stap 113), expliciete keuzes van pagina 2 als `interests`, in vier deelstappen; Jan zei "ga door met Fase 4"; ik lees dat als akkoord met mijn aanbevelingen bij de drie vragen
+      (volgorde uit het plan houden, vloer van 2 per register, standaardpercentage 0). Nieuwe tests: `company.test.ts` (geen placeholder meer, geen skip-actie, test-adres alleen
+      voor admin). Gates: `tsc --noEmit`, eslint, volledige `npm test` (785 tests; één PDF-test haalde in een run onder belasting zijn 5 s-limiet en slaagt los).

@@ -53,6 +53,6 @@ export function envChecks(env: Env): EnvCheck[] {
   add("TEST_QUOTA_EXEMPT_IPS", true, exempt ? `${exempt} adres(sen) zonder testlimiet` : "niet ingesteld: alleen ingelogd als admin ben je onbeperkt", false);
   add("Kennisengine: ranking (B4)", true, knowledgeRankingV2Enabled(env.KNOWLEDGE_RANKING_V2, env.KNOWLEDGE_ENGINE_V2) ? "aan (KNOWLEDGE_RANKING_V2 of het oude KNOWLEDGE_ENGINE_V2)" : "uit", false);
   add("Kennisengine: schrijven (B5)", true, knowledgeWritingV2Enabled(env.KNOWLEDGE_WRITING_V2, env.KNOWLEDGE_ENGINE_V2) ? "aan (KNOWLEDGE_WRITING_V2 of het oude KNOWLEDGE_ENGINE_V2)" : "uit", false);
-  add("NEXT_PUBLIC_WINDOW_PRICE_CENTS", true, has(env.NEXT_PUBLIC_WINDOW_PRICE_CENTS) ? `${env.NEXT_PUBLIC_WINDOW_PRICE_CENTS} cent` : "standaard (350 cent)", false);
+  add("NEXT_PUBLIC_WINDOW_PRICE_CENTS", true, has(env.NEXT_PUBLIC_WINDOW_PRICE_CENTS) ? `${env.NEXT_PUBLIC_WINDOW_PRICE_CENTS} cent` : "standaard (750 cent)", false);
   return checks;
 }

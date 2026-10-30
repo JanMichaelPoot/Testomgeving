@@ -79,7 +79,7 @@ export default async function AdminFeedbackPage() {
               &quot;tweespalt&quot;) is iets anders dan een rij 3&apos;s.
             </li>
             <li>
-              <strong>&quot;Zou je betalen?&quot;</strong> is een uitspraak, geen koop. Een &quot;ja&quot; wordt in het echt vaak maar de helft. Een prijs rond €3,50 is pas gezond als ruim de helft ja zegt en weinig mensen nee. De
+              <strong>&quot;Zou je betalen?&quot;</strong> is een uitspraak, geen koop. Een &quot;ja&quot; wordt in het echt vaak maar de helft. Een prijs rond €7,50 is pas gezond als ruim de helft ja zegt en weinig mensen nee. De
               score hieronder telt &quot;misschien&quot; voor een halve ja.
             </li>
             <li>

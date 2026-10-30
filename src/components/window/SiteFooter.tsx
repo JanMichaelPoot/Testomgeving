@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { formatPrice } from "@/lib/pricing";
+import { COMPANY_LINE } from "@/lib/company";
 
 export function SiteFooter({
   locale,
@@ -88,7 +89,11 @@ export function SiteFooter({
         </div>
       </div>
       <div className="mx-auto w-full max-w-6xl border-t border-white/10 px-6 py-6 text-xs sm:px-10">
-        &copy; {new Date().getFullYear()} WINDOW. Alle rechten voorbehouden.
+        <p>
+          &copy; {new Date().getFullYear()} WindowInto
+          {locale === "nl" ? ". Alle rechten voorbehouden." : ". All rights reserved."}
+        </p>
+        <p className="mt-2 text-white/50">{COMPANY_LINE[locale]}</p>
       </div>
     </footer>
   );

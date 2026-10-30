@@ -27,6 +27,7 @@ import { buildWindowItems, windowImageHref } from "@/lib/vensterPanes";
 import { WindowDownload } from "@/components/window/WindowDownload";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
+import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
 import { elapsedSinceNow } from "@/lib/progressStage";
 import { parseAssociationSources } from "@/lib/discovery/associations";
@@ -141,8 +142,10 @@ export default async function PlanPage(props: PageProps<"/plan">) {
     typeof searchParams.checkout_session_id === "string"
       ? searchParams.checkout_session_id
       : null;
+  // Opening a book by session id, without a payment, is for the owner only (logged in on /admin). There is no
+  // longer a skip-payment button, and this address must not be a free book for anyone who finds it.
   const testSessionId =
-    typeof searchParams.test_session_id === "string"
+    typeof searchParams.test_session_id === "string" && (await isAdminAuthenticated())
       ? searchParams.test_session_id
       : null;
 

@@ -11,7 +11,7 @@ import { recordTermsAcceptance, recordDigitalDeliveryConsent } from "@/lib/conse
 import { LEGAL_VERSIONS } from "@/lib/legal/versions";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { disableDeviceMemory, enableDeviceMemory, getDeviceId } from "@/lib/discovery/historyStore";
+import { disableDeviceMemory, enableDeviceMemory } from "@/lib/discovery/historyStore";
 import { checkTestQuota } from "@/lib/testQuota";
 
 // Model C digital sale compliance: two separate, independently required
@@ -166,24 +166,4 @@ export async function createCheckoutSession(
   else if (rememberDevice === false) await disableDeviceMemory(supabase);
 
   redirect(checkoutSession.url);
-}
-
-// Skips Stripe entirely so the Idea Book is generated immediately, without
-// a real payment. Test-mode only (see TestModeBanner.tsx) — deliberately
-// does not write an order/consent trail, since no real purchase happens.
-export async function skipPaymentForTesting() {
-  const sessionId = await getSessionId();
-  if (!sessionId) {
-    throw new Error("No active session.");
-  }
-
-  if (!(await checkTestQuota(createServiceRoleClient(), sessionId)).allowed) {
-    redirect(`/plan?test_session_id=${encodeURIComponent(sessionId)}`);
-  }
-
-  // A device that already opted in keeps its memory in test mode too, the same as the
-  // real checkout's switch, which starts on for such a device.
-  if (await getDeviceId()) await enableDeviceMemory(createServiceRoleClient(), sessionId);
-
-  redirect(`/plan?test_session_id=${encodeURIComponent(sessionId)}`);
 }

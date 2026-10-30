@@ -711,7 +711,7 @@ export function AssociationWizard({
             onToggleCorrection={toggleCorrection}
             payment={
               <section id="bestellen" aria-labelledby="order-title" className="scroll-mt-24 overflow-hidden rounded-lg border border-border bg-paper">
-                <TestModeBanner dict={payment.dict} notice={payment.testNotice} beforeSkip={saveForPayment} />
+                <TestModeBanner notice={payment.testNotice} />
                 <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr]">
                   <div>
                     <h2 id="order-title" className="font-serif text-2xl leading-tight text-ink sm:text-3xl">

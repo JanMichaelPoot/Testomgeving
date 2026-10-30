@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/locale";
+import { COMPANY_LINE } from "@/lib/company";
 import { vensterEn, vensterNl, type VensterDictionary } from "@/lib/i18n/venster";
 
 export interface Option {
@@ -135,11 +136,6 @@ export interface Dictionary {
     errorTermsRequired: string;
     errorConsentRequired: string;
     errorPaymentFailed: string;
-    testModeLabel: string;
-    testModeHelper: string;
-    testModeCta: string;
-    testModePending: string;
-    errorTest: string;
   };
   plan: {
     pageTitle: string;
@@ -580,7 +576,7 @@ const nl: Dictionary = {
       {
         id: "bedrijfsgegevens",
         heading: "Bedrijfsgegevens",
-        body: "[Bedrijfsnaam] · [KvK-nummer] · [Vestigingsadres] · [Btw-nummer]",
+        body: COMPANY_LINE.nl,
       },
     ],
     termsTitle: "Algemene Voorwaarden — WINDOW",
@@ -691,11 +687,6 @@ const nl: Dictionary = {
     errorConsentRequired:
       "Vink aan dat je instemt met directe levering van het digitale product voordat je verdergaat.",
     errorPaymentFailed: "Je betaling kon niet worden verwerkt. Je PDF is nog niet geleverd.",
-    testModeLabel: "Alleen testmodus",
-    testModeHelper: "Sla de betaling over en genereer het Idea Book direct, voor testdoeleinden.",
-    testModeCta: "Betaling overslaan (test)",
-    testModePending: "Bezig met genereren…",
-    errorTest: "Er ging iets mis bij het overslaan van de betaling. Probeer het opnieuw.",
   },
   plan: {
     pageTitle: "Jouw Idea Book — WINDOW",
@@ -857,7 +848,7 @@ const nl: Dictionary = {
     termsVersionLabel: "Algemene voorwaarden (versie {termsVersion})",
     termsLinkText: "Bekijk de Algemene voorwaarden",
     legalInfoLinkText: "Juridische informatie",
-    companyInfo: "[Bedrijfsnaam] · [KvK-nummer] · [Vestigingsadres] · [Btw-nummer]",
+    companyInfo: COMPANY_LINE.nl,
     reminder: {
       subject: "Heb je je eerste stap al gezet?",
       heading: "Nog even dit",
@@ -1313,7 +1304,7 @@ const en: Dictionary = {
       {
         id: "bedrijfsgegevens",
         heading: "Company details",
-        body: "[Company name] · [Chamber of Commerce number] · [Registered address] · [VAT number]",
+        body: COMPANY_LINE.en,
       },
     ],
     termsTitle: "Terms of Service — WINDOW",
@@ -1424,11 +1415,6 @@ const en: Dictionary = {
     errorConsentRequired:
       "Check the box confirming immediate delivery of the digital product before continuing.",
     errorPaymentFailed: "Your payment could not be processed. Your PDF has not been delivered.",
-    testModeLabel: "Test mode only",
-    testModeHelper: "Skip payment and generate the Idea Book directly, for testing.",
-    testModeCta: "Skip payment (test)",
-    testModePending: "Generating…",
-    errorTest: "Something went wrong skipping payment. Please try again.",
   },
   plan: {
     pageTitle: "Your Idea Book — WINDOW",
@@ -1590,7 +1576,7 @@ const en: Dictionary = {
     termsVersionLabel: "Terms of Service (version {termsVersion})",
     termsLinkText: "View the Terms of Service",
     legalInfoLinkText: "Legal information",
-    companyInfo: "[Company name] · [Chamber of Commerce number] · [Registered address] · [VAT number]",
+    companyInfo: COMPANY_LINE.en,
     reminder: {
       subject: "Have you taken your first step yet?",
       heading: "Just a nudge",

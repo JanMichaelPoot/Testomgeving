@@ -3,11 +3,11 @@ import { formatPrice, formatAmount, priceCentsFrom, WINDOW_PLAN_PRICE } from "./
 
 describe("formatPrice", () => {
   it("uses a comma decimal separator for nl", () => {
-    expect(formatPrice("nl")).toBe("€3,50");
+    expect(formatPrice("nl")).toBe("€7,50");
   });
 
   it("uses a dot decimal separator for en", () => {
-    expect(formatPrice("en")).toBe("€3.50");
+    expect(formatPrice("en")).toBe("€7.50");
   });
 });
 
@@ -44,6 +44,6 @@ describe("priceCentsFrom", () => {
   });
 
   it("falls back to the default for anything odd", () => {
-    for (const raw of [undefined, "", "6", "6.00", "0", "-600", "99999", "abc"]) expect(priceCentsFrom(raw)).toBe(350);
+    for (const raw of [undefined, "", "6", "6.00", "0", "-600", "99999", "abc"]) expect(priceCentsFrom(raw)).toBe(750);
   });
 });

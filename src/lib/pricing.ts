@@ -1,11 +1,11 @@
 import type { Locale } from "@/lib/locale";
 
 // Single price point for the MVP. Kept in cents since that's what Stripe expects.
-// The default stays €3,50; a deployment can set NEXT_PUBLIC_WINDOW_PRICE_CENTS (e.g. 600
-// on the "Het venster" test preview, Jan 4 Oct 2026). The same value feeds the page copy,
+// The default is €7,50 per product (Jan, 30 Oct 2026; it was €3,50). A deployment can set NEXT_PUBLIC_WINDOW_PRICE_CENTS
+// to override it (e.g. 600 on the "Het venster" test preview, Jan 4 Oct 2026); leave it unset for the default. The same value feeds the page copy,
 // the Stripe line item (checkout/actions.ts) and the order record, so they cannot differ.
 // NEXT_PUBLIC_ so the browser shows the same number (inlined at build time).
-export const DEFAULT_PRICE_CENTS = 350;
+export const DEFAULT_PRICE_CENTS = 750;
 
 export function priceCentsFrom(raw: string | undefined): number {
   const n = Number((raw ?? "").trim());
@@ -19,8 +19,8 @@ export const WINDOW_PLAN_PRICE = {
 } as const;
 
 // Formatted manually (not via Intl.NumberFormat) so the output is always
-// exactly "€3,50" / "€3.50" — Intl's nl-NL currency format inserts a space
-// after the symbol, which reads oddly in short inline copy like "vanaf €3,50".
+// exactly "€7,50" / "€7.50" — Intl's nl-NL currency format inserts a space
+// after the symbol, which reads oddly in short inline copy like "vanaf €7,50".
 export function formatPrice(locale: Locale): string {
   const amount = (WINDOW_PLAN_PRICE.amountCents / 100).toFixed(2);
   return `€${locale === "nl" ? amount.replace(".", ",") : amount}`;

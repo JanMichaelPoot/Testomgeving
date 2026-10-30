@@ -47,7 +47,7 @@ Anthropic-, Resend-, PostHog- en Supabase-sleutels: zelfde als Production (staan
   stilletjes terug op 350.
 
 **Controle**: zie je na de redeploy op de betaalpagina de testbalk en de prijs €6,00, dan staat de vlag aan
-en verschijnt onder het boek de vragenlijst. Zie je nog €3,50, dan heeft de build de variabele niet gekregen.
+en verschijnt onder het boek de vragenlijst. Zie je nog €7,50, dan heeft de build de variabele niet gekregen.
 
 ## 4. Stripe-webhook voor de preview (Stripe in **testmodus**)
 1. Stripe Dashboard → schakel *Test mode* aan → *Developers → Webhooks → Add endpoint*.
@@ -82,7 +82,8 @@ als testers opnieuw genereren. Stripe-testbetalingen kosten niets. Resend: binne
 Je zelf op je telefoon via de preview-link een volledige run hebt gedaan: testbetaling, echte
 plekken in je buurt, PDF in de mail. Pas daarna de link delen.
 
-## Let op: "Betaling overslaan"
-De bestaande knop *Betaling overslaan* in de testbalk werkt op elke omgeving, ook Production:
-iedereen die hem ziet krijgt een gratis boek (en het kost jou de API-kosten). Haal hem weg of zet
-hem achter een omgevingsvariabele voordat je echt live gaat; voor de preview is hij handig.
+## Betaling overslaan bestaat niet meer
+De knop *Betaling overslaan (test)* is op 30 oktober 2026 verwijderd, samen met de server-actie erachter.
+Ook het adres `/plan?test_session_id=…` werkt nu alleen voor jou als je bent ingelogd op `/admin`: voor
+iedereen anders geeft het "geen betaling gevonden". Testers betalen dus met de Stripe-testkaart
+(4242 4242 4242 4242); de testbalk op de betaalpagina zegt dat.
