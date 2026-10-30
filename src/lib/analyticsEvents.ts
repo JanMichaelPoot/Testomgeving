@@ -18,6 +18,7 @@ export interface AnalyticsEventSpec {
 export const ANALYTICS_EVENTS = {
   // --- landing
   landing_viewed: { when: "landing page shown", props: [] },
+  sample_opened: { when: "a page of the sample book opened in the lightbox on the homepage", props: ["index"] },
   landing_start_submitted: { when: "start form on the landing page sent", props: ["has_text"] },
 
   // --- intake (all three wizards; wizard_variant says which)

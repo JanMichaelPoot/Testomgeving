@@ -49,6 +49,7 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | Event | Wanneer | Eigenschappen |
 |---|---|---|
 | `landing_viewed` | landingspagina getoond | – |
+| `sample_opened` | een pagina van het voorbeeldboek geopend in de lightbox op de homepage | `index` |
 | `landing_start_submitted` | startformulier op de landing verstuurd | `has_text` (ja/nee, nooit de tekst) |
 | `intake_started` | een wizard geopend | `wizard_variant`, `editing`, `gift`, `restored` |
 | `images_done` | korte funnelnaam: pagina 1 (beelden) afgerond, samen met `images_page_completed` | `wizard_variant`, `selected`, `refreshes` |

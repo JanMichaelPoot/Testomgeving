@@ -13,6 +13,8 @@ export interface VensterDictionary {
     headline: string;
     headlineEmphasis: string; // the italic part, shown after headline
     subcopy: string;
+    /** The occasion line under the subcopy (who a gift suits). */
+    occasion: string;
     heroAlt: string;
     chapters: { title: string; body: string }[];
   };
@@ -293,10 +295,11 @@ export const vensterNl: VensterDictionary = {
     selfCta: "Open je venster",
     giftCta: "Geef een venster cadeau",
     badge: "Nieuw · {price} · geen account",
-    headline: "Ontdek wat er mogelijk is",
-    headlineEmphasis: "voor jou.",
+    headline: "Weet je niet goed wat je",
+    headlineEmphasis: "met je vrije tijd wilt?",
     subcopy:
-      "Kies een handvol beelden die je aantrekken. Wij maken er een Idea Book van, met echte plekken bij jou in de buurt.",
+      "Kies een paar beelden. Wij maken er een persoonlijk boek van, met echte plekken bij jou in de buurt.",
+    occasion: "Ook een mooi cadeau voor iemand die aan een nieuwe fase begint: pensioen, een verhuizing, kinderen die het huis uit gaan.",
     heroAlt: "Een open raam met zacht licht en een uitzicht naar buiten",
     chapters: [
       { title: "Jouw beelden", body: "Kies beelden en activiteiten die je aantrekken. Geen vragenlijst: klaar in ±3 minuten." },
@@ -858,9 +861,10 @@ export const vensterEn: VensterDictionary = {
     selfCta: "Open your window",
     giftCta: "Give a window as a gift",
     badge: "New · {price} · no account",
-    headline: "Discover what's possible",
-    headlineEmphasis: "for you.",
-    subcopy: "Pick a handful of images that pull you in. We turn them into an Idea Book, with real places near you.",
+    headline: "Not sure what to do",
+    headlineEmphasis: "with your free time?",
+    subcopy: "Pick a few images. We turn them into a personal book, with real places near you.",
+    occasion: "Also a lovely gift for someone starting a new phase: retirement, a move, children leaving home.",
     heroAlt: "An open window with soft light and a view outside",
     chapters: [
       { title: "Your images", body: "Pick images and activities that pull you in. No questionnaire: ready in about 3 minutes." },

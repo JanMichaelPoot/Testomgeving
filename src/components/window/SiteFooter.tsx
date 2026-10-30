@@ -45,7 +45,7 @@ export function SiteFooter({
               <Link href="/#hoe" className="transition-colors hover:text-white">
                 {dict.navHowItWorks}
               </Link>
-              <Link href="/#voorbeelden" className="transition-colors hover:text-white">
+              <Link href="/#voorbeeld" className="transition-colors hover:text-white">
                 {dict.navExamples}
               </Link>
               <Link href="/delen" className="transition-colors hover:text-white">

@@ -64,6 +64,11 @@
       "match": "email/**",
       "source": "Cropped and resized copies of images listed above (scripts/make-email-assets.ts)",
       "license": "derived"
+    },
+    {
+      "match": "examples/spreads/*.jpg",
+      "source": "Pages of the example Idea Book PDF, rasterised (scripts/make-sample-spreads.py); the PDF is rendered by our own renderer from images listed above",
+      "license": "derived"
     }
   ]
 }

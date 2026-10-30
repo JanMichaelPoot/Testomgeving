@@ -38,13 +38,11 @@ export function SiteHeader({
           <Link href="/#hoe" className="text-sm text-ink/70 transition-colors hover:text-accent">
             {dict.navHowItWorks}
           </Link>
-          <Link
-            href={`/examples/idea-book-${locale}.pdf`}
-            target="_blank"
-            rel="noreferrer"
-            className="text-sm text-ink/70 transition-colors hover:text-accent"
-          >
+          <Link href="/#voorbeeld" className="text-sm text-ink/70 transition-colors hover:text-accent">
             {dict.navExamples}
+          </Link>
+          <Link href="/wat-zit-erin" className="text-sm text-ink/70 transition-colors hover:text-accent">
+            {dict.navInside}
           </Link>
         </nav>
 
@@ -54,7 +52,8 @@ export function SiteHeader({
             menuLabel={dict.menuLabel}
             links={[
               { href: "/#hoe", label: dict.navHowItWorks },
-              { href: `/examples/idea-book-${locale}.pdf`, label: dict.navExamples, external: true },
+              { href: "/#voorbeeld", label: dict.navExamples },
+              { href: "/wat-zit-erin", label: dict.navInside },
             ]}
           />
         </div>

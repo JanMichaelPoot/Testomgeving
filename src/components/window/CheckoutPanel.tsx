@@ -267,6 +267,8 @@ export function CheckoutPanel({
       >
         {isPending ? dict.ctaPending : dict.ctaIdle.replace("{price}", price)}
       </Button>
+      {/* The promise that goes with the payment, right where the decision is made. */}
+      <p className="mt-3 text-center text-sm text-ink/70">{dict.guarantee}</p>
     </div>
   );
 }

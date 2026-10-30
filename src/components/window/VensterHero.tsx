@@ -19,11 +19,13 @@ export function VensterHero({ dict, price, heroSrc, heroAlt, giftHref }: { dict:
             {dict.headline} <span className="italic text-accent">{dict.headlineEmphasis}</span>
           </h1>
           <p className="max-w-md text-lg leading-relaxed text-ink/75">{dict.subcopy}</p>
-          <div className="flex flex-col gap-3 lg:flex-row">
-            <Button href={VENSTER_SELF_HREF} size="lg">
+          <p className="max-w-md text-[15px] leading-relaxed text-ink/70">{dict.occasion}</p>
+          {/* The two ways in carry the same weight: a gift is as much the point of the page as buying for yourself. */}
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button href={VENSTER_SELF_HREF} size="lg" className="justify-center sm:flex-1">
               {dict.selfCta}
             </Button>
-            <Button href={giftHref} variant="secondary" size="lg">
+            <Button href={giftHref} variant="secondary" size="lg" className="justify-center border-accent text-accent-dark sm:flex-1">
               {dict.giftCta}
             </Button>
           </div>

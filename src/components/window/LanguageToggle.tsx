@@ -28,7 +28,8 @@ export function LanguageToggle({
           aria-pressed={locale === code}
           onClick={() => startTransition(() => setLocale(code))}
           className={cn(
-            "rounded-full px-2.5 py-1 uppercase tracking-wide transition-colors",
+            // 44 px tap targets on a phone; the compact pill from sm up.
+            "min-h-11 min-w-11 rounded-full px-2.5 py-1 uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60 sm:min-h-0 sm:min-w-0",
             locale === code
               ? "bg-accent text-white"
               : "text-ink/70 hover:text-ink"

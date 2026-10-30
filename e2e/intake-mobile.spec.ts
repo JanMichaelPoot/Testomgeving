@@ -5,9 +5,11 @@ import { test, expect, type Page } from "@playwright/test";
 // the content, and the last option or field must end above it.
 
 const VIEWPORTS = [
+  { name: "360x740", width: 360, height: 740 },
   { name: "375x667", width: 375, height: 667 },
   { name: "390x844", width: 390, height: 844 },
   { name: "412x915", width: 412, height: 915 },
+  { name: "430x932", width: 430, height: 932 },
 ];
 
 // Every screen has the bottom bar (Back + Next, or "Klopt, open mijn venster" on the profile).

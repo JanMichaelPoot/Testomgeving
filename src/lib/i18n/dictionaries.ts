@@ -25,6 +25,7 @@ export interface Dictionary {
     switchLanguage: string;
     navHowItWorks: string;
     navExamples: string;
+    navInside: string;
     menuLabel: string;
   };
   footer: {
@@ -136,6 +137,8 @@ export interface Dictionary {
     giftEmailPlaceholder: string;
     ctaIdle: string;
     ctaPending: string;
+    /** One line under the pay button: the guarantee. */
+    guarantee: string;
     errorGeneric: string;
     errorTermsRequired: string;
     errorConsentRequired: string;
@@ -458,6 +461,7 @@ const nl: Dictionary = {
     switchLanguage: "Taal wisselen",
     navHowItWorks: "Hoe het werkt",
     navExamples: "Voorbeeld-Idea Book",
+    navInside: "Wat zit erin",
     menuLabel: "Menu",
   },
   footer: {
@@ -687,6 +691,7 @@ const nl: Dictionary = {
     giftEmailPlaceholder: "naam@voorbeeld.nl",
     ctaIdle: "Betalen en mijn PDF ontvangen — {price}",
     ctaPending: "Checkout wordt geopend…",
+    guarantee: "Klopt een plek niet? Je krijgt gratis een nieuw boek.",
     errorGeneric: "Er ging iets mis bij het openen van de checkout. Probeer het opnieuw.",
     errorTermsRequired: "Accepteer de Algemene voorwaarden om verder te gaan.",
     errorConsentRequired:
@@ -1171,6 +1176,7 @@ const en: Dictionary = {
     switchLanguage: "Switch language",
     navHowItWorks: "How it works",
     navExamples: "Example Idea Book",
+    navInside: "What's inside",
     menuLabel: "Menu",
   },
   footer: {
@@ -1399,6 +1405,7 @@ const en: Dictionary = {
     giftEmailPlaceholder: "name@example.com",
     ctaIdle: "Pay and get my PDF — {price}",
     ctaPending: "Opening checkout…",
+    guarantee: "Is a place wrong? You get a new book for free.",
     errorGeneric: "Something went wrong opening checkout. Please try again.",
     errorTermsRequired: "Accept the Terms of Service to continue.",
     errorConsentRequired:
