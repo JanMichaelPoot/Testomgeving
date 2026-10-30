@@ -4084,3 +4084,26 @@ Stripe, Claude API, Resend, PostHog).
       geen vond, en de tekst belooft daarom "waar we ze vonden". Getest: `tsc`, eslint, 19 e-mailtests (nieuw: niveaus nl en en, geen niveau zonder
       data), copytests van het venster; het bestelblok in de browser (via een concept in sessionStorage op het profielscherm) in het Engels op
       desktopbreedte en in het Nederlands op 375 px bekeken: vier regels plus de gratis/betaald-regel, geen horizontale scroll.
+
+- [x] Stap 112 - Fase 5 van de brief "één route, generatief venster, rijkere aanbevelingen": meten en geleidelijke uitrol (Jan: "Commit en push,
+      ga door met Fase 5"; Stap 111 is daarop gecommit en gepusht, `35c8a14` op `kennis`). Geen betaalde aanroepen (€0), niet gecommit.
+      **Events** (`src/lib/analyticsEvents.ts`, `docs/analytics-events.md`): (1) nieuw `window_completed {images, panes}`: gaat af zodra het
+      profielscherm opent (het venster is dan compleet); `images` = aantal items in het venster, `panes` = aantal ruiten volgens `layoutWindow`
+      (3 tot 24); (2) `idea_opened` kreeg `level` (1-7, 0 = boek van vóór de niveaus), zodat te zien is welk niveau wordt geopend; (3) nieuw
+      `payment_succeeded {is_gift, amount_cents}`, het eerste event vanaf de **server** (`trackServerEvent` in `src/lib/posthog/server.ts`): het gaat af
+      bij het starten van een betaald boek (`plan/data.ts`, na de unieke "pending"-rij, dus één keer per bestelling, niet bij de testbypass), draagt geen
+      persoon (alleen de willekeurige sessie-id, `$process_person_profile: false`, geen locatie), gooit nooit en doet niets zonder PostHog-sleutel. De
+      eventtest leest nu ook `trackServerEvent(...)`-aanroepen en controleert naam en eigenschappen tegen de catalogus. **Bewust geen aparte events**
+      `results_viewed`, `level_opened`, `inspiration_saved` en `unlock_clicked`: dat zijn dezelfde handelingen als `plan_viewed`, `idea_opened`,
+      `idea_liked` en `checkout_pay_clicked` en zouden dubbel tellen; de vertaaltabel staat in de eventdocumentatie, die ook de verouderde funnel
+      (met `profile_agreed` en `checkout_viewed`, horend bij de oudere varianten) heeft vervangen. **Beperking**: `payment_succeeded` kan bewust niet aan
+      dezelfde bezoeker in de funnel gekoppeld worden; vergelijk dagtellingen met `checkout_pay_clicked`. **Laat juridisch controleren** of een
+      serverevent zonder cookietoestemming past bij de cookiebanner ("pas na jouw toestemming") en de privacyverklaring; zo niet, haal de
+      `after(() => trackServerEvent(...))`-aanroep weg. **Draaiboek** `docs/uitrol-en-5-testgebruikers.md`: wat gemeten wordt, een checklist van wat
+      vooraf moet staan (PostHog-sleutel, Stripe-webhook, geverifieerd Resend-domein, migraties 0014-0021, juridische controles, herkomst van drie beelden),
+      een protocol voor vijf testgebruikers (wie, wat te observeren, wat vast te leggen, een voorstel voor "goed genoeg") en een uitrol in vijf stappen met de
+      bestaande `NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT` en `wizard_variant`. Bewust **geen** drempelpercentages: er is nog niets gemeten, de
+      beslisregels zijn als voorstel gemarkeerd. Niet gebouwd: de vijf testgebruikers zelf (dat doe jij), een prijstest en een gratis voorproef (jouw besluit).
+      Getest: `tsc`, eslint, de eventtests en 3 nieuwe tests voor de serverhelper; in de browser `window_completed {images: 2, panes: 3}` gezien op het
+      profielscherm (via een concept in sessionStorage). **Niet gezien**: `level` bij `idea_opened` in de browser en `payment_succeeded` met een echte
+      Stripe-betaling en PostHog-sleutel (alleen met een nagebootste PostHog-client getest).

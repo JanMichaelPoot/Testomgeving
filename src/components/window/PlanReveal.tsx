@@ -229,7 +229,9 @@ export function PlanReveal({
   }
 
   function openIdea(key: string) {
-    trackEvent("idea_opened", { planId, ideaKey: key });
+    // The discovery level (1-7) of the door, 0 when the book is from before the levels.
+    const opened = key === WILDCARD_KEY ? wildcard : ideas[Number(key.replace("idea-", ""))];
+    trackEvent("idea_opened", { planId, ideaKey: key, level: isDiscoveryLevel(opened?.level) ? opened.level : 0 });
     setSelectedKey(key);
   }
 

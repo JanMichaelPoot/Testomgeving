@@ -27,6 +27,7 @@ import { buildAssociationSources, type AssociationSources } from "@/lib/discover
 import { buildIdeaThreads, threadSentence } from "@/lib/ideaThread";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
+import { trackServerEvent } from "@/lib/posthog/server";
 
 // Re-exported so existing callers (src/app/plan/page.tsx) can keep
 // importing every plan-related helper from this one module; the
@@ -654,6 +655,16 @@ export async function getOrCreateWindowPlan(
     }
     throw err;
   }
+
+  // A paid book has started (the pending row above is unique per session, so this runs once per order): the
+  // server-side count of real payments, next to the browser's checkout_pay_clicked. Nothing personal goes along.
+  after(() =>
+    trackServerEvent(
+      "payment_succeeded",
+      { is_gift: !!checkoutSession.metadata?.gift_recipient_email, amount_cents: checkoutSession.amount_total ?? 0 },
+      sessionId,
+    ),
+  );
 
   after(async () => {
     try {

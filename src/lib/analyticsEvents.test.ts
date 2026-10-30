@@ -71,11 +71,12 @@ function findCalls(): { calls: Call[]; unreadable: string[] } {
   const calls: Call[] = [];
   const unreadable: string[] = [];
   for (const file of sourceFiles(SRC)) {
-    // The definition, and the catalogue (its comments mention the function).
-    if (file.endsWith(path.join("posthog", "client.ts")) || file.endsWith("analyticsEvents.ts")) continue;
+    // The definitions, and the catalogue (its comments mention the functions).
+    if (file.endsWith(path.join("posthog", "client.ts")) || file.endsWith(path.join("posthog", "server.ts")) || file.endsWith("analyticsEvents.ts")) continue;
     const text = readFileSync(file, "utf8");
-    for (const match of text.matchAll(/\btrackEvent\(/g)) {
-      const open = match.index! + "trackEvent".length;
+    // trackEvent("name", { props }) in the browser and trackServerEvent("name", { props }, id) on the server.
+    for (const match of text.matchAll(/\b(trackEvent|trackServerEvent)\(/g)) {
+      const open = match.index! + match[1].length;
       const end = closing(text, open);
       const args = text.slice(open + 1, end - 1).trim();
       const nameMatch = args.match(/^"([a-z_]+)"\s*(,|$)/);
@@ -100,6 +101,8 @@ describe("analytics events", () => {
     expect(calls.find((c) => c.name === "plan_viewed")!.keys).toEqual(["planId"]);
     expect(calls.find((c) => c.name === "profile_agreed")!.keys).toEqual(["adjusted"]);
     expect(calls.find((c) => c.name === "profile_viewed")!.keys).toEqual([]);
+    // The server-side call is read too (its properties end where the object ends, the id after it is not one).
+    expect(calls.find((c) => c.name === "payment_succeeded")!.keys).toEqual(["is_gift", "amount_cents"]);
   });
 
   it("only sends events with a literal name, so none can slip past this test", () => {

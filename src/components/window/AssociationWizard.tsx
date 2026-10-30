@@ -18,6 +18,7 @@ import { ProfileStep } from "@/components/window/ProfileStep";
 import { directionOrder, initialDirections, rotateDirections, sampleRoundCards, sampleWorldExamples } from "@/lib/discovery/associationSampling";
 import { loadSeen, recordSeen } from "@/lib/associationSeen";
 import { buildSill, buildWindowItems, windowImageHref } from "@/lib/vensterPanes";
+import { layoutWindow } from "@/lib/windowLayout";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { DRAFT_VERSION, VENSTER_PAGES, migrateDraftPage, type VensterPageId } from "@/lib/vensterPages";
 import { ageOptionsFor } from "@/lib/ageOptions";
@@ -298,6 +299,13 @@ export function AssociationWizard({
   }, [hydrated, seed, shownKey]);
 
   const windowItems = useMemo(() => buildWindowItems(answers, { cards: library.cards, domains }, dict), [answers, library.cards, domains, dict]);
+  // The window is complete when its screen (the profile) opens: how many images it holds and how many panes they became.
+  useEffect(() => {
+    if (!hydrated || pageId !== "profile") return;
+    trackEvent("window_completed", { images: windowItems.length, panes: layoutWindow(windowItems).panes.length });
+    // Only when the page changes; the items at that moment are what the window holds.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated, page]);
   const activeKind = PANE_OF[pageId];
   const exportHref = windowImageHref(answers);
   const sill = buildSill(answers, intakeDict, dict);

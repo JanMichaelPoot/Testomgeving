@@ -63,6 +63,7 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `discovery_stage_completed` | kaartenwizard: werelden of kaarten afgerond | `wizard_variant`, `stage`, `selected`, `surprise`, `batches_shown`, `duration_ms` |
 | `association_round_completed` | een ronde beelden afgerond | `round`, `selected`, `mode`, `duration_ms` |
 | `association_swipe` | swipe-modus: een beeld bewaard of gepasseerd | `id`, `liked` |
+| `window_completed` | het profielscherm bereikt: het venster is compleet | `images` (aantal beelden), `panes` (aantal ruiten) |
 | `profile_viewed` | het scherm "Zo kijken wij door jouw venster" getoond | – |
 | `profile_agreed` | "Klopt, open mijn venster" | `adjusted` (is er bijgestuurd?) |
 | `profile_axis_changed` | een schuif op het profielscherm verplaatst | `axis` |
@@ -70,9 +71,10 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `window_exported` | de afbeelding van het venster gedownload | `images` (aantal beelden) |
 | `checkout_viewed` | betaalpagina getoond | – |
 | `checkout_pay_clicked` | "Maak het echt" ingedrukt | `is_gift` |
+| `payment_succeeded` | een betaald boek start (Stripe zegt betaald), vanaf de server | `is_gift`, `amount_cents` |
 | `generation_stalled` | wachtscherm langer dan 120 s | `stage`, `seconds` |
 | `plan_viewed` | het boek geopend | `planId` |
-| `idea_opened` | een idee geopend | `planId`, `ideaKey` |
+| `idea_opened` | een idee geopend | `planId`, `ideaKey`, `level` (1-7, 0 = boek van vóór de niveaus) |
 | `idea_liked` | hartje of duim bij een idee | `planId`, `ideaKey`, `value` |
 | `idea_feedback_given` | duim omhoog of omlaag in het ideevenster | `planId`, `ideaKey`, `value` |
 | `one_thing_committed` | "Dit ga ik doen" | `planId`, `ideaKey`, `isOneThing` |
@@ -107,9 +109,19 @@ slaat de app alleen de oudere antwoorden op en meldt dat in de serverlog.
 ## Een testrun in één oogopslag
 
 **Funnel** (PostHog → Product analytics → Funnel), in deze volgorde:
-`landing_viewed` → `intake_started` → `profile_viewed` → `profile_agreed` → `checkout_viewed` →
-`checkout_pay_clicked` → `plan_viewed` → `idea_opened` → `one_thing_committed`.
-Filter eventueel op `wizard_variant = associations`.
+`landing_viewed` → `intake_started` → `window_completed` → `checkout_pay_clicked` → `plan_viewed` →
+`idea_opened` → `one_thing_committed`. Filter eventueel op `wizard_variant = associations`. (In de beeld-intake
+staat het betalen op het profielscherm; `profile_agreed` en `checkout_viewed` horen bij de oudere varianten.)
+
+**Echte betalingen**: `payment_succeeded` komt van de server en kan bewust niet aan dezelfde bezoeker in de
+funnel worden gekoppeld (andere id, geen persoon). Zet hem naast `checkout_pay_clicked` als dagtelling: het
+verschil is wie op de knop drukte maar niet betaalde (of de Stripe-betaling afbrak).
+
+**Welk niveau wordt geopend?** `idea_opened`, uitgesplitst op `level` (1 Vertrouwd … 7 Onontdekt; 0 = oud boek).
+
+**Vertaling van de woorden uit de brief**: `results_viewed` = `plan_viewed`, `level_opened` = `idea_opened` met
+`level`, `inspiration_saved` = `idea_liked`, `unlock_clicked` = `checkout_pay_clicked`. Er zijn geen aparte
+events met die namen: het zou dezelfde handeling dubbel tellen.
 
 **Waar haken mensen af?** Een tabel met `intake_page_completed`, uitgesplitst op `page`, met de
 gemiddelde `duration_ms`.

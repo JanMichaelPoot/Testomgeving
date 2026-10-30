@@ -39,6 +39,7 @@ export const ANALYTICS_EVENTS = {
   // --- image intake ("Het venster")
   association_round_completed: { when: "a round of images finished", props: ["round", "selected", "mode", "duration_ms"] },
   association_swipe: { when: "swipe mode: an image kept or passed", props: ["id", "liked"] },
+  window_completed: { when: "the profile screen reached: the window is complete", props: ["images", "panes"] },
   profile_viewed: { when: "the profile screen 'Zo kijken wij door jouw venster' shown", props: [] },
   profile_agreed: { when: "'Klopt, open mijn venster' pressed", props: ["adjusted"] },
   profile_axis_changed: { when: "a slider of the profile screen moved", props: ["axis"] },
@@ -48,11 +49,14 @@ export const ANALYTICS_EVENTS = {
   window_exported: { when: "the picture of the window downloaded", props: ["images"] },
   checkout_viewed: { when: "checkout page shown", props: [] },
   checkout_pay_clicked: { when: "'Maak het echt' pressed", props: ["is_gift"] },
+  // Sent by the server (trackServerEvent), not the browser: it does not wait for the cookie banner and carries no
+  // person. It cannot be joined to the browser events of the same visitor, by design: compare counts per day.
+  payment_succeeded: { when: "a paid book starts (Stripe says paid), server side", props: ["is_gift", "amount_cents"] },
   generation_stalled: { when: "the waiting screen passed 120 s", props: ["stage", "seconds"] },
 
   // --- the book
   plan_viewed: { when: "the book opened", props: ["planId"] },
-  idea_opened: { when: "an idea opened in the dialog", props: ["planId", "ideaKey"] },
+  idea_opened: { when: "an idea opened in the dialog", props: ["planId", "ideaKey", "level"] },
   idea_liked: { when: "a heart or thumb on an idea", props: ["planId", "ideaKey", "value"] },
   idea_feedback_given: { when: "thumb up or down inside the idea dialog", props: ["planId", "ideaKey", "value"] },
   one_thing_committed: { when: "'Dit ga ik doen' pressed", props: ["planId", "ideaKey", "isOneThing"] },
