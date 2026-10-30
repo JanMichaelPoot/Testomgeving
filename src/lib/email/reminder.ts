@@ -1,3 +1,4 @@
+import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 import { sendEmail } from "@/lib/resend";
 import { EMAIL_COLORS as c, EMAIL_FONTS, emailButton, emailEyebrow, emailImages, emailShell, escapeHtml } from "@/lib/email/layout";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -36,7 +37,7 @@ export async function sendFirstActionReminderEmail(params: {
     html: emailShell({
       preheader: dict.subject,
       bodyHtml,
-      images: emailImages(process.env.NEXT_PUBLIC_SITE_URL),
+      images: emailImages(getSiteUrl()),
       headerAlt: "",
     }),
   });

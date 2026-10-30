@@ -1,3 +1,4 @@
+import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { IdeaDetail } from "@/components/window/IdeaDetail";
@@ -142,7 +143,7 @@ export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
             {bookDict.shared.ctaLabel}
           </SharedCtaLink>
           <ShareButton
-            url={`${process.env.NEXT_PUBLIC_SITE_URL}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
+            url={`${getSiteUrl()}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
             label={bookDict.shared.shareLabel}
             copiedLabel={bookDict.plan.shareCopiedLabel}
             whatsappLabel={bookDict.plan.shareWhatsappLabel}

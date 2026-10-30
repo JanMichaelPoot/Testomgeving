@@ -87,7 +87,7 @@ export function LocationAutocomplete({
           setTimeout(() => setOpen(false), 120);
         }}
         placeholder={placeholder}
-        className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/35 focus:border-ink"
+        className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
       />
       {open && suggestions.length > 0 && (
         <ul

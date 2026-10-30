@@ -22,7 +22,7 @@ export default async function PrivacyPage() {
       <SiteHeader locale={locale} dict={dict.header} />
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-16">
         <h1 className="font-serif text-3xl text-ink">{dict.legal.privacyHeading}</h1>
-        <p className="mt-4 text-ink/60">{dict.legal.privacyIntro}</p>
+        <p className="mt-4 text-ink/70">{dict.legal.privacyIntro}</p>
         <div className="mt-8 space-y-6">
           {dict.legal.privacySections.map((section) => (
             // scroll-mt-24 keeps an anchor link (e.g. footer "Cookies" ->
@@ -41,7 +41,7 @@ export default async function PrivacyPage() {
                     </button>
                   </form>
                 ) : (
-                  <p className="mt-2 text-xs text-ink/50">{dict.legal.privacyForgetNone}</p>
+                  <p className="mt-2 text-xs text-ink/70">{dict.legal.privacyForgetNone}</p>
                 ))}
             </div>
           ))}

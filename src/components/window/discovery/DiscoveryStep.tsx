@@ -227,7 +227,7 @@ export function DiscoveryStep({
             {dict.domainStep.skip}
           </button>
         </div>
-        <p aria-live="polite" className="mt-3 text-sm text-ink/60">
+        <p aria-live="polite" className="mt-3 text-sm text-ink/70">
           {countText(chosenDomains.length)}
         </p>
       </div>
@@ -267,7 +267,7 @@ export function DiscoveryStep({
                   className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-border bg-surface-active px-3 text-xs font-medium text-ink hover:border-ink/40"
                 >
                   {a.label}
-                  <span aria-hidden="true" className="text-ink/50">×</span>
+                  <span aria-hidden="true" className="text-ink/70">×</span>
                 </button>
               </li>
             );
@@ -306,9 +306,9 @@ export function DiscoveryStep({
             {dict.cardStep.more}
           </button>
         ) : (
-          <span className="text-sm text-ink/50">{dict.cardStep.noMore}</span>
+          <span className="text-sm text-ink/70">{dict.cardStep.noMore}</span>
         )}
-        <p aria-live="polite" className="text-sm text-ink/60">
+        <p aria-live="polite" className="text-sm text-ink/70">
           {chosenCount === 0 ? dict.cardStep.none : dict.cardStep.chosenCount.replace("{n}", String(chosenCount))}
         </p>
       </div>

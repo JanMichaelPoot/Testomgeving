@@ -1,3 +1,4 @@
+import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { PlanReveal } from "@/components/window/PlanReveal";
@@ -305,7 +306,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           pdfChromeDict={dict.pdfChrome}
           planDict={dict.plan}
           pdfUrl={pdfUrl}
-          shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
+          shareUrl={`${getSiteUrl()}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
           showEmailedCopy={!testSessionId && !!plan.email_sent_at}
           // Only a recorded failure counts: while the mail is still being sent neither note is shown.
           emailNotSent={!testSessionId && !plan.email_sent_at && !!plan.progress_meta?.email_error}

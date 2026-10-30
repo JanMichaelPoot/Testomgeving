@@ -76,20 +76,20 @@ export default async function AdminContentPage() {
         </TileGrid>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <Card>
-            <p className="mb-3 text-xs text-ink/50">Meest voorgesteld (aantal boeken)</p>
+            <p className="mb-3 text-xs text-ink/70">Meest voorgesteld (aantal boeken)</p>
             <BarList items={activityCounts.map(([id, n]) => ({ label: getActivity(id)?.label.nl ?? id, value: n, sub: domainLabel.get(getActivity(id)?.domain ?? "") }))} total={withIds} />
-            <p className="mt-3 text-xs text-ink/50">Komt één activiteit in meer dan een kwart van de boeken voor, dan wordt het saai; dan is de motor (te) eenzijdig.</p>
+            <p className="mt-3 text-xs text-ink/70">Komt één activiteit in meer dan een kwart van de boeken voor, dan wordt het saai; dan is de motor (te) eenzijdig.</p>
           </Card>
           <Card>
-            <p className="mb-3 text-xs text-ink/50">Verdeling over richtingen (alle voorgestelde plekken)</p>
+            <p className="mb-3 text-xs text-ink/70">Verdeling over richtingen (alle voorgestelde plekken)</p>
             <BarList items={domainShare.map(([id, n]) => ({ label: domainLabel.get(id) ?? id, value: n }))} total={slots.length} />
           </Card>
           <Card>
-            <p className="mb-3 text-xs text-ink/50">Soort deur</p>
+            <p className="mb-3 text-xs text-ink/70">Soort deur</p>
             <BarList items={doorCounts.map(([k, n]) => ({ label: DOOR[k] ?? k, value: n }))} />
           </Card>
           <Card>
-            <p className="mb-3 text-xs text-ink/50">Hoe moeilijk te vinden en hoeveel begeleiding</p>
+            <p className="mb-3 text-xs text-ink/70">Hoe moeilijk te vinden en hoeveel begeleiding</p>
             <BarList
               items={[
                 { label: "Alleen via aanbieder/vereniging met instructeur", value: Math.round((tier2Share ?? 0) * slots.length) },
@@ -105,27 +105,27 @@ export default async function AdminContentPage() {
       <Section title="Wat vullen mensen in?" hint={`Gebaseerd op ${intake.total} ingevulde intakes. Dit zegt iets over je doelgroep en over welke richtingen en beelden aanslaan.`}>
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
-            <p className="mb-3 text-xs text-ink/50">Gekozen richtingen</p>
+            <p className="mb-3 text-xs text-ink/70">Gekozen richtingen</p>
             <BarList items={intake.directions.map(([id, n]) => ({ label: domainLabel.get(id) ?? id, value: n }))} />
           </Card>
           <Card>
-            <p className="mb-3 text-xs text-ink/50">Meest gekozen beelden</p>
+            <p className="mb-3 text-xs text-ink/70">Meest gekozen beelden</p>
             <BarList items={intake.images.map(([id, n]) => ({ label: imageLabel.get(id) ?? id, value: n }))} />
           </Card>
           <Card>
-            <p className="mb-3 text-xs text-ink/50">Budget</p>
+            <p className="mb-3 text-xs text-ink/70">Budget</p>
             <BarList items={intake.budget.map(([k, n]) => ({ label: BUDGET[k] ?? k, value: n }))} total={intake.total} />
           </Card>
           <Card>
-            <p className="mb-3 text-xs text-ink/50">Tijd</p>
+            <p className="mb-3 text-xs text-ink/70">Tijd</p>
             <BarList items={intake.time.map(([k, n]) => ({ label: TIME[k] ?? k, value: n }))} total={intake.total} />
           </Card>
           <Card>
-            <p className="mb-3 text-xs text-ink/50">Leeftijd</p>
+            <p className="mb-3 text-xs text-ink/70">Leeftijd</p>
             <BarList items={intake.age.map(([k, n]) => ({ label: k, value: n }))} total={intake.total} />
           </Card>
           <Card>
-            <p className="mb-3 text-xs text-ink/50">Gezelschap en soort intake</p>
+            <p className="mb-3 text-xs text-ink/70">Gezelschap en soort intake</p>
             <BarList items={[...intake.company.map(([k, n]) => ({ label: `Met: ${k}`, value: n })), ...intake.variants.map(([k, n]) => ({ label: `Intake: ${k}`, value: n })), { label: "Cadeau (voornaam ingevuld)", value: intake.gift }]} />
           </Card>
         </div>
@@ -134,7 +134,7 @@ export default async function AdminContentPage() {
       <Section title="De bibliotheek" hint="Per richting: hoeveel activiteiten, hoeveel daarvan al in een boek zijn voorgesteld, en hoeveel zeldzaam of met begeleiding.">
         <div className="overflow-x-auto rounded-2xl border border-ink/10 bg-paper">
           <table className="w-full min-w-[32rem] text-left text-sm">
-            <thead className="text-xs text-ink/50">
+            <thead className="text-xs text-ink/70">
               <tr>
                 <th className="px-4 py-2 font-medium">Richting</th>
                 <th className="px-4 py-2 text-right font-medium">Activiteiten</th>
@@ -157,7 +157,7 @@ export default async function AdminContentPage() {
           </table>
         </div>
         {neverSuggested.length > 0 && books.length >= 20 && (
-          <p className="mt-3 max-w-3xl text-xs text-ink/50">
+          <p className="mt-3 max-w-3xl text-xs text-ink/70">
             Nog nooit voorgesteld ({neverSuggested.length}): {neverSuggested.slice(0, 25).map((a) => a.label.nl).join(", ")}
             {neverSuggested.length > 25 ? " …" : ""}
           </p>

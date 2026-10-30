@@ -1,3 +1,4 @@
+import { buildSiteMetadata } from "@/lib/siteMetadata";
 import type { Metadata } from "next";
 import { Newsreader, Plus_Jakarta_Sans } from "next/font/google";
 import { getLocale } from "@/lib/language";
@@ -21,30 +22,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dict = getDictionary(await getLocale());
-  const title = `WINDOW — ${dict.landing.headlineLine1} ${dict.landing.headlineLine2}`;
-  // The idea-book cover illustration doubles as the default share-preview
-  // image — it's the closest thing this site has to a branded hero shot
-  // until a dedicated OG image exists.
-  const ogImage = "/illustrations/idea-book/cover.jpg";
-
-  return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-    title,
-    description: dict.landing.subcopy,
-    openGraph: {
-      title,
-      description: dict.landing.subcopy,
-      images: [ogImage],
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description: dict.landing.subcopy,
-      images: [ogImage],
-    },
-  };
+  return buildSiteMetadata(getDictionary(await getLocale()));
 }
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

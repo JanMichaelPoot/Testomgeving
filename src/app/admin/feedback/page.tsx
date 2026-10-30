@@ -29,13 +29,13 @@ const SCALE: Record<"flow" | "profile" | "doors", string[]> = {
 function ScoreCard({ title, question, summary, scale }: { title: string; question: string; summary: ScoreSummary; scale: string[] }) {
   return (
     <Card>
-      <p className="text-xs text-ink/50">{title}</p>
+      <p className="text-xs text-ink/70">{title}</p>
       <p className="mt-1 text-sm text-ink/70">{question}</p>
       <p className="mt-3 font-serif text-3xl text-ink">
         {summary.mean === null ? "—" : summary.mean.toFixed(1)}
-        <span className="ml-1 text-sm text-ink/40">/ 5</span>
+        <span className="ml-1 text-sm text-ink/70">/ 5</span>
       </p>
-      <p className="mt-1 text-xs text-ink/50">
+      <p className="mt-1 text-xs text-ink/70">
         {readScore(summary.mean, summary.n)} · {summary.n} antwoord{summary.n === 1 ? "" : "en"}
       </p>
       <div className="mt-3">
@@ -124,13 +124,13 @@ export default async function AdminFeedbackPage() {
 
       <Section title="Opmerkingen" hint={'"Waar twijfelde je of haakte je bijna af?" Nieuwste eerst.'}>
         {s.doubts.length === 0 ? (
-          <p className="text-sm text-ink/50">Nog geen opmerkingen.</p>
+          <p className="text-sm text-ink/70">Nog geen opmerkingen.</p>
         ) : (
           <ul className="space-y-2">
             {s.doubts.map((d, i) => (
               <li key={i} className="rounded-2xl border border-ink/10 bg-paper px-4 py-3 text-sm text-ink">
                 {d.text}
-                <span className="mt-1 block text-xs text-ink/40">
+                <span className="mt-1 block text-xs text-ink/70">
                   {d.at.slice(0, 16).replace("T", " ")} UTC{d.locale ? ` · ${d.locale.toUpperCase()}` : ""}
                 </span>
               </li>

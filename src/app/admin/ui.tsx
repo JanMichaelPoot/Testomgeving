@@ -22,10 +22,10 @@ export function AdminShell({ active, title, intro, children }: { active: (typeof
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">WINDOW — admin</p>
             <h1 className="mt-1 font-serif text-2xl text-ink">{title}</h1>
-            {intro && <div className="mt-1 max-w-2xl text-sm text-ink/60">{intro}</div>}
+            {intro && <div className="mt-1 max-w-2xl text-sm text-ink/70">{intro}</div>}
           </div>
           <form action={logoutAdmin}>
-            <button type="submit" className="text-sm font-medium text-ink/50 hover:text-ink">
+            <button type="submit" className="text-sm font-medium text-ink/70 hover:text-ink">
               Uitloggen
             </button>
           </form>
@@ -52,7 +52,7 @@ export function Section({ title, hint, children }: { title: string; hint?: React
   return (
     <section>
       <h2 className="text-xs font-medium uppercase tracking-widest text-accent-dark">{title}</h2>
-      {hint && <p className="mt-1 max-w-3xl text-sm text-ink/60">{hint}</p>}
+      {hint && <p className="mt-1 max-w-3xl text-sm text-ink/70">{hint}</p>}
       <div className="mt-4">{children}</div>
     </section>
   );
@@ -61,9 +61,9 @@ export function Section({ title, hint, children }: { title: string; hint?: React
 export function Tile({ label, value, sub, tone }: { label: string; value: ReactNode; sub?: ReactNode; tone?: "good" | "bad" }) {
   return (
     <div className="rounded-2xl border border-ink/10 bg-paper p-4">
-      <p className="text-xs text-ink/50">{label}</p>
+      <p className="text-xs text-ink/70">{label}</p>
       <p className={`mt-1 font-serif text-3xl ${tone === "bad" ? "text-red-700" : tone === "good" ? "text-emerald-800" : "text-ink"}`}>{value}</p>
-      {sub && <p className="mt-1 text-xs text-ink/50">{sub}</p>}
+      {sub && <p className="mt-1 text-xs text-ink/70">{sub}</p>}
     </div>
   );
 }
@@ -74,7 +74,7 @@ export function TileGrid({ children }: { children: ReactNode }) {
 
 /** Horizontal bars; the longest bar is the largest value in the list. */
 export function BarList({ items, empty = "Nog geen gegevens.", total }: { items: { label: string; value: number; sub?: string }[]; empty?: string; total?: number }) {
-  if (items.length === 0) return <p className="text-sm text-ink/50">{empty}</p>;
+  if (items.length === 0) return <p className="text-sm text-ink/70">{empty}</p>;
   const max = Math.max(...items.map((i) => i.value), 1);
   return (
     <ul className="space-y-1.5">
@@ -82,14 +82,14 @@ export function BarList({ items, empty = "Nog geen gegevens.", total }: { items:
         <li key={i.label} className="grid grid-cols-[minmax(0,12rem)_1fr_auto] items-center gap-3 text-sm sm:grid-cols-[minmax(0,16rem)_1fr_auto]">
           <span className="truncate text-ink" title={i.label}>
             {i.label}
-            {i.sub && <span className="ml-1 text-xs text-ink/40">{i.sub}</span>}
+            {i.sub && <span className="ml-1 text-xs text-ink/70">{i.sub}</span>}
           </span>
           <span className="h-2 rounded-full bg-ink/5">
             <span className="block h-2 rounded-full bg-accent" style={{ width: `${Math.max(2, (i.value / max) * 100)}%` }} />
           </span>
           <span className="w-16 text-right tabular-nums text-ink/70">
             {i.value}
-            {total ? <span className="text-xs text-ink/40"> · {Math.round((i.value / total) * 100)}%</span> : null}
+            {total ? <span className="text-xs text-ink/70"> · {Math.round((i.value / total) * 100)}%</span> : null}
           </span>
         </li>
       ))}

@@ -11,6 +11,7 @@ import {
   type AxesOverride,
   type AxisId,
 } from "@/lib/discovery/associationProfile";
+import { fillValue } from "@/lib/recipientName";
 import { resolveConstraints } from "@/lib/discovery/engine/constraints";
 import type { VensterDictionary } from "@/lib/i18n/venster";
 
@@ -70,7 +71,8 @@ export interface ProfileStory {
   suggestions: string[];
 }
 
-const fill = (template: string, values: Record<string, string>) => template.replace(/\{(\w+)\}/g, (m, k) => values[k] ?? m);
+const fill = (template: string, values: Record<string, string>) =>
+  template.replace(/\{(\w+)\}/g, (m, k: string, offset: number) => (values[k] === undefined ? m : fillValue(template, k, values[k], offset)));
 
 // --- which images weigh most ----------------------------------------------------------------
 

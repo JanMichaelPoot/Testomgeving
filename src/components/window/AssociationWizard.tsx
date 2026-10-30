@@ -1,5 +1,7 @@
 "use client";
 
+import { fillName } from "@/lib/recipientName";
+import { decideDraft } from "@/lib/giftArrival";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Button } from "@/components/ui/Button";
@@ -132,6 +134,30 @@ function saveDraft(key: string, d: Draft) {
   } catch {
     // Storage unavailable: the draft is simply not kept.
   }
+}
+
+const GIFT_ARRIVAL_KEY = "window-gift-arrival";
+
+/** Which stored draft (if any) this visit may continue: see src/lib/giftArrival.ts for the rule. */
+function draftForArrival(draft: Draft | null, purpose: "self" | "gift", key: string): Draft | null {
+  try {
+    const arrival = purpose === "gift" ? new URLSearchParams(window.location.search).get("s") : null;
+    const seenArrival = window.sessionStorage.getItem(GIFT_ARRIVAL_KEY);
+    if (arrival) window.sessionStorage.setItem(GIFT_ARRIVAL_KEY, arrival);
+    const decision = decideDraft({
+      purpose,
+      arrival,
+      seenArrival,
+      draft: draft ? { purpose: draft.answers.purpose, page: draft.page } : null,
+    });
+    if (decision === "discard") {
+      clearDraft(key);
+      return null;
+    }
+  } catch {
+    // Storage unavailable: nothing was stored either.
+  }
+  return draft;
 }
 
 function clearDraft(key: string) {
@@ -271,11 +297,12 @@ export function AssociationWizard({
   const pageId: PageId = pages[page];
   const gift = answers.purpose === "gift";
   const name = (answers.recipientName ?? "").trim() || dict.recipientFallback;
-  const fill = (s: string) => s.replaceAll("{name}", name);
+  const fill = (s: string) => fillName(s, name);
   const pick = (self: string, giftText: string) => fill(gift ? giftText : self);
 
   // Restore once on mount: stored answers when editing, else a draft of this tab.
   useEffect(() => {
+    let restoredDraft = false;
     if (initial) {
       const split = splitLimits(initial.answers.mustHaves ?? "", dict.who.limitChips);
       /* eslint-disable react-hooks/set-state-in-effect -- one-time, hydration-safe restore */
@@ -286,8 +313,9 @@ export function AssociationWizard({
       setSeed(newSeed());
       setSeenBefore(loadSeen());
     } else {
-      const draft = loadDraft(draftKey);
+      const draft = draftForArrival(loadDraft(draftKey), initialPurpose, draftKey);
       if (draft && (draft.page > 0 || (draft.answers.associations ?? []).length > 0)) {
+        restoredDraft = true;
         setAnswers({
           ...draft.answers,
           ...(flow2 ? { intakeFlow: "images2" as const } : {}),
@@ -310,6 +338,7 @@ export function AssociationWizard({
     setHydrated(true);
     startedAt.current = now();
     trackEvent("intake_started", { wizard_variant: variantName, editing: !!initial, gift: initialPurpose === "gift" });
+    if (initialPurpose === "gift" && !initial && !restoredDraft) trackEvent("gift_started", { wizard_variant: variantName });
     // Runs once: `initial` and `initialPurpose` are fixed for a mounted wizard.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -580,11 +609,18 @@ export function AssociationWizard({
     }
     if (pageId === "images") {
       const n = registerCounts(chosen.map((id) => cardById.get(id)?.register));
+      trackEvent("images_done", { wizard_variant: variantName, selected: chosen.length, refreshes: imageRefreshes });
       trackEvent("images_page_completed", { selected: chosen.length, refreshes: imageRefreshes, n_expressive: n.expressive, n_nurturing: n.nurturing, n_technical: n.technical, n_nature: n.nature });
     }
     if (pageId === "concrete") {
       const n = registerCounts(picks.map((id) => poolById.get(id)?.register));
       const explored = new Set(concreteBatches.flat().filter((x) => x.explore).map((x) => x.id));
+      trackEvent("activities_done", {
+        wizard_variant: variantName,
+        selected: picks.length,
+        refreshes: concreteRefreshes,
+        explore_picked: picks.filter((id) => explored.has(id)).length,
+      });
       trackEvent("concrete_page_completed", {
         selected: picks.length,
         refreshes: concreteRefreshes,
@@ -595,6 +631,7 @@ export function AssociationWizard({
         n_nature: n.nature,
       });
     }
+    if (pageId === "situation") trackEvent("situation_done", { wizard_variant: variantName, duration_ms: duration });
     trackEvent("intake_page_completed", { wizard_variant: variantName, page: pageId, index: page, duration_ms: duration });
     // The last screen has no "next": paying is on that screen itself (saveForPayment below).
     if (page < pages.length - 1) go(page + 1);
@@ -673,9 +710,9 @@ export function AssociationWizard({
     const nextCard = cards[swipeIdx + 1];
     return (
       <div>
-        <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{copy.kicker}</p>
+        <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{copy.kicker}</p>
         <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(copy.heading, copy.headingGift)}</h1>
-        <p className={cn("mt-2 text-ink/60", mode === "swipe" && "hidden sm:block")}>{copy.sub}</p>
+        <p className={cn("mt-2 text-ink/70", mode === "swipe" && "hidden sm:block")}>{copy.sub}</p>
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
           <div role="group" className="inline-flex rounded-full border border-border bg-paper p-1 sm:hidden">
             {(["grid", "swipe"] as const).map((m) => (
@@ -693,7 +730,7 @@ export function AssociationWizard({
               </button>
             ))}
           </div>
-          <span className="text-sm font-medium text-ink/60" aria-live="polite">
+          <span className="text-sm font-medium text-ink/70" aria-live="polite">
             {dict.roundUi.chosen.replace("{n}", String(chosenInRound))}
           </span>
         </div>
@@ -741,14 +778,14 @@ export function AssociationWizard({
                     </span>
                   </div>
                 </div>
-                <p className="mt-3 text-center text-xs text-ink/50" aria-live="polite">
+                <p className="mt-3 text-center text-xs text-ink/70" aria-live="polite">
                   {dict.roundUi.of.replace("{i}", String(swipeIdx + 1)).replace("{n}", String(cards.length))} · {dict.roundUi.swipeHint}
                 </p>
               </>
             ) : (
               <div className="rounded-lg border border-border bg-paper p-6 text-center">
                 <p className="font-serif text-2xl text-ink">{dict.roundUi.roundDone}</p>
-                <p className="mt-2 text-ink/60">{dict.roundUi.roundDoneBody.replace("{n}", String(chosenInRound))}</p>
+                <p className="mt-2 text-ink/70">{dict.roundUi.roundDoneBody.replace("{n}", String(chosenInRound))}</p>
                 <button type="button" className="mt-3 text-sm font-semibold text-accent underline" onClick={() => setMode("grid")}>
                   {dict.roundUi.seeAll}
                 </button>
@@ -795,7 +832,7 @@ export function AssociationWizard({
         value={answers.recipientName ?? ""}
         onChange={(e) => set("recipientName", e.target.value.slice(0, 40))}
         placeholder={dict.recipientPlaceholder}
-        className="mt-2 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/35 focus:border-ink"
+        className="mt-2 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
       />
     </div>
   ) : null;
@@ -809,20 +846,20 @@ export function AssociationWizard({
       >
         {label}
       </button>
-      <span className="ml-3 text-sm text-ink/55">{sub}</span>
+      <span className="ml-3 text-sm text-ink/70">{sub}</span>
     </div>
   );
 
   // Page 1 of the two-page intake: eighteen images, mixed from places, moments and senses.
   const imagesPage = (
     <div>
-      <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{dict.twoPages.images.kicker}</p>
+      <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{dict.twoPages.images.kicker}</p>
       <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.twoPages.images.heading, dict.twoPages.images.headingGift)}</h1>
-      <p className="mt-2 text-ink/60">{pick(dict.twoPages.images.sub, dict.twoPages.images.subGift)}</p>
+      <p className="mt-2 text-ink/70">{pick(dict.twoPages.images.sub, dict.twoPages.images.subGift)}</p>
       {recipientField}
-      <p className="mt-4 text-sm font-medium text-ink/60" aria-live="polite">
+      <p className="mt-4 text-sm font-medium text-ink/70" aria-live="polite">
         {dict.twoPages.images.chosen.replace("{n}", String(chosen.length))}
-        {chosen.length < MIN_IMAGES_REQUIRED && <span className="text-ink/45"> · {dict.twoPages.images.min.replace("{n}", String(MIN_IMAGES_REQUIRED))}</span>}
+        {chosen.length < MIN_IMAGES_REQUIRED && <span className="text-ink/70"> · {dict.twoPages.images.min.replace("{n}", String(MIN_IMAGES_REQUIRED))}</span>}
       </p>
       {notice && (
         <p className="mt-3 rounded-md bg-surface-active px-3 py-2 text-sm text-ink/80" role="status">
@@ -855,7 +892,7 @@ export function AssociationWizard({
       {imageRefreshes < MAX_REFRESHES ? (
         moreButton(moreImages, dict.twoPages.images.more, dict.twoPages.images.moreSub)
       ) : (
-        <p className="mt-4 text-sm text-ink/55">{dict.twoPages.images.noMore}</p>
+        <p className="mt-4 text-sm text-ink/70">{dict.twoPages.images.noMore}</p>
       )}
     </div>
   );
@@ -863,12 +900,12 @@ export function AssociationWizard({
   // Page 2: eighteen concrete activities that follow from page 1, three of them outside what the images pointed at.
   const concretePage = (
     <div>
-      <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{dict.twoPages.concrete.kicker}</p>
+      <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{dict.twoPages.concrete.kicker}</p>
       <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.twoPages.concrete.heading, dict.twoPages.concrete.headingGift)}</h1>
-      <p className="mt-2 text-ink/60">{pick(dict.twoPages.concrete.sub, dict.twoPages.concrete.subGift)}</p>
-      <p className="mt-4 text-sm font-medium text-ink/60" aria-live="polite">
+      <p className="mt-2 text-ink/70">{pick(dict.twoPages.concrete.sub, dict.twoPages.concrete.subGift)}</p>
+      <p className="mt-4 text-sm font-medium text-ink/70" aria-live="polite">
         {dict.twoPages.concrete.chosen.replace("{n}", String(picks.length))}
-        {picks.length === 0 && !answers.surpriseMe && <span className="text-ink/45"> · {dict.twoPages.concrete.min}</span>}
+        {picks.length === 0 && !answers.surpriseMe && <span className="text-ink/70"> · {dict.twoPages.concrete.min}</span>}
       </p>
       {notice && (
         <p className="mt-3 rounded-md bg-surface-active px-3 py-2 text-sm text-ink/80" role="status">
@@ -913,7 +950,7 @@ export function AssociationWizard({
             {dict.twoPages.concrete.more}
           </button>
         ) : (
-          <span className="text-sm text-ink/55">{dict.twoPages.concrete.noMore}</span>
+          <span className="text-sm text-ink/70">{dict.twoPages.concrete.noMore}</span>
         )}
         <button
           type="button"
@@ -928,7 +965,7 @@ export function AssociationWizard({
           <span className="text-xs opacity-75">{pick(dict.twoPages.concrete.chooseForMeSub, dict.twoPages.concrete.chooseForMeSubGift)}</span>
         </button>
       </div>
-      {!answers.surpriseMe && picks.length > 0 && picks.length < 3 && <p className="mt-3 text-sm text-ink/55">{dict.twoPages.concrete.moreSub}</p>}
+      {!answers.surpriseMe && picks.length > 0 && picks.length < 3 && <p className="mt-3 text-sm text-ink/70">{dict.twoPages.concrete.moreSub}</p>}
     </div>
   );
 
@@ -941,9 +978,9 @@ export function AssociationWizard({
       case "worlds":
         return (
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{dict.chapters.images}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{dict.chapters.images}</p>
             <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.worlds.heading, dict.worlds.headingGift)}</h1>
-            <p className="mt-2 text-ink/60">{dict.worlds.sub}</p>
+            <p className="mt-2 text-ink/70">{dict.worlds.sub}</p>
             {gift && (
               <div className="mt-5 max-w-sm">
                 <label htmlFor="recipient" className="block text-sm font-semibold text-ink">
@@ -954,7 +991,7 @@ export function AssociationWizard({
                   value={answers.recipientName ?? ""}
                   onChange={(e) => set("recipientName", e.target.value.slice(0, 40))}
                   placeholder={dict.recipientPlaceholder}
-                  className="mt-2 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/35 focus:border-ink"
+                  className="mt-2 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
                 />
               </div>
             )}
@@ -1010,12 +1047,12 @@ export function AssociationWizard({
                 {dict.worlds.more}
               </button>
             )}
-            <p className="mt-3 text-sm text-ink/60" aria-live="polite">
+            <p className="mt-3 text-sm text-ink/70" aria-live="polite">
               {answers.surpriseMe ? dict.worlds.surpriseSub : dict.worlds.chosen.replace("{n}", String((answers.interestDomains ?? []).length))}
             </p>
             {/* The examples that used to sit on every tile: one line for the direction touched last. */}
             {hintDomain && !answers.surpriseMe && (
-              <p className="mt-1 text-sm text-ink/60" aria-live="polite">
+              <p className="mt-1 text-sm text-ink/70" aria-live="polite">
                 <span className="font-semibold text-ink/75">{hintDomain.label}:</span>{" "}
                 {sampleWorldExamples(library.worldExamples?.[hintDomain.id] ?? [], seed || "initial", hintDomain.id).join(" · ")}
               </p>
@@ -1085,7 +1122,7 @@ export function AssociationWizard({
                     </h2>
                     <div className="mt-5 flex items-baseline gap-2 rounded-lg bg-surface-active px-4 py-3">
                       <span className="font-serif text-3xl font-semibold text-ink">{payment.price}</span>
-                      <span className="text-xs text-ink/50">{payment.dict.priceCaption}</span>
+                      <span className="text-xs text-ink/70">{payment.dict.priceCaption}</span>
                     </div>
                     <ul className="mt-6 flex flex-col gap-3">
                       {dict.checkout.whatYouGet.map((line) => (
@@ -1099,7 +1136,7 @@ export function AssociationWizard({
                         </li>
                       ))}
                     </ul>
-                    <p className="mt-5 text-xs leading-relaxed text-ink/55">{dict.checkout.freeNote}</p>
+                    <p className="mt-5 text-xs leading-relaxed text-ink/70">{dict.checkout.freeNote}</p>
                   </div>
                   <div>
                     {payment.paymentFailed && (
@@ -1121,14 +1158,14 @@ export function AssociationWizard({
         return (
           <div className="space-y-7">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{dict.chapters.situation}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{dict.chapters.situation}</p>
               <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.situation.heading, dict.situation.headingGift)}</h1>
             </div>
             <div>
               <label htmlFor="location" className="block font-semibold text-ink">
                 {pick(dict.room.locationLabel, dict.room.locationLabelGift)}
               </label>
-              <p className="mt-1 text-sm text-ink/60">{dict.room.locationSub}</p>
+              <p className="mt-1 text-sm text-ink/70">{dict.room.locationSub}</p>
               <LocationAutocomplete
                 tidy
                 id="location"
@@ -1198,7 +1235,7 @@ export function AssociationWizard({
                 <span aria-hidden="true">{showMore ? "−" : "+"}</span>
                 {dict.situation.moreLabel}
               </button>
-              <p className="mt-0.5 text-sm text-ink/60">{dict.situation.moreSub}</p>
+              <p className="mt-0.5 text-sm text-ink/70">{dict.situation.moreSub}</p>
             </div>
             {showMore && (
               <div id="situation-more" className="space-y-7">
@@ -1223,7 +1260,7 @@ export function AssociationWizard({
             )}
             <fieldset>
               <legend className="font-semibold text-ink">{pick(dict.who.ageLabel, dict.who.ageLabelGift)}</legend>
-              <p className="mt-1 text-sm text-ink/60">{dict.who.ageSub}</p>
+              <p className="mt-1 text-sm text-ink/70">{dict.who.ageSub}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {ageOptionsFor(intakeDict.ageCategory.options, gift, answers.ageCategory).map((o) => (
                   <Chip key={o.value} selected={answers.ageCategory === o.value} onClick={() => set("ageCategory", answers.ageCategory === o.value ? "" : o.value)}>
@@ -1234,7 +1271,7 @@ export function AssociationWizard({
             </fieldset>
             <fieldset>
               <legend className="font-semibold text-ink">{dict.who.limitsLabel}</legend>
-              <p className="mt-1 text-sm text-ink/60">{dict.who.limitsSub}</p>
+              <p className="mt-1 text-sm text-ink/70">{dict.who.limitsSub}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {dict.who.limitChips.map((c) => (
                   <Chip key={c} selected={limitChips.includes(c)} onClick={() => setLimitChips((prev) => toggle(prev, c))}>
@@ -1247,7 +1284,7 @@ export function AssociationWizard({
                 onChange={(e) => setLimitText(e.target.value.slice(0, 200))}
                 placeholder={dict.who.limitsPlaceholder}
                 aria-label={dict.who.limitsPlaceholder}
-                className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/35 focus:border-ink"
+                className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
               />
             </fieldset>
               </div>
@@ -1276,7 +1313,7 @@ export function AssociationWizard({
             <span key={n} className={cn("h-1.5 flex-1 rounded-full", i < chapter ? "bg-gold" : i === chapter ? "bg-accent-dark" : "bg-border")} />
           ))}
         </div>
-        <span className="whitespace-nowrap text-xs font-semibold text-ink/60">
+        <span className="whitespace-nowrap text-xs font-semibold text-ink/70">
           {chapter + 1} · {chapterNames[chapter]}
         </span>
         <button
@@ -1296,7 +1333,7 @@ export function AssociationWizard({
             <li
               key={label}
               aria-current={i === page ? "step" : undefined}
-              className={cn("flex items-center gap-1.5", i === page ? "text-ink" : i < page ? "text-ink/60" : "text-ink/35")}
+              className={cn("flex items-center gap-1.5", i === page ? "text-ink" : i < page ? "text-ink/70" : "text-ink/70")}
             >
               <span aria-hidden="true" className={cn("h-2 w-2 rounded-full", i === page ? "bg-accent-dark" : i < page ? "bg-gold" : "bg-border")} />
               {label}
@@ -1375,7 +1412,7 @@ export function AssociationWizard({
               <div className="mx-auto mt-4 w-full max-w-[280px]">
                 <WindowFrame items={windowItems} size="panel" sill={sill || undefined} title={windowTitle} activeKind={activeKind} />
               </div>
-              {!sill && <p className="mt-4 text-sm text-ink/50">{dict.sill.empty}</p>}
+              {!sill && <p className="mt-4 text-sm text-ink/70">{dict.sill.empty}</p>}
             </div>
           </aside>
         )}

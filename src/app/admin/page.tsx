@@ -83,7 +83,7 @@ export default async function AdminOverviewPage() {
                   {c.ok ? "✓" : c.required ? "✗" : "–"}
                 </span>
                 <code className="truncate text-xs text-ink">{c.name}</code>
-                <span className={c.ok ? "text-ink/60" : c.required ? "text-red-800" : "text-ink/60"}>{c.detail}</span>
+                <span className={c.ok ? "text-ink/70" : c.required ? "text-red-800" : "text-ink/70"}>{c.detail}</span>
               </li>
             ))}
           </ul>
@@ -98,16 +98,16 @@ export default async function AdminOverviewPage() {
           <Tile label="Typische duur" value={formatSeconds(o.medianSeconds)} sub={o.slowest ? `traagste: ${formatSeconds(o.slowest)}` : undefined} />
         </TileGrid>
         <Card className="mt-4">
-          <p className="mb-3 text-xs text-ink/50">Boeken per dag, laatste 14 dagen</p>
+          <p className="mb-3 text-xs text-ink/70">Boeken per dag, laatste 14 dagen</p>
           <div className="flex h-28 items-end gap-1.5" role="img" aria-label="Boeken per dag">
             {o.perDay.map((d) => (
               <div key={d.day} className="flex flex-1 flex-col items-center justify-end gap-1" title={`${d.day}: ${d.count}`}>
-                <span className="text-[10px] tabular-nums text-ink/50">{d.count || ""}</span>
+                <span className="text-[10px] tabular-nums text-ink/70">{d.count || ""}</span>
                 <span className="w-full rounded-t bg-accent" style={{ height: `${d.count ? Math.max(4, (d.count / maxDay) * 80) : 2}px`, opacity: d.count ? 1 : 0.2 }} />
               </div>
             ))}
           </div>
-          <div className="mt-1 flex gap-1.5 text-[10px] text-ink/40">
+          <div className="mt-1 flex gap-1.5 text-[10px] text-ink/70">
             {o.perDay.map((d) => (
               <span key={d.day} className="flex-1 text-center">
                 {d.day.slice(8)}
@@ -123,15 +123,15 @@ export default async function AdminOverviewPage() {
         </TileGrid>
         {o.email.errors.length > 0 && (
           <Card className="mt-4">
-            <p className="mb-2 text-xs text-ink/50">Laatste foutmeldingen</p>
+            <p className="mb-2 text-xs text-ink/70">Laatste foutmeldingen</p>
             <ul className="space-y-1.5 text-sm">
               {o.email.errors.map((e) => (
                 <li key={e.planId} className="text-ink/80">
-                  <span className="tabular-nums text-ink/40">{e.at.slice(0, 16).replace("T", " ")}</span> — {e.message}
+                  <span className="tabular-nums text-ink/70">{e.at.slice(0, 16).replace("T", " ")}</span> — {e.message}
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-xs text-ink/50">
+            <p className="mt-3 text-xs text-ink/70">
               &quot;Missing API key&quot; = <code>RESEND_API_KEY</code> ontbreekt in Vercel. &quot;Domain is not verified&quot; = <code>windowinto.nl</code> nog niet geverifieerd in Resend.
             </p>
           </Card>
@@ -179,7 +179,7 @@ export default async function AdminOverviewPage() {
         </Card>
       </Section>
 
-      <p className="text-xs text-ink/40">
+      <p className="text-xs text-ink/70">
         Meer: het tabblad <Link href="/admin/inhoud" className="underline">Inhoud</Link> toont wát mensen kiezen en wat er wordt voorgesteld, en <Link href="/admin/feedback" className="underline">Feedback</Link> de antwoorden van testers.
         Gedrag op de site (waar mensen afhaken in de intake) staat in PostHog.
       </p>

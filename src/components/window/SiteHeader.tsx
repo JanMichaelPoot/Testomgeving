@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { LanguageToggle } from "./LanguageToggle";
+import { MobileNav } from "./MobileNav";
 import type { Locale } from "@/lib/language";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -34,20 +35,29 @@ export function SiteHeader({
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          <Link href="/#hoe" className="text-sm text-ink/60 transition-colors hover:text-accent">
+          <Link href="/#hoe" className="text-sm text-ink/70 transition-colors hover:text-accent">
             {dict.navHowItWorks}
           </Link>
           <Link
             href={`/examples/idea-book-${locale}.pdf`}
             target="_blank"
             rel="noreferrer"
-            className="text-sm text-ink/60 transition-colors hover:text-accent"
+            className="text-sm text-ink/70 transition-colors hover:text-accent"
           >
             {dict.navExamples}
           </Link>
         </nav>
 
-        <LanguageToggle locale={locale} label={dict.switchLanguage} />
+        <div className="flex items-center gap-2">
+          <LanguageToggle locale={locale} label={dict.switchLanguage} />
+          <MobileNav
+            menuLabel={dict.menuLabel}
+            links={[
+              { href: "/#hoe", label: dict.navHowItWorks },
+              { href: `/examples/idea-book-${locale}.pdf`, label: dict.navExamples, external: true },
+            ]}
+          />
+        </div>
       </div>
     </header>
   );

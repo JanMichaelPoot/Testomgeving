@@ -80,7 +80,7 @@ export default async function AdminOrdersPage() {
         <div className="mt-6 overflow-x-auto rounded-lg border border-ink/10 bg-paper">
           <table className="w-full min-w-[900px] text-left text-sm">
             <thead>
-              <tr className="border-b border-ink/10 text-xs uppercase tracking-widest text-ink/40">
+              <tr className="border-b border-ink/10 text-xs uppercase tracking-widest text-ink/70">
                 <th className="px-4 py-3 font-medium">Order</th>
                 <th className="px-4 py-3 font-medium">Datum</th>
                 <th className="px-4 py-3 font-medium">Betaling</th>
@@ -142,7 +142,7 @@ export default async function AdminOrdersPage() {
               })}
               {orders && orders.length === 0 && (
                 <tr>
-                  <td colSpan={9} className="px-4 py-8 text-center text-ink/40">
+                  <td colSpan={9} className="px-4 py-8 text-center text-ink/70">
                     Nog geen orders.
                   </td>
                 </tr>
@@ -161,7 +161,7 @@ function StatusBadge({ value }: { value: string }) {
       ? "bg-green-100 text-green-800"
       : value === "failed"
         ? "bg-red-100 text-red-700"
-        : "bg-ink/10 text-ink/60";
+        : "bg-ink/10 text-ink/70";
   return (
     <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${color}`}>
       {value}

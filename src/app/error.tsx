@@ -14,7 +14,7 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
   return (
     <main className="mx-auto flex min-h-[60vh] w-full max-w-xl flex-col items-center justify-center px-6 py-24 text-center">
       <h1 className="font-serif text-3xl text-ink">{copy.errorTitle}</h1>
-      <p className="mt-4 text-ink/60">{copy.errorBody}</p>
+      <p className="mt-4 text-ink/70">{copy.errorBody}</p>
       <button
         type="button"
         onClick={reset}

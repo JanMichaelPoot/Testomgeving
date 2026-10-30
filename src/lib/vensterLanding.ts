@@ -22,6 +22,16 @@ export function showVensterLanding(percentRaw: string | undefined, query: string
 export const VENSTER_SELF_HREF = "/intake";
 export const VENSTER_GIFT_HREF = "/intake?for=gift";
 
+/** The landing page's gift link with a one-time value: the wizard starts clean on every new arrival and keeps its answers on a reload. */
+/** A new one-time value for the gift link (one per landing page render). */
+export function newArrivalId(): string {
+  return Math.random().toString(36).slice(2, 10);
+}
+
+export function giftHrefWithArrival(arrival: string): string {
+  return `${VENSTER_GIFT_HREF}&s=${encodeURIComponent(arrival)}`;
+}
+
 // Share (0-100) of visitors who get the two-page image intake ("images2", docs/fase4-opzet.md) in a fresh draw. Default 100:
 // everybody (Jan, 30 Oct 2026: the four-round intake must not be what visitors see); set NEXT_PUBLIC_IMAGES2_PERCENT to 0 to switch
 // it off again. The draw for it comes first; the rest go on to the four-round image intake (NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT).

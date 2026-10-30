@@ -17,8 +17,10 @@
   --color-walnut-light: #a98262;
   --color-gold: #b08a4a;
   --color-gold-light: #d2b77a;
+  /* Gold as text on the cream/paper surfaces: --color-gold itself is only 2.9:1 there; this one is 5.3:1 (WCAG AA). */
+  --color-gold-text: #7c5f20;
   --color-ink: #202020;
-  --color-muted: #77736c;
+  --color-muted: #6a665f;
   --color-cream: #f7f5f0;
   --color-paper: #fffdfa;
   --color-border: #ded8ce;
@@ -49,6 +51,7 @@
   --color-walnut-light: var(--color-walnut-light);
   --color-gold: var(--color-gold);
   --color-gold-light: var(--color-gold-light);
+  --color-gold-text: var(--color-gold-text);
   --color-ink: var(--color-ink);
   --color-muted: var(--color-muted);
   --color-cream: var(--color-cream);

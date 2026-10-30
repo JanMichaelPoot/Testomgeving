@@ -8,7 +8,7 @@ export function AdminLoginForm() {
 
   return (
     <form action={formAction} className="mt-6">
-      <label className="block text-xs font-medium uppercase tracking-widest text-ink/50">
+      <label className="block text-xs font-medium uppercase tracking-widest text-ink/70">
         Wachtwoord
       </label>
       <input
@@ -16,7 +16,7 @@ export function AdminLoginForm() {
         name="password"
         required
         autoFocus
-        className="mt-1.5 w-full rounded-xl border border-ink/15 bg-paper px-3.5 py-2.5 text-sm text-ink shadow-sm outline-none placeholder:text-ink/35 focus:border-accent"
+        className="mt-1.5 w-full rounded-xl border border-ink/15 bg-paper px-3.5 py-2.5 text-sm text-ink shadow-sm outline-none placeholder:text-ink/70 focus:border-accent"
       />
 
       {error && (

@@ -72,7 +72,7 @@ export function ConsentBanner({ dict }: { dict: Dictionary["consent"] }) {
         <button
           type="button"
           onClick={() => setConsent("denied")}
-          className="rounded-full px-4 py-2 text-sm font-medium text-ink/60 transition-colors hover:text-ink"
+          className="rounded-full px-4 py-2 text-sm font-medium text-ink/70 transition-colors hover:text-ink"
         >
           {dict.decline}
         </button>

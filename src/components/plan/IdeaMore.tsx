@@ -48,7 +48,7 @@ function Layers({ idea, copy, mode }: { idea: IdeaBookEntry; copy: More; mode: "
               >
                 <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-dark">
                   {copy.sizeNames[i]}
-                  <span className="ml-2 font-medium normal-case tracking-normal text-ink/50">{copy.sizeHints[i]}</span>
+                  <span className="ml-2 font-medium normal-case tracking-normal text-ink/70">{copy.sizeHints[i]}</span>
                 </p>
                 <p className="text-[15px] font-semibold leading-snug text-ink">{size.title}</p>
                 <p className="text-sm leading-relaxed text-ink/80">{size.description}</p>
@@ -64,17 +64,17 @@ function Layers({ idea, copy, mode }: { idea: IdeaBookEntry; copy: More; mode: "
       {full && idea.places && idea.places.length > 0 && (
         <div>
           <p className="mb-1 text-xs font-semibold uppercase tracking-[0.14em] text-accent">{copy.placesHeading}</p>
-          <p className="mb-2 text-xs text-ink/55">{copy.placesNote}</p>
+          <p className="mb-2 text-xs text-ink/70">{copy.placesNote}</p>
           <ul role="list" className="space-y-2">
             {idea.places.map((place) => (
               <li key={`${place.name}|${place.city}`} className="rounded-md border border-border bg-paper p-3.5">
                 <p className="text-[15px] font-semibold leading-snug text-ink">
                   {place.name}
-                  {place.city && <span className="font-normal text-ink/60">, {place.city}</span>}
+                  {place.city && <span className="font-normal text-ink/70">, {place.city}</span>}
                 </p>
                 {place.note && <p className="mt-0.5 text-sm leading-relaxed text-ink/75">{place.note}</p>}
                 {place.rating && (
-                  <p className="mt-0.5 text-xs text-ink/60">
+                  <p className="mt-0.5 text-xs text-ink/70">
                     {copy.ratingLine
                       .replace("{score}", place.rating.score.toFixed(1).replace(".", copy.ratingDecimal))
                       .replace("{source}", place.rating.source)

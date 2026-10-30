@@ -19,7 +19,7 @@ export default async function AdminLoginPage() {
           WINDOW — admin
         </p>
         <h1 className="mt-2 font-serif text-2xl text-ink">Logboek</h1>
-        <p className="mt-2 text-sm text-ink/60">
+        <p className="mt-2 text-sm text-ink/70">
           Alleen voor intern gebruik — anonieme audit van intake- en Idea Book-gegevens.
         </p>
         <AdminLoginForm />

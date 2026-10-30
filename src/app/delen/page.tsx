@@ -1,3 +1,4 @@
+import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { SiteFooter } from "@/components/window/SiteFooter";
@@ -19,7 +20,7 @@ export default async function SharePage() {
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12 sm:px-10">
-        <InviteShare locale={locale} copy={dict.venster.invite} siteUrl={process.env.NEXT_PUBLIC_SITE_URL ?? "https://windowinto.nl"} source="page" defaultOpen />
+        <InviteShare locale={locale} copy={dict.venster.invite} siteUrl={getSiteUrl()} source="page" defaultOpen />
       </main>
       <SiteFooter locale={locale} dict={dict.footer} />
     </div>

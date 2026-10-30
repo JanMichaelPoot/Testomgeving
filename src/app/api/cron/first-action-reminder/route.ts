@@ -1,3 +1,4 @@
+import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 import { NextResponse } from "next/server";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { sendFirstActionReminderEmail } from "@/lib/email/reminder";
@@ -44,7 +45,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
+  const siteUrl = getSiteUrl();
   let sent = 0;
   let failed = 0;
 

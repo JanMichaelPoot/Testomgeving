@@ -51,7 +51,7 @@ export function IdeaThread({
               )}
               <span className="min-w-0 self-center md:self-start">
                 <span className="block text-sm font-semibold leading-snug text-accent-dark">{link.text}</span>
-                <span className="mt-0.5 block text-xs text-ink/55">{link.caption}</span>
+                <span className="mt-0.5 block text-xs text-ink/70">{link.caption}</span>
               </span>
             </li>
           );

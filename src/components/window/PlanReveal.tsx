@@ -1,5 +1,6 @@
 "use client";
 
+import { isDiscoveryLevel } from "@/lib/discoveryLevels";
 import { useEffect, useMemo, useState, useSyncExternalStore, useTransition } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
@@ -10,7 +11,6 @@ import { IdeaFeedback } from "@/components/window/IdeaFeedback";
 import { IdeaThread } from "@/components/plan/IdeaThread";
 import { IdeaMore } from "@/components/plan/IdeaMore";
 import { pdfPageNumbers } from "@/lib/claude/ideaLayers";
-import { isDiscoveryLevel, levelName } from "@/lib/discoveryLevels";
 import { ShareButton } from "@/components/window/ShareButton";
 import { commitToIdea, submitIdeaFeedback, type IdeaFeedbackValue } from "@/app/plan/actions";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
@@ -282,7 +282,10 @@ export function PlanReveal({
     trackEvent("wildcard_revealed", { planId });
   }
 
-  const trackPdf = (source: string) => () => trackEvent("plan_pdf_downloaded", { planId, source });
+  const trackPdf = (source: string) => () => {
+    trackEvent("pdf_opened", { source });
+    trackEvent("plan_pdf_downloaded", { planId, source });
+  };
 
   const headline = vensterEcho ? (
     <>
@@ -334,7 +337,7 @@ export function PlanReveal({
       </div>
       {emailNotSent && <p className="mt-2 text-right text-xs text-ink/70">{planDict.emailNotSent}</p>}
       {showEmailedCopy && (
-        <p className="mt-2 text-right text-xs text-ink/60">{planDict.emailedCopy}</p>
+        <p className="mt-2 text-right text-xs text-ink/70">{planDict.emailedCopy}</p>
       )}
 
       {/* B — echo header */}
@@ -390,19 +393,13 @@ export function PlanReveal({
             </div>
             <div className="flex min-w-0 flex-col gap-5 p-6 sm:p-9 lg:p-12">
               <div className="flex flex-col gap-2.5">
-                {isDiscoveryLevel(featured.level) ? (
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/60">
-                    {t.levelLabel.replace("{n}", String(featured.level)).replace("{label}", levelName(featured.level, locale))}
-                  </p>
-                ) : (
-                  isDoor(featured.door) && (
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/60">
+                {isDoor(featured.door) && (
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/70">
                       {t.doorLabel
                         .replace("{n}", String(DOOR_ORDER.indexOf(featured.door) + 1))
                         .replace("{label}", planDict.book.doors[featured.door].label)}
                     </p>
-                  )
-                )}
+                  )}
                 <h2
                   id="one-thing-title"
                   className="font-serif text-3xl font-medium leading-[1.1] text-ink sm:text-4xl"
@@ -524,7 +521,7 @@ export function PlanReveal({
         </div>
 
         <div className="mt-7 flex items-center gap-4" aria-hidden="true">
-          <span className="shrink-0 text-xs font-semibold uppercase tracking-[0.1em] text-ink/60">
+          <span className="shrink-0 text-xs font-semibold uppercase tracking-[0.1em] text-ink/70">
             {t.scaleNear}
           </span>
           <span className="h-0.5 flex-1 bg-border" />
@@ -541,7 +538,7 @@ export function PlanReveal({
                 <div className="flex items-center gap-3.5">
                   <DoorIcon door={door} />
                   <div className="flex flex-col gap-0.5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ink/60">
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ink/70">
                       {t.doorWord.replace("{n}", String(doorIndex + 1))}
                     </p>
                     <h3 className="font-serif text-2xl font-medium text-ink">
@@ -554,7 +551,7 @@ export function PlanReveal({
                 </p>
 
                 {entries.length === 0 && (
-                  <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-sm italic text-ink/55">
+                  <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-sm italic text-ink/70">
                     {t.emptyDoor}
                   </p>
                 )}
@@ -587,9 +584,9 @@ export function PlanReveal({
                           {idea.title}
                         </h4>
                         <p className="text-[13px] text-ink/65">{metaParts(idea, locale).join(" · ")}</p>
-                        {isDiscoveryLevel(idea.level) && (
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-gold">
-                            {t.levelLabel.replace("{n}", String(idea.level)).replace("{label}", levelName(idea.level, locale))}
+                        {isDoor(idea.door) && (
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-gold-text">
+                            {planDict.book.doors[idea.door].label}
                           </p>
                         )}
                         <div className="flex items-center justify-between pt-1">

@@ -63,7 +63,7 @@ export function ProfileStep({
 
   return (
     <div>
-      <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{copy.kicker}</p>
+      <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{copy.kicker}</p>
       <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{heading}</h1>
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-12">
@@ -89,7 +89,7 @@ export function ProfileStep({
           </div>
 
           <div className="mt-5 rounded-2xl border border-border bg-surface-active px-5 py-4">
-            <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{copy.tensionLabel}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{copy.tensionLabel}</p>
             <p className="mt-1 text-ink/80">{story.tension.text}</p>
           </div>
 
@@ -120,9 +120,9 @@ export function ProfileStep({
                     <div key={axis}>
                       <label htmlFor={`axis-${axis}`} className="flex items-baseline justify-between text-sm">
                         <span className="font-medium text-ink">{labels.label}</span>
-                        {override[axis] !== undefined && <span className="text-xs text-gold">{text}</span>}
+                        {override[axis] !== undefined && <span className="text-xs text-gold-text">{text}</span>}
                       </label>
-                      <div className="mt-1 flex items-center gap-3 text-xs text-ink/55">
+                      <div className="mt-1 flex items-center gap-3 text-xs text-ink/70">
                         <span className="w-16 shrink-0 text-right">{labels.low}</span>
                         <input
                           id={`axis-${axis}`}
@@ -167,7 +167,7 @@ export function ProfileStep({
                   <ul className="mt-2 space-y-1.5 text-sm text-ink/80">
                     {story.omit.map((line) => (
                       <li key={line} className="flex gap-2">
-                        <span aria-hidden="true" className="text-ink/40">
+                        <span aria-hidden="true" className="text-ink/70">
                           −
                         </span>
                         {line}
@@ -219,7 +219,7 @@ export function ProfileStep({
             <h2 id="profile-miss" className="font-semibold text-ink">
               {missTitle}
             </h2>
-            <p className="mt-1 text-sm text-ink/60">{copy.missSub}</p>
+            <p className="mt-1 text-sm text-ink/70">{copy.missSub}</p>
             {story.suggestions.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
                 {story.suggestions.map((s) => (
@@ -240,7 +240,7 @@ export function ProfileStep({
               placeholder={copy.missPlaceholder}
               aria-labelledby="profile-miss"
               rows={3}
-              className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 leading-relaxed text-ink outline-none placeholder:text-ink/35 focus:border-ink"
+              className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 leading-relaxed text-ink outline-none placeholder:text-ink/70 focus:border-ink"
             />
           </section>
 

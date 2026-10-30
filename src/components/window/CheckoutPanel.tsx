@@ -94,6 +94,7 @@ export function CheckoutPanel({
 
   function handleSubmit() {
     if (!canSubmit) return;
+    trackEvent("pay_clicked", { is_gift: isGift });
     trackEvent("checkout_pay_clicked", { is_gift: isGift });
     setError(null);
     startTransition(async () => {
@@ -120,7 +121,7 @@ export function CheckoutPanel({
       {/* Where the book goes: Stripe's own e-mail field is not always editable (autofill, Link), so ask here too. */}
       {!isGift && (
         <div className="mb-6">
-          <label htmlFor="delivery-email" className="block text-xs font-medium uppercase tracking-widest text-ink/50">
+          <label htmlFor="delivery-email" className="block text-xs font-medium uppercase tracking-widest text-ink/70">
             {dict.deliveryEmailLabel}
           </label>
           <input
@@ -131,9 +132,9 @@ export function CheckoutPanel({
             onChange={(e) => setDeliveryEmail(e.target.value)}
             placeholder={dict.deliveryEmailPlaceholder}
             aria-invalid={!deliveryEmailValid}
-            className="mt-1.5 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/35 focus:border-ink"
+            className="mt-1.5 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/70 focus:border-ink"
           />
-          <p className="mt-1.5 text-xs text-ink/50">{dict.deliveryEmailHint}</p>
+          <p className="mt-1.5 text-xs text-ink/70">{dict.deliveryEmailHint}</p>
         </div>
       )}
 
@@ -160,7 +161,7 @@ export function CheckoutPanel({
 
         {isGift && (
           <div className="mt-4">
-            <label className="block text-xs font-medium uppercase tracking-widest text-ink/50">
+            <label className="block text-xs font-medium uppercase tracking-widest text-ink/70">
               {dict.giftEmailLabel}
             </label>
             <input
@@ -168,7 +169,7 @@ export function CheckoutPanel({
               value={giftEmail}
               onChange={(e) => setGiftEmail(e.target.value)}
               placeholder={dict.giftEmailPlaceholder}
-              className="mt-1.5 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/35 focus:border-ink"
+              className="mt-1.5 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/70 focus:border-ink"
             />
           </div>
         )}
@@ -197,11 +198,11 @@ export function CheckoutPanel({
             />
           </button>
         </div>
-        <p className="mt-2 text-xs leading-relaxed text-ink/60">{dict.memoryHint}</p>
+        <p className="mt-2 text-xs leading-relaxed text-ink/70">{dict.memoryHint}</p>
       </div>
 
       {/* Disclaimer */}
-      <p className="mb-5 rounded-lg bg-ink/4 p-4 text-xs leading-relaxed text-ink/60">
+      <p className="mb-5 rounded-lg bg-ink/4 p-4 text-xs leading-relaxed text-ink/70">
         {dict.disclaimer}
       </p>
 
@@ -209,11 +210,11 @@ export function CheckoutPanel({
           the compliance brief (never only disclosed after purchase). */}
       <div className="mb-4 rounded-lg border border-border bg-paper p-4">
         <p className="text-sm font-medium text-ink">{dict.digitalDeliveryHeading}</p>
-        <p className="mt-1 text-xs leading-relaxed text-ink/60">{dict.digitalDeliveryBody}</p>
+        <p className="mt-1 text-xs leading-relaxed text-ink/70">{dict.digitalDeliveryBody}</p>
       </div>
       <div className="mb-5 rounded-lg border border-gold/40 bg-gold/10 p-4">
         <p className="text-sm font-medium text-ink">{dict.withdrawalNoticeHeading}</p>
-        <p className="mt-1 text-xs leading-relaxed text-ink/60">{dict.withdrawalNoticeBody}</p>
+        <p className="mt-1 text-xs leading-relaxed text-ink/70">{dict.withdrawalNoticeBody}</p>
       </div>
 
       {/* Two separate, independently required checkboxes — see
@@ -233,7 +234,7 @@ export function CheckoutPanel({
 
       {/* Legal information, reachable before payment (compliance brief
           section 8) — never only disclosed afterwards. */}
-      <p className="mb-7 text-xs text-ink/50">
+      <p className="mb-7 text-xs text-ink/70">
         {dict.legalLinksIntro}{" "}
         <Link href="/terms" target="_blank" className="underline underline-offset-2 hover:text-ink">
           {dict.legalLinks.terms}

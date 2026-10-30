@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { VENSTER_GIFT_HREF, VENSTER_SELF_HREF } from "@/lib/vensterLanding";
+import { VENSTER_SELF_HREF } from "@/lib/vensterLanding";
 
 // Landing hero for "Het venster" (fase 7): the photo in the same arched walnut frame as the
 // window the visitor is about to fill, one headline and two ways in (for yourself, as a gift).
 // `heroSrc` is one photo of the hero pool (src/lib/heroPool.ts), another one on another visit.
-export function VensterHero({ dict, price, heroSrc }: { dict: Dictionary["venster"]["landing"]; price: string; heroSrc: string }) {
+export function VensterHero({ dict, price, heroSrc, heroAlt, giftHref }: { dict: Dictionary["venster"]["landing"]; price: string; heroSrc: string; heroAlt: string; giftHref: string }) {
   return (
     <section className="mx-auto w-full max-w-[84rem] px-4 pt-8 sm:px-10 sm:pt-16">
       <div className="grid w-full items-center gap-10 md:grid-cols-[1fr_0.9fr] lg:gap-16">
@@ -23,7 +23,7 @@ export function VensterHero({ dict, price, heroSrc }: { dict: Dictionary["venste
             <Button href={VENSTER_SELF_HREF} size="lg">
               {dict.selfCta}
             </Button>
-            <Button href={VENSTER_GIFT_HREF} variant="secondary" size="lg">
+            <Button href={giftHref} variant="secondary" size="lg">
               {dict.giftCta}
             </Button>
           </div>
@@ -34,7 +34,7 @@ export function VensterHero({ dict, price, heroSrc }: { dict: Dictionary["venste
             <div className="relative aspect-[3/4] overflow-hidden rounded-[50%_50%_6px_6px/32%_32%_6px_6px] ring-1 ring-gold/60">
               <Image
                 src={heroSrc}
-                alt={dict.heroAlt}
+                alt={heroAlt}
                 fill
                 priority
                 sizes="(min-width: 1024px) 420px, (min-width: 640px) 360px, 260px"

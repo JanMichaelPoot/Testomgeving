@@ -36,7 +36,7 @@ function CountTable({ counts, verb }: { counts: CleanupCounts; verb: string }) {
           </tr>
         ))}
         <tr className="border-t border-ink/10">
-          <td className="py-1.5 text-ink/60">Echte orders die blijven staan</td>
+          <td className="py-1.5 text-ink/70">Echte orders die blijven staan</td>
           <td className="py-1.5 text-right tabular-nums text-emerald-800">{counts.keptReal}</td>
         </tr>
       </tbody>
@@ -122,7 +122,7 @@ export default async function AdminCleanupPage(props: { searchParams: Promise<Re
                 defaultValue={scope?.before ?? today}
                 className="mt-1 block rounded-lg border border-ink/20 bg-cream px-3 py-2 text-ink"
               />
-              <span className="mt-1 block text-xs text-ink/50">Kies de dag vlak voor je echte start. Alles wat daarna is gemaakt blijft staan.</span>
+              <span className="mt-1 block text-xs text-ink/70">Kies de dag vlak voor je echte start. Alles wat daarna is gemaakt blijft staan.</span>
             </label>
             <fieldset className="space-y-2">
               <legend className="font-medium text-ink">Wat</legend>
@@ -130,35 +130,35 @@ export default async function AdminCleanupPage(props: { searchParams: Promise<Re
                 <input type="checkbox" name="books" value="1" defaultChecked={checked("books", true)} className="mt-1" />
                 <span>
                   <span className="text-ink">Testboeken en testorders</span>
-                  <span className="block text-xs text-ink/50">Boeken zonder betaling of met een Stripe-testbetaling, met hun sessie, intake, PDF en toestemmingsregels.</span>
+                  <span className="block text-xs text-ink/70">Boeken zonder betaling of met een Stripe-testbetaling, met hun sessie, intake, PDF en toestemmingsregels.</span>
                 </span>
               </label>
               <label className="flex items-start gap-2">
                 <input type="checkbox" name="unfinished" value="1" defaultChecked={checked("unfinished", true)} className="mt-1" />
                 <span>
                   <span className="text-ink">Onafgemaakte intakes</span>
-                  <span className="block text-xs text-ink/50">Sessies waar iemand de intake invulde maar nooit een boek kreeg.</span>
+                  <span className="block text-xs text-ink/70">Sessies waar iemand de intake invulde maar nooit een boek kreeg.</span>
                 </span>
               </label>
               <label className="flex items-start gap-2">
                 <input type="checkbox" name="feedback" value="1" defaultChecked={checked("feedback", true)} className="mt-1" />
                 <span>
                   <span className="text-ink">Testfeedback</span>
-                  <span className="block text-xs text-ink/50">De antwoorden van de vragenlijst onder het boek. Feedback bij verwijderde boeken gaat sowieso mee.</span>
+                  <span className="block text-xs text-ink/70">De antwoorden van de vragenlijst onder het boek. Feedback bij verwijderde boeken gaat sowieso mee.</span>
                 </span>
               </label>
               <label className="flex items-start gap-2">
                 <input type="checkbox" name="log" value="1" defaultChecked={checked("log", true)} className="mt-1" />
                 <span>
                   <span className="text-ink">Logboek</span>
-                  <span className="block text-xs text-ink/50">De anonieme registratie van gegenereerde boeken (het tabblad Logboek).</span>
+                  <span className="block text-xs text-ink/70">De anonieme registratie van gegenereerde boeken (het tabblad Logboek).</span>
                 </span>
               </label>
               <label className="flex items-start gap-2">
                 <input type="checkbox" name="quota" value="1" defaultChecked={checked("quota", false)} className="mt-1" />
                 <span>
                   <span className="text-ink">Tellers van de testlimiet</span>
-                  <span className="block text-xs text-ink/50">Het aantal boeken per internetverbinding. Wissen geeft iedereen weer het volle aantal testboeken (boeken zelf blijven staan).</span>
+                  <span className="block text-xs text-ink/70">Het aantal boeken per internetverbinding. Wissen geeft iedereen weer het volle aantal testboeken (boeken zelf blijven staan).</span>
                 </span>
               </label>
             </fieldset>
@@ -174,7 +174,7 @@ export default async function AdminCleanupPage(props: { searchParams: Promise<Re
           <Card>
             <CountTable counts={preview} verb="die verdwijnen" />
             {preview.books + preview.orders + preview.sessions + preview.feedback + preview.log + preview.quota + preview.users === 0 ? (
-              <p className="mt-4 text-sm text-ink/60">Er is niets om te verwijderen met deze keuze.</p>
+              <p className="mt-4 text-sm text-ink/70">Er is niets om te verwijderen met deze keuze.</p>
             ) : (
               <form action={cleanupAction} className="mt-5 space-y-3 border-t border-ink/10 pt-4 text-sm">
                 {hidden(scope)}

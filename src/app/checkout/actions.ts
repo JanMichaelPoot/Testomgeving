@@ -1,5 +1,6 @@
 "use server";
 
+import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSessionId } from "@/lib/session";
@@ -67,10 +68,13 @@ export async function createCheckoutSession(
     throw new Error("That session could not be found.");
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
+  const siteUrl = getSiteUrl();
 
   const checkoutSession = await getStripe().checkout.sessions.create({
     mode: "payment",
+    // Stripe's own page in the visitor's language. No payment_method_types on purpose: Checkout then offers every method that is
+    // switched on in the Stripe dashboard for EUR (iDEAL and cards; see docs/live-gaan.md), so the code never needs to change for that.
+    locale: locale === "nl" ? "nl" : "en",
     line_items: [
       {
         price_data: {

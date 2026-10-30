@@ -7,7 +7,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { CheckoutPanel } from "@/components/window/CheckoutPanel";
 import { TestModeBanner } from "@/components/window/TestModeBanner";
-import { testFeedbackEnabled } from "@/lib/testFeedback";
+import { stripeTestNotice } from "@/lib/stripeMode";
 import { LUXURY_ILLUSTRATIONS } from "@/lib/illustrations";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -86,11 +86,11 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
   return (
     <div className="flex min-h-full flex-col bg-cream">
       <SiteHeader locale={locale} dict={dict.header} />
-      <TestModeBanner notice={testFeedbackEnabled(process.env.NEXT_PUBLIC_TEST_FEEDBACK) ? dict.venster.testBanner : undefined} />
+      <TestModeBanner notice={stripeTestNotice(dict.venster.testBanner)} />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-12 sm:px-10">
         <Link
           href="/intake?edit=1"
-          className="mb-8 inline-flex items-center gap-2 text-sm text-ink/60 transition-colors hover:text-ink"
+          className="mb-8 inline-flex items-center gap-2 text-sm text-ink/70 transition-colors hover:text-ink"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -125,11 +125,11 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
             <h1 className="font-sans text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
               {dict.checkout.heading}
             </h1>
-            <p className="mt-1 text-sm text-ink/60">{dict.checkout.subcopy}</p>
+            <p className="mt-1 text-sm text-ink/70">{dict.checkout.subcopy}</p>
 
             <div className="mt-6 flex items-baseline gap-2 rounded-lg bg-surface-active px-4 py-3">
               <span className="font-serif text-3xl font-semibold text-ink">{price}</span>
-              <span className="text-xs text-ink/50">{dict.checkout.priceCaption}</span>
+              <span className="text-xs text-ink/70">{dict.checkout.priceCaption}</span>
             </div>
 
             <h2 className="mt-8 text-sm font-medium text-ink">{dict.checkout.stepsHeading}</h2>
@@ -155,12 +155,12 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
             </ol>
 
             <h2 className="mt-10 text-sm font-medium text-ink">{dict.checkout.choicesHeading}</h2>
-            <p className="mt-1 text-xs text-ink/50">{dict.checkout.choicesHint}</p>
+            <p className="mt-1 text-xs text-ink/70">{dict.checkout.choicesHint}</p>
             <dl className="mt-4 divide-y divide-border rounded-lg border border-border">
               {groups.map((group) => (
                 <div key={group.id} className="flex items-start justify-between gap-4 px-4 py-3">
                   <div className="min-w-0">
-                    <dt className="text-xs font-medium uppercase tracking-widest text-ink/45">{group.label}</dt>
+                    <dt className="text-xs font-medium uppercase tracking-widest text-ink/70">{group.label}</dt>
                     <dd className="mt-1 text-sm leading-relaxed text-ink/80">
                       {group.lines.length > 0 ? (
                         group.lines.map((line, i) => (
@@ -169,7 +169,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
                           </span>
                         ))
                       ) : (
-                        <span className="text-ink/40">{dict.checkout.choicesNone}</span>
+                        <span className="text-ink/70">{dict.checkout.choicesNone}</span>
                       )}
                     </dd>
                   </div>

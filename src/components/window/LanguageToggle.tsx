@@ -31,7 +31,7 @@ export function LanguageToggle({
             "rounded-full px-2.5 py-1 uppercase tracking-wide transition-colors",
             locale === code
               ? "bg-accent text-white"
-              : "text-ink/50 hover:text-ink"
+              : "text-ink/70 hover:text-ink"
           )}
         >
           {code}

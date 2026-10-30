@@ -53,7 +53,7 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
           <h1 className="mt-1 font-serif text-2xl text-ink">
             {product?.name ?? order.product_id}
           </h1>
-          <p className="mt-1 text-sm text-ink/60">
+          <p className="mt-1 text-sm text-ink/70">
             {new Date(order.created_at).toLocaleString("nl-NL")} · sessie {order.session_id}
           </p>
         </div>
@@ -82,7 +82,7 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
               )}
             </>
           ) : (
-            <p className="text-sm text-ink/50">Nog geen Idea Book gegenereerd voor deze order.</p>
+            <p className="text-sm text-ink/70">Nog geen Idea Book gegenereerd voor deze order.</p>
           )}
         </Section>
 
@@ -142,7 +142,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Field({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 text-sm">
-      <dt className="text-ink/50">{label}</dt>
+      <dt className="text-ink/70">{label}</dt>
       <dd className={`text-right text-ink ${mono ? "font-mono text-xs break-all" : ""}`}>{value}</dd>
     </div>
   );

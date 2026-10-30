@@ -53,6 +53,15 @@ export const ANALYTICS_EVENTS = {
   profile_axis_changed: { when: "a slider of the profile screen moved", props: ["axis"] },
   profile_reflection: { when: "profile agreed: did they fill 'Wat missen we nog?'", props: ["has_reflection"] },
 
+  // --- the funnel names of the improvement brief (Fase 1). Each fires together with the older, more detailed event named in `when`,
+  // so a funnel can use these short names while the detailed events stay as they were. Counts, ids and fixed words only.
+  images_done: { when: "images page finished (with images_page_completed; image intake in two pages)", props: ["wizard_variant", "selected", "refreshes"] },
+  activities_done: { when: "activities page finished (with concrete_page_completed)", props: ["wizard_variant", "selected", "refreshes", "explore_picked"] },
+  situation_done: { when: "situation page finished (with intake_page_completed)", props: ["wizard_variant", "duration_ms"] },
+  pay_clicked: { when: "the pay button pressed (with checkout_pay_clicked)", props: ["is_gift"] },
+  pdf_opened: { when: "the PDF opened (with plan_pdf_downloaded)", props: ["source"] },
+  gift_started: { when: "a gift intake started clean (not a reload, not an edit)", props: ["wizard_variant"] },
+
   // --- checkout and waiting
   window_exported: { when: "the picture of the window downloaded", props: ["images"] },
   checkout_viewed: { when: "checkout page shown", props: [] },

@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element -- next/og renders plain <img> elements, next/image does not exist there */
+import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
@@ -119,7 +120,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ car
   if (!parsed) return new Response("Not found", { status: 404 });
   const { format, locale } = parsed;
   const copy = getDictionary(locale).venster.invite;
-  const host = inviteHost(process.env.NEXT_PUBLIC_SITE_URL);
+  const host = inviteHost(getSiteUrl());
   const size = INVITE_SIZE[format as InviteFormat];
 
   const [serif, sans, sansBold, logo, ...panes] = await Promise.all([

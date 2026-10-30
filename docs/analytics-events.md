@@ -51,6 +51,12 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `landing_viewed` | landingspagina getoond | – |
 | `landing_start_submitted` | startformulier op de landing verstuurd | `has_text` (ja/nee, nooit de tekst) |
 | `intake_started` | een wizard geopend | `wizard_variant`, `editing`, `gift`, `restored` |
+| `images_done` | korte funnelnaam: pagina 1 (beelden) afgerond, samen met `images_page_completed` | `wizard_variant`, `selected`, `refreshes` |
+| `activities_done` | korte funnelnaam: pagina 2 (activiteiten) afgerond, samen met `concrete_page_completed` | `wizard_variant`, `selected`, `refreshes`, `explore_picked` |
+| `situation_done` | korte funnelnaam: het situatiescherm afgerond, samen met `intake_page_completed` | `wizard_variant`, `duration_ms` |
+| `pay_clicked` | korte funnelnaam: de betaalknop ingedrukt, samen met `checkout_pay_clicked` | `is_gift` |
+| `pdf_opened` | korte funnelnaam: de PDF geopend, samen met `plan_pdf_downloaded` | `source` |
+| `gift_started` | een cadeau-intake begint schoon (geen herlaad, geen wijziging) | `wizard_variant` |
 | `intake_page_viewed` | een wizardpagina getoond | `wizard_variant`, `page`, `index`, `of` |
 | `intake_page_back` | op "Terug" gedrukt | `wizard_variant`, `page`, `index`, `stage` |
 | `intake_page_completed` | een wizardpagina afgerond | `wizard_variant`, `page`, `index`, `duration_ms` |
@@ -120,6 +126,11 @@ funnel worden gekoppeld (andere id, geen persoon). Zet hem naast `checkout_pay_c
 verschil is wie op de knop drukte maar niet betaalde (of de Stripe-betaling afbrak).
 
 **Welk niveau wordt geopend?** `idea_opened`, uitgesplitst op `level` (1 Vertrouwd … 7 Onontdekt; 0 = oud boek).
+
+**Funnel uit de verbeterbrief (Fase 1)**: `intake_started` → `images_done` → `activities_done` → `situation_done` →
+`profile_viewed` → `pay_clicked` → `payment_succeeded` → `pdf_opened`; `gift_started` is de startgebeurtenis van de cadeau-route.
+De korte namen worden samen met de oudere, uitgebreidere events verstuurd (dezelfde handeling, twee namen), dus tel ze
+nooit bij elkaar op.
 
 **Vertaling van de woorden uit de brief**: `results_viewed` = `plan_viewed`, `level_opened` = `idea_opened` met
 `level`, `inspiration_saved` = `idea_liked`, `unlock_clicked` = `checkout_pay_clicked`. Er zijn geen aparte

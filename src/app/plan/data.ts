@@ -1,3 +1,4 @@
+import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 import { after } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { createServiceRoleClient } from "@/lib/supabase/server";
@@ -705,7 +706,7 @@ export async function getOrCreateWindowPlan(
           .update({ recipient_email: deliveryEmail })
           .eq("id", plan.id);
 
-        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
+        const siteUrl = getSiteUrl();
         try {
           // A confirmation e-mail that can't state what was actually
           // ordered is worse than none — if the order record is somehow
@@ -832,7 +833,7 @@ export async function getOrCreateTestWindowPlan(
       // paymentId above).
       try {
         if (!sendOwnerTestMail) throw new Error("not the owner: no test e-mail");
-        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
+        const siteUrl = getSiteUrl();
         await sendIdeaBookEmail({
           to: TEST_MODE_EMAIL_RECIPIENT,
           title: plan.title,

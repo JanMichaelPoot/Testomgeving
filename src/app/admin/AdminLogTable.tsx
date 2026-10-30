@@ -39,13 +39,13 @@ export function AdminLogTable({ rows }: { rows: AdminLogRow[] }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Zoeken (situatie, doel, budget, wildcard-titel)…"
-        className="mb-4 w-full max-w-sm rounded-xl border border-ink/15 bg-paper px-3.5 py-2.5 text-sm text-ink shadow-sm outline-none placeholder:text-ink/35 focus:border-accent"
+        className="mb-4 w-full max-w-sm rounded-xl border border-ink/15 bg-paper px-3.5 py-2.5 text-sm text-ink shadow-sm outline-none placeholder:text-ink/70 focus:border-accent"
       />
 
       <div className="overflow-x-auto rounded-2xl border border-ink/10 bg-paper">
         <table className="w-full min-w-[840px] text-left text-sm">
           <thead>
-            <tr className="border-b border-ink/10 text-xs uppercase tracking-wide text-ink/50">
+            <tr className="border-b border-ink/10 text-xs uppercase tracking-wide text-ink/70">
               <th className="px-4 py-3">Datum</th>
               <th className="px-4 py-3">Taal</th>
               <th className="px-4 py-3">Situatie</th>
@@ -75,14 +75,14 @@ export function AdminLogTable({ rows }: { rows: AdminLogRow[] }) {
                   {row.emailDelivered ? (
                     <span className="text-accent">✓</span>
                   ) : (
-                    <span className="text-ink/30">—</span>
+                    <span className="text-ink/70">—</span>
                   )}
                 </td>
               </tr>
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-4 py-8 text-center text-ink/50">
+                <td colSpan={8} className="px-4 py-8 text-center text-ink/70">
                   Geen rijen gevonden.
                 </td>
               </tr>

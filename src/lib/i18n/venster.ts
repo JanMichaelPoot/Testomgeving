@@ -1,3 +1,4 @@
+import { doorRange } from "@/lib/productStructure";
 // Copy of the image intake and its window ("Het venster", WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md).
 // Kept in its own file because dictionaries.ts is already very long; it is part of the same
 // Dictionary (dict.venster) and follows the same rules: nl and en, same tone (warm, curious,
@@ -298,13 +299,14 @@ export const vensterNl: VensterDictionary = {
       "Kies een handvol beelden die je aantrekken. Wij maken er een Idea Book van, met echte plekken bij jou in de buurt.",
     heroAlt: "Een open raam met zacht licht en een uitzicht naar buiten",
     chapters: [
-      { title: "Jouw beelden", body: "Kies beelden die je aantrekken. Geen vragenlijst." },
-      { title: "Praktisch", body: "Plaats, tijd en budget, voor echte adressen." },
-      { title: "Met wie", body: "En je harde grenzen. Dan is je venster vol." },
+      { title: "Jouw beelden", body: "Kies beelden en activiteiten die je aantrekken. Geen vragenlijst: klaar in ±3 minuten." },
+      { title: "Jouw situatie", body: "Plaats, tijd, budget en met wie, voor echte plekken bij jou in de buurt." },
+      { title: "Jouw venster", body: "Lees hoe wij jou lezen en open je boek." },
     ],
   },
   chapters: { images: "Jouw beelden", situation: "Jouw situatie", extra: "Jouw venster" },
-  recipientFallback: "diegene",
+  // Used when the giver leaves the first name empty: a plain noun, so "Waar zou de ontvanger nu willen zijn?" reads naturally.
+  recipientFallback: "de ontvanger",
   recipientLabel: "Voor wie is dit venster?",
   recipientPlaceholder: "Voornaam (mag leeg blijven)",
   testLimit: {
@@ -759,7 +761,7 @@ export const vensterNl: VensterDictionary = {
     heading: "Je venster is vol.",
     headingGift: "Het venster voor {name} is vol.",
     whatYouGet: [
-      "Zeven mogelijkheden in zeven niveaus, van vertrouwd tot onontdekt, de laatste als verzegelde wildcard",
+      `Zes ideeën en één verzegelde wildcard, van ${doorRange("nl")}`,
       "Per idee: waarom het bij je past, drie maten (proeven, doen, doorpakken) en een eerste stap",
       "Echte plekken in jouw buurt waar we ze vonden, met kaartlink",
       "Een PDF met jouw venster op de cover, ook in je mail",
@@ -861,13 +863,13 @@ export const vensterEn: VensterDictionary = {
     subcopy: "Pick a handful of images that pull you in. We turn them into an Idea Book, with real places near you.",
     heroAlt: "An open window with soft light and a view outside",
     chapters: [
-      { title: "Your images", body: "Pick images that pull you in. No questionnaire." },
-      { title: "Practical", body: "Place, time and budget, for real addresses." },
-      { title: "With whom", body: "And your hard limits. Then your window is full." },
+      { title: "Your images", body: "Pick images and activities that pull you in. No questionnaire: ready in about 3 minutes." },
+      { title: "Your situation", body: "Place, time, budget and who comes along, for real places near you." },
+      { title: "Your window", body: "Read how we read you, and open your book." },
     ],
   },
   chapters: { images: "Your images", situation: "Your situation", extra: "Your window" },
-  recipientFallback: "them",
+  recipientFallback: "the recipient",
   recipientLabel: "Who is this window for?",
   recipientPlaceholder: "First name (optional)",
   testLimit: {
@@ -1322,7 +1324,7 @@ export const vensterEn: VensterDictionary = {
     heading: "Your window is full.",
     headingGift: "The window for {name} is full.",
     whatYouGet: [
-      "Seven possibilities on seven levels, from familiar to undiscovered, the last one a sealed wildcard",
+      `Six ideas and one sealed wildcard, from ${doorRange("en")}`,
       "For each idea: why it fits you, three sizes (taste, do, go deeper) and a first step",
       "Real places near you where we found them, with a map link",
       "A PDF with your window on the cover, also in your inbox",

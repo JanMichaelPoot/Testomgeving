@@ -167,19 +167,20 @@ describe("buildIdeaBookEmail: look and content", () => {
     expect(buildIdeaBookEmail(params).html).toContain("3 deuren");
   });
 
-  it("names the discovery level of each door, and shows nothing for a book without levels", () => {
-    const withLevels: GeneratedIdeaBook = {
+  it("names the door of each idea (never an internal level), and shows nothing for an idea without a door", () => {
+    const withDoors: GeneratedIdeaBook = {
       ...book,
-      ideas: [idea("Klei & meer", "Intro", { level: 1 }), idea("Tweede", "Intro", { level: 3 })],
-      wildcard: idea("Wildcard", "Gek idee", { level: 7 }),
+      ideas: [idea("Klei & meer", "Intro", { door: "natural", level: 1 }), idea("Tweede", "Intro", { door: "discovery", level: 3 })],
+      wildcard: idea("Wildcard", "Gek idee", { door: "stretch", level: 7 }),
     };
-    const nl = buildIdeaBookEmail({ ...params, book: withLevels });
-    expect(nl.html).toContain("Niveau 1 · Vertrouwd");
-    expect(nl.html).toContain("Niveau 3 · Verwant");
-    expect(nl.html).toContain("Niveau 7 · Onontdekt");
-    expect(nl.text).toContain("1. [Niveau 1 · Vertrouwd] Klei & meer");
-    expect(nl.text).toContain("(Niveau 7 · Onontdekt)");
-    expect(buildIdeaBookEmail({ ...params, book: withLevels, locale: "en" }).html).toContain("Level 7 · Undiscovered");
+    const nl = buildIdeaBookEmail({ ...params, book: withDoors });
+    expect(nl.html).toContain("Vertrouwd");
+    expect(nl.html).toContain("Ontdekking");
+    expect(nl.text).toContain("1. [Vertrouwd] Klei & meer");
+    expect(nl.html).not.toMatch(/Niveau \d|Onontdekt|Verwant|Inspirerend/);
+    const en = buildIdeaBookEmail({ ...params, book: withDoors, locale: "en" });
+    expect(en.html).toContain("Familiar");
+    expect(en.html).not.toMatch(/Level \d|Undiscovered/);
     expect(buildIdeaBookEmail(params).html).not.toMatch(/Niveau \d/);
   });
 });

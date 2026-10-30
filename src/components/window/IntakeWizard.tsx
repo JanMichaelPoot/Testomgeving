@@ -672,7 +672,7 @@ export function IntakeWizard({
             <label htmlFor={inputId} className="block font-medium text-ink">
               {field.label}
             </label>
-            {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
+            {field.sub && <p className="mt-1 text-sm text-ink/70">{field.sub}</p>}
             {field.suggestions && field.suggestions.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
                 {field.suggestions.map((suggestion) => (
@@ -693,10 +693,10 @@ export function IntakeWizard({
               onChange={(e) => setField(field.id, e.target.value)}
               placeholder={field.placeholder}
               rows={3}
-              className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink leading-relaxed outline-none placeholder:text-ink/35 focus:border-ink"
+              className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink leading-relaxed outline-none placeholder:text-ink/70 focus:border-ink"
             />
             {field.optionalHint && !(answers[field.id] as string).trim() && (
-              <p className="mt-2 text-xs text-ink/45">{field.optionalHint}</p>
+              <p className="mt-2 text-xs text-ink/70">{field.optionalHint}</p>
             )}
           </div>
         );
@@ -709,7 +709,7 @@ export function IntakeWizard({
             <p id={labelId} className="font-medium text-ink">
               {field.label}
             </p>
-            {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
+            {field.sub && <p className="mt-1 text-sm text-ink/70">{field.sub}</p>}
             <div
               role="group"
               aria-labelledby={labelId}
@@ -758,7 +758,7 @@ export function IntakeWizard({
             <p id={labelId} className="font-medium text-ink">
               {field.label}
             </p>
-            {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
+            {field.sub && <p className="mt-1 text-sm text-ink/70">{field.sub}</p>}
             <div
               role="group"
               aria-labelledby={labelId}
@@ -821,7 +821,7 @@ export function IntakeWizard({
             <p id={labelId} className="font-medium text-ink">
               {field.label}
             </p>
-            {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
+            {field.sub && <p className="mt-1 text-sm text-ink/70">{field.sub}</p>}
             <div role="group" aria-labelledby={labelId} className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
               {field.options.map((option) => (
                 <ChipOption
@@ -842,7 +842,7 @@ export function IntakeWizard({
             <label htmlFor={inputId} className="block font-medium text-ink">
               {field.label}
             </label>
-            {field.sub && <p className="mt-1 text-sm text-ink/60">{field.sub}</p>}
+            {field.sub && <p className="mt-1 text-sm text-ink/70">{field.sub}</p>}
             <LocationAutocomplete
               id={inputId}
               value={answers[field.id] as string}
@@ -927,7 +927,7 @@ export function IntakeWizard({
           <h1 className="font-sans text-2xl font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
             {isInterestsPage && discovery.stage === "cards" ? dict.discovery.cardStep.heading : currentPage.heading}
           </h1>
-          <p className="mt-2 text-ink/60">
+          <p className="mt-2 text-ink/70">
             {isInterestsPage && discovery.stage === "cards" ? dict.discovery.cardStep.hint : currentPage.subheading}
           </p>
           {currentPage.intro && (

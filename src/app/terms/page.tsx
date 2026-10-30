@@ -20,7 +20,7 @@ export default async function TermsPage() {
       <SiteHeader locale={locale} dict={dict.header} />
       <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-16">
         <h1 className="font-serif text-3xl text-ink">{dict.legal.termsHeading}</h1>
-        <p className="mt-4 text-ink/60">{dict.legal.termsIntro}</p>
+        <p className="mt-4 text-ink/70">{dict.legal.termsIntro}</p>
         <div className="mt-8 space-y-6">
           {dict.legal.termsSections.map((section) => (
             <div key={section.heading}>

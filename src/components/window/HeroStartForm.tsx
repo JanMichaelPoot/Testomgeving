@@ -48,7 +48,7 @@ export function HeroStartForm({
           maxLength={500}
           placeholder={placeholder}
           autoComplete="off"
-          className="min-h-[52px] min-w-0 flex-1 rounded-md border border-border bg-cream px-4 text-[15px] text-ink outline-none placeholder:text-ink/40 focus:border-accent-dark"
+          className="min-h-[52px] min-w-0 flex-1 rounded-md border border-border bg-cream px-4 text-[15px] text-ink outline-none placeholder:text-ink/70 focus:border-accent-dark"
         />
         <Button type="submit" size="lg" className="shrink-0">
           {cta}

@@ -57,7 +57,7 @@ export function IdeaFeedback({
 
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <span className="text-xs font-medium uppercase tracking-widest text-ink/40">{prompt}</span>
+      <span className="text-xs font-medium uppercase tracking-widest text-ink/70">{prompt}</span>
       <div className="flex items-center gap-2">
         <button
           type="button"
@@ -68,7 +68,7 @@ export function IdeaFeedback({
             "flex h-8 w-8 items-center justify-center rounded-full border transition-colors",
             value === "up"
               ? "border-accent bg-accent text-white"
-              : "border-ink/15 text-ink/50 hover:border-accent/50 hover:text-accent-dark"
+              : "border-ink/15 text-ink/70 hover:border-accent/50 hover:text-accent-dark"
           )}
         >
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -89,7 +89,7 @@ export function IdeaFeedback({
             "flex h-8 w-8 items-center justify-center rounded-full border transition-colors",
             value === "down"
               ? "border-ink/40 bg-ink/10 text-ink"
-              : "border-ink/15 text-ink/50 hover:border-ink/30 hover:text-ink"
+              : "border-ink/15 text-ink/70 hover:border-ink/30 hover:text-ink"
           )}
         >
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -102,7 +102,7 @@ export function IdeaFeedback({
           </svg>
         </button>
       </div>
-      {value && <span className="text-xs text-ink/40">{thanksLabel}</span>}
+      {value && <span className="text-xs text-ink/70">{thanksLabel}</span>}
     </div>
   );
 }

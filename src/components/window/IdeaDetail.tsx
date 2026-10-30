@@ -108,7 +108,7 @@ export function IdeaDetail({
         <div className="grid gap-3 sm:grid-cols-2">
           {practicalLine && (
             <div className="rounded-xl bg-cream p-4">
-              <p className="mb-1.5 text-xs font-medium uppercase tracking-widest text-ink/50">
+              <p className="mb-1.5 text-xs font-medium uppercase tracking-widest text-ink/70">
                 {labels.cost_label || dict.practicalFallback}
               </p>
               <p className="text-sm text-ink">{practicalLine}</p>
@@ -116,7 +116,7 @@ export function IdeaDetail({
           )}
           {idea.requirements.length > 0 && (
             <div className="rounded-xl bg-cream p-4">
-              <p className="mb-1.5 text-xs font-medium uppercase tracking-widest text-ink/50">
+              <p className="mb-1.5 text-xs font-medium uppercase tracking-widest text-ink/70">
                 {labels.requirements_heading || dict.requirementsFallback}
               </p>
               <ul className="space-y-1">
@@ -158,7 +158,7 @@ export function IdeaDetail({
             <p
               className={cn(
                 "mb-1.5 text-xs font-medium uppercase tracking-widest",
-                isWildcard ? "text-gold" : "text-gold"
+                isWildcard ? "text-gold-text" : "text-gold-text"
               )}
             >
               ✦ {labels.first_action_heading || dict.firstActionFallback}

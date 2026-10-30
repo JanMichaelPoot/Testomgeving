@@ -74,7 +74,7 @@ export function PillSlider({ options, value, onChange, label, touched = false }:
     // narrower than the viewport on desktop, where the side panel takes 40%.
     <div className="@container">
       {label && (
-        <p className="text-xs font-medium uppercase tracking-widest text-ink/50">
+        <p className="text-xs font-medium uppercase tracking-widest text-ink/70">
           {label}
         </p>
       )}
@@ -119,7 +119,7 @@ export function PillSlider({ options, value, onChange, label, touched = false }:
                 layout === "stack" ? "px-4 py-2.5 text-left" : "px-1.5 text-center",
                 selected
                   ? "bg-ink text-white"
-                  : "text-ink/55 hover:bg-surface-active hover:text-ink"
+                  : "text-ink/70 hover:bg-surface-active hover:text-ink"
               )}
             >
               {option}
@@ -131,7 +131,7 @@ export function PillSlider({ options, value, onChange, label, touched = false }:
       {/* The end labels only add something to a compact row; stacked or
           wrapped, every option is already spelled out. */}
       {layout === "row" && (
-        <div className="mt-2 flex items-center justify-between text-xs font-medium text-ink/50">
+        <div className="mt-2 flex items-center justify-between text-xs font-medium text-ink/70">
           <span>{options[0]}</span>
           <span>{options[lastIndex]}</span>
         </div>

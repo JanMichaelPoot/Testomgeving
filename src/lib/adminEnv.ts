@@ -3,6 +3,8 @@
 // beyond its public prefix (re_, sk_test_, ...). A setting that is added in the host's dashboard but is not
 // in the environment this deployment runs in (wrong environment ticked, not redeployed) shows up here as missing.
 
+import { stripeModeInfo } from "@/lib/stripeMode";
+import { isVercelHost, siteUrl } from "@/lib/siteUrl";
 import { knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 
 export interface EnvCheck {
@@ -33,10 +35,26 @@ export function envChecks(env: Env): EnvCheck[] {
   if (has(from) && /windowinto\.nl/i.test(from!)) add("Afzenderdomein", true, "windowinto.nl: moet in Resend geverifieerd zijn (anders probeert de app het opnieuw vanaf onboarding@resend.dev)", false);
 
   const site = env.NEXT_PUBLIC_SITE_URL?.trim();
-  add("NEXT_PUBLIC_SITE_URL", has(site) && !/localhost/i.test(site ?? ""), has(site) ? (/localhost/i.test(site!) ? `${site}: dit is localhost, de knoppen in de mail wijzen dan naar een adres dat niemand kan openen` : site!) : "ontbreekt: links in de mail en bij het delen kloppen niet");
+  const effective = siteUrl(env);
+  const siteIgnored = env.VERCEL_ENV === "production" && has(site) && isVercelHost(site!);
+  add(
+    "NEXT_PUBLIC_SITE_URL",
+    has(site) && !/localhost/i.test(site ?? "") && !siteIgnored,
+    siteIgnored
+      ? `${site} wordt genegeerd op production (een vercel.app-adres hoort daar niet); de site gebruikt ${effective}. Zet hier het echte adres.`
+      : has(site)
+        ? /localhost/i.test(site!)
+          ? `${site}: dit is localhost, de knoppen in de mail wijzen dan naar een adres dat niemand kan openen`
+          : `${site!} (de site gebruikt: ${effective})`
+        : env.VERCEL_ENV === "production"
+          ? `niet ingesteld: de site gebruikt ${effective}`
+          : "ontbreekt: links in de mail en bij het delen kloppen niet",
+  );
 
   add("ANTHROPIC_API_KEY", has(env.ANTHROPIC_API_KEY), has(env.ANTHROPIC_API_KEY) ? "aanwezig" : "ontbreekt: boeken kunnen niet worden gemaakt");
   const stripe = env.STRIPE_SECRET_KEY?.trim();
+  const stripeInfo = stripeModeInfo(env);
+  add("STRIPE_MODE", !stripeInfo.problem, stripeInfo.problem ? `PROBLEEM: ${stripeInfo.problem} Betalen is geblokkeerd.` : `${stripeInfo.mode === "live" ? "LIVE" : "test"}${(env.STRIPE_MODE ?? "").trim() ? "" : " (volgt de sleutel; zet STRIPE_MODE=test of live)"}`);
   add("STRIPE_SECRET_KEY", has(stripe), has(stripe) ? (prefix(stripe, ["sk_test_"]) ? "aanwezig (testmodus)" : prefix(stripe, ["sk_live_"]) ? "aanwezig (LIVE-modus)" : "aanwezig") : "ontbreekt: betalen werkt niet");
   add("STRIPE_WEBHOOK_SECRET", has(env.STRIPE_WEBHOOK_SECRET), has(env.STRIPE_WEBHOOK_SECRET) ? "aanwezig" : "ontbreekt: betalingen blijven op 'pending' staan", false);
   // The app accepts Supabase's newer name for the same key too (src/lib/supabase/env.ts).

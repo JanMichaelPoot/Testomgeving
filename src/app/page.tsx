@@ -9,8 +9,8 @@ import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { formatPrice } from "@/lib/pricing";
 import { VensterHero } from "@/components/window/VensterHero";
-import { showVensterLanding, VENSTER_SELF_HREF } from "@/lib/vensterLanding";
-import { randomHero } from "@/lib/heroPool";
+import { giftHrefWithArrival, newArrivalId, showVensterLanding, VENSTER_SELF_HREF } from "@/lib/vensterLanding";
+import { heroAltText, randomHero } from "@/lib/heroPool";
 
 export default async function Home(props: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -22,6 +22,7 @@ export default async function Home(props: {
     process.env.NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT,
     (await props.searchParams).venster,
   );
+  const hero = randomHero();
   const howSteps = venster
     ? dict.venster.landing.chapters
     : dict.landing.howSteps;
@@ -32,7 +33,7 @@ export default async function Home(props: {
 
       <main className="w-full flex-1">
         {venster ? (
-          <VensterHero dict={dict.venster.landing} price={price} heroSrc={randomHero().image} />
+          <VensterHero dict={dict.venster.landing} price={price} heroSrc={hero.image} heroAlt={heroAltText(hero, locale, dict.venster.landing.heroAlt)} giftHref={giftHrefWithArrival(newArrivalId())} />
         ) : (
           <section className="mx-auto w-full max-w-[84rem] px-6 pt-12 sm:px-10 sm:pt-16">
             <div className="grid w-full items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">
@@ -132,7 +133,7 @@ export default async function Home(props: {
               <h2 className="font-serif text-3xl text-ink sm:text-4xl">
                 {dict.landing.whatYouGetHeading}
               </h2>
-              <p className="mx-auto mt-4 max-w-lg text-ink/60">
+              <p className="mx-auto mt-4 max-w-lg text-ink/70">
                 {dict.landing.whatYouGetSubcopy}
               </p>
             </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { stripeTestNotice } from "@/lib/stripeMode";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { IntakeEntry } from "@/components/window/IntakeEntry";
 import type { IntakeAnswers } from "@/app/intake/actions";
@@ -17,7 +18,6 @@ import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { checkTestQuota } from "@/lib/testQuota";
 import { formatPrice } from "@/lib/pricing";
 import { getDeviceId } from "@/lib/discovery/historyStore";
-import { testFeedbackEnabled } from "@/lib/testFeedback";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -91,7 +91,7 @@ export default async function IntakePage(props: PageProps<"/intake">) {
               dict: dict.checkout,
               price: formatPrice(locale),
               rememberInitially: (await getDeviceId()) !== null,
-              testNotice: testFeedbackEnabled(process.env.NEXT_PUBLIC_TEST_FEEDBACK) ? dict.venster.testBanner : undefined,
+              testNotice: stripeTestNotice(dict.venster.testBanner),
               // Stripe sends the buyer back here (via /checkout) after a cancelled or failed payment.
               paymentFailed: searchParams.payment === "cancelled",
             }}
