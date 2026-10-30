@@ -8,11 +8,13 @@ import { WindowFrame, type WindowKind } from "@/components/window/WindowFrame";
 import { WindowDownload } from "@/components/window/WindowDownload";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/posthog/client";
-import { saveIntake, type IntakeAnswers } from "@/app/intake/actions";
+import { checkPicks, saveIntake, type IntakeAnswers } from "@/app/intake/actions";
 import { CheckoutPanel } from "@/components/window/CheckoutPanel";
 import { TestModeBanner } from "@/components/window/TestModeBanner";
-import { domainImage } from "@/lib/discovery/paths";
-import { ASSOCIATION_ROUNDS, type AssociationCard, type AssociationLibrary, type AssociationRound, type AxisId } from "@/lib/discovery/associationProfile";
+import { activityImage, domainImage } from "@/lib/discovery/paths";
+import { ASSOCIATION_ROUNDS, averageAxes, tagProfile, type AssociationCard, type AssociationLibrary, type AssociationRound, type AxisId } from "@/lib/discovery/associationProfile";
+import { MAX_CONCRETE_PICKS, MAX_IMAGE_PICKS, MAX_REFRESHES, composeConcretePage, registerMix, sampleBalancedBatch, type RegisteredCard } from "@/lib/discovery/twoPages";
+import type { ConcretePool } from "@/lib/discovery/concretePool";
 import { buildProfileStory } from "@/lib/discovery/profileStory";
 import { ProfileStep } from "@/components/window/ProfileStep";
 import { directionOrder, initialDirections, rotateDirections, sampleRoundCards, sampleWorldExamples } from "@/lib/discovery/associationSampling";
@@ -20,7 +22,7 @@ import { loadSeen, recordSeen } from "@/lib/associationSeen";
 import { buildSill, buildWindowItems, windowImageHref } from "@/lib/vensterPanes";
 import { layoutWindow } from "@/lib/windowLayout";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { DRAFT_VERSION, VENSTER_PAGES, migrateDraftPage, type VensterPageId } from "@/lib/vensterPages";
+import { DRAFT_VERSION, chapterOf, migrateDraftPage, pagesFor, type AnyVensterPageId } from "@/lib/vensterPages";
 import { ageOptionsFor } from "@/lib/ageOptions";
 import { currentBudget } from "@/lib/budgetOptions";
 
@@ -35,13 +37,24 @@ import { currentBudget } from "@/lib/budgetOptions";
 // asked (vraag-audit, WindowInto/WINDOW_Vraag-audit_Fase1-1.md); the server derives the rest
 // (src/lib/discovery/imageIntake.ts). Works for oneself and, with other wording, as a gift.
 
-type PageId = VensterPageId;
+type PageId = AnyVensterPageId;
 const ROUND_OF: Partial<Record<PageId, AssociationRound>> = { places: "places", moments: "moments", senses: "senses" };
-const PANE_OF: Partial<Record<PageId, WindowKind>> = { worlds: "worlds", places: "places", moments: "moments", senses: "senses" };
+const PANE_OF: Partial<Record<PageId, WindowKind>> = { worlds: "worlds", places: "places", moments: "moments", senses: "senses", images: "images", concrete: "picks" };
+/** The two-page intake needs this many images and picks to continue (the plan advises 5-8 and 3-6; the copy says so). */
+const MIN_IMAGES_REQUIRED = 3;
 const MAX_PER_ROUND = 5;
 const MAX_WORLDS = 4;
 const SWIPE_THRESHOLD = 90;
 const DRAFT_KEY = "window-venster-draft-v1";
+// The two-page intake keeps its own draft, so a draft of the four-round intake is never read as one of these.
+const DRAFT_KEY_TWO = "window-venster-draft-images2";
+
+/** What page 2 showed: per screen the activity ids and which of them were the exploring slots. */
+interface ConcreteState {
+  /** The images chosen on page 1 when this was composed; another choice there composes page 2 again. */
+  key: string;
+  batches: { id: string; explore: boolean }[][];
+}
 
 const EMPTY: IntakeAnswers = {
   situation: "",
@@ -81,35 +94,49 @@ interface Draft {
   seed: string;
   /** The images this browser had seen when the session began; fixed, so the cards stay put on a reload. */
   seen?: string[];
+  /** Two-page intake: the extra pages of images ("Andere beelden"), as card ids. */
+  imageMore?: string[][];
+  /** Two-page intake: page 2 as it was shown. */
+  concrete?: ConcreteState | null;
 }
 
 function newSeed(): string {
   return Math.random().toString(36).slice(2, 10);
 }
 
-function loadDraft(): Draft | null {
+function loadDraft(key: string): Draft | null {
   try {
-    const raw = window.sessionStorage.getItem(DRAFT_KEY);
+    const raw = window.sessionStorage.getItem(key);
     if (!raw) return null;
     const d = JSON.parse(raw) as Partial<Draft>;
     if (!d.answers) return null;
-    return { v: DRAFT_VERSION, page: migrateDraftPage(d.page ?? 0, d.v), answers: { ...EMPTY, ...d.answers }, limitChips: d.limitChips ?? [], limitText: d.limitText ?? "", seed: d.seed || newSeed(), seen: Array.isArray(d.seen) ? d.seen : undefined };
+    return {
+      v: DRAFT_VERSION,
+      page: key === DRAFT_KEY_TWO ? Math.max(0, Math.trunc(d.page ?? 0)) : migrateDraftPage(d.page ?? 0, d.v),
+      answers: { ...EMPTY, ...d.answers },
+      limitChips: d.limitChips ?? [],
+      limitText: d.limitText ?? "",
+      seed: d.seed || newSeed(),
+      seen: Array.isArray(d.seen) ? d.seen : undefined,
+      imageMore: Array.isArray(d.imageMore) ? d.imageMore : undefined,
+      concrete: d.concrete ?? null,
+    };
   } catch {
     return null;
   }
 }
 
-function saveDraft(d: Draft) {
+function saveDraft(key: string, d: Draft) {
   try {
-    window.sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ ...d, v: DRAFT_VERSION }));
+    window.sessionStorage.setItem(key, JSON.stringify({ ...d, v: DRAFT_VERSION }));
   } catch {
     // Storage unavailable: the draft is simply not kept.
   }
 }
 
-function clearDraft() {
+function clearDraft(key: string) {
   try {
-    window.sessionStorage.removeItem(DRAFT_KEY);
+    window.sessionStorage.removeItem(key);
   } catch {
     // Nothing to do.
   }
@@ -128,6 +155,13 @@ function msSince(start: number): number {
 
 function now(): number {
   return performance.now();
+}
+
+/** How many of a list of (possibly unknown) registers are in each register: the numbers the two-page events carry. */
+function registerCounts(list: (string | undefined)[]) {
+  const c = { expressive: 0, nurturing: 0, technical: 0, nature: 0 };
+  for (const r of list) if (r && r in c) c[r as keyof typeof c] += 1;
+  return c;
 }
 
 const toggle = (list: string[], v: string) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
@@ -178,6 +212,8 @@ export function AssociationWizard({
   initial,
   initialPurpose = "self",
   payment,
+  flow,
+  concretePool,
 }: {
   intakeDict: Dictionary["intake"];
   dict: Dictionary["venster"];
@@ -188,9 +224,22 @@ export function AssociationWizard({
   /** From the landing page's two buttons (?for=gift). */
   initialPurpose?: "self" | "gift";
   payment: WizardPayment;
+  /** "images2": the intake in two image pages (docs/fase4-opzet.md). Absent: the four rounds. */
+  flow?: "images2";
+  /** Two-page intake: the activities page 2 draws from (server-built, one language, in season). */
+  concretePool?: ConcretePool;
 }) {
+  const flow2 = flow === "images2";
+  const pages = pagesFor(flow);
+  const draftKey = flow2 ? DRAFT_KEY_TWO : DRAFT_KEY;
+  const variantName = flow2 ? "images2" : "associations";
   const [page, setPage] = useState(0);
-  const [answers, setAnswers] = useState<IntakeAnswers>({ ...EMPTY, purpose: initialPurpose });
+  const [answers, setAnswers] = useState<IntakeAnswers>({ ...EMPTY, purpose: initialPurpose, ...(flow2 ? { intakeFlow: "images2" as const } : {}) });
+  // Two pages: extra pages of images ("Andere beelden") and page 2 as shown.
+  const [imageMore, setImageMore] = useState<string[][]>([]);
+  const [concrete, setConcrete] = useState<ConcreteState | null>(null);
+  // Two pages: chosen activities that a limit of the situation screen rules out (asked of the server when the profile screen is open).
+  const [dropped, setDropped] = useState<{ id: string; reason: string }[]>([]);
   const [limitChips, setLimitChips] = useState<string[]>([]);
   const [limitText, setLimitText] = useState("");
   const [hydrated, setHydrated] = useState(false);
@@ -219,7 +268,7 @@ export function AssociationWizard({
   const pageEnteredAt = useRef(0);
   const startedAt = useRef(0);
 
-  const pageId: PageId = VENSTER_PAGES[page];
+  const pageId: PageId = pages[page];
   const gift = answers.purpose === "gift";
   const name = (answers.recipientName ?? "").trim() || dict.recipientFallback;
   const fill = (s: string) => s.replaceAll("{name}", name);
@@ -233,14 +282,15 @@ export function AssociationWizard({
       setAnswers({ ...EMPTY, ...initial.answers, budget: currentBudget(initial.answers.budget ?? "") });
       setLimitChips(split.chips);
       setLimitText(split.text);
-      setPage(Math.min(Math.max(initial.page, 0), VENSTER_PAGES.length - 1));
+      setPage(Math.min(Math.max(initial.page, 0), pages.length - 1));
       setSeed(newSeed());
       setSeenBefore(loadSeen());
     } else {
-      const draft = loadDraft();
+      const draft = loadDraft(draftKey);
       if (draft && (draft.page > 0 || (draft.answers.associations ?? []).length > 0)) {
         setAnswers({
           ...draft.answers,
+          ...(flow2 ? { intakeFlow: "images2" as const } : {}),
           budget: currentBudget(draft.answers.budget ?? ""),
           purpose: draft.answers.purpose === "gift" || initialPurpose === "gift" ? "gift" : "self",
         });
@@ -249,6 +299,8 @@ export function AssociationWizard({
         setPage(draft.page);
         setSeed(draft.seed);
         setSeenBefore(draft.seen ?? loadSeen());
+        setImageMore(draft.imageMore ?? []);
+        setConcrete(draft.concrete ?? null);
       } else {
         setSeed(newSeed());
         setSeenBefore(loadSeen());
@@ -257,19 +309,19 @@ export function AssociationWizard({
     }
     setHydrated(true);
     startedAt.current = now();
-    trackEvent("intake_started", { wizard_variant: "associations", editing: !!initial, gift: initialPurpose === "gift" });
+    trackEvent("intake_started", { wizard_variant: variantName, editing: !!initial, gift: initialPurpose === "gift" });
     // Runs once: `initial` and `initialPurpose` are fixed for a mounted wizard.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (hydrated && seed) saveDraft({ page, answers, limitChips, limitText, seed, seen: seenBefore });
-  }, [hydrated, page, answers, limitChips, limitText, seed, seenBefore]);
+    if (hydrated && seed) saveDraft(draftKey, { page, answers, limitChips, limitText, seed, seen: seenBefore, imageMore, concrete });
+  }, [hydrated, page, answers, limitChips, limitText, seed, seenBefore, draftKey, imageMore, concrete]);
 
   useEffect(() => {
     if (!hydrated) return;
     pageEnteredAt.current = now();
-    trackEvent("intake_page_viewed", { wizard_variant: "associations", page: pageId, index: page, of: VENSTER_PAGES.length });
+    trackEvent("intake_page_viewed", { wizard_variant: variantName, page: pageId, index: page, of: pages.length });
     if (pageId === "profile") trackEvent("profile_viewed");
     // Only when the page changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -292,13 +344,84 @@ export function AssociationWizard({
   const roundCards = round ? decks[round] : [];
   const chosenInRound = roundCards.filter((c) => chosen.includes(c.id)).length;
 
+  // --- two-page intake: page 1 (balanced images) and page 2 (concrete activities that follow from them) ------------------
+  const registered = useMemo(
+    () => library.cards.filter((c): c is AssociationCard & RegisteredCard => c.register !== undefined),
+    [library.cards],
+  );
+  const cardById = useMemo(() => new Map(library.cards.map((c) => [c.id, c])), [library.cards]);
+  // The first page depends on the session seed (and what this browser saw) only, never on what is chosen, so choosing moves nothing.
+  const firstImages = useMemo(
+    () => (flow2 && seed ? sampleBalancedBatch(registered, { seed, seen: seenBefore }).map((c) => c.id) : []),
+    [flow2, seed, registered, seenBefore],
+  );
+  const imageBatches = [firstImages, ...imageMore];
+  const currentImageIds = imageBatches[imageBatches.length - 1] ?? [];
+  const currentImages = currentImageIds.map((id) => cardById.get(id)).filter((c): c is AssociationCard => !!c);
+  const imageRefreshes = imageMore.length;
+  const picks = answers.interests ?? [];
+  const chosenImagesKey = chosen.join("|");
+  const poolActivities = concretePool?.activities;
+  const poolById = useMemo(() => new Map((poolActivities ?? []).map((a) => [a.id, a])), [poolActivities]);
+  const concreteBatches = concrete?.key === chosenImagesKey ? concrete.batches : [];
+  const currentConcrete = concreteBatches[concreteBatches.length - 1] ?? [];
+  const concreteRefreshes = Math.max(0, concreteBatches.length - 1);
+  // The images chosen on page 1 are what page 2 follows (and how they divide over the registers, a number nobody sees).
+  function concreteInput() {
+    const ids = chosenImagesKey ? chosenImagesKey.split("|") : [];
+    const cards = ids.map((id) => cardById.get(id)).filter((c): c is AssociationCard => !!c);
+    return {
+      profile: tagProfile(library.cards, ids),
+      axes: averageAxes(library.cards, ids),
+      genericTags: new Set(concretePool?.genericTags ?? []),
+      mix: registerMix(cards.filter((c): c is AssociationCard & RegisteredCard => c.register !== undefined)),
+    };
+  }
+  useEffect(() => {
+    if (!flow2 || !hydrated || !seed || !poolActivities || pageId !== "concrete") return;
+    if (concrete?.key === chosenImagesKey) return;
+    const slots = composeConcretePage(poolActivities, { seed, keep: picks, ...concreteInput() });
+    // Page 2 is composed once per set of chosen images and then kept in the draft, so a reload shows the same page.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setConcrete({ key: chosenImagesKey, batches: [slots.map((x) => ({ id: x.activity.id, explore: x.explore }))] });
+    // concreteInput reads only the values listed here.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flow2, hydrated, seed, poolActivities, pageId, chosenImagesKey, concrete?.key]);
+  // The profile screen names a chosen activity that the limits given afterwards rule out, instead of letting it go missing from the book.
+  const limitsKey = [answers.budget, answers.timeAvailable, answers.mustHaves, limitChips.join(","), limitText, (answers.socialFormats ?? []).join(","), picks.join(","), chosenImagesKey, JSON.stringify(answers.axesOverride ?? {})].join("|");
+  useEffect(() => {
+    if (!flow2 || !hydrated || pageId !== "profile") return;
+    let cancelled = false;
+    const mustHaves = [...limitChips, limitText.trim()].filter(Boolean).join("; ");
+    checkPicks({ ...answers, mustHaves, intakeVariant: "associations", intakeFlow: "images2" })
+      .then((list) => {
+        if (!cancelled) setDropped(list);
+      })
+      .catch(() => {
+        if (!cancelled) setDropped([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+    // The key lists every answer the check reads.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flow2, hydrated, pageId, limitsKey]);
+  // Remember which images were shown, for the next visit.
+  const imagesShownKey = flow2 ? currentImageIds.join("|") : "";
+  useEffect(() => {
+    if (hydrated && seed && imagesShownKey) recordSeen(imagesShownKey.split("|"));
+  }, [hydrated, seed, imagesShownKey]);
+
   // Remember which images this round showed, so the next visit prefers other ones.
   const shownKey = round ? decks[round].map((c) => c.id).join("|") : "";
   useEffect(() => {
     if (hydrated && seed && shownKey) recordSeen(shownKey.split("|"));
   }, [hydrated, seed, shownKey]);
 
-  const windowItems = useMemo(() => buildWindowItems(answers, { cards: library.cards, domains }, dict), [answers, library.cards, domains, dict]);
+  const windowItems = useMemo(
+    () => buildWindowItems(answers, { cards: library.cards, domains, activities: poolActivities }, dict),
+    [answers, library.cards, domains, dict, poolActivities],
+  );
   // The window is complete when its screen (the profile) opens: how many images it holds and how many panes they became.
   useEffect(() => {
     if (!hydrated || pageId !== "profile") return;
@@ -336,6 +459,10 @@ export function AssociationWizard({
 
   const canContinue = (() => {
     switch (pageId) {
+      case "images":
+        return chosen.length >= MIN_IMAGES_REQUIRED;
+      case "concrete":
+        return picks.length >= 1 || !!answers.surpriseMe;
       case "worlds":
         return (answers.interestDomains ?? []).length > 0 || !!answers.surpriseMe;
       case "places":
@@ -366,7 +493,13 @@ export function AssociationWizard({
     const has = current.includes(id);
     const want = force ?? !has;
     if (want === has) return;
-    if (want) {
+    if (want && flow2) {
+      // Two pages: eight images in all, from whichever page.
+      if (current.length >= MAX_IMAGE_PICKS) {
+        setNotice(dict.twoPages.images.max);
+        return;
+      }
+    } else if (want) {
       const card = library.cards.find((c) => c.id === id);
       const inRound = library.cards.filter((c) => c.round === card?.round && current.includes(c.id)).length;
       if (inRound >= MAX_PER_ROUND) {
@@ -376,6 +509,43 @@ export function AssociationWizard({
     }
     setNotice(null);
     set("associations", want ? [...current, id] : current.filter((x) => x !== id));
+  }
+
+  /** Page 2: choose or drop an activity (at most six; choosing one ends "choose for me"). */
+  function togglePick(id: string) {
+    const current = answers.interests ?? [];
+    if (!current.includes(id) && current.length >= MAX_CONCRETE_PICKS) {
+      setNotice(dict.twoPages.concrete.max);
+      return;
+    }
+    setNotice(null);
+    setAnswers((prev) => {
+      const list = prev.interests ?? [];
+      return { ...prev, surpriseMe: false, interests: list.includes(id) ? list.filter((x) => x !== id) : [...list, id] };
+    });
+  }
+
+  /** "Andere beelden": a new page of images, none of the families shown before; what was chosen stays. */
+  function moreImages() {
+    if (imageRefreshes >= MAX_REFRESHES) return;
+    const next = sampleBalancedBatch(registered, { seed, refresh: imageRefreshes + 1, keep: chosen, exclude: imageBatches.flat(), seen: seenBefore }).map((c) => c.id);
+    setImageMore((prev) => [...prev, next]);
+    setNotice(null);
+  }
+
+  /** "Andere activiteiten": a new page of activities, none shown before; what was chosen stays. */
+  function moreConcrete() {
+    if (!poolActivities || concreteRefreshes >= MAX_REFRESHES) return;
+    const shown = concreteBatches.flat().map((x) => x.id);
+    const slots = composeConcretePage(poolActivities, { seed, refresh: concreteRefreshes + 1, keep: picks, exclude: shown, ...concreteInput() });
+    setConcrete({ key: chosenImagesKey, batches: [...concreteBatches, slots.map((x) => ({ id: x.activity.id, explore: x.explore }))] });
+    setNotice(null);
+  }
+
+  /** "Kies voor mij": no activities of their own; the engine chooses from the images alone. */
+  function chooseForMe() {
+    setNotice(null);
+    setAnswers((prev) => ({ ...prev, surpriseMe: !prev.surpriseMe, interests: [] }));
   }
 
   function swipe(liked: boolean) {
@@ -397,7 +567,7 @@ export function AssociationWizard({
   }
 
   function back() {
-    trackEvent("intake_page_back", { wizard_variant: "associations", page: pageId, index: page });
+    trackEvent("intake_page_back", { wizard_variant: variantName, page: pageId, index: page });
     go(Math.max(0, page - 1));
   }
 
@@ -407,9 +577,26 @@ export function AssociationWizard({
     if (round) {
       trackEvent("association_round_completed", { round, selected: chosenInRound, mode, duration_ms: duration });
     }
-    trackEvent("intake_page_completed", { wizard_variant: "associations", page: pageId, index: page, duration_ms: duration });
+    if (pageId === "images") {
+      const n = registerCounts(chosen.map((id) => cardById.get(id)?.register));
+      trackEvent("images_page_completed", { selected: chosen.length, refreshes: imageRefreshes, n_expressive: n.expressive, n_nurturing: n.nurturing, n_technical: n.technical, n_nature: n.nature });
+    }
+    if (pageId === "concrete") {
+      const n = registerCounts(picks.map((id) => poolById.get(id)?.register));
+      const explored = new Set(concreteBatches.flat().filter((x) => x.explore).map((x) => x.id));
+      trackEvent("concrete_page_completed", {
+        selected: picks.length,
+        refreshes: concreteRefreshes,
+        explore_picked: picks.filter((id) => explored.has(id)).length,
+        n_expressive: n.expressive,
+        n_nurturing: n.nurturing,
+        n_technical: n.technical,
+        n_nature: n.nature,
+      });
+    }
+    trackEvent("intake_page_completed", { wizard_variant: variantName, page: pageId, index: page, duration_ms: duration });
     // The last screen has no "next": paying is on that screen itself (saveForPayment below).
-    if (page < VENSTER_PAGES.length - 1) go(page + 1);
+    if (page < pages.length - 1) go(page + 1);
   }
 
   function setAxis(axis: AxisId, value: number) {
@@ -431,14 +618,14 @@ export function AssociationWizard({
   /** Stores the answers right before the payment starts; throws (with a message for the visitor) when that is not allowed. */
   async function saveForPayment() {
     const mustHaves = [...limitChips, limitText.trim()].filter(Boolean).join("; ");
-    const final: IntakeAnswers = { ...answers, mustHaves, intakeVariant: "associations" };
+    const final: IntakeAnswers = { ...answers, mustHaves, intakeVariant: "associations", ...(flow2 ? { intakeFlow: "images2" as const, interestDomains: [] } : {}) };
     trackEvent("profile_agreed", {
       adjusted: Object.keys(answers.axesOverride ?? {}).length > 0 || (answers.associationCorrections ?? []).length > 0,
     });
     trackEvent("profile_reflection", { has_reflection: answers.personalReflection.trim().length > 0 });
     trackEvent("intake_submitted", {
-      wizard_variant: "associations",
-      pages: VENSTER_PAGES.length,
+      wizard_variant: variantName,
+      pages: pages.length,
       total_ms: msSince(startedAt.current),
       images: (final.associations ?? []).length,
     });
@@ -446,12 +633,12 @@ export function AssociationWizard({
     try {
       result = await saveIntake(final, initial || stored.current ? { edit: true } : {});
     } catch (err) {
-      trackEvent("intake_submit_failed", { wizard_variant: "associations" });
+      trackEvent("intake_submit_failed", { wizard_variant: variantName });
       throw new Error(dict.errorGeneric, { cause: err });
     }
     if (!result.ok) throw new Error(dict.testLimit.body);
     stored.current = true;
-    clearDraft();
+    clearDraft(draftKey);
   }
 
   // --- swipe gesture -------------------------------------------------------------------------
@@ -474,7 +661,7 @@ export function AssociationWizard({
   }
 
   // --- pieces --------------------------------------------------------------------------------
-  const chapter = page <= 3 ? 0 : page === 4 ? 1 : 2;
+  const chapter = chapterOf(pageId);
   const chapterNames = [dict.chapters.images, dict.chapters.situation, dict.chapters.extra];
   const windowTitle = dict.nav.windowTitle;
 
@@ -596,8 +783,160 @@ export function AssociationWizard({
     );
   };
 
+  // The gift question (a first name) sits on the first screen, whichever intake it is.
+  const recipientField = gift ? (
+    <div className="mt-5 max-w-sm">
+      <label htmlFor="recipient" className="block text-sm font-semibold text-ink">
+        {dict.recipientLabel}
+      </label>
+      <input
+        id="recipient"
+        value={answers.recipientName ?? ""}
+        onChange={(e) => set("recipientName", e.target.value.slice(0, 40))}
+        placeholder={dict.recipientPlaceholder}
+        className="mt-2 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/35 focus:border-ink"
+      />
+    </div>
+  ) : null;
+
+  const moreButton = (onClick: () => void, label: string, sub: string) => (
+    <div className="mt-4">
+      <button
+        type="button"
+        onClick={onClick}
+        className="inline-flex min-h-11 items-center rounded-lg border border-border bg-paper px-4 text-sm font-semibold text-ink transition hover:border-ink focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60"
+      >
+        {label}
+      </button>
+      <span className="ml-3 text-sm text-ink/55">{sub}</span>
+    </div>
+  );
+
+  // Page 1 of the two-page intake: eighteen images, mixed from places, moments and senses.
+  const imagesPage = (
+    <div>
+      <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{dict.twoPages.images.kicker}</p>
+      <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.twoPages.images.heading, dict.twoPages.images.headingGift)}</h1>
+      <p className="mt-2 text-ink/60">{pick(dict.twoPages.images.sub, dict.twoPages.images.subGift)}</p>
+      {recipientField}
+      <p className="mt-4 text-sm font-medium text-ink/60" aria-live="polite">
+        {dict.twoPages.images.chosen.replace("{n}", String(chosen.length))}
+        {chosen.length < MIN_IMAGES_REQUIRED && <span className="text-ink/45"> · {dict.twoPages.images.min.replace("{n}", String(MIN_IMAGES_REQUIRED))}</span>}
+      </p>
+      {notice && (
+        <p className="mt-3 rounded-md bg-surface-active px-3 py-2 text-sm text-ink/80" role="status">
+          {notice}
+        </p>
+      )}
+      <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
+        {currentImages.map((c) => {
+          const on = chosen.includes(c.id);
+          return (
+            <button
+              key={c.id}
+              type="button"
+              aria-pressed={on}
+              onClick={() => toggleCard(c.id)}
+              className={cn(
+                "group relative aspect-[4/5] overflow-hidden rounded-lg text-left transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
+                on && "ring-[3px] ring-gold ring-offset-2 ring-offset-cream",
+              )}
+            >
+              <Image src={c.image} alt="" fill sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-2 pb-2 pt-8 text-xs font-semibold leading-tight text-white sm:px-3 sm:pb-3 sm:pt-10 sm:text-sm sm:leading-snug">
+                {c.label}
+              </span>
+              <span className="absolute right-1.5 top-1.5 sm:right-2 sm:top-2">{on ? <Check /> : <span className="block h-6 w-6 rounded-full border-2 border-white/80 bg-black/10 sm:h-7 sm:w-7" />}</span>
+            </button>
+          );
+        })}
+      </div>
+      {imageRefreshes < MAX_REFRESHES ? (
+        moreButton(moreImages, dict.twoPages.images.more, dict.twoPages.images.moreSub)
+      ) : (
+        <p className="mt-4 text-sm text-ink/55">{dict.twoPages.images.noMore}</p>
+      )}
+    </div>
+  );
+
+  // Page 2: eighteen concrete activities that follow from page 1, three of them outside what the images pointed at.
+  const concretePage = (
+    <div>
+      <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold">{dict.twoPages.concrete.kicker}</p>
+      <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.twoPages.concrete.heading, dict.twoPages.concrete.headingGift)}</h1>
+      <p className="mt-2 text-ink/60">{pick(dict.twoPages.concrete.sub, dict.twoPages.concrete.subGift)}</p>
+      <p className="mt-4 text-sm font-medium text-ink/60" aria-live="polite">
+        {dict.twoPages.concrete.chosen.replace("{n}", String(picks.length))}
+        {picks.length === 0 && !answers.surpriseMe && <span className="text-ink/45"> · {dict.twoPages.concrete.min}</span>}
+      </p>
+      {notice && (
+        <p className="mt-3 rounded-md bg-surface-active px-3 py-2 text-sm text-ink/80" role="status">
+          {notice}
+        </p>
+      )}
+      <div className={cn("mt-4 grid grid-cols-3 gap-2 sm:gap-3", answers.surpriseMe && "opacity-50")}>
+        {currentConcrete.map(({ id, explore }) => {
+          const a = poolById.get(id);
+          if (!a) return null;
+          const on = picks.includes(id);
+          return (
+            <button
+              key={id}
+              type="button"
+              aria-pressed={on}
+              onClick={() => togglePick(id)}
+              className={cn(
+                "group relative aspect-[4/5] overflow-hidden rounded-lg text-left transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
+                explore && !on && "outline outline-2 outline-dashed outline-offset-2 outline-gold",
+                on && "ring-[3px] ring-gold ring-offset-2 ring-offset-cream",
+              )}
+            >
+              <Image src={activityImage(id)} alt="" fill sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-2 pb-2 pt-8 text-xs font-semibold leading-tight text-white sm:px-3 sm:pb-3 sm:pt-10 sm:text-sm sm:leading-snug">
+                {explore && <span className="mb-0.5 block text-[10px] font-bold uppercase tracking-[0.08em] text-gold-light">{dict.twoPages.concrete.maybe}</span>}
+                {a.label}
+              </span>
+              <span className="absolute right-1.5 top-1.5 sm:right-2 sm:top-2">{on ? <Check /> : <span className="block h-6 w-6 rounded-full border-2 border-white/80 bg-black/10 sm:h-7 sm:w-7" />}</span>
+            </button>
+          );
+        })}
+      </div>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        {concreteRefreshes < MAX_REFRESHES ? (
+          <button
+            type="button"
+            onClick={moreConcrete}
+            disabled={!!answers.surpriseMe}
+            className="inline-flex min-h-11 items-center rounded-lg border border-border bg-paper px-4 text-sm font-semibold text-ink transition hover:border-ink focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60 disabled:opacity-50"
+          >
+            {dict.twoPages.concrete.more}
+          </button>
+        ) : (
+          <span className="text-sm text-ink/55">{dict.twoPages.concrete.noMore}</span>
+        )}
+        <button
+          type="button"
+          aria-pressed={!!answers.surpriseMe}
+          onClick={chooseForMe}
+          className={cn(
+            "inline-flex min-h-11 flex-col items-start justify-center rounded-lg border-2 border-dashed px-4 py-1.5 text-left transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
+            answers.surpriseMe ? "border-accent-dark bg-accent-dark text-gold-light" : "border-gold bg-paper text-accent-dark",
+          )}
+        >
+          <span className="text-sm font-semibold">✦ {dict.twoPages.concrete.chooseForMe}</span>
+          <span className="text-xs opacity-75">{pick(dict.twoPages.concrete.chooseForMeSub, dict.twoPages.concrete.chooseForMeSubGift)}</span>
+        </button>
+      </div>
+      {!answers.surpriseMe && picks.length > 0 && picks.length < 3 && <p className="mt-3 text-sm text-ink/55">{dict.twoPages.concrete.moreSub}</p>}
+    </div>
+  );
+
   const body = (() => {
     switch (pageId) {
+      case "images":
+        return imagesPage;
+      case "concrete":
+        return concretePage;
       case "worlds":
         return (
           <div>
@@ -709,6 +1048,32 @@ export function AssociationWizard({
             tagLabels={library.tagLabels}
             corrections={answers.associationCorrections ?? []}
             onToggleCorrection={toggleCorrection}
+            notes={
+              flow2 && dropped.length > 0 ? (
+                <section className="mt-10 rounded-lg border border-gold/60 bg-paper p-5" aria-labelledby="dropped-title">
+                  <h2 id="dropped-title" className="font-serif text-xl text-ink">
+                    {dict.twoPages.dropped.title}
+                  </h2>
+                  <p className="mt-1 text-sm text-ink/65">{dict.twoPages.dropped.body}</p>
+                  <ul className="mt-3 space-y-1 text-sm text-ink/80">
+                    {dropped.map((d) => (
+                      <li key={d.id}>
+                        <span className="font-semibold">{poolById.get(d.id)?.label ?? d.id}</span>:{" "}
+                        {dict.twoPages.dropped.reasons[d.reason as keyof typeof dict.twoPages.dropped.reasons] ?? ""}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    <button type="button" onClick={() => go(pages.indexOf("situation"))} className="min-h-11 rounded-lg border border-border bg-cream px-4 text-sm font-semibold text-ink hover:border-ink">
+                      {dict.twoPages.dropped.editSituation}
+                    </button>
+                    <button type="button" onClick={() => go(pages.indexOf("concrete"))} className="min-h-11 rounded-lg border border-border bg-cream px-4 text-sm font-semibold text-ink hover:border-ink">
+                      {dict.twoPages.dropped.editChoices}
+                    </button>
+                  </div>
+                </section>
+              ) : null
+            }
             payment={
               <section id="bestellen" aria-labelledby="order-title" className="scroll-mt-24 overflow-hidden rounded-lg border border-border bg-paper">
                 <TestModeBanner notice={payment.testNotice} />
@@ -897,7 +1262,7 @@ export function AssociationWizard({
   const isProfile = pageId === "profile";
   // On a phone, while swiping through a round, the bottom bar holds the yes/no buttons.
   const swiping = mode === "swipe" && !!round && swipeIdx < roundCards.length;
-  const isLast = page === VENSTER_PAGES.length - 1;
+  const isLast = page === pages.length - 1;
   const optionalRound = pageId === "senses" && chosenInRound === 0;
   const primaryLabel = optionalRound ? dict.roundUi.skip : dict.nav.next;
 
@@ -926,7 +1291,7 @@ export function AssociationWizard({
       {/* Inside the long first chapter: where we are among direction, place, moment and sense. */}
       {chapter === 0 && (
         <ol className="-mt-3 mb-6 flex items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.08em]" aria-label={dict.chapters.images}>
-          {[dict.panes.worlds, dict.panes.places, dict.panes.moments, dict.panes.senses].map((label, i) => (
+          {(flow2 ? [dict.twoPages.steps.images, dict.twoPages.steps.concrete] : [dict.panes.worlds, dict.panes.places, dict.panes.moments, dict.panes.senses]).map((label, i) => (
             <li
               key={label}
               aria-current={i === page ? "step" : undefined}

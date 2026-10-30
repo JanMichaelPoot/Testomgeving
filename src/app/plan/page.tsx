@@ -27,6 +27,7 @@ import { buildWindowItems, windowImageHref } from "@/lib/vensterPanes";
 import { WindowDownload } from "@/components/window/WindowDownload";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
+import { paneActivities } from "@/lib/discovery/concretePool";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
 import { elapsedSinceNow } from "@/lib/progressStage";
@@ -57,7 +58,7 @@ function waitingWindow(answers: Awaited<ReturnType<typeof getWaitingContext>>["a
   if (!answers) return undefined;
   const items = buildWindowItems(
     answers,
-    { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })) },
+    { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })), activities: paneActivities(locale) },
     dict.venster,
   );
   const href = windowImageHref(answers);

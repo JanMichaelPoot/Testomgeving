@@ -1,4 +1,4 @@
-import { DOMAINS, getActivity } from "@/lib/discovery/library";
+import { DOMAINS, getActivity, isImagePending } from "@/lib/discovery/library";
 import { SOCIAL_FORMATS } from "@/lib/discovery/types";
 
 // What the card wizard adds to the intake, and how it is checked on the server.
@@ -36,7 +36,7 @@ export function sanitizeDiscoveryAnswers(raw: {
   if (neutral.length > 0) socialFormats = neutral.slice(0, 1);
 
   return {
-    interests: unique(strings(raw.interests).filter((id) => getActivity(id) && getActivity(id)?.status !== "retired")).slice(0, MAX_INTERESTS),
+    interests: unique(strings(raw.interests).filter((id) => getActivity(id) && getActivity(id)?.status !== "retired" && !isImagePending(getActivity(id)!))).slice(0, MAX_INTERESTS),
     interestDomains: unique(strings(raw.interestDomains).filter((d) => domainIds.has(d))),
     socialFormats,
     surpriseMe: raw.surpriseMe === true,

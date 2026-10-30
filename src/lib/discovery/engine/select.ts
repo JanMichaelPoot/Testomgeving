@@ -104,7 +104,8 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   const pool: Activity[] = [];
   for (const a of all) {
     if (excluded.has(a.id)) continue;
-    const r = passesConstraints(a, constraints);
+    // A chosen activity that needs supervision stays when the "predictable" dial only came from images (explicitPicks).
+    const r = passesConstraints(a, input.explicitPicks && pickSet.has(a.id) ? { ...constraints, hideSupervised: false } : constraints);
     if (!r.ok) continue;
     if (history.has(a.id) && !pickSet.has(a.id)) continue; // not repeated across sessions
     verifyOf.set(a.id, [...new Set([...r.verify, ...constraints.verify])]);

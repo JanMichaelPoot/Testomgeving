@@ -4200,3 +4200,38 @@ Stripe, Claude API, Resend, PostHog).
       van 18 per register plus een derde buiten het meest gekozen register (i.p.v. 20%, zie Stap 113), expliciete keuzes van pagina 2 als `interests`, in vier deelstappen; Jan zei "ga door met Fase 4"; ik lees dat als akkoord met mijn aanbevelingen bij de drie vragen
       (volgorde uit het plan houden, vloer van 2 per register, standaardpercentage 0). Nieuwe tests: `company.test.ts` (geen placeholder meer, geen skip-actie, test-adres alleen
       voor admin). Gates: `tsc --noEmit`, eslint, volledige `npm test` (785 tests; één PDF-test haalde in een run onder belasting zijn 5 s-limiet en slaagt los).
+
+- [x] Stap 117 - Twee beeldpagina's, Fase 4 (4a, 4b en het grootste deel van 4c; Jan: "ga door met Fase 4", dus akkoord met mijn aanbevelingen uit `docs/fase4-opzet.md`: volgorde
+      uit het plan houden, vloer van 2 per register, standaardpercentage 0). Geen betaalde aanroepen (€0), niet gecommit; Stap 116 en 115 zijn gecommit en gepusht (`30a5daf`, `6771578`).
+      **Alles achter een variant `images2`**: standaard uit (`NEXT_PUBLIC_IMAGES2_PERCENT`, 0), te zien met `/intake?wizard=images2`; de huidige beeld-intake is de terugval en blijft
+      ongemoeid (de baseline-test en de bestaande e2e slagen). **4a, de samplers** (`src/lib/discovery/twoPages.ts`, zuiver, clientveilig, deterministisch per seed; het register zonder
+      JSON-import in `registerTypes.ts`): `sampleBalancedBatch` (pagina 1: 18 beelden, één variant per familie, gemengd uit plek, moment en zintuig in willekeurige volgorde, minstens 4 per
+      register, op elke as minstens twee tegenpolen en elke ronde minstens 4, hersteld met wissels binnen hetzelfde register; "Andere beelden" geeft een set zonder herhaalde familie, tot
+      driemaal, gekozen beelden blijven staan en tellen mee), `registerMix`, `composeConcretePage` (pagina 2: 18 activiteiten, dichtst bij de beelden op gedeelde tags met een
+      seeded spreiding, vloer van **2 van 18 per register** waardoor automatisch een derde buiten het meest gekozen register valt, hooguit 1 per subgroep en 3 per richting, **3 verkenplekken**
+      uit andere richtingen en andere registers, die meetellen voor de vloer van die registers; "Andere activiteiten" zonder herhaling, gekozen blijft staan). Gemeten over 1000 gesimuleerde
+      bezoekers (`scripts/twopages-measure.ts`): pagina 1 nooit minder dan 4 van een register (gemiddeld 5,0 / 4,4 / 4,3 / 4,3); pagina 2 geeft het gekozen register ± 9,8 van 18 (54%) bij 76%
+      gekozen beelden uit dat register (het plan noemde 55%), nooit minder dan 2 van een register, 46-50% buiten het eigen register; 521 van 524 activiteiten komen op een pagina voor,
+      de meest getoonde bij 17%, twee opeenvolgende bezoekers delen 4,3% van hun pagina. Een eerste versie gaf het gekozen register maar 7,4 (41%): de verkenplekken namen toen plek in van het
+      gekozen register; nu tellen ze mee voor de andere registers. **4b, data en motor**: `intakeFlow: "images2"` (met `intakeVariant: "associations"` ongewijzigd, zodat PDF-omslag, deelpreview,
+      profiel, draad en admin de flow blijven herkennen); bij die flow zijn `interests` de **eigen keuzes van pagina 2** (server-side opgeschoond tegen echte, zichtbare id's, hooguit 6), de richtingen volgen
+      uit de keuzes en de beelden geven alleen de schuiven en per gekozen activiteit het beeld erachter (`associationsToEngineInput({ explicitInterests })`). Twee regels zodat een keuze niet door een
+      antwoord wordt weggegooid dat de persoon nooit gaf: een gekozen activiteit met toezicht blijft ondanks de "voorspelbaar"-schuif die uit de beelden komt (`EngineInput.explicitPicks`; de orakelcontrole E6
+      kent die uitzondering), en de inspanning stijgt tot wat de gekozen activiteiten vragen (`effortForPicks`), behalve bij een zelf verschoven schuif. De schrijver mag een gekozen activiteit "gekozen" noemen
+      en een verwante "verwant aan wat ze kozen"; de "gekozen beelden, geen activiteiten"-regel blijft alleen voor de oude flow. Een grens die een gekozen activiteit toch uitsluit wordt benoemd in plaats van
+      stil te verdwijnen: `explainDroppedPicks` (`engine/droppedPicks.ts`, een test houdt hem gelijk aan `passesConstraints`) en een server-actie `checkPicks`; het profielscherm toont "Dit kon niet mee" met
+      de reden en knoppen "Pas je situatie aan" / "Kies anders" (beslissing A). Synthetische bezoekers (`engine/syntheticTwoPages.ts`) en een regressietest: 500 bezoekers geven 0 overtredingen van E1/E3/E4/E5/E6, 5,90
+      richtingen per boek (was 5,8), alle zachte criteria ≥ 99%. **Wat de meting liet zien en wat ik jou voorleg**: van de gemiddeld 4,5 gekozen activiteiten staat **40% in het boek** (de motor heeft twee
+      "vertrouwde" plekken), bij 93,8% van de boeken minstens één; de rest stuurt de aangrenzende ideeën. Dat is nu zo en is zichtbaar op de profielpagina niet gezegd. 20,9% valt af door een harde grens (budget,
+      binnen/buiten, hoe je meedoet), in de simulatie te hoog omdat de situatie onafhankelijk van de keuzes wordt gekozen. Wil je dat meer van wat iemand koos terugkomt (bijvoorbeeld drie vertrouwde plekken in
+      plaats van twee), dan is dat een aanpassing van de zeven niveaus. **4c, schermen**: `AssociationWizard` kreeg een `flow`-prop in plaats van losse schermcomponenten (afwijking van de opzet: het venster, de
+      situatie, het profiel, de betaling en de onderbalk blijven zo gedeeld); vier schermen (beelden, concreet, situatie, profiel) in drie hoofdstukken, eigen concept in sessionStorage (`window-venster-draft-images2`),
+      pagina 1 en 2 in drie kolommen met "Andere beelden" / "Andere activiteiten" en "Kies voor mij" (een uitgevoerde keuze zet "Kies voor mij" uit), verkenplekken met een gestippelde rand en "Misschien ook?",
+      minimaal 3 beelden en 1 activiteit (of "Kies voor mij") om door te gaan, hooguit 8 beelden en 6 activiteiten; het venster toont de beelden en de gekozen activiteiten (nieuwe ruitsoorten `images` en `picks`; de
+      indeling is ongewijzigd); teksten in `dict.venster.twoPages` (nl en en); events `images_page_completed` en `concrete_page_completed` met alleen tellingen per register (catalogus en `docs/analytics-events.md`
+      bijgewerkt); `IntakeEntry` trekt de variant (standaard 0%), `intake/page.tsx` bouwt de activiteitenpool alleen als die nodig is (`concretePool.ts`, per maand). De landingsknoppen verwijzen nu naar `/intake` zonder
+      `?wizard=associations`, anders zou geen bezoeker ooit de nieuwe variant trekken. **4d, nog open**: de downloadafbeelding en de deelpreview tonen alleen de beelden (de activiteitenkeuzes zitten wel op de
+      PDF-omslag en het wachtscherm via `paneActivities`); het profielportret noemt de gekozen activiteiten nog niet; de draad "Zo kwamen we hierop" leest de keuzes nog als afgeleid; het beheeroverzicht telt de flow als
+      "beeld-intake"; swipen op een telefoon bestaat alleen in de oude flow; een Engelstalige doorloop; en een echte, betaalde generatie met `images2` (≈ €0,15) is nog niet gedaan, jouw akkoord nodig. **Getest**: 36 nieuwe
+      tests (samplers, register-mix, intake, engine, eerlijke uitleg, vensterkinds, schermen), de e2e voor de vier schermen op 375/390/412 px (13 groen), en in de browser de hele flow tot het profielscherm (18 beelden,
+      18 activiteiten met 3 verkenplekken, venster met beelden en keuzes, "Dit kon niet mee" bij bungeejump met budget tot €25). Gates: `tsc --noEmit`, eslint, `taxonomy-check --images`, volledige `npm test` (821 tests).

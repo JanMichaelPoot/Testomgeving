@@ -10,6 +10,10 @@ import { checkTestQuota } from "@/lib/testQuota";
 import { getLocale, type Locale } from "@/lib/language";
 import { sanitizeDiscoveryAnswers } from "@/lib/discovery/answers";
 import { applyImageIntake } from "@/lib/discovery/imageIntake";
+import { engineInputFromIntake, resolveConstraints } from "@/lib/discovery/engine";
+import { explainDroppedPicks } from "@/lib/discovery/engine/droppedPicks";
+import { getActivity } from "@/lib/discovery/library";
+import { currentMonth } from "@/lib/discovery/season";
 
 // The rich profile ("DNA") collected by the intake wizard. Stored whole in
 // intake_answers.raw_json — see supabase/migrations/0001_init.sql for why
@@ -58,6 +62,9 @@ export interface IntakeAnswers {
   // Added by the image intake ("Het venster", WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md).
   // Which intake produced these answers; absent for the legacy and card wizards.
   intakeVariant?: "associations";
+  // "images2": the image intake in two pages (docs/fase4-opzet.md). Then `associations` are the images of page 1 and `interests`
+  // are the activities the person picked themselves on page 2 (explicit, not derived from the images). Absent = the four-round intake.
+  intakeFlow?: "images2";
   // Ids of the association images chosen (src/lib/discovery/associations.json).
   associations?: string[];
   // Tags added under "Niet helemaal" when the reflection did not fit.
@@ -148,6 +155,25 @@ export async function submitIntake(answers: IntakeAnswers, opts: { edit?: boolea
  * The image intake pays on its last screen (improvement plan D3): the answers are stored right before the payment starts, and
  * the page stays where it is. Returns whether the visitor may go on; a connection that has used its test books is refused.
  */
+/**
+ * Two-page intake: which of the activities the person chose on page 2 a limit from the situation screen rules out, and which limit.
+ * Run on the profile screen, so the choice is named there instead of silently missing from the book. Same translation as
+ * persistIntake (the dials come from the images, a chosen supervised activity is kept), nothing is stored.
+ */
+export async function checkPicks(answers: IntakeAnswers): Promise<{ id: string; reason: string }[]> {
+  if (answers.intakeFlow !== "images2" || !(answers.interests ?? []).length) return [];
+  const locale = await getLocale();
+  const stored = applyImageIntake(
+    { ...answers, ...sanitizeDiscoveryAnswers(answers), budget: currentBudget(answers.budget), solutionTypes: ["activity"], locale } as StoredIntake,
+    locale,
+    "check",
+  );
+  const month = currentMonth();
+  const constraints = resolveConstraints(engineInputFromIntake(stored, { seed: "check", month }));
+  const picks = (stored.interests ?? []).map((id) => getActivity(id)).filter((a): a is NonNullable<typeof a> => !!a);
+  return explainDroppedPicks(picks, constraints).map((d) => ({ id: d.activityId, reason: d.reason }));
+}
+
 export async function saveIntake(answers: IntakeAnswers, opts: { edit?: boolean } = {}): Promise<{ ok: true } | { ok: false; reason: "limit" }> {
   const existing = await getSessionId();
   const quota = await checkTestQuota(createServiceRoleClient(), existing);

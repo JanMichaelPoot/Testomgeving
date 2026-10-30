@@ -1,6 +1,6 @@
 import type { IntakeAnswers } from "@/app/intake/actions";
 import type { AssociationCard } from "@/lib/discovery/associationProfile";
-import { domainImage } from "@/lib/discovery/paths";
+import { activityImage, domainImage } from "@/lib/discovery/paths";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { WINDOW_MAX_PANES, type WindowItem } from "@/lib/windowLayout";
 
@@ -9,12 +9,14 @@ import { WINDOW_MAX_PANES, type WindowItem } from "@/lib/windowLayout";
 // from the same ordered choices.
 
 type Answers = Partial<
-  Pick<IntakeAnswers, "interestDomains" | "surpriseMe" | "associations" | "location" | "timeAvailable" | "budget" | "company">
+  Pick<IntakeAnswers, "interestDomains" | "surpriseMe" | "associations" | "location" | "timeAvailable" | "budget" | "company" | "interests" | "intakeFlow">
 >;
 
 export interface PaneLibrary {
   cards: Pick<AssociationCard, "id" | "round" | "label" | "image" | "tagWeights" | "axes">[];
   domains: { id: string; label: string }[];
+  /** Two-page intake: the activities of page 2, to draw the chosen ones. */
+  activities?: { id: string; label: string; tags: readonly string[] }[];
 }
 
 /** 1 (familiar) .. 7 (far out) from the novelty axis (-1..1) of an image. */
@@ -42,7 +44,9 @@ export function buildWindowItems(answers: Answers, lib: PaneLibrary, dict: Dicti
   };
   const max = Math.max(0, ...chosen.map(mass));
 
-  const items: WindowItem[] = (answers.interestDomains ?? []).map((id) => ({
+  // Two pages: the window holds the images of page 1 and the activities chosen on page 2 (there is no direction screen).
+  const twoPages = answers.intakeFlow === "images2";
+  const items: WindowItem[] = (twoPages ? [] : answers.interestDomains ?? []).map((id) => ({
     id: `w:${id}`,
     kind: "worlds",
     image: domainImage(id),
@@ -51,19 +55,27 @@ export function buildWindowItems(answers: Answers, lib: PaneLibrary, dict: Dicti
     level: 3,
     tags: [id],
   }));
-  if (answers.surpriseMe && items.length === 0) {
+  if (!twoPages && answers.surpriseMe && items.length === 0) {
     items.push({ id: "w:surprise", kind: "worlds", label: dict.panes.surprise, placeholder: dict.panes.surprise, weight: 0.5, level: 4, tags: ["surprise"] });
   }
   for (const c of chosen) {
     items.push({
       id: c.id,
-      kind: c.round,
+      kind: twoPages ? "images" : c.round,
       image: c.image,
       label: c.label,
       weight: max > 0 ? Math.round((mass(c) / max) * 100) / 100 : 0.5,
       level: levelFromNovelty(c.axes.novelty),
       tags: Object.keys(c.tagWeights),
     });
+  }
+  if (twoPages) {
+    const activity = new Map((lib.activities ?? []).map((a) => [a.id, a]));
+    for (const id of answers.interests ?? []) {
+      const a = activity.get(id);
+      if (!a) continue;
+      items.push({ id: `a:${id}`, kind: "picks", image: activityImage(id), label: a.label, weight: 0.8, level: 3, tags: [...a.tags] });
+    }
   }
   return items;
 }

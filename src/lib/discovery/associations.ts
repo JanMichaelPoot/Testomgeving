@@ -1,6 +1,7 @@
 import associationsJson from "@/lib/discovery/associations.json";
-import { TAGS, getActivities, getActivity } from "@/lib/discovery/library";
+import { TAGS, getActivities, getActivity, isImagePending } from "@/lib/discovery/library";
 import { inSeason } from "@/lib/discovery/season";
+import { registerOfCard } from "@/lib/discovery/register";
 import { DISCOVERY_MIN_STATUS } from "@/lib/discovery/cardLibrary";
 import { passesConstraints, resolveConstraints } from "@/lib/discovery/engine/constraints";
 import { agePenalty, supplyPenalty } from "@/lib/discovery/engine/select";
@@ -70,6 +71,7 @@ export function buildAssociationLibrary(locale: "nl" | "en", month?: number): As
       image: c.image,
       tagWeights: c.tagWeights,
       axes: c.axes,
+      register: registerOfCard(c),
     })),
     tagLabels: Object.fromEntries(TAGS.map((t) => [t.id, t.label[locale]])),
     correctionTags: CORRECTION_TAGS.filter((t) => TAGS.some((x) => x.id === t)),
@@ -259,6 +261,11 @@ export function associationsToEngineInput(input: {
   activities?: readonly Activity[];
   /** The month the person asks in: the activities read from the images are in season then. */
   month?: number;
+  /**
+   * The two-page intake (docs/fase4-opzet.md): the activities the person chose themselves on the concrete page. Then nothing is
+   * derived from the images as interests; the images only give the dials and, per chosen activity, the image behind it.
+   */
+  explicitInterests?: readonly string[];
 }): AssociationEngineInput {
   const chosen = input.associationIds.filter((id) => byId.has(id));
   const axes = effectiveAxes(averageAxes(ASSOCIATIONS, chosen), input.axesOverride);
@@ -266,6 +273,23 @@ export function associationsToEngineInput(input: {
   const dials = deriveDials(axes, chosen.length > 0 || Object.keys(sanitizeAxesOverride(input.axesOverride)).length > 0);
   const interestDomains = [...input.interestDomains];
   const base = { interestDomains, ...dials };
+
+  if (input.explicitInterests) {
+    const picks = [...new Set(input.explicitInterests)].filter((id) => {
+      const a = getActivity(id);
+      return !!a && a.status !== "retired" && !isImagePending(a);
+    });
+    const sources: Record<string, string[]> = {};
+    const sourceTags: Record<string, string[]> = {};
+    for (const id of picks) {
+      const a = getActivity(id)!;
+      const behind = imagesBehind(a.tags, chosen, 2);
+      if (behind.length) sources[id] = behind;
+      const tags = sourceTagsFor(a.tags, chosen, 2);
+      if (tags.length) sourceTags[id] = tags;
+    }
+    return { interests: picks, ...base, sources, sourceTags };
+  }
 
   if (chosen.length === 0 && (input.corrections ?? []).length === 0) {
     // Nothing to read: worlds alone (or "verras me") go to the engine as they are.

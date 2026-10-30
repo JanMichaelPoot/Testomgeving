@@ -22,6 +22,36 @@ export interface VensterDictionary {
   testLimit: { title: string; body: string; back: string };
   errors: { notFoundTitle: string; notFoundBody: string; home: string; errorTitle: string; errorBody: string; retry: string; bookLanguage: string };
   worlds: { heading: string; headingGift: string; sub: string; surprise: string; surpriseSub: string; chosen: string; more: string };
+  // The image intake in two pages (docs/fase4-opzet.md): page 1 images, page 2 concrete activities.
+  twoPages: {
+    // Profile screen: a chosen activity that a limit from the situation screen rules out.
+    dropped: {
+      title: string;
+      body: string;
+      reasons: Record<"season" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
+      editSituation: string;
+      editChoices: string;
+    };
+    steps: { images: string; concrete: string };
+    images: { kicker: string; heading: string; headingGift: string; sub: string; subGift: string; chosen: string; min: string; max: string; more: string; moreSub: string; noMore: string };
+    concrete: {
+      kicker: string;
+      heading: string;
+      headingGift: string;
+      sub: string;
+      subGift: string;
+      chosen: string;
+      min: string;
+      max: string;
+      more: string;
+      moreSub: string;
+      noMore: string;
+      chooseForMe: string;
+      chooseForMeSub: string;
+      chooseForMeSubGift: string;
+      maybe: string;
+    };
+  };
   rounds: Record<
     "places" | "moments" | "senses",
     { kicker: string; heading: string; headingGift: string; sub: string }
@@ -293,6 +323,54 @@ export const vensterNl: VensterDictionary = {
     surpriseSub: "We kiezen de richtingen voor je",
     chosen: "{n} gekozen",
     more: "Andere richtingen tonen",
+  },
+  twoPages: {
+    dropped: {
+      title: "Dit kon niet mee",
+      body: "Je koos deze activiteiten, maar een grens die je daarna gaf, sluit ze uit. Je kunt de grens aanpassen of een andere keuze maken.",
+      reasons: {
+        season: "past niet bij de tijd van het jaar",
+        budget: "past niet bij je budget",
+        effort: "vraagt meer inspanning dan je aangaf",
+        supervised: "vraagt begeleiding en past niet bij je voorkeur voor het vertrouwde",
+        setting: "past niet bij je wens voor binnen of buiten",
+        format: "kan niet op de manier waarop je wilt meedoen",
+        groups: "is een groepsactiviteit",
+      },
+      editSituation: "Pas je situatie aan",
+      editChoices: "Kies anders",
+    },
+    steps: { images: "Beelden", concrete: "Keuzes" },
+    images: {
+      kicker: "Jouw beelden · 1 van 2",
+      heading: "Wat trekt je aan?",
+      headingGift: "Wat zou {name} aantrekken?",
+      sub: "Kies wat je aantrekt, zonder na te denken. Vijf tot acht beelden werkt het best.",
+      subGift: "Kies wat {name} zou aantrekken, zonder lang na te denken. Vijf tot acht beelden werkt het best.",
+      chosen: "{n} gekozen",
+      min: "Kies er minstens {n} om door te gaan.",
+      max: "Dat zijn er acht. Haal er één weg om een ander te kiezen.",
+      more: "Andere beelden",
+      moreSub: "Wat je koos blijft staan.",
+      noMore: "Meer nieuwe beelden hebben we niet. Wat je koos blijft staan.",
+    },
+    concrete: {
+      kicker: "Jouw beelden · 2 van 2",
+      heading: "Waar wijzen je beelden naartoe?",
+      headingGift: "Waar wijzen de beelden van {name} naartoe?",
+      sub: "Dit zijn bezigheden die bij je beelden passen. Kies er een paar waar je nieuwsgierig naar bent: drie tot zes is genoeg.",
+      subGift: "Dit zijn bezigheden die bij de beelden passen. Kies er een paar waar {name} nieuwsgierig naar zou zijn: drie tot zes is genoeg.",
+      chosen: "{n} gekozen",
+      min: "Kies er minstens één, of laat ons kiezen.",
+      max: "Dat zijn er zes. Haal er één weg om een ander te kiezen.",
+      more: "Andere activiteiten",
+      moreSub: "Wat je koos blijft staan.",
+      noMore: "Meer nieuwe activiteiten hebben we niet. Wat je koos blijft staan.",
+      chooseForMe: "Kies voor mij",
+      chooseForMeSub: "We kiezen op basis van je beelden",
+      chooseForMeSubGift: "We kiezen op basis van de beelden",
+      maybe: "Misschien ook?",
+    },
   },
   rounds: {
     places: {
@@ -804,6 +882,54 @@ export const vensterEn: VensterDictionary = {
     surpriseSub: "We'll pick the directions for you",
     chosen: "{n} chosen",
     more: "Show other directions",
+  },
+  twoPages: {
+    dropped: {
+      title: "These could not come along",
+      body: "You chose these activities, but a limit you gave afterwards rules them out. You can change the limit or choose something else.",
+      reasons: {
+        season: "does not fit the time of year",
+        budget: "does not fit your budget",
+        effort: "takes more effort than you said",
+        supervised: "needs guidance and does not fit your preference for the familiar",
+        setting: "does not fit your wish for indoors or outdoors",
+        format: "cannot be done the way you want to take part",
+        groups: "is a group activity",
+      },
+      editSituation: "Change your situation",
+      editChoices: "Choose differently",
+    },
+    steps: { images: "Images", concrete: "Choices" },
+    images: {
+      kicker: "Your images · 1 of 2",
+      heading: "What draws you in?",
+      headingGift: "What would draw {name} in?",
+      sub: "Choose what draws you in, without thinking too hard. Five to eight images works best.",
+      subGift: "Choose what would draw {name} in, without thinking too hard. Five to eight images works best.",
+      chosen: "{n} chosen",
+      min: "Choose at least {n} to continue.",
+      max: "That is eight. Remove one to choose another.",
+      more: "Other images",
+      moreSub: "What you chose stays.",
+      noMore: "There are no more new images. What you chose stays.",
+    },
+    concrete: {
+      kicker: "Your images · 2 of 2",
+      heading: "Where do your images point?",
+      headingGift: "Where do {name}'s images point?",
+      sub: "These are things to do that fit your images. Choose a few that make you curious: three to six is plenty.",
+      subGift: "These are things to do that fit the images. Choose a few {name} would be curious about: three to six is plenty.",
+      chosen: "{n} chosen",
+      min: "Choose at least one, or let us choose.",
+      max: "That is six. Remove one to choose another.",
+      more: "Other activities",
+      moreSub: "What you chose stays.",
+      noMore: "There are no more new activities. What you chose stays.",
+      chooseForMe: "Choose for me",
+      chooseForMeSub: "We choose from your images",
+      chooseForMeSubGift: "We choose from the images",
+      maybe: "Maybe too?",
+    },
   },
   rounds: {
     places: {

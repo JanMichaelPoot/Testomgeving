@@ -16,7 +16,7 @@ import { DOMAINS, getActivity } from "@/lib/discovery/library";
 import { buildChoiceGroups } from "@/lib/checkoutChoices";
 import { getDeviceId } from "@/lib/discovery/historyStore";
 import type { StoredIntake } from "@/app/intake/actions";
-import { VENSTER_EDIT_PAGE } from "@/lib/vensterPages";
+import { TWO_PAGE_PAGES, VENSTER_EDIT_PAGE } from "@/lib/vensterPages";
 import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { checkTestQuota } from "@/lib/testQuota";
 
@@ -50,7 +50,9 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
 
   // The image intake pays on its last screen (the profile): there is no separate order page for it any more.
   if ((intake.raw_json as unknown as StoredIntake).intakeVariant === "associations") {
-    redirect(`/intake?edit=1&page=${VENSTER_EDIT_PAGE.profile}${paymentFailed ? "&payment=cancelled" : ""}`);
+    // The profile screen is the last one of either image intake (the two-page one has four screens).
+    const profilePage = (intake.raw_json as unknown as StoredIntake).intakeFlow === "images2" ? TWO_PAGE_PAGES.indexOf("profile") : VENSTER_EDIT_PAGE.profile;
+    redirect(`/intake?edit=1&page=${profilePage}${paymentFailed ? "&payment=cancelled" : ""}`);
   }
 
   const locale = await getLocale();

@@ -1,6 +1,6 @@
 # Fase 4: technische opzet van de twee beeldpagina's
 
-Opgesteld op 30 oktober 2026, voor akkoord. Er is nog niets van gebouwd. Hoort bij `docs/plan-twee-beeldpagina-s.md`.
+Opgesteld op 30 oktober 2026; akkoord van Jan ("ga door met Fase 4"). **Stand: 4a, 4b en het grootste deel van 4c zijn gebouwd (Stap 117); 4d is deels open.** Hoort bij `docs/plan-twee-beeldpagina-s.md`.
 
 ## 1. Wat er al ligt
 
@@ -30,7 +30,7 @@ De vloer is 2 per register in plaats van de 20% uit het plan: vier keer 20% is 8
 
 ## 5. Schermen en venster
 
-- `AssociationWizard` krijgt geen tweede variant erin geschroefd (1039 regels): twee nieuwe schermcomponenten `ImagesPage` en `ConcretePage`, die de bestaande tegel, het venster, de onderbalk en de stepper hergebruiken.
+- **Afwijking van de opzet:** de twee schermen zijn geen losse componenten geworden maar horen bij `AssociationWizard` via een `flow`-prop (`pagesFor`, `chapterOf` in `vensterPages.ts`): de situatie- en profielschermen, het venster, de onderbalk, de betaling en het concept zijn dan gedeeld en kunnen niet uit de pas lopen. Het concept heeft wel een eigen sleutel.
 - Venster: twee soorten ruiten (`images`, `picks`) naast de vier oude, zodat oude boeken, de PDF-omslag en de deelpreview blijven werken. De indeling (`layoutWindow`) hoeft niet te veranderen.
 - Concept in sessionStorage: `DRAFT_VERSION` 4 met eigen paginalijst per variant; een bestaand concept van de oude variant blijft die flow volgen (geen migratie nodig, wel een test).
 - Teksten nl en en in `dict.venster`; de bestaande test op "geen 'wereld' in zichtbare tekst" blijft gelden.

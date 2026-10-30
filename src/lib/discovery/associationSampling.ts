@@ -18,8 +18,9 @@ export const ROUND_SIZE = 9;
 
 /** Whichever families are shown, each axis keeps at least this many on its positive and on its negative side. */
 export const ENOUGH_PER_SIDE = 2;
-const SIDE = 0.3;
-const AXES = ["social", "energy", "setting", "novelty"] as const;
+/** An axis value counts as a side from this far from zero. */
+export const SIDE = 0.3;
+export const AXES = ["social", "energy", "setting", "novelty"] as const;
 
 export interface SampleOptions {
   /** Makes the result reproducible; one per session, kept in the draft. */
@@ -45,16 +46,20 @@ export function sampleRoundCards<T extends AssociationCardData>(cards: readonly 
   // the other cards.
   const order = shuffled([...families.keys()], mulberry32(hashSeed(`${opts.seed}:${round}:order`)));
   const shown = chooseFamilies(order, families, ROUND_SIZE);
-  return shown.map((family) => {
-    const members = families.get(family) as T[];
-    const kept = members.find((m) => keep.has(m.id));
-    if (kept) return kept;
-    // Unseen first, then the one seen longest ago; a tie is settled by the seed.
-    const score = (m: T) => rank.get(m.id) ?? -1;
-    const best = Math.min(...members.map(score));
-    const pool = members.filter((m) => score(m) === best);
-    return pool[Math.floor(mulberry32(hashSeed(`${opts.seed}:${round}:${family}`))() * pool.length)];
-  });
+  return shown.map((family) => pickVariant(families.get(family) as T[], `${opts.seed}:${round}:${family}`, rank, keep));
+}
+
+/**
+ * The one variant of a family a visitor sees: the one they already chose, else an unseen one, else the one seen
+ * longest ago; a tie is settled by the seed text, so a refresh shows the same variant.
+ */
+export function pickVariant<T extends { id: string }>(members: readonly T[], seedText: string, rank: ReadonlyMap<string, number>, keep: ReadonlySet<string>): T {
+  const kept = members.find((m) => keep.has(m.id));
+  if (kept) return kept;
+  const score = (m: T) => rank.get(m.id) ?? -1;
+  const best = Math.min(...members.map(score));
+  const pool = members.filter((m) => score(m) === best);
+  return pool[Math.floor(mulberry32(hashSeed(seedText))() * pool.length)];
 }
 
 /**

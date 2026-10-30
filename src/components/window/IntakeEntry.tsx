@@ -8,9 +8,10 @@ import type { CardLibrary } from "@/lib/discovery/cards";
 import type { IntakeAnswers } from "@/app/intake/actions";
 import { usesCardWizard } from "@/lib/checkoutChoices";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { associationWizardPercent } from "@/lib/vensterLanding";
+import { associationWizardPercent, images2WizardPercent } from "@/lib/vensterLanding";
+import type { ConcretePool } from "@/lib/discovery/concretePool";
 
-type Variant = "legacy" | "cards" | "associations";
+type Variant = "legacy" | "cards" | "associations" | "images2";
 
 // v2: the v1 key held draws made while the card wizard was off (default 0), which would
 // keep those tabs on the classic wizard now that everybody gets the card wizard.
@@ -35,17 +36,28 @@ function associationPercent(): number {
   return associationWizardPercent(process.env.NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT);
 }
 
-function decideVariant(): Variant {
+const VARIANTS: readonly string[] = ["cards", "legacy", "associations", "images2"];
+
+function decideVariant(canImages2: boolean): Variant {
   try {
     const forced = new URLSearchParams(window.location.search).get("wizard");
-    if (forced === "cards" || forced === "legacy" || forced === "associations") {
+    if (forced && VARIANTS.includes(forced) && (forced !== "images2" || canImages2)) {
       window.sessionStorage.setItem(VARIANT_KEY, forced);
-      return forced;
+      return forced as Variant;
     }
     const stored = window.sessionStorage.getItem(VARIANT_KEY);
-    if (stored === "cards" || stored === "legacy" || stored === "associations") return stored;
+    if (stored && VARIANTS.includes(stored) && (stored !== "images2" || canImages2)) return stored as Variant;
   } catch {
     // Storage unavailable: fall through to a fresh draw that simply is not remembered.
+  }
+  // The two-page image intake first (default 0 %: nobody until it is switched on).
+  if (canImages2 && Math.random() * 100 < images2WizardPercent(process.env.NEXT_PUBLIC_IMAGES2_PERCENT)) {
+    try {
+      window.sessionStorage.setItem(VARIANT_KEY, "images2");
+    } catch {
+      // Nothing to do.
+    }
+    return "images2";
   }
   if (Math.random() * 100 < associationPercent()) {
     try {
@@ -75,6 +87,7 @@ export function IntakeEntry({
   initial,
   purpose,
   payment,
+  concretePool,
 }: {
   dict: Dictionary["intake"];
   vensterDict: Dictionary["venster"];
@@ -87,6 +100,8 @@ export function IntakeEntry({
   purpose?: "self" | "gift";
   // What the image intake's last screen needs to take the payment (the older wizards still use /checkout).
   payment: WizardPayment;
+  // Page 2 of the two-page intake (server-built); absent when that intake is not switched on.
+  concretePool?: ConcretePool;
 }) {
   const [variant, setVariant] = useState<Variant | null>(null);
 
@@ -97,16 +112,18 @@ export function IntakeEntry({
     setVariant(
       initial
         ? initial.answers.intakeVariant === "associations"
-          ? "associations"
+          ? initial.answers.intakeFlow === "images2" && concretePool
+            ? "images2"
+            : "associations"
           : usesCardWizard(initial.answers)
             ? "cards"
             : "legacy"
-        : decideVariant(),
+        : decideVariant(!!concretePool),
     );
-  }, [initial]);
+  }, [initial, concretePool]);
 
   if (!variant) return <div className="min-h-[60vh] w-full max-w-5xl" aria-hidden="true" />;
-  if (variant === "associations") {
+  if (variant === "associations" || variant === "images2") {
     return (
       <AssociationWizard
         intakeDict={dict}
@@ -116,6 +133,8 @@ export function IntakeEntry({
         initial={initial}
         initialPurpose={purpose}
         payment={payment}
+        flow={variant === "images2" ? "images2" : undefined}
+        concretePool={variant === "images2" ? concretePool : undefined}
       />
     );
   }

@@ -29,7 +29,7 @@ export function engineInputFromIntake(
     IntakeAnswers,
     "practicalToWild" | "budget" | "effort" | "timeAvailable" | "ageCategory" | "mustHaves"
   > &
-    Partial<Pick<IntakeAnswers, "interests" | "interestDomains" | "socialFormats" | "surpriseMe">>,
+    Partial<Pick<IntakeAnswers, "interests" | "interestDomains" | "socialFormats" | "surpriseMe" | "intakeFlow">>,
   extra: { seed: string; history?: readonly string[]; month?: number; exclude?: readonly string[] },
 ): EngineInput {
   return {
@@ -47,6 +47,7 @@ export function engineInputFromIntake(
     seed: extra.seed,
     month: extra.month,
     exclude: extra.exclude,
+    ...(intake.intakeFlow === "images2" ? { explicitPicks: true } : {}),
   };
 }
 

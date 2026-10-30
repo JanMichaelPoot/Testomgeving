@@ -8,6 +8,7 @@ import { renderIdeaBookPdf, type IdeaBookPdfContext } from "@/lib/pdf/ideaBook";
 import { buildSill, buildWindowItems } from "@/lib/vensterPanes";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
+import { paneActivities } from "@/lib/discovery/concretePool";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
 import { recordAuditLogEntry } from "@/lib/auditLog";
 import { computeCharacterProfile, type CharacterProfile } from "@/lib/characterProfile";
@@ -328,7 +329,7 @@ function coverWindowFor(profile: StoredIntake, locale: Locale): IdeaBookPdfConte
   const dict = getDictionary(locale);
   const items = buildWindowItems(
     profile,
-    { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })) },
+    { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })), activities: paneActivities(locale) },
     dict.venster,
   );
   return {

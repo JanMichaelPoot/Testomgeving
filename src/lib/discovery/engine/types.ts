@@ -35,6 +35,12 @@ export interface EngineInput {
   exclude?: readonly string[];
   /** The calendar month (1-12) the person is asking in: seasonal activities outside it are never suggested. Unset = no season filter. */
   month?: number;
+  /**
+   * The interests are activities the person chose themselves on a concrete page, while the "predictable/wild" dial was only
+   * read from images. A chosen activity that needs supervision is then not dropped by that dial (it keeps its supervised,
+   * legal way in); every other hard limit still applies.
+   */
+  explicitPicks?: boolean;
 }
 
 export interface Seed {

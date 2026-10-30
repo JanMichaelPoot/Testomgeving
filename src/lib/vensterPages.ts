@@ -30,3 +30,22 @@ export function migrateDraftPage(page: number, version: number | undefined): num
   const map = version === 2 ? [0, 1, 2, 3, 4, 4, 5] : [0, 1, 2, 3, 4, 4, 4, 5]; // old index -> new index
   return map[Math.min(p, map.length - 1)];
 }
+
+// The two-page image intake (docs/fase4-opzet.md): page 1 associative images, page 2 concrete activities that follow from them,
+// then the situation and the profile (where the payment is). It has its own draft, so a draft of the four-round intake is never
+// read as one of these.
+export const TWO_PAGE_PAGES = ["images", "concrete", "situation", "profile"] as const;
+export type TwoPageId = (typeof TWO_PAGE_PAGES)[number];
+export type AnyVensterPageId = VensterPageId | TwoPageId;
+
+/** The screens of a flow. */
+export function pagesFor(flow: "images2" | undefined): readonly AnyVensterPageId[] {
+  return flow === "images2" ? TWO_PAGE_PAGES : VENSTER_PAGES;
+}
+
+/** Which of the three chapters of the progress bar a screen belongs to: images (0), situation (1), window (2). */
+export function chapterOf(page: AnyVensterPageId): 0 | 1 | 2 {
+  if (page === "situation") return 1;
+  if (page === "profile") return 2;
+  return 0;
+}

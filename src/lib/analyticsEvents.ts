@@ -38,6 +38,14 @@ export const ANALYTICS_EVENTS = {
 
   // --- image intake ("Het venster")
   association_round_completed: { when: "a round of images finished", props: ["round", "selected", "mode", "duration_ms"] },
+  images_page_completed: {
+    when: "two-page intake: page 1 (images) finished; counts per style register of the chosen images",
+    props: ["selected", "refreshes", "n_expressive", "n_nurturing", "n_technical", "n_nature"],
+  },
+  concrete_page_completed: {
+    when: "two-page intake: page 2 (activities) finished; counts per style register of the chosen activities",
+    props: ["selected", "refreshes", "explore_picked", "n_expressive", "n_nurturing", "n_technical", "n_nature"],
+  },
   association_swipe: { when: "swipe mode: an image kept or passed", props: ["id", "liked"] },
   window_completed: { when: "the profile screen reached: the window is complete", props: ["images", "panes"] },
   profile_viewed: { when: "the profile screen 'Zo kijken wij door jouw venster' shown", props: [] },

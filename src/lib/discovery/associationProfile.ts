@@ -57,6 +57,8 @@ export interface AssociationCardData {
 export interface AssociationCard extends AssociationCardData {
   label: string;
   image: string;
+  /** The style register of the card (register.ts), for balancing the two image pages. Never shown. */
+  register?: "expressive" | "nurturing" | "technical" | "nature";
 }
 
 export interface AssociationLibrary {

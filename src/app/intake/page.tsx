@@ -9,7 +9,9 @@ import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { loadEditableIntake } from "@/lib/intakeEdit";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
-import { VENSTER_PAGES } from "@/lib/vensterPages";
+import { TWO_PAGE_PAGES, VENSTER_PAGES } from "@/lib/vensterPages";
+import { buildConcretePool } from "@/lib/discovery/concretePool";
+import { images2WizardPercent } from "@/lib/vensterLanding";
 import { currentMonth } from "@/lib/discovery/season";
 import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { checkTestQuota } from "@/lib/testQuota";
@@ -42,7 +44,7 @@ export default async function IntakePage(props: PageProps<"/intake">) {
       delete (answers as Partial<typeof stored>).locale;
       const requested = Number(Array.isArray(searchParams.page) ? searchParams.page[0] : searchParams.page);
       // The image intake has eight screens, the other wizards five.
-      const lastPage = answers.intakeVariant === "associations" ? VENSTER_PAGES.length - 1 : 4;
+      const lastPage = answers.intakeVariant === "associations" ? (answers.intakeFlow === "images2" ? TWO_PAGE_PAGES : VENSTER_PAGES).length - 1 : 4;
       initial = { answers, page: Number.isInteger(requested) ? Math.min(Math.max(requested, 0), lastPage) : 0 };
     } else if (sessionId) {
       editLocked = true;
@@ -61,6 +63,12 @@ export default async function IntakePage(props: PageProps<"/intake">) {
     );
   }
 
+  // The two-page intake needs its activity pool; build it only when that intake can be shown (switched on, forced for this visit, or the
+  // answers being edited were given in it).
+  const forced = Array.isArray(searchParams.wizard) ? searchParams.wizard[0] : searchParams.wizard;
+  const wantsImages2 = images2WizardPercent(process.env.NEXT_PUBLIC_IMAGES2_PERCENT) > 0 || forced === "images2" || initial?.answers.intakeFlow === "images2";
+  const concretePool = wantsImages2 ? buildConcretePool(locale, month) : undefined;
+
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
@@ -76,6 +84,7 @@ export default async function IntakePage(props: PageProps<"/intake">) {
             vensterDict={dict.venster}
             library={buildCardLibrary(locale, month)}
             associations={buildAssociationLibrary(locale, month)}
+            concretePool={concretePool}
             initial={initial}
             purpose={searchParams.for === "gift" ? "gift" : "self"}
             payment={{

@@ -62,6 +62,8 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `discovery_skipped` | kaartenwizard: interessestap overgeslagen | `wizard_variant` |
 | `discovery_stage_completed` | kaartenwizard: werelden of kaarten afgerond | `wizard_variant`, `stage`, `selected`, `surprise`, `batches_shown`, `duration_ms` |
 | `association_round_completed` | een ronde beelden afgerond | `round`, `selected`, `mode`, `duration_ms` |
+| `images_page_completed` | tweepaginaflow: pagina 1 (beelden) afgerond; aantallen per stijlregister van de gekozen beelden | `selected`, `refreshes`, `n_expressive`, `n_nurturing`, `n_technical`, `n_nature` |
+| `concrete_page_completed` | tweepaginaflow: pagina 2 (activiteiten) afgerond; aantallen per stijlregister van de gekozen activiteiten | `selected`, `refreshes`, `explore_picked`, `n_expressive`, `n_nurturing`, `n_technical`, `n_nature` |
 | `association_swipe` | swipe-modus: een beeld bewaard of gepasseerd | `id`, `liked` |
 | `window_completed` | het profielscherm bereikt: het venster is compleet | `images` (aantal beelden), `panes` (aantal ruiten) |
 | `profile_viewed` | het scherm "Zo kijken wij door jouw venster" getoond | – |

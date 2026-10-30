@@ -98,7 +98,8 @@ export function evaluate(runs: readonly Run[], lib: EngineLibrary, opts: Evaluat
       }
       // E6: supervised activities only for people open to less predictable things.
       if (a.safety.tier === 2) {
-        if (hide) v.E6.push(`${at}: supervised activity offered to a cautious profile`);
+        // A supervised activity the person chose themselves on a concrete page (explicitPicks) is theirs to choose, with its note.
+        if (hide && !(input.explicitPicks && pickSet.has(a.id))) v.E6.push(`${at}: supervised activity offered to a cautious profile`);
         if (!a.safety.note?.nl || !a.safety.note?.en) v.E6.push(`${at}: supervised activity without a safety note`);
       }
     }

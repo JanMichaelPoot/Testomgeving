@@ -1,5 +1,8 @@
 import registerJson from "@/lib/discovery/register.json";
 import type { Localized } from "@/lib/discovery/types";
+import { REGISTERS, type Register } from "@/lib/discovery/registerTypes";
+
+export * from "@/lib/discovery/registerTypes";
 
 // The style register of an activity or an association image: the kind of taste it speaks to, used ONLY to balance
 // what the image intake shows and to compose the second (concrete) page from the first (associative) one. See
@@ -12,9 +15,6 @@ import type { Localized } from "@/lib/discovery/types";
 // The register of every item is written down in register.json (one line per activity id and per card family), so it
 // can be read and corrected in one place; deriveRegister() is only the fallback for an item nobody classified yet,
 // and validateRegisters() fails the build on such an item so the fallback is never silently relied on.
-
-export const REGISTERS = ["expressive", "nurturing", "technical", "nature"] as const;
-export type Register = (typeof REGISTERS)[number];
 
 /** Names for people reading a report or the admin. Never shown to a visitor. */
 export const REGISTER_LABELS: Record<Register, Localized> = {
@@ -66,47 +66,6 @@ export function familyOf(c: { id: string; family?: string }): string {
 /** The register of an association card (all variants of a family share one): the family's line, else derived. */
 export function registerOfCard(c: { id: string; family?: string; tagWeights: Record<string, number> }): Register {
   return REGISTER_TABLE.families[familyOf(c)] ?? deriveRegister(c.tagWeights);
-}
-
-export type RegisterCounts = Record<Register, number>;
-
-export function emptyCounts(): RegisterCounts {
-  return { expressive: 0, nurturing: 0, technical: 0, nature: 0 };
-}
-
-export function countRegisters(registers: readonly Register[]): RegisterCounts {
-  const counts = emptyCounts();
-  for (const r of registers) counts[r] += 1;
-  return counts;
-}
-
-/** Each register's share of the total (0..1; all zero for an empty list). */
-export function registerShares(registers: readonly Register[]): RegisterCounts {
-  const counts = countRegisters(registers);
-  const total = registers.length;
-  return Object.fromEntries(REGISTERS.map((r) => [r, total ? counts[r] / total : 0])) as RegisterCounts;
-}
-
-/**
- * Can a pool fill `batches` separate batches of `batchSize` items, each with at least `minPerRegister` of every
- * register and no item shown twice? Returns what is short per register (empty when it can). This is the balance
- * test behind the planned balanced sampler: before sampling is built it already tells whether the pool is wide
- * enough for the plan (18 per page, three refreshes).
- */
-export function poolShortfall(
-  poolCounts: RegisterCounts,
-  opts: { batchSize: number; batches: number; minPerRegister: number },
-): Partial<RegisterCounts> {
-  const { batchSize, batches, minPerRegister } = opts;
-  const out: Partial<RegisterCounts> = {};
-  for (const r of REGISTERS) {
-    const need = minPerRegister * batches;
-    if (poolCounts[r] < need) out[r] = need - poolCounts[r];
-  }
-  // The free places of a batch must be fillable too: all batches together need batchSize * batches distinct items.
-  const total = REGISTERS.reduce((s, r) => s + poolCounts[r], 0);
-  if (total < batchSize * batches) out.nature = Math.max(out.nature ?? 0, batchSize * batches - total);
-  return out;
 }
 
 /** Validation of register.json against the library. Pure; used by the vitest suite and taxonomy-check. */

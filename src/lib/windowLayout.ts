@@ -18,7 +18,8 @@ export const WINDOW_MAX_PANES = 24;
 export const WINDOW_WIDTH = 300;
 export const WINDOW_HEIGHT = 400;
 
-export const WINDOW_KINDS = ["worlds", "places", "moments", "senses"] as const;
+// "images" and "picks" belong to the two-page intake: the associative images of page 1 and the activities chosen on page 2.
+export const WINDOW_KINDS = ["worlds", "places", "moments", "senses", "images", "picks"] as const;
 export type WindowKind = (typeof WINDOW_KINDS)[number];
 
 /** One chosen element of the profile, as the window needs it. */

@@ -282,6 +282,7 @@ function seedBlock(
   locale: Locale,
   chosenImages: readonly string[] = [],
   honest = false,
+  explicitPicks = false,
 ): string {
   const a = getActivity(seed.activityId)!;
   // Image intake: the chosen image that lies behind this idea, for "Omdat je X koos".
@@ -307,7 +308,7 @@ function seedBlock(
   return [
     `Idea ${index + 1} — ${seed.direction === "wildcard" ? "WILDCARD (the separate wildcard slot)" : `door: ${seed.door}`}`,
     `  Activity: ${name}`,
-    `  Why it was chosen: ${why(seed, locale, chosenImages.length > 0, honest)}`,
+    `  Why it was chosen: ${why(seed, locale, chosenImages.length > 0 && !explicitPicks, honest)}`,
     behind ? `  Image behind it: "${behind}" (the chosen image this idea connects to; name it in why_it_fits)` : null,
     `  How to take part: ${take}`,
     `  Easy way in: ${a.entry ? a.entry[locale] : "not known; suggest a beginner-friendly first step"}`,
@@ -649,7 +650,9 @@ export async function generateIdeaBookFromSeeds(
   const language = languageLabel(locale);
   // B5 (KNOWLEDGE_ENGINE_V2, off by default): activity-specific fill lines (V1) and honest origin wording (V2).
   const chosenImages = intake.associations ?? [];
-  const honestOrigin = v2 && chosenImages.length > 0;
+  // Two-page intake: the person chose the activities themselves (page 2), so they may be called picked; the images only explain taste.
+  const explicitPicks = intake.intakeFlow === "images2";
+  const honestOrigin = v2 && chosenImages.length > 0 && !explicitPicks;
   const baseSystem = v2 ? SYSTEM_PROMPT.replace("For every idea:\n", () => `${ROUTE_CONSISTENCY_RULE}${honestOrigin ? HONEST_ORIGIN_RULE : ""}For every idea:\n`) : SYSTEM_PROMPT;
   const baseLayers = v2 ? LAYERS_SYSTEM_PROMPT.replace("\nHonesty. These matter", () => `${FILL_PROMPT_RULES}\nHonesty. These matter`) : LAYERS_SYSTEM_PROMPT;
   const system = baseSystem.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
@@ -660,7 +663,7 @@ ${formatProfile(intake, characterProfile)}
 
 The seven ideas (in this order; Idea ${seeds.length} is the wildcard):
 
-${seeds.map((s, i) => seedBlock(s, i, research.byActivity.get(s.activityId), locale, chosenImages, honestOrigin)).join("\n\n")}`;
+${seeds.map((s, i) => seedBlock(s, i, research.byActivity.get(s.activityId), locale, chosenImages, honestOrigin, explicitPicks)).join("\n\n")}`;
   const user = `${shared}
 
 Call the create_idea_book tool exactly once: ${seeds.length - 1} entries in "ideas" (Ideas 1-${seeds.length - 1}, same order) plus the wildcard entry for Idea ${seeds.length}.`;
