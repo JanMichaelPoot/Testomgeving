@@ -7,8 +7,9 @@ import { ExampleIdeaCard } from "@/components/window/ExampleIdeaCard";
 import { EXAMPLE_IDEAS, EXAMPLE_IDEA_DOOR } from "@/lib/exampleIdea";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { formatPrice } from "@/lib/pricing";
+import { getVisitorPrice } from "@/lib/visitorPrice";
 import { VensterHero } from "@/components/window/VensterHero";
+import { getGiftCopy } from "@/lib/i18n/gift";
 import { giftHrefWithArrival, newArrivalId, showVensterLanding, VENSTER_SELF_HREF } from "@/lib/vensterLanding";
 import { heroAltText, randomHero } from "@/lib/heroPool";
 import Link from "next/link";
@@ -25,7 +26,7 @@ export default async function Home(props: {
 }) {
   const locale = await getLocale();
   const dict = getDictionary(locale);
-  const price = formatPrice(locale);
+  const price = (await getVisitorPrice("self")).label(locale);
   const home = getHomeCopy(locale);
   const venster = showVensterLanding(
     process.env.NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT,
@@ -42,7 +43,7 @@ export default async function Home(props: {
 
       <main className="w-full flex-1">
         {venster ? (
-          <VensterHero dict={dict.venster.landing} price={price} heroSrc={hero.image} heroAlt={heroAltText(hero, locale, dict.venster.landing.heroAlt)} giftHref={giftHrefWithArrival(newArrivalId())} />
+          <VensterHero dict={dict.venster.landing} price={price} heroSrc={hero.image} heroAlt={heroAltText(hero, locale, dict.venster.landing.heroAlt)} giftHref={giftHrefWithArrival(newArrivalId())} voucherLabel={getGiftCopy(locale).homeLink} />
         ) : (
           <section className="mx-auto w-full max-w-[84rem] px-6 pt-12 sm:px-10 sm:pt-16">
             <div className="grid w-full items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">

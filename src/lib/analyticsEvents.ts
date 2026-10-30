@@ -59,17 +59,26 @@ export const ANALYTICS_EVENTS = {
   images_done: { when: "images page finished (with images_page_completed; image intake in two pages)", props: ["wizard_variant", "selected", "refreshes"] },
   activities_done: { when: "activities page finished (with concrete_page_completed)", props: ["wizard_variant", "selected", "refreshes", "explore_picked"] },
   situation_done: { when: "situation page finished (with intake_page_completed)", props: ["wizard_variant", "duration_ms"] },
-  pay_clicked: { when: "the pay button pressed (with checkout_pay_clicked)", props: ["is_gift"] },
+  pay_clicked: { when: "the pay button pressed (with checkout_pay_clicked)", props: ["is_gift", "price_variant"] },
   pdf_opened: { when: "the PDF opened (with plan_pdf_downloaded)", props: ["source"] },
   gift_started: { when: "a gift intake started clean (not a reload, not an edit)", props: ["wizard_variant"] },
 
   // --- checkout and waiting
   window_exported: { when: "the picture of the window downloaded", props: ["images"] },
-  checkout_viewed: { when: "checkout page shown", props: [] },
-  checkout_pay_clicked: { when: "'Maak het echt' pressed", props: ["is_gift"] },
+  checkout_viewed: { when: "checkout page shown", props: ["price_variant"] },
+  checkout_pay_clicked: { when: "'Maak het echt' pressed", props: ["is_gift", "price_variant"] },
   // Sent by the server (trackServerEvent), not the browser: it does not wait for the cookie banner and carries no
   // person. It cannot be joined to the browser events of the same visitor, by design: compare counts per day.
-  payment_succeeded: { when: "a paid book starts (Stripe says paid), server side", props: ["is_gift", "amount_cents"] },
+  payment_succeeded: { when: "a paid book starts (Stripe says paid), server side", props: ["is_gift", "amount_cents", "price_variant"] },
+
+  // --- gift voucher (improvement brief B3) and the one follow-up e-mail (B5). The "server side" ones carry no person, like payment_succeeded.
+  gift_voucher_viewed: { when: "the gift voucher page shown", props: ["price_variant"] },
+  gift_voucher_pay_clicked: { when: "the pay button of the gift voucher pressed", props: ["has_message", "price_variant"] },
+  gift_voucher_purchased: { when: "a gift voucher paid and activated (Stripe says paid), server side", props: ["amount_cents", "price_variant"] },
+  gift_voucher_redeem_started: { when: "a recipient pressed 'Open je venster' on the page of a valid code", props: [] },
+  gift_voucher_redeemed: { when: "a voucher redeemed: the recipient finished the intake, server side", props: ["days_to_redeem"] },
+  followup_email_sent: { when: "the follow-up e-mail sent, server side", props: [] },
+  followup_link_opened: { when: "the link in the follow-up e-mail opened, server side", props: [] },
   generation_stalled: { when: "the waiting screen passed 120 s", props: ["stage", "seconds"] },
 
   // --- the book

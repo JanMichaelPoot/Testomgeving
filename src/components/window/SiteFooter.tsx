@@ -2,17 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
-import { formatPrice } from "@/lib/pricing";
+import { getVisitorPrice } from "@/lib/visitorPrice";
+import { getGiftCopy } from "@/lib/i18n/gift";
 import { COMPANY_LINE } from "@/lib/company";
 
-export function SiteFooter({
+export async function SiteFooter({
   locale,
   dict,
 }: {
   locale: Locale;
   dict: Dictionary["footer"];
 }) {
-  const price = formatPrice(locale);
+  const price = (await getVisitorPrice("self")).label(locale);
 
   return (
     <footer id="over-ons" className="mt-24 bg-accent-dark text-white/60">
@@ -47,6 +48,9 @@ export function SiteFooter({
               </Link>
               <Link href="/#voorbeeld" className="transition-colors hover:text-white">
                 {dict.navExamples}
+              </Link>
+              <Link href="/cadeaubon" className="transition-colors hover:text-white">
+                {getGiftCopy(locale).navLabel}
               </Link>
               <Link href="/delen" className="transition-colors hover:text-white">
                 {dict.navInvite}

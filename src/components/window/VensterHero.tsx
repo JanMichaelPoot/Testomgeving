@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { VENSTER_SELF_HREF } from "@/lib/vensterLanding";
@@ -6,7 +7,22 @@ import { VENSTER_SELF_HREF } from "@/lib/vensterLanding";
 // Landing hero for "Het venster" (fase 7): the photo in the same arched walnut frame as the
 // window the visitor is about to fill, one headline and two ways in (for yourself, as a gift).
 // `heroSrc` is one photo of the hero pool (src/lib/heroPool.ts), another one on another visit.
-export function VensterHero({ dict, price, heroSrc, heroAlt, giftHref }: { dict: Dictionary["venster"]["landing"]; price: string; heroSrc: string; heroAlt: string; giftHref: string }) {
+export function VensterHero({
+  dict,
+  price,
+  heroSrc,
+  heroAlt,
+  giftHref,
+  voucherLabel,
+}: {
+  dict: Dictionary["venster"]["landing"];
+  price: string;
+  heroSrc: string;
+  heroAlt: string;
+  giftHref: string;
+  /** The line under the buttons that leads to the gift voucher page. */
+  voucherLabel?: string;
+}) {
   return (
     <section className="mx-auto w-full max-w-[84rem] px-4 pt-8 sm:px-10 sm:pt-16">
       <div className="grid w-full items-center gap-10 md:grid-cols-[1fr_0.9fr] lg:gap-16">
@@ -29,6 +45,11 @@ export function VensterHero({ dict, price, heroSrc, heroAlt, giftHref }: { dict:
               {dict.giftCta}
             </Button>
           </div>
+          {voucherLabel && (
+            <Link href="/cadeaubon" className="inline-flex min-h-11 items-center self-start text-sm font-semibold text-accent-dark underline underline-offset-4">
+              {voucherLabel}
+            </Link>
+          )}
         </div>
 
         <div className="mx-auto w-full max-w-[260px] sm:max-w-[360px] lg:max-w-[420px]">

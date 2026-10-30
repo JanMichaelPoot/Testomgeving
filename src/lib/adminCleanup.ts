@@ -67,7 +67,8 @@ export function cutoffOf(scope: CleanupScope): string {
 
 /** A real order: anything that is not marked as a Stripe test session. */
 export function isRealPayment(stripePaymentId: string): boolean {
-  return !stripePaymentId.startsWith("cs_test_");
+  // A voucher redemption is keyed "voucher:<the purchase's Stripe id>": it is a test order exactly when the purchase was one.
+  return !stripePaymentId.replace(/^voucher:/, "").startsWith("cs_test_");
 }
 
 interface SessionRow {
@@ -243,6 +244,16 @@ export async function runCleanup(supabase: ServiceRoleClient, scope: CleanupScop
     if (error) throw new Error(`Sessies verwijderen mislukte: ${error.message}`);
     counts.sessions += count ?? 0;
     counts.intakes += intakeCount ?? 0;
+  }
+  // Test gift vouchers (bought with a Stripe test session) and vouchers whose purchase never reached Stripe go with the test books. A voucher
+  // bought for real is never touched. Best effort: the table only exists from migration 0022 on.
+  if (scope.books) {
+    try {
+      await supabase.from("gift_vouchers").delete().like("stripe_checkout_id", "cs_test_%").lte("created_at", cutoff);
+      await supabase.from("gift_vouchers").delete().is("stripe_checkout_id", null).eq("status", "pending").lte("created_at", cutoff);
+    } catch (err) {
+      console.warn("WINDOW admin cleanup: could not clean gift vouchers:", err instanceof Error ? err.message : err);
+    }
   }
   if (scope.log) {
     const { count } = await supabase.from("audit_log").delete({ count: "exact" }).lte("created_at", cutoff);

@@ -4,6 +4,7 @@ import { Newsreader, Plus_Jakarta_Sans } from "next/font/google";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { ConsentBanner } from "@/components/window/ConsentBanner";
+import { priceTestVariants } from "@/lib/visitorPrice";
 import "./globals.css";
 
 // "Clean Premium Hybrid" type system: a serif accent face for editorial
@@ -36,7 +37,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-cream text-ink font-sans">
         {children}
-        <ConsentBanner dict={dict.consent} />
+        <ConsentBanner dict={dict.consent} priceVariants={priceTestVariants()} />
       </body>
     </html>
   );

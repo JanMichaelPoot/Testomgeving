@@ -12,7 +12,9 @@ export default function robots(): MetadataRoute.Robots {
       // /shared/[id] is meant for direct link-sharing, not public search
       // discovery of someone else's personal Idea Book — /checkout and
       // /intake are mid-flow pages with nothing worth indexing.
-      disallow: ["/plan", "/checkout", "/intake", "/shared", "/api", "/admin"],
+      // /cadeau and /cadeaubon/klaar carry a voucher code or a payment reference; /afmelden and /nieuw-venster are signed
+      // links from an e-mail. /cadeaubon itself (the page that sells it) is public.
+      disallow: ["/plan", "/checkout", "/intake", "/shared", "/api", "/admin", "/cadeau/", "/cadeaubon/klaar", "/afmelden", "/nieuw-venster"],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
   };

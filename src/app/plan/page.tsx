@@ -10,6 +10,7 @@ import { GeneratingScreen } from "@/components/window/GeneratingScreen";
 import {
   getOrCreateWindowPlan,
   getOrCreateTestWindowPlan,
+  getOrCreateVoucherPlan,
   getSignedPdfUrl,
   getIntakeEchoForSession,
   getWaitingContext,
@@ -108,10 +109,12 @@ function FailedState({
   dict,
   checkoutSessionId,
   testSessionId,
+  giftToken,
 }: {
   dict: Dictionary["plan"];
   checkoutSessionId: string | null;
   testSessionId: string | null;
+  giftToken: string | null;
 }) {
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-16 text-center">
@@ -123,6 +126,7 @@ function FailedState({
             <input type="hidden" name="checkout_session_id" value={checkoutSessionId} />
           )}
           {testSessionId && <input type="hidden" name="test_session_id" value={testSessionId} />}
+          {giftToken && <input type="hidden" name="gift_token" value={giftToken} />}
           <button
             type="submit"
             className="text-sm font-medium text-accent-dark underline"
@@ -144,6 +148,8 @@ export default async function PlanPage(props: PageProps<"/plan">) {
     typeof searchParams.checkout_session_id === "string"
       ? searchParams.checkout_session_id
       : null;
+  // The book of a redeemed gift voucher, opened with the secret made when it was redeemed (src/app/cadeau/actions.ts).
+  const giftToken = typeof searchParams.gift === "string" ? searchParams.gift : null;
   // Opening a book by session id, without a payment, is for the owner only (logged in on /admin). There is no
   // longer a skip-payment button, and this address must not be a free book for anyone who finds it.
   const testSessionId =
@@ -157,9 +163,10 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   const refreshParams = new URLSearchParams();
   if (checkoutSessionId) refreshParams.set("checkout_session_id", checkoutSessionId);
   if (testSessionId) refreshParams.set("test_session_id", testSessionId);
+  if (giftToken) refreshParams.set("gift", giftToken);
   const refreshHref = refreshParams.size > 0 ? `/plan?${refreshParams}` : "/plan";
 
-  if (!checkoutSessionId && !testSessionId) {
+  if (!checkoutSessionId && !testSessionId && !giftToken) {
     return (
       <div className="flex min-h-full flex-col">
         <SiteHeader locale={locale} dict={dict.header} />
@@ -178,7 +185,9 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   try {
     plan = testSessionId
       ? await getOrCreateTestWindowPlan(testSessionId)
-      : await getOrCreateWindowPlan(checkoutSessionId!);
+      : giftToken && !checkoutSessionId
+        ? await getOrCreateVoucherPlan(giftToken)
+        : await getOrCreateWindowPlan(checkoutSessionId!);
   } catch (err) {
     if (err instanceof PlanNotReadyError) {
       if (err.reason === "generating") {
@@ -218,6 +227,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
               dict={dict.plan}
               checkoutSessionId={checkoutSessionId}
               testSessionId={testSessionId}
+              giftToken={giftToken}
             />
           </div>
         );

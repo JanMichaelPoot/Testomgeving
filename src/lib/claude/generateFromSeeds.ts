@@ -19,6 +19,7 @@ import {
 } from "@/lib/claude/generateIdeaBook";
 import { researchSeeds, type LocalOption, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
 import { currentMonth, describeToday, isoDateNL } from "@/lib/discovery/season";
+import { editionDate, type Season } from "@/lib/seasonEdition";
 import { engineInputFromIntake, relatedActivities, runEngine } from "@/lib/discovery/engine";
 import { WEIGHTS_V2 } from "@/lib/discovery/engine/weights";
 import {
@@ -596,6 +597,8 @@ export async function generateIdeaBookFromSeeds(
   opts: {
     sessionId?: string;
     history?: readonly string[];
+    /** A seasonal edition (off by default, see seasonEdition.ts): write for this season instead of the month of asking. */
+    season?: Season | null;
     /** Called as the pipeline passes its steps, for the honest waiting screen. Never awaited for long. */
     onProgress?: (stage: "selected" | "researched", meta?: { ideas?: number; places?: number }) => Promise<void> | void;
   } = {},
@@ -605,7 +608,8 @@ export async function generateIdeaBookFromSeeds(
   const ranking = knowledgeRankingV2Enabled();
   const v2 = knowledgeWritingV2Enabled();
   // 1. Select the seeds, for the month the person is asking in (seasonal activities are never suggested out of season).
-  const now = new Date();
+  // A seasonal edition shifts "today" to a date in that season, so the selection, the research, the prompt and the quality gate all agree.
+  const now = opts.season ? editionDate(opts.season, new Date()) : new Date();
   const month = currentMonth(now);
   const selectionSeed = opts.sessionId ?? `${Date.now()}`;
   const select = (exclude: readonly string[]) =>

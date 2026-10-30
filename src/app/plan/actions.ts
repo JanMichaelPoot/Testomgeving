@@ -5,6 +5,7 @@ import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
 import { resolveIdeaByKey } from "@/lib/ideaKeys";
+import { findVoucherByPlanToken } from "@/lib/voucher/store";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 
 export type IdeaFeedbackValue = "up" | "down";
@@ -23,12 +24,16 @@ export type IdeaFeedbackValue = "up" | "down";
 export async function retryPlanGeneration(formData: FormData) {
   const checkoutSessionId = formData.get("checkout_session_id");
   const testSessionId = formData.get("test_session_id");
+  const giftToken = formData.get("gift_token");
 
   const supabase = createServiceRoleClient();
   let sessionId: string | null = null;
 
   if (typeof testSessionId === "string" && testSessionId) {
     sessionId = testSessionId;
+  } else if (typeof giftToken === "string" && giftToken) {
+    // The book of a redeemed gift voucher: the secret token names the session.
+    sessionId = (await findVoucherByPlanToken(supabase, giftToken))?.redeemed_session_id ?? null;
   } else if (typeof checkoutSessionId === "string" && checkoutSessionId) {
     const checkoutSession = await getStripe().checkout.sessions.retrieve(checkoutSessionId);
     sessionId = checkoutSession.metadata?.session_id ?? null;
@@ -44,6 +49,9 @@ export async function retryPlanGeneration(formData: FormData) {
   }
   if (typeof testSessionId === "string" && testSessionId) {
     params.set("test_session_id", testSessionId);
+  }
+  if (typeof giftToken === "string" && giftToken) {
+    params.set("gift", giftToken);
   }
   redirect(`/plan${params.size > 0 ? `?${params}` : ""}`);
 }

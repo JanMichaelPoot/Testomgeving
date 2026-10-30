@@ -55,7 +55,7 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `images_done` | korte funnelnaam: pagina 1 (beelden) afgerond, samen met `images_page_completed` | `wizard_variant`, `selected`, `refreshes` |
 | `activities_done` | korte funnelnaam: pagina 2 (activiteiten) afgerond, samen met `concrete_page_completed` | `wizard_variant`, `selected`, `refreshes`, `explore_picked` |
 | `situation_done` | korte funnelnaam: het situatiescherm afgerond, samen met `intake_page_completed` | `wizard_variant`, `duration_ms` |
-| `pay_clicked` | korte funnelnaam: de betaalknop ingedrukt, samen met `checkout_pay_clicked` | `is_gift` |
+| `pay_clicked` | korte funnelnaam: de betaalknop ingedrukt, samen met `checkout_pay_clicked` | `is_gift`, `price_variant` |
 | `pdf_opened` | korte funnelnaam: de PDF geopend, samen met `plan_pdf_downloaded` | `source` |
 | `gift_started` | een cadeau-intake begint schoon (geen herlaad, geen wijziging) | `wizard_variant` |
 | `intake_page_viewed` | een wizardpagina getoond | `wizard_variant`, `page`, `index`, `of` |
@@ -78,9 +78,16 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `profile_axis_changed` | een schuif op het profielscherm verplaatst | `axis` |
 | `profile_reflection` | bij akkoord: is "Wat missen we nog?" ingevuld | `has_reflection` |
 | `window_exported` | de afbeelding van het venster gedownload | `images` (aantal beelden) |
-| `checkout_viewed` | betaalpagina getoond | – |
-| `checkout_pay_clicked` | "Maak het echt" ingedrukt | `is_gift` |
-| `payment_succeeded` | een betaald boek start (Stripe zegt betaald), vanaf de server | `is_gift`, `amount_cents` |
+| `checkout_viewed` | betaalpagina getoond | `price_variant` |
+| `checkout_pay_clicked` | "Maak het echt" ingedrukt | `is_gift`, `price_variant` |
+| `payment_succeeded` | een betaald boek start (Stripe zegt betaald), vanaf de server | `is_gift`, `amount_cents`, `price_variant` |
+| `gift_voucher_viewed` | de cadeaubonpagina getoond | `price_variant` |
+| `gift_voucher_pay_clicked` | de betaalknop van de cadeaubon ingedrukt | `has_message`, `price_variant` |
+| `gift_voucher_purchased` | een cadeaubon betaald en actief (Stripe zegt betaald), vanaf de server | `amount_cents`, `price_variant` |
+| `gift_voucher_redeem_started` | een ontvanger drukte op "Open je venster" op de pagina van een geldige code | – |
+| `gift_voucher_redeemed` | een bon ingewisseld: de ontvanger rondde de intake af, vanaf de server | `days_to_redeem` |
+| `followup_email_sent` | de follow-up e-mail verstuurd, vanaf de server | – |
+| `followup_link_opened` | de link in de follow-up e-mail geopend, vanaf de server | – |
 | `generation_stalled` | wachtscherm langer dan 120 s | `stage`, `seconds` |
 | `plan_viewed` | het boek geopend | `planId` |
 | `idea_opened` | een idee geopend | `planId`, `ideaKey`, `level` (1-7, 0 = boek van vóór de niveaus) |

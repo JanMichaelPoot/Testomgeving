@@ -33,7 +33,7 @@ test.describe("mobile menu", () => {
     await button.click();
     await expect(button).toHaveAttribute("aria-expanded", "true");
     const nav = page.getByRole("navigation", { name: "Menu" });
-    await expect(nav.getByRole("link")).toHaveCount(3);
+    await expect(nav.getByRole("link")).toHaveCount(4);
     const size = await nav.getByRole("link").first().boundingBox();
     expect(size!.height).toBeGreaterThanOrEqual(44);
     await page.keyboard.press("Escape");

@@ -11,7 +11,7 @@ import { stripeTestNotice } from "@/lib/stripeMode";
 import { LUXURY_ILLUSTRATIONS } from "@/lib/illustrations";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { formatPrice } from "@/lib/pricing";
+import { getVisitorPrice } from "@/lib/visitorPrice";
 import { DOMAINS, getActivity } from "@/lib/discovery/library";
 import { buildChoiceGroups } from "@/lib/checkoutChoices";
 import { getDeviceId } from "@/lib/discovery/historyStore";
@@ -57,7 +57,8 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
 
   const locale = await getLocale();
   const dict = getDictionary(locale);
-  const price = formatPrice(locale);
+  const visitorPrice = await getVisitorPrice("self");
+  const price = visitorPrice.label(locale);
 
   // Test phase: a connection that has used its test books does not get to pay for (or skip paying for) another.
   const quota = await checkTestQuota(supabase, sessionId);
@@ -187,7 +188,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
 
           {/* Right: gift/waiver/payment */}
           <div className="lg:pl-0">
-            <CheckoutPanel dict={dict.checkout} price={price} rememberInitially={rememberInitially} />
+            <CheckoutPanel dict={dict.checkout} price={price} rememberInitially={rememberInitially} priceVariant={visitorPrice.variant} />
           </div>
         </div>
       </main>

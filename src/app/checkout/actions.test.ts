@@ -18,6 +18,10 @@ vi.mock("@/lib/i18n/dictionaries", () => ({
 }));
 
 const callLog: string[] = [];
+// What the code under test handed to Stripe and to the payments table, for the price-test and follow-up cases.
+const stripeParams: { line_items: { price_data: { unit_amount: number } }[]; metadata: Record<string, string> }[] = [];
+const orderRows: Record<string, unknown>[] = [];
+let priceVariantCookie: string | null = null;
 
 vi.mock("@/lib/session", () => ({
   getSessionId: vi.fn(async () => "session-1"),
@@ -27,7 +31,8 @@ vi.mock("@/lib/stripe", () => ({
   getStripe: vi.fn(() => ({
     checkout: {
       sessions: {
-        create: vi.fn(async () => {
+        create: vi.fn(async (params: (typeof stripeParams)[number]) => {
+          stripeParams.push(params);
           callLog.push("stripe.checkout.sessions.create");
           return { id: "cs_test_123", url: "https://checkout.stripe.test/pay/cs_test_123" };
         }),
@@ -60,6 +65,7 @@ vi.mock("@/lib/legal/versions", () => ({
 
 vi.mock("next/headers", () => ({
   headers: vi.fn(async () => new Headers()),
+  cookies: vi.fn(async () => ({ get: (name: string) => (name === "window_price_variant" && priceVariantCookie ? { value: priceVariantCookie } : undefined) })),
 }));
 
 vi.mock("next/navigation", () => ({
@@ -97,7 +103,7 @@ vi.mock("@/lib/supabase/server", () => ({
     return {
       from(table: string) {
         if (table === "intake_answers") return intakeChain();
-        if (table === "payments") return { insert: () => paymentsInsertChain };
+        if (table === "payments") return { insert: (row: Record<string, unknown>) => (orderRows.push(row), paymentsInsertChain) };
         if (table === "sessions") return { update: () => sessionsUpdateChain };
         throw new Error(`Unexpected table in test: ${table}`);
       },
@@ -112,6 +118,10 @@ import { createCheckoutSession } from "./actions";
 
 beforeEach(() => {
   callLog.length = 0;
+  stripeParams.length = 0;
+  orderRows.length = 0;
+  priceVariantCookie = null;
+  delete process.env.PRICE_TEST;
   process.env.NEXT_PUBLIC_SITE_URL = "https://windowinto.test";
 });
 
@@ -168,5 +178,49 @@ describe("createCheckoutSession — consent-before-redirect ordering", () => {
     expect(termsIndex).toBeGreaterThan(orderIndex);
     expect(consentIndex).toBeGreaterThan(termsIndex);
     expect(redirectIndex).toBeGreaterThan(consentIndex);
+  });
+});
+
+describe("createCheckoutSession — the price test and the follow-up consent", () => {
+  it("charges the normal price and records no variant while the price test is off", async () => {
+    priceVariantCookie = "B"; // a leftover cookie means nothing without the setting
+    await expect(createCheckoutSession(true, true)).rejects.toThrow("NEXT_REDIRECT");
+    expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(750);
+    expect(orderRows[0]).toMatchObject({ amount: 750 });
+    expect("price_variant" in orderRows[0]).toBe(false);
+    expect(stripeParams[0].metadata.price_variant).toBe("");
+  });
+
+  it("charges the price of the variant in the visitor's cookie, and records which variant on the order and at Stripe", async () => {
+    process.env.PRICE_TEST = '{"B":{"self":650}}';
+    priceVariantCookie = "B";
+    await expect(createCheckoutSession(true, true)).rejects.toThrow("NEXT_REDIRECT");
+    expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(650);
+    expect(orderRows[0]).toMatchObject({ amount: 650, price_variant: "B" });
+    expect(stripeParams[0].metadata.price_variant).toBe("B");
+  });
+
+  it("charges the normal price, as control, to a visitor without a (valid) variant while the test is on", async () => {
+    process.env.PRICE_TEST = '{"B":{"self":650}}';
+    for (const cookie of [null, "control", "Z"]) {
+      stripeParams.length = 0;
+      orderRows.length = 0;
+      priceVariantCookie = cookie;
+      await expect(createCheckoutSession(true, true)).rejects.toThrow("NEXT_REDIRECT");
+      expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(750);
+      expect(orderRows[0]).toMatchObject({ price_variant: "control" });
+    }
+  });
+
+  it("records the follow-up consent only when it was given, on the order and in the Stripe metadata", async () => {
+    await expect(createCheckoutSession(true, true, undefined, undefined, undefined, true)).rejects.toThrow("NEXT_REDIRECT");
+    expect(stripeParams[0].metadata.followup_consent).toBe("1");
+    expect(orderRows[0].followup_consent_at).toEqual(expect.any(String));
+
+    stripeParams.length = 0;
+    orderRows.length = 0;
+    await expect(createCheckoutSession(true, true)).rejects.toThrow("NEXT_REDIRECT");
+    expect(stripeParams[0].metadata.followup_consent).toBe("");
+    expect("followup_consent_at" in orderRows[0]).toBe(false);
   });
 });

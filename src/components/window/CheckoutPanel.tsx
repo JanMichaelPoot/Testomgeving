@@ -15,7 +15,7 @@ function isValidEmail(value: string): boolean {
 // Shared visual for both compliance checkboxes below — kept as one small
 // component so the two stay pixel-identical (same tap target, same check
 // animation) rather than drifting apart as two copy-pasted blocks.
-function ComplianceCheckbox({
+export function ComplianceCheckbox({
   checked,
   onChange,
   children,
@@ -54,6 +54,7 @@ export function CheckoutPanel({
   price,
   rememberInitially = false,
   beforePay,
+  priceVariant = null,
 }: {
   dict: Dictionary["checkout"];
   price: string;
@@ -62,6 +63,9 @@ export function CheckoutPanel({
   // Runs right before the payment starts. The image intake pays on its last screen, so it stores the answers here (the
   // session the payment belongs to does not exist before that). If it throws, nothing is paid and the message is shown.
   beforePay?: () => Promise<void>;
+  // The price-test variant this visitor was shown (null while the test is off). Only recorded with the analytics events here; the
+  // server decides the price that is charged (checkout/actions.ts), never this value.
+  priceVariant?: string | null;
 }) {
   // Two independent, never-pre-checked checkboxes — digital delivery +
   // withdrawal waiver combined (allowed to be one checkbox per the
@@ -76,13 +80,15 @@ export function CheckoutPanel({
   // Optional repetition memory: never pre-ticked for a new visitor, and its own consent,
   // unrelated to the two compliance checkboxes below.
   const [remember, setRemember] = useState(rememberInitially);
+  // One e-mail after six weeks: its own consent, never pre-ticked, unrelated to the two compliance checkboxes.
+  const [followUp, setFollowUp] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   // Funnel steps around the price: seen, and pay button pressed (before Stripe).
   useEffect(() => {
-    trackEvent("checkout_viewed");
-  }, []);
+    trackEvent("checkout_viewed", { price_variant: priceVariant ?? "none" });
+  }, [priceVariant]);
 
   const giftEmailValid = !isGift || isValidEmail(giftEmail);
   const deliveryEmailValid = isGift || deliveryEmail.trim() === "" || isValidEmail(deliveryEmail);
@@ -94,8 +100,8 @@ export function CheckoutPanel({
 
   function handleSubmit() {
     if (!canSubmit) return;
-    trackEvent("pay_clicked", { is_gift: isGift });
-    trackEvent("checkout_pay_clicked", { is_gift: isGift });
+    trackEvent("pay_clicked", { is_gift: isGift, price_variant: priceVariant ?? "none" });
+    trackEvent("checkout_pay_clicked", { is_gift: isGift, price_variant: priceVariant ?? "none" });
     setError(null);
     startTransition(async () => {
       try {
@@ -106,6 +112,7 @@ export function CheckoutPanel({
           isGift ? giftEmail : undefined,
           remember,
           !isGift && deliveryEmail.trim() ? deliveryEmail.trim() : undefined,
+          followUp,
         );
       } catch (err) {
         // Next.js redirect() throws internally on success (to Stripe
@@ -199,6 +206,32 @@ export function CheckoutPanel({
           </button>
         </div>
         <p className="mt-2 text-xs leading-relaxed text-ink/70">{dict.memoryHint}</p>
+      </div>
+
+      {/* One follow-up e-mail after six weeks (improvement brief B5): its own choice, off unless switched on. */}
+      <div className="mb-6 rounded-lg border border-border bg-cream p-5">
+        <div className="flex items-start justify-between gap-4">
+          <span id="followup-label" className="text-sm font-medium text-ink">
+            {dict.followUpLabel}
+          </span>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={followUp}
+            aria-labelledby="followup-label"
+            onClick={() => setFollowUp((f) => !f)}
+            className={`relative mt-0.5 h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
+              followUp ? "bg-accent" : "bg-ink/15"
+            }`}
+          >
+            <span
+              className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200 ${
+                followUp ? "translate-x-6" : "translate-x-1"
+              }`}
+            />
+          </button>
+        </div>
+        <p className="mt-2 text-xs leading-relaxed text-ink/70">{dict.followUpHint}</p>
       </div>
 
       {/* Disclaimer */}

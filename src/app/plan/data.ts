@@ -30,6 +30,7 @@ import { buildIdeaThreads, threadSentence } from "@/lib/ideaThread";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
 import { trackServerEvent } from "@/lib/posthog/server";
+import { findVoucherByPlanToken } from "@/lib/voucher/store";
 
 // Re-exported so existing callers (src/app/plan/page.tsx) can keep
 // importing every plan-related helper from this one module; the
@@ -455,11 +456,14 @@ async function finishPlanGeneration(
     if (shouldUseEngine(profile)) {
       try {
         // Only devices that opted in on the checkout page have a history (empty otherwise).
-        const history = await loadShownBefore(supabase, pendingRow.session_id);
+        // Plus the ideas of the book a follow-up e-mail link pointed at (stored with the answers, see intake/actions.ts).
+        const history = [...new Set([...(await loadShownBefore(supabase, pendingRow.session_id)), ...(profile.avoidActivityIds ?? [])])];
         generated = (
           await generateIdeaBookFromSeeds(profile, locale, characterProfile, {
             sessionId: pendingRow.session_id,
             history,
+            // The seasonal edition (off by default): stored with the answers only when the flag was on at the time, see intake/actions.ts.
+            season: profile.season ?? null,
             onProgress: (stage, meta) => {
               // Every step adds its numbers to the earlier ones; one write holds them all.
               progressMeta = mergeProgressMeta(progressMeta, meta);
@@ -585,6 +589,27 @@ async function finishPlanGeneration(
   }
 }
 
+// Everything the book needs to know about *how it was paid for*, whichever way that was: a Stripe payment (getOrCreateWindowPlan) or a
+// redeemed gift voucher (getOrCreateVoucherPlan). The rest of the generation is identical, so it lives in one place (createPaidPlan).
+interface PaidOrder {
+  sessionId: string;
+  /** The order row (a payment or a zero-amount voucher redemption); null only if it is somehow missing. */
+  paymentRow: { id: string; order_number: string | null; amount: number; currency: string; created_at: string } | null;
+  /** The query string of the link to this book, used in the e-mail ("checkout_session_id=cs_..." or "gift=<token>"). */
+  planQuery: string;
+  /** The address that identifies the buyer's account (Stripe's customer e-mail); null when nobody paid by card. */
+  accountEmail: string | null;
+  /** Where the book is e-mailed; null = not e-mailed. */
+  deliveryEmail: string | null;
+  /** The person who consented to the one follow-up e-mail, and where it goes. Only ever set with explicit consent. */
+  followUpEmail: string | null;
+  isGift: boolean;
+  /** What was paid; 0 for a voucher redemption (the voucher purchase has its own event, see voucher/activate.ts). */
+  amountCents: number;
+  /** The price-test variant the buyer was shown, or null. */
+  priceVariant: string | null;
+}
+
 // Called from the /plan Server Component on every visit. Generation only
 // happens once per session — subsequent visits (page refresh, the emailed
 // link) just read back the saved row.
@@ -620,6 +645,62 @@ export async function getOrCreateWindowPlan(
     .select("id, order_number, amount, currency, created_at")
     .eq("stripe_payment_id", checkoutSessionId)
     .maybeSingle();
+
+  const customerEmail = checkoutSession.customer_details?.email ?? null;
+  // A gift redirects only where the Idea Book itself is delivered — the buyer still pays with their own card and gets Stripe's own
+  // receipt at their own email regardless, and stays the account on file.
+  const giftRecipientEmail = checkoutSession.metadata?.gift_recipient_email;
+  const deliveryEmail = customerEmail ? giftRecipientEmail || checkoutSession.metadata?.delivery_email || customerEmail : null;
+  // The follow-up goes to the person who ticked the box (the buyer, at the address where the book goes or at Stripe's address),
+  // never to a gift recipient who agreed to nothing.
+  const followUpEmail = checkoutSession.metadata?.followup_consent === "1" ? checkoutSession.metadata?.delivery_email || customerEmail : null;
+
+  return createPaidPlan({
+    sessionId,
+    paymentRow: paymentRow ?? null,
+    planQuery: `checkout_session_id=${checkoutSessionId}`,
+    accountEmail: customerEmail,
+    deliveryEmail,
+    followUpEmail,
+    isGift: !!giftRecipientEmail,
+    amountCents: checkoutSession.amount_total ?? 0,
+    priceVariant: checkoutSession.metadata?.price_variant || null,
+  });
+}
+
+/**
+ * The book of a redeemed gift voucher, opened with the secret token made at redemption (src/lib/voucher/store.ts). No Stripe: the
+ * giver paid for the voucher earlier; redeeming made a zero-amount order for this session (app/cadeau/actions.ts).
+ */
+export async function getOrCreateVoucherPlan(planToken: string): Promise<WindowPlanRow> {
+  const supabase = createServiceRoleClient();
+  const voucher = await findVoucherByPlanToken(supabase, planToken);
+  if (!voucher || voucher.status !== "redeemed" || !voucher.redeemed_session_id) {
+    throw new PlanNotReadyError("We could not find a redeemed gift voucher for this link.", "unpaid");
+  }
+  const { data: paymentRow } = await supabase
+    .from("payments")
+    .select("id, order_number, amount, currency, created_at, followup_consent_at")
+    .eq("session_id", voucher.redeemed_session_id)
+    .like("stripe_payment_id", "voucher:%")
+    .maybeSingle();
+  const email = voucher.redeemer_email;
+  return createPaidPlan({
+    sessionId: voucher.redeemed_session_id,
+    paymentRow: paymentRow ?? null,
+    planQuery: `gift=${planToken}`,
+    accountEmail: email,
+    deliveryEmail: email,
+    followUpEmail: email && paymentRow?.followup_consent_at ? email : null,
+    isGift: true,
+    amountCents: 0,
+    priceVariant: null,
+  });
+}
+
+async function createPaidPlan(order: PaidOrder): Promise<WindowPlanRow> {
+  const { sessionId, paymentRow } = order;
+  const supabase = createServiceRoleClient();
 
   const existingPlan = await resolveExistingPlan(supabase, await findExistingPlan(supabase, sessionId));
   if (isGenerating(existingPlan)) {
@@ -660,24 +741,25 @@ export async function getOrCreateWindowPlan(
 
   // A paid book has started (the pending row above is unique per session, so this runs once per order): the
   // server-side count of real payments, next to the browser's checkout_pay_clicked. Nothing personal goes along.
-  after(() =>
-    trackServerEvent(
-      "payment_succeeded",
-      { is_gift: !!checkoutSession.metadata?.gift_recipient_email, amount_cents: checkoutSession.amount_total ?? 0 },
-      sessionId,
-    ),
-  );
+  if (order.amountCents > 0) {
+    after(() =>
+      trackServerEvent(
+        "payment_succeeded",
+        { is_gift: order.isGift, amount_cents: order.amountCents, price_variant: order.priceVariant ?? "none" },
+        sessionId,
+      ),
+    );
+  }
 
   after(async () => {
     try {
       const { plan, generated, pdfBytes } = await finishPlanGeneration(supabase, ctx);
       let emailDelivered = false;
 
-      const customerEmail = checkoutSession.customer_details?.email;
-      if (customerEmail) {
+      if (order.accountEmail) {
         const { data: user } = await supabase
           .from("users")
-          .upsert({ email: customerEmail }, { onConflict: "email" })
+          .upsert({ email: order.accountEmail }, { onConflict: "email" })
           .select("id")
           .single();
 
@@ -687,13 +769,17 @@ export async function getOrCreateWindowPlan(
             .update({ user_id: user.id })
             .eq("id", sessionId);
         }
+      }
 
-        // A gift redirects only where the Idea Book itself is delivered —
-        // the buyer still pays with their own card and gets Stripe's own
-        // receipt at their own email regardless, and stays the account on
-        // file above.
-        const giftRecipientEmail = checkoutSession.metadata?.gift_recipient_email;
-        const deliveryEmail = giftRecipientEmail || checkoutSession.metadata?.delivery_email || customerEmail;
+      // The one follow-up e-mail (improvement brief B5): only with consent, only to the address of the person who consented. Best
+      // effort: without migration 0022 the column is missing and the follow-up simply stays off.
+      if (order.followUpEmail) {
+        const { error: followUpError } = await supabase.from("window_plans").update({ followup_email: order.followUpEmail }).eq("id", plan.id);
+        if (followUpError) console.error("WINDOW: could not store the follow-up e-mail address; has migration 0022 been run?", followUpError.message);
+      }
+
+      const deliveryEmail = order.deliveryEmail;
+      if (deliveryEmail) {
 
         // Captured once here rather than re-derived from Stripe later —
         // the scheduled first-action reminder (see
@@ -715,7 +801,7 @@ export async function getOrCreateWindowPlan(
           // order details.
           if (!paymentRow) {
             throw new Error(
-              `No payments row found for checkout session ${checkoutSessionId}; cannot send an order confirmation.`
+              `No payments row found for ${order.planQuery}; cannot send an order confirmation.`
             );
           }
 
@@ -724,7 +810,7 @@ export async function getOrCreateWindowPlan(
             title: plan.title,
             book: generated,
             pdfBytes,
-            planUrl: `${siteUrl}/plan?checkout_session_id=${checkoutSessionId}`,
+            planUrl: `${siteUrl}/plan?${order.planQuery}`,
             locale: plan.language as "nl" | "en",
             siteUrl,
             order: {

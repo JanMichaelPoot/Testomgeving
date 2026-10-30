@@ -50,6 +50,36 @@ export async function POST(request: Request) {
           .update({ status: "paid" })
           .eq("id", sessionId);
       }
+
+      // A paid gift voucher becomes active here, so it works even when the giver closes the tab before the Stripe page sends them back.
+      // The same function runs on that page; whichever comes first does the work, the other finds it done. Never a reason to fail the webhook.
+      if (session.metadata?.kind === "gift_voucher") {
+        try {
+          const { activateAfterPayment } = await import("@/lib/voucher/activate");
+          await activateAfterPayment(session.id);
+        } catch (err) {
+          console.error("WINDOW: could not activate a gift voucher from the webhook:", err);
+        }
+      }
+      break;
+    }
+    case "charge.refunded": {
+      // A fully refunded voucher that has not been redeemed stops working. (A redeemed one already produced a book: that is a matter for
+      // a person, not for this handler.) Dashboard refunds reach this event only if the webhook endpoint listens to it; see docs/cadeaubon.md.
+      const charge = event.data.object as Stripe.Charge;
+      if (charge.refunded && typeof charge.payment_intent === "string") {
+        try {
+          const sessions = await getStripe().checkout.sessions.list({ payment_intent: charge.payment_intent, limit: 1 });
+          const checkoutId = sessions.data[0]?.id;
+          if (checkoutId) {
+            await supabase.from("payments").update({ status: "refunded" }).eq("stripe_payment_id", checkoutId);
+            const { voidVoucherForCheckout } = await import("@/lib/voucher/store");
+            await voidVoucherForCheckout(supabase, checkoutId);
+          }
+        } catch (err) {
+          console.error("WINDOW: could not process a refund in the webhook:", err);
+        }
+      }
       break;
     }
     case "checkout.session.async_payment_failed":

@@ -4,6 +4,7 @@ import { LanguageToggle } from "./LanguageToggle";
 import { MobileNav } from "./MobileNav";
 import type { Locale } from "@/lib/language";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import { getGiftCopy } from "@/lib/i18n/gift";
 
 export function SiteHeader({
   locale,
@@ -44,6 +45,9 @@ export function SiteHeader({
           <Link href="/wat-zit-erin" className="text-sm text-ink/70 transition-colors hover:text-accent">
             {dict.navInside}
           </Link>
+          <Link href="/cadeaubon" className="text-sm text-ink/70 transition-colors hover:text-accent">
+            {getGiftCopy(locale).navLabel}
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -54,6 +58,7 @@ export function SiteHeader({
               { href: "/#hoe", label: dict.navHowItWorks },
               { href: "/#voorbeeld", label: dict.navExamples },
               { href: "/wat-zit-erin", label: dict.navInside },
+              { href: "/cadeaubon", label: getGiftCopy(locale).navLabel },
             ]}
           />
         </div>

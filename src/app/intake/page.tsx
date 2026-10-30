@@ -16,8 +16,12 @@ import { images2WizardPercent } from "@/lib/vensterLanding";
 import { currentMonth } from "@/lib/discovery/season";
 import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { checkTestQuota } from "@/lib/testQuota";
-import { formatPrice } from "@/lib/pricing";
+import { getVisitorPrice } from "@/lib/visitorPrice";
 import { getDeviceId } from "@/lib/discovery/historyStore";
+import { getGiftCopy } from "@/lib/i18n/gift";
+import { getVoucherCookie } from "@/lib/voucher/cookie";
+import { findVoucherByCode } from "@/lib/voucher/store";
+import { voucherState } from "@/lib/voucher/code";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -68,6 +72,16 @@ export default async function IntakePage(props: PageProps<"/intake">) {
   const forced = Array.isArray(searchParams.wizard) ? searchParams.wizard[0] : searchParams.wizard;
   const wantsImages2 = images2WizardPercent(process.env.NEXT_PUBLIC_IMAGES2_PERCENT) > 0 || forced === "images2" || initial?.answers.intakeFlow === "images2";
   const concretePool = wantsImages2 ? buildConcretePool(locale, month) : undefined;
+  const visitorPrice = await getVisitorPrice("self");
+
+  // A recipient who pressed "Open je venster" on a valid gift voucher redeems it on the last screen instead of paying. Only for an intake for
+  // oneself (a gift intake is the giver filling it in), and only while the code can still be redeemed.
+  let voucher: { copy: ReturnType<typeof getGiftCopy>["panel"]; code: string; recipientName: string | null; giverName: string | null } | undefined;
+  const voucherCode = searchParams.for === "gift" ? null : await getVoucherCookie();
+  if (voucherCode) {
+    const row = await findVoucherByCode(createServiceRoleClient(), voucherCode);
+    if (row && voucherState(row) === "ok") voucher = { copy: getGiftCopy(locale).panel, code: row.code, recipientName: row.recipient_name, giverName: row.giver_name };
+  }
 
   return (
     <div className="flex min-h-full flex-col">
@@ -89,7 +103,9 @@ export default async function IntakePage(props: PageProps<"/intake">) {
             purpose={searchParams.for === "gift" ? "gift" : "self"}
             payment={{
               dict: dict.checkout,
-              price: formatPrice(locale),
+              price: visitorPrice.label(locale),
+              priceVariant: visitorPrice.variant,
+              voucher,
               rememberInitially: (await getDeviceId()) !== null,
               testNotice: stripeTestNotice(dict.venster.testBanner),
               // Stripe sends the buyer back here (via /checkout) after a cancelled or failed payment.

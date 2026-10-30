@@ -14,6 +14,8 @@ import { engineInputFromIntake, resolveConstraints } from "@/lib/discovery/engin
 import { explainDroppedPicks } from "@/lib/discovery/engine/droppedPicks";
 import { getActivity } from "@/lib/discovery/library";
 import { currentMonth } from "@/lib/discovery/season";
+import { loadAvoidIds, loadSeason } from "@/lib/followup/avoid";
+import type { Season } from "@/lib/seasonEdition";
 
 // The rich profile ("DNA") collected by the intake wizard. Stored whole in
 // intake_answers.raw_json — see supabase/migrations/0001_init.sql for why
@@ -74,6 +76,10 @@ export interface IntakeAnswers {
   axesOverride?: { social?: number; energy?: number; setting?: number; novelty?: number };
   // For a gift: the recipient's first name, for the cover and the greeting. Optional.
   recipientName?: string;
+  // Set by the server when the visitor came through the follow-up e-mail (src/app/nieuw-venster): the ideas of the book they already have, which
+  // this book leaves out, and (seasonal edition, off by default) the season to write for. Never taken from the browser's answers.
+  avoidActivityIds?: string[];
+  season?: Season;
 }
 
 // The locale is not answered by the user in the wizard — it's whatever the
@@ -105,6 +111,15 @@ async function persistIntake(answers: IntakeAnswers, opts: { edit?: boolean } = 
   // The image intake asks for images instead of activities and dials: translate them here,
   // once, so every later step (checkout, engine, prompt, PDF) reads the same answers.
   if (answers.intakeVariant === "associations") stored = applyImageIntake(stored, locale);
+
+  // The follow-up e-mail's link leaves a cookie behind (followup/avoid.ts): its ideas are not shown again, and a season may be asked for.
+  // Always overwritten from the cookie, never from what the browser sent, so the answers cannot be used to inject either.
+  delete stored.avoidActivityIds;
+  delete stored.season;
+  const avoid = await loadAvoidIds(supabase);
+  if (avoid.length > 0) stored.avoidActivityIds = avoid;
+  const season = await loadSeason();
+  if (season) stored.season = season;
 
   // Changing choices before paying (fase 5): the answers of the session in the cookie are
   // replaced in place. If that is no longer possible (nothing stored, or the book is

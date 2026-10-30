@@ -12,11 +12,22 @@ export const WINDOW_PLAN_PRICE = {
   amountCents: PRICE_CENTS,
 } as const;
 
+// The gift voucher: one Idea Book for someone else, who answers the intake themselves (improvement brief D5, Jan: default accepted).
+// More than the book for yourself on purpose: the giver also pays for the card, the code and being the one who thought of it.
+export const GIFT_PRICE_CENTS = 1495;
+
+/** The two products with a price of their own. A price test (src/lib/priceTest.ts) can vary either one. */
+export type PriceKind = "self" | "gift";
+
+export function basePriceCents(kind: PriceKind): number {
+  return kind === "gift" ? GIFT_PRICE_CENTS : PRICE_CENTS;
+}
+
 // Formatted manually (not via Intl.NumberFormat) so the output is always
 // exactly "€7,50" / "€7.50" — Intl's nl-NL currency format inserts a space
 // after the symbol, which reads oddly in short inline copy like "vanaf €7,50".
-export function formatPrice(locale: Locale): string {
-  const amount = (WINDOW_PLAN_PRICE.amountCents / 100).toFixed(2);
+export function formatPrice(locale: Locale, cents: number = WINDOW_PLAN_PRICE.amountCents): string {
+  const amount = (cents / 100).toFixed(2);
   return `€${locale === "nl" ? amount.replace(".", ",") : amount}`;
 }
 

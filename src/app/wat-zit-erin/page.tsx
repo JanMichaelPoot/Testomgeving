@@ -6,7 +6,7 @@ import { FaqList } from "@/components/window/FaqList";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getHomeCopy, withPrice } from "@/lib/i18n/home";
-import { formatPrice } from "@/lib/pricing";
+import { getVisitorPrice } from "@/lib/visitorPrice";
 import { DOORS } from "@/lib/productStructure";
 import { VENSTER_SELF_HREF } from "@/lib/vensterLanding";
 
@@ -24,7 +24,7 @@ export default async function InsidePage() {
   const locale = await getLocale();
   const dict = getDictionary(locale);
   const home = getHomeCopy(locale);
-  const price = formatPrice(locale);
+  const price = (await getVisitorPrice("self")).label(locale);
   const t = home.inside;
 
   // The FAQ as structured data, so search engines can show the answers. A data block, not a script that runs.

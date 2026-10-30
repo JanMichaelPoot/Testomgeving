@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: siteUrl, changeFrequency: "monthly", priority: 1 },
     { url: `${siteUrl}/wat-zit-erin`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/cadeaubon`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/delen`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${siteUrl}/privacy`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${siteUrl}/terms`, changeFrequency: "yearly", priority: 0.3 },

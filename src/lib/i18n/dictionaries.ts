@@ -124,6 +124,9 @@ export interface Dictionary {
     giftToggleLabel: string;
     memoryLabel: string;
     memoryHint: string;
+    // One e-mail after six weeks, only with this switch on (improvement brief B5).
+    followUpLabel: string;
+    followUpHint: string;
     choicesHeading: string;
     choicesHint: string;
     choicesEdit: string;
@@ -672,6 +675,9 @@ const nl: Dictionary = {
     memoryLabel: "Onthoud wat ik op dit apparaat heb gezien, zodat een volgend Idea Book het niet herhaalt",
     memoryHint:
       "Optioneel. Slaat 12 maanden een willekeurige code op in een cookie op dit apparaat, en alleen welke activiteiten je boeken lieten zien. Geen naam of e-mailadres. Je kunt het hier of op de privacypagina uitzetten en dan wordt alles verwijderd.",
+    followUpLabel: "Mail me over zes weken één keer: tijd voor een nieuw venster?",
+    followUpHint:
+      "Optioneel. Eén e-mail, ongeveer zes weken na je boek, naar het adres van je bestelling (ook bij een cadeau: naar het adres van degene die betaalt). Met een link naar een nieuwe intake die geen ideeën herhaalt die je al kreeg. Daarna niets meer; geen nieuwsbrief. Je kunt je toestemming altijd intrekken via hello@windowinto.nl.",
     choicesHeading: "Jouw keuzes",
     choicesHint: "Kijk ze nog één keer na. Je kunt alles nog wijzigen voordat je betaalt.",
     choicesEdit: "Wijzig",
@@ -1386,6 +1392,9 @@ const en: Dictionary = {
     memoryLabel: "Remember what I was shown on this device, so a next Idea Book doesn't repeat it",
     memoryHint:
       "Optional. Stores a random code in a cookie on this device for 12 months, and only which activities your books showed. No name or e-mail address. You can switch it off here or on the privacy page and everything is deleted.",
+    followUpLabel: "E-mail me once in six weeks: time for a new window?",
+    followUpHint:
+      "Optional. One e-mail, about six weeks after your book, to the address of your order (for a gift too: to the address of whoever pays). It links to a new intake that does not repeat the ideas you already received. Nothing after that; no newsletter. You can withdraw your consent at any time via hello@windowinto.nl.",
     choicesHeading: "Your choices",
     choicesHint: "Check them once more. You can still change everything before you pay.",
     choicesEdit: "Change",

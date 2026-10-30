@@ -102,7 +102,7 @@ describe("analytics events", () => {
     expect(calls.find((c) => c.name === "profile_agreed")!.keys).toEqual(["adjusted"]);
     expect(calls.find((c) => c.name === "profile_viewed")!.keys).toEqual([]);
     // The server-side call is read too (its properties end where the object ends, the id after it is not one).
-    expect(calls.find((c) => c.name === "payment_succeeded")!.keys).toEqual(["is_gift", "amount_cents"]);
+    expect(calls.find((c) => c.name === "payment_succeeded")!.keys).toEqual(["is_gift", "amount_cents", "price_variant"]);
   });
 
   it("only sends events with a literal name, so none can slip past this test", () => {

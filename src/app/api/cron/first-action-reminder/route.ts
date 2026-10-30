@@ -74,11 +74,19 @@ export async function GET(request: Request) {
       // set for those, but skip defensively rather than emailing a dead link.
       if (!payment) continue;
 
+      // A book made with a gift voucher is opened with the secret of the redemption, not with a Stripe session.
+      let planQuery = `checkout_session_id=${payment.stripe_payment_id}`;
+      if (payment.stripe_payment_id.startsWith("voucher:")) {
+        const { data: voucher } = await supabase.from("gift_vouchers").select("plan_token").eq("redeemed_session_id", plan.session_id).maybeSingle();
+        if (!voucher?.plan_token) continue;
+        planQuery = `gift=${voucher.plan_token}`;
+      }
+
       await sendFirstActionReminderEmail({
         to: plan.recipient_email,
         ideaTitle: nudgeIdea.title,
         firstAction: nudgeIdea.first_action,
-        planUrl: `${siteUrl}/plan?checkout_session_id=${payment.stripe_payment_id}`,
+        planUrl: `${siteUrl}/plan?${planQuery}`,
         locale: (plan.language as Locale) ?? "nl",
       });
 

@@ -13,6 +13,8 @@ import { trackEvent } from "@/lib/posthog/client";
 import { checkPicks, saveIntake, type IntakeAnswers } from "@/app/intake/actions";
 import { CheckoutPanel } from "@/components/window/CheckoutPanel";
 import { TestModeBanner } from "@/components/window/TestModeBanner";
+import { VoucherRedeemPanel } from "@/components/window/VoucherRedeemPanel";
+import { fill as fillGift, type GiftCopy } from "@/lib/i18n/gift";
 import { activityImage, domainImage } from "@/lib/discovery/paths";
 import { ASSOCIATION_ROUNDS, averageAxes, tagProfile, type AssociationCard, type AssociationLibrary, type AssociationRound, type AxisId } from "@/lib/discovery/associationProfile";
 import { MAX_CONCRETE_PICKS, MAX_IMAGE_PICKS, MAX_REFRESHES, composeConcretePage, registerMix, sampleBalancedBatch, type RegisteredCard } from "@/lib/discovery/twoPages";
@@ -228,6 +230,13 @@ export interface WizardPayment {
   testNotice?: string;
   /** Stripe sent the visitor back after a cancelled or failed payment. */
   paymentFailed: boolean;
+  /** The price-test variant this visitor was shown; null while the test is off. */
+  priceVariant: string | null;
+  /**
+   * Set when the visitor came with a valid gift voucher (src/app/cadeau): the last screen then redeems it instead of taking a payment.
+   * Absent for everyone else.
+   */
+  voucher?: { copy: GiftCopy["panel"]; code: string; recipientName: string | null; giverName: string | null };
 }
 
 export function AssociationWizard({
@@ -1113,6 +1122,38 @@ export function AssociationWizard({
               ) : null
             }
             payment={
+              payment.voucher ? (
+                <section id="bestellen" aria-labelledby="order-title" className="scroll-mt-24 overflow-hidden rounded-lg border border-border bg-paper">
+                  <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr]">
+                    <div>
+                      <h2 id="order-title" className="font-serif text-2xl leading-tight text-ink sm:text-3xl">
+                        {payment.voucher.recipientName ? fillGift(payment.voucher.copy.headingNamed, { name: payment.voucher.recipientName }) : payment.voucher.copy.heading}
+                      </h2>
+                      <p className="mt-3 text-sm leading-relaxed text-ink/75">
+                        {payment.voucher.giverName
+                          ? fillGift(payment.voucher.copy.validBody, { code: payment.voucher.code, giver: payment.voucher.giverName })
+                          : fillGift(payment.voucher.copy.validBodyAnon, { code: payment.voucher.code })}
+                      </p>
+                      <p className="mt-4 rounded-lg bg-surface-active px-4 py-3 text-sm font-medium text-ink">{payment.voucher.copy.freeNote}</p>
+                      <ul className="mt-6 flex flex-col gap-3">
+                        {dict.checkout.whatYouGet.map((line) => (
+                          <li key={line} className="flex items-start gap-3 text-sm leading-relaxed text-ink/75">
+                            <span aria-hidden="true" className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-light text-accent-dark">
+                              <svg width="9" height="9" viewBox="0 0 12 10" fill="none">
+                                <path d="M1 5l3.5 4L11 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            </span>
+                            {line}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <VoucherRedeemPanel copy={payment.voucher.copy} beforeRedeem={saveForPayment} />
+                    </div>
+                  </div>
+                </section>
+              ) : (
               <section id="bestellen" aria-labelledby="order-title" className="scroll-mt-24 overflow-hidden rounded-lg border border-border bg-paper">
                 <TestModeBanner notice={payment.testNotice} />
                 <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr]">
@@ -1144,10 +1185,11 @@ export function AssociationWizard({
                         {payment.dict.errorPaymentFailed}
                       </p>
                     )}
-                    <CheckoutPanel dict={payment.dict} price={payment.price} rememberInitially={payment.rememberInitially} beforePay={saveForPayment} />
+                    <CheckoutPanel dict={payment.dict} price={payment.price} rememberInitially={payment.rememberInitially} beforePay={saveForPayment} priceVariant={payment.priceVariant} />
                   </div>
                 </div>
               </section>
+              )
             }
           />
         ) : null;

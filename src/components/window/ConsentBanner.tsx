@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useSyncExternalStore } from "react";
+import { useRouter } from "next/navigation";
 import { initPostHog } from "@/lib/posthog/client";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import { clearPriceVariantCookie, ensurePriceVariantCookie } from "@/lib/priceVariantCookie";
 
 const CONSENT_KEY = "window_analytics_consent";
 const CONSENT_EVENT = "window-consent-changed";
@@ -49,12 +51,23 @@ function setConsent(decision: "granted" | "denied") {
 // Nothing tracking-related runs before this component explicitly says so —
 // initPostHog() is only ever called from here, either because a "granted"
 // decision was already stored, or because the visitor just clicked accept.
-export function ConsentBanner({ dict }: { dict: Dictionary["consent"] }) {
+//
+// The price test (src/lib/priceTest.ts) follows the same rule: its variant cookie is only written after consent, and removed
+// when consent is declined. `priceVariants` is empty while the test is off, which also removes any leftover cookie.
+export function ConsentBanner({ dict, priceVariants = [] }: { dict: Dictionary["consent"]; priceVariants?: string[] }) {
   const consent = useSyncExternalStore(subscribeToConsent, readConsent, readServerConsent);
+  const router = useRouter();
+  const variantKey = priceVariants.join(",");
 
   useEffect(() => {
-    if (consent === "granted") initPostHog();
-  }, [consent]);
+    if (consent === "granted") {
+      initPostHog();
+      // A new or replaced variant changes the price on screen: render the server components again with it.
+      if (ensurePriceVariantCookie(variantKey ? variantKey.split(",") : [], document)) router.refresh();
+    } else if (consent === "denied") {
+      if (clearPriceVariantCookie(document)) router.refresh();
+    }
+  }, [consent, variantKey, router]);
 
   if (consent !== null) return null;
 
