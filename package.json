@@ -11,7 +11,8 @@
     "test:e2e": "playwright test",
     "taxonomy:check": "tsx scripts/taxonomy-check.ts",
     "taxonomy:report": "tsx scripts/taxonomy-check.ts --report",
-    "taxonomy:images": "tsx scripts/generate-discovery-illustrations.ts"
+    "taxonomy:images": "tsx scripts/generate-discovery-illustrations.ts",
+    "register:report": "tsx scripts/register-report.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.123.0",

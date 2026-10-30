@@ -12,6 +12,7 @@ import { ALL_ACTIVITIES, DOMAINS, HYBRIDS, SUB_DOMAINS, TAGS, VOCABULARY } from 
 import { SOCIAL_FORMATS } from "../src/lib/discovery/types";
 import { validateAssociations, validateLibrary } from "../src/lib/discovery/validate";
 import { ASSOCIATIONS, hasOwnImage } from "../src/lib/discovery/associations";
+import { familyOf, validateRegisters } from "../src/lib/discovery/register";
 
 const args = new Set(process.argv.slice(2));
 const PUBLIC = path.join(process.cwd(), "public/illustrations/discovery");
@@ -19,8 +20,10 @@ const PUBLIC = path.join(process.cwd(), "public/illustrations/discovery");
 const library = validateLibrary({ vocabulary: VOCABULARY, activities: ALL_ACTIVITIES, hybrids: HYBRIDS });
 // The association images of the image intake are checked in the same run.
 const associations = validateAssociations(ASSOCIATIONS, VOCABULARY);
-const errors = [...library.errors, ...associations.errors];
-const warnings = [...library.warnings, ...associations.warnings];
+// Every activity and every card family needs a style register (src/lib/discovery/register.json).
+const registers = validateRegisters({ activities: ALL_ACTIVITIES, families: [...new Set(ASSOCIATIONS.map((c) => familyOf(c)))] });
+const errors = [...library.errors, ...associations.errors, ...registers.errors];
+const warnings = [...library.warnings, ...associations.warnings, ...registers.warnings];
 
 const imageFile = (id: string) => path.join(PUBLIC, `${id}.jpg`);
 const domainFile = (id: string) => path.join(PUBLIC, "domains", `${id}.jpg`);

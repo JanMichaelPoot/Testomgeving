@@ -4107,3 +4107,31 @@ Stripe, Claude API, Resend, PostHog).
       Getest: `tsc`, eslint, de eventtests en 3 nieuwe tests voor de serverhelper; in de browser `window_completed {images: 2, panes: 3}` gezien op het
       profielscherm (via een concept in sessionStorage). **Niet gezien**: `level` bij `idea_opened` in de browser en `payment_succeeded` met een echte
       Stripe-betaling en PostHog-sleutel (alleen met een nagebootste PostHog-client getest).
+
+- [x] Stap 113 - Twee beeldpagina's, Fase 0 en 1 (Jan: "Akkoord op alle punten, begin met fase 0 en 1"; plan in `docs/plan-twee-beeldpagina-s.md`). Geen
+      betaalde aanroepen (€0), niets aan de interface of de motor veranderd, niet gecommit. **Fase 0, het register**: elke van de 496 activiteiten en
+      elke van de 72 associatiefamilies (216 kaarten) heeft nu een stijlregister in `src/lib/discovery/register.json`: `expressive` (sierlijk en
+      expressief), `nurturing` (warm en verzorgend), `technical` (technisch en scherp), `nature` (rust en natuur). Met de hand vastgesteld door één lezer
+      (ik), op naam, tags en subgroep; een eerste inschatting die jij kunt corrigeren, geen meting van wat mensen zeggen. Het register beschrijft het item,
+      niet de persoon: er wordt geen geslacht gevraagd of bewaard, en het komt nergens in de interface (een test faalt als een component of pagina
+      `REGISTER_LABELS` gebruikt). **Afwijking van het plan**: geen nieuwe tags in `vocabulary.json` maar een eigen tabel, omdat nieuwe tags de graaf, de
+      zeldzaamheid en `tagIdf` van de motor zouden raken (de baseline-test op de 20 vaste profielen en de regressiereeksen blijven nu ongewijzigd); de
+      bestaande tags kunnen sierlijk en verzorgend ook niet uitdrukken (alleen op tags krijgt 63% van de activiteiten en 78% van de families hetzelfde
+      register als de handmatige tabel). **Fase 1, code**: `src/lib/discovery/register.ts` (`registerOfActivity`, `registerOfCard`, `familyOf`,
+      `deriveRegister` als vangnet voor een item dat nog niemand indeelde, `countRegisters`, `registerShares`, `poolShortfall` voor de balanstest,
+      `validateRegisters`), `taxonomy-check` faalt nu bij een activiteit of familie zonder regel of een regel voor iets dat niet bestaat, en
+      `docs/discovery-taxonomy.md` noemt het register als verplichte stap bij een nieuwe activiteit. 11 nieuwe tests (`register.test.ts`).
+      **Rapport** (`scripts/register-report.ts` -> `docs/register-rapport.md`, deterministisch): activiteiten sierlijk 98 (20%), warm 115 (23%), technisch 166
+      (33%), rust 117 (24%); families 17 / 15 / 20 / 20; elke ronde (plek, moment, zintuig) heeft alle vier de registers. **Balanstest**: de pool volstaat
+      voor drie batches van 18 met minstens 3 van elk register (families en activiteiten). **Twee bevindingen die het plan bijstellen**:
+      (1) **Mijn eerdere telling klopte maar was smal.** Ik schreef "hooguit 3 families" voor dans, juwelen, make-up, tassen en mode; met het brede register
+      (ook podium, antiek, textiel, speeldoos) is 17 van 72 families sierlijk. De echte gaten zijn **thema's**, niet de verdeling: geen enkele associatiefamilie
+      voor tassen en leer, make-up en kapsel, bloemen of parfum; 1 voor dans en 1 voor sieraden; activiteiten: 1 lederwerk, 1 theatrale make-up, 3 bloemen,
+      parfum maken. Fase 2 en 3 (nieuwe richting en families) blijven dus nodig, maar gaan over die thema's. (2) **De registers zitten niet los van de assen**:
+      sierlijk is sterk binnen (gemiddeld -0,71), warm is rustig (energie -0,41), technisch is heftig en nieuw (+0,30 / +0,35), rust is buiten en solitair
+      (+0,36 / -0,24). Een balans op register is dus ook een balans op deze assen, en wie eenzijdig kiest trekt ook de assen mee. **Een rekenpunt voor Fase
+      4**: een vloer van 20% per register past niet bij vier registers (4 x 20% = 80% van de pagina vastgelegd, en dan is "6 van 8 sierlijk gekozen geeft
+      55% sierlijk" niet haalbaar). Voorstel: vloer van 2 van 18 per register (±11%) plus minstens een derde van pagina 2 buiten het meest gekozen register;
+      beslis dat in Fase 4 met de data erbij. **Structurele leegtes per richting** (sectie 2 van het rapport): Techniek heeft 0 sierlijke activiteiten,
+      Avontuur 0 sierlijk en 0 warm, Mikken 0 sierlijk en 0 rust, Ontspanning 0 technisch; een pagina 2 die uit die richtingen trekt kan een register niet
+      vullen, dus de samensteller moet over richtingen heen kiezen. Gates: `tsc --noEmit`, eslint, `taxonomy-check` (0/0), volledige `npm test`.
