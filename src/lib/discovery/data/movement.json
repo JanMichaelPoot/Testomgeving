@@ -1959,8 +1959,7 @@
     },
     "scene": "A ballet barre along a mirrored wall in an empty bright studio, a pair of pointe shoes hanging from the barre.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "flamenco",
@@ -1996,8 +1995,7 @@
     },
     "scene": "A wooden dance floor with a pair of black flamenco shoes, a red fringed shawl and a fan on a chair in a warmly lit studio.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "buikdans",
@@ -2033,8 +2031,7 @@
     },
     "scene": "Sequined hip scarves with golden coins draped over a studio mirror, finger cymbals and a sheer veil on a bench.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "bollywood",
@@ -2070,8 +2067,7 @@
     },
     "scene": "Bright dupattas in magenta and gold hanging in a dance studio with garlands of marigolds and a portable speaker.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "kpop-dans",
@@ -2107,8 +2103,7 @@
     },
     "scene": "A mirrored studio wall with neon light strips, a pair of white sneakers and a portable speaker on the floor.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "zumba",
@@ -2144,8 +2139,7 @@
     },
     "scene": "A bright fitness studio with coloured floor lines, a mirror wall, a bluetooth speaker and a water bottle.",
     "supply": "common",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "ballroom",
@@ -2181,7 +2175,6 @@
     },
     "scene": "A polished parquet ballroom floor with a chandelier reflected in it and a pair of satin dance shoes near the edge.",
     "supply": "common",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

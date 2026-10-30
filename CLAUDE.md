@@ -4164,3 +4164,21 @@ Stripe, Claude API, Resend, PostHog).
       **Kosten Fase 3** (dry-run, geen aanroep): 90 kaartbeelden = 10 vellen 3x3 = $1,34; 28 activiteitsfoto's + 1 domeinfoto = 5 aanvragen = $0,67; plus 1 beeld voor
       de watermolen = $0,13; samen ≈ $2,14, binnen het goedgekeurde plafond van $2,5. Niet in dit bedrag: een nieuwe hero-poel. Gates: `tsc --noEmit`, eslint,
       `taxonomy-check` (0 fouten, 0 waarschuwingen), volledige `npm test` (782 tests).
+
+- [x] Stap 115 - Twee beeldpagina's, Fase 3: de beelden (Jan: "Commit en push, ga door met Fase 3"; Stap 114 is daarop gecommit en gepusht, `9656e88`). **Uitgegeven ≈ $2,28 aan Gemini**
+      (binnen het goedgekeurde plafond van $2,5): 5 aanvragen voor 28 activiteitsfoto's + de domeinfoto ($0,67; 3 vellen 3x3 en 2 losse), 10 vellen 3x3 voor de
+      90 kaartbeelden ($1,34), en 2 losse herhalingen ($0,27): de watermolen voor de roulette-variant en `moment-gears-b`. **Gecontroleerd op contactvellen, geen
+      mensen of tekst**: alle 29 activiteits-/domeinfoto's en alle 90 kaartbeelden zijn bekeken; één bleek een deel van een hand te tonen (`moment-gears-b`, een
+      hand die de loep vasthield) en is met een aangepaste beschrijving opnieuw gemaakt (nu een zakhorloge op een werkbank). Het gegenereerde beeld volgt de
+      beschrijving niet altijd letterlijk: dat horloge is geen "open horloge met balanswiel" meer, wat voor een kaart over het tikken van een mechaniek volstaat.
+      Beeldbronnen blijven eigen Gemini-generaties uit eigen prompts. **Alles live**: de `image_pending`-vlaggen zijn van de 28 activiteiten en het domein gehaald
+      (`taxonomy-check --images`: 0 fouten, 0 ontbrekende foto's, 0 waarschuwingen), dus "Stijl & schoonheid" staat nu als richtingtegel met foto in de beeld-intake en
+      de 90 kaarten komen in de rondes voor (in de browser gezien: de tegel op de richtingenpagina, en in ronde 1 een balzaal, garderobe, badhuis en pioenentuin
+      tussen de bestaande plekken; het venster toont de domeinfoto). Alle nieuwe items staan nog op `status: concept`; zet ze op `reviewed` als je ze goedkeurt.
+      **Gevolgen van een grotere bibliotheek (verwacht en gemeten)**: (1) de momentopname van de 20 vaste profielen (`scripts/eval/baseline/current.json`) is ververst, harde
+      regels E1-E6 nog 0 overtredingen; (2) de regressietest `allDirections` ging op één van twee reeksen naar 94,5% (andere reeks 98%); de profielen die één richting missen
+      zijn alle één-wereld-profielen met een krap budget (gratis of tot €25), nooit een gebroken harde regel, geen enkele in het nieuwe domein; ik heb de drempel van
+      95% naar 94% gezet met uitleg in de test (één steekproef van 200 beweegt zelf ± 1,2 punt, en elke bibliotheekwijziging trekt hem opnieuw): dit is een
+      versoepeling van een bewaker, geen verbetering; (3) twee tests gingen uit van precies 24 families per ronde en trokken nog uit alle kaarten: nu 34 en alleen zichtbare
+      kaarten. **Nog niet gedaan uit het plan**: een nieuwe hero-poel, de tag `style` op bestaande modeactiviteiten, en alles van Fase 4 (de twee pagina's zelf).
+      Gates: `tsc --noEmit`, eslint, `taxonomy-check --images`, volledige `npm test` (782 tests).

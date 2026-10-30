@@ -16,7 +16,7 @@ Gegenereerd door `scripts/register-report.ts`. Niet met de hand aanpassen: pas `
 | Rust en natuur | 117 | 22% | 22 | 22% | 66 |
 | **Totaal** | 524 | 100% | 102 | 100% | 306 |
 
-Hiervan wachten **28 activiteiten** (496 zichtbaar) en **90 kaarten** (216 zichtbaar) nog op hun foto en zijn dus nog niet te zien voor bezoekers; het register telt ze wel mee.
+Hiervan wachten **0 activiteiten** (524 zichtbaar) en **0 kaarten** (306 zichtbaar) nog op hun foto en zijn dus nog niet te zien voor bezoekers; het register telt ze wel mee.
 
 ## 2. Activiteiten per richting
 

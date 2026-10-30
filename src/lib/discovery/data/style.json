@@ -32,8 +32,7 @@
     },
     "scene": "A half-finished leather tote bag on a cutting mat with a paper pattern, an awl, a roll of thread and brass buckles, warm studio light.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "portemonnee-maken",
@@ -68,8 +67,7 @@
     },
     "scene": "A hand-stitched leather card holder beside stitching irons, waxed thread and a creasing tool on a wooden bench.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "zijde-schilderen",
@@ -104,8 +102,7 @@
     },
     "scene": "A white silk scarf stretched on a frame with bright dye swirls spreading through the fabric and small pots of colour beside it.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "blokdruk-textiel",
@@ -140,8 +137,7 @@
     },
     "scene": "Carved wooden printing blocks and a linen cloth with a repeating floral print, an ink pad and rolled-up fabric on a table.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "sneakers-customizen",
@@ -176,8 +172,7 @@
     },
     "scene": "A pair of white sneakers half painted with bold colour, acrylic markers, paint pots and brushes spread around them.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "haaraccessoires",
@@ -213,8 +208,7 @@
     },
     "scene": "Handmade hair clips, ribbons and fabric scrunchies spread over a linen cloth with small pearls and scissors.",
     "supply": "common",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "stijladvies",
@@ -250,8 +244,7 @@
     },
     "scene": "Colour draping swatches in warm and cool tones fanned out beside a mirror and a stack of fabric samples.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "make-up-workshop",
@@ -287,8 +280,7 @@
     },
     "scene": "A make-up palette and brushes on a vanity table beside a small round mirror, loose blush powder dusted across the surface, soft light.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "kapsel-vlechten",
@@ -324,8 +316,7 @@
     },
     "scene": "A long braided hairpiece draped over a wooden mannequin head, hair pins, a comb and satin ribbons on a dressing table.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "nagelstyling",
@@ -361,8 +352,7 @@
     },
     "scene": "Rows of nail polish bottles in pastel shades beside tiny gems, fine brushes and a practice tip display on a pale pink marble tray.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "cosmetica-maken",
@@ -397,8 +387,7 @@
     },
     "scene": "Glass jars of homemade skin cream and lip balm with dried petals, beeswax pellets and a small wooden spoon on a linen cloth.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "gezichtsbehandeling",
@@ -432,8 +421,7 @@
     },
     "scene": "A calm treatment room with a rolled white towel on a bed, small glass bottles of serum and a candle, soft morning light.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "parfum-ontdekken",
@@ -469,8 +457,7 @@
     },
     "scene": "Rows of crystal perfume bottles in a shop window with paper testing strips and a small tray of coffee beans to reset the nose.",
     "supply": "common",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "droogbloemen",
@@ -507,8 +494,7 @@
     },
     "scene": "A wreath of dried flowers in dusty pink and ochre, with bundles of lavender and pampas grass on a rustic table.",
     "supply": "common",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "bloemenmarkt",
@@ -544,8 +530,7 @@
     },
     "scene": "Buckets of freshly cut tulips and ranunculus in every colour at a covered flower market stall, early morning light.",
     "supply": "common",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "modeshow",
@@ -581,8 +566,7 @@
     },
     "scene": "A long catwalk lit by spotlights with a row of empty gilded chairs on either side and a shimmering backdrop.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "modemuseum",
@@ -618,8 +602,7 @@
     },
     "scene": "A glass display with an embroidered historic gown on a dress form in a softly lit museum gallery.",
     "supply": "common",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "personal-shopping",
@@ -654,8 +637,7 @@
     },
     "scene": "A boutique rail with carefully chosen dresses on velvet hangers beside a fitting-room curtain and a large mirror.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "capsule-garderobe",
@@ -690,8 +672,7 @@
     },
     "scene": "An open wardrobe sorted by colour, a few folded knits on a shelf and a rail with a small edited set of neutral pieces.",
     "supply": "common",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "fotoshoot",
@@ -726,8 +707,7 @@
     },
     "scene": "A photography studio corner with a paper backdrop, softbox lights and a vintage chair, a camera on a tripod.",
     "supply": "regional",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "moodboard",
@@ -763,7 +743,6 @@
     },
     "scene": "A cork board covered with fabric swatches, magazine clippings, colour chips and a pressed flower, pinned neatly.",
     "supply": "common",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

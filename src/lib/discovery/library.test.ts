@@ -82,8 +82,10 @@ describe("discovery library", () => {
   });
 
   it("leaves out an activity whose photo is pending, and a whole domain whose photo is pending, but still resolves their ids", () => {
+    // The rule itself (nothing in the library may be pending right now, so the rule is also tried on stand-ins).
+    expect(isImagePending({ domain: "movement", image_pending: true })).toBe(true);
+    expect(isImagePending({ domain: "movement" })).toBe(false);
     const pending = ALL_ACTIVITIES.filter((a) => isImagePending(a));
-    expect(pending.length).toBeGreaterThan(0); // Phase 2 of the two-image-pages plan: written, waiting for photos
     for (const a of pending) {
       expect(getActivities().some((x) => x.id === a.id), a.id).toBe(false);
       expect(getActivity(a.id)).toBe(a);

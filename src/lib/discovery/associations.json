@@ -5165,7 +5165,7 @@
       "en": "A dressing room with bulbs around the mirror"
     },
     "scene": "A vanity mirror ringed by warm round bulbs, brushes in a jar, a velvet stool and a rack of costumes behind it.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-dressing-room.jpg",
     "tagWeights": {
       "style": 1,
       "performance": 0.8,
@@ -5189,7 +5189,7 @@
       "en": "A make-up table before the show"
     },
     "scene": "A crowded make-up counter with pots of colour, sponges and a ribbon of sequins, lit by a row of soft bulbs.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-dressing-room-b.jpg",
     "tagWeights": {
       "style": 1,
       "performance": 0.8,
@@ -5213,7 +5213,7 @@
       "en": "A backstage room with costumes"
     },
     "scene": "A narrow backstage room with feathered costumes on a rail, a folding screen and a mirror with a silk robe over its corner.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-dressing-room-c.jpg",
     "tagWeights": {
       "style": 1,
       "performance": 0.8,
@@ -5237,7 +5237,7 @@
       "en": "A ballroom with a chandelier"
     },
     "scene": "A grand empty ballroom with a polished parquet floor, tall windows and a glittering crystal chandelier.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-ballroom.jpg",
     "tagWeights": {
       "rhythm": 0.8,
       "history": 0.6,
@@ -5261,7 +5261,7 @@
       "en": "A staircase with a red carpet"
     },
     "scene": "A sweeping marble staircase with a deep red carpet and gilded banisters, soft evening light.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-ballroom-b.jpg",
     "tagWeights": {
       "rhythm": 0.8,
       "history": 0.6,
@@ -5285,7 +5285,7 @@
       "en": "A village hall with a mirror ball"
     },
     "scene": "A small-town dance hall with a mirror ball, wooden chairs along the walls and paper garlands.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-ballroom-c.jpg",
     "tagWeights": {
       "rhythm": 0.8,
       "history": 0.6,
@@ -5309,7 +5309,7 @@
       "en": "A shop window full of bags and shoes"
     },
     "scene": "A boutique window at dusk with glossy handbags and shoes on tiered velvet shelves, golden reflections.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-shop-window.jpg",
     "tagWeights": {
       "style": 1,
       "color": 0.8,
@@ -5333,7 +5333,7 @@
       "en": "A hat shop"
     },
     "scene": "Shelves and stands of felt hats, ribbons and feathers in a small old-fashioned milliner's shop.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-shop-window-b.jpg",
     "tagWeights": {
       "style": 1,
       "color": 0.8,
@@ -5357,7 +5357,7 @@
       "en": "A rack of silk scarves"
     },
     "scene": "A rail of silk scarves in bold prints hanging in a sunlit boutique, a basket of brooches below.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-shop-window-c.jpg",
     "tagWeights": {
       "style": 1,
       "color": 0.8,
@@ -5381,7 +5381,7 @@
       "en": "A flower shop in the morning"
     },
     "scene": "Buckets of fresh peonies, ranunculus and tulips in front of a flower shop window, morning light, wet stone floor.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-flower-shop.jpg",
     "tagWeights": {
       "color": 0.9,
       "growing": 0.8,
@@ -5405,7 +5405,7 @@
       "en": "A workbench full of flowers and ribbon"
     },
     "scene": "A florist's wooden workbench with stems being sorted, paper wrap, ribbon spools and shears.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-flower-shop-b.jpg",
     "tagWeights": {
       "color": 0.9,
       "growing": 0.8,
@@ -5429,7 +5429,7 @@
       "en": "A greenhouse of blooming plants"
     },
     "scene": "A glasshouse aisle packed with orchids and pelargoniums in bloom under diffused sunlight.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-flower-shop-c.jpg",
     "tagWeights": {
       "color": 0.9,
       "growing": 0.8,
@@ -5453,7 +5453,7 @@
       "en": "A jeweller's with shining display cases"
     },
     "scene": "A glass jewellery counter with necklaces on velvet busts under tiny spotlights, polished wood and brass.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-jeweller.jpg",
     "tagWeights": {
       "style": 1,
       "precision": 0.7,
@@ -5477,7 +5477,7 @@
       "en": "A goldsmith's workbench"
     },
     "scene": "A goldsmith's bench with fine tweezers, a small torch, wire coils and half-finished rings on a leather pad.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-jeweller-b.jpg",
     "tagWeights": {
       "style": 1,
       "precision": 0.7,
@@ -5501,7 +5501,7 @@
       "en": "A box of beads and gemstones"
     },
     "scene": "An open wooden tray divided into compartments filled with beads, cut gemstones and silver clasps.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-jeweller-c.jpg",
     "tagWeights": {
       "style": 1,
       "precision": 0.7,
@@ -5525,7 +5525,7 @@
       "en": "A dance studio with mirrors and a barre"
     },
     "scene": "A bright empty dance studio with a wall of mirrors, a wooden barre and a sprung floor in morning light.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-dance-studio.jpg",
     "tagWeights": {
       "movement": 0.8,
       "rhythm": 0.6,
@@ -5549,7 +5549,7 @@
       "en": "A tango salon"
     },
     "scene": "A dim wood-panelled tango salon with small round tables, a polished floor and a single pendant lamp.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-dance-studio-b.jpg",
     "tagWeights": {
       "movement": 0.8,
       "rhythm": 0.6,
@@ -5573,7 +5573,7 @@
       "en": "A rehearsal room with a mirror wall"
     },
     "scene": "A rehearsal hall with a long mirror wall, a piano in the corner and scuffed floor marks in coloured tape.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-dance-studio-c.jpg",
     "tagWeights": {
       "movement": 0.8,
       "rhythm": 0.6,
@@ -5597,7 +5597,7 @@
       "en": "A tea salon with porcelain"
     },
     "scene": "A marble-top table set with a floral porcelain teapot, cups and a tiered stand of small cakes in a lace-curtained salon.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-tea-salon.jpg",
     "tagWeights": {
       "conviviality": 0.8,
       "retro": 0.7,
@@ -5621,7 +5621,7 @@
       "en": "A conservatory with small tables"
     },
     "scene": "A glass conservatory with wicker chairs, small tables, trailing ferns and a silver teapot.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-tea-salon-b.jpg",
     "tagWeights": {
       "conviviality": 0.8,
       "retro": 0.7,
@@ -5645,7 +5645,7 @@
       "en": "A shelf of cups and dishes"
     },
     "scene": "A tall shelf of mismatched vintage teacups, saucers and cake stands against faded wallpaper.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-tea-salon-c.jpg",
     "tagWeights": {
       "conviviality": 0.8,
       "retro": 0.7,
@@ -5669,7 +5669,7 @@
       "en": "A wardrobe full of dresses"
     },
     "scene": "A walk-in wardrobe with rails of dresses sorted by colour, shoes on shelves and a standing mirror.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-wardrobe.jpg",
     "tagWeights": {
       "style": 1,
       "color": 0.8,
@@ -5693,7 +5693,7 @@
       "en": "An attic with a chest of clothes"
     },
     "scene": "An attic with an open trunk spilling vintage fabrics, hats and scarves in a shaft of dusty light.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-wardrobe-b.jpg",
     "tagWeights": {
       "style": 1,
       "color": 0.8,
@@ -5717,7 +5717,7 @@
       "en": "A fitting room with a curtain"
     },
     "scene": "A boutique fitting room with a velvet curtain half drawn, a gilt mirror and a stool with a folded dress.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-wardrobe-c.jpg",
     "tagWeights": {
       "style": 1,
       "color": 0.8,
@@ -5741,7 +5741,7 @@
       "en": "A garden full of peonies"
     },
     "scene": "A garden bed overflowing with blooming pink and white peonies, bees in the air, soft morning light.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-peony-garden.jpg",
     "tagWeights": {
       "nature": 0.8,
       "color": 0.7,
@@ -5766,7 +5766,7 @@
       "en": "A field of tulips"
     },
     "scene": "A field of tulip rows in red, yellow and pink stretching to a windmill on the horizon.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-peony-garden-b.jpg",
     "tagWeights": {
       "nature": 0.8,
       "color": 0.7,
@@ -5791,7 +5791,7 @@
       "en": "A rose garden with a pergola"
     },
     "scene": "A garden pergola draped in climbing roses with a gravel path leading beneath it.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-peony-garden-c.jpg",
     "tagWeights": {
       "nature": 0.8,
       "color": 0.7,
@@ -5816,7 +5816,7 @@
       "en": "A bathhouse with warm tiles"
     },
     "scene": "A bathhouse pool with mosaic tiles, steam rising and a vaulted ceiling with skylights.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-bathhouse.jpg",
     "tagWeights": {
       "water": 0.8,
       "stillness": 0.7,
@@ -5840,7 +5840,7 @@
       "en": "A quiet room with cushions"
     },
     "scene": "A dim relaxation room with low daybeds, cushions, folded towels and a bowl of floating petals.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-bathhouse-b.jpg",
     "tagWeights": {
       "water": 0.8,
       "stillness": 0.7,
@@ -5864,7 +5864,7 @@
       "en": "A basin with soap and towels"
     },
     "scene": "A stone basin shelf with handmade soaps, rolled white towels, a brush and a sprig of eucalyptus.",
-    "image": "/illustrations/associations/place-antique-parlour.jpg",
+    "image": "/illustrations/associations/place-bathhouse-c.jpg",
     "tagWeights": {
       "water": 0.8,
       "stillness": 0.7,
@@ -5888,7 +5888,7 @@
       "en": "The first dance"
     },
     "scene": "An empty dance floor lit by a single spotlight with a pair of satin shoes at its edge and scattered petals.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-first-dance.jpg",
     "tagWeights": {
       "rhythm": 0.8,
       "movement": 0.6,
@@ -5912,7 +5912,7 @@
       "en": "The music begins"
     },
     "scene": "A vinyl record just touching down on a turntable, glowing lamps and a dance floor blurred behind.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-first-dance-b.jpg",
     "tagWeights": {
       "rhythm": 0.8,
       "movement": 0.6,
@@ -5936,7 +5936,7 @@
       "en": "The last song of the evening"
     },
     "scene": "A deserted dance floor after midnight with confetti on the boards and a mirror ball still turning slowly.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-first-dance-c.jpg",
     "tagWeights": {
       "rhythm": 0.8,
       "movement": 0.6,
@@ -5960,7 +5960,7 @@
       "en": "The fitting"
     },
     "scene": "A dress on a mannequin being pinned at the hem, pins in a cushion and a tape measure draped over the form.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-fitting.jpg",
     "tagWeights": {
       "style": 1,
       "color": 0.6,
@@ -5984,7 +5984,7 @@
       "en": "In front of the mirror in a new coat"
     },
     "scene": "A long camel coat on a hanger hooked on a tall mirror in soft shop light.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-fitting-b.jpg",
     "tagWeights": {
       "style": 1,
       "color": 0.6,
@@ -6008,7 +6008,7 @@
       "en": "Fabric falling across a table"
     },
     "scene": "A length of emerald silk unrolled across a cutting table with tailor's chalk and large scissors.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-fitting-c.jpg",
     "tagWeights": {
       "style": 1,
       "color": 0.6,
@@ -6032,7 +6032,7 @@
       "en": "The mirror before going out"
     },
     "scene": "A hallway mirror reflecting a hung evening dress, a clutch bag and a pair of heels by the door.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-mirror-evening.jpg",
     "tagWeights": {
       "style": 0.9,
       "performance": 0.6,
@@ -6056,7 +6056,7 @@
       "en": "A perfume bottle on the dressing table"
     },
     "scene": "A cut-glass perfume bottle with an atomiser on a dressing table beside lipsticks and earrings.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-mirror-evening-b.jpg",
     "tagWeights": {
       "style": 0.9,
       "performance": 0.6,
@@ -6080,7 +6080,7 @@
       "en": "Just before you leave"
     },
     "scene": "A coat and keys on a hall table under a lamp, a small mirror and a pair of polished shoes ready.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-mirror-evening-c.jpg",
     "tagWeights": {
       "style": 0.9,
       "performance": 0.6,
@@ -6104,7 +6104,7 @@
       "en": "Picking a bouquet"
     },
     "scene": "A basket of freshly picked zinnias, cosmos and sweet peas on a garden path with secateurs on top.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-pick-bouquet.jpg",
     "tagWeights": {
       "color": 0.8,
       "growing": 0.7,
@@ -6128,7 +6128,7 @@
       "en": "Flowers in a vase on the windowsill"
     },
     "scene": "A mixed bouquet in a glass jar on a sunny windowsill with petals fallen on the sill.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-pick-bouquet-b.jpg",
     "tagWeights": {
       "color": 0.8,
       "growing": 0.7,
@@ -6152,7 +6152,7 @@
       "en": "A bunch of tulips in paper"
     },
     "scene": "A paper-wrapped bunch of tulips tied with string, lying on a wooden market table.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-pick-bouquet-c.jpg",
     "tagWeights": {
       "color": 0.8,
       "growing": 0.7,
@@ -6176,7 +6176,7 @@
       "en": "Unwrapping a gift"
     },
     "scene": "A gift box with a loosened silk ribbon and tissue paper half unfolded on a table, a handwritten card beside it.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-unwrap.jpg",
     "tagWeights": {
       "caring": 0.7,
       "conviviality": 0.6,
@@ -6200,7 +6200,7 @@
       "en": "The ribbon coming undone"
     },
     "scene": "A satin ribbon slipping off a wrapped parcel, kraft paper and a sprig of dried flowers.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-unwrap-b.jpg",
     "tagWeights": {
       "caring": 0.7,
       "conviviality": 0.6,
@@ -6224,7 +6224,7 @@
       "en": "A parcel on the doormat"
     },
     "scene": "A small brown paper parcel tied with string on a doormat, with a letter and a bunch of keys.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-unwrap-c.jpg",
     "tagWeights": {
       "caring": 0.7,
       "conviviality": 0.6,
@@ -6248,7 +6248,7 @@
       "en": "The jewel that clicks around your wrist"
     },
     "scene": "A gold bracelet lying clasped on a velvet cushion, a tiny catch of light on its links.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-clasp.jpg",
     "tagWeights": {
       "style": 1,
       "precision": 0.6,
@@ -6272,7 +6272,7 @@
       "en": "A necklace with a pendant"
     },
     "scene": "A fine chain with a small gemstone pendant laid on a fold of black velvet.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-clasp-b.jpg",
     "tagWeights": {
       "style": 1,
       "precision": 0.6,
@@ -6296,7 +6296,7 @@
       "en": "A ring in a box"
     },
     "scene": "An open ring box with a sparkling stone, ribbon and tissue, soft window light.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-clasp-c.jpg",
     "tagWeights": {
       "style": 1,
       "precision": 0.6,
@@ -6320,7 +6320,7 @@
       "en": "Tea being poured"
     },
     "scene": "A stream of amber tea arcing from a spout into a white cup, steam rising, a saucer and lemon slice beside it.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-tea-pour.jpg",
     "tagWeights": {
       "conviviality": 0.7,
       "stillness": 0.6,
@@ -6344,7 +6344,7 @@
       "en": "A biscuit with the coffee"
     },
     "scene": "A saucer with a small biscuit beside a steaming coffee cup on a window table, rain on the glass.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-tea-pour-b.jpg",
     "tagWeights": {
       "conviviality": 0.7,
       "stillness": 0.6,
@@ -6368,7 +6368,7 @@
       "en": "A candle on the dining table"
     },
     "scene": "A tall taper candle burning on a set table with folded napkins and wine glasses.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-tea-pour-c.jpg",
     "tagWeights": {
       "conviviality": 0.7,
       "stillness": 0.6,
@@ -6392,7 +6392,7 @@
       "en": "A braid taking shape"
     },
     "scene": "A thick plait of auburn hair half braided with a ribbon woven through, resting over a chair back.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-braid.jpg",
     "tagWeights": {
       "style": 0.7,
       "caring": 0.6,
@@ -6416,7 +6416,7 @@
       "en": "Hair pins in a row"
     },
     "scene": "A row of pearl hair pins and clips laid out on a mirrored tray with a boar-bristle brush.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-braid-b.jpg",
     "tagWeights": {
       "style": 0.7,
       "caring": 0.6,
@@ -6440,7 +6440,7 @@
       "en": "A brush on a silk pillow"
     },
     "scene": "A wooden hairbrush resting on a silk pillow with a few loose strands of hair and a ribbon.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-braid-c.jpg",
     "tagWeights": {
       "style": 0.7,
       "caring": 0.6,
@@ -6464,7 +6464,7 @@
       "en": "The first snow"
     },
     "scene": "A quiet street lamp and bare branches lightly dusted with fresh snow at dawn, untouched white ground.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-first-snow.jpg",
     "tagWeights": {
       "stillness": 0.8,
       "nature": 0.7,
@@ -6488,7 +6488,7 @@
       "en": "A frozen lake"
     },
     "scene": "A frozen lake with thin cracks in the ice and pale mist at sunrise, reeds frosted white.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-first-snow-b.jpg",
     "tagWeights": {
       "stillness": 0.8,
       "nature": 0.7,
@@ -6512,7 +6512,7 @@
       "en": "Frost on a meadow"
     },
     "scene": "A frosted meadow with sparkling grass blades and a low sun behind a fence.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-first-snow-c.jpg",
     "tagWeights": {
       "stillness": 0.8,
       "nature": 0.7,
@@ -6536,7 +6536,7 @@
       "en": "Gears meshing"
     },
     "scene": "Brass gears meshing inside an open mechanical movement, tiny springs and screws in sharp focus.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-gears.jpg",
     "tagWeights": {
       "precision": 0.8,
       "technique": 0.8,
@@ -6559,8 +6559,8 @@
       "nl": "Een horloge dat tikt",
       "en": "A watch ticking"
     },
-    "scene": "An open watch case with its balance wheel mid-swing under a loupe lamp.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "scene": "An open watch case with its balance wheel mid-swing on a grey bench beside tweezers and a loupe on a stand, no hands in frame.",
+    "image": "/illustrations/associations/moment-gears-b.jpg",
     "tagWeights": {
       "precision": 0.8,
       "technique": 0.8,
@@ -6584,7 +6584,7 @@
       "en": "A screw tightening"
     },
     "scene": "A precision screwdriver bit seating into a screw on a circuit board, shallow focus.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-gears-c.jpg",
     "tagWeights": {
       "precision": 0.8,
       "technique": 0.8,
@@ -6608,7 +6608,7 @@
       "en": "Perfume on your wrist"
     },
     "scene": "A perfume atomiser releasing a fine mist beside a glass bottle and a single white flower on a marble shelf.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-perfume.jpg",
     "tagWeights": {
       "style": 0.9,
       "discovery": 0.6,
@@ -6632,7 +6632,7 @@
       "en": "A scent strip of rose and sandalwood"
     },
     "scene": "Paper scent strips fanned beside a bowl of rose petals, a sandalwood chip and a glass vial.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-perfume-b.jpg",
     "tagWeights": {
       "style": 0.9,
       "discovery": 0.6,
@@ -6656,7 +6656,7 @@
       "en": "A bottle with a golden cap"
     },
     "scene": "A faceted glass bottle with a gold cap catching window light on a mirrored tray.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-perfume-c.jpg",
     "tagWeights": {
       "style": 0.9,
       "discovery": 0.6,
@@ -6680,7 +6680,7 @@
       "en": "The rustle of a long dress"
     },
     "scene": "The train of a long silk gown sweeping a marble floor, folds of fabric in motion.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-long-dress.jpg",
     "tagWeights": {
       "style": 0.9,
       "rhythm": 0.5,
@@ -6704,7 +6704,7 @@
       "en": "A skirt that swirls"
     },
     "scene": "A full tulle skirt caught mid-swirl against a dark background, layers of fabric lifted.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-long-dress-b.jpg",
     "tagWeights": {
       "style": 0.9,
       "rhythm": 0.5,
@@ -6728,7 +6728,7 @@
       "en": "Taffeta and silk"
     },
     "scene": "Bolts of crisp taffeta and silk in jewel colours stacked on a shop table.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-long-dress-c.jpg",
     "tagWeights": {
       "style": 0.9,
       "rhythm": 0.5,
@@ -6752,7 +6752,7 @@
       "en": "Powder and brush"
     },
     "scene": "A large soft brush dusted with pink powder resting on an open compact with a cloud of loose powder.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-powder-brush.jpg",
     "tagWeights": {
       "style": 0.9,
       "color": 0.7,
@@ -6776,7 +6776,7 @@
       "en": "A lipstick twisting open"
     },
     "scene": "A gold lipstick tube with a deep red bullet twisted up, a smudged swatch on a glass surface.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-powder-brush-b.jpg",
     "tagWeights": {
       "style": 0.9,
       "color": 0.7,
@@ -6800,7 +6800,7 @@
       "en": "A palette of eyeshadow"
     },
     "scene": "An open palette of shimmering eyeshadow in plum, gold and taupe with a fine brush laid across.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-powder-brush-c.jpg",
     "tagWeights": {
       "style": 0.9,
       "color": 0.7,
@@ -6824,7 +6824,7 @@
       "en": "The creak of ballet shoes on the floor"
     },
     "scene": "Satin ballet shoes with ribbons laid on a worn wooden studio floor, a rosin box nearby.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-ballet-shoes.jpg",
     "tagWeights": {
       "movement": 0.7,
       "balance": 0.6,
@@ -6848,7 +6848,7 @@
       "en": "A tutu on a hook"
     },
     "scene": "A white tutu hanging on a wall hook beside a barre in blue morning light.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-ballet-shoes-b.jpg",
     "tagWeights": {
       "movement": 0.7,
       "balance": 0.6,
@@ -6872,7 +6872,7 @@
       "en": "The rhythm of tap shoes"
     },
     "scene": "Black tap shoes on a polished stage floor with chalk marks and a spotlight pool.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-ballet-shoes-c.jpg",
     "tagWeights": {
       "movement": 0.7,
       "balance": 0.6,
@@ -6896,7 +6896,7 @@
       "en": "Peonies"
     },
     "scene": "A close-up of ruffled blush-pink peony petals with dew, softly out of focus background.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-peonies.jpg",
     "tagWeights": {
       "color": 0.7,
       "nature": 0.5,
@@ -6920,7 +6920,7 @@
       "en": "Roses in a vase"
     },
     "scene": "A vase of garden roses in apricot and cream beside a window, petals on the table.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-peonies-b.jpg",
     "tagWeights": {
       "color": 0.7,
       "nature": 0.5,
@@ -6944,7 +6944,7 @@
       "en": "Lilac in spring"
     },
     "scene": "Heavy clusters of lilac blossom against a garden wall in morning sun.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-peonies-c.jpg",
     "tagWeights": {
       "color": 0.7,
       "nature": 0.5,
@@ -6968,7 +6968,7 @@
       "en": "Glittering facets"
     },
     "scene": "A cut diamond-like gem throwing small rainbows across a black velvet surface.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-facets.jpg",
     "tagWeights": {
       "style": 0.8,
       "color": 0.7,
@@ -6992,7 +6992,7 @@
       "en": "Crystal in the light"
     },
     "scene": "A cut crystal glass with prismatic light spots across a white tablecloth.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-facets-b.jpg",
     "tagWeights": {
       "style": 0.8,
       "color": 0.7,
@@ -7016,7 +7016,7 @@
       "en": "Sequins on a dress"
     },
     "scene": "A close-up of overlapping silver and gold sequins catching the light on fabric.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-facets-c.jpg",
     "tagWeights": {
       "style": 0.8,
       "color": 0.7,
@@ -7040,7 +7040,7 @@
       "en": "A string quartet starting"
     },
     "scene": "Four music stands and empty chairs with violins and a cello waiting on a small stage, warm light.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-strings.jpg",
     "tagWeights": {
       "sound": 0.9,
       "performance": 0.5,
@@ -7064,7 +7064,7 @@
       "en": "A violin in its case"
     },
     "scene": "An open violin case lined in blue velvet with a bow, rosin and a folded score.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-strings-b.jpg",
     "tagWeights": {
       "sound": 0.9,
       "performance": 0.5,
@@ -7088,7 +7088,7 @@
       "en": "A harp in an empty hall"
     },
     "scene": "A concert harp standing alone in a hall of gilded balconies, soft stage light on its strings.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-strings-c.jpg",
     "tagWeights": {
       "sound": 0.9,
       "performance": 0.5,
@@ -7112,7 +7112,7 @@
       "en": "The leather of a new bag"
     },
     "scene": "A tan leather handbag with a brass clasp on a stone ledge, visible grain and stitching in raking light.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-leather-bag.jpg",
     "tagWeights": {
       "style": 0.8,
       "craft": 0.7,
@@ -7136,7 +7136,7 @@
       "en": "A leather belt with buckle"
     },
     "scene": "Coiled leather belts with brass buckles and a punch on a wooden table.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-leather-bag-b.jpg",
     "tagWeights": {
       "style": 0.8,
       "craft": 0.7,
@@ -7160,7 +7160,7 @@
       "en": "New shoes in a box"
     },
     "scene": "A shoe box with tissue paper and a pair of polished leather shoes just unwrapped.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-leather-bag-c.jpg",
     "tagWeights": {
       "style": 0.8,
       "craft": 0.7,
@@ -7184,7 +7184,7 @@
       "en": "Lavender in the sun"
     },
     "scene": "Rows of lavender in full bloom in warm sun with bees and a haze of purple.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-lavender.jpg",
     "tagWeights": {
       "stillness": 0.7,
       "nature": 0.6,
@@ -7208,7 +7208,7 @@
       "en": "Dried herbs on a beam"
     },
     "scene": "Bundles of dried lavender and herbs hanging from a rustic beam in a kitchen.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-lavender-b.jpg",
     "tagWeights": {
       "stillness": 0.7,
       "nature": 0.6,
@@ -7232,7 +7232,7 @@
       "en": "Soap and a soft towel"
     },
     "scene": "A cake of lavender soap with a folded linen towel and a sprig of lavender on a stone sink.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-lavender-c.jpg",
     "tagWeights": {
       "stillness": 0.7,
       "nature": 0.6,
@@ -7256,7 +7256,7 @@
       "en": "The ticking of a clock"
     },
     "scene": "A grandfather clock dial with brass pointers and a pendulum visible through a glass door in a dim hall.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-ticking-clock.jpg",
     "tagWeights": {
       "precision": 0.8,
       "technique": 0.6,
@@ -7280,7 +7280,7 @@
       "en": "A metronome in motion"
     },
     "scene": "A wooden metronome with its pendulum blurred mid-swing on a piano lid.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-ticking-clock-b.jpg",
     "tagWeights": {
       "precision": 0.8,
       "technique": 0.6,
@@ -7304,7 +7304,7 @@
       "en": "A clockmaker's shop"
     },
     "scene": "A cluttered clockmaker's bench with dozens of small clocks, cogs and loupes under a lamp.",
-    "image": "/illustrations/associations/sense-silk-velvet.jpg",
+    "image": "/illustrations/associations/sense-ticking-clock-c.jpg",
     "tagWeights": {
       "precision": 0.8,
       "technique": 0.6,
