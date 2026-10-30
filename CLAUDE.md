@@ -4068,3 +4068,19 @@ Stripe, Claude API, Resend, PostHog).
       en praktische rij op één scherm), `/plan` in zeven niveaus in plaats van de vier deuren (nu alleen etiket en volgorde van het boek: de
       indeling hoort bij Fase 4), een semantische associatielaag (betekenisketens lopen via tags, gecureerde combinaties en de graaf), de events uit
       Fase 5 en een echte betaalde generatie met de nieuwe activiteiten.
+
+- [x] Stap 111 - Fase 4 van de brief "één route, generatief venster, rijkere aanbevelingen": de betaalde uitvoer eerlijk beschreven (Jan:
+      "Ga door met Fase 4, `/plan` blijft bij vier deuren"). Geen betaalde aanroepen (€0), niet gecommit. **Scope-keuze**: Jan besloot eerder dat er
+      geen gratis resultaten of inspiratie vóór het betalen komen (alleen het venster en het profielportret zijn gratis) en betaalmodel A (één
+      aankoop per plan, zoals nu). De uitvoer zelf (zeven ideeën met niveau, waarom, drie maten, echte plekken, eerste stap, PDF) bestond al sinds
+      Stap 78 en 110; wat ontbrak was dat het bestelblok en de mail dat niet zeiden. **Aangepast**: (1) het bestelblok op het profielscherm
+      (`checkout.whatYouGet`, nl + en) noemt nu de zeven niveaus van vertrouwd tot onontdekt (de laatste als verzegelde wildcard), per idee het
+      waarom, de drie maten (proeven, doen, doorpakken) en een eerste stap, de echte plekken "waar we ze vonden" met kaartlink, en de PDF; nieuwe
+      regel `checkout.freeNote` ("Je venster en je profielportret zijn gratis. Je betaalt één keer voor de uitwerking.") onder de lijst; (2) de
+      bevestigingsmail toont per deur het niveau ("Niveau 3 · Verwant", ook voor de wildcard, in HTML en platte tekst) met dezelfde tekst als `/plan`
+      (`plan.reveal.levelLabel`), en niets voor een boek van vóór de niveaus. `/plan` blijft de vier deuren met het niveau-etiket, zoals besloten.
+      **Niet gebouwd**: gratis niveau-inspiratie (besloten van niet), een extra betaalmodel, de gemengde route en de events van Fase 5. Eerlijkheid:
+      "drie maten" en "echte plekken" gelden voor boeken uit de motor (de beeld-intake gebruikt die altijd); een plek ontbreekt als het onderzoek er
+      geen vond, en de tekst belooft daarom "waar we ze vonden". Getest: `tsc`, eslint, 19 e-mailtests (nieuw: niveaus nl en en, geen niveau zonder
+      data), copytests van het venster; het bestelblok in de browser (via een concept in sessionStorage op het profielscherm) in het Engels op
+      desktopbreedte en in het Nederlands op 375 px bekeken: vier regels plus de gratis/betaald-regel, geen horizontale scroll.

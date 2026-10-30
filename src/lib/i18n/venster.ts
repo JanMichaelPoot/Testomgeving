@@ -158,6 +158,7 @@ export interface VensterDictionary {
     heading: string;
     headingGift: string;
     whatYouGet: string[];
+    freeNote: string; // what stays free, so the one price is clearly for the write-up
   };
   reveal: {
     chose: string; // {list}
@@ -669,10 +670,12 @@ export const vensterNl: VensterDictionary = {
     heading: "Je venster is vol.",
     headingGift: "Het venster voor {name} is vol.",
     whatYouGet: [
-      "Zes deuren en een verzegelde wildcard, gekozen vanuit jouw beelden",
-      "Per idee een echte plek bij jou in de buurt en een eerste stap",
+      "Zeven mogelijkheden in zeven niveaus, van vertrouwd tot onontdekt, de laatste als verzegelde wildcard",
+      "Per idee: waarom het bij je past, drie maten (proeven, doen, doorpakken) en een eerste stap",
+      "Echte plekken in jouw buurt waar we ze vonden, met kaartlink",
       "Een PDF met jouw venster op de cover, ook in je mail",
     ],
+    freeNote: "Je venster en je profielportret zijn gratis. Je betaalt één keer voor de uitwerking.",
   },
   reveal: {
     chose: "Je koos {list}.",
@@ -1175,10 +1178,12 @@ export const vensterEn: VensterDictionary = {
     heading: "Your window is full.",
     headingGift: "The window for {name} is full.",
     whatYouGet: [
-      "Six doors and a sealed wildcard, chosen from your images",
-      "A real place near you and a first step for every idea",
+      "Seven possibilities on seven levels, from familiar to undiscovered, the last one a sealed wildcard",
+      "For each idea: why it fits you, three sizes (taste, do, go deeper) and a first step",
+      "Real places near you where we found them, with a map link",
       "A PDF with your window on the cover, also in your inbox",
     ],
+    freeNote: "Your window and your profile portrait are free. You pay once for the write-up.",
   },
   reveal: {
     chose: "You chose {list}.",

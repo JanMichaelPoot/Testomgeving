@@ -725,6 +725,7 @@ export function AssociationWizard({
                         </li>
                       ))}
                     </ul>
+                    <p className="mt-5 text-xs leading-relaxed text-ink/55">{dict.checkout.freeNote}</p>
                   </div>
                   <div>
                     {payment.paymentFailed && (

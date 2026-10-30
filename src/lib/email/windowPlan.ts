@@ -6,6 +6,7 @@ import type { Locale } from "@/lib/language";
 import { formatAmount } from "@/lib/pricing";
 import { ideaPhoto } from "@/lib/illustrations";
 import { pickOneThingIndex } from "@/lib/possibilityMap";
+import { isDiscoveryLevel, levelName } from "@/lib/discoveryLevels";
 
 // The same pick as the book's "if you only choose one" (easiest to start), and for an older book without
 // scores simply the first idea that has a first step: a mail must never fail because of a missing field.
@@ -59,6 +60,11 @@ export function buildIdeaBookEmail(params: {
   const legalInfoUrl = `${siteUrl}/herroepingsrecht`;
   const wildcardHeading = book.labels.wildcard_heading || dict.wildcardTag;
   const count = book.ideas.length + 1; // the wildcard is a door too
+  // "Niveau 3 · Verwant": the same label as on /plan; a book from before the levels has none, so nothing is shown.
+  const levelOf = (idea: { level?: number }): string | null =>
+    isDiscoveryLevel(idea.level)
+      ? fullDict.plan.reveal.levelLabel.replace("{n}", String(idea.level)).replace("{label}", levelName(idea.level, locale))
+      : null;
   const lead = dict.lead.replace("{count}", String(count));
 
   // The idea the buyer can start with: the one that is easiest to do, same pick as the book's own "one thing".
@@ -74,6 +80,7 @@ export function buildIdeaBookEmail(params: {
       return `<tr>
         <td valign="top" width="${thumb ? 108 : 48}" style="padding:0 ${thumb ? 14 : 12}px 18px 0;">${visual}</td>
         <td valign="top" style="padding:0 0 18px;">
+          ${levelOf(idea) ? `<p style="margin:0 0 3px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:${c.orangeText};">${escapeHtml(levelOf(idea)!)}</p>` : ""}
           <p style="margin:0;font-family:${EMAIL_FONTS.serif};font-size:18px;line-height:1.3;color:${c.navy};font-weight:bold;">${escapeHtml(idea.title)}</p>
           <p style="margin:4px 0 0;font-size:14px;line-height:1.55;color:${c.muted};">${escapeHtml(idea.intro)}</p>
         </td>
@@ -99,7 +106,7 @@ export function buildIdeaBookEmail(params: {
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
           ${wildcardThumb ? `<td valign="top" width="108" style="padding:0 14px 0 0;"><img src="${escapeHtml(wildcardThumb)}" width="96" height="72" alt="" style="display:block;width:96px;height:72px;border:0;border-radius:12px;"></td>` : ""}
           <td valign="top">
-            ${emailEyebrow(wildcardHeading)}
+            ${emailEyebrow([wildcardHeading, levelOf(book.wildcard)].filter(Boolean).join(" · "))}
             <p style="margin:0;font-family:${EMAIL_FONTS.serif};font-size:18px;line-height:1.3;color:${c.navy};font-weight:bold;">${escapeHtml(book.wildcard.title)}</p>
             <p style="margin:4px 0 0;font-size:14px;line-height:1.55;color:${c.ink};">${escapeHtml(book.wildcard.intro)}</p>
           </td>
@@ -173,8 +180,8 @@ export function buildIdeaBookEmail(params: {
     "",
     start && startAction ? `${dict.firstStepHeading.toUpperCase()}\n${dict.firstStepLead}\n${start.title}: ${startAction}\n` : "",
     dict.heading.toUpperCase(),
-    ...book.ideas.map((idea, i) => `${i + 1}. ${idea.title}: ${idea.intro}`),
-    `${wildcardHeading}: ${book.wildcard.title}: ${book.wildcard.intro}`,
+    ...book.ideas.map((idea, i) => `${i + 1}. ${levelOf(idea) ? `[${levelOf(idea)}] ` : ""}${idea.title}: ${idea.intro}`),
+    `${wildcardHeading}${levelOf(book.wildcard) ? ` (${levelOf(book.wildcard)})` : ""}: ${book.wildcard.title}: ${book.wildcard.intro}`,
     "",
     `${dict.orderHeading}: ${dict.orderNumberLabel} ${order.orderNumber}, ${dict.priceLabel} ${price}, ${dict.dateLabel} ${orderDateFormatted}`,
     dict.digitalDeliveryNote,

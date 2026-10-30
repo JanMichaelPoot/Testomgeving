@@ -166,6 +166,22 @@ describe("buildIdeaBookEmail: look and content", () => {
   it("says how many doors there are, the wildcard included", () => {
     expect(buildIdeaBookEmail(params).html).toContain("3 deuren");
   });
+
+  it("names the discovery level of each door, and shows nothing for a book without levels", () => {
+    const withLevels: GeneratedIdeaBook = {
+      ...book,
+      ideas: [idea("Klei & meer", "Intro", { level: 1 }), idea("Tweede", "Intro", { level: 3 })],
+      wildcard: idea("Wildcard", "Gek idee", { level: 7 }),
+    };
+    const nl = buildIdeaBookEmail({ ...params, book: withLevels });
+    expect(nl.html).toContain("Niveau 1 · Vertrouwd");
+    expect(nl.html).toContain("Niveau 3 · Verwant");
+    expect(nl.html).toContain("Niveau 7 · Onontdekt");
+    expect(nl.text).toContain("1. [Niveau 1 · Vertrouwd] Klei & meer");
+    expect(nl.text).toContain("(Niveau 7 · Onontdekt)");
+    expect(buildIdeaBookEmail({ ...params, book: withLevels, locale: "en" }).html).toContain("Level 7 · Undiscovered");
+    expect(buildIdeaBookEmail(params).html).not.toMatch(/Niveau \d/);
+  });
 });
 
 describe("emailImages", () => {
