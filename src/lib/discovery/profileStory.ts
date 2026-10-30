@@ -44,6 +44,8 @@ export interface ProfileInput {
   mustHaves: string;
   gift: boolean;
   name: string;
+  /** Two-page intake: the labels of the activities the person chose themselves on page 2, in the order chosen. */
+  picks?: readonly string[];
 }
 
 export type TensionKind = "tension" | "strong" | "balanced" | "open";
@@ -298,6 +300,12 @@ export function buildProfileStory(input: ProfileInput, copy: Copy): ProfileStory
       .map((x) => x.text);
     if (parts.length) sentences.push(...parts);
     else sentences.push(copy.leanNeutral);
+    // What they chose themselves (two pages): said once, up to three of them, in their own order.
+    const own = (input.picks ?? []).slice(0, 3);
+    if (own.length > 0) {
+      const list = own.length > 1 ? `${own.slice(0, -1).join(", ")} ${copy.and} ${own[own.length - 1]}` : own[0];
+      sentences.push(fill(input.gift ? copy.picksLineGift : copy.picksLine, { ...nameVars, list: list.toLowerCase() }));
+    }
   }
 
   // the tension, or the strongest lean, or the plain fact that nothing leans

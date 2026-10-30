@@ -82,8 +82,14 @@ export function buildWindowItems(answers: Answers, lib: PaneLibrary, dict: Dicti
 
 /** The address of the downloadable picture of this window (ids only, no text). Null when there is nothing to draw. */
 export function windowImageHref(answers: Answers): string | null {
-  const ids = [...(answers.interestDomains ?? []).map((d) => `w:${d}`), ...(answers.associations ?? [])].slice(0, WINDOW_MAX_PANES * 2);
-  const surprise = answers.surpriseMe && (answers.interestDomains ?? []).length === 0;
+  // Two pages: no direction panes, and the chosen activities follow the images as a:<id>.
+  const twoPages = answers.intakeFlow === "images2";
+  const ids = [
+    ...(twoPages ? [] : answers.interestDomains ?? []).map((d) => `w:${d}`),
+    ...(answers.associations ?? []),
+    ...(twoPages ? answers.interests ?? [] : []).map((id) => `a:${id}`),
+  ].slice(0, WINDOW_MAX_PANES * 2);
+  const surprise = answers.surpriseMe && !twoPages && (answers.interestDomains ?? []).length === 0;
   if (ids.length === 0 && !surprise) return null;
   const query = new URLSearchParams();
   if (ids.length) query.set("c", ids.join(","));

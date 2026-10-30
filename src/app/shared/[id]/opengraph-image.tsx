@@ -10,6 +10,7 @@ import { WindowArt, paneDataUris } from "@/lib/windowArt";
 import { WINDOW_HEIGHT, layoutWindow } from "@/lib/windowLayout";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
+import { paneActivities } from "@/lib/discovery/concretePool";
 import { shareCardLine } from "@/lib/shareCard";
 
 // The card WhatsApp, iMessage, Slack, LinkedIn, X and Facebook show when a /shared/[id] link is
@@ -68,7 +69,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
   const items = source
     ? buildWindowItems(
         source,
-        { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })) },
+        { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })), activities: source.intakeFlow === "images2" ? paneActivities(locale) : undefined },
         dict.venster,
       )
     : [];

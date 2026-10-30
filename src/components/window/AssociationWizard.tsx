@@ -452,6 +452,7 @@ export function AssociationWizard({
             mustHaves: [...limitChips, limitText.trim()].filter(Boolean).join("; "),
             gift,
             name,
+            picks: flow2 ? picks.map((id) => poolById.get(id)?.label).filter((l): l is string => !!l) : undefined,
           },
           dict.profile,
         )

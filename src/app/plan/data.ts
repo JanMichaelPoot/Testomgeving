@@ -490,7 +490,7 @@ async function finishPlanGeneration(
     const threadLines: Record<string, string> = {};
     if (profile.intakeVariant === "associations") {
       const all = [...generated.ideas, generated.wildcard];
-      const built = buildAssociationSources(all, profile.associations ?? []);
+      const built = buildAssociationSources(all, profile.associations ?? [], profile.intakeFlow === "images2" ? profile.interests ?? [] : []);
       if (Object.keys(built.sources).length + Object.keys(built.sourceTags).length > 0) {
         associationSources = built;
         const copy = getDictionary(locale).venster;

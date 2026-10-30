@@ -24,7 +24,7 @@ export function IdeaThread({
   if (thread.image) links.push({ key: "image", text: thread.image.label, caption: copy.imageCaption, image: thread.image });
   if (thread.tags.length > 0) links.push({ key: "tags", text: thread.tags.join(" · "), caption: copy.tagsCaption });
   if (thread.path) links.push({ key: "path", text: thread.path, caption: copy.pathCaption });
-  links.push({ key: "door", text: thread.title, caption: copy.doorCaption });
+  links.push({ key: "door", text: thread.title, caption: thread.own ? copy.ownDoorCaption : copy.doorCaption });
   if (thread.place) links.push({ key: "place", text: thread.place, caption: copy.placeCaption });
 
   return (

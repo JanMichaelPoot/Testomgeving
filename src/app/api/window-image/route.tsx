@@ -4,7 +4,8 @@ import path from "node:path";
 import { ImageResponse } from "next/og";
 import sharp from "sharp";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
-import { DOMAINS } from "@/lib/discovery/library";
+import { DOMAINS, getActivity, isImagePending } from "@/lib/discovery/library";
+import { paneActivities } from "@/lib/discovery/concretePool";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { buildWindowItems } from "@/lib/vensterPanes";
 import { WindowArt, WINDOW_GOLD, WINDOW_WALNUT, paneDataUris } from "@/lib/windowArt";
@@ -35,11 +36,23 @@ export async function GET(request: Request) {
   const domainIds = new Set(domains.map((d) => d.id));
   const interestDomains = ids.filter((id) => id.startsWith("w:") && domainIds.has(id.slice(2))).map((id) => id.slice(2));
   const associations = ids.filter((id) => known.has(id));
-  if (interestDomains.length === 0 && associations.length === 0 && !surprise) {
+  // The two-page intake adds the chosen activities as a:<id> (real, visible activities only).
+  const interests = ids
+    .filter((id) => id.startsWith("a:"))
+    .map((id) => id.slice(2))
+    .filter((id) => {
+      const a = getActivity(id);
+      return !!a && a.status !== "retired" && !isImagePending(a);
+    });
+  if (interestDomains.length === 0 && associations.length === 0 && interests.length === 0 && !surprise) {
     return new Response("No window to draw.", { status: 400, headers: { "Cache-Control": "no-store" } });
   }
 
-  const items = buildWindowItems({ interestDomains, associations, surpriseMe: surprise }, { cards: library.cards, domains }, dict.venster);
+  const items = buildWindowItems(
+    { interestDomains, associations, surpriseMe: surprise, ...(interests.length ? { intakeFlow: "images2" as const, interests } : {}) },
+    { cards: library.cards, domains, activities: interests.length ? paneActivities("nl") : undefined },
+    dict.venster,
+  );
   const layout = layoutWindow(items);
   const [uris, logoBytes] = await Promise.all([paneDataUris(layout, SCALE), readFile(path.join(process.cwd(), "public/logo/windowinto-color.png"))]);
   const logo = `data:image/png;base64,${logoBytes.toString("base64")}`;

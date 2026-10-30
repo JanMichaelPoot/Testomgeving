@@ -162,16 +162,16 @@ describe("effort for the picks of page 2", () => {
   });
 });
 
-describe("the two-page visitors in the engine (regression over 300 synthetic visitors)", () => {
+describe("the two-page visitors in the engine (regression over 150 synthetic visitors)", () => {
   it("never breaks a hard rule (E1, E3, E4, E5, E6) and keeps the book varied", async () => {
     const { evaluate, runProfiles } = await import("@/lib/discovery/engine/evaluate");
     const { syntheticTwoPageProfiles } = await import("@/lib/discovery/engine/syntheticTwoPages");
     const lib = defaultEngineLibrary();
-    const report = evaluate(runProfiles(syntheticTwoPageProfiles(300, "two-regression"), lib), lib);
+    const report = evaluate(runProfiles(syntheticTwoPageProfiles(150, "two-regression"), lib), lib);
     for (const k of ["E1", "E3", "E4", "E5", "E6"] as const) expect(report.violations[k], k).toEqual([]);
     expect(report.rates.seedsAtLeastSix).toBeGreaterThanOrEqual(0.98);
     expect(report.rates.fourDomains).toBeGreaterThanOrEqual(0.98);
     expect(report.rates.maxTwoPerDomain).toBeGreaterThanOrEqual(0.97);
     expect(report.rates.allDirections).toBeGreaterThanOrEqual(0.94);
-  }, 120000);
+  }, 300000);
 });

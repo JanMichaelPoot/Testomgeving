@@ -188,12 +188,15 @@ export interface AssociationSources {
   version: 2;
   sources: Record<string, string[]>;
   sourceTags: Record<string, string[]>;
+  /** Two-page intake: the activities of this book that the person chose themselves on page 2 (not derived from the images). */
+  own?: string[];
 }
 
 /** For every idea that came from the library (it has an activity_id): its images and tags. */
 export function buildAssociationSources(
   ideas: readonly { activity_id?: string | null }[],
   chosenIds: readonly string[],
+  ownPicks: readonly string[] = [],
 ): AssociationSources {
   const sources: Record<string, string[]> = {};
   const sourceTags: Record<string, string[]> = {};
@@ -205,7 +208,8 @@ export function buildAssociationSources(
     if (images.length) sources[activity.id] = images;
     if (tags.length) sourceTags[activity.id] = tags;
   }
-  return { version: 2, sources, sourceTags };
+  const own = ideas.map((i) => i.activity_id).filter((id): id is string => !!id && ownPicks.includes(id));
+  return { version: 2, sources, sourceTags, ...(own.length ? { own: [...new Set(own)] } : {}) };
 }
 
 const stringList = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x is string => typeof x === "string").slice(0, 4) : []);
@@ -224,7 +228,10 @@ export function parseAssociationSources(raw: unknown): AssociationSources | null
     }
     return out;
   };
-  if (obj.version === 2) return { version: 2, sources: pick(obj.sources), sourceTags: pick(obj.sourceTags) };
+  if (obj.version === 2) {
+    const own = Array.isArray(obj.own) ? obj.own.filter((x): x is string => typeof x === "string").slice(0, 12) : [];
+    return { version: 2, sources: pick(obj.sources), sourceTags: pick(obj.sourceTags), ...(own.length ? { own } : {}) };
+  }
   // The old shape: just the images per activity.
   const legacy = pick(obj);
   return Object.keys(legacy).length ? { version: 2, sources: legacy, sourceTags: {} } : null;

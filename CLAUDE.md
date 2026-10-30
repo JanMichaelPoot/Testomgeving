@@ -4235,3 +4235,17 @@ Stripe, Claude API, Resend, PostHog).
       "beeld-intake"; swipen op een telefoon bestaat alleen in de oude flow; een Engelstalige doorloop; en een echte, betaalde generatie met `images2` (≈ €0,15) is nog niet gedaan, jouw akkoord nodig. **Getest**: 36 nieuwe
       tests (samplers, register-mix, intake, engine, eerlijke uitleg, vensterkinds, schermen), de e2e voor de vier schermen op 375/390/412 px (13 groen), en in de browser de hele flow tot het profielscherm (18 beelden,
       18 activiteiten met 3 verkenplekken, venster met beelden en keuzes, "Dit kon niet mee" bij bungeejump met budget tot €25). Gates: `tsc --noEmit`, eslint, `taxonomy-check --images`, volledige `npm test` (821 tests).
+
+- [x] Stap 118 - Twee beeldpagina's, Fase 4d (Jan: "Commit en push, ga door met 4d"; 4a-4c zijn gecommit en gepusht, `f70d141`). Geen betaalde aanroepen (€0), niet gecommit.
+      **Gedaan**: (1) **Profielportret**: noemt wat de persoon zelf koos op pagina 2 ("Zelf koos je ook pottenbakken, boulderen en yoga: dat nemen we als vertrekpunt", hooguit drie, ook als
+      cadeauvariant met de naam, nl en en; `ProfileInput.picks`). (2) **De draad "Zo kwamen we hierop"**: een deur die de persoon zelf koos draagt nu die markering (`AssociationSources.own`, opgeslagen
+      met het boek, `IdeaThreadData.own`): in het scherm staat "Door jou gekozen" onder de deur, op de PDF-pagina begint de zin met "Dit koos je zelf."; een afgeleide deur blijft ongewijzigd, en
+      een gekozen activiteit zonder overlap met de beelden houdt toch een draad (alleen die markering). (3) **De downloadafbeelding** (`/api/window-image`, ids `a:<activiteit>` naast de beeld-id's, onbekende
+      genegeerd, alleen zichtbare activiteiten) en **de deelpreview** van `/shared/[id]` tonen nu ook de gekozen activiteiten, alleen als foto's; (de PDF-omslag en het wachtscherm deden dat al). In
+      de browser gezien: de JPEG met drie beelden en twee activiteiten in één venster (134 KB), 400 voor een a-id dat niet bestaat. (4) **Beheer**: het overzicht noemt de flow "beeld-intake (2 pagina's)".
+      (5) **Controle van de flow**: in het Nederlands doorlopen (kop, uitleg, knoppen, drie verkenplekken), "Andere activiteiten" driemaal (daarna verdwijnt de knop, de gekozen activiteiten blijven staan,
+      verder alleen nieuwe), "Andere beelden" (de gekozen beelden blijven, de rest is nieuw). Eerder al in het Engels. **Bewust niet gebouwd**: swipen op een telefoon voor de twee pagina's. Een pagina van
+      18 beelden in drie kolommen past op 375 px (e2e, 13 groen) en swipen door 18 kaarten per pagina is traag; de oude flow houdt zijn swipemodus. Zeg het als je het toch wilt. **Nog open**: een echte, betaalde
+      generatie met `images2` (≈ €0,15) om het boek, de draad en de PDF met echte inhoud te zien, en de vraag uit Stap 117: slechts 40% van de gekozen activiteiten staat in het boek (twee vertrouwde plekken).
+      Nieuwe tests: `twoPages4d.test.ts` (portret, draad en markering, downloadadres). Gates: `tsc --noEmit`, eslint, volledige `npm test` (827 van 828 in een run onder belasting: de regressietest op de tweepagina-bezoekers haalde zijn 120 s niet; nu 150 bezoekers en 300 s, los 56 s voor het hele bestand).
+      **Naar main**: op Jans verzoek is `main` met een fast-forward-push (geen merge-commit, niets overschreven) van `60b4aa7` naar `f70d141` gebracht, zodat windowinto.nl de commits t/m Stap 117 bouwt. Deze Stap 118 staat nog alleen lokaal.

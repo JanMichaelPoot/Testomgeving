@@ -24,6 +24,8 @@ export interface IdeaThreadData {
   title: string;
   /** "Name, City" of the real place, when the idea has one. */
   place: string | null;
+  /** Two-page intake: the person chose this activity themselves (page 2), it was not derived from their images. */
+  own?: boolean;
 }
 
 const tagLabel = (locale: "nl" | "en") => new Map(TAGS.map((t) => [t.id, t.label[locale].toLowerCase()]));
@@ -50,8 +52,9 @@ export function buildIdeaThreads(
       .filter((t) => !card || (card.tagWeights[t] ?? 0) > 0)
       .map((t) => labels.get(t))
       .filter((t): t is string => !!t);
-    // A thread needs at least one thing the person recognises: the image or the words we read.
-    if (!card && tags.length === 0) return;
+    const own = (sources.own ?? []).includes(id);
+    // A thread needs at least one thing the person recognises: the image, the words we read, or that they chose it themselves.
+    if (!card && tags.length === 0 && !own) return;
     const place = idea.location ? [idea.location.name, idea.location.city].filter(Boolean).join(", ") : "";
     // The chain ends at the idea itself; what stands before it is the way our selection got here.
     const via = opts.showPath && idea.chain && idea.chain.length > 1 ? idea.chain.slice(0, -1) : [];
@@ -62,6 +65,7 @@ export function buildIdeaThreads(
       ...(path.length > 0 ? { path: path.join(" → ") } : {}),
       title: idea.title,
       place: place || null,
+      ...(own ? { own: true } : {}),
     };
   };
   ideas.forEach((idea, i) => add(ideaKey(i), idea));
@@ -74,7 +78,9 @@ export function threadSentence(thread: IdeaThreadData | undefined, copy: Diction
   if (!thread) return null;
   const tags = thread.tags.length <= 1 ? thread.tags.join("") : `${thread.tags.slice(0, -1).join(", ")} ${and} ${thread.tags[thread.tags.length - 1]}`;
   const image = thread.image?.label.replace(/^./, (c) => c.toLowerCase());
-  const base = image && tags ? copy.pdfBoth.replace("{image}", image).replace("{tags}", tags) : image ? copy.pdfImage.replace("{image}", image) : tags ? copy.pdfTags.replace("{tags}", tags) : null;
+  const read = image && tags ? copy.pdfBoth.replace("{image}", image).replace("{tags}", tags) : image ? copy.pdfImage.replace("{image}", image) : tags ? copy.pdfTags.replace("{tags}", tags) : null;
+  // Chosen by the person themselves: said first, and the reading of the images comes after as what it adds.
+  const base = thread.own ? (read ? `${copy.pdfOwn} ${read}` : copy.pdfOwn) : read;
   if (!base) return null;
   // V2: the activities in between, said as what they are (derived by us).
   return thread.path ? `${base} ${copy.pdfPath.replace("{path}", thread.path)}` : base;

@@ -105,6 +105,9 @@ export interface VensterDictionary {
       fresh: string;
     };
     leanNeutral: string;
+    /** Two-page intake: the activities they chose themselves; {list} {name}. */
+    picksLine: string;
+    picksLineGift: string;
     openHeadline: string;
     openHeadlineGift: string;
     openStory: string;
@@ -205,10 +208,13 @@ export interface VensterDictionary {
     imageCaption: string;
     tagsCaption: string;
     doorCaption: string;
+    /** Two-page intake: the door is an activity the person chose themselves. */
+    ownDoorCaption: string;
     placeCaption: string;
     pdfBoth: string; // {image} {tags}
     pdfImage: string; // {image}
     pdfTags: string; // {tags}
+    pdfOwn: string;
     // B5 / V2, only shown with KNOWLEDGE_ENGINE_V2: the activities between the image and the door, derived by us.
     pathCaption: string;
     pdfPath: string; // {path}
@@ -536,6 +542,8 @@ export const vensterNl: VensterDictionary = {
       fresh: "Liever iets dat je nog niet kent: de eerste keer is het mooist.",
     },
     leanNeutral: "Er is ruimte voor meerdere kanten, en die laten we zien.",
+    picksLine: "Zelf koos je ook {list}: dat nemen we als vertrekpunt.",
+    picksLineGift: "{name} koos zelf ook {list}: dat nemen we als vertrekpunt.",
     openHeadline: "Het venster staat nog open.",
     openHeadlineGift: "Het venster staat nog open.",
     openStory: "Geen probleem: dan verrassen we je met een mix die je zelf misschien niet had gekozen.",
@@ -772,10 +780,12 @@ export const vensterNl: VensterDictionary = {
     imageCaption: "Jouw beeld",
     tagsCaption: "Wat we erin lazen",
     doorCaption: "De deur die daarbij past",
+    ownDoorCaption: "Door jou gekozen",
     placeCaption: "Echte plek, uit ons onderzoek",
     pdfBoth: "Bij deze deur hoort het beeld ‘{image}’: daarin lazen we {tags}.",
     pdfImage: "Bij deze deur hoort het beeld ‘{image}’.",
     pdfTags: "In de gekozen beelden lazen we {tags}.",
+    pdfOwn: "Dit koos je zelf.",
     pathCaption: "Waar je beelden naartoe wezen: door ons afgeleid, niet door jou gekozen",
     pdfPath: "Onderweg kwamen we langs {path}: dat leiden wij uit je beelden af, het is niet iets dat je zelf koos.",
   },
@@ -1095,6 +1105,8 @@ export const vensterEn: VensterDictionary = {
       fresh: "Something you don't know yet: the first time is the best.",
     },
     leanNeutral: "There's room for more than one side, and we'll show you those.",
+    picksLine: "You also chose {list} yourself: we take that as a starting point.",
+    picksLineGift: "{name} also chose {list}: we take that as a starting point.",
     openHeadline: "Your window is still open.",
     openHeadlineGift: "The window is still open.",
     openStory: "No problem: we'll surprise you with a mix you might not have chosen yourself.",
@@ -1331,10 +1343,12 @@ export const vensterEn: VensterDictionary = {
     imageCaption: "Your image",
     tagsCaption: "What we read in it",
     doorCaption: "The door that fits",
+    ownDoorCaption: "Chosen by you",
     placeCaption: "A real place, from our research",
     pdfBoth: "This door follows from the image ‘{image}’, in which we read {tags}.",
     pdfImage: "This door follows from the image ‘{image}’.",
     pdfTags: "In the chosen images we read {tags}.",
+    pdfOwn: "You chose this yourself.",
     pathCaption: "Where your images pointed: derived by us, not chosen by you",
     pdfPath: "On the way we passed {path}: we derive that from your images, it is not something you picked.",
   },

@@ -283,7 +283,10 @@ export function intakeSummary(rows: readonly IntakeRow[]): IntakeSummary {
     time: topCounts(objs.map((o) => str(o, "timeAvailable")), 8),
     age: topCounts(objs.map((o) => str(o, "ageCategory")), 8),
     company: topCounts(objs.flatMap((o) => list(o, "company")), 8),
-    variants: topCounts(objs.map((o) => (o.intakeVariant === "associations" ? "beeld-intake" : Array.isArray(o.interests) && (o.interests as unknown[]).length ? "kaartenwizard" : "klassiek")), 3),
+    variants: topCounts(
+      objs.map((o) => (o.intakeVariant === "associations" ? (o.intakeFlow === "images2" ? "beeld-intake (2 pagina's)" : "beeld-intake") : Array.isArray(o.interests) && (o.interests as unknown[]).length ? "kaartenwizard" : "klassiek")),
+      4,
+    ),
     gift: objs.filter((o) => typeof o.recipientName === "string" && o.recipientName).length,
   };
 }
