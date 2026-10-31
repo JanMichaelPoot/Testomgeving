@@ -8,6 +8,9 @@
 //   KNOWLEDGE_WRITING_V2  B5: activity-specific fill lines, honest origin wording, the visible chain. The blind comparison
 //                         split 2-2 (Stap 104), so it stays off until a clearer result.
 //
+//   KNOWLEDGE_ANCHOR_PICKS  Stap 125: the anchor model. Four of the person's own page-2 choices are in the book, two ideas are built
+//                         around them, one wildcard. Needs the B4 ranking (it selects with WEIGHTS_ANCHOR, which includes it).
+//
 // The old KNOWLEDGE_ENGINE_V2 still works as "both on", so an existing deployment behaves as before until it is changed.
 //
 // Server side only (plain, non-public environment variables). Components that need to know get the result as a prop.
@@ -37,5 +40,10 @@ export function knowledgeWritingV2Enabled(
 
 /** Whether the legacy flag alone is on (both halves). Kept for the harness and old call sites. */
 export function knowledgeEngineV2Enabled(value: string | undefined = process.env.KNOWLEDGE_ENGINE_V2): boolean {
+  return isOn(value);
+}
+
+/** Stap 125: the anchor model (own picks first). KNOWLEDGE_ANCHOR_PICKS only; the legacy flag does not switch it on. */
+export function knowledgeAnchorEnabled(value: string | undefined = process.env.KNOWLEDGE_ANCHOR_PICKS): boolean {
   return isOn(value);
 }

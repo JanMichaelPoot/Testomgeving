@@ -129,6 +129,7 @@ describe("a chosen activity that a limit rules out is named, not lost", () => {
 
   it("says the same as the engine's own filter: an activity passes exactly when no limit is named, over 400 random limits", () => {
     const rnd = mulberry32(hashSeed("parity"));
+    const mismatches: string[] = [];
     const pick = <T,>(xs: readonly T[]) => xs[Math.floor(rnd() * xs.length)];
     for (let i = 0; i < 400; i++) {
       const c = resolveConstraints({
@@ -144,8 +145,10 @@ describe("a chosen activity that a limit rules out is named, not lost", () => {
         seed: "x",
         month: 1 + Math.floor(rnd() * 12),
       });
-      for (const a of lib.activities) expect(whyNot(a, c) === null, `${a.id} #${i}`).toBe(passesConstraints(a, c).ok);
+      // collected, not asserted per activity: 400 x ~500 expects took a minute and timed out under load
+      for (const a of lib.activities) if ((whyNot(a, c) === null) !== passesConstraints(a, c).ok) mismatches.push(`${a.id} #${i}`);
     }
+    expect(mismatches).toEqual([]);
   });
 });
 

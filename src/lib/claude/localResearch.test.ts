@@ -58,6 +58,60 @@ describe("buildResearchPrompt", () => {
   });
 });
 
+describe("the person's own choices (Stap 124)", () => {
+  const config = { location: "Utrecht", searchDistance: "city", locale: "nl" as const, now: NOW, verify: false as const };
+
+  it("asks for more effort, a little more distance and older evidence for permanent places, only for those", () => {
+    const own = buildResearchPrompt(["high-tea"], "Laren", "city", "nl", NOW, true);
+    expect(own).toContain("chosen by the person themselves");
+    expect(own).toContain("about 25 km");
+    expect(own).toContain("24 for a permanent place");
+    const normal = buildResearchPrompt(["high-tea"], "Laren", "city", "nl", NOW);
+    expect(normal).not.toContain("chosen by the person themselves");
+    expect(normal).not.toContain("25 km");
+    expect(normal).toContain("the last 12 months");
+  });
+
+  it("searches them in their own call, next to the call for the rest, and keeps their empty answers only two days", async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const search = vi.fn(async (ids: string[], _l?: string, _r?: string, _lo?: string, _n?: Date, _own?: boolean) => new Map(ids.map((id) => [id, id === "high-tea" ? [opt("Theehuis")] : []])));
+    const { cache, store } = memoryCache();
+    const puts: { activityId: string; emptyTtlDays?: number }[] = [];
+    const wrapped: ResearchCache = { get: cache.get, put: async (e, p, l) => { puts.push(...e); return cache.put(e, p, l); } };
+    const { byActivity } = await researchSeeds({ ...config, activityIds: ["high-tea", "kralen-rijgen", "pottenbakken"], priorityIds: ["high-tea", "kralen-rijgen"], cache: wrapped, search });
+    expect(search).toHaveBeenCalledTimes(2);
+    const calls = search.mock.calls.map((c) => ({ ids: c[0], own: c[5] }));
+    expect(calls).toContainEqual({ ids: ["high-tea", "kralen-rijgen"], own: true });
+    expect(calls).toContainEqual({ ids: ["pottenbakken"], own: false });
+    expect(byActivity.get("high-tea")?.options).toHaveLength(1);
+    // empty answer for a pick: short memory, own key; for the rest: the usual week, shared key
+    expect(puts.find((p) => p.activityId === "kralen-rijgen")?.emptyTtlDays).toBe(2);
+    expect(puts.find((p) => p.activityId === "pottenbakken")?.emptyTtlDays).toBeUndefined();
+    expect([...store.keys()].some((k) => k.startsWith("kralen-rijgen|") && k.endsWith("|own"))).toBe(true);
+  });
+
+  it("does not trust an empty answer in the shared cache for a pick, but does trust a found one", async () => {
+    const key = `utrecht|city|2026-10|v3`;
+    const { cache } = memoryCache({ [`high-tea|${key}`]: [], [`kralen-rijgen|${key}`]: [opt("Kralenwinkel")] });
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuw")]])));
+    const { byActivity } = await researchSeeds({ ...config, activityIds: ["high-tea", "kralen-rijgen"], priorityIds: ["high-tea", "kralen-rijgen"], cache, search });
+    expect(search).toHaveBeenCalledTimes(1);
+    expect(search.mock.calls[0][0]).toEqual(["high-tea"]);
+    expect(byActivity.get("kralen-rijgen")?.options[0].name).toBe("Kralenwinkel");
+    expect(byActivity.get("high-tea")?.options[0].name).toBe("Nieuw");
+  });
+
+  it("a failure of one call leaves the other call's answer standing", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const search = vi.fn(async (ids: string[], _l: string, _r: string, _lo: string, _n: Date, own?: boolean) => (own ? null : new Map(ids.map((id) => [id, [opt("Klei")]]))));
+    const { byActivity, stats } = await researchSeeds({ ...config, activityIds: ["high-tea", "pottenbakken"], priorityIds: ["high-tea"], cache: null, search: search as never });
+    expect(byActivity.get("high-tea")?.source).toBe("none");
+    expect(byActivity.get("pottenbakken")?.options).toHaveLength(1);
+    expect(stats.failed).toBe(1);
+    vi.restoreAllMocks();
+  });
+});
+
 describe("the research prompt and the date", () => {
   it("tells the model today's date and that only what can be done in the next four weeks counts", () => {
     const text = buildResearchPrompt(["open-water"], "Utrecht", "city", "nl", NOW);

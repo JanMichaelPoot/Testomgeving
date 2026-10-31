@@ -1,6 +1,6 @@
 import { defaultEngineLibrary } from "@/lib/discovery/engine";
 import { selectSeeds, type EngineLibrary } from "@/lib/discovery/engine/select";
-import { WEIGHTS_CURRENT, WEIGHTS_V2, type Weights } from "@/lib/discovery/engine/weights";
+import { WEIGHTS_ANCHOR, WEIGHTS_CURRENT, WEIGHTS_V2, type Weights } from "@/lib/discovery/engine/weights";
 import type { EngineInput, EngineResult } from "@/lib/discovery/engine/types";
 
 // The engines the harness can compare.
@@ -10,7 +10,8 @@ import type { EngineInput, EngineResult } from "@/lib/discovery/engine/types";
 //    the stepwise ranking of WEIGHTS_V2 (diversity step, unknown cost never passes a free budget, measured fit for
 //    "if you only pick one"). Its seeds therefore differ from "current"; the hard limits must not.
 
-export const ENGINE_NAMES = ["current", "v2"] as const;
+//  - "anchor": "v2" plus the anchor model of Stap 125 (four of the person's own picks in the book).
+export const ENGINE_NAMES = ["current", "v2", "anchor"] as const;
 export type EngineName = (typeof ENGINE_NAMES)[number];
 
 export interface EvalEngine {
@@ -26,10 +27,10 @@ export interface EvalEngine {
 export class EngineNotAvailableError extends Error {}
 
 export function getEngine(name: string): EvalEngine {
-  if (name === "current" || name === "v2") {
+  if (name === "current" || name === "v2" || name === "anchor") {
     const library = defaultEngineLibrary();
-    const weights = name === "v2" ? WEIGHTS_V2 : WEIGHTS_CURRENT;
-    return { name, library, select: (input) => selectSeeds(input, library, { weights }), knowledgeV2: name === "v2", weights };
+    const weights = name === "anchor" ? WEIGHTS_ANCHOR : name === "v2" ? WEIGHTS_V2 : WEIGHTS_CURRENT;
+    return { name, library, select: (input) => selectSeeds(input, library, { weights }), knowledgeV2: name !== "current", weights };
   }
   throw new EngineNotAvailableError(`Unknown engine "${name}"; choose one of ${ENGINE_NAMES.join(", ")}.`);
 }

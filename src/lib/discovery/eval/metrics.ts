@@ -3,6 +3,7 @@ import { getActivity, TAGS } from "@/lib/discovery/library";
 import { evaluate, type EvaluateOptions, type Run } from "@/lib/discovery/engine/evaluate";
 import type { EngineLibrary } from "@/lib/discovery/engine/select";
 import { practicality } from "@/lib/discovery/engine/levels";
+import { whyNot } from "@/lib/discovery/engine/droppedPicks";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
 import { pickOneThingIndex } from "@/lib/possibilityMap";
@@ -43,6 +44,21 @@ export interface Metrics {
   levelShare: Record<string, number>;
   /** Fase 3: mean practicality (engine/levels.ts) of the seed on level 1 (Vertrouwd) and level 2 (Praktisch). */
   practicalityByLevel: { level1: number; level2: number };
+  /**
+   * Stap 125: how much of the person's own choices (page 2) end up in the book. Only profiles that chose activities themselves
+   * (`explicitPicks`) count. A choice that a hard limit rules out (budget, season, ...) is not counted against the engine.
+   */
+  pickCoverage: {
+    profiles: number;
+    /** Mean share of the usable choices that are in the book (0..1). */
+    mean: number;
+    /** Mean number of the person's own choices in the book. */
+    meanInBook: number;
+    /** Share of books with at least min(4, usable choices) of the person's own choices in them. */
+    goalMet: number;
+    /** Share of books with no choice of the person's own in them at all. */
+    none: number;
+  };
   activitiesUsed: number;
   topActivity: { id: string; share: number };
   top10Share: number;
@@ -58,6 +74,7 @@ export function computeMetrics(runs: readonly Run[], lib: EngineLibrary, opts: E
   const oneThing = new Map<string, number>();
   const levelCount = new Map<number, number>();
   let levelComplete = 0, p1 = 0, p1n = 0, p2 = 0, p2n = 0;
+  let pickProfiles = 0, pickShareSum = 0, pickInBookSum = 0, pickGoal = 0, pickNone = 0;
   const perActivity = new Map<string, number>();
   const slots = new Map<string, number>();
 
@@ -104,6 +121,21 @@ export function computeMetrics(runs: readonly Run[], lib: EngineLibrary, opts: E
       if (s.level === 2) { p2 += practicality(getActivity(s.activityId)!); p2n++; }
     }
 
+    if (run.profile.input.explicitPicks && run.profile.input.interests.length > 0) {
+      const usable = [...new Set(run.profile.input.interests)].filter((id) => {
+        const a = getActivity(id);
+        return !!a && whyNot(a, run.result.constraints, { explicitPick: true }) === null;
+      });
+      if (usable.length > 0) {
+        const inBook = usable.filter((id) => run.result.seeds.some((s) => s.activityId === id)).length;
+        pickProfiles++;
+        pickShareSum += inBook / usable.length;
+        pickInBookSum += inBook;
+        if (inBook >= Math.min(4, usable.length)) pickGoal++;
+        if (inBook === 0) pickNone++;
+      }
+    }
+
     // "If you only pick one": the real pick function on the real scores, the six regular ideas only.
     const regular = run.result.seeds.filter((s) => s.direction !== "wildcard");
     const entries = regular.map((s) => ({ door: s.door, scores: scoresForSeed(s, getActivity(s.activityId)!), ...(s.fit !== undefined ? { fit: Math.round(s.fit * 100) } : {}) }) as unknown as IdeaBookEntry);
@@ -138,6 +170,7 @@ export function computeMetrics(runs: readonly Run[], lib: EngineLibrary, opts: E
     levelCompleteBooks: share(levelComplete, n),
     levelShare: Object.fromEntries([1, 2, 3, 4, 5, 6, 7].map((l) => [String(l), share(levelCount.get(l) ?? 0, n)])),
     practicalityByLevel: { level1: share(p1, p1n), level2: share(p2, p2n) },
+    pickCoverage: { profiles: pickProfiles, mean: share(pickShareSum, pickProfiles), meanInBook: share(pickInBookSum, pickProfiles), goalMet: share(pickGoal, pickProfiles), none: share(pickNone, pickProfiles) },
     activitiesUsed: perActivity.size,
     topActivity: ranked.length ? { id: ranked[0][0], share: share(ranked[0][1], n) } : { id: "", share: 0 },
     top10Share: share(topSlots, seedTotal),

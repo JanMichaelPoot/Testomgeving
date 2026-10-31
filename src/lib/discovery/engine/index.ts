@@ -9,7 +9,7 @@ import type { EngineInput, EngineResult } from "@/lib/discovery/engine/types";
 
 export { selectSeeds, challenge, agePenalty } from "@/lib/discovery/engine/select";
 export type { EngineLibrary, SelectOptions } from "@/lib/discovery/engine/select";
-export { WEIGHTS_CURRENT, WEIGHTS_V2, type Weights } from "@/lib/discovery/engine/weights";
+export { WEIGHTS_CURRENT, WEIGHTS_V2, WEIGHTS_ANCHOR, type Weights } from "@/lib/discovery/engine/weights";
 export { resolveConstraints, passesConstraints, parseMustHaves } from "@/lib/discovery/engine/constraints";
 export { buildGraph, BRIDGE_MIN } from "@/lib/discovery/engine/graph";
 export { relatedActivitiesIn } from "@/lib/discovery/engine/related";

@@ -52,8 +52,9 @@ export const LAYER_LIMITS = {
   feels_like: 320,
   size_title: 48,
   size_description: 170,
-  size_cost: 32,
-  size_duration: 32,
+  // 32 dropped whole three-size layers for 33-34 characters (the Laren book of 31 Oct 2026: 4 of 7 ideas lost their sizes)
+  size_cost: 42,
+  size_duration: 42,
   next_step: 170,
 } as const;
 

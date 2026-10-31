@@ -164,8 +164,11 @@ describe("the R2.3 layers: a second call next to the ideas", () => {
     const { book } = await run();
     const all = [...book.ideas, book.wildcard];
     const withPlaces = all.filter((i) => i.places?.length);
-    expect(withPlaces).toHaveLength(1);
-    expect(withPlaces[0].places?.map((p) => p.name)).toEqual(["Steck Utrecht", "Kor"]);
+    // The pottery idea itself, plus the idea that is a curated combination with pottery (the providers of both halves count, Stap 125).
+    expect(withPlaces.length).toBeGreaterThanOrEqual(1);
+    expect(withPlaces.length).toBeLessThanOrEqual(2);
+    expect(withPlaces.some((i) => i.activity_id === "pottenbakken")).toBe(true);
+    for (const i of withPlaces) expect(i.places?.map((p) => p.name)).toEqual(["Steck Utrecht", "Kor"]);
     expect(all.some((i) => i.places?.some((p) => p.name === "Verzonnen"))).toBe(false);
   });
 

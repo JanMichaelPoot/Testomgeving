@@ -50,6 +50,11 @@ export function renderReport(file: EvalResultFile): string {
   line(`| Aandeel "social" in alle ideeën | ${pct(m.socialKindShare)} |`);
   line(`| Boeken waarin alle 7 niveaus voorkomen | ${pct(m.levelCompleteBooks)} |`);
   line(`| Uitvoerbaarheid (0-1) van niveau 1 Vertrouwd / niveau 2 Praktisch | ${num(m.practicalityByLevel.level1)} / ${num(m.practicalityByLevel.level2)} |`);
+  if (m.pickCoverage.profiles > 0) {
+    line(`| Eigen keuzes (pagina 2) die in het boek staan | ${pct(m.pickCoverage.mean)} van de bruikbare keuzes, gemiddeld ${num(m.pickCoverage.meanInBook)} per boek (${m.pickCoverage.profiles} profielen) |`);
+    line(`| Boeken met minstens min(4, bruikbare keuzes) eigen keuzes | ${pct(m.pickCoverage.goalMet)} |`);
+    line(`| Boeken zonder één eigen keuze | ${pct(m.pickCoverage.none)} |`);
+  }
   line(`| Verschillende activiteiten gebruikt | ${m.activitiesUsed} |`);
   line(`| Populairste activiteit | ${m.topActivity.id} in ${pct(m.topActivity.share)} van de boeken |`);
   line(`| Top 10 activiteiten, aandeel van alle plekken | ${pct(m.top10Share)} |`);

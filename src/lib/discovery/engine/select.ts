@@ -264,8 +264,30 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     return finish();
   }
 
+  // --- anchor model: the person's own picks are seeds themselves ---------------------------
+  // With three or more usable picks on a concrete page, up to W.anchor.picks of them come first (spread over worlds and
+  // sub-domains by preference, never by a hard cap: they are the person's own choices), and the remaining slots are built
+  // around them. With fewer picks the ordinary structure below already puts them in the two familiar slots.
+  const usablePicks = pool.filter((a) => pickSet.has(a.id));
+  const anchored = !!input.explicitPicks && W.anchor.picks > 0 && usablePicks.length >= 3;
+  if (anchored) {
+    const want = Math.min(W.anchor.picks, usablePicks.length);
+    for (let i = 0; i < want; i++) {
+      let top: Cand | null = null;
+      for (const a of usablePicks) {
+        if (used.has(a.id)) continue;
+        // a different world and sub-domain is preferred, a second one from the same is still fine
+        const score = rnd() * W.familiar.noise - W.familiar.spreadPerSameDomain * (domainCount.get(a.domain) ?? 0) - (subUsed.has(a.sub) ? 0.2 : 0) - redundancy(a);
+        if (!top || score > top.score) top = { a, score };
+      }
+      if (!top) break;
+      commit(top.a, "familiar");
+    }
+    notes.push(`anchor_picks:${seeds.length}`);
+  }
+
   // --- familiar x2 ---------------------------------------------------------------------
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < (anchored ? 0 : 2); i++) {
     const cands: Cand[] = [];
     for (const a of pool) {
       const picked = pickSet.has(a.id);
@@ -342,8 +364,8 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     } else notes.push("direction_missing:unexpected");
   }
 
-  // --- adjacent x2 ---------------------------------------------------------------------
-  for (let i = 0; i < 2; i++) {
+  // --- adjacent x2 (x1 around the anchored picks) ----------------------------------------------
+  for (let i = 0; i < (anchored ? 1 : 2); i++) {
     const set = (lo: number, hi: number, minBridge: number) => () =>
       pool
         .filter((a) => !pickSet.has(a.id) && rel(a) >= lo && rel(a) < hi && bestBridgeTo(a) >= minBridge)
@@ -362,8 +384,8 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     commit(found.top.a, "adjacent", from ? { chain: [from.id, found.top.a.id], via: graph.shared(from, found.top.a).slice(0, 2) } : {});
   }
 
-  // --- stretch x1: turn up one facet they did not fix ------------------------------------
-  {
+  // --- stretch x1: turn up one facet they did not fix (not needed once four of their own picks are in) ------------------
+  if (!anchored || seeds.length < 6) {
     const scale = WILDNESS[input.practicalToWild] ?? 1;
     // The reference is the most physically demanding pick, so "more" means more than that.
     const p0 = [...refs].sort((x, y) => (y.intensity ?? 0) - (x.intensity ?? 0) || rnd() - 0.5)[0];

@@ -45,6 +45,13 @@ export interface Weights {
   strictFreeCost: boolean;
   /** Seeds carry `fit` (measured relevance, 0..1) and `reasons[]` (which signals led to them). */
   explain: boolean;
+  /**
+   * Stap 125, the anchor model. With the person's own picks on a concrete page (EngineInput.explicitPicks) and at least three of
+   * them usable, up to `picks` of them are seeds themselves (instead of two "familiar" slots), the rest of the book is built
+   * around them (one adjacent, one unexpected, a stretch only when fewer than `picks` fit) and the wildcard stays separate.
+   * 0 = off (every set but WEIGHTS_ANCHOR).
+   */
+  anchor: { picks: number };
 }
 
 export const WEIGHTS_CURRENT: Weights = {
@@ -60,6 +67,7 @@ export const WEIGHTS_CURRENT: Weights = {
   wildcard: { bridge: 2, newWorld: 2, redundancyFactor: 4, ageDecay: 2, baseRare: 0.5, supplyDecay: 3 },
   strictFreeCost: false,
   explain: false,
+  anchor: { picks: 0 },
 };
 
 export const WEIGHTS_V2: Weights = {
@@ -73,6 +81,12 @@ export const WEIGHTS_V2: Weights = {
   familiar: { ...WEIGHTS_CURRENT.familiar, practicalBonus: 0.3 },
   strictFreeCost: true,
   explain: true,
+};
+
+/** B4 plus the anchor model: four of the person's own choices are in the book (Jan, 31 Oct 2026: 4 own + 2 anchored + 1 wildcard). */
+export const WEIGHTS_ANCHOR: Weights = {
+  ...WEIGHTS_V2,
+  anchor: { picks: 4 },
 };
 
 /** Doors and directions are listed here only so the type stays close to the weights that use them. */

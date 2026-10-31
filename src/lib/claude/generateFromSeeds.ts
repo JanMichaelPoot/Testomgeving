@@ -7,7 +7,7 @@ import type { IntakeAnswers } from "@/app/intake/actions";
 import type { CharacterProfile } from "@/lib/characterProfile";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { checkFill, fillConflicts, fillContext, repeatedOpenings, type IdeaFill } from "@/lib/claude/ideaFill";
-import { knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
+import { knowledgeAnchorEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import {
   LOCATION_SCHEMA,
   PRACTICAL_SCHEMA,
@@ -21,7 +21,7 @@ import { researchSeeds, type LocalOption, type ResearchStats, type SeedResearch 
 import { currentMonth, describeToday, isoDateNL } from "@/lib/discovery/season";
 import { editionDate, type Season } from "@/lib/seasonEdition";
 import { engineInputFromIntake, relatedActivities, runEngine } from "@/lib/discovery/engine";
-import { WEIGHTS_V2 } from "@/lib/discovery/engine/weights";
+import { WEIGHTS_ANCHOR, WEIGHTS_V2 } from "@/lib/discovery/engine/weights";
 import {
   normalizeFeelsLike,
   normalizeNextStep,
@@ -157,7 +157,7 @@ For every idea:
 - sizes: exactly three, in this order: (1) a taste: the cheapest real way to try it, about one hour and never
   more than ninety minutes; (2) a day: about half a day, the proper first experience; (3) further: a weekend, a
   course or a series, for when they love it. Each has a title (max ~4 words), description (one sentence, max ~16
-  words), estimated_cost and duration (both short, max ~25 characters).
+  words), estimated_cost and duration (both short: at most 25 characters each, count them; "vanaf €15" is better than a sentence).
 - next_step: one sentence (max ~18 words): what to do after the first time (a second go, the next level,
   joining something).
 
@@ -297,6 +297,7 @@ function seedBlock(
   chosenImages: readonly string[] = [],
   honest = false,
   explicitPicks = false,
+  ownPick = false,
 ): string {
   const a = getActivity(seed.activityId)!;
   // Image intake: the chosen image that lies behind this idea, for "Omdat je X koos".
@@ -316,6 +317,8 @@ function seedBlock(
             `${o.rating ? ` [rated ${o.rating.score}/5${o.rating.reviews !== null ? `, ${o.rating.reviews} reviews` : ""}, ${o.rating.source}]` : ""}${o.url ? ` — ${o.url}` : ""}`,
         )
         .join("\n")
+    : ownPick && needsProvider(a)
+      ? "    NONE FOUND near this person, but the person chose this activity themselves, so it stays. Say so plainly in one sentence (no provider could be verified near them) and do not name, claim or imply any venue, club or provider; keep the location null. Make the idea doable anyway: the easy way in above, the exact words to search for or the question to ask, and where it makes sense a version they can do themselves or a free first taste."
     : needsProvider(a)
       ? "    NONE FOUND near this person: do not name, claim or imply that any venue, club, hall or provider exists there. Keep the location null and write the idea as something to find out first (ask whether anyone near them offers it), never as a place to go."
       : "    none verified: keep this idea's location null and its steps generic (Google Maps, Meetup, an exact search)";
@@ -548,6 +551,31 @@ function buildEntry(
   };
 }
 
+/** The activities to research for these seeds: each seed's own and, for a curated combination, the other half too (Stap 125). */
+export function researchIds(seeds: readonly Seed[]): string[] {
+  const ids = new Set<string>();
+  for (const s of seeds) {
+    ids.add(s.activityId);
+    if (s.hybrid && getActivity(s.hybrid.partnerId)) ids.add(s.hybrid.partnerId);
+  }
+  return [...ids];
+}
+
+/**
+ * What the research found for one seed. A curated combination ("high tea at a country estate") is offered by the providers of
+ * BOTH halves, so the options of its partner activity count too; before, only the seed's own half was looked at and the other
+ * half's providers were lost (the Laren test book, 31 Oct 2026).
+ */
+export function seedResearch(seed: Seed, byActivity: ReadonlyMap<string, SeedResearch>): SeedResearch | undefined {
+  const own = byActivity.get(seed.activityId);
+  const partner = seed.hybrid && seed.hybrid.partnerId !== seed.activityId ? byActivity.get(seed.hybrid.partnerId) : undefined;
+  if (!partner || partner.options.length === 0) return own;
+  const key = (o: LocalOption) => `${o.name}|${o.city}`.toLowerCase();
+  const seen = new Set((own?.options ?? []).map(key));
+  const options = [...(own?.options ?? []), ...partner.options.filter((o) => !seen.has(key(o)))];
+  return { activityId: seed.activityId, options, source: own?.source === "search" || partner.source === "search" ? "search" : (own?.source ?? partner.source) };
+}
+
 /**
  * Seeds that only make sense with someone else's offer (a class, a rental, a club: they cost money or need
  * supervision) and for which a research pass, which really ran, found no verifiable option. A failed research
@@ -556,7 +584,7 @@ function buildEntry(
 export function seedsWithoutSupply(seeds: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>): Seed[] {
   return seeds.filter((seed) => {
     const a = getActivity(seed.activityId);
-    const r = byActivity.get(seed.activityId);
+    const r = seedResearch(seed, byActivity);
     if (!a || !r || r.source === "none") return false;
     return needsProvider(a) && r.options.length === 0;
   });
@@ -572,6 +600,16 @@ export function needsProvider(a: Activity): boolean {
 
 /** Rounds of replacing ideas whose provider could not be found. The last round only allows activities that need none. */
 export const SUPPLY_ROUNDS = 2;
+
+/**
+ * The activities the person chose themselves (page 2 of the two-page intake, or the cards of the card wizard). Never swapped
+ * for something else because no provider was found: they stay in the book, honestly described. In the image intake of the
+ * older kind the interests are only derived from images, so nothing is protected there.
+ */
+export function explicitPickIds(intake: Pick<IntakeAnswers, "interests" | "intakeFlow" | "intakeVariant">): string[] {
+  const own = intake.intakeFlow === "images2" || !intake.intakeVariant;
+  return own ? [...new Set(intake.interests ?? [])].filter((id) => !!getActivity(id)) : [];
+}
 
 const addStats = (a: ResearchStats, b: ResearchStats): ResearchStats => ({
   cached: a.cached + b.cached,
@@ -605,7 +643,8 @@ export async function generateIdeaBookFromSeeds(
 ): Promise<{ book: GeneratedIdeaBook; report: SeedPipelineReport }> {
   // KNOWLEDGE_ENGINE_V2 (off by default): B4 ranking weights for the selection, B5 fill lines and honest wording for the writing.
   // Two flags (D9): B4 ranking and B5 writing are switched on separately.
-  const ranking = knowledgeRankingV2Enabled();
+  const anchor = knowledgeAnchorEnabled();
+  const ranking = knowledgeRankingV2Enabled() || anchor;
   const v2 = knowledgeWritingV2Enabled();
   // 1. Select the seeds, for the month the person is asking in (seasonal activities are never suggested out of season).
   // A seasonal edition shifts "today" to a date in that season, so the selection, the research, the prompt and the quality gate all agree.
@@ -613,20 +652,22 @@ export async function generateIdeaBookFromSeeds(
   const month = currentMonth(now);
   const selectionSeed = opts.sessionId ?? `${Date.now()}`;
   const select = (exclude: readonly string[]) =>
-    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude }), ranking ? { weights: WEIGHTS_V2 } : undefined);
+    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude }), anchor ? { weights: WEIGHTS_ANCHOR } : ranking ? { weights: WEIGHTS_V2 } : undefined);
   let engine: EngineResult = select([]);
   if (engine.seeds.length < 6) throw new Error("The selection engine could not find enough activities for this profile.");
   await opts.onProgress?.("selected", { ideas: engine.seeds.length });
 
   // 2. Research, grouped and cached (once, outside the retry loop below).
+  const ownPicks = new Set(explicitPickIds(intake));
   const researchFor = (seedList: readonly Seed[], known?: ReadonlyMap<string, SeedResearch>) =>
     researchSeeds({
-      activityIds: seedList.map((s) => s.activityId),
+      activityIds: researchIds(seedList),
       location: intake.location,
       searchDistance: intake.searchDistance,
       locale,
       known,
       now,
+      priorityIds: [...ownPicks],
     });
   let research = await researchFor(engine.seeds);
 
@@ -635,30 +676,44 @@ export async function generateIdeaBookFromSeeds(
   // passed along). If the replacement does not do better, the first selection stays.
   // Only real offers are shown (Jan: "alleen reële mogelijkheden in de betreffende plek"): a second round replaces what is
   // still without a provider, and in that last round only activities that need nobody's offer are allowed at all.
+  // What the person chose themselves is never swapped out (Stap 124): without a provider it stays, described honestly. Only the
+  // ideas the engine added on its own are replaced, and the engine keeps every pick it had selected (a replacement that loses one is refused).
   const notes = [...engine.notes];
   const tried: string[] = [];
+  const unsupported = (seeds: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>) =>
+    seedsWithoutSupply(seeds, byActivity).filter((s) => !ownPicks.has(s.activityId));
   for (let round = 1; round <= SUPPLY_ROUNDS; round++) {
-    const noSupply = seedsWithoutSupply(engine.seeds, research.byActivity);
+    const noSupply = unsupported(engine.seeds, research.byActivity);
     if (noSupply.length === 0) break;
     tried.push(...noSupply.map((s) => s.activityId));
     const lastRound = round === SUPPLY_ROUNDS;
-    const exclude = lastRound ? [...tried, ...ALL_ACTIVITIES.filter(needsProvider).map((a) => a.id)] : tried;
+    // The last round only allows activities that need nobody's offer. It must not throw out what already has an offer or was chosen:
+    // those stay eligible, so the rest of the selection hardly moves.
+    const keep = new Set([...ownPicks, ...engine.seeds.filter((s) => !noSupply.includes(s)).map((s) => s.activityId)]);
+    const exclude = lastRound ? [...tried, ...ALL_ACTIVITIES.filter((a) => needsProvider(a) && !keep.has(a.id)).map((a) => a.id)] : tried;
     const retry = select(exclude);
     if (retry.seeds.length < 6) {
       notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
       break;
     }
     const retryResearch = await researchFor(retry.seeds, research.byActivity);
-    if (seedsWithoutSupply(retry.seeds, retryResearch.byActivity).length < noSupply.length) {
+    // A replacement may swap one of the person's picks for another one (a pick without a provider for a pick with one), but it may
+    // never leave the book with fewer of their picks than it had.
+    const picksIn = (seeds: readonly Seed[]) => seeds.filter((s) => ownPicks.has(s.activityId)).length;
+    const lostPick = picksIn(retry.seeds) < picksIn(engine.seeds);
+    if (!lostPick && unsupported(retry.seeds, retryResearch.byActivity).length < noSupply.length) {
       notes.push(...noSupply.map((s) => `replaced_no_local_offer:${s.activityId}`));
       engine = retry;
       research = { byActivity: retryResearch.byActivity, stats: addStats(research.stats, retryResearch.stats) };
     } else {
-      // No better: keep what we have, but still try the last round (only activities that need nobody's offer).
+      // No better (or it would cost the person one of their own choices): keep what we have and try the last round.
       research = { ...research, stats: addStats(research.stats, retryResearch.stats) };
+      if (lostPick) notes.push(`replacement_refused_would_lose_pick`);
       if (lastRound) notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
     }
   }
+  // The picks that stay without a provider: said plainly in the book (see seedBlock), noted here for the log and the harness.
+  for (const s of seedsWithoutSupply(engine.seeds, research.byActivity)) if (ownPicks.has(s.activityId)) notes.push(`pick_without_provider:${s.activityId}`);
   const seeds = engine.seeds;
   // Only what was really found: distinct places over all seven ideas (name + city).
   const foundPlaces = new Set<string>();
@@ -682,7 +737,7 @@ ${formatProfile(intake, characterProfile)}
 
 The seven ideas (in this order; Idea ${seeds.length} is the wildcard):
 
-${seeds.map((s, i) => seedBlock(s, i, research.byActivity.get(s.activityId), locale, chosenImages, honestOrigin, explicitPicks)).join("\n\n")}`;
+${seeds.map((s, i) => seedBlock(s, i, seedResearch(s, research.byActivity), locale, chosenImages, honestOrigin, explicitPicks, ownPicks.has(s.activityId))).join("\n\n")}`;
   const user = `${shared}
 
 Call the create_idea_book tool exactly once: ${seeds.length - 1} entries in "ideas" (Ideas 1-${seeds.length - 1}, same order) plus the wildcard entry for Idea ${seeds.length}.`;
@@ -787,14 +842,14 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   const ideas = (raw.ideas as unknown[]).map((r, i) => {
     const seed = regular[i];
     layerIssues(`idea${i + 1}`, seed);
-    const checked = checkEntry(buildEntry(r, seed, research.byActivity.get(seed.activityId), relatedFor(seed), layerFor(seed), fillFor(`idea${i + 1}`, seed)), research.byActivity.get(seed.activityId)?.options ?? [], allHosts);
+    const checked = checkEntry(buildEntry(r, seed, seedResearch(seed, research.byActivity), relatedFor(seed), layerFor(seed), fillFor(`idea${i + 1}`, seed)), seedResearch(seed, research.byActivity)?.options ?? [], allHosts);
     issues.push(...checked.issues.map((x) => `idea${i + 1}:${x}`));
     return checked.entry;
   });
   layerIssues("wildcard", wild);
   const wildChecked = checkEntry(
-    buildEntry(raw.wildcard, wild, research.byActivity.get(wild.activityId), relatedFor(wild), layerFor(wild), fillFor("wildcard", wild)),
-    research.byActivity.get(wild.activityId)?.options ?? [],
+    buildEntry(raw.wildcard, wild, seedResearch(wild, research.byActivity), relatedFor(wild), layerFor(wild), fillFor("wildcard", wild)),
+    seedResearch(wild, research.byActivity)?.options ?? [],
     allHosts,
   );
   issues.push(...wildChecked.issues.map((x) => `wildcard:${x}`));
