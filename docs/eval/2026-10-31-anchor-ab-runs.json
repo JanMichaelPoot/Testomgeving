@@ -1,0 +1,169 @@
+{
+ "without": [
+  {
+   "id": "E1",
+   "run": {
+    "usd": 0.10062999999999998,
+    "seconds": 62.244,
+    "issues": [
+     "idea1:unverified_website:museumbuurtspoorweg.nl",
+     "idea4:unverified_website:sudoku.com",
+     "idea4:unverified_website:sudoku.com",
+     "idea5:sizes_dropped (4 sizes instead of 3)",
+     "qa:grammar_fixed (2)",
+     "qa_remaining:type_setting@wildcard"
+    ],
+    "fillCount": 7
+   },
+   "seeds": [
+    "stoomtrein",
+    "bergtoppen-afvinken",
+    "raadsels",
+    "sudoku",
+    "high-tea",
+    "plogging",
+    "moodboard"
+   ],
+   "notes": [
+    "replaced_no_local_offer:magneetvissen",
+    "replaced_no_local_offer:schaduwtheater",
+    "pick_without_provider:bergtoppen-afvinken"
+   ]
+  },
+  {
+   "id": "L1",
+   "run": {
+    "usd": 0.10103300000000001,
+    "seconds": 65.731,
+    "issues": [
+     "qa:grammar_fixed (6)",
+     "qa_remaining:type_setting@idea1",
+     "qa_remaining:type_setting@idea4"
+    ],
+    "fillCount": 7
+   },
+   "seeds": [
+    "parfum-ontdekken",
+    "high-tea",
+    "strandjutten",
+    "capsule-garderobe",
+    "buitenplaats",
+    "fossielen",
+    "dammen"
+   ],
+   "notes": [
+    "replaced_no_local_offer:grotten-verkennen",
+    "replaced_no_local_offer:groundhoppen",
+    "replaced_no_local_offer:re-enactment"
+   ]
+  },
+  {
+   "id": "L2",
+   "run": {
+    "usd": 0.10100000000000003,
+    "seconds": 58.754,
+    "issues": [
+     "qa:idea5:time_chip_from_activity",
+     "qa:grammar_fixed (2)"
+    ],
+    "fillCount": 7
+   },
+   "seeds": [
+    "pluktuin",
+    "bloemenmarkt",
+    "archief",
+    "stadswandeling",
+    "instrument",
+    "fossielen",
+    "citizen-science"
+   ],
+   "notes": [
+    "replaced_no_local_offer:tas-maken",
+    "replaced_no_local_offer:katapult-schieten"
+   ]
+  }
+ ],
+ "with": [
+  {
+   "id": "E1",
+   "run": {
+    "usd": 0.09987,
+    "seconds": 58.2,
+    "issues": [
+     "idea4:fill_dropped (suggestions has 4 lines instead of 3)",
+     "wildcard:location_not_in_research:Café De Vluchte",
+     "qa:grammar_fixed (1)"
+    ],
+    "fillCount": 6
+   },
+   "seeds": [
+    "bergtoppen-afvinken",
+    "escape-doos",
+    "stoomtrein",
+    "buitenplaats",
+    "raadsels",
+    "high-tea",
+    "backgammon"
+   ],
+   "notes": [
+    "anchor_picks:4",
+    "pick_without_provider:bergtoppen-afvinken",
+    "pick_without_provider:buitenplaats"
+   ]
+  },
+  {
+   "id": "L1",
+   "run": {
+    "usd": 0.10307,
+    "seconds": 59.893,
+    "issues": [
+     "qa:wildcard:time_chip_from_activity",
+     "qa_remaining:type_setting@idea1",
+     "qa_remaining:type_setting@idea5"
+    ],
+    "fillCount": 7
+   },
+   "seeds": [
+    "parfum-ontdekken",
+    "high-tea",
+    "kralen-rijgen",
+    "magneetvissen",
+    "capsule-garderobe",
+    "buitenplaats",
+    "munten-zegels"
+   ],
+   "notes": [
+    "anchor_picks:4",
+    "replaced_no_local_offer:grotten-verkennen",
+    "pick_without_provider:kralen-rijgen",
+    "pick_without_provider:magneetvissen"
+   ]
+  },
+  {
+   "id": "L2",
+   "run": {
+    "usd": 0.25371299999999986,
+    "seconds": 90.782,
+    "issues": [],
+    "fillCount": 7
+   },
+   "seeds": [
+    "pluktuin",
+    "middeleeuws-banket",
+    "bloemenmarkt",
+    "archief",
+    "sterrenkijken",
+    "fossielen",
+    "repair-cafe"
+   ],
+   "notes": [
+    "anchor_picks:3",
+    "replaced_no_local_offer:hist-dans",
+    "replaced_no_local_offer:boogparcours-3d",
+    "replaced_no_local_offer:radioamateur",
+    "replaced_no_local_offer:personal-shopping",
+    "pick_without_provider:middeleeuws-banket"
+   ]
+  }
+ ]
+}
