@@ -7,7 +7,7 @@ import type { IntakeAnswers } from "@/app/intake/actions";
 import type { CharacterProfile } from "@/lib/characterProfile";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { checkFill, fillConflicts, fillContext, repeatedOpenings, type IdeaFill } from "@/lib/claude/ideaFill";
-import { knowledgeAnchorEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
+import { concreteOptionsRequired, knowledgeAnchorEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import {
   LOCATION_SCHEMA,
   PRACTICAL_SCHEMA,
@@ -581,12 +581,12 @@ export function seedResearch(seed: Seed, byActivity: ReadonlyMap<string, SeedRes
  * supervision) and for which a research pass, which really ran, found no verifiable option. A failed research
  * pass is not counted: an outage is not proof that nothing exists.
  */
-export function seedsWithoutSupply(seeds: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>): Seed[] {
+export function seedsWithoutSupply(seeds: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>, requireAll = false): Seed[] {
   return seeds.filter((seed) => {
     const a = getActivity(seed.activityId);
     const r = seedResearch(seed, byActivity);
     if (!a || !r || r.source === "none") return false;
-    return needsProvider(a) && r.options.length === 0;
+    return (requireAll || needsProvider(a)) && r.options.length === 0;
   });
 }
 
@@ -621,6 +621,8 @@ const addStats = (a: ResearchStats, b: ResearchStats): ResearchStats => ({
 
 export interface SeedPipelineReport {
   seeds: Seed[];
+  /** How many of the ideas carry at least one concrete, verified option (a place or an online provider), and how many a rating. */
+  options?: { ideas: number; withOption: number; withRating: number };
   notes: string[];
   research: { cached: number; searched: number; failed: number; dropped?: number };
   issues: string[];
@@ -671,6 +673,25 @@ export async function generateIdeaBookFromSeeds(
     });
   let research = await researchFor(engine.seeds);
 
+  // Every idea needs a concrete, real option (Jan, 31 Oct 2026). An idea with nothing near the person gets one second chance: a
+  // provider that serves anyone in the Netherlands from a website (an online course, a webshop with a kit, a national club, an app).
+  const requireOptions = concreteOptionsRequired();
+  const onlineTried = new Set<string>();
+  const withOnline = async (seedList: readonly Seed[], base: typeof research): Promise<typeof research> => {
+    if (!requireOptions) return base;
+    const lacking = [...new Set(seedList.filter((s) => (seedResearch(s, base.byActivity)?.options.length ?? 0) === 0 && !onlineTried.has(s.activityId)).map((s) => s.activityId))];
+    if (lacking.length === 0) return base;
+    for (const id of lacking) onlineTried.add(id);
+    const online = await researchSeeds({ activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online" });
+    const merged = new Map(base.byActivity);
+    for (const id of lacking) {
+      const found = online.byActivity.get(id);
+      if (found && found.options.length > 0) merged.set(id, { activityId: id, options: found.options, source: "search" });
+    }
+    return { byActivity: merged, stats: addStats(base.stats, online.stats) };
+  };
+  research = await withOnline(engine.seeds, research);
+
   // 2b. An idea that needs somebody's offer (a class, a rental, a club) but for which nothing real could be found near
   // this person is replaced by the next-best activity, once, and only the new ones are researched (the others are
   // passed along). If the replacement does not do better, the first selection stays.
@@ -681,7 +702,7 @@ export async function generateIdeaBookFromSeeds(
   const notes = [...engine.notes];
   const tried: string[] = [];
   const unsupported = (seeds: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>) =>
-    seedsWithoutSupply(seeds, byActivity).filter((s) => !ownPicks.has(s.activityId));
+    seedsWithoutSupply(seeds, byActivity, requireOptions).filter((s) => !ownPicks.has(s.activityId));
   for (let round = 1; round <= SUPPLY_ROUNDS; round++) {
     const noSupply = unsupported(engine.seeds, research.byActivity);
     if (noSupply.length === 0) break;
@@ -690,13 +711,15 @@ export async function generateIdeaBookFromSeeds(
     // The last round only allows activities that need nobody's offer. It must not throw out what already has an offer or was chosen:
     // those stay eligible, so the rest of the selection hardly moves.
     const keep = new Set([...ownPicks, ...engine.seeds.filter((s) => !noSupply.includes(s)).map((s) => s.activityId)]);
+    // The last round still only takes activities that need nobody's offer (walks, puzzles, things at home): those have an online or
+    // national option to point to, which is what "every idea needs a concrete option" falls back on.
     const exclude = lastRound ? [...tried, ...ALL_ACTIVITIES.filter((a) => needsProvider(a) && !keep.has(a.id)).map((a) => a.id)] : tried;
     const retry = select(exclude);
     if (retry.seeds.length < 6) {
       notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
       break;
     }
-    const retryResearch = await researchFor(retry.seeds, research.byActivity);
+    const retryResearch = await withOnline(retry.seeds, await researchFor(retry.seeds, research.byActivity));
     // A replacement may swap one of the person's picks for another one (a pick without a provider for a pick with one), but it may
     // never leave the book with fewer of their picks than it had.
     const picksIn = (seeds: readonly Seed[]) => seeds.filter((s) => ownPicks.has(s.activityId)).length;
@@ -714,6 +737,8 @@ export async function generateIdeaBookFromSeeds(
   }
   // The picks that stay without a provider: said plainly in the book (see seedBlock), noted here for the log and the harness.
   for (const s of seedsWithoutSupply(engine.seeds, research.byActivity)) if (ownPicks.has(s.activityId)) notes.push(`pick_without_provider:${s.activityId}`);
+  // What still has no option at all, after the local and the online pass: said, never hidden.
+  for (const s of engine.seeds) if ((seedResearch(s, research.byActivity)?.options.length ?? 0) === 0) notes.push(`no_option:${s.activityId}`);
   const seeds = engine.seeds;
   // Only what was really found: distinct places over all seven ideas (name + city).
   const foundPlaces = new Set<string>();
@@ -885,7 +910,10 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   const book = gate.book;
   issues.push(...gate.log.map((l) => `qa:${l}`), ...gate.remaining.map((r) => `qa_remaining:${r.code}@${r.where}`));
 
-  const report: SeedPipelineReport = { seeds, notes, research: research.stats, issues, qa: { found: gate.foundBefore, remaining: gate.remaining } };
+  const optionsOf = (s: Seed) => seedResearch(s, research.byActivity)?.options ?? [];
+  const optionsCoverage = { ideas: seeds.length, withOption: seeds.filter((s) => optionsOf(s).length > 0).length, withRating: seeds.filter((s) => optionsOf(s).some((o) => o.rating)).length };
+  console.log(`WINDOW: options per idea: ${optionsCoverage.withOption}/${optionsCoverage.ideas} with a concrete option, ${optionsCoverage.withRating} with a rating`);
+  const report: SeedPipelineReport = { seeds, notes, research: research.stats, options: optionsCoverage, issues, qa: { found: gate.foundBefore, remaining: gate.remaining } };
   console.log(
     `WINDOW: seed pipeline: ${seeds.map((s) => `${s.direction}:${s.activityId}`).join(", ")} | issues: ${issues.length ? issues.join("; ") : "none"}`,
   );

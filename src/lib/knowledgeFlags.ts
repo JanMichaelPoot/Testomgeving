@@ -43,7 +43,23 @@ export function knowledgeEngineV2Enabled(value: string | undefined = process.env
   return isOn(value);
 }
 
-/** Stap 125: the anchor model (own picks first). KNOWLEDGE_ANCHOR_PICKS only; the legacy flag does not switch it on. */
+/**
+ * Stap 125: the anchor model (own picks first). On by default since Jan chose it in the blind comparison (31 Oct 2026, 3 of 3 profiles);
+ * KNOWLEDGE_ANCHOR_PICKS=0 (or false/off/no) switches it off. The legacy flag has nothing to do with it.
+ */
 export function knowledgeAnchorEnabled(value: string | undefined = process.env.KNOWLEDGE_ANCHOR_PICKS): boolean {
-  return isOn(value);
+  const v = (value ?? "").trim().replace(/^["']|["']$/g, "").toLowerCase();
+  if (v === "") return true;
+  return !["0", "false", "off", "no"].includes(v);
+}
+
+/**
+ * Every idea must carry a concrete, verified option (a place near the person, or failing that an online or national provider with a
+ * website), best rated first. Jan, 31 Oct 2026. On by default; REQUIRE_CONCRETE_OPTIONS=0 switches the extra online pass and the
+ * replacing of ideas without an option off again.
+ */
+export function concreteOptionsRequired(value: string | undefined = process.env.REQUIRE_CONCRETE_OPTIONS): boolean {
+  const v = (value ?? "").trim().replace(/^["']|["']$/g, "").toLowerCase();
+  if (v === "") return true;
+  return !["0", "false", "off", "no"].includes(v);
 }

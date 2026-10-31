@@ -73,7 +73,7 @@ export function envChecks(env: Env): EnvCheck[] {
   add("TEST_QUOTA_EXEMPT_IPS", true, exempt ? `${exempt} adres(sen) zonder testlimiet` : "niet ingesteld: alleen ingelogd als admin ben je onbeperkt", false);
   add("Kennisengine: ranking (B4)", true, knowledgeRankingV2Enabled(env.KNOWLEDGE_RANKING_V2, env.KNOWLEDGE_ENGINE_V2) ? "aan (KNOWLEDGE_RANKING_V2 of het oude KNOWLEDGE_ENGINE_V2)" : "uit", false);
   add("Kennisengine: schrijven (B5)", true, knowledgeWritingV2Enabled(env.KNOWLEDGE_WRITING_V2, env.KNOWLEDGE_ENGINE_V2) ? "aan (KNOWLEDGE_WRITING_V2 of het oude KNOWLEDGE_ENGINE_V2)" : "uit", false);
-  add("Kennisengine: eigen keuzes eerst (anker)", true, knowledgeAnchorEnabled(env.KNOWLEDGE_ANCHOR_PICKS) ? "aan (KNOWLEDGE_ANCHOR_PICKS): vier eigen keuzes in het boek" : "uit", false);
+  add("Kennisengine: eigen keuzes eerst (anker)", true, knowledgeAnchorEnabled(env.KNOWLEDGE_ANCHOR_PICKS) ? "aan (standaard; uit met KNOWLEDGE_ANCHOR_PICKS=0): vier eigen keuzes in het boek" : "uit (KNOWLEDGE_ANCHOR_PICKS staat op uit)", false);
   const priceTest = parsePriceTest(env.PRICE_TEST);
   add("PRICE_TEST", !(has(env.PRICE_TEST) && !priceTest), has(env.PRICE_TEST) ? (priceTest ? `aan: ${variantIds(priceTest).join(", ")} (bezoekers krijgen na toestemming voor analytics een variant)` : "PROBLEEM: de waarde klopt niet (JSON met prijzen in centen, 100-10000), dus de test staat UIT") : "uit (iedereen betaalt de gewone prijs)", false);
   add("SEASONAL_EDITION", true, seasonalEditionEnabled(env.SEASONAL_EDITION) ? "aan (een follow-uplink met ?season= schrijft het boek voor dat seizoen)" : "uit", false);

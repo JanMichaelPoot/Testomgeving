@@ -40,8 +40,11 @@ const MAX_CANDIDATES = 6;
 // prior (4.0, worth 20 reviews) before options are compared. An unknown review count counts as 3.
 const PRIOR_SCORE = 4.0;
 const PRIOR_WEIGHT = 20;
-/** Rated this low (after the pull) an option is only kept when nothing better exists. */
-const POOR_SCORE = 3.5;
+/**
+ * Rated below this (after the pull) an option is only kept when nothing better exists. Jan (31 Oct 2026): the options shown must be
+ * the highly rated ones, so the bar is 4.0, the same as the prior: an option the reviews put under it gives way to one above it.
+ */
+const POOR_SCORE = 4.0;
 
 export function adjustedScore(r: Rating): number {
   const n = r.reviews ?? 3;
@@ -255,6 +258,46 @@ Finish with one JSON code block, exactly this shape:
 \`\`\``;
 }
 
+/**
+ * The second chance for an idea with no option near the person (Jan, 31 Oct 2026: every idea needs a concrete, real option): providers
+ * that serve anyone in the Netherlands from a website: an online course or class, a shop with a starter kit, a national club or
+ * association with a website, an app or platform. Same honesty rules as the local pass: it must exist, be operating now and really
+ * offer the activity to beginners; a rating only when a search result showed it; the best rated first.
+ */
+export function buildOnlinePrompt(activityIds: string[], location: string, locale: Locale, now: Date = new Date()): string {
+  const language = locale === "nl" ? "Dutch" : "English";
+  const lines = activityIds.map((id, i) => {
+    const a = getActivity(id);
+    return `${i + 1}. id "${id}": ${a?.label.nl ?? id} (${a?.label.en ?? id}).`;
+  });
+  return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). The person lives near ${location || "the Netherlands"}.
+Nothing was found NEAR them for the activities below. For each one, find up to 3 real, currently operating options that someone in the
+Netherlands can use from home or by post/delivery, or that a national organisation offers through a website: an online course or
+class, a shop or webshop with a beginner kit, a national club or association (with local chapters) with a website, an app or a platform.
+Write the notes in ${language} (translate what you take from a website; keep names as they are).
+
+An option only counts when ALL of these are true:
+- Its own official website, or a source from the last 12 months, shows that it exists and is operating now (not closed, parked, "coming soon").
+- It really offers this activity to beginners, or the material to start it, not something merely similar.
+- It can actually be used by someone in the Netherlands (it ships to, or runs for, people there).
+If the activity cannot sensibly be done or started online or by post (it needs a venue, a licence or an instructor on site), or nothing
+verifiable exists, give an empty options list. An empty answer is a good answer; never invent a name or URL.
+
+Ratings: when a search result shows a review score (Trustpilot, Google, the shop's own page, an app store, ...), give it as
+"rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Trustpilot"} (scale 5 or 10; "reviews" null when not stated). Never estimate or
+remember a score: "rating" is null when the results show none. When more than 3 qualify, keep the 3 with the highest ratings (more reviews counts for more).
+Write "Online" as the city for something that is used from home, "Nederland" for a national organisation, or the real city of a local chapter.
+
+Activities:
+${lines.join("\n")}
+
+Give the website exactly as it appeared. The note is one short line: what it is and, only when the source states them, prices.
+Finish with one JSON code block, exactly this shape:
+\`\`\`json
+[{"activity_id": "<id>", "options": [{"name": "...", "city": "Online", "url": "https://...", "note": "...", "until": null, "rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Trustpilot"}}]}]
+\`\`\``;
+}
+
 /** Options from the model or the cache; with `today` (YYYY-MM-DD) the ones whose last day has passed are left out. */
 export function cleanOptions(raw: unknown, today?: string): LocalOption[] {
   if (!Array.isArray(raw)) return [];
@@ -343,6 +386,37 @@ async function searchOnce(
   return parseResearchAnswer(text, activityIds, isoDateNL(now));
 }
 
+/** The online/national second pass (see buildOnlinePrompt). Same tool, same parsing, a smaller budget of searches. */
+async function searchOnlineOnce(
+  activityIds: string[],
+  location: string,
+  _radius: string,
+  locale: Locale,
+  now: Date = new Date(),
+): Promise<Map<string, LocalOption[]> | null> {
+  const startedAt = Date.now();
+  const message = await anthropic.messages.create({
+    model: RESEARCH_MODEL,
+    max_tokens: 3000,
+    system: SYSTEM,
+    messages: [{ role: "user", content: buildOnlinePrompt(activityIds, location, locale, now) }],
+    tools: [
+      {
+        type: "web_search_20250305",
+        name: "web_search",
+        max_uses: Math.min(4, Math.max(2, activityIds.length)),
+      } as Anthropic.Messages.WebSearchTool20250305,
+    ],
+  });
+  const searches = message.content.filter((b) => b.type === "server_tool_use" && b.name === "web_search").length;
+  console.log(`WINDOW: online research pass took ${Date.now() - startedAt}ms, ${searches} web searches for ${activityIds.length} activities (${RESEARCH_MODEL}), usage=${JSON.stringify(message.usage)}`);
+  const text = message.content
+    .filter((b): b is Anthropic.TextBlock => b.type === "text")
+    .map((b) => b.text)
+    .join("\n");
+  return parseResearchAnswer(text, activityIds, isoDateNL(now));
+}
+
 /**
  * Real local options for the given activities near this person. Cached answers are used
  * as they are; everything else is researched together in one call and stored.
@@ -367,6 +441,11 @@ export async function researchSeeds(opts: {
    * answer from the shared cache is not trusted for them: it came from a call that had to share its few searches with the whole book.
    */
   priorityIds?: readonly string[];
+  /**
+   * "online": the second chance for ideas with nothing near the person (providers that serve anyone in the Netherlands from a website).
+   * Its answers are cached under their own key (the place hardly matters, but the month does).
+   */
+  mode?: "online";
 }): Promise<{ byActivity: Map<string, SeedResearch>; stats: ResearchStats }> {
   const startedAt = Date.now();
   const { activityIds, location, searchDistance, locale } = opts;
@@ -377,7 +456,8 @@ export async function researchSeeds(opts: {
   // The cache is kept per month: what is open or running in June says nothing about December.
   // "v2": the notes are now always in the book's language; older cached notes could be in the language of the website.
   // "v3": options now carry ratings and passed the stricter "is it really open" rules; older answers are not trusted.
-  const cacheKey = `${place}|${today.slice(0, 7)}|v3`;
+  const online = opts.mode === "online";
+  const cacheKey = `${online ? "online" : place}|${today.slice(0, 7)}|v3${online ? "|online" : ""}`;
   const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 
@@ -416,7 +496,7 @@ export async function researchSeeds(opts: {
   const batch = async (ids: string[], own: boolean) => {
     if (ids.length === 0) return;
     try {
-      const found = await (opts.search ?? searchOnce)(ids, location, radius, locale, now, own);
+      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own);
       if (!found) throw new Error("the research answer could not be read");
       await Promise.all(
         ids.map(async (id) => {
@@ -431,7 +511,7 @@ export async function researchSeeds(opts: {
         }),
       );
       await cache?.put(
-        ids.map((id) => ({ activityId: id, options: byActivity.get(id)?.options ?? [], ...(own ? { emptyTtlDays: PICK_EMPTY_TTL_DAYS } : {}) })),
+        ids.map((id) => ({ activityId: id, options: byActivity.get(id)?.options ?? [], ...(own || online ? { emptyTtlDays: PICK_EMPTY_TTL_DAYS } : {}) })),
         own ? ownKey : cacheKey,
         locale,
       );
