@@ -51,14 +51,21 @@ export function repairStringifiedFields(input: unknown, label = "tool"): unknown
     if (typeof value !== "string") continue;
     const text = value.trim();
     if (!/^[[{]/.test(text)) continue;
-    try {
-      const parsed: unknown = JSON.parse(text);
-      if (parsed && typeof parsed === "object") {
-        out[key] = parsed;
-        console.warn(`WINDOW: ${label}: field "${key}" came back as a JSON string and was parsed`);
+    const attempts = [text];
+    // valid JSON followed by stray text (a trailing remark): try again up to the last closing bracket
+    const close = text.lastIndexOf(text[0] === "[" ? "]" : "}");
+    if (close > 0 && close < text.length - 1) attempts.push(text.slice(0, close + 1));
+    for (const attempt of attempts) {
+      try {
+        const parsed: unknown = JSON.parse(attempt);
+        if (parsed && typeof parsed === "object") {
+          out[key] = parsed;
+          console.warn(`WINDOW: ${label}: field "${key}" came back as a JSON string and was parsed${attempt === text ? "" : " (stray text after it was dropped)"}`);
+          break;
+        }
+      } catch {
+        // not JSON after all: leave it
       }
-    } catch {
-      // not JSON after all: leave it
     }
   }
   return out;

@@ -21,6 +21,7 @@ const value = (name: string) => {
   return i >= 0 ? args[i + 1] : undefined;
 };
 
+const variant = value("variant") ?? "anchor"; // "anchor": without/with the anchor; "indirect": anchor on in both, without/with the indirect slot
 const SESSIONS: { id: string; prefix: string; title: string }[] = [
   { id: "990a18c4", prefix: "E1", title: "Enschede, vrienden, stoomtrein en escape" },
   { id: "93b8053a", prefix: "L1", title: "Laren, partner, parfum en kralen" },
@@ -60,7 +61,7 @@ async function main() {
   const pdfs: Record<string, { without?: Uint8Array; with?: Uint8Array }> = {};
   const profiles: Record<"without" | "with", EvalProfileResult[]> = { without: [], with: [] };
   // Every finished book is saved at once, so an interrupted run never loses what was already paid for.
-  const ckpt = path.resolve("scratch/anchor-ab-checkpoint");
+  const ckpt = path.resolve(variant === "indirect" ? "scratch/indirect-ab-checkpoint" : "scratch/anchor-ab-checkpoint");
   mkdirSync(ckpt, { recursive: true });
   const loadCheckpoints = () => {
     for (const f of readdirSync(ckpt).filter((x) => x.endsWith(".json"))) {
@@ -95,8 +96,14 @@ async function main() {
         break;
       }
       process.env.KNOWLEDGE_ENGINE_V2 = "1";
-      if (arm === "with") process.env.KNOWLEDGE_ANCHOR_PICKS = "1";
-      else delete process.env.KNOWLEDGE_ANCHOR_PICKS;
+      if (variant === "indirect") {
+        delete process.env.KNOWLEDGE_ANCHOR_PICKS; // on by default
+        process.env.KNOWLEDGE_INDIRECT_SLOT = arm === "with" ? "1" : "0";
+      } else {
+        delete process.env.KNOWLEDGE_INDIRECT_SLOT;
+        if (arm === "with") process.env.KNOWLEDGE_ANCHOR_PICKS = "1";
+        else process.env.KNOWLEDGE_ANCHOR_PICKS = "0";
+      }
       const before = meter.spent;
       const startedAt = Date.now();
       console.log(`writing ${s.prefix} (${arm} anchor) ...`);
@@ -155,7 +162,7 @@ async function main() {
     ({ engine: (engine === "with" ? "anchor" : "v2") as EvalResultFile["engine"], mode: "full", source: `anchor-ab ${date}`, generatedAt: new Date().toISOString(), metrics: {} as EvalResultFile["metrics"], profiles: profiles[engine].filter((p) => both.includes(p.id)) });
   const first = file("without");
   const second = file("with");
-  const seed = value("seed") ?? "anchor-ronde-1";
+  const seed = value("seed") ?? (variant === "indirect" ? "indirect-ronde-1" : "anchor-ronde-1");
   const sheet = buildBlindSheet(first, second, { seed });
   writeFileSync(path.join(outDir, `blind-${seed}.html`), sheet.html);
   writeFileSync(path.join(outDir, `blind-${seed}.key.json`), JSON.stringify(sheet.key, null, 1) + "\n");
@@ -167,7 +174,7 @@ async function main() {
     }
   }
   // The measured numbers per pair, for the report to Jan (not shown to the rater).
-  writeFileSync(path.join(outDir, `${date}-anchor-ab-runs.json`), JSON.stringify({ without: first.profiles.map((p) => ({ id: p.id, run: p.run, seeds: p.seeds.map((s) => s.activityId), notes: p.notes })), with: second.profiles.map((p) => ({ id: p.id, run: p.run, seeds: p.seeds.map((s) => s.activityId), notes: p.notes })) }, null, 1) + "\n");
+  writeFileSync(path.join(outDir, `${date}-${variant}-ab-runs.json`), JSON.stringify({ without: first.profiles.map((p) => ({ id: p.id, run: p.run, seeds: p.seeds.map((s) => s.activityId), notes: p.notes })), with: second.profiles.map((p) => ({ id: p.id, run: p.run, seeds: p.seeds.map((s) => s.activityId), notes: p.notes })) }, null, 1) + "\n");
   console.log(`sheet: docs/eval/blind-${seed}.html | key (do not open yet): docs/eval/blind-${seed}.key.json | PDFs: docs/eval/books-blind/<id>-A.pdf / -B.pdf`);
 }
 

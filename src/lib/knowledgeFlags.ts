@@ -54,6 +54,16 @@ export function knowledgeAnchorEnabled(value: string | undefined = process.env.K
 }
 
 /**
+ * Stap 127: the indirect slot of the anchor model (the one non-picked idea comes from the picks' own interest cluster). On by default;
+ * KNOWLEDGE_INDIRECT_SLOT=0 switches it off so the two can be compared blind. Only meaningful with the anchor on.
+ */
+export function knowledgeIndirectEnabled(value: string | undefined = process.env.KNOWLEDGE_INDIRECT_SLOT): boolean {
+  const v = (value ?? "").trim().replace(/^["']|["']$/g, "").toLowerCase();
+  if (v === "") return true;
+  return !["0", "false", "off", "no"].includes(v);
+}
+
+/**
  * Every idea must carry a concrete, verified option (a place near the person, or failing that an online or national provider with a
  * website), best rated first. Jan, 31 Oct 2026. On by default; REQUIRE_CONCRETE_OPTIONS=0 switches the extra online pass and the
  * replacing of ideas without an option off again.

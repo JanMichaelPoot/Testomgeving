@@ -7,7 +7,7 @@ import type { IntakeAnswers } from "@/app/intake/actions";
 import type { CharacterProfile } from "@/lib/characterProfile";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { checkFill, fillConflicts, fillContext, repeatedOpenings, type IdeaFill } from "@/lib/claude/ideaFill";
-import { concreteOptionsRequired, knowledgeAnchorEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
+import { concreteOptionsRequired, knowledgeAnchorEnabled, knowledgeIndirectEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import {
   LOCATION_SCHEMA,
   PRACTICAL_SCHEMA,
@@ -654,7 +654,7 @@ export async function generateIdeaBookFromSeeds(
   const month = currentMonth(now);
   const selectionSeed = opts.sessionId ?? `${Date.now()}`;
   const select = (exclude: readonly string[]) =>
-    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude }), anchor ? { weights: WEIGHTS_ANCHOR } : ranking ? { weights: WEIGHTS_V2 } : undefined);
+    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude }), anchor ? { weights: knowledgeIndirectEnabled() ? WEIGHTS_ANCHOR : { ...WEIGHTS_ANCHOR, anchor: { ...WEIGHTS_ANCHOR.anchor, indirect: false } } } : ranking ? { weights: WEIGHTS_V2 } : undefined);
   let engine: EngineResult = select([]);
   if (engine.seeds.length < 6) throw new Error("The selection engine could not find enough activities for this profile.");
   await opts.onProgress?.("selected", { ideas: engine.seeds.length });
@@ -807,6 +807,11 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
       const split = splitCoreAnswer(candidate, seeds.length);
       if (!split) {
         const n = Array.isArray(candidate.ideas) ? candidate.ideas.length : "no list";
+        // Say what the field actually was: this has cost whole retries before and the shape is the only clue to why.
+        if (!Array.isArray(candidate.ideas)) {
+          const shape = candidate.ideas === undefined ? "missing" : typeof candidate.ideas === "string" ? `string "${candidate.ideas.slice(0, 160)}"` : `${typeof candidate.ideas} with keys ${Object.keys(candidate.ideas as object).slice(0, 8).join(",")}`;
+          console.warn(`WINDOW: ideas field was not a list: ${shape}`);
+        }
         throw new Error(`Claude did not return the expected number of ideas (ideas: ${n}, wildcard: ${candidate.wildcard ? "yes" : "no"}). Please try again.`);
       }
       if ((candidate.ideas as unknown[]).length !== seeds.length - 1 || !candidate.wildcard) {

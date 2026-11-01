@@ -17,6 +17,11 @@ describe("repairStringifiedFields", () => {
     expect(console.warn).toHaveBeenCalledOnce();
   });
 
+  it("drops stray text after a valid JSON list", () => {
+    const out = repairStringifiedFields({ ideas: '[{"title":"A"}] Hope this helps!' }) as { ideas: { title: string }[] };
+    expect(out.ideas.map((i) => i.title)).toEqual(["A"]);
+  });
+
   it("parses an object given as a string too", () => {
     expect((repairStringifiedFields({ wildcard: '{"title":"W"}' }) as { wildcard: { title: string } }).wildcard.title).toBe("W");
   });
