@@ -1,0 +1,385 @@
+[
+  {
+    "id": "roadtrip-route",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een roadtrip met een route die je zelf uitzet",
+      "en": "A road trip along a route you plan yourself"
+    },
+    "tags": [
+      "outdoors",
+      "challenge",
+      "conviviality"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een dagroadtrip langs drie plekken die je nog niet kent",
+      "en": "A day trip past three places you do not know yet"
+    },
+    "scene": "a folded paper road map with a marked route, sunglasses and a travel thermos on a car dashboard",
+    "status": "concept"
+  },
+  {
+    "id": "nachttrein",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Met de nachttrein naar een stad die je nog niet kent",
+      "en": "Taking the night train to a city you do not know yet"
+    },
+    "tags": [
+      "story",
+      "retro",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Begin met een nachttrein naar één stad ver weg, met een slaapplek geboekt",
+      "en": "Start with one night train to a faraway city, with a sleeper berth booked"
+    },
+    "scene": "a vintage train ticket, a small brass reading lamp and a folded blanket on a train seat by a dark window",
+    "status": "concept"
+  },
+  {
+    "id": "camper-weekend",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een weekend met een gehuurde camper",
+      "en": "A weekend in a rented campervan"
+    },
+    "tags": [
+      "outdoors",
+      "conviviality",
+      "challenge"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén nacht op een camperplaats vlakbij",
+      "en": "One night at a campsite close by"
+    },
+    "scene": "a small campervan with its side door open at a campsite, an enamel mug and a folded camping chair",
+    "status": "concept"
+  },
+  {
+    "id": "eilandhoppen",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Eilandhoppen met de veerboot",
+      "en": "Island hopping by ferry"
+    },
+    "tags": [
+      "water",
+      "nature",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "both",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén eiland, één dag, met de eerste boot heen en de laatste terug",
+      "en": "One island, one day, first ferry out and last one back"
+    },
+    "scene": "a ferry ticket, a thermos and a tuft of dune grass on a wooden ferry bench",
+    "status": "concept"
+  },
+  {
+    "id": "kastelenroute",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een route langs kastelen en buitenplaatsen",
+      "en": "A route past castles and country estates"
+    },
+    "tags": [
+      "history",
+      "outdoors",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Drie kastelen in één dag met de fiets of de auto",
+      "en": "Three castles in one day by bike or car"
+    },
+    "scene": "a hand-drawn castle route map, a bicycle bell and a leaflet beside a stone gatehouse",
+    "status": "concept"
+  },
+  {
+    "id": "themareis",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een stedentrip rond één thema",
+      "en": "A city trip around a single theme"
+    },
+    "tags": [
+      "story",
+      "history",
+      "collecting"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies één thema, bijvoorbeeld tuinen of architectuur, en één stad",
+      "en": "Choose one theme, such as gardens or architecture, and one city"
+    },
+    "scene": "a close-up of a city map with circled addresses, a small notebook and an espresso cup on an empty marble table, nothing else in the frame",
+    "status": "concept"
+  },
+  {
+    "id": "fietsvakantie",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een meerdaagse fietstocht met overnachtingen",
+      "en": "A multi-day bike tour with overnight stays"
+    },
+    "tags": [
+      "movement",
+      "outdoors",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 3,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Twee dagen met bagage en een slaapplek onderweg",
+      "en": "Two days with luggage and a place to sleep on the way"
+    },
+    "scene": "a loaded bicycle pannier, a folded map and a water bottle leaning on a wooden fence",
+    "status": "concept"
+  },
+  {
+    "id": "boot-slapen",
+    "domain": "travel",
+    "sub": "stays",
+    "label": {
+      "nl": "Een nacht slapen op een boot",
+      "en": "A night sleeping on a boat"
+    },
+    "tags": [
+      "water",
+      "outdoors",
+      "conviviality"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "both",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Boek één nacht op een woonboot of in een botel",
+      "en": "Book a single night on a houseboat or in a boat hotel"
+    },
+    "scene": "a small brass porthole, a rolled-up blanket and a mug on a wooden bunk",
+    "status": "concept"
+  },
+  {
+    "id": "pelgrimsroute",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een etappe van een pelgrimsroute lopen",
+      "en": "Walking a stage of a pilgrim route"
+    },
+    "tags": [
+      "history",
+      "outdoors",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén etappe van tien tot vijftien kilometer, met de trein terug",
+      "en": "One stage of ten to fifteen kilometres, back by train"
+    },
+    "scene": "a worn walking stick, a shell badge and a small trail guide on a wooden milestone",
+    "status": "concept"
+  },
+  {
+    "id": "streek-weekend",
+    "domain": "travel",
+    "sub": "stays",
+    "label": {
+      "nl": "Een weekend in een streek die je niet kent",
+      "en": "A weekend in a region you do not know"
+    },
+    "tags": [
+      "story",
+      "outdoors",
+      "food"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Boek één bed-and-breakfast en laat de rest open",
+      "en": "Book one bed and breakfast and leave the rest open"
+    },
+    "scene": "a bed-and-breakfast key on a wooden tag, a regional map and a cup of tea on a windowsill",
+    "status": "concept"
+  }
+]

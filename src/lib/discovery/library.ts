@@ -19,6 +19,9 @@ import food from "@/lib/discovery/data/food.json";
 import stage from "@/lib/discovery/data/stage.json";
 import night from "@/lib/discovery/data/night.json";
 import style from "@/lib/discovery/data/style.json";
+import travel from "@/lib/discovery/data/travel.json";
+import society from "@/lib/discovery/data/society.json";
+import growth from "@/lib/discovery/data/growth.json";
 export { activityImage, domainImage } from "@/lib/discovery/paths";
 import type { Activity, ActivityStatus, Domain, Hybrid, SubDomain, Tag, Vocabulary } from "@/lib/discovery/types";
 
@@ -48,6 +51,9 @@ const activityFiles: Activity[][] = [
   stage,
   night,
   style,
+  travel,
+  society,
+  growth,
 ] as Activity[][];
 
 export const VOCABULARY = vocabularyJson as Vocabulary;

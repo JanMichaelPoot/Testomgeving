@@ -558,5 +558,85 @@
       "nl": "Stijldansen leren voor een historische balavond",
       "en": "Learning ballroom dancing for a historical ball"
     }
+  },
+  {
+    "a": "dierenfotografie",
+    "b": "alpaca-wandeling",
+    "label": {
+      "nl": "Alpaca's fotograferen tijdens een wandeling",
+      "en": "Photographing alpacas on a walk"
+    }
+  },
+  {
+    "a": "roadtrip-route",
+    "b": "kastelenroute",
+    "label": {
+      "nl": "Een roadtrip langs kastelen en buitenplaatsen",
+      "en": "A road trip past castles and country estates"
+    }
+  },
+  {
+    "a": "nachttrein",
+    "b": "straatfotografie",
+    "label": {
+      "nl": "Per nachttrein naar een stad en daar op straat fotograferen",
+      "en": "Taking the night train to a city and photographing its streets"
+    }
+  },
+  {
+    "a": "stoeterij",
+    "b": "natuurfotografie",
+    "label": {
+      "nl": "Paarden fotograferen op een stoeterij",
+      "en": "Photographing horses at a stud farm"
+    }
+  },
+  {
+    "a": "gedichten-schrijven",
+    "b": "wandelen",
+    "label": {
+      "nl": "Gedichten schrijven tijdens een wandeling",
+      "en": "Writing poems on a walk"
+    }
+  },
+  {
+    "a": "ai-creatie",
+    "b": "stop-motion",
+    "label": {
+      "nl": "Een stop-motionfilm met AI-gemaakte beelden",
+      "en": "A stop-motion film with AI-made images"
+    }
+  },
+  {
+    "a": "presenteren",
+    "b": "storytelling",
+    "label": {
+      "nl": "Verhalen leren vertellen voor een groep",
+      "en": "Learning to tell stories to a group"
+    }
+  },
+  {
+    "a": "voedselbank",
+    "b": "kook-club",
+    "label": {
+      "nl": "Koken voor mensen die het nodig hebben",
+      "en": "Cooking for people who need it"
+    }
+  },
+  {
+    "a": "songteksten",
+    "b": "jamsessie",
+    "label": {
+      "nl": "Je eigen songtekst brengen in een jamsessie",
+      "en": "Bringing your own lyrics to a jam session"
+    }
+  },
+  {
+    "a": "pelgrimsroute",
+    "b": "levensverhaal",
+    "label": {
+      "nl": "Een pelgrimsroute lopen en je levensverhaal opschrijven",
+      "en": "Walking a pilgrim route while writing down your life story"
+    }
   }
 ]

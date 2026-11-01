@@ -1,0 +1,348 @@
+[
+  {
+    "id": "mentor-jongere",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Mentor voor een jongere",
+      "en": "Mentor to a young person"
+    },
+    "tags": [
+      "caring",
+      "story",
+      "teamwork"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een kennismakingsgesprek bij een mentorprogramma; de organisatie regelt de screening",
+      "en": "An introduction at a mentoring programme; the organisation handles screening"
+    },
+    "scene": "two empty chairs at a small table with a notebook and a pencil case in a community centre",
+    "status": "concept"
+  },
+  {
+    "id": "voedselbank",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Helper bij een voedselbank of uitdeelpunt",
+      "en": "Helper at a food bank or distribution point"
+    },
+    "tags": [
+      "caring",
+      "teamwork",
+      "food"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een middag meehelpen bij sorteren of uitdelen",
+      "en": "Help for an afternoon with sorting or handing out"
+    },
+    "scene": "crates of fresh vegetables and tinned goods on a sorting table with a clipboard",
+    "status": "concept"
+  },
+  {
+    "id": "erfgoed-vrijwilliger",
+    "domain": "society",
+    "sub": "place_care",
+    "label": {
+      "nl": "Meehelpen bij een molen of historisch gebouw",
+      "en": "Helping at a windmill or historic building"
+    },
+    "tags": [
+      "history",
+      "craft",
+      "caring"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open dag of werkdag bijwonen",
+      "en": "Attend an open day or work day"
+    },
+    "scene": "a brass mill key, a work glove and a feather duster on an old oak beam",
+    "status": "concept"
+  },
+  {
+    "id": "ouderenbezoek",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Bezoekvrijwilliger bij ouderen",
+      "en": "Visiting volunteer for older people"
+    },
+    "tags": [
+      "caring",
+      "story",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Eerst een kennismaking en training bij de organisatie",
+      "en": "First an introduction and training at the organisation"
+    },
+    "scene": "a teapot, two cups and a photo album on a small table by a window",
+    "status": "concept"
+  },
+  {
+    "id": "knotten-heggenvlechten",
+    "domain": "society",
+    "sub": "place_care",
+    "label": {
+      "nl": "Knotwilgen knotten en heggen vlechten met een natuurorganisatie",
+      "en": "Pollarding willows and laying hedges with a nature organisation"
+    },
+    "tags": [
+      "nature",
+      "craft",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een werkdag van een natuurorganisatie; gereedschap is er",
+      "en": "A work day of a nature organisation; tools are provided"
+    },
+    "scene": "a billhook, leather gloves and bundled willow rods against a pollarded willow trunk",
+    "status": "concept"
+  },
+  {
+    "id": "buurtproject",
+    "domain": "society",
+    "sub": "place_care",
+    "label": {
+      "nl": "Een eigen buurtproject starten",
+      "en": "Starting a neighbourhood project of your own"
+    },
+    "tags": [
+      "teamwork",
+      "conviviality",
+      "challenge"
+    ],
+    "formats": [
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 0,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies één ding en doe zes buren een kaartje in de bus",
+      "en": "Pick one thing and put a card through six neighbours' doors"
+    },
+    "scene": "a hand-painted neighbourhood sign, a pot of paint and a stack of flyers on a street bench",
+    "status": "concept"
+  },
+  {
+    "id": "huiswerkbegeleiding",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Huiswerkbegeleiding of leesmaatje voor een kind",
+      "en": "Homework helper or reading buddy for a child"
+    },
+    "tags": [
+      "caring",
+      "language",
+      "story"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een kennismaking bij een school of bibliotheek; zij regelen de screening",
+      "en": "An introduction at a school or library, which handles screening"
+    },
+    "scene": "a desk with a school exercise book, a ruler and a mug of hot chocolate",
+    "status": "concept"
+  },
+  {
+    "id": "bibliotheek-vrijwilliger",
+    "domain": "society",
+    "sub": "place_care",
+    "label": {
+      "nl": "Vrijwilliger in een bibliotheek of boekenruilpunt",
+      "en": "Volunteer in a library or book swap point"
+    },
+    "tags": [
+      "story",
+      "language",
+      "caring"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een middag meedraaien achter de balie of bij het uitzoeken van boeken",
+      "en": "An afternoon helping at the desk or sorting books"
+    },
+    "scene": "a trolley of returned books, a date stamp and a reading lamp on a library desk",
+    "status": "concept"
+  },
+  {
+    "id": "zorgboerderij",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Een dag meehelpen op een zorgboerderij",
+      "en": "A day helping at a care farm"
+    },
+    "tags": [
+      "caring",
+      "animals",
+      "growing"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een kennismakingsdag; de boerderij regelt de begeleiding",
+      "en": "An introduction day; the farm provides guidance"
+    },
+    "scene": "a wheelbarrow, a pair of rubber boots and a basket of eggs by a barn door",
+    "status": "concept"
+  },
+  {
+    "id": "straatfeest",
+    "domain": "society",
+    "sub": "place_care",
+    "label": {
+      "nl": "Een straatfeest of buurtborrel organiseren",
+      "en": "Organising a street party or neighbourhood drinks"
+    },
+    "tags": [
+      "conviviality",
+      "teamwork",
+      "food"
+    ],
+    "formats": [
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een uitnodiging in vijftien brievenbussen en een lange tafel",
+      "en": "An invitation in fifteen letterboxes and one long table"
+    },
+    "scene": "a long table of mismatched chairs, paper bunting and a tray of glasses on a quiet street",
+    "status": "concept"
+  }
+]

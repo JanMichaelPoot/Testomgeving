@@ -1078,5 +1078,71 @@
       "source_record_id": "Q7096425",
       "method": "curated"
     }
+  },
+  {
+    "id": "game-ontwikkelen",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Een eigen computerspel maken",
+      "en": "Making a game of your own"
+    },
+    "tags": [
+      "puzzling",
+      "technique",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een game-engine met een tutorial van een uur",
+      "en": "A game engine with a one-hour tutorial"
+    },
+    "scene": "a laptop showing a pixel-art level, a game controller and sticky notes with level sketches",
+    "status": "concept"
+  },
+  {
+    "id": "ai-creatie",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Creatief experimenteren met AI-tools",
+      "en": "Creative experiments with AI tools"
+    },
+    "tags": [
+      "technique",
+      "play",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis AI-beeld- of tekstapp en een vaag idee",
+      "en": "A free AI image or text app and a vague idea"
+    },
+    "scene": "a laptop with abstract generated shapes on screen, a notebook with scribbled prompts and a mug",
+    "status": "concept"
   }
 ]

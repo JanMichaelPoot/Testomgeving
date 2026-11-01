@@ -6,6 +6,7 @@ import { whyNot } from "@/lib/discovery/engine/droppedPicks";
 import { syntheticTwoPageProfiles } from "@/lib/discovery/engine/syntheticTwoPages";
 import { evaluate, type Run } from "@/lib/discovery/engine/evaluate";
 import { getActivity } from "@/lib/discovery/library";
+import { buildGraph } from "@/lib/discovery/engine/graph";
 
 // Stap 125, the anchor model: with three or more usable choices of their own, up to four of them are seeds themselves,
 // one idea is built around them, one is unexpected, and the wildcard stays separate. Free: no model, no research.
@@ -81,5 +82,29 @@ describe("the anchor model", () => {
       if (picks.has(s.activityId)) expect(s.reasons).toContain("picked");
       else if (s.direction === "adjacent") expect(picks.has(s.chain[0]), s.activityId).toBe(true);
     }
+  });
+
+  it("builds the one non-picked idea from the picks' own interest cluster (the indirect slot)", () => {
+    const graph = buildGraph(lib.activities, lib.tags);
+    let used = 0;
+    for (const p of profiles) {
+      const r = selectSeeds(p.input, lib, { weights: WEIGHTS_ANCHOR });
+      if (!r.notes.includes("indirect_slot")) continue;
+      used++;
+      const picks = [...new Set(p.input.interests)].map((id) => getActivity(id)!).filter((a) => a && usable(a.id, r));
+      const adjacent = r.seeds.filter((s) => s.direction === "adjacent");
+      expect(adjacent, p.id).toHaveLength(1);
+      const a = getActivity(adjacent[0].activityId)!;
+      expect(picks.filter((x) => graph.shared(a, x).length >= 1).length, p.id).toBeGreaterThanOrEqual(2);
+      expect(picks.some((x) => graph.shared(a, x).length >= 2), p.id).toBe(true);
+    }
+    // it applies for most visitors; the rest fall back to the ordinary adjacent rules
+    expect(used).toBeGreaterThan(profiles.length / 2);
+  }, 120000);
+
+  it("is switched off by WEIGHTS_V2: no indirect slot without the anchor", () => {
+    expect(WEIGHTS_V2.anchor.indirect).toBe(false);
+    const r = selectSeeds(profiles[0].input, lib, { weights: WEIGHTS_V2 });
+    expect(r.notes).not.toContain("indirect_slot");
   });
 });

@@ -1329,5 +1329,340 @@
       8,
       9
     ]
+  },
+  {
+    "id": "dierentuin",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een dag in een dierentuin",
+      "en": "A day at a zoo"
+    },
+    "tags": [
+      "animals",
+      "nature",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén dag met een plattegrond en twee dieren die je echt wilt zien",
+      "en": "One day with a map and two animals you really want to see"
+    },
+    "scene": "a zoo map, a pencil and a ticket stub beside a pair of binoculars on a bench",
+    "status": "concept"
+  },
+  {
+    "id": "kinderboerderij",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een uur op de kinderboerderij",
+      "en": "An hour at a petting farm"
+    },
+    "tags": [
+      "animals",
+      "caring",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Loop gewoon binnen; meestal gratis",
+      "en": "Just walk in; usually free"
+    },
+    "scene": "a bucket of hay, a wooden fence and a small chalkboard with feeding times",
+    "status": "concept"
+  },
+  {
+    "id": "roofvogelshow",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een roofvogelshow of valkeniersdag",
+      "en": "A bird of prey show or falconry day"
+    },
+    "tags": [
+      "animals",
+      "nature",
+      "performance"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een demonstratie bij een vogelpark of valkenier",
+      "en": "A demonstration at a bird park or falconer"
+    },
+    "scene": "a leather falconry glove, a feather and a small hood on a wooden perch",
+    "status": "concept"
+  },
+  {
+    "id": "vlindertuin",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een vlindertuin of tropische kas",
+      "en": "A butterfly garden or tropical greenhouse"
+    },
+    "tags": [
+      "animals",
+      "nature",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een uur rondlopen, het liefst op een zonnige dag",
+      "en": "An hour's stroll, ideally on a sunny day"
+    },
+    "scene": "a glass greenhouse with orange and blue butterflies on a tropical leaf and a plant label",
+    "status": "concept"
+  },
+  {
+    "id": "reptielen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Reptielen en spinnen van dichtbij",
+      "en": "Reptiles and spiders up close"
+    },
+    "tags": [
+      "animals",
+      "caring",
+      "suspense"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een bezoek aan een reptielenzoo of een open dag",
+      "en": "A visit to a reptile zoo or an open day"
+    },
+    "scene": "a glass terrarium with a coiled gecko on bark under a warm heat lamp glow",
+    "status": "concept"
+  },
+  {
+    "id": "stoeterij",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een stoeterij of paardenfokkerij bezoeken",
+      "en": "Visiting a stud farm or horse breeder"
+    },
+    "tags": [
+      "animals",
+      "nature",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open dag of rondleiding",
+      "en": "An open day or guided tour"
+    },
+    "scene": "a leather halter, a brush and a bale of straw at a stable door",
+    "status": "concept"
+  },
+  {
+    "id": "safaripark",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een safaripark of wildlife park",
+      "en": "A safari or wildlife park"
+    },
+    "tags": [
+      "animals",
+      "nature",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een dag met de auto of de bus door het park",
+      "en": "A day by car or bus through the park"
+    },
+    "scene": "a car window view of a wide meadow with a pair of binoculars and a ticket on the dashboard",
+    "status": "concept"
+  },
+  {
+    "id": "dierenfotografie",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een workshop dierenfotografie",
+      "en": "An animal photography workshop"
+    },
+    "tags": [
+      "animals",
+      "technique",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "duo"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een eendaagse workshop in een natuurgebied of dierenpark",
+      "en": "A one-day workshop in a nature reserve or animal park"
+    },
+    "scene": "a long telephoto lens, a lens cloth and a field guide on a wooden hide ledge",
+    "status": "concept"
+  },
+  {
+    "id": "alpaca-wandeling",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Wandelen met alpaca's of lama's",
+      "en": "Walking with alpacas or llamas"
+    },
+    "tags": [
+      "animals",
+      "outdoors",
+      "caring"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een uur wandelen bij een alpacahouderij",
+      "en": "An hour's walk at an alpaca farm"
+    },
+    "scene": "a braided lead rope, a bag of pellets and a woolly fence post in a meadow",
+    "status": "concept"
   }
 ]

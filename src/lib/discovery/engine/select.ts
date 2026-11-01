@@ -160,6 +160,19 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     return sum * W.redundancyPerBridge + pairs * W.sharedPairPenalty;
   };
 
+  // Like redundancy(), but the person's own picks do not count: the indirect slot is MEANT to share tags with them.
+  const redundancyBeyondPicks = (a: Activity) => {
+    let sum = 0;
+    let pairs = 0;
+    for (const u of seeds) {
+      if (pickSet.has(u.activityId)) continue;
+      const other = byId.get(u.activityId)!;
+      sum += graph.bridge(a, other);
+      if (W.sharedPairPenalty > 0 && graph.shared(a, other).length >= 2) pairs++;
+    }
+    return sum * W.redundancyPerBridge + pairs * W.sharedPairPenalty;
+  };
+
   const formatsFor = (a: Activity): { lead: SocialFormat | null; also: SocialFormat[] } => {
     if (!a.formats) return { lead: null, also: [] };
     const wanted = constraints.formats ?? [];
@@ -374,12 +387,32 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
           const novelty = pickedDomains.has(a.domain) ? 0 : W.adjacent.noveltyOtherWorld;
           return { a, score: r * (1 - Math.abs(r - W.adjacent.peak)) + novelty + rnd() * W.adjacent.noise - redundancy(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a) };
         });
-    const found = firstFit([set(0.2, 0.6, BRIDGE_MIN), set(0.1, 0.75, 1.2)]);
+    // The master prompt's "indirect" slot (Stap 127): with the anchor on, the one non-picked idea around the choices comes from
+    // the same interest cluster as at least two of them (it shares a real tag with each) and is a real neighbour of at least one (two or more tags), not a loose single bridge. This is what keeps "helicopter flight" away from a book about animals and nature.
+    const indirect = () => {
+      if (!anchored || !W.anchor.indirect) return [] as Cand[];
+      const pickSubs = new Set(usablePicks.map((p) => p.sub));
+      return pool
+        .filter((a) => !pickSet.has(a.id))
+        .map((a) => {
+          const sharers = usablePicks.filter((p) => graph.shared(a, p).length >= 1).length;
+          const strong = usablePicks.filter((p) => graph.shared(a, p).length >= 2).length;
+          return { a, sharers, strong };
+        })
+        .filter((x) => x.sharers >= 2 && x.strong >= 1)
+        .map<Cand>(({ a, sharers, strong }) => ({
+          a,
+          score: sharers * 0.5 + strong * 0.4 + (pickSubs.has(a.sub) ? 0 : 0.25) + (pickedDomains.has(a.domain) ? 0 : 0.15) + rnd() * W.adjacent.noise - redundancyBeyondPicks(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a),
+        }));
+    };
+    const found = firstFit([indirect, set(0.2, 0.6, BRIDGE_MIN), set(0.1, 0.75, 1.2)]);
     if (!found) {
       notes.push("direction_relaxed:adjacent");
       break;
     }
-    if (found.set > 0) notes.push("direction_relaxed:adjacent");
+    // set 0 is the indirect set (empty unless it applies), so the ordinary preferred set is index 1
+    if (found.set === 0) notes.push("indirect_slot");
+    else if (found.set > 1) notes.push("direction_relaxed:adjacent");
     const from = nearestRef(found.top.a);
     commit(found.top.a, "adjacent", from ? { chain: [from.id, found.top.a.id], via: graph.shared(from, found.top.a).slice(0, 2) } : {});
   }

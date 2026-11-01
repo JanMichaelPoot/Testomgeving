@@ -2176,5 +2176,154 @@
     "scene": "A polished parquet ballroom floor with a chandelier reflected in it and a pair of satin dance shoes near the edge.",
     "supply": "common",
     "status": "concept"
+  },
+  {
+    "id": "badminton",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Badminton spelen",
+      "en": "Playing badminton"
+    },
+    "tags": [
+      "competition",
+      "movement",
+      "play"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "drop_in_alone",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Vrij spelen op een open avond bij een club of sporthal",
+      "en": "Free play at an open evening at a club or sports hall"
+    },
+    "scene": "a badminton racket, a shuttlecock and the edge of a net in a bright sports hall",
+    "status": "concept"
+  },
+  {
+    "id": "squash",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Een uur squash",
+      "en": "An hour of squash"
+    },
+    "tags": [
+      "competition",
+      "movement",
+      "speed"
+    ],
+    "formats": [
+      "duo",
+      "with_known",
+      "drop_in_alone"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een baan huren en een uur rallyën; rackets zijn te huur",
+      "en": "Rent a court and rally for an hour; rackets can be rented"
+    },
+    "scene": "a squash racket and a rubber ball on a polished wooden court floor",
+    "status": "concept"
+  },
+  {
+    "id": "golfles",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Een introductieles golf of driving range",
+      "en": "An intro golf lesson or driving range"
+    },
+    "tags": [
+      "precision",
+      "outdoors",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "drop_in_alone"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 3,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een introductie of een emmer ballen op de driving range",
+      "en": "An intro or a bucket of balls at the driving range"
+    },
+    "scene": "a golf club, a bucket of range balls and a tee in short-cut grass",
+    "status": "concept"
+  },
+  {
+    "id": "volleybal",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Volleybal voor beginners",
+      "en": "Volleyball for beginners"
+    },
+    "tags": [
+      "teamwork",
+      "competition",
+      "movement"
+    ],
+    "formats": [
+      "small_group",
+      "large_group",
+      "drop_in_alone",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open training of recreantengroep",
+      "en": "An open training session or recreational group"
+    },
+    "scene": "a volleyball on a painted court line beside a net post",
+    "status": "concept"
   }
 ]

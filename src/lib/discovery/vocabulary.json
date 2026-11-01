@@ -265,6 +265,48 @@
       "color": "#C9A44A",
       "colorName": "champagne gold",
       "scene": "a still life of a silk scarf, a small leather handbag, a cut-glass perfume bottle and a make-up brush with blush powder on a pale marble surface"
+    },
+    {
+      "id": "travel",
+      "label": {
+        "nl": "Reizen, routes & bijzonder logeren",
+        "en": "Travel, routes & special stays"
+      },
+      "short": {
+        "nl": "Reizen & routes",
+        "en": "Travel & routes"
+      },
+      "color": "#2E5EAA",
+      "colorName": "cobalt blue",
+      "scene": "a vintage suitcase, a folded paper map with a red route line, a brass compass and a train ticket on a pale wooden table"
+    },
+    {
+      "id": "society",
+      "label": {
+        "nl": "Maatschappelijk betrokken & helpen",
+        "en": "Community & helping"
+      },
+      "short": {
+        "nl": "Helpen & betrokken",
+        "en": "Helping & community"
+      },
+      "color": "#E8A317",
+      "colorName": "marigold",
+      "scene": "a pair of work gloves, a crate of fresh vegetables, a hand-painted neighbourhood sign and a thermos on a wooden bench"
+    },
+    {
+      "id": "growth",
+      "label": {
+        "nl": "Persoonlijke ontwikkeling & nieuwe vaardigheden",
+        "en": "Personal growth & new skills"
+      },
+      "short": {
+        "nl": "Groeien & leren",
+        "en": "Growth & skills"
+      },
+      "color": "#7BB661",
+      "colorName": "fresh green",
+      "scene": "a small lectern with a glass of water, a notebook with a pen, a green seedling in a pot and a stack of index cards on a bright table"
     }
   ],
   "subs": [
@@ -762,6 +804,54 @@
       "label": {
         "nl": "Dans",
         "en": "Dance"
+      }
+    },
+    {
+      "id": "journeys",
+      "domain": "travel",
+      "label": {
+        "nl": "Reizen & routes",
+        "en": "Journeys & routes"
+      }
+    },
+    {
+      "id": "stays",
+      "domain": "travel",
+      "label": {
+        "nl": "Bijzonder logeren",
+        "en": "Special stays"
+      }
+    },
+    {
+      "id": "helping",
+      "domain": "society",
+      "label": {
+        "nl": "Mensen helpen",
+        "en": "Helping people"
+      }
+    },
+    {
+      "id": "place_care",
+      "domain": "society",
+      "label": {
+        "nl": "Plekken en erfgoed verzorgen",
+        "en": "Caring for places and heritage"
+      }
+    },
+    {
+      "id": "speak_lead",
+      "domain": "growth",
+      "label": {
+        "nl": "Spreken, leiden & samenwerken",
+        "en": "Speaking, leading & collaborating"
+      }
+    },
+    {
+      "id": "skills",
+      "domain": "growth",
+      "label": {
+        "nl": "Vaardigheden & leren",
+        "en": "Skills & learning"
       }
     }
   ],

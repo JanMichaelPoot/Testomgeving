@@ -51,7 +51,11 @@ export interface Weights {
    * around them (one adjacent, one unexpected, a stretch only when fewer than `picks` fit) and the wildcard stays separate.
    * 0 = off (every set but WEIGHTS_ANCHOR).
    */
-  anchor: { picks: number };
+  anchor: { picks: number; indirect: boolean };
+  /**
+   * (inside anchor) indirect: the one non-picked idea around the choices must share a real tag with at least two of them and two or more with one (Stap 127,
+   * the "indirect" slot of the master prompt). Price: books get more pairs that share two tags. false = the ordinary adjacent rules.
+   */
 }
 
 export const WEIGHTS_CURRENT: Weights = {
@@ -67,7 +71,7 @@ export const WEIGHTS_CURRENT: Weights = {
   wildcard: { bridge: 2, newWorld: 2, redundancyFactor: 4, ageDecay: 2, baseRare: 0.5, supplyDecay: 3 },
   strictFreeCost: false,
   explain: false,
-  anchor: { picks: 0 },
+  anchor: { picks: 0, indirect: false },
 };
 
 export const WEIGHTS_V2: Weights = {
@@ -86,7 +90,7 @@ export const WEIGHTS_V2: Weights = {
 /** B4 plus the anchor model: four of the person's own choices are in the book (Jan, 31 Oct 2026: 4 own + 2 anchored + 1 wildcard). */
 export const WEIGHTS_ANCHOR: Weights = {
   ...WEIGHTS_V2,
-  anchor: { picks: 4 },
+  anchor: { picks: 4, indirect: true },
 };
 
 /** Doors and directions are listed here only so the type stays close to the weights that use them. */

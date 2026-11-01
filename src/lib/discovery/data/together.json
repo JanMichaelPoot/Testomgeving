@@ -811,5 +811,37 @@
       9,
       10
     ]
+  },
+  {
+    "id": "netwerkborrel",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Een netwerkborrel bezoeken",
+      "en": "Attending a networking drinks"
+    },
+    "tags": [
+      "conviviality",
+      "language",
+      "strategy"
+    ],
+    "formats": [
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een gratis inloopborrel van een lokaal ondernemersnetwerk",
+      "en": "A free drop-in drinks of a local business network"
+    },
+    "scene": "a table with coffee cups, name badges and a bowl of nuts at a casual meet-up",
+    "status": "concept"
   }
 ]

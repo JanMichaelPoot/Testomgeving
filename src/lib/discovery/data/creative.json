@@ -1941,5 +1941,266 @@
     },
     "scene": "a wooden birdhouse with a round entrance hole on a workbench with a hammer, nails and cut planks",
     "status": "concept"
+  },
+  {
+    "id": "gedichten-schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Gedichten schrijven",
+      "en": "Writing poems"
+    },
+    "tags": [
+      "language",
+      "story",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén gedicht van vier regels over iets op je bureau",
+      "en": "One four-line poem about something on your desk"
+    },
+    "scene": "a fountain pen, a loose page with short lines and a small vase on a wooden desk",
+    "status": "concept"
+  },
+  {
+    "id": "scenario-schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Een korte scène of scenario schrijven",
+      "en": "Writing a short scene or screenplay"
+    },
+    "tags": [
+      "story",
+      "language",
+      "performance"
+    ],
+    "formats": [
+      "solo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén scène van twee pagina's met twee personages",
+      "en": "One two-page scene with two characters"
+    },
+    "scene": "a typewriter with a half-typed script page and a small clapperboard on a desk",
+    "status": "concept"
+  },
+  {
+    "id": "songteksten",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Songteksten schrijven",
+      "en": "Writing song lyrics"
+    },
+    "tags": [
+      "sound",
+      "language",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Schrijf een couplet over gisteren en lees het hardop",
+      "en": "Write a verse about yesterday and read it aloud"
+    },
+    "scene": "a notebook with crossed-out lyric lines, a guitar pick and headphones on a bed",
+    "status": "concept"
+  },
+  {
+    "id": "vertalen",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Vertalen als hobby",
+      "en": "Translation as a hobby"
+    },
+    "tags": [
+      "language",
+      "puzzling",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Eén korte tekst of songtekst vertalen",
+      "en": "Translate one short text or song lyric"
+    },
+    "scene": "two open dictionaries, a pencil and a mug on a writing desk",
+    "status": "concept"
+  },
+  {
+    "id": "levensverhaal",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Je levensverhaal of familieverhalen opschrijven",
+      "en": "Writing down your life story or family stories"
+    },
+    "tags": [
+      "story",
+      "history",
+      "language"
+    ],
+    "formats": [
+      "solo",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Begin met één herinnering van tien regels",
+      "en": "Start with one memory of ten lines"
+    },
+    "scene": "a stack of old photographs, a notebook and a pen on a kitchen table",
+    "status": "concept"
+  },
+  {
+    "id": "muziek-opnemen",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Een nummer opnemen met je telefoon of laptop",
+      "en": "Recording a track with your phone or laptop"
+    },
+    "tags": [
+      "sound",
+      "technique",
+      "performance"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis opname-app en één akkoord of ritme",
+      "en": "A free recording app and one chord or rhythm"
+    },
+    "scene": "a small audio interface, headphones and a laptop showing a waveform on a desk",
+    "status": "concept"
+  },
+  {
+    "id": "digitale-kunst",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Digitaal tekenen en schilderen",
+      "en": "Digital drawing and painting"
+    },
+    "tags": [
+      "color",
+      "technique",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis tekenapp en een tablet of muis",
+      "en": "A free drawing app and a tablet or mouse"
+    },
+    "scene": "a drawing tablet with a stylus, a half-finished colourful landscape on a screen and a mug",
+    "status": "concept"
+  },
+  {
+    "id": "fotobewerking",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Foto's bewerken en een fotoboek maken",
+      "en": "Editing photos and making a photo book"
+    },
+    "tags": [
+      "color",
+      "craft",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Kies twintig foto's van één reis en maak er een boekje van",
+      "en": "Pick twenty photos from one trip and turn them into a booklet"
+    },
+    "scene": "a laptop with photo thumbnails, a printed photo book and a pencil on a desk",
+    "status": "concept"
   }
 ]
