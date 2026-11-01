@@ -7318,5 +7318,854 @@
       "novelty": -0.3
     },
     "status": "concept"
+  },
+  {
+    "id": "place-stable",
+    "family": "place-stable",
+    "round": "places",
+    "label": {
+      "nl": "Een warme stal",
+      "en": "A warm stable"
+    },
+    "scene": "A stable corridor with straw on the floor, wooden stall doors with brass nameplates and soft low light, a horse's head resting over one door, nobody else there.",
+    "image": "/illustrations/associations/place-stable.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.7,
+      "nature": 0.6,
+      "outdoors": 0.5
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": 0.4,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-stable-b",
+    "family": "place-stable",
+    "round": "places",
+    "label": {
+      "nl": "Een weide met schapen",
+      "en": "A meadow with sheep"
+    },
+    "scene": "A green meadow at the end of the day with a few sheep grazing far away, a wooden gate and a worn path, long gentle light, empty and still.",
+    "image": "/illustrations/associations/place-stable-b.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.7,
+      "nature": 0.6,
+      "outdoors": 0.5
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": 0.4,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-stable-c",
+    "family": "place-stable",
+    "round": "places",
+    "label": {
+      "nl": "Een volière in de tuin",
+      "en": "A garden aviary"
+    },
+    "scene": "A small wooden aviary in a cottage garden with finches on the perches, a bowl of seed and a watering can beside it, soft morning light, nobody around.",
+    "image": "/illustrations/associations/place-stable-c.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.7,
+      "nature": 0.6,
+      "outdoors": 0.5
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": 0.4,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-feeding",
+    "family": "moment-feeding",
+    "round": "moments",
+    "label": {
+      "nl": "Het voeren in de ochtend",
+      "en": "Feeding in the morning"
+    },
+    "scene": "A steel scoop of feed and a bale of hay at a stable door in early morning light, a steaming bucket beside it, nobody in the frame.",
+    "image": "/illustrations/associations/moment-feeding.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.9,
+      "growing": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.2,
+      "setting": 0.6,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-feeding-b",
+    "family": "moment-feeding",
+    "round": "moments",
+    "label": {
+      "nl": "Water vers maken",
+      "en": "Fresh water"
+    },
+    "scene": "A trough filling with clear water in a barnyard at dawn, a rubber boot standing beside it, mist rising, empty and quiet.",
+    "image": "/illustrations/associations/moment-feeding-b.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.9,
+      "growing": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.2,
+      "setting": 0.6,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-feeding-c",
+    "family": "moment-feeding",
+    "round": "moments",
+    "label": {
+      "nl": "Het eerste licht in de stal",
+      "en": "First light in the barn"
+    },
+    "scene": "Dust and pale light through the slats of a barn, a hay fork leaning against a wall and a tin bucket by the door, calm and empty.",
+    "image": "/illustrations/associations/moment-feeding-c.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.9,
+      "growing": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.2,
+      "setting": 0.6,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-feathers-fur",
+    "family": "sense-feathers-fur",
+    "round": "senses",
+    "label": {
+      "nl": "Zacht en warm",
+      "en": "Soft and warm"
+    },
+    "scene": "Extreme close-up of thick sheep's wool and a soft woollen blanket in warm light, only texture, nobody in the frame.",
+    "image": "/illustrations/associations/sense-feathers-fur.jpg",
+    "tagWeights": {
+      "animals": 0.9,
+      "caring": 0.6,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": 0,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-feathers-fur-b",
+    "family": "sense-feathers-fur",
+    "round": "senses",
+    "label": {
+      "nl": "Een veer in het gras",
+      "en": "A feather in the grass"
+    },
+    "scene": "Close-up of a single grey feather lying in dewy grass in low sun, shallow focus, calm.",
+    "image": "/illustrations/associations/sense-feathers-fur-b.jpg",
+    "tagWeights": {
+      "animals": 0.9,
+      "caring": 0.6,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": 0,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-feathers-fur-c",
+    "family": "sense-feathers-fur",
+    "round": "senses",
+    "label": {
+      "nl": "De vacht van een kat in de zon",
+      "en": "A cat's fur in the sun"
+    },
+    "scene": "Close-up of the soft striped fur of a sleeping cat on a sunlit windowsill, shallow focus, only texture and light, nobody in the frame.",
+    "image": "/illustrations/associations/sense-feathers-fur-c.jpg",
+    "tagWeights": {
+      "animals": 0.9,
+      "caring": 0.6,
+      "stillness": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": 0,
+      "novelty": -0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-platform",
+    "family": "place-platform",
+    "round": "places",
+    "label": {
+      "nl": "Een perron bij zonsopgang",
+      "en": "A platform at sunrise"
+    },
+    "scene": "An empty railway platform at sunrise with a lone train approaching in the distance, long shadows on the tiles and a wooden bench, nobody in the frame.",
+    "image": "/illustrations/associations/place-platform.jpg",
+    "tagWeights": {
+      "discovery": 0.7,
+      "outdoors": 0.5,
+      "story": 0.4,
+      "retro": 0.3,
+      "water": 0.2
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0.1,
+      "setting": 0.3,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-platform-b",
+    "family": "place-platform",
+    "round": "places",
+    "label": {
+      "nl": "Een haven met een veerboot",
+      "en": "A harbour with a ferry"
+    },
+    "scene": "A small harbour at dawn with a ferry moored at the quay, coiled ropes and a lighthouse in the haze, nobody about.",
+    "image": "/illustrations/associations/place-platform-b.jpg",
+    "tagWeights": {
+      "discovery": 0.7,
+      "outdoors": 0.5,
+      "story": 0.4,
+      "retro": 0.3,
+      "water": 0.2
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0.1,
+      "setting": 0.3,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-platform-c",
+    "family": "place-platform",
+    "round": "places",
+    "label": {
+      "nl": "Een bergweg met een uitzicht",
+      "en": "A mountain road lay-by"
+    },
+    "scene": "A winding mountain road with a stone lay-by and a wide valley view in clear morning light, a small signpost, empty.",
+    "image": "/illustrations/associations/place-platform-c.jpg",
+    "tagWeights": {
+      "discovery": 0.7,
+      "outdoors": 0.5,
+      "story": 0.4,
+      "retro": 0.3,
+      "water": 0.2
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0.1,
+      "setting": 0.3,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-departure",
+    "family": "moment-departure",
+    "round": "moments",
+    "label": {
+      "nl": "Net voor het vertrek",
+      "en": "Just before departure"
+    },
+    "scene": "A packed suitcase by a front door with a coat, a passport and a train ticket on a small table, early morning light, nobody in the frame.",
+    "image": "/illustrations/associations/moment-departure.jpg",
+    "tagWeights": {
+      "discovery": 0.8,
+      "story": 0.4,
+      "challenge": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.4,
+      "setting": 0,
+      "novelty": 0.9
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-departure-b",
+    "family": "moment-departure",
+    "round": "moments",
+    "label": {
+      "nl": "Het vertrekbord",
+      "en": "The departures board"
+    },
+    "scene": "A large old-fashioned departures board in a station hall with dozens of destinations, warm light, empty benches below, nobody in the frame.",
+    "image": "/illustrations/associations/moment-departure-b.jpg",
+    "tagWeights": {
+      "discovery": 0.8,
+      "story": 0.4,
+      "challenge": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.4,
+      "setting": 0,
+      "novelty": 0.9
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-departure-c",
+    "family": "moment-departure",
+    "round": "moments",
+    "label": {
+      "nl": "De laatste check",
+      "en": "The last check"
+    },
+    "scene": "A tidy desk with a printed itinerary, a pair of sunglasses, a thermos and house keys ready for a trip, bright morning, nobody in the frame.",
+    "image": "/illustrations/associations/moment-departure-c.jpg",
+    "tagWeights": {
+      "discovery": 0.8,
+      "story": 0.4,
+      "challenge": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.4,
+      "setting": 0,
+      "novelty": 0.9
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-train-rhythm",
+    "family": "sense-train-rhythm",
+    "round": "senses",
+    "label": {
+      "nl": "Het ritme van de wielen",
+      "en": "The rhythm of the wheels"
+    },
+    "scene": "A train window with the landscape sliding by in a soft blur, a small lamp swaying gently inside the compartment, nobody in the frame.",
+    "image": "/illustrations/associations/sense-train-rhythm.jpg",
+    "tagWeights": {
+      "rhythm": 0.6,
+      "retro": 0.4,
+      "discovery": 0.5,
+      "story": 0.3
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.1,
+      "setting": 0,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-train-rhythm-b",
+    "family": "sense-train-rhythm",
+    "round": "senses",
+    "label": {
+      "nl": "Rails naar de horizon",
+      "en": "Rails to the horizon"
+    },
+    "scene": "Two railway tracks vanishing towards the horizon at golden hour, gravel and sleepers in sharp perspective, empty.",
+    "image": "/illustrations/associations/sense-train-rhythm-b.jpg",
+    "tagWeights": {
+      "rhythm": 0.6,
+      "retro": 0.4,
+      "discovery": 0.5,
+      "story": 0.3
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.1,
+      "setting": 0,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-train-rhythm-c",
+    "family": "sense-train-rhythm",
+    "round": "senses",
+    "label": {
+      "nl": "Een compartiment met gordijntjes",
+      "en": "A compartment with curtains"
+    },
+    "scene": "A vintage train compartment with plush seats, a small brass lamp and a curtain moving in the draught, empty and warm.",
+    "image": "/illustrations/associations/sense-train-rhythm-c.jpg",
+    "tagWeights": {
+      "rhythm": 0.6,
+      "retro": 0.4,
+      "discovery": 0.5,
+      "story": 0.3
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.1,
+      "setting": 0,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-community-kitchen",
+    "family": "place-community-kitchen",
+    "round": "places",
+    "label": {
+      "nl": "Een buurthuiskeuken",
+      "en": "A community kitchen"
+    },
+    "scene": "A large community-centre kitchen with long tables, big pots on the stove and stacks of mismatched plates, warm light, nobody there.",
+    "image": "/illustrations/associations/place-community-kitchen.jpg",
+    "tagWeights": {
+      "caring": 0.9,
+      "teamwork": 0.8,
+      "food": 0.5,
+      "conviviality": 0.7
+    },
+    "axes": {
+      "social": 0.8,
+      "energy": 0.2,
+      "setting": -0.6,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-community-kitchen-b",
+    "family": "place-community-kitchen",
+    "round": "places",
+    "label": {
+      "nl": "Een gedeelde moestuin",
+      "en": "A shared allotment"
+    },
+    "scene": "A shared allotment garden with wheelbarrows, labelled rows and a communal tool shed, bright morning, nobody in the frame.",
+    "image": "/illustrations/associations/place-community-kitchen-b.jpg",
+    "tagWeights": {
+      "caring": 0.9,
+      "teamwork": 0.8,
+      "food": 0.5,
+      "conviviality": 0.7
+    },
+    "axes": {
+      "social": 0.8,
+      "energy": 0.2,
+      "setting": -0.6,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-community-kitchen-c",
+    "family": "place-community-kitchen",
+    "round": "places",
+    "label": {
+      "nl": "Een leeshoek in de bibliotheek",
+      "en": "A library reading corner"
+    },
+    "scene": "A cosy library reading corner with donated books on a trolley, soft armchairs and a lamp, empty.",
+    "image": "/illustrations/associations/place-community-kitchen-c.jpg",
+    "tagWeights": {
+      "caring": 0.9,
+      "teamwork": 0.8,
+      "food": 0.5,
+      "conviviality": 0.7
+    },
+    "axes": {
+      "social": 0.8,
+      "energy": 0.2,
+      "setting": -0.6,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-work-day",
+    "family": "moment-work-day",
+    "round": "moments",
+    "label": {
+      "nl": "De werkdag begint",
+      "en": "The work day begins"
+    },
+    "scene": "Work gloves, a row of rubber boots and a thermos laid out on a long bench in the early morning, tools leaning against a wall, nobody in the frame.",
+    "image": "/illustrations/associations/moment-work-day.jpg",
+    "tagWeights": {
+      "teamwork": 0.9,
+      "caring": 0.7,
+      "outdoors": 0.4,
+      "craft": 0.3
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": 0.5,
+      "setting": 0.4,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-work-day-b",
+    "family": "moment-work-day",
+    "round": "moments",
+    "label": {
+      "nl": "Gereedschap klaarleggen",
+      "en": "Tools laid out"
+    },
+    "scene": "A set of garden tools and a stack of crates arranged on a table outdoors before a community work day, crisp light, empty.",
+    "image": "/illustrations/associations/moment-work-day-b.jpg",
+    "tagWeights": {
+      "teamwork": 0.9,
+      "caring": 0.7,
+      "outdoors": 0.4,
+      "craft": 0.3
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": 0.5,
+      "setting": 0.4,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-work-day-c",
+    "family": "moment-work-day",
+    "round": "moments",
+    "label": {
+      "nl": "Koffie voor de klus",
+      "en": "Coffee before the job"
+    },
+    "scene": "A tray of paper cups of coffee and a box of biscuits on a trestle table beside a pile of work gloves, morning light, nobody in the frame.",
+    "image": "/illustrations/associations/moment-work-day-c.jpg",
+    "tagWeights": {
+      "teamwork": 0.9,
+      "caring": 0.7,
+      "outdoors": 0.4,
+      "craft": 0.3
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": 0.5,
+      "setting": 0.4,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-warm-soup",
+    "family": "sense-warm-soup",
+    "round": "senses",
+    "label": {
+      "nl": "De geur van soep voor iedereen",
+      "en": "Soup for everyone"
+    },
+    "scene": "A huge steaming pot of vegetable soup on a long table with a stack of bowls and a ladle, warm steamy light, nobody in the frame.",
+    "image": "/illustrations/associations/sense-warm-soup.jpg",
+    "tagWeights": {
+      "food": 0.7,
+      "conviviality": 0.8,
+      "caring": 0.7
+    },
+    "axes": {
+      "social": 0.8,
+      "energy": -0.2,
+      "setting": -0.7,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-warm-soup-b",
+    "family": "sense-warm-soup",
+    "round": "senses",
+    "label": {
+      "nl": "Vers brood op een lange tafel",
+      "en": "Fresh bread on a long table"
+    },
+    "scene": "Loaves of fresh bread with a knife and a cloth on a long wooden table in warm light, crumbs and steam, nobody there.",
+    "image": "/illustrations/associations/sense-warm-soup-b.jpg",
+    "tagWeights": {
+      "food": 0.7,
+      "conviviality": 0.8,
+      "caring": 0.7
+    },
+    "axes": {
+      "social": 0.8,
+      "energy": -0.2,
+      "setting": -0.7,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-warm-soup-c",
+    "family": "sense-warm-soup",
+    "round": "senses",
+    "label": {
+      "nl": "Een tafel vol kopjes",
+      "en": "A table of cups"
+    },
+    "scene": "A long table set with dozens of mismatched cups and a big enamel teapot in warm window light, empty chairs.",
+    "image": "/illustrations/associations/sense-warm-soup-c.jpg",
+    "tagWeights": {
+      "food": 0.7,
+      "conviviality": 0.8,
+      "caring": 0.7
+    },
+    "axes": {
+      "social": 0.8,
+      "energy": -0.2,
+      "setting": -0.7,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-lecture-room",
+    "family": "place-lecture-room",
+    "round": "places",
+    "label": {
+      "nl": "Een lege zaal met podium",
+      "en": "An empty hall with a stage"
+    },
+    "scene": "A small empty lecture hall with a lectern and a glass of water under a soft spotlight, rows of empty chairs, nobody in the frame.",
+    "image": "/illustrations/associations/place-lecture-room.jpg",
+    "tagWeights": {
+      "performance": 0.7,
+      "language": 0.7,
+      "challenge": 0.6
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.1,
+      "setting": -1,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-lecture-room-b",
+    "family": "place-lecture-room",
+    "round": "places",
+    "label": {
+      "nl": "Een klaslokaal met whiteboard",
+      "en": "A classroom with a whiteboard"
+    },
+    "scene": "A bright empty classroom with a whiteboard covered in a simple diagram, a circle of chairs and markers on a ledge, nobody in the frame.",
+    "image": "/illustrations/associations/place-lecture-room-b.jpg",
+    "tagWeights": {
+      "performance": 0.7,
+      "language": 0.7,
+      "challenge": 0.6
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.1,
+      "setting": -1,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-lecture-room-c",
+    "family": "place-lecture-room",
+    "round": "places",
+    "label": {
+      "nl": "Een stille studeerhoek",
+      "en": "A quiet study nook"
+    },
+    "scene": "A quiet study alcove with a wooden desk, a lamp, stacked notebooks and a window onto trees, empty.",
+    "image": "/illustrations/associations/place-lecture-room-c.jpg",
+    "tagWeights": {
+      "performance": 0.7,
+      "language": 0.7,
+      "challenge": 0.6
+    },
+    "axes": {
+      "social": 0.3,
+      "energy": 0.1,
+      "setting": -1,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-step",
+    "family": "moment-first-step",
+    "round": "moments",
+    "label": {
+      "nl": "Net voor je opstapt",
+      "en": "Just before you step up"
+    },
+    "scene": "The wings of a small stage with a curtain edge, three wooden steps and a microphone on a stand glowing in the spotlight, nobody in the frame.",
+    "image": "/illustrations/associations/moment-first-step.jpg",
+    "tagWeights": {
+      "performance": 0.8,
+      "challenge": 0.9,
+      "language": 0.4
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.6,
+      "setting": -0.6,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-step-b",
+    "family": "moment-first-step",
+    "round": "moments",
+    "label": {
+      "nl": "De microfoon staat klaar",
+      "en": "The microphone is ready"
+    },
+    "scene": "A microphone on a stand under a single spotlight in front of a dark curtain, a glass of water on a stool, empty.",
+    "image": "/illustrations/associations/moment-first-step-b.jpg",
+    "tagWeights": {
+      "performance": 0.8,
+      "challenge": 0.9,
+      "language": 0.4
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.6,
+      "setting": -0.6,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-step-c",
+    "family": "moment-first-step",
+    "round": "moments",
+    "label": {
+      "nl": "Een kaartje in je zak",
+      "en": "A card in your pocket"
+    },
+    "scene": "A stack of index cards with handwritten notes beside a glass of water on a small lectern, backstage light, nobody in the frame.",
+    "image": "/illustrations/associations/moment-first-step-c.jpg",
+    "tagWeights": {
+      "performance": 0.8,
+      "challenge": 0.9,
+      "language": 0.4
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.6,
+      "setting": -0.6,
+      "novelty": 0.8
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-pencil-scratch",
+    "family": "sense-pencil-scratch",
+    "round": "senses",
+    "label": {
+      "nl": "Het krassen van een pen",
+      "en": "The scratch of a pen"
+    },
+    "scene": "Extreme close-up of a pen nib on cream paper in warm light, a few lines of handwriting, nobody visible.",
+    "image": "/illustrations/associations/sense-pencil-scratch.jpg",
+    "tagWeights": {
+      "language": 0.6,
+      "stillness": 0.7,
+      "craft": 0.4,
+      "puzzling": 0.3
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-pencil-scratch-b",
+    "family": "sense-pencil-scratch",
+    "round": "senses",
+    "label": {
+      "nl": "Een potlood slijpen",
+      "en": "Sharpening a pencil"
+    },
+    "scene": "Curls of wood shavings and a freshly sharpened pencil beside a sharpener on a wooden desk, soft light, nobody in the frame.",
+    "image": "/illustrations/associations/sense-pencil-scratch-b.jpg",
+    "tagWeights": {
+      "language": 0.6,
+      "stillness": 0.7,
+      "craft": 0.4,
+      "puzzling": 0.3
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-pencil-scratch-c",
+    "family": "sense-pencil-scratch",
+    "round": "senses",
+    "label": {
+      "nl": "Bladzijden omslaan",
+      "en": "Turning pages"
+    },
+    "scene": "Close-up of the pages of an open notebook caught mid-turn in soft window light, a pen resting in the gutter, only paper and light.",
+    "image": "/illustrations/associations/sense-pencil-scratch-c.jpg",
+    "tagWeights": {
+      "language": 0.6,
+      "stillness": 0.7,
+      "craft": 0.4,
+      "puzzling": 0.3
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
   }
 ]
