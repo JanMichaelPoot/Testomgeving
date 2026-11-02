@@ -3,6 +3,11 @@
   "generatedStatement": "Generated with Google's Gemini image model through the API from our own text prompts. No third-party photograph or artwork was used as input. Rights follow Google's terms for generated output at the time of use; this is not a stock or licensed photograph. Check those terms again before commercial launch.",
   "rules": [
     {
+      "match": "illustrations/hero-window/*.jpg",
+      "source": "Material textures for the landing-hero window (oak, limewashed plaster, limestone), scripts/generate-hero-window-textures.ts",
+      "license": "generated"
+    },
+    {
       "match": "illustrations/hero-fan/hero.jpg",
       "source": "Supplied by the project owner (file Hero_goed.jpeg, 2026)",
       "license": "Supplied by the project owner; original tool and licence not recorded in the repository",

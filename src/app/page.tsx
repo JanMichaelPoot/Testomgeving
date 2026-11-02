@@ -11,7 +11,7 @@ import { getVisitorPrice } from "@/lib/visitorPrice";
 import { VensterHero } from "@/components/window/VensterHero";
 import { getGiftCopy } from "@/lib/i18n/gift";
 import { giftHrefWithArrival, newArrivalId, showVensterLanding, VENSTER_SELF_HREF } from "@/lib/vensterLanding";
-import { heroAltText, randomHero } from "@/lib/heroPool";
+import { randomHeroWindow } from "@/lib/heroWindow";
 import Link from "next/link";
 import { SampleSpreads } from "@/components/window/SampleSpreads";
 import { FaqList } from "@/components/window/FaqList";
@@ -32,7 +32,8 @@ export default async function Home(props: {
     process.env.NEXT_PUBLIC_ASSOCIATION_WIZARD_PERCENT,
     (await props.searchParams).venster,
   );
-  const hero = randomHero();
+  // A new set of eight images on every visit (the page is rendered per request).
+  const hero = randomHeroWindow(locale);
   const howSteps = venster
     ? dict.venster.landing.chapters
     : dict.landing.howSteps;
@@ -43,7 +44,7 @@ export default async function Home(props: {
 
       <main className="w-full flex-1">
         {venster ? (
-          <VensterHero dict={dict.venster.landing} price={price} heroSrc={hero.image} heroAlt={heroAltText(hero, locale, dict.venster.landing.heroAlt)} giftHref={giftHrefWithArrival(newArrivalId())} voucherLabel={getGiftCopy(locale).homeLink} />
+          <VensterHero dict={dict.venster.landing} price={price} hero={hero} giftHref={giftHrefWithArrival(newArrivalId())} voucherLabel={getGiftCopy(locale).homeLink} />
         ) : (
           <section className="mx-auto w-full max-w-[84rem] px-6 pt-12 sm:px-10 sm:pt-16">
             <div className="grid w-full items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">

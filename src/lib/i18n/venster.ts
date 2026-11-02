@@ -311,7 +311,7 @@ export const vensterNl: VensterDictionary = {
     subcopy:
       "Kies een paar beelden. Wij maken er een persoonlijk boek van, met echte plekken bij jou in de buurt.",
     occasion: "Ook een mooi cadeau voor iemand die aan een nieuwe fase begint: pensioen, een verhuizing, kinderen die het huis uit gaan.",
-    heroAlt: "Een open raam met zacht licht en een uitzicht naar buiten",
+    heroAlt: "Een klassiek schuifraam met acht ruiten, elk met een ander beeld",
     chapters: [
       { title: "Jouw beelden", body: "Kies beelden en activiteiten die je aantrekken. Geen vragenlijst: klaar in ±3 minuten." },
       { title: "Jouw situatie", body: "Plaats, tijd, budget en met wie, voor echte plekken bij jou in de buurt." },
@@ -887,7 +887,7 @@ export const vensterEn: VensterDictionary = {
     headlineEmphasis: "with your free time?",
     subcopy: "Pick a few images. We turn them into a personal book, with real places near you.",
     occasion: "Also a lovely gift for someone starting a new phase: retirement, a move, children leaving home.",
-    heroAlt: "An open window with soft light and a view outside",
+    heroAlt: "A classic sash window with eight panes, each showing a different image",
     chapters: [
       { title: "Your images", body: "Pick images and activities that pull you in. No questionnaire: ready in about 3 minutes." },
       { title: "Your situation", body: "Place, time, budget and who comes along, for real places near you." },

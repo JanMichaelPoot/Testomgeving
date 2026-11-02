@@ -1,31 +1,29 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { HeroWindow } from "@/components/window/HeroWindow";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import type { HeroWindowData } from "@/lib/heroWindow";
 import { VENSTER_SELF_HREF } from "@/lib/vensterLanding";
 
-// Landing hero for "Het venster" (fase 7): the photo in the same arched walnut frame as the
-// window the visitor is about to fill, one headline and two ways in (for yourself, as a gift).
-// `heroSrc` is one photo of the hero pool (src/lib/heroPool.ts), another one on another visit.
+// Landing hero for "Het venster": the app's own rectangular sash window (HeroWindow), filled with real images of the
+// library (another set on another visit), one headline and two ways in (for yourself, as a gift).
 export function VensterHero({
   dict,
   price,
-  heroSrc,
-  heroAlt,
+  hero,
   giftHref,
   voucherLabel,
 }: {
   dict: Dictionary["venster"]["landing"];
   price: string;
-  heroSrc: string;
-  heroAlt: string;
+  hero: HeroWindowData;
   giftHref: string;
   /** The line under the buttons that leads to the gift voucher page. */
   voucherLabel?: string;
 }) {
   return (
     <section className="mx-auto w-full max-w-[84rem] px-4 pt-8 sm:px-10 sm:pt-16">
-      <div className="grid w-full items-center gap-10 md:grid-cols-[1fr_0.9fr] lg:gap-16">
+      <div className="grid w-full items-center gap-10 md:grid-cols-[1fr_1fr] lg:gap-16">
         <div className="flex max-w-xl flex-col gap-6">
           <div className="inline-flex items-center gap-2 self-start rounded-full border border-border bg-paper px-3.5 py-1.5">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold" />
@@ -52,20 +50,9 @@ export function VensterHero({
           )}
         </div>
 
-        <div className="mx-auto w-full max-w-[260px] sm:max-w-[360px] lg:max-w-[420px]">
-          <div className="rounded-[50%_50%_14px_14px/34%_34%_14px_14px] bg-accent-dark p-3 shadow-[0_30px_60px_-30px_rgba(60,41,32,0.6)]">
-            <div className="relative aspect-[3/4] overflow-hidden rounded-[50%_50%_6px_6px/32%_32%_6px_6px] ring-1 ring-gold/60">
-              <Image
-                src={heroSrc}
-                alt={heroAlt}
-                fill
-                priority
-                sizes="(min-width: 1024px) 420px, (min-width: 640px) 360px, 260px"
-                className="object-cover"
-              />
-            </div>
-          </div>
-          <div className="mx-6 h-3 rounded-b-md bg-gold/70" />
+        {/* On a big screen the window is as tall as fits under the header, never more than 560px wide. */}
+        <div className="mx-auto w-full max-w-[340px] sm:max-w-[460px] lg:max-w-[clamp(380px,calc((100svh_-_190px)/1.375),560px)]">
+          <HeroWindow items={hero.items} spare={hero.spare} title={dict.heroAlt} />
         </div>
       </div>
     </section>

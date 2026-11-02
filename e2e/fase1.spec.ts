@@ -46,8 +46,16 @@ test.describe("mobile menu", () => {
 
   test("no horizontal scroll on the landing page", async ({ page }) => {
     await page.goto("/");
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-    expect(overflow).toBeLessThanOrEqual(0);
+    // On a failure the message names the elements that stick out (a carousel inside a <ul> scrolls on its own and does not count).
+    const { overflow, offenders } = await page.evaluate(() => {
+      const cw = document.documentElement.clientWidth;
+      const offenders = [...document.querySelectorAll("body *")]
+        .filter((el) => !el.closest("ul") && el.getBoundingClientRect().right > cw + 0.5 && el.getBoundingClientRect().width > 0)
+        .slice(0, 8)
+        .map((el) => `${el.tagName}.${String((el as HTMLElement).className).slice(0, 60)} right=${Math.round(el.getBoundingClientRect().right)}`);
+      return { overflow: document.documentElement.scrollWidth - cw, offenders };
+    });
+    expect(overflow, offenders.join(" | ")).toBeLessThanOrEqual(0);
   });
 });
 

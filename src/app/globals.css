@@ -145,6 +145,11 @@ body {
   .window-pane-open {
     animation: window-fade-in 0.5s ease backwards;
   }
+
+  /* The landing-hero window: a pane that swaps for another image fades in over the old one. */
+  .hero-pane-swap {
+    animation: window-page-fade 1.1s ease backwards;
+  }
 }
 
 .animate-window-page-in {
