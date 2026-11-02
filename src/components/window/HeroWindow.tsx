@@ -33,8 +33,31 @@ const BEVEL_V = "shadow-[inset_1px_0_0_rgba(255,235,205,0.22),inset_-1px_0_0_rgb
 
 type Slot = { cur: WindowItem; prev: WindowItem | null };
 
+// What a pane shows until its image has arrived: a soft sand colour, a little different from pane to pane, like frosted glass.
+const PANE_TONES = [
+  "linear-gradient(160deg, #ece2d1, #d9cbb5)",
+  "linear-gradient(160deg, #e7e1d4, #d3c9b7)",
+  "linear-gradient(160deg, #eadfce, #d6c7b0)",
+  "linear-gradient(160deg, #e9e3d6, #d5cab8)",
+];
+
+// A picture that has not arrived by the time the page is hydrated fades in when it does (hero-pane-img in globals.css). Done with a
+// data attribute and no state, and only after hydration: without script every image simply shows as soon as the browser has it.
 function PaneImage({ item, priority }: { item: WindowItem; priority: boolean }) {
-  return <Image src={item.image!} alt={item.label} fill priority={priority} sizes={PANE_SIZES} className="object-cover" />;
+  return (
+    <Image
+      ref={(el) => {
+        if (el && !el.complete) el.dataset.pending = "1";
+      }}
+      onLoad={(e) => e.currentTarget.removeAttribute("data-pending")}
+      src={item.image!}
+      alt={item.label}
+      fill
+      priority={priority}
+      sizes={PANE_SIZES}
+      className="hero-pane-img object-cover"
+    />
+  );
 }
 
 function StoneSlab({ className, shadow }: { className: string; shadow: string }) {
@@ -174,8 +197,8 @@ export function HeroWindow({ items, spare, title }: { items: readonly WindowItem
                 return (
                   <div
                     key={rect.slot}
-                    className="window-pane-open absolute overflow-hidden bg-cream"
-                    style={{ ...paneBox(layout, rect), animationDelay: `${rect.slot * 140}ms` }}
+                    className="window-pane-open absolute overflow-hidden"
+                    style={{ ...paneBox(layout, rect), background: PANE_TONES[rect.slot % PANE_TONES.length], animationDelay: `${rect.slot * 140}ms` }}
                   >
                     {slot.prev && <PaneImage item={slot.prev} priority={false} />}
                     <div key={slot.cur.id} className={slot.prev ? "hero-pane-swap absolute inset-0" : "absolute inset-0"}>

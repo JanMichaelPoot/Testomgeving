@@ -67,3 +67,31 @@ test.describe("hero window with reduced motion", () => {
     expect(opacities.every((o) => o === "1")).toBe(true);
   });
 });
+
+test.describe("hero window while the images are still coming", () => {
+  test.use({ viewport: { width: 1280, height: 800 } });
+
+  test("the panes show a soft colour and the pictures fade in when they arrive", async ({ page }) => {
+    // Every picture takes two seconds to arrive.
+    await page.route("**/_next/image**", async (route) => {
+      await new Promise((r) => setTimeout(r, 2000));
+      await route.continue();
+    });
+    await page.goto("/?venster=1", { waitUntil: "domcontentloaded" });
+    const panes = page.locator("main figure .window-pane-open");
+    await expect(panes).toHaveCount(8);
+    // Before the pictures: every pane has a soft colour of its own (a gradient, not the oak behind it) and is fully visible.
+    await page.waitForTimeout(1500);
+    const early = await panes.evaluateAll((els) => els.map((e) => ({ bg: getComputedStyle(e).backgroundImage, op: getComputedStyle(e).opacity })));
+    for (const p of early) {
+      expect(p.bg).toContain("linear-gradient");
+      expect(p.op).toBe("1");
+    }
+    // Afterwards: all pictures are there and shown, none still waiting.
+    await expect.poll(async () => page.locator("main figure .window-pane-open img").evaluateAll((imgs) => (imgs as HTMLImageElement[]).filter((i) => i.complete && i.naturalWidth > 0).length), { timeout: 30000 }).toBe(8);
+    await expect.poll(async () => page.locator("main figure .window-pane-open img[data-pending]").count()).toBe(0);
+    await page.waitForTimeout(900);
+    const shown = await page.locator("main figure .window-pane-open img").evaluateAll((imgs) => imgs.map((i) => getComputedStyle(i).opacity));
+    expect(shown.every((o) => o === "1")).toBe(true);
+  });
+});
