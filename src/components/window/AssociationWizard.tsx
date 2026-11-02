@@ -515,7 +515,8 @@ export function AssociationWizard({
       case "moments":
         return chosenInRound > 0;
       case "situation":
-        return !!answers.timeAvailable && !!answers.budget && answers.company.length > 0;
+        // The place is what the real-places search starts from, so it is not optional.
+        return answers.location.trim().length > 0 && !!answers.timeAvailable && !!answers.budget && answers.company.length > 0;
       default:
         return true;
     }
@@ -537,6 +538,7 @@ export function AssociationWizard({
         return h.round;
       case "situation": {
         const missing = [
+          answers.location.trim().length === 0 && h.place,
           !answers.timeAvailable && h.time,
           !answers.budget && h.budget,
           answers.company.length === 0 && h.company,

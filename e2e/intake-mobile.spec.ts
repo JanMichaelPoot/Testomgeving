@@ -114,7 +114,7 @@ test.describe("touch targets on a phone", () => {
     await openScreen(page, 5);
     const small = await page.evaluate(() => {
       const els = [
-        ...document.querySelectorAll<HTMLElement>('main [role="switch"], main input[type="email"], main nav[aria-label] a, button[aria-label="Bekijk je venster"]'),
+        ...document.querySelectorAll<HTMLElement>('main [role="switch"], main input[type="email"], main nav[aria-label] a, button[aria-label="Bekijk je venster"], button[aria-label="See your window"]'),
       ];
       return els
         .map((el) => {
@@ -136,6 +136,23 @@ test.describe("touch targets on a phone", () => {
     await expect(gift).toHaveAttribute("aria-checked", "false");
     await page.locator("#gift-label").click();
     await expect(gift).toHaveAttribute("aria-checked", "true");
+  });
+});
+
+// The place is required on the situation screen: without it "Verder" stays grey and the hint names it.
+test.describe("situation screen needs a place", () => {
+  // A Dutch browser, so the site opens in Dutch and the labels below match.
+  test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, locale: "nl-NL" });
+
+  test("Verder stays disabled until a place is typed, and the hint says so", async ({ page }) => {
+    await openScreen(page, 4);
+    for (const label of ["Een halve dag", "Tot €25", "Een partner"]) await page.getByRole("button", { name: label, exact: true }).click();
+    const next = page.getByRole("button", { name: "Verder", exact: true });
+    await expect(next).toHaveAttribute("aria-disabled", "true");
+    await expect(page.locator("#continue-hint")).toHaveText("Nog te kiezen: plaats.");
+    await page.getByRole("combobox").fill("Utrecht");
+    await expect(page.locator("#continue-hint")).toBeHidden();
+    await expect(next).not.toHaveAttribute("aria-disabled", "true");
   });
 });
 

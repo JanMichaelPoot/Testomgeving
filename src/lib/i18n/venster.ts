@@ -197,7 +197,7 @@ export interface VensterDictionary {
     windowTitle: string;
     windowDownload: string;
     /** Why "Next" is greyed out, one line above the bar. {n} and {list} are filled in. */
-    hint: { images: string; concrete: string; worlds: string; round: string; missing: string; time: string; budget: string; company: string };
+    hint: { images: string; concrete: string; worlds: string; round: string; missing: string; place: string; time: string; budget: string; company: string };
   };
   panes: { worlds: string; places: string; moments: string; senses: string; surprise: string };
   sill: { empty: string; with: string };
@@ -774,6 +774,7 @@ export const vensterNl: VensterDictionary = {
       worlds: "Kies minstens één richting, of laat ons kiezen.",
       round: "Kies minstens één beeld om door te gaan.",
       missing: "Nog te kiezen: {list}.",
+      place: "plaats",
       time: "tijd",
       budget: "budget",
       company: "met wie",
@@ -1348,6 +1349,7 @@ export const vensterEn: VensterDictionary = {
       worlds: "Pick at least one direction, or let us choose.",
       round: "Pick at least one image to continue.",
       missing: "Still to pick: {list}.",
+      place: "place",
       time: "time",
       budget: "budget",
       company: "who comes along",
