@@ -275,6 +275,8 @@ export function AssociationWizard({
   const [concrete, setConcrete] = useState<ConcreteState | null>(null);
   // Two pages: chosen activities that a limit of the situation screen rules out (asked of the server when the profile screen is open).
   const [dropped, setDropped] = useState<{ id: string; reason: string }[]>([]);
+  // The `limitsKey` the `dropped` list was computed for: the portrait names the person's own picks only once the check has run for the current answers.
+  const [droppedFor, setDroppedFor] = useState("");
   const [limitChips, setLimitChips] = useState<string[]>([]);
   const [limitText, setLimitText] = useState("");
   const [hydrated, setHydrated] = useState(false);
@@ -433,10 +435,14 @@ export function AssociationWizard({
     const mustHaves = [...limitChips, limitText.trim()].filter(Boolean).join("; ");
     checkPicks({ ...answers, mustHaves, intakeVariant: "associations", intakeFlow: "images2" })
       .then((list) => {
-        if (!cancelled) setDropped(list);
+        if (cancelled) return;
+        setDropped(list);
+        setDroppedFor(limitsKey);
       })
       .catch(() => {
-        if (!cancelled) setDropped([]);
+        if (cancelled) return;
+        setDropped([]);
+        setDroppedFor(limitsKey);
       });
     return () => {
       cancelled = true;
@@ -490,7 +496,8 @@ export function AssociationWizard({
             mustHaves: [...limitChips, limitText.trim()].filter(Boolean).join("; "),
             gift,
             name,
-            picks: flow2 ? picks.map((id) => poolById.get(id)?.label).filter((l): l is string => !!l) : undefined,
+            // A pick that a limit rules out ("Dit kon niet mee") is not a starting point either.
+            picks: flow2 ? (droppedFor === limitsKey ? picks.filter((id) => !dropped.some((d) => d.id === id)) : []).map((id) => poolById.get(id)?.label).filter((l): l is string => !!l) : undefined,
           },
           dict.profile,
         )
@@ -1361,10 +1368,13 @@ export function AssociationWizard({
         <button
           type="button"
           onClick={() => setWindowOpen(true)}
-          className="w-10 shrink-0 lg:hidden"
+          // The picture stays 40px wide; the button around it is 44px so it is a proper touch target.
+          className="flex w-11 shrink-0 items-center justify-center lg:hidden"
           aria-label={dict.nav.windowOpen}
         >
-          <WindowFrame items={windowItems} size="icon" title={windowTitle} />
+          <span className="block w-10">
+            <WindowFrame items={windowItems} size="icon" title={windowTitle} />
+          </span>
         </button>
       </div>
 

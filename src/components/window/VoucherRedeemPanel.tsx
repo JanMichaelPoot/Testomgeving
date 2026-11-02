@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { Switch } from "@/components/ui/Switch";
 import { ComplianceCheckbox } from "@/components/window/CheckoutPanel";
 import { redeemVoucher } from "@/app/cadeau/actions";
 import type { GiftCopy } from "@/lib/i18n/gift";
@@ -54,26 +55,17 @@ export function VoucherRedeemPanel({ copy, beforeRedeem }: { copy: GiftCopy["pan
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           aria-invalid={!emailOk}
-          className="mt-1.5 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/70 focus:border-ink"
+          className="mt-1.5 min-h-11 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/70 focus:border-ink"
         />
         <p className="mt-1.5 text-xs text-ink/70">{copy.emailHint}</p>
       </div>
 
       <div className="mb-6 rounded-lg border border-border bg-cream p-5">
         <div className="flex items-start justify-between gap-4">
-          <span id="redeem-followup-label" className="text-sm font-medium text-ink">
+          <label id="redeem-followup-label" htmlFor="redeem-followup-switch" className="text-sm font-medium text-ink">
             {copy.followUpLabel}
-          </span>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={followUp}
-            aria-labelledby="redeem-followup-label"
-            onClick={() => setFollowUp((f) => !f)}
-            className={`relative mt-0.5 h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${followUp ? "bg-accent" : "bg-ink/15"}`}
-          >
-            <span className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200 ${followUp ? "translate-x-6" : "translate-x-1"}`} />
-          </button>
+          </label>
+          <Switch id="redeem-followup-switch" labelledBy="redeem-followup-label" checked={followUp} onChange={setFollowUp} />
         </div>
         <p className="mt-2 text-xs leading-relaxed text-ink/70">{copy.followUpHint}</p>
       </div>

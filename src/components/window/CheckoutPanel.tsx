@@ -3,10 +3,15 @@
 import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { Switch } from "@/components/ui/Switch";
 import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
 import { createCheckoutSession } from "@/app/checkout/actions";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+
+const LEGAL_LINK = "inline-flex min-h-11 items-center underline underline-offset-2 hover:text-ink";
+const EMAIL_INPUT =
+  "mt-1.5 min-h-11 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/70 focus:border-ink";
 
 function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -139,7 +144,7 @@ export function CheckoutPanel({
             onChange={(e) => setDeliveryEmail(e.target.value)}
             placeholder={dict.deliveryEmailPlaceholder}
             aria-invalid={!deliveryEmailValid}
-            className="mt-1.5 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/70 focus:border-ink"
+            className={EMAIL_INPUT}
           />
           <p className="mt-1.5 text-xs text-ink/70">{dict.deliveryEmailHint}</p>
         </div>
@@ -148,35 +153,25 @@ export function CheckoutPanel({
       {/* Gift toggle */}
       <div className="mb-6 rounded-lg border border-border bg-cream p-5">
         <div className="flex items-center justify-between gap-4">
-          <span className="text-sm font-medium text-ink">{dict.giftToggleLabel}</span>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={isGift}
-            onClick={() => setIsGift((g) => !g)}
-            className={`relative h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
-              isGift ? "bg-accent" : "bg-ink/15"
-            }`}
-          >
-            <span
-              className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200 ${
-                isGift ? "translate-x-6" : "translate-x-1"
-              }`}
-            />
-          </button>
+          <label id="gift-label" htmlFor="gift-switch" className="py-2 text-sm font-medium text-ink">
+            {dict.giftToggleLabel}
+          </label>
+          <Switch id="gift-switch" labelledBy="gift-label" checked={isGift} onChange={setIsGift} />
         </div>
 
         {isGift && (
           <div className="mt-4">
-            <label className="block text-xs font-medium uppercase tracking-widest text-ink/70">
+            <label htmlFor="gift-email" className="block text-xs font-medium uppercase tracking-widest text-ink/70">
               {dict.giftEmailLabel}
             </label>
             <input
+              id="gift-email"
               type="email"
+              autoComplete="off"
               value={giftEmail}
               onChange={(e) => setGiftEmail(e.target.value)}
               placeholder={dict.giftEmailPlaceholder}
-              className="mt-1.5 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/70 focus:border-ink"
+              className={EMAIL_INPUT}
             />
           </div>
         )}
@@ -185,25 +180,10 @@ export function CheckoutPanel({
       {/* Optional repetition memory (fase 5): its own choice, off unless switched on. */}
       <div className="mb-6 rounded-lg border border-border bg-cream p-5">
         <div className="flex items-start justify-between gap-4">
-          <span id="memory-label" className="text-sm font-medium text-ink">
+          <label id="memory-label" htmlFor="memory-switch" className="text-sm font-medium text-ink">
             {dict.memoryLabel}
-          </span>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={remember}
-            aria-labelledby="memory-label"
-            onClick={() => setRemember((r) => !r)}
-            className={`relative mt-0.5 h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
-              remember ? "bg-accent" : "bg-ink/15"
-            }`}
-          >
-            <span
-              className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200 ${
-                remember ? "translate-x-6" : "translate-x-1"
-              }`}
-            />
-          </button>
+          </label>
+          <Switch id="memory-switch" labelledBy="memory-label" checked={remember} onChange={setRemember} />
         </div>
         <p className="mt-2 text-xs leading-relaxed text-ink/70">{dict.memoryHint}</p>
       </div>
@@ -211,25 +191,10 @@ export function CheckoutPanel({
       {/* One follow-up e-mail after six weeks (improvement brief B5): its own choice, off unless switched on. */}
       <div className="mb-6 rounded-lg border border-border bg-cream p-5">
         <div className="flex items-start justify-between gap-4">
-          <span id="followup-label" className="text-sm font-medium text-ink">
+          <label id="followup-label" htmlFor="followup-switch" className="text-sm font-medium text-ink">
             {dict.followUpLabel}
-          </span>
-          <button
-            type="button"
-            role="switch"
-            aria-checked={followUp}
-            aria-labelledby="followup-label"
-            onClick={() => setFollowUp((f) => !f)}
-            className={`relative mt-0.5 h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
-              followUp ? "bg-accent" : "bg-ink/15"
-            }`}
-          >
-            <span
-              className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200 ${
-                followUp ? "translate-x-6" : "translate-x-1"
-              }`}
-            />
-          </button>
+          </label>
+          <Switch id="followup-switch" labelledBy="followup-label" checked={followUp} onChange={setFollowUp} />
         </div>
         <p className="mt-2 text-xs leading-relaxed text-ink/70">{dict.followUpHint}</p>
       </div>
@@ -267,24 +232,27 @@ export function CheckoutPanel({
 
       {/* Legal information, reachable before payment (compliance brief
           section 8) — never only disclosed afterwards. */}
-      <p className="mb-7 text-xs text-ink/70">
-        {dict.legalLinksIntro}{" "}
-        <Link href="/terms" target="_blank" className="underline underline-offset-2 hover:text-ink">
-          {dict.legalLinks.terms}
-        </Link>
-        {" · "}
-        <Link href="/herroepingsrecht" target="_blank" className="underline underline-offset-2 hover:text-ink">
-          {dict.legalLinks.withdrawal}
-        </Link>
-        {" · "}
-        <Link href="/privacy" target="_blank" className="underline underline-offset-2 hover:text-ink">
-          {dict.legalLinks.privacy}
-        </Link>
-        {" · "}
-        <Link href="/privacy#contact" target="_blank" className="underline underline-offset-2 hover:text-ink">
-          {dict.legalLinks.contact}
-        </Link>
-      </p>
+      <div className="mb-5 text-xs text-ink/70">
+        <p>{dict.legalLinksIntro}</p>
+        {/* Each link is a 44px-high target of its own (they used to be 15px of running text). */}
+        <nav className="flex flex-wrap items-center gap-x-2" aria-label={dict.legalLinksIntro}>
+          <Link href="/terms" target="_blank" className={LEGAL_LINK}>
+            {dict.legalLinks.terms}
+          </Link>
+          <span aria-hidden="true">·</span>
+          <Link href="/herroepingsrecht" target="_blank" className={LEGAL_LINK}>
+            {dict.legalLinks.withdrawal}
+          </Link>
+          <span aria-hidden="true">·</span>
+          <Link href="/privacy" target="_blank" className={LEGAL_LINK}>
+            {dict.legalLinks.privacy}
+          </Link>
+          <span aria-hidden="true">·</span>
+          <Link href="/privacy#contact" target="_blank" className={LEGAL_LINK}>
+            {dict.legalLinks.contact}
+          </Link>
+        </nav>
+      </div>
 
       {error && (
         <p className="mb-4 text-sm text-red-600" role="alert">

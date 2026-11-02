@@ -129,12 +129,17 @@ export function pickRepresentativeCards(
 
 const TENSION_PRIORITY: AxisId[] = ["energy", "novelty", "social", "setting"];
 
-/** The axis on which the chosen images pull in opposite directions (both clearly past ±0.5), strongest first. */
-export function findTension(cards: readonly AssociationCardData[], chosen: readonly string[]): AxisId | null {
+/**
+ * The axis on which the chosen images pull in opposite directions (both clearly past ±0.5), strongest first.
+ * `skip` leaves axes out that the person has already settled with a hard limit ("Moet buiten zijn" makes "you chose
+ * indoors and outdoors" a sentence that contradicts what they said).
+ */
+export function findTension(cards: readonly AssociationCardData[], chosen: readonly string[], skip: readonly AxisId[] = []): AxisId | null {
   const byId = new Map(cards.map((c) => [c.id, c]));
   const picked = chosen.map((id) => byId.get(id)).filter((c): c is AssociationCardData => !!c);
   let best: { axis: AxisId; magnitude: number } | null = null;
   for (const axis of TENSION_PRIORITY) {
+    if (skip.includes(axis)) continue;
     const values = picked.map((c) => c.axes[axis]);
     if (values.length === 0) continue;
     const high = Math.max(...values);
@@ -148,9 +153,10 @@ export function findTension(cards: readonly AssociationCardData[], chosen: reado
 }
 
 /** The axis the images lean on most clearly (|average| >= 0.2), or null when they point nowhere in particular. */
-export function strongestAxis(avg: AssociationAxes): { axis: AxisId; dir: "low" | "high" } | null {
+export function strongestAxis(avg: AssociationAxes, skip: readonly AxisId[] = []): { axis: AxisId; dir: "low" | "high" } | null {
   let best: { axis: AxisId; value: number } | null = null;
   for (const axis of TENSION_PRIORITY) {
+    if (skip.includes(axis)) continue;
     const value = avg[axis];
     if (Math.abs(value) >= 0.2 && (!best || Math.abs(value) > Math.abs(best.value))) best = { axis, value };
   }
@@ -164,7 +170,7 @@ export function describeFilters(
   input: Pick<ProfileInput, "budget" | "timeAvailable" | "searchDistance" | "socialFormats" | "mustHaves">,
   dials: { practicalToWild: string; effort: string },
   copy: Copy,
-): { seek: string[]; omit: string[] } {
+): { seek: string[]; omit: string[]; setting: "outdoor" | "indoor" | undefined } {
   const c = resolveConstraints({
     interests: [],
     interestDomains: [],
@@ -202,7 +208,7 @@ export function describeFilters(
   if (c.intensityCap === 2) omit.push(copy.omitLines.effortSome);
   if (c.costCap === 2) omit.push(copy.omitLines.costMid);
 
-  return { seek: seek.slice(0, 3), omit: omit.slice(0, 2) };
+  return { seek: seek.slice(0, 3), omit: omit.slice(0, 2), setting: c.setting === "outdoor" || c.setting === "indoor" ? c.setting : undefined };
 }
 
 // --- starting points for "what are we missing" ----------------------------------------------
@@ -249,7 +255,11 @@ export function buildProfileStory(input: ProfileInput, copy: Copy): ProfileStory
   const profile = tagProfile(input.cards, input.chosen, input.corrections);
   const nameVars = { name: input.name };
 
-  const tensionAxis = findTension(input.cards, input.chosen);
+  // A hard limit on indoors or outdoors settles that axis: no sentence about the images' pull on it may sit next to it.
+  const filters = describeFilters(input, dials, copy);
+  const settled: AxisId[] = filters.setting ? ["setting"] : [];
+
+  const tensionAxis = findTension(input.cards, input.chosen, settled);
   const pickedCards = pickRepresentativeCards(input, 3, tensionAxis);
   const orderedIds = [...input.corrections, ...topTags(profile, 6).filter((t) => !input.corrections.includes(t))];
   const tags = orderedIds.slice(0, 2).map((t) => (input.tagLabels[t] ?? t).toLowerCase());
@@ -288,6 +298,7 @@ export function buildProfileStory(input: ProfileInput, copy: Copy): ProfileStory
     // Who comes along beats what the images lean to: "on your own" next to "with your partner" would contradict itself.
     if (lean.social === "alone" && withOthers) delete lean.social;
     if (lean.social === "together" && alone) delete lean.social;
+    if (filters.setting) delete lean.setting;
     const novelty = axes.novelty <= -0.35 ? "familiar" : axes.novelty >= 0.35 ? "fresh" : null;
     const leaning = [
       lean.setting ? { rank: Math.abs(axes.setting), order: 0, text: copy.leanLines[lean.setting] } : null,
@@ -317,13 +328,11 @@ export function buildProfileStory(input: ProfileInput, copy: Copy): ProfileStory
   } else if (tensionAxis) {
     tension = { kind: "tension", axis: tensionAxis, text: fill(input.gift ? copy.tensionGift[tensionAxis] : copy.tension[tensionAxis], nameVars) };
   } else {
-    const strong = strongestAxis(fromImages);
+    const strong = strongestAxis(fromImages, settled);
     tension = strong
       ? { kind: "strong", axis: strong.axis, text: (input.gift ? copy.strongGift : copy.strong)[strong.axis][strong.dir] }
       : { kind: "balanced", axis: null, text: input.gift ? copy.balancedGift : copy.balanced };
   }
-
-  const filters = describeFilters(input, dials, copy);
 
   return {
     pickedCards: pickedCards.map((c) => ({ id: c.id, label: c.label, image: c.image })),

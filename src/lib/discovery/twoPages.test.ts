@@ -175,7 +175,8 @@ describe("page 2: the concrete page that follows from page 1", () => {
       const dominant = mix.dominant ?? REGISTERS.reduce((best, r) => (counts[r] > counts[best] ? r : best), REGISTERS[0]);
       expect(CONCRETE_PAGE_SIZE - counts[dominant], `visitor ${i} outside ${dominant}`).toBeGreaterThanOrEqual(CONCRETE_PAGE_SIZE / 3);
     }
-  });
+    // 1.7 s alone, but over the 5 s default when the whole suite runs in parallel.
+  }, 60_000);
 
   it("follows the mix: a page 1 chosen almost entirely from one register leans to that register on page 2, without excluding the rest", () => {
     for (const r of REGISTERS) {

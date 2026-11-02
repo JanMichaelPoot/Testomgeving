@@ -180,6 +180,48 @@ describe("tension and strong axes", () => {
     expect(r.tension.text).toContain("rust");
   });
 
+  describe("a hard limit on indoors or outdoors settles that axis", () => {
+    const MIXED = ["sense-wood-smoke", "place-workshop"];
+
+    it("still reports the setting tension when nobody set a limit", () => {
+      expect(findTension(lib.nl.cards, MIXED)).toBe("setting");
+      const r = buildProfileStory(input("nl", MIXED), copyOf("nl"));
+      expect(r.tension.axis).toBe("setting");
+      expect(r.tension.text).toMatch(/binnen én buiten/);
+    });
+
+    it("skips an axis the caller has settled, in findTension and in strongestAxis", () => {
+      expect(findTension(lib.nl.cards, MIXED, ["setting"])).not.toBe("setting");
+      expect(strongestAxis({ social: 0, energy: 0, setting: 0.9, novelty: 0 }, ["setting"])).toBeNull();
+      expect(strongestAxis({ social: 0, energy: 0, setting: 0.9, novelty: 0.3 }, ["setting"])).toEqual({ axis: "novelty", dir: "high" });
+    });
+
+    for (const [limit, locale] of [
+      ["Moet buiten zijn", "nl"],
+      ["Moet binnen kunnen", "nl"],
+      ["Must be outdoors", "en"],
+      ["Must work indoors", "en"],
+    ] as const) {
+      it(`${locale}: "${limit}" never sits next to a sentence about indoors and outdoors`, () => {
+        const filters = describeFilters({ budget: "100", timeAvailable: "halfday", searchDistance: "hour", socialFormats: [], mustHaves: limit }, { practicalToWild: "balanced", effort: "some" }, copyOf(locale));
+        expect(filters.setting).toBeDefined();
+        const r = buildProfileStory(input(locale, MIXED, { mustHaves: limit }), copyOf(locale));
+        expect(r.tension.axis).not.toBe("setting");
+        for (const text of [r.tension.text, r.story]) expect(text).not.toMatch(/binnen én buiten|indoors and outdoors|binnen en buiten/i);
+      });
+    }
+
+    it("leaves the lean sentence about setting out as well", () => {
+      const copy = copyOf("nl");
+      const OUTDOORS = ["place-forest-edge", "place-still-water", "sense-wood-smoke"];
+      const without = buildProfileStory(input("nl", OUTDOORS), copy);
+      const withLimit = buildProfileStory(input("nl", OUTDOORS, { mustHaves: "Moet binnen kunnen" }), copy);
+      expect(without.story).toContain(copy.leanLines.outside);
+      expect(withLimit.story).not.toContain(copy.leanLines.outside);
+      expect(withLimit.story).not.toContain(copy.leanLines.inside);
+    });
+  });
+
   it("says plainly that nothing leans when nothing does", () => {
     expect(strongestAxis({ social: 0, energy: 0.1, setting: -0.1, novelty: 0 })).toBeNull();
     const flat = lib.nl.cards.map((c) => ({ ...c, axes: { social: 0, energy: 0, setting: 0, novelty: 0 } }));

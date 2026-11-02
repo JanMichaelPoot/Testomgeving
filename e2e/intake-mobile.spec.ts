@@ -106,6 +106,33 @@ for (const vp of VIEWPORTS) {
   });
 }
 
+// Touch targets on the profile screen's order block (switches, e-mail field, the legal links) and the window icon: at least 44px each way.
+test.describe("touch targets on a phone", () => {
+  test.use({ viewport: { width: 375, height: 812 }, hasTouch: true, isMobile: true });
+
+  test("the order block's switches, e-mail field and legal links, and the window icon, are at least 44px", async ({ page }) => {
+    await openScreen(page, 5);
+    const small = await page.evaluate(() => {
+      const els = [
+        ...document.querySelectorAll<HTMLElement>('main [role="switch"], main input[type="email"], main nav[aria-label] a, button[aria-label="Bekijk je venster"]'),
+      ];
+      return els
+        .map((el) => {
+          const r = el.getBoundingClientRect();
+          return { what: el.getAttribute("aria-label") || el.id || el.textContent?.trim().slice(0, 30) || el.tagName, w: Math.round(r.width), h: Math.round(r.height) };
+        })
+        .filter((x) => x.w < 44 || x.h < 44);
+    });
+    expect(small).toEqual([]);
+    // There are three switches, and the text beside one of them switches it too.
+    await expect(page.locator('main [role="switch"]')).toHaveCount(3);
+    const gift = page.locator("#gift-switch");
+    await expect(gift).toHaveAttribute("aria-checked", "false");
+    await page.locator("#gift-label").click();
+    await expect(gift).toHaveAttribute("aria-checked", "true");
+  });
+});
+
 test.describe("keyboard open on a phone", () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
 

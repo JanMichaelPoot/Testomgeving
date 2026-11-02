@@ -101,7 +101,7 @@ export function LocationAutocomplete({
                 type="button"
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => select(suggestion)}
-                className="block w-full px-4 py-2 text-left text-sm text-ink transition-colors hover:bg-surface-active"
+                className="block min-h-11 w-full px-4 py-2.5 text-left text-sm text-ink transition-colors hover:bg-surface-active"
               >
                 {label(suggestion)}
               </button>
