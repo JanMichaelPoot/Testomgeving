@@ -37,7 +37,8 @@ test.describe("the start page", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Voor wie, waar en wat moet kloppen?");
     // Part A: five visual choices, none chosen, each a proper touch target.
     const choices = page.locator("[data-context]");
-    await expect(choices).toHaveCount(5);
+    await expect(choices).toHaveCount(4);
+    await expect(page.getByText(/oudere/i)).toHaveCount(0);
     for (const c of await choices.all()) {
       expect(await c.getAttribute("aria-pressed")).toBe("false");
       expect((await c.boundingBox())!.height).toBeGreaterThanOrEqual(44);
@@ -64,8 +65,8 @@ test.describe("the start page", () => {
   test("a gift opens it without 'voor mezelf', and the choice changes the wording of the next page", async ({ page }) => {
     await open(page, "?wizard=images2&for=gift&s=e2e-1");
     await expect(page.locator('[data-context="self"]')).toHaveCount(0);
-    await expect(page.locator("[data-context]")).toHaveCount(4);
-    await page.locator('[data-context="senior"]').click();
+    await expect(page.locator("[data-context]")).toHaveCount(3);
+    await page.locator('[data-context="adult"]').click();
     await page.getByRole("combobox").fill("Haarlem");
     await page.getByLabel("Voornaam (optioneel)").fill("Oma Els");
     await page.getByRole("button", { name: "Verder", exact: true }).click();

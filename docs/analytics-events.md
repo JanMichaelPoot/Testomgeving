@@ -54,7 +54,7 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `intake_started` | een wizard geopend | `wizard_variant`, `editing`, `gift`, `restored` |
 | `images_done` | korte funnelnaam: pagina 1 (beelden) afgerond, samen met `images_page_completed` | `wizard_variant`, `selected`, `refreshes` |
 | `activities_done` | korte funnelnaam: pagina 2 (activiteiten) afgerond, samen met `concrete_page_completed` | `wizard_variant`, `selected`, `refreshes`, `explore_picked` |
-| `search_context_set` | de startpagina afgerond: voor wie we zoeken (`context`: self, child, adult, senior, group, unknown), of het een cadeau is en of er een randvoorwaarde is opgegeven | `context`, `is_gift`, `has_limits` |
+| `search_context_set` | de startpagina afgerond: voor wie we zoeken (`context`: self, child, adult, group, unknown), of het een cadeau is en of er een randvoorwaarde is opgegeven | `context`, `is_gift`, `has_limits` |
 | `situation_done` | korte funnelnaam: de startpagina (bij de vierrondes-intake het situatiescherm) afgerond, samen met `intake_page_completed` | `wizard_variant`, `duration_ms` |
 | `pay_clicked` | korte funnelnaam: de betaalknop ingedrukt, samen met `checkout_pay_clicked` | `is_gift`, `price_variant` |
 | `pdf_opened` | korte funnelnaam: de PDF geopend, samen met `plan_pdf_downloaded` | `source` |

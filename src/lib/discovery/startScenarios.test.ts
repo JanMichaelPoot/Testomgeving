@@ -79,10 +79,11 @@ describe("the ten scenarios: start page to generator", () => {
     expect(prompt).toContain("Sam");
   });
 
-  it("5. for an older person: no assumption of quiet or traditional, a soft age, the supervised and heavy ones are weighed, not forbidden", () => {
+  it("5. an older stored 'senior' context reads as another adult: no age bracket is ever a label, nothing is assumed", () => {
     const { stored, result, prompt } = run({ searchContext: "senior", location: "Eindhoven" });
-    expect(stored.audienceProfile?.audience).toMatchObject({ value: "senior", source: "inferred" });
-    expect(prompt).toMatch(/do not assume they want quiet or traditional activities/);
+    expect(stored.searchContext).toBe("adult");
+    expect(stored.audienceProfile?.audience).toMatchObject({ value: "adult", source: "inferred" });
+    expect(prompt).not.toMatch(/older person|senior|quiet or traditional/i);
     expect(result.seeds.length).toBeGreaterThanOrEqual(6);
   });
 

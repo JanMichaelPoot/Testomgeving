@@ -1,7 +1,6 @@
 import type { SearchContext } from "@/lib/discovery/audience";
 
-// Small line drawings for the "voor wie" choices on the start page: one person, a smaller person, two people, a person in front of a
-// sun (no cane, no stereotype), and a group. Decorative; the label next to them says the same.
+// Small line drawings for the "voor wie" choices on the start page: one person, a smaller person, two people, and a group. Decorative; the label next to them says the same.
 
 const COMMON = { fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round" } as const;
 
@@ -27,14 +26,6 @@ export function ContextIcon({ context, className }: { context: Exclude<SearchCon
           <path d="M5 32c0-5.4 4-8.6 9-8.6" />
           <circle cx="26" cy="14" r="4.5" />
           <path d="M17 32c0-5.4 4-8.6 9-8.6s9 3.2 9 8.6" />
-        </>
-      )}
-      {context === "senior" && (
-        <>
-          <path d="M6 31a14 14 0 0128 0" />
-          <path d="M20 8v3M9 13l2 2M31 13l-2 2" />
-          <circle cx="20" cy="21" r="4.2" />
-          <path d="M12.5 34c0-4.8 3.4-7.8 7.5-7.8s7.5 3 7.5 7.8" />
         </>
       )}
       {context === "group" && (

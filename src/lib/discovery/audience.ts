@@ -10,14 +10,18 @@
 //  - Nothing here excludes an activity because of an assumed stereotype. The only hard rule is for the minors context
 //    (alcohol, gambling, weapons, sharp or heavy tools, the dance form with an adult setting), plus the existing supervision rules.
 
-export const SEARCH_CONTEXTS = ["self", "child", "adult", "senior", "group", "unknown"] as const;
+export const SEARCH_CONTEXTS = ["self", "child", "adult", "group", "unknown"] as const;
 export type SearchContext = (typeof SEARCH_CONTEXTS)[number];
 
 /** The contexts where the search is for somebody else (or for several people), whatever the reason for asking. */
-export const OTHER_CONTEXTS: readonly SearchContext[] = ["child", "adult", "senior", "group"];
+export const OTHER_CONTEXTS: readonly SearchContext[] = ["child", "adult", "group"];
 
-/** A value from the browser (or an old draft) becomes a known context; anything else is "unknown". */
+/**
+ * A value from the browser (or an old draft) becomes a known context; anything else is "unknown". "senior" was a choice until Step 135
+ * (nobody should be sorted by age bracket in a label): an older stored value reads as "another adult".
+ */
 export function normalizeSearchContext(raw: unknown): SearchContext {
+  if (raw === "senior") return "adult";
   return typeof raw === "string" && (SEARCH_CONTEXTS as readonly string[]).includes(raw) ? (raw as SearchContext) : "unknown";
 }
 
@@ -33,7 +37,7 @@ export function isForOther(answers: { purpose?: string; searchContext?: string }
 export function effectiveAgeCategory(answers: { ageCategory?: string; searchContext?: string }): string {
   if (answers.ageCategory) return answers.ageCategory;
   const ctx = normalizeSearchContext(answers.searchContext);
-  return ctx === "child" ? "under18" : ctx === "senior" ? "65plus" : "";
+  return ctx === "child" ? "under18" : "";
 }
 
 // --- what is suitable ---------------------------------------------------------------------------------------------------------
@@ -79,8 +83,7 @@ export function audienceBias(a: { formats?: readonly string[] | null }, ctx: Sea
 /**
  * How much an image with a given tag suits a context, -1..1. Images carry no age, so this reads the tags they do carry. It is a lean for
  * the first selection, never a filter, and it is deliberately broad: a child context mixes the play of young children with what a
- * teenager picks; the older context leans to nothing that is not also true of any adult, and has no negative weights, so older people
- * are not shown only quiet and traditional images.
+ * teenager picks; an adult context has no lean at all.
  */
 export const CONTEXT_TAG_LEAN: Record<SearchContext, Record<string, number>> = {
   self: {},
@@ -90,10 +93,6 @@ export const CONTEXT_TAG_LEAN: Record<SearchContext, Record<string, number>> = {
     play: 0.9, animals: 0.8, nature: 0.5, outdoors: 0.5, making: 0.6, movement: 0.6, discovery: 0.6, water: 0.5, color: 0.5, puzzling: 0.4,
     rhythm: 0.4, sound: 0.4, miniature: 0.4, growing: 0.4, competition: 0.5, teamwork: 0.5, speed: 0.4, performance: 0.5, style: 0.4, strategy: 0.4,
     roleplay: 0.5, chance: -1, depths: -0.4, suspense: -0.2,
-  },
-  senior: {
-    history: 0.3, craft: 0.3, nature: 0.3, growing: 0.3, food: 0.3, conviviality: 0.3, learning: 0.3, story: 0.3, collecting: 0.3, travel: 0.3,
-    caring: 0.3, balance: 0.3, movement: 0.2, water: 0.2, discovery: 0.2, challenge: 0.2,
   },
   group: {
     teamwork: 0.9, competition: 0.7, conviviality: 0.8, play: 0.7, food: 0.6, strategy: 0.5, puzzling: 0.5, suspense: 0.5, roleplay: 0.5,
@@ -152,8 +151,8 @@ export interface Dimension<V> {
   confidence: number;
 }
 
-export type AudienceKind = "child_or_youth" | "adult" | "senior" | "mixed" | "unknown";
-export type LifeWorld = "family" | "work" | "school_age" | "later_life" | "partner" | "friends" | "unknown";
+export type AudienceKind = "child_or_youth" | "adult" | "mixed" | "unknown";
+export type LifeWorld = "family" | "work" | "school_age" | "partner" | "friends" | "unknown";
 export type Orientation = "creative" | "active" | "social" | "adventurous" | "relaxed";
 
 export interface AudienceProfile {
@@ -215,10 +214,9 @@ export function buildAudienceProfile(input: AudienceInput): AudienceProfile {
   let audience: AudienceProfile["audience"] = { value: "unknown", source: "unknown", confidence: 0 };
   const age = input.ageCategory ?? "";
   if (age) {
-    const value: AudienceKind = age === "under18" ? "child_or_youth" : age === "65plus" || age === "55-64" ? "senior" : "adult";
+    const value: AudienceKind = age === "under18" ? "child_or_youth" : "adult";
     audience = { value, source: "explicit", confidence: 0.95 };
   } else if (ctx === "child") audience = { value: "child_or_youth", source: "inferred", confidence: 0.6 };
-  else if (ctx === "senior") audience = { value: "senior", source: "inferred", confidence: 0.6 };
   else if (ctx === "group") audience = { value: "mixed", source: "inferred", confidence: 0.5 };
   else if (ctx === "adult") audience = { value: "adult", source: "inferred", confidence: 0.55 };
 
@@ -229,7 +227,6 @@ export function buildAudienceProfile(input: AudienceInput): AudienceProfile {
   else if (company.includes("partner")) lifeWorld = { value: "partner", source: "explicit", confidence: 0.7 };
   else if (company.includes("friends")) lifeWorld = { value: "friends", source: "explicit", confidence: 0.6 };
   else if (ctx === "child") lifeWorld = { value: "school_age", source: "inferred", confidence: 0.4 };
-  else if (ctx === "senior") lifeWorld = { value: "later_life", source: "inferred", confidence: 0.35 };
 
   // Interests: the tags of the chosen images (inferred), the tags of the activities the person picked (explicit, weighted heavier).
   const scores = new Map<string, number>();
@@ -296,7 +293,6 @@ export function describeAudienceForPrompt(profile: AudienceProfile, tagLabels: R
     self: "for themselves",
     child: "for a child or young person (age not known more precisely; do not assume a young child or a teenager unless the choices show it)",
     adult: "for another adult",
-    senior: "for an older person (do not assume they want quiet or traditional activities; follow the choices)",
     group: "for a group of people (ages and tastes may differ: offer ideas that hold up for a mixed group, do not build on one person's taste)",
     unknown: "not stated",
   };

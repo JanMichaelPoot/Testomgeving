@@ -68,17 +68,19 @@ const base = {
 
 describe("the search context", () => {
   it("normalises anything unknown to 'unknown' and supports every context of the brief", () => {
-    for (const c of ["self", "child", "adult", "senior", "group", "unknown"]) expect(normalizeSearchContext(c)).toBe(c);
+    for (const c of ["self", "child", "adult", "group", "unknown"]) expect(normalizeSearchContext(c)).toBe(c);
+    // "senior" was a choice until Step 135; an old draft or session that holds it reads as another adult.
+    expect(normalizeSearchContext("senior")).toBe("adult");
     for (const bad of [undefined, null, "", "teenager", 7, "CHILD"]) expect(normalizeSearchContext(bad)).toBe("unknown");
   });
 
-  it("separates the context from the age: 'for myself' says nothing about age, 'child' and 'older' only give a soft default, an explicit age wins", () => {
+  it("separates the context from the age: 'for myself' says nothing about age, only 'child' gives a soft default, an explicit age wins", () => {
     expect(effectiveAgeCategory({ searchContext: "self" })).toBe("");
     expect(effectiveAgeCategory({ searchContext: "adult" })).toBe("");
     expect(effectiveAgeCategory({ searchContext: "group" })).toBe("");
     expect(effectiveAgeCategory({ searchContext: "child" })).toBe("under18");
-    expect(effectiveAgeCategory({ searchContext: "senior" })).toBe("65plus");
-    expect(effectiveAgeCategory({ searchContext: "senior", ageCategory: "55-64" })).toBe("55-64");
+    expect(effectiveAgeCategory({ searchContext: "senior" })).toBe("");
+    expect(effectiveAgeCategory({ searchContext: "child", ageCategory: "18-24" })).toBe("18-24");
   });
 
   it("is 'for somebody else' for a gift and for every context but 'self' and 'unknown'", () => {
@@ -98,7 +100,6 @@ describe("what is offered to whom", () => {
     for (const a of activities) {
       const blocked = !allowedForContext(a, "child");
       expect(blocked).toBe(MINOR_UNSUITABLE.has(a.id));
-      expect(allowedForContext(a, "senior")).toBe(true);
       expect(allowedForContext(a, "group")).toBe(true);
       expect(allowedForContext(a, undefined)).toBe(true);
     }
@@ -124,7 +125,6 @@ describe("what is offered to whom", () => {
     expect(audienceBias({ formats: ["solo"] }, "group")).toBeGreaterThan(0);
     expect(audienceBias({ formats: null }, "group")).toBe(0);
     expect(audienceBias({ formats: ["solo"] }, "adult")).toBe(0);
-    expect(audienceBias({ formats: ["solo"] }, "senior")).toBe(0);
   });
 });
 
@@ -133,7 +133,7 @@ describe("the first and the follow-up images", () => {
   const meanLean = (ids: string[], ctx: string) => ids.reduce((s, id) => s + cardContextLean(cards.find((c) => c.id === id)!.tagWeights, ctx), 0) / ids.length;
 
   it("leans the first page to the context without making it one-sided: every register keeps its floor, and part of the page does not lean at all", () => {
-    for (const ctx of ["child", "senior", "group"]) {
+    for (const ctx of ["child", "group"]) {
       let leanMore = 0;
       let spreadTotal = 0;
       for (let i = 0; i < 40; i++) {
@@ -160,14 +160,6 @@ describe("the first and the follow-up images", () => {
     const b = sampleBalancedBatch(cards, { seed: "x", prefer: lean("child") }).map((c) => c.id);
     expect(a).toEqual(b);
     for (const ctx of ["self", "adult", "unknown"]) for (const c of cards) expect(cardContextLean(c.tagWeights, ctx)).toBe(0);
-  });
-
-  it("does not describe older people as quiet: the older lean has no negative weights", () => {
-    for (const c of cards) expect(cardContextLean(c.tagWeights, "senior")).toBeGreaterThanOrEqual(0);
-    const active = cards.filter((c) => c.axes.energy > 0.4);
-    expect(active.length).toBeGreaterThan(5);
-    const seniorFirst = sampleBalancedBatch(cards, { seed: "y", prefer: lean("senior") });
-    expect(seniorFirst.filter((c) => c.axes.energy > 0.2).length).toBeGreaterThanOrEqual(3);
   });
 
   it("deepens what was chosen on one card and opens something new on the next (the follow-up page)", () => {
@@ -211,7 +203,6 @@ describe("the Dynamic Audience & Interest Profile", () => {
 
   it("marks where each reading comes from: the context and an age are explicit, the age phase from a context is inferred and weaker", () => {
     expect(buildAudienceProfile({ ...none, searchContext: "child" }).audience).toMatchObject({ value: "child_or_youth", source: "inferred" });
-    expect(buildAudienceProfile({ ...none, searchContext: "senior" }).audience).toMatchObject({ value: "senior", source: "inferred" });
     expect(buildAudienceProfile({ ...none, searchContext: "group" }).audience).toMatchObject({ value: "mixed", source: "inferred" });
     const explicit = buildAudienceProfile({ ...none, searchContext: "self", ageCategory: "35-44" });
     expect(explicit.audience).toMatchObject({ value: "adult", source: "explicit" });
@@ -274,7 +265,7 @@ describe("what the server stores for the start page", () => {
     expect(applyImageIntake({ ...base }, "nl", "s", 6).searchContext).toBe("unknown");
     expect(applyImageIntake({ ...base, searchContext: "teen" }, "nl", "s", 6).searchContext).toBe("unknown");
     expect(applyImageIntake({ ...base, purpose: "gift", searchContext: "self" }, "nl", "s", 6).searchContext).toBe("unknown");
-    expect(applyImageIntake({ ...base, purpose: "gift", searchContext: "senior", recipientName: "Oma" }, "nl", "s", 6).recipientName).toBe("Oma");
+    expect(applyImageIntake({ ...base, purpose: "gift", searchContext: "adult", recipientName: "Oma" }, "nl", "s", 6).recipientName).toBe("Oma");
   });
 
   it("carries place, distance and limits through unchanged (they are asked once, first)", () => {

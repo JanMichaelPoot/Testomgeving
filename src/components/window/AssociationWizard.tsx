@@ -316,7 +316,7 @@ export function AssociationWizard({
   const startedAt = useRef(0);
 
   const pageId: PageId = pages[page];
-  // "For somebody else" covers a gift and the start page's child / other adult / older person / group; the wording is the gift wording.
+  // "For somebody else" covers a gift and the start page's child / other adult / group; the wording is the gift wording.
   const searchContext = normalizeSearchContext(answers.searchContext);
   const gift = isForOther(answers);
   const isGift = answers.purpose === "gift";
@@ -415,7 +415,7 @@ export function AssociationWizard({
             seed,
             seen: seenBefore,
             prefer:
-              searchContext === "child" || searchContext === "senior" || searchContext === "group"
+              searchContext === "child" || searchContext === "group"
                 ? (card, index) => imagePreference(card, { context: searchContext, chosenTags: {}, refresh: 0, index })
                 : undefined,
           }).map((c) => c.id)
@@ -437,7 +437,7 @@ export function AssociationWizard({
   const poolActivities = useMemo(() => allActivities?.filter((a) => allowedForContext(a, searchContext)), [allActivities, searchContext]);
   const contextPrefer = useMemo(
     () =>
-      searchContext === "child" || searchContext === "senior" || searchContext === "group"
+      searchContext === "child" || searchContext === "group"
         ? (a: { tags: readonly string[] }) => 0.5 + activityContextLean(a.tags, searchContext)
         : undefined,
     [searchContext],
@@ -971,7 +971,7 @@ export function AssociationWizard({
 
   // The start page ("Eerst de basis"): who we search for, where, and the few limits. Only the place is required.
   const startPage = (() => {
-    const choices = (["self", "child", "adult", "senior", "group"] as const).filter((c) => !isGift || c !== "self");
+    const choices = (["self", "child", "adult", "group"] as const).filter((c) => !isGift || c !== "self");
     const sectionLabel = "text-xs font-bold uppercase tracking-[0.09em] text-gold-text";
     return (
       <div className="space-y-9">

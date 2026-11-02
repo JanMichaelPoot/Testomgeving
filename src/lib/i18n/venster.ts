@@ -171,10 +171,10 @@ export interface VensterDictionary {
       label: string;
       labelGift: string;
       sub: string;
-      options: Record<"self" | "child" | "adult" | "senior" | "group", { label: string; sub: string }>;
+      options: Record<"self" | "child" | "adult" | "group", { label: string; sub: string }>;
       nameLabel: string;
       /** What the wording calls the person when no first name was given: "Waar zoeken we voor het kind?" */
-      fallbacks: Record<"child" | "adult" | "senior" | "group", string>;
+      fallbacks: Record<"child" | "adult" | "group", string>;
     };
     limits: { sub: string; timeLabelOther: string; chipsLabel: string; chipsSub: string; optional: string };
   };
@@ -716,12 +716,11 @@ export const vensterNl: VensterDictionary = {
       options: {
         self: { label: "Voor mezelf", sub: "Ik zoek iets voor mijzelf" },
         child: { label: "Voor een kind of jongere", sub: "Een kind of een tiener" },
-        adult: { label: "Voor een andere volwassene", sub: "Partner, vriend, collega…" },
-        senior: { label: "Voor een oudere", sub: "Bijvoorbeeld een ouder of grootouder" },
+        adult: { label: "Voor een andere volwassene", sub: "Partner, vriend, ouder, collega…" },
         group: { label: "Voor een groep", sub: "Gezin, vrienden of team" },
       },
       nameLabel: "Voornaam (optioneel)",
-      fallbacks: { child: "het kind", adult: "de ander", senior: "de oudere", group: "de groep" },
+      fallbacks: { child: "het kind", adult: "de ander", group: "de groep" },
     },
     limits: {
       sub: "Alleen invullen wat telt. Alles hier is optioneel.",
@@ -1290,12 +1289,11 @@ export const vensterEn: VensterDictionary = {
       options: {
         self: { label: "For myself", sub: "I'm looking for something for me" },
         child: { label: "For a child or young person", sub: "A child or a teenager" },
-        adult: { label: "For another adult", sub: "Partner, friend, colleague…" },
-        senior: { label: "For an older person", sub: "For example a parent or grandparent" },
+        adult: { label: "For another adult", sub: "Partner, friend, parent, colleague…" },
         group: { label: "For a group", sub: "Family, friends or a team" },
       },
       nameLabel: "First name (optional)",
-      fallbacks: { child: "the child", adult: "them", senior: "the older person", group: "the group" },
+      fallbacks: { child: "the child", adult: "them", group: "the group" },
     },
     limits: {
       sub: "Only fill in what matters. Everything here is optional.",

@@ -75,7 +75,7 @@ export interface IntakeAnswers {
   // The four sliders of "Zo kijken wij door jouw venster": where the person moved an axis away
   // from what their images said (-1 .. 1). Only the axes they touched. Sanitised on the server.
   axesOverride?: { social?: number; energy?: number; setting?: number; novelty?: number };
-  // The central start page (images2): who the search is for (src/lib/discovery/audience.ts): self, child, adult, senior, group or unknown.
+  // The central start page (images2): who the search is for (src/lib/discovery/audience.ts): self, child, adult, group or unknown.
   // Explicit input, normalised again on the server. Not the same as `purpose` (a gift) or the age: it is where the search starts.
   searchContext?: string;
   // Built by the server from the start page and the choices (never taken from the browser): the six dimensions of the Dynamic Audience &
