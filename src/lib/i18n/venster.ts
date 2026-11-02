@@ -187,7 +187,18 @@ export interface VensterDictionary {
     limitChips: string[];
     limitsPlaceholder: string;
   };
-  nav: { back: string; next: string; submit: string; submitting: string; windowOpen: string; windowClose: string; windowTitle: string; windowDownload: string };
+  nav: {
+    back: string;
+    next: string;
+    submit: string;
+    submitting: string;
+    windowOpen: string;
+    windowClose: string;
+    windowTitle: string;
+    windowDownload: string;
+    /** Why "Next" is greyed out, one line above the bar. {n} and {list} are filled in. */
+    hint: { images: string; concrete: string; worlds: string; round: string; missing: string; time: string; budget: string; company: string };
+  };
   panes: { worlds: string; places: string; moments: string; senses: string; surprise: string };
   sill: { empty: string; with: string };
   checkout: {
@@ -757,6 +768,16 @@ export const vensterNl: VensterDictionary = {
     windowClose: "Sluiten",
     windowTitle: "Jouw venster",
     windowDownload: "Download je venster als afbeelding",
+    hint: {
+      images: "Kies minstens {n} beelden om door te gaan.",
+      concrete: "Kies minstens één activiteit, of laat ons kiezen.",
+      worlds: "Kies minstens één richting, of laat ons kiezen.",
+      round: "Kies minstens één beeld om door te gaan.",
+      missing: "Nog te kiezen: {list}.",
+      time: "tijd",
+      budget: "budget",
+      company: "met wie",
+    },
   },
   panes: { worlds: "Richting", places: "Plek", moments: "Moment", senses: "Zintuig", surprise: "Verras me" },
   sill: { empty: "Elke keuze krijgt een plek in je venster.", with: "met" },
@@ -1321,6 +1342,16 @@ export const vensterEn: VensterDictionary = {
     windowClose: "Close",
     windowTitle: "Your window",
     windowDownload: "Download your window as a picture",
+    hint: {
+      images: "Pick at least {n} images to continue.",
+      concrete: "Pick at least one activity, or let us choose.",
+      worlds: "Pick at least one direction, or let us choose.",
+      round: "Pick at least one image to continue.",
+      missing: "Still to pick: {list}.",
+      time: "time",
+      budget: "budget",
+      company: "who comes along",
+    },
   },
   panes: { worlds: "Direction", places: "Place", moments: "Moment", senses: "Sense", surprise: "Surprise me" },
   sill: { empty: "Every choice finds a place in your window.", with: "with" },

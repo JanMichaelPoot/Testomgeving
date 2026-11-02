@@ -142,6 +142,8 @@ export interface Dictionary {
     ctaPending: string;
     /** One line under the pay button: the guarantee. */
     guarantee: string;
+    /** Above the pay button while it is still grey: what is missing. */
+    payHint: { consent: string; email: string };
     errorGeneric: string;
     errorTermsRequired: string;
     errorConsentRequired: string;
@@ -698,6 +700,10 @@ const nl: Dictionary = {
     ctaIdle: "Betalen en mijn PDF ontvangen — {price}",
     ctaPending: "Checkout wordt geopend…",
     guarantee: "Klopt een plek niet? Je krijgt gratis een nieuw boek.",
+    payHint: {
+      consent: "Vink de twee vakjes hierboven aan om te kunnen betalen.",
+      email: "Controleer het e-mailadres hierboven: dat lijkt niet te kloppen.",
+    },
     errorGeneric: "Er ging iets mis bij het openen van de checkout. Probeer het opnieuw.",
     errorTermsRequired: "Accepteer de Algemene voorwaarden om verder te gaan.",
     errorConsentRequired:
@@ -1415,6 +1421,10 @@ const en: Dictionary = {
     ctaIdle: "Pay and get my PDF — {price}",
     ctaPending: "Opening checkout…",
     guarantee: "Is a place wrong? You get a new book for free.",
+    payHint: {
+      consent: "Tick the two boxes above to be able to pay.",
+      email: "Check the e-mail address above: it doesn't look right.",
+    },
     errorGeneric: "Something went wrong opening checkout. Please try again.",
     errorTermsRequired: "Accept the Terms of Service to continue.",
     errorConsentRequired:

@@ -521,6 +521,33 @@ export function AssociationWizard({
     }
   })();
 
+  // Why "Next" is greyed out, in a line above the bar (nothing once it is active; the last screen, the profile, has no "Next").
+  const continueHint = (() => {
+    if (canContinue) return "";
+    const h = dict.nav.hint;
+    switch (pageId) {
+      case "images":
+        return h.images.replace("{n}", String(MIN_IMAGES_REQUIRED));
+      case "concrete":
+        return h.concrete;
+      case "worlds":
+        return h.worlds;
+      case "places":
+      case "moments":
+        return h.round;
+      case "situation": {
+        const missing = [
+          !answers.timeAvailable && h.time,
+          !answers.budget && h.budget,
+          answers.company.length === 0 && h.company,
+        ].filter((x): x is string => !!x);
+        return h.missing.replace("{list}", missing.join(", "));
+      }
+      default:
+        return "";
+    }
+  })();
+
   // --- actions ---------------------------------------------------------------------------
   function set<K extends keyof IntakeAnswers>(key: K, value: IntakeAnswers[K]) {
     setAnswers((prev) => ({ ...prev, [key]: value }));
@@ -1437,6 +1464,13 @@ export function AssociationWizard({
                   </button>
                 </div>
               )}
+              <p
+                id="continue-hint"
+                aria-live="polite"
+                className={cn("mx-auto mb-2 max-w-6xl text-center text-xs text-ink/70 lg:text-left", !continueHint && "hidden", swiping && "hidden sm:block")}
+              >
+                {continueHint}
+              </p>
               <div className={cn("mx-auto flex max-w-6xl items-center gap-3", swiping && "hidden sm:flex")}>
                 {page > 0 && (
                   <Button variant="secondary" onClick={back} aria-label={dict.nav.back} className="px-4">
@@ -1448,7 +1482,12 @@ export function AssociationWizard({
                 )}
                 {/* The last screen pays itself (the order block above): only "Terug" stays in the bar. */}
                 {!isLast && (
-                  <Button onClick={next} disabled={!canContinue} className="flex-1 lg:flex-none lg:min-w-56">
+                  <Button
+                    onClick={next}
+                    disabled={!canContinue}
+                    aria-describedby={continueHint ? "continue-hint" : undefined}
+                    className="flex-1 lg:flex-none lg:min-w-56"
+                  >
                     {primaryLabel}
                   </Button>
                 )}

@@ -124,6 +124,12 @@ test.describe("touch targets on a phone", () => {
         .filter((x) => x.w < 44 || x.h < 44);
     });
     expect(small).toEqual([]);
+    // Both consent rows are at least 44px high as a whole (the row is the label, so a tap anywhere on it ticks the box).
+    const rows = await page.locator("main label:has(input[type='checkbox'])").evaluateAll((els) => els.map((el) => Math.round(el.getBoundingClientRect().height)));
+    expect(rows).toHaveLength(2);
+    for (const h of rows) expect(h).toBeGreaterThanOrEqual(44);
+    // The pay button is grey until both are ticked, and a line says why.
+    await expect(page.locator("#pay-hint")).toBeVisible();
     // There are three switches, and the text beside one of them switches it too.
     await expect(page.locator('main [role="switch"]')).toHaveCount(3);
     const gift = page.locator("#gift-switch");

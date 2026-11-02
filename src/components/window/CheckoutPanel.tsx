@@ -30,7 +30,7 @@ export function ComplianceCheckbox({
   children: React.ReactNode;
 }) {
   return (
-    <label className="group flex cursor-pointer items-start gap-3">
+    <label className="group flex min-h-11 cursor-pointer items-start gap-3 py-1.5">
       <span
         aria-hidden="true"
         className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${
@@ -102,6 +102,11 @@ export function CheckoutPanel({
   // re-validates both server-side regardless, since this client check can
   // be bypassed.
   const canSubmit = digitalDeliveryConsent && termsAccepted && giftEmailValid && deliveryEmailValid;
+  const payHint = canSubmit
+    ? ""
+    : !digitalDeliveryConsent || !termsAccepted
+      ? dict.payHint.consent
+      : dict.payHint.email;
 
   function handleSubmit() {
     if (!canSubmit) return;
@@ -235,19 +240,17 @@ export function CheckoutPanel({
       <div className="mb-5 text-xs text-ink/70">
         <p>{dict.legalLinksIntro}</p>
         {/* Each link is a 44px-high target of its own (they used to be 15px of running text). */}
-        <nav className="flex flex-wrap items-center gap-x-2" aria-label={dict.legalLinksIntro}>
+        {/* No separator dots: when the links wrap, a dot would hang at the end of a line. The 44px height keeps them apart. */}
+        <nav className="flex flex-wrap items-center gap-x-5" aria-label={dict.legalLinksIntro}>
           <Link href="/terms" target="_blank" className={LEGAL_LINK}>
             {dict.legalLinks.terms}
           </Link>
-          <span aria-hidden="true">·</span>
           <Link href="/herroepingsrecht" target="_blank" className={LEGAL_LINK}>
             {dict.legalLinks.withdrawal}
           </Link>
-          <span aria-hidden="true">·</span>
           <Link href="/privacy" target="_blank" className={LEGAL_LINK}>
             {dict.legalLinks.privacy}
           </Link>
-          <span aria-hidden="true">·</span>
           <Link href="/privacy#contact" target="_blank" className={LEGAL_LINK}>
             {dict.legalLinks.contact}
           </Link>
@@ -260,9 +263,14 @@ export function CheckoutPanel({
         </p>
       )}
 
+      {/* Why the button is still grey: what is missing, in plain words (read out by screen readers too). */}
+      <p id="pay-hint" aria-live="polite" className={`mb-3 text-center text-sm text-ink/70 ${payHint ? "" : "hidden"}`}>
+        {payHint}
+      </p>
       <Button
         onClick={handleSubmit}
         disabled={!canSubmit || isPending}
+        aria-describedby={payHint ? "pay-hint" : undefined}
         size="lg"
         className="w-full justify-center"
       >
