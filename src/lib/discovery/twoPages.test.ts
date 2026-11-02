@@ -239,6 +239,21 @@ describe("page 2: the concrete page that follows from page 1", () => {
     for (const r of REGISTERS) expect(counts[r]).toBeGreaterThanOrEqual(MIN_PER_REGISTER);
   });
 
+  it("never brings an activity back on a later page, 'Misschien ook?' slots included, over three refreshes and many visitors", () => {
+    let checked = 0;
+    for (let i = 0; i < 60; i++) {
+      const picks = pickImages(`norepeat${i}`, REGISTERS[i % REGISTERS.length], 6);
+      const shown: string[] = [];
+      for (let refresh = 0; refresh <= 3; refresh++) {
+        const page = page2(`norepeat${i}`, picks, { refresh, exclude: [...shown] }).map((s) => s.activity.id);
+        expect(page.filter((id) => shown.includes(id)), `visitor ${i}, page ${refresh}`).toEqual([]);
+        shown.push(...page);
+        checked++;
+      }
+    }
+    expect(checked).toBe(240);
+  });
+
   it("copes with nothing chosen on page 1: an even page", () => {
     const slots = composeConcretePage(pool, { seed: "none", profile: {}, mix: registerMix([]), genericTags: generic });
     expect(slots).toHaveLength(CONCRETE_PAGE_SIZE);

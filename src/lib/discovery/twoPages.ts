@@ -292,7 +292,10 @@ export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A
   // The exploring slots: other domains than the page has so far, little in common with the images, in the reserved registers.
   const matched = [...chosen];
   const usedDomains = new Set(matched.map((a) => a.domain));
-  const exploreFrom = [...candidates, ...recycled].filter((a) => !chosen.includes(a));
+  // Only what was not shown before, as long as enough of it is left: a "Misschien ook?" slot must not bring back an activity from an
+  // earlier page (found live on 1 November 2026: "Een dag in een thermenbad" came back on the next page).
+  const freshLeft = candidates.filter((a) => !chosen.includes(a));
+  const exploreFrom = freshLeft.length >= exploreN * 3 ? freshLeft : [...freshLeft, ...recycled.filter((a) => !chosen.includes(a))];
   const median = [...exploreFrom.map(closeness)].sort((x, y) => x - y)[Math.floor(exploreFrom.length / 2)] ?? 0;
   const farther = exploreFrom.filter((a) => closeness(a) <= median);
   const shuffleExplore = (list: A[]) => shuffled(list, mulberry32(hashSeed(`${opts.seed}:concrete:${refresh}:explore`)));
