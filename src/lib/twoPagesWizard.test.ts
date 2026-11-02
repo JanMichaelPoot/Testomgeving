@@ -9,14 +9,14 @@ import { layoutWindow } from "@/lib/windowLayout";
 import { REGISTERS } from "@/lib/discovery/registerTypes";
 
 describe("the two-page intake: screens", () => {
-  it("has four screens (images, concrete, situation, profile) and keeps the four-round intake as it was", () => {
-    expect(pagesFor("images2")).toEqual(["images", "concrete", "situation", "profile"]);
+  it("has four screens (start, images, concrete, profile) and keeps the four-round intake as it was", () => {
+    expect(pagesFor("images2")).toEqual(["start", "images", "concrete", "profile"]);
     expect(pagesFor(undefined)).toBe(VENSTER_PAGES);
     expect(TWO_PAGE_PAGES).toHaveLength(4);
   });
 
-  it("puts both image pages in the first chapter, then the situation, then the profile", () => {
-    expect(TWO_PAGE_PAGES.map(chapterOf)).toEqual([0, 0, 1, 2]);
+  it("puts the start page first, then both image pages in one chapter, then the profile", () => {
+    expect(TWO_PAGE_PAGES.map(chapterOf)).toEqual([0, 1, 1, 2]);
     expect(VENSTER_PAGES.map(chapterOf)).toEqual([0, 0, 0, 0, 1, 2]);
   });
 

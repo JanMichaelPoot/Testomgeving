@@ -29,7 +29,7 @@ export function engineInputFromIntake(
     IntakeAnswers,
     "practicalToWild" | "budget" | "effort" | "timeAvailable" | "ageCategory" | "mustHaves"
   > &
-    Partial<Pick<IntakeAnswers, "interests" | "interestDomains" | "socialFormats" | "surpriseMe" | "intakeFlow">>,
+    Partial<Pick<IntakeAnswers, "interests" | "interestDomains" | "socialFormats" | "surpriseMe" | "intakeFlow" | "searchContext">>,
   extra: { seed: string; history?: readonly string[]; month?: number; exclude?: readonly string[] },
 ): EngineInput {
   return {
@@ -42,6 +42,7 @@ export function engineInputFromIntake(
     effort: intake.effort,
     timeAvailable: intake.timeAvailable,
     ageCategory: intake.ageCategory,
+    ...(intake.searchContext ? { searchContext: intake.searchContext } : {}),
     mustHaves: intake.mustHaves,
     history: extra.history,
     seed: extra.seed,

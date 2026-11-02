@@ -7,6 +7,7 @@ import { passesConstraints, resolveConstraints } from "@/lib/discovery/engine/co
 import type { Direction, EngineInput, EngineResult, Seed } from "@/lib/discovery/engine/types";
 import { assignLevels, practicality } from "@/lib/discovery/engine/levels";
 import { WEIGHTS_CURRENT, type Weights } from "@/lib/discovery/engine/weights";
+import { audienceBias, effectiveAgeCategory } from "@/lib/discovery/audience";
 
 // The selection engine. Six regular seeds in four directions, plus one wildcard:
 //   familiar x2   the pick itself, or a direct neighbour of it
@@ -90,7 +91,9 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   const history = new Set(input.history ?? []);
   const excluded = new Set(input.exclude ?? []);
 
-  const age = (a: Activity) => agePenalty(a, input.ageCategory);
+  // Age weighting uses the explicit age, else the soft reading of the search context; a group context nudges to doing it together.
+  const ageCat = effectiveAgeCategory({ ageCategory: input.ageCategory, searchContext: input.searchContext });
+  const age = (a: Activity) => agePenalty(a, ageCat) + audienceBias(a, input.searchContext);
   // Variety: lift the long tail (rare tag mixes) and go easy on things that need a provider that may not be near.
   // The lift is not the same for everybody: each visitor (seed) weighs an activity's rarity a little differently,
   // so the same few rare activities do not become the new hubs.

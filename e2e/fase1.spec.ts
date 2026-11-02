@@ -80,21 +80,21 @@ test.describe("gift link", () => {
       );
     });
     await page.goto("/intake?for=gift&s=first1");
-    await page.locator("main button[aria-pressed]").first().waitFor();
-    // Fresh: page 1 (the images), nothing chosen, and no pronoun placeholder in the heading.
-    await expect(page.locator('main button[aria-pressed="true"]')).toHaveCount(0);
+    await page.locator("[data-context]").first().waitFor();
+    // Fresh: the start page (for whom, where), nothing chosen, and no pronoun placeholder in the heading.
+    await expect(page.locator('[data-context][aria-pressed="true"]')).toHaveCount(0);
     const heading = await page.locator("main h1, main h2").first().innerText();
     expect(heading).not.toMatch(/diegene|\bthem\b/i);
     // Choose something, reload the same link: the gift in progress stays.
-    await page.locator("main button[aria-pressed]").first().click();
-    await expect(page.locator('main button[aria-pressed="true"]')).toHaveCount(1);
+    await page.locator("[data-context]").first().click();
+    await expect(page.locator('[data-context][aria-pressed="true"]')).toHaveCount(1);
     await page.waitForTimeout(300);
     await page.reload();
-    await page.locator("main button[aria-pressed]").first().waitFor();
-    await expect(page.locator('main button[aria-pressed="true"]')).toHaveCount(1);
+    await page.locator("[data-context]").first().waitFor();
+    await expect(page.locator('[data-context][aria-pressed="true"]')).toHaveCount(1);
     // A new arrival (another value) starts clean again.
     await page.goto("/intake?for=gift&s=second2");
-    await page.locator("main button[aria-pressed]").first().waitFor();
-    await expect(page.locator('main button[aria-pressed="true"]')).toHaveCount(0);
+    await page.locator("[data-context]").first().waitFor();
+    await expect(page.locator('[data-context][aria-pressed="true"]')).toHaveCount(0);
   });
 });

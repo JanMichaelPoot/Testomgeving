@@ -39,6 +39,7 @@ import type { CharacterProfile } from "@/lib/characterProfile";
 import { describeAssociationsForPrompt } from "@/lib/discovery/associations";
 import { describeToday, isoDateNL } from "@/lib/discovery/season";
 import { describeDiscoveryForPrompt } from "@/lib/discovery/answers";
+import { describeAudienceForPrompt, isForOther, normalizeSearchContext } from "@/lib/discovery/audience";
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 
@@ -216,12 +217,23 @@ const stated = (v: string | undefined | null) => (v && v.trim() ? v.trim() : "no
 
 /** Extra instructions when the book is a gift: everything describes the recipient. */
 function giftLines(intake: IntakeAnswers): string {
-  if (intake.purpose !== "gift") return "";
+  if (intake.purpose !== "gift") return otherLines(intake);
   const name = (intake.recipientName ?? "").trim();
   return `
 This Idea Book is a GIFT${name ? ` for ${name}` : ""}. Someone else answered the questions FOR the recipient: every
 answer, image and limit describes the recipient. Write the whole book to the recipient, addressing them as "you"${name ? ` (you may use the name ${name} once, in profile_summary)` : ""}.
 In why_it_fits say "the images chosen for you" or "chosen with you in mind", never "you picked" or "you chose".`;
+}
+
+/** The window is for somebody else without being a gift (a parent for a child, a team lead for a group): the book still describes them. */
+function otherLines(intake: IntakeAnswers): string {
+  if (!isForOther(intake)) return "";
+  const name = (intake.recipientName ?? "").trim();
+  const group = normalizeSearchContext(intake.searchContext) === "group";
+  return `
+The person answering is NOT the person (or people) the ideas are for. Every answer, image and limit describes ${group ? "the group" : name || "the person they are searching for"}.
+Write the book to ${group ? "the group (\"you\" plural, ideas that hold up for people of different ages and tastes)" : "the person they search for"}, never as if the answering person were the audience${name && !group ? ` (you may use the name ${name} once, in profile_summary)` : ""}.
+In why_it_fits say "the images chosen for you" or "chosen with you in mind", never "you picked".`;
 }
 
 export function formatProfile(intake: IntakeAnswers, character: CharacterProfile): string {
@@ -235,6 +247,7 @@ ${imageLines}
 The activities under "Concrete activities they picked" were derived from these images by WINDOW, not picked by the
 person: never say they picked an activity; refer to the images instead.`
     : "";
+  const audienceLines = intake.audienceProfile ? describeAudienceForPrompt(intake.audienceProfile) : "";
   return `Situation: ${stated(intake.situation)}
 Purpose: ${stated(intake.purpose)}
 Purpose detail: ${stated(intake.purposeFollowUp)}
@@ -253,7 +266,8 @@ Free-time pattern (what they said they'd actually do on a free Saturday): ${inta
 Personal reflection (something they'd secretly like to do more): ${intake.personalReflection || "not stated"}${
     discoveryLines ? `
 ${discoveryLines}` : ""
-  }${imageNote}${giftLines(intake)}
+  }${audienceLines ? `
+${audienceLines}` : ""}${imageNote}${giftLines(intake)}
 
 Internal character signals (derived, 0-100 each, 50 = neutral — for
 calibrating tone and door balance only, see the rules below):

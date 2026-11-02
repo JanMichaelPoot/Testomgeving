@@ -1,8 +1,9 @@
 import { randomUUID } from "node:crypto";
 import type { StoredIntake } from "@/app/intake/actions";
 import { TAGS, getActivity, isImagePending } from "@/lib/discovery/library";
-import { associationsToEngineInput, sanitizeAssociations } from "@/lib/discovery/associations";
-import { sanitizeAxesOverride } from "@/lib/discovery/associationProfile";
+import { ASSOCIATIONS, associationsToEngineInput, sanitizeAssociations } from "@/lib/discovery/associations";
+import { averageAxes, effectiveAxes, sanitizeAxesOverride, tagProfile } from "@/lib/discovery/associationProfile";
+import { buildAudienceProfile, isForOther, normalizeSearchContext } from "@/lib/discovery/audience";
 import { currentMonth } from "@/lib/discovery/season";
 import { MAX_CONCRETE_PICKS } from "@/lib/discovery/twoPages";
 
@@ -17,6 +18,7 @@ import { MAX_CONCRETE_PICKS } from "@/lib/discovery/twoPages";
 //   fixed       solutionTypes = ["activity"]
 //   left empty  purposeFollowUp, freeTimePattern, situation (read as "not stated")
 //   from images preferences = the tags added under "Niet helemaal"
+//   the start page (images2): searchContext (who we search for) is explicit; audienceProfile is built here from it and the choices
 //   the person's own sliders on the profile screen (axesOverride) replace the axis the images gave
 
 const MAX_NAME = 40;
@@ -47,6 +49,10 @@ export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed
   const { associations, associationCorrections } = sanitizeAssociations(stored);
   const axesOverride = sanitizeAxesOverride(stored.axesOverride);
   const purpose = stored.purpose === "gift" ? "gift" : "self";
+  // Who the search is for. A gift is always for somebody else, so "for myself" cannot be its context.
+  let searchContext = normalizeSearchContext(stored.searchContext);
+  if (purpose === "gift" && searchContext === "self") searchContext = "unknown";
+  const forOther = isForOther({ purpose, searchContext });
   // Two-page flow: the activities on page 2 are the person's own choice (sanitised again below, the browser is not trusted).
   const twoPages = stored.intakeFlow === "images2";
   const picks = twoPages
@@ -70,18 +76,39 @@ export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed
       mustHaves: stored.mustHaves,
       socialFormats: stored.socialFormats ?? [],
       ageCategory: stored.ageCategory,
+      searchContext,
     },
     seed,
     month,
   });
   const tagLabel = new Map(TAGS.map((t) => [t.id, t.label[locale]]));
 
+  // The Dynamic Audience & Interest Profile: what was said (context, age, who goes along) and what the choices point at.
+  const imageProfile = tagProfile(ASSOCIATIONS, associations, associationCorrections);
+  const axes = effectiveAxes(averageAxes(ASSOCIATIONS, associations), axesOverride);
+  const pickTags = derived.interests.flatMap((id) => getActivity(id)?.tags ?? []);
+  const audienceProfile = buildAudienceProfile({
+    searchContext,
+    ageCategory: stored.ageCategory,
+    company: stored.company,
+    imageProfile,
+    axes,
+    imageCount: associations.length,
+    pickTags,
+    pickCount: twoPages ? derived.interests.length : 0,
+    genericTags: new Set(TAGS.filter((t) => t.generic).map((t) => t.id)),
+    corrections: associationCorrections,
+  });
+
   return {
     ...stored,
     intakeVariant: "associations",
     ...(twoPages ? { intakeFlow: "images2" as const } : { intakeFlow: undefined }),
     purpose,
-    recipientName: purpose === "gift" ? cleanRecipientName(stored.recipientName) : "",
+    searchContext,
+    audienceProfile,
+    // A first name is kept whenever the window is for somebody else, except for a group (no single name).
+    recipientName: forOther && searchContext !== "group" ? cleanRecipientName(stored.recipientName) : "",
     associations,
     associationCorrections,
     axesOverride,

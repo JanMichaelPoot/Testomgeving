@@ -1,5 +1,6 @@
 import type { Activity, SocialFormat } from "@/lib/discovery/types";
 import { inSeason } from "@/lib/discovery/season";
+import { allowedForContext } from "@/lib/discovery/audience";
 import type { ResolvedConstraints } from "@/lib/discovery/engine/types";
 
 // In the two-page intake the person chooses concrete activities (page 2) BEFORE the screen with budget, time and place. A hard
@@ -7,7 +8,7 @@ import type { ResolvedConstraints } from "@/lib/discovery/engine/types";
 // screen names it and says why, and the person can change the limit or the choice. This is the same rule as passesConstraints
 // (a test keeps the two in step), only it says which limit.
 
-export type DroppedReason = "season" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups";
+export type DroppedReason = "season" | "audience" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups";
 
 const GROUP_ONLY: readonly SocialFormat[] = ["small_group", "large_group"];
 
@@ -17,6 +18,7 @@ const GROUP_ONLY: readonly SocialFormat[] = ["small_group", "large_group"];
  */
 export function whyNot(a: Activity, c: ResolvedConstraints, opts: { explicitPick?: boolean } = {}): DroppedReason | null {
   if (!inSeason(a, c.month)) return "season";
+  if (c.minorSafe && !allowedForContext(a, "child")) return "audience";
   if (a.cost === null) {
     if (c.strictFreeCost && c.costCap === 0) return "budget";
   } else if (a.cost > c.costCap) return "budget";

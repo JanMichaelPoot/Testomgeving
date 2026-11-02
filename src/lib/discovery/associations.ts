@@ -5,6 +5,7 @@ import { registerOfCard } from "@/lib/discovery/register";
 import { DISCOVERY_MIN_STATUS } from "@/lib/discovery/cardLibrary";
 import { passesConstraints, resolveConstraints } from "@/lib/discovery/engine/constraints";
 import { agePenalty, supplyPenalty } from "@/lib/discovery/engine/select";
+import { audienceBias, effectiveAgeCategory } from "@/lib/discovery/audience";
 import { buildGraph } from "@/lib/discovery/engine/graph";
 import { hashSeed, mulberry32 } from "@/lib/discovery/rng";
 import {
@@ -263,7 +264,7 @@ export function associationsToEngineInput(input: {
   /** Axes the person moved on the profile screen; they replace what the images say for that axis. */
   axesOverride?: AxesOverride;
   /** The answers the hard filters read; the two derived dials are filled in here. */
-  constraints: { budget: string; timeAvailable: string; mustHaves: string; socialFormats: readonly string[]; ageCategory: string };
+  constraints: { budget: string; timeAvailable: string; mustHaves: string; socialFormats: readonly string[]; ageCategory: string; searchContext?: string };
   seed: string;
   activities?: readonly Activity[];
   /** The month the person asks in: the activities read from the images are in season then. */
@@ -313,6 +314,7 @@ export function associationsToEngineInput(input: {
     effort: dials.effort,
     timeAvailable: input.constraints.timeAvailable,
     ageCategory: input.constraints.ageCategory,
+    searchContext: input.constraints.searchContext,
     mustHaves: input.constraints.mustHaves,
     seed: input.seed,
     month: input.month,
@@ -339,7 +341,7 @@ export function associationsToEngineInput(input: {
       const ax = activityAxes(a);
       const fit = 1 - (Math.abs(ax.social - axes.social) + Math.abs(ax.energy - axes.energy) + Math.abs(ax.setting - axes.setting)) / 6;
       const score =
-        tagScore / maxTag + (worlds.has(a.domain) ? 0.35 : 0) + 0.3 * fit + RARITY_LIFT * graph.rarity(a) * (0.4 + 1.2 * mulberry32(hashSeed(`assoc:${input.seed}:rare:${a.id}`))()) + rnd() * JITTER - supplyPenalty(a) - agePenalty(a, input.constraints.ageCategory);
+        tagScore / maxTag + (worlds.has(a.domain) ? 0.35 : 0) + 0.3 * fit + RARITY_LIFT * graph.rarity(a) * (0.4 + 1.2 * mulberry32(hashSeed(`assoc:${input.seed}:rare:${a.id}`))()) + rnd() * JITTER - supplyPenalty(a) - agePenalty(a, effectiveAgeCategory(input.constraints)) - audienceBias(a, input.constraints.searchContext);
       return { a, score };
     })
     .sort((x, y) => y.score - x.score);

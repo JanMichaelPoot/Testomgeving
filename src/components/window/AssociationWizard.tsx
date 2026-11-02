@@ -26,7 +26,9 @@ import { loadSeen, recordSeen } from "@/lib/associationSeen";
 import { buildSill, buildWindowItems, windowImageHref } from "@/lib/vensterPanes";
 import { layoutWindow } from "@/lib/windowLayout";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { DRAFT_VERSION, chapterOf, migrateDraftPage, pagesFor, type AnyVensterPageId } from "@/lib/vensterPages";
+import { DRAFT_VERSION, TWO_PAGE_LAYOUT, chapterOf, migrateDraftPage, migrateTwoPageDraft, pagesFor, type AnyVensterPageId } from "@/lib/vensterPages";
+import { activityContextLean, allowedForContext, imagePreference, isForOther, normalizeSearchContext, type SearchContext } from "@/lib/discovery/audience";
+import { ContextIcon } from "@/components/window/ContextIcon";
 import { ageOptionsFor } from "@/lib/ageOptions";
 import { currentBudget } from "@/lib/budgetOptions";
 
@@ -81,6 +83,7 @@ const EMPTY: IntakeAnswers = {
   interestDomains: [],
   socialFormats: [],
   surpriseMe: false,
+  searchContext: "",
   intakeVariant: "associations",
   associations: [],
   associationCorrections: [],
@@ -102,6 +105,10 @@ interface Draft {
   imageMore?: string[][];
   /** Two-page intake: page 2 as it was shown. */
   concrete?: ConcreteState | null;
+  /** Two-page intake: layout of the pages (vensterPages.ts TWO_PAGE_LAYOUT); a draft without it had no start page. */
+  layout?: number;
+  /** Two-page intake: page 1 as it was first shown, with the search context it was drawn for (so a late change of context moves nothing). */
+  imageFirst?: { ctx: string; ids: string[] } | null;
 }
 
 function newSeed(): string {
@@ -116,7 +123,7 @@ function loadDraft(key: string): Draft | null {
     if (!d.answers) return null;
     return {
       v: DRAFT_VERSION,
-      page: key === DRAFT_KEY_TWO ? Math.max(0, Math.trunc(d.page ?? 0)) : migrateDraftPage(d.page ?? 0, d.v),
+      page: key === DRAFT_KEY_TWO ? migrateTwoPageDraft(d.page ?? 0, d.layout) : migrateDraftPage(d.page ?? 0, d.v),
       answers: { ...EMPTY, ...d.answers },
       limitChips: d.limitChips ?? [],
       limitText: d.limitText ?? "",
@@ -124,6 +131,7 @@ function loadDraft(key: string): Draft | null {
       seen: Array.isArray(d.seen) ? d.seen : undefined,
       imageMore: Array.isArray(d.imageMore) ? d.imageMore : undefined,
       concrete: d.concrete ?? null,
+      imageFirst: d.imageFirst ?? null,
     };
   } catch {
     return null;
@@ -132,7 +140,7 @@ function loadDraft(key: string): Draft | null {
 
 function saveDraft(key: string, d: Draft) {
   try {
-    window.sessionStorage.setItem(key, JSON.stringify({ ...d, v: DRAFT_VERSION }));
+    window.sessionStorage.setItem(key, JSON.stringify({ ...d, v: DRAFT_VERSION, layout: TWO_PAGE_LAYOUT }));
   } catch {
     // Storage unavailable: the draft is simply not kept.
   }
@@ -150,7 +158,13 @@ function draftForArrival(draft: Draft | null, purpose: "self" | "gift", key: str
       purpose,
       arrival,
       seenArrival,
-      draft: draft ? { purpose: draft.answers.purpose, page: draft.page } : null,
+      draft: draft
+        ? {
+            purpose: draft.answers.purpose,
+            page: draft.page,
+            started: draft.answers.location.trim().length > 0 || normalizeSearchContext(draft.answers.searchContext) !== "unknown" || (draft.answers.associations ?? []).length > 0,
+          }
+        : null,
     });
     if (decision === "discard") {
       clearDraft(key);
@@ -273,6 +287,8 @@ export function AssociationWizard({
   // Two pages: extra pages of images ("Andere beelden") and page 2 as shown.
   const [imageMore, setImageMore] = useState<string[][]>([]);
   const [concrete, setConcrete] = useState<ConcreteState | null>(null);
+  // Two pages: page 1 as first shown (and the search context it was drawn for), kept so choosing or a late change of context moves nothing.
+  const [imageFirst, setImageFirst] = useState<{ ctx: string; ids: string[] } | null>(null);
   // Two pages: chosen activities that a limit of the situation screen rules out (asked of the server when the profile screen is open).
   const [dropped, setDropped] = useState<{ id: string; reason: string }[]>([]);
   // The `limitsKey` the `dropped` list was computed for: the portrait names the person's own picks only once the check has run for the current answers.
@@ -306,8 +322,12 @@ export function AssociationWizard({
   const startedAt = useRef(0);
 
   const pageId: PageId = pages[page];
-  const gift = answers.purpose === "gift";
-  const name = (answers.recipientName ?? "").trim() || dict.recipientFallback;
+  // "For somebody else" covers a gift and the start page's child / other adult / older person / group; the wording is the gift wording.
+  const searchContext = normalizeSearchContext(answers.searchContext);
+  const gift = isForOther(answers);
+  const isGift = answers.purpose === "gift";
+  const contextName = searchContext in dict.start.who.fallbacks ? dict.start.who.fallbacks[searchContext as keyof typeof dict.start.who.fallbacks] : null;
+  const name = (answers.recipientName ?? "").trim() || contextName || dict.recipientFallback;
   const fill = (s: string) => fillName(s, name);
   const pick = (self: string, giftText: string) => fill(gift ? giftText : self);
 
@@ -325,7 +345,7 @@ export function AssociationWizard({
       setSeenBefore(loadSeen());
     } else {
       const draft = draftForArrival(loadDraft(draftKey), initialPurpose, draftKey);
-      if (draft && (draft.page > 0 || (draft.answers.associations ?? []).length > 0)) {
+      if (draft && (draft.page > 0 || (draft.answers.associations ?? []).length > 0 || draft.answers.location.trim().length > 0 || normalizeSearchContext(draft.answers.searchContext) !== "unknown")) {
         restoredDraft = true;
         setAnswers({
           ...draft.answers,
@@ -340,6 +360,7 @@ export function AssociationWizard({
         setSeenBefore(draft.seen ?? loadSeen());
         setImageMore(draft.imageMore ?? []);
         setConcrete(draft.concrete ?? null);
+        setImageFirst(draft.imageFirst ?? null);
       } else {
         setSeed(newSeed());
         setSeenBefore(loadSeen());
@@ -355,8 +376,8 @@ export function AssociationWizard({
   }, []);
 
   useEffect(() => {
-    if (hydrated && seed) saveDraft(draftKey, { page, answers, limitChips, limitText, seed, seen: seenBefore, imageMore, concrete });
-  }, [hydrated, page, answers, limitChips, limitText, seed, seenBefore, draftKey, imageMore, concrete]);
+    if (hydrated && seed) saveDraft(draftKey, { page, answers, limitChips, limitText, seed, seen: seenBefore, imageMore, concrete, imageFirst });
+  }, [hydrated, page, answers, limitChips, limitText, seed, seenBefore, draftKey, imageMore, concrete, imageFirst]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -391,19 +412,42 @@ export function AssociationWizard({
   );
   const cardById = useMemo(() => new Map(library.cards.map((c) => [c.id, c])), [library.cards]);
   // The first page depends on the session seed (and what this browser saw) only, never on what is chosen, so choosing moves nothing.
-  const firstImages = useMemo(
-    () => (flow2 && seed ? sampleBalancedBatch(registered, { seed, seen: seenBefore }).map((c) => c.id) : []),
-    [flow2, seed, registered, seenBefore],
+  // It leans on who the search is for (audience.ts) but only that: choosing moves nothing. Once shown it is kept in the draft.
+  const computedFirst = useMemo(
+    () =>
+      flow2 && seed
+        ? sampleBalancedBatch(registered, {
+            seed,
+            seen: seenBefore,
+            prefer:
+              searchContext === "child" || searchContext === "senior" || searchContext === "group"
+                ? (card, index) => imagePreference(card, { context: searchContext, chosenTags: {}, refresh: 0, index })
+                : undefined,
+          }).map((c) => c.id)
+        : [],
+    [flow2, seed, registered, seenBefore, searchContext],
   );
+  const firstImages = imageFirst && imageFirst.ids.length > 0 && (imageFirst.ctx === searchContext || (answers.associations ?? []).length > 0) ? imageFirst.ids : computedFirst;
   const imageBatches = [firstImages, ...imageMore];
   const currentImageIds = imageBatches[imageBatches.length - 1] ?? [];
   const currentImages = currentImageIds.map((id) => cardById.get(id)).filter((c): c is AssociationCard => !!c);
   const imageRefreshes = imageMore.length;
   const picks = answers.interests ?? [];
   const chosenImagesKey = chosen.join("|");
-  const poolActivities = concretePool?.activities;
-  const poolById = useMemo(() => new Map((poolActivities ?? []).map((a) => [a.id, a])), [poolActivities]);
-  const concreteBatches = concrete?.key === chosenImagesKey ? concrete.batches : [];
+  // Page 2 is composed again when the images or who the search is for change.
+  const concreteKey = `${searchContext}#${chosenImagesKey}`;
+  const allActivities = concretePool?.activities;
+  const poolById = useMemo(() => new Map((allActivities ?? []).map((a) => [a.id, a])), [allActivities]);
+  // For a child or young person nothing with alcohol, gambling, weapons or heavy tools is offered.
+  const poolActivities = useMemo(() => allActivities?.filter((a) => allowedForContext(a, searchContext)), [allActivities, searchContext]);
+  const contextPrefer = useMemo(
+    () =>
+      searchContext === "child" || searchContext === "senior" || searchContext === "group"
+        ? (a: { tags: readonly string[] }) => 0.5 + activityContextLean(a.tags, searchContext)
+        : undefined,
+    [searchContext],
+  );
+  const concreteBatches = concrete?.key === concreteKey ? concrete.batches : [];
   const currentConcrete = concreteBatches[concreteBatches.length - 1] ?? [];
   const concreteRefreshes = Math.max(0, concreteBatches.length - 1);
   // The images chosen on page 1 are what page 2 follows (and how they divide over the registers, a number nobody sees).
@@ -419,14 +463,14 @@ export function AssociationWizard({
   }
   useEffect(() => {
     if (!flow2 || !hydrated || !seed || !poolActivities || pageId !== "concrete") return;
-    if (concrete?.key === chosenImagesKey) return;
-    const slots = composeConcretePage(poolActivities, { seed, keep: picks, ...concreteInput() });
+    if (concrete?.key === concreteKey) return;
+    const slots = composeConcretePage(poolActivities, { seed, keep: picks, prefer: contextPrefer, ...concreteInput() });
     // Page 2 is composed once per set of chosen images and then kept in the draft, so a reload shows the same page.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setConcrete({ key: chosenImagesKey, batches: [slots.map((x) => ({ id: x.activity.id, explore: x.explore }))] });
+    setConcrete({ key: concreteKey, batches: [slots.map((x) => ({ id: x.activity.id, explore: x.explore }))] });
     // concreteInput reads only the values listed here.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [flow2, hydrated, seed, poolActivities, pageId, chosenImagesKey, concrete?.key]);
+  }, [flow2, hydrated, seed, poolActivities, pageId, concreteKey, concrete?.key]);
   // The profile screen names a chosen activity that the limits given afterwards rule out, instead of letting it go missing from the book.
   const limitsKey = [answers.budget, answers.timeAvailable, answers.mustHaves, limitChips.join(","), limitText, (answers.socialFormats ?? []).join(","), picks.join(","), chosenImagesKey, JSON.stringify(answers.axesOverride ?? {})].join("|");
   useEffect(() => {
@@ -450,6 +494,15 @@ export function AssociationWizard({
     // The key lists every answer the check reads.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flow2, hydrated, pageId, limitsKey]);
+  // Page 1 as first shown is kept (with the context it was drawn for), so a later choice or change of context does not move it.
+  useEffect(() => {
+    if (!flow2 || !hydrated || !seed || pageId !== "images" || computedFirst.length === 0) return;
+    if (imageFirst && (imageFirst.ctx === searchContext || (answers.associations ?? []).length > 0)) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setImageFirst({ ctx: searchContext, ids: computedFirst });
+    // Only when the page or the context changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flow2, hydrated, seed, pageId, searchContext, computedFirst]);
   // Remember which images were shown, for the next visit.
   const imagesShownKey = flow2 ? currentImageIds.join("|") : "";
   useEffect(() => {
@@ -505,6 +558,9 @@ export function AssociationWizard({
 
   const canContinue = (() => {
     switch (pageId) {
+      case "start":
+        // The place is what the real-places search starts from, so it is the one required answer.
+        return answers.location.trim().length > 0;
       case "images":
         return chosen.length >= MIN_IMAGES_REQUIRED;
       case "concrete":
@@ -527,6 +583,8 @@ export function AssociationWizard({
     if (canContinue) return "";
     const h = dict.nav.hint;
     switch (pageId) {
+      case "start":
+        return h.missing.replace("{list}", h.place);
       case "images":
         return h.images.replace("{n}", String(MIN_IMAGES_REQUIRED));
       case "concrete":
@@ -603,7 +661,16 @@ export function AssociationWizard({
   /** "Andere beelden": a new page of images, none of the families shown before; what was chosen stays. */
   function moreImages() {
     if (imageRefreshes >= MAX_REFRESHES) return;
-    const next = sampleBalancedBatch(registered, { seed, refresh: imageRefreshes + 1, keep: chosen, exclude: imageBatches.flat(), seen: seenBefore }).map((c) => c.id);
+    // The follow-up page deepens what was chosen so far and, on every other card, opens something not yet chosen (audience.ts imagePreference).
+    const chosenTags = tagProfile(library.cards, chosen);
+    const next = sampleBalancedBatch(registered, {
+      seed,
+      refresh: imageRefreshes + 1,
+      keep: chosen,
+      exclude: imageBatches.flat(),
+      seen: seenBefore,
+      prefer: (card, index) => imagePreference(card, { context: searchContext, chosenTags, refresh: imageRefreshes + 1, index }),
+    }).map((c) => c.id);
     setImageMore((prev) => [...prev, next]);
     setNotice(null);
   }
@@ -612,8 +679,8 @@ export function AssociationWizard({
   function moreConcrete() {
     if (!poolActivities || concreteRefreshes >= MAX_REFRESHES) return;
     const shown = concreteBatches.flat().map((x) => x.id);
-    const slots = composeConcretePage(poolActivities, { seed, refresh: concreteRefreshes + 1, keep: picks, exclude: shown, ...concreteInput() });
-    setConcrete({ key: chosenImagesKey, batches: [...concreteBatches, slots.map((x) => ({ id: x.activity.id, explore: x.explore }))] });
+    const slots = composeConcretePage(poolActivities, { seed, refresh: concreteRefreshes + 1, keep: picks, exclude: shown, prefer: contextPrefer, ...concreteInput() });
+    setConcrete({ key: concreteKey, batches: [...concreteBatches, slots.map((x) => ({ id: x.activity.id, explore: x.explore }))] });
     setNotice(null);
   }
 
@@ -677,6 +744,14 @@ export function AssociationWizard({
       });
     }
     if (pageId === "situation") trackEvent("situation_done", { wizard_variant: variantName, duration_ms: duration });
+    if (pageId === "start") {
+      trackEvent("situation_done", { wizard_variant: variantName, duration_ms: duration });
+      trackEvent("search_context_set", {
+        context: searchContext,
+        is_gift: isGift,
+        has_limits: answers.timeAvailable !== "" || answers.budget !== "" || answers.company.length > 0 || limitChips.length > 0 || limitText.trim().length > 0,
+      });
+    }
     trackEvent("intake_page_completed", { wizard_variant: variantName, page: pageId, index: page, duration_ms: duration });
     // The last screen has no "next": paying is on that screen itself (saveForPayment below).
     if (page < pages.length - 1) go(page + 1);
@@ -745,7 +820,8 @@ export function AssociationWizard({
 
   // --- pieces --------------------------------------------------------------------------------
   const chapter = chapterOf(pageId);
-  const chapterNames = [dict.chapters.images, dict.chapters.situation, dict.chapters.extra];
+  // Two pages: start page, then the images, then the window. Four rounds: images, situation, window.
+  const chapterNames = flow2 ? [dict.chapters.situation, dict.chapters.images, dict.chapters.extra] : [dict.chapters.images, dict.chapters.situation, dict.chapters.extra];
   const windowTitle = dict.nav.windowTitle;
 
   const roundPage = (r: AssociationRound) => {
@@ -866,22 +942,6 @@ export function AssociationWizard({
     );
   };
 
-  // The gift question (a first name) sits on the first screen, whichever intake it is.
-  const recipientField = gift ? (
-    <div className="mt-5 max-w-sm">
-      <label htmlFor="recipient" className="block text-sm font-semibold text-ink">
-        {dict.recipientLabel}
-      </label>
-      <input
-        id="recipient"
-        value={answers.recipientName ?? ""}
-        onChange={(e) => set("recipientName", e.target.value.slice(0, 40))}
-        placeholder={dict.recipientPlaceholder}
-        className="mt-2 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
-      />
-    </div>
-  ) : null;
-
   const moreButton = (onClick: () => void, label: string, sub: string) => (
     <div className="mt-4">
       <button
@@ -895,13 +955,242 @@ export function AssociationWizard({
     </div>
   );
 
+  /** The start page's "voor wie": toggling the chosen one off makes it "unknown" again; picks that are not offered to this audience go. */
+  function chooseContext(ctx: Exclude<SearchContext, "unknown">) {
+    setAnswers((prev) => {
+      const next = normalizeSearchContext(prev.searchContext) === ctx ? "" : ctx;
+      const nextCtx = normalizeSearchContext(next);
+      const interests = (prev.interests ?? []).filter((id) => {
+        const a = poolById.get(id);
+        return !a || allowedForContext(a, nextCtx);
+      });
+      return {
+        ...prev,
+        searchContext: next,
+        interests,
+        // A group has no single age; for a child or young person the age is read from the context and the images.
+        ...(nextCtx === "group" || nextCtx === "child" ? { ageCategory: "" } : {}),
+      };
+    });
+  }
+
+  // The start page ("Eerst de basis"): who we search for, where, and the few limits. Only the place is required.
+  const startPage = (() => {
+    const choices = (["self", "child", "adult", "senior", "group"] as const).filter((c) => !isGift || c !== "self");
+    const how = [...new Map(answers.company.flatMap((c) => dict.who.howOptions[c] ?? []).map((o) => [o.value, o])).values()];
+    const showAge = searchContext !== "child" && searchContext !== "group";
+    const hasMore = (answers.socialFormats ?? []).length > 0 || !!answers.ageCategory || limitText.trim().length > 0;
+    const showMore = moreToggled || hasMore;
+    const sectionLabel = "text-xs font-bold uppercase tracking-[0.09em] text-gold-text";
+    return (
+      <div className="space-y-9">
+        <div>
+          <p className={sectionLabel}>{dict.start.kicker}</p>
+          <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{dict.start.heading}</h1>
+          <p className="mt-2 text-ink/70">{dict.start.sub}</p>
+        </div>
+
+        <section aria-labelledby="start-who" className="space-y-3">
+          <div>
+            <p className={sectionLabel}>{dict.start.sections.who}</p>
+            <h2 id="start-who" className="mt-1 font-semibold text-ink">
+              {isGift ? dict.start.who.labelGift : dict.start.who.label}
+            </h2>
+            <p className="mt-1 text-sm text-ink/70">{dict.start.who.sub}</p>
+          </div>
+          <div role="group" aria-labelledby="start-who" className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {choices.map((c) => {
+              const on = searchContext === c;
+              return (
+                <button
+                  key={c}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => chooseContext(c)}
+                  data-context={c}
+                  className={cn(
+                    "flex min-h-28 flex-col items-start gap-2 rounded-xl border-2 p-4 text-left transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
+                    on ? "border-accent-dark bg-accent-dark text-paper" : "border-border bg-paper text-ink hover:border-walnut-light",
+                  )}
+                >
+                  <ContextIcon context={c} className={on ? "text-gold-light" : "text-accent-dark"} />
+                  <span className="font-semibold leading-snug">{dict.start.who.options[c].label}</span>
+                  <span className={cn("text-xs leading-snug", on ? "text-paper/80" : "text-ink/70")}>{dict.start.who.options[c].sub}</span>
+                </button>
+              );
+            })}
+          </div>
+          {gift && searchContext !== "group" && (
+            <div className="max-w-sm">
+              <label htmlFor="recipient" className="block text-sm font-semibold text-ink">
+                {dict.start.who.nameLabel}
+              </label>
+              <input
+                id="recipient"
+                value={answers.recipientName ?? ""}
+                onChange={(e) => set("recipientName", e.target.value.slice(0, 40))}
+                placeholder={dict.recipientPlaceholder}
+                className="mt-2 min-h-11 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
+              />
+            </div>
+          )}
+        </section>
+
+        <section aria-labelledby="start-where" className="space-y-5">
+          <div>
+            <p className={sectionLabel}>{dict.start.sections.where}</p>
+            <label id="start-where" htmlFor="location" className="mt-1 block font-semibold text-ink">
+              {pick(dict.room.locationLabel, dict.room.locationLabelGift)}
+            </label>
+            <p className="mt-1 text-sm text-ink/70">{dict.room.locationSub}</p>
+            <LocationAutocomplete tidy id="location" value={answers.location} onChange={(v) => set("location", v)} placeholder={dict.room.locationPlaceholder} />
+          </div>
+          <fieldset>
+            <legend className="font-semibold text-ink">{dict.room.distanceLabel}</legend>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {dict.room.distanceOptions.map((o) => (
+                <Chip key={o.value} selected={answers.searchDistance === o.value} onClick={() => set("searchDistance", o.value)}>
+                  {o.label}
+                </Chip>
+              ))}
+            </div>
+          </fieldset>
+        </section>
+
+        <section aria-labelledby="start-limits" className="space-y-6">
+          <div>
+            <p className={sectionLabel}>
+              {dict.start.sections.limits} · {dict.start.limits.optional}
+            </p>
+            <h2 id="start-limits" className="mt-1 font-semibold text-ink">
+              {dict.start.limits.chipsLabel}
+            </h2>
+            <p className="mt-1 text-sm text-ink/70">{dict.start.limits.sub}</p>
+          </div>
+          <fieldset>
+            <legend className="font-semibold text-ink">{gift ? dict.start.limits.timeLabelOther : dict.room.timeLabel}</legend>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {intakeDict.timeAvailable.options.map((o) => (
+                <Chip key={o.value} selected={answers.timeAvailable === o.value} onClick={() => set("timeAvailable", answers.timeAvailable === o.value ? "" : o.value)}>
+                  {o.label}
+                </Chip>
+              ))}
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend className="font-semibold text-ink">{dict.room.budgetLabel}</legend>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {intakeDict.budget.options.map((o) => (
+                <Chip key={o.value} selected={answers.budget === o.value} onClick={() => set("budget", answers.budget === o.value ? "" : o.value)}>
+                  {o.label}
+                </Chip>
+              ))}
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend className="font-semibold text-ink">{pick(dict.who.companyLabel, dict.who.companyLabelGift)}</legend>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {intakeDict.company.options.map((o) => (
+                <Chip
+                  key={o.value}
+                  selected={answers.company.includes(o.value)}
+                  onClick={() =>
+                    setAnswers((prev) => {
+                      const company = toggle(prev.company, o.value);
+                      const allowed = new Set(["any", ...company.flatMap((c) => (dict.who.howOptions[c] ?? []).map((x) => x.value))]);
+                      return { ...prev, company, socialFormats: (prev.socialFormats ?? []).filter((f) => allowed.has(f)) };
+                    })
+                  }
+                >
+                  {o.label}
+                </Chip>
+              ))}
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend className="sr-only">{dict.start.limits.chipsLabel}</legend>
+            <p className="text-sm text-ink/70">{dict.start.limits.chipsSub}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {dict.who.limitChips.map((c) => (
+                <Chip key={c} selected={limitChips.includes(c)} onClick={() => setLimitChips((prev) => toggle(prev, c))}>
+                  {c}
+                </Chip>
+              ))}
+            </div>
+          </fieldset>
+          <div>
+            <button
+              type="button"
+              onClick={() => setMoreToggled((v) => !v)}
+              aria-expanded={showMore}
+              aria-controls="situation-more"
+              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent-dark underline underline-offset-2 hover:text-accent"
+            >
+              <span aria-hidden="true">{showMore ? "−" : "+"}</span>
+              {dict.situation.moreLabel}
+            </button>
+            <p className="mt-0.5 text-sm text-ink/70">{dict.situation.moreSub}</p>
+          </div>
+          {showMore && (
+            <div id="situation-more" className="space-y-7">
+              {how.length > 0 && (
+                <fieldset>
+                  <legend className="font-semibold text-ink">{dict.who.howLabel}</legend>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {how.map((o) => (
+                      <Chip
+                        key={o.value}
+                        selected={(answers.socialFormats ?? []).includes(o.value)}
+                        onClick={() => set("socialFormats", toggle((answers.socialFormats ?? []).filter((f) => f !== "any"), o.value))}
+                      >
+                        {o.label}
+                      </Chip>
+                    ))}
+                    <Chip selected={(answers.socialFormats ?? []).includes("any")} onClick={() => set("socialFormats", (answers.socialFormats ?? []).includes("any") ? [] : ["any"])}>
+                      {dict.who.anyLabel}
+                    </Chip>
+                  </div>
+                </fieldset>
+              )}
+              {showAge && (
+                <fieldset>
+                  <legend className="font-semibold text-ink">{pick(dict.who.ageLabel, dict.who.ageLabelGift)}</legend>
+                  <p className="mt-1 text-sm text-ink/70">{dict.who.ageSub}</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {ageOptionsFor(intakeDict.ageCategory.options, searchContext === "unknown" && gift, answers.ageCategory).map((o) => (
+                      <Chip key={o.value} selected={answers.ageCategory === o.value} onClick={() => set("ageCategory", answers.ageCategory === o.value ? "" : o.value)}>
+                        {o.label}
+                      </Chip>
+                    ))}
+                  </div>
+                </fieldset>
+              )}
+              <div>
+                <label htmlFor="limit-text" className="block font-semibold text-ink">
+                  {dict.who.limitsLabel}
+                </label>
+                <p className="mt-1 text-sm text-ink/70">{dict.who.limitsSub}</p>
+                <input
+                  id="limit-text"
+                  value={limitText}
+                  onChange={(e) => setLimitText(e.target.value.slice(0, 200))}
+                  placeholder={dict.who.limitsPlaceholder}
+                  className="mt-3 min-h-11 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
+                />
+              </div>
+            </div>
+          )}
+        </section>
+      </div>
+    );
+  })();
+
   // Page 1 of the two-page intake: eighteen images, mixed from places, moments and senses.
   const imagesPage = (
     <div>
       <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{dict.twoPages.images.kicker}</p>
       <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.twoPages.images.heading, dict.twoPages.images.headingGift)}</h1>
       <p className="mt-2 text-ink/70">{pick(dict.twoPages.images.sub, dict.twoPages.images.subGift)}</p>
-      {recipientField}
       <p className="mt-4 text-sm font-medium text-ink/70" aria-live="polite">
         {dict.twoPages.images.chosen.replace("{n}", String(chosen.length))}
         {chosen.length < MIN_IMAGES_REQUIRED && <span className="text-ink/70"> · {dict.twoPages.images.min.replace("{n}", String(MIN_IMAGES_REQUIRED))}</span>}
@@ -1016,6 +1305,8 @@ export function AssociationWizard({
 
   const body = (() => {
     switch (pageId) {
+      case "start":
+        return startPage;
       case "images":
         return imagesPage;
       case "concrete":
@@ -1147,7 +1438,7 @@ export function AssociationWizard({
                     ))}
                   </ul>
                   <div className="mt-4 flex flex-wrap gap-3">
-                    <button type="button" onClick={() => go(pages.indexOf("situation"))} className="min-h-11 rounded-lg border border-border bg-cream px-4 text-sm font-semibold text-ink hover:border-ink">
+                    <button type="button" onClick={() => go(pages.indexOf(flow2 ? "start" : "situation"))} className="min-h-11 rounded-lg border border-border bg-cream px-4 text-sm font-semibold text-ink hover:border-ink">
                       {dict.twoPages.dropped.editSituation}
                     </button>
                     <button type="button" onClick={() => go(pages.indexOf("concrete"))} className="min-h-11 rounded-lg border border-border bg-cream px-4 text-sm font-semibold text-ink hover:border-ink">
@@ -1408,18 +1699,17 @@ export function AssociationWizard({
       </div>
 
       {/* Inside the long first chapter: where we are among direction, place, moment and sense. */}
-      {chapter === 0 && (
+      {chapter === (flow2 ? 1 : 0) && (
         <ol className="-mt-3 mb-6 flex items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.08em]" aria-label={dict.chapters.images}>
-          {(flow2 ? [dict.twoPages.steps.images, dict.twoPages.steps.concrete] : [dict.panes.worlds, dict.panes.places, dict.panes.moments, dict.panes.senses]).map((label, i) => (
-            <li
-              key={label}
-              aria-current={i === page ? "step" : undefined}
-              className={cn("flex items-center gap-1.5", i === page ? "text-ink" : i < page ? "text-ink/70" : "text-ink/70")}
-            >
-              <span aria-hidden="true" className={cn("h-2 w-2 rounded-full", i === page ? "bg-accent-dark" : i < page ? "bg-gold" : "bg-border")} />
-              {label}
-            </li>
-          ))}
+          {(flow2 ? [dict.twoPages.steps.images, dict.twoPages.steps.concrete] : [dict.panes.worlds, dict.panes.places, dict.panes.moments, dict.panes.senses]).map((label, i) => {
+            const here = flow2 ? page - 1 : page;
+            return (
+              <li key={label} aria-current={i === here ? "step" : undefined} className={cn("flex items-center gap-1.5", i === here ? "text-ink" : "text-ink/70")}>
+                <span aria-hidden="true" className={cn("h-2 w-2 rounded-full", i === here ? "bg-accent-dark" : i < here ? "bg-gold" : "bg-border")} />
+                {label}
+              </li>
+            );
+          })}
         </ol>
       )}
 

@@ -58,7 +58,8 @@ export const ANALYTICS_EVENTS = {
   // so a funnel can use these short names while the detailed events stay as they were. Counts, ids and fixed words only.
   images_done: { when: "images page finished (with images_page_completed; image intake in two pages)", props: ["wizard_variant", "selected", "refreshes"] },
   activities_done: { when: "activities page finished (with concrete_page_completed)", props: ["wizard_variant", "selected", "refreshes", "explore_picked"] },
-  situation_done: { when: "situation page finished (with intake_page_completed)", props: ["wizard_variant", "duration_ms"] },
+  search_context_set: { when: "the start page finished: who the search is for (self, child, adult, senior, group, unknown), whether it is a gift, whether any limit was given", props: ["context", "is_gift", "has_limits"] },
+  situation_done: { when: "situation / start page finished (with intake_page_completed)", props: ["wizard_variant", "duration_ms"] },
   pay_clicked: { when: "the pay button pressed (with checkout_pay_clicked)", props: ["is_gift", "price_variant"] },
   pdf_opened: { when: "the PDF opened (with plan_pdf_downloaded)", props: ["source"] },
   gift_started: { when: "a gift intake started clean (not a reload, not an edit)", props: ["wizard_variant"] },

@@ -11,7 +11,7 @@ export interface ArrivalInput {
   /** The `s` value this tab last started a gift with. */
   seenArrival: string | null;
   /** The stored draft, if there is one. */
-  draft: { purpose: string | undefined; page: number } | null;
+  draft: { purpose: string | undefined; page: number; /** Something was already answered on the first page (the start page is page 0). */ started?: boolean } | null;
 }
 
 export type ArrivalDecision = "keep" | "discard";
@@ -20,7 +20,7 @@ export function decideDraft({ purpose, arrival, seenArrival, draft }: ArrivalInp
   if (!draft) return "keep";
   if (purpose === "gift") {
     if (arrival) return arrival === seenArrival ? "keep" : "discard";
-    return draft.purpose === "gift" && draft.page > 0 ? "keep" : "discard";
+    return draft.purpose === "gift" && (draft.page > 0 || draft.started) ? "keep" : "discard";
   }
   return draft.purpose === "gift" ? "discard" : "keep";
 }

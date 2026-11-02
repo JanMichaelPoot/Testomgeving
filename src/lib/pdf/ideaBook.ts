@@ -384,6 +384,8 @@ export interface IdeaBookPdfContext {
     items: WindowItem[];
     sill: string;
     recipientName?: string;
+    /** The search was for a group: the cover says "voor jullie" when there is no name. */
+    forGroup?: boolean;
     dateLabel: string;
   };
   // R2.2: per activity id the thread behind the door in one sentence ("Bij deze deur hoort het
@@ -716,7 +718,7 @@ export async function renderIdeaBookPdf(
     };
     const v = dict.venster;
     const name = (win.recipientName ?? "").trim();
-    const coverTitle = name ? v.pdf.coverTitleGift.replace("{name}", name) : v.pdf.coverTitle;
+    const coverTitle = name ? v.pdf.coverTitleGift.replace("{name}", name) : win.forGroup ? v.pdf.coverTitleGroup : v.pdf.coverTitle;
     cursor -= 40;
     centred(`${chrome.coverEyebrow} · ${win.dateLabel}`.toUpperCase(), fonts.sansBold, 8.5, theme.cover.eyebrow, cursor, 1.1);
     cursor -= 52;

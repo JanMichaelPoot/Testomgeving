@@ -31,7 +31,7 @@ export interface VensterDictionary {
     dropped: {
       title: string;
       body: string;
-      reasons: Record<"season" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
+      reasons: Record<"season" | "audience" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
       editSituation: string;
       editChoices: string;
     };
@@ -160,6 +160,23 @@ export interface VensterDictionary {
     adjustDone: string;
     fixPrompt: string;
     moreTitle: string;
+  };
+  /** The central start page of the two-page intake: who we search for, where, and the few limits (all optional except the place). */
+  start: {
+    kicker: string;
+    heading: string;
+    sub: string;
+    sections: { who: string; where: string; limits: string };
+    who: {
+      label: string;
+      labelGift: string;
+      sub: string;
+      options: Record<"self" | "child" | "adult" | "senior" | "group", { label: string; sub: string }>;
+      nameLabel: string;
+      /** What the wording calls the person when no first name was given: "Waar zoeken we voor het kind?" */
+      fallbacks: Record<"child" | "adult" | "senior" | "group", string>;
+    };
+    limits: { sub: string; timeLabelOther: string; chipsLabel: string; chipsSub: string; optional: string };
   };
   /** The merged "Jouw situatie" screen (place, time, budget, company; the rest behind "more"). */
   situation: { heading: string; headingGift: string; moreLabel: string; moreSub: string };
@@ -296,7 +313,7 @@ export interface VensterDictionary {
     thanks: string;
     error: string;
   };
-  pdf: { coverTitle: string; coverTitleGift: string }; // {name}
+  pdf: { coverTitle: string; coverTitleGift: string; coverTitleGroup: string }; // {name}
   testBanner: string;
   errorGeneric: string;
 }
@@ -313,8 +330,8 @@ export const vensterNl: VensterDictionary = {
     occasion: "Ook een mooi cadeau voor iemand die aan een nieuwe fase begint: pensioen, een verhuizing, kinderen die het huis uit gaan.",
     heroAlt: "Een klassiek schuifraam met acht ruiten, elk met een ander beeld",
     chapters: [
+      { title: "Jouw situatie", body: "Voor wie, waar en wat moet kloppen: de basis voor echte plekken in de buurt." },
       { title: "Jouw beelden", body: "Kies beelden en activiteiten die je aantrekken. Geen vragenlijst: klaar in ±3 minuten." },
-      { title: "Jouw situatie", body: "Plaats, tijd, budget en met wie, voor echte plekken bij jou in de buurt." },
       { title: "Jouw venster", body: "Lees hoe wij jou lezen en open je boek." },
     ],
   },
@@ -352,6 +369,7 @@ export const vensterNl: VensterDictionary = {
       body: "Je koos deze activiteiten, maar een grens die je daarna gaf, sluit ze uit. Je kunt de grens aanpassen of een andere keuze maken.",
       reasons: {
         season: "past niet bij de tijd van het jaar",
+        audience: "past niet bij voor wie je zoekt",
         budget: "past niet bij je budget",
         effort: "vraagt meer inspanning dan je aangaf",
         supervised: "vraagt begeleiding en past niet bij je voorkeur voor het vertrouwde",
@@ -695,6 +713,33 @@ export const vensterNl: VensterDictionary = {
     fixPrompt: "Wat zoek je meer? Kies er tot drie.",
     moreTitle: "Bekijk en stuur bij",
   },
+  start: {
+    kicker: "Eerst de basis",
+    heading: "Voor wie, waar en wat moet kloppen?",
+    sub: "Drie korte onderdelen. Alleen de plaats is verplicht; de rest mag leeg.",
+    sections: { who: "Voor wie", where: "Waar", limits: "Randvoorwaarden" },
+    who: {
+      label: "Voor wie wil je nieuwe mogelijkheden ontdekken?",
+      labelGift: "Voor wie is dit venster?",
+      sub: "Mag je overslaan. De beelden die je straks kiest verfijnen dit zelf.",
+      options: {
+        self: { label: "Voor mezelf", sub: "Ik zoek iets voor mijzelf" },
+        child: { label: "Voor een kind of jongere", sub: "Een kind of een tiener" },
+        adult: { label: "Voor een andere volwassene", sub: "Partner, vriend, collega…" },
+        senior: { label: "Voor een oudere", sub: "Bijvoorbeeld een ouder of grootouder" },
+        group: { label: "Voor een groep", sub: "Gezin, vrienden of team" },
+      },
+      nameLabel: "Voornaam (optioneel)",
+      fallbacks: { child: "het kind", adult: "de ander", senior: "de oudere", group: "de groep" },
+    },
+    limits: {
+      sub: "Alleen invullen wat telt. Alles hier is optioneel.",
+      timeLabelOther: "Hoeveel tijd is er?",
+      chipsLabel: "Wat moet kloppen?",
+      chipsSub: "Tik aan wat écht moet of niet kan.",
+      optional: "optioneel",
+    },
+  },
   situation: {
     heading: "Waar, wanneer en met wie?",
     headingGift: "Waar, wanneer en met wie voor {name}?",
@@ -756,6 +801,9 @@ export const vensterNl: VensterDictionary = {
       "Geen alcohol",
       "Geen vis of schaaldieren",
       "Met kinderen",
+      "Zonder auto bereikbaar",
+      "In het weekend",
+      "'s Avonds",
     ],
     limitsPlaceholder: "Nog iets anders dat écht niet kan?",
   },
@@ -873,7 +921,7 @@ export const vensterNl: VensterDictionary = {
     thanks: "Dank je wel. Dit helpt echt.",
     error: "Versturen lukte niet. Probeer het later nog eens.",
   },
-  pdf: { coverTitle: "Een venster voor jou", coverTitleGift: "Een venster voor {name}" },
+  pdf: { coverTitle: "Een venster voor jou", coverTitleGift: "Een venster voor {name}", coverTitleGroup: "Een venster voor jullie" },
   testBanner: "Testversie · betaal met testkaart 4242 4242 4242 4242, er wordt niets afgeschreven.",
   errorGeneric: "Er ging iets mis. Probeer het opnieuw.",
 };
@@ -889,8 +937,8 @@ export const vensterEn: VensterDictionary = {
     occasion: "Also a lovely gift for someone starting a new phase: retirement, a move, children leaving home.",
     heroAlt: "A classic sash window with eight panes, each showing a different image",
     chapters: [
+      { title: "Your situation", body: "For whom, where and what has to fit: the basis for real places nearby." },
       { title: "Your images", body: "Pick images and activities that pull you in. No questionnaire: ready in about 3 minutes." },
-      { title: "Your situation", body: "Place, time, budget and who comes along, for real places near you." },
       { title: "Your window", body: "Read how we read you, and open your book." },
     ],
   },
@@ -927,6 +975,7 @@ export const vensterEn: VensterDictionary = {
       body: "You chose these activities, but a limit you gave afterwards rules them out. You can change the limit or choose something else.",
       reasons: {
         season: "does not fit the time of year",
+        audience: "does not suit who you are searching for",
         budget: "does not fit your budget",
         effort: "takes more effort than you said",
         supervised: "needs guidance and does not fit your preference for the familiar",
@@ -1270,6 +1319,33 @@ export const vensterEn: VensterDictionary = {
     fixPrompt: "What do you want more of? Pick up to three.",
     moreTitle: "View and adjust",
   },
+  start: {
+    kicker: "First the basics",
+    heading: "For whom, where, and what has to fit?",
+    sub: "Three short parts. Only the place is required; the rest can stay empty.",
+    sections: { who: "For whom", where: "Where", limits: "Conditions" },
+    who: {
+      label: "Who do you want to discover new possibilities for?",
+      labelGift: "Who is this window for?",
+      sub: "You can skip this. The images you pick next will refine it themselves.",
+      options: {
+        self: { label: "For myself", sub: "I'm looking for something for me" },
+        child: { label: "For a child or young person", sub: "A child or a teenager" },
+        adult: { label: "For another adult", sub: "Partner, friend, colleague…" },
+        senior: { label: "For an older person", sub: "For example a parent or grandparent" },
+        group: { label: "For a group", sub: "Family, friends or a team" },
+      },
+      nameLabel: "First name (optional)",
+      fallbacks: { child: "the child", adult: "them", senior: "the older person", group: "the group" },
+    },
+    limits: {
+      sub: "Only fill in what matters. Everything here is optional.",
+      timeLabelOther: "How much time is there?",
+      chipsLabel: "What has to fit?",
+      chipsSub: "Tap what really must or can't happen.",
+      optional: "optional",
+    },
+  },
   situation: {
     heading: "Where, when and with whom?",
     headingGift: "Where, when and with whom for {name}?",
@@ -1331,6 +1407,9 @@ export const vensterEn: VensterDictionary = {
       "No alcohol",
       "No fish or shellfish",
       "With children",
+      "Reachable without a car",
+      "On weekends",
+      "In the evening",
     ],
     limitsPlaceholder: "Anything else that really can't happen?",
   },
@@ -1448,7 +1527,7 @@ export const vensterEn: VensterDictionary = {
     thanks: "Thank you. This really helps.",
     error: "Sending didn't work. Please try again later.",
   },
-  pdf: { coverTitle: "A window for you", coverTitleGift: "A window for {name}" },
+  pdf: { coverTitle: "A window for you", coverTitleGift: "A window for {name}", coverTitleGroup: "A window for all of you" },
   testBanner: "Test version · pay with test card 4242 4242 4242 4242, nothing is charged.",
   errorGeneric: "Something went wrong. Please try again.",
 };

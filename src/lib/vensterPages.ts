@@ -31,10 +31,27 @@ export function migrateDraftPage(page: number, version: number | undefined): num
   return map[Math.min(p, map.length - 1)];
 }
 
-// The two-page image intake (docs/fase4-opzet.md): page 1 associative images, page 2 concrete activities that follow from them,
-// then the situation and the profile (where the payment is). It has its own draft, so a draft of the four-round intake is never
-// read as one of these.
-export const TWO_PAGE_PAGES = ["images", "concrete", "situation", "profile"] as const;
+// The two-page image intake (docs/fase4-opzet.md) behind one central start page: who we search for, where, and the few limits
+// (the former situation screen is part of it, so place and limits are asked once, first); then page 1 associative images,
+// page 2 concrete activities that follow from them, and the profile (where the payment is). It has its own draft, so a draft of the
+// four-round intake is never read as one of these.
+export const TWO_PAGE_PAGES = ["start", "images", "concrete", "profile"] as const;
+
+/**
+ * The layout of the two-page draft. 2 = the start page first. A draft without it (or with 1) used the order images, concrete,
+ * situation, profile, before the start page existed.
+ */
+export const TWO_PAGE_LAYOUT = 2;
+
+/** A page number from a two-page draft or link made before the start page existed becomes the closest page of this layout. */
+export function migrateTwoPageDraft(page: number, layout: number | undefined): number {
+  const last = TWO_PAGE_PAGES.length - 1;
+  if (!Number.isFinite(page)) return 0;
+  const p = Math.max(0, Math.trunc(page));
+  if (layout === TWO_PAGE_LAYOUT) return Math.min(p, last);
+  const map = [1, 2, 0, 3]; // old images, concrete, situation, profile -> new index
+  return map[Math.min(p, map.length - 1)];
+}
 export type TwoPageId = (typeof TWO_PAGE_PAGES)[number];
 export type AnyVensterPageId = VensterPageId | TwoPageId;
 
@@ -43,9 +60,13 @@ export function pagesFor(flow: "images2" | undefined): readonly AnyVensterPageId
   return flow === "images2" ? TWO_PAGE_PAGES : VENSTER_PAGES;
 }
 
-/** Which of the three chapters of the progress bar a screen belongs to: images (0), situation (1), window (2). */
+/**
+ * Which of the three chapters of the progress bar a screen belongs to. Four-round intake: images (0), situation (1), window (2).
+ * Two-page intake: start (0), images (1), window (2); the chapter names follow the flow (see AssociationWizard).
+ */
 export function chapterOf(page: AnyVensterPageId): 0 | 1 | 2 {
   if (page === "situation") return 1;
+  if (page === "images" || page === "concrete") return 1;
   if (page === "profile") return 2;
   return 0;
 }

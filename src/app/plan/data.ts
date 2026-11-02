@@ -31,6 +31,7 @@ import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
 import { trackServerEvent } from "@/lib/posthog/server";
 import { findVoucherByPlanToken } from "@/lib/voucher/store";
+import { isForOther } from "@/lib/discovery/audience";
 
 // Re-exported so existing callers (src/app/plan/page.tsx) can keep
 // importing every plan-related helper from this one module; the
@@ -337,7 +338,8 @@ function coverWindowFor(profile: StoredIntake, locale: Locale): IdeaBookPdfConte
   return {
     items,
     sill: buildSill(profile, dict.intake, dict.venster),
-    recipientName: profile.purpose === "gift" ? profile.recipientName : undefined,
+    recipientName: isForOther(profile) ? profile.recipientName : undefined,
+    forGroup: profile.searchContext === "group",
     dateLabel: new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", {
       day: "numeric",
       month: "long",

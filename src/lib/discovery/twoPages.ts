@@ -48,6 +48,12 @@ export interface BatchOptions {
   keep?: readonly string[];
   /** Card ids shown on earlier pages: their families are not shown again (unless the pool has run out). */
   exclude?: readonly string[];
+  /**
+   * 0..1 preference per card (higher first), for the search context and, on a refresh, what was chosen so far (audience.ts imagePreference).
+   * It orders the candidates (every other place to the best-liked, the rest left to the seeded order); the register floors and the axis repair still apply, so it can lean a
+   * page but never make it one-sided. `index` is the card's position in the seeded order.
+   */
+  prefer?: (card: AssociationCardData, index: number) => number;
 }
 
 /** The lack of a list of families: how far it is from at least ENOUGH on each side of each axis, and from enough of every round. */
@@ -92,7 +98,43 @@ export function sampleBalancedBatch<T extends RegisteredCard>(cards: readonly T[
   const fresh = shuffled([...families.keys()].filter((f) => !keptFamilies.includes(f) && !shownBefore.has(f)), rnd);
   // The pool has run out of unseen families: take back the ones shown longest ago, so a page is always full.
   const recycled = shuffled([...shownBefore].filter((f) => !keptFamilies.includes(f)), rnd);
-  const order = [...fresh, ...recycled];
+  let freshOrdered = fresh;
+  if (opts.prefer) {
+    // Every other place goes to the best-liked families; the places in between keep the seeded random order, so the page can lean but is
+    // never only what the context (or the choices so far) point at.
+    const prefer = opts.prefer;
+    const chance = mulberry32(hashSeed(`${opts.seed}:img:${refresh}:prefer`));
+    const liked = fresh
+      .map((f, i) => ({ f, s: 0.7 * prefer(first(f), i) + 0.3 * chance() }))
+      .sort((x, y) => y.s - x.s || x.f.localeCompare(y.f))
+      .map((x) => x.f);
+    const used = new Set<string>();
+    const merged: string[] = [];
+    let l = 0;
+    let p = 0;
+    while (merged.length < fresh.length) {
+      const fromPlain = merged.length % 2 === 1;
+      if (fromPlain) {
+        while (p < fresh.length && used.has(fresh[p])) p++;
+        if (p < fresh.length) {
+          used.add(fresh[p]);
+          merged.push(fresh[p]);
+          continue;
+        }
+      }
+      while (l < liked.length && used.has(liked[l])) l++;
+      if (l < liked.length) {
+        used.add(liked[l]);
+        merged.push(liked[l]);
+      } else {
+        while (p < fresh.length && used.has(fresh[p])) p++;
+        used.add(fresh[p]);
+        merged.push(fresh[p]);
+      }
+    }
+    freshOrdered = merged;
+  }
+  const order = [...freshOrdered, ...recycled];
 
   const need = Math.max(0, Math.min(size - kept.length, order.length));
   const perRegister = Math.floor(size / REGISTERS.length);
@@ -165,7 +207,7 @@ export interface ConcreteActivity {
   axes: { social: number; energy: number; setting: number };
 }
 
-export interface ConcreteOptions {
+export interface ConcreteOptions<A extends ConcreteActivity = ConcreteActivity> {
   seed: string;
   /** 0 for the first page, 1.. for "Andere activiteiten". */
   refresh?: number;
@@ -183,6 +225,8 @@ export interface ConcreteOptions {
   keep?: readonly string[];
   /** Activity ids shown on earlier pages. */
   exclude?: readonly string[];
+  /** 0..1 lean of an activity for the search context (audience.ts); a small addition to its score, never a filter. */
+  prefer?: (a: A) => number;
 }
 
 export interface ConcreteSlot<A extends ConcreteActivity = ConcreteActivity> {
@@ -204,7 +248,7 @@ const JITTER = 0.5;
  *    those registers' share, so exploring does not cost the chosen register any room.
  * `pool` is already filtered for the month, the status and the pending photos by the caller.
  */
-export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A[], opts: ConcreteOptions): ConcreteSlot<A>[] {
+export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A[], opts: ConcreteOptions<A>): ConcreteSlot<A>[] {
   const size = opts.size ?? CONCRETE_PAGE_SIZE;
   const exploreN = Math.min(opts.explore ?? EXPLORE_SLOTS, Math.max(0, size - REGISTERS.length * MIN_PER_REGISTER));
   const refresh = opts.refresh ?? 0;
@@ -217,7 +261,7 @@ export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A
   const maxClose = Math.max(0.0001, ...pool.map(closeness));
   const fit = (a: A) =>
     opts.axes ? 1 - (Math.abs(a.axes.social - opts.axes.social) + Math.abs(a.axes.energy - opts.axes.energy) + Math.abs(a.axes.setting - opts.axes.setting)) / 6 : 0.5;
-  const score = new Map(pool.map((a) => [a.id, closeness(a) / maxClose + 0.25 * fit(a) + JITTER * rnd(a.id)]));
+  const score = new Map(pool.map((a) => [a.id, closeness(a) / maxClose + 0.25 * fit(a) + (opts.prefer ? 0.3 * opts.prefer(a) : 0) + JITTER * rnd(a.id)]));
 
   const keptList = pool.filter((a) => keepIds.has(a.id));
   const fresh = pool.filter((a) => !keepIds.has(a.id) && !excluded.has(a.id));

@@ -16,6 +16,7 @@ import { getActivity } from "@/lib/discovery/library";
 import { currentMonth } from "@/lib/discovery/season";
 import { loadAvoidIds, loadSeason } from "@/lib/followup/avoid";
 import type { Season } from "@/lib/seasonEdition";
+import type { AudienceProfile } from "@/lib/discovery/audience";
 
 // The rich profile ("DNA") collected by the intake wizard. Stored whole in
 // intake_answers.raw_json — see supabase/migrations/0001_init.sql for why
@@ -74,6 +75,12 @@ export interface IntakeAnswers {
   // The four sliders of "Zo kijken wij door jouw venster": where the person moved an axis away
   // from what their images said (-1 .. 1). Only the axes they touched. Sanitised on the server.
   axesOverride?: { social?: number; energy?: number; setting?: number; novelty?: number };
+  // The central start page (images2): who the search is for (src/lib/discovery/audience.ts): self, child, adult, senior, group or unknown.
+  // Explicit input, normalised again on the server. Not the same as `purpose` (a gift) or the age: it is where the search starts.
+  searchContext?: string;
+  // Built by the server from the start page and the choices (never taken from the browser): the six dimensions of the Dynamic Audience &
+  // Interest Profile, each with its provenance (explicit / inferred / unknown) and confidence.
+  audienceProfile?: AudienceProfile;
   // For a gift: the recipient's first name, for the cover and the greeting. Optional.
   recipientName?: string;
   // Set by the server when the visitor came through the follow-up e-mail (src/app/nieuw-venster): the ideas of the book they already have, which

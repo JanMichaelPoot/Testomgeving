@@ -25,6 +25,8 @@ export interface EngineInput {
   effort: string;
   timeAvailable: string;
   ageCategory: string;
+  /** Who the search is for (src/lib/discovery/audience.ts): "child" hides what is not for minors, "group" nudges to doing it together. */
+  searchContext?: string;
   /** Free text: what may not be missing or must stay away. Read conservatively. */
   mustHaves: string;
   /** Activities shown to this visitor in recent sessions; not repeated unless picked again. */
@@ -87,6 +89,8 @@ export interface ResolvedConstraints {
   verify: string[];
   /** The month the person asks in; an activity with `months` that leaves it out is dropped. Null = no season filter. */
   month: number | null;
+  /** The search is for a child or young person: activities that are not for minors are not offered (audience.ts). */
+  minorSafe?: boolean;
   /** B4: unknown cost does not pass a free budget (weights.strictFreeCost). Absent = the rule of before B4. */
   strictFreeCost?: boolean;
 }

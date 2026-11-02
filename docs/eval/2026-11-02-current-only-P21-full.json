@@ -1,0 +1,314 @@
+{
+ "engine": "current",
+ "mode": "full",
+ "source": "scripts/eval/profiles (1 vaste profielen: P21)",
+ "generatedAt": "2026-11-02T22:56:55.238Z",
+ "metrics": {
+  "profiles": 1,
+  "seeds": 7,
+  "violations": {
+   "E1": 0,
+   "E3": 0,
+   "E4": 0,
+   "E5": 0,
+   "E6": 0
+  },
+  "rates": {
+   "seedsAtLeastSix": 1,
+   "fourDomains": 1,
+   "maxTwoPerDomain": 1,
+   "allDirections": 1,
+   "nicheOwnWorld": 1,
+   "unexpectedHasBridge": 1,
+   "noRelaxation": 1
+  },
+  "notes": {},
+  "worldsPerBook": 5,
+  "subsPerBook": 7,
+  "photoCategoriesPerBook": 5,
+  "kindsPerBook": 4,
+  "pairBooks": 1,
+  "sameSubBooks": 0,
+  "relaxedBooks": 0,
+  "verifySeeds": 1,
+  "tier2Seeds": 0,
+  "costUnknownSeeds": 0,
+  "freeBudgetBooks": 0,
+  "freeBudgetWithUnknownCost": 0,
+  "socialKindShare": 0.2857142857142857,
+  "oneThingByDoor": {
+   "unexpected": 1
+  },
+  "levelCompleteBooks": 1,
+  "levelShare": {
+   "1": 1,
+   "2": 1,
+   "3": 1,
+   "4": 1,
+   "5": 1,
+   "6": 1,
+   "7": 1
+  },
+  "practicalityByLevel": {
+   "level1": 0.84,
+   "level2": 0.8666666666666667
+  },
+  "pickCoverage": {
+   "profiles": 1,
+   "mean": 1,
+   "meanInBook": 2,
+   "goalMet": 1,
+   "none": 0
+  },
+  "activitiesUsed": 7,
+  "topActivity": {
+   "id": "pottenbakken",
+   "share": 1
+  },
+  "top10Share": 1
+ },
+ "profiles": [
+  {
+   "id": "P21",
+   "title": "Ouder zoekt voor een kind (tijdelijk)",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, Haarlem",
+    "budget 25, tijd halfday, gezelschap niet gezegd",
+    "koos beelden: Een stille bosrand, Het aftellen, de klok loopt, Het brullen van een motor, Een arena vol licht",
+    "harde grenzen: Zonder auto bereikbaar"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "pottenbakken",
+     "label": {
+      "nl": "Pottenbakken",
+      "en": "Pottery"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Pottenbakken"
+     ],
+     "lead": null,
+     "verify": [
+      "cost_near_budget",
+      "transport"
+     ]
+    },
+    {
+     "activityId": "boulderen",
+     "label": {
+      "nl": "Boulderen",
+      "en": "Bouldering"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Boulderen"
+     ],
+     "lead": null,
+     "verify": [
+      "cost_near_budget",
+      "transport"
+     ]
+    },
+    {
+     "activityId": "simracen",
+     "label": {
+      "nl": "Simracen",
+      "en": "Sim racing"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Karten",
+      "Simracen"
+     ],
+     "lead": null,
+     "verify": [
+      "cost_near_budget",
+      "transport"
+     ]
+    },
+    {
+     "activityId": "borduren-weven",
+     "label": {
+      "nl": "Borduren of weven",
+      "en": "Embroidery or weaving"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Pottenbakken",
+      "Borduren of weven"
+     ],
+     "lead": null,
+     "verify": [
+      "transport"
+     ]
+    },
+    {
+     "activityId": "hist-koken",
+     "label": {
+      "nl": "Historisch koken",
+      "en": "Historical cooking"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Pottenbakken",
+      "Historisch koken"
+     ],
+     "lead": null,
+     "verify": [
+      "cost_near_budget",
+      "transport"
+     ]
+    },
+    {
+     "activityId": "calisthenics",
+     "label": {
+      "nl": "Calisthenics in het park",
+      "en": "Calisthenics in the park"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Boulderen",
+      "Calisthenics in het park"
+     ],
+     "lead": null,
+     "verify": [
+      "transport"
+     ]
+    },
+    {
+     "activityId": "poppentheater",
+     "label": {
+      "nl": "Poppentheater maken en spelen",
+      "en": "Making and playing puppet theatre"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Pottenbakken",
+      "Poppentheater maken en spelen"
+     ],
+     "lead": null,
+     "verify": [
+      "cost_near_budget",
+      "transport"
+     ]
+    }
+   ],
+   "book": {
+    "profile_summary": "Voor Emma wordt een halve dag vol beweging, kleur en techniek gezocht, met ruimte voor spanning en een beetje avontuur.",
+    "ideas": [
+     {
+      "door": "natural",
+      "title": "Boulderen op gevoel",
+      "intro": "Een introductieavond vol grip zoeken, vallen en opnieuw proberen, zonder dat er al ervaring nodig is.",
+      "why_it_fits": "Het beeld van een brullende motor hoort bij dit soort pure actie, en boulderen geeft precies die stoot energie.",
+      "first_action": "Ga naar boulderhaldefabriek.nl/introductie-boulderen en bekijk de eerstvolgende introductieavond.",
+      "activity_id": "boulderen"
+     },
+     {
+      "door": "natural",
+      "title": "Eerste keer op de draaischijf",
+      "intro": "Een proefles pottenbakken waarbij klei, gereedschap en begeleiding al klaarstaan.",
+      "why_it_fits": "Dit was een van de kaarten die voor dit avontuur werden gekozen, en nu wordt het echt met de handen in de klei gedaan.",
+      "first_action": "Open artstart.studio/nl/kids_pottery_courses en kijk naar de eerstvolgende beschikbare proefles.",
+      "activity_id": "pottenbakken"
+     },
+     {
+      "door": "discovery",
+      "title": "Een uur door de stad kijken",
+      "intro": "Een wandeling met alleen een telefoon en één opdracht, zoals alle schaduwen of alle deuren vastleggen.",
+      "why_it_fits": "Er werd gekozen voor kleur bij de klei, en straatfotografie draait om precies dat spelen met licht en kleur.",
+      "first_action": "Open schnek-fotografie.nl en bekijk de eerstvolgende basiscursus fotografie in Haarlem.",
+      "activity_id": "straatfotografie"
+     },
+     {
+      "door": "discovery",
+      "title": "Eerste meters als loper",
+      "intro": "Een gratis proeftraining bij een loopgroep voor beginners, samen op pad in beweging.",
+      "why_it_fits": "Een rustige bosrand was een van de gekozen beelden, en de Kennemerduinen geven precies die ruimte tijdens het rennen.",
+      "first_action": "Open loopmeesters.nl/loopgroep-haarlem en schrijf je in voor de eerstvolgende gratis proefles.",
+      "activity_id": "hardlopen"
+     },
+     {
+      "door": "unexpected",
+      "title": "Eten uit eigen handwerk",
+      "intro": "Klei kneden tot een eigen kom en die later gebruiken om iets lekkers uit te eten.",
+      "why_it_fits": "De klei die eerder werd gekozen krijgt hier een vervolg, van werkstuk naar eigen servies aan tafel.",
+      "first_action": "Open gvkceramics.com/workshops/pottenbakken-in-haarlem en bekijk de eerstvolgende introductieles van 2 uur.",
+      "activity_id": "hist-koken"
+     },
+     {
+      "door": "stretch",
+      "title": "Eigen plekje in de buurt",
+      "intro": "Eén idee kiezen voor de straat en zes buren een kaartje in de bus doen om mee te doen.",
+      "why_it_fits": "Het beeld van de aftellende klok past bij dit soort uitdaging, waarbij een eigen plan echt van de grond moet komen.",
+      "first_action": "Open haarlem.nl/groene-buurtinitiatieven en bekijk welk soort buurtproject aangevraagd kan worden.",
+      "activity_id": "buurtproject"
+     },
+     {
+      "door": "wildcard",
+      "title": "Een middag platen snuffelen",
+      "intro": "Zonder doel door bakken met vinyl bladeren en gewoon zien wat er gevonden wordt.",
+      "why_it_fits": "Dit komt uit een heel andere wereld dan de rest van het boekje, en is precies daarom een verrassende uitstap.",
+      "first_action": "Ga naar www.platomania.nl en zoek op een willekeurige artiest om te zien wat er opduikt.",
+      "activity_id": "vinyl"
+     }
+    ]
+   },
+   "run": {
+    "usd": 0.08741399999999999,
+    "seconds": 36.734,
+    "issues": [
+     "idea3:location_not_in_research:Hof20",
+     "idea4:location_not_in_research:Kennemerduinen",
+     "qa:idea5:time_chip_from_activity",
+     "qa:wildcard:time_chip_from_activity"
+    ],
+    "fillCount": 0,
+    "pdf": "docs/eval/books/2026-11-02-P21-current.pdf"
+   },
+   "findings": [
+    {
+     "check": "first_action:vague",
+     "severity": "warn",
+     "where": "idea2",
+     "message": "first action is not concrete: \"Open artstart.studio/nl/kids_pottery_courses en kijk naar de eerstvolgende besch\"",
+     "profile": "P21"
+    }
+   ]
+  }
+ ],
+ "quality": {
+  "books": 1,
+  "ideas": 7,
+  "counts": {
+   "exposed_reasoning": 0,
+   "repeated_sentence": 0,
+   "season": 0,
+   "type_setting": 0,
+   "time_chip": 0,
+   "related": 0,
+   "coverage_time": 0,
+   "coverage_budget": 0
+  },
+  "ideasWithPlace": 7,
+  "ideasWithPlaceSite": 7,
+  "placeRate": 1,
+  "totalUsd": 0.08741399999999999,
+  "avgSeconds": 36.734,
+  "releaseGate": {
+   "pass": true,
+   "failures": []
+  }
+ }
+}

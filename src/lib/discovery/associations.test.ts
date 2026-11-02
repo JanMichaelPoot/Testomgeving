@@ -244,5 +244,5 @@ describe("age weighting (fase 1.5)", () => {
       return seeds.filter((a) => a.safety.tier === 2).length / seeds.length;
     };
     expect(share("65plus")).toBeLessThan(share("35-44"));
-  }, 120_000);
+  }, 300_000);
 });

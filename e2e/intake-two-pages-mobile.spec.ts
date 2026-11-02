@@ -1,6 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
 
-// The same phone check for the two-page image intake (docs/fase4-opzet.md): on each of its four screens the bottom bar sits on
+// The same phone check for the two-page image intake (docs/fase4-opzet.md): on each of its four screens (start, images, concrete, profile) the bottom bar sits on
 // the screen and the last option ends above it.
 
 const VIEWPORTS = [
@@ -13,9 +13,9 @@ const VIEWPORTS = [
 
 // Every screen has the bottom bar (Back + Next, or "Klopt, open mijn venster" on the profile).
 const SCREENS = [
-  { index: 0, id: "images" },
-  { index: 1, id: "concrete" },
-  { index: 2, id: "situation" },
+  { index: 0, id: "start" },
+  { index: 1, id: "images" },
+  { index: 2, id: "concrete" },
   { index: 3, id: "profile" },
 ];
 
@@ -26,8 +26,9 @@ async function openScreen(page: Page, index: number) {
       "window-venster-draft-images2",
       JSON.stringify({
         v: 3,
+        layout: 2,
         page: i,
-        answers: { associations: ["place-forest-edge", "moment-first-dance", "sense-perfume"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations" },
+        answers: { associations: ["place-forest-edge", "moment-first-dance", "sense-perfume"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations", location: "Utrecht" },
         limitChips: [],
         limitText: "",
         seed: "e2e",

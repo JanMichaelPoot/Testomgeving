@@ -1,5 +1,6 @@
 import { SOCIAL_FORMATS, type Activity, type SocialFormat } from "@/lib/discovery/types";
 import { inSeason } from "@/lib/discovery/season";
+import { allowedForContext, normalizeSearchContext } from "@/lib/discovery/audience";
 import type { EngineInput, ResolvedConstraints } from "@/lib/discovery/engine/types";
 
 // Hard filters. The rule that keeps them honest: an activity is only excluded on a
@@ -49,6 +50,10 @@ export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting
   if (/(allergie|allergy|allergic|dieet|\bdiet\b|vegetarisch|vegan|halal|koosjer|kosher|\bvis\b|\bfish\b|schaaldier|shellfish)/.test(t)) verify.push("dietary");
   if (/alcohol/.test(t)) verify.push("alcohol");
   if (/(kinderen|\bkids\b|children|\bbaby)/.test(t)) verify.push("children");
+  // Practical wishes of the start page: how to get there and when. No data in the library either, so they are checked, not filtered.
+  if (/(zonder auto|geen auto|openbaar vervoer|ov|without a car|no car|public transport|by train)/.test(t)) verify.push("transport");
+  if (/weekend/.test(t)) verify.push("weekend");
+  if (/(avond|evening)/.test(t)) verify.push("evening");
 
   return { setting, noGroups, verify };
 }
@@ -78,6 +83,7 @@ export function resolveConstraints(input: EngineInput, opts: ResolveOptions = {}
     setting: must.setting,
     verify: must.verify,
     month: input.month ?? null,
+    ...(normalizeSearchContext(input.searchContext) === "child" ? { minorSafe: true } : {}),
     ...(opts.strictFreeCost ? { strictFreeCost: true } : {}),
   };
 }
@@ -96,6 +102,8 @@ export function passesConstraints(a: Activity, c: ResolvedConstraints): FilterRe
 
   // Out of season is a known conflict, however well the activity matches the person.
   if (!inSeason(a, c.month)) return no;
+  // A search for a child or young person: nothing with alcohol, gambling, weapons or heavy tools.
+  if (c.minorSafe && !allowedForContext(a, "child")) return no;
 
   if (a.cost === null) {
     // Unknown is not "free": with the strict rule nobody who asked for free is offered something we cannot vouch for.

@@ -132,7 +132,7 @@ test.describe("screenshots", () => {
     await page.locator("#faq summary").first().click();
     await page.screenshot({ path: path.join(SHOTS, "04-landing-faq.jpg"), type: "jpeg", quality: 60 });
 
-    const steps = ["images", "concrete", "situation", "profile"];
+    const steps = ["start", "images", "concrete", "profile"];
     for (const [index, id] of steps.entries()) {
       const p = await page.context().newPage();
       await p.setViewportSize({ width: 390, height: 844 });
@@ -142,6 +142,7 @@ test.describe("screenshots", () => {
           "window-venster-draft-images2",
           JSON.stringify({
             v: 3,
+            layout: 2,
             page: i,
             answers: { associations: ["place-forest-edge", "moment-first-dance", "sense-perfume"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations" },
             limitChips: [],

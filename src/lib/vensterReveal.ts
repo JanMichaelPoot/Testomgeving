@@ -2,6 +2,7 @@ import { getAssociation, imagesBehind } from "@/lib/discovery/associations";
 import { getActivity } from "@/lib/discovery/library";
 import { ideaKey, WILDCARD_KEY } from "@/lib/ideaKeys";
 import { formatSituationForEcho } from "@/lib/planEcho";
+import { isForOther } from "@/lib/discovery/audience";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -13,6 +14,7 @@ export interface VensterEchoSource {
   intakeVariant?: string;
   associations?: string[];
   purpose?: string;
+  searchContext?: string;
   personalReflection?: string;
 }
 
@@ -44,7 +46,7 @@ export function buildVensterEcho(source: VensterEchoSource | null, locale: "nl" 
   const picked = ["places", "moments", "senses"].map((r) => cards.find((c) => c!.round === r)).filter((c) => !!c);
   const shown = (picked.length >= 2 ? picked : cards).slice(0, 3);
   const labels = shown.map((c) => lower(c!.label[locale]));
-  const gift = source.purpose === "gift";
+  const gift = isForOther(source);
   const wrote = formatSituationForEcho(source.personalReflection);
   return {
     sentence: (gift ? dict.reveal.choseGift : dict.reveal.chose).replace("{list}", list(labels, dict.profile.and)),
@@ -63,7 +65,7 @@ export function buildBecauseLines(
 ): Record<string, BecauseLine> {
   if (!source || source.intakeVariant !== "associations") return {};
   const chosen = source.associations ?? [];
-  const gift = source.purpose === "gift";
+  const gift = isForOther(source);
   const out: Record<string, BecauseLine> = {};
   const add = (key: string, idea: IdeaBookEntry | null) => {
     const activity = idea?.activity_id ? getActivity(idea.activity_id) : undefined;
