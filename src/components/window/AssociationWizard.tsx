@@ -29,7 +29,6 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { DRAFT_VERSION, TWO_PAGE_LAYOUT, chapterOf, migrateDraftPage, migrateTwoPageDraft, pagesFor, type AnyVensterPageId } from "@/lib/vensterPages";
 import { activityContextLean, allowedForContext, imagePreference, isForOther, normalizeSearchContext, type SearchContext } from "@/lib/discovery/audience";
 import { ContextIcon } from "@/components/window/ContextIcon";
-import { ageOptionsFor } from "@/lib/ageOptions";
 import { currentBudget } from "@/lib/budgetOptions";
 
 // The image intake ("Het venster", WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md, fase 3).
@@ -96,7 +95,6 @@ interface Draft {
   page: number;
   answers: IntakeAnswers;
   limitChips: string[];
-  limitText: string;
   /** Which images of each round this session shows (see associationSampling.ts). */
   seed: string;
   /** The images this browser had seen when the session began; fixed, so the cards stay put on a reload. */
@@ -126,7 +124,6 @@ function loadDraft(key: string): Draft | null {
       page: key === DRAFT_KEY_TWO ? migrateTwoPageDraft(d.page ?? 0, d.layout) : migrateDraftPage(d.page ?? 0, d.v),
       answers: { ...EMPTY, ...d.answers },
       limitChips: d.limitChips ?? [],
-      limitText: d.limitText ?? "",
       seed: d.seed || newSeed(),
       seen: Array.isArray(d.seen) ? d.seen : undefined,
       imageMore: Array.isArray(d.imageMore) ? d.imageMore : undefined,
@@ -294,14 +291,11 @@ export function AssociationWizard({
   // The `limitsKey` the `dropped` list was computed for: the portrait names the person's own picks only once the check has run for the current answers.
   const [droppedFor, setDroppedFor] = useState("");
   const [limitChips, setLimitChips] = useState<string[]>([]);
-  const [limitText, setLimitText] = useState("");
   const [hydrated, setHydrated] = useState(false);
   const [mode, setMode] = useState<"grid" | "swipe">("grid");
   const [swipeIdx, setSwipeIdx] = useState(0);
   // "Bijsturen" on the profile screen: the extra tags under "what do you want more of" are open.
   const [adjusting, setAdjusting] = useState(false);
-  // "Meer opgeven" on the situation screen (age, how, hard limits); it also opens by itself when one of them has an answer.
-  const [moreToggled, setMoreToggled] = useState(false);
   const [windowOpen, setWindowOpen] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -337,9 +331,9 @@ export function AssociationWizard({
     if (initial) {
       const split = splitLimits(initial.answers.mustHaves ?? "", dict.who.limitChips);
       /* eslint-disable react-hooks/set-state-in-effect -- one-time, hydration-safe restore */
-      setAnswers({ ...EMPTY, ...initial.answers, budget: currentBudget(initial.answers.budget ?? "") });
+      // The "how" and age answers are no longer asked: whatever an older session holds must not steer the book unseen.
+      setAnswers({ ...EMPTY, ...initial.answers, budget: currentBudget(initial.answers.budget ?? ""), socialFormats: [], ageCategory: "" });
       setLimitChips(split.chips);
-      setLimitText(split.text);
       setPage(Math.min(Math.max(initial.page, 0), pages.length - 1));
       setSeed(newSeed());
       setSeenBefore(loadSeen());
@@ -351,10 +345,11 @@ export function AssociationWizard({
           ...draft.answers,
           ...(flow2 ? { intakeFlow: "images2" as const } : {}),
           budget: currentBudget(draft.answers.budget ?? ""),
+          socialFormats: [],
+          ageCategory: "",
           purpose: draft.answers.purpose === "gift" || initialPurpose === "gift" ? "gift" : "self",
         });
         setLimitChips(draft.limitChips);
-        setLimitText(draft.limitText);
         setPage(draft.page);
         setSeed(draft.seed);
         setSeenBefore(draft.seen ?? loadSeen());
@@ -376,8 +371,8 @@ export function AssociationWizard({
   }, []);
 
   useEffect(() => {
-    if (hydrated && seed) saveDraft(draftKey, { page, answers, limitChips, limitText, seed, seen: seenBefore, imageMore, concrete, imageFirst });
-  }, [hydrated, page, answers, limitChips, limitText, seed, seenBefore, draftKey, imageMore, concrete, imageFirst]);
+    if (hydrated && seed) saveDraft(draftKey, { page, answers, limitChips, seed, seen: seenBefore, imageMore, concrete, imageFirst });
+  }, [hydrated, page, answers, limitChips, seed, seenBefore, draftKey, imageMore, concrete, imageFirst]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -472,11 +467,11 @@ export function AssociationWizard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flow2, hydrated, seed, poolActivities, pageId, concreteKey, concrete?.key]);
   // The profile screen names a chosen activity that the limits given afterwards rule out, instead of letting it go missing from the book.
-  const limitsKey = [answers.budget, answers.timeAvailable, answers.mustHaves, limitChips.join(","), limitText, (answers.socialFormats ?? []).join(","), picks.join(","), chosenImagesKey, JSON.stringify(answers.axesOverride ?? {})].join("|");
+  const limitsKey = [answers.budget, answers.timeAvailable, answers.mustHaves, limitChips.join(","), (answers.socialFormats ?? []).join(","), picks.join(","), chosenImagesKey, JSON.stringify(answers.axesOverride ?? {})].join("|");
   useEffect(() => {
     if (!flow2 || !hydrated || pageId !== "profile") return;
     let cancelled = false;
-    const mustHaves = [...limitChips, limitText.trim()].filter(Boolean).join("; ");
+    const mustHaves = limitChips.join("; ");
     checkPicks({ ...answers, mustHaves, intakeVariant: "associations", intakeFlow: "images2" })
       .then((list) => {
         if (cancelled) return;
@@ -546,7 +541,7 @@ export function AssociationWizard({
             searchDistance: answers.searchDistance,
             company: answers.company,
             socialFormats: answers.socialFormats ?? [],
-            mustHaves: [...limitChips, limitText.trim()].filter(Boolean).join("; "),
+            mustHaves: limitChips.join("; "),
             gift,
             name,
             // A pick that a limit rules out ("Dit kon niet mee") is not a starting point either.
@@ -749,7 +744,7 @@ export function AssociationWizard({
       trackEvent("search_context_set", {
         context: searchContext,
         is_gift: isGift,
-        has_limits: answers.timeAvailable !== "" || answers.budget !== "" || answers.company.length > 0 || limitChips.length > 0 || limitText.trim().length > 0,
+        has_limits: answers.timeAvailable !== "" || answers.budget !== "" || answers.company.length > 0 || limitChips.length > 0,
       });
     }
     trackEvent("intake_page_completed", { wizard_variant: variantName, page: pageId, index: page, duration_ms: duration });
@@ -775,8 +770,8 @@ export function AssociationWizard({
 
   /** Stores the answers right before the payment starts; throws (with a message for the visitor) when that is not allowed. */
   async function saveForPayment() {
-    const mustHaves = [...limitChips, limitText.trim()].filter(Boolean).join("; ");
-    const final: IntakeAnswers = { ...answers, mustHaves, intakeVariant: "associations", ...(flow2 ? { intakeFlow: "images2" as const, interestDomains: [] } : {}) };
+    const mustHaves = limitChips.join("; ");
+    const final: IntakeAnswers = { ...answers, socialFormats: [], ageCategory: "", mustHaves, intakeVariant: "associations", ...(flow2 ? { intakeFlow: "images2" as const, interestDomains: [] } : {}) };
     trackEvent("profile_agreed", {
       adjusted: Object.keys(answers.axesOverride ?? {}).length > 0 || (answers.associationCorrections ?? []).length > 0,
     });
@@ -977,10 +972,6 @@ export function AssociationWizard({
   // The start page ("Eerst de basis"): who we search for, where, and the few limits. Only the place is required.
   const startPage = (() => {
     const choices = (["self", "child", "adult", "senior", "group"] as const).filter((c) => !isGift || c !== "self");
-    const how = [...new Map(answers.company.flatMap((c) => dict.who.howOptions[c] ?? []).map((o) => [o.value, o])).values()];
-    const showAge = searchContext !== "child" && searchContext !== "group";
-    const hasMore = (answers.socialFormats ?? []).length > 0 || !!answers.ageCategory || limitText.trim().length > 0;
-    const showMore = moreToggled || hasMore;
     const sectionLabel = "text-xs font-bold uppercase tracking-[0.09em] text-gold-text";
     return (
       <div className="space-y-9">
@@ -1095,11 +1086,7 @@ export function AssociationWizard({
                   key={o.value}
                   selected={answers.company.includes(o.value)}
                   onClick={() =>
-                    setAnswers((prev) => {
-                      const company = toggle(prev.company, o.value);
-                      const allowed = new Set(["any", ...company.flatMap((c) => (dict.who.howOptions[c] ?? []).map((x) => x.value))]);
-                      return { ...prev, company, socialFormats: (prev.socialFormats ?? []).filter((f) => allowed.has(f)) };
-                    })
+                    setAnswers((prev) => ({ ...prev, company: toggle(prev.company, o.value) }))
                   }
                 >
                   {o.label}
@@ -1118,68 +1105,6 @@ export function AssociationWizard({
               ))}
             </div>
           </fieldset>
-          <div>
-            <button
-              type="button"
-              onClick={() => setMoreToggled((v) => !v)}
-              aria-expanded={showMore}
-              aria-controls="situation-more"
-              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent-dark underline underline-offset-2 hover:text-accent"
-            >
-              <span aria-hidden="true">{showMore ? "−" : "+"}</span>
-              {dict.situation.moreLabel}
-            </button>
-            <p className="mt-0.5 text-sm text-ink/70">{dict.situation.moreSub}</p>
-          </div>
-          {showMore && (
-            <div id="situation-more" className="space-y-7">
-              {how.length > 0 && (
-                <fieldset>
-                  <legend className="font-semibold text-ink">{dict.who.howLabel}</legend>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {how.map((o) => (
-                      <Chip
-                        key={o.value}
-                        selected={(answers.socialFormats ?? []).includes(o.value)}
-                        onClick={() => set("socialFormats", toggle((answers.socialFormats ?? []).filter((f) => f !== "any"), o.value))}
-                      >
-                        {o.label}
-                      </Chip>
-                    ))}
-                    <Chip selected={(answers.socialFormats ?? []).includes("any")} onClick={() => set("socialFormats", (answers.socialFormats ?? []).includes("any") ? [] : ["any"])}>
-                      {dict.who.anyLabel}
-                    </Chip>
-                  </div>
-                </fieldset>
-              )}
-              {showAge && (
-                <fieldset>
-                  <legend className="font-semibold text-ink">{pick(dict.who.ageLabel, dict.who.ageLabelGift)}</legend>
-                  <p className="mt-1 text-sm text-ink/70">{dict.who.ageSub}</p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {ageOptionsFor(intakeDict.ageCategory.options, searchContext === "unknown" && gift, answers.ageCategory).map((o) => (
-                      <Chip key={o.value} selected={answers.ageCategory === o.value} onClick={() => set("ageCategory", answers.ageCategory === o.value ? "" : o.value)}>
-                        {o.label}
-                      </Chip>
-                    ))}
-                  </div>
-                </fieldset>
-              )}
-              <div>
-                <label htmlFor="limit-text" className="block font-semibold text-ink">
-                  {dict.who.limitsLabel}
-                </label>
-                <p className="mt-1 text-sm text-ink/70">{dict.who.limitsSub}</p>
-                <input
-                  id="limit-text"
-                  value={limitText}
-                  onChange={(e) => setLimitText(e.target.value.slice(0, 200))}
-                  placeholder={dict.who.limitsPlaceholder}
-                  className="mt-3 min-h-11 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
-                />
-              </div>
-            </div>
-          )}
         </section>
       </div>
     );
@@ -1521,9 +1446,6 @@ export function AssociationWizard({
           />
         ) : null;
       case "situation": {
-        const how = [...new Map(answers.company.flatMap((c) => dict.who.howOptions[c] ?? []).map((o) => [o.value, o])).values()];
-        const hasMore = (answers.socialFormats ?? []).length > 0 || !!answers.ageCategory || limitChips.length > 0 || limitText.trim().length > 0;
-        const showMore = moreToggled || hasMore;
         return (
           <div className="space-y-7">
             <div>
@@ -1581,11 +1503,7 @@ export function AssociationWizard({
                     key={o.value}
                     selected={answers.company.includes(o.value)}
                     onClick={() =>
-                      setAnswers((prev) => {
-                        const company = toggle(prev.company, o.value);
-                        const allowed = new Set(["any", ...company.flatMap((c) => (dict.who.howOptions[c] ?? []).map((x) => x.value))]);
-                        return { ...prev, company, socialFormats: (prev.socialFormats ?? []).filter((f) => allowed.has(f)) };
-                      })
+                      setAnswers((prev) => ({ ...prev, company: toggle(prev.company, o.value) }))
                     }
                   >
                     {o.label}
@@ -1593,54 +1511,9 @@ export function AssociationWizard({
                 ))}
               </div>
             </fieldset>
-            <div>
-              <button
-                type="button"
-                onClick={() => setMoreToggled((v) => !v)}
-                aria-expanded={showMore}
-                aria-controls="situation-more"
-                className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-accent-dark underline underline-offset-2 hover:text-accent"
-              >
-                <span aria-hidden="true">{showMore ? "−" : "+"}</span>
-                {dict.situation.moreLabel}
-              </button>
-              <p className="mt-0.5 text-sm text-ink/70">{dict.situation.moreSub}</p>
-            </div>
-            {showMore && (
-              <div id="situation-more" className="space-y-7">
-            {how.length > 0 && (
-              <fieldset>
-                <legend className="font-semibold text-ink">{dict.who.howLabel}</legend>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {how.map((o) => (
-                    <Chip
-                      key={o.value}
-                      selected={(answers.socialFormats ?? []).includes(o.value)}
-                      onClick={() => set("socialFormats", toggle((answers.socialFormats ?? []).filter((f) => f !== "any"), o.value))}
-                    >
-                      {o.label}
-                    </Chip>
-                  ))}
-                  <Chip selected={(answers.socialFormats ?? []).includes("any")} onClick={() => set("socialFormats", (answers.socialFormats ?? []).includes("any") ? [] : ["any"])}>
-                    {dict.who.anyLabel}
-                  </Chip>
-                </div>
-              </fieldset>
-            )}
             <fieldset>
-              <legend className="font-semibold text-ink">{pick(dict.who.ageLabel, dict.who.ageLabelGift)}</legend>
-              <p className="mt-1 text-sm text-ink/70">{dict.who.ageSub}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {ageOptionsFor(intakeDict.ageCategory.options, gift, answers.ageCategory).map((o) => (
-                  <Chip key={o.value} selected={answers.ageCategory === o.value} onClick={() => set("ageCategory", answers.ageCategory === o.value ? "" : o.value)}>
-                    {o.label}
-                  </Chip>
-                ))}
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend className="font-semibold text-ink">{dict.who.limitsLabel}</legend>
-              <p className="mt-1 text-sm text-ink/70">{dict.who.limitsSub}</p>
+              <legend className="font-semibold text-ink">{dict.start.limits.chipsLabel}</legend>
+              <p className="mt-1 text-sm text-ink/70">{dict.start.limits.chipsSub}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {dict.who.limitChips.map((c) => (
                   <Chip key={c} selected={limitChips.includes(c)} onClick={() => setLimitChips((prev) => toggle(prev, c))}>
@@ -1648,16 +1521,7 @@ export function AssociationWizard({
                   </Chip>
                 ))}
               </div>
-              <input
-                value={limitText}
-                onChange={(e) => setLimitText(e.target.value.slice(0, 200))}
-                placeholder={dict.who.limitsPlaceholder}
-                aria-label={dict.who.limitsPlaceholder}
-                className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
-              />
             </fieldset>
-              </div>
-            )}
           </div>
         );
       }

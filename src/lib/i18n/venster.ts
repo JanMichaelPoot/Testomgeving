@@ -179,7 +179,7 @@ export interface VensterDictionary {
     limits: { sub: string; timeLabelOther: string; chipsLabel: string; chipsSub: string; optional: string };
   };
   /** The merged "Jouw situatie" screen (place, time, budget, company; the rest behind "more"). */
-  situation: { heading: string; headingGift: string; moreLabel: string; moreSub: string };
+  situation: { heading: string; headingGift: string };
   room: {
     locationLabel: string;
     locationLabelGift: string;
@@ -193,16 +193,7 @@ export interface VensterDictionary {
   who: {
     companyLabel: string;
     companyLabelGift: string;
-    howLabel: string;
-    howOptions: Record<string, { value: string; label: string }[]>;
-    anyLabel: string;
-    ageLabel: string;
-    ageLabelGift: string;
-    ageSub: string;
-    limitsLabel: string;
-    limitsSub: string;
     limitChips: string[];
-    limitsPlaceholder: string;
   };
   nav: {
     back: string;
@@ -743,8 +734,6 @@ export const vensterNl: VensterDictionary = {
   situation: {
     heading: "Waar, wanneer en met wie?",
     headingGift: "Waar, wanneer en met wie voor {name}?",
-    moreLabel: "Meer opgeven",
-    moreSub: "Optioneel: leeftijd, hoe je het liefst doet en harde grenzen.",
   },
   room: {
     locationLabel: "Vanaf welke plaats zoek je?",
@@ -763,35 +752,6 @@ export const vensterNl: VensterDictionary = {
   who: {
     companyLabel: "Wie gaat er mee?",
     companyLabelGift: "Met wie zou {name} gaan?",
-    howLabel: "En hoe het liefst?",
-    howOptions: {
-      alone: [
-        { value: "solo", label: "In mijn eigen tempo, alleen" },
-        { value: "drop_in_alone", label: "Alleen komen, samen doen" },
-      ],
-      partner: [
-        { value: "duo", label: "Met z'n tweeën" },
-        { value: "small_group", label: "Met een paar anderen erbij" },
-      ],
-      friends: [
-        { value: "small_group", label: "Met een klein groepje" },
-        { value: "large_group", label: "Met een grote groep" },
-      ],
-      family: [
-        { value: "with_known", label: "Met de familie erbij" },
-        { value: "small_group", label: "In een klein gezelschap" },
-      ],
-      colleagues: [
-        { value: "with_known", label: "Met de collega's samen" },
-        { value: "large_group", label: "Als hele groep" },
-      ],
-    },
-    anyLabel: "Maakt niet uit",
-    ageLabel: "Hoe oud ben je?",
-    ageLabelGift: "Hoe oud is {name}?",
-    ageSub: "Dit telt mee in welke ideeën je krijgt. Mag je overslaan.",
-    limitsLabel: "Harde grenzen",
-    limitsSub: "Alleen wat écht niet kan of juist moet. Mag leeg blijven.",
     limitChips: [
       "Moet buiten zijn",
       "Moet binnen kunnen",
@@ -805,7 +765,6 @@ export const vensterNl: VensterDictionary = {
       "In het weekend",
       "'s Avonds",
     ],
-    limitsPlaceholder: "Nog iets anders dat écht niet kan?",
   },
   nav: {
     back: "Terug",
@@ -1349,8 +1308,6 @@ export const vensterEn: VensterDictionary = {
   situation: {
     heading: "Where, when and with whom?",
     headingGift: "Where, when and with whom for {name}?",
-    moreLabel: "Add more",
-    moreSub: "Optional: age, how you like to do it, and hard limits.",
   },
   room: {
     locationLabel: "Which place do you search from?",
@@ -1369,35 +1326,6 @@ export const vensterEn: VensterDictionary = {
   who: {
     companyLabel: "Who's coming along?",
     companyLabelGift: "Who would {name} go with?",
-    howLabel: "And how, ideally?",
-    howOptions: {
-      alone: [
-        { value: "solo", label: "At my own pace, alone" },
-        { value: "drop_in_alone", label: "Come alone, do it together" },
-      ],
-      partner: [
-        { value: "duo", label: "Just the two of us" },
-        { value: "small_group", label: "With a few others around" },
-      ],
-      friends: [
-        { value: "small_group", label: "In a small group" },
-        { value: "large_group", label: "In a big group" },
-      ],
-      family: [
-        { value: "with_known", label: "With the family" },
-        { value: "small_group", label: "In a small party" },
-      ],
-      colleagues: [
-        { value: "with_known", label: "Together with colleagues" },
-        { value: "large_group", label: "As a whole group" },
-      ],
-    },
-    anyLabel: "Doesn't matter",
-    ageLabel: "How old are you?",
-    ageLabelGift: "How old is {name}?",
-    ageSub: "This shapes which ideas you get. Feel free to skip.",
-    limitsLabel: "Hard limits",
-    limitsSub: "Only what really can't or must happen. Can stay empty.",
     limitChips: [
       "Must be outdoors",
       "Must work indoors",
@@ -1411,7 +1339,6 @@ export const vensterEn: VensterDictionary = {
       "On weekends",
       "In the evening",
     ],
-    limitsPlaceholder: "Anything else that really can't happen?",
   },
   nav: {
     back: "Back",

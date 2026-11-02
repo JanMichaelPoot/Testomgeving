@@ -53,6 +53,10 @@ test.describe("the start page", () => {
     await page.getByRole("combobox").fill("Utrecht");
     await expect(next).not.toHaveAttribute("aria-disabled", "true");
     await expect(page.locator("#continue-hint")).toBeHidden();
+    // No hidden "more options": no expander, no age, no "how", no free text.
+    await expect(page.getByText("Meer opgeven")).toHaveCount(0);
+    await expect(page.getByText("Hoe oud")).toHaveCount(0);
+    await expect(page.locator("#situation-more, #limit-text")).toHaveCount(0);
     // No horizontal scroll.
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   });

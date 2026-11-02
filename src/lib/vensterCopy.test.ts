@@ -69,3 +69,12 @@ describe("image intake copy (R1.1)", () => {
     expect(shape(vensterEn)).toEqual(shape(vensterNl));
   });
 });
+
+describe("no hidden 'more options' on the intake", () => {
+  it("has no 'Meer opgeven' / 'More options' copy and no age, 'how' or free-text questions left in the venster dictionary", () => {
+    for (const locale of ["nl", "en"] as const) {
+      const json = JSON.stringify(locale === "nl" ? vensterNl : vensterEn);
+      expect(json, locale).not.toMatch(/Meer opgeven|More options|Provide more|howOptions|ageLabel|limitsPlaceholder/);
+    }
+  });
+});
