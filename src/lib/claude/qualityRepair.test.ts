@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
-import { addsNoFacts, grammarPass, rewriteFailedIdeas, runQualityGate, type ModelCall } from "./qualityRepair";
+import { addsNoFacts, grammarPass, languageGuess, rewriteFailedIdeas, runQualityGate, type ModelCall } from "./qualityRepair";
 import { qaBook, rewriteTargets, type QaContext } from "./qualityGate";
 
 const CTX: QaContext = { locale: "nl", month: 10 };
@@ -98,6 +98,25 @@ describe("the grammar pass", () => {
     expect(out.ideas[2].intro).toBe(book.ideas[2].intro);
     expect(out.profile_summary).toBe("Je zoekt echt rust.");
     expect(changed).toBe(2);
+  });
+
+  it("refuses a fix that switches the language, and its prompt is in the book's language", async () => {
+    const en: QaContext = { locale: "en", month: 10 };
+    const book = repeatedBook();
+    book.ideas[0] = { ...book.ideas[0], first_action: "Open Google Maps now and search for a beachcombing group near you." };
+    let system = "";
+    const call: ModelCall = async (args) => {
+      system = args.system;
+      return { fixes: [{ path: "idea1.first_action", text: "Open Google Maps nu en zoek naar een strandjutgroep dicht bij je in de buurt." }] };
+    };
+    const { book: out, changed } = await grammarPass(book, en, call);
+    expect(out.ideas[0].first_action).toBe(book.ideas[0].first_action);
+    expect(changed).toBe(0);
+    expect(system).toMatch(/NEVER translate/);
+    expect(system).not.toContain("de/het");
+    expect(system).not.toContain("je/jouw");
+    expect(languageGuess("Open Google nu en zoek naar een groep bij je in de buurt")).toBe("nl");
+    expect(languageGuess("Open Google now and look for a group near you")).toBe("en");
   });
 
   it("does nothing on an empty or failed answer", async () => {

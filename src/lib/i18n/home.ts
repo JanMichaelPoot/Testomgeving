@@ -172,7 +172,7 @@ const EN: HomeCopy = {
   },
   sample: {
     heading: "What a book looks like",
-    sub: "Four pages from a real sample book, made for someone who chose images. You see how choices become activities, with places nearby. The sample is in Dutch; your book is written in the language of your window. Click a page to enlarge it.",
+    sub: "Four pages from a real sample book, made for someone who chose images. You see how choices become activities, with places nearby. Click a page to enlarge it.",
     freeNote: "Your window and your profile portrait are free. You only pay for the write-up: the book.",
     pdfLink: "See the whole sample (PDF)",
     open: "Enlarge",

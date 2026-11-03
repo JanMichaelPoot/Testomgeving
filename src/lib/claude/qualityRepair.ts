@@ -160,14 +160,41 @@ const GRAMMAR_SCHEMA = {
   required: ["fixes"],
 };
 
-const GRAMMAR_SYSTEM = (locale: QaContext["locale"]) => `You proofread the text of a personal Idea Book written in ${languageOf(locale)}. Return ONLY the fields that need a fix.
-Checklist (fix only real problems; leave good text untouched):
-1. Spelling, grammar, agreement (de/het, verb forms), punctuation.
+const GRAMMAR_SYSTEM = (locale: QaContext["locale"]) => {
+  const checklist =
+    locale === "nl"
+      ? `1. Spelling, grammar, agreement (de/het, verb forms), punctuation.
 2. One form of address: informal "je/jouw" throughout, never "u".
 3. No chained colons or lists crammed into one sentence; split it.
-4. No English words in Dutch text (except names and fixed terms), no raw labels pasted in ("Kies pottenbakken" is fine; "Activity: pottery" is not).
+4. No English words in Dutch text (except names and fixed terms), no raw labels pasted in ("Kies pottenbakken" is fine; "Activity: pottery" is not).`
+      : `1. Spelling, grammar, agreement, punctuation.
+2. One form of address: "you" throughout.
+3. No chained colons or lists crammed into one sentence; split it.
+4. No Dutch words in the text (except names, places and fixed terms), no raw labels pasted in.`;
+  return `You proofread the text of a personal Idea Book written in ${languageOf(locale)}. Return ONLY the fields that need a fix.
+Checklist (fix only real problems; leave good text untouched):
+${checklist}
 5. No arrows, no talk about images or how the idea was found.
-6. Keep every name, website, price and number exactly; never add or change a fact. Keep the length about the same.`;
+6. Keep every name, website, price and number exactly; never add or change a fact. Keep the length about the same.
+7. NEVER translate. Every fix is written in ${languageOf(locale)}, the language the field is already in.`;
+};
+
+const DUTCH = new Set(["je", "jouw", "nu", "het", "een", "voor", "naar", "zoek", "bij", "van", "om", "aan", "op", "en", "de", "zondag", "uur", "volgende", "dat", "met", "te", "ook", "deze", "wil", "kunt", "check", "open", "maak", "start"]);
+const ENGLISH = new Set(["the", "and", "you", "your", "for", "to", "of", "a", "in", "on", "with", "that", "this", "at", "is", "it", "now", "next", "find", "book", "check"]);
+
+/** Which language a short text looks written in: "nl", "en" or null when it cannot tell. Only used to refuse a fix that switches language. */
+export function languageGuess(text: string): "nl" | "en" | null {
+  const words = (text.toLowerCase().match(/[a-zà-ÿ']+/g) ?? []).filter((w) => w.length > 0);
+  let nl = 0;
+  let en = 0;
+  for (const w of words) {
+    if (DUTCH.has(w) && !["open", "check", "start", "maak"].includes(w)) nl++;
+    if (ENGLISH.has(w)) en++;
+  }
+  if (nl >= 2 && nl > en) return "nl";
+  if (en >= 2 && en > nl) return "en";
+  return null;
+}
 
 function grammarPrompt(book: GeneratedIdeaBook): string {
   const lines: string[] = [`profile_summary: ${book.profile_summary}`];
@@ -194,6 +221,10 @@ export async function grammarPass(book: GeneratedIdeaBook, ctx: QaContext, call:
     if (typeof after !== "string" || !after.trim() || after === before) return before;
     const ratio = after.length / Math.max(1, before.length);
     if (ratio < 0.6 || ratio > 1.5 || !addsNoFacts(before, after)) return before;
+    // A proofreading fix never changes the language (the cheap model once turned English instructions into Dutch).
+    const was = languageGuess(before);
+    const now = languageGuess(after);
+    if (now !== null && now !== ctx.locale && was !== now) return before;
     changed++;
     return after.trim();
   };
