@@ -11,7 +11,7 @@ import {
   type AxesOverride,
   type AxisId,
 } from "@/lib/discovery/associationProfile";
-import { fillValue } from "@/lib/recipientName";
+import { fillValue, resolveVariant } from "@/lib/recipientName";
 import { resolveConstraints } from "@/lib/discovery/engine/constraints";
 import type { VensterDictionary } from "@/lib/i18n/venster";
 
@@ -44,7 +44,12 @@ export interface ProfileInput {
   /** The hard limits as the wizard will store them (chips and free text, joined). */
   mustHaves: string;
   gift: boolean;
+  /** The first name as typed; empty when there is none (the text then uses its variant without a name). */
   name: string;
+  /** The search is for a group: texts with a variant for it use "jullie". */
+  group?: boolean;
+  /** The plain noun for a text that has no variant without a name. */
+  fallbackName?: string;
   /** Two-page intake: the labels of the activities the person chose themselves on page 2, in the order chosen. */
   picks?: readonly string[];
 }
@@ -246,14 +251,23 @@ function pairSentence(top: readonly string[], copy: Copy): string | null {
   return best?.text ?? null;
 }
 
-export function buildProfileStory(input: ProfileInput, copy: Copy): ProfileStory {
+/** Every text with variants ("with a name ‖ without ‖ group") resolved to the one that fits who this is for. */
+function resolveAll<T>(value: T, who: { name?: string; group?: boolean }): T {
+  if (typeof value === "string") return resolveVariant(value, who) as unknown as T;
+  if (Array.isArray(value)) return value.map((v) => resolveAll(v, who)) as unknown as T;
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, resolveAll(v, who)])) as T;
+  return value;
+}
+
+export function buildProfileStory(input: ProfileInput, rawCopy: Copy): ProfileStory {
+  const copy = input.gift ? resolveAll(rawCopy, { name: input.name, group: input.group }) : rawCopy;
   const override = sanitizeAxesOverride(input.override);
   const fromImages = averageAxes(input.cards, input.chosen);
   const axes = effectiveAxes(fromImages, override);
   const anything = input.chosen.length > 0 || Object.keys(override).length > 0;
   const dials = deriveDials(axes, anything);
   const profile = tagProfile(input.cards, input.chosen, input.corrections);
-  const nameVars = { name: input.name };
+  const nameVars = { name: input.name.trim() || input.fallbackName || "" };
 
   // A hard limit on indoors or outdoors settles that axis: no sentence about the images' pull on it may sit next to it.
   const filters = describeFilters(input, dials, copy);

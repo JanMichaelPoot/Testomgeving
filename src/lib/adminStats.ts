@@ -211,7 +211,7 @@ export function feedbackSummary(rows: readonly FeedbackRow[]): FeedbackSummary {
   const doors = scoreSummary(rows.map((r) => r.doors_score));
   const named: [string, ScoreSummary][] = [
     ["het invullen van het venster", flow],
-    ["het profiel ('Zo kijken wij door jouw venster')", profile],
+    ["het profiel ('Dit zagen we in jouw keuzes')", profile],
     ["begrijpen waarom je deze deuren kreeg", doors],
   ];
   const scored = named.filter(([, s]) => s.mean !== null);

@@ -320,9 +320,10 @@ export function AssociationWizard({
   const searchContext = normalizeSearchContext(answers.searchContext);
   const gift = isForOther(answers);
   const isGift = answers.purpose === "gift";
-  const contextName = searchContext in dict.start.who.fallbacks ? dict.start.who.fallbacks[searchContext as keyof typeof dict.start.who.fallbacks] : null;
-  const name = (answers.recipientName ?? "").trim() || contextName || dict.recipientFallback;
-  const fill = (s: string) => fillName(s, name);
+  // The first name as typed ("" when there is none): texts with variants then use the one that never names the person (see recipientName.ts).
+  const name = (answers.recipientName ?? "").trim();
+  const group = searchContext === "group";
+  const fill = (s: string) => fillName(s, name, { group, fallback: dict.recipientFallback });
   const pick = (self: string, giftText: string) => fill(gift ? giftText : self);
 
   // Restore once on mount: stored answers when editing, else a draft of this tab.
@@ -544,6 +545,8 @@ export function AssociationWizard({
             mustHaves: limitChips.join("; "),
             gift,
             name,
+            group,
+            fallbackName: dict.recipientFallback,
             // A pick that a limit rules out ("Dit kon niet mee") is not a starting point either.
             picks: flow2 ? (droppedFor === limitsKey ? picks.filter((id) => !dropped.some((d) => d.id === id)) : []).map((id) => poolById.get(id)?.label).filter((l): l is string => !!l) : undefined,
           },

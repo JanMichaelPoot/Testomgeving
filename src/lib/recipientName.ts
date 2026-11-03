@@ -11,9 +11,29 @@ function capitalize(value: string): string {
   return value ? value.charAt(0).toUpperCase() + value.slice(1) : value;
 }
 
-/** Replaces every "{name}" in `text` with `name`, capitalised where a sentence begins. */
-export function fillName(text: string, name: string): string {
-  return text.replace(/\{name\}/g, (match, offset: number) => (atSentenceStart(text, offset) ? capitalize(name) : name));
+/** The separator between the variants of one text: "with a name ‖ without a name ‖ for a group" (the last part is optional). */
+export const VARIANT_SEPARATOR = "‖";
+
+/**
+ * Picks the variant of a text that has them. With a first name: the first part. Without one: the second, which never names the person
+ * ("Welke beelden zouden aanspreken?"), and for a group the third ("jullie"), falling back to the second. A text without the separator is
+ * returned as it is.
+ */
+export function resolveVariant(text: string, who: { name?: string; group?: boolean } = {}): string {
+  if (!text.includes(VARIANT_SEPARATOR)) return text;
+  const parts = text.split(VARIANT_SEPARATOR).map((p) => p.trim());
+  if ((who.name ?? "").trim()) return parts[0];
+  return who.group && parts[2] ? parts[2] : parts[1] ?? parts[0];
+}
+
+/**
+ * Replaces every "{name}" in `text` with `name`, capitalised where a sentence begins. A text with variants first resolves to the one
+ * that fits: pass the name as typed (empty when there is none) and, for a text without variants, the plain noun to use instead.
+ */
+export function fillName(text: string, name: string, opts: { group?: boolean; fallback?: string } = {}): string {
+  const resolved = resolveVariant(text, { name, group: opts.group });
+  const shown = name.trim() || opts.fallback || name;
+  return resolved.replace(/\{name\}/g, (match, offset: number) => (atSentenceStart(resolved, offset) ? capitalize(shown) : shown));
 }
 
 /** The same sentence-start rule for a template engine that fills several keys: only "name" is capitalised. */

@@ -51,7 +51,7 @@ describe("buildProfileStory", () => {
       expect(a).toEqual(b);
       expect(a.pickedCards.length).toBeGreaterThanOrEqual(2);
       expect(a.pickedCards.length).toBeLessThanOrEqual(3);
-      expect(a.headline).toMatch(locale === "nl" ? /^Je zoekt .+, en .+\.$/ : /^You're looking for .+, and .+\.$/);
+      expect(a.headline).toMatch(locale === "nl" ? /^Je houdt van .+, en van .+\.$/ : /^You enjoy .+, and .+\.$/);
       const sentences = a.story.split(/(?<=\.)\s+/);
       expect(sentences.length).toBeGreaterThanOrEqual(2);
       expect(sentences.length).toBeLessThanOrEqual(4);
@@ -67,7 +67,7 @@ describe("buildProfileStory", () => {
     it(`${locale}: a gift talks about the recipient and never says "you chose" in the first person`, () => {
       const r = buildProfileStory(input(locale, BUSY, { gift: true, name: "Anna" }), copy);
       expect(r.headline).toContain("Anna");
-      expect(r.headline).not.toMatch(/^(Je zoekt|You're looking)/);
+      expect(r.headline).not.toMatch(/^(Je houdt van|You enjoy)/);
       expect(r.story).not.toMatch(/Je koos|You chose/);
       expect(r.tension.text).not.toMatch(/\{name\}/);
     });
@@ -187,7 +187,7 @@ describe("tension and strong axes", () => {
       expect(findTension(lib.nl.cards, MIXED)).toBe("setting");
       const r = buildProfileStory(input("nl", MIXED), copyOf("nl"));
       expect(r.tension.axis).toBe("setting");
-      expect(r.tension.text).toMatch(/binnen én buiten/);
+      expect(r.tension.text).toMatch(/binnen én van buiten/);
     });
 
     it("skips an axis the caller has settled, in findTension and in strongestAxis", () => {
@@ -207,7 +207,7 @@ describe("tension and strong axes", () => {
         expect(filters.setting).toBeDefined();
         const r = buildProfileStory(input(locale, MIXED, { mustHaves: limit }), copyOf(locale));
         expect(r.tension.axis).not.toBe("setting");
-        for (const text of [r.tension.text, r.story]) expect(text).not.toMatch(/binnen én buiten|indoors and outdoors|binnen en buiten/i);
+        for (const text of [r.tension.text, r.story]) expect(text).not.toMatch(/binnen én van buiten|indoors and outdoors|binnen en buiten/i);
       });
     }
 
