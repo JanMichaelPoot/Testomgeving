@@ -5,7 +5,24 @@ import { test, expect } from "@playwright/test";
 
 test.describe("image cards by keyboard", () => {
   test("Space selects a card, Enter selects another, the focus ring is visible and aria-pressed follows", async ({ page }) => {
-    await page.goto("/intake");
+    // The intake opens on the start page; this test is about the image cards of the next page, so it opens a draft that is already there.
+    await page.addInitScript(() => {
+      sessionStorage.setItem("window-wizard-variant-v4", "images2");
+      sessionStorage.setItem(
+        "window-venster-draft-images2",
+        JSON.stringify({
+          v: 3,
+          layout: 2,
+          page: 1,
+          answers: { associations: [], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations", location: "Utrecht", searchDistance: "city", company: [], purpose: "self", situation: "", purposeFollowUp: "", ageCategory: "", freeTimePattern: "", practicalToWild: "either", timeAvailable: "", budget: "", effort: "some", solutionTypes: ["activity"], mustHaves: "", preferences: "", personalReflection: "" },
+          limitChips: [],
+          limitText: "",
+          seed: "e2e",
+          seen: [],
+        }),
+      );
+    });
+    await page.goto("/intake?wizard=images2");
     const tiles = page.locator("main button[aria-pressed]");
     await tiles.first().waitFor();
     await tiles.first().focus();
@@ -33,7 +50,7 @@ test.describe("mobile menu", () => {
     await button.click();
     await expect(button).toHaveAttribute("aria-expanded", "true");
     const nav = page.getByRole("navigation", { name: "Menu" });
-    await expect(nav.getByRole("link")).toHaveCount(4);
+    await expect(nav.getByRole("link")).toHaveCount(3);
     const size = await nav.getByRole("link").first().boundingBox();
     expect(size!.height).toBeGreaterThanOrEqual(44);
     await page.keyboard.press("Escape");

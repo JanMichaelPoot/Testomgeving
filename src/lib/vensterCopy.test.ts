@@ -103,7 +103,6 @@ describe("the voice of the intake (Step 136)", () => {
       const v = dicts[locale];
       const keys: [string, string][] = [
         ["room.locationLabelGift", v.room.locationLabelGift],
-        ["who.companyLabelGift", v.who.companyLabelGift],
         ["images.headingGift", v.twoPages.images.headingGift],
         ["images.subGift", v.twoPages.images.subGift],
         ["concrete.headingGift", v.twoPages.concrete.headingGift],

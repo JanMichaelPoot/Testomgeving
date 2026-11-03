@@ -33,15 +33,16 @@ for (const width of WIDTHS) {
 
     test("landing page: no horizontal scroll, the new sections are there, controls are 44 px", async ({ page }) => {
       await page.goto("/");
-      await expect(page.locator("h1")).toContainText("Weet je niet goed wat je met je vrije tijd wilt?");
+      await expect(page.locator("h1")).toContainText("Wat als je iets ontdekt waarvan je nog niet wist dat het bij je past?");
       await expect(page.locator("#voorbeeld")).toBeVisible();
       await expect(page.locator("#waarom h3")).toHaveCount(4);
-      await expect(page.locator("#faq details")).toHaveCount(6);
+      await expect(page.locator("#faq details")).toHaveCount(5);
       expect(await overflow(page)).toBeLessThanOrEqual(0);
-      // The two ways in sit side by side with the same weight on wide phones, stacked on narrow ones: both are real tap targets.
+      // One way in (starting your own discovery): a real tap target. The gift route is no longer offered on the landing page.
       const hero = page.locator("main section").first();
       expect(await tooSmall(page, "main section:first-of-type a, header button")).toEqual([]);
-      expect(await hero.locator("a").count()).toBeGreaterThanOrEqual(2);
+      expect(await hero.locator("a").count()).toBeGreaterThanOrEqual(1);
+      await expect(hero.getByRole("link", { name: /cadeau/i })).toHaveCount(0);
       expect(await tooSmall(page, "#voorbeeld button, #faq summary")).toEqual([]);
     });
 
@@ -79,7 +80,7 @@ test.describe("sample book lightbox", () => {
   test("the same page in English", async ({ page, context }) => {
     await context.addCookies([{ name: "window_locale", value: "en", url: "http://localhost:3000" }]);
     await page.goto("/");
-    await expect(page.locator("h1")).toContainText("Not sure what to do with your free time?");
+    await expect(page.locator("h1")).toContainText("What if you discover something you didn't know suited you?");
     await expect(page.locator("#voorbeeld img").first()).toHaveAttribute("src", /en-cover/);
   });
 });

@@ -146,7 +146,7 @@ test.describe("situation screen needs a place", () => {
 
   test("Verder stays disabled until a place is typed, and the hint says so", async ({ page }) => {
     await openScreen(page, 4);
-    for (const label of ["Een halve dag", "Tot €25", "Een partner"]) await page.getByRole("button", { name: label, exact: true }).click();
+    for (const label of ["Een halve dag", "Tot €25"]) await page.getByRole("button", { name: label, exact: true }).click();
     const next = page.getByRole("button", { name: "Verder", exact: true });
     await expect(next).toHaveAttribute("aria-disabled", "true");
     await expect(page.locator("#continue-hint")).toHaveText("Vul nog even in: je plaats.");

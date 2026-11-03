@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 // Readable labels for the answers the wizards store.
-const BUDGET: Record<string, string> = { free: "Gratis", "25": "Tot €25", "100": "Tot €100", allin: "Alles mag" };
+const BUDGET: Record<string, string> = { free: "Gratis", "10": "Tot €10", "25": "Tot €25", "50": "Tot €50", "100": "Tot €100", "200": "Tot €200", allin: "Alles mag" };
 const TIME: Record<string, string> = { hour: "Een uur of twee", halfday: "Een halve dag", fullday: "Een hele dag", weekend: "Een weekend" };
 const DOOR: Record<string, string> = { natural: "Vertrouwd", discovery: "Ontdekking", unexpected: "Onverwacht", stretch: "Stretch", wildcard: "Wildcard" };
 const domainLabel = new Map(DOMAINS.map((d) => [d.id, d.short.nl]));

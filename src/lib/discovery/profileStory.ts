@@ -56,9 +56,22 @@ export interface ProfileInput {
 
 export type TensionKind = "tension" | "strong" | "balanced" | "open";
 
+/** The three blocks of the short personal reading, as fixed text; the optional model-written version replaces them (interpretation.ts). */
+export interface FixedInterpretation {
+  /** One sentence that opens the reading. */
+  opening: string;
+  /** The red thread through the choices. */
+  thread: string;
+  /** Which direction of discovery the choices point to. */
+  direction: string;
+}
+
 export interface ProfileStory {
   /** The (at most three) chosen images that weigh most in the profile, for the thumbnails. */
   pickedCards: { id: string; label: string; image: string }[];
+  /** Every chosen image (at most eight), in the order chosen, for the picture strip of the reading. */
+  chosenCards: { id: string; label: string; image: string }[];
+  interpretation: FixedInterpretation;
   /** The tag words read from the images, strongest first (at most two). */
   tags: string[];
   /** One line, the portrait: what this person is looking for ("Je zoekt ..., en ..."). */
@@ -196,8 +209,7 @@ export function describeFilters(
   if (c.intensityCap === 1) seek.push(copy.seekLines.effortMinimal);
   if (c.intensityCap === 3) seek.push(copy.seekLines.effortCommitted);
   if (c.costCap === 0) seek.push(copy.seekLines.budget.free);
-  else if (c.costCap === 2 && input.budget === "25") seek.push(copy.seekLines.budget["25"]);
-  else if (c.costCap === 3 && input.budget === "100") seek.push(copy.seekLines.budget["100"]);
+  else if (copy.seekLines.budget[input.budget] && input.budget !== "allin") seek.push(copy.seekLines.budget[input.budget]);
   if (copy.seekLines.time[input.timeAvailable]) seek.push(copy.seekLines.time[input.timeAvailable]);
   if (copy.seekLines.distance[input.searchDistance]) seek.push(copy.seekLines.distance[input.searchDistance]);
 
@@ -211,6 +223,7 @@ export function describeFilters(
   if (c.hideSupervised) omit.push(copy.omitLines.supervised);
   if (c.costCap === 0) omit.push(copy.omitLines.costFree);
   if (c.intensityCap === 2) omit.push(copy.omitLines.effortSome);
+  if (c.costCap === 1) omit.push(copy.omitLines.costLow);
   if (c.costCap === 2) omit.push(copy.omitLines.costMid);
 
   return { seek: seek.slice(0, 3), omit: omit.slice(0, 2), setting: c.setting === "outdoor" || c.setting === "indoor" ? c.setting : undefined };
@@ -280,9 +293,14 @@ export function buildProfileStory(input: ProfileInput, rawCopy: Copy): ProfileSt
 
   let headline: string;
   const sentences: string[] = [];
+  // The same sentences, sorted into the blocks of the reading: what the choices have in common (thread) and where they lean (direction).
+  const threadSentences: string[] = [];
+  const directionSentences: string[] = [];
   if (pickedCards.length === 0) {
     headline = input.gift ? copy.openHeadlineGift : copy.openHeadline;
-    sentences.push(fill(input.gift ? copy.openStoryGift : copy.openStory, nameVars));
+    const openStory = fill(input.gift ? copy.openStoryGift : copy.openStory, nameVars);
+    sentences.push(openStory);
+    threadSentences.push(openStory);
   } else {
     // The headline: the two strongest tags, in images ("plekken waar handen iets te doen hebben").
     const motifs = orderedIds.map((t) => copy.motifs[t]).filter((m): m is string => !!m);
@@ -306,6 +324,7 @@ export function buildProfileStory(input: ProfileInput, rawCopy: Copy): ProfileSt
       read.push(...[...new Set(lines)].slice(0, 2));
     }
     sentences.push(...read.slice(0, 2));
+    threadSentences.push(...read.slice(0, 2));
 
     // How it should feel: the two axes that lean hardest, in imagery, said in a fixed order.
     const lean = axisLeanings(axes);
@@ -327,11 +346,14 @@ export function buildProfileStory(input: ProfileInput, rawCopy: Copy): ProfileSt
       .map((x) => x.text);
     if (parts.length) sentences.push(...parts);
     else sentences.push(copy.leanNeutral);
+    directionSentences.push(...(parts.length ? parts : [copy.leanNeutral]));
     // What they chose themselves (two pages): said once, up to three of them, in their own order.
     const own = (input.picks ?? []).slice(0, 3);
     if (own.length > 0) {
       const list = own.length > 1 ? `${own.slice(0, -1).join(", ")} ${copy.and} ${own[own.length - 1]}` : own[0];
-      sentences.push(fill(input.gift ? copy.picksLineGift : copy.picksLine, { ...nameVars, list: list.toLowerCase() }));
+      const picksLine = fill(input.gift ? copy.picksLineGift : copy.picksLine, { ...nameVars, list: list.toLowerCase() });
+      sentences.push(picksLine);
+      threadSentences.push(picksLine);
     }
   }
 
@@ -348,8 +370,19 @@ export function buildProfileStory(input: ProfileInput, rawCopy: Copy): ProfileSt
       : { kind: "balanced", axis: null, text: input.gift ? copy.balancedGift : copy.balanced };
   }
 
+  // Where the choices lean: the sentences about the leanings, and what stands out (images that pull apart, or one that leans clearly).
+  if (tension.kind === "tension" || tension.kind === "strong" || tension.kind === "open") directionSentences.push(tension.text);
+  const byId = new Map(input.cards.map((c) => [c.id, c]));
+  const chosenCards = input.chosen
+    .map((id) => byId.get(id))
+    .filter((c): c is ProfileCard => !!c)
+    .slice(0, 8)
+    .map((c) => ({ id: c.id, label: c.label, image: c.image }));
+
   return {
     pickedCards: pickedCards.map((c) => ({ id: c.id, label: c.label, image: c.image })),
+    chosenCards,
+    interpretation: { opening: headline, thread: threadSentences.join(" "), direction: directionSentences.join(" ") },
     tags,
     headline,
     story: sentences.join(" "),

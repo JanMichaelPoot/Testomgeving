@@ -3,12 +3,14 @@
   npx tsx scripts/generate-example-idea-book.ts     # first: re-render the example PDFs with the current renderer
   python scripts/make-sample-spreads.py              # then: cut the spreads (needs PyMuPDF: pip install pymupdf)
 
-Pages (1-based): the cover, the profile page (profile and the four doors on one page since Phase 3) and two idea pages.
+Pages (1-based) of the example book (scripts/render-example-from-plan.ts, a real generated book): the cover, the profile page
+(profile and the map of possibilities on one page), an idea page and the second page of that same idea ("Meer over deze deur": how it feels,
+three ways to start, real places). If the example book changes, check these numbers against a contact sheet.
 """
 import os
 import pymupdf
 
-PAGES = {1: "cover", 2: "profile", 3: "idea-1", 5: "idea-2"}
+PAGES = {1: "cover", 2: "profile", 5: "idea-1", 6: "idea-2"}
 WIDTH = 1000
 
 root = os.path.join(os.path.dirname(__file__), "..", "public", "examples")

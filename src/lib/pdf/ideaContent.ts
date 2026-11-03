@@ -121,7 +121,7 @@ export function experienceProfileFor(
 
 // --- Budget status -----------------------------------------------------------
 
-export const BUDGET_CAP: Record<string, number> = { free: 0, "25": 25, "100": 100, allin: Infinity };
+export const BUDGET_CAP: Record<string, number> = { free: 0, "10": 10, "25": 25, "50": 50, "100": 100, "200": 200, allin: Infinity };
 
 export type BudgetStatus = "within" | "slightlyAbove" | "above";
 

@@ -67,13 +67,12 @@ for (const width of [360, 390, 430]) {
 }
 
 test.describe("links", () => {
-  test("the voucher is one click away from the header, the footer and the landing page", async ({ page }) => {
+  test("the voucher is not offered anywhere on the site (landing, header, footer, sitemap), only by its direct link", async ({ page, request }) => {
     await page.goto("/");
-    await expect(page.getByRole("link", { name: /Of geef een cadeaubon/ })).toBeVisible();
-    await expect(page.getByRole("banner").getByRole("link", { name: "Cadeaubon" })).toBeVisible();
-    await expect(page.getByRole("contentinfo").getByRole("link", { name: "Cadeaubon" })).toBeVisible();
-    await page.getByRole("link", { name: /Of geef een cadeaubon/ }).click();
-    await expect(page).toHaveURL(/\/cadeaubon$/);
+    await expect(page.locator('a[href="/cadeaubon"]')).toHaveCount(0);
+    await expect(page.getByText(/cadeau/i)).toHaveCount(0);
+    expect(await (await request.get("/sitemap.xml")).text()).not.toContain("/cadeaubon");
+    expect((await page.goto("/cadeaubon"))?.status()).toBe(200);
   });
 
   test("the English voucher page", async ({ page, context }) => {
@@ -105,12 +104,10 @@ test.describe("links", () => {
     expect(response.headers()["set-cookie"] ?? "").not.toContain("window_avoid");
   });
 
-  test("the voucher pages stay out of search results, the selling page does not", async ({ request }) => {
+  test("the voucher code pages stay out of search results", async ({ request }) => {
     const robots = await (await request.get("/robots.txt")).text();
     expect(robots).toContain("Disallow: /cadeau/");
     expect(robots).toContain("Disallow: /cadeaubon/klaar");
-    expect(robots).not.toMatch(/Disallow: \/cadeaubon\s/);
-    expect(await (await request.get("/sitemap.xml")).text()).toContain("/cadeaubon");
   });
 });
 

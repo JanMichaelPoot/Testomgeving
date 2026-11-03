@@ -1,3 +1,4 @@
+import { radiusText, sanitizeDistanceKm } from "@/lib/distanceOptions";
 import type Anthropic from "@anthropic-ai/sdk";
 import { anthropic } from "@/lib/anthropic";
 import { getActivity } from "@/lib/discovery/library";
@@ -82,7 +83,7 @@ export interface ResearchStats {
 // --- place keys ------------------------------------------------------------------------
 
 /** "Gemeente Utrecht" -> "utrecht"; the visitor's radius decides how wide the search is. */
-export function placeKey(location: string, searchDistance: string): string {
+export function placeKey(location: string, searchDistance: string, searchDistanceKm?: number): string {
   const place = (location ?? "")
     .toLowerCase()
     .normalize("NFD")
@@ -92,16 +93,20 @@ export function placeKey(location: string, searchDistance: string): string {
     .replace(/[^a-z0-9' -]/g, "")
     .replace(/\s+/g, " ")
     .trim();
+  // A distance in kilometres (the slider) is exact: every step is its own cache key, and more than 100 km is the whole country.
+  const km = sanitizeDistanceKm(searchDistanceKm);
+  if (km !== undefined) return km > 100 ? "nl|nl" : `${place || "nl"}|${km}km`;
   const radius = searchDistance === "hour" ? "region" : searchDistance === "anywhere" ? "nl" : "city";
   if (radius === "nl") return "nl|nl";
   return `${place || "nl"}|${radius}`;
 }
 
-const RADIUS_TEXT: Record<string, string> = {
-  city: "in the city itself and its immediate surroundings",
-  region: "within roughly an hour's travel of the place",
-  nl: "anywhere in the Netherlands (including online options)",
-};
+/** The radius part of a place key ("city", "region", "nl" or "25km") as a sentence for the prompt. */
+function radiusLine(radius: string): string {
+  const m = /^([0-9]+)km$/.exec(radius);
+  if (m) return radiusText("city", Number(m[1]));
+  return radiusText(radius === "region" ? "region" : radius === "nl" ? "nl" : "city");
+}
 
 // --- cache ---------------------------------------------------------------------------------
 
@@ -207,7 +212,7 @@ export function buildResearchPrompt(
     ? `
 These activities were chosen by the person themselves, so try harder than usual. Search every activity on its own, in Dutch
 (for example "<activity> ${location || "Nederland"}", "<activity> proefles ${location || "Nederland"}", "<activity> in de buurt"). If the place
-itself has nothing, an option within about 25 km counts: write its real city, never the place you searched. A permanent place
+itself has nothing, an option ${/^[0-9]+km$/.test(radius) ? "inside the search radius" : "within about 25 km"} counts: write its real city, never the place you searched. A permanent place
 (museum, estate, garden, shop, market hall) counts when its own website, or a source from the last 24 months, shows that it exists
 and is open. Classes, events and seasonal offers keep the stricter rules below.
 `
@@ -218,7 +223,7 @@ and is open. Classes, events and seasonal offers keep the stricter rules below.
     const entry = a?.entry ? ` Usual way in: ${a.entry.en}.` : "";
     return `${i + 1}. id "${id}": ${a?.label.nl ?? id} (${a?.label.en ?? id}).${entry}`;
   });
-  return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). Place: ${location || "the Netherlands"}. Search radius: ${RADIUS_TEXT[radius] ?? RADIUS_TEXT.city}.
+  return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). Place: ${location || "the Netherlands"}. Search radius: ${radiusLine(radius)}.
 Write the notes in ${language}: if the website is in another language, translate what you take from it (keep names, streets and titles as they are). A note in the wrong language is an error.
 
 For each activity below, find up to 4 real, currently operating options where a beginner can actually take part
@@ -425,6 +430,8 @@ export async function researchSeeds(opts: {
   activityIds: string[];
   location: string;
   searchDistance: string;
+  /** The distance slider's kilometres (src/lib/distanceOptions.ts); when given it decides the radius, not the three-way class. */
+  searchDistanceKm?: number;
   locale: Locale;
   cache?: ResearchCache | null;
   /** For tests: replaces the model call. */
@@ -451,7 +458,7 @@ export async function researchSeeds(opts: {
   const { activityIds, location, searchDistance, locale } = opts;
   const now = opts.now ?? new Date();
   const today = isoDateNL(now);
-  const place = placeKey(location, searchDistance);
+  const place = placeKey(location, searchDistance, opts.searchDistanceKm);
   const radius = place.split("|")[1] ?? "city";
   // The cache is kept per month: what is open or running in June says nothing about December.
   // "v2": the notes are now always in the book's language; older cached notes could be in the language of the website.

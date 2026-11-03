@@ -11,9 +11,10 @@ import type { EngineInput, ResolvedConstraints } from "@/lib/discovery/engine/ty
 // a beginner workshop or trial class at 25 exists there. Only "free" (an old stored budget; the wizard no longer offers it) is exact. Where the range can
 // reach past the budget the activity passes with a "cost_near_budget" flag, and the writer is told to
 // say the price varies (a person's own pick is otherwise silently dropped: pottery is class 2).
-const COST_CAP: Record<string, 0 | 1 | 2 | 3> = { free: 0, "25": 2, "100": 3, allin: 3 };
-// The class whose range can exceed the stated budget.
-const NEAR_BUDGET: Record<string, number> = { "25": 2, "100": 3 };
+// The per-person budget slider has six steps: 10, 25, 50, 100, 200 and "doesn't matter" (src/lib/budgetOptions.ts).
+const COST_CAP: Record<string, 0 | 1 | 2 | 3> = { free: 0, "10": 1, "25": 2, "50": 2, "100": 3, "200": 3, allin: 3 };
+// The class whose range can exceed the stated budget ("50" fits class 2 exactly: 15-50).
+const NEAR_BUDGET: Record<string, number> = { "10": 1, "25": 2, "100": 3, "200": 3 };
 const INTENSITY_CAP: Record<string, 0 | 1 | 2 | 3> = { minimal: 1, some: 2, committed: 3 };
 
 /**

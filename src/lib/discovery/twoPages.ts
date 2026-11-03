@@ -24,7 +24,7 @@ export const MAX_REFRESHES = 3;
 
 export const CONCRETE_PAGE_SIZE = 18;
 export const MIN_CONCRETE_PICKS = 3;
-export const MAX_CONCRETE_PICKS = 6;
+export const MAX_CONCRETE_PICKS = 8;
 /** Slots on page 2 for things outside what the images pointed at ("Misschien ook?"). */
 export const EXPLORE_SLOTS = 3;
 /** Every register gets at least this many of the 18 on page 2, however one-sided the choice on page 1 was. */

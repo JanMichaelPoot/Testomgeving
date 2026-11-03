@@ -20,7 +20,8 @@ import { ASSOCIATION_ROUNDS, averageAxes, tagProfile, type AssociationCard, type
 import { MAX_CONCRETE_PICKS, MAX_IMAGE_PICKS, MAX_REFRESHES, composeConcretePage, registerMix, sampleBalancedBatch, type RegisteredCard } from "@/lib/discovery/twoPages";
 import type { ConcretePool } from "@/lib/discovery/concretePool";
 import { buildProfileStory } from "@/lib/discovery/profileStory";
-import { ProfileStep } from "@/components/window/ProfileStep";
+import { ProfileStep, type ReadingRequest } from "@/components/window/ProfileStep";
+import { interpretProfile } from "@/app/intake/interpret";
 import { directionOrder, initialDirections, rotateDirections, sampleRoundCards, sampleWorldExamples } from "@/lib/discovery/associationSampling";
 import { loadSeen, recordSeen } from "@/lib/associationSeen";
 import { buildSill, buildWindowItems, windowImageHref } from "@/lib/vensterPanes";
@@ -29,7 +30,10 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { DRAFT_VERSION, TWO_PAGE_LAYOUT, chapterOf, migrateDraftPage, migrateTwoPageDraft, pagesFor, type AnyVensterPageId } from "@/lib/vensterPages";
 import { activityContextLean, allowedForContext, imagePreference, isForOther, normalizeSearchContext, type SearchContext } from "@/lib/discovery/audience";
 import { ContextIcon } from "@/components/window/ContextIcon";
-import { currentBudget } from "@/lib/budgetOptions";
+import { BUDGET_STEPS, budgetStepIndex, currentBudget } from "@/lib/budgetOptions";
+import { DEFAULT_DISTANCE_KM, DISTANCE_KM_STEPS, DISTANCE_OVER_100, distanceClassFor, distanceStepIndex } from "@/lib/distanceOptions";
+import { StepSlider } from "@/components/ui/StepSlider";
+import { DiscoveryFlow } from "@/components/window/DiscoveryFlow";
 
 // The image intake ("Het venster", WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md, fase 3).
 // Seven short screens in four chapters (see vensterPages.ts):
@@ -68,6 +72,7 @@ const EMPTY: IntakeAnswers = {
   ageCategory: "",
   location: "",
   searchDistance: "city",
+  searchDistanceKm: DEFAULT_DISTANCE_KM,
   freeTimePattern: "",
   practicalToWild: "either",
   timeAvailable: "",
@@ -215,6 +220,12 @@ function Check() {
   );
 }
 
+/** Answers from an older draft or session carry the three-way distance only: the slider needs kilometres. "Who comes along" is no longer asked. */
+function withKm(a: IntakeAnswers): IntakeAnswers {
+  const km = a.searchDistanceKm ?? (a.searchDistance === "hour" ? 50 : a.searchDistance === "anywhere" ? DISTANCE_OVER_100 : DEFAULT_DISTANCE_KM);
+  return { ...a, searchDistanceKm: km, searchDistance: distanceClassFor(km), company: [] };
+}
+
 function Chip({ selected, onClick, children }: { selected: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <button
@@ -283,6 +294,9 @@ export function AssociationWizard({
   const [answers, setAnswers] = useState<IntakeAnswers>({ ...EMPTY, purpose: initialPurpose, ...(flow2 ? { intakeFlow: "images2" as const } : {}) });
   // Two pages: extra pages of images ("Andere beelden") and page 2 as shown.
   const [imageMore, setImageMore] = useState<string[][]>([]);
+  // Which set of images or activities is in view: null = the newest. Going back through the sets loses nothing that was chosen.
+  const [imageView, setImageView] = useState<number | null>(null);
+  const [concreteView, setConcreteView] = useState<number | null>(null);
   const [concrete, setConcrete] = useState<ConcreteState | null>(null);
   // Two pages: page 1 as first shown (and the search context it was drawn for), kept so choosing or a late change of context moves nothing.
   const [imageFirst, setImageFirst] = useState<{ ctx: string; ids: string[] } | null>(null);
@@ -333,7 +347,7 @@ export function AssociationWizard({
       const split = splitLimits(initial.answers.mustHaves ?? "", dict.who.limitChips);
       /* eslint-disable react-hooks/set-state-in-effect -- one-time, hydration-safe restore */
       // The "how" and age answers are no longer asked: whatever an older session holds must not steer the book unseen.
-      setAnswers({ ...EMPTY, ...initial.answers, budget: currentBudget(initial.answers.budget ?? ""), socialFormats: [], ageCategory: "" });
+      setAnswers(withKm({ ...EMPTY, ...initial.answers, budget: currentBudget(initial.answers.budget ?? ""), socialFormats: [], ageCategory: "" }));
       setLimitChips(split.chips);
       setPage(Math.min(Math.max(initial.page, 0), pages.length - 1));
       setSeed(newSeed());
@@ -342,14 +356,16 @@ export function AssociationWizard({
       const draft = draftForArrival(loadDraft(draftKey), initialPurpose, draftKey);
       if (draft && (draft.page > 0 || (draft.answers.associations ?? []).length > 0 || draft.answers.location.trim().length > 0 || normalizeSearchContext(draft.answers.searchContext) !== "unknown")) {
         restoredDraft = true;
-        setAnswers({
-          ...draft.answers,
-          ...(flow2 ? { intakeFlow: "images2" as const } : {}),
-          budget: currentBudget(draft.answers.budget ?? ""),
-          socialFormats: [],
-          ageCategory: "",
-          purpose: draft.answers.purpose === "gift" || initialPurpose === "gift" ? "gift" : "self",
-        });
+        setAnswers(
+          withKm({
+            ...draft.answers,
+            ...(flow2 ? { intakeFlow: "images2" as const } : {}),
+            budget: currentBudget(draft.answers.budget ?? ""),
+            socialFormats: [],
+            ageCategory: "",
+            purpose: draft.answers.purpose === "gift" || initialPurpose === "gift" ? "gift" : "self",
+          }),
+        );
         setLimitChips(draft.limitChips);
         setPage(draft.page);
         setSeed(draft.seed);
@@ -425,7 +441,8 @@ export function AssociationWizard({
   );
   const firstImages = imageFirst && imageFirst.ids.length > 0 && (imageFirst.ctx === searchContext || (answers.associations ?? []).length > 0) ? imageFirst.ids : computedFirst;
   const imageBatches = [firstImages, ...imageMore];
-  const currentImageIds = imageBatches[imageBatches.length - 1] ?? [];
+  const imageViewIdx = Math.min(imageView ?? imageBatches.length - 1, imageBatches.length - 1);
+  const currentImageIds = imageBatches[imageViewIdx] ?? [];
   const currentImages = currentImageIds.map((id) => cardById.get(id)).filter((c): c is AssociationCard => !!c);
   const imageRefreshes = imageMore.length;
   const picks = answers.interests ?? [];
@@ -444,7 +461,8 @@ export function AssociationWizard({
     [searchContext],
   );
   const concreteBatches = concrete?.key === concreteKey ? concrete.batches : [];
-  const currentConcrete = concreteBatches[concreteBatches.length - 1] ?? [];
+  const concreteViewIdx = Math.min(concreteView ?? concreteBatches.length - 1, Math.max(0, concreteBatches.length - 1));
+  const currentConcrete = concreteBatches[concreteViewIdx] ?? [];
   const concreteRefreshes = Math.max(0, concreteBatches.length - 1);
   // The images chosen on page 1 are what page 2 follows (and how they divide over the registers, a number nobody sees).
   function concreteInput() {
@@ -570,7 +588,7 @@ export function AssociationWizard({
         return chosenInRound > 0;
       case "situation":
         // The place is what the real-places search starts from, so it is not optional.
-        return answers.location.trim().length > 0 && !!answers.timeAvailable && !!answers.budget && answers.company.length > 0;
+        return answers.location.trim().length > 0 && !!answers.timeAvailable && !!answers.budget;
       default:
         return true;
     }
@@ -597,7 +615,6 @@ export function AssociationWizard({
           answers.location.trim().length === 0 && h.place,
           !answers.timeAvailable && h.time,
           !answers.budget && h.budget,
-          answers.company.length === 0 && h.company,
         ].filter((x): x is string => !!x);
         return h.missing.replace("{list}", missing.join(", "));
       }
@@ -646,7 +663,7 @@ export function AssociationWizard({
   function togglePick(id: string) {
     const current = answers.interests ?? [];
     if (!current.includes(id) && current.length >= MAX_CONCRETE_PICKS) {
-      setNotice(dict.twoPages.concrete.max);
+      setNotice(dict.twoPages.concrete.max.replace("{max}", String(MAX_CONCRETE_PICKS)));
       return;
     }
     setNotice(null);
@@ -670,6 +687,7 @@ export function AssociationWizard({
       prefer: (card, index) => imagePreference(card, { context: searchContext, chosenTags, refresh: imageRefreshes + 1, index }),
     }).map((c) => c.id);
     setImageMore((prev) => [...prev, next]);
+    setImageView(null);
     setNotice(null);
   }
 
@@ -679,6 +697,7 @@ export function AssociationWizard({
     const shown = concreteBatches.flat().map((x) => x.id);
     const slots = composeConcretePage(poolActivities, { seed, refresh: concreteRefreshes + 1, keep: picks, exclude: shown, prefer: contextPrefer, ...concreteInput() });
     setConcrete({ key: concreteKey, batches: [...concreteBatches, slots.map((x) => ({ id: x.activity.id, explore: x.explore }))] });
+    setConcreteView(null);
     setNotice(null);
   }
 
@@ -747,7 +766,7 @@ export function AssociationWizard({
       trackEvent("search_context_set", {
         context: searchContext,
         is_gift: isGift,
-        has_limits: answers.timeAvailable !== "" || answers.budget !== "" || answers.company.length > 0 || limitChips.length > 0,
+        has_limits: answers.timeAvailable !== "" || answers.budget !== "" || limitChips.length > 0,
       });
     }
     trackEvent("intake_page_completed", { wizard_variant: variantName, page: pageId, index: page, duration_ms: duration });
@@ -767,6 +786,31 @@ export function AssociationWizard({
       return { ...prev, associationCorrections: toggle(cur, tag) };
     });
   }
+
+  // What the model-written reading is made from (ids only; the server rebuilds the facts). Only for the screen that shows it.
+  const readingRequest: ReadingRequest | null =
+    pageId === "profile" && chosen.length > 0
+      ? {
+          associations: chosen,
+          interests: flow2 ? picks.filter((id) => droppedFor !== limitsKey || !dropped.some((d) => d.id === id)) : [],
+          corrections: answers.associationCorrections ?? [],
+          axesOverride: answers.axesOverride,
+          searchContext: answers.searchContext,
+          purpose: answers.purpose,
+          recipientName: answers.recipientName,
+        }
+      : null;
+
+  // On the last screen the order block is below the reading: a bar button jumps to it until it is in view.
+  const [orderInView, setOrderInView] = useState(false);
+  useEffect(() => {
+    if (pageId !== "profile" || typeof IntersectionObserver === "undefined") return;
+    const el = document.getElementById("bestellen");
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setOrderInView(entry.isIntersecting), { threshold: 0.05 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [pageId, hydrated]);
 
   // Set once the answers are stored: a second try (a failed payment start) then replaces them in the same session.
   const stored = useRef(false);
@@ -940,23 +984,49 @@ export function AssociationWizard({
     );
   };
 
-  const moreButton = (onClick: () => void, label: string, sub: string) => (
-    <div className="mt-4">
-      <button
-        type="button"
-        onClick={onClick}
-        className="inline-flex min-h-11 items-center rounded-lg border border-border bg-paper px-4 text-sm font-semibold text-ink transition hover:border-ink focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60"
-      >
-        {label}
-      </button>
-      <span className="ml-3 text-sm text-ink/70">{sub}</span>
-    </div>
-  );
+  /**
+   * Previous / next through the sets of images or activities already shown, and the button for a brand new set at the end. A choice
+   * is never lost by going back: what was chosen stays chosen whichever set it came from.
+   */
+  const setControls = (opts: { total: number; view: number; setView: (i: number | null) => void; canMore: boolean; onMore: () => void; moreLabel: string; moreSub: string; noMore: string; disabled?: boolean }) => {
+    const btn =
+      "inline-flex min-h-11 items-center rounded-lg border border-border bg-paper px-4 text-sm font-semibold text-ink transition hover:border-ink focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60 disabled:opacity-50";
+    const atEnd = opts.view >= opts.total - 1;
+    return (
+      <>
+        {opts.view > 0 && (
+          <button type="button" data-testid="set-prev" disabled={opts.disabled} onClick={() => opts.setView(opts.view - 1)} className={btn}>
+            {dict.twoPages.sets.prev}
+          </button>
+        )}
+        {opts.total > 1 && (
+          <span className="text-sm font-medium text-ink/70" aria-live="polite" data-testid="set-counter">
+            {dict.twoPages.sets.counter.replace("{i}", String(opts.view + 1)).replace("{n}", String(opts.total))}
+          </span>
+        )}
+        {!atEnd ? (
+          <button type="button" data-testid="set-next" disabled={opts.disabled} onClick={() => opts.setView(opts.view + 1 >= opts.total - 1 ? null : opts.view + 1)} className={btn}>
+            {dict.twoPages.sets.next}
+          </button>
+        ) : opts.canMore ? (
+          <>
+            <button type="button" data-testid="set-more" disabled={opts.disabled} onClick={opts.onMore} className={btn}>
+              {opts.moreLabel}
+            </button>
+            {opts.total === 1 && <span className="text-sm text-ink/70">{opts.moreSub}</span>}
+          </>
+        ) : (
+          <span className="text-sm text-ink/70">{opts.noMore}</span>
+        )}
+      </>
+    );
+  };
 
   /** The start page's "voor wie": toggling the chosen one off makes it "unknown" again; picks that are not offered to this audience go. */
-  function chooseContext(ctx: Exclude<SearchContext, "unknown">) {
+  function chooseContext(ctx: SearchContext) {
     setAnswers((prev) => {
-      const next = normalizeSearchContext(prev.searchContext) === ctx ? "" : ctx;
+      // "Nog onbekend" is a choice of its own (stored as "unknown"); choosing the one that is already chosen takes it back.
+      const next = prev.searchContext === ctx ? "" : ctx;
       const nextCtx = normalizeSearchContext(next);
       const interests = (prev.interests ?? []).filter((id) => {
         const a = poolById.get(id);
@@ -974,7 +1044,7 @@ export function AssociationWizard({
 
   // The start page ("Eerst de basis"): who we search for, where, and the few limits. Only the place is required.
   const startPage = (() => {
-    const choices = (["self", "child", "adult", "group"] as const).filter((c) => !isGift || c !== "self");
+    const choices = (["self", "child", "adult", "group", "unknown"] as const).filter((c) => !isGift || c !== "self");
     const sectionLabel = "text-xs font-bold uppercase tracking-[0.09em] text-gold-text";
     return (
       <div className="space-y-9">
@@ -994,7 +1064,7 @@ export function AssociationWizard({
           </div>
           <div role="group" aria-labelledby="start-who" className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {choices.map((c) => {
-              const on = searchContext === c;
+              const on = c === "unknown" ? answers.searchContext === "unknown" : searchContext === c;
               return (
                 <button
                   key={c}
@@ -1039,16 +1109,21 @@ export function AssociationWizard({
             <p className="mt-1 text-sm text-ink/70">{dict.room.locationSub}</p>
             <LocationAutocomplete tidy id="location" value={answers.location} onChange={(v) => set("location", v)} placeholder={dict.room.locationPlaceholder} />
           </div>
-          <fieldset>
-            <legend className="font-semibold text-ink">{dict.room.distanceLabel}</legend>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {dict.room.distanceOptions.map((o) => (
-                <Chip key={o.value} selected={answers.searchDistance === o.value} onClick={() => set("searchDistance", o.value)}>
-                  {o.label}
-                </Chip>
-              ))}
-            </div>
-          </fieldset>
+          <StepSlider
+            id="distance-km"
+            label={dict.start.distance.label}
+            hint={dict.start.distance.hint}
+            steps={DISTANCE_KM_STEPS.map((km) => ({
+              tick: km > 100 ? dict.start.distance.tickOver100 : String(km),
+              label: km > 100 ? dict.start.distance.over100 : dict.start.distance.upTo.replace("{km}", String(km)),
+            }))}
+            index={Math.max(0, distanceStepIndex(answers.searchDistanceKm ?? DEFAULT_DISTANCE_KM))}
+            unsetText=""
+            onChange={(i) => {
+              const km = DISTANCE_KM_STEPS[i];
+              setAnswers((prev) => (prev.searchDistanceKm === km ? prev : { ...prev, searchDistanceKm: km, searchDistance: distanceClassFor(km) }));
+            }}
+          />
         </section>
 
         <section aria-labelledby="start-limits" className="space-y-6">
@@ -1071,43 +1146,40 @@ export function AssociationWizard({
               ))}
             </div>
           </fieldset>
-          <fieldset>
-            <legend className="font-semibold text-ink">{dict.room.budgetLabel}</legend>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {intakeDict.budget.options.map((o) => (
-                <Chip key={o.value} selected={answers.budget === o.value} onClick={() => set("budget", answers.budget === o.value ? "" : o.value)}>
-                  {o.label}
-                </Chip>
-              ))}
+          <StepSlider
+            id="budget-pp"
+            label={dict.start.budget.label}
+            hint={dict.start.budget.hint}
+            steps={BUDGET_STEPS.map((b) => ({
+              tick: b.euro === null ? "∞" : "€" + b.euro,
+              label: b.euro === null ? dict.start.budget.any : dict.start.budget.upTo.replace("{n}", String(b.euro)),
+            }))}
+            index={budgetStepIndex(answers.budget) >= 0 ? budgetStepIndex(answers.budget) : null}
+            unsetText={dict.start.budget.unset}
+            onChange={(i) => setAnswers((prev) => (prev.budget === BUDGET_STEPS[i].value ? prev : { ...prev, budget: BUDGET_STEPS[i].value }))}
+            onClear={() => set("budget", "")}
+            clearLabel={dict.start.budget.clear}
+          />
+          <div role="group" aria-labelledby="start-chips" className="space-y-4">
+            <div>
+              <h3 id="start-chips" className="font-semibold text-ink">
+                {dict.start.limits.chipsTitle}
+              </h3>
+              <p className="mt-1 text-sm text-ink/70">{dict.start.limits.chipsSub}</p>
             </div>
-          </fieldset>
-          <fieldset>
-            <legend className="font-semibold text-ink">{pick(dict.who.companyLabel, dict.who.companyLabelGift)}</legend>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {intakeDict.company.options.map((o) => (
-                <Chip
-                  key={o.value}
-                  selected={answers.company.includes(o.value)}
-                  onClick={() =>
-                    setAnswers((prev) => ({ ...prev, company: toggle(prev.company, o.value) }))
-                  }
-                >
-                  {o.label}
-                </Chip>
-              ))}
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend className="sr-only">{dict.start.limits.chipsLabel}</legend>
-            <p className="text-sm text-ink/70">{dict.start.limits.chipsSub}</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {dict.who.limitChips.map((c) => (
-                <Chip key={c} selected={limitChips.includes(c)} onClick={() => setLimitChips((prev) => toggle(prev, c))}>
-                  {c}
-                </Chip>
-              ))}
-            </div>
-          </fieldset>
+            {dict.start.limits.groups.map((g) => (
+              <fieldset key={g.title}>
+                <legend className="text-xs font-bold uppercase tracking-[0.09em] text-ink/70">{g.title}</legend>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {g.chips.map((c) => (
+                    <Chip key={c} selected={limitChips.includes(c)} onClick={() => setLimitChips((prev) => toggle(prev, c))}>
+                      {c}
+                    </Chip>
+                  ))}
+                </div>
+              </fieldset>
+            ))}
+          </div>
         </section>
       </div>
     );
@@ -1116,6 +1188,7 @@ export function AssociationWizard({
   // Page 1 of the two-page intake: eighteen images, mixed from places, moments and senses.
   const imagesPage = (
     <div>
+      <DiscoveryFlow active="diverge" copy={dict.twoPages.flow} className="mb-5" />
       <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{dict.twoPages.images.kicker}</p>
       <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.twoPages.images.heading, dict.twoPages.images.headingGift)}</h1>
       <p className="mt-2 text-ink/70">{pick(dict.twoPages.images.sub, dict.twoPages.images.subGift)}</p>
@@ -1151,17 +1224,25 @@ export function AssociationWizard({
           );
         })}
       </div>
-      {imageRefreshes < MAX_REFRESHES ? (
-        moreButton(moreImages, dict.twoPages.images.more, dict.twoPages.images.moreSub)
-      ) : (
-        <p className="mt-4 text-sm text-ink/70">{dict.twoPages.images.noMore}</p>
-      )}
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        {setControls({
+          total: imageBatches.length,
+          view: imageViewIdx,
+          setView: setImageView,
+          canMore: imageRefreshes < MAX_REFRESHES,
+          onMore: moreImages,
+          moreLabel: dict.twoPages.images.more,
+          moreSub: dict.twoPages.images.moreSub,
+          noMore: dict.twoPages.images.noMore,
+        })}
+      </div>
     </div>
   );
 
   // Page 2: eighteen concrete activities that follow from page 1, three of them outside what the images pointed at.
   const concretePage = (
     <div>
+      <DiscoveryFlow active="converge" copy={dict.twoPages.flow} className="mb-5" />
       <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{dict.twoPages.concrete.kicker}</p>
       <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.twoPages.concrete.heading, dict.twoPages.concrete.headingGift)}</h1>
       <p className="mt-2 text-ink/70">{pick(dict.twoPages.concrete.sub, dict.twoPages.concrete.subGift)}</p>
@@ -1169,6 +1250,7 @@ export function AssociationWizard({
         {dict.twoPages.concrete.chosen.replace("{n}", String(picks.length))}
         {picks.length === 0 && !answers.surpriseMe && <span className="text-ink/70"> · {dict.twoPages.concrete.min}</span>}
       </p>
+      <p className="mt-1 text-sm text-ink/70">{dict.twoPages.concrete.multi.replace("{max}", String(MAX_CONCRETE_PICKS))}</p>
       {notice && (
         <p className="mt-3 rounded-md bg-surface-active px-3 py-2 text-sm text-ink/80" role="status">
           {notice}
@@ -1202,18 +1284,17 @@ export function AssociationWizard({
         })}
       </div>
       <div className="mt-4 flex flex-wrap items-center gap-3">
-        {concreteRefreshes < MAX_REFRESHES ? (
-          <button
-            type="button"
-            onClick={moreConcrete}
-            disabled={!!answers.surpriseMe}
-            className="inline-flex min-h-11 items-center rounded-lg border border-border bg-paper px-4 text-sm font-semibold text-ink transition hover:border-ink focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60 disabled:opacity-50"
-          >
-            {dict.twoPages.concrete.more}
-          </button>
-        ) : (
-          <span className="text-sm text-ink/70">{dict.twoPages.concrete.noMore}</span>
-        )}
+        {setControls({
+          total: Math.max(1, concreteBatches.length),
+          view: concreteViewIdx,
+          setView: setConcreteView,
+          canMore: concreteRefreshes < MAX_REFRESHES,
+          onMore: moreConcrete,
+          moreLabel: dict.twoPages.concrete.more,
+          moreSub: dict.twoPages.concrete.moreSub,
+          noMore: dict.twoPages.concrete.noMore,
+          disabled: !!answers.surpriseMe,
+        })}
         <button
           type="button"
           aria-pressed={!!answers.surpriseMe}
@@ -1341,6 +1422,9 @@ export function AssociationWizard({
                 {exportHref && <WindowDownload href={exportHref} label={dict.nav.windowDownload} images={windowItems.length} />}
               </div>
             }
+            readingRequest={readingRequest}
+            fetchReading={interpretProfile}
+            orderCue={dict.nav.scrollCue}
             missTitle={pick(dict.profile.missTitle, dict.profile.missTitleGift)}
             reflection={answers.personalReflection}
             onReflection={(text) => set("personalReflection", text)}
@@ -1499,22 +1583,6 @@ export function AssociationWizard({
               </div>
             </fieldset>
             <fieldset>
-              <legend className="font-semibold text-ink">{pick(dict.who.companyLabel, dict.who.companyLabelGift)}</legend>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {intakeDict.company.options.map((o) => (
-                  <Chip
-                    key={o.value}
-                    selected={answers.company.includes(o.value)}
-                    onClick={() =>
-                      setAnswers((prev) => ({ ...prev, company: toggle(prev.company, o.value) }))
-                    }
-                  >
-                    {o.label}
-                  </Chip>
-                ))}
-              </div>
-            </fieldset>
-            <fieldset>
               <legend className="font-semibold text-ink">{dict.start.limits.chipsLabel}</legend>
               <p className="mt-1 text-sm text-ink/70">{dict.start.limits.chipsSub}</p>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -1539,6 +1607,8 @@ export function AssociationWizard({
   const isLast = page === pages.length - 1;
   const optionalRound = pageId === "senses" && chosenInRound === 0;
   const primaryLabel = optionalRound ? dict.roundUi.skip : dict.nav.next;
+  // The Back button says where it goes (two-page intake), so going back to change an earlier choice is never a guess.
+  const backLabel = flow2 ? (pageId === "profile" ? dict.twoPages.backTo.concrete : pageId === "concrete" ? dict.twoPages.backTo.images : pageId === "images" ? dict.twoPages.backTo.start : dict.nav.back) : dict.nav.back;
 
   return (
     <div className="w-full pb-[calc(7rem+env(safe-area-inset-bottom))] lg:pb-0">
@@ -1565,11 +1635,12 @@ export function AssociationWizard({
         </button>
       </div>
 
-      {/* Inside the long first chapter: where we are among direction, place, moment and sense. */}
-      {chapter === (flow2 ? 1 : 0) && (
+      {/* Inside the long first chapter: where we are among direction, place, moment and sense. (The two-page intake has the
+          "first wide, then sharp" indicator on its pages instead.) */}
+      {!flow2 && chapter === 0 && (
         <ol className="-mt-3 mb-6 flex items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.08em]" aria-label={dict.chapters.images}>
-          {(flow2 ? [dict.twoPages.steps.images, dict.twoPages.steps.concrete] : [dict.panes.worlds, dict.panes.places, dict.panes.moments, dict.panes.senses]).map((label, i) => {
-            const here = flow2 ? page - 1 : page;
+          {[dict.panes.worlds, dict.panes.places, dict.panes.moments, dict.panes.senses].map((label, i) => {
+            const here = page;
             return (
               <li key={label} aria-current={i === here ? "step" : undefined} className={cn("flex items-center gap-1.5", i === here ? "text-ink" : "text-ink/70")}>
                 <span aria-hidden="true" className={cn("h-2 w-2 rounded-full", i === here ? "bg-accent-dark" : i < here ? "bg-gold" : "bg-border")} />
@@ -1632,14 +1703,22 @@ export function AssociationWizard({
               </p>
               <div className={cn("mx-auto flex max-w-6xl items-center gap-3", swiping && "hidden sm:flex")}>
                 {page > 0 && (
-                  <Button variant="secondary" onClick={back} aria-label={dict.nav.back} className="px-4">
+                  <Button variant="secondary" onClick={back} aria-label={backLabel} className="px-4">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                       <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    <span className="hidden sm:inline">{dict.nav.back}</span>
+                    <span className={isLast ? "inline" : "hidden sm:inline"}>{backLabel}</span>
                   </Button>
                 )}
-                {/* The last screen pays itself (the order block above): only "Terug" stays in the bar. */}
+                {/* The last screen pays itself (the order block above): "Terug" stays in the bar, plus a button that jumps to the order. */}
+                {isLast && isProfile && !orderInView && (
+                  <Button href="#bestellen" data-testid="to-order" className="flex-1 lg:flex-none lg:min-w-56">
+                    {dict.nav.toOrder}
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Button>
+                )}
                 {!isLast && (
                   <Button
                     onClick={next}

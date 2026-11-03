@@ -30,7 +30,7 @@ export interface QaContext {
   locale: QaLocale;
   /** 1-12, the month the book is made in (the Netherlands). */
   month: number;
-  /** The wizard's budget value ("25", "100", "allin", legacy "free"), if the person gave one. */
+  /** The wizard's budget value ("10", "25", "50", "100", "200", "allin", legacy "free"), if the person gave one. */
   budget?: string;
   /** The wizard's time value ("hour", "halfday", "fullday", "weekend"), if given. */
   timeAvailable?: string;

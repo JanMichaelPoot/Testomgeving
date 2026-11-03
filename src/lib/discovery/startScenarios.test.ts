@@ -109,16 +109,17 @@ describe("the ten scenarios: start page to generator", () => {
     expect(stored.location).toBe("Maastricht");
     expect(prompt).toContain("Location: Maastricht");
     expect(prompt).toContain("Time available: not stated");
-    expect(prompt).toContain("Budget: not stated");
+    expect(prompt).toContain("Budget (per person): not stated");
     expect(result.seeds.length).toBeGreaterThanOrEqual(6);
   });
 
   it("9. several limits: distance, budget, time, setting, access and moment all reach the engine and the writer", () => {
     const mustHaves = "Moet buiten zijn; Rolstoeltoegankelijk; Zonder auto bereikbaar; In het weekend";
-    const { stored, result, prompt } = run({ location: "Haarlem", searchDistance: "hour", budget: "25", timeAvailable: "halfday", company: ["family"], mustHaves });
+    const { stored, result, prompt } = run({ location: "Haarlem", searchDistance: "hour", searchDistanceKm: 50, budget: "25", timeAvailable: "halfday", company: ["family"], mustHaves });
     expect(prompt).toContain("Location: Haarlem");
-    expect(prompt).toContain("Search distance: hour");
-    expect(prompt).toContain("Budget: 25");
+    // The slider's real values reach the writer in words: kilometres from the starting place, and a budget per person.
+    expect(prompt).toContain("Search distance (from the place above): up to 50 km from the starting place");
+    expect(prompt).toContain("Budget (per person): up to €25 per person");
     expect(prompt).toContain(`Must-haves (hard constraints): ${mustHaves}`);
     // The engine's filters: outdoors is a hard limit, the rest travels as "to verify".
     expect(result.constraints.setting).toBe("outdoor");

@@ -1,21 +1,107 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { AXIS_IDS, type AxisId, type AxesOverride } from "@/lib/discovery/associationProfile";
+import type { InterpretBlocks } from "@/lib/discovery/interpretation";
 import type { ProfileStory } from "@/lib/discovery/profileStory";
 import type { VensterDictionary } from "@/lib/i18n/venster";
+import { trackEvent } from "@/lib/posthog/client";
 import { cn } from "@/lib/utils";
 
-// The last screen of the image intake, "Zo kijken wij door jouw venster" (R2.1): the window, what
-// we read in it in a few sentences, what stands out, four sliders to steer, what we look for and
-// leave out, one optional line of their own, and a teaser. All sentences come from
-// buildProfileStory (fixed parts, no AI); this component only shows them and passes changes up.
+// The last screen of the image intake, "Wat jouw keuzes ons vertellen": the window, a short personal reading of what was chosen (an opening,
+// the red thread, the direction of discovery, a look ahead), the images that were chosen, and the controls to steer (four sliders, extra
+// themes, one line of their own). The reading is fixed text built from the choices (profileStory.ts) and shown at once; when the model-written
+// version arrives (interpretation.ts, only from the facts of the choices) it replaces the fixed text. This component only shows and passes
+// changes up.
 
 type Copy = VensterDictionary["profile"];
 
 const SLIDER_MIN = -2;
 const SLIDER_MAX = 2;
+/** At most this many model-written readings per browser tab: moving the sliders must not turn into a stream of calls. */
+const MAX_READINGS_PER_TAB = 4;
+
+/** What the reading is made from: ids only. The server rebuilds the facts from them and calls the model (or not). */
+export interface ReadingRequest {
+  associations: string[];
+  interests: string[];
+  corrections: string[];
+  axesOverride?: AxesOverride;
+  searchContext?: string;
+  purpose?: string;
+  recipientName?: string;
+}
+
+export type ReadingFetcher = (request: ReadingRequest) => Promise<{ ok: true; blocks: InterpretBlocks } | { ok: false }>;
+
+function readingsThisTab(): number {
+  try {
+    return Number(sessionStorage.getItem("window-readings") ?? "0") || 0;
+  } catch {
+    return 0;
+  }
+}
+
+function countReading() {
+  try {
+    sessionStorage.setItem("window-readings", String(readingsThisTab() + 1));
+  } catch {
+    // no storage: the server's own limit still holds
+  }
+}
+
+/**
+ * The reading that is shown: the fixed one at once, the model-written one when it has arrived for exactly these choices. A failure,
+ * a limit or a missing key never changes anything the visitor sees.
+ */
+function useReading(fixed: InterpretBlocks, request: ReadingRequest | null, fetchReading: ReadingFetcher | undefined) {
+  const requestKey = request ? JSON.stringify(request) : "";
+  const [ai, setAi] = useState<{ key: string; blocks: InterpretBlocks } | null>(null);
+
+  useEffect(() => {
+    if (!request || !fetchReading) return;
+    let cancelled = false;
+    const cacheKey = `window-reading:${requestKey}`;
+    let cached: InterpretBlocks | null = null;
+    try {
+      const hit = sessionStorage.getItem(cacheKey);
+      cached = hit ? (JSON.parse(hit) as InterpretBlocks) : null;
+    } catch {
+      cached = null;
+    }
+    // The same choices are answered from this tab's memory; changed choices wait a moment (the sliders are still moving).
+    const timer = setTimeout(
+      async () => {
+        if (cancelled) return;
+        if (cached) {
+          setAi({ key: requestKey, blocks: cached });
+          return;
+        }
+        if (readingsThisTab() >= MAX_READINGS_PER_TAB) return;
+        countReading();
+        const result = await fetchReading(request).catch(() => null);
+        if (cancelled || !result || !result.ok) return;
+        try {
+          sessionStorage.setItem(cacheKey, JSON.stringify(result.blocks));
+        } catch {
+          // fine
+        }
+        setAi({ key: requestKey, blocks: result.blocks });
+      },
+      cached ? 0 : 1100,
+    );
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+    // `request` is fully described by requestKey.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [requestKey, fetchReading]);
+
+  const written = ai && ai.key === requestKey ? ai.blocks : null;
+  return { blocks: written ?? fixed, written: !!written };
+}
 
 export function ProfileStep({
   copy,
@@ -35,6 +121,9 @@ export function ProfileStep({
   onToggleCorrection,
   payment,
   notes,
+  readingRequest,
+  fetchReading,
+  orderCue,
 }: {
   copy: Copy;
   story: ProfileStory;
@@ -56,57 +145,111 @@ export function ProfileStep({
   payment: ReactNode;
   /** Optional notes above the order block (the two-page intake names a chosen activity that a limit rules out). */
   notes?: ReactNode;
+  /** The choices the model-written reading is made from; null (or no fetcher) keeps the fixed reading. */
+  readingRequest?: ReadingRequest | null;
+  fetchReading?: ReadingFetcher;
+  /** The line above the order block that says the order is below ("Ga verder om jouw ontdekkingsboek te bestellen"). */
+  orderCue?: string;
 }) {
-  // On a phone the sliders and the filters sit in a block that starts closed; on a computer it is always open.
+  // The sliders and the extra themes sit in a block that starts closed.
   const [moreOpen, setMoreOpen] = useState(false);
   const open = moreOpen || adjusting;
+  const { blocks, written } = useReading(story.interpretation, readingRequest ?? null, fetchReading);
+
+  useEffect(() => {
+    trackEvent("reading_shown", { source: written ? "ai" : "fixed" });
+  }, [written]);
+
+  const title = "text-xs font-bold uppercase tracking-[0.09em] text-gold-text";
 
   return (
     <div>
-      <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{copy.kicker}</p>
+      <p className={title}>{copy.kicker}</p>
       <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{heading}</h1>
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,300px)_minmax(0,1fr)] lg:gap-12">
-        <div className="mx-auto w-44 sm:w-56 lg:mx-0 lg:w-full">
-          {windowView}
-        </div>
+        <div className="mx-auto w-44 sm:w-56 lg:mx-0 lg:w-full">{windowView}</div>
 
         <div className="min-w-0">
-          {story.pickedCards.length > 0 && (
-            <ul className="flex gap-2" aria-hidden="true">
-              {story.pickedCards.map((c) => (
-                <li key={c.id} className="relative h-14 w-14 overflow-hidden rounded-xl border border-border">
-                  <Image src={c.image} alt="" fill sizes="56px" className="object-cover" />
-                </li>
-              ))}
-            </ul>
-          )}
+          {/* The reading: an opening, the red thread, the direction. Redactional, not a list: three short pieces of text and the images they are about. */}
+          <article aria-live="polite" data-testid="reading">
+            <p className="font-serif text-2xl leading-snug text-ink sm:text-3xl" data-testid="reading-opening">
+              {blocks.opening}
+            </p>
 
-          {/* The portrait: one line that says what is being looked for, then a few sentences that read the choices. */}
-          <div aria-live="polite">
-            <p className="mt-4 font-serif text-2xl leading-snug text-ink sm:text-3xl">{story.headline}</p>
-            <p className="mt-3 max-w-prose text-base leading-relaxed text-ink/75 sm:text-lg">{story.story}</p>
+            {story.chosenCards.length > 0 && (
+              <figure className="mt-5" aria-label={copy.interpret.chosenLabel}>
+                <ul className="grid grid-cols-4 gap-2 sm:gap-3" data-testid="reading-images">
+                  {story.chosenCards.map((c) => (
+                    <li key={c.id} className="min-w-0">
+                      <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-border">
+                        <Image src={c.image} alt="" fill sizes="(min-width: 1024px) 120px, 22vw" className="object-cover" />
+                      </div>
+                      <span className="mt-1 block text-[11px] leading-tight text-ink/70 sm:text-xs">{c.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              </figure>
+            )}
+
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 sm:gap-8">
+              <section aria-labelledby="reading-thread">
+                <h2 id="reading-thread" className={title}>
+                  {copy.interpret.threadTitle}
+                </h2>
+                <p className="mt-2 text-base leading-relaxed text-ink/80" data-testid="reading-thread">
+                  {blocks.thread}
+                </p>
+              </section>
+              <section aria-labelledby="reading-direction">
+                <h2 id="reading-direction" className={title}>
+                  {copy.interpret.directionTitle}
+                </h2>
+                <p className="mt-2 text-base leading-relaxed text-ink/80" data-testid="reading-direction">
+                  {blocks.direction}
+                </p>
+              </section>
+            </div>
+
+            <section aria-labelledby="reading-outlook" className="mt-6 rounded-2xl border border-border bg-surface-active px-5 py-4">
+              <h2 id="reading-outlook" className={title}>
+                {copy.interpret.outlookTitle}
+              </h2>
+              <p className="mt-2 font-serif text-lg leading-snug text-ink" data-testid="reading-outlook">
+                {copy.interpret.outlook}
+              </p>
+            </section>
+            {written && (
+              <p className="mt-2 text-xs text-ink/70" data-testid="reading-ai-note">
+                {copy.interpret.aiNote}
+              </p>
+            )}
+          </article>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => setMoreOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="profile-more"
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-border bg-paper px-4 text-sm font-semibold text-ink transition-colors hover:border-walnut-light"
+            >
+              {copy.moreTitle}
+              <span aria-hidden="true" className={cn("transition-transform", open && "rotate-180")}>
+                ▾
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={onToggleAdjust}
+              aria-pressed={adjusting}
+              className="min-h-11 rounded-full border border-border bg-paper px-5 text-sm font-semibold text-ink transition-colors hover:border-walnut-light"
+            >
+              {adjusting ? copy.adjustDone : copy.adjust}
+            </button>
           </div>
 
-          <div className="mt-5 rounded-2xl border border-border bg-surface-active px-5 py-4">
-            <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{copy.tensionLabel}</p>
-            <p className="mt-1 text-ink/80">{story.tension.text}</p>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setMoreOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls="profile-more"
-            className="mt-5 flex min-h-11 w-full items-center justify-between rounded-xl border border-border bg-paper px-4 text-sm font-semibold text-ink lg:hidden"
-          >
-            {copy.moreTitle}
-            <span aria-hidden="true" className={cn("transition-transform", open && "rotate-180")}>
-              ▾
-            </span>
-          </button>
-
-          <div id="profile-more" className={cn("mt-5 space-y-6", open ? "block" : "hidden", "lg:block")}>
+          <div id="profile-more" className={cn("mt-5 space-y-6", open ? "block" : "hidden")}>
             <section aria-labelledby="profile-axes">
               <h2 id="profile-axes" className="font-semibold text-ink">
                 {copy.axesTitle}
@@ -143,41 +286,6 @@ export function ProfileStep({
               </div>
             </section>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <section aria-labelledby="profile-seek">
-                <h2 id="profile-seek" className="text-sm font-semibold text-ink">
-                  {copy.seekTitle}
-                </h2>
-                <ul className="mt-2 space-y-1.5 text-sm text-ink/80">
-                  {story.seek.map((line) => (
-                    <li key={line} className="flex gap-2">
-                      <span aria-hidden="true" className="text-gold">
-                        +
-                      </span>
-                      {line}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-              {story.omit.length > 0 && (
-                <section aria-labelledby="profile-omit">
-                  <h2 id="profile-omit" className="text-sm font-semibold text-ink">
-                    {copy.omitTitle}
-                  </h2>
-                  <ul className="mt-2 space-y-1.5 text-sm text-ink/80">
-                    {story.omit.map((line) => (
-                      <li key={line} className="flex gap-2">
-                        <span aria-hidden="true" className="text-ink/70">
-                          −
-                        </span>
-                        {line}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              )}
-            </div>
-
             {adjusting && (
               <section aria-labelledby="profile-fix">
                 <h2 id="profile-fix" className="text-sm font-semibold text-ink">
@@ -205,15 +313,6 @@ export function ProfileStep({
               </section>
             )}
           </div>
-
-          <button
-            type="button"
-            onClick={onToggleAdjust}
-            aria-pressed={adjusting}
-            className="mt-5 min-h-11 rounded-full border border-border bg-paper px-5 text-sm font-semibold text-ink transition-colors hover:border-walnut-light"
-          >
-            {adjusting ? copy.adjustDone : copy.adjust}
-          </button>
 
           <section className="mt-8" aria-labelledby="profile-miss">
             <h2 id="profile-miss" className="font-semibold text-ink">
@@ -243,12 +342,22 @@ export function ProfileStep({
               className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 leading-relaxed text-ink outline-none placeholder:text-ink/70 focus:border-ink"
             />
           </section>
-
-          <p className="mt-6 font-serif text-lg italic text-accent-dark">{copy.teaser}</p>
         </div>
       </div>
       {notes}
-      <div className="mt-12">{payment}</div>
+      {orderCue && (
+        <a
+          href="#bestellen"
+          data-testid="order-cue"
+          className="mt-12 flex min-h-11 flex-col items-center gap-1 rounded-xl px-4 py-3 text-center text-ink outline-none transition-colors hover:bg-surface-active focus-visible:ring-[3px] focus-visible:ring-gold/60"
+        >
+          <span className="font-serif text-xl leading-snug sm:text-2xl">{orderCue}</span>
+          <svg className="scroll-cue h-6 w-6 text-accent-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </a>
+      )}
+      <div className={orderCue ? "mt-4" : "mt-12"}>{payment}</div>
     </div>
   );
 }

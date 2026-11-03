@@ -3,7 +3,6 @@ import Image from "next/image";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { getVisitorPrice } from "@/lib/visitorPrice";
-import { getGiftCopy } from "@/lib/i18n/gift";
 import { COMPANY_LINE } from "@/lib/company";
 
 export async function SiteFooter({
@@ -48,9 +47,6 @@ export async function SiteFooter({
               </Link>
               <Link href="/#voorbeeld" className="transition-colors hover:text-white">
                 {dict.navExamples}
-              </Link>
-              <Link href="/cadeaubon" className="transition-colors hover:text-white">
-                {getGiftCopy(locale).navLabel}
               </Link>
               <Link href="/delen" className="transition-colors hover:text-white">
                 {dict.navInvite}

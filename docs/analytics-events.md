@@ -74,7 +74,8 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `concrete_page_completed` | tweepaginaflow: pagina 2 (activiteiten) afgerond; aantallen per stijlregister van de gekozen activiteiten | `selected`, `refreshes`, `explore_picked`, `n_expressive`, `n_nurturing`, `n_technical`, `n_nature` |
 | `association_swipe` | swipe-modus: een beeld bewaard of gepasseerd | `id`, `liked` |
 | `window_completed` | het profielscherm bereikt: het venster is compleet | `images` (aantal beelden), `panes` (aantal ruiten) |
-| `profile_viewed` | het scherm "Zo kijken wij door jouw venster" getoond | – |
+| `profile_viewed` | het scherm "Wat jouw keuzes ons vertellen" getoond | – |
+| `reading_shown` | de korte persoonlijke duiding getoond: de vaste tekst, of de door AI geschreven tekst zodra die er is | `source` (`fixed` of `ai`) |
 | `profile_agreed` | "Klopt, open mijn venster" | `adjusted` (is er bijgestuurd?) |
 | `profile_axis_changed` | een schuif op het profielscherm verplaatst | `axis` |
 | `profile_reflection` | bij akkoord: is "Wat missen we nog?" ingevuld | `has_reflection` |

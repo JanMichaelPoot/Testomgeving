@@ -1,3 +1,5 @@
+import { describeBudget } from "@/lib/budgetOptions";
+import { describeDistance } from "@/lib/distanceOptions";
 import type Anthropic from "@anthropic-ai/sdk";
 import { runQualityGate } from "@/lib/claude/qualityRepair";
 import { currentMonth } from "@/lib/discovery/season";
@@ -253,10 +255,10 @@ Purpose: ${stated(intake.purpose)}
 Purpose detail: ${stated(intake.purposeFollowUp)}
 Age bracket: ${stated(intake.ageCategory)}
 Location: ${stated(intake.location)}
-Search distance: ${stated(intake.searchDistance)}
+Search distance (from the place above): ${describeDistance(intake.searchDistance, intake.searchDistanceKm)}
 Comfort-zone-to-wild dial (how safe/predictable vs. surprising/adventurous): ${stated(intake.practicalToWild)}
 Time available: ${stated(intake.timeAvailable)}
-Budget: ${stated(intake.budget)}
+Budget (per person): ${describeBudget(intake.budget)}
 Willingness to put in effort: ${stated(intake.effort)}
 Open to these kinds of possibilities: ${intake.solutionTypes.join(", ") || "not stated"}
 Must-haves (hard constraints): ${intake.mustHaves || "none stated"}
@@ -283,12 +285,12 @@ Challenge level: ${character.challengeLevel}`;
 // idea-generation call needs.
 function formatProfileForResearch(intake: IntakeAnswers): string {
   return `Location: ${intake.location}
-Search distance: ${intake.searchDistance}
+Search distance (from the place above): ${describeDistance(intake.searchDistance, intake.searchDistanceKm)}
 Situation: ${intake.situation}
 Purpose: ${intake.purpose}
 Purpose detail: ${intake.purposeFollowUp}
 Time available: ${intake.timeAvailable}
-Budget: ${intake.budget}
+Budget (per person): ${describeBudget(intake.budget)}
 Open to these kinds of possibilities: ${intake.solutionTypes.join(", ")}
 Must-haves (hard constraints): ${intake.mustHaves || "none stated"}
 Preferences (soft nudges): ${intake.preferences || "none stated"}

@@ -666,6 +666,7 @@ export async function generateIdeaBookFromSeeds(
       activityIds: researchIds(seedList),
       location: intake.location,
       searchDistance: intake.searchDistance,
+      searchDistanceKm: intake.searchDistanceKm,
       locale,
       known,
       now,

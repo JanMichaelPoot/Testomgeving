@@ -72,7 +72,7 @@ function secret(): string {
   return createHash("sha256").update(`window-ip:${SUPABASE_SERVICE_ROLE_KEY ?? ""}`).digest("hex");
 }
 
-async function requestIpHash(): Promise<string | null> {
+export async function requestIpHash(): Promise<string | null> {
   const ip = await requestIp();
   return ip ? hashIp(ip, secret()) : null;
 }

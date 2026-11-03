@@ -9,8 +9,7 @@ import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getVisitorPrice } from "@/lib/visitorPrice";
 import { VensterHero } from "@/components/window/VensterHero";
-import { getGiftCopy } from "@/lib/i18n/gift";
-import { giftHrefWithArrival, newArrivalId, showVensterLanding, VENSTER_SELF_HREF } from "@/lib/vensterLanding";
+import { showVensterLanding, VENSTER_SELF_HREF } from "@/lib/vensterLanding";
 import { randomHeroWindow } from "@/lib/heroWindow";
 import Link from "next/link";
 import { SampleSpreads } from "@/components/window/SampleSpreads";
@@ -44,7 +43,7 @@ export default async function Home(props: {
 
       <main className="w-full flex-1">
         {venster ? (
-          <VensterHero dict={dict.venster.landing} price={price} hero={hero} giftHref={giftHrefWithArrival(newArrivalId())} voucherLabel={getGiftCopy(locale).homeLink} />
+          <VensterHero dict={dict.venster.landing} price={price} hero={hero} />
         ) : (
           <section className="mx-auto w-full max-w-[84rem] px-6 pt-12 sm:px-10 sm:pt-16">
             <div className="grid w-full items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14">

@@ -111,7 +111,7 @@ export default async function AdminFeedbackPage() {
       <Section title="Scores">
         <div className="grid gap-4 md:grid-cols-3">
           <ScoreCard title="Het invullen" question="Hoe voelde het om je venster te vullen?" summary={s.flow} scale={SCALE.flow} />
-          <ScoreCard title="Het profiel" question={'Voelde je je begrepen door "Dit zagen we in jouw keuzes"?'} summary={s.profile} scale={SCALE.profile} />
+          <ScoreCard title="Het profiel" question={'Voelde je je begrepen door "Wat jouw keuzes ons vertellen"?'} summary={s.profile} scale={SCALE.profile} />
           <ScoreCard title="De deuren" question="Snapte je waarom je deze deuren kreeg?" summary={s.doors} scale={SCALE.doors} />
         </div>
       </Section>

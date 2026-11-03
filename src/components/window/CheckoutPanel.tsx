@@ -54,6 +54,22 @@ export function ComplianceCheckbox({
   );
 }
 
+/** One switch with its text: the text may wrap and shrink, the switch never leaves the block (it keeps its own width and stays at the end). */
+function SwitchRow({ id, label, hint, checked, onChange, children }: { id: string; label: string; hint?: string; checked: boolean; onChange: (next: boolean) => void; children?: React.ReactNode }) {
+  return (
+    <div className="mb-6 rounded-lg border border-border bg-cream p-5">
+      <div className="flex items-start justify-between gap-4">
+        <label id={`${id}-label`} htmlFor={`${id}-switch`} className="min-w-0 flex-1 py-2 text-sm font-medium text-ink [overflow-wrap:anywhere]">
+          {label}
+        </label>
+        <Switch id={`${id}-switch`} labelledBy={`${id}-label`} checked={checked} onChange={onChange} />
+      </div>
+      {hint && <p className="mt-1 text-xs leading-relaxed text-ink/70">{hint}</p>}
+      {children}
+    </div>
+  );
+}
+
 export function CheckoutPanel({
   dict,
   price,
@@ -155,15 +171,8 @@ export function CheckoutPanel({
         </div>
       )}
 
-      {/* Gift toggle */}
-      <div className="mb-6 rounded-lg border border-border bg-cream p-5">
-        <div className="flex items-center justify-between gap-4">
-          <label id="gift-label" htmlFor="gift-switch" className="py-2 text-sm font-medium text-ink">
-            {dict.giftToggleLabel}
-          </label>
-          <Switch id="gift-switch" labelledBy="gift-label" checked={isGift} onChange={setIsGift} />
-        </div>
-
+      {/* Gift toggle: the recipient's field only exists while it is on. */}
+      <SwitchRow id="gift" label={dict.giftToggleLabel} checked={isGift} onChange={setIsGift}>
         {isGift && (
           <div className="mt-4">
             <label htmlFor="gift-email" className="block text-xs font-medium uppercase tracking-widest text-ink/70">
@@ -176,33 +185,18 @@ export function CheckoutPanel({
               value={giftEmail}
               onChange={(e) => setGiftEmail(e.target.value)}
               placeholder={dict.giftEmailPlaceholder}
+              aria-invalid={!giftEmailValid}
               className={EMAIL_INPUT}
             />
           </div>
         )}
-      </div>
+      </SwitchRow>
 
       {/* Optional repetition memory (fase 5): its own choice, off unless switched on. */}
-      <div className="mb-6 rounded-lg border border-border bg-cream p-5">
-        <div className="flex items-start justify-between gap-4">
-          <label id="memory-label" htmlFor="memory-switch" className="text-sm font-medium text-ink">
-            {dict.memoryLabel}
-          </label>
-          <Switch id="memory-switch" labelledBy="memory-label" checked={remember} onChange={setRemember} />
-        </div>
-        <p className="mt-2 text-xs leading-relaxed text-ink/70">{dict.memoryHint}</p>
-      </div>
+      <SwitchRow id="memory" label={dict.memoryLabel} hint={dict.memoryHint} checked={remember} onChange={setRemember} />
 
       {/* One follow-up e-mail after six weeks (improvement brief B5): its own choice, off unless switched on. */}
-      <div className="mb-6 rounded-lg border border-border bg-cream p-5">
-        <div className="flex items-start justify-between gap-4">
-          <label id="followup-label" htmlFor="followup-switch" className="text-sm font-medium text-ink">
-            {dict.followUpLabel}
-          </label>
-          <Switch id="followup-switch" labelledBy="followup-label" checked={followUp} onChange={setFollowUp} />
-        </div>
-        <p className="mt-2 text-xs leading-relaxed text-ink/70">{dict.followUpHint}</p>
-      </div>
+      <SwitchRow id="followup" label={dict.followUpLabel} hint={dict.followUpHint} checked={followUp} onChange={setFollowUp} />
 
       {/* Disclaimer */}
       <p className="mb-5 rounded-lg bg-ink/4 p-4 text-xs leading-relaxed text-ink/70">

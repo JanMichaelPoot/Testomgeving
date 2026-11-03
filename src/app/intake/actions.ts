@@ -1,6 +1,7 @@
 "use server";
 
 import { currentBudget } from "@/lib/budgetOptions";
+import { distanceClassFor, sanitizeDistanceKm } from "@/lib/distanceOptions";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createServiceRoleClient } from "@/lib/supabase/server";
@@ -33,6 +34,9 @@ export interface IntakeAnswers {
   ageCategory: string;
   location: string;
   searchDistance: string;
+  // How far, in kilometres, measured from `location` (the start page's slider: 5, 10, 15, 25, 50, 75, 100, or 150 for "more than 100").
+  // Sanitised on the server; `searchDistance` above is then derived from it so everything that reads the older three-way class keeps working.
+  searchDistanceKm?: number;
   // A behavioral scenario question ("a free Saturday opens up — what do you
   // do?") rather than a direct self-rating — see src/lib/characterProfile.ts
   // for why this reads as a more honest character signal than asking
@@ -115,6 +119,14 @@ async function persistIntake(answers: IntakeAnswers, opts: { edit?: boolean } = 
     budget: currentBudget(answers.budget),
     locale,
   };
+  // The distance slider: only a real step survives, and the three-way class follows from the kilometres (never the other way round).
+  const km = sanitizeDistanceKm(answers.searchDistanceKm);
+  if (km !== undefined) {
+    stored.searchDistanceKm = km;
+    stored.searchDistance = distanceClassFor(km);
+  } else {
+    delete stored.searchDistanceKm;
+  }
   // The image intake asks for images instead of activities and dials: translate them here,
   // once, so every later step (checkout, engine, prompt, PDF) reads the same answers.
   if (answers.intakeVariant === "associations") stored = applyImageIntake(stored, locale);

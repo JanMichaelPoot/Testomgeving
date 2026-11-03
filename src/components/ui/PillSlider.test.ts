@@ -15,8 +15,13 @@ describe("pickLayout", () => {
 
     it(`keeps the short 4-option dials in one row in ${locale}`, () => {
       expect(pickLayout(labels(dict.timeAvailable.options))).toBe("row");
-      expect(pickLayout(labels(dict.budget.options))).toBe("row");
       expect(pickLayout(labels(dict.searchDistance.options))).toBe("row");
+    });
+
+    // The budget has six steps since the per-person slider of the start page (the older wizards show them as a list).
+    it(`lists the six budget steps one under the other in ${locale}`, () => {
+      expect(dict.budget.options).toHaveLength(6);
+      expect(pickLayout(labels(dict.budget.options))).toBe("stack");
     });
 
     it(`wraps the age brackets in ${locale}`, () => {

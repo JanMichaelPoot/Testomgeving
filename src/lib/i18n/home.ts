@@ -74,7 +74,7 @@ const NL: HomeCopy = {
   },
   sample: {
     heading: "Zo ziet een boek eruit",
-    sub: "Drie pagina's uit een voorbeeldboek. Klik op een pagina om hem te vergroten.",
+    sub: "Vier pagina's uit een echt voorbeeldboek, gemaakt voor iemand die beelden koos. Je ziet hoe keuzes activiteiten worden, met plekken in de buurt. Klik op een pagina om hem te vergroten.",
     freeNote: "Je venster en je profielportret zijn gratis. Je betaalt pas voor de uitwerking: het boek.",
     pdfLink: "Bekijk het hele voorbeeld (PDF)",
     open: "Vergroot",
@@ -83,10 +83,10 @@ const NL: HomeCopy = {
     next: "Volgende pagina",
     counter: "Pagina {n} van {total}",
     spreads: [
-      { name: "Omslag", alt: "Omslag van een voorbeeldboek: een houten bureau bij een raam met een kompas en een opengeslagen dagboek" },
-      { name: "Je profiel", alt: "De profielpagina uit het voorbeeldboek: je profiel in een zin, je grenzen en voorkeuren, en de vier deuren met het idee dat het best past" },
-      { name: "Een idee", alt: "Een ideepagina uit het voorbeeldboek: waarom het bij je past, tijd, niveau, een mogelijke invulling, stappen, kosten en een eerste stap" },
-      { name: "Nog een idee", alt: "Een tweede ideepagina uit het voorbeeldboek, met dezelfde opbouw: waarom, stappen, kosten en een eerste stap" },
+      { name: "Omslag", alt: "Omslag van een voorbeeldboek: het venster van iemand die beelden koos, met de gekozen beelden in de ruiten" },
+      { name: "Je profiel en je kaart", alt: "De profielpagina uit het voorbeeldboek: wat de gekozen beelden zeggen, de grenzen en voorkeuren, en je mogelijkheden in kaart gebracht" },
+      { name: "Een idee", alt: "Een ideepagina uit het voorbeeldboek: waarom het bij je past, tijd, niveau, ervaringsprofiel, een mogelijke invulling, stappen, kosten, de plek en een eerste stap" },
+      { name: "Meer over een deur", alt: "De tweede pagina van een idee: hoe het voelt, drie manieren om te beginnen (proeven, doen, doorpakken), echte plekken met een kaartlink en wat je daarna kunt proberen" },
     ],
   },
   trust: {
@@ -124,12 +124,6 @@ const NL: HomeCopy = {
         answer:
           "Je antwoorden horen bij een willekeurig sessienummer, niet bij je e-mailadres. Je e-mailadres bewaren we pas na je betaling, om je boek te sturen. Betaalgegevens gaan rechtstreeks naar Stripe; die zien wij nooit. Analytics gebruiken we alleen met jouw toestemming.",
         link: { href: "/privacy", label: "Lees de privacyverklaring" },
-      },
-      {
-        id: "cadeau",
-        question: "Kan ik dit cadeau geven?",
-        answer:
-          "Ja. Kies 'Geef een venster cadeau', vul de keuzes in voor de ontvanger (een voornaam is optioneel) en laat het boek naar het e-mailadres van de ontvanger sturen. Dit past goed bij iemand die aan een nieuwe fase begint, zoals pensioen of een verhuizing.",
       },
       {
         id: "betalen",
@@ -178,7 +172,7 @@ const EN: HomeCopy = {
   },
   sample: {
     heading: "What a book looks like",
-    sub: "Three pages from a sample book. Click a page to enlarge it.",
+    sub: "Four pages from a real sample book, made for someone who chose images. You see how choices become activities, with places nearby. The sample is in Dutch; your book is written in the language of your window. Click a page to enlarge it.",
     freeNote: "Your window and your profile portrait are free. You only pay for the write-up: the book.",
     pdfLink: "See the whole sample (PDF)",
     open: "Enlarge",
@@ -187,10 +181,10 @@ const EN: HomeCopy = {
     next: "Next page",
     counter: "Page {n} of {total}",
     spreads: [
-      { name: "Cover", alt: "Cover of a sample book: a wooden desk by a window with a compass and an open journal" },
-      { name: "Your profile", alt: "The profile page from the sample book: your profile in one sentence, your limits and preferences, and the four doors with the idea that fits best" },
-      { name: "An idea", alt: "An idea page from the sample book: why it fits you, time, level, a possible plan, steps, cost and a first step" },
-      { name: "Another idea", alt: "A second idea page from the sample book, with the same layout: why, steps, cost and a first step" },
+      { name: "Cover", alt: "Cover of a sample book: the window of someone who chose images, with the chosen images in the panes" },
+      { name: "Your profile and map", alt: "The profile page from the sample book: what the chosen images say, the limits and preferences, and your possibilities mapped out" },
+      { name: "An idea", alt: "An idea page from the sample book: why it fits you, time, level, experience profile, a possible plan, steps, cost, the place and a first step" },
+      { name: "More about a door", alt: "The second page of an idea: how it feels, three ways to start (taste, do, go deeper), real places with a map link and what to try next" },
     ],
   },
   trust: {
@@ -228,12 +222,6 @@ const EN: HomeCopy = {
         answer:
           "Your answers belong to a random session number, not to your e-mail address. We only keep your e-mail address after you pay, to send your book. Payment details go straight to Stripe; we never see them. We only use analytics with your consent.",
         link: { href: "/privacy", label: "Read the privacy statement" },
-      },
-      {
-        id: "cadeau",
-        question: "Can I give this as a gift?",
-        answer:
-          "Yes. Choose 'Give a window as a gift', fill in the choices for the recipient (a first name is optional) and have the book sent to the recipient's e-mail address. It suits someone starting a new phase, such as retirement or a move.",
       },
       {
         id: "betalen",

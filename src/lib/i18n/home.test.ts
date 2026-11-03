@@ -15,7 +15,7 @@ describe("home copy", () => {
     expect(nl.faq.items.map((i) => i.id)).toEqual(en.faq.items.map((i) => i.id));
     expect(nl.inside.perIdea).toHaveLength(en.inside.perIdea.length);
     // The FAQ covers what the brief asks for.
-    expect(nl.faq.items.map((i) => i.id)).toEqual(expect.arrayContaining(["wat-krijg-ik", "hoe-lang", "plek-klopt-niet", "privacy", "cadeau", "betalen"]));
+    expect(nl.faq.items.map((i) => i.id)).toEqual(expect.arrayContaining(["wat-krijg-ik", "hoe-lang", "plek-klopt-niet", "privacy", "betalen"]));
   });
 
   it("the four differentiators are the four from the brief", () => {
@@ -45,14 +45,17 @@ describe("home copy", () => {
     }
   });
 
-  it("the hero is the pain-audience-outcome line and names the occasion; a gift button exists", () => {
+  it("the hero invites discovery without suggesting a problem, and offers no gift route", () => {
     const nl = getDictionary("nl").venster.landing;
-    expect(`${nl.headline} ${nl.headlineEmphasis}`).toBe("Weet je niet goed wat je met je vrije tijd wilt?");
+    expect(`${nl.headline} ${nl.headlineEmphasis}`).toBe("Wat als je iets ontdekt waarvan je nog niet wist dat het bij je past?");
     expect(nl.subcopy).toMatch(/echte plekken bij jou in de buurt/);
-    expect(nl.occasion).toMatch(/pensioen/);
     const en = getDictionary("en").venster.landing;
-    expect(`${en.headline} ${en.headlineEmphasis}`).toMatch(/free time/);
-    expect(en.occasion).toMatch(/retirement/);
+    expect(`${en.headline} ${en.headlineEmphasis}`).toMatch(/discover something you didn't know/);
+    for (const d of [nl, en]) {
+      expect(JSON.stringify(d)).not.toMatch(/vrije tijd|free time|cadeau|gift|pensioen|retirement/i);
+      expect("giftCta" in d).toBe(false);
+      expect("occasion" in d).toBe(false);
+    }
   });
 
   it("fills the price and leaves no placeholder behind", () => {

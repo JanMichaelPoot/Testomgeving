@@ -8,13 +8,10 @@ import { doorRange } from "@/lib/productStructure";
 export interface VensterDictionary {
   landing: {
     selfCta: string;
-    giftCta: string;
     badge: string; // {price}
     headline: string;
     headlineEmphasis: string; // the italic part, shown after headline
     subcopy: string;
-    /** The occasion line under the subcopy (who a gift suits). */
-    occasion: string;
     heroAlt: string;
     chapters: { title: string; body: string }[];
   };
@@ -36,6 +33,12 @@ export interface VensterDictionary {
       editChoices: string;
     };
     steps: { images: string; concrete: string };
+    /** The small "first wide, then sharp" indicator above both pages (divergent, then convergent thinking). */
+    flow: { label: string; diverge: { title: string; sub: string }; converge: { title: string; sub: string } };
+    /** The Back button names where it goes (visible text on the screens that have room for it). */
+    backTo: { start: string; images: string; concrete: string };
+    /** Going through the sets of images or activities that were shown: nothing chosen is lost by going back. */
+    sets: { prev: string; next: string; counter: string };
     images: { kicker: string; heading: string; headingGift: string; sub: string; subGift: string; chosen: string; min: string; max: string; more: string; moreSub: string; noMore: string };
     concrete: {
       kicker: string;
@@ -44,6 +47,8 @@ export interface VensterDictionary {
       sub: string;
       subGift: string;
       chosen: string;
+      /** "Choose as many as you like, up to {max}." */
+      multi: string;
       min: string;
       max: string;
       more: string;
@@ -123,11 +128,10 @@ export interface VensterDictionary {
     balancedGift: string;
     open: string;
     openGift: string; // {name}
-    tensionLabel: string;
+    /** Titles and fixed sentences of the short personal reading. */
+    interpret: { threadTitle: string; directionTitle: string; outlookTitle: string; outlook: string; aiNote: string; chosenLabel: string };
     axesTitle: string;
     axes: Record<"social" | "energy" | "setting" | "novelty", { label: string; low: string; high: string }>;
-    seekTitle: string;
-    omitTitle: string;
     seekLines: {
       formats: Record<string, string>;
       outdoor: string;
@@ -148,6 +152,7 @@ export interface VensterDictionary {
       effortSome: string;
       costFree: string;
       costMid: string;
+      costLow: string;
     };
     missTitle: string;
     missTitleGift: string; // {name}
@@ -155,7 +160,6 @@ export interface VensterDictionary {
     missPlaceholder: string;
     suggestions: Record<string, string>;
     combos: { tags: [string, string]; text: string }[];
-    teaser: string;
     adjust: string;
     adjustDone: string;
     fixPrompt: string;
@@ -171,10 +175,23 @@ export interface VensterDictionary {
       label: string;
       labelGift: string;
       sub: string;
-      options: Record<"self" | "child" | "adult" | "group", { label: string; sub: string }>;
+      options: Record<"self" | "child" | "adult" | "group" | "unknown", { label: string; sub: string }>;
       nameLabel: string;
     };
-    limits: { sub: string; timeLabelOther: string; chipsLabel: string; chipsSub: string; optional: string };
+    /** The two sliders under the place: how far to travel, and what it may cost per person. */
+    distance: { label: string; hint: string; upTo: string; over100: string; tickOver100: string };
+    budget: { label: string; hint: string; unset: string; clear: string; upTo: string; any: string };
+    limits: {
+      sub: string;
+      timeLabelOther: string;
+      chipsLabel: string;
+      chipsSub: string;
+      /** The heading of the grouped chips ("Tik aan wat voor jou belangrijk is"). */
+      chipsTitle: string;
+      optional: string;
+      /** The chips of who.limitChips, grouped under a heading each (every chip appears in exactly one group). */
+      groups: { title: string; chips: string[] }[];
+    };
   };
   /** The merged "Jouw situatie" screen (place, time, budget, company; the rest behind "more"). */
   situation: { heading: string; headingGift: string };
@@ -189,8 +206,6 @@ export interface VensterDictionary {
     budgetLabel: string;
   };
   who: {
-    companyLabel: string;
-    companyLabelGift: string;
     limitChips: string[];
   };
   nav: {
@@ -201,9 +216,12 @@ export interface VensterDictionary {
     windowOpen: string;
     windowClose: string;
     windowTitle: string;
+    /** On the last screen: the line that says the order block is below, and the bar button that jumps to it. */
+    scrollCue: string;
+    toOrder: string;
     windowDownload: string;
     /** Why "Next" is greyed out, one line above the bar. {n} and {list} are filled in. */
-    hint: { images: string; concrete: string; worlds: string; round: string; missing: string; place: string; time: string; budget: string; company: string };
+    hint: { images: string; concrete: string; worlds: string; round: string; missing: string; place: string; time: string; budget: string };
   };
   panes: { worlds: string; places: string; moments: string; senses: string; surprise: string };
   sill: { empty: string; with: string };
@@ -310,13 +328,11 @@ export interface VensterDictionary {
 export const vensterNl: VensterDictionary = {
   landing: {
     selfCta: "Open je venster",
-    giftCta: "Geef een venster cadeau",
     badge: "Nieuw · {price} · geen account",
-    headline: "Weet je niet goed wat je",
-    headlineEmphasis: "met je vrije tijd wilt?",
+    headline: "Wat als je iets ontdekt waarvan je",
+    headlineEmphasis: "nog niet wist dat het bij je past?",
     subcopy:
-      "Kies een paar beelden. Wij maken er een persoonlijk boek van, met echte plekken bij jou in de buurt.",
-    occasion: "Ook een mooi cadeau voor iemand die aan een nieuwe fase begint: pensioen, een verhuizing, kinderen die het huis uit gaan.",
+      "Kies beelden die je aanspreken. Wij vertalen ze naar activiteiten die je zelf misschien nooit had bedacht, met echte plekken bij jou in de buurt.",
     heroAlt: "Een klassiek schuifraam met acht ruiten, elk met een ander beeld",
     chapters: [
       { title: "Jouw situatie", body: "Voor wie, waar en wat moet kloppen: de basis voor echte plekken in de buurt." },
@@ -370,12 +386,19 @@ export const vensterNl: VensterDictionary = {
       editChoices: "Kies anders",
     },
     steps: { images: "Beelden", concrete: "Keuzes" },
+    flow: {
+      label: "Zo werkt het: eerst breed, dan scherp",
+      diverge: { title: "Breed ontdekken", sub: "Kies intuïtief wat aanspreekt" },
+      converge: { title: "Richting bepalen", sub: "Je keuzes worden activiteiten" },
+    },
+    backTo: { start: "Terug naar het begin", images: "Terug naar de beelden", concrete: "Terug naar de activiteiten" },
+    sets: { prev: "Vorige set", next: "Volgende set", counter: "Set {i} van {n}" },
     images: {
       kicker: "Jouw beelden · 1 van 2",
-      heading: "Welke beelden maken je nieuwsgierig?",
-      headingGift: "Welke beelden zouden {name} nieuwsgierig maken? ‖ Welke beelden zouden nieuwsgierig maken? ‖ Welke beelden maken jullie nieuwsgierig?",
-      sub: "Kies wat je aanspreekt, zonder lang na te denken. Vijf tot acht is mooi.",
-      subGift: "Kies wat {name} zou aanspreken, zonder lang na te denken. Vijf tot acht is mooi. ‖ Kies wat zou aanspreken, zonder lang na te denken. Vijf tot acht is mooi. ‖ Kies wat jullie aanspreekt, zonder lang na te denken. Vijf tot acht is mooi.",
+      heading: "Waar gaat jouw nieuwsgierigheid naar uit?",
+      headingGift: "Waar gaat de nieuwsgierigheid van {name} naar uit? ‖ Waar gaat de nieuwsgierigheid naar uit? ‖ Waar gaat jullie nieuwsgierigheid naar uit?",
+      sub: "Kies wat je aanspreekt zonder er verder lang over na te denken. Er zijn geen goede of foute antwoorden. Vijf tot acht is mooi.",
+      subGift: "Kies wat {name} zou aanspreken zonder er verder lang over na te denken. Er zijn geen goede of foute antwoorden. Vijf tot acht is mooi. ‖ Kies wat zou aanspreken zonder er verder lang over na te denken. Er zijn geen goede of foute antwoorden. Vijf tot acht is mooi. ‖ Kies wat jullie aanspreekt zonder er verder lang over na te denken. Er zijn geen goede of foute antwoorden. Vijf tot acht is mooi.",
       chosen: "{n} gekozen",
       min: "Kies er nog even {n} of meer om verder te gaan.",
       max: "Dat zijn er acht. Haal er één weg om een ander te kiezen.",
@@ -385,13 +408,14 @@ export const vensterNl: VensterDictionary = {
     },
     concrete: {
       kicker: "Jouw beelden · 2 van 2",
-      heading: "Zin om dit eens te proberen?",
-      headingGift: "Zou {name} dit wel eens willen proberen? ‖ Zin om dit eens te proberen? ‖ Zin om dit eens samen te proberen?",
-      sub: "Deze dingen passen bij wat je koos. Tik aan wat je wel eens zou willen doen: drie tot zes is genoeg.",
-      subGift: "Deze dingen passen bij wat er gekozen is. Tik aan wat {name} wel eens zou willen doen: drie tot zes is genoeg. ‖ Deze dingen passen bij de gekozen beelden. Tik aan wat leuk lijkt: drie tot zes is genoeg. ‖ Deze dingen passen bij de gekozen beelden. Tik aan wat jullie wel eens zouden willen doen: drie tot zes is genoeg.",
+      heading: "Van jouw associaties naar nieuwe mogelijkheden",
+      headingGift: "Van de associaties van {name} naar nieuwe mogelijkheden ‖ Van de gekozen associaties naar nieuwe mogelijkheden ‖ Van jullie associaties naar nieuwe mogelijkheden",
+      sub: "Op basis van jouw keuzes hebben we activiteiten samengesteld die aansluiten bij jouw interesses. Sommige herkenbaar, andere misschien verrassend nieuw.",
+      subGift: "Op basis van de gekozen beelden hebben we activiteiten samengesteld die aansluiten bij de interesses van {name}. Sommige herkenbaar, andere misschien verrassend nieuw. ‖ Op basis van de gekozen beelden hebben we activiteiten samengesteld die aansluiten bij de interesses. Sommige herkenbaar, andere misschien verrassend nieuw. ‖ Op basis van jullie keuzes hebben we activiteiten samengesteld die aansluiten bij jullie interesses. Sommige herkenbaar, andere misschien verrassend nieuw.",
       chosen: "{n} gekozen",
+      multi: "Kies er zoveel als je wilt, tot {max}. Tik nogmaals om een keuze weg te halen.",
       min: "Tik er minstens één aan, of laat ons verrassen.",
-      max: "Dat zijn er zes. Haal er één weg om een ander te kiezen.",
+      max: "Dat zijn er {max}. Haal er één weg om een ander te kiezen.",
       more: "Andere activiteiten",
       moreSub: "Wat je koos blijft staan.",
       noMore: "Meer nieuwe activiteiten hebben we niet. Wat je koos blijft staan.",
@@ -437,8 +461,8 @@ export const vensterNl: VensterDictionary = {
   },
   profile: {
     kicker: "Jouw venster",
-    heading: "Dit zagen we in jouw keuzes",
-    headingGift: "Dit zagen we in de keuzes voor {name} ‖ Dit zagen we in deze keuzes ‖ Dit zagen we in jullie keuzes",
+    heading: "Wat jouw keuzes ons vertellen",
+    headingGift: "Wat de keuzes voor {name} ons vertellen ‖ Wat deze keuzes ons vertellen ‖ Wat jullie keuzes ons vertellen",
     and: "en",
     headline: "Je houdt van {a}, en van {b}.",
     headlineGift: "{name} houdt van {a}, en van {b}. ‖ Wat opvalt: {a}, en {b}.",
@@ -599,7 +623,14 @@ export const vensterNl: VensterDictionary = {
     balancedGift: "Deze keuzes wijzen niet één kant op. Dat maakt het spannend: we laten meerdere kanten zien.",
     open: "Je hebt nog niet veel gekozen. Geen probleem, dan verrassen we je.",
     openGift: "Er is nog niet veel gekozen. Geen probleem, dan verrassen we {name}. ‖ Er is nog niet veel gekozen. Geen probleem, we zoeken iets verrassends.",
-    tensionLabel: "Wat ons opviel",
+    interpret: {
+      threadTitle: "De rode draad",
+      directionTitle: "Jouw ontdekkingsrichting",
+      outlookTitle: "Wat je in je boek vindt",
+      outlook: "In je boek vind je zes ideeën die hierop aansluiten, van herkenbaar tot onverwacht, plus één wildcard. Bij elk idee lees je hoe het uit de keuzes volgt en waar je het kunt doen.",
+      aiNote: "Geschreven met AI, alleen op basis van de gekozen beelden en activiteiten.",
+      chosenLabel: "De gekozen beelden",
+    },
     axesTitle: "Klopt dit? Pas het gerust aan.",
     axes: {
       social: { label: "Alleen of samen", low: "Alleen", high: "Samen" },
@@ -607,8 +638,6 @@ export const vensterNl: VensterDictionary = {
       setting: { label: "Binnen of buiten", low: "Binnen", high: "Buiten" },
       novelty: { label: "Vertrouwd of nieuw", low: "Vertrouwd", high: "Nieuw" },
     },
-    seekTitle: "Hier gaan we naar op zoek",
-    omitTitle: "Dit laten we even liggen",
     seekLines: {
       formats: {
         solo: "Op je eigen tempo, alleen",
@@ -623,7 +652,7 @@ export const vensterNl: VensterDictionary = {
       indoor: "Binnen",
       effortMinimal: "Rustig, zonder zware inspanning",
       effortCommitted: "Mag flinke inspanning kosten",
-      budget: { free: "Gratis", "25": "Tot €25", "100": "Tot €100" },
+      budget: { free: "Gratis", "10": "Tot €10 per persoon", "25": "Tot €25 per persoon", "50": "Tot €50 per persoon", "100": "Tot €100 per persoon", "200": "Tot €200 per persoon" },
       time: { hour: "Past in een uur of twee", halfday: "Past in een halve dag", fullday: "Past in een hele dag", weekend: "Ook voor een heel weekend" },
       distance: { city: "In je eigen plaats", hour: "Tot een uur reizen", anywhere: "Heel Nederland" },
     },
@@ -637,6 +666,7 @@ export const vensterNl: VensterDictionary = {
       effortSome: "Extreme inspanning",
       costFree: "Alles met een prijskaartje",
       costMid: "Activiteiten boven de €50",
+      costLow: "Activiteiten boven de €15",
     },
     missTitle: "Zijn we iets vergeten?",
     missTitleGift: "Zijn we iets vergeten voor {name}? ‖ Zijn we iets vergeten?",
@@ -696,7 +726,6 @@ export const vensterNl: VensterDictionary = {
       { tags: ["challenge", "outdoors"], text: "Buiten iets doen dat een beetje spannend is" },
       { tags: ["learning", "focus"], text: "Een middag ergens echt in verdiepen" },
     ],
-    teaser: "Eén van je zeven deuren gaat je verrassen.",
     adjust: "Iets anders kiezen",
     adjustDone: "Klaar",
     fixPrompt: "Wat zoek je meer? Kies er tot drie.",
@@ -704,27 +733,51 @@ export const vensterNl: VensterDictionary = {
   },
   start: {
     kicker: "Fijn dat je er bent",
-    heading: "Laten we beginnen met een paar dingen",
-    sub: "Drie korte vragen. Alleen je plaats hebben we echt nodig, de rest mag je overslaan.",
+    heading: "Een ontdekking begint bij jou",
+    sub: "Vertel ons voor wie we op zoek gaan en wat de mogelijkheden zijn. Zo kunnen we iets ontdekken dat echt aansluit. Alleen je plaats hebben we echt nodig.",
     sections: { who: "Voor wie", where: "Waar", limits: "Rekening mee houden" },
     who: {
-      label: "Voor wie gaan we iets moois zoeken?",
+      label: "Voor wie is deze zoektocht bedoeld?",
       labelGift: "Voor wie is dit venster?",
-      sub: "Je mag dit overslaan. Je beelden vertellen ons straks de rest.",
+      sub: "Dit bepaalt waar we naar kijken. Weet je het nog niet? Kies dan 'Nog onbekend'.",
       options: {
         self: { label: "Voor mezelf", sub: "Iets voor jezelf" },
         child: { label: "Voor een kind of jongere", sub: "Een kind of een tiener" },
         adult: { label: "Voor iemand anders", sub: "Een partner, vriend, ouder of collega" },
         group: { label: "Voor een groep", sub: "Gezin, vrienden of een team" },
+        unknown: { label: "Nog onbekend", sub: "Dat zien we onderweg" },
       },
       nameLabel: "Hoe heet diegene? Met een naam wordt je boek persoonlijker.",
+    },
+    distance: {
+      label: "Hoe ver wil je reizen?",
+      hint: "We meten de afstand vanaf je vertrekplaats. Verder dan dit zoeken we niet.",
+      upTo: "Tot {km} km",
+      over100: "Meer dan 100 km",
+      tickOver100: ">100",
+    },
+    budget: {
+      label: "Wat mag deze ervaring ongeveer kosten per persoon?",
+      hint: "Dit bepaalt welke activiteiten we je laten zien. Laat je het open, dan houden we geen vast bedrag aan.",
+      unset: "Nog niets gekozen: schuif om een bedrag te kiezen",
+      clear: "Geen voorkeur",
+      upTo: "Tot €{n} per persoon",
+      any: "Maakt niet uit",
     },
     limits: {
       sub: "Alleen als het ertoe doet.",
       timeLabelOther: "Hoeveel tijd is er?",
       chipsLabel: "Houden we ergens rekening mee?",
-      chipsSub: "Tik aan wat voor jou belangrijk is.",
+      chipsTitle: "Tik aan wat voor jou belangrijk is",
+      chipsSub: "Dit stuurt waar we naar zoeken. Je mag er meerdere aantikken.",
       optional: "optioneel",
+      groups: [
+        { title: "Omgeving", chips: ["Alleen buiten", "Alleen binnen"] },
+        { title: "Bereikbaarheid", chips: ["Met de rolstoel bereikbaar", "Zonder auto bereikbaar"] },
+        { title: "Gezelschap", chips: ["Niet in een groep", "Met de hond", "Met kinderen"] },
+        { title: "Eten en drinken", chips: ["Zonder alcohol", "Zonder vis of schaaldieren"] },
+        { title: "Wanneer", chips: ["In het weekend", "'s Avonds"] },
+      ],
     },
   },
   situation: {
@@ -732,9 +785,9 @@ export const vensterNl: VensterDictionary = {
     headingGift: "Waar, wanneer en met wie voor {name}?",
   },
   room: {
-    locationLabel: "Waar in de buurt mogen we kijken?",
-    locationLabelGift: "Waar in de buurt mogen we kijken voor {name}? ‖ Waar in de buurt mogen we kijken?",
-    locationSub: "We zoeken echte plekken in de buurt. Thuis, op je werk of ergens anders: jij kiest.",
+    locationLabel: "Vanuit welke plaats mogen we op ontdekking gaan?",
+    locationLabelGift: "Vanuit welke plaats mogen we op ontdekking gaan voor {name}? ‖ Vanuit welke plaats mogen we op ontdekking gaan?",
+    locationSub: "Dit is het vertrekpunt van de zoektocht. Afstanden meten we vanaf deze plaats. Thuis, je werk of ergens anders: jij kiest.",
     locationPlaceholder: "Typ een plaats, bijvoorbeeld Utrecht…",
     distanceLabel: "Hoe ver wil je ervoor reizen?",
     distanceOptions: [
@@ -746,8 +799,6 @@ export const vensterNl: VensterDictionary = {
     budgetLabel: "Wat mag het ongeveer kosten?",
   },
   who: {
-    companyLabel: "Wie gaat er mee?",
-    companyLabelGift: "Met wie zou {name} gaan? ‖ Wie gaat er mee?",
     limitChips: [
       "Alleen buiten",
       "Alleen binnen",
@@ -770,6 +821,8 @@ export const vensterNl: VensterDictionary = {
     windowOpen: "Bekijk je venster",
     windowClose: "Sluiten",
     windowTitle: "Jouw venster",
+    scrollCue: "Ga verder om jouw ontdekkingsboek te bestellen",
+    toOrder: "Naar je bestelling",
     windowDownload: "Download je venster als afbeelding",
     hint: {
       images: "Kies er nog even {n} of meer om verder te gaan.",
@@ -780,7 +833,6 @@ export const vensterNl: VensterDictionary = {
       place: "je plaats",
       time: "tijd",
       budget: "budget",
-      company: "met wie",
     },
   },
   panes: { worlds: "Richting", places: "Plek", moments: "Moment", senses: "Zintuig", surprise: "Verras me" },
@@ -859,7 +911,7 @@ export const vensterNl: VensterDictionary = {
     sub: "Dit is een testversie. Zes korte vragen, het kost ongeveer een minuut. Alles mag je overslaan.",
     scoreLabel: "Hoe voelde het om je venster te vullen?",
     scoreOptions: ["Taai", "Matig", "Prima", "Fijn", "Heerlijk"],
-    profileLabel: "Voelde je je begrepen door \u201CDit zagen we in jouw keuzes\u201D?",
+    profileLabel: "Voelde je je begrepen door \u201CWat jouw keuzes ons vertellen\u201D?",
     doorsLabel: "Snapte je waarom je deze deuren kreeg?",
     agreeOptions: ["Helemaal niet", "Niet echt", "Half", "Vrij goed", "Helemaal"],
     pickLabel: "Welke deur zou je echt gaan doen?",
@@ -884,12 +936,10 @@ export const vensterNl: VensterDictionary = {
 export const vensterEn: VensterDictionary = {
   landing: {
     selfCta: "Open your window",
-    giftCta: "Give a window as a gift",
     badge: "New · {price} · no account",
-    headline: "Not sure what to do",
-    headlineEmphasis: "with your free time?",
-    subcopy: "Pick a few images. We turn them into a personal book, with real places near you.",
-    occasion: "Also a lovely gift for someone starting a new phase: retirement, a move, children leaving home.",
+    headline: "What if you discover something",
+    headlineEmphasis: "you didn't know suited you?",
+    subcopy: "Pick images that appeal to you. We turn them into activities you might never have thought of, with real places near you.",
     heroAlt: "A classic sash window with eight panes, each showing a different image",
     chapters: [
       { title: "Your situation", body: "For whom, where and what has to fit: the basis for real places nearby." },
@@ -942,12 +992,19 @@ export const vensterEn: VensterDictionary = {
       editChoices: "Choose differently",
     },
     steps: { images: "Images", concrete: "Choices" },
+    flow: {
+      label: "How it works: first wide, then sharp",
+      diverge: { title: "Explore widely", sub: "Pick by instinct what appeals" },
+      converge: { title: "Find a direction", sub: "Your choices become activities" },
+    },
+    backTo: { start: "Back to the start", images: "Back to the images", concrete: "Back to the activities" },
+    sets: { prev: "Previous set", next: "Next set", counter: "Set {i} of {n}" },
     images: {
       kicker: "Your images · 1 of 2",
-      heading: "Which images make you curious?",
-      headingGift: "Which images would make {name} curious? ‖ Which images would appeal? ‖ Which images make you all curious?",
-      sub: "Pick what appeals to you, without overthinking. Five to eight is lovely.",
-      subGift: "Pick what would appeal to {name}, without overthinking. Five to eight is lovely. ‖ Pick what would appeal, without overthinking. Five to eight is lovely. ‖ Pick what appeals to you all, without overthinking. Five to eight is lovely.",
+      heading: "Where does your curiosity lead?",
+      headingGift: "Where does {name}'s curiosity lead? ‖ Where does the curiosity lead? ‖ Where does your curiosity lead?",
+      sub: "Pick what appeals to you without thinking about it for long. There are no right or wrong answers. Five to eight is lovely.",
+      subGift: "Pick what would appeal to {name} without thinking about it for long. There are no right or wrong answers. Five to eight is lovely. ‖ Pick what would appeal without thinking about it for long. There are no right or wrong answers. Five to eight is lovely. ‖ Pick what appeals to you all without thinking about it for long. There are no right or wrong answers. Five to eight is lovely.",
       chosen: "{n} chosen",
       min: "Pick {n} or more to carry on.",
       max: "That is eight. Remove one to choose another.",
@@ -957,13 +1014,14 @@ export const vensterEn: VensterDictionary = {
     },
     concrete: {
       kicker: "Your images · 2 of 2",
-      heading: "Fancy trying one of these?",
-      headingGift: "Would {name} like to try one of these? ‖ Fancy trying one of these? ‖ Fancy trying one of these together?",
-      sub: "These go with what you chose. Tap what you'd like to try someday: three to six is plenty.",
-      subGift: "These go with what was chosen. Tap what {name} would like to try someday: three to six is plenty. ‖ These go with the chosen images. Tap whatever looks fun: three to six is plenty. ‖ These go with the chosen images. Tap what you'd all like to try: three to six is plenty.",
+      heading: "From your associations to new possibilities",
+      headingGift: "From {name}'s associations to new possibilities ‖ From the chosen associations to new possibilities ‖ From your associations to new possibilities",
+      sub: "Based on your choices, we have put together activities that connect to your interests. Some familiar, others perhaps surprisingly new.",
+      subGift: "Based on the chosen images, we have put together activities that connect to {name}'s interests. Some familiar, others perhaps surprisingly new. ‖ Based on the chosen images, we have put together activities that connect to those interests. Some familiar, others perhaps surprisingly new. ‖ Based on your choices, we have put together activities that connect to your interests. Some familiar, others perhaps surprisingly new.",
       chosen: "{n} chosen",
+      multi: "Choose as many as you like, up to {max}. Tap again to remove one.",
       min: "Tap at least one, or let us surprise you.",
-      max: "That is six. Remove one to choose another.",
+      max: "That is {max}. Remove one to choose another.",
       more: "Other activities",
       moreSub: "What you chose stays.",
       noMore: "There are no more new activities. What you chose stays.",
@@ -1009,8 +1067,8 @@ export const vensterEn: VensterDictionary = {
   },
   profile: {
     kicker: "Your window",
-    heading: "This is what we saw in your choices",
-    headingGift: "This is what we saw in the choices for {name} ‖ This is what we saw in these choices ‖ This is what we saw in your choices",
+    heading: "What your choices tell us",
+    headingGift: "What the choices for {name} tell us ‖ What these choices tell us ‖ What your choices tell us",
     and: "and",
     headline: "You enjoy {a}, and {b}.",
     headlineGift: "{name} enjoys {a}, and {b}. ‖ What stands out: {a}, and {b}.",
@@ -1171,7 +1229,14 @@ export const vensterEn: VensterDictionary = {
     balancedGift: "These choices don't point one way. That makes it exciting: we'll show several sides.",
     open: "You haven't chosen much yet. No problem, we'll surprise you.",
     openGift: "Not much has been chosen yet. No problem, we'll surprise {name}. ‖ Not much has been chosen yet. No problem, we'll look for something surprising.",
-    tensionLabel: "What caught our eye",
+    interpret: {
+      threadTitle: "The red thread",
+      directionTitle: "Your direction of discovery",
+      outlookTitle: "What you'll find in your book",
+      outlook: "In your book you'll find six ideas that follow from this, from familiar to unexpected, plus one wildcard. With each idea you read how it follows from the choices and where you can do it.",
+      aiNote: "Written with AI, only from the images and activities chosen.",
+      chosenLabel: "The images chosen",
+    },
     axesTitle: "Does this feel right? Adjust it any time.",
     axes: {
       social: { label: "Alone or together", low: "Alone", high: "Together" },
@@ -1179,8 +1244,6 @@ export const vensterEn: VensterDictionary = {
       setting: { label: "Indoors or outdoors", low: "Indoors", high: "Outdoors" },
       novelty: { label: "Familiar or new", low: "Familiar", high: "New" },
     },
-    seekTitle: "What we'll look for",
-    omitTitle: "What we'll leave for now",
     seekLines: {
       formats: {
         solo: "At your own pace, alone",
@@ -1195,7 +1258,7 @@ export const vensterEn: VensterDictionary = {
       indoor: "Indoors",
       effortMinimal: "Calm, without heavy effort",
       effortCommitted: "May take real effort",
-      budget: { free: "Free", "25": "Up to €25", "100": "Up to €100" },
+      budget: { free: "Free", "10": "Up to €10 per person", "25": "Up to €25 per person", "50": "Up to €50 per person", "100": "Up to €100 per person", "200": "Up to €200 per person" },
       time: { hour: "Fits in an hour or two", halfday: "Fits in half a day", fullday: "Fits in a full day", weekend: "Also for a whole weekend" },
       distance: { city: "In your own town", hour: "Up to an hour's travel", anywhere: "All of the Netherlands" },
     },
@@ -1209,6 +1272,7 @@ export const vensterEn: VensterDictionary = {
       effortSome: "Extreme effort",
       costFree: "Anything with a price tag",
       costMid: "Activities over €50",
+      costLow: "Activities over €15",
     },
     missTitle: "Did we miss anything?",
     missTitleGift: "Did we miss anything for {name}? ‖ Did we miss anything?",
@@ -1268,7 +1332,6 @@ export const vensterEn: VensterDictionary = {
       { tags: ["challenge", "outdoors"], text: "Do something outdoors that is a little scary" },
       { tags: ["learning", "focus"], text: "Dive properly into something for an afternoon" },
     ],
-    teaser: "One of your seven doors is going to surprise you.",
     adjust: "Choose something else",
     adjustDone: "Done",
     fixPrompt: "What do you want more of? Pick up to three.",
@@ -1276,27 +1339,51 @@ export const vensterEn: VensterDictionary = {
   },
   start: {
     kicker: "Good to have you here",
-    heading: "Let's start with a few things",
-    sub: "Three short questions. We only really need your place; you can skip the rest.",
+    heading: "A discovery starts with you",
+    sub: "Tell us who we are searching for and what the possibilities are, so we can find something that really fits. We only really need your place.",
     sections: { who: "For whom", where: "Where", limits: "Keep in mind" },
     who: {
-      label: "Who are we finding something lovely for?",
+      label: "Who is this search for?",
       labelGift: "Who is this window for?",
-      sub: "You can skip this. Your images will tell us the rest.",
+      sub: "This decides what we look at. Don't know yet? Choose 'Not known yet'.",
       options: {
         self: { label: "For myself", sub: "Something for you" },
         child: { label: "For a child or young person", sub: "A child or a teenager" },
         adult: { label: "For someone else", sub: "A partner, friend, parent or colleague" },
         group: { label: "For a group", sub: "Family, friends or a team" },
+        unknown: { label: "Not known yet", sub: "We'll find out along the way" },
       },
       nameLabel: "What's their name? A name makes your book more personal.",
+    },
+    distance: {
+      label: "How far would you travel?",
+      hint: "We measure the distance from your starting place. We don't look further than this.",
+      upTo: "Up to {km} km",
+      over100: "More than 100 km",
+      tickOver100: ">100",
+    },
+    budget: {
+      label: "Roughly what may this experience cost per person?",
+      hint: "This decides which activities we show you. Leave it open and we won't hold to a fixed amount.",
+      unset: "Nothing chosen yet: slide to choose an amount",
+      clear: "No preference",
+      upTo: "Up to €{n} per person",
+      any: "Doesn't matter",
     },
     limits: {
       sub: "Only if it matters.",
       timeLabelOther: "How much time is there?",
       chipsLabel: "Anything we should keep in mind?",
-      chipsSub: "Tap what matters to you.",
+      chipsTitle: "Tap what matters to you",
+      chipsSub: "This steers what we search for. You can tap several.",
       optional: "optional",
+      groups: [
+        { title: "Setting", chips: ["Only outdoors", "Only indoors"] },
+        { title: "Access", chips: ["Wheelchair accessible", "Reachable without a car"] },
+        { title: "Company", chips: ["Not in a group", "With a dog", "With children"] },
+        { title: "Food and drink", chips: ["No alcohol", "No fish or shellfish"] },
+        { title: "When", chips: ["On weekends", "In the evening"] },
+      ],
     },
   },
   situation: {
@@ -1304,9 +1391,9 @@ export const vensterEn: VensterDictionary = {
     headingGift: "Where, when and with whom for {name}?",
   },
   room: {
-    locationLabel: "Where nearby may we look?",
-    locationLabelGift: "Where nearby may we look for {name}? ‖ Where nearby may we look?",
-    locationSub: "We look for real places nearby. Home, work or somewhere else: you choose.",
+    locationLabel: "From which place may we set out on a discovery?",
+    locationLabelGift: "From which place may we set out on a discovery for {name}? ‖ From which place may we set out on a discovery?",
+    locationSub: "This is the starting point of the search. We measure distances from this place. Home, work or somewhere else: you choose.",
     locationPlaceholder: "Type a place, for example Utrecht…",
     distanceLabel: "How far would you travel?",
     distanceOptions: [
@@ -1318,8 +1405,6 @@ export const vensterEn: VensterDictionary = {
     budgetLabel: "Roughly what can it cost?",
   },
   who: {
-    companyLabel: "Who's coming along?",
-    companyLabelGift: "Who would {name} go with? ‖ Who's coming along?",
     limitChips: [
       "Only outdoors",
       "Only indoors",
@@ -1342,6 +1427,8 @@ export const vensterEn: VensterDictionary = {
     windowOpen: "See your window",
     windowClose: "Close",
     windowTitle: "Your window",
+    scrollCue: "Keep going to order your discovery book",
+    toOrder: "To your order",
     windowDownload: "Download your window as a picture",
     hint: {
       images: "Pick {n} or more to carry on.",
@@ -1352,7 +1439,6 @@ export const vensterEn: VensterDictionary = {
       place: "your place",
       time: "time",
       budget: "budget",
-      company: "who comes along",
     },
   },
   panes: { worlds: "Direction", places: "Place", moments: "Moment", senses: "Sense", surprise: "Surprise me" },
@@ -1431,7 +1517,7 @@ export const vensterEn: VensterDictionary = {
     sub: "This is a test version. Six short questions, about a minute. You can skip anything.",
     scoreLabel: "How did it feel to fill your window?",
     scoreOptions: ["Tough", "So-so", "Fine", "Nice", "Lovely"],
-    profileLabel: "Did you feel understood by \u201CThis is what we saw in your choices\u201D?",
+    profileLabel: "Did you feel understood by \u201CWhat your choices tell us\u201D?",
     doorsLabel: "Did you get why you received these doors?",
     agreeOptions: ["Not at all", "Not really", "Half", "Fairly well", "Completely"],
     pickLabel: "Which door would you really do?",
