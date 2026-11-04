@@ -33,13 +33,13 @@
     "legacy_id": "gedichten-schrijven",
     "v0_id": "ACT-026",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["taalvaardig:5:V", "creativiteit:5:V", "concentratie:4:V", "precisie:3:V", "kunst:3:T", "identiteit:3:T", "klank:4:E", "ritme:4:E", "expressie:5:E", "ontroering:4:E", "rust:3:E", "minimalisme:3:E", "detail:3:E", "opgaan:3:E", "thuis:3:D", "observeren:4:D", "puzzelen:3:O", "natuur:3:O", "taal:5:T"],
+    "links": ["taalvaardig:5:V", "creativiteit:5:V", "concentratie:4:V", "precisie:3:V", "kunst:3:T", "identiteit:3:T", "klank:4:E", "ritme:4:E", "expressie:5:E", "ontroering:4:E", "rust:3:E", "minimalisme:3:E", "detail:3:E", "opgaan:3:E", "thuis:3:D", "observeren:4:D", "natuur:3:O", "taal:5:T"],
     "why": {
-      "puzzelen": {"nl": "Een gedachte in weinig woorden, regelbreuken en klank laten passen is een compacte puzzel.", "en": "Fitting a thought into few words, line breaks and sound is a compact puzzle."},
       "natuur": {"nl": "Dichters blijven kijken naar kleine dingen als licht, weer en seizoenen, dus schrijven scherpt je oog voor de natuur.", "en": "Poets keep watching small things like light, weather and seasons, so writing sharpens your eye for nature."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Problemen oplossen."]
   },
   {
     "id": "RA-034",
@@ -116,14 +116,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["thuis:3:D", "taalvaardig:4:V", "creativiteit:5:V", "concentratie:3:V", "verhalen:5:T", "identiteit:2:T", "fantasie:5:E", "speelsheid:4:E", "opgaan:4:E", "expressie:4:E", "gemeenschap:4:E", "ontroering:3:E", "doorzetten:3:E", "strategie:3:O", "samenwerking:3:O", "taal:5:T", "online:5:D"],
+    "links": ["thuis:3:D", "taalvaardig:4:V", "creativiteit:5:V", "concentratie:3:V", "verhalen:5:T", "identiteit:2:T", "fantasie:5:E", "speelsheid:4:E", "opgaan:4:E", "expressie:4:E", "gemeenschap:4:E", "ontroering:3:E", "doorzetten:3:E", "samenwerking:3:O", "taal:5:T", "online:5:D"],
     "why": {
-      "strategie": {"nl": "Een lange verhaallijn door een geliefde wereld plotten is een planningspuzzel.", "en": "Plotting a long arc through a loved world is a planning puzzle."},
       "samenwerking": {"nl": "Fangemeenschappen delen meelezers, schrijfopdrachten en uitdagingen, dus een eenzame hobby wordt een teamsport.", "en": "Fan communities share beta readers, prompts and challenges, so a lonely hobby becomes a team sport."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Strategisch denken."]
   },
   {
     "id": "RA-136",
@@ -157,14 +156,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 2, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["ontwerpen:3:D", "bouwen:3:D", "thuis:3:D", "taalvaardig:5:V", "creativiteit:5:V", "strategie:3:V", "concentratie:4:V", "verhalen:5:T", "fantasie:4:E", "doorzetten:5:E", "opgaan:4:E", "expressie:4:E", "ontroering:3:E", "zelfstandig:3:E", "architectuur:3:O", "gemeenschap:3:O", "taal:5:T"],
+    "links": ["ontwerpen:3:D", "bouwen:3:D", "thuis:3:D", "taalvaardig:5:V", "creativiteit:5:V", "strategie:3:V", "concentratie:4:V", "verhalen:5:T", "fantasie:4:E", "doorzetten:5:E", "opgaan:4:E", "expressie:4:E", "ontroering:3:E", "zelfstandig:3:E", "gemeenschap:3:O", "taal:5:T"],
     "why": {
-      "architectuur": {"nl": "Een roman is gebouwd als een constructie met een fundament, dragende scènes en versiering.", "en": "A novel is built like a structure with foundations, load-bearing scenes and ornaments."},
       "gemeenschap": {"nl": "Schrijfsessies en online sprints geven een eenzame taak een publiek van lotgenoten.", "en": "Write-ins and online sprints give a solitary task a crowd of fellow writers."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-223",
@@ -279,13 +277,13 @@
     "match": "exact",
     "legacy_id": "detectiveverhaal",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["ontwerpen:3:D", "onderzoeken:3:D", "taalvaardig:4:V", "creativiteit:4:V", "logica:5:V", "strategie:3:V", "verhalen:5:T", "kunst:2:T", "puzzelen:5:E", "spanning:4:E", "fantasie:3:E", "opgaan:3:E", "doorzetten:3:E", "architectuur:3:O", "humor:3:O", "taal:4:T"],
+    "links": ["ontwerpen:3:D", "onderzoeken:3:D", "taalvaardig:4:V", "creativiteit:4:V", "logica:5:V", "strategie:3:V", "verhalen:5:T", "kunst:2:T", "puzzelen:5:E", "spanning:4:E", "fantasie:3:E", "opgaan:3:E", "doorzetten:3:E", "humor:3:O", "taal:4:T"],
     "why": {
-      "architectuur": {"nl": "Een mysterie plotten is een slot bouwen waarvan alle onderdelen in elkaar moeten passen.", "en": "Plotting a mystery is building a lock whose pieces must all fit."},
       "humor": {"nl": "Klassieke whodunits balanceren dreiging met geestigheid.", "en": "Classic whodunits balance menace with wit."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-238",
@@ -379,13 +377,14 @@
     "match": "exact",
     "legacy_id": "book-club-stil",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["concentratie:4:V", "verhalen:4:T", "rust:5:E", "stilte:5:E", "gezelligheid:3:E", "verbondenheid:3:E", "opgaan:5:E", "gemeenschap:2:E", "zelfstandig:3:E", "smaak:2:E", "welzijn:3:T", "taalvaardig:2:V", "stad:2:D", "warmte:3:O", "spiritualiteit:3:O"],
+    "links": ["concentratie:4:V", "verhalen:4:T", "rust:5:E", "stilte:5:E", "gezelligheid:3:E", "verbondenheid:3:E", "opgaan:5:E", "gemeenschap:2:E", "zelfstandig:3:E", "smaak:2:E", "welzijn:3:T", "taalvaardig:2:V", "stad:2:D", "cultuurplek:3:O", "taal:3:O"],
     "why": {
-      "warmte": {"nl": "Een gedeelde stille ruimte is knus op een manier die alleen lezen niet is.", "en": "A shared quiet room is cosy in a way that reading alone is not."},
-      "spiritualiteit": {"nl": "Stille gemeenschappelijke praktijk heeft iets meditatiefs.", "en": "Silent communal practice has a meditative quality."}
+      "cultuurplek": {"nl": "Silent book clubs komen vaak samen in bibliotheken, boekwinkels en cafés: je ontdekt rustige plekken voor stil gezelschap.", "en": "Silent book clubs often meet in libraries, bookshops and cafés: you discover quiet places for silent company."},
+      "taal": {"nl": "Wie veel leest, gaat letten op zinnen en schrijfstijl: een eerste stap naar zelf schrijven.", "en": "Reading a lot makes you notice sentences and style: a first step towards writing yourself."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Warmte en koude, Spiritualiteit en zingeving."]
   },
   {
     "id": "RA-444",
@@ -460,14 +459,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 1, "duration": 3, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["thuis:3:D", "observeren:3:D", "taalvaardig:5:V", "creativiteit:3:V", "communicatie:3:V", "verhalen:3:T", "identiteit:3:T", "humor:4:E", "expressie:4:E", "publiek:3:E", "doorzetten:2:E", "zelfstandig:3:E", "ritme:3:E", "rechtvaardigheid:3:O", "strategie:3:O", "taal:5:T"],
+    "links": ["thuis:3:D", "observeren:3:D", "taalvaardig:5:V", "creativiteit:3:V", "communicatie:3:V", "verhalen:3:T", "identiteit:3:T", "humor:4:E", "expressie:4:E", "publiek:3:E", "doorzetten:2:E", "zelfstandig:3:E", "ritme:3:E", "rechtvaardigheid:3:O", "taal:5:T"],
     "why": {
-      "rechtvaardigheid": {"nl": "Opiniestukken zijn hoe velen maatschappelijke kwesties aankaarten.", "en": "Opinion writing is how many raise public issues."},
-      "strategie": {"nl": "Een goede column haakt snel en landt in een paar honderd woorden.", "en": "A good column hooks quickly and lands in a few hundred words."}
+      "rechtvaardigheid": {"nl": "Opiniestukken zijn hoe velen maatschappelijke kwesties aankaarten.", "en": "Opinion writing is how many raise public issues."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Strategisch denken."]
   },
   {
     "id": "RA-448",
@@ -481,14 +479,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 1, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["thuis:3:D", "taalvaardig:5:V", "concentratie:3:V", "creativiteit:3:V", "logica:2:V", "wereldculturen:4:T", "identiteit:3:T", "ontdekking:4:E", "doorzetten:4:E", "zelfstandig:4:E", "expressie:3:E", "opgaan:3:E", "puzzelen:3:O", "humor:3:O", "taal:5:T", "online:3:D"],
+    "links": ["thuis:3:D", "taalvaardig:5:V", "concentratie:3:V", "creativiteit:3:V", "logica:2:V", "wereldculturen:4:T", "identiteit:3:T", "ontdekking:4:E", "doorzetten:4:E", "zelfstandig:4:E", "expressie:3:E", "opgaan:3:E", "taal:5:T", "online:3:D", "publiek:3:O"],
     "why": {
-      "puzzelen": {"nl": "Het exacte woord zoeken in een andere taal is een kleine puzzel.", "en": "Looking for the exact word in another language is a small puzzle."},
-      "humor": {"nl": "Verkeerde woorden maken grappige zinnen, dus fouten worden deel van het spel.", "en": "Wrong words make funny sentences, so mistakes become part of the game."}
+      "publiek": {"nl": "Wie in een tweede taal schrijft wil gelezen worden: een eigen blog of schrijfgroep brengt je bij een publiek in die taal.", "en": "Writing in a second language you want to be read: a blog or writing group of your own brings you an audience in that language."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor.", "Bruggen-steekproef Jan (ronde 3): brug Problemen oplossen was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-449",

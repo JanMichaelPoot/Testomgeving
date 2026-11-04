@@ -32,14 +32,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["large_group", "with_known"], "level": 1, "duration": 1, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["communicatie:5:V", "taalvaardig:5:V", "creativiteit:3:V", "improviseren:2:V", "concentratie:3:V", "verhalen:4:T", "identiteit:2:T", "publiek:5:E", "moed:4:E", "ontroering:4:E", "trots:4:E", "gezelligheid:3:E", "generaties:3:E", "podium:3:D", "nostalgie:3:O", "zorg:3:O"],
+    "links": ["communicatie:5:V", "taalvaardig:5:V", "creativiteit:3:V", "improviseren:2:V", "concentratie:3:V", "verhalen:4:T", "identiteit:2:T", "publiek:5:E", "moed:4:E", "ontroering:4:E", "trots:4:E", "gezelligheid:3:E", "generaties:3:E", "podium:3:D", "nostalgie:3:O"],
     "why": {
-      "nostalgie": {"nl": "Een goede speech bestaat vooral uit gedeelde herinnering, dus je duikt in oude verhalen en foto's.", "en": "A good speech is mostly shared memory, so you dig through old stories and photos."},
-      "zorg": {"nl": "Spreken over iemand anders is een manier om in het openbaar zorg te tonen.", "en": "Speaking about someone else is a way of showing care in public."}
+      "nostalgie": {"nl": "Een goede speech bestaat vooral uit gedeelde herinnering, dus je duikt in oude verhalen en foto's.", "en": "A good speech is mostly shared memory, so you dig through old stories and photos."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zorg voor anderen."]
   },
   {
     "id": "RA-079",
@@ -74,14 +73,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group", "large_group"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["communicatie:5:V", "taalvaardig:3:V", "leiding:3:V", "organiseren:3:D", "podium:3:D", "publiek:5:E", "trots:5:E", "gemeenschap:4:E", "meesterschap:3:E", "moed:3:E", "generaties:3:E", "verhalen:3:T", "identiteit:3:T", "zorg:3:O", "ontdekking:3:O"],
+    "links": ["communicatie:5:V", "taalvaardig:3:V", "leiding:3:V", "organiseren:3:D", "podium:3:D", "publiek:5:E", "trots:5:E", "gemeenschap:4:E", "meesterschap:3:E", "moed:3:E", "generaties:3:E", "verhalen:3:T", "identiteit:3:T", "ontdekking:3:O"],
     "why": {
-      "zorg": {"nl": "Lesgeven is zorg voor het leren van anderen: je geeft je kennis weg.", "en": "Teaching is care for other people's learning: you give your knowledge away."},
       "ontdekking": {"nl": "Uitleggen legt de gaten in je eigen kennis bloot, dus voorbereiden wordt een tweede leerronde.", "en": "Explaining exposes the gaps in your own knowledge, so preparing becomes a second round of learning."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zorg voor anderen."]
   },
   {
     "id": "RA-212",
@@ -115,13 +113,13 @@
     "match": "exact",
     "legacy_id": "leiderschapsworkshop",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 0, "source": "app"},
-    "links": ["leiding:5:V", "communicatie:4:V", "strategie:3:V", "improviseren:2:V", "organiseren:3:D", "samenwerking:5:E", "zorg:2:E", "doorzetten:2:E", "gemeenschap:3:E", "identiteit:3:T", "welzijn:2:T", "geschiedenis:3:O", "verhalen:3:O", "leren:4:E"],
+    "links": ["leiding:5:V", "communicatie:4:V", "strategie:3:V", "improviseren:2:V", "organiseren:3:D", "samenwerking:5:E", "zorg:2:E", "doorzetten:2:E", "gemeenschap:3:E", "identiteit:3:T", "welzijn:2:T", "verhalen:3:O", "leren:4:E"],
     "why": {
-      "geschiedenis": {"nl": "Leiderschapstheorieën weerspiegelen hoe organisaties van fabrieken naar netwerken veranderden.", "en": "Leadership theories reflect how organisations changed from factories to networks."},
       "verhalen": {"nl": "Leiders worden herinnerd via verhalen, dus je eigen verhaal vertellen hoort bij leiden.", "en": "Leaders are remembered through stories, so telling your own is part of leading."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Geschiedenis."]
   },
   {
     "id": "RA-214",
@@ -135,13 +133,13 @@
     "match": "exact",
     "legacy_id": "assertiviteit",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 0, "source": "app"},
-    "links": ["communicatie:5:V", "taalvaardig:3:V", "improviseren:2:V", "leiding:2:V", "identiteit:4:T", "welzijn:3:T", "moed:4:E", "zelfstandig:4:E", "gemeenschap:2:E", "grenzen:3:E", "speelsheid:2:E", "organiseren:2:D", "expressie:3:O", "zorg:3:O", "leren:4:E"],
+    "links": ["communicatie:5:V", "taalvaardig:3:V", "improviseren:2:V", "leiding:2:V", "identiteit:4:T", "welzijn:3:T", "moed:4:E", "zelfstandig:4:E", "gemeenschap:2:E", "grenzen:3:E", "speelsheid:2:E", "organiseren:2:D", "zorg:3:O", "leren:4:E"],
     "why": {
-      "expressie": {"nl": "Zeggen wat je wilt is ook een vorm van jezelf uitdrukken.", "en": "Saying what you want is also a form of self-expression."},
       "zorg": {"nl": "Duidelijke grenzen maken het makkelijker om voor anderen te zorgen zonder jezelf te verliezen.", "en": "Clear boundaries make it easier to care for others without losing yourself."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Expressie."]
   },
   {
     "id": "RA-215",
@@ -175,14 +173,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["communicatie:5:V", "strategie:5:V", "taalvaardig:3:V", "improviseren:3:V", "concentratie:3:V", "leiding:2:V", "identiteit:2:T", "competitie:3:E", "spanning:3:E", "moed:3:E", "zelfstandig:4:E", "doorzetten:3:E", "gemeenschap:2:E", "organiseren:2:D", "humor:3:O", "rechtvaardigheid:3:O", "leren:5:E"],
+    "links": ["communicatie:5:V", "strategie:5:V", "taalvaardig:3:V", "improviseren:3:V", "concentratie:3:V", "leiding:2:V", "identiteit:2:T", "competitie:3:E", "spanning:3:E", "moed:3:E", "zelfstandig:4:E", "doorzetten:3:E", "gemeenschap:2:E", "organiseren:2:D", "rechtvaardigheid:3:O", "leren:5:E"],
     "why": {
-      "humor": {"nl": "Een beetje humor ontspant een gespannen onderhandeling vaak.", "en": "A little humour often defuses a tense negotiation."},
       "rechtvaardigheid": {"nl": "Goed onderhandelen gaat evenzeer over eerlijke uitkomsten als over winnen.", "en": "Negotiating well is as much about fair outcomes as winning."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-287",
@@ -196,14 +193,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 1, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["communicatie:5:V", "taalvaardig:4:V", "strategie:4:V", "creativiteit:3:V", "improviseren:2:V", "podium:3:D", "organiseren:2:D", "publiek:5:E", "moed:4:E", "spanning:4:E", "competitie:3:E", "doorzetten:2:E", "verhalen:3:T", "beeldtaal:3:O", "puzzelen:3:O", "leren:4:E"],
+    "links": ["communicatie:5:V", "taalvaardig:4:V", "strategie:4:V", "creativiteit:3:V", "improviseren:2:V", "podium:3:D", "organiseren:2:D", "publiek:5:E", "moed:4:E", "spanning:4:E", "competitie:3:E", "doorzetten:2:E", "verhalen:3:T", "puzzelen:3:O", "leren:4:E"],
     "why": {
-      "beeldtaal": {"nl": "Dia's, gebaren en een helder beeld dragen meer dan tekst.", "en": "Slides, gestures and a clear picture carry more than text."},
       "puzzelen": {"nl": "Een groot idee tot drie minuten terugbrengen is een puzzel over wat je houdt.", "en": "Cutting a big idea down to three minutes is a puzzle of what to keep."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Film en beeldtaal."]
   },
   {
     "id": "RA-332",
@@ -217,13 +213,14 @@
     "match": "exact",
     "legacy_id": "netwerkborrel",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["stad:2:D", "communicatie:4:V", "strategie:2:V", "improviseren:3:V", "identiteit:2:T", "verbondenheid:5:E", "gezelligheid:3:E", "moed:3:E", "spanning:2:E", "zelfstandig:3:E", "gemeenschap:3:E", "ontdekking:2:E", "verhalen:3:O", "humor:3:O", "uitgaan:5:D"],
+    "links": ["stad:2:D", "communicatie:4:V", "strategie:2:V", "improviseren:3:V", "identiteit:2:T", "verbondenheid:5:E", "gezelligheid:3:E", "moed:3:E", "spanning:2:E", "zelfstandig:3:E", "gemeenschap:3:E", "ontdekking:2:E", "uitgaan:5:D", "leiding:3:O", "organiseren:3:O"],
     "why": {
-      "verhalen": {"nl": "Een goed kennismakingsverhaal is oefening in vertellen wie je bent.", "en": "A good elevator story is practice in telling who you are."},
-      "humor": {"nl": "Een gedeelde lach doorbreekt de ongemakkelijke eerste minuten.", "en": "A shared laugh breaks the awkward first minutes."}
+      "leiding": {"nl": "Wie vaker netwerkt, krijgt zicht op rollen als mentor, coach of ondernemer.", "en": "Networking more gives you a view of roles such as mentor, coach or entrepreneur."},
+      "organiseren": {"nl": "Je kunt zelf een borrel of meetup organiseren rond een thema.", "en": "You can organise a drinks evening or meetup around a theme yourself."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen, Humor."]
   },
   {
     "id": "RA-333",
@@ -237,13 +234,13 @@
     "match": "exact",
     "legacy_id": "plannen-workshop",
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "small_group", "online"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["organiseren:5:D", "strategie:4:V", "logica:3:V", "concentratie:3:V", "leiding:2:V", "welzijn:3:T", "technologie:2:T", "zelfstandig:4:E", "doorzetten:3:E", "rust:2:E", "ritme:3:E", "weer:3:O", "minimalisme:3:O", "leren:4:E"],
+    "links": ["organiseren:5:D", "strategie:4:V", "logica:3:V", "concentratie:3:V", "leiding:2:V", "welzijn:3:T", "technologie:2:T", "zelfstandig:4:E", "doorzetten:3:E", "rust:2:E", "ritme:3:E", "minimalisme:3:O", "leren:4:E"],
     "why": {
-      "weer": {"nl": "Seizoensplanning volgt natuurlijke ritmes van energie en rust.", "en": "Seasonal planning follows natural rhythms of energy and rest."},
       "minimalisme": {"nl": "Goed plannen is vooral beslissen wat je niet doet.", "en": "Good planning is mostly deciding what not to do."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Weer en seizoenen."]
   },
   {
     "id": "RA-334",
@@ -277,13 +274,13 @@
     "match": "exact",
     "legacy_id": "body-doubling",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["organiseren:3:D", "thuis:4:D", "concentratie:5:V", "strategie:2:V", "technologie:3:T", "welzijn:3:T", "verbondenheid:4:E", "gezelligheid:3:E", "rust:3:E", "zelfstandig:3:E", "doorzetten:4:E", "gemeenschap:3:E", "ritme:3:E", "stilte:3:O", "klank:3:O", "online:5:D"],
+    "links": ["organiseren:3:D", "thuis:4:D", "concentratie:5:V", "strategie:2:V", "technologie:3:T", "welzijn:3:T", "verbondenheid:4:E", "gezelligheid:3:E", "rust:3:E", "zelfstandig:3:E", "doorzetten:4:E", "gemeenschap:3:E", "ritme:3:E", "stilte:3:O", "online:5:D"],
     "why": {
-      "stilte": {"nl": "Stil gezelschap op het scherm kan kalmerend werken.", "en": "Quiet company on screen can be calming."},
-      "klank": {"nl": "De zachte geluiden van anderen die werken geven een werksfeer.", "en": "The faint sounds of others working give a work ambience."}
+      "stilte": {"nl": "Stil gezelschap op het scherm kan kalmerend werken.", "en": "Quiet company on screen can be calming."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Geluid en klank."]
   },
   {
     "id": "RA-539",
@@ -297,14 +294,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group", "large_group"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["organiseren:5:D", "leiding:5:V", "communicatie:5:V", "strategie:3:V", "taalvaardig:3:V", "concentratie:3:V", "samenwerking:4:E", "gemeenschap:3:E", "zelfstandig:3:E", "doorzetten:2:E", "zorg:3:E", "ritme:3:E", "rechtvaardigheid:3:T", "humor:3:O", "architectuur:3:O"],
+    "links": ["organiseren:5:D", "leiding:5:V", "communicatie:5:V", "strategie:3:V", "taalvaardig:3:V", "concentratie:3:V", "samenwerking:4:E", "gemeenschap:3:E", "zelfstandig:3:E", "doorzetten:2:E", "zorg:3:E", "ritme:3:E", "rechtvaardigheid:3:T", "architectuur:3:O"],
     "why": {
-      "humor": {"nl": "Een beetje humor houdt een vergadering menselijk.", "en": "A little humour keeps a meeting human."},
       "architectuur": {"nl": "Zitplaatsen en indeling van de ruimte bepalen wie spreekt.", "en": "Seating and room layout shape who speaks."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-540",
@@ -318,14 +314,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["ontwerpen:5:D", "thuis:3:D", "communicatie:4:V", "creativiteit:3:V", "logica:3:V", "taalvaardig:3:V", "beeldtaal:5:T", "technologie:3:T", "kunst:2:T", "minimalisme:4:E", "detail:3:E", "ritme:3:E", "opgaan:3:E", "verhalen:3:O", "patronen:3:O"],
+    "links": ["ontwerpen:5:D", "thuis:3:D", "communicatie:4:V", "creativiteit:3:V", "logica:3:V", "taalvaardig:3:V", "beeldtaal:5:T", "technologie:3:T", "kunst:2:T", "minimalisme:4:E", "detail:3:E", "ritme:3:E", "opgaan:3:E", "podium:3:O"],
     "why": {
-      "verhalen": {"nl": "Een presentatie is een betoog met een begin, midden en einde.", "en": "A deck is an argument with a beginning, middle and end."},
-      "patronen": {"nl": "Rasters, schalen en herhaling maken dia's leesbaar.", "en": "Grids, scales and repetition make slides readable."}
+      "podium": {"nl": "Een goede presentatie leidt naar spreken op podia, meetups en evenementen.", "en": "A good presentation leads to speaking on stages, at meetups and events."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen, Wiskunde en patronen."]
   },
   {
     "id": "RA-541",
@@ -360,14 +355,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
-    "links": ["communicatie:5:V", "taalvaardig:4:V", "leiding:4:V", "strategie:3:V", "concentratie:4:V", "geduld:3:V", "rechtvaardigheid:5:T", "welzijn:3:T", "identiteit:2:T", "zorg:4:E", "rust:3:E", "moed:3:E", "gemeenschap:3:E", "zelfstandig:3:E", "stilte:3:O", "verhalen:3:O", "leren:5:E", "luisteren:5:V"],
+    "links": ["communicatie:5:V", "taalvaardig:4:V", "leiding:4:V", "strategie:3:V", "concentratie:4:V", "geduld:3:V", "rechtvaardigheid:5:T", "welzijn:3:T", "identiteit:2:T", "zorg:4:E", "rust:3:E", "moed:3:E", "gemeenschap:3:E", "zelfstandig:3:E", "stilte:3:O", "leren:5:E", "luisteren:5:V"],
     "why": {
-      "stilte": {"nl": "Stiltes zijn gereedschap in bemiddeling.", "en": "Silences are tools in mediation."},
-      "verhalen": {"nl": "Beide partijen vertellen een verhaal en de bemiddelaar helpt het gedeelde vinden.", "en": "Both parties tell a story, and the mediator helps find the shared one."}
+      "stilte": {"nl": "Stiltes zijn gereedschap in bemiddeling.", "en": "Silences are tools in mediation."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-543",
@@ -381,14 +375,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "both", "social_formats": ["small_group", "large_group"], "level": 1, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["organiseren:5:D", "leiding:5:V", "communicatie:4:V", "strategie:3:V", "logica:2:V", "samenwerking:4:E", "gemeenschap:5:E", "zorg:3:E", "doorzetten:3:E", "gezelligheid:3:E", "rechtvaardigheid:3:T", "technologie:3:O", "tradities:3:O"],
+    "links": ["organiseren:5:D", "leiding:5:V", "communicatie:4:V", "strategie:3:V", "logica:2:V", "samenwerking:4:E", "gemeenschap:5:E", "zorg:3:E", "doorzetten:3:E", "gezelligheid:3:E", "rechtvaardigheid:3:T", "technologie:3:O"],
     "why": {
-      "technologie": {"nl": "Roosters, chatgroepen en inschrijftools horen bij het werk.", "en": "Rosters, chat groups and sign-up tools are part of the job."},
-      "tradities": {"nl": "Vrijwilligerscultuur draagt rituelen van dank en erbij horen.", "en": "Volunteer cultures carry rituals of thanks and belonging."}
+      "technologie": {"nl": "Roosters, chatgroepen en inschrijftools horen bij het werk.", "en": "Rosters, chat groups and sign-up tools are part of the job."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-544",
@@ -401,14 +394,14 @@
     "desc": {"nl": "Oefenen met duidelijke, vriendelijke feedback en zelf feedback aannemen.", "en": "Practising clear, kind feedback and receiving feedback yourself."},
     "match": "new",
     "legacy_id": null,
-    "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "facets": {"setting": "both", "social_formats": ["small_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["communicatie:5:V", "taalvaardig:4:V", "concentratie:3:V", "leiding:2:V", "identiteit:3:T", "welzijn:3:T", "zorg:4:E", "moed:3:E", "zelfstandig:3:E", "doorzetten:2:E", "rust:2:E", "gemeenschap:2:E", "kunst:3:O", "humor:3:O", "leren:5:E", "luisteren:4:V"],
     "why": {
       "kunst": {"nl": "Kritiekkringen in kunst en schrijven laten zien hoe feedback werk aanscherpt.", "en": "Critique circles in art and writing show how feedback sharpens work."},
       "humor": {"nl": "Een lichte toets helpt feedback landen zonder te kwetsen.", "en": "A light touch helps feedback land without hurting."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Steekproef Jan: plek binnen of buiten; geen ervaring nodig."]
   }
 ]

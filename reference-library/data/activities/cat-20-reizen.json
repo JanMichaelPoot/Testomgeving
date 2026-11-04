@@ -114,13 +114,14 @@
     "match": "exact",
     "legacy_id": "nachttrein",
     "facets": {"setting": "both", "social_formats": ["solo", "duo", "with_known"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 0, "source": "app"},
-    "links": ["navigeren:3:D", "stad:5:D", "onderzoeken:2:D", "wereldculturen:4:T", "geschiedenis:3:T", "architectuur:3:T", "avontuur:4:E", "vrijheid:4:E", "verwondering:4:E", "nostalgie:4:E", "ontdekking:4:E", "rust:3:E", "spanning:2:E", "zelfstandig:3:E", "verhalen:3:O", "ritme:3:O", "mobiliteit:5:T"],
+    "links": ["navigeren:3:D", "stad:5:D", "onderzoeken:2:D", "wereldculturen:4:T", "geschiedenis:3:T", "architectuur:3:T", "avontuur:4:E", "vrijheid:4:E", "verwondering:4:E", "nostalgie:4:E", "ontdekking:4:E", "rust:3:E", "spanning:2:E", "zelfstandig:3:E", "verhalen:3:O", "mobiliteit:5:T", "voeding:3:O"],
     "why": {
       "verhalen": {"nl": "Een trein door de nacht is het decor van honderd romans en films, dus je reist binnen een verhaal.", "en": "A train through the night is the setting of a hundred novels and films, so you travel inside a story."},
-      "ritme": {"nl": "Het wiegen van de wagon en het geluid van de rails zijn een slaapliedje.", "en": "The rocking of the carriage and the sound of the rails are a lullaby."}
+      "voeding": {"nl": "Wie 's ochtends aankomt, begint bij de bakker of markt: elke stad heeft een eigen ontbijt en een eigen eetritme.", "en": "Arriving in the morning, you start at the bakery or market: every city has its own breakfast and eating rhythm."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Ritme was zwak; vervangen door Voeding en eten."]
   },
   {
     "id": "RA-099",
@@ -174,13 +175,13 @@
     "match": "exact",
     "legacy_id": "kamperen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 1, "source": "app"},
-    "links": ["bos:4:D", "kust:3:D", "bouwen:2:D", "natuur:5:T", "heelal:4:T", "vrijheid:5:E", "rust:4:E", "avontuur:4:E", "gezelligheid:4:E", "zelfstandig:4:E", "geur:3:E", "klank:3:E", "doorzetten:2:E", "speelsheid:3:E", "strategie:3:O", "improviseren:3:O"],
+    "links": ["bos:4:D", "kust:3:D", "bouwen:2:D", "natuur:5:T", "heelal:4:T", "vrijheid:5:E", "rust:4:E", "avontuur:4:E", "gezelligheid:4:E", "zelfstandig:4:E", "geur:3:E", "klank:3:E", "doorzetten:2:E", "speelsheid:3:E", "weer:3:O"],
     "why": {
-      "strategie": {"nl": "Inpakken en opzetten is logistiek met weinig speling.", "en": "Packing and pitching is logistics with little margin for error."},
-      "improviseren": {"nl": "Weer verandert plannen, dus kamperen beloont improviseren.", "en": "Weather changes plans, so camping rewards making do."}
+      "weer": {"nl": "Op een camping leer je het weer lezen: wind, bui en nachtkou bepalen waar je tent staat en wat je aantrekt.", "en": "Camping teaches you to read the weather: wind, showers and night cold decide where your tent goes and what you wear."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Improviseren was zwak; vervangen door Weer en seizoenen.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Strategisch denken."]
   },
   {
     "id": "RA-163",
@@ -194,14 +195,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
-    "links": ["navigeren:4:D", "onderzoeken:4:D", "organiseren:5:D", "stad:4:D", "strategie:3:V", "creativiteit:3:V", "communicatie:2:V", "wereldculturen:4:T", "kunst:3:T", "geschiedenis:3:T", "architectuur:2:T", "ontdekking:4:E", "vrijheid:3:E", "gezelligheid:3:E", "puzzelen:3:O", "identiteit:3:O"],
+    "links": ["navigeren:4:D", "onderzoeken:4:D", "organiseren:5:D", "stad:4:D", "strategie:3:V", "creativiteit:3:V", "communicatie:2:V", "wereldculturen:4:T", "kunst:3:T", "geschiedenis:3:T", "architectuur:2:T", "ontdekking:4:E", "vrijheid:3:E", "gezelligheid:3:E", "verzamelen:3:O"],
     "why": {
-      "puzzelen": {"nl": "Bezienswaardigheden, treinen en openingstijden passend krijgen is een planningspuzzel.", "en": "Fitting sights, trains and opening times together is a planning puzzle."},
-      "identiteit": {"nl": "Het thema dat je kiest zegt iets over wat je belangrijk vindt, dus een reis wordt een zelfportret.", "en": "The theme you choose says something about what you care about, so a trip becomes a self-portrait."}
+      "verzamelen": {"nl": "Wie op thema reist, verzamelt kaartjes, foto's en plekken.", "en": "Travelling by theme means collecting tickets, photos and places."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Problemen oplossen, Identiteit.", "Bruggen-steekproef Jan (ronde 3): brug Voertuigen en vervoer was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-164",
@@ -236,13 +236,14 @@
     "match": "exact",
     "legacy_id": "toerist",
     "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["stad:5:D", "navigeren:3:D", "onderzoeken:3:D", "observeren:3:D", "architectuur:3:T", "geschiedenis:3:T", "weer:2:T", "ontdekking:5:E", "verwondering:3:E", "vrijheid:3:E", "zelfstandig:3:E", "gezelligheid:2:E", "humor:3:O", "tradities:3:O"],
+    "links": ["stad:5:D", "navigeren:3:D", "onderzoeken:3:D", "observeren:3:D", "architectuur:3:T", "geschiedenis:3:T", "weer:2:T", "ontdekking:5:E", "verwondering:3:E", "vrijheid:3:E", "zelfstandig:3:E", "gezelligheid:2:E", "cultuurplek:3:O", "voeding:3:O"],
     "why": {
-      "humor": {"nl": "Toerist spelen thuis is een grap met een serieuze kern.", "en": "Playing tourist at home is a joke with a serious point."},
-      "tradities": {"nl": "Lokale gebruiken met frisse ogen bekeken tonen hoe vreemd en charmant ze zijn.", "en": "Local customs seen with fresh eyes reveal how odd and charming they are."}
+      "cultuurplek": {"nl": "Als toerist ga je naar musea en rondleidingen die je als inwoner nooit bezoekt.", "en": "As a tourist you visit museums and tours you never visit as a resident."},
+      "voeding": {"nl": "Lokale markten en eetplekken laten je je eigen stad proeven.", "en": "Local markets and eateries let you taste your own city."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor, Volkscultuur en tradities."]
   },
   {
     "id": "RA-336",
@@ -256,13 +257,13 @@
     "match": "exact",
     "legacy_id": "fotowandeling",
     "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["stad:5:D", "observeren:5:D", "navigeren:3:D", "creativiteit:3:V", "concentratie:3:V", "beeldtaal:4:T", "architectuur:3:T", "licht:5:E", "ontdekking:4:E", "beweging:2:E", "vrijheid:3:E", "zelfstandig:3:E", "verwondering:3:E", "verhalen:3:O", "wereldculturen:3:O"],
+    "links": ["stad:5:D", "observeren:5:D", "navigeren:3:D", "creativiteit:3:V", "concentratie:3:V", "beeldtaal:4:T", "architectuur:3:T", "licht:5:E", "ontdekking:4:E", "beweging:2:E", "vrijheid:3:E", "zelfstandig:3:E", "verwondering:3:E", "wereldculturen:3:O"],
     "why": {
-      "verhalen": {"nl": "Bewoners, winkels en uithangborden vormen samen het verhaal van de wijk.", "en": "Residents, shops and signs add up to a story of the neighbourhood."},
       "wereldculturen": {"nl": "Wijken dragen vele culturen, wat je ziet in winkels en eten.", "en": "Neighbourhoods carry many cultures, which shows in shops and food."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-337",
@@ -276,13 +277,13 @@
     "match": "exact",
     "legacy_id": "audiowandeling",
     "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["stad:4:D", "navigeren:3:D", "verhalen:5:T", "geschiedenis:4:T", "technologie:2:T", "klank:4:E", "ontdekking:4:E", "beweging:3:E", "rust:3:E", "zelfstandig:3:E", "verwondering:3:E", "beeldtaal:3:O", "architectuur:3:O"],
+    "links": ["stad:4:D", "navigeren:3:D", "verhalen:5:T", "geschiedenis:4:T", "technologie:2:T", "klank:4:E", "ontdekking:4:E", "beweging:3:E", "rust:3:E", "zelfstandig:3:E", "verwondering:3:E", "architectuur:3:O"],
     "why": {
-      "beeldtaal": {"nl": "Een stem in je oren laat je de plek zien met een verhaal erover.", "en": "A voice in your ears makes you see the place with a story laid over it."},
       "architectuur": {"nl": "Routes lezen gebouwen een voor een, als een gesproken gids.", "en": "Routes read buildings one by one, like a spoken guidebook."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Film en beeldtaal."]
   },
   {
     "id": "RA-338",
@@ -296,13 +297,13 @@
     "match": "exact",
     "legacy_id": "boekwinkels",
     "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["stad:4:D", "navigeren:2:D", "verzamelen:3:D", "taalvaardig:2:V", "verhalen:4:T", "kunst:2:T", "ontdekking:5:E", "rust:4:E", "nostalgie:3:E", "geur:3:E", "tast:3:E", "zelfstandig:3:E", "smaak:2:E", "wonen:3:O", "gemeenschap:3:O", "cultuurplek:3:D"],
+    "links": ["stad:4:D", "navigeren:2:D", "verzamelen:3:D", "taalvaardig:2:V", "verhalen:4:T", "kunst:2:T", "ontdekking:5:E", "rust:4:E", "nostalgie:3:E", "geur:3:E", "tast:3:E", "zelfstandig:3:E", "smaak:2:E", "gemeenschap:3:O", "cultuurplek:3:D"],
     "why": {
-      "wonen": {"nl": "Boekwinkels zijn kamers waarin mensen willen wonen, een hint over hoe jij ruimtes graag hebt.", "en": "Bookshops are rooms people want to live in, a hint about how you like spaces."},
       "gemeenschap": {"nl": "Onafhankelijke winkels organiseren lezingen, clubs en lokaal leven.", "en": "Independent shops host readings, clubs and local life."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wonen en interieur."]
   },
   {
     "id": "RA-339",
@@ -316,13 +317,13 @@
     "match": "exact",
     "legacy_id": "fietsroute",
     "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 1, "source": "app"},
-    "links": ["navigeren:4:D", "water:3:D", "kust:3:D", "natuur:3:T", "weer:3:T", "beweging:4:E", "vrijheid:5:E", "zelfstandig:5:E", "rust:4:E", "ritme:4:E", "ontdekking:3:E", "verwondering:2:E", "zeevaart:3:O", "technologie:3:O", "mobiliteit:4:T"],
+    "links": ["navigeren:4:D", "water:3:D", "kust:3:D", "natuur:3:T", "weer:3:T", "beweging:4:E", "vrijheid:5:E", "zelfstandig:5:E", "rust:4:E", "ritme:4:E", "ontdekking:3:E", "verwondering:2:E", "zeevaart:3:O", "mobiliteit:4:T"],
     "why": {
-      "zeevaart": {"nl": "Rivieren en dijken laten zien hoe waterwegen handel en steden vormden.", "en": "Rivers and dikes show how water routes shaped trade and towns."},
-      "technologie": {"nl": "Een fiets is een eenvoudige machine waarmee één persoon een landschap overbrugt.", "en": "A bike is a simple machine that lets one person cover a landscape."}
+      "zeevaart": {"nl": "Rivieren en dijken laten zien hoe waterwegen handel en steden vormden.", "en": "Rivers and dikes show how water routes shaped trade and towns."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Technologie."]
   },
   {
     "id": "RA-340",
@@ -336,13 +337,14 @@
     "match": "exact",
     "legacy_id": "picknick",
     "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["keuken:2:D", "bos:2:D", "natuur:3:T", "voeding:3:T", "weer:3:T", "smaak:4:E", "rust:5:E", "gezelligheid:4:E", "vrijheid:3:E", "licht:3:E", "zorg:2:E", "schoonheid:3:E", "wonen:3:O", "tradities:3:O"],
+    "links": ["keuken:2:D", "bos:2:D", "natuur:3:T", "voeding:3:T", "weer:3:T", "smaak:4:E", "rust:5:E", "gezelligheid:4:E", "vrijheid:3:E", "licht:3:E", "zorg:2:E", "schoonheid:3:E", "kust:3:O", "planten:3:O"],
     "why": {
-      "wonen": {"nl": "Een picknick is een draagbare woonkamer met kleed, mand en gekozen plek.", "en": "A picnic is a portable living room, with rug, basket and chosen place."},
-      "tradities": {"nl": "Picknicks hebben eigen gebruiken, van de mand tot de keuze van de plek.", "en": "Picnics have their own customs, from the basket to the choice of spot."}
+      "kust": {"nl": "Een picknick aan zee of op het strand is de volgende stap: wind, zand en getijden.", "en": "A picnic by the sea or on the beach is the next step: wind, sand and tides."},
+      "planten": {"nl": "Onderweg wilde kruiden en bloemen plukken leidt naar kruiden herkennen.", "en": "Picking wild herbs and flowers on the way leads to learning to identify herbs."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wonen en interieur, Volkscultuur en tradities."]
   },
   {
     "id": "RA-341",
@@ -396,13 +398,13 @@
     "match": "exact",
     "legacy_id": "roadtrip-route",
     "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 0, "source": "app"},
-    "links": ["navigeren:5:D", "organiseren:3:D", "stad:2:D", "natuur:2:T", "wereldculturen:3:T", "vrijheid:5:E", "avontuur:4:E", "ontdekking:4:E", "klank:3:E", "zelfstandig:3:E", "gezelligheid:3:E", "beweging:2:E", "verhalen:3:O", "technologie:3:O", "mobiliteit:5:T"],
+    "links": ["navigeren:5:D", "organiseren:3:D", "stad:2:D", "natuur:2:T", "wereldculturen:3:T", "vrijheid:5:E", "avontuur:4:E", "ontdekking:4:E", "klank:3:E", "zelfstandig:3:E", "gezelligheid:3:E", "beweging:2:E", "technologie:3:O", "mobiliteit:5:T"],
     "why": {
-      "verhalen": {"nl": "Een roadtrip heeft hoofdstukken van stops, omwegen en afspeellijsten.", "en": "A road trip has chapters of stops, detours and playlists."},
       "technologie": {"nl": "Kaarten, motoren en planningsapps maken lange reizen mogelijk.", "en": "Maps, engines and planning apps make long trips possible."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-546",
@@ -456,13 +458,13 @@
     "match": "exact",
     "legacy_id": "kastelenroute",
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["navigeren:4:D", "organiseren:2:D", "observeren:3:D", "bos:2:D", "architectuur:5:T", "geschiedenis:4:T", "kunst:2:T", "natuur:2:T", "ontdekking:4:E", "schoonheid:3:E", "nostalgie:3:E", "verwondering:3:E", "zelfstandig:2:E", "rust:2:E", "verhalen:3:O", "rechtvaardigheid:3:O"],
+    "links": ["navigeren:4:D", "organiseren:2:D", "observeren:3:D", "bos:2:D", "architectuur:5:T", "geschiedenis:4:T", "kunst:2:T", "natuur:2:T", "ontdekking:4:E", "schoonheid:3:E", "nostalgie:3:E", "verwondering:3:E", "zelfstandig:2:E", "rust:2:E", "rechtvaardigheid:3:O"],
     "why": {
-      "verhalen": {"nl": "Elk kasteel heeft legenden over families en belegeringen.", "en": "Each castle has legends of families and sieges."},
       "rechtvaardigheid": {"nl": "Kastelen en landgoederen roepen vragen op over rijkdom, land en arbeid.", "en": "Castles and estates raise questions about wealth, land and labour."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-549",
@@ -476,13 +478,13 @@
     "match": "exact",
     "legacy_id": "boot-slapen",
     "facets": {"setting": "both", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 0, "source": "app"},
-    "links": ["water:5:D", "zeevaart:3:T", "wonen:3:T", "weer:3:T", "rust:4:E", "klank:4:E", "warmte:3:E", "vrijheid:3:E", "avontuur:3:E", "verwondering:3:E", "gezelligheid:3:E", "stilte:3:E", "architectuur:3:O", "tradities:3:O", "mobiliteit:3:T"],
+    "links": ["water:5:D", "zeevaart:3:T", "wonen:3:T", "weer:3:T", "rust:4:E", "klank:4:E", "warmte:3:E", "vrijheid:3:E", "avontuur:3:E", "verwondering:3:E", "gezelligheid:3:E", "stilte:3:E", "tradities:3:O", "mobiliteit:3:T"],
     "why": {
-      "architectuur": {"nl": "Een boot is een huis gebouwd rond beweging, opslag en weer.", "en": "A boat is a house built around movement, storage and weather."},
       "tradities": {"nl": "Woonschip- en havencultuur hebben eigen gebruiken en gastvrijheid.", "en": "Liveaboard and harbour culture have their own customs and hospitality."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-550",

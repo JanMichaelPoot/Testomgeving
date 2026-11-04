@@ -3,49 +3,343 @@
   "date": "2026-11-05",
   "method": "Automated audit of all 550 records (keyword rules, link-vector similarity, score statistics, language parity) followed by a manual read of every association's strongest activities and of every flagged item, from four reviewer roles. The reviewers are one AI playing four roles: this is a structured self-review, not a review by people.",
   "panel": [
-    { "id": "maker", "nl": "Ambachtsmeester", "en": "Master craftsperson", "focus": "materials, techniques, craftsmanship, whether the skill and aesthetic links match the real work" },
-    { "id": "coach", "nl": "Sport- en avontuurcoach met veiligheidsachtergrond", "en": "Sports and adventure coach with a safety background", "focus": "safety tier, setting, physical associations, whether risk and effort are described honestly" },
-    { "id": "educator", "nl": "Cultuurhistoricus en docent", "en": "Cultural historian and teacher", "focus": "factual claims in the discovery reasons, whether the bridges are meaningful, cultural balance" },
-    { "id": "taxonomist", "nl": "Taxonoom en UX-onderzoeker", "en": "Taxonomist and UX researcher", "focus": "overlap and gaps in the vocabulary, score discipline, near-duplicates, consistency, language parity" }
+    {
+      "id": "maker",
+      "nl": "Ambachtsmeester",
+      "en": "Master craftsperson",
+      "focus": "materials, techniques, craftsmanship, whether the skill and aesthetic links match the real work"
+    },
+    {
+      "id": "coach",
+      "nl": "Sport- en avontuurcoach met veiligheidsachtergrond",
+      "en": "Sports and adventure coach with a safety background",
+      "focus": "safety tier, setting, physical associations, whether risk and effort are described honestly"
+    },
+    {
+      "id": "educator",
+      "nl": "Cultuurhistoricus en docent",
+      "en": "Cultural historian and teacher",
+      "focus": "factual claims in the discovery reasons, whether the bridges are meaningful, cultural balance"
+    },
+    {
+      "id": "taxonomist",
+      "nl": "Taxonoom en UX-onderzoeker",
+      "en": "Taxonomist and UX researcher",
+      "focus": "overlap and gaps in the vocabulary, score discipline, near-duplicates, consistency, language parity"
+    },
+    {
+      "id": "human",
+      "nl": "Jan (mens-steekproef)",
+      "en": "Jan (human sample)",
+      "focus": "30 random activities: do the strongest associations fit, are the discovery bridges sensible, are the facets right"
+    }
   ],
   "findings": [
-    { "persona": "maker", "area": "materials", "finding": "Every material link at score 4-5 was read against its activity (hout 41 activities, papier 54, textiel 42, verf 36, metaal 24, steen 13, leer 7, klei 8, glas 5). No wrong material link was found.", "action": "None needed.", "status": "confirmed" },
-    { "persona": "maker", "area": "materials", "finding": "Two craft activities (kaarsen-gieten, zeep-maken) have no material link because the vocabulary has no wax or soap entry. Adding one for two activities would be a thin association.", "action": "Left as is and noted on both records (qa_notes). Add a wax and soap material only if more such crafts join.", "status": "noted" },
-    { "persona": "maker", "area": "score discipline", "finding": "Seven craft records carried 7-8 score-5 links, mostly generic traits (patience, concentration, pride, fine motor skills), which hides what is really core to the craft.", "action": "22 generic score-5 links lowered to 4 (kalligrafie, miniaturen, kantklossen, restaureren, goudsmeden, poppenhuis and others).", "status": "fixed" },
-    { "persona": "maker", "area": "vocabulary", "finding": "Craft is the centre of the library but had no theme of its own; 'tradities' and 'vakmanschap' only cover parts of it.", "action": "New association 'ambacht' (Craft and trades), linked to 48 activities. 'vakmanschap' (a skill) is distinguished from it in the scope notes.", "status": "fixed" },
-    { "persona": "coach", "area": "safety", "finding": "All tier-0 records with risk-like words were read (37 hits): all are false alarms (cutting food, shooting a photo, night-time events). Reading the new records turned up two real cases: vijver-aanleggen (digging next to open water, often with children) and cyanotypie (photo chemicals).", "action": "Both raised to safety tier 1.", "status": "fixed" },
-    { "persona": "coach", "area": "safety", "finding": "synthesizer-bouwen (soldering) and nachtdieren (after dark with a torch) are tier 0 in the app itself.", "action": "Noted on both records as a recommendation for the app; the reference library does not overwrite the app's data.", "status": "recommended" },
-    { "persona": "coach", "area": "vocabulary", "finding": "The library described sport only through 'beweging' (movement). Stamina, strength, coordination, balance and speed were missing, so a jogger, a juggler and a bowler looked alike.", "action": "New associations 'conditie' (Fitness and strength, 43 activities), 'coordinatie' (Coordination and balance, 46) and 'snelheid' (Speed, 30).", "status": "fixed" },
-    { "persona": "coach", "area": "setting", "finding": "11 records have an indoor setting but a strong outdoor link (swimming pool, wind tunnel, flight simulator, aquarium) or the reverse (pizza oven, fish smoking).", "action": "All eleven are explained by indoor facilities or outdoor cooking and were left unchanged.", "status": "confirmed" },
-    { "persona": "coach", "area": "risk wording", "finding": "38 activities are tier 2 (only under qualified supervision). The legal wording for those lives in the app's safety notes, not in this library.", "action": "Not copied here. Keep the supervised-provider note in the app.", "status": "noted" },
-    { "persona": "educator", "area": "factual claims", "finding": "The reasons were scanned for absolute claims (oldest, first, solved). 12 were checked from knowledge. One was wrong: 'Computers solved draughts' is true only for the English 8x8 game, not for Dutch 10x10 draughts.", "action": "11 reasons reworded in both languages (dammen, ballonvaart, storytelling, luisterboek, planten-verven, kinderboek-illustreren, bushcraft, weekreview, swingdansen, klokken, schaken).", "status": "fixed" },
-    { "persona": "educator", "area": "factual claims", "finding": "Dates and named facts (Anna Atkins 1843, first manned balloon flights 1783, Vanuatu land diving, UNESCO listing of falconry and Neapolitan pizza, Beto Perez and Zumba, Harlem and lindy hop) match what I know, but I have not checked them against sources.", "action": "A human check against sources is still needed before any text is published to visitors.", "status": "open" },
-    { "persona": "educator", "area": "discovery quality", "finding": "A heuristic flagged 74 discovery reasons that did not mention their association's theme. Read one by one, 72 were fine (the heuristic was too narrow) and 2 were weak.", "action": "vlog-maken/humor and lezing-workshop-geven/zorg rewritten.", "status": "fixed" },
-    { "persona": "educator", "area": "vocabulary", "finding": "No themes for music, language and writing, or games, though about a third of the library is about exactly those. Vehicles and transport were also missing.", "action": "New themes 'muziek' (47 activities), 'taal' (38), 'spel' (33), 'mobiliteit' (28). Cultural places were missing as an environment: 'cultuurplek' (21).", "status": "fixed" },
-    { "persona": "educator", "area": "cultural balance", "finding": "Examples and bridges lean on Dutch and Western references. World cultures appear as a link but are rarely the centre of an activity.", "action": "Not changed. A later batch with non-Western crafts, music and games would balance it.", "status": "open" },
-    { "persona": "taxonomist", "area": "overlap", "finding": "Several associations are easy to confuse (rust and stilte, zorg and welzijn, gemeenschap and gezelligheid, ontdekking and verwondering, geschiedenis and tradities, precisie and detail, kunst and schoonheid, trots and meesterschap).", "action": "29 associations now carry a 'scope' note saying what they are not and which neighbour to use instead. It appears in the Excel Associations sheet.", "status": "fixed" },
-    { "persona": "taxonomist", "area": "gaps", "finding": "Frequent ideas in the descriptions had no association: online activity, café and nightlife, learning, listening and empathy, chance, miniature scale. Three app tags (speed, chance, miniature) had no counterpart either.", "action": "New: 'online', 'uitgaan', 'leren', 'luisteren', 'kans', 'miniatuur', 'snelheid'. Together with the five above the vocabulary grew from 112 to 127 associations, all in use.", "status": "fixed" },
-    { "persona": "taxonomist", "area": "spread", "finding": "'Trots' (pride) sat on 43% of the activities and 'concentratie' on 43%: they hardly tell activities apart.", "action": "170 weak generic links removed (trots at score 3 or lower, concentratie at score 2 or lower). 'Trots' now sits on 18% of the activities, 'concentratie' on 37%.", "status": "fixed" },
-    { "persona": "taxonomist", "area": "spread", "finding": "Discovery links still lean on a few broad themes: wetenschap 128, geschiedenis 89, verhalen 80, tradities 69 out of 1,100 (top three 27%).", "action": "Below the 30% alarm limit, so not changed. Re-pointing older bridges to the new narrower associations is a possible next round.", "status": "open" },
-    { "persona": "taxonomist", "area": "near-duplicates", "finding": "Nine pairs of records had link vectors that were 90% or more alike. After the other changes five remain: zwemmen and zwemmen-baantjes, padel and badminton, vechtsport and boksles, tuinmeubels-maken and vlonder-bouwen, buurtmaaltijd and potluck.", "action": "Each remaining pair is annotated on both records (qa_notes). zwemmen and zwemmen-baantjes are one activity in practice and both come from the app: merging them there is recommended.", "status": "recommended" },
-    { "persona": "taxonomist", "area": "consistency", "finding": "Contradictory strong links (calm with thrill, minimal with ornamental, silence with sound) appeared on 3 records.", "action": "sashiko-herstellen fixed (minimalism lowered to 3). Luisterbar and nachtwandeling are legitimate (listening in silence, a silent night with night sounds).", "status": "fixed" },
-    { "persona": "taxonomist", "area": "language parity", "finding": "19 activities have the same name in Dutch and English (yoga, sudoku, go and similar loanwords). No description or reason is untranslated and no length ratio is out of range.", "action": "None needed.", "status": "confirmed" },
-    { "persona": "taxonomist", "area": "rigour", "finding": "'0 errors, 0 warnings' only proves that structure and spread rules hold. All scores and reasons are still one reviewer's judgement.", "action": "Every record carries qa.round 1 and stays on status Concept. 'Reviewed' is reserved for a person.", "status": "open" }
+    {
+      "persona": "maker",
+      "area": "materials",
+      "finding": "Every material link at score 4-5 was read against its activity (hout 41 activities, papier 54, textiel 42, verf 36, metaal 24, steen 13, leer 7, klei 8, glas 5). No wrong material link was found.",
+      "action": "None needed.",
+      "status": "confirmed"
+    },
+    {
+      "persona": "maker",
+      "area": "materials",
+      "finding": "Two craft activities (kaarsen-gieten, zeep-maken) have no material link because the vocabulary has no wax or soap entry. Adding one for two activities would be a thin association.",
+      "action": "Left as is and noted on both records (qa_notes). Add a wax and soap material only if more such crafts join.",
+      "status": "noted"
+    },
+    {
+      "persona": "maker",
+      "area": "score discipline",
+      "finding": "Seven craft records carried 7-8 score-5 links, mostly generic traits (patience, concentration, pride, fine motor skills), which hides what is really core to the craft.",
+      "action": "22 generic score-5 links lowered to 4 (kalligrafie, miniaturen, kantklossen, restaureren, goudsmeden, poppenhuis and others).",
+      "status": "fixed"
+    },
+    {
+      "persona": "maker",
+      "area": "vocabulary",
+      "finding": "Craft is the centre of the library but had no theme of its own; 'tradities' and 'vakmanschap' only cover parts of it.",
+      "action": "New association 'ambacht' (Craft and trades), linked to 48 activities. 'vakmanschap' (a skill) is distinguished from it in the scope notes.",
+      "status": "fixed"
+    },
+    {
+      "persona": "coach",
+      "area": "safety",
+      "finding": "All tier-0 records with risk-like words were read (37 hits): all are false alarms (cutting food, shooting a photo, night-time events). Reading the new records turned up two real cases: vijver-aanleggen (digging next to open water, often with children) and cyanotypie (photo chemicals).",
+      "action": "Both raised to safety tier 1.",
+      "status": "fixed"
+    },
+    {
+      "persona": "coach",
+      "area": "safety",
+      "finding": "synthesizer-bouwen (soldering) and nachtdieren (after dark with a torch) are tier 0 in the app itself.",
+      "action": "Noted on both records as a recommendation for the app; the reference library does not overwrite the app's data.",
+      "status": "recommended"
+    },
+    {
+      "persona": "coach",
+      "area": "vocabulary",
+      "finding": "The library described sport only through 'beweging' (movement). Stamina, strength, coordination, balance and speed were missing, so a jogger, a juggler and a bowler looked alike.",
+      "action": "New associations 'conditie' (Fitness and strength, 43 activities), 'coordinatie' (Coordination and balance, 46) and 'snelheid' (Speed, 30).",
+      "status": "fixed"
+    },
+    {
+      "persona": "coach",
+      "area": "setting",
+      "finding": "11 records have an indoor setting but a strong outdoor link (swimming pool, wind tunnel, flight simulator, aquarium) or the reverse (pizza oven, fish smoking).",
+      "action": "All eleven are explained by indoor facilities or outdoor cooking and were left unchanged.",
+      "status": "confirmed"
+    },
+    {
+      "persona": "coach",
+      "area": "risk wording",
+      "finding": "38 activities are tier 2 (only under qualified supervision). The legal wording for those lives in the app's safety notes, not in this library.",
+      "action": "Not copied here. Keep the supervised-provider note in the app.",
+      "status": "noted"
+    },
+    {
+      "persona": "educator",
+      "area": "factual claims",
+      "finding": "The reasons were scanned for absolute claims (oldest, first, solved). 12 were checked from knowledge. One was wrong: 'Computers solved draughts' is true only for the English 8x8 game, not for Dutch 10x10 draughts.",
+      "action": "11 reasons reworded in both languages (dammen, ballonvaart, storytelling, luisterboek, planten-verven, kinderboek-illustreren, bushcraft, weekreview, swingdansen, klokken, schaken).",
+      "status": "fixed"
+    },
+    {
+      "persona": "educator",
+      "area": "factual claims",
+      "finding": "Dates and named facts (Anna Atkins 1843, first manned balloon flights 1783, Vanuatu land diving, UNESCO listing of falconry and Neapolitan pizza, Beto Perez and Zumba, Harlem and lindy hop) match what I know, but I have not checked them against sources.",
+      "action": "A human check against sources is still needed before any text is published to visitors.",
+      "status": "open"
+    },
+    {
+      "persona": "educator",
+      "area": "discovery quality",
+      "finding": "A heuristic flagged 74 discovery reasons that did not mention their association's theme. Read one by one, 72 were fine (the heuristic was too narrow) and 2 were weak.",
+      "action": "vlog-maken/humor and lezing-workshop-geven/zorg rewritten.",
+      "status": "fixed"
+    },
+    {
+      "persona": "educator",
+      "area": "vocabulary",
+      "finding": "No themes for music, language and writing, or games, though about a third of the library is about exactly those. Vehicles and transport were also missing.",
+      "action": "New themes 'muziek' (47 activities), 'taal' (38), 'spel' (33), 'mobiliteit' (28). Cultural places were missing as an environment: 'cultuurplek' (21).",
+      "status": "fixed"
+    },
+    {
+      "persona": "educator",
+      "area": "cultural balance",
+      "finding": "Examples and bridges lean on Dutch and Western references. World cultures appear as a link but are rarely the centre of an activity.",
+      "action": "Not changed. A later batch with non-Western crafts, music and games would balance it.",
+      "status": "open"
+    },
+    {
+      "persona": "taxonomist",
+      "area": "overlap",
+      "finding": "Several associations are easy to confuse (rust and stilte, zorg and welzijn, gemeenschap and gezelligheid, ontdekking and verwondering, geschiedenis and tradities, precisie and detail, kunst and schoonheid, trots and meesterschap).",
+      "action": "29 associations now carry a 'scope' note saying what they are not and which neighbour to use instead. It appears in the Excel Associations sheet.",
+      "status": "fixed"
+    },
+    {
+      "persona": "taxonomist",
+      "area": "gaps",
+      "finding": "Frequent ideas in the descriptions had no association: online activity, café and nightlife, learning, listening and empathy, chance, miniature scale. Three app tags (speed, chance, miniature) had no counterpart either.",
+      "action": "New: 'online', 'uitgaan', 'leren', 'luisteren', 'kans', 'miniatuur', 'snelheid'. Together with the five above the vocabulary grew from 112 to 127 associations, all in use.",
+      "status": "fixed"
+    },
+    {
+      "persona": "taxonomist",
+      "area": "spread",
+      "finding": "'Trots' (pride) sat on 43% of the activities and 'concentratie' on 43%: they hardly tell activities apart.",
+      "action": "170 weak generic links removed (trots at score 3 or lower, concentratie at score 2 or lower). 'Trots' now sits on 18% of the activities, 'concentratie' on 37%.",
+      "status": "fixed"
+    },
+    {
+      "persona": "taxonomist",
+      "area": "spread",
+      "finding": "Discovery links still lean on a few broad themes: wetenschap 128, geschiedenis 89, verhalen 80, tradities 69 out of 1,100 (top three 27%).",
+      "action": "Below the 30% alarm limit, so not changed. Re-pointing older bridges to the new narrower associations is a possible next round.",
+      "status": "open"
+    },
+    {
+      "persona": "taxonomist",
+      "area": "near-duplicates",
+      "finding": "Nine pairs of records had link vectors that were 90% or more alike. After the other changes five remain: zwemmen and zwemmen-baantjes, padel and badminton, vechtsport and boksles, tuinmeubels-maken and vlonder-bouwen, buurtmaaltijd and potluck.",
+      "action": "Each remaining pair is annotated on both records (qa_notes). zwemmen and zwemmen-baantjes are one activity in practice and both come from the app: merging them there is recommended.",
+      "status": "recommended"
+    },
+    {
+      "persona": "taxonomist",
+      "area": "consistency",
+      "finding": "Contradictory strong links (calm with thrill, minimal with ornamental, silence with sound) appeared on 3 records.",
+      "action": "sashiko-herstellen fixed (minimalism lowered to 3). Luisterbar and nachtwandeling are legitimate (listening in silence, a silent night with night sounds).",
+      "status": "fixed"
+    },
+    {
+      "persona": "taxonomist",
+      "area": "language parity",
+      "finding": "19 activities have the same name in Dutch and English (yoga, sudoku, go and similar loanwords). No description or reason is untranslated and no length ratio is out of range.",
+      "action": "None needed.",
+      "status": "confirmed"
+    },
+    {
+      "persona": "taxonomist",
+      "area": "rigour",
+      "finding": "'0 errors, 0 warnings' only proves that structure and spread rules hold. All scores and reasons are still one reviewer's judgement.",
+      "action": "Every record carries qa.round 1 and stays on status Concept. 'Reviewed' is reserved for a person.",
+      "status": "open"
+    },
+    {
+      "persona": "human",
+      "area": "associations",
+      "finding": "In de steekproef van 30 activiteiten (180 sterkste associaties) markeerde Jan er 3 als niet passend (1,7%): Trots bij Jam en inmaken, Weer en seizoenen bij Tuinmeubels en een pergola bouwen, Wereldculturen bij Gebarentaal leren.",
+      "action": "Alle drie verwijderd. Bij de tuinmeubels is Vakmanschap verhoogd omdat Jan 'techniek' miste.",
+      "status": "fixed"
+    },
+    {
+      "persona": "human",
+      "area": "discovery bridges",
+      "finding": "Van de 60 ontdekkingsbruggen noemde Jan er 50 zinvol (83%), 9 zwak en 1 onzin (17%). De zwakke hadden gemeen dat de verbinding een bijkomstigheid van de activiteit is en niet een richting waarin iemand verder zou zoeken: Verhalen, Generaties, Kunst, Architectuur, Duurzaamheid, Stilte, Rust, Technologie, Wetenschap, en bij analoge fotografie 'Geur' (onzin).",
+      "action": "Alle tien vervangen door een bredere of meer inhoudelijke brug (Wetenschap, Weer en seizoenen, Voertuigen en vervoer, Film en beeldtaal, Muziek, Geschiedenis, Spiritualiteit en zingeving, Wiskunde en patronen). Een extrapolatie van 17% over de 1.100 bruggen betekent circa 190 zwakke; de overige zijn niet beoordeeld.",
+      "status": "fixed"
+    },
+    {
+      "persona": "human",
+      "area": "facets",
+      "finding": "Bij 5 van de 30 activiteiten kloppen de kenmerken niet (17%): plek is vaak 'binnen of buiten' (tuinmeubels, feedback, ijsbaden), niveau 'enige ervaring nodig' bij een tas ontwerpen, duur 'kan ook kort' bij legpuzzels. Drie daarvan zijn kenmerken die uit de app zijn overgenomen.",
+      "action": "Alle vijf aangepast in de referentiebibliotheek (bron nu 'authored', met opmerking). De app is niet aangepast; advies: de kenmerken van IJsbaden (plek), Een tas ontwerpen (niveau) en Legpuzzels (duur) in de app nalopen.",
+      "status": "fixed"
+    },
+    {
+      "persona": "human",
+      "area": "vocabulary",
+      "finding": "Jan miste 'techniek' bij Tuinmeubels en een pergola bouwen. De woordenlijst heeft Technologie (thema) maar geen associatie voor technische vaardigheid of constructie, terwijl de app wel een tag 'technique' heeft.",
+      "action": "Nog niet toegevoegd; nu is Vakmanschap verhoogd. Kandidaat voor een volgende woordenlijstronde: 'Techniek en constructie'.",
+      "status": "open"
+    },
+    {
+      "persona": "human",
+      "area": "representativeness",
+      "finding": "Dit is één beoordelaar en 30 activiteiten: de percentages hebben een grote marge (bij 60 bruggen is 17% grofweg 8-28%) en zeggen alleen iets over deze steekproef.",
+      "action": "Een tweede steekproef alleen over bruggen (50 stuks, gespreid over associaties) is voorbereid om het echte percentage per type te schatten.",
+      "status": "open"
+    },
+    {
+      "persona": "human",
+      "area": "discovery bridges (sample 2)",
+      "finding": "Tweede steekproef, alleen bruggen: 50 bruggen, elk bij een andere associatie en bij een activiteit uit de eerste steekproef niet. Uitslag: 26 zinvol, 15 zwak, 9 onzin (52% zinvol). Samen met de eerste steekproef (50 van 60 zinvol) is 76 van 110 beoordeelde bruggen zinvol (69%). Omdat de tweede steekproef over alle associaties is gespreid en de eerste vooral over veelgebruikte, is het echte aandeel zinvolle bruggen in de hele bibliotheek waarschijnlijk dichter bij 50% dan bij 83%; een nauwkeurige schatting kan ik niet geven.",
+      "action": "Alle 24 beoordeelde zwakke of onzinnige bruggen vervangen.",
+      "status": "fixed"
+    },
+    {
+      "persona": "human",
+      "area": "bridge pattern",
+      "finding": "De zwakke bruggen hebben gemeen dat ze een brede, abstracte associatie aan een activiteit hangen met een reden die voor bijna elke activiteit geschreven kan worden (spiritualiteit bij baantjes, rechtvaardigheid bij naaicafé, wiskunde bij tennis, generaties bij verhalen vertellen). De goede bruggen noemen een concrete volgende stap: een andere activiteit, plek of vaardigheid waar je daarna naartoe kunt (trailrunning na hardlopen, een club na een proefles, snorkelen na onderwaterhockey).",
+      "action": "Criterium vastgelegd voor een volgende brugronde: een brug moet een concrete vervolgstap noemen, geen overeenkomst in thema.",
+      "status": "noted"
+    },
+    {
+      "persona": "human",
+      "area": "bridge model",
+      "finding": "Ik heb getest of de zwakke bruggen uit de koppelingen zelf te voorspellen zijn (gelijkenis met de buurman-activiteiten, hoe vaak de associatie in dezelfde categorie voorkomt, gemeenschappelijke voorkomens, associatiedomein). Dat is niet zo: de beste maat haalt 0,65 op een schaal waar 0,5 toeval is. Alleen de lengte van de reden voorspelt iets (zeer korte redenen onder 45 tekens waren in 12 van 13 gevallen zwak), maar dat is een symptoom: een korte reden betekent meestal dat er niets concreets te zeggen was.",
+      "action": "Er is geen automatische kwaliteitscontrole voor bruggen mogelijk met de data die er nu is; menselijk oordeel blijft nodig. Acht zeer korte redenen die niet beoordeeld waren (zelfde patroon) zijn zelf vervangen.",
+      "status": "open"
+    },
+    {
+      "persona": "human",
+      "area": "coverage of review",
+      "finding": "Van de 1.100 ontdekkingsbruggen zijn er 110 door een mens beoordeeld (en 34 daarvan vervangen) plus 8 door mij vervangen op grond van het patroon. De overige ongeveer 980 zijn niet beoordeeld en moeten tot een volgende ronde als ongecontroleerd gelden.",
+      "action": "Gebruik de bruggen nog niet voor aanbevelingen aan bezoekers.",
+      "status": "open"
+    },
+    {
+      "persona": "human",
+      "area": "bridge self-review (round 3)",
+      "finding": "Ik heb alle 984 ontdekkingsbruggen die geen mens had gezien zelf gelezen en 205 (21%) als zwak aangemerkt, strenger dan in de eerste ronde: bruggen die een brede, abstracte associatie aan een activiteit hangen met een reden die voor bijna alles te schrijven is (verhalen 30, architectuur 23, volkscultuur 22, humor 20, wiskunde en patronen 14, kunst 12). Mijn eigen oordeel was in de eerste steekproef milder dan dat van Jan (ik zou toen veel minder hebben afgekeurd), dus het is mogelijk dat ik nog te veel laat staan.",
+      "action": "Alle 205 verwijderd. 26 activiteiten die daarna geen brug meer hadden kregen één of twee nieuwe bruggen met een concrete vervolgstap. Het minimum is verlaagd van twee naar één brug per activiteit: liever een ontbrekende brug dan een zwakke (155 activiteiten hebben nu één brug, 395 twee).",
+      "status": "fixed"
+    },
+    {
+      "persona": "human",
+      "area": "bridge sample 3",
+      "finding": "Controle van de zelfbeoordeling: een nieuwe steekproef van 62 bruggen (50 die ik heb laten staan en 12 die ik zelf in eerdere rondes heb geschreven als vervanging), ongezien door Jan.",
+      "action": "Beoordeeld door Jan; de uitslag per groep (A = laten staan, B = vervangen) toont of mijn filter werkt.",
+      "status": "open"
+    },
+    {
+      "persona": "human",
+      "area": "bridge sample 3 result",
+      "finding": "Controle-steekproef van 62 bruggen: 48 zinvol, 12 zwak, 2 onzin. Per groep: de 50 bruggen die ik had laten staan na mijn zelfbeoordeling waren voor 76% zinvol (38 van 50), tegen 52% in de ongefilterde steekproef 2. De 12 bruggen die ik zelf in eerdere rondes als vervanging schreef waren voor 83% zinvol (10 van 12). Zelf filteren helpt dus duidelijk (24 procentpunt), maar ongeveer één op de vier bruggen die ik laat staan is nog zwak. Bij 50 bruggen is de marge ongeveer 63-87%.",
+      "action": "De 14 afgekeurde bruggen verwijderd; drie activiteiten die daardoor geen brug meer hadden kregen een nieuwe (voedselbank, capsulegarderobe, schrijven in een tweede taal). Per associatie is er geen enkele die systematisch slecht is (hoogste aandeel afgekeurd 38%, n=8), dus er is geen eenvoudige regel meer om op te filteren.",
+      "status": "fixed"
+    }
   ],
   "app_vocabulary_recommendations": [
-    { "association": "conditie", "proposed_app_tag": "strength", "why": "The app has no way to say that an activity builds stamina or strength." },
-    { "association": "coordinatie", "proposed_app_tag": "coordination", "why": "The existing 'balance' tag is about calm, not about moving the whole body together." },
-    { "association": "snelheid", "proposed_app_tag": "speed", "why": "Already in the app (speed); keep it separate from 'movement'." },
-    { "association": "luisteren", "proposed_app_tag": "listening", "why": "Needed for care, conversation and music activities." },
-    { "association": "online", "proposed_app_tag": "digital", "why": "Lets the engine tell remote or screen-based activities from local ones." },
-    { "association": "mobiliteit", "proposed_app_tag": "mobility", "why": "Bikes, trains, boats and vehicles form a recognisable interest cluster." },
-    { "association": "muziek", "proposed_app_tag": "music", "why": "The app has 'sound' and 'rhythm' but no tag for music as a subject." },
-    { "association": "tradities", "proposed_app_tag": "tradition", "why": "Folk customs are different from the app's 'history' tag." },
-    { "association": "spiritualiteit", "proposed_app_tag": "spirituality", "why": "Meditation, pilgrimage and ritual would otherwise hide inside 'stillness'." },
-    { "association": "zeevaart", "proposed_app_tag": "seafaring", "why": "Ships, tides and coasts recur across water, history and craft activities." },
-    { "association": "weer", "proposed_app_tag": "weather", "why": "Weather and seasons decide many activities; the engine already filters on months." },
-    { "association": "humor", "proposed_app_tag": "humour", "why": "Comedy, play and absurdity are an experience of their own." },
-    { "association": "rechtvaardigheid", "proposed_app_tag": "fairness", "why": "Volunteering and civic activities share this motive." }
+    {
+      "association": "conditie",
+      "proposed_app_tag": "strength",
+      "why": "The app has no way to say that an activity builds stamina or strength."
+    },
+    {
+      "association": "coordinatie",
+      "proposed_app_tag": "coordination",
+      "why": "The existing 'balance' tag is about calm, not about moving the whole body together."
+    },
+    {
+      "association": "snelheid",
+      "proposed_app_tag": "speed",
+      "why": "Already in the app (speed); keep it separate from 'movement'."
+    },
+    {
+      "association": "luisteren",
+      "proposed_app_tag": "listening",
+      "why": "Needed for care, conversation and music activities."
+    },
+    {
+      "association": "online",
+      "proposed_app_tag": "digital",
+      "why": "Lets the engine tell remote or screen-based activities from local ones."
+    },
+    {
+      "association": "mobiliteit",
+      "proposed_app_tag": "mobility",
+      "why": "Bikes, trains, boats and vehicles form a recognisable interest cluster."
+    },
+    {
+      "association": "muziek",
+      "proposed_app_tag": "music",
+      "why": "The app has 'sound' and 'rhythm' but no tag for music as a subject."
+    },
+    {
+      "association": "tradities",
+      "proposed_app_tag": "tradition",
+      "why": "Folk customs are different from the app's 'history' tag."
+    },
+    {
+      "association": "spiritualiteit",
+      "proposed_app_tag": "spirituality",
+      "why": "Meditation, pilgrimage and ritual would otherwise hide inside 'stillness'."
+    },
+    {
+      "association": "zeevaart",
+      "proposed_app_tag": "seafaring",
+      "why": "Ships, tides and coasts recur across water, history and craft activities."
+    },
+    {
+      "association": "weer",
+      "proposed_app_tag": "weather",
+      "why": "Weather and seasons decide many activities; the engine already filters on months."
+    },
+    {
+      "association": "humor",
+      "proposed_app_tag": "humour",
+      "why": "Comedy, play and absurdity are an experience of their own."
+    },
+    {
+      "association": "rechtvaardigheid",
+      "proposed_app_tag": "fairness",
+      "why": "Volunteering and civic activities share this motive."
+    }
   ],
   "app_vocabulary_note": "These are proposals for the app's discovery vocabulary (src/lib/discovery/vocabulary.json). They are not applied: new tags change the relation graph, the engine's scores and the stored baselines, so adding them is a separate decision with its own measurements."
 }

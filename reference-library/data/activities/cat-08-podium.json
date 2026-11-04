@@ -134,13 +134,14 @@
     "match": "exact",
     "legacy_id": "storytelling",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["podium:5:D", "optreden:4:D", "taalvaardig:4:V", "communicatie:5:V", "improviseren:3:V", "creativiteit:4:V", "verhalen:5:T", "identiteit:3:T", "publiek:5:E", "ontroering:4:E", "moed:4:E", "expressie:4:E", "gemeenschap:3:E", "geschiedenis:3:O", "generaties:3:O", "taal:4:T"],
+    "links": ["podium:5:D", "optreden:4:D", "taalvaardig:4:V", "communicatie:5:V", "improviseren:3:V", "creativiteit:4:V", "verhalen:5:T", "identiteit:3:T", "publiek:5:E", "ontroering:4:E", "moed:4:E", "expressie:4:E", "gemeenschap:3:E", "geschiedenis:3:O", "taal:4:T", "humor:3:O"],
     "why": {
       "geschiedenis": {"nl": "Mondeling vertellen is een van de oudste kunsten van de mensheid, dus je sluit aan bij een traditie.", "en": "Oral storytelling is one of humanity's oldest arts, so you join a tradition."},
-      "generaties": {"nl": "Verhalen werden van oud naar jong doorgegeven, dus vertellen verbindt leeftijden.", "en": "Stories were passed from old to young, so telling links ages."}
+      "humor": {"nl": "Een goed verteld verhaal krijgt vaak een lach, en zo ontdek je waar stand-up en cabaret beginnen.", "en": "A well-told story often gets a laugh, and that is how you discover where stand-up and cabaret begin."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Generaties was onzin; vervangen door Humor."]
   },
   {
     "id": "RA-224",
@@ -154,14 +155,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group", "large_group"], "level": 2, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["organiseren:5:D", "podium:4:D", "optreden:3:D", "leiding:5:V", "communicatie:5:V", "creativiteit:4:V", "strategie:3:V", "ruimtelijk:3:V", "verhalen:4:T", "kunst:3:T", "samenwerking:5:E", "publiek:4:E", "spanning:3:E", "gemeenschap:3:E", "expressie:3:E", "architectuur:3:O", "zorg:3:O"],
+    "links": ["organiseren:5:D", "podium:4:D", "optreden:3:D", "leiding:5:V", "communicatie:5:V", "creativiteit:4:V", "strategie:3:V", "ruimtelijk:3:V", "verhalen:4:T", "kunst:3:T", "samenwerking:5:E", "publiek:4:E", "spanning:3:E", "gemeenschap:3:E", "expressie:3:E", "beeldtaal:3:O"],
     "why": {
-      "architectuur": {"nl": "Acteurs in de ruimte plaatsen is ruimtelijk ontwerpen, zoals mensen in een kamer schikken.", "en": "Blocking actors in space is spatial design, like arranging people in a room."},
-      "zorg": {"nl": "De kern van regisseren is mensen veilig genoeg laten voelen om risico te nemen.", "en": "A director's main job is to make people feel safe enough to take risks."}
+      "beeldtaal": {"nl": "Een regisseur bepaalt hoe een scène oogt: je leert kijken als een filmmaker en kunt een korte film proberen.", "en": "A director decides how a scene looks: you learn to see like a filmmaker and can try a short film."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 2): brug Zorg voor anderen was zwak; vervangen door Film en beeldtaal.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-225",
@@ -216,13 +216,13 @@
     "match": "exact",
     "legacy_id": "goochelen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["optreden:4:D", "podium:3:D", "motoriek:5:V", "precisie:4:V", "communicatie:3:V", "improviseren:3:V", "concentratie:3:V", "wetenschap:3:T", "spanning:3:E", "verwondering:5:E", "speelsheid:4:E", "humor:3:E", "publiek:5:E", "moed:2:E", "verhalen:3:O", "logica:3:O", "coordinatie:4:V", "kans:2:E"],
+    "links": ["optreden:4:D", "podium:3:D", "motoriek:5:V", "precisie:4:V", "communicatie:3:V", "improviseren:3:V", "concentratie:3:V", "wetenschap:3:T", "spanning:3:E", "verwondering:5:E", "speelsheid:4:E", "humor:3:E", "publiek:5:E", "moed:2:E", "logica:3:O", "coordinatie:4:V", "kans:2:E"],
     "why": {
-      "verhalen": {"nl": "Een truc is een verhaal met een verborgen wending.", "en": "A trick is a story with a hidden turn."},
       "logica": {"nl": "Methoden steunen op hoe aandacht en verwachting werken, een les in waarneming.", "en": "Methods rely on how attention and expectation work, a lesson in perception."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-243",
@@ -296,13 +296,13 @@
     "match": "exact",
     "legacy_id": "rappen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["optreden:4:D", "thuis:2:D", "taalvaardig:5:V", "creativiteit:4:V", "improviseren:4:V", "ritme:5:E", "klank:4:E", "expressie:5:E", "identiteit:3:T", "verhalen:4:T", "publiek:3:E", "moed:3:E", "competitie:3:E", "puzzelen:3:O", "rechtvaardigheid:3:O", "muziek:5:T", "taal:4:T"],
+    "links": ["optreden:4:D", "thuis:2:D", "taalvaardig:5:V", "creativiteit:4:V", "improviseren:4:V", "ritme:5:E", "klank:4:E", "expressie:5:E", "identiteit:3:T", "verhalen:4:T", "publiek:3:E", "moed:3:E", "competitie:3:E", "rechtvaardigheid:3:O", "muziek:5:T", "taal:4:T"],
     "why": {
-      "puzzelen": {"nl": "Betekenis, rijm en ritme tegelijk laten kloppen is een woordpuzzel.", "en": "Fitting meaning, rhyme and rhythm at once is a wordplay puzzle."},
       "rechtvaardigheid": {"nl": "Rap is al lang een stem voor verhalen over ongelijkheid en gemeenschap.", "en": "Rap has long been a voice for stories about inequality and community."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Problemen oplossen."]
   },
   {
     "id": "RA-247",
@@ -316,13 +316,14 @@
     "match": "exact",
     "legacy_id": "voorlezen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["optreden:3:D", "podium:3:D", "taalvaardig:4:V", "communicatie:4:V", "improviseren:2:V", "verhalen:5:T", "klank:4:E", "ritme:3:E", "ontroering:4:E", "zorg:4:E", "generaties:4:E", "publiek:4:E", "gezelligheid:3:E", "stilte:3:O", "welzijn:3:O", "taal:4:T", "luisteren:3:V"],
+    "links": ["optreden:3:D", "podium:3:D", "taalvaardig:4:V", "communicatie:4:V", "improviseren:2:V", "verhalen:5:T", "klank:4:E", "ritme:3:E", "ontroering:4:E", "zorg:4:E", "generaties:4:E", "publiek:4:E", "gezelligheid:3:E", "welzijn:3:O", "taal:4:T", "luisteren:3:V", "muziek:3:O"],
     "why": {
-      "stilte": {"nl": "Een goede voordracht hangt af van pauzes, dus je leert de kracht van stilte.", "en": "A good reading depends on pauses, so you learn the power of silence."},
-      "welzijn": {"nl": "Voorgelezen worden kalmeert, daarom wordt het in zorg gebruikt.", "en": "Being read to calms people, which is why it is used in care."}
+      "welzijn": {"nl": "Voorgelezen worden kalmeert, daarom wordt het in zorg gebruikt.", "en": "Being read to calms people, which is why it is used in care."},
+      "muziek": {"nl": "Voorlezen heeft tempo, toon en pauzes, bijna als muziek. Wie oefent leert zijn stem als instrument gebruiken.", "en": "Reading aloud has pace, pitch and pauses, almost like music. Practising teaches you to use your voice as an instrument."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Steekproef Jan: brug Stilte te zwak; vervangen door Muziek."]
   },
   {
     "id": "RA-248",
@@ -376,13 +377,13 @@
     "match": "exact",
     "legacy_id": "theatermake-up",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["verf:3:M", "ontwerpen:3:D", "atelier:2:D", "podium:3:D", "precisie:4:V", "motoriek:4:V", "creativiteit:5:V", "ruimtelijk:3:V", "mode:3:T", "kunst:3:T", "beeldtaal:3:T", "identiteit:3:T", "expressie:4:E", "licht:3:E", "tast:3:E", "speelsheid:3:E", "wetenschap:3:O", "dieren:3:O"],
+    "links": ["verf:3:M", "ontwerpen:3:D", "atelier:2:D", "podium:3:D", "precisie:4:V", "motoriek:4:V", "creativiteit:5:V", "ruimtelijk:3:V", "mode:3:T", "kunst:3:T", "beeldtaal:3:T", "identiteit:3:T", "expressie:4:E", "licht:3:E", "tast:3:E", "speelsheid:3:E", "wetenschap:3:O"],
     "why": {
-      "wetenschap": {"nl": "Kleurenleer en toneelverlichting bepalen hoe een gezicht vanaf de achterste rij leest.", "en": "Colour theory and stage lighting decide how a face reads from the back row."},
-      "dieren": {"nl": "Dieren- en fantasiegezichten steunen op nauwkeurig kijken naar de natuur.", "en": "Animal and fantasy faces draw on close study of nature."}
+      "wetenschap": {"nl": "Kleurenleer en toneelverlichting bepalen hoe een gezicht vanaf de achterste rij leest.", "en": "Colour theory and stage lighting decide how a face reads from the back row."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Dieren."]
   },
   {
     "id": "RA-450",
@@ -396,13 +397,13 @@
     "match": "exact",
     "legacy_id": "dansen",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["podium:2:D", "motoriek:3:V", "ruimtelijk:2:V", "communicatie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:4:E", "gezelligheid:5:E", "verbondenheid:4:E", "speelsheid:4:E", "elegantie:3:E", "welzijn:3:T", "wereldculturen:4:T", "tradities:3:O", "klank:3:O", "muziek:3:T", "uitgaan:4:D", "coordinatie:4:V"],
+    "links": ["podium:2:D", "motoriek:3:V", "ruimtelijk:2:V", "communicatie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:4:E", "gezelligheid:5:E", "verbondenheid:4:E", "speelsheid:4:E", "elegantie:3:E", "welzijn:3:T", "wereldculturen:4:T", "klank:3:O", "muziek:3:T", "uitgaan:4:D", "coordinatie:4:V"],
     "why": {
-      "tradities": {"nl": "Elke dans draagt sociale gebruiken van zijn thuisland.", "en": "Each dance carries social customs of its home."},
       "klank": {"nl": "De clave of swingfeel leren traint je oor voor ritme.", "en": "Learning the clave or swing feel trains your ear for rhythm."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-451",
@@ -416,13 +417,13 @@
     "match": "exact",
     "legacy_id": "swingdansen",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["motoriek:3:V", "improviseren:3:V", "communicatie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:4:E", "speelsheid:5:E", "gezelligheid:5:E", "klank:4:E", "nostalgie:3:E", "verbondenheid:3:E", "tradities:3:T", "geschiedenis:3:T", "humor:3:O", "rechtvaardigheid:3:O", "muziek:4:T", "uitgaan:4:D", "coordinatie:4:V"],
+    "links": ["motoriek:3:V", "improviseren:3:V", "communicatie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:4:E", "speelsheid:5:E", "gezelligheid:5:E", "klank:4:E", "nostalgie:3:E", "verbondenheid:3:E", "tradities:3:T", "geschiedenis:3:T", "rechtvaardigheid:3:O", "muziek:4:T", "uitgaan:4:D", "coordinatie:4:V"],
     "why": {
-      "humor": {"nl": "Swing draait om spel en brutale improvisatie.", "en": "Swing is built on play and cheeky improvisation."},
       "rechtvaardigheid": {"nl": "Lindy hop ontstond in zwarte gemeenschappen in Harlem en bracht verschillende groepen op één dansvloer.", "en": "Lindy hop grew out of Black communities in Harlem and brought different groups onto one dance floor."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-452",
@@ -516,13 +517,14 @@
     "match": "exact",
     "legacy_id": "kpop-dans",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["optreden:3:D", "podium:2:D", "motoriek:3:V", "precisie:4:V", "concentratie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:4:E", "speelsheid:3:E", "competitie:2:E", "gemeenschap:4:E", "expressie:4:E", "mode:3:T", "technologie:2:T", "beeldtaal:3:O", "patronen:3:O", "muziek:4:T", "coordinatie:4:V"],
+    "links": ["optreden:3:D", "podium:2:D", "motoriek:3:V", "precisie:4:V", "concentratie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:4:E", "speelsheid:3:E", "competitie:2:E", "gemeenschap:4:E", "expressie:4:E", "mode:3:T", "technologie:2:T", "beeldtaal:3:O", "muziek:4:T", "coordinatie:4:V", "online:3:O"],
     "why": {
       "beeldtaal": {"nl": "Choreografie is gemaakt om goed te staan op camera en video.", "en": "Choreography is built to look good on camera and in video."},
-      "patronen": {"nl": "Formatiewissels zijn meetkunde in beweging.", "en": "Formation changes are geometry in motion."}
+      "online": {"nl": "K-popdansers delen covers en tutorials online: je ontdekt een wereldwijde gemeenschap van dansers.", "en": "K-pop dancers share covers and tutorials online: you discover a worldwide community of dancers."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Wiskunde en patronen had een zeer korte reden (zelfde patroon als de zwakke bruggen); vervangen door Online en digitaal."]
   },
   {
     "id": "RA-457",
@@ -536,13 +538,13 @@
     "match": "exact",
     "legacy_id": "hist-dans",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["optreden:2:D", "motoriek:3:V", "concentratie:3:V", "communicatie:2:V", "geschiedenis:5:T", "tradities:4:T", "mode:3:T", "beweging:4:E", "ritme:4:E", "elegantie:4:E", "gezelligheid:4:E", "nostalgie:4:E", "samenwerking:4:E", "patronen:3:O", "wonen:3:O", "muziek:3:T"],
+    "links": ["optreden:2:D", "motoriek:3:V", "concentratie:3:V", "communicatie:2:V", "geschiedenis:5:T", "tradities:4:T", "mode:3:T", "beweging:4:E", "ritme:4:E", "elegantie:4:E", "gezelligheid:4:E", "nostalgie:4:E", "samenwerking:4:E", "wonen:3:O", "muziek:3:T"],
     "why": {
-      "patronen": {"nl": "Vloerpatronen en figuren zijn meetkunde op voeten.", "en": "Floor patterns and figures are geometry on foot."},
       "wonen": {"nl": "Dansen waren gemaakt voor bepaalde zalen, kamers en kleding.", "en": "Dances were made for particular halls, rooms and clothes."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
   },
   {
     "id": "RA-458",
@@ -576,13 +578,14 @@
     "match": "exact",
     "legacy_id": "theater-backstage",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["bouwen:3:D", "ontwerpen:3:D", "podium:5:D", "organiseren:3:D", "communicatie:2:V", "technologie:4:T", "kunst:3:T", "architectuur:3:T", "verwondering:4:E", "ontdekking:4:E", "samenwerking:3:E", "rauw:3:E", "licht:4:E", "klank:3:E", "wetenschap:3:O", "verbondenheid:3:O", "cultuurplek:5:D"],
+    "links": ["bouwen:3:D", "ontwerpen:3:D", "podium:5:D", "organiseren:3:D", "communicatie:2:V", "technologie:4:T", "kunst:3:T", "architectuur:3:T", "verwondering:4:E", "ontdekking:4:E", "samenwerking:3:E", "rauw:3:E", "licht:4:E", "klank:3:E", "cultuurplek:5:D", "leiding:3:O", "ambacht:3:O"],
     "why": {
-      "wetenschap": {"nl": "Optuigen, licht en geluid zijn toegepaste techniek.", "en": "Rigging, lighting and sound are applied engineering."},
-      "verbondenheid": {"nl": "Een crew werkt als een gezin van specialisten.", "en": "A crew works as a family of specialists."}
+      "leiding": {"nl": "Een voorstelling draait op een stagemanager die elk signaal timet: je ontdekt productieleiding.", "en": "A show runs on a stage manager who times every cue: you discover production management."},
+      "ambacht": {"nl": "Decorbouwers, kostuumnaaisters en lichttechnici zijn vakmensen: je ziet welke ambachten een voorstelling dragen.", "en": "Set builders, costume makers and lighting technicians are craftspeople: you see which crafts carry a show."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wetenschap, Nieuwe mensen ontmoeten."]
   },
   {
     "id": "RA-460",
@@ -596,12 +599,12 @@
     "match": "exact",
     "legacy_id": "live-comedy",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["podium:4:D", "stad:2:D", "taalvaardig:2:V", "kunst:2:T", "humor:5:E", "publiek:4:E", "gezelligheid:4:E", "verbondenheid:3:E", "spanning:3:E", "speelsheid:3:E", "ontdekking:3:E", "identiteit:2:T", "rechtvaardigheid:3:O", "tradities:3:O", "uitgaan:5:D"],
+    "links": ["podium:4:D", "stad:2:D", "taalvaardig:2:V", "kunst:2:T", "humor:5:E", "publiek:4:E", "gezelligheid:4:E", "verbondenheid:3:E", "spanning:3:E", "speelsheid:3:E", "ontdekking:3:E", "identiteit:2:T", "uitgaan:5:D", "taal:3:O"],
     "why": {
-      "rechtvaardigheid": {"nl": "Comedy spreekt vaak over de randen van de samenleving.", "en": "Comedy often speaks about the edges of society."},
-      "tradities": {"nl": "Stand-up groeide uit vaudeville en cabaret.", "en": "Stand-up grew from vaudeville and cabaret."}
+      "taal": {"nl": "Stand-up is vakmanschap van timing en taal: wie het ziet, kan zelf grappen leren schrijven.", "en": "Stand-up is a craft of timing and language: seeing it, you can learn to write jokes yourself."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Volkscultuur en tradities had een zeer korte reden (zelfde patroon als de zwakke bruggen); vervangen door Taal en schrift.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Rechtvaardigheid en samenleving."]
   }
 ]

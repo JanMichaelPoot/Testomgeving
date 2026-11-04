@@ -72,13 +72,13 @@
     "match": "exact",
     "legacy_id": "coderen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["ontwerpen:3:D", "thuis:3:D", "logica:5:V", "creativiteit:4:V", "precisie:3:V", "concentratie:4:V", "technologie:5:T", "kunst:4:T", "puzzelen:5:E", "experimenteren:4:E", "opgaan:4:E", "licht:3:E", "ritme:2:E", "verhalen:3:O", "natuur:3:O", "online:4:D"],
+    "links": ["ontwerpen:3:D", "thuis:3:D", "logica:5:V", "creativiteit:4:V", "precisie:3:V", "concentratie:4:V", "technologie:5:T", "kunst:4:T", "puzzelen:5:E", "experimenteren:4:E", "opgaan:4:E", "licht:3:E", "ritme:2:E", "verhalen:3:O", "online:4:D"],
     "why": {
-      "verhalen": {"nl": "Generatieve kunst en spellen laten code een verhaal vertellen of een wereld bouwen.", "en": "Generative art and games let code tell a story or build a world."},
-      "natuur": {"nl": "Algoritmes kopiëren plantengroei, zwermen en golven, dus je leert natuurpatronen door ze te schrijven.", "en": "Algorithms copy plant growth, flocks and waves, so you learn nature's patterns by writing them."}
+      "verhalen": {"nl": "Generatieve kunst en spellen laten code een verhaal vertellen of een wereld bouwen.", "en": "Generative art and games let code tell a story or build a world."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 3): brug Natuur was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-106",
@@ -152,13 +152,13 @@
     "match": "exact",
     "legacy_id": "fietsreparatie",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["metaal:3:M", "repareren:5:D", "bouwen:2:D", "atelier:3:D", "vakmanschap:3:V", "precisie:3:V", "motoriek:3:V", "logica:3:V", "geduld:3:V", "technologie:4:T", "duurzaamheid:5:T", "trots:4:E", "zorg:3:E", "zelfstandig:4:E", "rauw:3:E", "vrijheid:3:O", "gemeenschap:3:O", "mobiliteit:5:T"],
+    "links": ["metaal:3:M", "repareren:5:D", "bouwen:2:D", "atelier:3:D", "vakmanschap:3:V", "precisie:3:V", "motoriek:3:V", "logica:3:V", "geduld:3:V", "technologie:4:T", "duurzaamheid:5:T", "trots:4:E", "zorg:3:E", "zelfstandig:4:E", "rauw:3:E", "gemeenschap:3:O", "mobiliteit:5:T"],
     "why": {
-      "vrijheid": {"nl": "Een fiets die je zelf kunt repareren laat je nooit stranden, dus repareren geeft vrijheid.", "en": "A bike you can fix yourself never strands you, so repair gives freedom."},
       "gemeenschap": {"nl": "Repaircafés en fietscoöperaties maken van repareren een open sociaal evenement.", "en": "Repair cafés and bike co-ops turn fixing into an open social event."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Vrijheid."]
   },
   {
     "id": "RA-110",
@@ -192,14 +192,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["ontwerpen:4:D", "bouwen:4:D", "thuis:3:D", "logica:4:V", "creativiteit:3:V", "precisie:3:V", "technologie:5:T", "beeldtaal:3:T", "puzzelen:4:E", "experimenteren:4:E", "opgaan:3:E", "zelfstandig:4:E", "doorzetten:3:E", "publiek:2:E", "architectuur:3:O", "verhalen:3:O", "online:5:D"],
+    "links": ["ontwerpen:4:D", "bouwen:4:D", "thuis:3:D", "logica:4:V", "creativiteit:3:V", "precisie:3:V", "technologie:5:T", "beeldtaal:3:T", "puzzelen:4:E", "experimenteren:4:E", "opgaan:3:E", "zelfstandig:4:E", "doorzetten:3:E", "publiek:2:E", "verhalen:3:O", "online:5:D"],
     "why": {
-      "architectuur": {"nl": "Paginastructuur, navigatie en indeling volgen de logica van gebouwen en bewegwijzering.", "en": "Page structure, navigation and layout follow the logic of buildings and signage."},
       "verhalen": {"nl": "Een site vertelt jouw verhaal aan bezoekers in de volgorde die jij kiest.", "en": "A site tells your story to visitors in the order you choose."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-289",
@@ -254,13 +253,13 @@
     "match": "exact",
     "legacy_id": "repair-cafe",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 1, "source": "app"},
-    "links": ["repareren:5:D", "atelier:3:D", "vakmanschap:3:V", "logica:3:V", "communicatie:2:V", "duurzaamheid:5:T", "technologie:3:T", "gemeenschap:5:E", "zorg:3:E", "gezelligheid:3:E", "samenwerking:4:E", "generaties:3:E", "rechtvaardigheid:3:O", "verhalen:3:O"],
+    "links": ["repareren:5:D", "atelier:3:D", "vakmanschap:3:V", "logica:3:V", "communicatie:2:V", "duurzaamheid:5:T", "technologie:3:T", "gemeenschap:5:E", "zorg:3:E", "gezelligheid:3:E", "samenwerking:4:E", "generaties:3:E", "rechtvaardigheid:3:O"],
     "why": {
-      "rechtvaardigheid": {"nl": "Repareren daagt de wegwerpcultuur uit en houdt spullen betaalbaar.", "en": "Repairing challenges throwaway culture and keeps goods affordable."},
-      "verhalen": {"nl": "Een gerepareerde lamp of broodrooster komt met het verhaal van van wie hij was.", "en": "A repaired lamp or toaster comes with the story of whose it was."}
+      "rechtvaardigheid": {"nl": "Repareren daagt de wegwerpcultuur uit en houdt spullen betaalbaar.", "en": "Repairing challenges throwaway culture and keeps goods affordable."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-314",
@@ -294,13 +293,13 @@
     "match": "exact",
     "legacy_id": "telescoop",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["observeren:5:D", "navigeren:3:D", "bouwen:2:D", "heelal:5:T", "wetenschap:4:T", "technologie:3:T", "weer:3:T", "geduld:3:V", "concentratie:3:V", "verwondering:5:E", "ontdekking:4:E", "stilte:3:E", "rust:3:E", "ruimtelijk:3:O", "gemeenschap:3:O"],
+    "links": ["observeren:5:D", "navigeren:3:D", "bouwen:2:D", "heelal:5:T", "wetenschap:4:T", "technologie:3:T", "weer:3:T", "geduld:3:V", "concentratie:3:V", "verwondering:5:E", "ontdekking:4:E", "stilte:3:E", "rust:3:E", "ruimtelijk:3:O"],
     "why": {
-      "ruimtelijk": {"nl": "De weg vinden langs de hemel traint een driedimensionale mentale kaart.", "en": "Finding your way across the sky trains a three-dimensional mental map."},
-      "gemeenschap": {"nl": "Sterrenwachten delen donkere plekken en telescopen.", "en": "Astronomy clubs share dark sites and telescopes."}
+      "ruimtelijk": {"nl": "De weg vinden langs de hemel traint een driedimensionale mentale kaart.", "en": "Finding your way across the sky trains a three-dimensional mental map."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 3): brug Gemeenschap was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-316",
@@ -414,13 +413,13 @@
     "match": "exact",
     "legacy_id": "motor-sleutelen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 1, "source": "app"},
-    "links": ["metaal:4:M", "repareren:5:D", "atelier:4:D", "bouwen:2:D", "vakmanschap:3:V", "logica:4:V", "precisie:3:V", "motoriek:3:V", "technologie:5:T", "puzzelen:4:E", "rauw:5:E", "warmte:3:E", "geur:3:E", "zelfstandig:3:E", "verbondenheid:3:O", "tradities:3:O", "mobiliteit:5:T"],
+    "links": ["metaal:4:M", "repareren:5:D", "atelier:4:D", "bouwen:2:D", "vakmanschap:3:V", "logica:4:V", "precisie:3:V", "motoriek:3:V", "technologie:5:T", "puzzelen:4:E", "rauw:5:E", "warmte:3:E", "geur:3:E", "zelfstandig:3:E", "verbondenheid:3:O", "mobiliteit:5:T"],
     "why": {
-      "verbondenheid": {"nl": "Garages en clubs brengen mensen samen die een taal van onderdelen en geluiden delen.", "en": "Garages and clubs bring together people who share a language of parts and sounds."},
-      "tradities": {"nl": "Motorcultuur draagt rituelen, van bijeenkomsten tot ritten.", "en": "Bike culture carries rituals, from meets to rides."}
+      "verbondenheid": {"nl": "Garages en clubs brengen mensen samen die een taal van onderdelen en geluiden delen.", "en": "Garages and clubs bring together people who share a language of parts and sounds."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-322",
@@ -474,13 +473,13 @@
     "match": "exact",
     "legacy_id": "lassen",
     "facets": {"setting": "indoor", "social_formats": ["duo", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
-    "links": ["metaal:5:M", "atelier:4:D", "bouwen:3:D", "vakmanschap:4:V", "precisie:4:V", "motoriek:3:V", "technologie:4:T", "wetenschap:3:T", "rauw:5:E", "warmte:5:E", "spanning:3:E", "trots:4:E", "licht:3:E", "kunst:3:O", "zorg:3:O", "ambacht:4:T"],
+    "links": ["metaal:5:M", "atelier:4:D", "bouwen:3:D", "vakmanschap:4:V", "precisie:4:V", "motoriek:3:V", "technologie:4:T", "wetenschap:3:T", "rauw:5:E", "warmte:5:E", "spanning:3:E", "trots:4:E", "licht:3:E", "kunst:3:O", "ambacht:4:T"],
     "why": {
-      "kunst": {"nl": "Gelaste beeldhouwkunst is een gevestigde kunstvorm.", "en": "Welded sculpture is an established art form."},
-      "zorg": {"nl": "Lassen vraagt veiligheidsgewoonten voor ogen, longen en vuur.", "en": "Welding demands safety habits for eyes, lungs and fire."}
+      "kunst": {"nl": "Gelaste beeldhouwkunst is een gevestigde kunstvorm.", "en": "Welded sculpture is an established art form."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zorg voor anderen."]
   },
   {
     "id": "RA-509",
@@ -494,13 +493,14 @@
     "match": "exact",
     "legacy_id": "klokken",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "online"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["metaal:4:M", "repareren:5:D", "restaureren:3:D", "atelier:3:D", "precisie:5:V", "vakmanschap:4:V", "motoriek:4:V", "geduld:3:V", "technologie:4:T", "geschiedenis:3:T", "detail:5:E", "puzzelen:4:E", "opgaan:4:E", "nostalgie:3:E", "zeevaart:3:O", "patronen:3:O", "ambacht:5:T"],
+    "links": ["metaal:4:M", "repareren:5:D", "restaureren:3:D", "atelier:3:D", "precisie:5:V", "vakmanschap:4:V", "motoriek:4:V", "geduld:3:V", "technologie:4:T", "geschiedenis:3:T", "detail:5:E", "puzzelen:4:E", "opgaan:4:E", "nostalgie:3:E", "patronen:3:O", "ambacht:5:T", "wetenschap:3:O"],
     "why": {
-      "zeevaart": {"nl": "De scheepschronometer maakte het mogelijk de lengtegraad op zee te bepalen.", "en": "The marine chronometer made it possible to find longitude at sea."},
-      "patronen": {"nl": "Tandwielverhoudingen vormen een getalpatroon dat je leert lezen.", "en": "Gear ratios form a numeric pattern you learn to read."}
+      "patronen": {"nl": "Tandwielverhoudingen vormen een getalpatroon dat je leert lezen.", "en": "Gear ratios form a numeric pattern you learn to read."},
+      "wetenschap": {"nl": "Een uurwerk is mechanica en tijdmeting: wie het repareert leert hoe tijd werd gemeten met veer, slinger en kwarts.", "en": "A watch is mechanics and timekeeping: repairing one teaches you how time was measured with spring, pendulum and quartz."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Zee en scheepvaart was zwak; vervangen door Wetenschap."]
   },
   {
     "id": "RA-510",
@@ -554,13 +554,13 @@
     "match": "exact",
     "legacy_id": "open-source",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group", "with_known"], "level": 2, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["bouwen:4:D", "repareren:3:D", "thuis:3:D", "logica:5:V", "communicatie:3:V", "taalvaardig:3:V", "technologie:5:T", "rechtvaardigheid:3:T", "gemeenschap:5:E", "samenwerking:5:E", "puzzelen:4:E", "doorzetten:3:E", "zorg:3:E", "zelfstandig:3:E", "kunst:3:O", "geschiedenis:3:O", "online:5:D"],
+    "links": ["bouwen:4:D", "repareren:3:D", "thuis:3:D", "logica:5:V", "communicatie:3:V", "taalvaardig:3:V", "technologie:5:T", "rechtvaardigheid:3:T", "gemeenschap:5:E", "samenwerking:5:E", "puzzelen:4:E", "doorzetten:3:E", "zorg:3:E", "zelfstandig:3:E", "geschiedenis:3:O", "online:5:D"],
     "why": {
-      "kunst": {"nl": "Lettertypen, pictogrammen en interfaceontwerp zijn ook open vakwerk.", "en": "Fonts, icons and interface design are open craft too."},
       "geschiedenis": {"nl": "Open source zet de oude traditie voort van recepten en gereedschap delen.", "en": "Open source continues the old tradition of sharing recipes and tools."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
   },
   {
     "id": "RA-513",

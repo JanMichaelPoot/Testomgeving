@@ -33,13 +33,14 @@
     "legacy_id": "analoge-fotografie",
     "v0_id": "ACT-017",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["papier:4:M", "atelier:4:D", "onderzoeken:3:D", "observeren:4:D", "precisie:4:V", "geduld:5:V", "technologie:3:T", "wetenschap:4:T", "kunst:4:T", "nostalgie:5:E", "licht:5:E", "spanning:3:E", "imperfectie:3:E", "tast:3:E", "geur:3:O", "experimenteren:3:O"],
+    "links": ["papier:4:M", "atelier:4:D", "onderzoeken:3:D", "observeren:4:D", "precisie:4:V", "geduld:5:V", "technologie:3:T", "wetenschap:4:T", "kunst:4:T", "nostalgie:5:E", "licht:5:E", "spanning:3:E", "imperfectie:3:E", "tast:3:E", "experimenteren:3:O", "geschiedenis:3:O"],
     "why": {
-      "geur": {"nl": "Ontwikkelaar en fixeer geven een donkere kamer een geur die je direct herkent, dus dit is ook een hobby voor je neus.", "en": "Developer and fixer give a darkroom a smell you recognise at once, so this is a hobby for your nose too."},
-      "experimenteren": {"nl": "Film, chemicaliën en belichting nodigen uit tot variaties en omgaan met verrassingen.", "en": "Film, chemicals and exposure invite variations and living with surprises."}
+      "experimenteren": {"nl": "Film, chemicaliën en belichting nodigen uit tot variaties en omgaan met verrassingen.", "en": "Film, chemicals and exposure invite variations and living with surprises."},
+      "geschiedenis": {"nl": "Je werkt met een techniek uit de negentiende eeuw en leert hoe fotografen vroeger hun beelden maakten.", "en": "You work with a technique from the nineteenth century and learn how photographers used to make their images."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Steekproef Jan: brug Geur was onzin; vervangen door Geschiedenis."]
   },
   {
     "id": "RA-025",
@@ -200,13 +201,13 @@
     "match": "exact",
     "legacy_id": "korte-film",
     "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["ontwerpen:3:D", "organiseren:3:D", "creativiteit:5:V", "communicatie:3:V", "leiding:3:V", "improviseren:3:V", "verhalen:5:T", "technologie:3:T", "kunst:3:T", "fantasie:4:E", "samenwerking:4:E", "speelsheid:3:E", "trots:4:E", "opgaan:3:E", "ritme:3:E", "architectuur:3:O", "gemeenschap:3:O"],
+    "links": ["ontwerpen:3:D", "organiseren:3:D", "creativiteit:5:V", "communicatie:3:V", "leiding:3:V", "improviseren:3:V", "verhalen:5:T", "technologie:3:T", "kunst:3:T", "fantasie:4:E", "samenwerking:4:E", "speelsheid:3:E", "trots:4:E", "opgaan:3:E", "ritme:3:E", "gemeenschap:3:O"],
     "why": {
-      "architectuur": {"nl": "Locaties kiezen en ruimte kadreren is bestuderen hoe plekken er op het scherm uitzien.", "en": "Choosing locations and framing space is a study of how places look on screen."},
       "gemeenschap": {"nl": "Lokale filmgroepen en festivals geven korte films een publiek.", "en": "Local film groups and festivals give short films an audience."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-194",
@@ -240,13 +241,14 @@
     "match": "exact",
     "legacy_id": "lokale-radio",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["organiseren:3:D", "communicatie:5:V", "taalvaardig:4:V", "improviseren:3:V", "leiding:2:V", "technologie:3:T", "verhalen:3:T", "klank:4:E", "publiek:4:E", "gemeenschap:5:E", "gezelligheid:2:E", "trots:4:E", "samenwerking:4:E", "expressie:3:E", "stad:3:O", "ritme:3:O"],
+    "links": ["organiseren:3:D", "communicatie:5:V", "taalvaardig:4:V", "improviseren:3:V", "leiding:2:V", "technologie:3:T", "verhalen:3:T", "klank:4:E", "publiek:4:E", "gemeenschap:5:E", "gezelligheid:2:E", "trots:4:E", "samenwerking:4:E", "expressie:3:E", "ritme:3:O", "muziek:3:O"],
     "why": {
-      "stad": {"nl": "Lokale radio is de stem van een plek: nieuws, evenementen en mensen.", "en": "Local radio is the voice of a place: news, events and people."},
-      "ritme": {"nl": "Een live programma heeft een klok van onderdelen en jingles, wat timing traint.", "en": "A live programme has a clock of segments and jingles, which trains timing."}
+      "ritme": {"nl": "Een live programma heeft een klok van onderdelen en jingles, wat timing traint.", "en": "A live programme has a clock of segments and jingles, which trains timing."},
+      "muziek": {"nl": "Radio maken is ook muziek kiezen en laten klinken: je ontdekt hoe een playlist een programma draagt.", "en": "Making radio also means choosing and playing music: you discover how a playlist carries a programme."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Stad en straat was zwak; vervangen door Muziek."]
   },
   {
     "id": "RA-196",
@@ -260,13 +262,13 @@
     "match": "exact",
     "legacy_id": "fotobewerking",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online", "duo"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["papier:3:M", "ontwerpen:5:D", "thuis:3:D", "creativiteit:3:V", "precisie:3:V", "concentratie:3:V", "technologie:4:T", "verhalen:4:T", "kunst:3:T", "licht:4:E", "nostalgie:4:E", "trots:4:E", "opgaan:3:E", "schoonheid:3:E", "identiteit:3:O", "generaties:3:O"],
+    "links": ["papier:3:M", "ontwerpen:5:D", "thuis:3:D", "creativiteit:3:V", "precisie:3:V", "concentratie:3:V", "technologie:4:T", "verhalen:4:T", "kunst:3:T", "licht:4:E", "nostalgie:4:E", "trots:4:E", "opgaan:3:E", "schoonheid:3:E", "generaties:3:O"],
     "why": {
-      "identiteit": {"nl": "Kiezen welke foto's je bewaart is een manier om te bepalen hoe je het je herinnert.", "en": "Choosing which photos to keep is a way to decide how you remember."},
       "generaties": {"nl": "Fotoboeken worden gemaakt om door te geven en aan familie te tonen.", "en": "Photo books are made to be passed on and shown to family."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Identiteit."]
   },
   {
     "id": "RA-416",
@@ -280,13 +282,13 @@
     "match": "exact",
     "legacy_id": "dierenfotografie",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "small_group", "duo"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["observeren:5:D", "bos:2:D", "geduld:4:V", "concentratie:4:V", "creativiteit:3:V", "dieren:5:T", "natuur:3:T", "technologie:3:T", "beeldtaal:3:T", "licht:4:E", "verwondering:4:E", "zorg:3:E", "speelsheid:2:E", "wetenschap:3:O", "tradities:3:O"],
+    "links": ["observeren:5:D", "bos:2:D", "geduld:4:V", "concentratie:4:V", "creativiteit:3:V", "dieren:5:T", "natuur:3:T", "technologie:3:T", "beeldtaal:3:T", "licht:4:E", "verwondering:4:E", "zorg:3:E", "speelsheid:2:E", "wetenschap:3:O"],
     "why": {
-      "wetenschap": {"nl": "Gedrag kennen en timen is veldbiologie achter elk goed dierenportret.", "en": "Knowing and timing behaviour is field biology behind every good animal portrait."},
-      "tradities": {"nl": "Dierenportretten gaan terug op jachtschilderijen en natuurgidsen.", "en": "Animal portraits go back to hunting paintings and nature guides."}
+      "wetenschap": {"nl": "Gedrag kennen en timen is veldbiologie achter elk goed dierenportret.", "en": "Knowing and timing behaviour is field biology behind every good animal portrait."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-417",
@@ -300,13 +302,13 @@
     "match": "exact",
     "legacy_id": "fotoshoot",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 0, "source": "app"},
-    "links": ["stad:2:D", "communicatie:3:V", "mode:3:T", "identiteit:5:T", "beeldtaal:3:T", "licht:4:E", "expressie:4:E", "moed:3:E", "speelsheid:3:E", "spanning:2:E", "verbondenheid:2:E", "zelfstandig:2:E", "schoonheid:3:E", "humor:3:O", "kunst:3:O"],
+    "links": ["stad:2:D", "communicatie:3:V", "mode:3:T", "identiteit:5:T", "beeldtaal:3:T", "licht:4:E", "expressie:4:E", "moed:3:E", "speelsheid:3:E", "spanning:2:E", "verbondenheid:2:E", "zelfstandig:2:E", "schoonheid:3:E", "kunst:3:O"],
     "why": {
-      "humor": {"nl": "Pose en lachen voor een camera is van nature een komisch moment dat ontspant.", "en": "Posing and laughing for a camera is naturally a comic moment that relaxes you."},
       "kunst": {"nl": "Portretfotografie is een kunstvorm met eigen stijlen en meesters.", "en": "Portrait photography is an art form with its own styles and masters."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-418",
@@ -340,13 +342,13 @@
     "match": "exact",
     "legacy_id": "openluchtbioscoop",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["observeren:2:D", "stad:2:D", "beeldtaal:4:T", "heelal:3:T", "weer:3:T", "verhalen:3:T", "gezelligheid:5:E", "warmte:3:E", "vrijheid:3:E", "licht:4:E", "verwondering:3:E", "rust:3:E", "verbondenheid:3:E", "klank:3:E", "kunst:3:O", "tradities:3:O", "uitgaan:3:D", "cultuurplek:2:D"],
+    "links": ["observeren:2:D", "stad:2:D", "beeldtaal:4:T", "heelal:3:T", "weer:3:T", "verhalen:3:T", "gezelligheid:5:E", "warmte:3:E", "vrijheid:3:E", "licht:4:E", "verwondering:3:E", "rust:3:E", "verbondenheid:3:E", "klank:3:E", "uitgaan:3:D", "cultuurplek:2:D", "muziek:3:O"],
     "why": {
-      "kunst": {"nl": "Film in de open lucht maakt van een plein of park een tijdelijke zaal.", "en": "Film in the open air makes a square or park a temporary hall."},
-      "tradities": {"nl": "Zomerbioscopen zijn een jaarlijks ritueel in veel steden.", "en": "Summer cinemas are a yearly ritual in many cities."}
+      "muziek": {"nl": "Veel openluchtavonden hebben live muziek of een soundtrackconcert: je ontdekt hoe muziek een film draagt.", "en": "Many open-air evenings have live music or a soundtrack concert: you discover how music carries a film."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Kunst was zwak; vervangen door Muziek.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-420",
@@ -401,14 +403,14 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "both", "social_formats": ["duo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "authored"},
-    "links": ["observeren:4:D", "communicatie:5:V", "creativiteit:3:V", "concentratie:3:V", "technologie:3:T", "identiteit:4:T", "beeldtaal:4:T", "kunst:3:T", "licht:5:E", "ontroering:3:E", "expressie:3:E", "zorg:3:E", "verbondenheid:4:E", "humor:3:O", "verhalen:3:O", "luisteren:3:V"],
+    "links": ["observeren:4:D", "communicatie:5:V", "creativiteit:3:V", "concentratie:3:V", "technologie:3:T", "identiteit:4:T", "beeldtaal:4:T", "kunst:3:T", "licht:5:E", "ontroering:3:E", "expressie:3:E", "zorg:3:E", "verbondenheid:4:E", "luisteren:3:V", "stad:3:O", "geschiedenis:3:O"],
     "why": {
-      "humor": {"nl": "Een lach tijdens een gesprek geeft vaak het beste portret.", "en": "A laugh during conversation often gives the best portrait."},
-      "verhalen": {"nl": "Een portret vertelt iemands karakter in één beeld.", "en": "A portrait tells someone's character in one image."}
+      "stad": {"nl": "Portretten maak je vaak buiten: je leert straten, markten en wijken zien als decor voor mensen.", "en": "You often shoot portraits outdoors: you learn to see streets, markets and neighbourhoods as a backdrop for people."},
+      "geschiedenis": {"nl": "Portretfotografie heeft een lange studiotraditie: wie die kent, herkent pose en licht van vroeger.", "en": "Portrait photography has a long studio tradition: knowing it, you recognise the poses and light of the past."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor, Verhalen."]
   },
   {
     "id": "RA-423",
@@ -464,14 +466,14 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["observeren:4:D", "stad:2:D", "communicatie:2:V", "taalvaardig:2:V", "beeldtaal:5:T", "kunst:3:T", "verhalen:4:T", "wereldculturen:3:T", "gezelligheid:4:E", "verbondenheid:3:E", "ontroering:3:E", "verwondering:3:E", "ontdekking:4:E", "gemeenschap:3:E", "humor:3:O", "architectuur:3:O", "uitgaan:3:D", "cultuurplek:4:D"],
+    "links": ["observeren:4:D", "stad:2:D", "communicatie:2:V", "taalvaardig:2:V", "beeldtaal:5:T", "kunst:3:T", "verhalen:4:T", "wereldculturen:3:T", "gezelligheid:4:E", "verbondenheid:3:E", "ontroering:3:E", "verwondering:3:E", "ontdekking:4:E", "gemeenschap:3:E", "uitgaan:3:D", "cultuurplek:4:D", "geschiedenis:3:O", "muziek:3:O"],
     "why": {
-      "humor": {"nl": "Een goed gesprek over een film begint vaak met wat je allemaal uitlachte.", "en": "A good conversation about a film often starts with what made you laugh."},
-      "architectuur": {"nl": "Locaties en decors in films laten je plekken en gebouwen op een nieuwe manier zien.", "en": "Locations and sets in films show you places and buildings in a new way."}
+      "geschiedenis": {"nl": "Filmhuizen draaien klassiekers: je ontdekt hoe film zich ontwikkelde van stomme film tot nu.", "en": "Film houses screen classics: you discover how cinema developed from silent film to today."},
+      "muziek": {"nl": "Filmmuziek stuurt wat je voelt: na een avond let je op wat een soundtrack met een scène doet.", "en": "Film music steers what you feel: after an evening you notice what a soundtrack does to a scene."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor, Architectuur."]
   },
   {
     "id": "RA-426",

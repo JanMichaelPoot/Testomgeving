@@ -53,7 +53,7 @@ The source of truth is the JSON. The Excel file is generated from it and never e
 
 Recognition is what someone already knows: high scores on direct, material and skill links. Discovery is the
 `O` links: a non-obvious but sensible path to something they have not thought of, always with a reason. A good
-record has both. The check requires at least two discovery links per activity.
+record has both. The check requires at least one discovery link per activity (it was two until review round 3, when weak bridges were removed instead of padded).
 
 ## The link with the app's library
 
@@ -82,7 +82,7 @@ written reason. Discovery bridges through very common associations (history, sci
 weighted down, because they join almost anything.
 
 The check enforces: unique ids, slugs and names (NL and EN); a known category; 12-20 links per activity;
-at least two discovery links with a reason; at least one strong link; at least three association domains per
+at least one discovery link with a reason; at least one strong link; at least three association domains per
 activity; relation forms that point at the right kind of association; facets inside their scales; a correct
 crosswalk to the app. It warns about boilerplate reasons repeated across records and about associations that
 no activity uses yet.
@@ -109,6 +109,12 @@ ones, removed 170 weak generic links (`trots` 43% to 18% of activities), correct
 ten more, raised two records to safety tier 1, and gave every record `qa` (round, checked or adjusted) and, where
 needed, `qa_notes`. It is one AI playing four roles, not human review: records stay `Concept`. 13 extra tags for the
 app's vocabulary are proposed in `review/findings.json` but not applied.
+
+## Human sample
+
+Jan checked 30 random activities (`review/steekproef-ronde-1.html`, built by `scripts/reference-library/make-review-sheet.py`):
+3 of 180 strongest associations did not fit, 10 of 60 discovery bridges were weak or nonsense, 5 of 30 records had a wrong
+facet. All were fixed (records carry `qa` round 2). A bridges-only sheet (`make-bridge-sheet.py`) is the next check. See `review/REVIEW.md`.
 
 ## Status (target reached)
 

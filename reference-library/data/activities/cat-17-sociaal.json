@@ -53,14 +53,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "both", "social_formats": ["duo"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["communicatie:5:V", "taalvaardig:4:V", "geduld:4:V", "zorg:5:E", "gemeenschap:4:E", "ontroering:4:E", "gezelligheid:3:E", "wereldculturen:5:T", "identiteit:3:T", "verhalen:3:T", "stad:3:D", "keuken:3:O", "navigeren:3:O", "taal:5:T", "luisteren:5:V"],
+    "links": ["communicatie:5:V", "taalvaardig:4:V", "geduld:4:V", "zorg:5:E", "gemeenschap:4:E", "ontroering:4:E", "gezelligheid:3:E", "wereldculturen:5:T", "identiteit:3:T", "verhalen:3:T", "stad:3:D", "keuken:3:O", "taal:5:T", "luisteren:5:V"],
     "why": {
-      "keuken": {"nl": "Taaloefening verhuist vaak naar koken, samen eten en lievelingsgerechten, zodat de keuken een klaslokaal wordt.", "en": "Language practice often moves into cooking, shared meals and favourite dishes, so the kitchen becomes a classroom."},
-      "navigeren": {"nl": "Je helpt iemand zijn weg te vinden in routines, formulieren en gewoonten van een nieuw land.", "en": "You help someone find their way in the routines, forms and customs of a new country."}
+      "keuken": {"nl": "Taaloefening verhuist vaak naar koken, samen eten en lievelingsgerechten, zodat de keuken een klaslokaal wordt.", "en": "Language practice often moves into cooking, shared meals and favourite dishes, so the kitchen becomes a classroom."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 3): brug Navigeren was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-065",
@@ -176,13 +175,13 @@
     "match": "exact",
     "legacy_id": "mentor-jongere",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 1, "source": "app"},
-    "links": ["communicatie:4:V", "geduld:4:V", "leiding:3:V", "zorg:5:E", "generaties:5:E", "ontroering:3:E", "gemeenschap:3:E", "rechtvaardigheid:3:T", "welzijn:3:T", "identiteit:3:T", "verbondenheid:3:E", "doorzetten:3:E", "verhalen:3:O", "ontdekking:3:O", "leren:3:E", "luisteren:4:V"],
+    "links": ["communicatie:4:V", "geduld:4:V", "leiding:3:V", "zorg:5:E", "generaties:5:E", "ontroering:3:E", "gemeenschap:3:E", "rechtvaardigheid:3:T", "welzijn:3:T", "identiteit:3:T", "verbondenheid:3:E", "doorzetten:3:E", "leren:3:E", "luisteren:4:V", "organiseren:3:O"],
     "why": {
-      "verhalen": {"nl": "Je eigen fouten en wendingen delen wordt een kaart voor iemand anders.", "en": "Sharing your own mistakes and turns becomes a map for someone else."},
-      "ontdekking": {"nl": "Mentoren zien hun eigen vak met nieuwe ogen.", "en": "Mentoring is a chance to see your own field through fresh eyes."}
+      "organiseren": {"nl": "Mentoren helpen vaak een huiswerkclub of mentorprogramma op te zetten en te organiseren.", "en": "Mentors often help set up and organise a homework club or mentoring programme."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Ontdekking had een zeer korte reden (zelfde patroon als de zwakke bruggen); vervangen door Organiseren.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-325",
@@ -196,13 +195,13 @@
     "match": "exact",
     "legacy_id": "voedselbank",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["organiseren:4:D", "stad:2:D", "communicatie:3:V", "rechtvaardigheid:5:T", "voeding:4:T", "duurzaamheid:3:T", "zorg:5:E", "gemeenschap:5:E", "samenwerking:4:E", "gezelligheid:2:E", "generaties:2:E", "leiding:3:O", "verhalen:3:O", "luisteren:4:V"],
+    "links": ["organiseren:4:D", "stad:2:D", "communicatie:3:V", "rechtvaardigheid:5:T", "voeding:4:T", "duurzaamheid:3:T", "zorg:5:E", "gemeenschap:5:E", "samenwerking:4:E", "gezelligheid:2:E", "generaties:2:E", "luisteren:4:V", "ambacht:3:O"],
     "why": {
-      "leiding": {"nl": "De logistiek van kratten en roosters is echt projectmanagement.", "en": "The logistics of crates and rosters is real project management."},
-      "verhalen": {"nl": "Vrijwilligers horen verhalen over hoe mensen hulp nodig kregen.", "en": "Volunteers hear stories of how people came to need help."}
+      "ambacht": {"nl": "Wie vaak helpt, ziet hoe soep- en broodacties werken en kan doorgroeien naar koken voor groepen in een buurthuis of keuken.", "en": "People who help often see how soup and bread drives work and can grow into cooking for groups in a community kitchen."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen.", "Bruggen-steekproef Jan (ronde 3): brug Leiderschap was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-326",
@@ -236,13 +235,14 @@
     "match": "exact",
     "legacy_id": "buurtproject",
     "facets": {"setting": "both", "social_formats": ["small_group", "large_group", "with_known"], "level": 1, "duration": 4, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["organiseren:5:D", "ontwerpen:3:D", "stad:3:D", "leiding:4:V", "communicatie:4:V", "creativiteit:3:V", "gemeenschap:5:E", "samenwerking:5:E", "zorg:3:E", "doorzetten:4:E", "duurzaamheid:3:T", "rechtvaardigheid:2:T", "architectuur:3:O", "humor:3:O", "luisteren:3:V"],
+    "links": ["organiseren:5:D", "ontwerpen:3:D", "stad:3:D", "leiding:4:V", "communicatie:4:V", "creativiteit:3:V", "gemeenschap:5:E", "samenwerking:5:E", "zorg:3:E", "doorzetten:4:E", "duurzaamheid:3:T", "rechtvaardigheid:2:T", "luisteren:3:V", "bouwen:3:O", "geschiedenis:3:O"],
     "why": {
-      "architectuur": {"nl": "Bankjes, tuinen en speelplekken zijn kleine architectuur.", "en": "Benches, gardens and play spots are small architecture."},
-      "humor": {"nl": "Een beetje speelsheid krijgt buren zover mee te doen.", "en": "A bit of playfulness gets neighbours to join in."}
+      "bouwen": {"nl": "Veel buurtprojecten eindigen in iets gebouwds: een bank, plantenbak of speelplek.", "en": "Many neighbourhood projects end in something built: a bench, planter or play area."},
+      "geschiedenis": {"nl": "Elke straat heeft een verleden: wie een project start, ontdekt wie er vroeger woonde en werkte.", "en": "Every street has a past: starting a project, you discover who lived and worked there before."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur, Humor."]
   },
   {
     "id": "RA-328",
@@ -256,13 +256,14 @@
     "match": "exact",
     "legacy_id": "bibliotheek-vrijwilliger",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["organiseren:3:D", "communicatie:3:V", "taalvaardig:3:V", "verhalen:4:T", "kunst:2:T", "rechtvaardigheid:2:T", "gemeenschap:5:E", "zorg:3:E", "gezelligheid:3:E", "generaties:4:E", "rust:3:E", "ontdekking:3:E", "verbondenheid:3:E", "technologie:3:O", "wonen:3:O", "cultuurplek:4:D"],
+    "links": ["organiseren:3:D", "communicatie:3:V", "taalvaardig:3:V", "verhalen:4:T", "kunst:2:T", "rechtvaardigheid:2:T", "gemeenschap:5:E", "zorg:3:E", "gezelligheid:3:E", "generaties:4:E", "rust:3:E", "ontdekking:3:E", "verbondenheid:3:E", "wonen:3:O", "cultuurplek:4:D", "geschiedenis:3:O"],
     "why": {
-      "technologie": {"nl": "Moderne bibliotheken draaien digitale hulpbalies en makerspaces.", "en": "Modern libraries run digital help desks and makerspaces."},
-      "wonen": {"nl": "Bibliotheken zijn woonkamers voor een buurt.", "en": "Libraries are living rooms for a neighbourhood."}
+      "wonen": {"nl": "Bibliotheken zijn woonkamers voor een buurt.", "en": "Libraries are living rooms for a neighbourhood."},
+      "geschiedenis": {"nl": "Een bibliotheek bewaart de streekgeschiedenis: oude kranten, kaarten en foto's van hoe de buurt vroeger was.", "en": "A library keeps local history: old newspapers, maps and photos of what the neighbourhood used to be like."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Steekproef Jan: brug Technologie te zwak; vervangen door Geschiedenis."]
   },
   {
     "id": "RA-329",
@@ -276,13 +277,13 @@
     "match": "exact",
     "legacy_id": "zorgboerderij",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 1, "source": "app"},
-    "links": ["planten:2:M", "dieren:4:T", "voeding:2:T", "natuur:4:T", "welzijn:5:T", "zorg:5:E", "samenwerking:4:E", "gemeenschap:4:E", "rust:4:E", "beweging:3:E", "ritme:3:E", "tast:3:E", "rechtvaardigheid:3:O", "tradities:3:O", "luisteren:3:V"],
+    "links": ["planten:2:M", "dieren:4:T", "voeding:2:T", "natuur:4:T", "welzijn:5:T", "zorg:5:E", "samenwerking:4:E", "gemeenschap:4:E", "rust:4:E", "beweging:3:E", "ritme:3:E", "tast:3:E", "rechtvaardigheid:3:O", "luisteren:3:V"],
     "why": {
-      "rechtvaardigheid": {"nl": "Zorgboerderijen geven mensen met afstand tot de arbeidsmarkt zinvol werk.", "en": "Care farms give people with a distance to the job market meaningful work."},
-      "tradities": {"nl": "Boerenritmes van melken en zaaien structureren de dag.", "en": "Farm rhythms of milking and sowing structure the day."}
+      "rechtvaardigheid": {"nl": "Zorgboerderijen geven mensen met afstand tot de arbeidsmarkt zinvol werk.", "en": "Care farms give people with a distance to the job market meaningful work."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-330",
@@ -296,13 +297,13 @@
     "match": "exact",
     "legacy_id": "festival-vrijwilliger",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["organiseren:5:D", "podium:3:D", "communicatie:3:V", "leiding:2:V", "samenwerking:4:E", "gezelligheid:4:E", "gemeenschap:4:E", "klank:3:E", "verbondenheid:4:E", "avontuur:2:E", "doorzetten:3:E", "ritme:2:E", "rauw:2:E", "kunst:3:O", "technologie:3:O"],
+    "links": ["organiseren:5:D", "podium:3:D", "communicatie:3:V", "leiding:2:V", "samenwerking:4:E", "gezelligheid:4:E", "gemeenschap:4:E", "klank:3:E", "verbondenheid:4:E", "avontuur:2:E", "doorzetten:3:E", "ritme:2:E", "rauw:2:E", "technologie:3:O"],
     "why": {
-      "kunst": {"nl": "Achter de line-up zit een tijdelijke stad van crews, podia en decor.", "en": "Behind the line-up is a temporary city of crews, stages and decor."},
       "technologie": {"nl": "Geluid, licht en ticketing laten zien dat evenementen op techniek draaien.", "en": "Sound, light and ticketing show how events run on technology."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
   },
   {
     "id": "RA-331",
@@ -316,13 +317,13 @@
     "match": "exact",
     "legacy_id": "nieuwkomers",
     "facets": {"setting": "both", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["organiseren:2:D", "stad:3:D", "communicatie:4:V", "taalvaardig:3:V", "wereldculturen:4:T", "identiteit:2:T", "verbondenheid:5:E", "gemeenschap:4:E", "gezelligheid:4:E", "zorg:3:E", "moed:3:E", "ontdekking:3:E", "voeding:3:O", "verhalen:3:O", "luisteren:4:V"],
+    "links": ["organiseren:2:D", "stad:3:D", "communicatie:4:V", "taalvaardig:3:V", "wereldculturen:4:T", "identiteit:2:T", "verbondenheid:5:E", "gemeenschap:4:E", "gezelligheid:4:E", "zorg:3:E", "moed:3:E", "ontdekking:3:E", "voeding:3:O", "luisteren:4:V"],
     "why": {
-      "voeding": {"nl": "Eten breekt vaak het ijs aan tafels van nieuwkomers.", "en": "Food often breaks the ice at newcomers' tables."},
-      "verhalen": {"nl": "Elke nieuwkomer heeft een verhuis- of migratieverhaal dat het horen waard is.", "en": "Each newcomer has a migration or move story worth hearing."}
+      "voeding": {"nl": "Eten breekt vaak het ijs aan tafels van nieuwkomers.", "en": "Food often breaks the ice at newcomers' tables."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-359",
@@ -336,13 +337,13 @@
     "match": "exact",
     "legacy_id": "dierenasiel",
     "facets": {"setting": "both", "social_formats": ["drop_in_alone"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 1, "source": "app"},
-    "links": ["dieren:5:T", "zorg:5:E", "beweging:3:E", "gemeenschap:3:E", "rust:2:E", "ontroering:3:E", "samenwerking:3:E", "rechtvaardigheid:3:T", "geduld:3:V", "communicatie:2:V", "natuur:2:T", "tast:3:E", "wetenschap:3:O", "verhalen:3:O", "luisteren:3:V"],
+    "links": ["dieren:5:T", "zorg:5:E", "beweging:3:E", "gemeenschap:3:E", "rust:2:E", "ontroering:3:E", "samenwerking:3:E", "rechtvaardigheid:3:T", "geduld:3:V", "communicatie:2:V", "natuur:2:T", "tast:3:E", "wetenschap:3:O", "luisteren:3:V"],
     "why": {
-      "wetenschap": {"nl": "Gedrag en training zijn toegepaste dierkunde.", "en": "Behaviour and training basics are applied animal science."},
-      "verhalen": {"nl": "Elk dier komt binnen met een verhaal en vertrekt met een ander.", "en": "Every animal arrives with a story and leaves with another."}
+      "wetenschap": {"nl": "Gedrag en training zijn toegepaste dierkunde.", "en": "Behaviour and training basics are applied animal science."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-529",
@@ -356,14 +357,13 @@
     "match": "exact",
     "legacy_id": "buurtmaaltijd",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["keuken:3:D", "organiseren:3:D", "stad:2:D", "communicatie:2:V", "voeding:4:T", "wereldculturen:3:T", "gemeenschap:5:E", "gezelligheid:5:E", "verbondenheid:4:E", "smaak:4:E", "generaties:3:E", "zorg:3:E", "samenwerking:3:E", "wonen:3:O", "tradities:3:O"],
+    "links": ["keuken:3:D", "organiseren:3:D", "stad:2:D", "communicatie:2:V", "voeding:4:T", "wereldculturen:3:T", "gemeenschap:5:E", "gezelligheid:5:E", "verbondenheid:4:E", "smaak:4:E", "generaties:3:E", "zorg:3:E", "samenwerking:3:E", "tradities:3:O"],
     "why": {
-      "wonen": {"nl": "Samen eten verandert een straat in een gedeelde eetkamer.", "en": "Eating together turns a street into a shared dining room."},
       "tradities": {"nl": "Gedeelde maaltijden zijn altijd de basis van dorpsleven geweest.", "en": "Shared meals have always been the basis of village life."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Overlaps strongly with 'potluck' (link similarity 0.91); keep both only if they stay distinct for the visitor."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Overlaps strongly with 'potluck' (link similarity 0.91); keep both only if they stay distinct for the visitor.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wonen en interieur."]
   },
   {
     "id": "RA-530",
@@ -377,13 +377,14 @@
     "match": "exact",
     "legacy_id": "wandelgroep",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["bos:3:D", "navigeren:2:D", "natuur:3:T", "welzijn:4:T", "beweging:4:E", "gezelligheid:5:E", "gemeenschap:4:E", "verbondenheid:4:E", "rust:3:E", "generaties:3:E", "vrijheid:2:E", "ritme:3:E", "communicatie:2:V", "verhalen:3:O", "ontdekking:3:O"],
+    "links": ["bos:3:D", "navigeren:2:D", "natuur:3:T", "welzijn:4:T", "beweging:4:E", "gezelligheid:5:E", "gemeenschap:4:E", "verbondenheid:4:E", "rust:3:E", "generaties:3:E", "vrijheid:2:E", "ritme:3:E", "communicatie:2:V", "bergen:3:O", "dieren:3:O"],
     "why": {
-      "verhalen": {"nl": "Naast elkaar lopen maakt praten makkelijker en laat verhalen komen.", "en": "Walking side by side makes talking easier and lets stories come out."},
-      "ontdekking": {"nl": "Groepsroutes leiden naar paden die je alleen niet zou kiezen.", "en": "Group routes lead to paths you would not choose alone."}
+      "bergen": {"nl": "Van een rustig rondje naar heuvels en meerdaagse wandelroutes: de groep brengt je op paden die je zelf niet koos.", "en": "From a gentle loop to hills and multi-day routes: the group takes you on paths you would not have chosen."},
+      "dieren": {"nl": "Tijdens het wandelen zie je vogels en wild: een stap naar vogels spotten.", "en": "While walking you see birds and wildlife: a step towards birdwatching."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen, Ontdekking."]
   },
   {
     "id": "RA-531",
@@ -397,13 +398,13 @@
     "match": "exact",
     "legacy_id": "kletscafe",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["stad:2:D", "communicatie:3:V", "welzijn:3:T", "gezelligheid:5:E", "gemeenschap:4:E", "verbondenheid:5:E", "zorg:3:E", "warmte:3:E", "rust:3:E", "smaak:3:E", "generaties:3:E", "ontroering:2:E", "verhalen:3:O", "wonen:3:O", "uitgaan:4:D", "luisteren:3:V"],
+    "links": ["stad:2:D", "communicatie:3:V", "welzijn:3:T", "gezelligheid:5:E", "gemeenschap:4:E", "verbondenheid:5:E", "zorg:3:E", "warmte:3:E", "rust:3:E", "smaak:3:E", "generaties:3:E", "ontroering:2:E", "uitgaan:4:D", "luisteren:3:V", "organiseren:3:O"],
     "why": {
-      "verhalen": {"nl": "Gewoon praten groeit uit tot verhalen van de buurt.", "en": "Small talk turns into stories of the neighbourhood."},
-      "wonen": {"nl": "Zo'n café is een woonkamer voor de straat.", "en": "A café like this is a living room for the street."}
+      "organiseren": {"nl": "Wie vaste gast wordt, kan helpen koffie te zetten en een ochtend te organiseren.", "en": "Regulars can help make coffee and organise a morning."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Wonen en interieur had een zeer korte reden (zelfde patroon als de zwakke bruggen); vervangen door Organiseren.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-532",
@@ -417,14 +418,14 @@
     "match": "exact",
     "legacy_id": "potluck",
     "facets": {"setting": "indoor", "social_formats": ["small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["keuken:3:D", "organiseren:2:D", "thuis:3:D", "voeding:4:T", "wereldculturen:3:T", "smaak:5:E", "gezelligheid:5:E", "gemeenschap:4:E", "verbondenheid:4:E", "samenwerking:4:E", "generaties:3:E", "speelsheid:3:E", "zorg:3:E", "verhalen:3:O", "rechtvaardigheid:3:O"],
+    "links": ["keuken:3:D", "organiseren:2:D", "thuis:3:D", "voeding:4:T", "wereldculturen:3:T", "smaak:5:E", "gezelligheid:5:E", "gemeenschap:4:E", "verbondenheid:4:E", "samenwerking:4:E", "generaties:3:E", "speelsheid:3:E", "zorg:3:E", "uitgaan:3:O", "duurzaamheid:3:O"],
     "why": {
-      "verhalen": {"nl": "Elk gerecht komt met een familieverhaal.", "en": "Every dish comes with a family story."},
-      "rechtvaardigheid": {"nl": "Eten bundelen maakt een feestmaal bereikbaar voor iedereen.", "en": "Pooling food makes a feast within everyone's reach."}
+      "uitgaan": {"nl": "Potlucks groeien uit tot eetclubs en pop-upavonden.", "en": "Potlucks grow into dining clubs and pop-up evenings."},
+      "duurzaamheid": {"nl": "Iedereen brengt een portie mee, dus niets blijft liggen: een voorbeeld van minder voedselverspilling.", "en": "Everyone brings a portion, so nothing is left over: an example of less food waste."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Overlaps strongly with 'buurtmaaltijd' (link similarity 0.91); keep both only if they stay distinct for the visitor."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Overlaps strongly with 'buurtmaaltijd' (link similarity 0.91); keep both only if they stay distinct for the visitor.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen, Rechtvaardigheid en samenleving."]
   },
   {
     "id": "RA-533",
@@ -438,13 +439,13 @@
     "match": "exact",
     "legacy_id": "online-praatgroep",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "online"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:3:D", "communicatie:4:V", "taalvaardig:3:V", "technologie:4:T", "gemeenschap:5:E", "verbondenheid:4:E", "gezelligheid:3:E", "ontdekking:3:E", "zelfstandig:3:E", "humor:3:E", "expressie:3:E", "doorzetten:2:E", "wereldculturen:3:O", "identiteit:3:O", "online:5:D"],
+    "links": ["thuis:3:D", "communicatie:4:V", "taalvaardig:3:V", "technologie:4:T", "gemeenschap:5:E", "verbondenheid:4:E", "gezelligheid:3:E", "ontdekking:3:E", "zelfstandig:3:E", "humor:3:E", "expressie:3:E", "doorzetten:2:E", "wereldculturen:3:O", "online:5:D"],
     "why": {
-      "wereldculturen": {"nl": "Online groepen verbinden mensen over landen en tijdzones heen.", "en": "Online groups connect people across countries and time zones."},
-      "identiteit": {"nl": "Groepen rond een gedeelde interesse zijn een plek om te oefenen hoe je jezelf laat zien.", "en": "Shared interest groups are a place to try out how you present yourself."}
+      "wereldculturen": {"nl": "Online groepen verbinden mensen over landen en tijdzones heen.", "en": "Online groups connect people across countries and time zones."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Identiteit."]
   },
   {
     "id": "RA-534",
@@ -478,13 +479,13 @@
     "match": "exact",
     "legacy_id": "onbekenden-diner",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
-    "links": ["keuken:2:D", "stad:2:D", "communicatie:3:V", "voeding:3:T", "wereldculturen:3:T", "verbondenheid:5:E", "gezelligheid:4:E", "moed:3:E", "smaak:4:E", "ontdekking:4:E", "spanning:2:E", "gemeenschap:3:E", "humor:3:E", "verhalen:3:O", "identiteit:3:O", "uitgaan:4:D"],
+    "links": ["keuken:2:D", "stad:2:D", "communicatie:3:V", "voeding:3:T", "wereldculturen:3:T", "verbondenheid:5:E", "gezelligheid:4:E", "moed:3:E", "smaak:4:E", "ontdekking:4:E", "spanning:2:E", "gemeenschap:3:E", "humor:3:E", "uitgaan:4:D", "organiseren:3:O"],
     "why": {
-      "verhalen": {"nl": "Onbekenden wisselen verhalen uit die ze aan vrienden niet zouden vertellen.", "en": "Strangers swap stories they would not tell friends."},
-      "identiteit": {"nl": "Mensen ontmoeten zonder gedeeld verleden laat je jezelf opnieuw voorstellen.", "en": "Meeting people without a shared past lets you present yourself afresh."}
+      "organiseren": {"nl": "Wie aan zo'n tafel zit, kan zelf gastheer worden en een diner organiseren.", "en": "Sitting at such a table, you can become a host yourself and organise a dinner."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen, Identiteit."]
   },
   {
     "id": "RA-536",
@@ -498,13 +499,14 @@
     "match": "exact",
     "legacy_id": "proefles-avond",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["organiseren:2:D", "communicatie:3:V", "verbondenheid:5:E", "gezelligheid:4:E", "speelsheid:4:E", "ontdekking:4:E", "moed:3:E", "humor:4:E", "gemeenschap:3:E", "experimenteren:3:E", "zelfstandig:2:E", "samenwerking:2:E", "leiding:3:O", "kunst:3:O"],
+    "links": ["organiseren:2:D", "communicatie:3:V", "verbondenheid:5:E", "gezelligheid:4:E", "speelsheid:4:E", "ontdekking:4:E", "moed:3:E", "humor:4:E", "gemeenschap:3:E", "experimenteren:3:E", "zelfstandig:2:E", "samenwerking:2:E", "leren:3:O", "ambacht:3:O"],
     "why": {
-      "leiding": {"nl": "Een goede gastheer bepaalt het tempo zodat beginners zich veilig voelen.", "en": "A good host sets the pace so beginners feel safe."},
-      "kunst": {"nl": "Proefavonden introduceren vaak voor het eerst ambachten en kunsten.", "en": "Trial evenings often introduce crafts and arts for the first time."}
+      "leren": {"nl": "Uitproberen is hoe je ontdekt wat je echt wilt leren: een proefavond kan naar een cursus leiden.", "en": "Trying things is how you find out what you really want to learn: a taster evening can lead to a course."},
+      "ambacht": {"nl": "Veel proefavonden zijn workshops van lokale makers: je ontdekt wie in je buurt een ambacht beoefent.", "en": "Many taster evenings are workshops by local makers: you discover who practises a craft near you."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Leiderschap, Kunst."]
   },
   {
     "id": "RA-537",
@@ -518,12 +520,12 @@
     "match": "exact",
     "legacy_id": "spelavond-thuis",
     "facets": {"setting": "indoor", "social_formats": ["small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["organiseren:4:D", "thuis:4:D", "keuken:2:D", "communicatie:2:V", "strategie:2:V", "voeding:2:T", "gezelligheid:5:E", "verbondenheid:4:E", "speelsheid:4:E", "competitie:3:E", "samenwerking:3:E", "humor:4:E", "gemeenschap:3:E", "wonen:3:O", "ontwerpen:3:O", "spel:4:T"],
+    "links": ["organiseren:4:D", "thuis:4:D", "keuken:2:D", "communicatie:2:V", "strategie:2:V", "voeding:2:T", "gezelligheid:5:E", "verbondenheid:4:E", "speelsheid:4:E", "competitie:3:E", "samenwerking:3:E", "humor:4:E", "gemeenschap:3:E", "ontwerpen:3:O", "spel:4:T"],
     "why": {
-      "wonen": {"nl": "Gastheer zijn maakt je huis tot spelkamer en laat zien hoe je graag leeft.", "en": "Hosting turns your home into a game room and shows how you like to live."},
       "ontwerpen": {"nl": "Spellen kiezen en uitleggen is een ervaring samenstellen.", "en": "Choosing and teaching games is curating an experience."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wonen en interieur."]
   }
 ]

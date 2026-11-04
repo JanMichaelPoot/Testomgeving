@@ -218,13 +218,13 @@
     "match": "exact",
     "legacy_id": "glasblazen",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 1, "source": "app"},
-    "links": ["glas:5:M", "atelier:5:D", "vakmanschap:5:V", "motoriek:4:V", "ruimtelijk:4:V", "concentratie:4:V", "creativiteit:3:V", "kunst:3:T", "wetenschap:3:T", "licht:5:E", "spanning:3:E", "ritme:3:E", "trots:4:E", "rauw:3:E", "opgaan:4:E", "samenwerking:3:E", "geschiedenis:3:O", "architectuur:3:O", "ambacht:5:T"],
+    "links": ["glas:5:M", "atelier:5:D", "vakmanschap:5:V", "motoriek:4:V", "ruimtelijk:4:V", "concentratie:4:V", "creativiteit:3:V", "kunst:3:T", "wetenschap:3:T", "licht:5:E", "spanning:3:E", "ritme:3:E", "trots:4:E", "rauw:3:E", "opgaan:4:E", "samenwerking:3:E", "geschiedenis:3:O", "ambacht:5:T"],
     "why": {
-      "geschiedenis": {"nl": "Glasblazen begon in de Romeinse tijd en wordt nog steeds met de hand geleerd.", "en": "Glassblowing began in Roman times and is still taught by hand."},
-      "architectuur": {"nl": "Glas is ook het materiaal van ramen en gevels, dus vormen verbindt ambacht en bouwkunst.", "en": "Glass is also the material of windows and facades, so shaping it links craft and building."}
+      "geschiedenis": {"nl": "Glasblazen begon in de Romeinse tijd en wordt nog steeds met de hand geleerd.", "en": "Glassblowing began in Roman times and is still taught by hand."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-186",
@@ -360,13 +360,13 @@
     "match": "exact",
     "legacy_id": "glasfusing",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
-    "links": ["glas:5:M", "ontwerpen:4:D", "atelier:4:D", "precisie:3:V", "creativiteit:4:V", "vakmanschap:3:V", "kunst:3:T", "wetenschap:3:T", "licht:5:E", "schoonheid:4:E", "warmte:4:E", "ornament:3:E", "verwondering:3:E", "experimenteren:3:E", "patronen:3:O", "wonen:3:O"],
+    "links": ["glas:5:M", "ontwerpen:4:D", "atelier:4:D", "precisie:3:V", "creativiteit:4:V", "vakmanschap:3:V", "kunst:3:T", "wetenschap:3:T", "licht:5:E", "schoonheid:4:E", "warmte:4:E", "ornament:3:E", "verwondering:3:E", "experimenteren:3:E", "wonen:3:O"],
     "why": {
-      "patronen": {"nl": "Gesmolten glas legt patronen vast van laagjes, kleuren en smeltpunten.", "en": "Fused glass records patterns of layers, colours and melting points."},
       "wonen": {"nl": "Een glazen schaal of paneel verandert hoe licht in een kamer valt.", "en": "A glass dish or panel changes how light falls in a room."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
   },
   {
     "id": "RA-409",
@@ -400,13 +400,14 @@
     "match": "exact",
     "legacy_id": "sieraad-ontwerpen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["metaal:3:M", "steen:3:M", "ontwerpen:5:D", "atelier:2:D", "creativiteit:5:V", "precisie:3:V", "ruimtelijk:3:V", "mode:4:T", "identiteit:4:T", "kunst:3:T", "schoonheid:4:E", "detail:4:E", "expressie:4:E", "elegantie:3:E", "zorg:3:E", "verhalen:3:O", "wetenschap:3:O"],
+    "links": ["metaal:3:M", "steen:3:M", "ontwerpen:5:D", "atelier:2:D", "creativiteit:5:V", "precisie:3:V", "ruimtelijk:3:V", "mode:4:T", "identiteit:4:T", "kunst:3:T", "schoonheid:4:E", "detail:4:E", "expressie:4:E", "elegantie:3:E", "zorg:3:E", "wetenschap:3:O", "tradities:3:O"],
     "why": {
-      "verhalen": {"nl": "Een eigen ontwerp draagt een verhaal over een persoon, plek of moment.", "en": "A design of your own carries a story of a person, place or moment."},
-      "wetenschap": {"nl": "Stenen en metalen verschillen in hardheid en glans, geologie die je draagt.", "en": "Stones and metals differ in hardness and lustre, geology you wear."}
+      "wetenschap": {"nl": "Stenen en metalen verschillen in hardheid en glans, geologie die je draagt.", "en": "Stones and metals differ in hardness and lustre, geology you wear."},
+      "tradities": {"nl": "Sieraden hebben een oude symbolische betekenis: trouwringen, amuletten en erfstukken dragen gebruiken mee.", "en": "Jewellery has an old symbolic meaning: wedding rings, amulets and heirlooms carry customs with them."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Verhalen was zwak; vervangen door Volkscultuur en tradities."]
   },
   {
     "id": "RA-411",
@@ -440,13 +441,13 @@
     "match": "exact",
     "legacy_id": "ambachten",
     "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["textiel:4:M", "hout:2:M", "atelier:3:D", "vakmanschap:4:V", "motoriek:4:V", "geduld:3:V", "geschiedenis:5:T", "duurzaamheid:3:T", "tradities:4:T", "tast:3:E", "rauw:3:E", "gemeenschap:3:E", "generaties:4:E", "zeevaart:3:O", "patronen:3:O", "ambacht:5:T"],
+    "links": ["textiel:4:M", "hout:2:M", "atelier:3:D", "vakmanschap:4:V", "motoriek:4:V", "geduld:3:V", "geschiedenis:5:T", "duurzaamheid:3:T", "tradities:4:T", "tast:3:E", "rauw:3:E", "gemeenschap:3:E", "generaties:4:E", "zeevaart:3:O", "ambacht:5:T"],
     "why": {
-      "zeevaart": {"nl": "Touwslagers leverden de zeilvaart, dus een ambacht staat achter heel de scheepvaart.", "en": "Rope makers supplied sailing ships, so one craft stands behind seafaring."},
-      "patronen": {"nl": "Weven en vlechten volgen tellen en herhalen, patronen met wiskunde erin.", "en": "Weaving and plaiting follow counting and repeating, patterns with maths in them."}
+      "zeevaart": {"nl": "Touwslagers leverden de zeilvaart, dus een ambacht staat achter heel de scheepvaart.", "en": "Rope makers supplied sailing ships, so one craft stands behind seafaring."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
   },
   {
     "id": "RA-413",
@@ -481,14 +482,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["klei:5:M", "thuis:3:D", "ontwerpen:3:D", "motoriek:5:V", "precisie:4:V", "creativiteit:4:V", "mode:2:T", "kunst:2:T", "detail:5:E", "speelsheid:4:E", "tast:4:E", "opgaan:3:E", "ornament:3:E", "fantasie:3:O", "patronen:3:O", "miniatuur:4:E"],
+    "links": ["klei:5:M", "thuis:3:D", "ontwerpen:3:D", "motoriek:5:V", "precisie:4:V", "creativiteit:4:V", "mode:2:T", "kunst:2:T", "detail:5:E", "speelsheid:4:E", "tast:4:E", "opgaan:3:E", "ornament:3:E", "fantasie:3:O", "miniatuur:4:E"],
     "why": {
-      "fantasie": {"nl": "Miniatuurtaartjes en fantasiefiguurtjes brengen verbeelding in je handpalm.", "en": "Miniature cakes and fantasy figures bring imagination into the palm of your hand."},
-      "patronen": {"nl": "Millefiori-technieken bouwen patronen door klei te rollen en te snijden.", "en": "Millefiori techniques build patterns by rolling and slicing clay."}
+      "fantasie": {"nl": "Miniatuurtaartjes en fantasiefiguurtjes brengen verbeelding in je handpalm.", "en": "Miniature cakes and fantasy figures bring imagination into the palm of your hand."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
   },
   {
     "id": "RA-415",

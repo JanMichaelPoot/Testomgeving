@@ -11,14 +11,14 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
-    "links": ["taalvaardig:5:V", "communicatie:5:V", "motoriek:3:V", "ruimtelijk:3:V", "concentratie:3:V", "wereldculturen:4:T", "identiteit:3:T", "beweging:4:E", "gemeenschap:5:E", "zorg:3:E", "ontroering:3:E", "ontdekking:3:E", "kunst:3:O", "verhalen:3:O", "taal:5:T", "leren:5:E"],
+    "links": ["taalvaardig:5:V", "communicatie:5:V", "motoriek:3:V", "ruimtelijk:3:V", "concentratie:3:V", "identiteit:3:T", "beweging:4:E", "gemeenschap:5:E", "zorg:3:E", "ontroering:3:E", "ontdekking:3:E", "kunst:3:O", "verhalen:3:O", "taal:5:T", "leren:5:E"],
     "why": {
       "kunst": {"nl": "In gebarenpoëzie en -theater wordt taal beeldende kunst.", "en": "In sign poetry and theatre language becomes visual art."},
       "verhalen": {"nl": "De dovencultuur heeft eigen verhalen, humor en geschiedenis die bij de taal horen.", "en": "Deaf culture has its own stories, humour and history that come with the language."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Steekproef Jan: Wereldculturen klopt niet."]
   },
   {
     "id": "RA-057",
@@ -74,14 +74,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["communicatie:5:V", "logica:5:V", "taalvaardig:3:V", "concentratie:4:V", "identiteit:3:T", "geschiedenis:2:T", "ontdekking:5:E", "verwondering:4:E", "gemeenschap:3:E", "rust:3:E", "puzzelen:3:E", "onderzoeken:4:D", "welzijn:3:T", "improviseren:3:O", "zorg:3:O", "taal:3:T", "luisteren:4:V"],
+    "links": ["communicatie:5:V", "logica:5:V", "taalvaardig:3:V", "concentratie:4:V", "identiteit:3:T", "geschiedenis:2:T", "ontdekking:5:E", "verwondering:4:E", "gemeenschap:3:E", "rust:3:E", "puzzelen:3:E", "onderzoeken:4:D", "welzijn:3:T", "improviseren:3:O", "taal:3:T", "luisteren:4:V"],
     "why": {
-      "improviseren": {"nl": "Niemand weet waar het gesprek heen gaat, dus je oefent hardop denken zonder script.", "en": "Nobody knows where the conversation will go, so you practise thinking aloud without a script."},
-      "zorg": {"nl": "Zorgvuldig luisteren naar de redenen van anderen is een vorm van respect die velen onverwacht ontroert.", "en": "Listening carefully to others' reasons is a form of respect that many find unexpectedly moving."}
+      "improviseren": {"nl": "Niemand weet waar het gesprek heen gaat, dus je oefent hardop denken zonder script.", "en": "Nobody knows where the conversation will go, so you practise thinking aloud without a script."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zorg voor anderen."]
   },
   {
     "id": "RA-060",
@@ -176,13 +175,13 @@
     "match": "exact",
     "legacy_id": "luistercursus",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["communicatie:5:V", "concentratie:4:V", "geduld:3:V", "taalvaardig:3:V", "welzijn:3:T", "identiteit:2:T", "gemeenschap:3:E", "zorg:4:E", "rust:3:E", "ontdekking:3:E", "ontroering:3:E", "zelfstandig:2:E", "klank:3:O", "generaties:3:O", "leren:5:E", "luisteren:5:V"],
+    "links": ["communicatie:5:V", "concentratie:4:V", "geduld:3:V", "taalvaardig:3:V", "welzijn:3:T", "identiteit:2:T", "gemeenschap:3:E", "zorg:4:E", "rust:3:E", "ontdekking:3:E", "ontroering:3:E", "zelfstandig:2:E", "klank:3:O", "leren:5:E", "luisteren:5:V"],
     "why": {
-      "klank": {"nl": "Luisteren is ook toon, pauzes en adem horen, niet alleen woorden.", "en": "Listening is also tuning into tone, pauses and breath, not just words."},
-      "generaties": {"nl": "De vaardigheden helpen kloven in gesprekken tussen leeftijden te overbruggen.", "en": "The skills help bridge gaps in conversations between ages."}
+      "klank": {"nl": "Luisteren is ook toon, pauzes en adem horen, niet alleen woorden.", "en": "Listening is also tuning into tone, pauses and breath, not just words."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Generaties."]
   },
   {
     "id": "RA-211",
@@ -236,13 +235,13 @@
     "match": "exact",
     "legacy_id": "volksuniversiteit",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["concentratie:3:V", "communicatie:2:V", "kunst:3:T", "geschiedenis:3:T", "wereldculturen:3:T", "wetenschap:3:T", "ontdekking:5:E", "gezelligheid:4:E", "gemeenschap:4:E", "verbondenheid:3:E", "generaties:3:E", "zelfstandig:3:E", "rust:2:E", "tradities:3:O", "rechtvaardigheid:3:O", "leren:5:E"],
+    "links": ["concentratie:3:V", "communicatie:2:V", "kunst:3:T", "geschiedenis:3:T", "wereldculturen:3:T", "wetenschap:3:T", "ontdekking:5:E", "gezelligheid:4:E", "gemeenschap:4:E", "verbondenheid:3:E", "generaties:3:E", "zelfstandig:3:E", "rust:2:E", "rechtvaardigheid:3:O", "leren:5:E"],
     "why": {
-      "tradities": {"nl": "Volksuniversiteiten groeiden uit het idee dat leren er voor iedereen is.", "en": "People's universities grew from the idea that learning is for everyone."},
       "rechtvaardigheid": {"nl": "Hun doel was altijd gelijke kansen voor volwassenen.", "en": "Their aim has always been equal chances for adults."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-351",
@@ -256,13 +255,13 @@
     "match": "exact",
     "legacy_id": "taalcafe",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["communicatie:5:V", "taalvaardig:5:V", "improviseren:2:V", "stad:2:D", "wereldculturen:4:T", "gezelligheid:5:E", "verbondenheid:5:E", "gemeenschap:3:E", "moed:3:E", "ontdekking:3:E", "smaak:2:E", "voeding:3:O", "humor:3:O", "taal:5:T", "uitgaan:5:D", "luisteren:3:V"],
+    "links": ["communicatie:5:V", "taalvaardig:5:V", "improviseren:2:V", "stad:2:D", "wereldculturen:4:T", "gezelligheid:5:E", "verbondenheid:5:E", "gemeenschap:3:E", "moed:3:E", "ontdekking:3:E", "smaak:2:E", "voeding:3:O", "taal:5:T", "uitgaan:5:D", "luisteren:3:V"],
     "why": {
-      "voeding": {"nl": "Gesprekken glijden naar gerechten en drankjes, dus eten wordt woordenschat.", "en": "Conversations drift to dishes and drinks, so food becomes vocabulary."},
-      "humor": {"nl": "Fouten in een andere taal zijn grappig en vergeven, wat leren lichter maakt.", "en": "Mistakes in another language are funny and forgiven, which makes learning lighter."}
+      "voeding": {"nl": "Gesprekken glijden naar gerechten en drankjes, dus eten wordt woordenschat.", "en": "Conversations drift to dishes and drinks, so food becomes vocabulary."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-352",
@@ -296,13 +295,14 @@
     "match": "exact",
     "legacy_id": "ehbo-cursus",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
-    "links": ["zorg:5:E", "communicatie:3:V", "concentratie:3:V", "motoriek:3:V", "logica:3:V", "welzijn:4:T", "wetenschap:3:T", "gemeenschap:4:E", "moed:3:E", "zelfstandig:3:E", "rust:3:E", "samenwerking:3:O", "rechtvaardigheid:3:O", "leren:5:E"],
+    "links": ["zorg:5:E", "communicatie:3:V", "concentratie:3:V", "motoriek:3:V", "logica:3:V", "welzijn:4:T", "wetenschap:3:T", "gemeenschap:4:E", "moed:3:E", "zelfstandig:3:E", "rust:3:E", "samenwerking:3:O", "leren:5:E", "organiseren:3:O"],
     "why": {
       "samenwerking": {"nl": "Eerstehulpverleners werken als een keten met melders en professionals.", "en": "First aiders work as a chain with callers and professionals."},
-      "rechtvaardigheid": {"nl": "Meer getrainde buren maken straten veiliger.", "en": "More trained neighbours make streets safer."}
+      "organiseren": {"nl": "Wie EHBO kan, wordt gevraagd bij evenementen en clubs: je leert een post en een noodplan organiseren.", "en": "People with first-aid skills are asked at events and clubs: you learn to organise a first-aid post and an emergency plan."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Rechtvaardigheid en samenleving had een zeer korte reden (zelfde patroon als de zwakke bruggen); vervangen door Organiseren."]
   },
   {
     "id": "RA-518",
@@ -316,13 +316,13 @@
     "match": "exact",
     "legacy_id": "forensisch",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["onderzoeken:5:D", "observeren:4:D", "logica:4:V", "precisie:4:V", "concentratie:3:V", "wetenschap:5:T", "technologie:3:T", "puzzelen:4:E", "ontdekking:4:E", "spanning:3:E", "verwondering:3:E", "samenwerking:2:E", "verhalen:3:O", "rechtvaardigheid:3:O"],
+    "links": ["onderzoeken:5:D", "observeren:4:D", "logica:4:V", "precisie:4:V", "concentratie:3:V", "wetenschap:5:T", "technologie:3:T", "puzzelen:4:E", "ontdekking:4:E", "spanning:3:E", "verwondering:3:E", "samenwerking:2:E", "rechtvaardigheid:3:O"],
     "why": {
-      "verhalen": {"nl": "Sporen herbouwen een verhaal van wat er gebeurde.", "en": "Traces rebuild a story of what happened."},
       "rechtvaardigheid": {"nl": "Forensisch bewijs ondersteunt eerlijke processen.", "en": "Forensic proof underpins fair trials."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-519",
@@ -336,13 +336,13 @@
     "match": "exact",
     "legacy_id": "cold-case",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["onderzoeken:5:D", "papier:2:M", "logica:5:V", "concentratie:4:V", "taalvaardig:3:V", "geduld:3:V", "verhalen:4:T", "geschiedenis:3:T", "rechtvaardigheid:3:T", "puzzelen:5:E", "spanning:4:E", "ontdekking:4:E", "doorzetten:3:E", "architectuur:3:O", "technologie:3:O"],
+    "links": ["onderzoeken:5:D", "papier:2:M", "logica:5:V", "concentratie:4:V", "taalvaardig:3:V", "geduld:3:V", "verhalen:4:T", "geschiedenis:3:T", "rechtvaardigheid:3:T", "puzzelen:5:E", "spanning:4:E", "ontdekking:4:E", "doorzetten:3:E", "technologie:3:O"],
     "why": {
-      "architectuur": {"nl": "Plaatsen, plattegronden en routes maken ruimte tot onderdeel van het bewijs.", "en": "Scenes, floor plans and routes make space part of the evidence."},
       "technologie": {"nl": "DNA en digitale archieven brengen oude zaken weer tot leven.", "en": "DNA and digital archives are reviving old cases."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-520",
@@ -356,13 +356,14 @@
     "match": "exact",
     "legacy_id": "weekreview",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 0, "duration": 1, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:3:D", "papier:2:M", "strategie:2:V", "taalvaardig:2:V", "identiteit:4:T", "welzijn:4:T", "rust:5:E", "zelfstandig:4:E", "ritme:4:E", "doorzetten:3:E", "ontdekking:3:E", "onderzoeken:3:O", "spiritualiteit:3:O"],
+    "links": ["thuis:3:D", "papier:2:M", "strategie:2:V", "taalvaardig:2:V", "identiteit:4:T", "welzijn:4:T", "rust:5:E", "zelfstandig:4:E", "ritme:4:E", "doorzetten:3:E", "ontdekking:3:E", "taal:3:O", "organiseren:3:O"],
     "why": {
-      "onderzoeken": {"nl": "Een wekelijkse terugblik behandelt je leven als data die het lezen waard is.", "en": "A weekly review treats your life as data worth reading."},
-      "spiritualiteit": {"nl": "Regelmatige reflectie is een oude vorm van zelfonderzoek.", "en": "Regular reflection is an old form of self-examination."}
+      "taal": {"nl": "Een wekelijkse terugblik leidt vaak naar dagboek of journal schrijven.", "en": "A weekly review often leads to keeping a diary or journal."},
+      "organiseren": {"nl": "Wie wekelijks terugkijkt, gaat zijn week anders plannen: een stap naar plannen en prioriteren.", "en": "Looking back weekly makes you plan your week differently: a step towards planning and prioritising."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Onderzoeken, Spiritualiteit en zingeving."]
   },
   {
     "id": "RA-521",
@@ -438,14 +439,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["onderzoeken:3:D", "thuis:3:D", "logica:5:V", "concentratie:3:V", "strategie:2:V", "patronen:5:T", "wetenschap:4:T", "technologie:2:T", "beeldtaal:3:T", "puzzelen:3:E", "ontdekking:3:E", "zelfstandig:4:E", "doorzetten:3:E", "rechtvaardigheid:3:O", "humor:3:O", "online:3:D", "leren:5:E"],
+    "links": ["onderzoeken:3:D", "thuis:3:D", "logica:5:V", "concentratie:3:V", "strategie:2:V", "patronen:5:T", "wetenschap:4:T", "technologie:2:T", "beeldtaal:3:T", "puzzelen:3:E", "ontdekking:3:E", "zelfstandig:4:E", "doorzetten:3:E", "rechtvaardigheid:3:O", "online:3:D", "leren:5:E"],
     "why": {
-      "rechtvaardigheid": {"nl": "Cijfers kunnen ongelijkheid verbergen of tonen, dus goed lezen is burgerlijke vaardigheid.", "en": "Numbers can hide or reveal inequality, so reading them well is a civic skill."},
-      "humor": {"nl": "Grappige statistische valkuilen laten het onderwerp beklijven.", "en": "Funny statistical traps make the topic stick."}
+      "rechtvaardigheid": {"nl": "Cijfers kunnen ongelijkheid verbergen of tonen, dus goed lezen is burgerlijke vaardigheid.", "en": "Numbers can hide or reveal inequality, so reading them well is a civic skill."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-525",
@@ -459,14 +459,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["logica:4:V", "concentratie:4:V", "geduld:2:V", "creativiteit:2:V", "patronen:5:T", "wetenschap:2:T", "puzzelen:4:E", "speelsheid:3:E", "doorzetten:3:E", "zelfstandig:3:E", "competitie:2:E", "kunst:3:O", "geschiedenis:3:O", "leren:5:E"],
+    "links": ["logica:4:V", "concentratie:4:V", "geduld:2:V", "creativiteit:2:V", "patronen:5:T", "wetenschap:2:T", "puzzelen:4:E", "speelsheid:3:E", "doorzetten:3:E", "zelfstandig:3:E", "competitie:2:E", "geschiedenis:3:O", "leren:5:E"],
     "why": {
-      "kunst": {"nl": "Getalpatronen hebben een esthetiek die wiskundigen schoonheid noemen.", "en": "Number patterns have an aesthetic that mathematicians call beauty."},
       "geschiedenis": {"nl": "Telraam, kerfstokken en rekenlinialen zijn de voorouders van de rekenmachine.", "en": "The abacus, tally sticks and slide rules are the ancestors of the calculator."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
   },
   {
     "id": "RA-526",
@@ -480,14 +479,14 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group", "online"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
-    "links": ["observeren:4:D", "thuis:2:D", "concentratie:3:V", "taalvaardig:2:V", "kunst:5:T", "geschiedenis:4:T", "architectuur:3:T", "beeldtaal:4:T", "wereldculturen:3:T", "ontdekking:4:E", "verwondering:3:E", "schoonheid:3:E", "gezelligheid:2:E", "verhalen:3:O", "identiteit:3:O", "cultuurplek:2:D", "leren:5:E"],
+    "links": ["observeren:4:D", "thuis:2:D", "concentratie:3:V", "taalvaardig:2:V", "kunst:5:T", "geschiedenis:4:T", "architectuur:3:T", "beeldtaal:4:T", "wereldculturen:3:T", "ontdekking:4:E", "verwondering:3:E", "schoonheid:3:E", "gezelligheid:2:E", "cultuurplek:2:D", "leren:5:E", "verzamelen:3:O", "stad:3:O"],
     "why": {
-      "verhalen": {"nl": "Elk schilderij heeft opdrachtgevers, schandalen en verhalen erachter.", "en": "Every painting has patrons, scandals and stories behind it."},
-      "identiteit": {"nl": "Leren hoe anderen zagen helpt je uitzoeken hoe jij ziet.", "en": "Learning how others saw helps you work out how you see."}
+      "verzamelen": {"nl": "Wie stijlen leert, begint kaarten, catalogi en prenten te verzamelen.", "en": "Learning styles makes you start collecting postcards, catalogues and prints."},
+      "stad": {"nl": "Kunstroutes door een stad laten je gevels, standbeelden en musea in samenhang zien.", "en": "Art routes through a city show you facades, statues and museums in context."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen, Identiteit."]
   },
   {
     "id": "RA-527",
@@ -501,14 +500,14 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["ontwerpen:3:D", "thuis:3:D", "papier:2:M", "logica:5:V", "taalvaardig:3:V", "concentratie:3:V", "technologie:3:T", "patronen:3:T", "identiteit:2:T", "ontdekking:3:E", "rust:3:E", "zelfstandig:4:E", "doorzetten:3:E", "puzzelen:2:E", "architectuur:3:O", "verhalen:3:O", "online:3:D", "leren:4:E"],
+    "links": ["ontwerpen:3:D", "thuis:3:D", "papier:2:M", "logica:5:V", "taalvaardig:3:V", "concentratie:3:V", "technologie:3:T", "patronen:3:T", "identiteit:2:T", "ontdekking:3:E", "rust:3:E", "zelfstandig:4:E", "doorzetten:3:E", "puzzelen:2:E", "online:3:D", "leren:4:E", "onderzoeken:3:O", "organiseren:3:O"],
     "why": {
-      "architectuur": {"nl": "Een notitiesysteem is een architectuur van verwijzingen, met kamers en gangen van ideeën.", "en": "A note system is an architecture of links, with rooms and corridors of ideas."},
-      "verhalen": {"nl": "Verbonden notities groeien langzaam uit tot essays en verhalen.", "en": "Connected notes slowly grow into essays and stories."}
+      "onderzoeken": {"nl": "Een goed notitiesysteem is de basis voor onderzoek of een eigen boek.", "en": "A good note system is the basis for research or a book of your own."},
+      "organiseren": {"nl": "Wie notities ordent, leert projecten en kennis te organiseren.", "en": "Ordering notes teaches you to organise projects and knowledge."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur, Verhalen."]
   },
   {
     "id": "RA-528",

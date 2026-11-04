@@ -33,13 +33,13 @@
     "legacy_id": "patisserie",
     "v0_id": "ACT-046",
     "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 0, "source": "app"},
-    "links": ["keuken:5:D", "smaak:5:E", "precisie:5:V", "vakmanschap:4:V", "geduld:4:V", "creativiteit:4:V", "motoriek:3:V", "ontwerpen:3:D", "schoonheid:4:E", "elegantie:4:E", "detail:5:E", "trots:5:E", "ornament:3:E", "gezelligheid:3:E", "wetenschap:3:T", "kunst:3:O", "architectuur:3:O", "ambacht:4:T", "miniatuur:3:E"],
+    "links": ["keuken:5:D", "smaak:5:E", "precisie:5:V", "vakmanschap:4:V", "geduld:4:V", "creativiteit:4:V", "motoriek:3:V", "ontwerpen:3:D", "schoonheid:4:E", "elegantie:4:E", "detail:5:E", "trots:5:E", "ornament:3:E", "gezelligheid:3:E", "wetenschap:3:T", "kunst:3:O", "ambacht:4:T", "miniatuur:3:E"],
     "why": {
-      "kunst": {"nl": "Een taartje of macaron is een klein ontwerp, dus je werkt aan kleur, vorm en afwerking als beeldend kunstenaar.", "en": "A tart or macaron is a small piece of design, so you work on colour, form and finish like a visual artist."},
-      "architectuur": {"nl": "Gelaagde taarten vragen om structuur en balans, dezelfde logica als kleine gebouwen.", "en": "Layered cakes need structure and balance, the same logic as small buildings."}
+      "kunst": {"nl": "Een taartje of macaron is een klein ontwerp, dus je werkt aan kleur, vorm en afwerking als beeldend kunstenaar.", "en": "A tart or macaron is a small piece of design, so you work on colour, form and finish like a visual artist."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-119",
@@ -133,13 +133,14 @@
     "match": "exact",
     "legacy_id": "inmaken",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["keuken:5:D", "thuis:4:D", "planten:3:M", "geduld:3:V", "precisie:3:V", "duurzaamheid:5:T", "natuur:3:T", "geschiedenis:3:T", "smaak:5:E", "geur:4:E", "trots:4:E", "zorg:3:E", "nostalgie:4:E", "gezelligheid:3:E", "wetenschap:3:O", "generaties:3:O"],
+    "links": ["keuken:5:D", "thuis:4:D", "planten:3:M", "geduld:3:V", "precisie:3:V", "duurzaamheid:5:T", "natuur:3:T", "geschiedenis:3:T", "smaak:5:E", "geur:4:E", "zorg:3:E", "nostalgie:4:E", "gezelligheid:3:E", "wetenschap:3:O", "weer:3:O"],
     "why": {
       "wetenschap": {"nl": "Suiker, zout en zuur conserveren voedsel door scheikunde.", "en": "Sugar, salt and acid preserve food through chemistry."},
-      "generaties": {"nl": "Inmaken is een vaardigheid die door families wordt doorgegeven.", "en": "Preserving is a skill passed down through families."}
+      "weer": {"nl": "Wat je kunt inmaken hangt af van wanneer het fruit rijp is: je gaat anders naar seizoenen en oogst kijken.", "en": "What you can preserve depends on when the fruit ripens: you start looking at seasons and harvests differently."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Steekproef Jan: Trots klopt niet; brug Generaties te zwak, vervangen door Weer en seizoenen."]
   },
   {
     "id": "RA-124",
@@ -193,13 +194,14 @@
     "match": "exact",
     "legacy_id": "kook-club",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
-    "links": ["keuken:5:D", "organiseren:3:D", "thuis:3:D", "communicatie:2:V", "creativiteit:2:V", "leiding:2:V", "wereldculturen:3:T", "smaak:5:E", "gezelligheid:5:E", "samenwerking:5:E", "gemeenschap:4:E", "generaties:2:E", "speelsheid:3:E", "ontdekking:3:O", "verhalen:3:O"],
+    "links": ["keuken:5:D", "organiseren:3:D", "thuis:3:D", "communicatie:2:V", "creativiteit:2:V", "leiding:2:V", "wereldculturen:3:T", "smaak:5:E", "gezelligheid:5:E", "samenwerking:5:E", "gemeenschap:4:E", "generaties:2:E", "speelsheid:3:E", "voeding:3:O", "uitgaan:3:O"],
     "why": {
-      "ontdekking": {"nl": "Elk nieuw menu is een kleine reis naar een andere keuken.", "en": "Every new menu is a small trip into another cuisine."},
-      "verhalen": {"nl": "Gerechten komen met verhalen over de families en reizen van de koks.", "en": "Dishes come with stories of the cooks' families and travels."}
+      "voeding": {"nl": "Een thema per avond leidt naar seizoenskoken, vegetarisch of gezond koken.", "en": "A theme each evening leads to seasonal, vegetarian or healthy cooking."},
+      "uitgaan": {"nl": "Een kookclub kan uitgroeien tot een pop-updiner of supperclub.", "en": "A cooking club can grow into a pop-up dinner or supper club."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Ontdekking, Verhalen."]
   },
   {
     "id": "RA-127",
@@ -253,13 +255,13 @@
     "match": "exact",
     "legacy_id": "dumplings",
     "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["keuken:5:D", "thuis:3:D", "motoriek:4:V", "precisie:3:V", "creativiteit:2:V", "wereldculturen:4:T", "voeding:4:T", "smaak:5:E", "tast:4:E", "gezelligheid:5:E", "samenwerking:4:E", "generaties:3:E", "ritme:3:E", "patronen:3:O", "tradities:3:O"],
+    "links": ["keuken:5:D", "thuis:3:D", "motoriek:4:V", "precisie:3:V", "creativiteit:2:V", "wereldculturen:4:T", "voeding:4:T", "smaak:5:E", "tast:4:E", "gezelligheid:5:E", "samenwerking:4:E", "generaties:3:E", "ritme:3:E", "tradities:3:O"],
     "why": {
-      "patronen": {"nl": "Elke plooi herhaalt een patroon dat je handen leren.", "en": "Each pleat repeats a pattern your hands learn."},
       "tradities": {"nl": "Dumplings maken brengt families samen rond feesten en nieuwjaar.", "en": "Dumpling making brings families together around festivals and New Year."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
   },
   {
     "id": "RA-292",
@@ -293,13 +295,13 @@
     "match": "exact",
     "legacy_id": "wijnproeverij",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 1, "source": "app"},
-    "links": ["concentratie:3:V", "communicatie:2:V", "voeding:4:T", "wereldculturen:3:T", "natuur:3:T", "weer:3:T", "smaak:5:E", "geur:5:E", "gezelligheid:4:E", "verwondering:3:E", "rust:3:E", "detail:3:E", "verbondenheid:2:E", "wetenschap:3:O", "kunst:3:O", "uitgaan:3:D"],
+    "links": ["concentratie:3:V", "communicatie:2:V", "voeding:4:T", "wereldculturen:3:T", "natuur:3:T", "weer:3:T", "smaak:5:E", "geur:5:E", "gezelligheid:4:E", "verwondering:3:E", "rust:3:E", "detail:3:E", "verbondenheid:2:E", "wetenschap:3:O", "uitgaan:3:D"],
     "why": {
-      "wetenschap": {"nl": "Bodem, klimaat en gist vormen een wijn, dus proeven is een studie van terroir.", "en": "Soil, climate and yeast shape a wine, so tasting is a study of terroir."},
-      "kunst": {"nl": "Een goede wijn wordt beoordeeld als een compositie: balans, lengte en verrassing.", "en": "A good wine is judged like a composition: balance, length and surprise."}
+      "wetenschap": {"nl": "Bodem, klimaat en gist vormen een wijn, dus proeven is een studie van terroir.", "en": "Soil, climate and yeast shape a wine, so tasting is a study of terroir."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
   },
   {
     "id": "RA-294",
@@ -373,13 +375,14 @@
     "match": "exact",
     "legacy_id": "streetfoodtour",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["stad:5:D", "navigeren:2:D", "voeding:4:T", "wereldculturen:5:T", "smaak:5:E", "geur:4:E", "gezelligheid:4:E", "ontdekking:4:E", "verbondenheid:3:E", "beweging:2:E", "vrijheid:2:E", "geschiedenis:3:O", "verhalen:3:O", "uitgaan:3:D"],
+    "links": ["stad:5:D", "navigeren:2:D", "voeding:4:T", "wereldculturen:5:T", "smaak:5:E", "geur:4:E", "gezelligheid:4:E", "ontdekking:4:E", "verbondenheid:3:E", "beweging:2:E", "vrijheid:2:E", "geschiedenis:3:O", "uitgaan:3:D", "wetenschap:3:O"],
     "why": {
       "geschiedenis": {"nl": "Streetfood legt migratie, handel en wie waar woonde vast.", "en": "Street food records migration, trade and who lived where."},
-      "verhalen": {"nl": "Elke kraameigenaar heeft een verhaal achter het recept.", "en": "Every stall owner has a story behind the recipe."}
+      "wetenschap": {"nl": "Bakken, frituren en fermenteren zijn scheikunde. Wie op straat proeft, proeft wat hitte en zuur met voedsel doen.", "en": "Baking, frying and fermenting are chemistry. Tasting on the street means tasting what heat and acid do to food."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Steekproef Jan: brug Verhalen te zwak; vervangen door Wetenschap."]
   },
   {
     "id": "RA-298",
@@ -393,13 +396,13 @@
     "match": "exact",
     "legacy_id": "ijs-maken",
     "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["keuken:5:D", "thuis:3:D", "precisie:3:V", "creativiteit:3:V", "wetenschap:4:T", "voeding:3:T", "smaak:5:E", "warmte:4:E", "speelsheid:4:E", "gezelligheid:3:E", "generaties:3:E", "experimenteren:4:E", "weer:3:O", "patronen:3:O"],
+    "links": ["keuken:5:D", "thuis:3:D", "precisie:3:V", "creativiteit:3:V", "wetenschap:4:T", "voeding:3:T", "smaak:5:E", "warmte:4:E", "speelsheid:4:E", "gezelligheid:3:E", "generaties:3:E", "experimenteren:4:E", "weer:3:O"],
     "why": {
-      "weer": {"nl": "IJs is een zomerritueel dat van temperatuur en seizoen afhangt.", "en": "Ice cream is a summer ritual that depends on temperature and season."},
-      "patronen": {"nl": "Sorbetrecepten volgen verhoudingen van suiker, water en fruit.", "en": "Sorbet recipes follow ratios of sugar, water and fruit."}
+      "weer": {"nl": "IJs is een zomerritueel dat van temperatuur en seizoen afhangt.", "en": "Ice cream is a summer ritual that depends on temperature and season."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
   },
   {
     "id": "RA-299",

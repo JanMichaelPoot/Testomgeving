@@ -95,14 +95,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "outdoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 3, "safety_tier": 1, "source": "authored"},
-    "links": ["water:3:D", "bos:2:D", "strategie:4:V", "concentratie:3:V", "geduld:4:V", "beweging:5:E", "ritme:4:E", "doorzetten:5:E", "grenzen:5:E", "competitie:3:E", "trots:5:E", "gemeenschap:3:E", "vrijheid:3:E", "natuur:2:T", "welzijn:3:T", "logica:3:O", "wetenschap:3:O", "snelheid:3:E", "conditie:5:V"],
+    "links": ["water:3:D", "bos:2:D", "strategie:4:V", "concentratie:3:V", "geduld:4:V", "beweging:5:E", "ritme:4:E", "doorzetten:5:E", "grenzen:5:E", "competitie:3:E", "trots:5:E", "gemeenschap:3:E", "vrijheid:3:E", "natuur:2:T", "welzijn:3:T", "wetenschap:3:O", "snelheid:3:E", "conditie:5:V"],
     "why": {
-      "logica": {"nl": "Een plan dat belasting en rust verdeelt is een puzzel met je eigen lichaam.", "en": "A plan that balances load and rest is a puzzle with your own body."},
       "wetenschap": {"nl": "Tempo, voeding en herstel zijn toegepaste fysiologie.", "en": "Pacing, nutrition and recovery are applied physiology."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Logica."]
   },
   {
     "id": "RA-094",
@@ -278,13 +277,14 @@
     "match": "exact",
     "legacy_id": "hardlopen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 1, "source": "app"},
-    "links": ["bos:3:D", "stad:2:D", "navigeren:2:D", "motoriek:2:V", "doorzetten:5:E", "beweging:5:E", "ritme:4:E", "vrijheid:4:E", "rust:3:E", "grenzen:3:E", "welzijn:4:T", "natuur:2:T", "zelfstandig:3:E", "strategie:3:O", "gemeenschap:3:O", "snelheid:3:E", "conditie:5:V"],
+    "links": ["bos:3:D", "stad:2:D", "navigeren:2:D", "motoriek:2:V", "doorzetten:5:E", "beweging:5:E", "ritme:4:E", "vrijheid:4:E", "rust:3:E", "grenzen:3:E", "welzijn:4:T", "natuur:2:T", "zelfstandig:3:E", "gemeenschap:3:O", "snelheid:3:E", "conditie:5:V", "bergen:3:O"],
     "why": {
-      "strategie": {"nl": "Een afstand indelen is plannen met je lichaam.", "en": "Pacing a distance is planning with your body."},
-      "gemeenschap": {"nl": "Loopclubs en parkruns maken van een solosport een wekelijkse sociale gebeurtenis.", "en": "Run clubs and park runs turn a solo sport into a weekly social event."}
+      "gemeenschap": {"nl": "Loopclubs en parkruns maken van een solosport een wekelijkse sociale gebeurtenis.", "en": "Run clubs and park runs turn a solo sport into a weekly social event."},
+      "bergen": {"nl": "Wie hardlopen leuk vindt, kan trailrunning proberen: paden over heuvels en rotsen in plaats van asfalt.", "en": "If you enjoy running, trail running is the next step: paths over hills and rocks instead of tarmac."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Strategisch denken was zwak; vervangen door Bergen en rotsen."]
   },
   {
     "id": "RA-252",
@@ -298,13 +298,13 @@
     "match": "exact",
     "legacy_id": "nordic-walking",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["bos:4:D", "natuur:3:T", "welzijn:4:T", "beweging:5:E", "ritme:4:E", "gezelligheid:3:E", "vrijheid:3:E", "rust:3:E", "motoriek:3:V", "generaties:3:E", "wetenschap:3:O", "tradities:3:O", "conditie:3:V"],
+    "links": ["bos:4:D", "natuur:3:T", "welzijn:4:T", "beweging:5:E", "ritme:4:E", "gezelligheid:3:E", "vrijheid:3:E", "rust:3:E", "motoriek:3:V", "generaties:3:E", "wetenschap:3:O", "conditie:3:V"],
     "why": {
-      "wetenschap": {"nl": "Stoktechniek verdeelt inspanning over meer spieren, een kleine les biomechanica.", "en": "Pole technique spreads effort across more muscles, a small lesson in biomechanics."},
-      "tradities": {"nl": "De stokken komen uit de zomertraining van Finse skiërs.", "en": "The poles come from the summer training of Finnish skiers."}
+      "wetenschap": {"nl": "Stoktechniek verdeelt inspanning over meer spieren, een kleine les biomechanica.", "en": "Pole technique spreads effort across more muscles, a small lesson in biomechanics."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 3): brug Volkscultuur en tradities was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-253",
@@ -338,14 +338,14 @@
     "match": "exact",
     "legacy_id": "zwemmen",
     "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 1, "safety_tier": 1, "source": "app"},
-    "links": ["water:5:D", "beweging:5:E", "ritme:5:E", "rust:4:E", "concentratie:3:V", "welzijn:5:T", "vrijheid:3:E", "motoriek:3:V", "stilte:3:E", "warmte:2:E", "zelfstandig:3:E", "doorzetten:2:E", "spiritualiteit:3:O", "wetenschap:3:O", "conditie:4:V"],
+    "links": ["water:5:D", "beweging:5:E", "ritme:5:E", "rust:4:E", "concentratie:3:V", "welzijn:5:T", "vrijheid:3:E", "motoriek:3:V", "stilte:3:E", "warmte:2:E", "zelfstandig:3:E", "doorzetten:2:E", "wetenschap:3:O", "conditie:4:V", "kust:3:O"],
     "why": {
-      "spiritualiteit": {"nl": "Slagen en ademhalingen tellen wordt een soort bewegende meditatie.", "en": "Counting strokes and breaths becomes a kind of moving meditation."},
-      "wetenschap": {"nl": "Waterweerstand maakt efficiëntie tot een natuurkundepuzzel.", "en": "Water resistance makes efficiency a physics puzzle."}
+      "wetenschap": {"nl": "Waterweerstand maakt efficiëntie tot een natuurkundepuzzel.", "en": "Water resistance makes efficiency a physics puzzle."},
+      "kust": {"nl": "Wie baantjes trekt kan verder in open water: een meer of de zee vraagt andere slagen en meer oriëntatie.", "en": "If you swim lengths you can go further in open water: a lake or the sea asks for different strokes and more orientation."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["The app also has 'zwemmen-baantjes' (swimming lengths with a plan): these are one activity in practice; consider merging them in the app.", "Overlaps strongly with 'zwemmen-baantjes' (link similarity 0.93); keep both only if they stay distinct for the visitor."]
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["The app also has 'zwemmen-baantjes' (swimming lengths with a plan): these are one activity in practice; consider merging them in the app.", "Overlaps strongly with 'zwemmen-baantjes' (link similarity 0.93); keep both only if they stay distinct for the visitor.", "Bruggen-steekproef Jan (ronde 2): brug Spiritualiteit en zingeving was onzin; vervangen door Kust en strand."]
   },
   {
     "id": "RA-255",
@@ -379,13 +379,13 @@
     "match": "exact",
     "legacy_id": "teamsport",
     "facets": {"setting": "both", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
-    "links": ["beweging:5:E", "competitie:4:E", "samenwerking:5:E", "gezelligheid:4:E", "verbondenheid:3:E", "spanning:3:E", "doorzetten:3:E", "motoriek:3:V", "strategie:4:V", "communicatie:4:V", "leiding:2:V", "gemeenschap:4:E", "welzijn:3:T", "tradities:3:O", "organiseren:3:O", "conditie:4:V"],
+    "links": ["beweging:5:E", "competitie:4:E", "samenwerking:5:E", "gezelligheid:4:E", "verbondenheid:3:E", "spanning:3:E", "doorzetten:3:E", "motoriek:3:V", "strategie:4:V", "communicatie:4:V", "leiding:2:V", "gemeenschap:4:E", "welzijn:3:T", "organiseren:3:O", "conditie:4:V"],
     "why": {
-      "tradities": {"nl": "Clublieden, tenues en wedstrijdrituelen vormen een lokale sportcultuur.", "en": "Club songs, kits and match rituals form a local sporting culture."},
       "organiseren": {"nl": "Een team draaiende houden betekent roosters, kleding en wedstrijden, wat je een rol buiten het spelen geeft.", "en": "Running a team means schedules, kit and fixtures, which gives you a role beyond playing."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-257",
@@ -399,13 +399,13 @@
     "match": "exact",
     "legacy_id": "frisbee",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 1, "source": "app"},
-    "links": ["beweging:5:E", "competitie:3:E", "samenwerking:4:E", "speelsheid:4:E", "gezelligheid:4:E", "motoriek:3:V", "strategie:3:V", "communicatie:3:V", "rechtvaardigheid:3:T", "natuur:2:T", "verbondenheid:3:E", "wetenschap:3:O", "humor:3:O", "spel:3:T", "conditie:4:V"],
+    "links": ["beweging:5:E", "competitie:3:E", "samenwerking:4:E", "speelsheid:4:E", "gezelligheid:4:E", "motoriek:3:V", "strategie:3:V", "communicatie:3:V", "rechtvaardigheid:3:T", "natuur:2:T", "verbondenheid:3:E", "wetenschap:3:O", "spel:3:T", "conditie:4:V"],
     "why": {
-      "wetenschap": {"nl": "Een geworpen schijf vliegt door lift en spin, dus elke worp is een natuurkundig experiment.", "en": "A thrown disc flies thanks to lift and spin, so every throw is a physics experiment."},
-      "humor": {"nl": "Spelers roepen hun eigen fouten, waardoor eerlijk spelen een gedeelde grap en regel wordt.", "en": "Players call their own fouls, which makes fair play a shared joke and a shared rule."}
+      "wetenschap": {"nl": "Een geworpen schijf vliegt door lift en spin, dus elke worp is een natuurkundig experiment.", "en": "A thrown disc flies thanks to lift and spin, so every throw is a physics experiment."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-258",
@@ -419,14 +419,13 @@
     "match": "exact",
     "legacy_id": "vechtsport",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
-    "links": ["beweging:5:E", "competitie:2:E", "spanning:3:E", "moed:4:E", "doorzetten:4:E", "motoriek:4:V", "concentratie:4:V", "strategie:3:V", "wereldculturen:3:T", "welzijn:3:T", "zelfstandig:3:E", "rauw:3:E", "spiritualiteit:3:O", "zorg:3:O", "conditie:4:V", "coordinatie:4:V"],
+    "links": ["beweging:5:E", "competitie:2:E", "spanning:3:E", "moed:4:E", "doorzetten:4:E", "motoriek:4:V", "concentratie:4:V", "strategie:3:V", "wereldculturen:3:T", "welzijn:3:T", "zelfstandig:3:E", "rauw:3:E", "spiritualiteit:3:O", "conditie:4:V", "coordinatie:4:V"],
     "why": {
-      "spiritualiteit": {"nl": "Budotradities zien oefenen als een levenshouding, met buigen en etiquette.", "en": "Budo traditions treat practice as a way of life, with bowing and etiquette."},
-      "zorg": {"nl": "Trainingspartners moeten elkaar beschermen, dus kracht gaat samen met zorg.", "en": "Training partners must protect each other, so power comes with care."}
+      "spiritualiteit": {"nl": "Budotradities zien oefenen als een levenshouding, met buigen en etiquette.", "en": "Budo traditions treat practice as a way of life, with bowing and etiquette."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Overlaps strongly with 'boksles' (link similarity 0.91); keep both only if they stay distinct for the visitor."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Overlaps strongly with 'boksles' (link similarity 0.91); keep both only if they stay distinct for the visitor.", "Bruggen-steekproef Jan (ronde 3): brug Zorg voor anderen was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-259",
@@ -440,13 +439,13 @@
     "match": "exact",
     "legacy_id": "boogschieten",
     "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 2, "source": "app"},
-    "links": ["bos:2:D", "precisie:5:V", "concentratie:5:V", "motoriek:3:V", "natuur:2:T", "geschiedenis:3:T", "rust:4:E", "stilte:3:E", "competitie:2:E", "doorzetten:3:E", "beweging:3:E", "wetenschap:3:O", "spiritualiteit:3:O", "coordinatie:3:V"],
+    "links": ["bos:2:D", "precisie:5:V", "concentratie:5:V", "motoriek:3:V", "natuur:2:T", "geschiedenis:3:T", "rust:4:E", "stilte:3:E", "competitie:2:E", "doorzetten:3:E", "beweging:3:E", "wetenschap:3:O", "coordinatie:3:V"],
     "why": {
-      "wetenschap": {"nl": "De vlucht van een pijl is ballistiek en buiging, dus een boog afstellen is natuurkunde.", "en": "Arrow flight is ballistics and flex, so tuning a bow is physics."},
-      "spiritualiteit": {"nl": "Zen-boogschieten ziet het schot als een oefening in aanwezig zijn.", "en": "Zen archery treats the shot as a practice of being present."}
+      "wetenschap": {"nl": "De vlucht van een pijl is ballistiek en buiging, dus een boog afstellen is natuurkunde.", "en": "Arrow flight is ballistics and flex, so tuning a bow is physics."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 3): brug Spiritualiteit en zingeving was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-260",
@@ -480,13 +479,13 @@
     "match": "exact",
     "legacy_id": "pilates",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "online"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:2:D", "concentratie:4:V", "precisie:4:V", "motoriek:3:V", "welzijn:5:T", "beweging:5:E", "ritme:3:E", "rust:4:E", "zelfstandig:3:E", "doorzetten:2:E", "gezelligheid:2:E", "tradities:3:O", "wetenschap:3:O", "conditie:4:V", "coordinatie:4:V"],
+    "links": ["thuis:2:D", "concentratie:4:V", "precisie:4:V", "motoriek:3:V", "welzijn:5:T", "beweging:5:E", "ritme:3:E", "rust:4:E", "zelfstandig:3:E", "doorzetten:2:E", "gezelligheid:2:E", "wetenschap:3:O", "conditie:4:V", "coordinatie:4:V"],
     "why": {
-      "tradities": {"nl": "Joseph Pilates bouwde het uit revalidatie en dans, dus het draagt die tradities.", "en": "Joseph Pilates built it from rehabilitation and dance, so it carries those traditions."},
       "wetenschap": {"nl": "Houding en kernstabiliteit zijn toegepaste anatomie.", "en": "Posture and core stability are applied anatomy."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-262",
@@ -500,13 +499,13 @@
     "match": "exact",
     "legacy_id": "squash",
     "facets": {"setting": "indoor", "social_formats": ["duo", "with_known", "drop_in_alone"], "level": 0, "duration": 1, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["strategie:4:V", "motoriek:4:V", "concentratie:3:V", "improviseren:3:V", "beweging:5:E", "competitie:4:E", "spanning:3:E", "doorzetten:3:E", "gezelligheid:3:E", "speelsheid:2:E", "welzijn:3:T", "warmte:2:E", "rauw:2:E", "patronen:3:O", "wetenschap:3:O", "snelheid:5:E", "conditie:4:V", "coordinatie:3:V"],
+    "links": ["strategie:4:V", "motoriek:4:V", "concentratie:3:V", "improviseren:3:V", "beweging:5:E", "competitie:4:E", "spanning:3:E", "doorzetten:3:E", "gezelligheid:3:E", "speelsheid:2:E", "welzijn:3:T", "warmte:2:E", "rauw:2:E", "wetenschap:3:O", "snelheid:5:E", "conditie:4:V", "coordinatie:3:V"],
     "why": {
-      "patronen": {"nl": "Hoeken en kaatsen vormen een meetkunde die je gaat lezen.", "en": "Angles and bounces form a geometry you start to read."},
       "wetenschap": {"nl": "Balsnelheid, spin en muurkaatsen zijn natuurkunde in actie.", "en": "Ball speed, spin and wall rebounds are physics at play."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
   },
   {
     "id": "RA-263",
@@ -520,14 +519,13 @@
     "match": "exact",
     "legacy_id": "badminton",
     "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "drop_in_alone", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["strategie:3:V", "motoriek:4:V", "concentratie:3:V", "beweging:5:E", "competitie:3:E", "speelsheid:4:E", "gezelligheid:4:E", "generaties:3:E", "spanning:2:E", "ritme:3:E", "samenwerking:3:E", "welzijn:2:T", "patronen:3:O", "wetenschap:3:O", "conditie:3:V", "coordinatie:4:V"],
+    "links": ["strategie:3:V", "motoriek:4:V", "concentratie:3:V", "beweging:5:E", "competitie:3:E", "speelsheid:4:E", "gezelligheid:4:E", "generaties:3:E", "spanning:2:E", "ritme:3:E", "samenwerking:3:E", "welzijn:2:T", "wetenschap:3:O", "conditie:3:V", "coordinatie:4:V"],
     "why": {
-      "patronen": {"nl": "Dropshots, smashes en clears vormen patronen waarmee je leert spelen.", "en": "Drop shots, smashes and clears form patterns you learn to play with."},
       "wetenschap": {"nl": "De weerstand van een shuttle laat hem anders vliegen dan elke bal.", "en": "A shuttlecock's drag makes it fly differently from any ball."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Overlaps strongly with 'padel' (link similarity 0.93); keep both only if they stay distinct for the visitor."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Overlaps strongly with 'padel' (link similarity 0.93); keep both only if they stay distinct for the visitor.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
   },
   {
     "id": "RA-264",
@@ -541,13 +539,14 @@
     "match": "exact",
     "legacy_id": "volleybal",
     "facets": {"setting": "both", "social_formats": ["small_group", "large_group", "drop_in_alone", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["kust:2:D", "beweging:4:E", "samenwerking:5:E", "competitie:3:E", "gezelligheid:4:E", "verbondenheid:3:E", "spanning:3:E", "motoriek:3:V", "communicatie:4:V", "strategie:3:V", "welzijn:2:T", "ritme:3:O", "tradities:3:O", "conditie:3:V"],
+    "links": ["kust:2:D", "beweging:4:E", "samenwerking:5:E", "competitie:3:E", "gezelligheid:4:E", "verbondenheid:3:E", "spanning:3:E", "motoriek:3:V", "communicatie:4:V", "strategie:3:V", "welzijn:2:T", "conditie:3:V", "leiding:3:O", "organiseren:3:O"],
     "why": {
-      "ritme": {"nl": "Opslag, pass en smash volgen een driemaatsritme.", "en": "Set, bump and spike follow a three-beat rhythm."},
-      "tradities": {"nl": "Beachvolleybal maakte van een zaalsport een zomercultuur.", "en": "Beach volleyball turned a gym sport into a summer culture."}
+      "leiding": {"nl": "Wie in een team speelt, groeit vaak door naar aanvoerder of trainer.", "en": "Playing in a team often leads to captain or coach."},
+      "organiseren": {"nl": "Een club draait op vrijwilligers: toernooien en trainingen organiseren is een tweede spel.", "en": "A club runs on volunteers: organising tournaments and training is a second game."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Ritme, Volkscultuur en tradities."]
   },
   {
     "id": "RA-265",
@@ -561,13 +560,14 @@
     "match": "exact",
     "legacy_id": "onderwaterhockey",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
-    "links": ["water:5:D", "beweging:4:E", "samenwerking:4:E", "competitie:3:E", "speelsheid:4:E", "moed:2:E", "concentratie:3:V", "strategie:3:V", "ruimtelijk:3:V", "stilte:3:E", "gezelligheid:3:E", "avontuur:2:E", "wetenschap:3:O", "humor:3:O", "spel:3:T", "conditie:4:V"],
+    "links": ["water:5:D", "beweging:4:E", "samenwerking:4:E", "competitie:3:E", "speelsheid:4:E", "moed:2:E", "concentratie:3:V", "strategie:3:V", "ruimtelijk:3:V", "stilte:3:E", "gezelligheid:3:E", "avontuur:2:E", "humor:3:O", "spel:3:T", "conditie:4:V", "kust:3:O"],
     "why": {
-      "wetenschap": {"nl": "Adem inhouden en onder water bewegen gebruikt de duikreflex van het lichaam.", "en": "Holding your breath and moving under water uses the body's dive reflex."},
-      "humor": {"nl": "Iedereen ziet er absurd uit met snorkel en stick, wat het erg vriendelijk maakt.", "en": "Everyone looks absurd with snorkel and stick, which makes it very friendly."}
+      "humor": {"nl": "Iedereen ziet er absurd uit met snorkel en stick, wat het erg vriendelijk maakt.", "en": "Everyone looks absurd with snorkel and stick, which makes it very friendly."},
+      "kust": {"nl": "Wie onder water durft te spelen, durft ook de zee in: snorkelen of duiken aan de kust is de volgende stap.", "en": "If you are at ease playing under water, the sea is the next step: snorkelling or diving on the coast."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Wetenschap was zwak; vervangen door Kust en strand."]
   },
   {
     "id": "RA-461",
@@ -581,13 +581,14 @@
     "match": "exact",
     "legacy_id": "skaten",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
-    "links": ["stad:3:D", "motoriek:4:V", "ruimtelijk:3:V", "beweging:5:E", "ritme:4:E", "vrijheid:5:E", "speelsheid:4:E", "doorzetten:4:E", "moed:3:E", "gemeenschap:3:E", "rauw:3:E", "kunst:3:O", "architectuur:3:O", "mobiliteit:4:T", "snelheid:4:E", "coordinatie:5:V"],
+    "links": ["stad:3:D", "motoriek:4:V", "ruimtelijk:3:V", "beweging:5:E", "ritme:4:E", "vrijheid:5:E", "speelsheid:4:E", "doorzetten:4:E", "moed:3:E", "gemeenschap:3:E", "rauw:3:E", "mobiliteit:4:T", "snelheid:4:E", "coordinatie:5:V", "beeldtaal:3:O", "patronen:3:O"],
     "why": {
-      "kunst": {"nl": "Skatecultuur mengt muziek, grafiek en film.", "en": "Skate culture mixes music, graphics and film."},
-      "architectuur": {"nl": "Skaters lezen trappen, randen en pleinen als terrein, een nieuwe manier om steden te zien.", "en": "Skaters read stairs, ledges and plazas as terrain, a new way to see cities."}
+      "beeldtaal": {"nl": "Skatevideo's hebben een eigen filmtaal met vloeiende shots en fisheye. Wie skate leert ook anders naar beeld kijken.", "en": "Skate videos have a film language of their own, with flowing shots and fisheye. Skating teaches you to see images differently."},
+      "patronen": {"nl": "Skaters lezen lijnen, hellingen en hoeken. Wie ze begrijpt, ziet de wiskunde van baan, snelheid en balans in een plein.", "en": "Skaters read lines, slopes and angles. Once you understand them you see the mathematics of path, speed and balance in a square."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Steekproef Jan: bruggen Kunst en Architectuur te zwak; vervangen door Voertuigen en vervoer en Film en beeldtaal.", "Steekproef Jan: derde brug toegevoegd (patronen) omdat er na het vervangen minder dan twee ontdekkingsbruggen overbleven."]
   },
   {
     "id": "RA-462",
@@ -601,13 +602,13 @@
     "match": "exact",
     "legacy_id": "rolschaatsen",
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
-    "links": ["motoriek:3:V", "ruimtelijk:2:V", "beweging:5:E", "ritme:5:E", "vrijheid:4:E", "speelsheid:4:E", "gezelligheid:4:E", "nostalgie:4:E", "elegantie:3:E", "klank:3:E", "stad:2:D", "welzijn:3:T", "mode:3:O", "tradities:3:O", "mobiliteit:3:T", "snelheid:3:E", "coordinatie:5:V"],
+    "links": ["motoriek:3:V", "ruimtelijk:2:V", "beweging:5:E", "ritme:5:E", "vrijheid:4:E", "speelsheid:4:E", "gezelligheid:4:E", "nostalgie:4:E", "elegantie:3:E", "klank:3:E", "stad:2:D", "welzijn:3:T", "mobiliteit:3:T", "snelheid:3:E", "coordinatie:5:V", "competitie:3:O"],
     "why": {
-      "mode": {"nl": "Skateoutfits en wielen zijn zelf mode.", "en": "Skate outfits and wheels are fashion in themselves."},
-      "tradities": {"nl": "Rolschaatsdisco's en derby's zijn culturen met eigen rituelen.", "en": "Roller discos and derbies are cultures with their own rituals."}
+      "competitie": {"nl": "Van rondjes rijden naar roller derby of skeelerraces: wie zeker is, ontdekt teamsport en wedstrijden.", "en": "From circling the rink to roller derby or skate races: once you are confident you can discover team sport and competition."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Mode en stijl had een zeer korte reden (zelfde patroon als de zwakke bruggen); vervangen door Competitie.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-463",
@@ -621,13 +622,13 @@
     "match": "exact",
     "legacy_id": "trampolinepark",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 1, "cost": 2, "safety_tier": 1, "source": "app"},
-    "links": ["motoriek:3:V", "ruimtelijk:3:V", "beweging:5:E", "speelsheid:5:E", "moed:2:E", "gezelligheid:4:E", "generaties:3:E", "ritme:3:E", "welzijn:3:T", "vrijheid:3:E", "lucht:3:D", "competitie:2:E", "wetenschap:3:O", "humor:3:O", "conditie:3:V", "coordinatie:5:V"],
+    "links": ["motoriek:3:V", "ruimtelijk:3:V", "beweging:5:E", "speelsheid:5:E", "moed:2:E", "gezelligheid:4:E", "generaties:3:E", "ritme:3:E", "welzijn:3:T", "vrijheid:3:E", "lucht:3:D", "competitie:2:E", "wetenschap:3:O", "conditie:3:V", "coordinatie:5:V"],
     "why": {
-      "wetenschap": {"nl": "Stuiteren is energieopslag en -afgifte, veerkrachtige natuurkunde.", "en": "Bounce is energy storage and release, springy physics."},
-      "humor": {"nl": "Vallen en lachen is waar trampolines voor zijn.", "en": "Falling and laughing is what trampolines are for."}
+      "wetenschap": {"nl": "Stuiteren is energieopslag en -afgifte, veerkrachtige natuurkunde.", "en": "Bounce is energy storage and release, springy physics."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-464",
@@ -641,13 +642,13 @@
     "match": "exact",
     "legacy_id": "touwtjespringen",
     "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["motoriek:4:V", "concentratie:3:V", "beweging:5:E", "ritme:5:E", "doorzetten:4:E", "speelsheid:3:E", "welzijn:3:T", "zelfstandig:3:E", "nostalgie:3:E", "gezelligheid:2:E", "stad:2:D", "competitie:2:E", "wetenschap:3:O", "tradities:3:O", "conditie:5:V", "coordinatie:5:V"],
+    "links": ["motoriek:4:V", "concentratie:3:V", "beweging:5:E", "ritme:5:E", "doorzetten:4:E", "speelsheid:3:E", "welzijn:3:T", "zelfstandig:3:E", "nostalgie:3:E", "gezelligheid:2:E", "stad:2:D", "competitie:2:E", "tradities:3:O", "conditie:5:V", "coordinatie:5:V"],
     "why": {
-      "wetenschap": {"nl": "Timing en coördinatie zijn neurowetenschap in spel.", "en": "Timing and coordination are neuroscience at play."},
       "tradities": {"nl": "Touwspelletjes hangen samen met schoolpleinrijmpjes.", "en": "Rope games link to playground rhymes."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wetenschap."]
   },
   {
     "id": "RA-465",
@@ -661,14 +662,13 @@
     "match": "exact",
     "legacy_id": "zwemmen-baantjes",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["water:5:D", "strategie:2:V", "concentratie:3:V", "motoriek:3:V", "beweging:5:E", "ritme:5:E", "doorzetten:4:E", "rust:3:E", "welzijn:4:T", "zelfstandig:3:E", "stilte:3:E", "wetenschap:3:O", "minimalisme:3:O", "conditie:5:V"],
+    "links": ["water:5:D", "strategie:2:V", "concentratie:3:V", "motoriek:3:V", "beweging:5:E", "ritme:5:E", "doorzetten:4:E", "rust:3:E", "welzijn:4:T", "zelfstandig:3:E", "stilte:3:E", "wetenschap:3:O", "conditie:5:V"],
     "why": {
-      "wetenschap": {"nl": "Slagefficiëntie is hydrodynamica.", "en": "Stroke efficiency is hydrodynamics."},
-      "minimalisme": {"nl": "Zwemmen reduceert het leven tot adem, slag en baan.", "en": "Swimming strips life down to breath, stroke and lane."}
+      "wetenschap": {"nl": "Slagefficiëntie is hydrodynamica.", "en": "Stroke efficiency is hydrodynamics."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["The app also has 'zwemmen' (free swimming): these are one activity in practice; consider merging them in the app.", "Overlaps strongly with 'zwemmen' (link similarity 0.93); keep both only if they stay distinct for the visitor."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["The app also has 'zwemmen' (free swimming): these are one activity in practice; consider merging them in the app.", "Overlaps strongly with 'zwemmen' (link similarity 0.93); keep both only if they stay distinct for the visitor.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Minimalisme."]
   },
   {
     "id": "RA-466",
@@ -703,13 +703,14 @@
     "match": "exact",
     "legacy_id": "tennis-proefles",
     "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
-    "links": ["strategie:3:V", "motoriek:4:V", "concentratie:3:V", "beweging:5:E", "competitie:3:E", "spanning:3:E", "gezelligheid:3:E", "doorzetten:3:E", "welzijn:3:T", "tradities:3:T", "ritme:3:E", "wetenschap:3:O", "patronen:3:O", "leren:3:E", "conditie:3:V", "coordinatie:4:V"],
+    "links": ["strategie:3:V", "motoriek:4:V", "concentratie:3:V", "beweging:5:E", "competitie:3:E", "spanning:3:E", "gezelligheid:3:E", "doorzetten:3:E", "welzijn:3:T", "tradities:3:T", "ritme:3:E", "wetenschap:3:O", "leren:3:E", "conditie:3:V", "coordinatie:4:V", "gemeenschap:3:O"],
     "why": {
       "wetenschap": {"nl": "Spin, stuit en hoeken zijn natuurkunde die je voelt.", "en": "Spin, bounce and angles are physics you sense."},
-      "patronen": {"nl": "Rally's volgen patronen die je leert lezen.", "en": "Rallies follow patterns you learn to read."}
+      "gemeenschap": {"nl": "Een proefles leidt meestal naar een club: competitie, toernooien en vaste speelavonden.", "en": "A trial lesson usually leads to a club: league play, tournaments and regular playing evenings."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Wiskunde en patronen was onzin; vervangen door Gemeenschap."]
   },
   {
     "id": "RA-468",
@@ -723,13 +724,13 @@
     "match": "exact",
     "legacy_id": "langlaufen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
-    "links": ["bos:4:D", "natuur:3:T", "weer:4:T", "welzijn:3:T", "motoriek:3:V", "ruimtelijk:2:V", "beweging:5:E", "ritme:5:E", "vrijheid:4:E", "rust:3:E", "stilte:4:E", "doorzetten:3:E", "warmte:3:E", "tradities:3:O", "technologie:3:O", "snelheid:4:E", "conditie:5:V", "coordinatie:4:V"],
+    "links": ["bos:4:D", "natuur:3:T", "weer:4:T", "welzijn:3:T", "motoriek:3:V", "ruimtelijk:2:V", "beweging:5:E", "ritme:5:E", "vrijheid:4:E", "rust:3:E", "stilte:4:E", "doorzetten:3:E", "warmte:3:E", "technologie:3:O", "snelheid:4:E", "conditie:5:V", "coordinatie:4:V"],
     "why": {
-      "tradities": {"nl": "Noordse skicultuur loopt door winterverhalen en wedstrijden.", "en": "Nordic ski culture runs through winter tales and races."},
       "technologie": {"nl": "Was en skiontwerp maken wrijving tot een ambacht.", "en": "Wax and ski design make friction a craft."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-469",
@@ -743,13 +744,13 @@
     "match": "exact",
     "legacy_id": "zumba",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["motoriek:3:V", "beweging:5:E", "ritme:5:E", "speelsheid:4:E", "gezelligheid:5:E", "humor:3:E", "verbondenheid:3:E", "klank:4:E", "welzijn:4:T", "wereldculturen:3:T", "gemeenschap:3:E", "vrijheid:3:E", "tradities:3:O", "geschiedenis:3:O", "muziek:3:T", "conditie:4:V", "coordinatie:3:V"],
+    "links": ["motoriek:3:V", "beweging:5:E", "ritme:5:E", "speelsheid:4:E", "gezelligheid:5:E", "humor:3:E", "verbondenheid:3:E", "klank:4:E", "welzijn:4:T", "wereldculturen:3:T", "gemeenschap:3:E", "vrijheid:3:E", "tradities:3:O", "muziek:3:T", "conditie:4:V", "coordinatie:3:V"],
     "why": {
-      "tradities": {"nl": "Latijns-Amerikaanse dansvormen vormen de basis van de routines.", "en": "Latin dance forms underpin the routines."},
-      "geschiedenis": {"nl": "Zumba begon met een instructeur die improviseerde met zijn eigen muziekbanden.", "en": "Zumba began with an instructor improvising with his own music tapes."}
+      "tradities": {"nl": "Latijns-Amerikaanse dansvormen vormen de basis van de routines.", "en": "Latin dance forms underpin the routines."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Geschiedenis."]
   },
   {
     "id": "RA-470",
@@ -763,13 +764,13 @@
     "match": "exact",
     "legacy_id": "aangepast-sporten",
     "facets": {"setting": "both", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
-    "links": ["beweging:4:E", "samenwerking:4:E", "gezelligheid:5:E", "verbondenheid:4:E", "competitie:2:E", "doorzetten:3:E", "gemeenschap:4:E", "welzijn:5:T", "rechtvaardigheid:3:T", "motoriek:2:V", "communicatie:2:V", "generaties:3:E", "ontwerpen:3:O", "humor:3:O"],
+    "links": ["beweging:4:E", "samenwerking:4:E", "gezelligheid:5:E", "verbondenheid:4:E", "competitie:2:E", "doorzetten:3:E", "gemeenschap:4:E", "welzijn:5:T", "rechtvaardigheid:3:T", "motoriek:2:V", "communicatie:2:V", "generaties:3:E", "ontwerpen:3:O"],
     "why": {
-      "ontwerpen": {"nl": "Een spel aanpassen betekent regels herontwerpen, ontwerpen voor inclusie.", "en": "Adapting a game means redesigning rules, design for inclusion."},
-      "humor": {"nl": "Een lager tempo en wielen brengen veel gelach.", "en": "A slower pace and wheels bring plenty of laughter."}
+      "ontwerpen": {"nl": "Een spel aanpassen betekent regels herontwerpen, ontwerpen voor inclusie.", "en": "Adapting a game means redesigning rules, design for inclusion."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-471",
@@ -803,12 +804,12 @@
     "match": "exact",
     "legacy_id": "ijshockey",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
-    "links": ["motoriek:4:V", "strategie:3:V", "concentratie:3:V", "beweging:5:E", "competitie:4:E", "samenwerking:4:E", "spanning:3:E", "rauw:3:E", "doorzetten:3:E", "gezelligheid:3:E", "ritme:3:E", "welzijn:2:T", "wetenschap:3:O", "tradities:3:O", "snelheid:4:E", "conditie:4:V"],
+    "links": ["motoriek:4:V", "strategie:3:V", "concentratie:3:V", "beweging:5:E", "competitie:4:E", "samenwerking:4:E", "spanning:3:E", "rauw:3:E", "doorzetten:3:E", "gezelligheid:3:E", "ritme:3:E", "welzijn:2:T", "snelheid:4:E", "conditie:4:V", "technologie:3:O"],
     "why": {
-      "wetenschap": {"nl": "Snelheid, ijs en randbeheersing zijn mechanica onder je kufen.", "en": "Speed, ice and edge control are mechanics under your blades."},
-      "tradities": {"nl": "Hockeycultuur loopt door clubrituelen en bijnamen.", "en": "Hockey culture runs through club rituals and nicknames."}
+      "technologie": {"nl": "Schaatsen slijpen en uitrusting aanpassen is een eigen techniek waar spelers veel van leren.", "en": "Sharpening skates and fitting gear is a technique of its own that players learn a lot from."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wetenschap, Volkscultuur en tradities.", "Bruggen-steekproef Jan (ronde 3): brug Organiseren was zwak of onzin; verwijderd."]
   }
 ]

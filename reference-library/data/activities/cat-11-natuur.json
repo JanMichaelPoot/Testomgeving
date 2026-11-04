@@ -95,13 +95,13 @@
     "match": "exact",
     "legacy_id": "foerageren",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
-    "links": ["planten:5:M", "bos:4:D", "observeren:4:D", "keuken:3:D", "natuur:5:T", "duurzaamheid:3:T", "geschiedenis:2:T", "concentratie:3:V", "precisie:3:V", "smaak:5:E", "geur:4:E", "ontdekking:4:E", "verwondering:3:E", "vrijheid:3:E", "wetenschap:3:O", "zorg:3:O"],
+    "links": ["planten:5:M", "bos:4:D", "observeren:4:D", "keuken:3:D", "natuur:5:T", "duurzaamheid:3:T", "geschiedenis:2:T", "concentratie:3:V", "precisie:3:V", "smaak:5:E", "geur:4:E", "ontdekking:4:E", "verwondering:3:E", "vrijheid:3:E", "wetenschap:3:O"],
     "why": {
-      "wetenschap": {"nl": "Planten herken je aan details van blad, steel en bloem, dus dit is veldbotanie.", "en": "Plants are identified by details of leaf, stem and flower, so this is field botany."},
-      "zorg": {"nl": "Weten wat veilig is om te eten betekent grenzen respecteren, dus foerageren leert voorzichtigheid naast nieuwsgierigheid.", "en": "Knowing what is safe to eat means respecting limits, so foraging teaches caution as well as curiosity."}
+      "wetenschap": {"nl": "Planten herken je aan details van blad, steel en bloem, dus dit is veldbotanie.", "en": "Plants are identified by details of leaf, stem and flower, so this is field botany."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zorg voor anderen."]
   },
   {
     "id": "RA-112",
@@ -115,13 +115,13 @@
     "match": "exact",
     "legacy_id": "bomen-herkennen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["observeren:5:D", "bos:4:D", "planten:3:M", "natuur:5:T", "wetenschap:3:T", "concentratie:3:V", "geduld:2:V", "rust:4:E", "verwondering:3:E", "ontdekking:4:E", "detail:4:E", "puzzelen:3:E", "verzamelen:3:D", "kunst:3:O", "generaties:3:O"],
+    "links": ["observeren:5:D", "bos:4:D", "planten:3:M", "natuur:5:T", "wetenschap:3:T", "concentratie:3:V", "geduld:2:V", "rust:4:E", "verwondering:3:E", "ontdekking:4:E", "detail:4:E", "puzzelen:3:E", "verzamelen:3:D", "kunst:3:O"],
     "why": {
-      "kunst": {"nl": "Bladvormen en schorspatronen zijn bron voor tekeningen, drukken en ontwerpen.", "en": "Leaf shapes and bark patterns are a source of drawings, prints and designs."},
-      "generaties": {"nl": "Oude bomen overleven hun planters, dus herkennen verbindt je met mensen voor je.", "en": "Old trees outlive their planters, so recognising them links you to people before you."}
+      "kunst": {"nl": "Bladvormen en schorspatronen zijn bron voor tekeningen, drukken en ontwerpen.", "en": "Leaf shapes and bark patterns are a source of drawings, prints and designs."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Generaties."]
   },
   {
     "id": "RA-113",
@@ -275,14 +275,13 @@
     "match": "exact",
     "legacy_id": "nachtdieren",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["observeren:5:D", "bos:3:D", "navigeren:2:D", "natuur:5:T", "dieren:5:T", "wetenschap:3:T", "klank:4:E", "stilte:3:E", "verwondering:5:E", "avontuur:3:E", "spanning:3:E", "ontdekking:4:E", "concentratie:3:V", "technologie:3:O", "heelal:3:O"],
+    "links": ["observeren:5:D", "bos:3:D", "navigeren:2:D", "natuur:5:T", "dieren:5:T", "wetenschap:3:T", "klank:4:E", "stilte:3:E", "verwondering:5:E", "avontuur:3:E", "spanning:3:E", "ontdekking:4:E", "concentratie:3:V", "technologie:3:O"],
     "why": {
-      "technologie": {"nl": "Een batdetector maakt ultrageluid hoorbaar, een manier om het onhoorbare te horen.", "en": "A bat detector makes ultrasound audible, a way of hearing the unhearable."},
-      "heelal": {"nl": "Nachtwandelingen zetten de sterrenhemel boven de hele ervaring.", "en": "Night walks put the starry sky above the whole experience."}
+      "technologie": {"nl": "Een batdetector maakt ultrageluid hoorbaar, een manier om het onhoorbare te horen.", "en": "A bat detector makes ultrasound audible, a way of hearing the unhearable."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Done after dark with a torch: consider a short safety note in the app (tier 1)."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Done after dark with a torch: consider a short safety note in the app (tier 1).", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Heelal en sterren."]
   },
   {
     "id": "RA-271",
@@ -296,13 +295,13 @@
     "match": "exact",
     "legacy_id": "vissen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 1, "source": "app"},
-    "links": ["water:5:D", "observeren:4:D", "geduld:5:V", "concentratie:3:V", "dieren:3:T", "natuur:4:T", "weer:3:T", "rust:5:E", "stilte:4:E", "zelfstandig:3:E", "gezelligheid:2:E", "spanning:3:E", "vrijheid:3:E", "wetenschap:3:O", "tradities:3:O", "kans:3:E"],
+    "links": ["water:5:D", "observeren:4:D", "geduld:5:V", "concentratie:3:V", "dieren:3:T", "natuur:4:T", "weer:3:T", "rust:5:E", "stilte:4:E", "zelfstandig:3:E", "gezelligheid:2:E", "spanning:3:E", "vrijheid:3:E", "wetenschap:3:O", "kans:3:E"],
     "why": {
-      "wetenschap": {"nl": "Temperatuur, diepte en eetgedrag kennen is toegepaste ecologie.", "en": "Knowing temperature, depth and feeding habits is applied ecology."},
-      "tradities": {"nl": "Vissen draagt dorpsgebruiken, van aasverhalen tot wedstrijden.", "en": "Fishing carries village customs, from bait lore to contests."}
+      "wetenschap": {"nl": "Temperatuur, diepte en eetgedrag kennen is toegepaste ecologie.", "en": "Knowing temperature, depth and feeding habits is applied ecology."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-272",
@@ -336,13 +335,13 @@
     "match": "exact",
     "legacy_id": "zeehonden-varen",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["water:4:D", "kust:5:D", "observeren:4:D", "zeevaart:3:T", "dieren:5:T", "natuur:4:T", "weer:3:T", "verwondering:4:E", "ontdekking:3:E", "rust:3:E", "avontuur:2:E", "licht:2:E", "wetenschap:3:O", "tradities:3:O"],
+    "links": ["water:4:D", "kust:5:D", "observeren:4:D", "zeevaart:3:T", "dieren:5:T", "natuur:4:T", "weer:3:T", "verwondering:4:E", "ontdekking:3:E", "rust:3:E", "avontuur:2:E", "licht:2:E", "wetenschap:3:O"],
     "why": {
-      "wetenschap": {"nl": "Zeehondentellingen en getijden laten zien hoe een estuarium leeft.", "en": "Seal counts and tides show how an estuary lives."},
-      "tradities": {"nl": "Kustgemeenschappen kennen oude verhalen over zeehonden en zeelieden.", "en": "Coastal communities have old stories about seals and sailors."}
+      "wetenschap": {"nl": "Zeehondentellingen en getijden laten zien hoe een estuarium leeft.", "en": "Seal counts and tides show how an estuary lives."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-274",
@@ -436,13 +435,13 @@
     "match": "exact",
     "legacy_id": "paardrijden",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 2, "source": "app"},
-    "links": ["bos:3:D", "dieren:5:T", "natuur:3:T", "beweging:4:E", "zorg:5:E", "vrijheid:4:E", "rust:3:E", "moed:2:E", "motoriek:3:V", "concentratie:3:V", "communicatie:3:V", "geur:4:E", "tast:3:E", "leiding:3:O", "tradities:3:O", "luisteren:3:V", "coordinatie:4:V"],
+    "links": ["bos:3:D", "dieren:5:T", "natuur:3:T", "beweging:4:E", "zorg:5:E", "vrijheid:4:E", "rust:3:E", "moed:2:E", "motoriek:3:V", "concentratie:3:V", "communicatie:3:V", "geur:4:E", "tast:3:E", "leiding:3:O", "luisteren:3:V", "coordinatie:4:V"],
     "why": {
-      "leiding": {"nl": "Een paard volgt rustig en duidelijk leiderschap, wat aanwezigheid leert.", "en": "A horse follows calm, clear leadership, which teaches presence."},
-      "tradities": {"nl": "Rijscholen en jachten dragen rituelen en ruiteretiquette.", "en": "Riding schools and hunts carry ritual and equestrian etiquette."}
+      "leiding": {"nl": "Een paard volgt rustig en duidelijk leiderschap, wat aanwezigheid leert.", "en": "A horse follows calm, clear leadership, which teaches presence."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-279",
@@ -476,13 +475,13 @@
     "match": "exact",
     "legacy_id": "roofvogelshow",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["lucht:3:D", "observeren:4:D", "dieren:5:T", "natuur:4:T", "tradities:4:T", "geschiedenis:3:T", "verwondering:4:E", "publiek:3:E", "spanning:3:E", "generaties:3:E", "zorg:2:E", "vrijheid:2:E", "ontroering:2:E", "technologie:3:O", "wereldculturen:3:O"],
+    "links": ["lucht:3:D", "observeren:4:D", "dieren:5:T", "natuur:4:T", "tradities:4:T", "geschiedenis:3:T", "verwondering:4:E", "publiek:3:E", "spanning:3:E", "generaties:3:E", "zorg:2:E", "vrijheid:2:E", "ontroering:2:E", "wereldculturen:3:O"],
     "why": {
-      "technologie": {"nl": "Valkerij traint een wild dier door vertrouwen, een vorm van dierhantering.", "en": "Falconry trains a wild animal through trust, a form of animal handling."},
       "wereldculturen": {"nl": "Valkerij is erfgoed van de steppen tot Arabië.", "en": "Falconry is a heritage practice from the steppes to Arabia."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Technologie."]
   },
   {
     "id": "RA-488",
@@ -496,13 +495,13 @@
     "match": "exact",
     "legacy_id": "vlindertuin",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["planten:3:M", "observeren:4:D", "dieren:5:T", "natuur:5:T", "warmte:4:E", "licht:3:E", "verwondering:5:E", "rust:4:E", "schoonheid:4:E", "geur:3:E", "generaties:3:E", "detail:3:E", "wetenschap:3:O", "kunst:3:O"],
+    "links": ["planten:3:M", "observeren:4:D", "dieren:5:T", "natuur:5:T", "warmte:4:E", "licht:3:E", "verwondering:5:E", "rust:4:E", "schoonheid:4:E", "geur:3:E", "generaties:3:E", "detail:3:E", "wetenschap:3:O"],
     "why": {
-      "wetenschap": {"nl": "Gedaanteverwisseling is een van de verrassendste levenscycli.", "en": "Metamorphosis is one of the most surprising life cycles."},
-      "kunst": {"nl": "Vleugelpatronen inspireren ontwerp, textiel en sieraden.", "en": "Wing patterns inspire design, textiles and jewellery."}
+      "wetenschap": {"nl": "Gedaanteverwisseling is een van de verrassendste levenscycli.", "en": "Metamorphosis is one of the most surprising life cycles."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
   },
   {
     "id": "RA-489",
@@ -516,13 +515,13 @@
     "match": "exact",
     "legacy_id": "reptielen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
-    "links": ["observeren:4:D", "dieren:5:T", "natuur:3:T", "wetenschap:3:T", "spanning:3:E", "moed:3:E", "verwondering:4:E", "ontdekking:3:E", "rauw:2:E", "zorg:2:E", "generaties:2:E", "warmte:3:E", "kunst:3:O", "rechtvaardigheid:3:O"],
+    "links": ["observeren:4:D", "dieren:5:T", "natuur:3:T", "wetenschap:3:T", "spanning:3:E", "moed:3:E", "verwondering:4:E", "ontdekking:3:E", "rauw:2:E", "zorg:2:E", "generaties:2:E", "warmte:3:E", "rechtvaardigheid:3:O"],
     "why": {
-      "kunst": {"nl": "Patronen van schubben en webben fascineren ontwerpers.", "en": "Patterns of scales and webs fascinate designers."},
       "rechtvaardigheid": {"nl": "Gevreesde dieren van dichtbij zien verandert hoe je over hun bescherming denkt.", "en": "Seeing feared animals up close changes how you think about protecting them."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
   },
   {
     "id": "RA-490",
@@ -576,13 +575,13 @@
     "match": "exact",
     "legacy_id": "aquarium",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "with_known"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["planten:4:M", "water:5:D", "ontwerpen:4:D", "thuis:3:D", "zorg:4:E", "geduld:3:V", "precisie:2:V", "dieren:4:T", "natuur:4:T", "wetenschap:3:T", "rust:5:E", "schoonheid:4:E", "licht:3:E", "wonen:3:T", "kunst:3:O", "duurzaamheid:3:O", "miniatuur:3:E"],
+    "links": ["planten:4:M", "water:5:D", "ontwerpen:4:D", "thuis:3:D", "zorg:4:E", "geduld:3:V", "precisie:2:V", "dieren:4:T", "natuur:4:T", "wetenschap:3:T", "rust:5:E", "schoonheid:4:E", "licht:3:E", "wonen:3:T", "duurzaamheid:3:O", "miniatuur:3:E"],
     "why": {
-      "kunst": {"nl": "Aquascaping wordt beoordeeld als compositie, balans en diepte.", "en": "Aquascaping is judged like composition, balance and depth."},
       "duurzaamheid": {"nl": "Een evenwichtig bassin is een klein gesloten ecosysteem.", "en": "A balanced tank is a small closed ecosystem."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
   },
   {
     "id": "RA-493",
@@ -596,12 +595,12 @@
     "match": "exact",
     "legacy_id": "fossielen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 1, "source": "app"},
-    "links": ["steen:4:M", "observeren:4:D", "onderzoeken:3:D", "verzamelen:4:D", "kust:3:D", "geduld:2:V", "natuur:4:T", "wetenschap:5:T", "geschiedenis:4:T", "verwondering:5:E", "ontdekking:5:E", "tast:3:E", "rust:2:E", "verhalen:3:O", "zeevaart:3:O", "kans:3:E"],
+    "links": ["steen:4:M", "observeren:4:D", "onderzoeken:3:D", "verzamelen:4:D", "kust:3:D", "geduld:2:V", "natuur:4:T", "wetenschap:5:T", "geschiedenis:4:T", "verwondering:5:E", "ontdekking:5:E", "tast:3:E", "rust:2:E", "zeevaart:3:O", "kans:3:E"],
     "why": {
-      "verhalen": {"nl": "Een haaientand of schelp is een verhaal over een oude zee.", "en": "A shark's tooth or shell is a story of an ancient sea."},
       "zeevaart": {"nl": "Veel vondsten horen bij oude zeebodems en kusten die zijn verschoven.", "en": "Many finds belong to old seabeds and coasts that have moved."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   }
 ]

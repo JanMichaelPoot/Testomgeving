@@ -75,3 +75,72 @@ tradition, spirituality, seafaring, weather, humour, fairness (met reden in `fin
 **Niet toegepast**: nieuwe tags veranderen de relatiegraaf, de scores van de motor en de opgeslagen basislijnen; dat is een
 eigen besluit met eigen metingen. Verder aanbevolen voor de app zelf: `zwemmen` en `zwemmen-baantjes` samenvoegen, en
 veiligheidsklasse heroverwegen voor `synthesizer-bouwen` (solderen) en `nachtdieren` (in het donker).
+
+
+## Aanvulling: mens-steekproef (Jan, 30 activiteiten)
+
+Jan beoordeelde 30 willekeurige activiteiten (minstens een per categorie, 10 nieuw voor de app, 3 met toezicht). Uitslag:
+
+| Onderdeel | Uitslag |
+|---|---|
+| Sterkste associaties | 3 van 180 aangemerkt als niet passend (1,7%) |
+| Ontdekkingsbruggen | 50 zinvol, 9 zwak, 1 onzin van 60 (83% zinvol) |
+| Kenmerken (plek, duur, niveau, kosten, veiligheid) | 5 van 30 activiteiten kloppen niet (17%) |
+
+**Wat dit zegt:** de associaties zelf zijn betrouwbaar. De bruggen en de kenmerken zijn de zwakke laag. Bij 60 bruggen is 17% zwak grofweg 8-28%; extrapoleer dus voorzichtig (circa 190 zwakke bruggen van 1.100 is een schatting, geen telling).
+
+**Wat er is aangepast:** de drie niet-passende associaties zijn verwijderd (Trots bij Jam en inmaken, Weer bij Tuinmeubels en een pergola, Wereldculturen bij Gebarentaal). Alle tien zwakke of onzinnige bruggen zijn vervangen: de nieuwe zijn inhoudelijk of juist breder (Wetenschap, Weer en seizoenen, Voertuigen, Film en beeldtaal, Muziek, Geschiedenis, Spiritualiteit, Wiskunde en patronen). De vijf kenmerken zijn gecorrigeerd en op bron *authored* gezet; drie ervan komen uit de app (IJsbaden: plek, Een tas ontwerpen: niveau, Legpuzzels: duur) en zijn daar niet aangepast. Elk aangepast record heeft ronde 2 en een opmerking.
+
+**Wat de zwakke bruggen gemeen hadden:** de verbinding is een bijkomstigheid van de activiteit (de stilte na een klifduik, de geur van fotochemie, "elke bibliotheek heeft ook technologie") in plaats van een richting waarin iemand verder zou zoeken. Voor een volgende brugronde is dat het criterium.
+
+**Gevonden gat in de woordenlijst:** er is geen associatie voor technische vaardigheid of constructie ("techniek"), terwijl de app wel een tag *technique* heeft. Kandidaat voor een volgende ronde.
+
+**Volgende stap:** een tweede steekproef met alleen bruggen (50 stuks, over 50 verschillende associaties gespreid) in `bruggen-ronde-2.html`, gemaakt met `scripts/reference-library/make-bridge-sheet.py`. Dat geeft een schatting per soort brug en laat zien welke soorten systematisch moeten worden herzien.
+
+
+## Aanvulling 2: bruggen-steekproef (Jan, 50 bruggen)
+
+| | Zinvol | Zwak | Onzin |
+|---|---|---|---|
+| Steekproef 2 (50 bruggen, over 50 associaties gespreid) | 26 | 15 | 9 |
+| Steekproef 1 en 2 samen (110 bruggen) | 76 (69%) | | 34 (31%) |
+
+**Wat dit betekent:** steekproef 1 liet 83% zinvol zien, steekproef 2 52%. Dat verschil komt doordat de eerste vooral veelgebruikte associaties raakte en de tweede de hele lijst. Het echte aandeel zinvolle bruggen in de bibliotheek ligt waarschijnlijk dichter bij de helft dan bij 83%; een precieze schatting kan ik niet geven. Van de 1.100 bruggen zijn 110 door een mens beoordeeld. De rest is ongecontroleerd.
+
+**Wat de zwakke bruggen gemeen hebben:** een brede, abstracte associatie aan een activiteit gehangen met een reden die voor bijna elke activiteit te schrijven is (spiritualiteit bij baantjes zwemmen, rechtvaardigheid bij een naaicafé, wiskunde bij tennis, generaties bij verhalen vertellen). De goede bruggen noemen een **concrete vervolgstap**: een andere activiteit, plek of vaardigheid waar je daarna naartoe kunt (trailrunning na hardlopen, een club na een proefles, snorkelen na onderwaterhockey). Dat is het criterium voor een volgende ronde.
+
+**Kan het automatisch?** Ik heb getest of zwakke bruggen te voorspellen zijn uit de koppelingen zelf (gelijkenis met buur-activiteiten, hoe vaak de associatie in dezelfde categorie voorkomt, gemeenschappelijke voorkomens, associatiedomein). Dat lukt niet (beste maat 0,65 op een schaal waar 0,5 toeval is). Alleen de lengte van de reden zegt iets: onder 45 tekens was 12 van 13 keer zwak. Een betrouwbare controle vraagt dus een mens.
+
+**Aangepast:** de 24 zwakke of onzinnige bruggen zijn vervangen door bruggen met een concrete vervolgstap, plus 8 zeer korte redenen die niet beoordeeld waren maar hetzelfde patroon hadden. Elk aangepast record heeft een opmerking.
+
+**Advies:** gebruik de bruggen nog niet om iets aan bezoekers aan te bevelen. Een volgende ronde herschrijft alle bruggen volgens het criterium hierboven, per association-groep, en laat daarna weer een steekproef beoordelen.
+
+
+## Aanvulling 3: zelfbeoordeling van alle bruggen
+
+Op Jans verzoek heb ik alle 984 bruggen die nog geen mens had gezien zelf gelezen en alleen de bruggen verwijderd die ik zelf zwak vond. Ik legde de lat hoger dan in de eerste ronde: een brug blijft alleen staan als de reden iets specifieks over **deze** activiteit zegt, geen metafoor ("een taart is architectuur") en geen algemeenheid die voor bijna elke activiteit te schrijven is.
+
+- **205 van 984 (21%) verwijderd.** Meest verwijderd: verhalen 30, architectuur 23, volkscultuur en tradities 22, humor 20, wiskunde en patronen 14, kunst 12, wetenschap 9.
+- **Minimum van twee naar één brug per activiteit.** 155 activiteiten hebben nu één brug, 395 twee. Een ontbrekende brug is beter dan een zwakke. 26 activiteiten die daarna nul bruggen hadden, kregen een of twee nieuwe met een concrete vervolgstap (een club, plek, vaardigheid of ambacht waar je daarna naartoe kunt). Het minimum staat in `validate.ts` (`MIN_DISCOVERY_LINKS`) en is terug te zetten.
+- **Nu 945 bruggen** (was 1.100).
+
+**Eerlijk over mijn eigen oordeel:** Jan keurde in steekproef 2 meer dan de helft van mijn bruggen niet goed, terwijl ik er hier maar 21% afkeur. Mijn oordeel is dus waarschijnlijk milder dan het zijne, en er staan nog zwakke bruggen tussen. Daarom volgt een controle: `bruggen-ronde-3.html` (62 bruggen, nog niet door Jan gezien). 50 zijn bruggen die ik heb laten staan (groep A), 12 zijn bruggen die ik zelf in eerdere rondes als vervanging schreef (groep B). Welke welke is, staat in `bruggen-ronde-3.key.json`, niet op het blad. Is het aandeel zinvol in groep A duidelijk hoger dan de 52% van steekproef 2, dan werkt het filteren; zo niet, dan is menselijk oordeel op elke brug nodig.
+
+
+## Aanvulling 4: uitslag van de controle-steekproef (Jan, 62 bruggen)
+
+| Groep | Zinvol | Zwak of onzin |
+|---|---|---|
+| A: bruggen die ik na mijn zelfbeoordeling liet staan (50) | 38 (76%) | 12 |
+| B: bruggen die ik zelf eerder als vervanging schreef (12) | 10 (83%) | 2 |
+| Ter vergelijking: steekproef 2, ongefilterd (50) | 26 (52%) | 24 |
+
+**Conclusie:** mijn eigen filter werkt, maar niet genoeg. Door te schrappen wat ik zelf zwak vond steeg het aandeel zinvolle bruggen van ongeveer de helft naar ruim driekwart. Ongeveer een op de vier bruggen die ik laat staan is volgens Jan nog zwak. Bij 50 bruggen is de marge groot (grofweg 63-87%), en de 83% van groep B berust op 12 bruggen.
+
+**Waar Jan strenger is dan ik:** hij keurt bruggen af die ik vanwege een concreet feit liet staan, zoals zen-boogschieten (spiritualiteit), judo (zorg voor anderen) en Nordic walking (volkscultuur). Er is geen associatie die systematisch slecht is (hoogste aandeel afgekeurd 38%, n=8), dus een eenvoudige regel ("nooit spiritualiteit") bestaat niet.
+
+**Gedaan:** de 14 afgekeurde bruggen zijn verwijderd. Drie activiteiten kregen daardoor geen brug meer en kregen een nieuwe (voedselbank, capsulegarderobe, schrijven in een tweede taal); die drie zijn niet beoordeeld.
+
+**Nu:** 934 bruggen, waarvan 172 een keer door Jan beoordeeld (124 zinvol, die blijven staan) en ongeveer 810 nog niet. Als de 76% ook voor die 810 geldt, zijn er nog ruim 190 zwak.
+
+**Opties:** (1) de bruggen zo laten en ze alleen gebruiken met een kanttekening ("suggestie"); (2) nog een zelfbeoordelingsronde met de lat op Jans niveau (de bruggen die op een enkel feit of een zijpad leunen eruit); (3) Jan beoordeelt meer bruggen. Mijn voorkeur is (2) gevolgd door een kleine steekproef, omdat de eerste ronde 24 punten opleverde. Meer dan driekwart zinvol is waarschijnlijk wat een AI-zelfreview zonder mens kan halen.

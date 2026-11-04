@@ -16,7 +16,8 @@ import {
 
 export const MIN_LINKS = 12;
 export const MAX_LINKS = 20;
-export const MIN_DISCOVERY_LINKS = 2;
+/** Lowered from 2 to 1 in review round 3: a missing bridge is better than a weak one (see review/REVIEW.md). */
+export const MIN_DISCOVERY_LINKS = 1;
 export const MIN_DISTINCT_DOMAINS = 3;
 export const MIN_WHY_LENGTH = 30;
 /** An association on more than this share of the activities hardly tells them apart. */

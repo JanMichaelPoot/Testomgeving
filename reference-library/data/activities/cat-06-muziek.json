@@ -33,13 +33,13 @@
     "legacy_id": "songteksten",
     "v0_id": "ACT-022",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["taalvaardig:5:V", "creativiteit:5:V", "precisie:2:V", "verhalen:4:T", "identiteit:3:T", "kunst:3:T", "ritme:4:E", "klank:3:E", "expressie:5:E", "ontroering:4:E", "zelfstandig:3:E", "thuis:3:D", "optreden:3:O", "puzzelen:3:O", "muziek:4:T", "taal:4:T"],
+    "links": ["taalvaardig:5:V", "creativiteit:5:V", "precisie:2:V", "verhalen:4:T", "identiteit:3:T", "kunst:3:T", "ritme:4:E", "klank:3:E", "expressie:5:E", "ontroering:4:E", "zelfstandig:3:E", "thuis:3:D", "optreden:3:O", "muziek:4:T", "taal:4:T"],
     "why": {
-      "optreden": {"nl": "Songteksten zijn gemaakt om gezongen te worden, dus je denkt na over stem, adem en publiek.", "en": "Lyrics are written to be sung, so you think about voice, breath and audience."},
-      "puzzelen": {"nl": "Rijm, ritme en betekenis die samen passen is een woordpuzzel met emotionele inzet.", "en": "Finding rhyme, rhythm and meaning that fit together is a word puzzle with emotional stakes."}
+      "optreden": {"nl": "Songteksten zijn gemaakt om gezongen te worden, dus je denkt na over stem, adem en publiek.", "en": "Lyrics are written to be sung, so you think about voice, breath and audience."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Problemen oplossen."]
   },
   {
     "id": "RA-030",
@@ -75,14 +75,14 @@
     "legacy_id": null,
     "v0_id": "ACT-024",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
-    "links": ["ontwerpen:4:D", "bouwen:3:D", "thuis:4:D", "creativiteit:5:V", "logica:3:V", "precisie:3:V", "geduld:3:V", "concentratie:3:V", "ritme:5:E", "klank:5:E", "technologie:5:T", "kunst:3:T", "opgaan:4:E", "experimenteren:4:E", "expressie:3:E", "ruimtelijk:3:O", "gemeenschap:3:O", "muziek:5:T", "online:3:D"],
+    "links": ["ontwerpen:4:D", "bouwen:3:D", "thuis:4:D", "creativiteit:5:V", "logica:3:V", "precisie:3:V", "geduld:3:V", "concentratie:3:V", "ritme:5:E", "klank:5:E", "technologie:5:T", "kunst:3:T", "opgaan:4:E", "experimenteren:4:E", "expressie:3:E", "gemeenschap:3:O", "muziek:5:T", "online:3:D", "beeldtaal:3:O"],
     "why": {
-      "ruimtelijk": {"nl": "Bij het mixen plaats je geluid links, rechts, dichtbij en ver weg, dus je leert geluid als ruimte zien.", "en": "In mixing you place sound left, right, near and far, so you learn to think of sound as space."},
-      "gemeenschap": {"nl": "Online en lokale scenes delen loops, plugins en feedback, waardoor een eenzame hobby een grote gemeenschap heeft.", "en": "Online and local scenes share loops, plugins and feedback, so a solitary hobby has a big community."}
+      "gemeenschap": {"nl": "Online en lokale scenes delen loops, plugins en feedback, waardoor een eenzame hobby een grote gemeenschap heeft.", "en": "Online and local scenes share loops, plugins and feedback, so a solitary hobby has a big community."},
+      "beeldtaal": {"nl": "Elektronische muziek komt vaak met visuals: vj'en en lichtshows brengen geluid en beeld samen.", "en": "Electronic music often comes with visuals: VJing and light shows bring sound and image together."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 2): brug Ruimtelijk inzicht was onzin; vervangen door Film en beeldtaal."]
   },
   {
     "id": "RA-090",
@@ -117,14 +117,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 2, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["ontwerpen:4:D", "thuis:3:D", "creativiteit:5:V", "logica:4:V", "concentratie:4:V", "geduld:3:V", "precisie:3:V", "kunst:3:T", "klank:5:E", "ritme:4:E", "expressie:5:E", "ontroering:4:E", "trots:4:E", "opgaan:4:E", "meesterschap:3:E", "verhalen:3:O", "architectuur:3:O", "muziek:5:T"],
+    "links": ["ontwerpen:4:D", "thuis:3:D", "creativiteit:5:V", "logica:4:V", "concentratie:4:V", "geduld:3:V", "precisie:3:V", "kunst:3:T", "klank:5:E", "ritme:4:E", "expressie:5:E", "ontroering:4:E", "trots:4:E", "opgaan:4:E", "meesterschap:3:E", "verhalen:3:O", "muziek:5:T"],
     "why": {
-      "verhalen": {"nl": "Een stuk heeft een begin, spanning en een einde, dus componeren is vertellen zonder woorden.", "en": "A piece has a beginning, tension and an end, so composing is storytelling without words."},
-      "architectuur": {"nl": "Muzikale vormen zijn constructies met fundament en verhoudingen, zoals gebouwen.", "en": "Musical forms are structures with foundations and proportions, like buildings."}
+      "verhalen": {"nl": "Een stuk heeft een begin, spanning en een einde, dus componeren is vertellen zonder woorden.", "en": "A piece has a beginning, tension and an end, so composing is storytelling without words."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-092",
@@ -159,14 +158,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group", "with_known"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
-    "links": ["organiseren:3:D", "optreden:4:D", "podium:3:D", "motoriek:3:V", "improviseren:4:V", "communicatie:3:V", "leiding:2:V", "klank:5:E", "ritme:5:E", "samenwerking:5:E", "publiek:3:E", "expressie:4:E", "gezelligheid:4:E", "doorzetten:3:E", "humor:3:E", "identiteit:3:O", "verhalen:3:O", "muziek:5:T"],
+    "links": ["organiseren:3:D", "optreden:4:D", "podium:3:D", "motoriek:3:V", "improviseren:4:V", "communicatie:3:V", "leiding:2:V", "klank:5:E", "ritme:5:E", "samenwerking:5:E", "publiek:3:E", "expressie:4:E", "gezelligheid:4:E", "doorzetten:3:E", "humor:3:E", "identiteit:3:O", "muziek:5:T"],
     "why": {
-      "identiteit": {"nl": "De naam, het geluid en de nummers van een band worden een gedeelde identiteit.", "en": "A band's name, sound and songs become a shared identity."},
-      "verhalen": {"nl": "Elke band krijgt zijn eigen overlevering van repetities, optredens en pech.", "en": "Every band gets its own lore of rehearsals, gigs and mishaps."}
+      "identiteit": {"nl": "De naam, het geluid en de nummers van een band worden een gedeelde identiteit.", "en": "A band's name, sound and songs become a shared identity."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-221",
@@ -180,14 +178,14 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "both", "social_formats": ["small_group", "large_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["ritme:5:E", "klank:5:E", "samenwerking:5:E", "gezelligheid:4:E", "verbondenheid:4:E", "beweging:4:E", "speelsheid:4:E", "opgaan:4:E", "motoriek:3:V", "improviseren:3:V", "communicatie:2:V", "wereldculturen:4:T", "welzijn:3:T", "gemeenschap:3:E", "tradities:3:O", "wetenschap:3:O", "muziek:5:T"],
+    "links": ["ritme:5:E", "klank:5:E", "samenwerking:5:E", "gezelligheid:4:E", "verbondenheid:4:E", "beweging:4:E", "speelsheid:4:E", "opgaan:4:E", "motoriek:3:V", "improviseren:3:V", "communicatie:2:V", "wereldculturen:4:T", "welzijn:3:T", "gemeenschap:3:E", "tradities:3:O", "muziek:5:T", "spiritualiteit:3:O"],
     "why": {
       "tradities": {"nl": "Drumcirkels putten uit West-Afrikaanse en andere tradities waarin ritme een heel dorp verbindt.", "en": "Drum circles draw on West African and other traditions where rhythm joins a whole village."},
-      "wetenschap": {"nl": "Synchroniseren op een groepsslag wordt onderzocht als manier waarop mensen binden.", "en": "Syncing to a group beat is studied as a way in which people bond."}
+      "spiritualiteit": {"nl": "Drumcirkels worden gebruikt bij meditatie en ritueel. Het gezamenlijke ritme geeft sommigen een gevoel van trance en verbondenheid.", "en": "Drum circles are used in meditation and ritual. The shared rhythm gives some people a sense of trance and togetherness."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Steekproef Jan: brug Wetenschap te zwak; vervangen door Spiritualiteit en zingeving."]
   },
   {
     "id": "RA-226",
@@ -201,13 +199,14 @@
     "match": "exact",
     "legacy_id": "muziek-maken",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "online"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:3:D", "optreden:2:D", "creativiteit:5:V", "motoriek:3:V", "concentratie:3:V", "technologie:3:T", "kunst:3:T", "klank:5:E", "ritme:5:E", "expressie:4:E", "opgaan:4:E", "speelsheid:3:E", "samenwerking:3:E", "logica:3:O", "verbondenheid:3:O", "muziek:5:T"],
+    "links": ["thuis:3:D", "optreden:2:D", "creativiteit:5:V", "motoriek:3:V", "concentratie:3:V", "technologie:3:T", "kunst:3:T", "klank:5:E", "ritme:5:E", "expressie:4:E", "opgaan:4:E", "speelsheid:3:E", "samenwerking:3:E", "verbondenheid:3:O", "muziek:5:T", "wetenschap:3:O"],
     "why": {
-      "logica": {"nl": "Loops en tempo's lagen is toegepast tellen.", "en": "Layering loops and tempos is applied counting."},
-      "verbondenheid": {"nl": "Open decks en jamavonden zijn makkelijke plekken om nieuwe mensen te ontmoeten.", "en": "Open decks and jam nights are easy places to meet new people."}
+      "verbondenheid": {"nl": "Open decks en jamavonden zijn makkelijke plekken om nieuwe mensen te ontmoeten.", "en": "Open decks and jam nights are easy places to meet new people."},
+      "wetenschap": {"nl": "Geluid, frequenties en akoestiek vormen de basis van elke mix en elke zaal.", "en": "Sound, frequencies and acoustics are the basis of every mix and every venue."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Logica had een zeer korte reden (zelfde patroon als de zwakke bruggen); vervangen door Wetenschap."]
   },
   {
     "id": "RA-227",
@@ -221,13 +220,14 @@
     "match": "exact",
     "legacy_id": "muziek-opnemen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:4:D", "ontwerpen:3:D", "technologie:4:T", "creativiteit:4:V", "concentratie:3:V", "precisie:3:V", "klank:5:E", "ritme:3:E", "expressie:4:E", "opgaan:4:E", "experimenteren:4:E", "zelfstandig:4:E", "ruimtelijk:3:O", "stilte:3:O", "muziek:5:T"],
+    "links": ["thuis:4:D", "ontwerpen:3:D", "technologie:4:T", "creativiteit:4:V", "concentratie:3:V", "precisie:3:V", "klank:5:E", "ritme:3:E", "expressie:4:E", "opgaan:4:E", "experimenteren:4:E", "zelfstandig:4:E", "ruimtelijk:3:O", "muziek:5:T", "podium:3:O"],
     "why": {
       "ruimtelijk": {"nl": "Mixen plaatst geluiden in een stereobeeld, dus je leert ruimte horen.", "en": "Mixing places sounds in a stereo picture, so you learn to hear space."},
-      "stilte": {"nl": "Opnemen leert je hoe luid een stille kamer werkelijk is.", "en": "Recording teaches you how loud a quiet room really is."}
+      "podium": {"nl": "Een eigen opname leidt vaak naar een optreden: een open mic of een eerste bandje.", "en": "A recording of your own often leads to a performance: an open mic or a first band."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Stilte was zwak; vervangen door Podium."]
   },
   {
     "id": "RA-228",
@@ -261,13 +261,13 @@
     "match": "exact",
     "legacy_id": "jamsessie",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["podium:3:D", "optreden:3:D", "improviseren:4:V", "communicatie:3:V", "motoriek:2:V", "klank:5:E", "ritme:5:E", "gezelligheid:5:E", "samenwerking:4:E", "verbondenheid:4:E", "speelsheid:3:E", "spanning:2:E", "publiek:3:E", "leiding:3:O", "wereldculturen:3:O", "muziek:5:T", "uitgaan:4:D", "luisteren:4:V"],
+    "links": ["podium:3:D", "optreden:3:D", "improviseren:4:V", "communicatie:3:V", "motoriek:2:V", "klank:5:E", "ritme:5:E", "gezelligheid:5:E", "samenwerking:4:E", "verbondenheid:4:E", "speelsheid:3:E", "spanning:2:E", "publiek:3:E", "wereldculturen:3:O", "muziek:5:T", "uitgaan:4:D", "luisteren:4:V"],
     "why": {
-      "leiding": {"nl": "Spelers leiden en volgen om de beurt zonder dat iemand het aankondigt.", "en": "Players take turns leading and following without anyone announcing it."},
       "wereldculturen": {"nl": "Jamscenes lopen van blues tot Balkanfolk, elk met eigen spelregels.", "en": "Jam scenes range from blues to Balkan folk, each with its own rules of play."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Leiderschap."]
   },
   {
     "id": "RA-230",
@@ -301,13 +301,13 @@
     "match": "exact",
     "legacy_id": "platenwinkel",
     "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 1, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:3:D", "verzamelen:3:D", "concentratie:4:V", "kunst:3:T", "klank:5:E", "stilte:2:E", "rust:3:E", "nostalgie:4:E", "ontroering:3:E", "opgaan:4:E", "tast:2:E", "zelfstandig:2:E", "verhalen:3:O", "ontdekking:3:O", "muziek:4:T"],
+    "links": ["thuis:3:D", "verzamelen:3:D", "concentratie:4:V", "kunst:3:T", "klank:5:E", "stilte:2:E", "rust:3:E", "nostalgie:4:E", "ontroering:3:E", "opgaan:4:E", "tast:2:E", "zelfstandig:2:E", "ontdekking:3:O", "muziek:4:T"],
     "why": {
-      "verhalen": {"nl": "Een album is opgebouwd als een verhaal met begin, wending en einde.", "en": "An album is arranged like a story with a beginning, turn and end."},
       "ontdekking": {"nl": "Door bakken platen zoeken vinden mensen muziek die ze nooit hadden opgezocht.", "en": "Digging through crates is how many people find music they would never have searched for."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-232",
@@ -321,14 +321,13 @@
     "match": "exact",
     "legacy_id": "synthesizer-bouwen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["metaal:3:M", "bouwen:5:D", "ontwerpen:3:D", "thuis:3:D", "logica:4:V", "precisie:4:V", "motoriek:3:V", "technologie:5:T", "klank:5:E", "puzzelen:4:E", "experimenteren:5:E", "opgaan:3:E", "kunst:3:O", "wetenschap:3:O", "muziek:4:T"],
+    "links": ["metaal:3:M", "bouwen:5:D", "ontwerpen:3:D", "thuis:3:D", "logica:4:V", "precisie:4:V", "motoriek:3:V", "technologie:5:T", "klank:5:E", "puzzelen:4:E", "experimenteren:5:E", "opgaan:3:E", "wetenschap:3:O", "muziek:4:T"],
     "why": {
-      "kunst": {"nl": "Zelfgemaakte instrumenten zijn bespeelbare beeldhouwwerken.", "en": "Handmade instruments are sculpture you can play."},
       "wetenschap": {"nl": "Filters, oscillators en terugkoppeling zijn elektronica die je hoort.", "en": "Filters, oscillators and feedback are electronics you hear."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Soldering is involved and the app rates it safety tier 0: consider tier 1 in the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Soldering is involved and the app rates it safety tier 0: consider tier 1 in the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
   },
   {
     "id": "RA-428",
@@ -382,13 +381,13 @@
     "match": "exact",
     "legacy_id": "karaoke",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["optreden:4:D", "podium:3:D", "klank:4:E", "publiek:4:E", "speelsheid:5:E", "gezelligheid:5:E", "humor:5:E", "moed:3:E", "expressie:3:E", "verbondenheid:3:E", "spanning:2:E", "ritme:3:E", "nostalgie:3:O", "tradities:3:O", "muziek:4:T", "uitgaan:5:D"],
+    "links": ["optreden:4:D", "podium:3:D", "klank:4:E", "publiek:4:E", "speelsheid:5:E", "gezelligheid:5:E", "humor:5:E", "moed:3:E", "expressie:3:E", "verbondenheid:3:E", "spanning:2:E", "ritme:3:E", "nostalgie:3:O", "muziek:4:T", "uitgaan:5:D"],
     "why": {
-      "nostalgie": {"nl": "Oude hits zingen brengt hele tijdperken terug.", "en": "Singing old hits brings back whole eras."},
-      "tradities": {"nl": "Karaoke begon in Japan en groeide uit tot een wereldwijd uitgaansritueel.", "en": "Karaoke began in Japan and grew into a worldwide night-out ritual."}
+      "nostalgie": {"nl": "Oude hits zingen brengt hele tijdperken terug.", "en": "Singing old hits brings back whole eras."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-431",
@@ -422,13 +421,13 @@
     "match": "exact",
     "legacy_id": "speeldozen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["verzamelen:5:D", "repareren:2:D", "metaal:3:M", "precisie:3:V", "geduld:3:V", "technologie:3:T", "geschiedenis:3:T", "klank:5:E", "nostalgie:5:E", "detail:4:E", "verwondering:4:E", "ornament:3:E", "tast:2:E", "patronen:3:O", "wonen:3:O", "muziek:4:T", "miniatuur:3:E"],
+    "links": ["verzamelen:5:D", "repareren:2:D", "metaal:3:M", "precisie:3:V", "geduld:3:V", "technologie:3:T", "geschiedenis:3:T", "klank:5:E", "nostalgie:5:E", "detail:4:E", "verwondering:4:E", "ornament:3:E", "tast:2:E", "patronen:3:O", "muziek:4:T", "miniatuur:3:E"],
     "why": {
-      "patronen": {"nl": "Een cilinder met pennen is een programma in metaal.", "en": "A pinned cylinder is a program in metal."},
-      "wonen": {"nl": "Speeldozen en automaten vullen een kamer met geluid en charme.", "en": "Music boxes and automata fill a room with sound and charm."}
+      "patronen": {"nl": "Een cilinder met pennen is een programma in metaal.", "en": "A pinned cylinder is a program in metal."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wonen en interieur."]
   },
   {
     "id": "RA-433",
@@ -503,14 +502,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["thuis:2:D", "motoriek:3:V", "improviseren:3:V", "concentratie:3:V", "kunst:2:T", "wereldculturen:3:T", "klank:5:E", "ritme:4:E", "expressie:4:E", "vrijheid:3:E", "speelsheid:3:E", "rust:2:E", "welzijn:3:T", "tradities:3:O", "zeevaart:3:O", "muziek:5:T"],
+    "links": ["thuis:2:D", "motoriek:3:V", "improviseren:3:V", "concentratie:3:V", "kunst:2:T", "wereldculturen:3:T", "klank:5:E", "ritme:4:E", "expressie:4:E", "vrijheid:3:E", "speelsheid:3:E", "rust:2:E", "welzijn:3:T", "tradities:3:O", "muziek:5:T"],
     "why": {
-      "tradities": {"nl": "De mondharmonica draagt blues-, folk- en cowboytradities in een zak.", "en": "The harmonica carries blues, folk and cowboy traditions in a pocket."},
-      "zeevaart": {"nl": "Zeelieden en reizigers speelden hem op schepen en in treinen.", "en": "Sailors and travellers played it on ships and trains."}
+      "tradities": {"nl": "De mondharmonica draagt blues-, folk- en cowboytradities in een zak.", "en": "The harmonica carries blues, folk and cowboy traditions in a pocket."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zee en scheepvaart."]
   },
   {
     "id": "RA-437",
@@ -566,14 +564,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["optreden:3:D", "podium:2:D", "improviseren:3:V", "communicatie:2:V", "motoriek:2:V", "tradities:5:T", "wereldculturen:4:T", "klank:5:E", "ritme:5:E", "gezelligheid:5:E", "samenwerking:4:E", "verbondenheid:4:E", "gemeenschap:4:E", "beweging:2:E", "verhalen:3:O", "generaties:3:O", "muziek:5:T", "luisteren:3:V"],
+    "links": ["optreden:3:D", "podium:2:D", "improviseren:3:V", "communicatie:2:V", "motoriek:2:V", "tradities:5:T", "wereldculturen:4:T", "klank:5:E", "ritme:5:E", "gezelligheid:5:E", "samenwerking:4:E", "verbondenheid:4:E", "gemeenschap:4:E", "beweging:2:E", "generaties:3:O", "muziek:5:T", "luisteren:3:V"],
     "why": {
-      "verhalen": {"nl": "Volksmelodieën dragen verhalen over plaatsen, werk en mensen.", "en": "Folk tunes carry stories of places, work and people."},
       "generaties": {"nl": "Sessies geven melodieën op gehoor door van oude naar jonge spelers.", "en": "Sessions pass tunes by ear from old players to young ones."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-440",
@@ -587,14 +584,14 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
-    "links": ["thuis:3:D", "verzamelen:2:D", "concentratie:3:V", "communicatie:3:V", "kunst:3:T", "geschiedenis:2:T", "klank:5:E", "gezelligheid:4:E", "verbondenheid:4:E", "ontdekking:4:E", "ontroering:3:E", "nostalgie:3:E", "stilte:2:E", "patronen:3:O", "humor:3:O", "muziek:5:T", "luisteren:4:V"],
+    "links": ["thuis:3:D", "verzamelen:2:D", "concentratie:3:V", "communicatie:3:V", "kunst:3:T", "geschiedenis:2:T", "klank:5:E", "gezelligheid:4:E", "verbondenheid:4:E", "ontdekking:4:E", "ontroering:3:E", "nostalgie:3:E", "stilte:2:E", "muziek:5:T", "luisteren:4:V", "wereldculturen:3:O", "technologie:3:O"],
     "why": {
-      "patronen": {"nl": "Dezelfde plaat vaker horen laat structuren zien die je eerst miste.", "en": "Hearing the same record repeatedly reveals structures you missed at first."},
-      "humor": {"nl": "Over smaak praten is een zachte manier om te botsen en te lachen.", "en": "Discussing taste is a gentle way of disagreeing and laughing."}
+      "wereldculturen": {"nl": "Elke keer een ander genre brengt je bij muziek uit andere landen, van highlife tot fado.", "en": "A different genre each time brings you to music from other countries, from highlife to fado."},
+      "technologie": {"nl": "Wie samen luistert gaat letten op geluid: platenspeler, versterker en luidsprekers maken verschil.", "en": "Listening together makes you notice sound: turntable, amplifier and speakers make a difference."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen, Humor."]
   },
   {
     "id": "RA-441",

@@ -97,13 +97,13 @@
     "legacy_id": "macrame",
     "v0_id": "ACT-010",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["textiel:5:M", "ontwerpen:3:D", "thuis:3:D", "motoriek:4:V", "geduld:4:V", "ruimtelijk:3:V", "creativiteit:4:V", "precisie:3:V", "rust:4:E", "opgaan:4:E", "tast:4:E", "ritme:4:E", "imperfectie:3:E", "ornament:3:E", "wereldculturen:3:O", "water:3:O", "ambacht:3:T"],
+    "links": ["textiel:5:M", "ontwerpen:3:D", "thuis:3:D", "motoriek:4:V", "geduld:4:V", "ruimtelijk:3:V", "creativiteit:4:V", "precisie:3:V", "rust:4:E", "opgaan:4:E", "tast:4:E", "ritme:4:E", "imperfectie:3:E", "ornament:3:E", "wereldculturen:3:O", "ambacht:3:T"],
     "why": {
-      "wereldculturen": {"nl": "Knoopkunst loopt van zeelieden tot Andescultuur, dus elke knoop die je leert heeft een plek op de kaart.", "en": "Knotwork runs from sailors to Andean cultures, so each knot you learn has a place on the map."},
-      "water": {"nl": "Veel knopen komen uit zeilen en touwwerk, wat dit binnenwerk met de zee verbindt.", "en": "Many knots come from sailing and rope work, which connects this indoor craft to the sea."}
+      "wereldculturen": {"nl": "Knoopkunst loopt van zeelieden tot Andescultuur, dus elke knoop die je leert heeft een plek op de kaart.", "en": "Knotwork runs from sailors to Andean cultures, so each knot you learn has a place on the map."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 3): brug Water was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-152",
@@ -280,13 +280,13 @@
     "match": "exact",
     "legacy_id": "patroontekenen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["papier:4:M", "textiel:3:M", "ontwerpen:5:D", "atelier:2:D", "ruimtelijk:5:V", "precisie:5:V", "logica:4:V", "creativiteit:4:V", "mode:5:T", "kunst:2:T", "elegantie:3:E", "trots:4:E", "detail:4:E", "opgaan:3:E", "architectuur:3:O", "wetenschap:3:O"],
+    "links": ["papier:4:M", "textiel:3:M", "ontwerpen:5:D", "atelier:2:D", "ruimtelijk:5:V", "precisie:5:V", "logica:4:V", "creativiteit:4:V", "mode:5:T", "kunst:2:T", "elegantie:3:E", "trots:4:E", "detail:4:E", "opgaan:3:E", "wetenschap:3:O"],
     "why": {
-      "architectuur": {"nl": "Een patroon is een plan voor een lichaam: krommen in platte vormen omzetten lijkt op een gebouw tekenen.", "en": "A pattern is a plan for a body: turning curves into flat shapes is like drawing a building."},
       "wetenschap": {"nl": "Draperen en maatvoeren hangen af van meetkunde en meten.", "en": "Draping and grading depend on geometry and measurement."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-353",
@@ -340,13 +340,14 @@
     "match": "exact",
     "legacy_id": "naaicafe",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["textiel:5:M", "repareren:3:D", "ontwerpen:2:D", "motoriek:3:V", "precisie:3:V", "creativiteit:3:V", "mode:3:T", "duurzaamheid:3:T", "gezelligheid:5:E", "gemeenschap:4:E", "verbondenheid:3:E", "samenwerking:3:E", "tast:3:E", "generaties:3:O", "rechtvaardigheid:3:O"],
+    "links": ["textiel:5:M", "repareren:3:D", "ontwerpen:2:D", "motoriek:3:V", "precisie:3:V", "creativiteit:3:V", "mode:3:T", "duurzaamheid:3:T", "gezelligheid:5:E", "gemeenschap:4:E", "verbondenheid:3:E", "samenwerking:3:E", "tast:3:E", "generaties:3:O", "ambacht:3:O"],
     "why": {
       "generaties": {"nl": "Naaivaardigheden gaan over generaties heen aan een gedeelde tafel.", "en": "Sewing skills cross generations at a shared table."},
-      "rechtvaardigheid": {"nl": "Herstellen en maken houdt kleding in gebruik en daagt fast fashion uit.", "en": "Mending and making keeps clothes in use and challenges fast fashion."}
+      "ambacht": {"nl": "In een naaicafé zitten vakmensen en beginners naast elkaar: je kunt doorgroeien naar kleermaken of patroontekenen.", "en": "In a sewing café professionals and beginners sit side by side: you can grow towards tailoring or pattern drafting."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Rechtvaardigheid en samenleving was onzin; vervangen door Ambacht en vakwerk."]
   },
   {
     "id": "RA-356",
@@ -360,13 +361,13 @@
     "match": "exact",
     "legacy_id": "kralen-rijgen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["ontwerpen:3:D", "thuis:3:D", "motoriek:5:V", "precisie:3:V", "creativiteit:4:V", "geduld:3:V", "mode:3:T", "patronen:4:T", "schoonheid:4:E", "detail:4:E", "rust:4:E", "ornament:4:E", "opgaan:3:E", "speelsheid:2:E", "wereldculturen:3:O", "wetenschap:3:O", "miniatuur:3:E"],
+    "links": ["ontwerpen:3:D", "thuis:3:D", "motoriek:5:V", "precisie:3:V", "creativiteit:4:V", "geduld:3:V", "mode:3:T", "patronen:4:T", "schoonheid:4:E", "detail:4:E", "rust:4:E", "ornament:4:E", "opgaan:3:E", "speelsheid:2:E", "wereldculturen:3:O", "miniatuur:3:E"],
     "why": {
-      "wereldculturen": {"nl": "Kraalwerk is in veel culturen een taal van status en identiteit.", "en": "Beadwork is a language of status and identity in many cultures."},
-      "wetenschap": {"nl": "Glas-, steen- en benen kralen dragen de geologie van hun herkomst.", "en": "Glass, stone and bone beads carry the geology of their origins."}
+      "wereldculturen": {"nl": "Kraalwerk is in veel culturen een taal van status en identiteit.", "en": "Beadwork is a language of status and identity in many cultures."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wetenschap."]
   },
   {
     "id": "RA-377",
@@ -379,14 +380,15 @@
     "desc": {"nl": "Een tas ontwerpen en maken van stof of leer.", "en": "Designing and making a bag from fabric or leather."},
     "match": "exact",
     "legacy_id": "tas-maken",
-    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "duo"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "duo"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["textiel:4:M", "leer:3:M", "ontwerpen:5:D", "thuis:2:D", "precisie:4:V", "ruimtelijk:4:V", "motoriek:3:V", "creativiteit:4:V", "mode:4:T", "duurzaamheid:3:T", "detail:3:E", "tast:3:E", "zelfstandig:3:E", "logica:3:O", "identiteit:3:O"],
     "why": {
       "logica": {"nl": "Een tas bouwen is vlakke stukken in een volume omzetten, ruimtelijk redeneren.", "en": "Building a bag is turning flat pieces into a volume, a spatial reasoning exercise."},
       "identiteit": {"nl": "Een tas die je zelf ontwierp zegt iets over je smaak en gebruik.", "en": "A bag you designed yourself says something about your taste and use."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Steekproef Jan: niveau: enige ervaring helpt. De app heeft hier niveau 0."]
   },
   {
     "id": "RA-378",
@@ -440,13 +442,13 @@
     "match": "exact",
     "legacy_id": "haaraccessoires",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group", "duo"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["textiel:3:M", "klei:2:M", "ontwerpen:4:D", "thuis:3:D", "motoriek:4:V", "creativiteit:4:V", "precisie:3:V", "mode:5:T", "identiteit:3:T", "ornament:4:E", "detail:3:E", "speelsheid:3:E", "schoonheid:3:E", "tradities:3:O", "verbondenheid:3:O"],
+    "links": ["textiel:3:M", "klei:2:M", "ontwerpen:4:D", "thuis:3:D", "motoriek:4:V", "creativiteit:4:V", "precisie:3:V", "mode:5:T", "identiteit:3:T", "ornament:4:E", "detail:3:E", "speelsheid:3:E", "schoonheid:3:E", "verzamelen:3:O"],
     "why": {
-      "tradities": {"nl": "Haarversiering draagt gebruiken van bruiloften tot feesten, in veel culturen.", "en": "Hair adornment carries customs from weddings to festivals in many cultures."},
-      "verbondenheid": {"nl": "Een zelfgemaakt cadeau voor een vriendin verbindt twee mensen.", "en": "A handmade gift for a friend links two people."}
+      "verzamelen": {"nl": "Wie kleine ornamenten maakt, gaat vaak verzamelen: kralen, stoffen en vintage knoopjes van rommelmarkten.", "en": "People who make small ornaments often start collecting: beads, fabrics and vintage buttons from flea markets."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Nieuwe mensen ontmoeten was onzin; vervangen door Verzamelen.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-381",
@@ -480,13 +482,13 @@
     "match": "exact",
     "legacy_id": "kledingruil",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "with_known", "large_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["textiel:3:M", "organiseren:3:D", "mode:4:T", "duurzaamheid:5:T", "rechtvaardigheid:3:T", "gemeenschap:4:E", "gezelligheid:5:E", "verbondenheid:4:E", "speelsheid:4:E", "ontdekking:3:E", "expressie:3:E", "zorg:2:E", "humor:3:O", "identiteit:3:O"],
+    "links": ["textiel:3:M", "organiseren:3:D", "mode:4:T", "duurzaamheid:5:T", "rechtvaardigheid:3:T", "gemeenschap:4:E", "gezelligheid:5:E", "verbondenheid:4:E", "speelsheid:4:E", "ontdekking:3:E", "expressie:3:E", "zorg:2:E", "identiteit:3:O"],
     "why": {
-      "humor": {"nl": "Een kledingruil zit vol lachende pasmomenten en verrassende combinaties.", "en": "A clothes swap is full of laughing fittings and surprising combinations."},
       "identiteit": {"nl": "Kleding proeven die je anders niet koos laat je andere versies van jezelf zien.", "en": "Trying clothes you would not normally choose shows other versions of yourself."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-383",
@@ -500,13 +502,13 @@
     "match": "exact",
     "legacy_id": "capsule-garderobe",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["textiel:3:M", "ontwerpen:3:D", "thuis:4:D", "logica:3:V", "creativiteit:3:V", "mode:5:T", "duurzaamheid:4:T", "identiteit:4:T", "wonen:3:T", "minimalisme:5:E", "zelfstandig:3:E", "schoonheid:3:E", "rust:3:E", "patronen:3:O", "welzijn:3:O"],
+    "links": ["textiel:3:M", "ontwerpen:3:D", "thuis:4:D", "logica:3:V", "creativiteit:3:V", "mode:5:T", "duurzaamheid:4:T", "identiteit:4:T", "wonen:3:T", "minimalisme:5:E", "zelfstandig:3:E", "schoonheid:3:E", "rust:3:E", "verzamelen:3:O"],
     "why": {
-      "patronen": {"nl": "Een capsule werkt als combinatiepuzzel waarin kleuren en vormen steeds samen werken.", "en": "A capsule works like a combination puzzle where colours and shapes keep working together."},
-      "welzijn": {"nl": "Minder keuze maakt ochtenden rustiger en verlaagt besluitmoeheid.", "en": "Fewer choices make mornings calmer and reduce decision fatigue."}
+      "verzamelen": {"nl": "Wie zijn kast uitzoekt, ontdekt vintage en kledingruil: een stap naar het verzamelen van stukken met karakter.", "en": "Sorting your wardrobe leads to vintage and clothes swaps: a step towards collecting pieces with character."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen.", "Bruggen-steekproef Jan (ronde 3): brug Gezondheid en welzijn was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-384",
@@ -560,14 +562,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "authored"},
-    "links": ["textiel:5:M", "ontwerpen:4:D", "bouwen:2:D", "atelier:3:D", "creativiteit:5:V", "motoriek:3:V", "ruimtelijk:2:V", "kunst:3:T", "mode:2:T", "wonen:5:T", "tast:5:E", "speelsheid:4:E", "ornament:3:E", "opgaan:4:E", "patronen:3:O", "technologie:3:O", "ambacht:3:T"],
+    "links": ["textiel:5:M", "ontwerpen:4:D", "bouwen:2:D", "atelier:3:D", "creativiteit:5:V", "motoriek:3:V", "ruimtelijk:2:V", "kunst:3:T", "mode:2:T", "wonen:5:T", "tast:5:E", "speelsheid:4:E", "ornament:3:E", "opgaan:4:E", "patronen:3:O", "ambacht:3:T"],
     "why": {
-      "patronen": {"nl": "Een tuftingontwerp werkt als pixelkunst in garen.", "en": "A tufting design works like pixel art in yarn."},
-      "technologie": {"nl": "Het pistool is een kleine machine, wat handwerk en techniek verbindt.", "en": "The gun is a small machine, which joins handicraft and technology."}
+      "patronen": {"nl": "Een tuftingontwerp werkt als pixelkunst in garen.", "en": "A tufting design works like pixel art in yarn."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Technologie."]
   },
   {
     "id": "RA-387",

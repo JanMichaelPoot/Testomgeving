@@ -75,13 +75,13 @@
     "legacy_id": "modelbouw",
     "v0_id": "ACT-004",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "online"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["hout:3:M", "bouwen:5:D", "ontwerpen:3:D", "verzamelen:3:D", "lucht:4:D", "precisie:5:V", "motoriek:5:V", "ruimtelijk:4:V", "geduld:4:V", "logica:3:V", "technologie:4:T", "geschiedenis:3:T", "detail:5:E", "trots:4:E", "opgaan:4:E", "nostalgie:3:E", "avontuur:3:O", "vrijheid:3:O", "mobiliteit:5:T", "miniatuur:4:E"],
+    "links": ["hout:3:M", "bouwen:5:D", "ontwerpen:3:D", "verzamelen:3:D", "lucht:4:D", "precisie:5:V", "motoriek:5:V", "ruimtelijk:4:V", "geduld:4:V", "logica:3:V", "technologie:4:T", "geschiedenis:3:T", "detail:5:E", "trots:4:E", "opgaan:4:E", "nostalgie:3:E", "avontuur:3:O", "mobiliteit:5:T", "miniatuur:4:E"],
     "why": {
-      "avontuur": {"nl": "Een model laten vliegen brengt de onvoorspelbaarheid van wind en lift, een veilige vorm van avontuur.", "en": "Flying a model brings the unpredictability of wind and lift, a safe form of adventure."},
-      "vrijheid": {"nl": "Je eigen bouwwerk de lucht in zien gaan geeft een klein stukje vrijheid.", "en": "Seeing your own build take to the air gives a small taste of freedom."}
+      "avontuur": {"nl": "Een model laten vliegen brengt de onvoorspelbaarheid van wind en lift, een veilige vorm van avontuur.", "en": "Flying a model brings the unpredictability of wind and lift, a safe form of adventure."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Vrijheid."]
   },
   {
     "id": "RA-017",
@@ -239,13 +239,14 @@
     "match": "exact",
     "legacy_id": "droge-stenen-muur",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 1, "source": "app"},
-    "links": ["steen:5:M", "bouwen:5:D", "weer:2:T", "beweging:3:E", "ruimtelijk:4:V", "vakmanschap:4:V", "geduld:3:V", "puzzelen:4:E", "rauw:4:E", "tast:3:E", "rust:3:E", "samenwerking:2:E", "natuur:3:T", "duurzaamheid:4:T", "tradities:3:T", "architectuur:3:O", "dieren:3:O", "ambacht:5:T"],
+    "links": ["steen:5:M", "bouwen:5:D", "weer:2:T", "beweging:3:E", "ruimtelijk:4:V", "vakmanschap:4:V", "geduld:3:V", "puzzelen:4:E", "rauw:4:E", "tast:3:E", "rust:3:E", "samenwerking:2:E", "natuur:3:T", "duurzaamheid:4:T", "tradities:3:T", "architectuur:3:O", "ambacht:5:T", "wonen:3:O"],
     "why": {
       "architectuur": {"nl": "Een muur staat door zwaartekracht, wrijving en vorm alleen, een les in constructie.", "en": "A wall stands by gravity, friction and shape alone, a lesson in structure."},
-      "dieren": {"nl": "Droge muren worden leefgebied voor hagedissen, insecten en planten.", "en": "Dry walls become habitats for lizards, insects and plants."}
+      "wonen": {"nl": "Wie droog stapelt ziet muren, tuinen en erfafscheidingen anders en kan zelf een tuinmuur of opgehoogd bed bouwen.", "en": "Once you can dry-stack you see walls, gardens and boundaries differently, and can build a garden wall or raised bed yourself."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Dieren was onzin; vervangen door Wonen en interieur."]
   },
   {
     "id": "RA-389",
@@ -259,13 +260,13 @@
     "match": "exact",
     "legacy_id": "houthakken",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 1, "source": "app"},
-    "links": ["hout:5:M", "bos:3:D", "bouwen:2:D", "beweging:4:E", "rauw:5:E", "warmte:5:E", "geur:4:E", "vakmanschap:2:V", "precisie:2:V", "natuur:3:T", "duurzaamheid:3:T", "zelfstandig:3:E", "ritme:3:O", "tradities:3:O", "conditie:3:V"],
+    "links": ["hout:5:M", "bos:3:D", "bouwen:2:D", "beweging:4:E", "rauw:5:E", "warmte:5:E", "geur:4:E", "vakmanschap:2:V", "precisie:2:V", "natuur:3:T", "duurzaamheid:3:T", "zelfstandig:3:E", "tradities:3:O", "conditie:3:V"],
     "why": {
-      "ritme": {"nl": "Hakken, stapelen en laden vallen in een rustige herhalende slag.", "en": "Chopping, stacking and loading fall into a calm repeating beat."},
       "tradities": {"nl": "Een houtstapel is een oud boerengebruik dat de seizoenen vooruitplant.", "en": "A woodpile is an old farm custom that plans ahead for the seasons."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 3): brug Ritme was zwak of onzin; verwijderd."]
   },
   {
     "id": "RA-390",
@@ -319,13 +320,13 @@
     "match": "exact",
     "legacy_id": "knotten-heggenvlechten",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 1, "source": "app"},
-    "links": ["hout:3:M", "planten:4:M", "bos:3:D", "vakmanschap:3:V", "precisie:2:V", "natuur:5:T", "duurzaamheid:5:T", "dieren:3:T", "tradities:4:T", "beweging:3:E", "zorg:3:E", "gemeenschap:3:E", "samenwerking:3:E", "rauw:3:E", "architectuur:3:O", "weer:3:O"],
+    "links": ["hout:3:M", "planten:4:M", "bos:3:D", "vakmanschap:3:V", "precisie:2:V", "natuur:5:T", "duurzaamheid:5:T", "dieren:3:T", "tradities:4:T", "beweging:3:E", "zorg:3:E", "gemeenschap:3:E", "samenwerking:3:E", "rauw:3:E", "weer:3:O"],
     "why": {
-      "architectuur": {"nl": "Een gevlochten heg is een levende muur die afbakent, beschut en leeft.", "en": "A laid hedge is a living wall that marks boundaries, shelters and lives."},
       "weer": {"nl": "Knotten volgt het seizoen: het hout ligt in de winter stil.", "en": "Pollarding follows the season: the wood rests in winter."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-393",
@@ -400,14 +401,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
-    "links": ["textiel:4:M", "hout:3:M", "restaureren:4:D", "repareren:4:D", "atelier:3:D", "precisie:3:V", "vakmanschap:4:V", "motoriek:3:V", "wonen:5:T", "duurzaamheid:4:T", "mode:2:T", "tast:4:E", "geur:2:E", "imperfectie:3:E", "trots:4:E", "nostalgie:3:E", "tradities:3:O", "architectuur:3:O", "ambacht:5:T"],
+    "links": ["textiel:4:M", "hout:3:M", "restaureren:4:D", "repareren:4:D", "atelier:3:D", "precisie:3:V", "vakmanschap:4:V", "motoriek:3:V", "wonen:5:T", "duurzaamheid:4:T", "mode:2:T", "tast:4:E", "geur:2:E", "imperfectie:3:E", "trots:4:E", "nostalgie:3:E", "tradities:3:O", "ambacht:5:T"],
     "why": {
-      "tradities": {"nl": "Stoffeerders gaven eeuwenlang technieken met paardenhaar, veren en jute door.", "en": "Upholsterers handed down techniques with horsehair, springs and jute for centuries."},
-      "architectuur": {"nl": "Een stoel is architectuur op menselijke schaal: steun, hoek en vorm.", "en": "A chair is architecture at human scale: support, angle and shape."}
+      "tradities": {"nl": "Stoffeerders gaven eeuwenlang technieken met paardenhaar, veren en jute door.", "en": "Upholsterers handed down techniques with horsehair, springs and jute for centuries."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-397",
@@ -421,14 +421,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
-    "links": ["hout:5:M", "bouwen:4:D", "ontwerpen:3:D", "atelier:4:D", "precisie:5:V", "vakmanschap:5:V", "ruimtelijk:4:V", "motoriek:4:V", "concentratie:4:V", "detail:5:E", "tast:3:E", "geur:3:E", "opgaan:4:E", "trots:4:E", "puzzelen:3:O", "patronen:3:O", "ambacht:5:T"],
+    "links": ["hout:5:M", "bouwen:4:D", "ontwerpen:3:D", "atelier:4:D", "precisie:5:V", "vakmanschap:5:V", "ruimtelijk:4:V", "motoriek:4:V", "concentratie:4:V", "detail:5:E", "tast:3:E", "geur:3:E", "opgaan:4:E", "trots:4:E", "puzzelen:3:O", "ambacht:5:T"],
     "why": {
-      "puzzelen": {"nl": "Elke zwaluwstaart past maar op één manier, dus meten en zagen wordt een legpuzzel.", "en": "Each dovetail only fits one way, so measuring and cutting becomes a jigsaw."},
-      "patronen": {"nl": "De hoek en verhouding van de pennen is een herhalend patroon dat je leert zien.", "en": "The angle and ratio of the pins is a repeating pattern you learn to see."}
+      "puzzelen": {"nl": "Elke zwaluwstaart past maar op één manier, dus meten en zagen wordt een legpuzzel.", "en": "Each dovetail only fits one way, so measuring and cutting becomes a jigsaw."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
   },
   {
     "id": "RA-398",
@@ -484,14 +483,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "both", "social_formats": ["solo", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 1, "source": "authored"},
-    "links": ["hout:5:M", "bouwen:4:D", "ontwerpen:3:D", "repareren:2:D", "thuis:3:D", "motoriek:2:V", "creativiteit:4:V", "ruimtelijk:3:V", "duurzaamheid:5:T", "wonen:4:T", "rauw:4:E", "imperfectie:4:E", "zelfstandig:3:E", "speelsheid:2:E", "rechtvaardigheid:3:O", "architectuur:3:O"],
+    "links": ["hout:5:M", "bouwen:4:D", "ontwerpen:3:D", "repareren:2:D", "thuis:3:D", "motoriek:2:V", "creativiteit:4:V", "ruimtelijk:3:V", "duurzaamheid:5:T", "wonen:4:T", "rauw:4:E", "imperfectie:4:E", "zelfstandig:3:E", "speelsheid:2:E", "architectuur:3:O"],
     "why": {
-      "rechtvaardigheid": {"nl": "Herbruikt hout stelt meubels binnen bereik en vermindert afval.", "en": "Reused timber puts furniture within reach and reduces waste."},
       "architectuur": {"nl": "Eenvoudige constructie van balken en verbindingen leert hoe gebouwen dragen.", "en": "Simple construction with beams and joints teaches how buildings carry loads."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Rechtvaardigheid en samenleving."]
   },
   {
     "id": "RA-401",
@@ -547,14 +545,14 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
-    "links": ["hout:5:M", "ontwerpen:4:D", "bouwen:3:D", "atelier:3:D", "precisie:5:V", "vakmanschap:4:V", "ruimtelijk:3:V", "patronen:5:T", "wonen:3:T", "detail:4:E", "schoonheid:3:E", "tast:3:E", "trots:4:E", "strategie:3:V", "puzzelen:3:O", "gezelligheid:3:O", "spel:4:T"],
+    "links": ["hout:5:M", "ontwerpen:4:D", "bouwen:3:D", "atelier:3:D", "precisie:5:V", "vakmanschap:4:V", "ruimtelijk:3:V", "patronen:5:T", "wonen:3:T", "detail:4:E", "schoonheid:3:E", "tast:3:E", "trots:4:E", "strategie:3:V", "spel:4:T", "geschiedenis:3:O", "ambacht:3:O"],
     "why": {
-      "puzzelen": {"nl": "Een spelbord ontwerpen betekent denken over regels, symmetrie en balans.", "en": "Designing a game board means thinking about rules, symmetry and balance."},
-      "gezelligheid": {"nl": "Een zelfgemaakt spel krijgt een plek aan tafel en nodigt anderen uit te spelen.", "en": "A handmade game gets a place at the table and invites others to play."}
+      "geschiedenis": {"nl": "Schaak- en dambord zijn eeuwenoude vormen: wie ze maakt kan ook Senet, Go of molenspel uit het verleden nabouwen.", "en": "Chess and draughts boards are centuries old: once you can make them you can also rebuild Senet, Go or nine men's morris."},
+      "ambacht": {"nl": "Een bord met inleg is het begin van houtinleg: je ontdekt een ambacht binnen het ambacht.", "en": "A board with inlay is the start of marquetry: a craft within the craft."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Problemen oplossen, Gezelligheid."]
   },
   {
     "id": "RA-404",
@@ -567,15 +565,15 @@
     "desc": {"nl": "Een bank, tafel of pergola voor de tuin ontwerpen en bouwen van weerbestendig hout.", "en": "Designing and building a bench, table or pergola for the garden from weather-resistant wood."},
     "match": "new",
     "legacy_id": null,
-    "facets": {"setting": "outdoor", "social_formats": ["solo", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "authored"},
-    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "vakmanschap:3:V", "precisie:3:V", "ruimtelijk:4:V", "weer:4:T", "duurzaamheid:3:T", "wonen:4:T", "natuur:2:T", "rust:2:E", "trots:4:E", "gezelligheid:3:E", "tast:2:E", "architectuur:3:O", "planten:3:O"],
+    "facets": {"setting": "both", "social_formats": ["solo", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "vakmanschap:4:V", "precisie:3:V", "ruimtelijk:4:V", "duurzaamheid:3:T", "wonen:4:T", "natuur:2:T", "rust:2:E", "trots:4:E", "gezelligheid:3:E", "tast:2:E", "architectuur:3:O", "planten:3:O"],
     "why": {
       "architectuur": {"nl": "Een pergola kadert uitzicht en schaduw, ruimte ontwerpen in het klein.", "en": "A pergola frames views and shade, designing space on a small scale."},
       "planten": {"nl": "Klimplanten over een pergola maken van een constructie een tuinkamer.", "en": "Climbing plants over a pergola turn a structure into a garden room."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Overlaps strongly with 'vlonder-bouwen' (link similarity 0.91); keep both only if they stay distinct for the visitor."]
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Overlaps strongly with 'vlonder-bouwen' (link similarity 0.91); keep both only if they stay distinct for the visitor.", "Steekproef Jan: Weer klopt niet; plek binnen of buiten; mist 'techniek': Vakmanschap verhoogd. Een aparte associatie Techniek bestaat niet, kandidaat voor de woordenlijst."]
   },
   {
     "id": "RA-405",
@@ -589,14 +587,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "outdoor", "social_formats": ["solo", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "authored"},
-    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:3:D", "vakmanschap:3:V", "precisie:4:V", "ruimtelijk:4:V", "logica:3:V", "weer:4:T", "duurzaamheid:3:T", "wonen:3:T", "rauw:2:E", "trots:4:E", "tast:2:E", "gezelligheid:2:E", "architectuur:3:O", "wetenschap:3:O", "ambacht:3:T"],
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:3:D", "vakmanschap:3:V", "precisie:4:V", "ruimtelijk:4:V", "logica:3:V", "weer:4:T", "duurzaamheid:3:T", "wonen:3:T", "rauw:2:E", "trots:4:E", "tast:2:E", "gezelligheid:2:E", "wetenschap:3:O", "ambacht:3:T"],
     "why": {
-      "architectuur": {"nl": "Een terras is een kamer buiten, met vloer, rand en uitzicht.", "en": "A terrace is a room outdoors, with floor, edge and view."},
       "wetenschap": {"nl": "Waterafvoer, uitzetten en rot bepalen wat blijft staan, praktische bouwfysica.", "en": "Drainage, expansion and rot decide what stays standing, practical building physics."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Overlaps strongly with 'tuinmeubels-maken' (link similarity 0.91); keep both only if they stay distinct for the visitor."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Overlaps strongly with 'tuinmeubels-maken' (link similarity 0.91); keep both only if they stay distinct for the visitor.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-406",
@@ -610,14 +607,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 1, "source": "authored"},
-    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "atelier:3:D", "precisie:5:V", "logica:4:V", "ruimtelijk:4:V", "motoriek:4:V", "technologie:4:T", "patronen:3:T", "detail:4:E", "puzzelen:4:E", "opgaan:4:E", "fantasie:3:O", "geschiedenis:3:O", "ambacht:5:T"],
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "atelier:3:D", "precisie:5:V", "logica:4:V", "ruimtelijk:4:V", "motoriek:4:V", "technologie:4:T", "patronen:3:T", "detail:4:E", "puzzelen:4:E", "opgaan:4:E", "geschiedenis:3:O", "ambacht:5:T"],
     "why": {
-      "fantasie": {"nl": "Een automaat laat figuren bewegen en haalt verbeelding in hout tot leven.", "en": "An automaton makes figures move and brings imagination to life in wood."},
       "geschiedenis": {"nl": "Uurwerken en automaten begonnen als hoogstandjes van middeleeuwse en barokke ambachtslieden.", "en": "Clocks and automata began as feats of medieval and baroque craftsmen."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Fantasie."]
   },
   {
     "id": "RA-407",

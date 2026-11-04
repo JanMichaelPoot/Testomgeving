@@ -254,13 +254,13 @@
     "match": "exact",
     "legacy_id": "musea",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["stad:2:D", "observeren:4:D", "onderzoeken:2:D", "kunst:5:T", "geschiedenis:3:T", "architectuur:2:T", "verwondering:4:E", "ontdekking:4:E", "rust:3:E", "ontroering:3:E", "zelfstandig:2:E", "concentratie:3:V", "gezelligheid:2:E", "verhalen:3:O", "beeldtaal:3:O", "cultuurplek:5:D"],
+    "links": ["stad:2:D", "observeren:4:D", "onderzoeken:2:D", "kunst:5:T", "geschiedenis:3:T", "architectuur:2:T", "verwondering:4:E", "ontdekking:4:E", "rust:3:E", "ontroering:3:E", "zelfstandig:2:E", "concentratie:3:V", "gezelligheid:2:E", "beeldtaal:3:O", "cultuurplek:5:D"],
     "why": {
-      "verhalen": {"nl": "Elk object heeft een herkomstverhaal.", "en": "Each object has a provenance story."},
       "beeldtaal": {"nl": "Een beeld leren lezen is een vaardigheid die musea stilletjes trainen.", "en": "Learning to read an image is a skill museums quietly train."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-344",
@@ -374,13 +374,14 @@
     "match": "exact",
     "legacy_id": "levend-verleden",
     "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["textiel:3:M", "hout:2:M", "stad:2:D", "observeren:3:D", "geschiedenis:5:T", "mode:3:T", "tradities:4:T", "verhalen:3:T", "gezelligheid:4:E", "fantasie:3:E", "nostalgie:4:E", "verwondering:3:E", "smaak:3:E", "gemeenschap:3:E", "wetenschap:3:O", "voeding:3:O"],
+    "links": ["textiel:3:M", "hout:2:M", "stad:2:D", "observeren:3:D", "geschiedenis:5:T", "mode:3:T", "tradities:4:T", "verhalen:3:T", "gezelligheid:4:E", "fantasie:3:E", "nostalgie:4:E", "verwondering:3:E", "smaak:3:E", "gemeenschap:3:E", "wetenschap:3:O", "ambacht:3:O"],
     "why": {
       "wetenschap": {"nl": "Experimentele archeologie test hoe dingen werden gemaakt en gebruikt.", "en": "Experimental archaeology tests how things were made and used."},
-      "voeding": {"nl": "Eetkraampjes maken historische recepten na.", "en": "Food stalls recreate historic recipes."}
+      "ambacht": {"nl": "Op zo'n markt zie je smeden, wevers en leerbewerkers aan het werk. Daarna kun je zelf een ambacht proberen.", "en": "At such a market you see smiths, weavers and leatherworkers at work. Afterwards you can try a craft yourself."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Voeding en eten was onzin; vervangen door Ambacht en vakwerk."]
   },
   {
     "id": "RA-516",

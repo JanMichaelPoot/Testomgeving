@@ -73,14 +73,15 @@
     "desc": {"nl": "Legpuzzels leggen, van klassiek tot extra groot of moeilijk.", "en": "Solving jigsaw puzzles, from classic to extra large or hard."},
     "match": "exact",
     "legacy_id": "legpuzzels",
-    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["thuis:3:D", "papier:2:M", "ruimtelijk:4:V", "concentratie:5:V", "geduld:5:V", "logica:3:V", "precisie:2:V", "kunst:2:T", "puzzelen:5:E", "rust:5:E", "opgaan:5:E", "licht:3:E", "gezelligheid:3:E", "detail:3:E", "verhalen:3:O", "welzijn:3:O", "spel:4:T"],
     "why": {
       "verhalen": {"nl": "Een puzzel van een schilderij of kaart onthult langzaam een tafereel, als een verhaal stukje voor stukje.", "en": "A puzzle of a painting or map slowly reveals a scene like a story told piece by piece."},
       "welzijn": {"nl": "Rustig, herhalend sorteren is een kalme routine waarmee veel mensen ontspannen.", "en": "Mindful, repetitive sorting is a calm routine many people use to unwind."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Steekproef Jan: duur kan ook kort zijn; typische duur nu 1-3 uur. De app heeft hier een halve dag."]
   },
   {
     "id": "RA-131",
@@ -94,13 +95,13 @@
     "match": "exact",
     "legacy_id": "speedcuben",
     "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "online"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:2:D", "ruimtelijk:5:V", "logica:5:V", "motoriek:5:V", "concentratie:4:V", "geduld:3:V", "strategie:3:V", "puzzelen:5:E", "competitie:4:E", "meesterschap:4:E", "doorzetten:4:E", "trots:4:E", "ritme:3:E", "wetenschap:2:T", "kunst:3:O", "gemeenschap:3:O", "spel:4:T", "snelheid:5:E"],
+    "links": ["thuis:2:D", "ruimtelijk:5:V", "logica:5:V", "motoriek:5:V", "concentratie:4:V", "geduld:3:V", "strategie:3:V", "puzzelen:5:E", "competitie:4:E", "meesterschap:4:E", "doorzetten:4:E", "trots:4:E", "ritme:3:E", "wetenschap:2:T", "gemeenschap:3:O", "spel:4:T", "snelheid:5:E"],
     "why": {
-      "kunst": {"nl": "Kleurpatronen en symmetrie maken kubussen oplossen tot een visueel spel.", "en": "Colour patterns and symmetry make cube solving a visual game."},
       "gemeenschap": {"nl": "Kubusbijeenkomsten zijn vriendelijk en mengen leeftijden rond timers en gedeelde tips.", "en": "Cubing meetups are friendly and mix ages around timers and shared tips."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
   },
   {
     "id": "RA-132",
@@ -214,13 +215,13 @@
     "match": "exact",
     "legacy_id": "mahjong",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:2:D", "strategie:4:V", "logica:3:V", "concentratie:3:V", "patronen:5:T", "wereldculturen:4:T", "gezelligheid:5:E", "competitie:3:E", "puzzelen:3:E", "klank:3:E", "tast:3:E", "ritme:3:E", "ornament:3:E", "verhalen:3:O", "generaties:3:O", "spel:5:T", "kans:3:E"],
+    "links": ["thuis:2:D", "strategie:4:V", "logica:3:V", "concentratie:3:V", "patronen:5:T", "wereldculturen:4:T", "gezelligheid:5:E", "competitie:3:E", "puzzelen:3:E", "klank:3:E", "tast:3:E", "ritme:3:E", "ornament:3:E", "generaties:3:O", "spel:5:T", "kans:3:E"],
     "why": {
-      "verhalen": {"nl": "Tegelontwerpen dragen symbolen van seizoenen, bloemen en winden.", "en": "Tile designs carry symbols of seasons, flowers and winds."},
       "generaties": {"nl": "Mahjong is vaak een familie- en buurtritueel over leeftijden heen.", "en": "Mahjong is often a family and neighbourhood ritual across ages."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
   },
   {
     "id": "RA-304",
@@ -234,13 +235,13 @@
     "match": "exact",
     "legacy_id": "kaartspellen",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:3:D", "strategie:5:V", "logica:4:V", "concentratie:4:V", "communicatie:3:V", "patronen:3:T", "tradities:3:T", "gezelligheid:5:E", "competitie:4:E", "samenwerking:3:E", "spanning:3:E", "verbondenheid:3:E", "tast:2:E", "humor:3:O", "wetenschap:3:O", "spel:5:T", "kans:3:E"],
+    "links": ["thuis:3:D", "strategie:5:V", "logica:4:V", "concentratie:4:V", "communicatie:3:V", "patronen:3:T", "tradities:3:T", "gezelligheid:5:E", "competitie:4:E", "samenwerking:3:E", "spanning:3:E", "verbondenheid:3:E", "tast:2:E", "wetenschap:3:O", "spel:5:T", "kans:3:E"],
     "why": {
-      "humor": {"nl": "Tafelpraat en plagerijen horen bij kaartavonden.", "en": "Table talk and teasing are part of card evenings."},
       "wetenschap": {"nl": "Kansrekening en gevolgtrekking lopen door elke hand.", "en": "Probability and inference run through every hand."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
   },
   {
     "id": "RA-305",
@@ -294,13 +295,14 @@
     "match": "exact",
     "legacy_id": "escape-room",
     "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["logica:4:V", "communicatie:4:V", "strategie:3:V", "ruimtelijk:3:V", "technologie:2:T", "verhalen:3:T", "puzzelen:5:E", "samenwerking:5:E", "spanning:4:E", "competitie:3:E", "gezelligheid:4:E", "fantasie:3:E", "speelsheid:3:E", "architectuur:3:O", "leiding:3:O", "spel:5:T"],
+    "links": ["logica:4:V", "communicatie:4:V", "strategie:3:V", "ruimtelijk:3:V", "technologie:2:T", "verhalen:3:T", "puzzelen:5:E", "samenwerking:5:E", "spanning:4:E", "competitie:3:E", "gezelligheid:4:E", "fantasie:3:E", "speelsheid:3:E", "architectuur:3:O", "spel:5:T", "geschiedenis:3:O"],
     "why": {
       "architectuur": {"nl": "Kamers zijn opgebouwd als filmdecors waarvan de indeling aanwijzingen verbergt en toont.", "en": "Rooms are staged like film sets whose layout hides and reveals clues."},
-      "leiding": {"nl": "Teams laten snel zien wie leidt, wie luistert en wie details ziet.", "en": "Teams quickly show who leads, who listens and who spots details."}
+      "geschiedenis": {"nl": "Escape rooms spelen vaak in een oude bunker, gevangenis of fabriek: de plek zelf is een verhaal uit het verleden.", "en": "Escape rooms are often set in an old bunker, prison or factory: the place itself is a story from the past."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Leiderschap was zwak; vervangen door Geschiedenis."]
   },
   {
     "id": "RA-308",
@@ -314,13 +316,13 @@
     "match": "exact",
     "legacy_id": "pubquiz",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["stad:2:D", "communicatie:3:V", "strategie:2:V", "wetenschap:3:T", "geschiedenis:3:T", "kunst:2:T", "gezelligheid:5:E", "competitie:4:E", "samenwerking:4:E", "humor:4:E", "verbondenheid:3:E", "speelsheid:3:E", "spanning:3:E", "ontdekking:3:O", "tradities:3:O", "spel:5:T", "uitgaan:5:D", "kans:2:E"],
+    "links": ["stad:2:D", "communicatie:3:V", "strategie:2:V", "wetenschap:3:T", "geschiedenis:3:T", "kunst:2:T", "gezelligheid:5:E", "competitie:4:E", "samenwerking:4:E", "humor:4:E", "verbondenheid:3:E", "speelsheid:3:E", "spanning:3:E", "tradities:3:O", "spel:5:T", "uitgaan:5:D", "kans:2:E"],
     "why": {
-      "ontdekking": {"nl": "Quizrondes trekken rare hoekjes van kennis in beeld.", "en": "Quiz rounds pull odd corners of knowledge into view."},
       "tradities": {"nl": "De pubquiz is een Brits sociaal ritueel dat wereldwijd is verspreid.", "en": "The pub quiz is a British social ritual that has spread worldwide."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Ontdekking."]
   },
   {
     "id": "RA-309",
@@ -334,13 +336,13 @@
     "match": "exact",
     "legacy_id": "coop-games",
     "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:3:D", "communicatie:4:V", "strategie:3:V", "motoriek:3:V", "technologie:3:T", "verhalen:3:T", "samenwerking:5:E", "speelsheid:4:E", "gezelligheid:4:E", "spanning:3:E", "puzzelen:3:E", "competitie:2:E", "fantasie:3:E", "verbondenheid:3:E", "kunst:3:O", "leiding:3:O", "spel:5:T", "online:5:D"],
+    "links": ["thuis:3:D", "communicatie:4:V", "strategie:3:V", "motoriek:3:V", "technologie:3:T", "verhalen:3:T", "samenwerking:5:E", "speelsheid:4:E", "gezelligheid:4:E", "spanning:3:E", "puzzelen:3:E", "competitie:2:E", "fantasie:3:E", "verbondenheid:3:E", "leiding:3:O", "spel:5:T", "online:5:D"],
     "why": {
-      "kunst": {"nl": "Spellen combineren beeld, muziek en ontwerp tot een medium op zich.", "en": "Games combine art, music and design into a medium of their own."},
       "leiding": {"nl": "Coöperatieve opdrachten laten zien wie het plan roept en wie volgt.", "en": "Co-op tasks show who calls the plan and who follows."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
   },
   {
     "id": "RA-310",
@@ -474,13 +476,13 @@
     "match": "exact",
     "legacy_id": "wargaming",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 0, "source": "app"},
-    "links": ["verf:3:M", "bouwen:3:D", "thuis:3:D", "strategie:5:V", "precisie:3:V", "motoriek:3:V", "geschiedenis:3:T", "verhalen:3:T", "competitie:4:E", "gezelligheid:4:E", "fantasie:3:E", "samenwerking:2:E", "speelsheid:3:E", "detail:3:E", "kunst:3:O", "architectuur:3:O", "spel:5:T", "kans:3:E", "miniatuur:4:E"],
+    "links": ["verf:3:M", "bouwen:3:D", "thuis:3:D", "strategie:5:V", "precisie:3:V", "motoriek:3:V", "geschiedenis:3:T", "verhalen:3:T", "competitie:4:E", "gezelligheid:4:E", "fantasie:3:E", "samenwerking:2:E", "speelsheid:3:E", "detail:3:E", "kunst:3:O", "spel:5:T", "kans:3:E", "miniatuur:4:E"],
     "why": {
-      "kunst": {"nl": "Geschilderde legers en terrein zijn een ambacht op zich.", "en": "Painted armies and terrain are a craft in their own right."},
-      "architectuur": {"nl": "Terrein bouwen is landschap en architectuur in miniatuur.", "en": "Building terrain is landscape and architecture in miniature."}
+      "kunst": {"nl": "Geschilderde legers en terrein zijn een ambacht op zich.", "en": "Painted armies and terrain are a craft in their own right."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-507",
@@ -494,12 +496,13 @@
     "match": "exact",
     "legacy_id": "solo-rpg",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["thuis:3:D", "taalvaardig:3:V", "creativiteit:5:V", "improviseren:4:V", "logica:2:V", "verhalen:5:T", "fantasie:5:E", "opgaan:4:E", "rust:3:E", "zelfstandig:4:E", "speelsheid:3:E", "puzzelen:2:E", "spiritualiteit:3:O", "humor:3:O", "spel:5:T", "online:2:D", "kans:4:E"],
+    "links": ["thuis:3:D", "taalvaardig:3:V", "creativiteit:5:V", "improviseren:4:V", "logica:2:V", "verhalen:5:T", "fantasie:5:E", "opgaan:4:E", "rust:3:E", "zelfstandig:4:E", "speelsheid:3:E", "puzzelen:2:E", "spel:5:T", "online:2:D", "kans:4:E", "muziek:3:O", "beeldtaal:3:O"],
     "why": {
-      "spiritualiteit": {"nl": "Orakels en prompts werken als reflectiemiddelen.", "en": "Oracles and prompts work like reflection tools."},
-      "humor": {"nl": "Willekeurige prompts geven absurde wendingen waar je om lacht.", "en": "Random prompts create absurd turns that make you laugh."}
+      "muziek": {"nl": "Veel solospelers kiezen een soundtrack of ambient playlist: je ontdekt hoe muziek een spel sfeer geeft.", "en": "Many solo players pick a soundtrack or ambient playlist: you discover how music gives a game atmosphere."},
+      "beeldtaal": {"nl": "Veel solo-games werken met kaarten en illustraties: je kunt zelf een set tekenen.", "en": "Many solo games use cards and illustrations: you can draw a set of your own."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Spiritualiteit en zingeving, Humor."]
   }
 ]

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steekproef referentiebibliotheek</title>
+<style>
+:root{--bg:#f7f5f0;--card:#fffdfa;--ink:#202020;--muted:#6b665e;--line:#ded8ce;--accent:#5b3f2f;--ok:#2f6b3f;--warn:#9a6a12;--bad:#a23b2a;--sel:#f2ece1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1a17;--card:#26231f;--ink:#efe9de;--muted:#a49d90;--line:#3d3830;--accent:#d2b77a;--ok:#7fc08f;--warn:#e0b45a;--bad:#e58a77;--sel:#332e27;color-scheme:dark}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:16px 16px 120px}
+h1{font-size:1.5rem;margin:.6em 0 .2em}
+.intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:12px 0}
+.intro li{margin:.2em 0}
+.bar{position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:3;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.prog{flex:1;min-width:160px;height:8px;background:var(--line);border-radius:9px;overflow:hidden}
+.prog>i{display:block;height:100%;background:var(--accent);width:0}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px 14px;min-height:44px}
+button.primary{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600}
+.rec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:18px 0}
+.rec.done{border-color:var(--ok)}
+.rec h2{margin:0;font-size:1.25rem}
+.meta{color:var(--muted);font-size:.9rem;margin:.2em 0 .6em}
+.badge{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:1px 10px;font-size:.8rem;margin-right:6px}
+.sec{margin-top:16px}
+.sec h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 6px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:4px 16px;font-size:.92rem}
+.facts b{color:var(--muted);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;gap:6px;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:8px 12px;min-height:44px;background:var(--card);text-align:left}
+.chip small{color:var(--muted)}
+.chip[aria-pressed=true]{border-color:var(--bad);background:var(--sel);text-decoration:line-through}
+.chip .x{display:none;color:var(--bad);font-weight:700}
+.chip[aria-pressed=true] .x{display:inline}
+.bridge{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}
+.bridge p{margin:.2em 0 .5em}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{padding:8px 12px}
+.seg button[aria-pressed=true]{background:var(--sel);border-color:var(--accent);font-weight:600}
+.seg button.good[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
+.seg button.mid[aria-pressed=true]{border-color:var(--warn);color:var(--warn)}
+.seg button.bad[aria-pressed=true]{border-color:var(--bad);color:var(--bad)}
+textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px;min-height:64px}
+.note{font-size:.88rem;color:var(--muted);background:var(--sel);border-radius:10px;padding:8px 12px;margin-top:8px}
+.out{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9;padding:16px;overflow:auto}
+.out.on{display:block}
+.out>div{max-width:820px;margin:0 auto;background:var(--card);border-radius:16px;padding:16px}
+.out textarea{min-height:50vh;font-family:ui-monospace,Consolas,monospace;font-size:.82rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Steekproef referentiebibliotheek</h1>
+<div class="intro">
+<p><b>Wat is dit?</b> {{N}} willekeurige activiteiten uit de bibliotheek van 550, minstens één per categorie. Jij beoordeelt of de koppelingen kloppen. Dat duurt ongeveer een uur. Je hoeft geen expert te zijn: het gaat erom of het voor jou logisch voelt.</p>
+<ul>
+<li><b>Sterkste associaties:</b> tik op een associatie die <u>niet</u> bij de activiteit past. Doorgestreept = klopt niet. Laat staan = klopt.</li>
+<li><b>Ontdekkingsbruggen:</b> dit zijn onverwachte routes naar andere activiteiten. Kies per brug: zinvol, zwak of onzin.</li>
+<li><b>Kenmerken:</b> kloppen plek, duur, kosten en veiligheid ongeveer?</li>
+<li>Je antwoorden worden in deze browser bewaard, dus je kunt later verder. Onderaan kopieer je alles als tekst en plak je het in het gesprek met mij.</li>
+</ul>
+</div>
+<div class="bar"><div class="prog"><i id="pb"></i></div><span id="pt">0 van {{N}}</span><button class="primary" id="exp">Klaar: kopieer resultaat</button></div>
+<div id="list"></div>
+</div>
+<div class="out" id="out"><div><h2>Kopieer dit en plak het in het gesprek</h2><textarea id="outta" readonly></textarea><p><button class="primary" id="cp">Kopieer</button> <button id="close">Sluiten</button> <span id="cpm"></span></p></div></div>
+<script>
+const DATA=/*DATA*/[];
+const KEY="reflib-steekproef-1";
+let S={};
+try{S=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){S={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function rec(id){return S[id]=S[id]||{wrong:[],bridge:{},fac:"",facNote:"",missing:"",note:""}}
+function isDone(it){const r=S[it.id];if(!r)return false;return !!r.touched}
+function el(t,a,...k){const e=document.createElement(t);for(const[x,y]of Object.entries(a||{})){if(x==="class")e.className=y;else if(x.startsWith("on"))e.addEventListener(x.slice(2),y);else e.setAttribute(x,y)}for(const c of k)e.append(c);return e}
+function touch(it){rec(it.id).touched=true;save();render(false)}
+function seg(opts,cur,on){const w=el("div",{class:"seg"});for(const[v,l,c]of opts){const b=el("button",{class:c||"","aria-pressed":String(cur===v),onclick:()=>on(cur===v?"":v)},l);w.append(b)}return w}
+function card(it,i){
+  const r=rec(it.id);
+  const c=el("div",{class:"rec"+(isDone(it)?" done":""),id:"r"+i});
+  c.append(el("h2",{},(i+1)+". "+it.nl),el("div",{class:"meta"},el("span",{class:"badge"},it.cat),it.new?el("span",{class:"badge"},"nieuw t.o.v. de app"):"",it.en!==it.nl?"English: "+it.en:""));
+  c.append(el("p",{},it.desc));
+  const f=el("div",{class:"facts"});for(const[k,v]of Object.entries(it.fac))f.append(el("div",{},el("b",{},k+": "),v));
+  c.append(el("div",{class:"sec"},el("h3",{},"Kenmerken"),f,
+    seg([["ok","Kloppen ongeveer","good"],["off","Eén of meer kloppen niet","bad"]],r.fac,v=>{r.fac=v;touch(it)}),
+    r.fac==="off"?(()=>{const t=el("textarea",{placeholder:"Wat klopt niet?"});t.value=r.facNote||"";t.addEventListener("input",()=>{r.facNote=t.value;save()});return t})():""));
+  const ch=el("div",{class:"chips"});
+  it.strong.forEach(s=>{const on=r.wrong.includes(s.slug);ch.append(el("button",{class:"chip","aria-pressed":String(on),title:s.def,onclick:()=>{r.wrong=on?r.wrong.filter(x=>x!==s.slug):[...r.wrong,s.slug];touch(it)}},el("span",{class:"x"},"✕"),s.nl," ",el("small",{},s.rel+" "+s.sc+"/5")))});
+  c.append(el("div",{class:"sec"},el("h3",{},"Sterkste associaties: tik op wat niet past"),ch));
+  const mt=el("textarea",{placeholder:"Mist er een belangrijke associatie? (optioneel)"});mt.value=r.missing||"";mt.addEventListener("input",()=>{r.missing=mt.value;r.touched=true;save()});
+  c.append(el("div",{class:"sec"},mt));
+  const bw=el("div",{class:"sec"},el("h3",{},"Ontdekkingsbruggen"));
+  it.disc.forEach(d=>{bw.append(el("div",{class:"bridge"},el("b",{},d.nl),el("p",{},d.why),
+    seg([["ok","Zinvol","good"],["weak","Zwak","mid"],["bad","Onzin","bad"]],r.bridge[d.slug]||"",v=>{if(v)r.bridge[d.slug]=v;else delete r.bridge[d.slug];touch(it)})))});
+  c.append(bw);
+  if(it.notes.length)c.append(el("div",{class:"note"},"Opmerking uit de eerdere controle: "+it.notes.join(" ")));
+  const nt=el("textarea",{placeholder:"Overige opmerking over deze activiteit (optioneel)"});nt.value=r.note||"";nt.addEventListener("input",()=>{r.note=nt.value;r.touched=true;save()});
+  c.append(el("div",{class:"sec"},nt));
+  return c;
+}
+function render(full=true){
+  const act=document.activeElement;const y=scrollY;
+  if(full||!document.getElementById("list").children.length){const l=document.getElementById("list");l.replaceChildren(...DATA.map(card))}
+  else{const l=document.getElementById("list");const kids=DATA.map(card);l.replaceChildren(...kids);scrollTo(0,y)}
+  const d=DATA.filter(isDone).length;document.getElementById("pt").textContent=d+" van "+DATA.length;document.getElementById("pb").style.width=(100*d/DATA.length)+"%";
+}
+function result(){
+  const L=["STEEKPROEF REFERENTIEBIBLIOTHEEK, RONDE 1",""];let ok=0,bridges={ok:0,weak:0,bad:0},wrongN=0,strongN=0,facOff=0,facN=0;
+  DATA.forEach(it=>{const r=S[it.id]||{wrong:[],bridge:{}};strongN+=it.strong.length;wrongN+=(r.wrong||[]).length;if(r.fac)facN++;if(r.fac==="off")facOff++;
+    Object.values(r.bridge||{}).forEach(v=>bridges[v]++);
+    const bits=[];if((r.wrong||[]).length)bits.push("klopt niet: "+it.strong.filter(s=>r.wrong.includes(s.slug)).map(s=>s.nl).join(", "));
+    const bs=it.disc.map(d=>({d,v:(r.bridge||{})[d.slug]})).filter(x=>x.v&&x.v!=="ok");bs.forEach(x=>bits.push("brug "+x.d.nl+": "+(x.v==="weak"?"zwak":"onzin")));
+    if(r.fac==="off")bits.push("kenmerken: "+(r.facNote||"(geen toelichting)"));if(r.missing)bits.push("mist: "+r.missing);if(r.note)bits.push("opm: "+r.note);
+    L.push(it.id+" "+it.nl+(isDone(it)?"":" [niet beoordeeld]")+(bits.length?"\n   - "+bits.join("\n   - "):(isDone(it)?": alles akkoord":"")));});
+  L.splice(2,0,"Beoordeeld: "+DATA.filter(isDone).length+" van "+DATA.length,"Associaties aangemerkt als niet passend: "+wrongN+" van "+strongN,"Bruggen: zinvol "+bridges.ok+", zwak "+bridges.weak+", onzin "+bridges.bad,"Kenmerken niet kloppend: "+facOff+" van "+facN+" beoordeeld","");
+  return L.join("\n");
+}
+document.getElementById("exp").addEventListener("click",()=>{document.getElementById("outta").value=result();document.getElementById("out").classList.add("on")});
+document.getElementById("close").addEventListener("click",()=>document.getElementById("out").classList.remove("on"));
+document.getElementById("cp").addEventListener("click",async()=>{const t=document.getElementById("outta");try{await navigator.clipboard.writeText(t.value);document.getElementById("cpm").textContent="Gekopieerd."}catch(e){t.select();document.getElementById("cpm").textContent="Selecteer en kopieer met Ctrl+C."}});
+render();
+</script>
+</body>
+</html>

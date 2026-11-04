@@ -95,14 +95,14 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["verf:5:M", "papier:4:M", "water:3:D", "observeren:3:D", "kunst:4:T", "natuur:3:T", "licht:5:E", "rust:4:E", "schoonheid:4:E", "imperfectie:5:E", "expressie:3:E", "opgaan:4:E", "geduld:3:V", "motoriek:3:V", "creativiteit:4:V", "improviseren:3:O", "welzijn:3:O"],
+    "links": ["verf:5:M", "papier:4:M", "water:3:D", "observeren:3:D", "kunst:4:T", "natuur:3:T", "licht:5:E", "rust:4:E", "schoonheid:4:E", "imperfectie:5:E", "expressie:3:E", "opgaan:4:E", "geduld:3:V", "motoriek:3:V", "creativiteit:4:V", "improviseren:3:O", "wetenschap:3:O"],
     "why": {
       "improviseren": {"nl": "Waterverf laat zich niet volledig sturen, dus je leert reageren op wat de verf doet in plaats van het te forceren.", "en": "Watercolour cannot be fully controlled, so you learn to respond to what the paint does instead of forcing it."},
-      "welzijn": {"nl": "Zacht en langzaam schilderen wordt veel gebruikt als rustig dagelijks ritueel, dus het werkt ook om af te schakelen.", "en": "Soft, slow painting is widely used as a calm daily ritual, so it also works as a way to switch off."}
+      "wetenschap": {"nl": "Aquarel was lang het gereedschap van botanici en ontdekkingsreizigers: wie schildert ziet hoe planten er werkelijk uitzien.", "en": "Watercolour was long the tool of botanists and explorers: painting shows you what plants actually look like."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 2): brug Gezondheid en welzijn was onzin; vervangen door Wetenschap."]
   },
   {
     "id": "RA-006",
@@ -156,14 +156,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["verf:3:M", "papier:4:M", "observeren:4:D", "atelier:3:D", "creativiteit:4:V", "motoriek:3:V", "kunst:4:T", "natuur:2:T", "licht:5:E", "tast:4:E", "schoonheid:4:E", "expressie:4:E", "opgaan:4:E", "rust:3:E", "imperfectie:3:E", "geschiedenis:3:O", "welzijn:3:O"],
+    "links": ["verf:3:M", "papier:4:M", "observeren:4:D", "atelier:3:D", "creativiteit:4:V", "motoriek:3:V", "kunst:4:T", "natuur:2:T", "licht:5:E", "tast:4:E", "schoonheid:4:E", "expressie:4:E", "opgaan:4:E", "rust:3:E", "imperfectie:3:E", "geschiedenis:3:O"],
     "why": {
-      "geschiedenis": {"nl": "Degas en veel impressionisten kozen pastel voor vluchtig licht, dus je werkt met een materiaal dat voor het moment gemaakt is.", "en": "Degas and many impressionists chose pastel for fleeting light, so you work with a medium made for the moment."},
-      "welzijn": {"nl": "De zachte, vegende aanraking maakt het vergevingsgezind en ontspannend, wat het geschikt maakt voor beginners.", "en": "The soft, smudgy touch makes it forgiving and relaxing, which is why it suits beginners."}
+      "geschiedenis": {"nl": "Degas en veel impressionisten kozen pastel voor vluchtig licht, dus je werkt met een materiaal dat voor het moment gemaakt is.", "en": "Degas and many impressionists chose pastel for fleeting light, so you work with a medium made for the moment."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Gezondheid en welzijn."]
   },
   {
     "id": "RA-149",
@@ -198,14 +197,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["verf:4:M", "papier:3:M", "observeren:4:D", "precisie:5:V", "motoriek:4:V", "concentratie:4:V", "geduld:3:V", "creativiteit:3:V", "kunst:4:T", "detail:5:E", "minimalisme:3:E", "opgaan:4:E", "rust:3:E", "ornament:3:E", "geschiedenis:3:O", "logica:3:O"],
+    "links": ["verf:4:M", "papier:3:M", "observeren:4:D", "precisie:5:V", "motoriek:4:V", "concentratie:4:V", "geduld:3:V", "creativiteit:3:V", "kunst:4:T", "detail:5:E", "minimalisme:3:E", "opgaan:4:E", "rust:3:E", "ornament:3:E", "geschiedenis:3:O"],
     "why": {
-      "geschiedenis": {"nl": "Tekenen met ganzenpen en inkt loopt van middeleeuwse handschriften tot strips, dus elke lijn volgt oud gereedschap.", "en": "Quill and ink drawing runs from medieval manuscripts to comics, so each line follows old tools."},
-      "logica": {"nl": "Arcering bouwt schaduw op uit lijnen die volgens een regel liggen, een klein systeem om over na te denken.", "en": "Hatching builds shadow from lines placed by rule, a small system you can reason about."}
+      "geschiedenis": {"nl": "Tekenen met ganzenpen en inkt loopt van middeleeuwse handschriften tot strips, dus elke lijn volgt oud gereedschap.", "en": "Quill and ink drawing runs from medieval manuscripts to comics, so each line follows old tools."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Logica."]
   },
   {
     "id": "RA-151",
@@ -219,14 +217,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["verf:3:M", "papier:3:M", "observeren:5:D", "atelier:3:D", "precisie:4:V", "concentratie:4:V", "creativiteit:3:V", "motoriek:3:V", "ruimtelijk:3:V", "kunst:5:T", "identiteit:4:T", "licht:4:E", "ontroering:4:E", "expressie:4:E", "opgaan:4:E", "communicatie:3:O", "zorg:3:O"],
+    "links": ["verf:3:M", "papier:3:M", "observeren:5:D", "atelier:3:D", "precisie:4:V", "concentratie:4:V", "creativiteit:3:V", "motoriek:3:V", "ruimtelijk:3:V", "kunst:5:T", "identiteit:4:T", "licht:4:E", "ontroering:4:E", "expressie:4:E", "opgaan:4:E", "communicatie:3:O"],
     "why": {
-      "communicatie": {"nl": "Een gezicht lezen leert je wat mensen zonder woorden zeggen.", "en": "Reading a face teaches you what people say without words."},
-      "zorg": {"nl": "Portretten van familie en vrienden zijn geschenken van aandacht.", "en": "Portraits of family and friends are gifts of attention."}
+      "communicatie": {"nl": "Een gezicht lezen leert je wat mensen zonder woorden zeggen.", "en": "Reading a face teaches you what people say without words."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zorg voor anderen."]
   },
   {
     "id": "RA-165",
@@ -240,13 +237,13 @@
     "match": "exact",
     "legacy_id": "beeldhouwen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
-    "links": ["steen:4:M", "klei:3:M", "hout:3:M", "atelier:5:D", "bouwen:3:D", "ontwerpen:4:D", "ruimtelijk:5:V", "vakmanschap:4:V", "motoriek:3:V", "creativiteit:4:V", "kunst:5:T", "tast:5:E", "schoonheid:3:E", "expressie:4:E", "opgaan:4:E", "trots:4:E", "architectuur:3:O", "geschiedenis:3:O"],
+    "links": ["steen:4:M", "klei:3:M", "hout:3:M", "atelier:5:D", "bouwen:3:D", "ontwerpen:4:D", "ruimtelijk:5:V", "vakmanschap:4:V", "motoriek:3:V", "creativiteit:4:V", "kunst:5:T", "tast:5:E", "schoonheid:3:E", "expressie:4:E", "opgaan:4:E", "trots:4:E", "geschiedenis:3:O"],
     "why": {
-      "architectuur": {"nl": "Beeldhouwkunst is gebouwde ruimte, dus het traint je gevoel voor volume, balans en aanwezigheid.", "en": "Sculpture is built space, so it trains your sense of volume, balance and presence."},
       "geschiedenis": {"nl": "Standbeelden markeren pleinen, graven en tuinen, dus beeldhouwen verbindt je met hoe steden herdenken.", "en": "Statues mark squares, graves and gardens, so carving connects you to how cities remember."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
   },
   {
     "id": "RA-166",
@@ -300,13 +297,13 @@
     "match": "exact",
     "legacy_id": "collage",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["papier:5:M", "verf:2:M", "ontwerpen:3:D", "verzamelen:4:D", "thuis:3:D", "creativiteit:5:V", "precisie:2:V", "kunst:4:T", "verhalen:3:T", "identiteit:3:T", "speelsheid:5:E", "expressie:4:E", "nostalgie:4:E", "imperfectie:3:E", "opgaan:3:E", "duurzaamheid:3:O", "ontdekking:3:O"],
+    "links": ["papier:5:M", "verf:2:M", "ontwerpen:3:D", "verzamelen:4:D", "thuis:3:D", "creativiteit:5:V", "precisie:2:V", "kunst:4:T", "verhalen:3:T", "identiteit:3:T", "speelsheid:5:E", "expressie:4:E", "nostalgie:4:E", "imperfectie:3:E", "opgaan:3:E", "beeldtaal:3:O"],
     "why": {
-      "duurzaamheid": {"nl": "Oude tijdschriften, kaartjes en verpakkingen krijgen een tweede leven.", "en": "Old magazines, tickets and packaging get a second life."},
-      "ontdekking": {"nl": "Ongelijksoortige stukken schikken tot ze kloppen is een manier om ideeën te vinden die je niet gepland had.", "en": "Arranging unrelated pieces until they click is a way to find ideas you did not plan."}
+      "beeldtaal": {"nl": "Collage is het combineren van beelden: je ziet daarna hoe posters, platenhoezen en films beelden monteren.", "en": "Collage is combining images: afterwards you see how posters, record sleeves and films edit images together."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Duurzaamheid was zwak; vervangen door Film en beeldtaal.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Ontdekking."]
   },
   {
     "id": "RA-169",
@@ -400,13 +397,14 @@
     "match": "exact",
     "legacy_id": "schilder-avond",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["verf:5:M", "atelier:2:D", "creativiteit:3:V", "communicatie:2:V", "kunst:3:T", "gezelligheid:5:E", "speelsheid:4:E", "expressie:3:E", "verbondenheid:3:E", "opgaan:3:E", "licht:2:E", "imperfectie:2:E", "humor:3:O", "wonen:3:O", "uitgaan:4:D"],
+    "links": ["verf:5:M", "atelier:2:D", "creativiteit:3:V", "communicatie:2:V", "kunst:3:T", "gezelligheid:5:E", "speelsheid:4:E", "expressie:3:E", "verbondenheid:3:E", "opgaan:3:E", "licht:2:E", "imperfectie:2:E", "wonen:3:O", "uitgaan:4:D", "natuur:3:O"],
     "why": {
-      "humor": {"nl": "Ieders versie loopt anders af, en dat is de helft van de pret.", "en": "Everyone's version ends up different, which is half the fun."},
-      "wonen": {"nl": "Je neemt een stuk mee voor aan je eigen muur.", "en": "You take home a piece for your own wall."}
+      "wonen": {"nl": "Je neemt een stuk mee voor aan je eigen muur.", "en": "You take home a piece for your own wall."},
+      "natuur": {"nl": "Veel schilderavonden kiezen landschappen: je kijkt daarna anders naar licht, bomen en water buiten.", "en": "Many painting evenings pick landscapes: afterwards you look differently at light, trees and water outdoors."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 2, "result": "adjusted"},
+    "qa_notes": ["Bruggen-steekproef Jan (ronde 2): brug Humor was zwak; vervangen door Natuur."]
   },
   {
     "id": "RA-361",
@@ -420,13 +418,13 @@
     "match": "exact",
     "legacy_id": "buurtkaart",
     "facets": {"setting": "both", "social_formats": ["solo"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["papier:3:M", "ontwerpen:5:D", "observeren:4:D", "navigeren:3:D", "stad:4:D", "creativiteit:4:V", "ruimtelijk:3:V", "kunst:3:T", "verhalen:3:T", "identiteit:3:T", "ontdekking:3:E", "nostalgie:3:E", "expressie:3:E", "gemeenschap:3:O", "patronen:3:O"],
+    "links": ["papier:3:M", "ontwerpen:5:D", "observeren:4:D", "navigeren:3:D", "stad:4:D", "creativiteit:4:V", "ruimtelijk:3:V", "kunst:3:T", "verhalen:3:T", "identiteit:3:T", "ontdekking:3:E", "nostalgie:3:E", "expressie:3:E", "gemeenschap:3:O"],
     "why": {
-      "gemeenschap": {"nl": "Een getekende kaart van gedeelde plekken is een cadeau voor buren.", "en": "A drawn map of shared places is a gift to neighbours."},
-      "patronen": {"nl": "Straten, parken en routes tonen een vorm die je nooit had opgemerkt.", "en": "Streets, parks and routes reveal a shape you never noticed."}
+      "gemeenschap": {"nl": "Een getekende kaart van gedeelde plekken is een cadeau voor buren.", "en": "A drawn map of shared places is a gift to neighbours."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
   },
   {
     "id": "RA-362",
@@ -460,13 +458,13 @@
     "match": "exact",
     "legacy_id": "modeillustratie",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["papier:3:M", "verf:3:M", "textiel:3:M", "ontwerpen:4:D", "creativiteit:4:V", "motoriek:3:V", "mode:5:T", "kunst:4:T", "elegantie:4:E", "expressie:4:E", "detail:3:E", "speelsheid:2:E", "beeldtaal:3:O", "wereldculturen:3:O"],
+    "links": ["papier:3:M", "verf:3:M", "textiel:3:M", "ontwerpen:4:D", "creativiteit:4:V", "motoriek:3:V", "mode:5:T", "kunst:4:T", "elegantie:4:E", "expressie:4:E", "detail:3:E", "speelsheid:2:E", "wereldculturen:3:O"],
     "why": {
-      "beeldtaal": {"nl": "Een modetekening verkoopt een stemming met een paar lijnen.", "en": "A fashion drawing sells a mood with a few lines."},
       "wereldculturen": {"nl": "Patronen en silhouetten uit andere culturen blijven de mode voeden.", "en": "Patterns and silhouettes from other cultures keep feeding fashion."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Film en beeldtaal."]
   },
   {
     "id": "RA-364",
@@ -480,13 +478,13 @@
     "match": "exact",
     "legacy_id": "kaarten-maken",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
-    "links": ["papier:5:M", "verf:2:M", "ontwerpen:3:D", "thuis:3:D", "creativiteit:4:V", "motoriek:3:V", "precisie:2:V", "kunst:2:T", "speelsheid:4:E", "zorg:4:E", "expressie:3:E", "detail:3:E", "rust:3:E", "ornament:3:E", "verbondenheid:3:O", "tradities:3:O"],
+    "links": ["papier:5:M", "verf:2:M", "ontwerpen:3:D", "thuis:3:D", "creativiteit:4:V", "motoriek:3:V", "precisie:2:V", "kunst:2:T", "speelsheid:4:E", "zorg:4:E", "expressie:3:E", "detail:3:E", "rust:3:E", "ornament:3:E", "tradities:3:O"],
     "why": {
-      "verbondenheid": {"nl": "Een zelfgemaakte kaart zegt iemand dat hij of zij ertoe doet.", "en": "A handmade card tells someone they matter."},
       "tradities": {"nl": "Kaarten markeren verjaardagen, feestdagen en afscheid met eigen gebruiken.", "en": "Cards mark birthdays, holidays and farewells with their own conventions."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Nieuwe mensen ontmoeten."]
   },
   {
     "id": "RA-365",
@@ -540,13 +538,13 @@
     "match": "exact",
     "legacy_id": "ateliers",
     "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
-    "links": ["stad:3:D", "observeren:4:D", "atelier:4:D", "verzamelen:2:D", "kunst:5:T", "communicatie:2:V", "ontdekking:4:E", "verwondering:3:E", "rust:3:E", "zelfstandig:3:E", "gezelligheid:2:E", "detail:2:E", "wonen:3:O", "gemeenschap:3:O", "cultuurplek:4:D"],
+    "links": ["stad:3:D", "observeren:4:D", "atelier:4:D", "verzamelen:2:D", "kunst:5:T", "communicatie:2:V", "ontdekking:4:E", "verwondering:3:E", "rust:3:E", "zelfstandig:3:E", "gezelligheid:2:E", "detail:2:E", "gemeenschap:3:O", "cultuurplek:4:D"],
     "why": {
-      "wonen": {"nl": "Zien hoe makers wonen en werken met kunst verandert hoe je je eigen muren ophangt.", "en": "Seeing how makers live and work with art changes how you hang your own walls."},
       "gemeenschap": {"nl": "Open atelierroutes maken van een buurt een wandelroute.", "en": "Open studio weekends turn a neighbourhood into a route."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wonen en interieur."]
   },
   {
     "id": "RA-368",
@@ -560,13 +558,13 @@
     "match": "exact",
     "legacy_id": "slow-looking",
     "facets": {"setting": "indoor", "social_formats": ["solo", "duo"], "level": 0, "duration": 1, "cost": 2, "safety_tier": 0, "source": "app"},
-    "links": ["observeren:5:D", "concentratie:5:V", "kunst:5:T", "beeldtaal:3:T", "rust:5:E", "stilte:3:E", "verwondering:4:E", "detail:4:E", "opgaan:4:E", "ontdekking:3:E", "licht:3:E", "zelfstandig:3:E", "spiritualiteit:3:O", "welzijn:3:O", "cultuurplek:4:D"],
+    "links": ["observeren:5:D", "concentratie:5:V", "kunst:5:T", "beeldtaal:3:T", "rust:5:E", "stilte:3:E", "verwondering:4:E", "detail:4:E", "opgaan:4:E", "ontdekking:3:E", "licht:3:E", "zelfstandig:3:E", "welzijn:3:O", "cultuurplek:4:D"],
     "why": {
-      "spiritualiteit": {"nl": "Lang kijken werkt als een stille meditatie.", "en": "Long looking works like a quiet meditation."},
       "welzijn": {"nl": "De blik vertragen is een tegenwicht voor de snelheid van schermen.", "en": "Slowing your gaze counters the speed of screens."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"}
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Spiritualiteit en zingeving."]
   },
   {
     "id": "RA-369",
@@ -622,14 +620,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["papier:4:M", "thuis:3:D", "observeren:5:D", "precisie:5:V", "motoriek:4:V", "concentratie:4:V", "geduld:4:V", "kunst:3:T", "licht:4:E", "detail:5:E", "rust:4:E", "opgaan:4:E", "schoonheid:3:E", "wetenschap:3:O", "dieren:3:O"],
+    "links": ["papier:4:M", "thuis:3:D", "observeren:5:D", "precisie:5:V", "motoriek:4:V", "concentratie:4:V", "geduld:4:V", "kunst:3:T", "licht:4:E", "detail:5:E", "rust:4:E", "opgaan:4:E", "schoonheid:3:E", "wetenschap:3:O"],
     "why": {
-      "wetenschap": {"nl": "Kleuren mengen door lagen is optica: het oog mengt wat het potlood niet doet.", "en": "Colour mixing by layering is optics: the eye blends what the pencil does not."},
-      "dieren": {"nl": "Vacht, veren en ogen zijn klassieke onderwerpen die kijken leren.", "en": "Fur, feathers and eyes are classic subjects that teach looking."}
+      "wetenschap": {"nl": "Kleuren mengen door lagen is optica: het oog mengt wat het potlood niet doet.", "en": "Colour mixing by layering is optics: the eye blends what the pencil does not."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Dieren."]
   },
   {
     "id": "RA-372",
@@ -643,14 +640,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["papier:3:M", "verf:2:M", "thuis:3:D", "ontwerpen:3:D", "motoriek:5:V", "precisie:3:V", "creativiteit:4:V", "taalvaardig:2:V", "kunst:2:T", "rust:4:E", "ritme:3:E", "detail:3:E", "ornament:3:E", "expressie:3:E", "speelsheid:3:E", "communicatie:3:O", "tradities:3:O", "taal:4:T"],
+    "links": ["papier:3:M", "verf:2:M", "thuis:3:D", "ontwerpen:3:D", "motoriek:5:V", "precisie:3:V", "creativiteit:4:V", "taalvaardig:2:V", "kunst:2:T", "rust:4:E", "ritme:3:E", "detail:3:E", "ornament:3:E", "expressie:3:E", "speelsheid:3:E", "communicatie:3:O", "taal:4:T"],
     "why": {
-      "communicatie": {"nl": "Een goed geletterd woord draagt toon voordat het wordt gelezen.", "en": "A well-lettered word carries tone before it is read."},
-      "tradities": {"nl": "Letterschilders, schrijvers en kalligrafen gaven alfabetten door.", "en": "Sign painters, scribes and calligraphers handed down alphabets."}
+      "communicatie": {"nl": "Een goed geletterd woord draagt toon voordat het wordt gelezen.", "en": "A well-lettered word carries tone before it is read."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
   },
   {
     "id": "RA-373",
@@ -706,14 +702,13 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
-    "links": ["verf:5:M", "papier:4:M", "ontwerpen:3:D", "creativiteit:4:V", "precisie:3:V", "motoriek:3:V", "kunst:4:T", "mode:2:T", "licht:3:E", "schoonheid:3:E", "expressie:3:E", "rust:3:E", "detail:3:E", "imperfectie:2:E", "beeldtaal:3:O", "wereldculturen:3:O"],
+    "links": ["verf:5:M", "papier:4:M", "ontwerpen:3:D", "creativiteit:4:V", "precisie:3:V", "motoriek:3:V", "kunst:4:T", "mode:2:T", "licht:3:E", "schoonheid:3:E", "expressie:3:E", "rust:3:E", "detail:3:E", "imperfectie:2:E", "wereldculturen:3:O"],
     "why": {
-      "beeldtaal": {"nl": "Vlakke kleurvormen zijn hoe affiches en prentenboeken spreken.", "en": "Flat colour shapes are how posters and picture books speak."},
       "wereldculturen": {"nl": "Gouache loopt van Perzische miniaturen tot Indiase hofschilderkunst.", "en": "Gouache runs from Persian miniatures to Indian court painting."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Film en beeldtaal."]
   },
   {
     "id": "RA-376",
@@ -727,13 +722,12 @@
     "match": "new",
     "legacy_id": null,
     "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
-    "links": ["papier:3:M", "observeren:4:D", "atelier:2:D", "creativiteit:3:V", "precisie:3:V", "ruimtelijk:4:V", "motoriek:3:V", "concentratie:3:V", "kunst:5:T", "ontdekking:3:E", "zelfstandig:3:E", "rust:3:E", "gezelligheid:3:E", "logica:3:O", "wonen:3:O", "leren:5:E"],
+    "links": ["papier:3:M", "observeren:4:D", "atelier:2:D", "creativiteit:3:V", "precisie:3:V", "ruimtelijk:4:V", "motoriek:3:V", "concentratie:3:V", "kunst:5:T", "ontdekking:3:E", "zelfstandig:3:E", "rust:3:E", "gezelligheid:3:E", "logica:3:O", "leren:5:E"],
     "why": {
-      "logica": {"nl": "Perspectief is een stelsel van regels dat diepte geloofwaardig maakt.", "en": "Perspective is a system of rules that makes depth believable."},
-      "wonen": {"nl": "Je gaat verhoudingen van kamers, stoelen en ramen opmerken.", "en": "You start noticing the proportions of rooms, chairs and windows."}
+      "logica": {"nl": "Perspectief is een stelsel van regels dat diepte geloofwaardig maakt.", "en": "Perspective is a system of rules that makes depth believable."}
     },
     "status": "Concept",
-    "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa": {"round": 3, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wonen en interieur."]
   }
 ]

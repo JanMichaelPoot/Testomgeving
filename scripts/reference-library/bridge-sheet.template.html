@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bruggen beoordelen</title>
+<style>
+:root{--bg:#f7f5f0;--card:#fffdfa;--ink:#202020;--muted:#6b665e;--line:#ded8ce;--accent:#5b3f2f;--ok:#2f6b3f;--warn:#9a6a12;--bad:#a23b2a;--sel:#f2ece1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1a17;--card:#26231f;--ink:#efe9de;--muted:#a49d90;--line:#3d3830;--accent:#d2b77a;--ok:#7fc08f;--warn:#e0b45a;--bad:#e58a77;--sel:#332e27;color-scheme:dark}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px 100px}
+h1{font-size:1.4rem}
+.intro,.c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:12px 0}
+.c.done{border-color:var(--ok)}
+.act{font-weight:600}
+.arrow{color:var(--muted);margin:0 6px}
+.as{font-weight:600;color:var(--accent)}
+.muted{color:var(--muted);font-size:.9rem}
+.why{margin:.5em 0;padding:8px 12px;background:var(--sel);border-radius:10px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px 16px;min-height:44px}
+button[aria-pressed=true]{background:var(--sel);border-width:2px;font-weight:600}
+button.ok[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
+button.mid[aria-pressed=true]{border-color:var(--warn);color:var(--warn)}
+button.bad[aria-pressed=true]{border-color:var(--bad);color:var(--bad)}
+button.primary{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600}
+.bar{position:sticky;top:0;background:var(--bg);padding:10px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.prog{flex:1;min-width:140px;height:8px;background:var(--line);border-radius:9px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--accent);width:0}
+textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px;min-height:44px;margin-top:8px}
+.out{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);padding:16px;overflow:auto}
+.out.on{display:block}
+.out>div{max-width:760px;margin:0 auto;background:var(--card);border-radius:16px;padding:16px}
+.out textarea{min-height:50vh;font-family:ui-monospace,Consolas,monospace;font-size:.82rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Bruggen beoordelen</h1>
+<div class="intro">
+<p><b>Wat is een brug?</b> Een onverwachte route van een activiteit naar een ander thema, met een reden. Een goede brug laat iemand die de activiteit leuk vindt echt iets nieuws ontdekken. Een zwakke brug is een bijkomstigheid of klinkt geforceerd.</p>
+<p>Kies per brug: <b>zinvol</b>, <b>zwak</b> of <b>onzin</b>. Ongeveer 15 minuten. Je antwoorden worden in je browser bewaard.</p>
+</div>
+<div class="bar"><div class="prog"><i id="pb"></i></div><span id="pt"></span><button class="primary" id="exp">Klaar: kopieer resultaat</button></div>
+<div id="list"></div>
+</div>
+<div class="out" id="out"><div><h2>Kopieer dit en plak het in het gesprek</h2><textarea id="outta" readonly></textarea><p><button class="primary" id="cp">Kopieer</button> <button id="close">Sluiten</button> <span id="cpm"></span></p></div></div>
+<script>
+const DATA=/*DATA*/[];
+const KEY="reflib-bruggen-{{ROUND}}";
+let S={};
+try{S=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){S={}}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+function el(t,a,...k){const e=document.createElement(t);for(const[x,y]of Object.entries(a||{})){if(x==="class")e.className=y;else if(x.startsWith("on"))e.addEventListener(x.slice(2),y);else e.setAttribute(x,y)}for(const c of k)e.append(c);return e}
+function slot(d){return S[d.id+d.slug]=S[d.id+d.slug]||{}}
+function render(){
+  const l=document.getElementById("list");
+  l.replaceChildren(...DATA.map((d,i)=>{
+    const r=S[d.id+d.slug]||{};
+    const c=el("div",{class:"c"+(r.v?" done":"")});
+    c.append(el("div",{},el("span",{class:"act"},(i+1)+". "+d.act),el("span",{class:"arrow"},"→"),el("span",{class:"as"},d.assoc)),el("div",{class:"muted"},d.desc),el("div",{class:"why"},d.why));
+    const sg=el("div",{class:"seg"});
+    [["ok","Zinvol"],["mid","Zwak"],["bad","Onzin"]].forEach(([v,t])=>sg.append(el("button",{class:v,"aria-pressed":String(r.v===v),onclick:()=>{const q=slot(d);q.v=q.v===v?"":v;save();const y=scrollY;render();scrollTo(0,y)}},t)));
+    c.append(sg);
+    const ta=el("textarea",{placeholder:"Opmerking (optioneel)"});
+    ta.value=r.n||"";
+    ta.addEventListener("input",()=>{slot(d).n=ta.value;save()});
+    c.append(ta);
+    return c;
+  }));
+  const n=DATA.filter(d=>(S[d.id+d.slug]||{}).v).length;
+  document.getElementById("pt").textContent=n+" van "+DATA.length;
+  document.getElementById("pb").style.width=(100*n/DATA.length)+"%";
+}
+function result(){
+  const c={ok:0,mid:0,bad:0};const L=[];
+  DATA.forEach(d=>{const r=S[d.id+d.slug]||{};if(r.v)c[r.v]++;
+    if((r.v&&r.v!=="ok")||r.n)L.push(d.id+" "+d.act+" -> "+d.assoc+": "+({mid:"zwak",bad:"onzin",ok:"zinvol"}[r.v]||"niet beoordeeld")+(r.n?" ("+r.n+")":""))});
+  return ["BRUGGEN, RONDE {{ROUND}}","Zinvol "+c.ok+", zwak "+c.mid+", onzin "+c.bad+" van "+DATA.length,"",...L].join("\n");
+}
+document.getElementById("exp").onclick=()=>{document.getElementById("outta").value=result();document.getElementById("out").classList.add("on")};
+document.getElementById("close").onclick=()=>document.getElementById("out").classList.remove("on");
+document.getElementById("cp").onclick=async()=>{const t=document.getElementById("outta");try{await navigator.clipboard.writeText(t.value);document.getElementById("cpm").textContent="Gekopieerd."}catch(e){t.select();document.getElementById("cpm").textContent="Selecteer en kopieer met Ctrl+C."}};
+render();
+</script>
+</body>
+</html>
