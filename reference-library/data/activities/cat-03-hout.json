@@ -1,0 +1,643 @@
+[
+  {
+    "id": "RA-013",
+    "slug": "poppenhuis",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Poppenhuizen bouwen en inrichten",
+    "en": "Building and furnishing dollhouses",
+    "sub": {"nl": "Miniatuurbouw", "en": "Miniature building"},
+    "desc": {"nl": "Een poppenhuis bouwen of verbouwen en inrichten met miniatuurmeubels en -details.", "en": "Building or renovating a dollhouse and furnishing it with miniature furniture and details."},
+    "match": "exact",
+    "legacy_id": "poppenhuis",
+    "v0_id": "ACT-001",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["hout:4:M", "textiel:3:M", "bouwen:5:D", "ontwerpen:5:D", "thuis:3:D", "precisie:4:V", "motoriek:4:V", "creativiteit:4:V", "ruimtelijk:4:V", "geduld:4:V", "architectuur:4:T", "verhalen:4:T", "nostalgie:5:E", "detail:5:E", "fantasie:4:E", "geschiedenis:3:O", "generaties:3:O", "miniatuur:5:E"],
+    "why": {
+      "geschiedenis": {"nl": "Poppenhuizen uit een bepaalde tijd spiegelen echte interieurs, dus je leert hoe mensen in een eeuw woonden.", "en": "Period dollhouses mirror real interiors, so you learn how people lived in a given century."},
+      "generaties": {"nl": "Poppenhuizen worden doorgegeven en gedeeld, wat het ambacht verbindt met kinderen en grootouders.", "en": "Dollhouses are inherited and shared, which ties the craft to children and grandparents."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-014",
+    "slug": "houtsnijden",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Houtsnijden",
+    "en": "Wood carving",
+    "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
+    "desc": {"nl": "Met een mes of beitel hout vormen, bijvoorbeeld een lepel, kom of figuur.", "en": "Shaping wood with a knife or chisel, for example a spoon, bowl or figure."},
+    "match": "exact",
+    "legacy_id": "houtsnijden",
+    "v0_id": "ACT-002",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["hout:5:M", "ontwerpen:3:D", "bos:3:D", "vakmanschap:4:V", "motoriek:4:V", "geduld:4:V", "precisie:3:V", "ruimtelijk:4:V", "natuur:3:T", "duurzaamheid:3:T", "geur:5:E", "tast:5:E", "rust:4:E", "imperfectie:4:E", "trots:4:E", "opgaan:4:E", "geschiedenis:3:O", "zelfstandig:3:O", "ambacht:5:T"],
+    "why": {
+      "geschiedenis": {"nl": "Met de hand snijden is een van de oudste ambachten en verbindt je met hoe dagelijks gereedschap werd gemaakt.", "en": "Carving by hand is one of the oldest crafts and connects you to how everyday tools were made."},
+      "zelfstandig": {"nl": "Eigen gereedschap en gebruiksvoorwerpen maken maakt je minder afhankelijk van winkels en meer van je handen.", "en": "Making your own tools and utensils makes you rely less on shops and more on your hands."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-015",
+    "slug": "restaureren",
+    "category": "CAT-03",
+    "types": ["MAK", "LER"],
+    "nl": "Meubels restaureren",
+    "en": "Restoring furniture",
+    "sub": {"nl": "Meubelrestauratie", "en": "Furniture restoration"},
+    "desc": {"nl": "Oude meubels herstellen: schoonmaken, repareren, afwerken en behouden wat de moeite waard is.", "en": "Restoring old furniture: cleaning, repairing, finishing and keeping what is worth keeping."},
+    "match": "exact",
+    "legacy_id": "restaureren",
+    "v0_id": "ACT-003",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["hout:5:M", "verf:3:M", "restaureren:5:D", "repareren:4:D", "atelier:4:D", "vakmanschap:5:V", "geduld:4:V", "precisie:4:V", "motoriek:3:V", "geschiedenis:4:T", "duurzaamheid:5:T", "nostalgie:5:E", "detail:4:E", "trots:4:E", "imperfectie:3:E", "geur:3:E", "tast:3:E", "onderzoeken:3:O", "verhalen:3:O", "ambacht:5:T"],
+    "why": {
+      "onderzoeken": {"nl": "Uitzoeken hoe een stuk is gebouwd en afgewerkt is speurwerk door lagen verf en reparaties heen.", "en": "Finding out how a piece was built and finished is detective work through layers of paint and repairs."},
+      "verhalen": {"nl": "Elke kras en reparatie legt vast hoe mensen het meubel gebruikten, dus het voorwerp draagt zijn eigen verhaal.", "en": "Every scratch and repair records how people used the piece, so the object carries its own story."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-016",
+    "slug": "modelvliegtuigen-bouwen",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Modelvliegtuigen bouwen",
+    "en": "Building model aircraft",
+    "sub": {"nl": "Modelbouw", "en": "Model building"},
+    "desc": {"nl": "Schaalmodellen van vliegtuigen bouwen van balsahout, plastic of bouwpakket, om te vliegen of te tonen.", "en": "Building scale model aircraft from balsa, plastic or a kit, to fly or display."},
+    "match": "close",
+    "legacy_id": "modelbouw",
+    "v0_id": "ACT-004",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "online"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["hout:3:M", "bouwen:5:D", "ontwerpen:3:D", "verzamelen:3:D", "lucht:4:D", "precisie:5:V", "motoriek:5:V", "ruimtelijk:4:V", "geduld:4:V", "logica:3:V", "technologie:4:T", "geschiedenis:3:T", "detail:5:E", "trots:4:E", "opgaan:4:E", "nostalgie:3:E", "avontuur:3:O", "vrijheid:3:O", "mobiliteit:5:T", "miniatuur:4:E"],
+    "why": {
+      "avontuur": {"nl": "Een model laten vliegen brengt de onvoorspelbaarheid van wind en lift, een veilige vorm van avontuur.", "en": "Flying a model brings the unpredictability of wind and lift, a safe form of adventure."},
+      "vrijheid": {"nl": "Je eigen bouwwerk de lucht in zien gaan geeft een klein stukje vrijheid.", "en": "Seeing your own build take to the air gives a small taste of freedom."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-017",
+    "slug": "diorama",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Miniatuurlandschappen maken",
+    "en": "Making miniature landscapes",
+    "sub": {"nl": "Dioramabouw", "en": "Diorama building"},
+    "desc": {"nl": "Een klein landschap of tafereel bouwen met modelmateriaal, verf en natuurlijk materiaal.", "en": "Building a small landscape or scene from model materials, paint and natural material."},
+    "match": "exact",
+    "legacy_id": "diorama",
+    "v0_id": "ACT-005",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["verf:4:M", "papier:3:M", "planten:3:M", "bouwen:5:D", "ontwerpen:4:D", "creativiteit:4:V", "precisie:4:V", "ruimtelijk:5:V", "motoriek:4:V", "geduld:3:V", "natuur:4:T", "verhalen:5:T", "architectuur:3:T", "detail:5:E", "fantasie:4:E", "opgaan:4:E", "geschiedenis:3:O", "licht:3:O", "miniatuur:5:E"],
+    "why": {
+      "geschiedenis": {"nl": "Historische diorama's bevriezen één moment uit het verleden zodat je het van dichtbij bestudeert.", "en": "Historical dioramas freeze one moment from the past so you study it up close."},
+      "licht": {"nl": "Een klein tafereel belichten laat zien hoe licht sfeer maakt, zoals in film.", "en": "Lighting a tiny scene shows how light makes mood, as in film."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-155",
+    "slug": "houtdraaien",
+    "category": "CAT-03",
+    "types": ["MAK", "LER"],
+    "nl": "Houtdraaien op een draaibank",
+    "en": "Woodturning on a lathe",
+    "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
+    "desc": {"nl": "Hout op een draaibank vormen tot kommen, pennen en spijlen.", "en": "Shaping wood on a lathe into bowls, pens and spindles."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 2, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "atelier:5:D", "ontwerpen:3:D", "bouwen:3:D", "vakmanschap:4:V", "precisie:4:V", "motoriek:4:V", "ruimtelijk:4:V", "concentratie:4:V", "geduld:3:V", "natuur:3:T", "geur:5:E", "tast:5:E", "opgaan:4:E", "trots:4:E", "schoonheid:3:E", "wetenschap:3:O", "duurzaamheid:3:O", "ambacht:5:T"],
+    "why": {
+      "wetenschap": {"nl": "Snelheid, hoek en nerf bepalen of een snede schoon is, dus natuurkunde stuurt het gereedschap.", "en": "Speed, angle and grain decide whether a cut is clean, so physics guides the tool."},
+      "duurzaamheid": {"nl": "Lokaal gevallen hout en afsnijdsels worden kommen, waardoor hout een tweede leven krijgt.", "en": "Local fallen timber and offcuts become bowls, giving wood a second life."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-156",
+    "slug": "houtinleg-marqueterie",
+    "category": "CAT-03",
+    "types": ["MAK", "LER"],
+    "nl": "Marqueterie en houtinleg",
+    "en": "Marquetry and wood inlay",
+    "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
+    "desc": {"nl": "Plaatjes hout in verschillende kleuren tot een afbeelding of patroon inleggen.", "en": "Inlaying pieces of wood in different colours into a picture or pattern."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "ontwerpen:4:D", "atelier:3:D", "precisie:5:V", "vakmanschap:4:V", "motoriek:4:V", "geduld:5:V", "concentratie:4:V", "creativiteit:3:V", "kunst:4:T", "geschiedenis:3:T", "detail:5:E", "ornament:4:E", "schoonheid:4:E", "tast:3:E", "trots:4:E", "puzzelen:3:O", "natuur:3:O", "ambacht:5:T"],
+    "why": {
+      "puzzelen": {"nl": "Kleine stukjes zo snijden en passen dat de naden verdwijnen is een legpuzzel die je zelf maakt.", "en": "Cutting and fitting small pieces so seams disappear is a jigsaw you make yourself."},
+      "natuur": {"nl": "Elke houtsoort heeft eigen kleur en nerf, dus je leert bomen kennen aan hun fineer.", "en": "Every wood species has its own colour and grain, so you learn trees by their veneer."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-157",
+    "slug": "houten-speelgoed-maken",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Houten speelgoed maken",
+    "en": "Making wooden toys",
+    "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
+    "desc": {"nl": "Speelgoed van hout maken, zoals autootjes, poppenmeubels, puzzels en dieren.", "en": "Making wooden toys such as little cars, doll furniture, puzzles and animals."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:4:D", "ontwerpen:4:D", "thuis:3:D", "motoriek:3:V", "creativiteit:4:V", "precisie:3:V", "geduld:3:V", "duurzaamheid:3:T", "speelsheid:5:E", "trots:4:E", "generaties:4:E", "nostalgie:4:E", "tast:4:E", "verhalen:3:O", "wetenschap:3:O"],
+    "why": {
+      "verhalen": {"nl": "Speelgoed is een rekwisiet voor de verhalen van een kind, dus je maakt de wereld van een personage.", "en": "A toy is a prop for a child's stories, so you make a character's world."},
+      "wetenschap": {"nl": "Balans, wielen en hefbomen maken van speelgoed maken een beetje mechanica.", "en": "Balance, wheels and levers turn toy-making into basic mechanics."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-179",
+    "slug": "houtbewerking",
+    "category": "CAT-03",
+    "types": ["MAK", "LER"],
+    "nl": "Houtbewerking",
+    "en": "Woodworking",
+    "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
+    "desc": {"nl": "Houtbewerking: meubels en voorwerpen maken met zaag, beitel en schaaf.", "en": "Woodworking: making furniture and objects with saw, chisel and plane."},
+    "match": "exact",
+    "legacy_id": "houtbewerking",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "atelier:5:D", "vakmanschap:5:V", "precisie:4:V", "ruimtelijk:4:V", "motoriek:3:V", "geduld:3:V", "creativiteit:3:V", "duurzaamheid:3:T", "geur:4:E", "tast:4:E", "trots:4:E", "opgaan:4:E", "architectuur:3:O", "natuur:3:O", "ambacht:5:T"],
+    "why": {
+      "architectuur": {"nl": "Verbindingen en frames volgen de logica van gebouwen.", "en": "Joints and frames follow the logic of buildings."},
+      "natuur": {"nl": "Hout kennen is bomen, seizoenen en de beweging van de nerf kennen.", "en": "Knowing wood means knowing trees, seasons and how grain moves."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-180",
+    "slug": "figuurzagen",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Figuurzagen",
+    "en": "Scroll-saw fretwork",
+    "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
+    "desc": {"nl": "Figuurzagen: ingewikkelde vormen uit dun hout zagen.", "en": "Scroll sawing: cutting intricate shapes from thin wood."},
+    "match": "exact",
+    "legacy_id": "figuurzagen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group", "with_known"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["hout:5:M", "ontwerpen:4:D", "bouwen:3:D", "thuis:3:D", "precisie:5:V", "motoriek:4:V", "concentratie:4:V", "geduld:4:V", "ruimtelijk:3:V", "ornament:5:E", "detail:5:E", "trots:4:E", "opgaan:4:E", "nostalgie:3:E", "puzzelen:3:O", "kunst:3:O"],
+    "why": {
+      "puzzelen": {"nl": "Een puzzel of zaagwerk snijden maakt van een tekening een fysieke legpuzzel.", "en": "Cutting a puzzle or fretwork pattern turns a drawing into a physical jigsaw."},
+      "kunst": {"nl": "Figuurzaagwerk raakt aan sierkunst, volkskunst en uithangborden.", "en": "Fretwork links to decorative arts, folk art and signs."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-181",
+    "slug": "wilgenvlechten",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Wilgentenen vlechten",
+    "en": "Willow weaving",
+    "sub": {"nl": "Vlechtwerk", "en": "Basketry"},
+    "desc": {"nl": "Wilgentenen vlechten tot manden, schermen of sculpturen.", "en": "Weaving willow rods into baskets, screens or sculptures."},
+    "match": "exact",
+    "legacy_id": "wilgenvlechten",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["planten:5:M", "hout:2:M", "bouwen:4:D", "ontwerpen:3:D", "bos:3:D", "motoriek:4:V", "geduld:3:V", "ruimtelijk:3:V", "vakmanschap:3:V", "natuur:4:T", "duurzaamheid:4:T", "tast:4:E", "geur:3:E", "rauw:3:E", "rust:3:E", "geschiedenis:3:O", "dieren:3:O", "ambacht:5:T"],
+    "why": {
+      "geschiedenis": {"nl": "Mandenvlechten is een van de oudste ambachten en gaat in veel culturen aan aardewerk vooraf.", "en": "Basketry is one of the oldest crafts and predates pottery in many cultures."},
+      "dieren": {"nl": "Wilgenschermen en -koepels geven tuinen en dieren beschutting.", "en": "Willow fences and domes make shelter for gardens and wildlife."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-358",
+    "slug": "droge-stenen-muur",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Een droge stenen muur bouwen",
+    "en": "Building a dry-stone wall",
+    "sub": {"nl": "Bouwen met steen", "en": "Building with stone"},
+    "desc": {"nl": "Een droge stenen muur opbouwen zonder cement.", "en": "Building a dry-stone wall without cement."},
+    "match": "exact",
+    "legacy_id": "droge-stenen-muur",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 1, "source": "app"},
+    "links": ["steen:5:M", "bouwen:5:D", "weer:2:T", "beweging:3:E", "ruimtelijk:4:V", "vakmanschap:4:V", "geduld:3:V", "puzzelen:4:E", "rauw:4:E", "tast:3:E", "rust:3:E", "samenwerking:2:E", "natuur:3:T", "duurzaamheid:4:T", "tradities:3:T", "architectuur:3:O", "dieren:3:O", "ambacht:5:T"],
+    "why": {
+      "architectuur": {"nl": "Een muur staat door zwaartekracht, wrijving en vorm alleen, een les in constructie.", "en": "A wall stands by gravity, friction and shape alone, a lesson in structure."},
+      "dieren": {"nl": "Droge muren worden leefgebied voor hagedissen, insecten en planten.", "en": "Dry walls become habitats for lizards, insects and plants."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-389",
+    "slug": "houthakken",
+    "category": "CAT-03",
+    "types": ["EXP"],
+    "nl": "Hout hakken en stoken",
+    "en": "Splitting wood and tending a stove",
+    "sub": {"nl": "Hout en vuur", "en": "Wood and fire"},
+    "desc": {"nl": "Hout hakken en stoken: kloven, stapelen en een vuur maken.", "en": "Chopping and burning wood: splitting, stacking and making a fire."},
+    "match": "exact",
+    "legacy_id": "houthakken",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 1, "source": "app"},
+    "links": ["hout:5:M", "bos:3:D", "bouwen:2:D", "beweging:4:E", "rauw:5:E", "warmte:5:E", "geur:4:E", "vakmanschap:2:V", "precisie:2:V", "natuur:3:T", "duurzaamheid:3:T", "zelfstandig:3:E", "ritme:3:O", "tradities:3:O", "conditie:3:V"],
+    "why": {
+      "ritme": {"nl": "Hakken, stapelen en laden vallen in een rustige herhalende slag.", "en": "Chopping, stacking and loading fall into a calm repeating beat."},
+      "tradities": {"nl": "Een houtstapel is een oud boerengebruik dat de seizoenen vooruitplant.", "en": "A woodpile is an old farm custom that plans ahead for the seasons."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-390",
+    "slug": "kano-uithollen",
+    "category": "CAT-03",
+    "types": ["MAK", "LER"],
+    "nl": "Een kano of boot bouwen",
+    "en": "Building a canoe or boat",
+    "sub": {"nl": "Bootbouw", "en": "Boat building"},
+    "desc": {"nl": "Een kano of boot bouwen van hout, met gereedschap, planning en veel geduld.", "en": "Building a canoe or boat from wood, with tools, planning and plenty of patience."},
+    "match": "exact",
+    "legacy_id": "kano-uithollen",
+    "facets": {"setting": "both", "social_formats": ["duo", "large_group", "with_known"], "level": 1, "duration": 4, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "atelier:4:D", "water:3:D", "vakmanschap:4:V", "ruimtelijk:4:V", "precisie:3:V", "zeevaart:4:T", "technologie:2:T", "trots:4:E", "tast:3:E", "geur:3:E", "samenwerking:2:E", "wetenschap:3:O", "tradities:3:O", "mobiliteit:3:T"],
+    "why": {
+      "wetenschap": {"nl": "Drijfvermogen, stabiliteit en vorm bepalen of een romp vaart, praktische natuurkunde.", "en": "Buoyancy, stability and shape decide whether a hull sails, practical physics."},
+      "tradities": {"nl": "Houten bootbouw draagt eeuwenoude regionale vormen van hout en techniek.", "en": "Wooden boat building carries centuries-old regional forms of wood and technique."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-391",
+    "slug": "kettingzaagcursus",
+    "category": "CAT-03",
+    "types": ["LER"],
+    "nl": "Kettingzaagcursus voor beginners",
+    "en": "Chainsaw course for beginners",
+    "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
+    "desc": {"nl": "Een kettingzaagcursus voor beginners, met veiligheid, onderhoud en zagen.", "en": "A chainsaw course for beginners, with safety, maintenance and cutting."},
+    "match": "exact",
+    "legacy_id": "kettingzaagcursus",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["hout:4:M", "bos:3:D", "bouwen:2:D", "vakmanschap:3:V", "precisie:3:V", "concentratie:5:V", "natuur:3:T", "duurzaamheid:3:T", "rauw:4:E", "spanning:3:E", "zelfstandig:3:E", "zorg:3:E", "geur:3:E", "technologie:3:O", "wetenschap:3:O", "leren:4:E"],
+    "why": {
+      "technologie": {"nl": "Een kettingzaag is een precieze machine van ketting, geleider en motor die je leert lezen.", "en": "A chainsaw is a precise machine of chain, bar and engine that you learn to read."},
+      "wetenschap": {"nl": "Spanning in het hout bepaalt hoe het valt of klemt, mechanica in hout.", "en": "Tension in the wood decides how it falls or pinches, mechanics in timber."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-392",
+    "slug": "knotten-heggenvlechten",
+    "category": "CAT-03",
+    "types": ["EXP", "MAK"],
+    "nl": "Knotwilgen knotten en heggen vlechten met een natuurorganisatie",
+    "en": "Pollarding willows and laying hedges with a nature organisation",
+    "sub": {"nl": "Landschapsambacht", "en": "Landscape craft"},
+    "desc": {"nl": "Knotwilgen knotten en heggen vlechten met een natuurorganisatie.", "en": "Pollarding willows and laying hedges with a nature organisation."},
+    "match": "exact",
+    "legacy_id": "knotten-heggenvlechten",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 1, "source": "app"},
+    "links": ["hout:3:M", "planten:4:M", "bos:3:D", "vakmanschap:3:V", "precisie:2:V", "natuur:5:T", "duurzaamheid:5:T", "dieren:3:T", "tradities:4:T", "beweging:3:E", "zorg:3:E", "gemeenschap:3:E", "samenwerking:3:E", "rauw:3:E", "architectuur:3:O", "weer:3:O"],
+    "why": {
+      "architectuur": {"nl": "Een gevlochten heg is een levende muur die afbakent, beschut en leeft.", "en": "A laid hedge is a living wall that marks boundaries, shelters and lives."},
+      "weer": {"nl": "Knotten volgt het seizoen: het hout ligt in de winter stil.", "en": "Pollarding follows the season: the wood rests in winter."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-393",
+    "slug": "modeltreinen",
+    "category": "CAT-03",
+    "types": ["MAK", "EXP"],
+    "nl": "Modeltreinen",
+    "en": "Model railways",
+    "sub": {"nl": "Modelbouw", "en": "Model building"},
+    "desc": {"nl": "Modeltreinen bouwen, schalen en laten rijden op een baan.", "en": "Building, scaling and running model trains on a layout."},
+    "match": "exact",
+    "legacy_id": "modeltreinen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["hout:3:M", "bouwen:5:D", "ontwerpen:4:D", "verzamelen:4:D", "thuis:3:D", "precisie:4:V", "ruimtelijk:4:V", "motoriek:4:V", "technologie:4:T", "geschiedenis:3:T", "detail:5:E", "nostalgie:4:E", "fantasie:3:E", "opgaan:4:E", "gezelligheid:2:E", "ritme:2:E", "verhalen:3:O", "architectuur:3:O", "mobiliteit:4:T", "miniatuur:5:E"],
+    "why": {
+      "verhalen": {"nl": "Een modelbaan is een wereld met haltes, seizoenen en een dienstregeling.", "en": "A model layout is a world with stations, seasons and a timetable."},
+      "architectuur": {"nl": "Stations, bruggen en dorpen op schaal leren je kijken naar bouwstijlen.", "en": "Stations, bridges and villages to scale teach you to look at building styles."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-394",
+    "slug": "rc-modellen",
+    "category": "CAT-03",
+    "types": ["MAK", "EXP"],
+    "nl": "RC-modellen (auto, boot, vliegtuig)",
+    "en": "RC models",
+    "sub": {"nl": "Modelbouw", "en": "Model building"},
+    "desc": {"nl": "RC-modellen bouwen en besturen: auto, boot of vliegtuig.", "en": "Building and driving RC models: car, boat or plane."},
+    "match": "exact",
+    "legacy_id": "rc-modellen",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["bouwen:4:D", "repareren:3:D", "lucht:3:D", "water:3:D", "motoriek:4:V", "precisie:3:V", "ruimtelijk:3:V", "technologie:5:T", "beweging:3:E", "speelsheid:4:E", "spanning:3:E", "competitie:3:E", "gemeenschap:3:E", "weer:3:O", "wetenschap:3:O", "mobiliteit:4:T", "snelheid:4:E", "miniatuur:3:E"],
+    "why": {
+      "weer": {"nl": "Wind en regen bepalen of je kunt vliegen of varen, dus je leert het weer lezen.", "en": "Wind and rain decide whether you can fly or sail, so you learn to read the weather."},
+      "wetenschap": {"nl": "Gewicht, krachten en balans zijn natuurkunde die je ziet bij elke landing.", "en": "Weight, forces and balance are physics you see at every landing."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-395",
+    "slug": "meubel-bouwen",
+    "category": "CAT-03",
+    "types": ["MAK", "LER"],
+    "nl": "Een meubel ontwerpen en bouwen",
+    "en": "Designing and building a piece of furniture",
+    "sub": {"nl": "Meubelmaken", "en": "Furniture making"},
+    "desc": {"nl": "Een tafel, kast of bank ontwerpen en bouwen van massief hout of plaat.", "en": "Designing and building a table, cabinet or bench from solid wood or board."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 3, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:5:D", "atelier:5:D", "vakmanschap:5:V", "precisie:4:V", "ruimtelijk:5:V", "creativiteit:3:V", "wonen:5:T", "architectuur:3:T", "geur:4:E", "tast:3:E", "opgaan:4:E", "trots:4:E", "wetenschap:3:O", "duurzaamheid:3:O", "ambacht:5:T"],
+    "why": {
+      "wetenschap": {"nl": "Houtbeweging bij vocht en droogte bepaalt hoe verbindingen blijven zitten.", "en": "Wood movement with moisture and dryness decides how joints stay put."},
+      "duurzaamheid": {"nl": "Een zelfgebouwd meubel gaat jaren mee en kan hersteld worden.", "en": "A self-built piece lasts for years and can be repaired."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-396",
+    "slug": "stoel-bekleden",
+    "category": "CAT-03",
+    "types": ["MAK", "LER"],
+    "nl": "Een stoel opnieuw bekleden",
+    "en": "Reupholstering a chair",
+    "sub": {"nl": "Stoffeerder", "en": "Upholstery"},
+    "desc": {"nl": "Een oude stoel strippen, opnieuw vullen en bekleden met nieuwe stof.", "en": "Stripping an old chair, refilling it and covering it with new fabric."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["textiel:4:M", "hout:3:M", "restaureren:4:D", "repareren:4:D", "atelier:3:D", "precisie:3:V", "vakmanschap:4:V", "motoriek:3:V", "wonen:5:T", "duurzaamheid:4:T", "mode:2:T", "tast:4:E", "geur:2:E", "imperfectie:3:E", "trots:4:E", "nostalgie:3:E", "tradities:3:O", "architectuur:3:O", "ambacht:5:T"],
+    "why": {
+      "tradities": {"nl": "Stoffeerders gaven eeuwenlang technieken met paardenhaar, veren en jute door.", "en": "Upholsterers handed down techniques with horsehair, springs and jute for centuries."},
+      "architectuur": {"nl": "Een stoel is architectuur op menselijke schaal: steun, hoek en vorm.", "en": "A chair is architecture at human scale: support, angle and shape."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-397",
+    "slug": "zwaluwstaart-kist",
+    "category": "CAT-03",
+    "types": ["MAK", "LER"],
+    "nl": "Een houten kist met zwaluwstaartverbindingen maken",
+    "en": "Making a wooden box with dovetail joints",
+    "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
+    "desc": {"nl": "Een kist of doos bouwen met handgezaagde zwaluwstaartverbindingen.", "en": "Building a chest or box with hand-cut dovetail joints."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:4:D", "ontwerpen:3:D", "atelier:4:D", "precisie:5:V", "vakmanschap:5:V", "ruimtelijk:4:V", "motoriek:4:V", "concentratie:4:V", "detail:5:E", "tast:3:E", "geur:3:E", "opgaan:4:E", "trots:4:E", "puzzelen:3:O", "patronen:3:O", "ambacht:5:T"],
+    "why": {
+      "puzzelen": {"nl": "Elke zwaluwstaart past maar op één manier, dus meten en zagen wordt een legpuzzel.", "en": "Each dovetail only fits one way, so measuring and cutting becomes a jigsaw."},
+      "patronen": {"nl": "De hoek en verhouding van de pennen is een herhalend patroon dat je leert zien.", "en": "The angle and ratio of the pins is a repeating pattern you learn to see."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-398",
+    "slug": "ukelele-bouwen",
+    "category": "CAT-03",
+    "types": ["MAK", "LER"],
+    "nl": "Een ukelele of gitaar bouwen",
+    "en": "Building a ukulele or guitar",
+    "sub": {"nl": "Instrumentenbouw", "en": "Instrument making"},
+    "desc": {"nl": "Een ukelele of eenvoudige gitaar bouwen van hout, met kit of vanaf nul.", "en": "Building a ukulele or simple guitar from wood, from a kit or from scratch."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 3, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:3:D", "atelier:4:D", "precisie:5:V", "vakmanschap:4:V", "motoriek:4:V", "ruimtelijk:3:V", "klank:5:E", "tast:3:E", "geur:3:E", "schoonheid:3:E", "trots:4:E", "opgaan:3:E", "wetenschap:3:O", "tradities:3:O", "muziek:4:T", "ambacht:5:T"],
+    "why": {
+      "wetenschap": {"nl": "Klankkast, dikte en versteviging bepalen hoe hout klinkt, praktische akoestiek.", "en": "Soundbox, thickness and bracing decide how wood sounds, practical acoustics."},
+      "tradities": {"nl": "Luthiers dragen eeuwenoude werkplaatsgebruiken van Cremona tot Hawaï.", "en": "Luthiers carry centuries-old workshop customs from Cremona to Hawaii."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-399",
+    "slug": "boomhut-bouwen",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Een boomhut of speelhut bouwen",
+    "en": "Building a tree house or play hut",
+    "sub": {"nl": "Bouwen", "en": "Building"},
+    "desc": {"nl": "Een boomhut of speelhut ontwerpen en bouwen, voor kinderen of voor jezelf.", "en": "Designing and building a tree house or play hut, for children or for yourself."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["small_group", "with_known"], "level": 2, "duration": 4, "cost": 3, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "bos:3:D", "lucht:3:D", "vakmanschap:3:V", "ruimtelijk:5:V", "precisie:3:V", "natuur:3:T", "architectuur:4:T", "speelsheid:5:E", "fantasie:4:E", "samenwerking:3:E", "trots:4:E", "vrijheid:3:E", "wetenschap:3:O", "zorg:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Een boom draagt gewicht en beweegt in de wind, dus bevestigingen vragen mechanica.", "en": "A tree bears weight and sways in the wind, so fixings call for mechanics."},
+      "zorg": {"nl": "Bouwen in een boom betekent de boom ontzien, dus ontwerp wordt zorg voor een levend wezen.", "en": "Building in a tree means sparing the tree, so design becomes care for a living thing."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-400",
+    "slug": "pallet-meubels",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Meubels maken van pallets en restmateriaal",
+    "en": "Making furniture from pallets and offcuts",
+    "sub": {"nl": "Hergebruik", "en": "Reuse"},
+    "desc": {"nl": "Van pallets en restmateriaal tafels, banken of tuinmeubels bouwen.", "en": "Building tables, benches or garden furniture from pallets and leftover timber."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:4:D", "ontwerpen:3:D", "repareren:2:D", "thuis:3:D", "motoriek:2:V", "creativiteit:4:V", "ruimtelijk:3:V", "duurzaamheid:5:T", "wonen:4:T", "rauw:4:E", "imperfectie:4:E", "zelfstandig:3:E", "speelsheid:2:E", "rechtvaardigheid:3:O", "architectuur:3:O"],
+    "why": {
+      "rechtvaardigheid": {"nl": "Herbruikt hout stelt meubels binnen bereik en vermindert afval.", "en": "Reused timber puts furniture within reach and reduces waste."},
+      "architectuur": {"nl": "Eenvoudige constructie van balken en verbindingen leert hoe gebouwen dragen.", "en": "Simple construction with beams and joints teaches how buildings carry loads."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-401",
+    "slug": "bijenkast-bouwen",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Een bijenkast of insectenhotel bouwen",
+    "en": "Building a beehive or bee hotel",
+    "sub": {"nl": "Bouwen", "en": "Building"},
+    "desc": {"nl": "Een bijenkast of bijenhotel bouwen van hout, met maatvoering voor de bijen.", "en": "Building a beehive or bee hotel from wood, sized to the needs of the bees."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:3:D", "atelier:3:D", "precisie:4:V", "vakmanschap:3:V", "ruimtelijk:3:V", "dieren:4:T", "natuur:4:T", "duurzaamheid:4:T", "zorg:4:E", "geur:3:E", "samenwerking:2:E", "patronen:3:O", "wetenschap:3:O", "ambacht:3:T"],
+    "why": {
+      "patronen": {"nl": "Bijenkasten volgen maten van raten en bijenruimte, een geometrie van het bijenleven.", "en": "Beehives follow dimensions of combs and bee space, a geometry of bee life."},
+      "wetenschap": {"nl": "Isolatie, ventilatie en vocht bepalen of een volk overleeft, ecologie in hout.", "en": "Insulation, ventilation and moisture decide whether a colony survives, ecology in timber."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-402",
+    "slug": "scheepsmodel-bouwen",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Een scheepsmodel bouwen",
+    "en": "Building a ship model",
+    "sub": {"nl": "Modelbouw", "en": "Model building"},
+    "desc": {"nl": "Een scheepsmodel bouwen van hout en kleine onderdelen, van kit tot eigen ontwerp.", "en": "Building a ship model from wood and small parts, from a kit to your own design."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["hout:4:M", "textiel:2:M", "bouwen:5:D", "ontwerpen:3:D", "thuis:3:D", "precisie:5:V", "motoriek:4:V", "ruimtelijk:4:V", "zeevaart:5:T", "geschiedenis:4:T", "technologie:3:T", "detail:5:E", "nostalgie:4:E", "opgaan:4:E", "tradities:3:O", "kunst:3:O", "mobiliteit:3:T", "miniatuur:5:E"],
+    "why": {
+      "tradities": {"nl": "Scheepsmodellen komen van votiefschepen en werfmodellen, een oud maritiem gebruik.", "en": "Ship models descend from votive ships and shipyard models, an old maritime custom."},
+      "kunst": {"nl": "Een gedetailleerd model zit tussen techniek en beeldhouwkunst.", "en": "A detailed model sits between engineering and sculpture."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-403",
+    "slug": "schaakbord-maken",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Een schaakbord of spel van hout maken",
+    "en": "Making a chessboard or board game from wood",
+    "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
+    "desc": {"nl": "Een schaakbord, dambord of eigen bordspel van hout maken en afwerken.", "en": "Making and finishing a chessboard, draughts board or board game of your own from wood."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "ontwerpen:4:D", "bouwen:3:D", "atelier:3:D", "precisie:5:V", "vakmanschap:4:V", "ruimtelijk:3:V", "patronen:5:T", "wonen:3:T", "detail:4:E", "schoonheid:3:E", "tast:3:E", "trots:4:E", "strategie:3:V", "puzzelen:3:O", "gezelligheid:3:O", "spel:4:T"],
+    "why": {
+      "puzzelen": {"nl": "Een spelbord ontwerpen betekent denken over regels, symmetrie en balans.", "en": "Designing a game board means thinking about rules, symmetry and balance."},
+      "gezelligheid": {"nl": "Een zelfgemaakt spel krijgt een plek aan tafel en nodigt anderen uit te spelen.", "en": "A handmade game gets a place at the table and invites others to play."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-404",
+    "slug": "tuinmeubels-maken",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Tuinmeubels en een pergola bouwen",
+    "en": "Building garden furniture and a pergola",
+    "sub": {"nl": "Buitenbouw", "en": "Outdoor building"},
+    "desc": {"nl": "Een bank, tafel of pergola voor de tuin ontwerpen en bouwen van weerbestendig hout.", "en": "Designing and building a bench, table or pergola for the garden from weather-resistant wood."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "vakmanschap:3:V", "precisie:3:V", "ruimtelijk:4:V", "weer:4:T", "duurzaamheid:3:T", "wonen:4:T", "natuur:2:T", "rust:2:E", "trots:4:E", "gezelligheid:3:E", "tast:2:E", "architectuur:3:O", "planten:3:O"],
+    "why": {
+      "architectuur": {"nl": "Een pergola kadert uitzicht en schaduw, ruimte ontwerpen in het klein.", "en": "A pergola frames views and shade, designing space on a small scale."},
+      "planten": {"nl": "Klimplanten over een pergola maken van een constructie een tuinkamer.", "en": "Climbing plants over a pergola turn a structure into a garden room."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Overlaps strongly with 'vlonder-bouwen' (link similarity 0.91); keep both only if they stay distinct for the visitor."]
+  },
+  {
+    "id": "RA-405",
+    "slug": "vlonder-bouwen",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Een vlonder of terras bouwen",
+    "en": "Building a deck or terrace",
+    "sub": {"nl": "Buitenbouw", "en": "Outdoor building"},
+    "desc": {"nl": "Een vlonder of houten terras aanleggen met ondergrond, balken en planken.", "en": "Laying a wooden deck or terrace with foundation, beams and boards."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:3:D", "vakmanschap:3:V", "precisie:4:V", "ruimtelijk:4:V", "logica:3:V", "weer:4:T", "duurzaamheid:3:T", "wonen:3:T", "rauw:2:E", "trots:4:E", "tast:2:E", "gezelligheid:2:E", "architectuur:3:O", "wetenschap:3:O", "ambacht:3:T"],
+    "why": {
+      "architectuur": {"nl": "Een terras is een kamer buiten, met vloer, rand en uitzicht.", "en": "A terrace is a room outdoors, with floor, edge and view."},
+      "wetenschap": {"nl": "Waterafvoer, uitzetten en rot bepalen wat blijft staan, praktische bouwfysica.", "en": "Drainage, expansion and rot decide what stays standing, practical building physics."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Overlaps strongly with 'tuinmeubels-maken' (link similarity 0.91); keep both only if they stay distinct for the visitor."]
+  },
+  {
+    "id": "RA-406",
+    "slug": "houten-klok-bouwen",
+    "category": "CAT-03",
+    "types": ["MAK", "LER"],
+    "nl": "Een houten klok of mechanisch speelgoed bouwen",
+    "en": "Building a wooden clock or mechanical toy",
+    "sub": {"nl": "Mechaniek", "en": "Mechanics"},
+    "desc": {"nl": "Een houten klok, automaat of mechanisch speelgoed bouwen met tandwielen en veren.", "en": "Building a wooden clock, automaton or mechanical toy with gears and springs."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "atelier:3:D", "precisie:5:V", "logica:4:V", "ruimtelijk:4:V", "motoriek:4:V", "technologie:4:T", "patronen:3:T", "detail:4:E", "puzzelen:4:E", "opgaan:4:E", "fantasie:3:O", "geschiedenis:3:O", "ambacht:5:T"],
+    "why": {
+      "fantasie": {"nl": "Een automaat laat figuren bewegen en haalt verbeelding in hout tot leven.", "en": "An automaton makes figures move and brings imagination to life in wood."},
+      "geschiedenis": {"nl": "Uurwerken en automaten begonnen als hoogstandjes van middeleeuwse en barokke ambachtslieden.", "en": "Clocks and automata began as feats of medieval and baroque craftsmen."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-407",
+    "slug": "keukenplank-maken",
+    "category": "CAT-03",
+    "types": ["MAK"],
+    "nl": "Een snij- of serveerplank maken",
+    "en": "Making a chopping or serving board",
+    "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
+    "desc": {"nl": "Een snij- of serveerplank maken van lokaal hout, met lijmen, schaven en oliën.", "en": "Making a chopping or serving board from local wood, with gluing, planing and oiling."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["hout:5:M", "ontwerpen:3:D", "bouwen:3:D", "keuken:3:D", "atelier:3:D", "precisie:3:V", "vakmanschap:3:V", "motoriek:3:V", "duurzaamheid:3:T", "voeding:3:T", "tast:5:E", "geur:3:E", "schoonheid:3:E", "trots:4:E", "imperfectie:3:E", "wonen:3:O", "natuur:3:O"],
+    "why": {
+      "wonen": {"nl": "Een plank die je zelf maakte krijgt een vaste plek in je keuken en op tafel.", "en": "A board you made yourself gets a permanent place in your kitchen and on your table."},
+      "natuur": {"nl": "De nerf en het hout laten zien welke boom het was, een stuk bos in je keuken.", "en": "The grain and wood show which tree it was, a piece of woodland in your kitchen."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  }
+]

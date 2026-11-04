@@ -1,0 +1,605 @@
+[
+  {
+    "id": "RA-055",
+    "slug": "robotica",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Een eenvoudige robot bouwen en programmeren",
+    "en": "Building and programming a simple robot",
+    "sub": {"nl": "Robotica", "en": "Robotics"},
+    "desc": {"nl": "Een kleine robot bouwen met motoren en sensoren en laten bewegen met code.", "en": "Building a small robot with motors and sensors and making it move with code."},
+    "match": "exact",
+    "legacy_id": "robotica",
+    "v0_id": "ACT-049",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["bouwen:5:D", "technologie:5:T", "logica:5:V", "precisie:3:V", "creativiteit:3:V", "ruimtelijk:3:V", "puzzelen:5:E", "experimenteren:4:E", "doorzetten:4:E", "trots:4:E", "samenwerking:3:E", "wetenschap:4:T", "thuis:3:D", "onderzoeken:3:D", "dieren:3:O", "kunst:3:O"],
+    "why": {
+      "dieren": {"nl": "Veel robots kopiëren dierlijke bewegingen, dus bouwen betekent bestuderen hoe wezens lopen en vliegen.", "en": "Many robots copy animal movement, so building one means studying how creatures walk and fly."},
+      "kunst": {"nl": "Robots worden gebruikt in kunstinstallaties en voorstellingen, waardoor techniek expressie wordt.", "en": "Robots are used in art installations and performances, which turns engineering into expression."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-103",
+    "slug": "elektronica",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Elektronica knutselen (Arduino, solderen)",
+    "en": "Electronics tinkering",
+    "sub": {"nl": "Elektronica", "en": "Electronics"},
+    "desc": {"nl": "Schakelingen bouwen met onderdelen, solderen en een Arduino laten doen wat jij bedenkt.", "en": "Building circuits from components, soldering and making an Arduino do what you imagine."},
+    "match": "exact",
+    "legacy_id": "elektronica",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["metaal:3:M", "bouwen:5:D", "ontwerpen:4:D", "repareren:3:D", "thuis:3:D", "logica:5:V", "precisie:4:V", "motoriek:3:V", "creativiteit:3:V", "geduld:3:V", "technologie:5:T", "wetenschap:4:T", "puzzelen:5:E", "experimenteren:4:E", "trots:4:E", "doorzetten:3:E", "licht:3:O", "kunst:3:O"],
+    "why": {
+      "licht": {"nl": "Leds en sensoren maken van licht en beweging iets wat je zelf bouwt en bestuurt.", "en": "LEDs and sensors make light and movement something you build and control yourself."},
+      "kunst": {"nl": "Interactieve installaties en draagbare elektronica laten elektronica als kunstmateriaal zien.", "en": "Interactive installations and wearables show electronics as an art material."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-104",
+    "slug": "ontwerp-print",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "3D-ontwerp en 3D-printen",
+    "en": "3D design and printing",
+    "sub": {"nl": "3D-ontwerp", "en": "3D design"},
+    "desc": {"nl": "Een voorwerp ontwerpen in software en printen met een 3D-printer.", "en": "Designing an object in software and printing it with a 3D printer."},
+    "match": "exact",
+    "legacy_id": "ontwerp-print",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "online"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:5:D", "bouwen:3:D", "repareren:3:D", "thuis:3:D", "ruimtelijk:5:V", "precisie:4:V", "creativiteit:4:V", "logica:3:V", "geduld:2:V", "technologie:5:T", "duurzaamheid:3:T", "puzzelen:4:E", "experimenteren:4:E", "trots:4:E", "architectuur:3:O", "mode:3:O"],
+    "why": {
+      "architectuur": {"nl": "Driedimensionaal ontwerpen is een kleine versie van hoe architecten modelleren.", "en": "Designing in three dimensions is a small version of how architects model."},
+      "mode": {"nl": "Sieraden, schoenen en modestukken worden nu geprint, dus ontwerpers gebruiken het als stof.", "en": "Jewellery, shoes and fashion pieces are now printed, so designers use it as a fabric."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-105",
+    "slug": "coderen",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Creatief coderen",
+    "en": "Creative coding",
+    "sub": {"nl": "Programmeren", "en": "Programming"},
+    "desc": {"nl": "Met code beelden, geluid of spelletjes maken, van tekenende lijnen tot interactieve kunst.", "en": "Using code to make images, sound or games, from drawing lines to interactive art."},
+    "match": "exact",
+    "legacy_id": "coderen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:3:D", "thuis:3:D", "logica:5:V", "creativiteit:4:V", "precisie:3:V", "concentratie:4:V", "technologie:5:T", "kunst:4:T", "puzzelen:5:E", "experimenteren:4:E", "opgaan:4:E", "licht:3:E", "ritme:2:E", "verhalen:3:O", "natuur:3:O", "online:4:D"],
+    "why": {
+      "verhalen": {"nl": "Generatieve kunst en spellen laten code een verhaal vertellen of een wereld bouwen.", "en": "Generative art and games let code tell a story or build a world."},
+      "natuur": {"nl": "Algoritmes kopiëren plantengroei, zwermen en golven, dus je leert natuurpatronen door ze te schrijven.", "en": "Algorithms copy plant growth, flocks and waves, so you learn nature's patterns by writing them."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-106",
+    "slug": "drones",
+    "category": "CAT-15",
+    "types": ["MAK", "EXP"],
+    "nl": "Drones bouwen of vliegen",
+    "en": "Building or flying drones",
+    "sub": {"nl": "Drones", "en": "Drones"},
+    "desc": {"nl": "Een drone bouwen of vliegen: techniek, regels en vliegvaardigheid in de buitenlucht.", "en": "Building or flying a drone: engineering, rules and flying skill outdoors."},
+    "match": "exact",
+    "legacy_id": "drones",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["bouwen:4:D", "lucht:5:D", "navigeren:3:D", "precisie:4:V", "motoriek:4:V", "ruimtelijk:4:V", "concentratie:3:V", "technologie:5:T", "vrijheid:3:E", "avontuur:3:E", "spanning:3:E", "puzzelen:2:E", "competitie:2:E", "kunst:3:O", "natuur:3:O", "mobiliteit:4:T"],
+    "why": {
+      "kunst": {"nl": "Een drone geeft een nieuw gezichtspunt, waardoor luchtfotografie en -film een kunstvorm worden.", "en": "A drone gives a new viewpoint, which makes aerial photography and film an art form."},
+      "natuur": {"nl": "Van boven zie je patronen in landschappen die je vanaf de grond niet ziet.", "en": "From above you see patterns in landscapes that you cannot see from the ground."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-107",
+    "slug": "microscopie",
+    "category": "CAT-15",
+    "types": ["EXP", "LER"],
+    "nl": "Microscopie",
+    "en": "Microscopy",
+    "sub": {"nl": "Wetenschap thuis", "en": "Science at home"},
+    "desc": {"nl": "Met een microscoop een kleine wereld bekijken: water, stof, planten en insecten.", "en": "Looking at a tiny world through a microscope: water, dust, plants and insects."},
+    "match": "exact",
+    "legacy_id": "microscopie",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:5:D", "onderzoeken:4:D", "thuis:3:D", "precisie:4:V", "concentratie:4:V", "geduld:3:V", "wetenschap:5:T", "natuur:4:T", "technologie:2:T", "verwondering:5:E", "ontdekking:5:E", "detail:5:E", "licht:3:E", "rust:3:E", "kunst:3:O", "fantasie:3:O"],
+    "why": {
+      "kunst": {"nl": "Kristallen en cellen hebben patronen die op abstracte schilderijen lijken.", "en": "Crystals and cells have patterns that look like abstract paintings."},
+      "fantasie": {"nl": "Een druppel vijverwater vol leven zien voelt als een andere planeet ontdekken.", "en": "Seeing a drop of pond water full of life feels like discovering another planet."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-108",
+    "slug": "weerstation",
+    "category": "CAT-15",
+    "types": ["EXP", "MAK"],
+    "nl": "Weer volgen en een weerstation",
+    "en": "Weather observing",
+    "sub": {"nl": "Wetenschap thuis", "en": "Science at home"},
+    "desc": {"nl": "Het weer meten en volgen met een eigen weerstation en daaruit patronen halen.", "en": "Measuring and following the weather with your own weather station and finding patterns in it."},
+    "match": "exact",
+    "legacy_id": "weerstation",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "online"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:5:D", "bouwen:3:D", "onderzoeken:4:D", "thuis:3:D", "logica:3:V", "precisie:3:V", "geduld:3:V", "wetenschap:5:T", "natuur:4:T", "technologie:4:T", "ontdekking:3:E", "puzzelen:3:E", "rust:2:E", "geschiedenis:3:O", "lucht:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Weerlogboeken van decennia terug geven klimaatgeschiedenis, dus je eigen reeks wordt een archief.", "en": "Weather logs from decades ago give climate history, so your own series becomes a record."},
+      "lucht": {"nl": "Wind, luchtdruk en wolken begrijpen verbindt je tuin met de hemel.", "en": "Understanding wind, pressure and clouds connects your garden to the sky."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-109",
+    "slug": "fietsreparatie",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Zelf je fiets repareren",
+    "en": "Bike repair",
+    "sub": {"nl": "Reparatie", "en": "Repair"},
+    "desc": {"nl": "Je eigen fiets onderhouden en repareren, van banden plakken tot versnellingen afstellen.", "en": "Maintaining and repairing your own bike, from fixing tyres to adjusting gears."},
+    "match": "exact",
+    "legacy_id": "fietsreparatie",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["metaal:3:M", "repareren:5:D", "bouwen:2:D", "atelier:3:D", "vakmanschap:3:V", "precisie:3:V", "motoriek:3:V", "logica:3:V", "geduld:3:V", "technologie:4:T", "duurzaamheid:5:T", "trots:4:E", "zorg:3:E", "zelfstandig:4:E", "rauw:3:E", "vrijheid:3:O", "gemeenschap:3:O", "mobiliteit:5:T"],
+    "why": {
+      "vrijheid": {"nl": "Een fiets die je zelf kunt repareren laat je nooit stranden, dus repareren geeft vrijheid.", "en": "A bike you can fix yourself never strands you, so repair gives freedom."},
+      "gemeenschap": {"nl": "Repaircafés en fietscoöperaties maken van repareren een open sociaal evenement.", "en": "Repair cafés and bike co-ops turn fixing into an open social event."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-110",
+    "slug": "cryptografie",
+    "category": "CAT-15",
+    "types": ["LER", "EXP"],
+    "nl": "Codes kraken: cryptografie voor beginners",
+    "en": "Cracking codes: cryptography for beginners",
+    "sub": {"nl": "Codes en puzzels", "en": "Codes and puzzles"},
+    "desc": {"nl": "Geheimschriften en codes leren kraken en zelf bedenken, van Caesar tot moderne versleuteling.", "en": "Learning to crack and devise secret writing and codes, from Caesar to modern encryption."},
+    "match": "exact",
+    "legacy_id": "cryptografie",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["onderzoeken:3:D", "papier:2:M", "logica:5:V", "concentratie:4:V", "taalvaardig:3:V", "precisie:3:V", "technologie:4:T", "geschiedenis:4:T", "wetenschap:3:T", "puzzelen:5:E", "spanning:3:E", "ontdekking:4:E", "competitie:2:E", "thuis:2:D", "verhalen:3:O", "samenwerking:3:O", "taal:3:T"],
+    "why": {
+      "verhalen": {"nl": "Het kraken van codes in oorlogstijd zit vol verhalen over spionnen en geheime berichten.", "en": "Wartime codebreaking is full of stories of spies and secret messages."},
+      "samenwerking": {"nl": "Grote codes werden door teams gekraakt, dus puzzelen wordt groepswerk.", "en": "Big codes were cracked by teams, so puzzling becomes group work."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-288",
+    "slug": "website-bouwen",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Een eigen website bouwen",
+    "en": "Building your own website",
+    "sub": {"nl": "Digitaal maken", "en": "Digital making"},
+    "desc": {"nl": "Een eigen site opzetten voor een hobby of project, met tekst, beeld en eenvoudige code.", "en": "Setting up a site of your own for a hobby or project, with text, image and simple code."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["ontwerpen:4:D", "bouwen:4:D", "thuis:3:D", "logica:4:V", "creativiteit:3:V", "precisie:3:V", "technologie:5:T", "beeldtaal:3:T", "puzzelen:4:E", "experimenteren:4:E", "opgaan:3:E", "zelfstandig:4:E", "doorzetten:3:E", "publiek:2:E", "architectuur:3:O", "verhalen:3:O", "online:5:D"],
+    "why": {
+      "architectuur": {"nl": "Paginastructuur, navigatie en indeling volgen de logica van gebouwen en bewegwijzering.", "en": "Page structure, navigation and layout follow the logic of buildings and signage."},
+      "verhalen": {"nl": "Een site vertelt jouw verhaal aan bezoekers in de volgorde die jij kiest.", "en": "A site tells your story to visitors in the order you choose."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-289",
+    "slug": "energie-besparen",
+    "category": "CAT-15",
+    "types": ["EXP", "LER"],
+    "nl": "Je energieverbruik meten en verlagen",
+    "en": "Measuring and reducing your energy use",
+    "sub": {"nl": "Wetenschap thuis", "en": "Science at home"},
+    "desc": {"nl": "Met een meter, slimme meter of thermometer ontdekken waar energie heen gaat en slim besparen.", "en": "Using a meter, smart meter or thermometer to find out where energy goes and save smartly."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["onderzoeken:5:D", "thuis:4:D", "repareren:2:D", "logica:3:V", "precisie:3:V", "technologie:4:T", "duurzaamheid:5:T", "wetenschap:3:T", "wonen:4:T", "puzzelen:3:E", "experimenteren:3:E", "zelfstandig:3:E", "warmte:4:E", "weer:3:O", "rechtvaardigheid:3:O"],
+    "why": {
+      "weer": {"nl": "Verwarmen en koelen hangen af van seizoen en wind, dus je leert het weer lezen via je rekening.", "en": "Heating and cooling depend on season and wind, so you learn to read the weather through your bill."},
+      "rechtvaardigheid": {"nl": "Energie besparen raakt aan energiearmoede en eerlijkheid.", "en": "Saving energy touches energy poverty and fairness."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-312",
+    "slug": "makerspace",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Makerspace of fablab bezoeken",
+    "en": "Makerspace or fablab",
+    "sub": {"nl": "Maken en knutselen", "en": "Making and tinkering"},
+    "desc": {"nl": "Een makerspace of fablab bezoeken en leren met lasersnijders, 3D-printers en gereedschap.", "en": "Visiting a makerspace or fablab and learning with laser cutters, 3D printers and tools."},
+    "match": "exact",
+    "legacy_id": "makerspace",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["bouwen:4:D", "ontwerpen:4:D", "repareren:3:D", "atelier:5:D", "creativiteit:4:V", "logica:3:V", "precisie:3:V", "technologie:5:T", "gemeenschap:4:E", "samenwerking:3:E", "experimenteren:4:E", "zelfstandig:3:E", "puzzelen:2:E", "duurzaamheid:3:O", "verbondenheid:3:O"],
+    "why": {
+      "duurzaamheid": {"nl": "Veel ruimtes repareren en hergebruiken in plaats van nieuw te kopen.", "en": "Many spaces repair and reuse instead of buying new."},
+      "verbondenheid": {"nl": "Makers delen gereedschap en kennis, dus vreemden worden medewerkers.", "en": "Makers share tools and know-how, so strangers turn into collaborators."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-313",
+    "slug": "repair-cafe",
+    "category": "CAT-15",
+    "types": ["EXP", "MAK"],
+    "nl": "Repair café",
+    "en": "Repair café",
+    "sub": {"nl": "Reparatie", "en": "Repair"},
+    "desc": {"nl": "Een repaircafé bezoeken: gratis helpen repareren.", "en": "Visiting a repair café: free help repairing things."},
+    "match": "exact",
+    "legacy_id": "repair-cafe",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 1, "source": "app"},
+    "links": ["repareren:5:D", "atelier:3:D", "vakmanschap:3:V", "logica:3:V", "communicatie:2:V", "duurzaamheid:5:T", "technologie:3:T", "gemeenschap:5:E", "zorg:3:E", "gezelligheid:3:E", "samenwerking:4:E", "generaties:3:E", "rechtvaardigheid:3:O", "verhalen:3:O"],
+    "why": {
+      "rechtvaardigheid": {"nl": "Repareren daagt de wegwerpcultuur uit en houdt spullen betaalbaar.", "en": "Repairing challenges throwaway culture and keeps goods affordable."},
+      "verhalen": {"nl": "Een gerepareerde lamp of broodrooster komt met het verhaal van van wie hij was.", "en": "A repaired lamp or toaster comes with the story of whose it was."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-314",
+    "slug": "smeden",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Smeden en metaalbewerking",
+    "en": "Blacksmithing and metalwork",
+    "sub": {"nl": "Metaalbewerking", "en": "Metalwork"},
+    "desc": {"nl": "Smeden en metaalbewerking leren: vuur, hamer en aambeeld.", "en": "Learning forging and metalwork: fire, hammer and anvil."},
+    "match": "exact",
+    "legacy_id": "smeden",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["metaal:5:M", "atelier:4:D", "vakmanschap:5:V", "motoriek:3:V", "ruimtelijk:3:V", "precisie:3:V", "wetenschap:3:T", "geschiedenis:3:T", "rauw:5:E", "warmte:5:E", "ritme:4:E", "spanning:3:E", "opgaan:4:E", "kunst:3:O", "tradities:3:O", "ambacht:5:T"],
+    "why": {
+      "kunst": {"nl": "Gesmede hekken, leuningen en beelden tonen smeden als kunst.", "en": "Forged gates, railings and sculptures show blacksmithing as an art."},
+      "tradities": {"nl": "Smedengilden bepaalden eeuwenlang het dorpsleven.", "en": "Smithing guilds shaped village life for centuries."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-315",
+    "slug": "telescoop",
+    "category": "CAT-15",
+    "types": ["EXP", "LER"],
+    "nl": "Astronomie met een telescoop",
+    "en": "Astronomy with a telescope",
+    "sub": {"nl": "Sterrenkunde", "en": "Astronomy"},
+    "desc": {"nl": "Astronomie met een telescoop: planeten, sterren en deep-sky objecten.", "en": "Astronomy with a telescope: planets, stars and deep-sky objects."},
+    "match": "exact",
+    "legacy_id": "telescoop",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:5:D", "navigeren:3:D", "bouwen:2:D", "heelal:5:T", "wetenschap:4:T", "technologie:3:T", "weer:3:T", "geduld:3:V", "concentratie:3:V", "verwondering:5:E", "ontdekking:4:E", "stilte:3:E", "rust:3:E", "ruimtelijk:3:O", "gemeenschap:3:O"],
+    "why": {
+      "ruimtelijk": {"nl": "De weg vinden langs de hemel traint een driedimensionale mentale kaart.", "en": "Finding your way across the sky trains a three-dimensional mental map."},
+      "gemeenschap": {"nl": "Sterrenwachten delen donkere plekken en telescopen.", "en": "Astronomy clubs share dark sites and telescopes."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-316",
+    "slug": "citizen-science",
+    "category": "CAT-15",
+    "types": ["EXP"],
+    "nl": "Citizen science (tellen, meten, melden)",
+    "en": "Citizen science",
+    "sub": {"nl": "Burgerwetenschap", "en": "Citizen science"},
+    "desc": {"nl": "Citizen science: tellen, meten en melden voor echt onderzoek.", "en": "Citizen science: counting, measuring and reporting for real research."},
+    "match": "exact",
+    "legacy_id": "citizen-science",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["onderzoeken:5:D", "observeren:4:D", "precisie:3:V", "logica:3:V", "natuur:4:T", "wetenschap:5:T", "technologie:2:T", "duurzaamheid:3:T", "ontdekking:4:E", "gemeenschap:4:E", "zorg:2:E", "doorzetten:2:E", "verwondering:2:E", "rechtvaardigheid:3:O", "patronen:3:O", "online:3:D"],
+    "why": {
+      "rechtvaardigheid": {"nl": "Open data en gedeeld onderzoek geven gewone mensen een stem in de wetenschap.", "en": "Open data and shared research give ordinary people a voice in science."},
+      "patronen": {"nl": "Grote tellingen tonen patronen die geen enkele waarnemer alleen zou zien.", "en": "Big counts reveal patterns no single observer would see."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-317",
+    "slug": "geologie",
+    "category": "CAT-15",
+    "types": ["EXP", "LER"],
+    "nl": "Geologie en stenen lezen",
+    "en": "Geology walks",
+    "sub": {"nl": "Aardwetenschap", "en": "Earth science"},
+    "desc": {"nl": "Stenen, rotsen en landschappen leren lezen: hoe ze ontstonden.", "en": "Learning to read stones, rocks and landscapes: how they formed."},
+    "match": "exact",
+    "legacy_id": "geologie",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["steen:4:M", "observeren:4:D", "onderzoeken:3:D", "bergen:2:D", "bos:2:D", "verzamelen:3:D", "geduld:2:V", "natuur:4:T", "wetenschap:5:T", "geschiedenis:3:T", "verwondering:4:E", "ontdekking:4:E", "puzzelen:3:E", "architectuur:3:O", "weer:3:O"],
+    "why": {
+      "architectuur": {"nl": "Lokale steen bepaalt hoe steden en huizen eruitzien.", "en": "Local stone decides how towns and houses look."},
+      "weer": {"nl": "Gesteente toont vroegere klimaten, van woestijnen tot ijstijden.", "en": "Rock shows past climates, from deserts to ice ages."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-318",
+    "slug": "kookwetenschap",
+    "category": "CAT-15",
+    "types": ["EXP", "LER"],
+    "nl": "Kookwetenschap",
+    "en": "Kitchen science",
+    "sub": {"nl": "Wetenschap thuis", "en": "Science at home"},
+    "desc": {"nl": "Kookwetenschap: proeven en experimenten met hitte, zuur en structuur.", "en": "Kitchen science: tests and experiments with heat, acid and structure."},
+    "match": "exact",
+    "legacy_id": "kookwetenschap",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["keuken:5:D", "onderzoeken:4:D", "thuis:3:D", "logica:3:V", "precisie:3:V", "wetenschap:5:T", "voeding:4:T", "smaak:4:E", "experimenteren:5:E", "verwondering:3:E", "puzzelen:3:E", "speelsheid:3:E", "kunst:3:O", "patronen:3:O"],
+    "why": {
+      "kunst": {"nl": "Moleculaire keuken maakt van koken een optreden en een ontwerp.", "en": "Molecular cooking turns cooking into performance and design."},
+      "patronen": {"nl": "Emulsies en gels volgen verhoudingen die je kunt uitrekenen.", "en": "Emulsions and gels follow ratios you can calculate."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-319",
+    "slug": "data-visualisatie",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Data-visualisatie",
+    "en": "Data visualisation",
+    "sub": {"nl": "Data", "en": "Data"},
+    "desc": {"nl": "Data-visualisatie: cijfers omzetten in grafieken en verhalen.", "en": "Data visualisation: turning numbers into charts and stories."},
+    "match": "exact",
+    "legacy_id": "data-visualisatie",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "online"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:4:D", "onderzoeken:3:D", "thuis:3:D", "logica:4:V", "creativiteit:3:V", "precisie:3:V", "technologie:4:T", "patronen:4:T", "beeldtaal:5:T", "puzzelen:3:E", "ontdekking:3:E", "opgaan:3:E", "verhalen:3:O", "rechtvaardigheid:3:O", "online:3:D"],
+    "why": {
+      "verhalen": {"nl": "Een goede grafiek is een betoog met een plot.", "en": "A good chart is an argument with a plot."},
+      "rechtvaardigheid": {"nl": "Heldere beelden helpen het publiek ongelijkheid, gezondheid en klimaatcijfers te zien.", "en": "Clear visuals help the public see inequality, health and climate data."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-320",
+    "slug": "radioamateur",
+    "category": "CAT-15",
+    "types": ["EXP", "LER"],
+    "nl": "Radioamateur worden",
+    "en": "Becoming a radio amateur",
+    "sub": {"nl": "Radio", "en": "Radio"},
+    "desc": {"nl": "Radioamateur worden: zenden en ontvangen met eigen apparatuur.", "en": "Becoming a radio amateur: transmitting and receiving with your own equipment."},
+    "match": "exact",
+    "legacy_id": "radioamateur",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["bouwen:3:D", "onderzoeken:3:D", "lucht:3:D", "logica:3:V", "precisie:3:V", "technologie:5:T", "wetenschap:3:T", "weer:3:T", "puzzelen:3:E", "ontdekking:4:E", "klank:3:E", "gemeenschap:4:E", "verbondenheid:3:E", "heelal:3:O", "zeevaart:3:O"],
+    "why": {
+      "heelal": {"nl": "Sommige amateurs kaatsen signalen tegen de maan of praten met het ruimtestation.", "en": "Some amateurs bounce signals off the moon or talk to the space station."},
+      "zeevaart": {"nl": "Radio groeide uit de veiligheid op zee, een link die de hobby nog vormt.", "en": "Radio grew out of safety at sea, a link that still shapes the hobby."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-321",
+    "slug": "motor-sleutelen",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Sleutelen aan een motor of scooter",
+    "en": "Tinkering with a motorbike or scooter",
+    "sub": {"nl": "Voertuigen", "en": "Vehicles"},
+    "desc": {"nl": "Sleutelen aan een motor of scooter: onderhoud, reparatie en tuning.", "en": "Tinkering with a motorbike or scooter: maintenance, repair and tuning."},
+    "match": "exact",
+    "legacy_id": "motor-sleutelen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["metaal:4:M", "repareren:5:D", "atelier:4:D", "bouwen:2:D", "vakmanschap:3:V", "logica:4:V", "precisie:3:V", "motoriek:3:V", "technologie:5:T", "puzzelen:4:E", "rauw:5:E", "warmte:3:E", "geur:3:E", "zelfstandig:3:E", "verbondenheid:3:O", "tradities:3:O", "mobiliteit:5:T"],
+    "why": {
+      "verbondenheid": {"nl": "Garages en clubs brengen mensen samen die een taal van onderdelen en geluiden delen.", "en": "Garages and clubs bring together people who share a language of parts and sounds."},
+      "tradities": {"nl": "Motorcultuur draagt rituelen, van bijeenkomsten tot ritten.", "en": "Bike culture carries rituals, from meets to rides."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-322",
+    "slug": "retrocomputing",
+    "category": "CAT-15",
+    "types": ["MAK", "EXP"],
+    "nl": "Retrocomputing: oude computers aan de praat",
+    "en": "Retrocomputing: reviving old computers",
+    "sub": {"nl": "Computers", "en": "Computers"},
+    "desc": {"nl": "Retrocomputing: oude computers repareren en weer aan de praat krijgen.", "en": "Retro computing: repairing old computers and getting them running again."},
+    "match": "exact",
+    "legacy_id": "retrocomputing",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group", "online", "with_known"], "level": 2, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["repareren:4:D", "bouwen:3:D", "thuis:3:D", "logica:4:V", "precisie:3:V", "technologie:5:T", "geschiedenis:4:T", "nostalgie:5:E", "puzzelen:4:E", "ontdekking:3:E", "verzamelen:3:D", "kunst:3:O", "duurzaamheid:3:O", "online:2:D"],
+    "why": {
+      "kunst": {"nl": "Chiptune en pixelart maken van oude machines creatieve gereedschappen.", "en": "Chiptune and pixel art make old machines creative tools."},
+      "duurzaamheid": {"nl": "Machines in leven houden voorkomt de verspilling van weggooien.", "en": "Keeping machines alive avoids the waste of throwing them away."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-323",
+    "slug": "game-ontwikkelen",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Een eigen computerspel maken",
+    "en": "Making a game of your own",
+    "sub": {"nl": "Computers", "en": "Computers"},
+    "desc": {"nl": "Een eigen computerspel maken: idee, ontwerp, code en testen.", "en": "Making a computer game of your own: idea, design, code and testing."},
+    "match": "exact",
+    "legacy_id": "game-ontwikkelen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 1, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:5:D", "bouwen:4:D", "thuis:3:D", "creativiteit:4:V", "logica:5:V", "strategie:3:V", "technologie:5:T", "verhalen:3:T", "beeldtaal:3:T", "puzzelen:4:E", "experimenteren:4:E", "fantasie:3:E", "opgaan:4:E", "kunst:3:O", "gemeenschap:3:O", "spel:4:T", "online:4:D"],
+    "why": {
+      "kunst": {"nl": "Een spel verbindt tekenen, geluid, schrijven en code tot één werk.", "en": "A game joins drawing, sound, writing and code into one work."},
+      "gemeenschap": {"nl": "Game jams geven beginners een deadline, teamgenoten en een publiek.", "en": "Game jams give beginners a deadline, teammates and an audience."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-508",
+    "slug": "lassen",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Lassen",
+    "en": "Welding",
+    "sub": {"nl": "Metaalbewerking", "en": "Metalwork"},
+    "desc": {"nl": "Lassen leren: metaal verbinden met vuur en stroom.", "en": "Learning welding: joining metal with fire and current."},
+    "match": "exact",
+    "legacy_id": "lassen",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["metaal:5:M", "atelier:4:D", "bouwen:3:D", "vakmanschap:4:V", "precisie:4:V", "motoriek:3:V", "technologie:4:T", "wetenschap:3:T", "rauw:5:E", "warmte:5:E", "spanning:3:E", "trots:4:E", "licht:3:E", "kunst:3:O", "zorg:3:O", "ambacht:4:T"],
+    "why": {
+      "kunst": {"nl": "Gelaste beeldhouwkunst is een gevestigde kunstvorm.", "en": "Welded sculpture is an established art form."},
+      "zorg": {"nl": "Lassen vraagt veiligheidsgewoonten voor ogen, longen en vuur.", "en": "Welding demands safety habits for eyes, lungs and fire."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-509",
+    "slug": "klokken",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Klokken en horloges repareren",
+    "en": "Clock and watch repair",
+    "sub": {"nl": "Reparatie", "en": "Repair"},
+    "desc": {"nl": "Klokken en horloges repareren: tandwielen, veren en geduld.", "en": "Repairing clocks and watches: gears, springs and patience."},
+    "match": "exact",
+    "legacy_id": "klokken",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "online"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["metaal:4:M", "repareren:5:D", "restaureren:3:D", "atelier:3:D", "precisie:5:V", "vakmanschap:4:V", "motoriek:4:V", "geduld:3:V", "technologie:4:T", "geschiedenis:3:T", "detail:5:E", "puzzelen:4:E", "opgaan:4:E", "nostalgie:3:E", "zeevaart:3:O", "patronen:3:O", "ambacht:5:T"],
+    "why": {
+      "zeevaart": {"nl": "De scheepschronometer maakte het mogelijk de lengtegraad op zee te bepalen.", "en": "The marine chronometer made it possible to find longitude at sea."},
+      "patronen": {"nl": "Tandwielverhoudingen vormen een getalpatroon dat je leert lezen.", "en": "Gear ratios form a numeric pattern you learn to read."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-510",
+    "slug": "kortegolf-luisteren",
+    "category": "CAT-15",
+    "types": ["EXP"],
+    "nl": "Kortegolf luisteren",
+    "en": "Shortwave listening",
+    "sub": {"nl": "Radio", "en": "Radio"},
+    "desc": {"nl": "Kortegolf luisteren: verre zenders opvangen met een radio.", "en": "Shortwave listening: tuning into distant stations with a radio."},
+    "match": "exact",
+    "legacy_id": "kortegolf-luisteren",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online", "with_known"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["lucht:3:D", "onderzoeken:3:D", "technologie:4:T", "wereldculturen:5:T", "weer:3:T", "geduld:3:V", "concentratie:3:V", "ontdekking:5:E", "klank:4:E", "verwondering:4:E", "stilte:2:E", "puzzelen:3:E", "nostalgie:3:E", "geschiedenis:3:O", "heelal:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Kortegolf droeg nieuws door oorlogen en over grenzen heen.", "en": "Shortwave carried news through wars and across borders."},
+      "heelal": {"nl": "Signalen kaatsen tegen de ionosfeer, dus de hemel helpt ze dragen.", "en": "Signals bounce off the ionosphere, so the sky helps carry them."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-511",
+    "slug": "dxen",
+    "category": "CAT-15",
+    "types": ["EXP"],
+    "nl": "DX'en: verre signalen ontvangen",
+    "en": "DXing: catching distant signals",
+    "sub": {"nl": "Radio", "en": "Radio"},
+    "desc": {"nl": "DX'en: zo ver mogelijke radio- of tv-signalen ontvangen en loggen.", "en": "DXing: receiving and logging radio or TV signals from as far as possible."},
+    "match": "exact",
+    "legacy_id": "dxen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online", "with_known"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["lucht:3:D", "onderzoeken:3:D", "navigeren:2:D", "verzamelen:3:D", "technologie:5:T", "weer:4:T", "wereldculturen:3:T", "geduld:4:V", "concentratie:3:V", "ontdekking:5:E", "puzzelen:3:E", "spanning:3:E", "klank:3:E", "wetenschap:3:O", "gemeenschap:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Voortplanting verandert met zon, seizoen en weer.", "en": "Propagation changes with sun, season and weather."},
+      "gemeenschap": {"nl": "DX-clubs wisselen logboeken en QSL-kaarten uit.", "en": "DX clubs trade logs and QSL cards."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-512",
+    "slug": "open-source",
+    "category": "CAT-15",
+    "types": ["MAK", "LER"],
+    "nl": "Meebouwen aan open-source software",
+    "en": "Contributing to open-source software",
+    "sub": {"nl": "Software", "en": "Software"},
+    "desc": {"nl": "Meebouwen aan open-source software: bugs oplossen, documentatie en code.", "en": "Contributing to open-source software: fixing bugs, documentation and code."},
+    "match": "exact",
+    "legacy_id": "open-source",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group", "with_known"], "level": 2, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["bouwen:4:D", "repareren:3:D", "thuis:3:D", "logica:5:V", "communicatie:3:V", "taalvaardig:3:V", "technologie:5:T", "rechtvaardigheid:3:T", "gemeenschap:5:E", "samenwerking:5:E", "puzzelen:4:E", "doorzetten:3:E", "zorg:3:E", "zelfstandig:3:E", "kunst:3:O", "geschiedenis:3:O", "online:5:D"],
+    "why": {
+      "kunst": {"nl": "Lettertypen, pictogrammen en interfaceontwerp zijn ook open vakwerk.", "en": "Fonts, icons and interface design are open craft too."},
+      "geschiedenis": {"nl": "Open source zet de oude traditie voort van recepten en gereedschap delen.", "en": "Open source continues the old tradition of sharing recipes and tools."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-513",
+    "slug": "fpv-drone",
+    "category": "CAT-15",
+    "types": ["EXP", "MAK"],
+    "nl": "Droneracen (FPV)",
+    "en": "Drone racing (FPV)",
+    "sub": {"nl": "Drones", "en": "Drones"},
+    "desc": {"nl": "Droneracen met een FPV-bril: snel vliegen door parcoursen.", "en": "Drone racing with FPV goggles: flying fast through courses."},
+    "match": "exact",
+    "legacy_id": "fpv-drone",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 1, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["bouwen:3:D", "repareren:3:D", "lucht:5:D", "motoriek:5:V", "ruimtelijk:4:V", "concentratie:4:V", "technologie:5:T", "beweging:3:E", "spanning:5:E", "competitie:4:E", "vrijheid:4:E", "speelsheid:3:E", "gemeenschap:3:E", "wetenschap:3:O", "beeldtaal:3:O", "mobiliteit:4:T", "snelheid:5:E"],
+    "why": {
+      "wetenschap": {"nl": "Stuwkracht, weerstand en regellussen zijn echte luchtvaarttechniek.", "en": "Thrust, drag and control loops are real aeronautics."},
+      "beeldtaal": {"nl": "FPV-filmen maakt van vliegen film.", "en": "FPV cinematography turns flight into film."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-514",
+    "slug": "vliegsimulator",
+    "category": "CAT-15",
+    "types": ["EXP", "LER"],
+    "nl": "Vliegsimulator-ervaring",
+    "en": "Flight-simulator experience",
+    "sub": {"nl": "Vliegen", "en": "Flying"},
+    "desc": {"nl": "Een vliegsimulator-ervaring: vliegen in een realistische cockpit.", "en": "A flight simulator experience: flying in a realistic cockpit."},
+    "match": "exact",
+    "legacy_id": "vliegsimulator",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["lucht:4:D", "navigeren:4:D", "technologie:5:T", "weer:4:T", "concentratie:4:V", "logica:3:V", "ruimtelijk:3:V", "motoriek:3:V", "puzzelen:3:E", "spanning:3:E", "verwondering:3:E", "vrijheid:3:E", "zelfstandig:2:E", "geschiedenis:3:O", "samenwerking:3:O", "mobiliteit:5:T"],
+    "why": {
+      "geschiedenis": {"nl": "Vliegsimulatoren trainen piloten sinds de begindagen van de luchtvaart.", "en": "Flight simulators have trained pilots since the early days of aviation."},
+      "samenwerking": {"nl": "Crewcommunicatie en checklists zijn een teamritueel.", "en": "Crew communication and checklists are a team ritual."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  }
+]

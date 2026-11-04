@@ -1,0 +1,222 @@
+[
+  {
+    "id": "CAT-01",
+    "slug": "beeld",
+    "nl": "Beeldende kunst en vormgeving",
+    "en": "Visual art and design",
+    "target": 36,
+    "scope": {
+      "nl": "Tekenen, schilderen, beeldhouwen, illustratie, grafiek",
+      "en": "Drawing, painting, sculpture, illustration, printmaking"
+    }
+  },
+  {
+    "id": "CAT-02",
+    "slug": "textiel",
+    "nl": "Textiel, mode en handwerk",
+    "en": "Textile, fashion and needlecraft",
+    "target": 30,
+    "scope": {
+      "nl": "Naaien, borduren, breien, kledingontwerp, quilten",
+      "en": "Sewing, embroidery, knitting, fashion design, quilting"
+    }
+  },
+  {
+    "id": "CAT-03",
+    "slug": "hout",
+    "nl": "Hout, meubels en miniatuurbouw",
+    "en": "Wood, furniture and miniature building",
+    "target": 31,
+    "scope": {
+      "nl": "Houtbewerking, meubelmaken, poppenhuizen, modelbouw",
+      "en": "Woodworking, furniture making, dolls' houses, model building"
+    }
+  },
+  {
+    "id": "CAT-04",
+    "slug": "ambacht",
+    "nl": "Ambacht, materiaal en sieraden",
+    "en": "Craft, material and jewellery",
+    "target": 25,
+    "scope": {
+      "nl": "Keramiek, glasblazen, edelsmeden, leerbewerking, boekbinden",
+      "en": "Ceramics, glassblowing, goldsmithing, leatherwork, bookbinding"
+    }
+  },
+  {
+    "id": "CAT-05",
+    "slug": "media",
+    "nl": "Fotografie, film en digitale media",
+    "en": "Photography, film and digital media",
+    "target": 25,
+    "scope": {
+      "nl": "Fotografie, videografie, animatie, digitale kunst",
+      "en": "Photography, videography, animation, digital art"
+    }
+  },
+  {
+    "id": "CAT-06",
+    "slug": "muziek",
+    "nl": "Muziek en geluid",
+    "en": "Music and sound",
+    "target": 30,
+    "scope": {
+      "nl": "Instrumenten, componeren, zingen, muziekproductie",
+      "en": "Instruments, composing, singing, music production"
+    }
+  },
+  {
+    "id": "CAT-07",
+    "slug": "schrijven",
+    "nl": "Schrijven, taal en literatuur",
+    "en": "Writing, language and literature",
+    "target": 25,
+    "scope": {
+      "nl": "Dichten, verhalen, journalistiek, creatief schrijven",
+      "en": "Poetry, stories, journalism, creative writing"
+    }
+  },
+  {
+    "id": "CAT-08",
+    "slug": "podium",
+    "nl": "Theater, dans en podiumkunsten",
+    "en": "Theatre, dance and performing arts",
+    "target": 30,
+    "scope": {
+      "nl": "Toneel, ballet, improvisatie, voordracht, cabaret",
+      "en": "Drama, ballet, improvisation, recitation, cabaret"
+    }
+  },
+  {
+    "id": "CAT-09",
+    "slug": "sport",
+    "nl": "Sport, fitness en beweging",
+    "en": "Sport, fitness and movement",
+    "target": 40,
+    "scope": {
+      "nl": "Teamsport, individuele sport, fitness, vechtsport",
+      "en": "Team sports, individual sports, fitness, martial arts"
+    }
+  },
+  {
+    "id": "CAT-10",
+    "slug": "avontuur",
+    "nl": "Avontuur en bijzondere ervaringen",
+    "en": "Adventure and special experiences",
+    "target": 31,
+    "scope": {
+      "nl": "Parachutespringen, klifduiken, paragliden, canyoning",
+      "en": "Skydiving, cliff diving, paragliding, canyoning"
+    }
+  },
+  {
+    "id": "CAT-11",
+    "slug": "natuur",
+    "nl": "Natuur, dieren en ecologie",
+    "en": "Nature, animals and ecology",
+    "target": 30,
+    "scope": {
+      "nl": "Vogels observeren, dieren verzorgen, natuurexpedities",
+      "en": "Birdwatching, animal care, nature expeditions"
+    }
+  },
+  {
+    "id": "CAT-12",
+    "slug": "tuin",
+    "nl": "Tuinieren en landschapsactiviteiten",
+    "en": "Gardening and landscape activities",
+    "target": 20,
+    "scope": {
+      "nl": "Moestuin, bonsai, bloemschikken, landschapsontwerp",
+      "en": "Vegetable garden, bonsai, flower arranging, landscape design"
+    }
+  },
+  {
+    "id": "CAT-13",
+    "slug": "koken",
+    "nl": "Koken en culinaire creatie",
+    "en": "Cooking and culinary creation",
+    "target": 25,
+    "scope": {
+      "nl": "Bakken, fermenteren, patisserie, internationale keukens",
+      "en": "Baking, fermenting, pastry, international cuisines"
+    }
+  },
+  {
+    "id": "CAT-14",
+    "slug": "spel",
+    "nl": "Spellen, puzzels en strategie",
+    "en": "Games, puzzles and strategy",
+    "target": 25,
+    "scope": {
+      "nl": "Schaken, escape rooms, bordspellen, denkpuzzels",
+      "en": "Chess, escape rooms, board games, logic puzzles"
+    }
+  },
+  {
+    "id": "CAT-15",
+    "slug": "techniek",
+    "nl": "Wetenschap, techniek en experimenteren",
+    "en": "Science, technology and experimenting",
+    "target": 30,
+    "scope": {
+      "nl": "Robotica, programmeren, elektronica, astronomie",
+      "en": "Robotics, programming, electronics, astronomy"
+    }
+  },
+  {
+    "id": "CAT-16",
+    "slug": "kennis",
+    "nl": "Kennis, leren en intellectuele ontwikkeling",
+    "en": "Knowledge, learning and intellectual growth",
+    "target": 26,
+    "scope": {
+      "nl": "Talen leren, filosofie, geschiedenis, onderzoek",
+      "en": "Learning languages, philosophy, history, research"
+    }
+  },
+  {
+    "id": "CAT-17",
+    "slug": "sociaal",
+    "nl": "Sociaal, maatschappelijk en vrijwilligerswerk",
+    "en": "Social, community and volunteering",
+    "target": 26,
+    "scope": {
+      "nl": "Vrijwilligerswerk, gemeenschapsprojecten, organiseren",
+      "en": "Volunteering, community projects, organising"
+    }
+  },
+  {
+    "id": "CAT-18",
+    "slug": "erfgoed",
+    "nl": "Cultuur, erfgoed en verzamelen",
+    "en": "Culture, heritage and collecting",
+    "target": 20,
+    "scope": {
+      "nl": "Antiek, archeologie, geschiedenis, verzamelingen",
+      "en": "Antiques, archaeology, history, collections"
+    }
+  },
+  {
+    "id": "CAT-19",
+    "slug": "communicatie",
+    "nl": "Ondernemen, communicatie en leiderschap",
+    "en": "Enterprise, communication and leadership",
+    "target": 20,
+    "scope": {
+      "nl": "Presenteren, debatteren, evenementen organiseren",
+      "en": "Presenting, debating, organising events"
+    }
+  },
+  {
+    "id": "CAT-20",
+    "slug": "reizen",
+    "nl": "Ontdekken, reizen en exploreren",
+    "en": "Discovering, travelling and exploring",
+    "target": 25,
+    "scope": {
+      "nl": "Trektochten, oriëntatie, culturele ontdekking, expedities",
+      "en": "Treks, orienteering, cultural discovery, expeditions"
+    }
+  }
+]

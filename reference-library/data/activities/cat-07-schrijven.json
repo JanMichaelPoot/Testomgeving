@@ -1,0 +1,514 @@
+[
+  {
+    "id": "RA-032",
+    "slug": "creatief-autobiografisch-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK", "LER"],
+    "nl": "Creatief autobiografisch schrijven",
+    "en": "Creative autobiographical writing",
+    "sub": {"nl": "Creatief schrijven", "en": "Creative writing"},
+    "desc": {"nl": "Je eigen herinneringen en levensverhaal schrijven als verhalend of literair werk.", "en": "Writing your own memories and life story as narrative or literary work."},
+    "match": "close",
+    "legacy_id": "levensverhaal",
+    "v0_id": "ACT-025",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["taalvaardig:5:V", "creativiteit:4:V", "concentratie:3:V", "geduld:3:V", "verhalen:5:T", "identiteit:5:T", "geschiedenis:3:T", "ontroering:5:E", "rust:3:E", "expressie:4:E", "nostalgie:4:E", "thuis:3:D", "onderzoeken:3:D", "generaties:3:O", "welzijn:3:O", "taal:4:T"],
+    "why": {
+      "generaties": {"nl": "Je verhaal schrijven laat iets na voor kinderen en kleinkinderen en onthult vaak hoe je ouders leefden.", "en": "Writing your story leaves something for children and grandchildren and often reveals how your parents lived."},
+      "welzijn": {"nl": "Schrijven over je eigen leven helpt gebeurtenissen te verwerken en patronen te zien, en geldt daarom ook als welzijnspraktijk.", "en": "Writing about your own life helps process events and see patterns, which is why it also counts as a wellbeing practice."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-033",
+    "slug": "gedichten-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Gedichten schrijven",
+    "en": "Writing poems",
+    "sub": {"nl": "Poëzie", "en": "Poetry"},
+    "desc": {"nl": "Gedichten schrijven: beeld, klank, regelbreuk en weglaten.", "en": "Writing poems: image, sound, line break and leaving out."},
+    "match": "exact",
+    "legacy_id": "gedichten-schrijven",
+    "v0_id": "ACT-026",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["taalvaardig:5:V", "creativiteit:5:V", "concentratie:4:V", "precisie:3:V", "kunst:3:T", "identiteit:3:T", "klank:4:E", "ritme:4:E", "expressie:5:E", "ontroering:4:E", "rust:3:E", "minimalisme:3:E", "detail:3:E", "opgaan:3:E", "thuis:3:D", "observeren:4:D", "puzzelen:3:O", "natuur:3:O", "taal:5:T"],
+    "why": {
+      "puzzelen": {"nl": "Een gedachte in weinig woorden, regelbreuken en klank laten passen is een compacte puzzel.", "en": "Fitting a thought into few words, line breaks and sound is a compact puzzle."},
+      "natuur": {"nl": "Dichters blijven kijken naar kleine dingen als licht, weer en seizoenen, dus schrijven scherpt je oog voor de natuur.", "en": "Poets keep watching small things like light, weather and seasons, so writing sharpens your eye for nature."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-034",
+    "slug": "podcast-maken",
+    "category": "CAT-07",
+    "types": ["MAK", "LER"],
+    "nl": "Een podcast maken en presenteren",
+    "en": "Making and hosting a podcast",
+    "sub": {"nl": "Podcasting", "en": "Podcasting"},
+    "desc": {"nl": "Een eigen podcast bedenken, opnemen, monteren en publiceren.", "en": "Devising, recording, editing and publishing your own podcast."},
+    "match": "exact",
+    "legacy_id": "podcast-maken",
+    "v0_id": "ACT-027",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["communicatie:5:V", "taalvaardig:4:V", "creativiteit:4:V", "leiding:3:V", "technologie:4:T", "verhalen:5:T", "klank:4:E", "expressie:4:E", "trots:4:E", "onderzoeken:4:D", "organiseren:3:D", "thuis:3:D", "samenwerking:3:E", "publiek:4:E", "gemeenschap:3:O", "geschiedenis:3:O", "online:3:D"],
+    "why": {
+      "gemeenschap": {"nl": "Een podcast vindt een luistergemeenschap rond een onderwerp, ook in een kleine niche.", "en": "A podcast finds a listening community around a topic, even in a small niche."},
+      "geschiedenis": {"nl": "Podcasts in de stijl van mondelinge geschiedenis bewaren stemmen en herinneringen die anders verloren gaan.", "en": "Podcasts in an oral-history style preserve voices and memories that would otherwise be lost."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-087",
+    "slug": "haiku-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Haiku en korte vormen schrijven",
+    "en": "Writing haiku and other short forms",
+    "sub": {"nl": "Poëzie", "en": "Poetry"},
+    "desc": {"nl": "Heel korte gedichten schrijven in vaste vormen als haiku en tanka, met aandacht voor het moment.", "en": "Writing very short poems in fixed forms such as haiku and tanka, with attention to the moment."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 0, "duration": 1, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["taalvaardig:4:V", "creativiteit:4:V", "concentratie:4:V", "precisie:3:V", "observeren:5:D", "natuur:4:T", "kunst:3:T", "wereldculturen:3:T", "minimalisme:5:E", "rust:5:E", "detail:4:E", "verwondering:3:E", "opgaan:3:E", "klank:3:E", "puzzelen:3:O", "welzijn:3:O", "taal:5:T"],
+    "why": {
+      "puzzelen": {"nl": "Vijf, zeven, vijf lettergrepen is een kleine puzzel met een cadeau erin.", "en": "Five, seven, five syllables is a small puzzle with a gift inside."},
+      "welzijn": {"nl": "Een dagelijkse haiku werkt als korte pauze waardoor mensen meer van de dag opmerken.", "en": "A daily haiku works as a short pause that helps people notice more of the day."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-088",
+    "slug": "blog-nieuwsbrief-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Een eigen blog of nieuwsbrief schrijven",
+    "en": "Writing your own blog or newsletter",
+    "sub": {"nl": "Journalistiek en publiceren", "en": "Journalism and publishing"},
+    "desc": {"nl": "Regelmatig schrijven over een onderwerp dat jou boeit en dat publiceren voor lezers.", "en": "Writing regularly about a subject you care about and publishing it for readers."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["onderzoeken:4:D", "organiseren:3:D", "thuis:3:D", "taalvaardig:5:V", "communicatie:4:V", "creativiteit:3:V", "concentratie:3:V", "technologie:3:T", "verhalen:4:T", "identiteit:3:T", "trots:4:E", "doorzetten:4:E", "expressie:4:E", "publiek:3:E", "gemeenschap:3:E", "ritme:3:O", "geschiedenis:3:O", "taal:5:T", "online:5:D"],
+    "why": {
+      "ritme": {"nl": "Een vast publicatieritme bouwt een gewoonte op die schrijven minder groot maakt.", "en": "A regular publishing rhythm builds a habit that makes writing less daunting."},
+      "geschiedenis": {"nl": "Jaren posts worden een archief van waar je om gaf.", "en": "Years of posts become an archive of what you cared about."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-089",
+    "slug": "fanfictie-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Fanfictie schrijven",
+    "en": "Writing fan fiction",
+    "sub": {"nl": "Creatief schrijven", "en": "Creative writing"},
+    "desc": {"nl": "Nieuwe verhalen schrijven in een bestaande wereld, met bekende personages of een eigen draai.", "en": "Writing new stories in an existing world, with familiar characters or a twist of your own."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["thuis:3:D", "taalvaardig:4:V", "creativiteit:5:V", "concentratie:3:V", "verhalen:5:T", "identiteit:2:T", "fantasie:5:E", "speelsheid:4:E", "opgaan:4:E", "expressie:4:E", "gemeenschap:4:E", "ontroering:3:E", "doorzetten:3:E", "strategie:3:O", "samenwerking:3:O", "taal:5:T", "online:5:D"],
+    "why": {
+      "strategie": {"nl": "Een lange verhaallijn door een geliefde wereld plotten is een planningspuzzel.", "en": "Plotting a long arc through a loved world is a planning puzzle."},
+      "samenwerking": {"nl": "Fangemeenschappen delen meelezers, schrijfopdrachten en uitdagingen, dus een eenzame hobby wordt een teamsport.", "en": "Fan communities share beta readers, prompts and challenges, so a lonely hobby becomes a team sport."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-136",
+    "slug": "vertalen",
+    "category": "CAT-07",
+    "types": ["MAK", "LER"],
+    "nl": "Vertalen als hobby",
+    "en": "Translation as a hobby",
+    "sub": {"nl": "Vertalen", "en": "Translation"},
+    "desc": {"nl": "Teksten vertalen als hobby, van gedichten tot ondertitels.", "en": "Translating texts as a hobby, from poems to subtitles."},
+    "match": "exact",
+    "legacy_id": "vertalen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "onderzoeken:3:D", "taalvaardig:5:V", "precisie:4:V", "concentratie:4:V", "creativiteit:3:V", "geduld:3:V", "wereldculturen:4:T", "verhalen:3:T", "kunst:2:T", "puzzelen:5:E", "rust:3:E", "ontdekking:3:E", "identiteit:3:O", "gemeenschap:3:O", "taal:5:T"],
+    "why": {
+      "identiteit": {"nl": "Woorden kiezen laat zien hoe taal bepaalt wat we kunnen zeggen, waardoor je over je eigen stem nadenkt.", "en": "Choosing words shows how language shapes what we can say, which makes you think about your own voice."},
+      "gemeenschap": {"nl": "Vrijwillige vertalers brengen boeken, ondertitels en nieuws naar mensen die ze anders niet zouden lezen.", "en": "Volunteer translators bring books, subtitles and news to people who would otherwise not read them."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-222",
+    "slug": "roman-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Een roman schrijven",
+    "en": "Writing a novel",
+    "sub": {"nl": "Creatief schrijven", "en": "Creative writing"},
+    "desc": {"nl": "Een lang verhaal opbouwen: plot, personages, scènes en herschrijven, bijvoorbeeld in een maand schrijfmarathon.", "en": "Building a long story: plot, characters, scenes and rewriting, for example in a month-long writing sprint."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 2, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["ontwerpen:3:D", "bouwen:3:D", "thuis:3:D", "taalvaardig:5:V", "creativiteit:5:V", "strategie:3:V", "concentratie:4:V", "verhalen:5:T", "fantasie:4:E", "doorzetten:5:E", "opgaan:4:E", "expressie:4:E", "ontroering:3:E", "zelfstandig:3:E", "architectuur:3:O", "gemeenschap:3:O", "taal:5:T"],
+    "why": {
+      "architectuur": {"nl": "Een roman is gebouwd als een constructie met een fundament, dragende scènes en versiering.", "en": "A novel is built like a structure with foundations, load-bearing scenes and ornaments."},
+      "gemeenschap": {"nl": "Schrijfsessies en online sprints geven een eenzame taak een publiek van lotgenoten.", "en": "Write-ins and online sprints give a solitary task a crowd of fellow writers."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-223",
+    "slug": "kinderverhaal-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Een kinderverhaal schrijven",
+    "en": "Writing a children's story",
+    "sub": {"nl": "Creatief schrijven", "en": "Creative writing"},
+    "desc": {"nl": "Een kort verhaal voor kinderen schrijven met een eenvoudige plot, herhaling en een verrassing.", "en": "Writing a short story for children with a simple plot, repetition and a surprise."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["thuis:3:D", "taalvaardig:4:V", "creativiteit:5:V", "communicatie:3:V", "verhalen:5:T", "dieren:3:T", "fantasie:5:E", "speelsheid:5:E", "humor:4:E", "ritme:4:E", "ontroering:3:E", "generaties:4:E", "zorg:3:E", "klank:3:O", "onderzoeken:3:O", "taal:5:T"],
+    "why": {
+      "klank": {"nl": "Kinderverhalen zijn gemaakt om voor te lezen, dus klank en ritme bepalen de tekst.", "en": "Children's stories are made to be read aloud, so sound and rhythm decide the text."},
+      "onderzoeken": {"nl": "Schrijven voor een kind betekent kijken hoe het luistert en waar het om lacht.", "en": "Writing for a child means watching how they listen and what makes them laugh."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-233",
+    "slug": "schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Creatief schrijven",
+    "en": "Creative writing",
+    "sub": {"nl": "Creatief schrijven", "en": "Creative writing"},
+    "desc": {"nl": "Verhalen, scènes of teksten schrijven zonder vast doel, voor jezelf of een groep.", "en": "Writing stories, scenes or texts with no fixed goal, for yourself or a group."},
+    "match": "exact",
+    "legacy_id": "schrijven",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "taalvaardig:5:V", "creativiteit:5:V", "concentratie:3:V", "verhalen:5:T", "identiteit:3:T", "fantasie:4:E", "expressie:4:E", "opgaan:4:E", "vrijheid:3:E", "ontroering:2:E", "zelfstandig:3:E", "humor:3:O", "onderzoeken:3:O", "taal:5:T"],
+    "why": {
+      "humor": {"nl": "Schrijven laat je spelen met stem, ironie en grappen die je hardop nooit zou durven.", "en": "Writing lets you play with voice, irony and jokes that you would never risk aloud."},
+      "onderzoeken": {"nl": "Fictie vraagt onderzoek: hoe een plek ruikt en hoe een beroep gaat.", "en": "Fiction needs research: how a place smells and how a job is done."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-234",
+    "slug": "cafe-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Koffie en schrijven in een café",
+    "en": "Coffee and writing in a café",
+    "sub": {"nl": "Creatief schrijven", "en": "Creative writing"},
+    "desc": {"nl": "In een café koffie drinken en een uur schrijven, schetsen of dagboek bijhouden.", "en": "Having coffee in a café and writing, sketching or journaling for an hour."},
+    "match": "exact",
+    "legacy_id": "cafe-schrijven",
+    "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["stad:3:D", "observeren:4:D", "taalvaardig:3:V", "concentratie:5:V", "creativiteit:3:V", "smaak:3:E", "gezelligheid:2:E", "rust:4:E", "vrijheid:3:E", "opgaan:4:E", "zelfstandig:4:E", "verhalen:3:T", "gemeenschap:3:O", "klank:3:O", "uitgaan:5:D"],
+    "why": {
+      "gemeenschap": {"nl": "Schrijvers gebruiken cafés al lang als woonkamer tussen vreemden die rustig gezelschap zijn.", "en": "Writers have long used cafés as living rooms among strangers who are quiet company."},
+      "klank": {"nl": "Het geroezemoes van een café werkt als achtergrondgeluid waar sommigen zich beter bij concentreren.", "en": "The hum of a café works as background noise that helps some people focus."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-235",
+    "slug": "schrijfcirkel",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Schrijfcirkel",
+    "en": "Writing circle",
+    "sub": {"nl": "Creatief schrijven", "en": "Creative writing"},
+    "desc": {"nl": "In een kleine groep korte schrijfopdrachten doen en voorlezen.", "en": "Doing short writing prompts in a small group and reading them out."},
+    "match": "exact",
+    "legacy_id": "schrijfcirkel",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["taalvaardig:5:V", "creativiteit:4:V", "communicatie:3:V", "concentratie:3:V", "verhalen:4:T", "identiteit:2:T", "gemeenschap:4:E", "gezelligheid:4:E", "verbondenheid:3:E", "ontroering:3:E", "expressie:4:E", "opgaan:3:E", "moed:3:O", "improviseren:3:O"],
+    "why": {
+      "moed": {"nl": "Iets voorlezen wat je net schreef vraagt een kleine, echte daad van moed.", "en": "Reading something you just wrote aloud takes a small, real act of courage."},
+      "improviseren": {"nl": "Opdrachten dwingen je te schrijven vóór je kunt twijfelen.", "en": "Prompts force you to write before you can doubt."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-236",
+    "slug": "brieven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Brieven schrijven",
+    "en": "Writing letters",
+    "sub": {"nl": "Schrijven en post", "en": "Writing and post"},
+    "desc": {"nl": "Echte brieven schrijven aan vrienden of onbekenden, met pen en papier.", "en": "Writing real letters to friends or strangers with pen and paper."},
+    "match": "exact",
+    "legacy_id": "brieven",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["papier:4:M", "thuis:3:D", "taalvaardig:4:V", "communicatie:5:V", "verhalen:3:T", "nostalgie:4:E", "zorg:4:E", "rust:4:E", "ontroering:4:E", "expressie:3:E", "verbondenheid:2:E", "geschiedenis:3:O", "wereldculturen:3:O", "taal:4:T"],
+    "why": {
+      "geschiedenis": {"nl": "Brieven zijn het ruwe materiaal van geschiedenis, en de jouwe kunnen over jaren gelezen worden.", "en": "Letters are the raw material of history, and yours may be read years from now."},
+      "wereldculturen": {"nl": "Penvrienden en postcrossing brengen andere landen op je deurmat.", "en": "Pen friends and postcrossing bring other countries to your doormat."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-237",
+    "slug": "detectiveverhaal",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Een detectiveverhaal schrijven",
+    "en": "Writing a detective story",
+    "sub": {"nl": "Creatief schrijven", "en": "Creative writing"},
+    "desc": {"nl": "Een mysterie bedenken met aanwijzingen, valse sporen en een oplossing, en dat uitschrijven.", "en": "Devising a mystery with clues, red herrings and a solution, and writing it out."},
+    "match": "exact",
+    "legacy_id": "detectiveverhaal",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:3:D", "onderzoeken:3:D", "taalvaardig:4:V", "creativiteit:4:V", "logica:5:V", "strategie:3:V", "verhalen:5:T", "kunst:2:T", "puzzelen:5:E", "spanning:4:E", "fantasie:3:E", "opgaan:3:E", "doorzetten:3:E", "architectuur:3:O", "humor:3:O", "taal:4:T"],
+    "why": {
+      "architectuur": {"nl": "Een mysterie plotten is een slot bouwen waarvan alle onderdelen in elkaar moeten passen.", "en": "Plotting a mystery is building a lock whose pieces must all fit."},
+      "humor": {"nl": "Klassieke whodunits balanceren dreiging met geestigheid.", "en": "Classic whodunits balance menace with wit."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-238",
+    "slug": "scenario-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Een korte scène of scenario schrijven",
+    "en": "Writing a short scene or screenplay",
+    "sub": {"nl": "Scenario en toneel", "en": "Screenwriting and stage"},
+    "desc": {"nl": "Een korte filmscène of toneelscène schrijven met dialoog en beeld.", "en": "Writing a short film or stage scene with dialogue and image."},
+    "match": "exact",
+    "legacy_id": "scenario-schrijven",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group", "online"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:3:D", "taalvaardig:4:V", "creativiteit:5:V", "communicatie:3:V", "verhalen:5:T", "beeldtaal:4:T", "kunst:3:T", "fantasie:3:E", "spanning:3:E", "expressie:4:E", "ritme:3:E", "opgaan:3:E", "improviseren:3:O", "podium:3:O", "taal:4:T"],
+    "why": {
+      "improviseren": {"nl": "Dialoog schrijven gaat makkelijker als je het eerst hardop hebt geïmproviseerd.", "en": "Dialogue is easier to write once you have improvised it aloud."},
+      "podium": {"nl": "Een scène is pas af als acteurs haar uitspreken.", "en": "A scene is only finished when actors speak it."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-239",
+    "slug": "poetry-slam",
+    "category": "CAT-07",
+    "types": ["MAK", "EXP"],
+    "nl": "Poetry slam",
+    "en": "Poetry slam",
+    "sub": {"nl": "Poëzie", "en": "Poetry"},
+    "desc": {"nl": "Een gedicht schrijven en voordragen op een poetry slam-podium.", "en": "Writing a poem and performing it on a poetry slam stage."},
+    "match": "exact",
+    "legacy_id": "poetry-slam",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["podium:5:D", "optreden:5:D", "taalvaardig:5:V", "creativiteit:4:V", "communicatie:3:V", "verhalen:3:T", "identiteit:3:T", "expressie:5:E", "publiek:5:E", "moed:4:E", "ritme:4:E", "klank:4:E", "competitie:2:E", "humor:3:E", "rechtvaardigheid:3:O", "gemeenschap:3:O", "muziek:3:T", "taal:5:T"],
+    "why": {
+      "rechtvaardigheid": {"nl": "Slam is vaak een podium voor politiek en persoonlijk protest.", "en": "Slam is often a platform for political and personal protest."},
+      "gemeenschap": {"nl": "Slamscenes staan bekend om hun open ontvangst van eerste optredens.", "en": "Slam scenes are known for welcoming first-time performers."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-240",
+    "slug": "journaling",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Journaling",
+    "en": "Journaling",
+    "sub": {"nl": "Dagboek", "en": "Journaling"},
+    "desc": {"nl": "Dagelijks of wekelijks schrijven over je gedachten, dag en doelen.", "en": "Writing daily or weekly about your thoughts, day and goals."},
+    "match": "exact",
+    "legacy_id": "journaling",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 0, "duration": 1, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "papier:2:M", "taalvaardig:3:V", "concentratie:3:V", "creativiteit:2:V", "identiteit:4:T", "welzijn:5:T", "rust:5:E", "expressie:4:E", "zelfstandig:4:E", "ontroering:2:E", "opgaan:3:E", "nostalgie:2:E", "onderzoeken:3:O", "ritme:3:O"],
+    "why": {
+      "onderzoeken": {"nl": "Regelmatig schrijven laat patronen in je eigen dagen zien.", "en": "Writing regularly lets you see patterns in your own days."},
+      "ritme": {"nl": "Een vast tijdstip maakt van schrijven een rustige dagelijkse maat.", "en": "A set time of day turns writing into a calm daily beat."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-442",
+    "slug": "eigen-taal",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Een eigen taal bedenken",
+    "en": "Inventing your own language",
+    "sub": {"nl": "Taal", "en": "Language"},
+    "desc": {"nl": "Een eigen taal bedenken met klanken, grammatica en woorden.", "en": "Inventing a language of your own with sounds, grammar and words."},
+    "match": "exact",
+    "legacy_id": "eigen-taal",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online", "with_known"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:4:D", "bouwen:3:D", "thuis:3:D", "taalvaardig:5:V", "logica:4:V", "creativiteit:5:V", "patronen:5:T", "verhalen:3:T", "fantasie:5:E", "puzzelen:4:E", "opgaan:4:E", "expressie:3:E", "gemeenschap:3:E", "wereldculturen:3:O", "kunst:3:O", "taal:5:T"],
+    "why": {
+      "wereldculturen": {"nl": "Verzonnen talen lenen van echte, dus je leert hoe talen werken.", "en": "Invented languages borrow from real ones, so you learn how languages work."},
+      "kunst": {"nl": "Verzonnen talen leven in romans en films als deel van wereldbouw.", "en": "Invented languages live in novels and films as part of world-building."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-443",
+    "slug": "book-club-stil",
+    "category": "CAT-07",
+    "types": ["EXP"],
+    "nl": "Silent book club (samen lezen zonder praten)",
+    "en": "Silent book club",
+    "sub": {"nl": "Lezen", "en": "Reading"},
+    "desc": {"nl": "Samen lezen zonder praten: elk een eigen boek, in stilte met anderen.", "en": "Reading together without talking: each with their own book, in silence with others."},
+    "match": "exact",
+    "legacy_id": "book-club-stil",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["concentratie:4:V", "verhalen:4:T", "rust:5:E", "stilte:5:E", "gezelligheid:3:E", "verbondenheid:3:E", "opgaan:5:E", "gemeenschap:2:E", "zelfstandig:3:E", "smaak:2:E", "welzijn:3:T", "taalvaardig:2:V", "stad:2:D", "warmte:3:O", "spiritualiteit:3:O"],
+    "why": {
+      "warmte": {"nl": "Een gedeelde stille ruimte is knus op een manier die alleen lezen niet is.", "en": "A shared quiet room is cosy in a way that reading alone is not."},
+      "spiritualiteit": {"nl": "Stille gemeenschappelijke praktijk heeft iets meditatiefs.", "en": "Silent communal practice has a meditative quality."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-444",
+    "slug": "lezen",
+    "category": "CAT-07",
+    "types": ["EXP"],
+    "nl": "Een roman van begin tot eind lezen",
+    "en": "Reading a novel",
+    "sub": {"nl": "Lezen", "en": "Reading"},
+    "desc": {"nl": "Een roman van begin tot eind lezen, zonder afleiding.", "en": "Reading a novel from beginning to end, without distraction."},
+    "match": "exact",
+    "legacy_id": "lezen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "with_known", "online"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "taalvaardig:4:V", "concentratie:5:V", "verhalen:5:T", "kunst:3:T", "identiteit:2:T", "opgaan:5:E", "rust:4:E", "fantasie:4:E", "ontroering:4:E", "stilte:3:E", "zelfstandig:4:E", "vrijheid:3:E", "welzijn:3:O", "zorg:3:O", "taal:4:T"],
+    "why": {
+      "welzijn": {"nl": "Fictie lezen wordt gekoppeld aan rust en inlevingsvermogen.", "en": "Reading fiction is linked to calm and empathy."},
+      "zorg": {"nl": "Leven in een ander hoofd bouwt zorg voor anderen op.", "en": "Living inside another mind builds care for others."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-445",
+    "slug": "luisterboek",
+    "category": "CAT-07",
+    "types": ["EXP"],
+    "nl": "Luisterboeken",
+    "en": "Audiobooks",
+    "sub": {"nl": "Luisteren", "en": "Listening"},
+    "desc": {"nl": "Luisterboeken beluisteren tijdens wandelen, fietsen of ontspannen.", "en": "Listening to audiobooks while walking, cycling or relaxing."},
+    "match": "exact",
+    "legacy_id": "luisterboek",
+    "facets": {"setting": "both", "social_formats": ["solo", "online"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:2:D", "verhalen:5:T", "taalvaardig:2:V", "concentratie:3:V", "technologie:2:T", "klank:4:E", "rust:4:E", "fantasie:3:E", "ontroering:3:E", "vrijheid:3:E", "opgaan:4:E", "beweging:2:E", "zelfstandig:2:E", "ritme:3:O", "tradities:3:O", "taal:3:T"],
+    "why": {
+      "ritme": {"nl": "Tempo en stem van de verteller bepalen hoe een boek aanvoelt.", "en": "A narrator's pace and voice shape how a book feels."},
+      "tradities": {"nl": "Mondeling vertellen is een van de oudste vormen van literatuur, die audio terugbrengt.", "en": "Oral storytelling is among the oldest forms of literature, which audio brings back."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-446",
+    "slug": "reisverhaal-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Een reisverhaal of reisessay schrijven",
+    "en": "Writing a travel story or essay",
+    "sub": {"nl": "Creatief schrijven", "en": "Creative writing"},
+    "desc": {"nl": "Een reis of wandeling omzetten in een verhaal of essay met plaatsen, mensen en gedachten.", "en": "Turning a trip or walk into a story or essay with places, people and thoughts."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo"], "level": 1, "duration": 3, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["observeren:4:D", "navigeren:2:D", "taalvaardig:5:V", "creativiteit:4:V", "concentratie:3:V", "verhalen:5:T", "wereldculturen:4:T", "identiteit:3:T", "ontdekking:4:E", "expressie:4:E", "nostalgie:3:E", "opgaan:3:E", "zelfstandig:3:E", "klank:3:O", "geschiedenis:3:O", "taal:5:T"],
+    "why": {
+      "klank": {"nl": "Geluiden en geuren noteren laat een plek in tekst tot leven komen.", "en": "Noting sounds and smells makes a place come alive in writing."},
+      "geschiedenis": {"nl": "Reisverhalen zijn een lang genre, dus je schrijft in de voetsporen van eerdere ontdekkers.", "en": "Travel writing is a long genre, so you write in the footsteps of earlier explorers."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-447",
+    "slug": "column-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Columns en korte opiniestukken schrijven",
+    "en": "Writing columns and short opinion pieces",
+    "sub": {"nl": "Journalistiek", "en": "Journalism"},
+    "desc": {"nl": "Korte persoonlijke stukken schrijven over wat je opvalt, met stem en pointe.", "en": "Writing short personal pieces about what you notice, with voice and punchline."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 1, "duration": 3, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["thuis:3:D", "observeren:3:D", "taalvaardig:5:V", "creativiteit:3:V", "communicatie:3:V", "verhalen:3:T", "identiteit:3:T", "humor:4:E", "expressie:4:E", "publiek:3:E", "doorzetten:2:E", "zelfstandig:3:E", "ritme:3:E", "rechtvaardigheid:3:O", "strategie:3:O", "taal:5:T"],
+    "why": {
+      "rechtvaardigheid": {"nl": "Opiniestukken zijn hoe velen maatschappelijke kwesties aankaarten.", "en": "Opinion writing is how many raise public issues."},
+      "strategie": {"nl": "Een goede column haakt snel en landt in een paar honderd woorden.", "en": "A good column hooks quickly and lands in a few hundred words."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-448",
+    "slug": "tweede-taal-schrijven",
+    "category": "CAT-07",
+    "types": ["MAK", "LER"],
+    "nl": "Schrijven in een tweede taal",
+    "en": "Writing in a second language",
+    "sub": {"nl": "Taal", "en": "Language"},
+    "desc": {"nl": "Dagboek, verhalen of brieven schrijven in een tweede taal om die taal levend te maken.", "en": "Writing a diary, stories or letters in a second language to bring it alive."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 1, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["thuis:3:D", "taalvaardig:5:V", "concentratie:3:V", "creativiteit:3:V", "logica:2:V", "wereldculturen:4:T", "identiteit:3:T", "ontdekking:4:E", "doorzetten:4:E", "zelfstandig:4:E", "expressie:3:E", "opgaan:3:E", "puzzelen:3:O", "humor:3:O", "taal:5:T", "online:3:D"],
+    "why": {
+      "puzzelen": {"nl": "Het exacte woord zoeken in een andere taal is een kleine puzzel.", "en": "Looking for the exact word in another language is a small puzzle."},
+      "humor": {"nl": "Verkeerde woorden maken grappige zinnen, dus fouten worden deel van het spel.", "en": "Wrong words make funny sentences, so mistakes become part of the game."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-449",
+    "slug": "brieven-aan-jezelf",
+    "category": "CAT-07",
+    "types": ["MAK"],
+    "nl": "Brieven aan jezelf in de toekomst",
+    "en": "Letters to your future self",
+    "sub": {"nl": "Dagboek", "en": "Journaling"},
+    "desc": {"nl": "Een brief aan jezelf schrijven en later openen, over doelen, twijfels en dagelijks leven.", "en": "Writing a letter to yourself to open later, about goals, doubts and daily life."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 1, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:2:M", "thuis:3:D", "taalvaardig:3:V", "identiteit:5:T", "welzijn:3:T", "verhalen:3:T", "rust:4:E", "nostalgie:4:E", "ontroering:4:E", "zelfstandig:4:E", "expressie:3:E", "doorzetten:2:E", "onderzoeken:3:O", "tradities:3:O"],
+    "why": {
+      "onderzoeken": {"nl": "Later herlezen laat zien hoe je veranderde, een zelfexperiment door de tijd.", "en": "Rereading shows how you changed, a self-experiment across time."},
+      "tradities": {"nl": "Tijdcapsules en verzegelde brieven zijn oude rituelen van hoop.", "en": "Time capsules and sealed letters are old rituals of hope."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  }
+]

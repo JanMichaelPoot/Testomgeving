@@ -1,0 +1,12 @@
+[
+  {"slug":"materials","nl":"Materialen","en":"Materials","note":{"nl":"Waarmee je werkt: de stof, het gereedschap, het materiaal.","en":"What you work with: the substance, tool or material."}},
+  {"slug":"actions","nl":"Handelingen","en":"Actions","note":{"nl":"Wat je doet met je handen of hoofd.","en":"What you do with your hands or mind."}},
+  {"slug":"environments","nl":"Omgevingen","en":"Environments","note":{"nl":"Waar het zich afspeelt.","en":"Where it takes place."}},
+  {"slug":"experiences","nl":"Ervaringen","en":"Experiences","note":{"nl":"Hoe het voelt: de emotie of beleving.","en":"How it feels: the emotion or sensation."}},
+  {"slug":"skills","nl":"Vaardigheden","en":"Skills","note":{"nl":"Wat je erbij oefent of inzet.","en":"What you practise or use."}},
+  {"slug":"themes","nl":"Thema's","en":"Themes","note":{"nl":"De inhoudelijke wereld waartoe het behoort.","en":"The world of content it belongs to."}},
+  {"slug":"senses","nl":"Zintuigen","en":"Senses","note":{"nl":"Wat je ziet, hoort, voelt, proeft of ruikt.","en":"What you see, hear, feel, taste or smell."}},
+  {"slug":"social","nl":"Sociale context","en":"Social context","note":{"nl":"Met wie of voor wie je het doet.","en":"With whom or for whom you do it."}},
+  {"slug":"challenge","nl":"Uitdaging","en":"Challenge","note":{"nl":"Wat het van je vraagt of waartoe het je uitdaagt.","en":"What it asks of you or challenges you to do."}},
+  {"slug":"aesthetics","nl":"Esthetiek","en":"Aesthetics","note":{"nl":"De sfeer, stijl en schoonheid.","en":"The mood, style and beauty."}}
+]

@@ -1,0 +1,507 @@
+[
+  {
+    "id": "RA-076",
+    "slug": "wandelroute-cartograferen",
+    "category": "CAT-20",
+    "types": ["MAK", "EXP"],
+    "nl": "Een eigen wandelroute cartograferen",
+    "en": "Mapping your own walking route",
+    "sub": {"nl": "Cartografie en exploratie", "en": "Cartography and exploration"},
+    "desc": {"nl": "Een route lopen, meten en uittekenen die nog niet op kaart staat, en die delen met anderen.", "en": "Walking, measuring and drawing a route that is not yet on a map, and sharing it with others."},
+    "match": "new",
+    "legacy_id": null,
+    "v0_id": "ACT-050",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group"], "level": 1, "duration": 3, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["navigeren:5:D", "ontwerpen:4:D", "observeren:4:D", "bos:3:D", "logica:3:V", "precisie:3:V", "creativiteit:3:V", "ruimtelijk:4:V", "natuur:3:T", "kunst:2:T", "vrijheid:3:E", "ontdekking:4:E", "rust:3:E", "trots:4:E", "beweging:3:E", "geschiedenis:3:O", "gemeenschap:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Je kaart vergelijken met oude kaarten laat zien hoe paden, akkers en grenzen veranderden.", "en": "Comparing your map with old maps shows how paths, fields and borders changed."},
+      "gemeenschap": {"nl": "Een gedeelde route wordt een publiek goed dat buren helpt hun weg te vinden.", "en": "A shared route becomes a public good that helps neighbours find their way."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-077",
+    "slug": "reisdagboek-bijhouden",
+    "category": "CAT-20",
+    "types": ["MAK", "EXP"],
+    "nl": "Een reisdagboek bijhouden",
+    "en": "Keeping a travel journal",
+    "sub": {"nl": "Reisverslag", "en": "Travel writing"},
+    "desc": {"nl": "Onderweg schrijven, schetsen en plakken om een reis vast te leggen in een eigen boekje.", "en": "Writing, sketching and pasting along the way to record a trip in a notebook of your own."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:3:M", "observeren:5:D", "navigeren:2:D", "stad:3:D", "taalvaardig:4:V", "creativiteit:4:V", "concentratie:3:V", "verhalen:5:T", "wereldculturen:4:T", "kunst:3:T", "identiteit:3:T", "ontdekking:4:E", "nostalgie:4:E", "rust:3:E", "expressie:4:E", "geschiedenis:3:O", "klank:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Jaren later herlezen wordt een reisdagboek een kleine historische bron over wie je was en hoe een plek eruitzag.", "en": "Reread years later, a travel journal becomes a small historical source about who you were and how a place looked."},
+      "klank": {"nl": "Geluiden en geuren van een plek noteren traint zintuigen die een foto niet vasthoudt.", "en": "Noting the sounds and smells of a place trains senses that a photo cannot hold."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-095",
+    "slug": "trektocht",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Meerdaagse wandeltocht",
+    "en": "Multi-day hike",
+    "sub": {"nl": "Trektochten", "en": "Treks"},
+    "desc": {"nl": "Meerdere dagen achter elkaar lopen van A naar B, met overnachtingen onderweg.", "en": "Walking from A to B over several days with overnight stays along the way."},
+    "match": "exact",
+    "legacy_id": "trektocht",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["navigeren:5:D", "bos:3:D", "kust:2:D", "natuur:4:T", "beweging:5:E", "vrijheid:5:E", "rust:4:E", "doorzetten:4:E", "grenzen:3:E", "avontuur:4:E", "trots:4:E", "verwondering:3:E", "zelfstandig:4:E", "geschiedenis:3:O", "ritme:3:O", "conditie:5:V"],
+    "why": {
+      "geschiedenis": {"nl": "Oude paden volgen handelsroutes, bedevaarten en grenzen, dus elke etappe loopt door de geschiedenis.", "en": "Old paths follow trade routes, pilgrimages and borders, so every stage walks through history."},
+      "ritme": {"nl": "Urenlang lopen valt in een ritme dat het hoofd stil maakt.", "en": "Hours of walking settle into a rhythm that quiets the mind."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-096",
+    "slug": "wandeltocht-lang",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Een lange wandeltocht in etappes",
+    "en": "A long-distance walk in stages",
+    "sub": {"nl": "Trektochten", "en": "Treks"},
+    "desc": {"nl": "Een lange route in dagetappes lopen, bijvoorbeeld een langeafstandspad.", "en": "Walking a long route in day stages, for example a long-distance trail."},
+    "match": "exact",
+    "legacy_id": "wandeltocht-lang",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["navigeren:4:D", "bos:3:D", "natuur:4:T", "beweging:5:E", "rust:4:E", "vrijheid:4:E", "doorzetten:4:E", "trots:5:E", "avontuur:3:E", "strategie:3:V", "geduld:3:V", "welzijn:3:T", "zelfstandig:3:E", "organiseren:3:O", "geschiedenis:3:O", "conditie:4:V"],
+    "why": {
+      "organiseren": {"nl": "Een pad in etappes verdelen en slaapplekken boeken is zelf al een planningsoefening.", "en": "Splitting a trail into stages and booking stops is a planning exercise in itself."},
+      "geschiedenis": {"nl": "Paden kruisen dorpen en landschappen die verklaren hoe de streek groeide.", "en": "Trails cross villages and landscapes that explain how the region grew."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-097",
+    "slug": "fietsvakantie",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Een meerdaagse fietstocht met overnachtingen",
+    "en": "A multi-day bike tour with overnight stays",
+    "sub": {"nl": "Fietsreizen", "en": "Cycling trips"},
+    "desc": {"nl": "Meerdere dagen fietsen met overnachtingen, door landschappen en dorpen.", "en": "Cycling for several days with overnight stays, through landscapes and villages."},
+    "match": "exact",
+    "legacy_id": "fietsvakantie",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 4, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["navigeren:4:D", "water:2:D", "kust:3:D", "natuur:3:T", "beweging:5:E", "vrijheid:5:E", "avontuur:4:E", "doorzetten:3:E", "trots:4:E", "rust:3:E", "verwondering:3:E", "zelfstandig:4:E", "strategie:3:V", "repareren:2:D", "technologie:3:O", "gemeenschap:3:O", "mobiliteit:4:T", "conditie:4:V"],
+    "why": {
+      "technologie": {"nl": "Versnellingen, ketting en remmen maken de fiets tot een machine die je onderweg leert lezen.", "en": "Gears, chain and brakes make the bike a machine you learn to read on the road."},
+      "gemeenschap": {"nl": "Fietsroutes brengen toevallige ontmoetingen met andere reizigers en gastheren.", "en": "Bike routes bring chance meetings with other travellers and hosts."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-098",
+    "slug": "nachttrein",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Met de nachttrein naar een stad die je nog niet kent",
+    "en": "Taking the night train to a city you do not know yet",
+    "sub": {"nl": "Treinreizen", "en": "Train travel"},
+    "desc": {"nl": "Met de nachttrein naar een stad reizen die je nog niet kent en 's ochtends aankomen.", "en": "Taking a night train to a city you do not know and arriving in the morning."},
+    "match": "exact",
+    "legacy_id": "nachttrein",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "with_known"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["navigeren:3:D", "stad:5:D", "onderzoeken:2:D", "wereldculturen:4:T", "geschiedenis:3:T", "architectuur:3:T", "avontuur:4:E", "vrijheid:4:E", "verwondering:4:E", "nostalgie:4:E", "ontdekking:4:E", "rust:3:E", "spanning:2:E", "zelfstandig:3:E", "verhalen:3:O", "ritme:3:O", "mobiliteit:5:T"],
+    "why": {
+      "verhalen": {"nl": "Een trein door de nacht is het decor van honderd romans en films, dus je reist binnen een verhaal.", "en": "A train through the night is the setting of a hundred novels and films, so you travel inside a story."},
+      "ritme": {"nl": "Het wiegen van de wagon en het geluid van de rails zijn een slaapliedje.", "en": "The rocking of the carriage and the sound of the rails are a lullaby."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-099",
+    "slug": "trein-dagtrip",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Met de trein naar een onbekend plaatsje",
+    "en": "Train day trip",
+    "sub": {"nl": "Treinreizen", "en": "Train travel"},
+    "desc": {"nl": "Zonder plan met de trein naar een onbekend plaatsje en dat te voet ontdekken.", "en": "Taking the train to an unknown little town with no plan and exploring it on foot."},
+    "match": "exact",
+    "legacy_id": "trein-dagtrip",
+    "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["navigeren:4:D", "stad:4:D", "observeren:3:D", "bos:2:D", "ontdekking:5:E", "vrijheid:4:E", "avontuur:3:E", "zelfstandig:4:E", "verwondering:3:E", "rust:3:E", "moed:2:E", "geschiedenis:3:T", "architectuur:3:T", "wereldculturen:2:T", "improviseren:3:O", "verzamelen:3:O", "mobiliteit:4:T"],
+    "why": {
+      "improviseren": {"nl": "Zonder plan beslis je op elke hoek, dus je improviseert in het dagelijks leven.", "en": "Without a plan you decide at every corner, so you improvise in daily life."},
+      "verzamelen": {"nl": "Kleine plaatsen worden een persoonlijke verzameling van plekken die je zelf vond.", "en": "Small towns become a personal collection of places you found yourself."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-100",
+    "slug": "boomhut-nacht",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Een nacht in een boomhut of tipi",
+    "en": "A night in a treehouse or tipi",
+    "sub": {"nl": "Overnachten", "en": "Overnight stays"},
+    "desc": {"nl": "Een nacht doorbrengen in een boomhut, tipi of andere bijzondere slaapplek in de natuur.", "en": "Spending a night in a tree house, tipi or other special place to sleep in nature."},
+    "match": "exact",
+    "legacy_id": "boomhut-nacht",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["bos:5:D", "lucht:3:D", "hout:3:M", "natuur:5:T", "dieren:3:T", "heelal:3:T", "rust:5:E", "verwondering:4:E", "vrijheid:4:E", "avontuur:3:E", "speelsheid:3:E", "geur:3:E", "klank:4:E", "gezelligheid:2:E", "fantasie:3:O", "architectuur:3:O"],
+    "why": {
+      "fantasie": {"nl": "Slapen in een boom of tipi brengt kinderhutten en verbeelding terug.", "en": "Sleeping in a tree or tipi brings back childhood dens and make-believe."},
+      "architectuur": {"nl": "Boomhutten en tipi's zijn slimme kleine gebouwen met een eigen logica.", "en": "Tree houses and tipis are clever small buildings with their own logic."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-102",
+    "slug": "kamperen",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Kamperen of bivakkeren",
+    "en": "Camping or bivouac",
+    "sub": {"nl": "Overnachten", "en": "Overnight stays"},
+    "desc": {"nl": "Kamperen of bivakkeren, van een tent op een camping tot een nacht in het wild.", "en": "Camping or bivouacking, from a tent on a campsite to a night in the wild."},
+    "match": "exact",
+    "legacy_id": "kamperen",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["bos:4:D", "kust:3:D", "bouwen:2:D", "natuur:5:T", "heelal:4:T", "vrijheid:5:E", "rust:4:E", "avontuur:4:E", "gezelligheid:4:E", "zelfstandig:4:E", "geur:3:E", "klank:3:E", "doorzetten:2:E", "speelsheid:3:E", "strategie:3:O", "improviseren:3:O"],
+    "why": {
+      "strategie": {"nl": "Inpakken en opzetten is logistiek met weinig speling.", "en": "Packing and pitching is logistics with little margin for error."},
+      "improviseren": {"nl": "Weer verandert plannen, dus kamperen beloont improviseren.", "en": "Weather changes plans, so camping rewards making do."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-163",
+    "slug": "thematrip-plannen",
+    "category": "CAT-20",
+    "types": ["EXP", "MAK"],
+    "nl": "Een thematrip plannen",
+    "en": "Planning a themed trip",
+    "sub": {"nl": "Reisplanning", "en": "Trip planning"},
+    "desc": {"nl": "Een stedentrip of rondreis rond één thema plannen, zoals architectuur, eten, boeken of muziek.", "en": "Planning a city break or round trip around one theme, such as architecture, food, books or music."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["navigeren:4:D", "onderzoeken:4:D", "organiseren:5:D", "stad:4:D", "strategie:3:V", "creativiteit:3:V", "communicatie:2:V", "wereldculturen:4:T", "kunst:3:T", "geschiedenis:3:T", "architectuur:2:T", "ontdekking:4:E", "vrijheid:3:E", "gezelligheid:3:E", "puzzelen:3:O", "identiteit:3:O"],
+    "why": {
+      "puzzelen": {"nl": "Bezienswaardigheden, treinen en openingstijden passend krijgen is een planningspuzzel.", "en": "Fitting sights, trains and opening times together is a planning puzzle."},
+      "identiteit": {"nl": "Het thema dat je kiest zegt iets over wat je belangrijk vindt, dus een reis wordt een zelfportret.", "en": "The theme you choose says something about what you care about, so a trip becomes a self-portrait."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-164",
+    "slug": "slow-travel",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Slow travel: een maand op één plek wonen",
+    "en": "Slow travel: living in one place for a month",
+    "sub": {"nl": "Reizen", "en": "Travel"},
+    "desc": {"nl": "Een tijd op één plek verblijven en er een gewoon leven leiden: markt, bakker, buren, wandelingen.", "en": "Staying in one place for a while and living an ordinary life there: market, baker, neighbours, walks."},
+    "match": "close",
+    "legacy_id": "slow-travel",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 0, "source": "authored"},
+    "links": ["stad:4:D", "navigeren:2:D", "keuken:2:D", "taalvaardig:2:V", "communicatie:3:V", "zelfstandig:4:E", "wereldculturen:5:T", "identiteit:3:T", "welzijn:3:T", "rust:5:E", "vrijheid:5:E", "ontdekking:4:E", "verwondering:3:E", "gezelligheid:2:E", "ritme:4:E", "smaak:3:E", "gemeenschap:3:O", "duurzaamheid:3:O"],
+    "why": {
+      "gemeenschap": {"nl": "Na enkele weken word je stamklant, dus een bezoeker verandert langzaam in een buur.", "en": "After some weeks you become a regular, so a visitor slowly turns into a neighbour."},
+      "duurzaamheid": {"nl": "Langer blijven in plaats van van plek naar plek te hoppen vermindert vluchten en geeft een rustiger voetafdruk.", "en": "Staying longer instead of hopping between places reduces flights and gives a calmer footprint."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-335",
+    "slug": "toerist",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Toerist in je eigen stad",
+    "en": "Tourist in your own city",
+    "sub": {"nl": "Stad ontdekken", "en": "Exploring a city"},
+    "desc": {"nl": "Je eigen stad bekijken als toerist: gidsenboek, rondvaart en musea.", "en": "Seeing your own city as a tourist: guidebook, boat trip and museums."},
+    "match": "exact",
+    "legacy_id": "toerist",
+    "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["stad:5:D", "navigeren:3:D", "onderzoeken:3:D", "observeren:3:D", "architectuur:3:T", "geschiedenis:3:T", "weer:2:T", "ontdekking:5:E", "verwondering:3:E", "vrijheid:3:E", "zelfstandig:3:E", "gezelligheid:2:E", "humor:3:O", "tradities:3:O"],
+    "why": {
+      "humor": {"nl": "Toerist spelen thuis is een grap met een serieuze kern.", "en": "Playing tourist at home is a joke with a serious point."},
+      "tradities": {"nl": "Lokale gebruiken met frisse ogen bekeken tonen hoe vreemd en charmant ze zijn.", "en": "Local customs seen with fresh eyes reveal how odd and charming they are."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-336",
+    "slug": "fotowandeling",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Fotowandeling door een onbekende wijk",
+    "en": "Photo walk",
+    "sub": {"nl": "Stad ontdekken", "en": "Exploring a city"},
+    "desc": {"nl": "Een onbekende wijk te voet verkennen met camera of telefoon.", "en": "Exploring an unfamiliar neighbourhood on foot with a camera or phone."},
+    "match": "exact",
+    "legacy_id": "fotowandeling",
+    "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["stad:5:D", "observeren:5:D", "navigeren:3:D", "creativiteit:3:V", "concentratie:3:V", "beeldtaal:4:T", "architectuur:3:T", "licht:5:E", "ontdekking:4:E", "beweging:2:E", "vrijheid:3:E", "zelfstandig:3:E", "verwondering:3:E", "verhalen:3:O", "wereldculturen:3:O"],
+    "why": {
+      "verhalen": {"nl": "Bewoners, winkels en uithangborden vormen samen het verhaal van de wijk.", "en": "Residents, shops and signs add up to a story of the neighbourhood."},
+      "wereldculturen": {"nl": "Wijken dragen vele culturen, wat je ziet in winkels en eten.", "en": "Neighbourhoods carry many cultures, which shows in shops and food."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-337",
+    "slug": "audiowandeling",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Audiowandeling of podcastroute",
+    "en": "Audio walk",
+    "sub": {"nl": "Stad ontdekken", "en": "Exploring a city"},
+    "desc": {"nl": "Een audiowandeling of podcastroute lopen die een plek tot leven brengt.", "en": "Walking an audio tour or podcast route that brings a place to life."},
+    "match": "exact",
+    "legacy_id": "audiowandeling",
+    "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["stad:4:D", "navigeren:3:D", "verhalen:5:T", "geschiedenis:4:T", "technologie:2:T", "klank:4:E", "ontdekking:4:E", "beweging:3:E", "rust:3:E", "zelfstandig:3:E", "verwondering:3:E", "beeldtaal:3:O", "architectuur:3:O"],
+    "why": {
+      "beeldtaal": {"nl": "Een stem in je oren laat je de plek zien met een verhaal erover.", "en": "A voice in your ears makes you see the place with a story laid over it."},
+      "architectuur": {"nl": "Routes lezen gebouwen een voor een, als een gesproken gids.", "en": "Routes read buildings one by one, like a spoken guidebook."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-338",
+    "slug": "boekwinkels",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Een dag boekwinkels en bibliotheken",
+    "en": "Bookshops and libraries",
+    "sub": {"nl": "Stad ontdekken", "en": "Exploring a city"},
+    "desc": {"nl": "Een dag langs boekwinkels, antiquariaten en bibliotheken.", "en": "A day along bookshops, second-hand shops and libraries."},
+    "match": "exact",
+    "legacy_id": "boekwinkels",
+    "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["stad:4:D", "navigeren:2:D", "verzamelen:3:D", "taalvaardig:2:V", "verhalen:4:T", "kunst:2:T", "ontdekking:5:E", "rust:4:E", "nostalgie:3:E", "geur:3:E", "tast:3:E", "zelfstandig:3:E", "smaak:2:E", "wonen:3:O", "gemeenschap:3:O", "cultuurplek:3:D"],
+    "why": {
+      "wonen": {"nl": "Boekwinkels zijn kamers waarin mensen willen wonen, een hint over hoe jij ruimtes graag hebt.", "en": "Bookshops are rooms people want to live in, a hint about how you like spaces."},
+      "gemeenschap": {"nl": "Onafhankelijke winkels organiseren lezingen, clubs en lokaal leven.", "en": "Independent shops host readings, clubs and local life."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-339",
+    "slug": "fietsroute",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Solo fietstocht langs rivier of kust",
+    "en": "Solo bike ride",
+    "sub": {"nl": "Fietsreizen", "en": "Cycling trips"},
+    "desc": {"nl": "Alleen een dagtocht fietsen langs een rivier of kust.", "en": "Cycling a day trip alone along a river or coast."},
+    "match": "exact",
+    "legacy_id": "fietsroute",
+    "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["navigeren:4:D", "water:3:D", "kust:3:D", "natuur:3:T", "weer:3:T", "beweging:4:E", "vrijheid:5:E", "zelfstandig:5:E", "rust:4:E", "ritme:4:E", "ontdekking:3:E", "verwondering:2:E", "zeevaart:3:O", "technologie:3:O", "mobiliteit:4:T"],
+    "why": {
+      "zeevaart": {"nl": "Rivieren en dijken laten zien hoe waterwegen handel en steden vormden.", "en": "Rivers and dikes show how water routes shaped trade and towns."},
+      "technologie": {"nl": "Een fiets is een eenvoudige machine waarmee één persoon een landschap overbrugt.", "en": "A bike is a simple machine that lets one person cover a landscape."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-340",
+    "slug": "picknick",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Picknicken op een mooie plek",
+    "en": "Solo picnic",
+    "sub": {"nl": "Dagje uit", "en": "Day out"},
+    "desc": {"nl": "Picknicken op een mooie plek: eten, uitzicht en tijd.", "en": "Picnicking in a beautiful spot: food, view and time."},
+    "match": "exact",
+    "legacy_id": "picknick",
+    "facets": {"setting": "outdoor", "social_formats": ["solo"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:2:D", "bos:2:D", "natuur:3:T", "voeding:3:T", "weer:3:T", "smaak:4:E", "rust:5:E", "gezelligheid:4:E", "vrijheid:3:E", "licht:3:E", "zorg:2:E", "schoonheid:3:E", "wonen:3:O", "tradities:3:O"],
+    "why": {
+      "wonen": {"nl": "Een picknick is een draagbare woonkamer met kleed, mand en gekozen plek.", "en": "A picnic is a portable living room, with rug, basket and chosen place."},
+      "tradities": {"nl": "Picknicks hebben eigen gebruiken, van de mand tot de keuze van de plek.", "en": "Picnics have their own customs, from the basket to the choice of spot."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-341",
+    "slug": "nachtwandeling",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Nachtwandeling met een zaklamp",
+    "en": "Night walk with a torch",
+    "sub": {"nl": "Natuurtocht", "en": "Nature trek"},
+    "desc": {"nl": "Een nachtwandeling met zaklamp door bos of stad.", "en": "A night walk with a torch through forest or city."},
+    "match": "exact",
+    "legacy_id": "nachtwandeling",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 1, "source": "app"},
+    "links": ["navigeren:3:D", "bos:3:D", "stad:2:D", "natuur:2:T", "heelal:3:T", "stilte:5:E", "klank:4:E", "spanning:4:E", "avontuur:3:E", "verwondering:4:E", "vrijheid:3:E", "licht:4:E", "dieren:3:O", "spiritualiteit:3:O"],
+    "why": {
+      "dieren": {"nl": "Na zonsondergang komen de dieren tevoorschijn en tonen ze een verborgen wereld.", "en": "After dark the animals come out and reveal a hidden world."},
+      "spiritualiteit": {"nl": "Stilte en duisternis nodigen uit tot bezinning.", "en": "Silence and darkness invite reflection."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-342",
+    "slug": "hofjes",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Verborgen hofjes en binnenplaatsen ontdekken",
+    "en": "Discovering hidden courtyards",
+    "sub": {"nl": "Stad ontdekken", "en": "Exploring a city"},
+    "desc": {"nl": "Verborgen hofjes en binnenplaatsen ontdekken in een oude binnenstad.", "en": "Discovering hidden almshouses and courtyards in an old city centre."},
+    "match": "exact",
+    "legacy_id": "hofjes",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["stad:5:D", "navigeren:3:D", "observeren:3:D", "architectuur:4:T", "geschiedenis:3:T", "planten:2:M", "wonen:3:T", "ontdekking:5:E", "rust:4:E", "verwondering:4:E", "stilte:3:E", "schoonheid:3:E", "rechtvaardigheid:3:O", "tradities:3:O"],
+    "why": {
+      "rechtvaardigheid": {"nl": "Hofjes werden gebouwd als liefdadigheidswoningen, een stuk sociale geschiedenis.", "en": "Hofjes were built as charity housing, a piece of social history."},
+      "tradities": {"nl": "Veel hofjes hebben nog regels, poorten en gebruiken uit hun stichting.", "en": "Many still have rules, gates and customs from their founding."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-545",
+    "slug": "roadtrip-route",
+    "category": "CAT-20",
+    "types": ["EXP", "MAK"],
+    "nl": "Een roadtrip met een route die je zelf uitzet",
+    "en": "A road trip along a route you plan yourself",
+    "sub": {"nl": "Roadtrips", "en": "Road trips"},
+    "desc": {"nl": "Een roadtrip plannen en rijden met een route die je zelf hebt uitgezet.", "en": "Planning and driving a road trip along a route you laid out yourself."},
+    "match": "exact",
+    "legacy_id": "roadtrip-route",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["navigeren:5:D", "organiseren:3:D", "stad:2:D", "natuur:2:T", "wereldculturen:3:T", "vrijheid:5:E", "avontuur:4:E", "ontdekking:4:E", "klank:3:E", "zelfstandig:3:E", "gezelligheid:3:E", "beweging:2:E", "verhalen:3:O", "technologie:3:O", "mobiliteit:5:T"],
+    "why": {
+      "verhalen": {"nl": "Een roadtrip heeft hoofdstukken van stops, omwegen en afspeellijsten.", "en": "A road trip has chapters of stops, detours and playlists."},
+      "technologie": {"nl": "Kaarten, motoren en planningsapps maken lange reizen mogelijk.", "en": "Maps, engines and planning apps make long trips possible."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-546",
+    "slug": "camper-weekend",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Een weekend met een gehuurde camper",
+    "en": "A weekend in a rented campervan",
+    "sub": {"nl": "Roadtrips", "en": "Road trips"},
+    "desc": {"nl": "Een weekend met een gehuurde camper: rijden, slapen en koken waar je wilt.", "en": "A weekend in a rented camper: driving, sleeping and cooking where you like."},
+    "match": "exact",
+    "legacy_id": "camper-weekend",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["navigeren:3:D", "keuken:2:D", "bos:3:D", "kust:2:D", "natuur:3:T", "weer:3:T", "vrijheid:5:E", "avontuur:3:E", "gezelligheid:4:E", "zelfstandig:4:E", "rust:3:E", "ontdekking:3:E", "improviseren:3:V", "wonen:3:O", "duurzaamheid:3:O", "mobiliteit:5:T"],
+    "why": {
+      "wonen": {"nl": "Een camper is woonontwerp op minimale ruimte.", "en": "A camper is home design in minimum space."},
+      "duurzaamheid": {"nl": "Kleine ruimtes maken je bewust van energie, water en afval.", "en": "Small spaces make you aware of energy, water and waste."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-547",
+    "slug": "eilandhoppen",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Eilandhoppen met de veerboot",
+    "en": "Island hopping by ferry",
+    "sub": {"nl": "Reizen", "en": "Travel"},
+    "desc": {"nl": "Eilandhoppen met de veerboot: elk eiland een eigen karakter.", "en": "Island hopping by ferry: each island with a character of its own."},
+    "match": "exact",
+    "legacy_id": "eilandhoppen",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["water:4:D", "kust:5:D", "navigeren:4:D", "zeevaart:4:T", "natuur:3:T", "wereldculturen:3:T", "weer:3:T", "vrijheid:4:E", "avontuur:4:E", "ontdekking:4:E", "rust:3:E", "verwondering:3:E", "zelfstandig:3:E", "geschiedenis:3:O", "voeding:3:O", "mobiliteit:4:T"],
+    "why": {
+      "geschiedenis": {"nl": "Veerroutes volgen oude handels- en visserijlijnen.", "en": "Ferry routes follow old trade and fishing lines."},
+      "voeding": {"nl": "Elk eiland heeft eigen vis en streekproducten.", "en": "Each island has its own seafood and produce."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-548",
+    "slug": "kastelenroute",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Een route langs kastelen en buitenplaatsen",
+    "en": "A route past castles and country estates",
+    "sub": {"nl": "Reizen", "en": "Travel"},
+    "desc": {"nl": "Een route plannen langs kastelen en buitenplaatsen in een streek.", "en": "Planning a route past castles and country estates in a region."},
+    "match": "exact",
+    "legacy_id": "kastelenroute",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["navigeren:4:D", "organiseren:2:D", "observeren:3:D", "bos:2:D", "architectuur:5:T", "geschiedenis:4:T", "kunst:2:T", "natuur:2:T", "ontdekking:4:E", "schoonheid:3:E", "nostalgie:3:E", "verwondering:3:E", "zelfstandig:2:E", "rust:2:E", "verhalen:3:O", "rechtvaardigheid:3:O"],
+    "why": {
+      "verhalen": {"nl": "Elk kasteel heeft legenden over families en belegeringen.", "en": "Each castle has legends of families and sieges."},
+      "rechtvaardigheid": {"nl": "Kastelen en landgoederen roepen vragen op over rijkdom, land en arbeid.", "en": "Castles and estates raise questions about wealth, land and labour."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-549",
+    "slug": "boot-slapen",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Een nacht slapen op een boot",
+    "en": "A night sleeping on a boat",
+    "sub": {"nl": "Overnachten", "en": "Overnight stays"},
+    "desc": {"nl": "Een nacht slapen op een boot, woonschip of in een haven.", "en": "Spending a night on a boat, houseboat or in a harbour."},
+    "match": "exact",
+    "legacy_id": "boot-slapen",
+    "facets": {"setting": "both", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["water:5:D", "zeevaart:3:T", "wonen:3:T", "weer:3:T", "rust:4:E", "klank:4:E", "warmte:3:E", "vrijheid:3:E", "avontuur:3:E", "verwondering:3:E", "gezelligheid:3:E", "stilte:3:E", "architectuur:3:O", "tradities:3:O", "mobiliteit:3:T"],
+    "why": {
+      "architectuur": {"nl": "Een boot is een huis gebouwd rond beweging, opslag en weer.", "en": "A boat is a house built around movement, storage and weather."},
+      "tradities": {"nl": "Woonschip- en havencultuur hebben eigen gebruiken en gastvrijheid.", "en": "Liveaboard and harbour culture have their own customs and hospitality."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-550",
+    "slug": "pelgrimsroute",
+    "category": "CAT-20",
+    "types": ["EXP"],
+    "nl": "Een etappe van een pelgrimsroute lopen",
+    "en": "Walking a stage of a pilgrim route",
+    "sub": {"nl": "Trektochten", "en": "Treks"},
+    "desc": {"nl": "Een of meer etappes van een pelgrimsroute lopen, met stempel en herberg.", "en": "Walking one or more stages of a pilgrim route, with stamp and hostel."},
+    "match": "exact",
+    "legacy_id": "pelgrimsroute",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["navigeren:4:D", "bos:2:D", "natuur:3:T", "spiritualiteit:5:T", "geschiedenis:3:T", "tradities:4:T", "beweging:4:E", "rust:4:E", "vrijheid:3:E", "doorzetten:4:E", "verbondenheid:3:E", "stilte:3:E", "zelfstandig:3:E", "architectuur:3:O", "voeding:3:O"],
+    "why": {
+      "architectuur": {"nl": "Kapellen, bruggen en herbergen langs de weg tonen eeuwen bouwkunst.", "en": "Chapels, bridges and hostels along the way show centuries of building."},
+      "voeding": {"nl": "Pelgrimsmaaltijden en streekgerechten horen bij de route.", "en": "Pilgrim meals and local dishes are part of the route."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  }
+]

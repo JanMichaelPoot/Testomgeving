@@ -1,0 +1,405 @@
+[
+  {
+    "id": "RA-069",
+    "slug": "heraldiek",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Heraldiek en familiewapens",
+    "en": "Heraldry and family coats of arms",
+    "sub": {"nl": "Heraldiek", "en": "Heraldry"},
+    "desc": {"nl": "Wapens bestuderen, het wapenbeeld leren lezen en zelf een wapen ontwerpen.", "en": "Studying coats of arms, learning to read heraldic emblems and designing your own."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["verzamelen:3:D", "onderzoeken:4:D", "ontwerpen:4:D", "geschiedenis:5:T", "kunst:4:T", "identiteit:4:T", "verhalen:4:T", "ornament:5:E", "detail:4:E", "nostalgie:4:E", "precisie:3:V", "creativiteit:3:V", "logica:3:V", "verf:3:M", "taalvaardig:3:O", "stad:3:O"],
+    "why": {
+      "taalvaardig": {"nl": "Blazoeneren is een compacte beschrijvende taal met eigen grammatica en oud-Franse termen.", "en": "Blazon is a compact descriptive language of its own, with strict grammar and old French terms."},
+      "stad": {"nl": "Wapens op poorten, stadhuizen en kerken maken een wandeling door elke stad tot een zoektocht naar symbolen.", "en": "Coats of arms on gates, town halls and churches turn a walk through any city into a hunt for symbols."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-070",
+    "slug": "mondelinge-geschiedenis",
+    "category": "CAT-18",
+    "types": ["EXP", "MAK"],
+    "nl": "Mondelinge geschiedenis opnemen",
+    "en": "Recording oral history",
+    "sub": {"nl": "Mondelinge geschiedenis", "en": "Oral history"},
+    "desc": {"nl": "Ouderen interviewen over hun leven en de verhalen vastleggen voor familie, museum of archief.", "en": "Interviewing elders about their lives and recording the stories for family, a museum or an archive."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["duo", "small_group"], "level": 1, "duration": 3, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["onderzoeken:4:D", "observeren:3:D", "communicatie:5:V", "taalvaardig:3:V", "geduld:4:V", "concentratie:3:V", "geschiedenis:5:T", "verhalen:5:T", "identiteit:3:T", "ontroering:5:E", "gemeenschap:4:E", "generaties:5:E", "zorg:3:E", "klank:3:O", "wereldculturen:3:O", "luisteren:5:V"],
+    "why": {
+      "klank": {"nl": "Een stem draagt toon, pauzes en gelach die tekst niet kan vangen, dus je legt geluid vast als erfgoed.", "en": "A voice carries tone, pauses and laughter that text cannot, so you capture sound as heritage."},
+      "wereldculturen": {"nl": "Praten met mensen met een andere achtergrond laat zien hoe verschillend dezelfde decennia werden beleefd.", "en": "Talking to people from other backgrounds shows how differently the same decades were lived."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-071",
+    "slug": "munten-zegels",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Munten en postzegels verzamelen",
+    "en": "Collecting coins and stamps",
+    "sub": {"nl": "Verzamelen", "en": "Collecting"},
+    "desc": {"nl": "Munten of postzegels verzamelen, ordenen en bestuderen.", "en": "Collecting, sorting and studying coins or stamps."},
+    "match": "exact",
+    "legacy_id": "munten-zegels",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 4, "cost": null, "safety_tier": 0, "source": "app"},
+    "links": ["verzamelen:5:D", "onderzoeken:3:D", "metaal:3:M", "papier:3:M", "precisie:3:V", "geduld:4:V", "concentratie:3:V", "geschiedenis:5:T", "wereldculturen:3:T", "kunst:3:T", "detail:5:E", "nostalgie:4:E", "ornament:3:E", "thuis:3:D", "technologie:3:O", "verhalen:3:O"],
+    "why": {
+      "technologie": {"nl": "Druk- en muntmethoden vertellen de geschiedenis van techniek, van handgeslagen munten tot moderne beveiliging.", "en": "Printing and minting methods tell the history of technology, from hand-struck coins to modern security features."},
+      "verhalen": {"nl": "Elke zegel of munt markeert een gebeurtenis, heerser of plaats, waardoor een verzameling werkt als een geschiedenisboek in het klein.", "en": "Every stamp or coin marks an event, ruler or place, so a collection works as a miniature history book."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-072",
+    "slug": "industrieel-erfgoed",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Industrieel erfgoed bezoeken",
+    "en": "Visiting industrial heritage",
+    "sub": {"nl": "Erfgoed", "en": "Heritage"},
+    "desc": {"nl": "Fabrieken, molens en gemalen bezoeken en leren hoe ze werkten.", "en": "Visiting factories, mills and pumping stations and learning how they worked."},
+    "match": "exact",
+    "legacy_id": "industrieel-erfgoed",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["architectuur:5:T", "geschiedenis:4:T", "technologie:4:T", "duurzaamheid:3:T", "observeren:4:D", "onderzoeken:3:D", "navigeren:3:D", "stad:3:D", "rauw:5:E", "nostalgie:4:E", "verwondering:4:E", "schoonheid:3:E", "metaal:3:M", "ontdekking:4:E", "kunst:3:O", "water:3:O"],
+    "why": {
+      "kunst": {"nl": "Veel oude fabrieken zijn nu ateliers, podia en musea waar rauwe ruimtes en creatief werk elkaar ontmoeten.", "en": "Many former factories are now studios, venues and museums, where raw spaces meet creative work."},
+      "water": {"nl": "Gemalen en molens bestaan vanwege hoe Nederland met water omgaat.", "en": "Pumping stations and mills exist because of how the Dutch manage water."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-073",
+    "slug": "opgraving",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Archeologie: vrijwilliger bij een opgraving",
+    "en": "Archaeology: volunteer at a dig",
+    "sub": {"nl": "Archeologie", "en": "Archaeology"},
+    "desc": {"nl": "Als vrijwilliger meehelpen bij een archeologische opgraving: graven, zeven, documenteren.", "en": "Helping as a volunteer on an archaeological dig: digging, sieving, documenting."},
+    "match": "exact",
+    "legacy_id": "opgraving",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 1, "source": "app"},
+    "links": ["onderzoeken:5:D", "observeren:4:D", "geduld:4:V", "precisie:4:V", "concentratie:3:V", "geschiedenis:5:T", "wetenschap:4:T", "ontdekking:5:E", "verwondering:4:E", "samenwerking:3:E", "rauw:3:E", "steen:3:M", "klei:3:M", "verhalen:3:O", "natuur:3:O"],
+    "why": {
+      "verhalen": {"nl": "Een potscherf of paalgat wordt een aanwijzing voor hoe mensen leefden, dus je leest verhalen uit fragmenten.", "en": "A potsherd or post-hole becomes a clue to how people lived, so you read stories from fragments."},
+      "natuur": {"nl": "Buiten graven maakt weer, bodem en landschap deel van het werk.", "en": "Digging outdoors makes weather, soil and landscape part of the work."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-074",
+    "slug": "handschriften",
+    "category": "CAT-18",
+    "types": ["LER"],
+    "nl": "Oude handschriften lezen",
+    "en": "Reading old handwriting",
+    "sub": {"nl": "Paleografie", "en": "Palaeography"},
+    "desc": {"nl": "Oude handschriften en akten leren lezen (paleografie).", "en": "Learning to read old handwriting and deeds (palaeography)."},
+    "match": "exact",
+    "legacy_id": "handschriften",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "online"], "level": 1, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["taalvaardig:4:V", "concentratie:5:V", "geduld:5:V", "logica:3:V", "precisie:3:V", "geschiedenis:5:T", "verhalen:4:T", "puzzelen:5:E", "ontdekking:4:E", "nostalgie:4:E", "rust:3:E", "papier:4:M", "onderzoeken:5:D", "kunst:3:O", "identiteit:3:O", "taal:4:T"],
+    "why": {
+      "kunst": {"nl": "Handschrift is zelf een kunst, met letters die per periode en schrijver veranderen.", "en": "Handwriting is an art in itself, with letter forms that change by period and scribe."},
+      "identiteit": {"nl": "Oude brieven en registers laten jezelf, je familie en je plaats zien door de handen van voorouders.", "en": "Old letters and registers show you your own family and place through the hands of ancestors."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-101",
+    "slug": "stoomtrein",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Meerijden op een stoomtrein",
+    "en": "A ride on a steam train",
+    "sub": {"nl": "Erfgoed", "en": "Heritage"},
+    "desc": {"nl": "Meerijden op een historische stoomtrein, vaak met stoom- en spoorweggeschiedenis erbij.", "en": "Riding a historic steam train, often with steam and railway history thrown in."},
+    "match": "exact",
+    "legacy_id": "stoomtrein",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["navigeren:2:D", "geschiedenis:5:T", "technologie:4:T", "architectuur:2:T", "metaal:3:M", "nostalgie:5:E", "verwondering:3:E", "klank:4:E", "geur:4:E", "gezelligheid:3:E", "generaties:3:E", "ritme:3:E", "rauw:3:E", "wetenschap:3:O", "verhalen:3:O", "mobiliteit:5:T"],
+    "why": {
+      "wetenschap": {"nl": "Stoomkracht zet warmte om in beweging, de natuurkunde waarmee het industriële tijdperk begon.", "en": "Steam power turns heat into motion, the physics that started the industrial age."},
+      "verhalen": {"nl": "Elke oude locomotief heeft een route, bemanning en decennium achter zich.", "en": "Every old locomotive has a route, crew and decade behind it."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-216",
+    "slug": "archief",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Lokaal archief en oude kranten uitzoeken",
+    "en": "Local archive research",
+    "sub": {"nl": "Geschiedenisonderzoek", "en": "History research"},
+    "desc": {"nl": "Een lokaal archief en oude kranten uitzoeken.", "en": "Digging into a local archive and old newspapers."},
+    "match": "exact",
+    "legacy_id": "archief",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "with_known", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["onderzoeken:5:D", "observeren:3:D", "stad:2:D", "geduld:4:V", "concentratie:4:V", "taalvaardig:3:V", "logica:3:V", "geschiedenis:5:T", "verhalen:4:T", "identiteit:3:T", "papier:3:M", "puzzelen:4:E", "ontdekking:5:E", "nostalgie:4:E", "rust:2:E", "gemeenschap:3:O", "technologie:3:O", "cultuurplek:4:D"],
+    "why": {
+      "gemeenschap": {"nl": "Lokale geschiedenis is een gedeeld project, dus een vondst wordt iets om terug te geven aan een stad.", "en": "Local history is a shared project, so a find becomes something to give back to a town."},
+      "technologie": {"nl": "Oude kranten digitaliseren en doorzoeken is een vaardigheid op zich.", "en": "Digitising and searching old papers is a skill in itself."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-217",
+    "slug": "metaaldetectie",
+    "category": "CAT-18",
+    "types": ["EXP"],
+    "nl": "Metaaldetecteren (met toestemming)",
+    "en": "Metal detecting (with permission)",
+    "sub": {"nl": "Geschiedenisonderzoek", "en": "History research"},
+    "desc": {"nl": "Metaaldetecteren met toestemming: zoeken naar vondsten en ze melden.", "en": "Metal detecting with permission: searching for finds and reporting them."},
+    "match": "exact",
+    "legacy_id": "metaaldetectie",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["metaal:4:M", "onderzoeken:4:D", "navigeren:2:D", "bos:3:D", "geduld:4:V", "concentratie:3:V", "geschiedenis:5:T", "technologie:3:T", "natuur:2:T", "spanning:4:E", "ontdekking:5:E", "verwondering:4:E", "gemeenschap:3:E", "wetenschap:3:O", "verhalen:3:O", "kans:4:E"],
+    "why": {
+      "wetenschap": {"nl": "Bodemlagen en vindplaatsen laten je archeologie lezen.", "en": "Soil layers and find locations make you read archaeology."},
+      "verhalen": {"nl": "Een munt of knoop is een spoor van een persoon om een verhaal omheen te bouwen.", "en": "A coin or button is a trace of a person to build a story around."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-218",
+    "slug": "genealogie",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Stamboomonderzoek",
+    "en": "Genealogy",
+    "sub": {"nl": "Geschiedenisonderzoek", "en": "History research"},
+    "desc": {"nl": "Stamboomonderzoek: je familiegeschiedenis uitzoeken in archieven en aktes.", "en": "Genealogy: researching your family history in archives and records."},
+    "match": "exact",
+    "legacy_id": "genealogie",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["onderzoeken:5:D", "thuis:3:D", "papier:3:M", "geduld:4:V", "logica:4:V", "concentratie:4:V", "taalvaardig:3:V", "geschiedenis:5:T", "verhalen:5:T", "identiteit:5:T", "puzzelen:4:E", "ontdekking:5:E", "ontroering:4:E", "generaties:5:E", "wereldculturen:3:O", "technologie:3:O"],
+    "why": {
+      "wereldculturen": {"nl": "Families verhuizen, dus een stamboom bereikt snel andere streken en landen.", "en": "Families move, so a tree quickly reaches other regions and countries."},
+      "technologie": {"nl": "DNA-tests en online databanken hebben veranderd hoe onderzoek gaat.", "en": "DNA tests and online databases have changed how research is done."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-219",
+    "slug": "re-enactment",
+    "category": "CAT-18",
+    "types": ["EXP", "MAK"],
+    "nl": "Re-enactment (middeleeuwen, Romeinen, Vikingen)",
+    "en": "Historical re-enactment",
+    "sub": {"nl": "Levende geschiedenis", "en": "Living history"},
+    "desc": {"nl": "Re-enactment: de middeleeuwen, Romeinen of Vikingen nabootsen met kleding en ambachten.", "en": "Re-enactment: reviving the Middle Ages, Romans or Vikings with clothing and crafts."},
+    "match": "exact",
+    "legacy_id": "re-enactment",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["textiel:3:M", "leer:2:M", "hout:2:M", "bouwen:2:D", "optreden:3:D", "vakmanschap:3:V", "communicatie:3:V", "geschiedenis:5:T", "mode:3:T", "verhalen:3:T", "gemeenschap:5:E", "gezelligheid:4:E", "fantasie:4:E", "nostalgie:4:E", "samenwerking:4:E", "wetenschap:3:O", "podium:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Testen hoe mensen kookten, vochten en naaiden is experimentele archeologie.", "en": "Testing how people cooked, fought and sewed is experimental archaeology."},
+      "podium": {"nl": "Een publieke living-historyshow is toneelwerk in kostuum.", "en": "A public living-history show is stage work in costume."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-290",
+    "slug": "archief-indexeren",
+    "category": "CAT-18",
+    "types": ["EXP"],
+    "nl": "Archiefstukken indexeren als vrijwilliger",
+    "en": "Indexing archive records as a volunteer",
+    "sub": {"nl": "Vrijwilligerswerk", "en": "Volunteering"},
+    "desc": {"nl": "Online of in een archief oude aktes, krantenartikelen of foto's doorzoekbaar maken.", "en": "Making old records, newspaper articles or photos searchable, online or in an archive."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["onderzoeken:4:D", "thuis:3:D", "papier:3:M", "concentratie:4:V", "taalvaardig:3:V", "precisie:4:V", "geschiedenis:5:T", "technologie:3:T", "rechtvaardigheid:2:T", "rust:3:E", "puzzelen:3:E", "gemeenschap:4:E", "zorg:3:E", "ontdekking:3:E", "doorzetten:3:E", "identiteit:3:O", "verhalen:3:O", "cultuurplek:3:D"],
+    "why": {
+      "identiteit": {"nl": "De namen en plaatsen die je intypt zijn iemands familiegeschiedenis.", "en": "The names and places you type are someone's family history."},
+      "verhalen": {"nl": "Een overgetypte brief verandert krabbels in een stem.", "en": "A transcribed letter turns scribbles into a voice."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-343",
+    "slug": "musea",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Museumbezoek",
+    "en": "Museum visit",
+    "sub": {"nl": "Musea", "en": "Museums"},
+    "desc": {"nl": "Een museum bezoeken met aandacht voor een paar werken.", "en": "Visiting a museum with attention to a few works."},
+    "match": "exact",
+    "legacy_id": "musea",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["stad:2:D", "observeren:4:D", "onderzoeken:2:D", "kunst:5:T", "geschiedenis:3:T", "architectuur:2:T", "verwondering:4:E", "ontdekking:4:E", "rust:3:E", "ontroering:3:E", "zelfstandig:2:E", "concentratie:3:V", "gezelligheid:2:E", "verhalen:3:O", "beeldtaal:3:O", "cultuurplek:5:D"],
+    "why": {
+      "verhalen": {"nl": "Elk object heeft een herkomstverhaal.", "en": "Each object has a provenance story."},
+      "beeldtaal": {"nl": "Een beeld leren lezen is een vaardigheid die musea stilletjes trainen.", "en": "Learning to read an image is a skill museums quietly train."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-344",
+    "slug": "monumenten",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Kastelen, kerken en monumenten bezoeken",
+    "en": "Castles, churches and heritage sites",
+    "sub": {"nl": "Monumenten", "en": "Monuments"},
+    "desc": {"nl": "Kastelen, kerken en monumenten bezoeken en lezen wat ze vertellen.", "en": "Visiting castles, churches and monuments and reading what they tell."},
+    "match": "exact",
+    "legacy_id": "monumenten",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["stad:2:D", "observeren:3:D", "architectuur:5:T", "geschiedenis:4:T", "kunst:3:T", "spiritualiteit:2:T", "verwondering:4:E", "schoonheid:3:E", "ornament:3:E", "rust:3:E", "ontdekking:3:E", "stilte:3:E", "ruimtelijk:3:O", "tradities:3:O", "cultuurplek:5:D"],
+    "why": {
+      "ruimtelijk": {"nl": "Gewelven, torens en schepen trainen je gevoel voor volume en schaal.", "en": "Vaults, towers and naves train your sense of volume and scale."},
+      "tradities": {"nl": "Monumenten gastheren rituelen die nog steeds worden uitgevoerd.", "en": "Monuments host rituals that are still performed."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-345",
+    "slug": "stadswandeling",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Stadswandeling over geschiedenis",
+    "en": "History city walk",
+    "sub": {"nl": "Stad ontdekken", "en": "Exploring a city"},
+    "desc": {"nl": "Een stadswandeling over geschiedenis met gids of app.", "en": "A city walk about history with a guide or app."},
+    "match": "exact",
+    "legacy_id": "stadswandeling",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["stad:5:D", "navigeren:3:D", "observeren:4:D", "geschiedenis:5:T", "architectuur:4:T", "verhalen:3:T", "beweging:3:E", "ontdekking:4:E", "verwondering:3:E", "gezelligheid:3:E", "weer:3:O", "zeevaart:3:O"],
+    "why": {
+      "weer": {"nl": "Straten tonen overstromingen, stormen en winters als sporen op gebouwen.", "en": "Streets show floods, storms and winters as marks on buildings."},
+      "zeevaart": {"nl": "Veel Nederlandse steden groeiden uit havens, wat je ziet aan grachten en kades.", "en": "Many Dutch cities grew from harbours, which shows in their canals and quays."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-346",
+    "slug": "begraafplaats",
+    "category": "CAT-18",
+    "types": ["EXP"],
+    "nl": "Wandeling over een oude begraafplaats",
+    "en": "Cemetery walk",
+    "sub": {"nl": "Monumenten", "en": "Monuments"},
+    "desc": {"nl": "Een wandeling over een oude begraafplaats met aandacht voor verhalen en kunst.", "en": "A walk through an old cemetery paying attention to stories and art."},
+    "match": "exact",
+    "legacy_id": "begraafplaats",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:4:D", "stad:2:D", "geschiedenis:4:T", "kunst:3:T", "architectuur:3:T", "planten:2:M", "natuur:2:T", "rust:5:E", "stilte:5:E", "ontroering:4:E", "nostalgie:3:E", "verwondering:3:E", "ornament:3:E", "spiritualiteit:3:O", "verhalen:3:O", "cultuurplek:3:D"],
+    "why": {
+      "spiritualiteit": {"nl": "Begraafplaatsen nodigen uit tot gedachten over tijd en wat blijft.", "en": "Cemeteries invite thoughts about time and what lasts."},
+      "verhalen": {"nl": "Grafzerken zijn kleine biografieën.", "en": "Gravestones are tiny biographies."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-347",
+    "slug": "buitenplaats",
+    "category": "CAT-18",
+    "types": ["EXP"],
+    "nl": "Een historische buitenplaats",
+    "en": "A historic country estate",
+    "sub": {"nl": "Monumenten", "en": "Monuments"},
+    "desc": {"nl": "Een historische buitenplaats bezoeken: huis, tuin en landgoed.", "en": "Visiting a historic country estate: house, garden and grounds."},
+    "match": "exact",
+    "legacy_id": "buitenplaats",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["bos:3:D", "planten:2:M", "architectuur:5:T", "geschiedenis:4:T", "kunst:2:T", "natuur:3:T", "wonen:3:T", "rust:4:E", "schoonheid:4:E", "elegantie:4:E", "nostalgie:3:E", "ornament:3:E", "verwondering:2:E", "rechtvaardigheid:3:O", "duurzaamheid:3:O", "cultuurplek:4:D"],
+    "why": {
+      "rechtvaardigheid": {"nl": "Buitenplaatsen roepen vragen op over rijkdom, arbeid en wie wat bouwde.", "en": "Estates raise questions of wealth, labour and who built what."},
+      "duurzaamheid": {"nl": "Tuinen en lanen worden eeuwenlang beheerd, een lange kijk op zorg.", "en": "Gardens and avenues are managed for centuries, a long view of care."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-348",
+    "slug": "oude-kaarten",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Oude kaarten en prenten bekijken",
+    "en": "Studying old maps and prints",
+    "sub": {"nl": "Kaarten", "en": "Maps"},
+    "desc": {"nl": "Oude kaarten en prenten bekijken in archief, museum of bibliotheek.", "en": "Looking at old maps and prints in an archive, museum or library."},
+    "match": "exact",
+    "legacy_id": "oude-kaarten",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["onderzoeken:3:D", "observeren:4:D", "papier:3:M", "navigeren:2:D", "geschiedenis:5:T", "kunst:3:T", "zeevaart:3:T", "detail:4:E", "ornament:3:E", "ontdekking:4:E", "nostalgie:3:E", "verwondering:3:E", "concentratie:3:V", "patronen:3:O", "verhalen:3:O", "cultuurplek:3:D"],
+    "why": {
+      "patronen": {"nl": "Kaartprojecties en grenzen laten zien hoe mensen de wereld in meetkunde vertaalden.", "en": "Map projections and borders reveal how people turned the world into geometry."},
+      "verhalen": {"nl": "Kaarten tonen wat een tijd dacht dat er was, monsters inbegrepen.", "en": "Maps show what a time believed was out there, including monsters."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-515",
+    "slug": "levend-verleden",
+    "category": "CAT-18",
+    "types": ["EXP"],
+    "nl": "Vikingmarkt of Romeins festival bezoeken",
+    "en": "Living-history fair",
+    "sub": {"nl": "Levende geschiedenis", "en": "Living history"},
+    "desc": {"nl": "Een Vikingmarkt, Romeins festival of middeleeuws evenement bezoeken.", "en": "Visiting a Viking market, Roman festival or medieval event."},
+    "match": "exact",
+    "legacy_id": "levend-verleden",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["textiel:3:M", "hout:2:M", "stad:2:D", "observeren:3:D", "geschiedenis:5:T", "mode:3:T", "tradities:4:T", "verhalen:3:T", "gezelligheid:4:E", "fantasie:3:E", "nostalgie:4:E", "verwondering:3:E", "smaak:3:E", "gemeenschap:3:E", "wetenschap:3:O", "voeding:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Experimentele archeologie test hoe dingen werden gemaakt en gebruikt.", "en": "Experimental archaeology tests how things were made and used."},
+      "voeding": {"nl": "Eetkraampjes maken historische recepten na.", "en": "Food stalls recreate historic recipes."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-516",
+    "slug": "verzetsroute",
+    "category": "CAT-18",
+    "types": ["EXP", "LER"],
+    "nl": "Herdenkings- of verzetsroute lopen",
+    "en": "Remembrance walk",
+    "sub": {"nl": "Herdenken", "en": "Remembrance"},
+    "desc": {"nl": "Een herdenkings- of verzetsroute lopen langs plaatsen uit de oorlog.", "en": "Walking a remembrance or resistance route along places from the war."},
+    "match": "exact",
+    "legacy_id": "verzetsroute",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["navigeren:3:D", "observeren:3:D", "stad:3:D", "geschiedenis:5:T", "verhalen:4:T", "rechtvaardigheid:4:T", "identiteit:2:T", "ontroering:5:E", "stilte:3:E", "nostalgie:2:E", "moed:3:E", "gemeenschap:3:E", "beweging:2:E", "architectuur:3:O", "generaties:3:O"],
+    "why": {
+      "architectuur": {"nl": "Monumenten en ruïnes maken herinnering tastbaar.", "en": "Monuments and ruins make memory physical."},
+      "generaties": {"nl": "Herdenken geeft geleefde herinnering door aan wie er niet bij was.", "en": "Remembrance passes lived memory to those who were not there."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  }
+]

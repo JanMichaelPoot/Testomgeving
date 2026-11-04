@@ -1,0 +1,620 @@
+[
+  {
+    "id": "RA-028",
+    "slug": "instrument",
+    "category": "CAT-06",
+    "types": ["MAK", "LER"],
+    "nl": "Een muziekinstrument leren bespelen",
+    "en": "Learning a musical instrument",
+    "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
+    "desc": {"nl": "Een instrument leren spelen, van de eerste akkoorden tot samen musiceren.", "en": "Learning to play an instrument, from the first chords to playing with others."},
+    "match": "exact",
+    "legacy_id": "instrument",
+    "v0_id": "ACT-021",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["ritme:4:E", "klank:5:E", "motoriek:5:V", "geduld:5:V", "concentratie:4:V", "vakmanschap:3:V", "doorzetten:4:E", "meesterschap:4:E", "trots:4:E", "expressie:4:E", "rust:3:E", "ontroering:3:E", "kunst:3:T", "optreden:3:D", "thuis:3:D", "logica:3:O", "gemeenschap:3:O", "muziek:5:T", "coordinatie:3:V"],
+    "why": {
+      "logica": {"nl": "Muziek bestaat uit patronen, intervallen en tellen, en daardoor raakt een instrument hetzelfde deel van het brein als wiskunde.", "en": "Music is patterns, intervals and counting, so an instrument engages the same part of the brain as mathematics."},
+      "gemeenschap": {"nl": "Samenspel in een band of orkest bouwt verbondenheid op uit gedeeld timen.", "en": "Playing together in a band or orchestra builds belonging out of shared timing."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-029",
+    "slug": "songteksten",
+    "category": "CAT-06",
+    "types": ["MAK"],
+    "nl": "Songteksten schrijven",
+    "en": "Writing song lyrics",
+    "sub": {"nl": "Songwriting", "en": "Songwriting"},
+    "desc": {"nl": "Teksten schrijven die gezongen kunnen worden: thema, couplet, refrein en rijm.", "en": "Writing words that can be sung: theme, verse, chorus and rhyme."},
+    "match": "exact",
+    "legacy_id": "songteksten",
+    "v0_id": "ACT-022",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["taalvaardig:5:V", "creativiteit:5:V", "precisie:2:V", "verhalen:4:T", "identiteit:3:T", "kunst:3:T", "ritme:4:E", "klank:3:E", "expressie:5:E", "ontroering:4:E", "zelfstandig:3:E", "thuis:3:D", "optreden:3:O", "puzzelen:3:O", "muziek:4:T", "taal:4:T"],
+    "why": {
+      "optreden": {"nl": "Songteksten zijn gemaakt om gezongen te worden, dus je denkt na over stem, adem en publiek.", "en": "Lyrics are written to be sung, so you think about voice, breath and audience."},
+      "puzzelen": {"nl": "Rijm, ritme en betekenis die samen passen is een woordpuzzel met emotionele inzet.", "en": "Finding rhyme, rhythm and meaning that fit together is a word puzzle with emotional stakes."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-030",
+    "slug": "koor",
+    "category": "CAT-06",
+    "types": ["EXP", "LER"],
+    "nl": "Een koorproject uitvoeren",
+    "en": "Taking part in a choir project",
+    "sub": {"nl": "Zang", "en": "Singing"},
+    "desc": {"nl": "Samen zingen in een koor, toewerken naar een uitvoering.", "en": "Singing together in a choir, working towards a performance."},
+    "match": "exact",
+    "legacy_id": "koor",
+    "v0_id": "ACT-023",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["klank:5:E", "ritme:3:E", "samenwerking:5:E", "gezelligheid:4:E", "gemeenschap:4:E", "ontroering:4:E", "concentratie:3:V", "communicatie:3:V", "geduld:3:V", "kunst:3:T", "welzijn:4:T", "optreden:4:D", "podium:3:D", "beweging:3:O", "generaties:3:O", "muziek:5:T", "luisteren:3:V"],
+    "why": {
+      "beweging": {"nl": "Zingen is lichamelijk: adem, houding en resonantie in je lijf.", "en": "Singing is physical: breath, posture and resonance in your body."},
+      "generaties": {"nl": "Koren mengen leeftijden meer dan bijna elke andere hobby.", "en": "Choirs mix ages more than almost any other hobby."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-031",
+    "slug": "elektronische-muziek-produceren",
+    "category": "CAT-06",
+    "types": ["MAK", "LER"],
+    "nl": "Elektronische muziek produceren",
+    "en": "Producing electronic music",
+    "sub": {"nl": "Muziekproductie", "en": "Music production"},
+    "desc": {"nl": "Beats, melodieën en klanklandschappen maken met software en synthesizers.", "en": "Making beats, melodies and soundscapes with software and synthesizers."},
+    "match": "new",
+    "legacy_id": null,
+    "v0_id": "ACT-024",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["ontwerpen:4:D", "bouwen:3:D", "thuis:4:D", "creativiteit:5:V", "logica:3:V", "precisie:3:V", "geduld:3:V", "concentratie:3:V", "ritme:5:E", "klank:5:E", "technologie:5:T", "kunst:3:T", "opgaan:4:E", "experimenteren:4:E", "expressie:3:E", "ruimtelijk:3:O", "gemeenschap:3:O", "muziek:5:T", "online:3:D"],
+    "why": {
+      "ruimtelijk": {"nl": "Bij het mixen plaats je geluid links, rechts, dichtbij en ver weg, dus je leert geluid als ruimte zien.", "en": "In mixing you place sound left, right, near and far, so you learn to think of sound as space."},
+      "gemeenschap": {"nl": "Online en lokale scenes delen loops, plugins en feedback, waardoor een eenzame hobby een grote gemeenschap heeft.", "en": "Online and local scenes share loops, plugins and feedback, so a solitary hobby has a big community."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-090",
+    "slug": "drummen-leren",
+    "category": "CAT-06",
+    "types": ["MAK", "LER"],
+    "nl": "Drummen leren",
+    "en": "Learning to play drums",
+    "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
+    "desc": {"nl": "Op een drumstel of oefenpad leren spelen, van basisritmes tot samenspel.", "en": "Learning to play a drum kit or practice pad, from basic rhythms to playing together."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 4, "cost": 3, "safety_tier": 0, "source": "authored"},
+    "links": ["optreden:2:D", "thuis:2:D", "motoriek:5:V", "concentratie:4:V", "geduld:4:V", "improviseren:3:V", "ritme:5:E", "klank:5:E", "beweging:4:E", "opgaan:4:E", "trots:4:E", "doorzetten:4:E", "samenwerking:3:E", "expressie:3:E", "logica:3:O", "welzijn:3:O", "muziek:5:T", "coordinatie:5:V"],
+    "why": {
+      "logica": {"nl": "Polyritmes en onderverdelingen zijn toegepaste wiskunde voor je vier ledematen.", "en": "Polyrhythms and subdivisions are applied maths for your four limbs."},
+      "welzijn": {"nl": "In de maat slaan is een verrassend goede manier om spanning los te laten.", "en": "Hitting things in time is a surprisingly effective way to let go of tension."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-091",
+    "slug": "muziek-componeren",
+    "category": "CAT-06",
+    "types": ["MAK", "LER"],
+    "nl": "Muziek componeren",
+    "en": "Composing music",
+    "sub": {"nl": "Compositie", "en": "Composition"},
+    "desc": {"nl": "Eigen muziek schrijven, met instrument, notatieprogramma of software.", "en": "Writing your own music, with an instrument, notation program or software."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 2, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["ontwerpen:4:D", "thuis:3:D", "creativiteit:5:V", "logica:4:V", "concentratie:4:V", "geduld:3:V", "precisie:3:V", "kunst:3:T", "klank:5:E", "ritme:4:E", "expressie:5:E", "ontroering:4:E", "trots:4:E", "opgaan:4:E", "meesterschap:3:E", "verhalen:3:O", "architectuur:3:O", "muziek:5:T"],
+    "why": {
+      "verhalen": {"nl": "Een stuk heeft een begin, spanning en een einde, dus componeren is vertellen zonder woorden.", "en": "A piece has a beginning, tension and an end, so composing is storytelling without words."},
+      "architectuur": {"nl": "Muzikale vormen zijn constructies met fundament en verhoudingen, zoals gebouwen.", "en": "Musical forms are structures with foundations and proportions, like buildings."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-092",
+    "slug": "beiaard-leren",
+    "category": "CAT-06",
+    "types": ["LER"],
+    "nl": "Beiaard of carillon leren bespelen",
+    "en": "Learning to play the carillon",
+    "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
+    "desc": {"nl": "Een beiaard bespelen met vuisten en voeten en de stad laten klinken vanuit een toren.", "en": "Playing a carillon with fists and feet and letting a tower fill the city with sound."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["lucht:3:D", "stad:3:D", "metaal:4:M", "motoriek:4:V", "concentratie:4:V", "precisie:3:V", "geduld:4:V", "vakmanschap:3:V", "geschiedenis:4:T", "architectuur:3:T", "klank:5:E", "ritme:3:E", "trots:4:E", "publiek:3:E", "nostalgie:3:E", "verwondering:3:E", "gemeenschap:3:O", "wetenschap:3:O", "muziek:5:T"],
+    "why": {
+      "gemeenschap": {"nl": "Een beiaard speelt voor een hele stad die de speler nooit ziet, dus het is muziek als cadeau aan onbekenden.", "en": "A carillon plays for a whole town that never sees the player, so it is music as a gift to strangers."},
+      "wetenschap": {"nl": "Klokken stemmen is akoestiek: boventonen en de vorm van het metaal bepalen de klank.", "en": "Tuning bells is acoustics: partial tones and the shape of the metal decide the sound."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-220",
+    "slug": "bandje-beginnen",
+    "category": "CAT-06",
+    "types": ["EXP", "MAK"],
+    "nl": "Een bandje beginnen",
+    "en": "Starting a band",
+    "sub": {"nl": "Samenspel", "en": "Ensemble playing"},
+    "desc": {"nl": "Met een paar anderen een band vormen: repertoire kiezen, repeteren en een eerste optreden doen.", "en": "Forming a band with a few others: choosing repertoire, rehearsing and playing a first gig."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "with_known"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["organiseren:3:D", "optreden:4:D", "podium:3:D", "motoriek:3:V", "improviseren:4:V", "communicatie:3:V", "leiding:2:V", "klank:5:E", "ritme:5:E", "samenwerking:5:E", "publiek:3:E", "expressie:4:E", "gezelligheid:4:E", "doorzetten:3:E", "humor:3:E", "identiteit:3:O", "verhalen:3:O", "muziek:5:T"],
+    "why": {
+      "identiteit": {"nl": "De naam, het geluid en de nummers van een band worden een gedeelde identiteit.", "en": "A band's name, sound and songs become a shared identity."},
+      "verhalen": {"nl": "Elke band krijgt zijn eigen overlevering van repetities, optredens en pech.", "en": "Every band gets its own lore of rehearsals, gigs and mishaps."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-221",
+    "slug": "drumcirkel",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Drumcirkel en samen slaginstrumenten spelen",
+    "en": "Drum circle and group percussion",
+    "sub": {"nl": "Samenspel", "en": "Ensemble playing"},
+    "desc": {"nl": "In een kring met djembés en andere slagwerkers samen ritmes bouwen, zonder noten of voorkennis.", "en": "Building rhythms together in a circle with djembes and other percussion, without notation or experience."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["small_group", "large_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["ritme:5:E", "klank:5:E", "samenwerking:5:E", "gezelligheid:4:E", "verbondenheid:4:E", "beweging:4:E", "speelsheid:4:E", "opgaan:4:E", "motoriek:3:V", "improviseren:3:V", "communicatie:2:V", "wereldculturen:4:T", "welzijn:3:T", "gemeenschap:3:E", "tradities:3:O", "wetenschap:3:O", "muziek:5:T"],
+    "why": {
+      "tradities": {"nl": "Drumcirkels putten uit West-Afrikaanse en andere tradities waarin ritme een heel dorp verbindt.", "en": "Drum circles draw on West African and other traditions where rhythm joins a whole village."},
+      "wetenschap": {"nl": "Synchroniseren op een groepsslag wordt onderzocht als manier waarop mensen binden.", "en": "Syncing to a group beat is studied as a way in which people bond."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-226",
+    "slug": "muziek-maken",
+    "category": "CAT-06",
+    "types": ["MAK", "LER"],
+    "nl": "Muziek maken of dj'en",
+    "en": "Music production or DJing",
+    "sub": {"nl": "Muziek maken", "en": "Making music"},
+    "desc": {"nl": "Muziek maken met instrumenten, software of draaitafels, alleen of met anderen.", "en": "Making music with instruments, software or turntables, alone or with others."},
+    "match": "exact",
+    "legacy_id": "muziek-maken",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "online"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "optreden:2:D", "creativiteit:5:V", "motoriek:3:V", "concentratie:3:V", "technologie:3:T", "kunst:3:T", "klank:5:E", "ritme:5:E", "expressie:4:E", "opgaan:4:E", "speelsheid:3:E", "samenwerking:3:E", "logica:3:O", "verbondenheid:3:O", "muziek:5:T"],
+    "why": {
+      "logica": {"nl": "Loops en tempo's lagen is toegepast tellen.", "en": "Layering loops and tempos is applied counting."},
+      "verbondenheid": {"nl": "Open decks en jamavonden zijn makkelijke plekken om nieuwe mensen te ontmoeten.", "en": "Open decks and jam nights are easy places to meet new people."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-227",
+    "slug": "muziek-opnemen",
+    "category": "CAT-06",
+    "types": ["MAK", "LER"],
+    "nl": "Een nummer opnemen met je telefoon of laptop",
+    "en": "Recording a track with your phone or laptop",
+    "sub": {"nl": "Opnemen en mixen", "en": "Recording and mixing"},
+    "desc": {"nl": "Een eigen nummer opnemen en afmixen met je telefoon, laptop en een simpele microfoon.", "en": "Recording and mixing a song of your own with your phone, laptop and a simple microphone."},
+    "match": "exact",
+    "legacy_id": "muziek-opnemen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:4:D", "ontwerpen:3:D", "technologie:4:T", "creativiteit:4:V", "concentratie:3:V", "precisie:3:V", "klank:5:E", "ritme:3:E", "expressie:4:E", "opgaan:4:E", "experimenteren:4:E", "zelfstandig:4:E", "ruimtelijk:3:O", "stilte:3:O", "muziek:5:T"],
+    "why": {
+      "ruimtelijk": {"nl": "Mixen plaatst geluiden in een stereobeeld, dus je leert ruimte horen.", "en": "Mixing places sounds in a stereo picture, so you learn to hear space."},
+      "stilte": {"nl": "Opnemen leert je hoe luid een stille kamer werkelijk is.", "en": "Recording teaches you how loud a quiet room really is."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-228",
+    "slug": "concert",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Klassiek of jazzconcert",
+    "en": "Classical or jazz concert",
+    "sub": {"nl": "Luisteren", "en": "Listening"},
+    "desc": {"nl": "Een klassiek of jazzconcert bijwonen en echt luisteren, alleen of met anderen.", "en": "Attending a classical or jazz concert and truly listening, alone or with others."},
+    "match": "exact",
+    "legacy_id": "concert",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["stad:2:D", "concentratie:4:V", "kunst:4:T", "spiritualiteit:3:T", "klank:5:E", "stilte:3:E", "ontroering:5:E", "rust:4:E", "verwondering:3:E", "elegantie:3:E", "publiek:3:E", "opgaan:4:E", "architectuur:3:O", "improviseren:3:O", "muziek:5:T", "cultuurplek:5:D", "luisteren:3:V"],
+    "why": {
+      "architectuur": {"nl": "Concertzalen zijn ontworpen zodat geluid elke stoel bereikt, waardoor het gebouw deel van het instrument wordt.", "en": "Concert halls are designed so that sound reaches every seat, which makes the building part of the instrument."},
+      "improviseren": {"nl": "Jazz is de kunst om samen muziek te verzinnen terwijl je toekijkt.", "en": "Jazz is the art of making music up together while you watch."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-229",
+    "slug": "jamsessie",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Een jamsessie bijwonen",
+    "en": "Dropping in on a jam session",
+    "sub": {"nl": "Samenspel", "en": "Ensemble playing"},
+    "desc": {"nl": "Naar een jamsessie gaan en meeluisteren of zelf meespelen.", "en": "Going to a jam session and listening or joining in."},
+    "match": "exact",
+    "legacy_id": "jamsessie",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["podium:3:D", "optreden:3:D", "improviseren:4:V", "communicatie:3:V", "motoriek:2:V", "klank:5:E", "ritme:5:E", "gezelligheid:5:E", "samenwerking:4:E", "verbondenheid:4:E", "speelsheid:3:E", "spanning:2:E", "publiek:3:E", "leiding:3:O", "wereldculturen:3:O", "muziek:5:T", "uitgaan:4:D", "luisteren:4:V"],
+    "why": {
+      "leiding": {"nl": "Spelers leiden en volgen om de beurt zonder dat iemand het aankondigt.", "en": "Players take turns leading and following without anyone announcing it."},
+      "wereldculturen": {"nl": "Jamscenes lopen van blues tot Balkanfolk, elk met eigen spelregels.", "en": "Jam scenes range from blues to Balkan folk, each with its own rules of play."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-230",
+    "slug": "luisterbar",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Luisterbar of luisteravond",
+    "en": "Listening bar or listening evening",
+    "sub": {"nl": "Luisteren", "en": "Listening"},
+    "desc": {"nl": "Naar een bar gaan waar een album op vinyl wordt gedraaid en stilte heerst om te luisteren.", "en": "Going to a bar where an album is played on vinyl and silence is kept for listening."},
+    "match": "exact",
+    "legacy_id": "luisterbar",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["stad:3:D", "concentratie:3:V", "technologie:2:T", "kunst:3:T", "klank:5:E", "stilte:4:E", "rust:4:E", "gezelligheid:4:E", "verbondenheid:3:E", "nostalgie:3:E", "ontroering:3:E", "opgaan:3:E", "warmte:3:O", "tradities:3:O", "muziek:4:T", "uitgaan:5:D", "luisteren:3:V"],
+    "why": {
+      "warmte": {"nl": "Buizenversterkers en vinyl hebben een warme klank waar mensen naar op zoek gaan.", "en": "Valve amps and vinyl have a warm sound character that people seek out."},
+      "tradities": {"nl": "Luisterbars komen uit de Japanse jazz-kissacultuur, waar vreemden muziek en stilte delen.", "en": "Listening bars grew out of Japanese jazz kissa culture, where strangers share music and silence."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-231",
+    "slug": "platenwinkel",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Een album van begin tot eind luisteren",
+    "en": "Listening to an album",
+    "sub": {"nl": "Luisteren", "en": "Listening"},
+    "desc": {"nl": "In een platenwinkel of thuis een album in één keer beluisteren, met aandacht voor de volgorde.", "en": "Listening to an album from start to finish, in a record shop or at home, attending to its sequence."},
+    "match": "exact",
+    "legacy_id": "platenwinkel",
+    "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 1, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "verzamelen:3:D", "concentratie:4:V", "kunst:3:T", "klank:5:E", "stilte:2:E", "rust:3:E", "nostalgie:4:E", "ontroering:3:E", "opgaan:4:E", "tast:2:E", "zelfstandig:2:E", "verhalen:3:O", "ontdekking:3:O", "muziek:4:T"],
+    "why": {
+      "verhalen": {"nl": "Een album is opgebouwd als een verhaal met begin, wending en einde.", "en": "An album is arranged like a story with a beginning, turn and end."},
+      "ontdekking": {"nl": "Door bakken platen zoeken vinden mensen muziek die ze nooit hadden opgezocht.", "en": "Digging through crates is how many people find music they would never have searched for."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-232",
+    "slug": "synthesizer-bouwen",
+    "category": "CAT-06",
+    "types": ["MAK", "LER"],
+    "nl": "Een synthesizer of effectpedaal bouwen",
+    "en": "Building a synthesizer or effects pedal",
+    "sub": {"nl": "Instrumentenbouw", "en": "Instrument building"},
+    "desc": {"nl": "Een synthesizer of effectpedaal bouwen uit onderdelen, solderen en uitproberen.", "en": "Building a synthesizer or effects pedal from parts, soldering and trying it out."},
+    "match": "exact",
+    "legacy_id": "synthesizer-bouwen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["metaal:3:M", "bouwen:5:D", "ontwerpen:3:D", "thuis:3:D", "logica:4:V", "precisie:4:V", "motoriek:3:V", "technologie:5:T", "klank:5:E", "puzzelen:4:E", "experimenteren:5:E", "opgaan:3:E", "kunst:3:O", "wetenschap:3:O", "muziek:4:T"],
+    "why": {
+      "kunst": {"nl": "Zelfgemaakte instrumenten zijn bespeelbare beeldhouwwerken.", "en": "Handmade instruments are sculpture you can play."},
+      "wetenschap": {"nl": "Filters, oscillators en terugkoppeling zijn elektronica die je hoort.", "en": "Filters, oscillators and feedback are electronics you hear."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Soldering is involved and the app rates it safety tier 0: consider tier 1 in the app."]
+  },
+  {
+    "id": "RA-428",
+    "slug": "operazang",
+    "category": "CAT-06",
+    "types": ["LER", "MAK"],
+    "nl": "Klassieke zang en opera",
+    "en": "Classical singing and opera",
+    "sub": {"nl": "Zingen", "en": "Singing"},
+    "desc": {"nl": "Klassiek zingen leren met techniek, adem en repertoire.", "en": "Learning to sing classically with technique, breath and repertoire."},
+    "match": "exact",
+    "legacy_id": "operazang",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:3:D", "podium:3:D", "concentratie:4:V", "motoriek:2:V", "taalvaardig:3:V", "kunst:4:T", "wereldculturen:3:T", "klank:5:E", "ontroering:5:E", "expressie:4:E", "beweging:3:E", "moed:3:E", "elegantie:3:E", "wetenschap:3:O", "architectuur:3:O", "muziek:5:T"],
+    "why": {
+      "wetenschap": {"nl": "Adem, resonantie en register zijn fysiologie die je leert voelen.", "en": "Breath, resonance and register are physiology you learn to feel."},
+      "architectuur": {"nl": "Operahuizen zijn gebouwd zodat een stem draagt zonder microfoon.", "en": "Opera houses are built so that a voice carries without a microphone."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-429",
+    "slug": "dj-workshop",
+    "category": "CAT-06",
+    "types": ["LER", "MAK"],
+    "nl": "DJ-workshop: draaien leren",
+    "en": "DJ workshop: learning to mix",
+    "sub": {"nl": "Draaien en mixen", "en": "Mixing"},
+    "desc": {"nl": "DJ-workshop: draaien, mixen en een set opbouwen.", "en": "DJ workshop: spinning, mixing and building a set."},
+    "match": "exact",
+    "legacy_id": "dj-workshop",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:4:D", "podium:3:D", "technologie:4:T", "motoriek:3:V", "creativiteit:4:V", "concentratie:3:V", "ritme:5:E", "klank:5:E", "beweging:3:E", "publiek:4:E", "experimenteren:3:E", "speelsheid:3:E", "strategie:3:O", "patronen:3:O", "muziek:5:T", "snelheid:2:E"],
+    "why": {
+      "strategie": {"nl": "Een dansvloer lezen is live strategie van energie en verrassing.", "en": "Reading a dance floor is live strategy of energy and surprise."},
+      "patronen": {"nl": "Beats afstemmen en frasering zijn telpatronen die je leert voelen.", "en": "Beat matching and phrasing are counting patterns you learn to feel."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-430",
+    "slug": "karaoke",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Karaoke",
+    "en": "Karaoke",
+    "sub": {"nl": "Zingen", "en": "Singing"},
+    "desc": {"nl": "Karaoke zingen met vrienden of onbekenden.", "en": "Singing karaoke with friends or strangers."},
+    "match": "exact",
+    "legacy_id": "karaoke",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:4:D", "podium:3:D", "klank:4:E", "publiek:4:E", "speelsheid:5:E", "gezelligheid:5:E", "humor:5:E", "moed:3:E", "expressie:3:E", "verbondenheid:3:E", "spanning:2:E", "ritme:3:E", "nostalgie:3:O", "tradities:3:O", "muziek:4:T", "uitgaan:5:D"],
+    "why": {
+      "nostalgie": {"nl": "Oude hits zingen brengt hele tijdperken terug.", "en": "Singing old hits brings back whole eras."},
+      "tradities": {"nl": "Karaoke begon in Japan en groeide uit tot een wereldwijd uitgaansritueel.", "en": "Karaoke began in Japan and grew into a worldwide night-out ritual."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-431",
+    "slug": "vinyl",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Vinyl en platen zoeken",
+    "en": "Record digging",
+    "sub": {"nl": "Luisteren", "en": "Listening"},
+    "desc": {"nl": "Vinyl en platen zoeken op markten en in winkels.", "en": "Hunting for vinyl records at markets and in shops."},
+    "match": "exact",
+    "legacy_id": "vinyl",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": null, "safety_tier": 0, "source": "app"},
+    "links": ["verzamelen:5:D", "stad:3:D", "onderzoeken:3:D", "kunst:3:T", "technologie:2:T", "geschiedenis:3:T", "klank:5:E", "nostalgie:4:E", "ontdekking:5:E", "tast:3:E", "detail:3:E", "gezelligheid:2:E", "warmte:3:O", "wonen:3:O", "muziek:4:T"],
+    "why": {
+      "warmte": {"nl": "Het geknetter en de warmte van vinyl zijn zintuiglijke genoegens waar verzamelaars naar jagen.", "en": "The crackle and warmth of vinyl are sensory pleasures collectors chase."},
+      "wonen": {"nl": "Een platenmuur en draaitafel geven een kamer karakter.", "en": "A record wall and turntable give a room character."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-432",
+    "slug": "speeldozen",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Speeldozen en muziekautomaten",
+    "en": "Music boxes and mechanical instruments",
+    "sub": {"nl": "Mechanische muziek", "en": "Mechanical music"},
+    "desc": {"nl": "Speeldozen en muziekautomaten verzamelen en bewonderen.", "en": "Collecting and admiring music boxes and mechanical instruments."},
+    "match": "exact",
+    "legacy_id": "speeldozen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["verzamelen:5:D", "repareren:2:D", "metaal:3:M", "precisie:3:V", "geduld:3:V", "technologie:3:T", "geschiedenis:3:T", "klank:5:E", "nostalgie:5:E", "detail:4:E", "verwondering:4:E", "ornament:3:E", "tast:2:E", "patronen:3:O", "wonen:3:O", "muziek:4:T", "miniatuur:3:E"],
+    "why": {
+      "patronen": {"nl": "Een cilinder met pennen is een programma in metaal.", "en": "A pinned cylinder is a program in metal."},
+      "wonen": {"nl": "Speeldozen en automaten vullen een kamer met geluid en charme.", "en": "Music boxes and automata fill a room with sound and charm."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-433",
+    "slug": "klankbad",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Een klankbad",
+    "en": "A sound bath",
+    "sub": {"nl": "Luisteren", "en": "Listening"},
+    "desc": {"nl": "Een klankbad: liggen en luisteren naar klankschalen en gongs.", "en": "A sound bath: lying down and listening to singing bowls and gongs."},
+    "match": "exact",
+    "legacy_id": "klankbad",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["welzijn:5:T", "spiritualiteit:4:T", "klank:5:E", "rust:5:E", "stilte:3:E", "warmte:2:E", "verwondering:3:E", "opgaan:4:E", "zorg:2:E", "metaal:3:M", "tast:2:E", "wetenschap:3:O", "tradities:3:O", "muziek:3:T"],
+    "why": {
+      "wetenschap": {"nl": "Boventonen en zwevingen komen terug in klankschalen, akoestiek die je voelt.", "en": "Overtones and beating tones show up in singing bowls, acoustics you feel."},
+      "tradities": {"nl": "Schalen en gongs komen uit Himalaya- en Aziatische ritueeltradities.", "en": "Bowls and gongs come from Himalayan and Asian ritual traditions."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-434",
+    "slug": "silent-disco",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Silent disco",
+    "en": "Silent disco",
+    "sub": {"nl": "Dansen en feest", "en": "Dancing and parties"},
+    "desc": {"nl": "Een silent disco bezoeken: dansen met een koptelefoon.", "en": "Going to a silent disco: dancing with headphones."},
+    "match": "exact",
+    "legacy_id": "silent-disco",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["stad:2:D", "podium:2:D", "beweging:5:E", "ritme:5:E", "klank:4:E", "speelsheid:5:E", "gezelligheid:5:E", "humor:4:E", "verbondenheid:4:E", "vrijheid:3:E", "technologie:3:T", "moed:2:E", "stilte:3:O", "gemeenschap:3:O", "muziek:4:T", "uitgaan:5:D"],
+    "why": {
+      "stilte": {"nl": "Van buiten is het stil terwijl iedereen beweegt, een vreemd soort rust.", "en": "From outside it is silent while everyone moves, a strange kind of quiet."},
+      "gemeenschap": {"nl": "Op hetzelfde lied dansen via gedeelde koptelefoons maakt van vreemden een groep.", "en": "Dancing to the same song through shared headphones makes strangers a group."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-435",
+    "slug": "zangles",
+    "category": "CAT-06",
+    "types": ["LER", "MAK"],
+    "nl": "Zangles voor beginners",
+    "en": "Singing lessons for beginners",
+    "sub": {"nl": "Zingen", "en": "Singing"},
+    "desc": {"nl": "Zingen leren met adem, houding, stemgebruik en liedjes.", "en": "Learning to sing with breath, posture, voice use and songs."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["optreden:2:D", "thuis:2:D", "concentratie:3:V", "motoriek:2:V", "taalvaardig:2:V", "klank:5:E", "ritme:3:E", "expressie:4:E", "moed:4:E", "doorzetten:3:E", "ontroering:3:E", "welzijn:4:T", "kunst:3:T", "zelfstandig:3:E", "wetenschap:3:O", "verbondenheid:3:O", "muziek:5:T", "leren:5:E"],
+    "why": {
+      "wetenschap": {"nl": "Stem is lucht, spier en resonantie, een lichaamsinstrument dat je kunt bestuderen.", "en": "Voice is air, muscle and resonance, a body instrument you can study."},
+      "verbondenheid": {"nl": "Samen of voor elkaar zingen opent een kwetsbaar en warm soort contact.", "en": "Singing together or for each other opens a vulnerable and warm kind of contact."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-436",
+    "slug": "mondharmonica-leren",
+    "category": "CAT-06",
+    "types": ["LER", "MAK"],
+    "nl": "Mondharmonica leren spelen",
+    "en": "Learning the harmonica",
+    "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
+    "desc": {"nl": "Op een mondharmonica leren spelen: blues, folk en eenvoudige liedjes.", "en": "Learning to play the harmonica: blues, folk and simple songs."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["thuis:2:D", "motoriek:3:V", "improviseren:3:V", "concentratie:3:V", "kunst:2:T", "wereldculturen:3:T", "klank:5:E", "ritme:4:E", "expressie:4:E", "vrijheid:3:E", "speelsheid:3:E", "rust:2:E", "welzijn:3:T", "tradities:3:O", "zeevaart:3:O", "muziek:5:T"],
+    "why": {
+      "tradities": {"nl": "De mondharmonica draagt blues-, folk- en cowboytradities in een zak.", "en": "The harmonica carries blues, folk and cowboy traditions in a pocket."},
+      "zeevaart": {"nl": "Zeelieden en reizigers speelden hem op schepen en in treinen.", "en": "Sailors and travellers played it on ships and trains."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-437",
+    "slug": "fanfare-orkest",
+    "category": "CAT-06",
+    "types": ["EXP", "LER"],
+    "nl": "Meespelen in een fanfare of harmonieorkest",
+    "en": "Joining a brass band or wind orchestra",
+    "sub": {"nl": "Samenspel", "en": "Ensemble playing"},
+    "desc": {"nl": "Meespelen in een fanfare, harmonie of brassband bij een lokale vereniging.", "en": "Playing in a brass band or wind orchestra at a local society."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["large_group", "small_group"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["optreden:4:D", "podium:3:D", "organiseren:2:D", "motoriek:3:V", "concentratie:3:V", "communicatie:3:V", "klank:5:E", "ritme:4:E", "samenwerking:5:E", "gemeenschap:5:E", "gezelligheid:4:E", "generaties:4:E", "publiek:3:E", "tradities:4:T", "kunst:2:T", "stad:3:O", "technologie:3:O", "muziek:5:T"],
+    "why": {
+      "stad": {"nl": "Lokale orkesten spelen bij optochten en markten, dus je hoort de agenda van een stad.", "en": "Local bands play at processions and markets, so you hear a town's calendar."},
+      "technologie": {"nl": "Kleppen, mondstukken en riet zijn kleine machines om lucht te vormen.", "en": "Valves, mouthpieces and reeds are small machines for shaping air."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-438",
+    "slug": "handpan-spelen",
+    "category": "CAT-06",
+    "types": ["LER", "MAK"],
+    "nl": "Handpan of steeldrum spelen",
+    "en": "Playing the handpan or steel drum",
+    "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
+    "desc": {"nl": "Een handpan of steeldrum bespelen met melodische, rustige klanken.", "en": "Playing a handpan or steel drum with melodic, calm sounds."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 0, "source": "authored"},
+    "links": ["metaal:4:M", "optreden:2:D", "motoriek:3:V", "concentratie:3:V", "improviseren:3:V", "klank:5:E", "ritme:4:E", "rust:4:E", "stilte:2:E", "expressie:3:E", "opgaan:3:E", "tast:3:E", "welzijn:3:T", "wereldculturen:3:T", "wetenschap:3:O", "spiritualiteit:3:O", "muziek:5:T"],
+    "why": {
+      "wetenschap": {"nl": "Gehamerd staal wordt gestemd met vorm en spanning, akoestiek in je handen.", "en": "Hammered steel is tuned by shape and tension, acoustics in your hands."},
+      "spiritualiteit": {"nl": "De klank wordt gebruikt bij meditatie en helende praktijken.", "en": "The sound is used in meditation and healing practices."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-439",
+    "slug": "folk-sessie",
+    "category": "CAT-06",
+    "types": ["EXP", "LER"],
+    "nl": "Een folksessie of sessie met traditionele muziek",
+    "en": "A folk session of traditional music",
+    "sub": {"nl": "Samenspel", "en": "Ensemble playing"},
+    "desc": {"nl": "Meespelen of luisteren bij een sessie met traditionele muziek, vaak in een café of zaal.", "en": "Playing along or listening at a session of traditional music, often in a pub or hall."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["optreden:3:D", "podium:2:D", "improviseren:3:V", "communicatie:2:V", "motoriek:2:V", "tradities:5:T", "wereldculturen:4:T", "klank:5:E", "ritme:5:E", "gezelligheid:5:E", "samenwerking:4:E", "verbondenheid:4:E", "gemeenschap:4:E", "beweging:2:E", "verhalen:3:O", "generaties:3:O", "muziek:5:T", "luisteren:3:V"],
+    "why": {
+      "verhalen": {"nl": "Volksmelodieën dragen verhalen over plaatsen, werk en mensen.", "en": "Folk tunes carry stories of places, work and people."},
+      "generaties": {"nl": "Sessies geven melodieën op gehoor door van oude naar jonge spelers.", "en": "Sessions pass tunes by ear from old players to young ones."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-440",
+    "slug": "platenclub",
+    "category": "CAT-06",
+    "types": ["EXP"],
+    "nl": "Een luisterclub of platenclub",
+    "en": "A listening club or record club",
+    "sub": {"nl": "Luisteren", "en": "Listening"},
+    "desc": {"nl": "Met een groep elke keer één album of genre luisteren en erover praten.", "en": "Listening with a group to one album or genre each time and talking about it."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["thuis:3:D", "verzamelen:2:D", "concentratie:3:V", "communicatie:3:V", "kunst:3:T", "geschiedenis:2:T", "klank:5:E", "gezelligheid:4:E", "verbondenheid:4:E", "ontdekking:4:E", "ontroering:3:E", "nostalgie:3:E", "stilte:2:E", "patronen:3:O", "humor:3:O", "muziek:5:T", "luisteren:4:V"],
+    "why": {
+      "patronen": {"nl": "Dezelfde plaat vaker horen laat structuren zien die je eerst miste.", "en": "Hearing the same record repeatedly reveals structures you missed at first."},
+      "humor": {"nl": "Over smaak praten is een zachte manier om te botsen en te lachen.", "en": "Discussing taste is a gentle way of disagreeing and laughing."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-441",
+    "slug": "orgel-leren",
+    "category": "CAT-06",
+    "types": ["LER", "MAK"],
+    "nl": "Orgel leren spelen",
+    "en": "Learning to play the organ",
+    "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
+    "desc": {"nl": "Orgel leren spelen, van kerkorgel tot huisorgel, met handen en voeten.", "en": "Learning to play the organ, from church organ to home organ, with hands and feet."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["metaal:3:M", "hout:3:M", "motoriek:5:V", "concentratie:4:V", "ruimtelijk:3:V", "precisie:3:V", "kunst:3:T", "spiritualiteit:3:T", "architectuur:3:T", "klank:5:E", "stilte:3:E", "ontroering:4:E", "meesterschap:3:E", "doorzetten:3:E", "technologie:3:O", "geschiedenis:3:O", "muziek:5:T", "coordinatie:5:V"],
+    "why": {
+      "technologie": {"nl": "Een pijporgel is een enorme mechanische windmachine onder je vingers.", "en": "A pipe organ is a vast mechanical wind machine under your fingers."},
+      "geschiedenis": {"nl": "Orgels overleven generaties en houden eeuwen bouwambacht in leven.", "en": "Organs outlive generations and keep centuries of building craft alive."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  }
+]

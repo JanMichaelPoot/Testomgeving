@@ -1,0 +1,814 @@
+[
+  {
+    "id": "RA-038",
+    "slug": "orientatieloop",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Oriëntatielopen",
+    "en": "Orienteering",
+    "sub": {"nl": "Oriëntatiesport", "en": "Orienteering"},
+    "desc": {"nl": "Met kaart en kompas in het terrein controleposten zoeken, tegen de klok of op je gemak.", "en": "Finding checkpoints in the terrain with map and compass, against the clock or at your leisure."},
+    "match": "exact",
+    "legacy_id": "orientatieloop",
+    "v0_id": "ACT-032",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["navigeren:5:D", "bos:4:D", "observeren:3:D", "logica:3:V", "concentratie:4:V", "strategie:4:V", "natuur:3:T", "beweging:5:E", "competitie:4:E", "avontuur:4:E", "vrijheid:3:E", "puzzelen:4:E", "geschiedenis:3:O", "stad:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Oude kaarten en veldwerk laten zien hoe land werd gemeten en verdeeld, dus elke loop herhaalt een stuk cartografie.", "en": "Old maps and fieldwork show how land was measured and divided, so each run retraces a bit of cartography."},
+      "stad": {"nl": "Stedelijk oriënteren maakt van bekende straten een kaartpuzzel die je opnieuw leest.", "en": "Urban orienteering turns familiar streets into a map puzzle you read anew."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-039",
+    "slug": "boulderen",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Boulderen",
+    "en": "Bouldering",
+    "sub": {"nl": "Klimsport", "en": "Climbing"},
+    "desc": {"nl": "Zonder touw klimmen op lage wanden of rotsen boven een valmat, route voor route.", "en": "Climbing low walls or rocks without a rope above a crash mat, problem by problem."},
+    "match": "exact",
+    "legacy_id": "boulderen",
+    "v0_id": "ACT-033",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["bergen:3:D", "beweging:5:E", "ruimtelijk:5:V", "logica:4:V", "motoriek:3:V", "concentratie:4:V", "doorzetten:4:E", "puzzelen:5:E", "grenzen:4:E", "gezelligheid:4:E", "samenwerking:3:E", "trots:4:E", "welzijn:3:T", "kunst:3:O", "architectuur:3:O", "conditie:4:V", "coordinatie:5:V"],
+    "why": {
+      "kunst": {"nl": "Een boulderprobleem is een reeks lichaamsvormen, een soort tekenen met je hele lijf.", "en": "A boulder problem is a sequence of body shapes, a kind of drawing with your whole body."},
+      "architectuur": {"nl": "Klimmers lezen wanden zoals architecten gevels lezen: grepen, randen en structuur.", "en": "Climbers read walls the way architects read facades: holds, edges and structure."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-040",
+    "slug": "schermen",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Schermen",
+    "en": "Fencing",
+    "sub": {"nl": "Vechtsport", "en": "Combat sport"},
+    "desc": {"nl": "Schermen met floret, degen of sabel: techniek, tactiek en wedstrijdjes.", "en": "Fencing with foil, épée or sabre: technique, tactics and bouts."},
+    "match": "close",
+    "legacy_id": "schermen",
+    "v0_id": "ACT-034",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["strategie:5:V", "precisie:4:V", "concentratie:5:V", "motoriek:3:V", "metaal:3:M", "competitie:5:E", "beweging:4:E", "spanning:4:E", "elegantie:4:E", "moed:3:E", "geschiedenis:4:T", "verhalen:3:O", "improviseren:3:O", "snelheid:4:E", "conditie:3:V", "coordinatie:4:V"],
+    "why": {
+      "verhalen": {"nl": "Zwaardvechten leeft in legenden en film; door te leren schermen stap je erin.", "en": "Swordplay lives in legends and film; learning to fence lets you step into them."},
+      "improviseren": {"nl": "Elke aanval vraagt om direct antwoord op wat de ander doet, wat improviseren op hoge snelheid is.", "en": "Every attack asks for an instant answer to what the other does, which is improvising at speed."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-041",
+    "slug": "roeien",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Roeien",
+    "en": "Rowing",
+    "sub": {"nl": "Watersport", "en": "Water sport"},
+    "desc": {"nl": "Roeien in een boot, alleen of in een ploeg, op rivier, meer of kanaal.", "en": "Rowing in a boat, alone or in a crew, on river, lake or canal."},
+    "match": "exact",
+    "legacy_id": "roeien",
+    "v0_id": "ACT-035",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["water:5:D", "beweging:5:E", "ritme:5:E", "samenwerking:4:E", "doorzetten:4:E", "rust:3:E", "vrijheid:3:E", "competitie:3:E", "concentratie:3:V", "natuur:3:T", "welzijn:3:T", "wetenschap:3:O", "geschiedenis:3:O", "conditie:5:V"],
+    "why": {
+      "wetenschap": {"nl": "Een roeiboot is een hefboomsysteem; techniek wint van kracht.", "en": "A rowing boat is a lever system; technique beats strength."},
+      "geschiedenis": {"nl": "Roeiverenigingen en boten dragen tradities van stadsgrachten tot rivierregatta's.", "en": "Rowing clubs and boats carry traditions from city canals to river regattas."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-093",
+    "slug": "triathlon-trainen",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Training voor een triathlon of multisport",
+    "en": "Training for a triathlon or multisport event",
+    "sub": {"nl": "Duursport", "en": "Endurance sport"},
+    "desc": {"nl": "Zwemmen, fietsen en lopen combineren in een trainingsplan naar een eerste wedstrijd.", "en": "Combining swimming, cycling and running in a training plan towards a first race."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 3, "safety_tier": 1, "source": "authored"},
+    "links": ["water:3:D", "bos:2:D", "strategie:4:V", "concentratie:3:V", "geduld:4:V", "beweging:5:E", "ritme:4:E", "doorzetten:5:E", "grenzen:5:E", "competitie:3:E", "trots:5:E", "gemeenschap:3:E", "vrijheid:3:E", "natuur:2:T", "welzijn:3:T", "logica:3:O", "wetenschap:3:O", "snelheid:3:E", "conditie:5:V"],
+    "why": {
+      "logica": {"nl": "Een plan dat belasting en rust verdeelt is een puzzel met je eigen lichaam.", "en": "A plan that balances load and rest is a puzzle with your own body."},
+      "wetenschap": {"nl": "Tempo, voeding en herstel zijn toegepaste fysiologie.", "en": "Pacing, nutrition and recovery are applied physiology."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-094",
+    "slug": "tafeltennis",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Tafeltennis spelen",
+    "en": "Playing table tennis",
+    "sub": {"nl": "Racketsport", "en": "Racket sport"},
+    "desc": {"nl": "Tafeltennis spelen in een club of buurthuis, van gezellig tot competitie.", "en": "Playing table tennis at a club or community centre, from casual to competitive."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["strategie:4:V", "motoriek:5:V", "concentratie:4:V", "precisie:3:V", "improviseren:3:V", "beweging:4:E", "competitie:4:E", "speelsheid:4:E", "gezelligheid:4:E", "spanning:3:E", "ritme:3:E", "generaties:3:E", "gemeenschap:3:E", "wetenschap:3:O", "samenwerking:3:O", "spel:3:T", "uitgaan:2:D", "snelheid:4:E", "coordinatie:4:V"],
+    "why": {
+      "wetenschap": {"nl": "Spin, stuit en hoeken zijn natuurkunde die je met je hand leert.", "en": "Spin, bounce and angles are physics you learn through your hand."},
+      "samenwerking": {"nl": "Dubbelspel vraagt een partner lezen, waardoor wedijver samenwerking wordt.", "en": "Doubles requires reading a partner, so competing becomes cooperating."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-141",
+    "slug": "yoga",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Yoga",
+    "en": "Yoga",
+    "sub": {"nl": "Mind-body", "en": "Mind-body"},
+    "desc": {"nl": "Yoga doen: houdingen, ademhaling en aandacht, in een les of thuis.", "en": "Doing yoga: postures, breath and attention, in a class or at home."},
+    "match": "exact",
+    "legacy_id": "yoga",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "concentratie:4:V", "geduld:3:V", "motoriek:2:V", "welzijn:5:T", "wereldculturen:3:T", "beweging:5:E", "rust:5:E", "ritme:3:E", "opgaan:3:E", "zelfstandig:3:E", "gezelligheid:2:E", "geschiedenis:3:O", "natuur:3:O", "conditie:3:V", "coordinatie:4:V"],
+    "why": {
+      "geschiedenis": {"nl": "Yoga heeft wortels van duizenden jaren, dus je beweegt door een levende traditie.", "en": "Yoga has roots of thousands of years, so you move through a living tradition."},
+      "natuur": {"nl": "Veel houdingen zijn vernoemd naar dieren en bomen, wat uitnodigt om anders naar de natuur te kijken.", "en": "Many postures are named after animals and trees, which invites you to look at nature differently."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-142",
+    "slug": "tai-chi",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Tai chi of qigong",
+    "en": "Tai chi or qigong",
+    "sub": {"nl": "Mind-body", "en": "Mind-body"},
+    "desc": {"nl": "Tai chi of qigong: langzame bewegingen met aandacht en ademhaling.", "en": "Tai chi or qigong: slow movements with attention and breath."},
+    "match": "exact",
+    "legacy_id": "tai-chi",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["bos:2:D", "concentratie:4:V", "geduld:3:V", "motoriek:2:V", "ruimtelijk:2:V", "welzijn:5:T", "wereldculturen:4:T", "beweging:5:E", "rust:5:E", "ritme:4:E", "elegantie:4:E", "gezelligheid:2:E", "opgaan:3:E", "generaties:3:E", "natuur:3:O", "strategie:3:O", "coordinatie:5:V"],
+    "why": {
+      "natuur": {"nl": "De bewegingen lenen namen en ideeën van dieren en stromend water.", "en": "The movements borrow names and ideas from animals and flowing water."},
+      "strategie": {"nl": "De krijgskunstwortels leren meegeven en timing, een soort belichaamde strategie.", "en": "Its martial roots teach yielding and timing, a kind of embodied strategy."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-143",
+    "slug": "schaatsen",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Schaatsen",
+    "en": "Ice skating",
+    "sub": {"nl": "IJs- en rolsport", "en": "Ice and roller sport"},
+    "desc": {"nl": "Schaatsen op natuurijs of ijsbaan, van gezellig rondjes rijden tot techniek.", "en": "Skating on natural ice or at a rink, from easy laps to technique."},
+    "match": "exact",
+    "legacy_id": "schaatsen",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 1, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["water:3:D", "motoriek:3:V", "ruimtelijk:2:V", "beweging:5:E", "ritme:5:E", "vrijheid:4:E", "gezelligheid:3:E", "nostalgie:3:E", "competitie:2:E", "elegantie:3:E", "natuur:2:T", "welzijn:2:T", "geschiedenis:3:O", "kunst:3:O", "snelheid:4:E", "conditie:4:V", "coordinatie:5:V"],
+    "why": {
+      "geschiedenis": {"nl": "Schaatsen zit in de Nederlandse winter geweven, met toertochten en bevroren schilderijen.", "en": "Skating is woven into the Dutch winter, with its tours and frozen paintings."},
+      "kunst": {"nl": "De beweging van schaatsers is het onderwerp van veel Nederlandse schilderijen.", "en": "The motion of skaters is the subject of many Dutch paintings."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-144",
+    "slug": "open-water",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Zwemmen in open water",
+    "en": "Open-water swimming",
+    "sub": {"nl": "Watersport", "en": "Water sport"},
+    "desc": {"nl": "Zwemmen in open water: meer, plas of zee, veilig en met aandacht voor omstandigheden.", "en": "Swimming in open water: lake, pond or sea, safely and with attention to conditions."},
+    "match": "exact",
+    "legacy_id": "open-water",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 1, "cost": 0, "safety_tier": 2, "source": "app"},
+    "links": ["water:5:D", "kust:3:D", "natuur:4:T", "welzijn:3:T", "beweging:5:E", "vrijheid:5:E", "avontuur:4:E", "grenzen:3:E", "rust:3:E", "verwondering:3:E", "moed:3:E", "concentratie:3:V", "wetenschap:3:O", "gemeenschap:3:O", "conditie:4:V"],
+    "why": {
+      "wetenschap": {"nl": "Watertemperatuur, stroming en koudeschok zijn fysiologie waar je respect voor leert krijgen.", "en": "Water temperature, currents and cold shock are physiology you learn to respect."},
+      "gemeenschap": {"nl": "Zwemgroepen zijn uitgegroeid tot een sociaal circuit rond plassen en stranden.", "en": "Swim groups have grown into a social scene around lakes and beaches."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-145",
+    "slug": "klimmen",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Klimmen met touw",
+    "en": "Rope climbing",
+    "sub": {"nl": "Klimsport", "en": "Climbing"},
+    "desc": {"nl": "Klimmen met touw in een hal of buiten, met zekeren en samenwerking.", "en": "Rope climbing in a hall or outdoors, with belaying and teamwork."},
+    "match": "exact",
+    "legacy_id": "klimmen",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["bergen:4:D", "lucht:3:D", "ruimtelijk:4:V", "motoriek:3:V", "concentratie:4:V", "logica:3:V", "strategie:3:V", "beweging:5:E", "samenwerking:4:E", "moed:4:E", "spanning:3:E", "grenzen:4:E", "puzzelen:4:E", "trots:4:E", "zorg:3:O", "natuur:3:O", "conditie:4:V", "coordinatie:3:V"],
+    "why": {
+      "zorg": {"nl": "Zekeren betekent dat je iemands veiligheid in handen hebt, een sterk vertrouwensmoment.", "en": "Belaying means holding someone's safety in your hands, a strong moment of trust."},
+      "natuur": {"nl": "Buiten klimmen leert je rotstypen en weer lezen.", "en": "Climbing outdoors teaches you to read rock types and weather."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-146",
+    "slug": "padel",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Padel of tennis",
+    "en": "Padel or tennis",
+    "sub": {"nl": "Racketsport", "en": "Racket sport"},
+    "desc": {"nl": "Padel of tennis spelen: rally's, dubbelspel en gezellig competitief.", "en": "Playing padel or tennis: rallies, doubles and friendly competition."},
+    "match": "exact",
+    "legacy_id": "padel",
+    "facets": {"setting": "both", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["strategie:4:V", "motoriek:4:V", "concentratie:3:V", "improviseren:2:V", "beweging:4:E", "competitie:5:E", "samenwerking:4:E", "gezelligheid:4:E", "speelsheid:3:E", "spanning:3:E", "ritme:3:E", "welzijn:3:T", "wetenschap:3:O", "generaties:3:O", "conditie:3:V", "coordinatie:3:V"],
+    "why": {
+      "wetenschap": {"nl": "Spin, hoek en muurkaatsen zijn natuurkunde in de praktijk.", "en": "Spin, angle and wall rebounds are physics put to use."},
+      "generaties": {"nl": "Padel en tennis worden door verschillende leeftijden en niveaus in hetzelfde spel gespeeld.", "en": "Padel and tennis are played by mixed ages and levels in the same game."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Overlaps strongly with 'badminton' (link similarity 0.93); keep both only if they stay distinct for the visitor."]
+  },
+  {
+    "id": "RA-147",
+    "slug": "kanoen",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Kanoën of suppen",
+    "en": "Canoeing or paddleboarding",
+    "sub": {"nl": "Watersport", "en": "Water sport"},
+    "desc": {"nl": "Kanoën of suppen op rivier, meer of kanaal.", "en": "Canoeing or paddleboarding on a river, lake or canal."},
+    "match": "exact",
+    "legacy_id": "kanoen",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["water:5:D", "kust:2:D", "navigeren:3:D", "natuur:4:T", "dieren:2:T", "beweging:4:E", "vrijheid:4:E", "rust:4:E", "avontuur:3:E", "ritme:3:E", "samenwerking:2:E", "ontdekking:4:E", "motoriek:2:V", "geschiedenis:3:O", "observeren:3:O", "coordinatie:3:V"],
+    "why": {
+      "geschiedenis": {"nl": "Kano's en rivieren waren de eerste wegen, dus je reist op de oude manier.", "en": "Canoes and rivers were the first roads, so you travel the old way."},
+      "observeren": {"nl": "Vanaf het water zie je vogels en oevers rustig vanuit een nieuwe hoek.", "en": "From the water you see birds and banks quietly from a new angle."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-251",
+    "slug": "hardlopen",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Hardlopen",
+    "en": "Running",
+    "sub": {"nl": "Hardlopen", "en": "Running"},
+    "desc": {"nl": "Hardlopen: van wandelen-hardlopen tot een eerste 5 of 10 km.", "en": "Running: from run-walk intervals to a first 5 or 10 km."},
+    "match": "exact",
+    "legacy_id": "hardlopen",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 1, "source": "app"},
+    "links": ["bos:3:D", "stad:2:D", "navigeren:2:D", "motoriek:2:V", "doorzetten:5:E", "beweging:5:E", "ritme:4:E", "vrijheid:4:E", "rust:3:E", "grenzen:3:E", "welzijn:4:T", "natuur:2:T", "zelfstandig:3:E", "strategie:3:O", "gemeenschap:3:O", "snelheid:3:E", "conditie:5:V"],
+    "why": {
+      "strategie": {"nl": "Een afstand indelen is plannen met je lichaam.", "en": "Pacing a distance is planning with your body."},
+      "gemeenschap": {"nl": "Loopclubs en parkruns maken van een solosport een wekelijkse sociale gebeurtenis.", "en": "Run clubs and park runs turn a solo sport into a weekly social event."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-252",
+    "slug": "nordic-walking",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Nordic walking",
+    "en": "Nordic walking",
+    "sub": {"nl": "Wandelsport", "en": "Walking sport"},
+    "desc": {"nl": "Nordic walking met stokken: stevig wandelen met het hele lichaam.", "en": "Nordic walking with poles: brisk walking using the whole body."},
+    "match": "exact",
+    "legacy_id": "nordic-walking",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["bos:4:D", "natuur:3:T", "welzijn:4:T", "beweging:5:E", "ritme:4:E", "gezelligheid:3:E", "vrijheid:3:E", "rust:3:E", "motoriek:3:V", "generaties:3:E", "wetenschap:3:O", "tradities:3:O", "conditie:3:V"],
+    "why": {
+      "wetenschap": {"nl": "Stoktechniek verdeelt inspanning over meer spieren, een kleine les biomechanica.", "en": "Pole technique spreads effort across more muscles, a small lesson in biomechanics."},
+      "tradities": {"nl": "De stokken komen uit de zomertraining van Finse skiërs.", "en": "The poles come from the summer training of Finnish skiers."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-253",
+    "slug": "fietsen",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Toerfietsen",
+    "en": "Touring by bike",
+    "sub": {"nl": "Fietssport", "en": "Cycling"},
+    "desc": {"nl": "Toerfietsen: dagtochten op de fiets door landschap en dorpen.", "en": "Touring by bike: day trips through landscape and villages."},
+    "match": "exact",
+    "legacy_id": "fietsen",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["navigeren:4:D", "kust:2:D", "bos:3:D", "natuur:3:T", "weer:3:T", "beweging:5:E", "vrijheid:5:E", "ritme:4:E", "rust:3:E", "verwondering:2:E", "doorzetten:2:E", "gezelligheid:3:E", "zelfstandig:3:E", "technologie:3:O", "stad:3:O", "mobiliteit:4:T", "snelheid:3:E", "conditie:3:V"],
+    "why": {
+      "technologie": {"nl": "Een fiets is een van de efficiëntste machines die ooit zijn gemaakt.", "en": "A bike is one of the most efficient machines ever made."},
+      "stad": {"nl": "Fietsen laat zien hoe een plek in elkaar zit, van fietspaden tot heuvels.", "en": "Cycling shows how a place is laid out, from cycle paths to hills."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-254",
+    "slug": "zwemmen",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Baantjes en vrij zwemmen",
+    "en": "Swimming",
+    "sub": {"nl": "Zwemmen", "en": "Swimming"},
+    "desc": {"nl": "Baantjes of vrij zwemmen in een zwembad.", "en": "Swimming lengths or free swimming in a pool."},
+    "match": "exact",
+    "legacy_id": "zwemmen",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["water:5:D", "beweging:5:E", "ritme:5:E", "rust:4:E", "concentratie:3:V", "welzijn:5:T", "vrijheid:3:E", "motoriek:3:V", "stilte:3:E", "warmte:2:E", "zelfstandig:3:E", "doorzetten:2:E", "spiritualiteit:3:O", "wetenschap:3:O", "conditie:4:V"],
+    "why": {
+      "spiritualiteit": {"nl": "Slagen en ademhalingen tellen wordt een soort bewegende meditatie.", "en": "Counting strokes and breaths becomes a kind of moving meditation."},
+      "wetenschap": {"nl": "Waterweerstand maakt efficiëntie tot een natuurkundepuzzel.", "en": "Water resistance makes efficiency a physics puzzle."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["The app also has 'zwemmen-baantjes' (swimming lengths with a plan): these are one activity in practice; consider merging them in the app.", "Overlaps strongly with 'zwemmen-baantjes' (link similarity 0.93); keep both only if they stay distinct for the visitor."]
+  },
+  {
+    "id": "RA-255",
+    "slug": "zeilen",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Proefzeilen",
+    "en": "Trial sailing",
+    "sub": {"nl": "Zeilen", "en": "Sailing"},
+    "desc": {"nl": "Proefzeilen: leren varen met wind en zeil op een meer of zee.", "en": "Trial sailing: learning to sail with wind and sail on a lake or the sea."},
+    "match": "exact",
+    "legacy_id": "zeilen",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["water:5:D", "navigeren:4:D", "zeevaart:4:T", "weer:4:T", "samenwerking:3:E", "avontuur:3:E", "vrijheid:4:E", "rust:3:E", "concentratie:3:V", "strategie:3:V", "ruimtelijk:2:V", "wetenschap:3:O", "tradities:3:O", "mobiliteit:3:T", "coordinatie:3:V"],
+    "why": {
+      "wetenschap": {"nl": "Een zeil werkt als een vleugel, dus lift en weerstand bepalen je koers.", "en": "A sail works like a wing, so lift and drag decide your course."},
+      "tradities": {"nl": "Knopen, commando's en bootnamen dragen eeuwen zeemansgebruik.", "en": "Knots, commands and boat names carry centuries of seafaring custom."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-256",
+    "slug": "teamsport",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Teamsport (voetbal, basketbal, volleybal)",
+    "en": "Team sports",
+    "sub": {"nl": "Teamsport", "en": "Team sport"},
+    "desc": {"nl": "Teamsport als voetbal, basketbal of volleybal, bij een club of in een recreatiegroep.", "en": "Team sport such as football, basketball or volleyball, at a club or in a recreational group."},
+    "match": "exact",
+    "legacy_id": "teamsport",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["beweging:5:E", "competitie:4:E", "samenwerking:5:E", "gezelligheid:4:E", "verbondenheid:3:E", "spanning:3:E", "doorzetten:3:E", "motoriek:3:V", "strategie:4:V", "communicatie:4:V", "leiding:2:V", "gemeenschap:4:E", "welzijn:3:T", "tradities:3:O", "organiseren:3:O", "conditie:4:V"],
+    "why": {
+      "tradities": {"nl": "Clublieden, tenues en wedstrijdrituelen vormen een lokale sportcultuur.", "en": "Club songs, kits and match rituals form a local sporting culture."},
+      "organiseren": {"nl": "Een team draaiende houden betekent roosters, kleding en wedstrijden, wat je een rol buiten het spelen geeft.", "en": "Running a team means schedules, kit and fixtures, which gives you a role beyond playing."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-257",
+    "slug": "frisbee",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Ultimate frisbee",
+    "en": "Ultimate frisbee",
+    "sub": {"nl": "Teamsport", "en": "Team sport"},
+    "desc": {"nl": "Ultimate frisbee spelen: snel, eerlijk en zonder scheidsrechter.", "en": "Playing ultimate frisbee: fast, fair and without a referee."},
+    "match": "exact",
+    "legacy_id": "frisbee",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 1, "source": "app"},
+    "links": ["beweging:5:E", "competitie:3:E", "samenwerking:4:E", "speelsheid:4:E", "gezelligheid:4:E", "motoriek:3:V", "strategie:3:V", "communicatie:3:V", "rechtvaardigheid:3:T", "natuur:2:T", "verbondenheid:3:E", "wetenschap:3:O", "humor:3:O", "spel:3:T", "conditie:4:V"],
+    "why": {
+      "wetenschap": {"nl": "Een geworpen schijf vliegt door lift en spin, dus elke worp is een natuurkundig experiment.", "en": "A thrown disc flies thanks to lift and spin, so every throw is a physics experiment."},
+      "humor": {"nl": "Spelers roepen hun eigen fouten, waardoor eerlijk spelen een gedeelde grap en regel wordt.", "en": "Players call their own fouls, which makes fair play a shared joke and a shared rule."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-258",
+    "slug": "vechtsport",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Judo, aikido of recreatief boksen",
+    "en": "Judo, aikido or fitness boxing",
+    "sub": {"nl": "Vechtsport", "en": "Combat sport"},
+    "desc": {"nl": "Judo, aikido of recreatief boksen leren in een dojo of sportschool.", "en": "Learning judo, aikido or recreational boxing in a dojo or gym."},
+    "match": "exact",
+    "legacy_id": "vechtsport",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["beweging:5:E", "competitie:2:E", "spanning:3:E", "moed:4:E", "doorzetten:4:E", "motoriek:4:V", "concentratie:4:V", "strategie:3:V", "wereldculturen:3:T", "welzijn:3:T", "zelfstandig:3:E", "rauw:3:E", "spiritualiteit:3:O", "zorg:3:O", "conditie:4:V", "coordinatie:4:V"],
+    "why": {
+      "spiritualiteit": {"nl": "Budotradities zien oefenen als een levenshouding, met buigen en etiquette.", "en": "Budo traditions treat practice as a way of life, with bowing and etiquette."},
+      "zorg": {"nl": "Trainingspartners moeten elkaar beschermen, dus kracht gaat samen met zorg.", "en": "Training partners must protect each other, so power comes with care."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Overlaps strongly with 'boksles' (link similarity 0.91); keep both only if they stay distinct for the visitor."]
+  },
+  {
+    "id": "RA-259",
+    "slug": "boogschieten",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Boogschieten",
+    "en": "Archery",
+    "sub": {"nl": "Precisiesport", "en": "Precision sport"},
+    "desc": {"nl": "Boogschieten op een baan of in het veld, met techniek en focus.", "en": "Archery on a range or in the field, with technique and focus."},
+    "match": "exact",
+    "legacy_id": "boogschieten",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["bos:2:D", "precisie:5:V", "concentratie:5:V", "motoriek:3:V", "natuur:2:T", "geschiedenis:3:T", "rust:4:E", "stilte:3:E", "competitie:2:E", "doorzetten:3:E", "beweging:3:E", "wetenschap:3:O", "spiritualiteit:3:O", "coordinatie:3:V"],
+    "why": {
+      "wetenschap": {"nl": "De vlucht van een pijl is ballistiek en buiging, dus een boog afstellen is natuurkunde.", "en": "Arrow flight is ballistics and flex, so tuning a bow is physics."},
+      "spiritualiteit": {"nl": "Zen-boogschieten ziet het schot als een oefening in aanwezig zijn.", "en": "Zen archery treats the shot as a practice of being present."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-260",
+    "slug": "calisthenics",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Calisthenics in het park",
+    "en": "Calisthenics in the park",
+    "sub": {"nl": "Krachttraining", "en": "Strength training"},
+    "desc": {"nl": "Calisthenics in het park: trainen met je eigen lichaamsgewicht.", "en": "Calisthenics in the park: training with your own body weight."},
+    "match": "exact",
+    "legacy_id": "calisthenics",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 1, "source": "app"},
+    "links": ["beweging:5:E", "doorzetten:4:E", "grenzen:4:E", "gezelligheid:3:E", "motoriek:3:V", "ruimtelijk:2:V", "welzijn:3:T", "stad:3:D", "natuur:2:T", "zelfstandig:4:E", "gemeenschap:3:E", "rauw:3:E", "wetenschap:3:O", "verbondenheid:3:O", "conditie:5:V"],
+    "why": {
+      "wetenschap": {"nl": "Progressies volgen hefboomwerking en kracht, een zelfexperiment in mechanica.", "en": "Progressions follow leverage and strength, a self-experiment in mechanics."},
+      "verbondenheid": {"nl": "Buitensportgroepen maken het makkelijk met vreemden te praten.", "en": "Outdoor gym groups make it easy to chat with strangers."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-261",
+    "slug": "pilates",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Pilates",
+    "en": "Pilates",
+    "sub": {"nl": "Mind-body", "en": "Mind-body"},
+    "desc": {"nl": "Pilates: gecontroleerde bewegingen voor kern, houding en balans.", "en": "Pilates: controlled movements for core, posture and balance."},
+    "match": "exact",
+    "legacy_id": "pilates",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "online"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:2:D", "concentratie:4:V", "precisie:4:V", "motoriek:3:V", "welzijn:5:T", "beweging:5:E", "ritme:3:E", "rust:4:E", "zelfstandig:3:E", "doorzetten:2:E", "gezelligheid:2:E", "tradities:3:O", "wetenschap:3:O", "conditie:4:V", "coordinatie:4:V"],
+    "why": {
+      "tradities": {"nl": "Joseph Pilates bouwde het uit revalidatie en dans, dus het draagt die tradities.", "en": "Joseph Pilates built it from rehabilitation and dance, so it carries those traditions."},
+      "wetenschap": {"nl": "Houding en kernstabiliteit zijn toegepaste anatomie.", "en": "Posture and core stability are applied anatomy."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-262",
+    "slug": "squash",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Een uur squash",
+    "en": "An hour of squash",
+    "sub": {"nl": "Racketsport", "en": "Racket sport"},
+    "desc": {"nl": "Een uur squash: razendsnelle rackets, een muur en conditie.", "en": "An hour of squash: fast rackets, a wall and fitness."},
+    "match": "exact",
+    "legacy_id": "squash",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "with_known", "drop_in_alone"], "level": 0, "duration": 1, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["strategie:4:V", "motoriek:4:V", "concentratie:3:V", "improviseren:3:V", "beweging:5:E", "competitie:4:E", "spanning:3:E", "doorzetten:3:E", "gezelligheid:3:E", "speelsheid:2:E", "welzijn:3:T", "warmte:2:E", "rauw:2:E", "patronen:3:O", "wetenschap:3:O", "snelheid:5:E", "conditie:4:V", "coordinatie:3:V"],
+    "why": {
+      "patronen": {"nl": "Hoeken en kaatsen vormen een meetkunde die je gaat lezen.", "en": "Angles and bounces form a geometry you start to read."},
+      "wetenschap": {"nl": "Balsnelheid, spin en muurkaatsen zijn natuurkunde in actie.", "en": "Ball speed, spin and wall rebounds are physics at play."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-263",
+    "slug": "badminton",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Badminton spelen",
+    "en": "Playing badminton",
+    "sub": {"nl": "Racketsport", "en": "Racket sport"},
+    "desc": {"nl": "Badminton spelen: shuttle, net en lichte rackets.", "en": "Playing badminton: shuttlecock, net and light rackets."},
+    "match": "exact",
+    "legacy_id": "badminton",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "drop_in_alone", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["strategie:3:V", "motoriek:4:V", "concentratie:3:V", "beweging:5:E", "competitie:3:E", "speelsheid:4:E", "gezelligheid:4:E", "generaties:3:E", "spanning:2:E", "ritme:3:E", "samenwerking:3:E", "welzijn:2:T", "patronen:3:O", "wetenschap:3:O", "conditie:3:V", "coordinatie:4:V"],
+    "why": {
+      "patronen": {"nl": "Dropshots, smashes en clears vormen patronen waarmee je leert spelen.", "en": "Drop shots, smashes and clears form patterns you learn to play with."},
+      "wetenschap": {"nl": "De weerstand van een shuttle laat hem anders vliegen dan elke bal.", "en": "A shuttlecock's drag makes it fly differently from any ball."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Overlaps strongly with 'padel' (link similarity 0.93); keep both only if they stay distinct for the visitor."]
+  },
+  {
+    "id": "RA-264",
+    "slug": "volleybal",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Volleybal voor beginners",
+    "en": "Volleyball for beginners",
+    "sub": {"nl": "Teamsport", "en": "Team sport"},
+    "desc": {"nl": "Volleybal voor beginners: samen de bal in de lucht houden.", "en": "Volleyball for beginners: keeping the ball in the air together."},
+    "match": "exact",
+    "legacy_id": "volleybal",
+    "facets": {"setting": "both", "social_formats": ["small_group", "large_group", "drop_in_alone", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["kust:2:D", "beweging:4:E", "samenwerking:5:E", "competitie:3:E", "gezelligheid:4:E", "verbondenheid:3:E", "spanning:3:E", "motoriek:3:V", "communicatie:4:V", "strategie:3:V", "welzijn:2:T", "ritme:3:O", "tradities:3:O", "conditie:3:V"],
+    "why": {
+      "ritme": {"nl": "Opslag, pass en smash volgen een driemaatsritme.", "en": "Set, bump and spike follow a three-beat rhythm."},
+      "tradities": {"nl": "Beachvolleybal maakte van een zaalsport een zomercultuur.", "en": "Beach volleyball turned a gym sport into a summer culture."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-265",
+    "slug": "onderwaterhockey",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Onderwaterhockey",
+    "en": "Underwater hockey",
+    "sub": {"nl": "Teamsport", "en": "Team sport"},
+    "desc": {"nl": "Onderwaterhockey proberen: hockey op de bodem van het zwembad.", "en": "Trying underwater hockey: hockey on the bottom of the pool."},
+    "match": "exact",
+    "legacy_id": "onderwaterhockey",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["water:5:D", "beweging:4:E", "samenwerking:4:E", "competitie:3:E", "speelsheid:4:E", "moed:2:E", "concentratie:3:V", "strategie:3:V", "ruimtelijk:3:V", "stilte:3:E", "gezelligheid:3:E", "avontuur:2:E", "wetenschap:3:O", "humor:3:O", "spel:3:T", "conditie:4:V"],
+    "why": {
+      "wetenschap": {"nl": "Adem inhouden en onder water bewegen gebruikt de duikreflex van het lichaam.", "en": "Holding your breath and moving under water uses the body's dive reflex."},
+      "humor": {"nl": "Iedereen ziet er absurd uit met snorkel en stick, wat het erg vriendelijk maakt.", "en": "Everyone looks absurd with snorkel and stick, which makes it very friendly."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-461",
+    "slug": "skaten",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Skeeleren of skateboarden",
+    "en": "Inline skating or skateboarding",
+    "sub": {"nl": "Rollende sporten", "en": "Rolling sports"},
+    "desc": {"nl": "Skeeleren of skateboarden leren, op een baan of in een skatepark.", "en": "Learning to skate or skateboard, on a path or in a skatepark."},
+    "match": "exact",
+    "legacy_id": "skaten",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["stad:3:D", "motoriek:4:V", "ruimtelijk:3:V", "beweging:5:E", "ritme:4:E", "vrijheid:5:E", "speelsheid:4:E", "doorzetten:4:E", "moed:3:E", "gemeenschap:3:E", "rauw:3:E", "kunst:3:O", "architectuur:3:O", "mobiliteit:4:T", "snelheid:4:E", "coordinatie:5:V"],
+    "why": {
+      "kunst": {"nl": "Skatecultuur mengt muziek, grafiek en film.", "en": "Skate culture mixes music, graphics and film."},
+      "architectuur": {"nl": "Skaters lezen trappen, randen en pleinen als terrein, een nieuwe manier om steden te zien.", "en": "Skaters read stairs, ledges and plazas as terrain, a new way to see cities."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-462",
+    "slug": "rolschaatsen",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Rolschaatsen",
+    "en": "Roller skating",
+    "sub": {"nl": "Rollende sporten", "en": "Rolling sports"},
+    "desc": {"nl": "Rolschaatsen: rondjes in de hal of op straat, ook retro.", "en": "Roller skating: laps in a hall or on the street, retro style too."},
+    "match": "exact",
+    "legacy_id": "rolschaatsen",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["motoriek:3:V", "ruimtelijk:2:V", "beweging:5:E", "ritme:5:E", "vrijheid:4:E", "speelsheid:4:E", "gezelligheid:4:E", "nostalgie:4:E", "elegantie:3:E", "klank:3:E", "stad:2:D", "welzijn:3:T", "mode:3:O", "tradities:3:O", "mobiliteit:3:T", "snelheid:3:E", "coordinatie:5:V"],
+    "why": {
+      "mode": {"nl": "Skateoutfits en wielen zijn zelf mode.", "en": "Skate outfits and wheels are fashion in themselves."},
+      "tradities": {"nl": "Rolschaatsdisco's en derby's zijn culturen met eigen rituelen.", "en": "Roller discos and derbies are cultures with their own rituals."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-463",
+    "slug": "trampolinepark",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Trampolinepark",
+    "en": "Trampoline park",
+    "sub": {"nl": "Springen", "en": "Jumping"},
+    "desc": {"nl": "Een trampolinepark: springen, salto's en spelletjes.", "en": "A trampoline park: jumping, flips and games."},
+    "match": "exact",
+    "legacy_id": "trampolinepark",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 1, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["motoriek:3:V", "ruimtelijk:3:V", "beweging:5:E", "speelsheid:5:E", "moed:2:E", "gezelligheid:4:E", "generaties:3:E", "ritme:3:E", "welzijn:3:T", "vrijheid:3:E", "lucht:3:D", "competitie:2:E", "wetenschap:3:O", "humor:3:O", "conditie:3:V", "coordinatie:5:V"],
+    "why": {
+      "wetenschap": {"nl": "Stuiteren is energieopslag en -afgifte, veerkrachtige natuurkunde.", "en": "Bounce is energy storage and release, springy physics."},
+      "humor": {"nl": "Vallen en lachen is waar trampolines voor zijn.", "en": "Falling and laughing is what trampolines are for."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-464",
+    "slug": "touwtjespringen",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Touwtjespringen",
+    "en": "Skipping rope",
+    "sub": {"nl": "Springen", "en": "Jumping"},
+    "desc": {"nl": "Touwtjespringen: conditie, ritme en trucjes.", "en": "Jump rope: fitness, rhythm and tricks."},
+    "match": "exact",
+    "legacy_id": "touwtjespringen",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["motoriek:4:V", "concentratie:3:V", "beweging:5:E", "ritme:5:E", "doorzetten:4:E", "speelsheid:3:E", "welzijn:3:T", "zelfstandig:3:E", "nostalgie:3:E", "gezelligheid:2:E", "stad:2:D", "competitie:2:E", "wetenschap:3:O", "tradities:3:O", "conditie:5:V", "coordinatie:5:V"],
+    "why": {
+      "wetenschap": {"nl": "Timing en coördinatie zijn neurowetenschap in spel.", "en": "Timing and coordination are neuroscience at play."},
+      "tradities": {"nl": "Touwspelletjes hangen samen met schoolpleinrijmpjes.", "en": "Rope games link to playground rhymes."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-465",
+    "slug": "zwemmen-baantjes",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Baantjes zwemmen met een plan",
+    "en": "Lap swimming with a plan",
+    "sub": {"nl": "Zwemmen", "en": "Swimming"},
+    "desc": {"nl": "Baantjes zwemmen met een trainingsplan en techniek.", "en": "Swimming lengths with a training plan and technique."},
+    "match": "exact",
+    "legacy_id": "zwemmen-baantjes",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["water:5:D", "strategie:2:V", "concentratie:3:V", "motoriek:3:V", "beweging:5:E", "ritme:5:E", "doorzetten:4:E", "rust:3:E", "welzijn:4:T", "zelfstandig:3:E", "stilte:3:E", "wetenschap:3:O", "minimalisme:3:O", "conditie:5:V"],
+    "why": {
+      "wetenschap": {"nl": "Slagefficiëntie is hydrodynamica.", "en": "Stroke efficiency is hydrodynamics."},
+      "minimalisme": {"nl": "Zwemmen reduceert het leven tot adem, slag en baan.", "en": "Swimming strips life down to breath, stroke and lane."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["The app also has 'zwemmen' (free swimming): these are one activity in practice; consider merging them in the app.", "Overlaps strongly with 'zwemmen' (link similarity 0.93); keep both only if they stay distinct for the visitor."]
+  },
+  {
+    "id": "RA-466",
+    "slug": "boksles",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Boksles of kickboksen",
+    "en": "Boxing or kickboxing class",
+    "sub": {"nl": "Vechtsport", "en": "Combat sport"},
+    "desc": {"nl": "Een boksles of kickboksles volgen: techniek, combinaties en conditie.", "en": "Taking a boxing or kickboxing class: technique, combinations and fitness."},
+    "match": "exact",
+    "legacy_id": "boksles",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["motoriek:4:V", "concentratie:3:V", "strategie:3:V", "beweging:5:E", "doorzetten:4:E", "moed:3:E", "spanning:3:E", "rauw:4:E", "competitie:2:E", "gezelligheid:2:E", "welzijn:3:T", "zelfstandig:3:E", "ritme:3:O", "zorg:3:O", "leren:3:E", "snelheid:3:E", "conditie:4:V", "coordinatie:4:V"],
+    "why": {
+      "ritme": {"nl": "Combinaties zijn ritme in vuisten en voeten.", "en": "Combinations are rhythm in fists and feet."},
+      "zorg": {"nl": "Partners trainen beheerst, dus kracht gaat samen met zorg.", "en": "Partners train with control, so strength comes with care."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Overlaps strongly with 'vechtsport' (link similarity 0.91); keep both only if they stay distinct for the visitor."]
+  },
+  {
+    "id": "RA-467",
+    "slug": "tennis-proefles",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "Tennis of squash proefles",
+    "en": "Tennis or squash trial lesson",
+    "sub": {"nl": "Racketsport", "en": "Racket sport"},
+    "desc": {"nl": "Een proefles tennis of squash volgen: slagen, regels en spelen.", "en": "Taking a trial tennis or squash lesson: strokes, rules and playing."},
+    "match": "exact",
+    "legacy_id": "tennis-proefles",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["strategie:3:V", "motoriek:4:V", "concentratie:3:V", "beweging:5:E", "competitie:3:E", "spanning:3:E", "gezelligheid:3:E", "doorzetten:3:E", "welzijn:3:T", "tradities:3:T", "ritme:3:E", "wetenschap:3:O", "patronen:3:O", "leren:3:E", "conditie:3:V", "coordinatie:4:V"],
+    "why": {
+      "wetenschap": {"nl": "Spin, stuit en hoeken zijn natuurkunde die je voelt.", "en": "Spin, bounce and angles are physics you sense."},
+      "patronen": {"nl": "Rally's volgen patronen die je leert lezen.", "en": "Rallies follow patterns you learn to read."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-468",
+    "slug": "langlaufen",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Langlaufen",
+    "en": "Cross-country skiing",
+    "sub": {"nl": "Wintersport", "en": "Winter sport"},
+    "desc": {"nl": "Langlaufen op sneeuw of rolski's: glijden door het landschap.", "en": "Cross-country skiing on snow or roller skis: gliding through the landscape."},
+    "match": "exact",
+    "legacy_id": "langlaufen",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["bos:4:D", "natuur:3:T", "weer:4:T", "welzijn:3:T", "motoriek:3:V", "ruimtelijk:2:V", "beweging:5:E", "ritme:5:E", "vrijheid:4:E", "rust:3:E", "stilte:4:E", "doorzetten:3:E", "warmte:3:E", "tradities:3:O", "technologie:3:O", "snelheid:4:E", "conditie:5:V", "coordinatie:4:V"],
+    "why": {
+      "tradities": {"nl": "Noordse skicultuur loopt door winterverhalen en wedstrijden.", "en": "Nordic ski culture runs through winter tales and races."},
+      "technologie": {"nl": "Was en skiontwerp maken wrijving tot een ambacht.", "en": "Wax and ski design make friction a craft."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-469",
+    "slug": "zumba",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Zumba of dansfitness",
+    "en": "Zumba or dance fitness",
+    "sub": {"nl": "Dansfitness", "en": "Dance fitness"},
+    "desc": {"nl": "Zumba of dansfitness: groepsbeweging op latinmuziek.", "en": "Zumba or dance fitness: group movement to Latin music."},
+    "match": "exact",
+    "legacy_id": "zumba",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["motoriek:3:V", "beweging:5:E", "ritme:5:E", "speelsheid:4:E", "gezelligheid:5:E", "humor:3:E", "verbondenheid:3:E", "klank:4:E", "welzijn:4:T", "wereldculturen:3:T", "gemeenschap:3:E", "vrijheid:3:E", "tradities:3:O", "geschiedenis:3:O", "muziek:3:T", "conditie:4:V", "coordinatie:3:V"],
+    "why": {
+      "tradities": {"nl": "Latijns-Amerikaanse dansvormen vormen de basis van de routines.", "en": "Latin dance forms underpin the routines."},
+      "geschiedenis": {"nl": "Zumba begon met een instructeur die improviseerde met zijn eigen muziekbanden.", "en": "Zumba began with an instructor improvising with his own music tapes."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-470",
+    "slug": "aangepast-sporten",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Aangepast sporten (wandelvoetbal, zitvolleybal)",
+    "en": "Adapted sports",
+    "sub": {"nl": "Teamsport", "en": "Team sport"},
+    "desc": {"nl": "Sporten die zijn aangepast voor mensen met beperkingen of ouderen, zoals wandelvoetbal.", "en": "Sports adapted for people with limitations or older players, such as walking football."},
+    "match": "exact",
+    "legacy_id": "aangepast-sporten",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["beweging:4:E", "samenwerking:4:E", "gezelligheid:5:E", "verbondenheid:4:E", "competitie:2:E", "doorzetten:3:E", "gemeenschap:4:E", "welzijn:5:T", "rechtvaardigheid:3:T", "motoriek:2:V", "communicatie:2:V", "generaties:3:E", "ontwerpen:3:O", "humor:3:O"],
+    "why": {
+      "ontwerpen": {"nl": "Een spel aanpassen betekent regels herontwerpen, ontwerpen voor inclusie.", "en": "Adapting a game means redesigning rules, design for inclusion."},
+      "humor": {"nl": "Een lager tempo en wielen brengen veel gelach.", "en": "A slower pace and wheels bring plenty of laughter."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-471",
+    "slug": "curling",
+    "category": "CAT-09",
+    "types": ["EXP"],
+    "nl": "Curling",
+    "en": "Curling",
+    "sub": {"nl": "Precisiesport", "en": "Precision sport"},
+    "desc": {"nl": "Curling proberen: stenen schuiven, vegen en tactiek op ijs.", "en": "Trying curling: sliding stones, sweeping and tactics on ice."},
+    "match": "exact",
+    "legacy_id": "curling",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["strategie:4:V", "precisie:4:V", "communicatie:4:V", "concentratie:3:V", "samenwerking:5:E", "competitie:3:E", "gezelligheid:4:E", "rust:2:E", "spanning:3:E", "beweging:3:E", "humor:3:E", "welzijn:2:T", "wetenschap:3:O", "tradities:3:O", "spel:3:T", "coordinatie:4:V"],
+    "why": {
+      "wetenschap": {"nl": "Het ijs met druppels bespuiten verandert de wrijving, hydrodynamica in actie.", "en": "Pebbling the ice changes friction, hydrodynamics in action."},
+      "tradities": {"nl": "Curling draagt Schotse en Canadese clubtradities van fair play.", "en": "Curling carries Scottish and Canadian club traditions of fair play."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-472",
+    "slug": "ijshockey",
+    "category": "CAT-09",
+    "types": ["EXP", "LER"],
+    "nl": "IJshockey proefles",
+    "en": "Ice-hockey trial class",
+    "sub": {"nl": "Teamsport", "en": "Team sport"},
+    "desc": {"nl": "Een proefles ijshockey: schaatsen, stick en puck.", "en": "A trial ice hockey lesson: skating, stick and puck."},
+    "match": "exact",
+    "legacy_id": "ijshockey",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["motoriek:4:V", "strategie:3:V", "concentratie:3:V", "beweging:5:E", "competitie:4:E", "samenwerking:4:E", "spanning:3:E", "rauw:3:E", "doorzetten:3:E", "gezelligheid:3:E", "ritme:3:E", "welzijn:2:T", "wetenschap:3:O", "tradities:3:O", "snelheid:4:E", "conditie:4:V"],
+    "why": {
+      "wetenschap": {"nl": "Snelheid, ijs en randbeheersing zijn mechanica onder je kufen.", "en": "Speed, ice and edge control are mechanics under your blades."},
+      "tradities": {"nl": "Hockeycultuur loopt door clubrituelen en bijnamen.", "en": "Hockey culture runs through club rituals and nicknames."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  }
+]

@@ -1,0 +1,414 @@
+[
+  {
+    "id": "RA-075",
+    "slug": "presenteren",
+    "category": "CAT-19",
+    "types": ["EXP", "LER"],
+    "nl": "Presenteren voor publiek",
+    "en": "Presenting to an audience",
+    "sub": {"nl": "Presentatievaardigheid", "en": "Presentation skills"},
+    "desc": {"nl": "Leren presenteren voor een groep: opbouw, stem, houding en omgaan met spanning.", "en": "Learning to present to a group: structure, voice, posture and handling nerves."},
+    "match": "exact",
+    "legacy_id": "presenteren",
+    "v0_id": "ACT-031",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["communicatie:5:V", "taalvaardig:4:V", "leiding:3:V", "improviseren:2:V", "concentratie:3:V", "strategie:3:V", "publiek:5:E", "moed:4:E", "trots:4:E", "spanning:2:E", "podium:4:D", "verhalen:3:T", "identiteit:3:O", "welzijn:3:O"],
+    "why": {
+      "identiteit": {"nl": "Je eigen manier van staan en spreken vinden gaat over het presenteren van wie je bent.", "en": "Finding your own way of standing and speaking is about presenting who you are."},
+      "welzijn": {"nl": "Oefenen voor een groep verandert plankenkoorts in zelfvertrouwen, wat doorwerkt in het dagelijks leven.", "en": "Practising in front of a group turns stage fright into confidence, which carries over into daily life."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-078",
+    "slug": "toost-speech-houden",
+    "category": "CAT-19",
+    "types": ["EXP", "LER"],
+    "nl": "Een toost of speech schrijven en houden",
+    "en": "Writing and giving a toast or speech",
+    "sub": {"nl": "Spreken in het openbaar", "en": "Public speaking"},
+    "desc": {"nl": "Een korte toespraak voor een bruiloft, afscheid of feest bedenken, oefenen en uitspreken.", "en": "Devising, rehearsing and delivering a short speech for a wedding, farewell or party."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["large_group", "with_known"], "level": 1, "duration": 1, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["communicatie:5:V", "taalvaardig:5:V", "creativiteit:3:V", "improviseren:2:V", "concentratie:3:V", "verhalen:4:T", "identiteit:2:T", "publiek:5:E", "moed:4:E", "ontroering:4:E", "trots:4:E", "gezelligheid:3:E", "generaties:3:E", "podium:3:D", "nostalgie:3:O", "zorg:3:O"],
+    "why": {
+      "nostalgie": {"nl": "Een goede speech bestaat vooral uit gedeelde herinnering, dus je duikt in oude verhalen en foto's.", "en": "A good speech is mostly shared memory, so you dig through old stories and photos."},
+      "zorg": {"nl": "Spreken over iemand anders is een manier om in het openbaar zorg te tonen.", "en": "Speaking about someone else is a way of showing care in public."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-079",
+    "slug": "ondernemersidee-uitwerken",
+    "category": "CAT-19",
+    "types": ["MAK", "LER"],
+    "nl": "Een ondernemersidee uitwerken",
+    "en": "Developing a business idea",
+    "sub": {"nl": "Ondernemerschap", "en": "Entrepreneurship"},
+    "desc": {"nl": "Een idee voor een eigen product of dienst uitwerken tot een eerste plan en een kleine test.", "en": "Developing an idea for your own product or service into a first plan and a small test."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "small_group", "online"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["ontwerpen:4:D", "onderzoeken:4:D", "organiseren:3:D", "creativiteit:4:V", "strategie:5:V", "communicatie:4:V", "logica:3:V", "leiding:3:V", "technologie:2:T", "duurzaamheid:2:T", "experimenteren:5:E", "doorzetten:4:E", "moed:4:E", "zelfstandig:4:E", "samenwerking:3:E", "verhalen:3:O", "gemeenschap:3:O", "online:3:D"],
+    "why": {
+      "verhalen": {"nl": "Klanten kopen een verhaal net zo goed als een product, dus je leert vertellen waarom iets bestaat.", "en": "Customers buy a story as much as a product, so you learn to tell why something exists."},
+      "gemeenschap": {"nl": "Klein beginnen betekent meestal de eerste vijftig mensen vinden die erom geven, dus je bouwt een gemeenschap.", "en": "Starting small usually means finding the first fifty people who care, so you build a community."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-080",
+    "slug": "lezing-workshop-geven",
+    "category": "CAT-19",
+    "types": ["EXP", "LER"],
+    "nl": "Een lezing of workshop geven over je eigen vak of hobby",
+    "en": "Giving a talk or workshop on your own craft or hobby",
+    "sub": {"nl": "Spreken in het openbaar", "en": "Public speaking"},
+    "desc": {"nl": "Je kennis delen in een lezing of workshop bij een bibliotheek, buurthuis of vereniging.", "en": "Sharing what you know in a talk or workshop at a library, community centre or club."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "large_group"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["communicatie:5:V", "taalvaardig:3:V", "leiding:3:V", "organiseren:3:D", "podium:3:D", "publiek:5:E", "trots:5:E", "gemeenschap:4:E", "meesterschap:3:E", "moed:3:E", "generaties:3:E", "verhalen:3:T", "identiteit:3:T", "zorg:3:O", "ontdekking:3:O"],
+    "why": {
+      "zorg": {"nl": "Lesgeven is zorg voor het leren van anderen: je geeft je kennis weg.", "en": "Teaching is care for other people's learning: you give your knowledge away."},
+      "ontdekking": {"nl": "Uitleggen legt de gaten in je eigen kennis bloot, dus voorbereiden wordt een tweede leerronde.", "en": "Explaining exposes the gaps in your own knowledge, so preparing becomes a second round of learning."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-212",
+    "slug": "toastmasters",
+    "category": "CAT-19",
+    "types": ["EXP", "LER"],
+    "nl": "Een Toastmasters-bijeenkomst bezoeken",
+    "en": "Visiting a Toastmasters meeting",
+    "sub": {"nl": "Spreken", "en": "Speaking"},
+    "desc": {"nl": "Een Toastmasters-bijeenkomst bezoeken: oefenen met spreken in een veilige groep.", "en": "Attending a Toastmasters meeting: practising speaking in a safe group."},
+    "match": "exact",
+    "legacy_id": "toastmasters",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["communicatie:5:V", "taalvaardig:4:V", "leiding:3:V", "improviseren:3:V", "organiseren:2:D", "podium:3:D", "publiek:4:E", "moed:4:E", "gemeenschap:4:E", "trots:4:E", "gezelligheid:3:E", "generaties:2:E", "verhalen:3:T", "welzijn:3:O", "strategie:3:O", "leren:5:E"],
+    "why": {
+      "welzijn": {"nl": "Oefenen in een vriendelijke kring vermindert spreekangst.", "en": "Practising in a friendly circle reduces fear of speaking."},
+      "strategie": {"nl": "Korte toespraken met tijdslimiet leren je opbouw en wat je moet schrappen.", "en": "Short timed speeches teach structure and what to cut."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-213",
+    "slug": "leiderschapsworkshop",
+    "category": "CAT-19",
+    "types": ["LER"],
+    "nl": "Een workshop leiderschap en samenwerken",
+    "en": "A workshop on leadership and collaboration",
+    "sub": {"nl": "Leiderschap", "en": "Leadership"},
+    "desc": {"nl": "Een workshop leiderschap en samenwerken volgen.", "en": "Taking a workshop on leadership and collaboration."},
+    "match": "exact",
+    "legacy_id": "leiderschapsworkshop",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["leiding:5:V", "communicatie:4:V", "strategie:3:V", "improviseren:2:V", "organiseren:3:D", "samenwerking:5:E", "zorg:2:E", "doorzetten:2:E", "gemeenschap:3:E", "identiteit:3:T", "welzijn:2:T", "geschiedenis:3:O", "verhalen:3:O", "leren:4:E"],
+    "why": {
+      "geschiedenis": {"nl": "Leiderschapstheorieën weerspiegelen hoe organisaties van fabrieken naar netwerken veranderden.", "en": "Leadership theories reflect how organisations changed from factories to networks."},
+      "verhalen": {"nl": "Leiders worden herinnerd via verhalen, dus je eigen verhaal vertellen hoort bij leiden.", "en": "Leaders are remembered through stories, so telling your own is part of leading."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-214",
+    "slug": "assertiviteit",
+    "category": "CAT-19",
+    "types": ["LER"],
+    "nl": "Een training assertiviteit en duidelijk communiceren",
+    "en": "An assertiveness and clear communication training",
+    "sub": {"nl": "Communicatie", "en": "Communication"},
+    "desc": {"nl": "Een training assertiviteit en duidelijk communiceren.", "en": "A training in assertiveness and clear communication."},
+    "match": "exact",
+    "legacy_id": "assertiviteit",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["communicatie:5:V", "taalvaardig:3:V", "improviseren:2:V", "leiding:2:V", "identiteit:4:T", "welzijn:3:T", "moed:4:E", "zelfstandig:4:E", "gemeenschap:2:E", "grenzen:3:E", "speelsheid:2:E", "organiseren:2:D", "expressie:3:O", "zorg:3:O", "leren:4:E"],
+    "why": {
+      "expressie": {"nl": "Zeggen wat je wilt is ook een vorm van jezelf uitdrukken.", "en": "Saying what you want is also a form of self-expression."},
+      "zorg": {"nl": "Duidelijke grenzen maken het makkelijker om voor anderen te zorgen zonder jezelf te verliezen.", "en": "Clear boundaries make it easier to care for others without losing yourself."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-215",
+    "slug": "mentor-zoeken",
+    "category": "CAT-19",
+    "types": ["EXP", "LER"],
+    "nl": "Een mentor zoeken en een eerste gesprek voeren",
+    "en": "Finding a mentor and holding a first conversation",
+    "sub": {"nl": "Begeleiding", "en": "Mentoring"},
+    "desc": {"nl": "Een mentor zoeken en een eerste gesprek voeren.", "en": "Finding a mentor and having a first conversation."},
+    "match": "exact",
+    "legacy_id": "mentor-zoeken",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["communicatie:5:V", "strategie:3:V", "leiding:2:V", "taalvaardig:2:V", "identiteit:3:T", "welzijn:2:T", "generaties:4:E", "zorg:3:E", "gemeenschap:3:E", "ontdekking:3:E", "moed:3:E", "zelfstandig:3:E", "onderzoeken:2:D", "verhalen:3:O", "meesterschap:3:O", "leren:5:E", "luisteren:3:V"],
+    "why": {
+      "verhalen": {"nl": "Een mentor geeft lessen door als verhalen over fouten en wendingen.", "en": "A mentor passes on lessons as stories of mistakes and turns."},
+      "meesterschap": {"nl": "Iemand volgen die verder is laat zien hoe beter worden echt eruitziet.", "en": "Following someone who is further along shows what getting better really looks like."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-286",
+    "slug": "onderhandelen-oefenen",
+    "category": "CAT-19",
+    "types": ["LER", "EXP"],
+    "nl": "Onderhandelen oefenen",
+    "en": "Practising negotiation",
+    "sub": {"nl": "Communicatie", "en": "Communication"},
+    "desc": {"nl": "Leren onderhandelen over prijs, afspraken en conflicten, met rollenspellen en echte situaties.", "en": "Learning to negotiate price, agreements and conflicts, through role plays and real situations."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["communicatie:5:V", "strategie:5:V", "taalvaardig:3:V", "improviseren:3:V", "concentratie:3:V", "leiding:2:V", "identiteit:2:T", "competitie:3:E", "spanning:3:E", "moed:3:E", "zelfstandig:4:E", "doorzetten:3:E", "gemeenschap:2:E", "organiseren:2:D", "humor:3:O", "rechtvaardigheid:3:O", "leren:5:E"],
+    "why": {
+      "humor": {"nl": "Een beetje humor ontspant een gespannen onderhandeling vaak.", "en": "A little humour often defuses a tense negotiation."},
+      "rechtvaardigheid": {"nl": "Goed onderhandelen gaat evenzeer over eerlijke uitkomsten als over winnen.", "en": "Negotiating well is as much about fair outcomes as winning."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-287",
+    "slug": "pitch-geven",
+    "category": "CAT-19",
+    "types": ["EXP", "LER"],
+    "nl": "Een pitch geven",
+    "en": "Giving a pitch",
+    "sub": {"nl": "Presenteren", "en": "Presenting"},
+    "desc": {"nl": "Een idee in drie minuten overtuigend presenteren, voor een zaal of een jury.", "en": "Presenting an idea convincingly in three minutes, to a room or a panel."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 1, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["communicatie:5:V", "taalvaardig:4:V", "strategie:4:V", "creativiteit:3:V", "improviseren:2:V", "podium:3:D", "organiseren:2:D", "publiek:5:E", "moed:4:E", "spanning:4:E", "competitie:3:E", "doorzetten:2:E", "verhalen:3:T", "beeldtaal:3:O", "puzzelen:3:O", "leren:4:E"],
+    "why": {
+      "beeldtaal": {"nl": "Dia's, gebaren en een helder beeld dragen meer dan tekst.", "en": "Slides, gestures and a clear picture carry more than text."},
+      "puzzelen": {"nl": "Een groot idee tot drie minuten terugbrengen is een puzzel over wat je houdt.", "en": "Cutting a big idea down to three minutes is a puzzle of what to keep."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-332",
+    "slug": "netwerkborrel",
+    "category": "CAT-19",
+    "types": ["EXP"],
+    "nl": "Een netwerkborrel bezoeken",
+    "en": "Attending a networking drinks",
+    "sub": {"nl": "Netwerken", "en": "Networking"},
+    "desc": {"nl": "Een netwerkborrel bezoeken: gesprekken voeren met nieuwe mensen.", "en": "Attending a networking drinks: starting conversations with new people."},
+    "match": "exact",
+    "legacy_id": "netwerkborrel",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["stad:2:D", "communicatie:4:V", "strategie:2:V", "improviseren:3:V", "identiteit:2:T", "verbondenheid:5:E", "gezelligheid:3:E", "moed:3:E", "spanning:2:E", "zelfstandig:3:E", "gemeenschap:3:E", "ontdekking:2:E", "verhalen:3:O", "humor:3:O", "uitgaan:5:D"],
+    "why": {
+      "verhalen": {"nl": "Een goed kennismakingsverhaal is oefening in vertellen wie je bent.", "en": "A good elevator story is practice in telling who you are."},
+      "humor": {"nl": "Een gedeelde lach doorbreekt de ongemakkelijke eerste minuten.", "en": "A shared laugh breaks the awkward first minutes."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-333",
+    "slug": "plannen-workshop",
+    "category": "CAT-19",
+    "types": ["LER"],
+    "nl": "Een workshop plannen en focus",
+    "en": "A planning and focus workshop",
+    "sub": {"nl": "Persoonlijke effectiviteit", "en": "Personal effectiveness"},
+    "desc": {"nl": "Een workshop over plannen, prioriteiten stellen en focus.", "en": "A workshop on planning, setting priorities and focus."},
+    "match": "exact",
+    "legacy_id": "plannen-workshop",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "small_group", "online"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["organiseren:5:D", "strategie:4:V", "logica:3:V", "concentratie:3:V", "leiding:2:V", "welzijn:3:T", "technologie:2:T", "zelfstandig:4:E", "doorzetten:3:E", "rust:2:E", "ritme:3:E", "weer:3:O", "minimalisme:3:O", "leren:4:E"],
+    "why": {
+      "weer": {"nl": "Seizoensplanning volgt natuurlijke ritmes van energie en rust.", "en": "Seasonal planning follows natural rhythms of energy and rest."},
+      "minimalisme": {"nl": "Goed plannen is vooral beslissen wat je niet doet.", "en": "Good planning is mostly deciding what not to do."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-334",
+    "slug": "coachgesprek",
+    "category": "CAT-19",
+    "types": ["EXP", "LER"],
+    "nl": "Een coachgesprek over wat je wilt",
+    "en": "A coaching conversation about what you want",
+    "sub": {"nl": "Begeleiding", "en": "Mentoring"},
+    "desc": {"nl": "Een coachgesprek over wat je wilt: vragen stellen en richting vinden.", "en": "A coaching conversation about what you want: asking questions and finding direction."},
+    "match": "exact",
+    "legacy_id": "coachgesprek",
+    "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["onderzoeken:3:D", "communicatie:5:V", "taalvaardig:2:V", "strategie:3:V", "identiteit:4:T", "welzijn:3:T", "zelfstandig:4:E", "ontdekking:4:E", "rust:3:E", "moed:3:E", "zorg:2:E", "ontroering:2:E", "verhalen:3:O", "spiritualiteit:3:O", "leren:4:E", "luisteren:5:V"],
+    "why": {
+      "verhalen": {"nl": "Een coach helpt je je verhaal opnieuw te vertellen met nieuwe opties.", "en": "A coach helps you retell your story with new options."},
+      "spiritualiteit": {"nl": "Vragen over doel en waarden raken aan wat velen zingeving noemen.", "en": "Questions about purpose and values touch what many call meaning."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-538",
+    "slug": "body-doubling",
+    "category": "CAT-19",
+    "types": ["EXP"],
+    "nl": "Online body-doubling (samen werken op afstand)",
+    "en": "Online body doubling",
+    "sub": {"nl": "Persoonlijke effectiviteit", "en": "Personal effectiveness"},
+    "desc": {"nl": "Online body-doubling: samen werken aan eigen taken via videobellen, voor focus.", "en": "Online body doubling: working on your own tasks together over video, for focus."},
+    "match": "exact",
+    "legacy_id": "body-doubling",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["organiseren:3:D", "thuis:4:D", "concentratie:5:V", "strategie:2:V", "technologie:3:T", "welzijn:3:T", "verbondenheid:4:E", "gezelligheid:3:E", "rust:3:E", "zelfstandig:3:E", "doorzetten:4:E", "gemeenschap:3:E", "ritme:3:E", "stilte:3:O", "klank:3:O", "online:5:D"],
+    "why": {
+      "stilte": {"nl": "Stil gezelschap op het scherm kan kalmerend werken.", "en": "Quiet company on screen can be calming."},
+      "klank": {"nl": "De zachte geluiden van anderen die werken geven een werksfeer.", "en": "The faint sounds of others working give a work ambience."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-539",
+    "slug": "vergadering-leiden",
+    "category": "CAT-19",
+    "types": ["LER", "EXP"],
+    "nl": "Een vergadering of overleg leiden",
+    "en": "Chairing a meeting",
+    "sub": {"nl": "Leiderschap", "en": "Leadership"},
+    "desc": {"nl": "Een vergadering voorbereiden en leiden: agenda, tijd bewaken en iedereen laten horen.", "en": "Preparing and chairing a meeting: agenda, keeping time and letting everyone be heard."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "large_group"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["organiseren:5:D", "leiding:5:V", "communicatie:5:V", "strategie:3:V", "taalvaardig:3:V", "concentratie:3:V", "samenwerking:4:E", "gemeenschap:3:E", "zelfstandig:3:E", "doorzetten:2:E", "zorg:3:E", "ritme:3:E", "rechtvaardigheid:3:T", "humor:3:O", "architectuur:3:O"],
+    "why": {
+      "humor": {"nl": "Een beetje humor houdt een vergadering menselijk.", "en": "A little humour keeps a meeting human."},
+      "architectuur": {"nl": "Zitplaatsen en indeling van de ruimte bepalen wie spreekt.", "en": "Seating and room layout shape who speaks."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-540",
+    "slug": "slides-ontwerpen",
+    "category": "CAT-19",
+    "types": ["MAK", "LER"],
+    "nl": "Presentaties en slides ontwerpen",
+    "en": "Designing presentations and slides",
+    "sub": {"nl": "Presenteren", "en": "Presenting"},
+    "desc": {"nl": "Een heldere presentatie opbouwen met beeld, weinig tekst en een rode draad.", "en": "Building a clear presentation with images, little text and a common thread."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["ontwerpen:5:D", "thuis:3:D", "communicatie:4:V", "creativiteit:3:V", "logica:3:V", "taalvaardig:3:V", "beeldtaal:5:T", "technologie:3:T", "kunst:2:T", "minimalisme:4:E", "detail:3:E", "ritme:3:E", "opgaan:3:E", "verhalen:3:O", "patronen:3:O"],
+    "why": {
+      "verhalen": {"nl": "Een presentatie is een betoog met een begin, midden en einde.", "en": "A deck is an argument with a beginning, middle and end."},
+      "patronen": {"nl": "Rasters, schalen en herhaling maken dia's leesbaar.", "en": "Grids, scales and repetition make slides readable."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-541",
+    "slug": "eerste-klant-vinden",
+    "category": "CAT-19",
+    "types": ["EXP", "LER"],
+    "nl": "Je eerste klant of opdracht vinden",
+    "en": "Finding your first client or commission",
+    "sub": {"nl": "Ondernemerschap", "en": "Entrepreneurship"},
+    "desc": {"nl": "Voor een hobby of vak je eerste betaalde klus vinden, van aanbod tot eerste afspraak.", "en": "Landing the first paid job for a hobby or skill, from offer to first appointment."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["organiseren:3:D", "communicatie:5:V", "strategie:4:V", "taalvaardig:3:V", "creativiteit:3:V", "leiding:2:V", "stad:2:D", "identiteit:3:T", "technologie:2:T", "moed:4:E", "doorzetten:4:E", "zelfstandig:5:E", "spanning:3:E", "verhalen:3:O", "gemeenschap:3:O"],
+    "why": {
+      "verhalen": {"nl": "Een goed aanbod vertelt een klant helder wat er verandert.", "en": "A good offer tells a customer clearly what changes."},
+      "gemeenschap": {"nl": "Eerste klussen komen meestal via mensen die je al kennen.", "en": "First jobs usually come through the people who already know you."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-542",
+    "slug": "mediation-leren",
+    "category": "CAT-19",
+    "types": ["LER"],
+    "nl": "Bemiddelen in conflicten leren",
+    "en": "Learning to mediate conflicts",
+    "sub": {"nl": "Communicatie", "en": "Communication"},
+    "desc": {"nl": "Leren hoe je tussen mensen in een conflict bemiddelt met luisteren, vragen en structuur.", "en": "Learning how to mediate between people in conflict with listening, questions and structure."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["communicatie:5:V", "taalvaardig:4:V", "leiding:4:V", "strategie:3:V", "concentratie:4:V", "geduld:3:V", "rechtvaardigheid:5:T", "welzijn:3:T", "identiteit:2:T", "zorg:4:E", "rust:3:E", "moed:3:E", "gemeenschap:3:E", "zelfstandig:3:E", "stilte:3:O", "verhalen:3:O", "leren:5:E", "luisteren:5:V"],
+    "why": {
+      "stilte": {"nl": "Stiltes zijn gereedschap in bemiddeling.", "en": "Silences are tools in mediation."},
+      "verhalen": {"nl": "Beide partijen vertellen een verhaal en de bemiddelaar helpt het gedeelde vinden.", "en": "Both parties tell a story, and the mediator helps find the shared one."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-543",
+    "slug": "vrijwilligers-coordineren",
+    "category": "CAT-19",
+    "types": ["EXP", "LER"],
+    "nl": "Vrijwilligers coördineren",
+    "en": "Coordinating volunteers",
+    "sub": {"nl": "Leiderschap", "en": "Leadership"},
+    "desc": {"nl": "Een groep vrijwilligers organiseren, inplannen en motiveren voor een evenement of vereniging.", "en": "Organising, scheduling and motivating a group of volunteers for an event or society."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["small_group", "large_group"], "level": 1, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["organiseren:5:D", "leiding:5:V", "communicatie:4:V", "strategie:3:V", "logica:2:V", "samenwerking:4:E", "gemeenschap:5:E", "zorg:3:E", "doorzetten:3:E", "gezelligheid:3:E", "rechtvaardigheid:3:T", "technologie:3:O", "tradities:3:O"],
+    "why": {
+      "technologie": {"nl": "Roosters, chatgroepen en inschrijftools horen bij het werk.", "en": "Rosters, chat groups and sign-up tools are part of the job."},
+      "tradities": {"nl": "Vrijwilligerscultuur draagt rituelen van dank en erbij horen.", "en": "Volunteer cultures carry rituals of thanks and belonging."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-544",
+    "slug": "feedback-geven",
+    "category": "CAT-19",
+    "types": ["LER"],
+    "nl": "Feedback geven en ontvangen",
+    "en": "Giving and receiving feedback",
+    "sub": {"nl": "Communicatie", "en": "Communication"},
+    "desc": {"nl": "Oefenen met duidelijke, vriendelijke feedback en zelf feedback aannemen.", "en": "Practising clear, kind feedback and receiving feedback yourself."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["communicatie:5:V", "taalvaardig:4:V", "concentratie:3:V", "leiding:2:V", "identiteit:3:T", "welzijn:3:T", "zorg:4:E", "moed:3:E", "zelfstandig:3:E", "doorzetten:2:E", "rust:2:E", "gemeenschap:2:E", "kunst:3:O", "humor:3:O", "leren:5:E", "luisteren:4:V"],
+    "why": {
+      "kunst": {"nl": "Kritiekkringen in kunst en schrijven laten zien hoe feedback werk aanscherpt.", "en": "Critique circles in art and writing show how feedback sharpens work."},
+      "humor": {"nl": "Een lichte toets helpt feedback landen zonder te kwetsen.", "en": "A light touch helps feedback land without hurting."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  }
+]

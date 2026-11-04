@@ -12,7 +12,10 @@
     "taxonomy:check": "tsx scripts/taxonomy-check.ts",
     "taxonomy:report": "tsx scripts/taxonomy-check.ts --report",
     "taxonomy:images": "tsx scripts/generate-discovery-illustrations.ts",
-    "register:report": "tsx scripts/register-report.ts"
+    "register:report": "tsx scripts/register-report.ts",
+    "reflib:check": "npx tsx scripts/reference-library/check.ts",
+    "reflib:report": "npx tsx scripts/reference-library/check.ts --report",
+    "reflib:export": "python scripts/reference-library/export-xlsx.py"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.123.0",

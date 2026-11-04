@@ -1,0 +1,514 @@
+[
+  {
+    "id": "RA-018",
+    "slug": "pottenbakken",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Keramiek draaien op een draaischijf",
+    "en": "Throwing ceramics on a wheel",
+    "sub": {"nl": "Keramiek", "en": "Ceramics"},
+    "desc": {"nl": "Klei centreren en opdraaien tot kommen en vazen, drogen, glazuren en stoken.", "en": "Centring clay and throwing bowls and vases, then drying, glazing and firing."},
+    "match": "exact",
+    "legacy_id": "pottenbakken",
+    "v0_id": "ACT-011",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["klei:5:M", "atelier:4:D", "ontwerpen:3:D", "bouwen:3:D", "vakmanschap:5:V", "motoriek:4:V", "geduld:4:V", "creativiteit:4:V", "ruimtelijk:3:V", "kunst:3:T", "tast:5:E", "opgaan:4:E", "rust:4:E", "imperfectie:5:E", "trots:4:E", "wetenschap:3:O", "wereldculturen:3:O", "ambacht:5:T"],
+    "why": {
+      "wetenschap": {"nl": "Glazuur en stoken zijn scheikunde, dus een zacht ambacht rust op temperaturen en reacties.", "en": "Glazes and firing are chemistry, so a soft craft rests on temperatures and reactions."},
+      "wereldculturen": {"nl": "Pottenbaktradities over de hele wereld hebben elk hun eigen vormen en glazuren.", "en": "Pottery traditions around the world each have their own forms and glazes."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-019",
+    "slug": "glas-in-lood-maken",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Glas-in-lood maken",
+    "en": "Making stained glass",
+    "sub": {"nl": "Glasbewerking", "en": "Glasswork"},
+    "desc": {"nl": "Gekleurd glas snijden en met lood of koper tot een raam of paneel verbinden.", "en": "Cutting coloured glass and joining it with lead or copper into a window or panel."},
+    "match": "close",
+    "legacy_id": "glas-mozaiek",
+    "v0_id": "ACT-012",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["glas:5:M", "metaal:3:M", "ontwerpen:4:D", "bouwen:3:D", "atelier:4:D", "precisie:5:V", "vakmanschap:4:V", "motoriek:4:V", "ruimtelijk:3:V", "geduld:4:V", "kunst:4:T", "architectuur:4:T", "geschiedenis:3:T", "licht:5:E", "schoonheid:4:E", "ornament:4:E", "verhalen:3:O", "wetenschap:3:O", "ambacht:5:T"],
+    "why": {
+      "verhalen": {"nl": "Kerkramen vertelden bijbelverhalen aan mensen die niet konden lezen, dus glas is eeuwenlang een vertelmedium geweest.", "en": "Church windows told Bible stories to people who could not read, so glass has long been a storytelling medium."},
+      "wetenschap": {"nl": "De kleur in glas komt van metaaloxiden, een verbinding met scheikunde.", "en": "The colour in glass comes from metal oxides, a link to chemistry."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-020",
+    "slug": "goudsmeden",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Sieraden edelsmeden",
+    "en": "Jewellery making in precious metals",
+    "sub": {"nl": "Edelsmeden", "en": "Goldsmithing"},
+    "desc": {"nl": "Sieraden maken van zilver of goud: zagen, solderen, vijlen, zetten en polijsten.", "en": "Making jewellery in silver or gold: sawing, soldering, filing, setting and polishing."},
+    "match": "exact",
+    "legacy_id": "goudsmeden",
+    "v0_id": "ACT-013",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["metaal:5:M", "ontwerpen:4:D", "atelier:4:D", "precisie:4:V", "vakmanschap:5:V", "motoriek:4:V", "geduld:4:V", "creativiteit:4:V", "ruimtelijk:3:V", "mode:3:T", "kunst:3:T", "identiteit:3:T", "detail:5:E", "elegantie:5:E", "schoonheid:4:E", "trots:4:E", "tast:3:E", "wetenschap:3:O", "geschiedenis:3:O", "ambacht:5:T"],
+    "why": {
+      "wetenschap": {"nl": "Solderen en gloeien hangen af van hoe metaal op hitte reageert.", "en": "Soldering and annealing depend on how metal responds to heat."},
+      "geschiedenis": {"nl": "Goudsmeden hangt samen met eeuwenoude handel, status en ritueel.", "en": "Goldsmithing is tied to age-old trade, status and ritual."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-021",
+    "slug": "lederwerk",
+    "category": "CAT-04",
+    "types": ["MAK"],
+    "nl": "Leerbewerking en lederwaren maken",
+    "en": "Leatherwork and making leather goods",
+    "sub": {"nl": "Leerbewerking", "en": "Leatherwork"},
+    "desc": {"nl": "Leer snijden, stikken en vormen tot tassen, riemen en kleine lederwaren.", "en": "Cutting, stitching and shaping leather into bags, belts and small leather goods."},
+    "match": "exact",
+    "legacy_id": "lederwerk",
+    "v0_id": "ACT-014",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["leer:5:M", "ontwerpen:4:D", "bouwen:3:D", "atelier:3:D", "vakmanschap:5:V", "precisie:4:V", "motoriek:4:V", "geduld:3:V", "ruimtelijk:3:V", "creativiteit:3:V", "mode:4:T", "duurzaamheid:4:T", "geur:5:E", "tast:5:E", "rauw:3:E", "trots:4:E", "detail:3:E", "dieren:3:O", "geschiedenis:3:O", "ambacht:5:T"],
+    "why": {
+      "dieren": {"nl": "Leer komt van dieren, wat vragen oproept over herkomst en respect voor het materiaal.", "en": "Leather comes from animals, which raises questions about sourcing and respect for the material."},
+      "geschiedenis": {"nl": "Zadelmakers en schoenmakers hielden de lederambachten eeuwenlang in leven.", "en": "Saddlers and cobblers kept the leather trades alive for centuries."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-022",
+    "slug": "boekbinden",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Boekbinden",
+    "en": "Bookbinding",
+    "sub": {"nl": "Papierambacht", "en": "Paper craft"},
+    "desc": {"nl": "Zelf boeken en schriften binden: vouwen, naaien, lijmen en een kaft maken.", "en": "Binding your own books and notebooks: folding, sewing, gluing and making a cover."},
+    "match": "close",
+    "legacy_id": "papier-boek",
+    "v0_id": "ACT-015",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["papier:5:M", "leer:3:M", "textiel:3:M", "bouwen:3:D", "ontwerpen:3:D", "atelier:3:D", "precisie:5:V", "vakmanschap:4:V", "motoriek:4:V", "geduld:4:V", "verhalen:3:T", "kunst:3:T", "detail:4:E", "tast:4:E", "trots:4:E", "opgaan:4:E", "nostalgie:3:E", "geschiedenis:3:O", "duurzaamheid:3:O", "ambacht:5:T"],
+    "why": {
+      "geschiedenis": {"nl": "Handmatig binden hield kennis veilig voor de boekdrukkunst en doet dat nog voor archieven.", "en": "Hand bookbinding kept knowledge safe before printing and still does so for archives."},
+      "duurzaamheid": {"nl": "Een goede band kun je repareren en opnieuw inbinden, het tegendeel van een wegwerpschrift.", "en": "A good binding can be repaired and rebound, the opposite of a throwaway notebook."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-158",
+    "slug": "papier-scheppen",
+    "category": "CAT-04",
+    "types": ["MAK"],
+    "nl": "Papier scheppen",
+    "en": "Making handmade paper",
+    "sub": {"nl": "Papierambacht", "en": "Paper craft"},
+    "desc": {"nl": "Zelf papier maken van vezels, water en een schepraam, met bloemen of kleur erin.", "en": "Making paper yourself from fibres, water and a mould, with flowers or colour embedded."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:5:M", "planten:3:M", "verf:2:M", "atelier:3:D", "keuken:2:D", "motoriek:3:V", "geduld:4:V", "creativiteit:3:V", "duurzaamheid:4:T", "kunst:3:T", "tast:5:E", "imperfectie:4:E", "rust:3:E", "trots:4:E", "speelsheid:3:E", "geschiedenis:3:O", "wetenschap:3:O", "ambacht:4:T"],
+    "why": {
+      "geschiedenis": {"nl": "Papier reisde vanuit China de wereld over, dus één vel echoot een lange schrijfgeschiedenis.", "en": "Paper has travelled from China across the world, so one sheet echoes a long history of writing."},
+      "wetenschap": {"nl": "Vezels binden terwijl het water wegloopt, een praktische les scheikunde en natuurkunde.", "en": "Fibres bond as the water drains, a practical lesson in chemistry and physics."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-159",
+    "slug": "ebru-marmeren-papier",
+    "category": "CAT-04",
+    "types": ["MAK"],
+    "nl": "Ebru en marmeren papier maken",
+    "en": "Ebru and paper marbling",
+    "sub": {"nl": "Papierambacht", "en": "Paper craft"},
+    "desc": {"nl": "Verfdruppels op water laten drijven, met een naald patronen trekken en op papier overbrengen.", "en": "Floating drops of paint on water, drawing patterns with a needle and transferring them to paper."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["verf:5:M", "papier:4:M", "water:3:D", "atelier:2:D", "motoriek:3:V", "creativiteit:4:V", "concentratie:3:V", "kunst:4:T", "wereldculturen:4:T", "licht:4:E", "schoonheid:5:E", "ornament:4:E", "imperfectie:4:E", "verwondering:4:E", "opgaan:3:E", "improviseren:3:O", "geschiedenis:3:O"],
+    "why": {
+      "improviseren": {"nl": "Elke haal is definitief en geen twee afdrukken zijn gelijk, dus je leert werken met toeval.", "en": "Each pull is final and no two prints come out equal, so you learn to work with chance."},
+      "geschiedenis": {"nl": "Het ambacht reisde van Centraal-Azië naar Ottomaanse boeken en Europese banden.", "en": "The craft travelled from Central Asia to Ottoman books and European bindings."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-182",
+    "slug": "sieraden",
+    "category": "CAT-04",
+    "types": ["MAK"],
+    "nl": "Sieraden maken",
+    "en": "Jewelry making",
+    "sub": {"nl": "Sieraden", "en": "Jewellery"},
+    "desc": {"nl": "Sieraden maken van kralen, draad, klei of metaal.", "en": "Making jewellery from beads, wire, clay or metal."},
+    "match": "exact",
+    "legacy_id": "sieraden",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["metaal:3:M", "steen:2:M", "ontwerpen:4:D", "thuis:3:D", "motoriek:4:V", "precisie:4:V", "creativiteit:5:V", "mode:4:T", "identiteit:4:T", "kunst:2:T", "detail:4:E", "schoonheid:4:E", "expressie:4:E", "trots:5:E", "elegantie:3:E", "geschiedenis:3:O", "verhalen:3:O", "miniatuur:3:E"],
+    "why": {
+      "geschiedenis": {"nl": "Sieraden behoren tot de oudste voorwerpen van de mensheid, van schelpkralen tot koningskronen.", "en": "Jewellery is among humanity's oldest objects, from shell beads to royal crowns."},
+      "verhalen": {"nl": "Een stuk dat voor iemand is gemaakt draagt het verhaal van een persoon of gelegenheid.", "en": "A piece made for someone carries the story of a person or occasion."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-183",
+    "slug": "emailleren",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Emailleren",
+    "en": "Enamelling",
+    "sub": {"nl": "Metaal en glas", "en": "Metal and glass"},
+    "desc": {"nl": "Emailleren: gesmolten glaspoeder op metaal aanbrengen.", "en": "Enamelling: fusing glass powder onto metal."},
+    "match": "exact",
+    "legacy_id": "emailleren",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["metaal:5:M", "glas:4:M", "ontwerpen:3:D", "atelier:4:D", "precisie:4:V", "vakmanschap:4:V", "creativiteit:3:V", "geduld:3:V", "kunst:3:T", "licht:4:E", "schoonheid:4:E", "ornament:4:E", "detail:4:E", "trots:4:E", "spanning:2:E", "wetenschap:3:O", "geschiedenis:3:O", "ambacht:5:T"],
+    "why": {
+      "wetenschap": {"nl": "In de oven verschijnen kleuren door metaaloxiden en temperatuur.", "en": "Colours appear in the kiln through metal oxides and temperature."},
+      "geschiedenis": {"nl": "Email siert iconen, sieraden en oude uithangborden, dus je werkt in een medium met een lange geschiedenis.", "en": "Enamel decorates icons, jewellery and old signs, so you work in a medium with a very long history."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-184",
+    "slug": "edelstenen-slijpen",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Edelstenen slijpen",
+    "en": "Gem cutting",
+    "sub": {"nl": "Steen", "en": "Stone"},
+    "desc": {"nl": "Edelstenen slijpen en polijsten tot cabochons.", "en": "Cutting and polishing gemstones into cabochons."},
+    "match": "exact",
+    "legacy_id": "edelstenen-slijpen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["steen:5:M", "atelier:4:D", "vakmanschap:4:V", "precisie:5:V", "geduld:5:V", "motoriek:3:V", "ruimtelijk:3:V", "wetenschap:4:T", "natuur:3:T", "geschiedenis:2:T", "licht:5:E", "schoonheid:5:E", "detail:4:E", "tast:4:E", "trots:4:E", "ondergrond:3:O", "verzamelen:3:O", "ambacht:4:T"],
+    "why": {
+      "ondergrond": {"nl": "Elke steen draagt een diepe ondergrondse geschiedenis, en slijpen opent die.", "en": "Every stone carries a deep underground history, and cutting it opens it up."},
+      "verzamelen": {"nl": "Stenen worden verzamelingen van kleur en patroon.", "en": "Stones become collections of colour and pattern."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-185",
+    "slug": "glasblazen",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Glasblazen",
+    "en": "Glassblowing",
+    "sub": {"nl": "Glas", "en": "Glass"},
+    "desc": {"nl": "Glasblazen: gesmolten glas met een pijp tot vorm blazen.", "en": "Glassblowing: shaping molten glass on a blowpipe."},
+    "match": "exact",
+    "legacy_id": "glasblazen",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["glas:5:M", "atelier:5:D", "vakmanschap:5:V", "motoriek:4:V", "ruimtelijk:4:V", "concentratie:4:V", "creativiteit:3:V", "kunst:3:T", "wetenschap:3:T", "licht:5:E", "spanning:3:E", "ritme:3:E", "trots:4:E", "rauw:3:E", "opgaan:4:E", "samenwerking:3:E", "geschiedenis:3:O", "architectuur:3:O", "ambacht:5:T"],
+    "why": {
+      "geschiedenis": {"nl": "Glasblazen begon in de Romeinse tijd en wordt nog steeds met de hand geleerd.", "en": "Glassblowing began in Roman times and is still taught by hand."},
+      "architectuur": {"nl": "Glas is ook het materiaal van ramen en gevels, dus vormen verbindt ambacht en bouwkunst.", "en": "Glass is also the material of windows and facades, so shaping it links craft and building."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-186",
+    "slug": "raku-stoken",
+    "category": "CAT-04",
+    "types": ["MAK", "EXP"],
+    "nl": "Raku stoken",
+    "en": "Raku firing",
+    "sub": {"nl": "Keramiek", "en": "Ceramics"},
+    "desc": {"nl": "Raku stoken: keramiek razendsnel gloeien en in rook laten afkoelen.", "en": "Raku firing: firing ceramics fast and cooling them in smoke."},
+    "match": "exact",
+    "legacy_id": "raku-stoken",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["klei:5:M", "glas:2:M", "atelier:3:D", "vakmanschap:3:V", "geduld:2:V", "creativiteit:3:V", "kunst:3:T", "wetenschap:3:T", "spanning:4:E", "rauw:5:E", "imperfectie:5:E", "verwondering:4:E", "samenwerking:3:E", "geur:4:E", "geschiedenis:3:O", "experimenteren:3:O", "ambacht:4:T"],
+    "why": {
+      "geschiedenis": {"nl": "Raku groeide uit het servies van de Japanse theeceremonie, dus elke pot heeft een link met ritueel.", "en": "Raku grew out of Japanese tea ceremony ware, so each pot has a link to ritual."},
+      "experimenteren": {"nl": "Rook, craquelé en metaal geven resultaten die je niet kunt plannen.", "en": "Smoke, crackle and metal give results you cannot plan."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-187",
+    "slug": "zeep-maken",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Zeep maken",
+    "en": "Making soap",
+    "sub": {"nl": "Huishoudelijk ambacht", "en": "Household craft"},
+    "desc": {"nl": "Zeep maken van oliën, loog en geur.", "en": "Making soap from oils, lye and fragrance."},
+    "match": "exact",
+    "legacy_id": "zeep-maken",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:3:D", "thuis:3:D", "planten:3:M", "precisie:4:V", "geduld:3:V", "creativiteit:3:V", "wetenschap:4:T", "duurzaamheid:3:T", "welzijn:3:T", "geur:5:E", "tast:3:E", "schoonheid:2:E", "zorg:2:E", "geschiedenis:3:O", "experimenteren:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Zeep maken is een oud huisambacht dat nu opnieuw wordt ontdekt.", "en": "Soap making is an old household craft now being rediscovered."},
+      "experimenteren": {"nl": "Oliën, kruiden en kleuren laten je een eigen recept ontwerpen.", "en": "Oils, herbs and colours let you design a recipe of your own."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["No material association fits (soap, oils): left without a material link on purpose."]
+  },
+  {
+    "id": "RA-188",
+    "slug": "kaarsen-gieten",
+    "category": "CAT-04",
+    "types": ["MAK"],
+    "nl": "Kaarsen maken",
+    "en": "Candle making",
+    "sub": {"nl": "Huishoudelijk ambacht", "en": "Household craft"},
+    "desc": {"nl": "Kaarsen gieten of dompelen met was en geur.", "en": "Casting or dipping candles with wax and fragrance."},
+    "match": "exact",
+    "legacy_id": "kaarsen-gieten",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["thuis:3:D", "keuken:2:D", "ontwerpen:2:D", "precisie:3:V", "creativiteit:3:V", "geduld:3:V", "duurzaamheid:2:T", "geur:4:E", "licht:5:E", "rust:4:E", "nostalgie:3:E", "gezelligheid:3:E", "wetenschap:3:O", "geschiedenis:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Een vlam is capillaire werking en verbranding, dus een kaars is een kleine natuurkundeles.", "en": "A flame is capillary action and combustion, so a candle is a small physics lesson."},
+      "geschiedenis": {"nl": "Kaarsen verlichtten huizen, kerken en ceremonies vóór elektriciteit.", "en": "Candles lit homes, churches and ceremonies before electricity."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["No material association fits (wax): the materials list has no wax or soap entry. Left without a material link on purpose."]
+  },
+  {
+    "id": "RA-189",
+    "slug": "schoenmaken",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Schoenen maken",
+    "en": "Shoemaking",
+    "sub": {"nl": "Leerbewerking", "en": "Leatherwork"},
+    "desc": {"nl": "Schoenen maken: leer, zolen en leesten in een cursus.", "en": "Shoemaking: leather, soles and lasts on a course."},
+    "match": "exact",
+    "legacy_id": "schoenmaken",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["leer:5:M", "textiel:2:M", "ontwerpen:4:D", "atelier:4:D", "vakmanschap:5:V", "precisie:4:V", "ruimtelijk:4:V", "motoriek:3:V", "geduld:4:V", "mode:5:T", "duurzaamheid:3:T", "trots:5:E", "tast:3:E", "detail:4:E", "elegantie:3:E", "wetenschap:3:O", "identiteit:3:O", "ambacht:5:T"],
+    "why": {
+      "wetenschap": {"nl": "Comfort komt van anatomie en leestvorm, een mengeling van biomechanica en ambacht.", "en": "Comfort comes from anatomy and last shape, a mix of biomechanics and craft."},
+      "identiteit": {"nl": "Schoenen dragen stijl en status, dus ze maken is een uitdrukking maken van wie je bent.", "en": "Shoes carry style and status, so making them is making an expression of who you are."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-190",
+    "slug": "mes-smeden",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Een mes smeden",
+    "en": "Forging a knife",
+    "sub": {"nl": "Smeden", "en": "Forging"},
+    "desc": {"nl": "Een mes smeden in een smederij met vuur en hamer.", "en": "Forging a knife in a forge with fire and hammer."},
+    "match": "exact",
+    "legacy_id": "mes-smeden",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["metaal:5:M", "atelier:4:D", "vakmanschap:5:V", "precisie:3:V", "motoriek:3:V", "concentratie:3:V", "creativiteit:2:V", "rauw:5:E", "spanning:3:E", "trots:5:E", "tast:3:E", "opgaan:4:E", "geschiedenis:3:T", "wetenschap:3:T", "technologie:2:T", "samenwerking:3:O", "ritme:3:O", "ambacht:5:T"],
+    "why": {
+      "samenwerking": {"nl": "Smederijen zijn vaak gedeelde werkplaatsen, dus ambacht wordt teamwerk rond het vuur.", "en": "Forges are often shared workshops, so craft becomes teamwork around the fire."},
+      "ritme": {"nl": "De slag van hamer en aambeeld geeft het werk een vast ritme.", "en": "The beat of hammer and anvil gives the work a steady rhythm."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-357",
+    "slug": "origami",
+    "category": "CAT-04",
+    "types": ["MAK"],
+    "nl": "Origami",
+    "en": "Origami",
+    "sub": {"nl": "Papierambacht", "en": "Paper craft"},
+    "desc": {"nl": "Origami vouwen: figuren en modellen van papier.", "en": "Folding origami: figures and models from paper."},
+    "match": "exact",
+    "legacy_id": "origami",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["papier:5:M", "ontwerpen:3:D", "thuis:3:D", "precisie:5:V", "motoriek:4:V", "ruimtelijk:5:V", "logica:3:V", "geduld:2:V", "patronen:5:T", "wereldculturen:3:T", "rust:4:E", "detail:3:E", "minimalisme:4:E", "opgaan:4:E", "puzzelen:3:E", "elegantie:3:E", "wetenschap:3:O", "kunst:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Vouwprincipes worden gebruikt in ruimtetelescopen, airbags en medische stents.", "en": "Folding principles are used in space telescopes, airbags and medical stents."},
+      "kunst": {"nl": "Origami is uitgegroeid tot een beeldhouwkunst met eigen meesters.", "en": "Origami has become a sculptural art with its own masters."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-408",
+    "slug": "glasfusing",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Glasfusing: gesmolten glas in een oven",
+    "en": "Glass fusing",
+    "sub": {"nl": "Glas", "en": "Glass"},
+    "desc": {"nl": "Glasfusing: gesmolten glas in een oven tot sieraden, schalen of panelen.", "en": "Glass fusing: molten glass in a kiln into jewellery, dishes or panels."},
+    "match": "exact",
+    "legacy_id": "glasfusing",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["glas:5:M", "ontwerpen:4:D", "atelier:4:D", "precisie:3:V", "creativiteit:4:V", "vakmanschap:3:V", "kunst:3:T", "wetenschap:3:T", "licht:5:E", "schoonheid:4:E", "warmte:4:E", "ornament:3:E", "verwondering:3:E", "experimenteren:3:E", "patronen:3:O", "wonen:3:O"],
+    "why": {
+      "patronen": {"nl": "Gesmolten glas legt patronen vast van laagjes, kleuren en smeltpunten.", "en": "Fused glass records patterns of layers, colours and melting points."},
+      "wonen": {"nl": "Een glazen schaal of paneel verandert hoe licht in een kamer valt.", "en": "A glass dish or panel changes how light falls in a room."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-409",
+    "slug": "metaalgieten",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Brons of tin gieten",
+    "en": "Casting bronze or pewter",
+    "sub": {"nl": "Metaal", "en": "Metal"},
+    "desc": {"nl": "Brons of tin gieten in een werkplaats: model, mal en gietvorm.", "en": "Casting bronze or pewter in a workshop: model, mould and pour."},
+    "match": "exact",
+    "legacy_id": "metaalgieten",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["metaal:5:M", "ontwerpen:4:D", "atelier:5:D", "bouwen:3:D", "vakmanschap:4:V", "precisie:3:V", "ruimtelijk:3:V", "kunst:3:T", "geschiedenis:3:T", "rauw:5:E", "warmte:5:E", "spanning:4:E", "opgaan:3:E", "samenwerking:3:E", "wetenschap:3:O", "tradities:3:O", "ambacht:4:T"],
+    "why": {
+      "wetenschap": {"nl": "Smeltpunt, krimp en afkoeling bepalen of een gietstuk slaagt, materiaalkunde in vuur.", "en": "Melting point, shrinkage and cooling decide whether a casting works, material science in fire."},
+      "tradities": {"nl": "Bronsgieten verbindt je met klokkengieters en beeldengieters van eeuwen terug.", "en": "Bronze casting links you to bell founders and statue casters of centuries ago."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-410",
+    "slug": "sieraad-ontwerpen",
+    "category": "CAT-04",
+    "types": ["MAK"],
+    "nl": "Een eigen sieraad ontwerpen",
+    "en": "Designing your own jewellery",
+    "sub": {"nl": "Sieraden", "en": "Jewellery"},
+    "desc": {"nl": "Een eigen sieraad ontwerpen en laten maken of zelf maken.", "en": "Designing a piece of jewellery of your own and having it made or making it yourself."},
+    "match": "exact",
+    "legacy_id": "sieraad-ontwerpen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["metaal:3:M", "steen:3:M", "ontwerpen:5:D", "atelier:2:D", "creativiteit:5:V", "precisie:3:V", "ruimtelijk:3:V", "mode:4:T", "identiteit:4:T", "kunst:3:T", "schoonheid:4:E", "detail:4:E", "expressie:4:E", "elegantie:3:E", "zorg:3:E", "verhalen:3:O", "wetenschap:3:O"],
+    "why": {
+      "verhalen": {"nl": "Een eigen ontwerp draagt een verhaal over een persoon, plek of moment.", "en": "A design of your own carries a story of a person, place or moment."},
+      "wetenschap": {"nl": "Stenen en metalen verschillen in hardheid en glans, geologie die je draagt.", "en": "Stones and metals differ in hardness and lustre, geology you wear."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-411",
+    "slug": "parfum-maken",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Parfum maken",
+    "en": "Making perfume",
+    "sub": {"nl": "Geuren", "en": "Scents"},
+    "desc": {"nl": "Een eigen parfum maken door geuren te leren herkennen en mengen.", "en": "Making a perfume of your own by learning to recognise and blend scents."},
+    "match": "exact",
+    "legacy_id": "parfum-maken",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["planten:4:M", "ontwerpen:3:D", "keuken:2:D", "creativiteit:4:V", "precisie:3:V", "concentratie:3:V", "wetenschap:3:T", "mode:3:T", "identiteit:3:T", "geur:5:E", "schoonheid:4:E", "experimenteren:4:E", "nostalgie:3:E", "detail:3:E", "geschiedenis:3:O", "wonen:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Parfumhuizen en wierookroutes verbinden geuren met handel en hoven.", "en": "Perfume houses and incense routes link scents with trade and courts."},
+      "wonen": {"nl": "Kamergeuren en kaarsen laten zien dat geur een huis een karakter geeft.", "en": "Room scents and candles show that fragrance gives a home character."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-412",
+    "slug": "ambachten",
+    "category": "CAT-04",
+    "types": ["MAK", "LER"],
+    "nl": "Historische ambachten (touw slaan, weven, zeep)",
+    "en": "Heritage crafts",
+    "sub": {"nl": "Historisch ambacht", "en": "Historic craft"},
+    "desc": {"nl": "Historische ambachten leren, zoals touw slaan, weven en zeep maken.", "en": "Learning historic crafts such as rope making, weaving and soap making."},
+    "match": "exact",
+    "legacy_id": "ambachten",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["textiel:4:M", "hout:2:M", "atelier:3:D", "vakmanschap:4:V", "motoriek:4:V", "geduld:3:V", "geschiedenis:5:T", "duurzaamheid:3:T", "tradities:4:T", "tast:3:E", "rauw:3:E", "gemeenschap:3:E", "generaties:4:E", "zeevaart:3:O", "patronen:3:O", "ambacht:5:T"],
+    "why": {
+      "zeevaart": {"nl": "Touwslagers leverden de zeilvaart, dus een ambacht staat achter heel de scheepvaart.", "en": "Rope makers supplied sailing ships, so one craft stands behind seafaring."},
+      "patronen": {"nl": "Weven en vlechten volgen tellen en herhalen, patronen met wiskunde erin.", "en": "Weaving and plaiting follow counting and repeating, patterns with maths in them."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-413",
+    "slug": "betonnen-schalen-maken",
+    "category": "CAT-04",
+    "types": ["MAK"],
+    "nl": "Betonnen schalen en sierstukken gieten",
+    "en": "Casting concrete bowls and decor",
+    "sub": {"nl": "Beton", "en": "Concrete"},
+    "desc": {"nl": "Schalen, potten en kleine sierstukken gieten van beton of gips in zelfgemaakte mallen.", "en": "Casting bowls, pots and small decor pieces from concrete or plaster in homemade moulds."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 2, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["steen:4:M", "klei:2:M", "ontwerpen:4:D", "bouwen:3:D", "atelier:3:D", "thuis:3:D", "creativiteit:3:V", "precisie:3:V", "minimalisme:5:E", "rauw:5:E", "tast:4:E", "imperfectie:3:E", "wonen:5:T", "architectuur:3:T", "wetenschap:3:O", "duurzaamheid:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Beton hardt uit door een chemische reactie met water, geen drogen maar uitharden.", "en": "Concrete cures through a chemical reaction with water, not drying but setting."},
+      "duurzaamheid": {"nl": "Eigen mallen van afvalmateriaal geven pakkingen een tweede leven.", "en": "Homemade moulds from waste material give packaging a second life."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-414",
+    "slug": "polymeerklei-sieraden",
+    "category": "CAT-04",
+    "types": ["MAK"],
+    "nl": "Sieraden en miniaturen van polymeerklei",
+    "en": "Jewellery and miniatures from polymer clay",
+    "sub": {"nl": "Klei", "en": "Clay"},
+    "desc": {"nl": "Sieraden, miniatuurvoedsel en kleine figuren modelleren van polymeerklei en in de oven harden.", "en": "Modelling jewellery, miniature food and small figures from polymer clay and baking them hard."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["klei:5:M", "thuis:3:D", "ontwerpen:3:D", "motoriek:5:V", "precisie:4:V", "creativiteit:4:V", "mode:2:T", "kunst:2:T", "detail:5:E", "speelsheid:4:E", "tast:4:E", "opgaan:3:E", "ornament:3:E", "fantasie:3:O", "patronen:3:O", "miniatuur:4:E"],
+    "why": {
+      "fantasie": {"nl": "Miniatuurtaartjes en fantasiefiguurtjes brengen verbeelding in je handpalm.", "en": "Miniature cakes and fantasy figures bring imagination into the palm of your hand."},
+      "patronen": {"nl": "Millefiori-technieken bouwen patronen door klei te rollen en te snijden.", "en": "Millefiori techniques build patterns by rolling and slicing clay."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-415",
+    "slug": "lederen-armband-vlechten",
+    "category": "CAT-04",
+    "types": ["MAK"],
+    "nl": "Lederen armbanden en riemen vlechten",
+    "en": "Braiding leather bracelets and belts",
+    "sub": {"nl": "Leerbewerking", "en": "Leatherwork"},
+    "desc": {"nl": "Lederen armbanden, riemen en sleutelhangers vlechten, stempelen en afwerken.", "en": "Braiding, stamping and finishing leather bracelets, belts and key rings."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "authored"},
+    "links": ["leer:5:M", "ontwerpen:3:D", "atelier:2:D", "motoriek:4:V", "precisie:3:V", "vakmanschap:3:V", "creativiteit:3:V", "mode:3:T", "duurzaamheid:3:T", "geur:5:E", "tast:5:E", "rauw:3:E", "detail:3:E", "patronen:4:T", "zeevaart:3:O", "tradities:3:O", "ambacht:4:T"],
+    "why": {
+      "zeevaart": {"nl": "Vlechten en knopen komen van zeelieden, dus leer en touwwerk delen een geschiedenis.", "en": "Plaiting and knots come from sailors, so leather and rope work share a history."},
+      "tradities": {"nl": "Westerse en Scandinavische stempelpatronen dragen gebruiken van zadelmakers en ambachtslieden.", "en": "Western and Scandinavian tooling patterns carry the customs of saddlers and craftsmen."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  }
+]

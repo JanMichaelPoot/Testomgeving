@@ -1,0 +1,518 @@
+[
+  {
+    "id": "RA-023",
+    "slug": "straatfotografie",
+    "category": "CAT-05",
+    "types": ["MAK", "EXP"],
+    "nl": "Straatfotografie",
+    "en": "Street photography",
+    "sub": {"nl": "Fotografie", "en": "Photography"},
+    "desc": {"nl": "Alledaagse momenten in de stad vastleggen, ongepland en onopgemerkt, met respect voor wie in beeld komt.", "en": "Capturing everyday moments in the city, unplanned and unobserved, with respect for those in the frame."},
+    "match": "exact",
+    "legacy_id": "straatfotografie",
+    "v0_id": "ACT-016",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:5:D", "stad:5:D", "navigeren:3:D", "concentratie:4:V", "creativiteit:4:V", "improviseren:4:V", "geduld:3:V", "kunst:3:T", "identiteit:3:T", "licht:5:E", "vrijheid:4:E", "expressie:3:E", "opgaan:3:E", "zelfstandig:4:E", "moed:4:E", "verhalen:3:O", "geschiedenis:3:O"],
+    "why": {
+      "verhalen": {"nl": "Een enkel beeld van een voorbijgaand moment suggereert een heel verhaal dat de kijker zelf afmaakt.", "en": "A single frame of a passing moment suggests a whole story the viewer completes."},
+      "geschiedenis": {"nl": "Foto's van gewone straten worden binnen enkele decennia historische documenten.", "en": "Photos of ordinary streets become historical records within a few decades."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-024",
+    "slug": "analoge-fotografie",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Analoge fotografie en zelf ontwikkelen",
+    "en": "Analogue photography and developing",
+    "sub": {"nl": "Analoge fotografie", "en": "Analogue photography"},
+    "desc": {"nl": "Fotograferen op film en zelf ontwikkelen en afdrukken in de donkere kamer.", "en": "Shooting on film and developing and printing it yourself in the darkroom."},
+    "match": "exact",
+    "legacy_id": "analoge-fotografie",
+    "v0_id": "ACT-017",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["papier:4:M", "atelier:4:D", "onderzoeken:3:D", "observeren:4:D", "precisie:4:V", "geduld:5:V", "technologie:3:T", "wetenschap:4:T", "kunst:4:T", "nostalgie:5:E", "licht:5:E", "spanning:3:E", "imperfectie:3:E", "tast:3:E", "geur:3:O", "experimenteren:3:O"],
+    "why": {
+      "geur": {"nl": "Ontwikkelaar en fixeer geven een donkere kamer een geur die je direct herkent, dus dit is ook een hobby voor je neus.", "en": "Developer and fixer give a darkroom a smell you recognise at once, so this is a hobby for your nose too."},
+      "experimenteren": {"nl": "Film, chemicaliën en belichting nodigen uit tot variaties en omgaan met verrassingen.", "en": "Film, chemicals and exposure invite variations and living with surprises."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-025",
+    "slug": "stop-motion",
+    "category": "CAT-05",
+    "types": ["MAK"],
+    "nl": "Stop-motionanimatie maken",
+    "en": "Making stop-motion animation",
+    "sub": {"nl": "Animatie", "en": "Animation"},
+    "desc": {"nl": "Een korte film maken door voorwerpen of figuren beeld voor beeld te verplaatsen en te fotograferen.", "en": "Making a short film by moving objects or figures a little and photographing them frame by frame."},
+    "match": "exact",
+    "legacy_id": "stop-motion",
+    "v0_id": "ACT-018",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["papier:3:M", "klei:3:M", "bouwen:4:D", "ontwerpen:4:D", "creativiteit:5:V", "geduld:5:V", "precisie:4:V", "ruimtelijk:3:V", "motoriek:4:V", "verhalen:5:T", "technologie:3:T", "kunst:3:T", "fantasie:5:E", "speelsheid:4:E", "opgaan:4:E", "trots:4:E", "ritme:3:E", "samenwerking:3:O", "licht:3:O"],
+    "why": {
+      "samenwerking": {"nl": "Korte films leven in kleine teams: een bouwt de set, een beweegt de figuren, een filmt.", "en": "Short films come alive in small teams: one builds the set, one moves the figures, one films."},
+      "licht": {"nl": "Gelijkmatig licht van beeld tot beeld is de helft van het vak, dus je gaat licht bekijken als een cameraman.", "en": "Consistent lighting from frame to frame is half the craft, so you start watching light like a cinematographer."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-026",
+    "slug": "documentaireportret-maken",
+    "category": "CAT-05",
+    "types": ["MAK", "EXP"],
+    "nl": "Een documentaireportret maken",
+    "en": "Making a documentary portrait",
+    "sub": {"nl": "Documentairefotografie", "en": "Documentary photography"},
+    "desc": {"nl": "Eén persoon of plek over langere tijd fotograferen of filmen, met toestemming, om een verhaal in beeld te vertellen.", "en": "Photographing or filming one person or place over time, with consent, to tell a story in images."},
+    "match": "new",
+    "legacy_id": null,
+    "v0_id": "ACT-019",
+    "facets": {"setting": "both", "social_formats": ["duo", "small_group", "solo"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["observeren:5:D", "onderzoeken:4:D", "communicatie:5:V", "taalvaardig:3:V", "concentratie:3:V", "creativiteit:3:V", "geduld:4:V", "verhalen:5:T", "identiteit:4:T", "kunst:3:T", "geschiedenis:3:T", "ontroering:5:E", "licht:3:E", "gemeenschap:3:E", "generaties:3:O", "wereldculturen:3:O", "luisteren:4:V"],
+    "why": {
+      "generaties": {"nl": "Portretten van grootouders, buren of ouderen leggen levend geheugen vast voordat het verdwijnt.", "en": "Portraits of grandparents, neighbours or elders record living memory before it disappears."},
+      "wereldculturen": {"nl": "Tijd doorbrengen in andermans wereld laat zien hoe verschillend mensen om je heen leven.", "en": "Spending time in someone else's world shows how differently the people around you live."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-027",
+    "slug": "veldopnames-maken",
+    "category": "CAT-05",
+    "types": ["MAK", "EXP"],
+    "nl": "Veldopnames en soundscapes maken",
+    "en": "Field recordings and soundscapes",
+    "sub": {"nl": "Geluidskunst", "en": "Sound art"},
+    "desc": {"nl": "Geluiden van plekken opnemen met een handrecorder en tot een korte klankportret vormen.", "en": "Recording the sounds of places with a handheld recorder and shaping them into a short sound portrait."},
+    "match": "new",
+    "legacy_id": null,
+    "v0_id": "ACT-020",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["observeren:5:D", "navigeren:3:D", "bos:3:D", "stad:3:D", "concentratie:5:V", "creativiteit:4:V", "geduld:4:V", "technologie:4:T", "natuur:3:T", "kunst:3:T", "klank:5:E", "rust:4:E", "verwondering:4:E", "opgaan:3:E", "ritme:3:E", "dieren:3:O", "geschiedenis:3:O", "luisteren:4:V"],
+    "why": {
+      "dieren": {"nl": "Vogels, insecten en nachtgeluiden maken van luisteren een manier om dieren te vinden zonder ze te storen.", "en": "Birds, insects and night sounds turn listening into a way to find animals without disturbing them."},
+      "geschiedenis": {"nl": "Een opname van een straat of markt is een klein archief van hoe een plek vandaag klonk.", "en": "A recording of a street or market is a small archive of how a place sounded today."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-160",
+    "slug": "cyanotypie",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Cyanotypie en zonneprint",
+    "en": "Cyanotype and sun printing",
+    "sub": {"nl": "Alternatieve fotografie", "en": "Alternative photography"},
+    "desc": {"nl": "Beelden afdrukken met zonlicht op papier of stof, met planten, negatieven of voorwerpen.", "en": "Printing images with sunlight on paper or fabric, using plants, negatives or objects."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "authored"},
+    "links": ["papier:4:M", "planten:3:M", "atelier:2:D", "observeren:3:D", "creativiteit:3:V", "geduld:3:V", "kunst:4:T", "wetenschap:4:T", "natuur:3:T", "licht:5:E", "verwondering:5:E", "nostalgie:3:E", "imperfectie:3:E", "rust:3:E", "speelsheid:3:E", "geschiedenis:3:O", "experimenteren:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "De botanicus Anna Atkins gebruikte het procedé in 1843 voor het eerste fotografische boek.", "en": "The botanist Anna Atkins used the process in 1843 to make the first photographic book."},
+      "experimenteren": {"nl": "Belichtingstijd, weer en papier maken van elke afdruk een experiment.", "en": "Exposure time, weather and paper make every print an experiment."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-161",
+    "slug": "videomontage-leren",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Video monteren",
+    "en": "Video editing",
+    "sub": {"nl": "Film", "en": "Film"},
+    "desc": {"nl": "Beeld en geluid knippen en monteren tot een korte film met gratis of betaalde software.", "en": "Cutting and editing footage and sound into a short film with free or paid software."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["ontwerpen:3:D", "thuis:3:D", "logica:3:V", "creativiteit:4:V", "concentratie:4:V", "geduld:3:V", "precisie:3:V", "technologie:4:T", "verhalen:5:T", "kunst:3:T", "ritme:5:E", "klank:3:E", "opgaan:4:E", "trots:4:E", "expressie:3:E", "puzzelen:3:O", "communicatie:3:O", "online:4:D"],
+    "why": {
+      "puzzelen": {"nl": "Een film is een puzzel van shots waarbij de volgorde bepaalt wat een verhaal betekent.", "en": "A film is a puzzle of shots where the order changes what a story means."},
+      "communicatie": {"nl": "Knippen is beslissen wat de kijker op elk moment ziet en voelt, dus monteren is aandacht sturen.", "en": "Cutting is deciding what the viewer sees and feels at each moment, so editing is directing attention."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-191",
+    "slug": "fotografie",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Fotografie",
+    "en": "Photography",
+    "sub": {"nl": "Fotografie", "en": "Photography"},
+    "desc": {"nl": "Fotografie: leren zien, belichten en componeren, met telefoon of camera.", "en": "Photography: learning to see, expose and compose, with phone or camera."},
+    "match": "exact",
+    "legacy_id": "fotografie",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:5:D", "stad:2:D", "navigeren:2:D", "creativiteit:4:V", "concentratie:3:V", "technologie:3:T", "kunst:4:T", "licht:5:E", "expressie:4:E", "vrijheid:3:E", "ontdekking:3:E", "opgaan:3:E", "zelfstandig:2:E", "verhalen:3:O", "wetenschap:3:O"],
+    "why": {
+      "verhalen": {"nl": "Een reeks foto's wordt een vertelling, dus je leert selecteren als vertellen.", "en": "A series of photos becomes a narrative, so you learn editing as storytelling."},
+      "wetenschap": {"nl": "Belichting, diafragma en licht zijn optica binnen handbereik.", "en": "Exposure, aperture and light are optics at your fingertips."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-192",
+    "slug": "natuurfotografie",
+    "category": "CAT-05",
+    "types": ["MAK", "EXP"],
+    "nl": "Natuurfotografie",
+    "en": "Nature photography",
+    "sub": {"nl": "Fotografie", "en": "Photography"},
+    "desc": {"nl": "Natuurfotografie: planten, dieren en landschap vastleggen.", "en": "Nature photography: capturing plants, animals and landscape."},
+    "match": "exact",
+    "legacy_id": "natuurfotografie",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:5:D", "bos:4:D", "kust:2:D", "geduld:5:V", "concentratie:4:V", "creativiteit:3:V", "natuur:5:T", "dieren:4:T", "technologie:2:T", "licht:5:E", "rust:4:E", "verwondering:4:E", "vrijheid:3:E", "wetenschap:3:O", "duurzaamheid:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Goede natuurfoto's vragen veldkennis van gedrag en seizoenen.", "en": "Good wildlife photos need field knowledge of behaviour and seasons."},
+      "duurzaamheid": {"nl": "Soorten van dichtbij zien leidt vaak tot zorg voor hun leefgebied.", "en": "Seeing species up close often turns into caring for their habitat."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-193",
+    "slug": "korte-film",
+    "category": "CAT-05",
+    "types": ["MAK"],
+    "nl": "Een korte film maken met je telefoon",
+    "en": "Making a short film with your phone",
+    "sub": {"nl": "Film", "en": "Film"},
+    "desc": {"nl": "Een korte film maken met je telefoon: idee, opnames, montage.", "en": "Making a short film with your phone: idea, shooting, editing."},
+    "match": "exact",
+    "legacy_id": "korte-film",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:3:D", "organiseren:3:D", "creativiteit:5:V", "communicatie:3:V", "leiding:3:V", "improviseren:3:V", "verhalen:5:T", "technologie:3:T", "kunst:3:T", "fantasie:4:E", "samenwerking:4:E", "speelsheid:3:E", "trots:4:E", "opgaan:3:E", "ritme:3:E", "architectuur:3:O", "gemeenschap:3:O"],
+    "why": {
+      "architectuur": {"nl": "Locaties kiezen en ruimte kadreren is bestuderen hoe plekken er op het scherm uitzien.", "en": "Choosing locations and framing space is a study of how places look on screen."},
+      "gemeenschap": {"nl": "Lokale filmgroepen en festivals geven korte films een publiek.", "en": "Local film groups and festivals give short films an audience."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-194",
+    "slug": "hoorspel",
+    "category": "CAT-05",
+    "types": ["MAK"],
+    "nl": "Een hoorspel opnemen",
+    "en": "Recording an audio drama",
+    "sub": {"nl": "Audio", "en": "Audio"},
+    "desc": {"nl": "Een hoorspel opnemen met stemmen, geluiden en muziek.", "en": "Recording an audio drama with voices, sound effects and music."},
+    "match": "exact",
+    "legacy_id": "hoorspel",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:3:D", "thuis:3:D", "podium:2:D", "creativiteit:5:V", "taalvaardig:3:V", "improviseren:2:V", "technologie:3:T", "verhalen:5:T", "klank:5:E", "fantasie:5:E", "samenwerking:3:E", "speelsheid:3:E", "expressie:3:E", "ruimtelijk:3:O", "geschiedenis:3:O", "muziek:3:T"],
+    "why": {
+      "ruimtelijk": {"nl": "Een luisteraar bouwt een wereld uit alleen geluid, dus je leert ruimte ontwerpen met audio.", "en": "A listener builds a world from sound alone, so you learn to design space with audio."},
+      "geschiedenis": {"nl": "Hoorspelen waren ooit het belangrijkste gezinsvermaak van een generatie.", "en": "Radio plays were once the main family entertainment of a generation."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-195",
+    "slug": "lokale-radio",
+    "category": "CAT-05",
+    "types": ["EXP", "LER"],
+    "nl": "Meedraaien bij een lokale radio",
+    "en": "Joining a local radio station",
+    "sub": {"nl": "Audio", "en": "Audio"},
+    "desc": {"nl": "Meedraaien bij een lokale radiozender: presenteren, opnemen, programma's maken.", "en": "Joining a local radio station: presenting, recording and making programmes."},
+    "match": "exact",
+    "legacy_id": "lokale-radio",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["organiseren:3:D", "communicatie:5:V", "taalvaardig:4:V", "improviseren:3:V", "leiding:2:V", "technologie:3:T", "verhalen:3:T", "klank:4:E", "publiek:4:E", "gemeenschap:5:E", "gezelligheid:2:E", "trots:4:E", "samenwerking:4:E", "expressie:3:E", "stad:3:O", "ritme:3:O"],
+    "why": {
+      "stad": {"nl": "Lokale radio is de stem van een plek: nieuws, evenementen en mensen.", "en": "Local radio is the voice of a place: news, events and people."},
+      "ritme": {"nl": "Een live programma heeft een klok van onderdelen en jingles, wat timing traint.", "en": "A live programme has a clock of segments and jingles, which trains timing."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-196",
+    "slug": "fotobewerking",
+    "category": "CAT-05",
+    "types": ["MAK"],
+    "nl": "Foto's bewerken en een fotoboek maken",
+    "en": "Editing photos and making a photo book",
+    "sub": {"nl": "Fotografie", "en": "Photography"},
+    "desc": {"nl": "Foto's bewerken en een fotoboek maken.", "en": "Editing photos and making a photo book."},
+    "match": "exact",
+    "legacy_id": "fotobewerking",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online", "duo"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["papier:3:M", "ontwerpen:5:D", "thuis:3:D", "creativiteit:3:V", "precisie:3:V", "concentratie:3:V", "technologie:4:T", "verhalen:4:T", "kunst:3:T", "licht:4:E", "nostalgie:4:E", "trots:4:E", "opgaan:3:E", "schoonheid:3:E", "identiteit:3:O", "generaties:3:O"],
+    "why": {
+      "identiteit": {"nl": "Kiezen welke foto's je bewaart is een manier om te bepalen hoe je het je herinnert.", "en": "Choosing which photos to keep is a way to decide how you remember."},
+      "generaties": {"nl": "Fotoboeken worden gemaakt om door te geven en aan familie te tonen.", "en": "Photo books are made to be passed on and shown to family."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-416",
+    "slug": "dierenfotografie",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Een workshop dierenfotografie",
+    "en": "An animal photography workshop",
+    "sub": {"nl": "Fotografie", "en": "Photography"},
+    "desc": {"nl": "Een workshop dierenfotografie volgen en leren hoe je dieren in beeld brengt.", "en": "Taking an animal photography workshop and learning how to capture animals on camera."},
+    "match": "exact",
+    "legacy_id": "dierenfotografie",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "small_group", "duo"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:5:D", "bos:2:D", "geduld:4:V", "concentratie:4:V", "creativiteit:3:V", "dieren:5:T", "natuur:3:T", "technologie:3:T", "beeldtaal:3:T", "licht:4:E", "verwondering:4:E", "zorg:3:E", "speelsheid:2:E", "wetenschap:3:O", "tradities:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Gedrag kennen en timen is veldbiologie achter elk goed dierenportret.", "en": "Knowing and timing behaviour is field biology behind every good animal portrait."},
+      "tradities": {"nl": "Dierenportretten gaan terug op jachtschilderijen en natuurgidsen.", "en": "Animal portraits go back to hunting paintings and nature guides."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-417",
+    "slug": "fotoshoot",
+    "category": "CAT-05",
+    "types": ["EXP"],
+    "nl": "Een fotoshoot laten maken",
+    "en": "Having a photoshoot done",
+    "sub": {"nl": "Fotografie", "en": "Photography"},
+    "desc": {"nl": "Een fotoshoot laten maken en leren hoe je voor de camera staat.", "en": "Having a photo shoot made and learning how to stand in front of the camera."},
+    "match": "exact",
+    "legacy_id": "fotoshoot",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["stad:2:D", "communicatie:3:V", "mode:3:T", "identiteit:5:T", "beeldtaal:3:T", "licht:4:E", "expressie:4:E", "moed:3:E", "speelsheid:3:E", "spanning:2:E", "verbondenheid:2:E", "zelfstandig:2:E", "schoonheid:3:E", "humor:3:O", "kunst:3:O"],
+    "why": {
+      "humor": {"nl": "Pose en lachen voor een camera is van nature een komisch moment dat ontspant.", "en": "Posing and laughing for a camera is naturally a comic moment that relaxes you."},
+      "kunst": {"nl": "Portretfotografie is een kunstvorm met eigen stijlen en meesters.", "en": "Portrait photography is an art form with its own styles and masters."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-418",
+    "slug": "stomme-film",
+    "category": "CAT-05",
+    "types": ["EXP"],
+    "nl": "Stomme film met live muziek",
+    "en": "Silent film with live music",
+    "sub": {"nl": "Film", "en": "Film"},
+    "desc": {"nl": "Een stomme film met live muziek bijwonen.", "en": "Attending a silent film with live music."},
+    "match": "exact",
+    "legacy_id": "stomme-film",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:4:D", "stad:2:D", "beeldtaal:5:T", "kunst:3:T", "geschiedenis:3:T", "nostalgie:4:E", "klank:4:E", "ontroering:4:E", "verwondering:4:E", "gezelligheid:2:E", "rust:2:E", "speelsheid:3:E", "humor:3:E", "improviseren:3:O", "architectuur:3:O", "muziek:4:T", "cultuurplek:4:D"],
+    "why": {
+      "improviseren": {"nl": "Live begeleiding is vaak geïmproviseerd, waardoor elke vertoning unieke muziek heeft.", "en": "Live accompaniment is often improvised, so every screening has unique music."},
+      "architectuur": {"nl": "Oude bioscopen zijn zelf bouwkunst met zalen, balkons en decor.", "en": "Old cinemas are architecture in themselves, with halls, balconies and decor."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-419",
+    "slug": "openluchtbioscoop",
+    "category": "CAT-05",
+    "types": ["EXP"],
+    "nl": "Openluchtbioscoop",
+    "en": "Open-air cinema",
+    "sub": {"nl": "Film", "en": "Film"},
+    "desc": {"nl": "Een openluchtbioscoop bezoeken: film onder de sterren.", "en": "Visiting an open-air cinema: a film under the stars."},
+    "match": "exact",
+    "legacy_id": "openluchtbioscoop",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:2:D", "stad:2:D", "beeldtaal:4:T", "heelal:3:T", "weer:3:T", "verhalen:3:T", "gezelligheid:5:E", "warmte:3:E", "vrijheid:3:E", "licht:4:E", "verwondering:3:E", "rust:3:E", "verbondenheid:3:E", "klank:3:E", "kunst:3:O", "tradities:3:O", "uitgaan:3:D", "cultuurplek:2:D"],
+    "why": {
+      "kunst": {"nl": "Film in de open lucht maakt van een plein of park een tijdelijke zaal.", "en": "Film in the open air makes a square or park a temporary hall."},
+      "tradities": {"nl": "Zomerbioscopen zijn een jaarlijks ritueel in veel steden.", "en": "Summer cinemas are a yearly ritual in many cities."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-420",
+    "slug": "ai-creatie",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Creatief experimenteren met AI-tools",
+    "en": "Creative experiments with AI tools",
+    "sub": {"nl": "Digitaal maken", "en": "Digital making"},
+    "desc": {"nl": "Creatief experimenteren met AI-tools voor beeld, tekst of muziek.", "en": "Experimenting creatively with AI tools for image, text or music."},
+    "match": "exact",
+    "legacy_id": "ai-creatie",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online", "duo"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:3:D", "thuis:3:D", "creativiteit:4:V", "logica:2:V", "communicatie:3:V", "technologie:5:T", "beeldtaal:3:T", "kunst:3:T", "experimenteren:5:E", "speelsheid:4:E", "fantasie:3:E", "ontdekking:4:E", "opgaan:3:E", "rechtvaardigheid:3:O", "taalvaardig:3:O", "online:5:D"],
+    "why": {
+      "rechtvaardigheid": {"nl": "AI roept vragen op over auteursrecht, eerlijkheid en wie ermee werkt.", "en": "AI raises questions about copyright, fairness and who works with it."},
+      "taalvaardig": {"nl": "Goed sturen vraagt precies formuleren, een oefening in duidelijk zeggen wat je wilt.", "en": "Steering well takes precise wording, an exercise in saying clearly what you want."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-421",
+    "slug": "macrofotografie",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Macrofotografie: heel dichtbij fotograferen",
+    "en": "Macro photography: shooting up close",
+    "sub": {"nl": "Fotografie", "en": "Photography"},
+    "desc": {"nl": "Insecten, bloemen en kleine dingen van dichtbij fotograferen met macrolens of telefoonlens.", "en": "Shooting insects, flowers and small things up close with a macro lens or phone lens."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 2, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["observeren:5:D", "bos:2:D", "planten:2:M", "precisie:4:V", "geduld:4:V", "concentratie:4:V", "technologie:3:T", "natuur:4:T", "dieren:3:T", "beeldtaal:3:T", "detail:5:E", "licht:4:E", "verwondering:5:E", "rust:3:E", "opgaan:4:E", "wetenschap:3:O", "kunst:3:O", "miniatuur:4:E"],
+    "why": {
+      "wetenschap": {"nl": "Scherptediepte in macro is optica die je met millimeters regelt.", "en": "Depth of field in macro is optics you control in millimetres."},
+      "kunst": {"nl": "Dichtbij wordt een dauwdruppel of vleugel abstracte kunst.", "en": "Up close, a dewdrop or wing becomes abstract art."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-422",
+    "slug": "portretfotografie",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Portretfotografie leren",
+    "en": "Learning portrait photography",
+    "sub": {"nl": "Fotografie", "en": "Photography"},
+    "desc": {"nl": "Mensen fotograferen met licht, houding en gesprek, in studio of buiten.", "en": "Photographing people with light, pose and conversation, in studio or outdoors."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["duo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["observeren:4:D", "communicatie:5:V", "creativiteit:3:V", "concentratie:3:V", "technologie:3:T", "identiteit:4:T", "beeldtaal:4:T", "kunst:3:T", "licht:5:E", "ontroering:3:E", "expressie:3:E", "zorg:3:E", "verbondenheid:4:E", "humor:3:O", "verhalen:3:O", "luisteren:3:V"],
+    "why": {
+      "humor": {"nl": "Een lach tijdens een gesprek geeft vaak het beste portret.", "en": "A laugh during conversation often gives the best portrait."},
+      "verhalen": {"nl": "Een portret vertelt iemands karakter in één beeld.", "en": "A portrait tells someone's character in one image."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-423",
+    "slug": "timelapse-fotografie",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Timelapse en tijd in beeld brengen",
+    "en": "Timelapse and capturing time",
+    "sub": {"nl": "Fotografie", "en": "Photography"},
+    "desc": {"nl": "Wolken, bouwwerken of planten in versnelde tijd filmen met een telefoon of camera.", "en": "Filming clouds, construction or plants in sped-up time with a phone or camera."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["observeren:5:D", "bouwen:2:D", "geduld:4:V", "precisie:3:V", "logica:3:V", "technologie:4:T", "weer:4:T", "natuur:3:T", "beeldtaal:4:T", "licht:4:E", "verwondering:4:E", "rust:3:E", "ritme:4:E", "opgaan:3:E", "wetenschap:3:O", "kunst:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Intervaltijd en belichting maken van een plant of wolk een meetopstelling.", "en": "Interval time and exposure turn a plant or cloud into a measurement set-up."},
+      "kunst": {"nl": "Versneld beeld heeft zijn eigen poëzie: zonsopgang en bloei in seconden.", "en": "Sped-up footage has its own poetry: sunrise and bloom in seconds."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-424",
+    "slug": "vlog-maken",
+    "category": "CAT-05",
+    "types": ["MAK"],
+    "nl": "Een vlog of videodagboek maken",
+    "en": "Making a vlog or video diary",
+    "sub": {"nl": "Video", "en": "Video"},
+    "desc": {"nl": "Een video-reeks of vlog maken over je hobby, reis of dag, met opnemen en monteren.", "en": "Making a video series or vlog about your hobby, trip or day, with shooting and editing."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "online"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["ontwerpen:2:D", "organiseren:2:D", "communicatie:4:V", "creativiteit:4:V", "taalvaardig:3:V", "technologie:4:T", "beeldtaal:5:T", "verhalen:4:T", "identiteit:3:T", "expressie:4:E", "publiek:3:E", "moed:3:E", "doorzetten:3:E", "gemeenschap:3:E", "humor:3:O", "ritme:3:O", "online:4:D"],
+    "why": {
+      "humor": {"nl": "Een vlog werkt het best met een lichte, zelfbewuste toon, vaak met humor.", "en": "A vlog works best with a light, self-aware tone, often with humour."},
+      "ritme": {"nl": "Tempo en knip bepalen of een video blijft hangen, timing als vaardigheid.", "en": "Pace and cuts decide whether a video holds, timing as a skill."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-425",
+    "slug": "filmclub",
+    "category": "CAT-05",
+    "types": ["EXP"],
+    "nl": "Een filmclub of filmavond bijwonen",
+    "en": "Joining a film club or film night",
+    "sub": {"nl": "Film", "en": "Film"},
+    "desc": {"nl": "Samen films kijken en erover praten in een filmclub, filmhuis of kring.", "en": "Watching films together and talking about them in a film club, cinema or circle."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["observeren:4:D", "stad:2:D", "communicatie:2:V", "taalvaardig:2:V", "beeldtaal:5:T", "kunst:3:T", "verhalen:4:T", "wereldculturen:3:T", "gezelligheid:4:E", "verbondenheid:3:E", "ontroering:3:E", "verwondering:3:E", "ontdekking:4:E", "gemeenschap:3:E", "humor:3:O", "architectuur:3:O", "uitgaan:3:D", "cultuurplek:4:D"],
+    "why": {
+      "humor": {"nl": "Een goed gesprek over een film begint vaak met wat je allemaal uitlachte.", "en": "A good conversation about a film often starts with what made you laugh."},
+      "architectuur": {"nl": "Locaties en decors in films laten je plekken en gebouwen op een nieuwe manier zien.", "en": "Locations and sets in films show you places and buildings in a new way."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-426",
+    "slug": "sterren-fotograferen",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Sterren en melkweg fotograferen",
+    "en": "Photographing stars and the Milky Way",
+    "sub": {"nl": "Fotografie", "en": "Photography"},
+    "desc": {"nl": "Sterrenhemel, maan en melkweg fotograferen met statief en lange sluitertijd op een donkere plek.", "en": "Photographing the starry sky, moon and Milky Way with a tripod and long exposure at a dark spot."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["observeren:5:D", "navigeren:2:D", "geduld:4:V", "precisie:3:V", "concentratie:3:V", "heelal:5:T", "technologie:3:T", "natuur:3:T", "weer:4:T", "licht:5:E", "stilte:4:E", "verwondering:5:E", "rust:3:E", "ontdekking:3:E", "zelfstandig:2:E", "wetenschap:3:O", "zeevaart:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Sluitertijd en aardrotatie bepalen of sterren punten of strepen worden.", "en": "Shutter time and Earth's rotation decide whether stars are points or trails."},
+      "zeevaart": {"nl": "Zeelieden navigeerden eeuwenlang op sterren, die je nu vastlegt op een foto.", "en": "Sailors navigated by stars for centuries, which you now capture in a photo."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-427",
+    "slug": "handgetekende-animatie",
+    "category": "CAT-05",
+    "types": ["MAK", "LER"],
+    "nl": "Handgetekende animatie maken",
+    "en": "Making hand-drawn animation",
+    "sub": {"nl": "Animatie", "en": "Animation"},
+    "desc": {"nl": "Een korte animatie maken met tekeningen frame voor frame, op papier of tablet.", "en": "Making a short animation of drawings frame by frame, on paper or tablet."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:3:M", "ontwerpen:3:D", "thuis:3:D", "creativiteit:5:V", "geduld:4:V", "motoriek:4:V", "precisie:3:V", "verhalen:5:T", "beeldtaal:4:T", "kunst:4:T", "fantasie:4:E", "speelsheid:4:E", "opgaan:4:E", "ritme:4:E", "doorzetten:3:E", "wetenschap:3:O", "humor:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Beweging illusie berust op hoe het oog snelle beelden samenvoegt, waarneming in de praktijk.", "en": "The illusion of motion rests on how the eye joins fast images, perception in practice."},
+      "humor": {"nl": "Overdrijving en timing zijn de kern van komische animatie.", "en": "Exaggeration and timing are the core of comic animation."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  }
+]

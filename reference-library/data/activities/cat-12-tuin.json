@@ -1,0 +1,413 @@
+[
+  {
+    "id": "RA-049",
+    "slug": "bonsai",
+    "category": "CAT-12",
+    "types": ["MAK", "LER"],
+    "nl": "Bonsai kweken en vormgeven",
+    "en": "Growing and shaping bonsai",
+    "sub": {"nl": "Bonsai", "en": "Bonsai"},
+    "desc": {"nl": "Een boompje in een schaal vormgeven door snoeien, draden en verzorging over jaren.", "en": "Shaping a small tree in a pot through pruning, wiring and care over years."},
+    "match": "exact",
+    "legacy_id": "bonsai",
+    "v0_id": "ACT-043",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["planten:5:M", "ontwerpen:4:D", "geduld:5:V", "precisie:4:V", "vakmanschap:4:V", "motoriek:3:V", "creativiteit:3:V", "natuur:4:T", "kunst:3:T", "wereldculturen:3:T", "rust:5:E", "minimalisme:4:E", "schoonheid:5:E", "elegantie:3:E", "zorg:4:E", "wetenschap:3:O", "verhalen:3:O", "miniatuur:4:E"],
+    "why": {
+      "wetenschap": {"nl": "Snoeien, wortelwerk en water geven is plantenfysiologie in het klein.", "en": "Pruning, root work and watering are plant physiology in miniature."},
+      "verhalen": {"nl": "Een boom die decennia is gevormd draagt het verhaal van elke snede en elk seizoen.", "en": "A tree shaped over decades carries the story of every cut and season."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-050",
+    "slug": "bloemschikken",
+    "category": "CAT-12",
+    "types": ["MAK"],
+    "nl": "Bloemschikken",
+    "en": "Flower arranging",
+    "sub": {"nl": "Bloemkunst", "en": "Floral art"},
+    "desc": {"nl": "Bloemen en groen tot een boeket of schikking vormen, met aandacht voor kleur, vorm en balans.", "en": "Arranging flowers and greenery into a bouquet or display, with attention to colour, form and balance."},
+    "match": "exact",
+    "legacy_id": "bloemschikken",
+    "v0_id": "ACT-044",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["planten:5:M", "ontwerpen:4:D", "creativiteit:4:V", "precisie:3:V", "motoriek:3:V", "vakmanschap:3:V", "natuur:3:T", "kunst:3:T", "geur:4:E", "schoonheid:5:E", "elegantie:4:E", "ornament:4:E", "rust:3:E", "gezelligheid:3:E", "wereldculturen:3:O", "geschiedenis:3:O"],
+    "why": {
+      "wereldculturen": {"nl": "Ikebana, Engelse tuinboeketten en Nederlandse stillevens schikken bloemen elk met andere ideeën.", "en": "Ikebana, English garden bouquets and Dutch still lifes each arrange flowers with different ideas."},
+      "geschiedenis": {"nl": "Nederlandse stillevens tonen bloemschikkingen die statussymbolen waren.", "en": "Dutch still-life paintings show floral arrangements that were status symbols."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-084",
+    "slug": "composteren-wormenbak",
+    "category": "CAT-12",
+    "types": ["MAK", "LER"],
+    "nl": "Composteren en een wormenbak beheren",
+    "en": "Composting and keeping a worm bin",
+    "sub": {"nl": "Tuinieren", "en": "Gardening"},
+    "desc": {"nl": "Keuken- en tuinafval omzetten in compost, met een composthoop of wormenbak.", "en": "Turning kitchen and garden waste into compost, with a compost heap or worm bin."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "with_known"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["planten:3:M", "bouwen:2:D", "thuis:4:D", "keuken:3:D", "duurzaamheid:5:T", "natuur:4:T", "wetenschap:3:T", "dieren:3:T", "geduld:4:V", "logica:2:V", "zorg:3:E", "geur:3:E", "experimenteren:3:E", "verwondering:3:O", "zelfstandig:3:O"],
+    "why": {
+      "verwondering": {"nl": "Afval in een paar weken zien veranderen in aarde voelt als een klein wonder.", "en": "Watching waste turn into soil within weeks feels like a small miracle."},
+      "zelfstandig": {"nl": "Je eigen grond maken maakt een tuin of balkon een beetje onafhankelijker.", "en": "Making your own soil makes a garden or balcony a bit more independent."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-085",
+    "slug": "vijver-aanleggen",
+    "category": "CAT-12",
+    "types": ["MAK"],
+    "nl": "Een tuinvijver of wildlifevijver aanleggen",
+    "en": "Building a garden or wildlife pond",
+    "sub": {"nl": "Landschapsontwerp", "en": "Landscape design"},
+    "desc": {"nl": "Een vijver graven en inrichten voor kikkers, libellen en vogels.", "en": "Digging and planting a pond for frogs, dragonflies and birds."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["planten:4:M", "steen:3:M", "bouwen:5:D", "ontwerpen:4:D", "water:5:D", "ruimtelijk:3:V", "precisie:2:V", "geduld:3:V", "natuur:5:T", "dieren:4:T", "duurzaamheid:4:T", "rust:4:E", "trots:4:E", "verwondering:3:E", "zorg:3:E", "architectuur:3:O", "klank:3:O"],
+    "why": {
+      "architectuur": {"nl": "Een vijver is als een kleine constructie met hellingen, dieptes en randen, dus het is landschapsarchitectuur op bescheiden schaal.", "en": "A pond is built like a small structure with slopes, depths and edges, so it is landscape architecture on a modest scale."},
+      "klank": {"nl": "Water, wind en kikkers geven een tuin een eigen geluidslandschap.", "en": "Water, wind and frogs give a garden a soundscape of its own."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-086",
+    "slug": "fruitbomen-snoeien",
+    "category": "CAT-12",
+    "types": ["LER", "EXP"],
+    "nl": "Fruitbomen snoeien en enten",
+    "en": "Pruning and grafting fruit trees",
+    "sub": {"nl": "Tuinieren", "en": "Gardening"},
+    "desc": {"nl": "Leren hoe je fruitbomen snoeit en eventueel ent, in een boomgaard of op een cursus.", "en": "Learning how to prune and graft fruit trees, in an orchard or on a course."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 1, "source": "authored"},
+    "links": ["planten:5:M", "restaureren:3:D", "vakmanschap:4:V", "precisie:4:V", "geduld:4:V", "ruimtelijk:3:V", "natuur:4:T", "geschiedenis:3:T", "duurzaamheid:4:T", "smaak:3:E", "zorg:4:E", "trots:4:E", "rust:3:E", "gemeenschap:3:E", "wetenschap:3:O", "generaties:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Enten werkt doordat cellen in schorslagen samengroeien, dus een tuintruc rust op plantenbiologie.", "en": "Grafting works because cells in bark layers grow together, so a gardening trick rests on plant biology."},
+      "generaties": {"nl": "Boomgaarden overleven hun planters, dus snoeien is werk voor mensen die na je komen.", "en": "Orchards outlive their planters, so pruning is work for people who come after you."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-116",
+    "slug": "tuinieren",
+    "category": "CAT-12",
+    "types": ["EXP", "MAK"],
+    "nl": "Tuinieren of een moestuin",
+    "en": "Gardening or a vegetable patch",
+    "sub": {"nl": "Tuinieren", "en": "Gardening"},
+    "desc": {"nl": "Een tuin of moestuin onderhouden en zelf groente, kruiden of bloemen kweken.", "en": "Tending a garden or vegetable plot and growing your own vegetables, herbs or flowers."},
+    "match": "exact",
+    "legacy_id": "tuinieren",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["planten:5:M", "bouwen:2:D", "ontwerpen:3:D", "keuken:3:D", "thuis:4:D", "geduld:5:V", "creativiteit:2:V", "natuur:4:T", "duurzaamheid:4:T", "wetenschap:3:T", "rust:4:E", "zorg:4:E", "trots:4:E", "smaak:4:E", "geur:3:E", "ritme:3:O", "gemeenschap:3:O"],
+    "why": {
+      "ritme": {"nl": "De seizoenen geven tuinieren zijn maat van zaaien, verzorgen en oogsten.", "en": "Seasons give gardening its beat of sowing, tending and harvest."},
+      "gemeenschap": {"nl": "Zaden, planten en advies worden onder tuiniers gedeeld, dus een lapje grond verbindt je met buren.", "en": "Seeds, plants and advice are shared among gardeners, so a plot connects you to neighbours."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-117",
+    "slug": "kruiden",
+    "category": "CAT-12",
+    "types": ["EXP", "LER"],
+    "nl": "Wilde kruiden herkennen",
+    "en": "Foraging wild herbs",
+    "sub": {"nl": "Tuinieren", "en": "Gardening"},
+    "desc": {"nl": "Wilde kruiden herkennen en gebruiken in thee en gerechten.", "en": "Recognising wild herbs and using them in tea and dishes."},
+    "match": "exact",
+    "legacy_id": "kruiden",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 2, "source": "app"},
+    "links": ["planten:5:M", "bos:3:D", "observeren:4:D", "keuken:3:D", "natuur:4:T", "geschiedenis:3:T", "wereldculturen:3:T", "geur:5:E", "smaak:4:E", "ontdekking:4:E", "rust:3:E", "verwondering:3:E", "concentratie:3:V", "geduld:2:V", "welzijn:3:O", "verhalen:3:O"],
+    "why": {
+      "welzijn": {"nl": "Mensen gebruiken kruiden al eeuwen voor rust en verzorging, een link met welzijn.", "en": "People have used herbs for calm and care for centuries, a link to wellbeing."},
+      "verhalen": {"nl": "Veel kruiden dragen volksnamen, mythen en gezegden.", "en": "Many herbs carry folk names, myths and sayings."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-118",
+    "slug": "buurttuin",
+    "category": "CAT-12",
+    "types": ["EXP"],
+    "nl": "Meehelpen in een buurttuin",
+    "en": "Community garden",
+    "sub": {"nl": "Tuinieren", "en": "Gardening"},
+    "desc": {"nl": "Meehelpen in een gedeelde tuin in de buurt: zaaien, onderhouden en oogsten met anderen.", "en": "Helping in a shared neighbourhood garden: sowing, tending and harvesting with others."},
+    "match": "exact",
+    "legacy_id": "buurttuin",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "large_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["planten:4:M", "stad:3:D", "organiseren:2:D", "samenwerking:4:E", "gemeenschap:5:E", "gezelligheid:4:E", "zorg:4:E", "generaties:3:E", "rust:3:E", "smaak:3:E", "natuur:3:T", "duurzaamheid:4:T", "geduld:3:V", "communicatie:2:V", "architectuur:3:O", "verhalen:3:O"],
+    "why": {
+      "architectuur": {"nl": "Een gedeelde tuin geeft een stukje openbare ruimte een nieuwe vorm.", "en": "A shared garden reshapes a bit of public space."},
+      "verhalen": {"nl": "Een tuin verzamelt verhalen over wie wat plantte en waarom.", "en": "A garden collects stories of who planted what and why."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-280",
+    "slug": "kamerplanten",
+    "category": "CAT-12",
+    "types": ["EXP", "MAK"],
+    "nl": "Kamerplanten en stekjes",
+    "en": "Houseplants and cuttings",
+    "sub": {"nl": "Planten", "en": "Plants"},
+    "desc": {"nl": "Kamerplanten verzorgen en stekken zodat ze groeien en gedeeld kunnen worden.", "en": "Caring for houseplants and taking cuttings so they grow and can be shared."},
+    "match": "exact",
+    "legacy_id": "kamerplanten",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "with_known", "online"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["planten:5:M", "thuis:4:D", "wonen:3:T", "natuur:3:T", "zorg:4:E", "rust:3:E", "geduld:3:V", "precisie:2:V", "schoonheid:3:E", "verbondenheid:2:E", "wetenschap:3:O", "gemeenschap:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Stekken wortelen omdat planten uit één cel kunnen hergroeien, een stille les plantkunde.", "en": "Cuttings root because plants can regrow from one cell, a quiet lesson in botany."},
+      "gemeenschap": {"nl": "Plantenruil en groepen verspreiden stekken door een buurt.", "en": "Plant swaps and groups spread cuttings across a neighbourhood."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-281",
+    "slug": "proplifting",
+    "category": "CAT-12",
+    "types": ["EXP"],
+    "nl": "Proplifting: afgedankte planten redden",
+    "en": "Proplifting: rescuing discarded plants",
+    "sub": {"nl": "Planten", "en": "Plants"},
+    "desc": {"nl": "Proplifting: afgedankte planten uit winkels redden en opkweken.", "en": "Proplifting: rescuing discarded plants from shops and nursing them back."},
+    "match": "exact",
+    "legacy_id": "proplifting",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["planten:5:M", "thuis:3:D", "zorg:5:E", "duurzaamheid:4:T", "natuur:3:T", "geduld:3:V", "rechtvaardigheid:2:T", "ontdekking:2:E", "zelfstandig:2:E", "rust:3:E", "schoonheid:3:E", "verhalen:3:O", "gemeenschap:3:O"],
+    "why": {
+      "verhalen": {"nl": "Een gered plantje heeft een reddingsverhaal en een voor-en-nafoto.", "en": "A saved plant has a rescue story and a before-and-after."},
+      "gemeenschap": {"nl": "Geredde planten belanden op ruilbeurzen onder vrienden.", "en": "Rescued plants end up in swaps among friends."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-282",
+    "slug": "ruilbeurs-planten",
+    "category": "CAT-12",
+    "types": ["EXP"],
+    "nl": "Een ruilbeurs voor planten of zaden",
+    "en": "A plant or seed swap",
+    "sub": {"nl": "Planten", "en": "Plants"},
+    "desc": {"nl": "Een ruilbeurs voor planten of zaden bezoeken en iets nieuws meenemen.", "en": "Visiting a plant or seed swap and taking something new home."},
+    "match": "exact",
+    "legacy_id": "ruilbeurs-planten",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["planten:5:M", "verzamelen:4:D", "stad:2:D", "thuis:2:D", "communicatie:2:V", "natuur:3:T", "duurzaamheid:3:T", "gemeenschap:5:E", "gezelligheid:4:E", "verbondenheid:4:E", "ontdekking:3:E", "zorg:2:E", "generaties:3:E", "tradities:3:O", "voeding:3:O"],
+    "why": {
+      "tradities": {"nl": "Zaden ruilen zet een oud boerengebruik voort van variëteiten delen.", "en": "Seed swapping continues an old farm practice of sharing varieties."},
+      "voeding": {"nl": "Oude zaadsoorten houden smaken en variëteiten in leven.", "en": "Heirloom seeds keep tastes and varieties alive."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-283",
+    "slug": "cactussen",
+    "category": "CAT-12",
+    "types": ["EXP"],
+    "nl": "Cactussen en zeldzame planten verzamelen",
+    "en": "Collecting cacti and rare plants",
+    "sub": {"nl": "Planten", "en": "Plants"},
+    "desc": {"nl": "Cactussen en zeldzame planten verzamelen, verzorgen en ruilen.", "en": "Collecting, caring for and swapping cacti and rare plants."},
+    "match": "exact",
+    "legacy_id": "cactussen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 4, "cost": null, "safety_tier": 0, "source": "app"},
+    "links": ["planten:5:M", "verzamelen:5:D", "thuis:3:D", "zorg:3:E", "natuur:3:T", "wetenschap:3:T", "precisie:2:V", "geduld:3:V", "schoonheid:3:E", "detail:3:E", "rust:3:E", "verwondering:3:E", "ontdekking:3:E", "weer:3:O", "verbondenheid:3:O"],
+    "why": {
+      "weer": {"nl": "Cactussen groeien op licht en droogte, dus je leert de seizoenen van andere klimaten.", "en": "Cacti thrive on light and drought, so you learn the seasons of other climates."},
+      "verbondenheid": {"nl": "Verzamelaarsgroepen en ruilbeurzen zijn een manier om mensen te ontmoeten rond een gedeelde rare liefde.", "en": "Collector groups and swaps are a way to meet people around a shared odd love."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-284",
+    "slug": "pluktuin",
+    "category": "CAT-12",
+    "types": ["EXP"],
+    "nl": "Fruit of bloemen plukken",
+    "en": "Picking fruit or flowers",
+    "sub": {"nl": "Oogsten", "en": "Harvesting"},
+    "desc": {"nl": "Fruit of bloemen plukken in een pluktuin of boomgaard.", "en": "Picking fruit or flowers in a pick-your-own garden or orchard."},
+    "match": "exact",
+    "legacy_id": "pluktuin",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["planten:5:M", "natuur:3:T", "voeding:4:T", "weer:3:T", "smaak:4:E", "geur:4:E", "gezelligheid:3:E", "rust:3:E", "verwondering:2:E", "generaties:3:E", "beweging:2:E", "vrijheid:2:E", "duurzaamheid:3:O", "tradities:3:O"],
+    "why": {
+      "duurzaamheid": {"nl": "Zelf plukken scheelt verpakking en vervoer.", "en": "Picking your own cuts packaging and miles."},
+      "tradities": {"nl": "Oogstgebruiken rond appels, aardbeien en bloemen verschillen per streek.", "en": "Harvest customs around apples, strawberries and flowers vary by region."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-285",
+    "slug": "open-tuinen",
+    "category": "CAT-12",
+    "types": ["EXP"],
+    "nl": "Open tuinen bezoeken",
+    "en": "Visiting open gardens",
+    "sub": {"nl": "Tuinen", "en": "Gardens"},
+    "desc": {"nl": "Open tuinen bezoeken en inspiratie opdoen voor je eigen tuin.", "en": "Visiting open gardens and gathering inspiration for your own."},
+    "match": "exact",
+    "legacy_id": "open-tuinen",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "with_known", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["planten:4:M", "ontwerpen:3:D", "architectuur:3:T", "natuur:3:T", "kunst:3:T", "wonen:3:T", "schoonheid:5:E", "rust:4:E", "ornament:3:E", "gezelligheid:3:E", "verbondenheid:3:E", "ontdekking:3:E", "verhalen:3:O", "tradities:3:O", "cultuurplek:3:D"],
+    "why": {
+      "verhalen": {"nl": "Elke particuliere tuin bevat het verhaal van de eigenaar, van eerste schep tot nieuwste experiment.", "en": "Every private garden holds its owner's story, from first spade to latest experiment."},
+      "tradities": {"nl": "Tuinstijlen dragen de gewoonten van hun tijd, van strakke hagen tot wilde weiden.", "en": "Garden styles carry the habits of their eras, from formal hedges to wild meadows."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-494",
+    "slug": "balkon-moestuin",
+    "category": "CAT-12",
+    "types": ["MAK", "LER"],
+    "nl": "Een moestuin op balkon of dakterras",
+    "en": "A vegetable garden on a balcony or roof terrace",
+    "sub": {"nl": "Tuinieren", "en": "Gardening"},
+    "desc": {"nl": "Op een balkon of terras groente en kruiden kweken in potten en bakken.", "en": "Growing vegetables and herbs on a balcony or terrace in pots and boxes."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "with_known"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["planten:5:M", "ontwerpen:3:D", "thuis:4:D", "keuken:3:D", "geduld:3:V", "creativiteit:2:V", "voeding:4:T", "duurzaamheid:4:T", "natuur:3:T", "wonen:3:T", "zorg:3:E", "smaak:4:E", "rust:3:E", "zelfstandig:3:E", "stad:3:O", "weer:3:O"],
+    "why": {
+      "stad": {"nl": "Voedsel kweken in een stad laat zien hoe weinig ruimte planten nodig hebben.", "en": "Growing food in a city shows how little space plants need."},
+      "weer": {"nl": "Wind, zon en schaduw op een balkon leren je het microklimaat kennen.", "en": "Wind, sun and shade on a balcony teach you the micro-climate."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-495",
+    "slug": "bloembollen-planten",
+    "category": "CAT-12",
+    "types": ["MAK"],
+    "nl": "Bloembollen planten en zien bloeien",
+    "en": "Planting bulbs and watching them bloom",
+    "sub": {"nl": "Tuinieren", "en": "Gardening"},
+    "desc": {"nl": "In het najaar bloembollen planten en in het voorjaar zien bloeien.", "en": "Planting bulbs in autumn and watching them bloom in spring."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["planten:5:M", "thuis:3:D", "natuur:4:T", "weer:4:T", "geduld:3:V", "zorg:3:E", "schoonheid:5:E", "licht:3:E", "verwondering:4:E", "geur:3:E", "rust:3:E", "ritme:3:E", "tradities:3:O", "wetenschap:3:O"],
+    "why": {
+      "tradities": {"nl": "Nederlandse bollenvelden en tulpencultuur maken planten tot een nationale gewoonte.", "en": "Dutch bulb fields and tulip culture make planting a national habit."},
+      "wetenschap": {"nl": "Bollen slaan energie op en hebben kou nodig om te bloeien, geduldige plantbiologie.", "en": "Bulbs store energy and need cold to flower, patient plant biology."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-496",
+    "slug": "bloemenweide-inzaaien",
+    "category": "CAT-12",
+    "types": ["MAK"],
+    "nl": "Een bloemenweide of insectenstrook inzaaien",
+    "en": "Sowing a flower meadow or insect strip",
+    "sub": {"nl": "Tuinieren", "en": "Gardening"},
+    "desc": {"nl": "Een stuk tuin of berm omzetten naar een bloemenweide voor bijen en vlinders.", "en": "Turning part of a garden or verge into a flower meadow for bees and butterflies."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["planten:5:M", "ontwerpen:3:D", "bos:2:D", "natuur:5:T", "dieren:4:T", "duurzaamheid:5:T", "weer:3:T", "zorg:4:E", "schoonheid:4:E", "verwondering:3:E", "rust:3:E", "rechtvaardigheid:2:T", "kunst:3:O", "patronen:3:O"],
+    "why": {
+      "kunst": {"nl": "Een weide is een schilderij dat door de seizoenen verandert.", "en": "A meadow is a painting that changes through the seasons."},
+      "patronen": {"nl": "Opeenvolging van soorten vormt patronen in tijd en kleur.", "en": "Succession of species forms patterns in time and colour."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-497",
+    "slug": "tuin-ontwerpen",
+    "category": "CAT-12",
+    "types": ["MAK", "LER"],
+    "nl": "Een tuin ontwerpen",
+    "en": "Designing a garden",
+    "sub": {"nl": "Landschapsontwerp", "en": "Landscape design"},
+    "desc": {"nl": "Een tuin ontwerpen met plattegrond, zichtlijnen, planten en materialen.", "en": "Designing a garden with floor plan, sight lines, plants and materials."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["planten:4:M", "steen:3:M", "ontwerpen:5:D", "bouwen:2:D", "thuis:3:D", "ruimtelijk:4:V", "creativiteit:4:V", "logica:3:V", "architectuur:4:T", "natuur:3:T", "wonen:4:T", "kunst:3:T", "schoonheid:4:E", "rust:3:E", "ornament:3:E", "weer:3:O", "duurzaamheid:3:O"],
+    "why": {
+      "weer": {"nl": "Zon, wind en schaduw bepalen welke plekken wat kunnen.", "en": "Sun, wind and shade decide which spots can do what."},
+      "duurzaamheid": {"nl": "Inheemse planten en regenwateropvang maken een tuin veerkrachtig.", "en": "Native plants and rainwater capture make a garden resilient."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-498",
+    "slug": "zaailingen-kweken",
+    "category": "CAT-12",
+    "types": ["MAK", "LER"],
+    "nl": "Zaailingen en planten uit zaad kweken",
+    "en": "Growing seedlings and plants from seed",
+    "sub": {"nl": "Tuinieren", "en": "Gardening"},
+    "desc": {"nl": "Zaden zaaien, kiemen volgen en zaailingen opkweken tot sterke planten.", "en": "Sowing seeds, following germination and raising seedlings into strong plants."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["planten:5:M", "thuis:4:D", "geduld:4:V", "precisie:2:V", "natuur:3:T", "voeding:3:T", "wetenschap:3:T", "zorg:4:E", "verwondering:4:E", "rust:3:E", "licht:4:E", "ritme:3:E", "zelfstandig:3:E", "weer:3:O", "verbondenheid:3:O"],
+    "why": {
+      "weer": {"nl": "De timing van kiemen volgt temperatuur en licht.", "en": "Germination timing follows temperature and light."},
+      "verbondenheid": {"nl": "Zaden en zaailingen zijn veelgegeven cadeaus tussen tuiniers.", "en": "Seeds and seedlings are common gifts between gardeners."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-499",
+    "slug": "kruidenspiraal-bouwen",
+    "category": "CAT-12",
+    "types": ["MAK"],
+    "nl": "Een kruidenspiraal of kruidentuin bouwen",
+    "en": "Building a herb spiral or herb garden",
+    "sub": {"nl": "Tuinieren", "en": "Gardening"},
+    "desc": {"nl": "Een kruidenspiraal van steen bouwen met plekken voor droog- en vochtminnende kruiden.", "en": "Building a stone herb spiral with spots for dry- and moisture-loving herbs."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
+    "links": ["steen:4:M", "planten:5:M", "bouwen:5:D", "ontwerpen:3:D", "keuken:3:D", "ruimtelijk:3:V", "natuur:4:T", "duurzaamheid:4:T", "voeding:3:T", "geur:5:E", "smaak:3:E", "rauw:2:E", "patronen:3:O", "architectuur:3:O", "miniatuur:2:E"],
+    "why": {
+      "patronen": {"nl": "Een spiraal bergt veel microklimaten in één kleine heuvel.", "en": "A spiral packs a variety of micro-climates into one small mound."},
+      "architectuur": {"nl": "Een spiraal is een kleine architectuur van aarde, steen en afwatering.", "en": "A spiral is a small architecture of soil, stone and drainage."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  }
+]

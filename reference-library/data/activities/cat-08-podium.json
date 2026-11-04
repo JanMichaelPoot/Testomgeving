@@ -1,0 +1,607 @@
+[
+  {
+    "id": "RA-035",
+    "slug": "debatclub",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Debatteren",
+    "en": "Debating",
+    "sub": {"nl": "Debat", "en": "Debate"},
+    "desc": {"nl": "Argumenten opbouwen en verdedigen in georganiseerde debatten.", "en": "Building and defending arguments in organised debates."},
+    "match": "exact",
+    "legacy_id": "debatclub",
+    "v0_id": "ACT-028",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["communicatie:5:V", "logica:5:V", "taalvaardig:4:V", "strategie:4:V", "improviseren:3:V", "concentratie:3:V", "competitie:4:E", "publiek:4:E", "moed:3:E", "podium:3:D", "onderzoeken:3:D", "identiteit:2:T", "verhalen:3:O", "geschiedenis:3:O", "taal:3:T", "snelheid:2:E"],
+    "why": {
+      "verhalen": {"nl": "Overtuigen werkt via verhalen net zo goed als via feiten, dus je leert waarom sommige argumenten blijven hangen.", "en": "Persuasion works through stories as much as facts, so you learn why some arguments stick."},
+      "geschiedenis": {"nl": "Debat komt voort uit het antieke forum en parlement, waar publiek argumenteren samenlevingen vormde.", "en": "Debate is rooted in the ancient forum and parliament, where public argument shaped societies."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-036",
+    "slug": "improvisatie",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Improvisatietheater spelen",
+    "en": "Playing improv theatre",
+    "sub": {"nl": "Improvisatie", "en": "Improvisation"},
+    "desc": {"nl": "Scènes spelen zonder script, op basis van wat je spelpartners aanbieden.", "en": "Playing scenes without a script, based on what your scene partners offer."},
+    "match": "exact",
+    "legacy_id": "improvisatie",
+    "v0_id": "ACT-029",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["improviseren:5:V", "creativiteit:5:V", "communicatie:4:V", "samenwerking:5:E", "speelsheid:5:E", "spanning:3:E", "moed:4:E", "vrijheid:4:E", "gezelligheid:4:E", "fantasie:4:E", "podium:4:D", "optreden:4:D", "publiek:3:E", "verhalen:3:T", "ontdekking:3:O", "welzijn:3:O", "luisteren:4:V"],
+    "why": {
+      "ontdekking": {"nl": "Elke scène wordt live opgebouwd uit wat een partner aanbiedt, dus je ontdekt onderweg waar het heen gaat.", "en": "Every scene is built live from what a partner offers, so you discover along the way where it leads."},
+      "welzijn": {"nl": "Improv leert loslaten dat het perfect moet, wat veel mensen helpt bij plankenkoorts en perfectionisme.", "en": "Improv teaches letting go of the need to be perfect, which many people use to ease stage fright and perfectionism."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-037",
+    "slug": "ballroom",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Stijldansen leren",
+    "en": "Learning ballroom dancing",
+    "sub": {"nl": "Partnerdans", "en": "Partner dance"},
+    "desc": {"nl": "Samen dansen volgens vaste stijlen zoals wals, foxtrot en tango.", "en": "Dancing together in set styles such as waltz, foxtrot and tango."},
+    "match": "exact",
+    "legacy_id": "ballroom",
+    "v0_id": "ACT-030",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["beweging:5:E", "ritme:5:E", "elegantie:5:E", "samenwerking:4:E", "motoriek:3:V", "precisie:3:V", "concentratie:3:V", "optreden:3:D", "gezelligheid:4:E", "nostalgie:3:E", "welzijn:3:T", "podium:2:D", "geschiedenis:3:O", "communicatie:3:O", "muziek:3:T", "coordinatie:4:V"],
+    "why": {
+      "geschiedenis": {"nl": "Wals, foxtrot en tango komen elk uit een tijd en plaats, dus je danst door de sociale geschiedenis.", "en": "Waltz, foxtrot and tango each come from a time and place, so you dance through social history."},
+      "communicatie": {"nl": "Leiden en volgen steunt op subtiele non-verbale signalen.", "en": "Leading and following relies on subtle non-verbal signals."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-137",
+    "slug": "amateurtoneel",
+    "category": "CAT-08",
+    "types": ["EXP"],
+    "nl": "Amateurtoneel",
+    "en": "Amateur theatre",
+    "sub": {"nl": "Toneel", "en": "Theatre"},
+    "desc": {"nl": "Toneel spelen bij een amateurgezelschap: repeteren en optreden.", "en": "Acting in an amateur company: rehearsing and performing."},
+    "match": "exact",
+    "legacy_id": "amateurtoneel",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["podium:5:D", "optreden:5:D", "organiseren:2:D", "improviseren:3:V", "communicatie:3:V", "concentratie:3:V", "creativiteit:4:V", "verhalen:4:T", "kunst:3:T", "samenwerking:5:E", "gezelligheid:4:E", "spanning:3:E", "trots:4:E", "expressie:5:E", "publiek:5:E", "identiteit:3:O", "architectuur:3:O"],
+    "why": {
+      "identiteit": {"nl": "Anderen spelen laat je manieren van zijn uitproberen die je in het dagelijks leven niet durft.", "en": "Playing others lets you try out ways of being that you would not dare in daily life."},
+      "architectuur": {"nl": "Decor, zichtlijnen en podiumontwerp zijn ruimtelijk denken.", "en": "Stage design, sightlines and sets are spatial thinking."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-138",
+    "slug": "stand-up",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Stand-upcomedy: een open mic proberen",
+    "en": "Stand-up comedy: trying an open mic",
+    "sub": {"nl": "Cabaret en comedy", "en": "Cabaret and comedy"},
+    "desc": {"nl": "Een open mic proberen: een kort stand-upsetje schrijven en brengen.", "en": "Trying an open mic: writing and delivering a short stand-up set."},
+    "match": "exact",
+    "legacy_id": "stand-up",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["podium:5:D", "optreden:5:D", "taalvaardig:4:V", "communicatie:4:V", "creativiteit:4:V", "improviseren:3:V", "publiek:5:E", "moed:5:E", "spanning:4:E", "expressie:4:E", "trots:4:E", "speelsheid:3:E", "grenzen:3:E", "identiteit:3:T", "observeren:3:O", "verhalen:3:O", "uitgaan:4:D"],
+    "why": {
+      "observeren": {"nl": "Comedy begint bij kleine rariteiten in het dagelijks leven opmerken, dus je kijkt anders naar de wereld.", "en": "Comedy starts from noticing small oddities in daily life, so you watch the world differently."},
+      "verhalen": {"nl": "Een set is een verhaal in beats en pointes.", "en": "A set is a story told in beats and punchlines."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-139",
+    "slug": "circusles",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Circusles: jongleren en acrobatiek",
+    "en": "Circus class: juggling and acrobatics",
+    "sub": {"nl": "Circus", "en": "Circus"},
+    "desc": {"nl": "Circusles volgen: jongleren, acrobatiek en balanceren.", "en": "Taking circus classes: juggling, acrobatics and balancing."},
+    "match": "exact",
+    "legacy_id": "circusles",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["podium:3:D", "optreden:3:D", "motoriek:4:V", "ruimtelijk:3:V", "concentratie:4:V", "geduld:3:V", "beweging:5:E", "speelsheid:5:E", "ritme:3:E", "doorzetten:3:E", "trots:4:E", "spanning:3:E", "gezelligheid:3:E", "samenwerking:3:E", "welzijn:3:T", "wetenschap:3:O", "geschiedenis:3:O", "conditie:3:V", "coordinatie:5:V"],
+    "why": {
+      "wetenschap": {"nl": "Balans, impuls en bogen zijn natuurkunde die je jongleert.", "en": "Balance, momentum and arcs are physics you juggle."},
+      "geschiedenis": {"nl": "Circus is eeuwen van rondtrekkende artiesten, dus elke truc heeft een afkomst.", "en": "Circus is centuries of travelling performers, so each trick has a lineage."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-140",
+    "slug": "storytelling",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Verhalen vertellen op een podium",
+    "en": "Storytelling on stage",
+    "sub": {"nl": "Voordracht en verhaal", "en": "Reading and storytelling"},
+    "desc": {"nl": "Verhalen vertellen op een podium zonder script, voor een publiek.", "en": "Telling stories on stage without a script, for an audience."},
+    "match": "exact",
+    "legacy_id": "storytelling",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["podium:5:D", "optreden:4:D", "taalvaardig:4:V", "communicatie:5:V", "improviseren:3:V", "creativiteit:4:V", "verhalen:5:T", "identiteit:3:T", "publiek:5:E", "ontroering:4:E", "moed:4:E", "expressie:4:E", "gemeenschap:3:E", "geschiedenis:3:O", "generaties:3:O", "taal:4:T"],
+    "why": {
+      "geschiedenis": {"nl": "Mondeling vertellen is een van de oudste kunsten van de mensheid, dus je sluit aan bij een traditie.", "en": "Oral storytelling is one of humanity's oldest arts, so you join a tradition."},
+      "generaties": {"nl": "Verhalen werden van oud naar jong doorgegeven, dus vertellen verbindt leeftijden.", "en": "Stories were passed from old to young, so telling links ages."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-224",
+    "slug": "regie-amateurstuk",
+    "category": "CAT-08",
+    "types": ["EXP", "MAK"],
+    "nl": "Een amateurstuk regisseren",
+    "en": "Directing an amateur production",
+    "sub": {"nl": "Regie", "en": "Directing"},
+    "desc": {"nl": "Een toneelstuk of scène met een groep amateurs kiezen, repeteren en op de planken brengen.", "en": "Choosing, rehearsing and staging a play or scene with a group of amateurs."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "large_group"], "level": 2, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["organiseren:5:D", "podium:4:D", "optreden:3:D", "leiding:5:V", "communicatie:5:V", "creativiteit:4:V", "strategie:3:V", "ruimtelijk:3:V", "verhalen:4:T", "kunst:3:T", "samenwerking:5:E", "publiek:4:E", "spanning:3:E", "gemeenschap:3:E", "expressie:3:E", "architectuur:3:O", "zorg:3:O"],
+    "why": {
+      "architectuur": {"nl": "Acteurs in de ruimte plaatsen is ruimtelijk ontwerpen, zoals mensen in een kamer schikken.", "en": "Blocking actors in space is spatial design, like arranging people in a room."},
+      "zorg": {"nl": "De kern van regisseren is mensen veilig genoeg laten voelen om risico te nemen.", "en": "A director's main job is to make people feel safe enough to take risks."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-225",
+    "slug": "dansperformance-meedoen",
+    "category": "CAT-08",
+    "types": ["EXP"],
+    "nl": "Meedoen aan een dansperformance",
+    "en": "Taking part in a dance performance",
+    "sub": {"nl": "Dans", "en": "Dance"},
+    "desc": {"nl": "Meedoen aan een gechoreografeerde groepsdans of performance voor publiek, ook zonder dansachtergrond.", "en": "Taking part in a choreographed group dance or performance for an audience, even without a dance background."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["large_group", "small_group"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["optreden:5:D", "podium:4:D", "motoriek:3:V", "ruimtelijk:3:V", "concentratie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:5:E", "publiek:4:E", "expressie:4:E", "elegantie:3:E", "spanning:3:E", "gemeenschap:3:E", "moed:3:E", "architectuur:3:O", "verhalen:3:O"],
+    "why": {
+      "architectuur": {"nl": "Locatiegebonden voorstellingen gebruiken pleinen, trappen en zalen als podium.", "en": "Site-specific performances use squares, stairs and halls as the stage."},
+      "verhalen": {"nl": "Een choreografie vertelt een verhaal met alleen lichamen.", "en": "A choreography tells a story through bodies alone."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-241",
+    "slug": "poppentheater",
+    "category": "CAT-08",
+    "types": ["MAK", "EXP"],
+    "nl": "Poppentheater maken en spelen",
+    "en": "Making and playing puppet theatre",
+    "sub": {"nl": "Poppenspel", "en": "Puppetry"},
+    "desc": {"nl": "Poppen of figuren maken en er een voorstelling mee spelen.", "en": "Making puppets or figures and performing a show with them."},
+    "match": "exact",
+    "legacy_id": "poppentheater",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["hout:3:M", "papier:3:M", "bouwen:4:D", "ontwerpen:4:D", "optreden:4:D", "podium:4:D", "creativiteit:5:V", "improviseren:3:V", "motoriek:3:V", "verhalen:5:T", "kunst:3:T", "fantasie:5:E", "speelsheid:5:E", "publiek:3:E", "humor:3:E", "tradities:3:O", "generaties:3:O", "miniatuur:3:E"],
+    "why": {
+      "tradities": {"nl": "Poppenspeltradities van Java tot Praag zijn levend volkserfgoed.", "en": "Puppet traditions from Java to Prague are living folk heritage."},
+      "generaties": {"nl": "Poppenspel is voor publiek van peuter tot grootouder.", "en": "Puppet shows are for audiences from toddlers to grandparents."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-242",
+    "slug": "goochelen",
+    "category": "CAT-08",
+    "types": ["LER", "EXP"],
+    "nl": "Goochelen leren",
+    "en": "Learning magic",
+    "sub": {"nl": "Goochelen", "en": "Magic"},
+    "desc": {"nl": "Goochelen leren: kaarten, munten en kleine illusies.", "en": "Learning magic: cards, coins and small illusions."},
+    "match": "exact",
+    "legacy_id": "goochelen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:4:D", "podium:3:D", "motoriek:5:V", "precisie:4:V", "communicatie:3:V", "improviseren:3:V", "concentratie:3:V", "wetenschap:3:T", "spanning:3:E", "verwondering:5:E", "speelsheid:4:E", "humor:3:E", "publiek:5:E", "moed:2:E", "verhalen:3:O", "logica:3:O", "coordinatie:4:V", "kans:2:E"],
+    "why": {
+      "verhalen": {"nl": "Een truc is een verhaal met een verborgen wending.", "en": "A trick is a story with a hidden turn."},
+      "logica": {"nl": "Methoden steunen op hoe aandacht en verwachting werken, een les in waarneming.", "en": "Methods rely on how attention and expectation work, a lesson in perception."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-243",
+    "slug": "aerial-silks",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Luchtacrobatiek (aerial silks)",
+    "en": "Aerial silks",
+    "sub": {"nl": "Acrobatiek", "en": "Acrobatics"},
+    "desc": {"nl": "Luchtacrobatiek aan doeken: klimmen, draaien en poseren in de lucht.", "en": "Aerial silks: climbing, spinning and posing in the air."},
+    "match": "exact",
+    "legacy_id": "aerial-silks",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["lucht:4:D", "optreden:3:D", "podium:3:D", "textiel:3:M", "motoriek:4:V", "ruimtelijk:4:V", "concentratie:3:V", "beweging:5:E", "elegantie:4:E", "moed:4:E", "grenzen:3:E", "spanning:3:E", "expressie:3:E", "vrijheid:3:E", "wetenschap:3:O", "kunst:3:O", "conditie:4:V", "coordinatie:4:V"],
+    "why": {
+      "wetenschap": {"nl": "Wikkelen en vallen volgen de natuurkunde van wrijving en impuls.", "en": "Wraps and drops follow the physics of friction and momentum."},
+      "kunst": {"nl": "Luchtacrobatiek zit tussen sport en hedendaagse dans.", "en": "Aerial performance sits between sport and contemporary dance."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-244",
+    "slug": "schaduwtheater",
+    "category": "CAT-08",
+    "types": ["MAK", "EXP"],
+    "nl": "Schaduwtheater",
+    "en": "Shadow theatre",
+    "sub": {"nl": "Poppenspel", "en": "Puppetry"},
+    "desc": {"nl": "Schaduwtheater maken en spelen met licht, figuren en een scherm.", "en": "Making and performing shadow theatre with light, figures and a screen."},
+    "match": "exact",
+    "legacy_id": "schaduwtheater",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["papier:4:M", "ontwerpen:4:D", "optreden:3:D", "podium:3:D", "creativiteit:4:V", "ruimtelijk:3:V", "motoriek:3:V", "verhalen:5:T", "wereldculturen:3:T", "licht:5:E", "fantasie:4:E", "verwondering:4:E", "speelsheid:3:E", "wetenschap:3:O", "tradities:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Licht, afstand en hoek vormen elke schaduw, dus optica wordt speelgoed.", "en": "Light, distance and angle shape each shadow, so optics becomes a toy."},
+      "tradities": {"nl": "Schaduwspel is erfgoedkunst in Java, Turkije en China.", "en": "Shadow puppetry is a heritage art in Java, Turkey and China."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-245",
+    "slug": "beatboxen",
+    "category": "CAT-08",
+    "types": ["LER", "EXP"],
+    "nl": "Beatboxen leren",
+    "en": "Learning beatboxing",
+    "sub": {"nl": "Stemkunst", "en": "Vocal arts"},
+    "desc": {"nl": "Beatboxen leren: ritmes en geluiden maken met alleen je mond.", "en": "Learning beatboxing: making rhythms and sounds with just your mouth."},
+    "match": "exact",
+    "legacy_id": "beatboxen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:3:D", "motoriek:3:V", "creativiteit:4:V", "improviseren:3:V", "concentratie:3:V", "klank:5:E", "ritme:5:E", "speelsheid:4:E", "expressie:4:E", "publiek:3:E", "doorzetten:3:E", "humor:3:E", "wetenschap:3:O", "technologie:3:O", "muziek:5:T", "coordinatie:3:V"],
+    "why": {
+      "wetenschap": {"nl": "Mond, tong en adem worden een drumstel, een studie in spraakklanken.", "en": "Mouth, tongue and breath become a drum kit, a study in speech sounds."},
+      "technologie": {"nl": "Beatboxers bootsen machines na, dus het is analoog samplen.", "en": "Beatboxers imitate machines, so it is analogue sampling."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-246",
+    "slug": "rappen",
+    "category": "CAT-08",
+    "types": ["MAK", "EXP"],
+    "nl": "Rappen of freestyle schrijven",
+    "en": "Rapping or freestyle writing",
+    "sub": {"nl": "Stemkunst", "en": "Vocal arts"},
+    "desc": {"nl": "Rappen of freestyle schrijven en voordragen op een beat.", "en": "Rapping or writing and performing freestyle over a beat."},
+    "match": "exact",
+    "legacy_id": "rappen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:4:D", "thuis:2:D", "taalvaardig:5:V", "creativiteit:4:V", "improviseren:4:V", "ritme:5:E", "klank:4:E", "expressie:5:E", "identiteit:3:T", "verhalen:4:T", "publiek:3:E", "moed:3:E", "competitie:3:E", "puzzelen:3:O", "rechtvaardigheid:3:O", "muziek:5:T", "taal:4:T"],
+    "why": {
+      "puzzelen": {"nl": "Betekenis, rijm en ritme tegelijk laten kloppen is een woordpuzzel.", "en": "Fitting meaning, rhyme and rhythm at once is a wordplay puzzle."},
+      "rechtvaardigheid": {"nl": "Rap is al lang een stem voor verhalen over ongelijkheid en gemeenschap.", "en": "Rap has long been a voice for stories about inequality and community."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-247",
+    "slug": "voorlezen",
+    "category": "CAT-08",
+    "types": ["EXP"],
+    "nl": "Voorlezen voor publiek",
+    "en": "Reading aloud for an audience",
+    "sub": {"nl": "Voordracht", "en": "Reading aloud"},
+    "desc": {"nl": "Voorlezen voor publiek, kinderen of in een verpleeghuis.", "en": "Reading aloud for an audience, for children or in a care home."},
+    "match": "exact",
+    "legacy_id": "voorlezen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:3:D", "podium:3:D", "taalvaardig:4:V", "communicatie:4:V", "improviseren:2:V", "verhalen:5:T", "klank:4:E", "ritme:3:E", "ontroering:4:E", "zorg:4:E", "generaties:4:E", "publiek:4:E", "gezelligheid:3:E", "stilte:3:O", "welzijn:3:O", "taal:4:T", "luisteren:3:V"],
+    "why": {
+      "stilte": {"nl": "Een goede voordracht hangt af van pauzes, dus je leert de kracht van stilte.", "en": "A good reading depends on pauses, so you learn the power of silence."},
+      "welzijn": {"nl": "Voorgelezen worden kalmeert, daarom wordt het in zorg gebruikt.", "en": "Being read to calms people, which is why it is used in care."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-248",
+    "slug": "commedia",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Maskerspel en commedia dell'arte",
+    "en": "Mask play and commedia dell'arte",
+    "sub": {"nl": "Toneel", "en": "Theatre"},
+    "desc": {"nl": "Maskerspel en commedia dell'arte: typetjes, improvisatie en lichaamstaal.", "en": "Mask play and commedia dell'arte: stock characters, improvisation and body language."},
+    "match": "exact",
+    "legacy_id": "commedia",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:4:D", "podium:4:D", "improviseren:4:V", "communicatie:3:V", "motoriek:3:V", "verhalen:3:T", "kunst:3:T", "tradities:4:T", "speelsheid:5:E", "humor:5:E", "beweging:4:E", "publiek:4:E", "samenwerking:3:E", "fantasie:3:E", "identiteit:3:O", "geschiedenis:3:O"],
+    "why": {
+      "identiteit": {"nl": "Achter een masker kun je een ander zelf proberen.", "en": "Hiding behind a mask lets you try on a different self."},
+      "geschiedenis": {"nl": "Veel moderne komische typetjes stammen af van de typen uit de zestiende eeuw.", "en": "Many modern comedy characters descend from the sixteenth-century stock types."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-249",
+    "slug": "open-podium",
+    "category": "CAT-08",
+    "types": ["EXP"],
+    "nl": "Een open podium bezoeken",
+    "en": "Open mic night",
+    "sub": {"nl": "Podium", "en": "Stage"},
+    "desc": {"nl": "Een open podium bezoeken of er zelf op staan.", "en": "Going to an open stage or getting on it yourself."},
+    "match": "exact",
+    "legacy_id": "open-podium",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["podium:5:D", "optreden:4:D", "communicatie:2:V", "improviseren:2:V", "kunst:2:T", "publiek:5:E", "moed:4:E", "gezelligheid:4:E", "verbondenheid:4:E", "gemeenschap:4:E", "spanning:3:E", "expressie:3:E", "humor:2:E", "ontdekking:3:O", "stad:3:O", "uitgaan:5:D"],
+    "why": {
+      "ontdekking": {"nl": "Je hoort acts die je nooit zou hebben geboekt.", "en": "You hear acts you would never have booked."},
+      "stad": {"nl": "Open podia zijn waar het lokale talent van een stad opduikt.", "en": "Open stages are where a town's local talent turns up."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-250",
+    "slug": "theatermake-up",
+    "category": "CAT-08",
+    "types": ["LER", "MAK"],
+    "nl": "Theatrale make-up",
+    "en": "Stage make-up",
+    "sub": {"nl": "Make-up", "en": "Make-up"},
+    "desc": {"nl": "Theatrale make-up leren: karakters, ouderdom en effecten schminken.", "en": "Learning theatrical make-up: painting characters, ageing and effects."},
+    "match": "exact",
+    "legacy_id": "theatermake-up",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["verf:3:M", "ontwerpen:3:D", "atelier:2:D", "podium:3:D", "precisie:4:V", "motoriek:4:V", "creativiteit:5:V", "ruimtelijk:3:V", "mode:3:T", "kunst:3:T", "beeldtaal:3:T", "identiteit:3:T", "expressie:4:E", "licht:3:E", "tast:3:E", "speelsheid:3:E", "wetenschap:3:O", "dieren:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Kleurenleer en toneelverlichting bepalen hoe een gezicht vanaf de achterste rij leest.", "en": "Colour theory and stage lighting decide how a face reads from the back row."},
+      "dieren": {"nl": "Dieren- en fantasiegezichten steunen op nauwkeurig kijken naar de natuur.", "en": "Animal and fantasy faces draw on close study of nature."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-450",
+    "slug": "dansen",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Dansen (salsa, swing, latin)",
+    "en": "Social dancing",
+    "sub": {"nl": "Dans", "en": "Dance"},
+    "desc": {"nl": "Salsa, swing of latin dansen in een les of op een dansavond.", "en": "Dancing salsa, swing or latin in a lesson or at a dance night."},
+    "match": "exact",
+    "legacy_id": "dansen",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["podium:2:D", "motoriek:3:V", "ruimtelijk:2:V", "communicatie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:4:E", "gezelligheid:5:E", "verbondenheid:4:E", "speelsheid:4:E", "elegantie:3:E", "welzijn:3:T", "wereldculturen:4:T", "tradities:3:O", "klank:3:O", "muziek:3:T", "uitgaan:4:D", "coordinatie:4:V"],
+    "why": {
+      "tradities": {"nl": "Elke dans draagt sociale gebruiken van zijn thuisland.", "en": "Each dance carries social customs of its home."},
+      "klank": {"nl": "De clave of swingfeel leren traint je oor voor ritme.", "en": "Learning the clave or swing feel trains your ear for rhythm."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-451",
+    "slug": "swingdansen",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Swingdansen (lindy hop) beginnersavond",
+    "en": "Swing dancing (lindy hop) beginners' night",
+    "sub": {"nl": "Dans", "en": "Dance"},
+    "desc": {"nl": "Lindy hop en swing leren op een beginnersavond met live of opgenomen jazz.", "en": "Learning lindy hop and swing on a beginners' night with live or recorded jazz."},
+    "match": "exact",
+    "legacy_id": "swingdansen",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["motoriek:3:V", "improviseren:3:V", "communicatie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:4:E", "speelsheid:5:E", "gezelligheid:5:E", "klank:4:E", "nostalgie:3:E", "verbondenheid:3:E", "tradities:3:T", "geschiedenis:3:T", "humor:3:O", "rechtvaardigheid:3:O", "muziek:4:T", "uitgaan:4:D", "coordinatie:4:V"],
+    "why": {
+      "humor": {"nl": "Swing draait om spel en brutale improvisatie.", "en": "Swing is built on play and cheeky improvisation."},
+      "rechtvaardigheid": {"nl": "Lindy hop ontstond in zwarte gemeenschappen in Harlem en bracht verschillende groepen op één dansvloer.", "en": "Lindy hop grew out of Black communities in Harlem and brought different groups onto one dance floor."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-452",
+    "slug": "ballet-beginners",
+    "category": "CAT-08",
+    "types": ["LER", "EXP"],
+    "nl": "Ballet voor volwassen beginners",
+    "en": "Ballet for adult beginners",
+    "sub": {"nl": "Dans", "en": "Dance"},
+    "desc": {"nl": "Ballet leren als volwassene: houding, basisbewegingen en een kleine choreografie.", "en": "Learning ballet as an adult: posture, basic movements and a small choreography."},
+    "match": "exact",
+    "legacy_id": "ballet-beginners",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["podium:2:D", "motoriek:4:V", "precisie:4:V", "concentratie:4:V", "ruimtelijk:3:V", "kunst:4:T", "beweging:5:E", "elegantie:5:E", "ritme:3:E", "doorzetten:3:E", "expressie:3:E", "welzijn:3:T", "tradities:3:T", "geschiedenis:3:O", "klank:3:O", "muziek:3:T", "coordinatie:5:V"],
+    "why": {
+      "geschiedenis": {"nl": "Ballet beweegt in Franse termen en een hoofs verleden.", "en": "Ballet moves in French terms and a courtly past."},
+      "klank": {"nl": "Klassieke muziek dicteert tellen en frasering van elke stap.", "en": "Classical music dictates counts and phrasing for every step."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-453",
+    "slug": "flamenco",
+    "category": "CAT-08",
+    "types": ["LER", "EXP"],
+    "nl": "Flamenco leren",
+    "en": "Learning flamenco",
+    "sub": {"nl": "Dans", "en": "Dance"},
+    "desc": {"nl": "Flamenco leren: voetenwerk, handen en ritme.", "en": "Learning flamenco: footwork, hands and rhythm."},
+    "match": "exact",
+    "legacy_id": "flamenco",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:3:D", "podium:3:D", "motoriek:4:V", "concentratie:3:V", "beweging:5:E", "ritme:5:E", "expressie:5:E", "klank:4:E", "wereldculturen:5:T", "tradities:4:T", "moed:2:E", "ontroering:3:E", "elegantie:3:E", "geschiedenis:3:O", "patronen:3:O", "muziek:4:T", "coordinatie:4:V"],
+    "why": {
+      "geschiedenis": {"nl": "Het groeide uit de ontmoeting van Romani-, Moorse en Andalusische culturen.", "en": "It grew from the meeting of Romani, Moorish and Andalusian cultures."},
+      "patronen": {"nl": "Palos zijn ritmische cycli die je in twaalf telt.", "en": "Palos are rhythmic cycles you count in twelve."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-454",
+    "slug": "buikdans",
+    "category": "CAT-08",
+    "types": ["LER", "EXP"],
+    "nl": "Buikdans",
+    "en": "Belly dance",
+    "sub": {"nl": "Dans", "en": "Dance"},
+    "desc": {"nl": "Buikdans leren: gecontroleerde heupen, armen en ritme.", "en": "Learning belly dance: controlled hips, arms and rhythm."},
+    "match": "exact",
+    "legacy_id": "buikdans",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["motoriek:4:V", "beweging:5:E", "ritme:5:E", "expressie:4:E", "elegantie:3:E", "gezelligheid:4:E", "vrijheid:3:E", "welzijn:3:T", "wereldculturen:4:T", "tradities:3:T", "speelsheid:3:E", "moed:2:E", "klank:3:O", "mode:3:O", "coordinatie:3:V"],
+    "why": {
+      "klank": {"nl": "Dansers spelen met vingerbekkens en trommelritmes.", "en": "Dancers play with finger cymbals and drum rhythms."},
+      "mode": {"nl": "Kostuums en stoffen zijn deel van de kunst.", "en": "Costumes and fabrics are part of the art."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-455",
+    "slug": "bollywood",
+    "category": "CAT-08",
+    "types": ["LER", "EXP"],
+    "nl": "Bollywooddans",
+    "en": "Bollywood dance",
+    "sub": {"nl": "Dans", "en": "Dance"},
+    "desc": {"nl": "Bollywooddans leren: kleurrijke choreografieën en expressie.", "en": "Learning Bollywood dance: colourful choreographies and expression."},
+    "match": "exact",
+    "legacy_id": "bollywood",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:3:D", "motoriek:3:V", "beweging:5:E", "ritme:5:E", "expressie:5:E", "speelsheid:5:E", "gezelligheid:4:E", "samenwerking:3:E", "wereldculturen:4:T", "mode:3:T", "verhalen:3:T", "humor:3:E", "kunst:2:T", "beeldtaal:3:O", "klank:3:O", "muziek:3:T", "coordinatie:3:V"],
+    "why": {
+      "beeldtaal": {"nl": "Mudra's, gezichten en gebaren vertellen het verhaal op het scherm.", "en": "Mudras, faces and gestures tell the story on screen."},
+      "klank": {"nl": "Liedjes uit filmsoundtracks sturen elke choreografie.", "en": "Songs from film soundtracks drive each routine."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-456",
+    "slug": "kpop-dans",
+    "category": "CAT-08",
+    "types": ["LER", "EXP"],
+    "nl": "K-popdans",
+    "en": "K-pop dance",
+    "sub": {"nl": "Dans", "en": "Dance"},
+    "desc": {"nl": "K-popdans leren: scherpe choreografieën en synchroon bewegen.", "en": "Learning K-pop dance: sharp choreography and moving in sync."},
+    "match": "exact",
+    "legacy_id": "kpop-dans",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:3:D", "podium:2:D", "motoriek:3:V", "precisie:4:V", "concentratie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:4:E", "speelsheid:3:E", "competitie:2:E", "gemeenschap:4:E", "expressie:4:E", "mode:3:T", "technologie:2:T", "beeldtaal:3:O", "patronen:3:O", "muziek:4:T", "coordinatie:4:V"],
+    "why": {
+      "beeldtaal": {"nl": "Choreografie is gemaakt om goed te staan op camera en video.", "en": "Choreography is built to look good on camera and in video."},
+      "patronen": {"nl": "Formatiewissels zijn meetkunde in beweging.", "en": "Formation changes are geometry in motion."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-457",
+    "slug": "hist-dans",
+    "category": "CAT-08",
+    "types": ["LER", "EXP"],
+    "nl": "Historische dans",
+    "en": "Historical dance",
+    "sub": {"nl": "Dans", "en": "Dance"},
+    "desc": {"nl": "Historische dansen leren: menuet, branle, wals en andere dansen uit vroegere eeuwen.", "en": "Learning historic dances: minuet, branle, waltz and other dances from past centuries."},
+    "match": "exact",
+    "legacy_id": "hist-dans",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "large_group", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["optreden:2:D", "motoriek:3:V", "concentratie:3:V", "communicatie:2:V", "geschiedenis:5:T", "tradities:4:T", "mode:3:T", "beweging:4:E", "ritme:4:E", "elegantie:4:E", "gezelligheid:4:E", "nostalgie:4:E", "samenwerking:4:E", "patronen:3:O", "wonen:3:O", "muziek:3:T"],
+    "why": {
+      "patronen": {"nl": "Vloerpatronen en figuren zijn meetkunde op voeten.", "en": "Floor patterns and figures are geometry on foot."},
+      "wonen": {"nl": "Dansen waren gemaakt voor bepaalde zalen, kamers en kleding.", "en": "Dances were made for particular halls, rooms and clothes."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-458",
+    "slug": "opera-bezoek",
+    "category": "CAT-08",
+    "types": ["EXP"],
+    "nl": "Een opera bijwonen",
+    "en": "Attending an opera",
+    "sub": {"nl": "Podium kijken", "en": "Seeing performance"},
+    "desc": {"nl": "Een opera bijwonen: zang, orkest, decor en verhaal.", "en": "Attending an opera: voice, orchestra, set and story."},
+    "match": "exact",
+    "legacy_id": "opera-bezoek",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "with_known", "small_group"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["stad:2:D", "observeren:3:D", "kunst:5:T", "verhalen:5:T", "architectuur:3:T", "klank:5:E", "ontroering:5:E", "verwondering:4:E", "elegantie:3:E", "ornament:3:E", "spanning:3:E", "publiek:3:E", "gezelligheid:2:E", "technologie:3:O", "mode:3:O", "muziek:5:T", "uitgaan:3:D", "cultuurplek:5:D"],
+    "why": {
+      "technologie": {"nl": "Toneelmachinerie en boventiteling zijn theatertechniek.", "en": "Stage machinery and surtitles are theatre technology."},
+      "mode": {"nl": "Kostuumontwerp is een groot deel van opera.", "en": "Costume design is a major part of opera."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-459",
+    "slug": "theater-backstage",
+    "category": "CAT-08",
+    "types": ["EXP", "LER"],
+    "nl": "Achter de schermen bij een theater",
+    "en": "Behind the scenes at a theatre",
+    "sub": {"nl": "Podium kijken", "en": "Seeing performance"},
+    "desc": {"nl": "Achter de schermen bij een theater: decor, techniek en repetities.", "en": "Behind the scenes at a theatre: sets, technology and rehearsals."},
+    "match": "exact",
+    "legacy_id": "theater-backstage",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["bouwen:3:D", "ontwerpen:3:D", "podium:5:D", "organiseren:3:D", "communicatie:2:V", "technologie:4:T", "kunst:3:T", "architectuur:3:T", "verwondering:4:E", "ontdekking:4:E", "samenwerking:3:E", "rauw:3:E", "licht:4:E", "klank:3:E", "wetenschap:3:O", "verbondenheid:3:O", "cultuurplek:5:D"],
+    "why": {
+      "wetenschap": {"nl": "Optuigen, licht en geluid zijn toegepaste techniek.", "en": "Rigging, lighting and sound are applied engineering."},
+      "verbondenheid": {"nl": "Een crew werkt als een gezin van specialisten.", "en": "A crew works as a family of specialists."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-460",
+    "slug": "live-comedy",
+    "category": "CAT-08",
+    "types": ["EXP"],
+    "nl": "Een live comedy-avond",
+    "en": "A live comedy night",
+    "sub": {"nl": "Podium kijken", "en": "Seeing performance"},
+    "desc": {"nl": "Een live comedy-avond bijwonen.", "en": "Attending a live comedy night."},
+    "match": "exact",
+    "legacy_id": "live-comedy",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["podium:4:D", "stad:2:D", "taalvaardig:2:V", "kunst:2:T", "humor:5:E", "publiek:4:E", "gezelligheid:4:E", "verbondenheid:3:E", "spanning:3:E", "speelsheid:3:E", "ontdekking:3:E", "identiteit:2:T", "rechtvaardigheid:3:O", "tradities:3:O", "uitgaan:5:D"],
+    "why": {
+      "rechtvaardigheid": {"nl": "Comedy spreekt vaak over de randen van de samenleving.", "en": "Comedy often speaks about the edges of society."},
+      "tradities": {"nl": "Stand-up groeide uit vaudeville en cabaret.", "en": "Stand-up grew from vaudeville and cabaret."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  }
+]

@@ -1,0 +1,628 @@
+[
+  {
+    "id": "RA-042",
+    "slug": "tandem-parachute",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Parachutespringen",
+    "en": "Parachute jumping",
+    "sub": {"nl": "Luchtsport", "en": "Air sport"},
+    "desc": {"nl": "Met een instructeur uit een vliegtuig springen, vrije val en landing onder een scherm.", "en": "Jumping from a plane with an instructor, free fall and landing under a canopy."},
+    "match": "exact",
+    "legacy_id": "tandem-parachute",
+    "v0_id": "ACT-036",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["lucht:5:D", "kust:3:D", "bergen:2:D", "spanning:5:E", "vrijheid:5:E", "moed:5:E", "avontuur:4:E", "grenzen:4:E", "verwondering:4:E", "licht:3:E", "beweging:3:E", "natuur:3:T", "wetenschap:3:O", "heelal:3:O", "snelheid:5:E"],
+    "why": {
+      "wetenschap": {"nl": "Vrije val is toegepaste natuurkunde: luchtweerstand, eindsnelheid en draagkracht van de koepel.", "en": "Free fall is applied physics: air resistance, terminal velocity and canopy lift."},
+      "heelal": {"nl": "De kromming van de horizon op hoogte geeft een hint van de planeet gezien vanuit de ruimte.", "en": "The curve of the horizon from altitude gives a hint of the planet seen from space."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-043",
+    "slug": "paragliden",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Paragliden",
+    "en": "Paragliding",
+    "sub": {"nl": "Luchtsport", "en": "Air sport"},
+    "desc": {"nl": "Zweven met een gleitzeil, vaak als tandemvlucht met een ervaren piloot.", "en": "Gliding with a wing, often as a tandem flight with an experienced pilot."},
+    "match": "exact",
+    "legacy_id": "paragliden",
+    "v0_id": "ACT-037",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["lucht:5:D", "bergen:4:D", "natuur:4:T", "vrijheid:5:E", "verwondering:5:E", "rust:3:E", "moed:4:E", "avontuur:4:E", "spanning:3:E", "concentratie:3:V", "ruimtelijk:3:V", "wetenschap:3:T", "beweging:3:E", "navigeren:3:O", "dieren:3:O"],
+    "why": {
+      "navigeren": {"nl": "Wind, thermiek en terrein lezen om je route te kiezen is live navigeren.", "en": "Reading wind, thermals and terrain to choose your route is live navigation."},
+      "dieren": {"nl": "Piloten volgen roofvogels om stijgende lucht te vinden, dus je leert een trucje van een vogel.", "en": "Pilots follow birds of prey to find rising air, so you learn a trick from a bird."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-044",
+    "slug": "canyoning",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Canyoning",
+    "en": "Canyoning",
+    "sub": {"nl": "Berg- en watersport", "en": "Mountain and water sport"},
+    "desc": {"nl": "Met gids door een kloof lopen, klauteren, glijden, abseilen en springen.", "en": "Moving through a gorge with a guide: walking, scrambling, sliding, abseiling and jumping."},
+    "match": "exact",
+    "legacy_id": "canyoning",
+    "v0_id": "ACT-038",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["water:5:D", "bergen:4:D", "natuur:4:T", "avontuur:5:E", "moed:4:E", "spanning:4:E", "grenzen:4:E", "samenwerking:3:E", "beweging:4:E", "verwondering:3:E", "ruimtelijk:3:V", "concentratie:3:V", "ondergrond:3:O", "wetenschap:3:O", "conditie:3:V"],
+    "why": {
+      "ondergrond": {"nl": "Smalle kloven voelen als grotten met de hemel erboven, een mengvorm van grot en rivier.", "en": "Narrow canyons feel like caves open to the sky, a mix of cave and river."},
+      "wetenschap": {"nl": "Kloven laten zien hoe water over duizenden jaren rots snijdt, dus je loopt door geologie.", "en": "Canyons show how water cuts rock over thousands of years, so you walk through geology."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-045",
+    "slug": "speleologie",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Speleologie",
+    "en": "Speleology",
+    "sub": {"nl": "Expeditie en ontdekking", "en": "Expedition and discovery"},
+    "desc": {"nl": "Grotten verkennen met gids of ervaren groep: kruipen, klimmen en onderzoeken in het donker.", "en": "Exploring caves with a guide or experienced group: crawling, climbing and investigating in the dark."},
+    "match": "close",
+    "legacy_id": "grotten-verkennen",
+    "v0_id": "ACT-039",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["ondergrond:5:D", "onderzoeken:4:D", "navigeren:3:D", "wetenschap:4:T", "natuur:3:T", "avontuur:4:E", "spanning:4:E", "verwondering:5:E", "moed:3:E", "ontdekking:5:E", "samenwerking:3:E", "rauw:3:E", "ruimtelijk:3:V", "klank:3:O", "geschiedenis:3:O"],
+    "why": {
+      "klank": {"nl": "De akoestiek verandert per grotkamer, dus luisteren wordt een manier om de ruimte te lezen.", "en": "The acoustics change with every chamber, so listening becomes a way to read the space."},
+      "geschiedenis": {"nl": "Grotten bevatten fossielen, werktuigen en sporen van vroege mensen, dus verkennen is ook tijdreizen.", "en": "Caves hold fossils, tools and traces of early humans, so exploring is also time travel."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-046",
+    "slug": "klifduiken",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Klifduiken",
+    "en": "Cliff diving",
+    "sub": {"nl": "Watersport en avontuur", "en": "Water sport and adventure"},
+    "desc": {"nl": "Van een klif of rots in diep water springen, in een begeleide en getoetste omgeving.", "en": "Jumping from a cliff or rock into deep water, in a guided and assessed setting."},
+    "match": "new",
+    "legacy_id": null,
+    "v0_id": "ACT-040",
+    "facets": {"setting": "outdoor", "social_formats": ["small_group", "with_known"], "level": 2, "duration": 2, "cost": 2, "safety_tier": 2, "source": "authored"},
+    "links": ["water:5:D", "kust:3:D", "bergen:3:D", "spanning:5:E", "moed:5:E", "vrijheid:4:E", "grenzen:5:E", "avontuur:5:E", "beweging:3:E", "natuur:3:T", "concentratie:3:V", "wetenschap:3:O", "rust:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Hoogte, diepte en intreedhoek kiezen is toegepaste natuurkunde, waardoor de sprong een berekend risico wordt.", "en": "Choosing height, depth and entry angle is applied physics, which makes the jump a calculated risk."},
+      "rust": {"nl": "Direct na de plons volgt een plotselinge stilte, een vreemde rust die springers net zo waarderen als de spanning.", "en": "Right after the plunge comes a sudden stillness, an odd calm that jumpers value as much as the thrill."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-197",
+    "slug": "abseilen",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Abseilen",
+    "en": "Abseiling",
+    "sub": {"nl": "Hoogte", "en": "Height"},
+    "desc": {"nl": "Abseilen van een rots, toren of gebouw met instructeur.", "en": "Abseiling down a rock, tower or building with an instructor."},
+    "match": "exact",
+    "legacy_id": "abseilen",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["bergen:4:D", "lucht:4:D", "spanning:5:E", "moed:5:E", "grenzen:4:E", "avontuur:4:E", "vrijheid:3:E", "trots:4:E", "beweging:3:E", "concentratie:3:V", "ruimtelijk:3:V", "natuur:2:T", "technologie:3:O", "zorg:3:O"],
+    "why": {
+      "technologie": {"nl": "Touwen, knopen en wrijvingsapparaten zijn techniek waaraan je je gewicht toevertrouwt.", "en": "Ropes, knots and friction devices are engineering you trust with your weight."},
+      "zorg": {"nl": "Je veiligheid hangt af van iemand anders' werk, wat vertrouwen zichtbaar maakt.", "en": "Your safety depends on someone else's work, which makes trust visible."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-198",
+    "slug": "zipline",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Zipline door een bos of ravijn",
+    "en": "Zipline through a forest or gorge",
+    "sub": {"nl": "Hoogte", "en": "Height"},
+    "desc": {"nl": "Over een zipline door een bos of ravijn glijden.", "en": "Gliding along a zip line through a forest or ravine."},
+    "match": "exact",
+    "legacy_id": "zipline",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["lucht:4:D", "bos:4:D", "bergen:2:D", "spanning:4:E", "vrijheid:5:E", "avontuur:4:E", "moed:3:E", "speelsheid:4:E", "beweging:3:E", "natuur:3:T", "licht:2:E", "verwondering:3:E", "wetenschap:3:O", "generaties:3:O", "snelheid:5:E"],
+    "why": {
+      "wetenschap": {"nl": "Zwaartekracht, spanning en wrijving bepalen de rit.", "en": "Gravity, tension and friction decide the ride."},
+      "generaties": {"nl": "Ziplines passen bij alle leeftijden en worden dus gezinsavonturen.", "en": "Zip lines suit all ages, so they make family adventures."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-199",
+    "slug": "ballonvaart",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Ballonvaart",
+    "en": "Hot-air balloon flight",
+    "sub": {"nl": "Luchtsport", "en": "Air sport"},
+    "desc": {"nl": "Een ballonvaart maken: stil boven het landschap drijven.", "en": "Taking a balloon flight: floating silently above the landscape."},
+    "match": "exact",
+    "legacy_id": "ballonvaart",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["lucht:5:D", "navigeren:3:D", "natuur:3:T", "wetenschap:3:T", "rust:5:E", "vrijheid:5:E", "verwondering:5:E", "licht:4:E", "avontuur:3:E", "spanning:2:E", "schoonheid:4:E", "samenwerking:2:E", "geschiedenis:3:O", "architectuur:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "De eerste bemande luchtballonvluchten vonden plaats in 1783.", "en": "The first manned hot-air balloon flights took place in 1783."},
+      "architectuur": {"nl": "Van boven tonen steden en velden hun plan, als een kaart die je kunt zien.", "en": "Seen from above, cities and fields show their plan, like a map you can see."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-200",
+    "slug": "freediven",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Freediven (apneu) introductie",
+    "en": "Freediving (apnea) introduction",
+    "sub": {"nl": "Duiken", "en": "Diving"},
+    "desc": {"nl": "Freediven introductie: ademhouden, ontspannen en onderduiken.", "en": "Freediving introduction: breath-holding, relaxing and diving down."},
+    "match": "exact",
+    "legacy_id": "freediven",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["water:5:D", "concentratie:5:V", "geduld:3:V", "welzijn:4:T", "natuur:3:T", "rust:5:E", "grenzen:4:E", "moed:3:E", "beweging:3:E", "verwondering:4:E", "vrijheid:4:E", "wetenschap:3:O", "zorg:3:O"],
+    "why": {
+      "wetenschap": {"nl": "De duikreflex laat zien hoe het lichaam in water vertraagt.", "en": "The mammalian dive reflex shows how the body slows down in water."},
+      "zorg": {"nl": "Duiken doe je in tweetallen met een veiligheidspartner, dus vertrouwen hoort bij de sport.", "en": "Diving is done in pairs with a safety partner, so trust is part of the sport."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-201",
+    "slug": "surfles",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Surfles aan zee",
+    "en": "Surf lesson at the sea",
+    "sub": {"nl": "Watersport", "en": "Water sport"},
+    "desc": {"nl": "Surfles aan zee: golven lezen en opstaan op een plank.", "en": "Surf lesson at sea: reading waves and standing on a board."},
+    "match": "exact",
+    "legacy_id": "surfles",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["water:5:D", "kust:5:D", "beweging:5:E", "vrijheid:5:E", "speelsheid:4:E", "avontuur:4:E", "doorzetten:4:E", "trots:4:E", "gezelligheid:3:E", "natuur:3:T", "motoriek:3:V", "ruimtelijk:2:V", "wetenschap:3:O", "wereldculturen:3:O", "leren:3:E", "snelheid:4:E", "coordinatie:5:V"],
+    "why": {
+      "wetenschap": {"nl": "Golven zijn energie die over afstand reist, natuurkunde waarop je rijdt.", "en": "Waves are energy travelling over distance, which is physics you ride."},
+      "wereldculturen": {"nl": "Surfcultuur draagt taal, muziek en stijl die met de sport meereizen.", "en": "Surf culture carries language, music and style that travel with the sport."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-202",
+    "slug": "wadlopen",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Wadlopen met een gids",
+    "en": "Mudflat walking with a guide",
+    "sub": {"nl": "Natuurtocht", "en": "Nature trek"},
+    "desc": {"nl": "Wadlopen met een gids over de zeebodem bij eb.", "en": "Mudflat walking with a guide across the seabed at low tide."},
+    "match": "exact",
+    "legacy_id": "wadlopen",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["kust:5:D", "water:3:D", "navigeren:3:D", "natuur:5:T", "dieren:3:T", "wetenschap:3:T", "avontuur:4:E", "rauw:4:E", "verwondering:4:E", "vrijheid:4:E", "doorzetten:3:E", "samenwerking:3:E", "tast:3:E", "rust:3:E", "geschiedenis:3:O", "klank:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Oude getijdenroutes verbonden eilanden en vasteland lang vóór de dijken.", "en": "Old tidal routes connected islands and mainland long before dikes."},
+      "klank": {"nl": "Het geluid van de modder, vogels en terugkerend water maakt luisteren deel van de tocht.", "en": "The sound of the mud, birds and returning water makes listening part of the walk."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-203",
+    "slug": "mountainbiken",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Mountainbiken",
+    "en": "Mountain biking",
+    "sub": {"nl": "Fietssport", "en": "Cycling sport"},
+    "desc": {"nl": "Mountainbiken door bos, heide en heuvels.", "en": "Mountain biking through forest, heath and hills."},
+    "match": "exact",
+    "legacy_id": "mountainbiken",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["bos:5:D", "navigeren:3:D", "beweging:5:E", "vrijheid:4:E", "avontuur:4:E", "spanning:3:E", "doorzetten:3:E", "gezelligheid:3:E", "natuur:3:T", "motoriek:3:V", "ruimtelijk:3:V", "concentratie:3:V", "technologie:3:O", "repareren:3:O", "mobiliteit:3:T", "snelheid:4:E", "conditie:4:V", "coordinatie:4:V"],
+    "why": {
+      "technologie": {"nl": "Vering, versnellingen en banden maken van een fiets een afgestemde machine voor terrein.", "en": "Suspension, gears and tyres turn a bike into a tuned machine for terrain."},
+      "repareren": {"nl": "Onderweg rijden leert je basisreparaties ter plekke.", "en": "Trail riding teaches basic repair on the spot."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-204",
+    "slug": "parkour",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Parkour of freerunning",
+    "en": "Parkour or freerunning",
+    "sub": {"nl": "Beweging", "en": "Movement"},
+    "desc": {"nl": "Parkour of freerunning: obstakels overbruggen met beweging.", "en": "Parkour or freerunning: overcoming obstacles with movement."},
+    "match": "exact",
+    "legacy_id": "parkour",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["stad:4:D", "beweging:5:E", "moed:4:E", "grenzen:4:E", "vrijheid:5:E", "speelsheid:5:E", "doorzetten:4:E", "trots:4:E", "gemeenschap:3:E", "motoriek:4:V", "ruimtelijk:5:V", "concentratie:3:V", "improviseren:3:V", "architectuur:3:T", "puzzelen:3:O", "kunst:3:O", "snelheid:4:E", "conditie:5:V", "coordinatie:5:V"],
+    "why": {
+      "puzzelen": {"nl": "Elke route is een puzzel in hoe je door de ruimte beweegt.", "en": "Each route is a puzzle in how to move through space."},
+      "kunst": {"nl": "Velen zien parkour als dans of kunst in de openbare ruimte.", "en": "Many see parkour as a form of dance or art in public space."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-205",
+    "slug": "buiten-klimmen",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Buiten klimmen op echte rots",
+    "en": "Climbing on real rock outdoors",
+    "sub": {"nl": "Klimsport", "en": "Climbing"},
+    "desc": {"nl": "Buiten klimmen op echte rots, met gids of ervaren klimmaatje.", "en": "Climbing outdoors on real rock, with a guide or experienced partner."},
+    "match": "exact",
+    "legacy_id": "buiten-klimmen",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "small_group", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["bergen:5:D", "lucht:3:D", "natuur:4:T", "ruimtelijk:4:V", "logica:3:V", "strategie:3:V", "concentratie:4:V", "beweging:4:E", "moed:4:E", "avontuur:4:E", "grenzen:4:E", "puzzelen:4:E", "trots:4:E", "wetenschap:3:O", "geschiedenis:3:O", "conditie:4:V"],
+    "why": {
+      "wetenschap": {"nl": "Gesteentetypen, wrijving en weer bepalen hoe een klim voelt.", "en": "Rock types, friction and weather decide what a climb feels like."},
+      "geschiedenis": {"nl": "Klimroutes dragen de namen en verhalen van eerste beklimmingen.", "en": "Climbing routes carry the names and stories of first ascents."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-206",
+    "slug": "klipper-zeilen",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Meezeilen op een klassiek zeilschip",
+    "en": "Sailing aboard a classic tall ship",
+    "sub": {"nl": "Zeilen", "en": "Sailing"},
+    "desc": {"nl": "Meezeilen op een klassiek zeilschip.", "en": "Sailing aboard a classic sailing ship."},
+    "match": "exact",
+    "legacy_id": "klipper-zeilen",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 4, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["water:5:D", "navigeren:4:D", "hout:3:M", "textiel:2:M", "samenwerking:5:E", "avontuur:4:E", "vrijheid:4:E", "rust:3:E", "nostalgie:4:E", "gezelligheid:4:E", "geschiedenis:4:T", "technologie:2:T", "leiding:2:V", "wetenschap:3:O", "verhalen:3:O", "mobiliteit:3:T"],
+    "why": {
+      "wetenschap": {"nl": "Zeilstand en windhoeken zijn stromingsleer in de praktijk.", "en": "Sail trim and wind angles are fluid dynamics in use."},
+      "verhalen": {"nl": "Elk oud schip heeft legenden over lading, stormen en bemanningen.", "en": "Every old ship has legends of cargo, storms and crews."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-207",
+    "slug": "ijsbaden",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "IJsbaden met een instructeur",
+    "en": "Ice bathing with an instructor",
+    "sub": {"nl": "Koude", "en": "Cold"},
+    "desc": {"nl": "IJsbaden met een instructeur: ademhaling en koud water.", "en": "Ice bathing with an instructor: breathing and cold water."},
+    "match": "exact",
+    "legacy_id": "ijsbaden",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["water:5:D", "concentratie:4:V", "geduld:2:V", "welzijn:5:T", "natuur:3:T", "moed:5:E", "grenzen:5:E", "rust:4:E", "trots:5:E", "gezelligheid:3:E", "vrijheid:3:E", "spanning:3:E", "wetenschap:3:O", "gemeenschap:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Koudeprikkels veranderen doorbloeding en stressreactie, dus het is praktische fysiologie.", "en": "Cold exposure changes circulation and stress response, so it is practical physiology."},
+      "gemeenschap": {"nl": "IJsbadgroepen komen bij zonsopgang samen en delen iets moeilijks.", "en": "Ice bathing groups meet at dawn and share a hard thing."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-208",
+    "slug": "bushcraft",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Bushcraft: een schuilplaats bouwen",
+    "en": "Bushcraft: building a shelter",
+    "sub": {"nl": "Overleven", "en": "Survival"},
+    "desc": {"nl": "Bushcraft: een schuilplaats bouwen en leren overleven in de natuur.", "en": "Bushcraft: building a shelter and learning to cope in nature."},
+    "match": "exact",
+    "legacy_id": "bushcraft",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["bos:5:D", "bouwen:4:D", "hout:3:M", "navigeren:2:D", "vakmanschap:3:V", "strategie:3:V", "improviseren:4:V", "natuur:5:T", "zelfstandig:5:E", "avontuur:3:E", "rust:3:E", "trots:4:E", "rauw:5:E", "vrijheid:4:E", "samenwerking:2:E", "geschiedenis:3:O", "wetenschap:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Vuur maken en schuilplaatsen bouwen behoren tot de oudste vaardigheden van de mensheid.", "en": "Fire lighting and shelters are among the oldest skills of humanity."},
+      "wetenschap": {"nl": "Droog hout, de vuurdriehoek en isolatie zijn natuurkunde en scheikunde in het veld.", "en": "Dry wood, the fire triangle and insulation are physics and chemistry in the field."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-473",
+    "slug": "bungeejump",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Bungeejumpen",
+    "en": "Bungee jumping",
+    "sub": {"nl": "Hoogte", "en": "Height"},
+    "desc": {"nl": "Bungeejumpen van een brug of kraan.", "en": "Bungee jumping from a bridge or crane."},
+    "match": "exact",
+    "legacy_id": "bungeejump",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "with_known"], "level": 0, "duration": 1, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["lucht:5:D", "stad:2:D", "spanning:5:E", "moed:5:E", "grenzen:4:E", "vrijheid:4:E", "avontuur:4:E", "beweging:3:E", "natuur:2:T", "technologie:2:T", "wetenschap:3:O", "geschiedenis:3:O", "snelheid:4:E"],
+    "why": {
+      "wetenschap": {"nl": "Elastische rek en zwaartekracht bepalen de rit.", "en": "Elastic stretch and gravity decide the ride."},
+      "geschiedenis": {"nl": "Het ritueel komt van het landduiken op Vanuatu.", "en": "The ritual comes from land diving in Vanuatu."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-474",
+    "slug": "boomklimmen",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Boomklimmen in een oude boom",
+    "en": "Tree climbing in an old tree",
+    "sub": {"nl": "Hoogte", "en": "Height"},
+    "desc": {"nl": "Boomklimmen in een oude boom met touw en gordel.", "en": "Climbing an old tree with rope and harness."},
+    "match": "exact",
+    "legacy_id": "boomklimmen",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 2, "source": "app"},
+    "links": ["bos:5:D", "lucht:3:D", "natuur:5:T", "motoriek:3:V", "ruimtelijk:4:V", "concentratie:3:V", "beweging:4:E", "avontuur:4:E", "speelsheid:4:E", "moed:3:E", "rust:3:E", "verwondering:3:E", "dieren:2:T", "wetenschap:3:O", "zorg:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Boomstructuur, takken en belasting zijn biomechanica.", "en": "Tree structure, branches and loads are biomechanics."},
+      "zorg": {"nl": "Levende bomen beklimmen betekent ze beschermen.", "en": "Climbing living trees means protecting them."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-475",
+    "slug": "grotduiken",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Grotduiken (met gids)",
+    "en": "Cave diving (with a guide)",
+    "sub": {"nl": "Duiken", "en": "Diving"},
+    "desc": {"nl": "Grotduiken met een gids: onder water door grotten.", "en": "Cave diving with a guide: underwater through caves."},
+    "match": "exact",
+    "legacy_id": "grotduiken",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "with_known"], "level": 2, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["water:5:D", "ondergrond:5:D", "navigeren:3:D", "concentratie:5:V", "ruimtelijk:3:V", "natuur:3:T", "wetenschap:3:T", "spanning:4:E", "moed:4:E", "stilte:4:E", "verwondering:4:E", "grenzen:4:E", "zorg:3:E", "geschiedenis:3:O", "technologie:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Onderwatergrotten bevatten fossielen en prehistorische sporen.", "en": "Flooded caves hold fossils and prehistoric traces."},
+      "technologie": {"nl": "Grotduiken hangt af van lichten, lijnen en ademsystemen.", "en": "Cave diving depends on lights, lines and breathing systems."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-476",
+    "slug": "snorkelen",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Snorkelen in een meer of zee",
+    "en": "Snorkelling in a lake or sea",
+    "sub": {"nl": "Duiken", "en": "Diving"},
+    "desc": {"nl": "Snorkelen in een meer of de zee en kijken wat er leeft.", "en": "Snorkelling in a lake or the sea and looking at what lives there."},
+    "match": "exact",
+    "legacy_id": "snorkelen",
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "drop_in_alone", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "app"},
+    "links": ["water:5:D", "kust:3:D", "observeren:4:D", "natuur:4:T", "dieren:4:T", "rust:4:E", "verwondering:5:E", "stilte:4:E", "vrijheid:3:E", "beweging:3:E", "avontuur:2:E", "licht:3:E", "wetenschap:3:O", "zorg:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Licht, diepte en zoutgehalte veranderen wat je ziet.", "en": "Light, depth and salinity change what you see."},
+      "zorg": {"nl": "Rif- of meerleven van dichtbij zien wekt de drang om te beschermen.", "en": "Seeing reef or lake life up close builds the urge to protect it."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-477",
+    "slug": "kitesurfen",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Kitesurfles",
+    "en": "Kitesurfing lesson",
+    "sub": {"nl": "Watersport", "en": "Water sport"},
+    "desc": {"nl": "Kitesurfles: wind, vlieger en plank.", "en": "Kite surfing lesson: wind, kite and board."},
+    "match": "exact",
+    "legacy_id": "kitesurfen",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["water:5:D", "kust:5:D", "lucht:4:D", "weer:5:T", "motoriek:3:V", "ruimtelijk:3:V", "concentratie:3:V", "beweging:5:E", "vrijheid:5:E", "avontuur:4:E", "spanning:3:E", "doorzetten:4:E", "wetenschap:3:O", "technologie:3:O", "mobiliteit:2:T", "snelheid:4:E", "coordinatie:4:V"],
+    "why": {
+      "wetenschap": {"nl": "Een vlieger is een vleugel en het windvenster is meetkunde.", "en": "A kite is a wing and the wind window is geometry."},
+      "technologie": {"nl": "Materialen van kites en planken zijn lichtgewicht techniek.", "en": "The materials of kites and boards are lightweight engineering."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-478",
+    "slug": "wakeboarden",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Wakeboarden aan een kabelbaan",
+    "en": "Cable wakeboarding",
+    "sub": {"nl": "Watersport", "en": "Water sport"},
+    "desc": {"nl": "Wakeboarden aan een kabelbaan.", "en": "Wakeboarding on a cable park."},
+    "match": "exact",
+    "legacy_id": "wakeboarden",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["water:5:D", "motoriek:3:V", "ruimtelijk:3:V", "concentratie:3:V", "beweging:5:E", "speelsheid:4:E", "vrijheid:3:E", "doorzetten:4:E", "spanning:3:E", "gezelligheid:4:E", "competitie:2:E", "technologie:3:O", "mode:3:O", "mobiliteit:2:T", "snelheid:3:E", "coordinatie:5:V"],
+    "why": {
+      "technologie": {"nl": "Kabelsystemen trekken rijders in lussen, een kleine vervoersmachine.", "en": "Cable systems pull riders in loops, a small transport machine."},
+      "mode": {"nl": "Wake- en boardcultuur gaat over stijl.", "en": "Wake and board culture is about style."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-479",
+    "slug": "obstacle-run",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Obstacle run of modderrace",
+    "en": "Obstacle or mud run",
+    "sub": {"nl": "Hardloopavontuur", "en": "Running adventure"},
+    "desc": {"nl": "Een obstacle run of modderrace lopen met klimwanden, modder en vrienden.", "en": "Running an obstacle run or mud race with climbing walls, mud and friends."},
+    "match": "exact",
+    "legacy_id": "obstacle-run",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 1, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["bos:3:D", "beweging:5:E", "doorzetten:5:E", "grenzen:4:E", "rauw:5:E", "samenwerking:4:E", "gezelligheid:4:E", "speelsheid:4:E", "competitie:3:E", "moed:3:E", "motoriek:3:V", "strategie:2:V", "humor:3:O", "gemeenschap:3:O", "snelheid:4:E", "conditie:5:V"],
+    "why": {
+      "humor": {"nl": "Modder en falen zijn grappige gedeelde ervaringen.", "en": "Mud and failure are funny shared experiences."},
+      "gemeenschap": {"nl": "Als team rennen smeedt snel vriendschappen.", "en": "Running as a team builds quick friendships."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-480",
+    "slug": "kajak-wildwater",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Kajak-clinic op wild water",
+    "en": "White-water kayak clinic",
+    "sub": {"nl": "Watersport", "en": "Water sport"},
+    "desc": {"nl": "Een kajak-clinic op wild water volgen met gids en uitrusting.", "en": "Taking a kayak clinic on white water with guide and equipment."},
+    "match": "exact",
+    "legacy_id": "kajak-wildwater",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["water:5:D", "navigeren:3:D", "bergen:2:D", "motoriek:4:V", "ruimtelijk:3:V", "concentratie:4:V", "natuur:4:T", "weer:3:T", "spanning:5:E", "moed:4:E", "avontuur:4:E", "samenwerking:3:E", "grenzen:3:E", "wetenschap:3:O", "zorg:3:O", "snelheid:4:E"],
+    "why": {
+      "wetenschap": {"nl": "Draaikolken, golven en kolken lezen is hydrodynamica lezen.", "en": "Reading eddies, waves and holes is reading hydrodynamics."},
+      "zorg": {"nl": "Reddingsvaardigheden en veiligheidsteamwerk staan centraal.", "en": "Rescue skills and safety teamwork are central."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-481",
+    "slug": "wrakduiken",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Wrakduiken",
+    "en": "Wreck diving",
+    "sub": {"nl": "Duiken", "en": "Diving"},
+    "desc": {"nl": "Wrakduiken: scheepswrakken verkennen onder water.", "en": "Wreck diving: exploring shipwrecks underwater."},
+    "match": "exact",
+    "legacy_id": "wrakduiken",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "with_known"], "level": 2, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["water:5:D", "ondergrond:3:D", "navigeren:3:D", "concentratie:4:V", "ruimtelijk:3:V", "zeevaart:5:T", "geschiedenis:5:T", "wetenschap:2:T", "avontuur:4:E", "spanning:4:E", "verwondering:4:E", "stilte:3:E", "ontdekking:4:E", "verhalen:3:O", "natuur:3:O"],
+    "why": {
+      "verhalen": {"nl": "Elk wrak heeft een verhaal van lading, storm of oorlog.", "en": "Every wreck has a story of cargo, storm or war."},
+      "natuur": {"nl": "Wrakken worden kunstmatige riffen vol leven.", "en": "Wrecks become artificial reefs full of life."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-482",
+    "slug": "via-ferrata",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Via ferrata",
+    "en": "Via ferrata",
+    "sub": {"nl": "Bergsport", "en": "Mountain sport"},
+    "desc": {"nl": "Een via ferrata klimmen: klimpad met kabels en ijzer in de bergen.", "en": "Climbing a via ferrata: a protected climbing route with cables and iron in the mountains."},
+    "match": "exact",
+    "legacy_id": "via-ferrata",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "small_group", "drop_in_alone", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["bergen:5:D", "lucht:3:D", "navigeren:2:D", "natuur:4:T", "ruimtelijk:3:V", "concentratie:3:V", "beweging:4:E", "avontuur:5:E", "moed:4:E", "spanning:4:E", "grenzen:3:E", "verwondering:3:E", "geschiedenis:3:O", "technologie:3:O", "conditie:3:V"],
+    "why": {
+      "geschiedenis": {"nl": "Veel routes begonnen als militaire paden in de Dolomieten.", "en": "Many routes began as military paths in the Dolomites."},
+      "technologie": {"nl": "Kabels en ankers zijn ontworpen voor valbelasting.", "en": "Cables and anchors are engineered for falls."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-483",
+    "slug": "wildwaterraften",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Wildwaterraften",
+    "en": "White-water rafting",
+    "sub": {"nl": "Watersport", "en": "Water sport"},
+    "desc": {"nl": "Wildwaterraften: samen door stroomversnellingen in een rubberboot.", "en": "White-water rafting: through rapids together in an inflatable boat."},
+    "match": "exact",
+    "legacy_id": "wildwaterraften",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "small_group", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["water:5:D", "bergen:2:D", "natuur:4:T", "samenwerking:5:E", "spanning:5:E", "avontuur:5:E", "moed:3:E", "gezelligheid:3:E", "speelsheid:3:E", "grenzen:3:E", "leiding:3:V", "communicatie:3:V", "wetenschap:3:O", "zorg:3:O", "snelheid:4:E", "conditie:3:V"],
+    "why": {
+      "wetenschap": {"nl": "Stroomversnellingsklassen volgen stroming, verval en obstakels.", "en": "Rapid classes follow flow, gradient and obstacles."},
+      "zorg": {"nl": "Gidsen houden de bemanning veilig, dus vertrouwen groeit.", "en": "Guides keep the crew safe, so trust grows."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-484",
+    "slug": "vrije-val",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Indoor skydiven",
+    "en": "Indoor skydiving",
+    "sub": {"nl": "Luchtsport", "en": "Air sport"},
+    "desc": {"nl": "Indoor skydiven in een windtunnel: zweven op een luchtstroom.", "en": "Indoor skydiving in a wind tunnel: floating on an air stream."},
+    "match": "exact",
+    "legacy_id": "vrije-val",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["lucht:5:D", "motoriek:3:V", "ruimtelijk:4:V", "concentratie:3:V", "technologie:4:T", "beweging:4:E", "vrijheid:5:E", "spanning:4:E", "speelsheid:4:E", "verwondering:3:E", "moed:3:E", "avontuur:3:E", "wetenschap:3:O", "zorg:3:O", "snelheid:5:E"],
+    "why": {
+      "wetenschap": {"nl": "Lichaamshouding bepaalt lift en weerstand, aerodynamica die je voelt.", "en": "Body position decides lift and drag, aerodynamics you feel."},
+      "zorg": {"nl": "Een instructeur houdt je de eerste minuten stabiel.", "en": "An instructor holds you steady in the first minutes."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-485",
+    "slug": "zweefvliegen",
+    "category": "CAT-10",
+    "types": ["EXP", "LER"],
+    "nl": "Zweefvliegen (proefvlucht)",
+    "en": "Gliding (trial flight)",
+    "sub": {"nl": "Luchtsport", "en": "Air sport"},
+    "desc": {"nl": "Een proefvlucht zweefvliegen: stil zweven op stijgende lucht.", "en": "A trial glider flight: gliding silently on rising air."},
+    "match": "exact",
+    "legacy_id": "zweefvliegen",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 2, "source": "app"},
+    "links": ["lucht:5:D", "navigeren:4:D", "natuur:3:T", "weer:5:T", "wetenschap:3:T", "technologie:3:T", "concentratie:3:V", "ruimtelijk:3:V", "stilte:4:E", "vrijheid:5:E", "verwondering:5:E", "rust:3:E", "avontuur:3:E", "dieren:3:O", "architectuur:3:O", "mobiliteit:3:T", "snelheid:3:E"],
+    "why": {
+      "dieren": {"nl": "Zweefpiloten volgen roofvogels om stijgende lucht te vinden.", "en": "Glider pilots follow raptors to find rising air."},
+      "architectuur": {"nl": "Van boven tonen landschappen hun plan als een kaart.", "en": "From above, landscapes show their plan like a map."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-486",
+    "slug": "klimpark",
+    "category": "CAT-10",
+    "types": ["EXP"],
+    "nl": "Klimpark of hoogtouwbaan",
+    "en": "High-ropes course",
+    "sub": {"nl": "Hoogte", "en": "Height"},
+    "desc": {"nl": "Een klimpark of hoogtouwbaan: klimmen, balanceren en tokkelen in de bomen.", "en": "A climbing park or high ropes course: climbing, balancing and zip-lining in the trees."},
+    "match": "exact",
+    "legacy_id": "klimpark",
+    "facets": {"setting": "outdoor", "social_formats": ["duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["bos:4:D", "lucht:3:D", "natuur:2:T", "motoriek:3:V", "ruimtelijk:3:V", "beweging:4:E", "spanning:3:E", "moed:3:E", "speelsheid:5:E", "gezelligheid:4:E", "generaties:3:E", "avontuur:3:E", "grenzen:2:E", "puzzelen:3:O", "samenwerking:3:O", "coordinatie:4:V"],
+    "why": {
+      "puzzelen": {"nl": "Elke route is een puzzel in hoe je tussen platforms beweegt.", "en": "Each course is a puzzle in how to move between platforms."},
+      "samenwerking": {"nl": "Klimmers moedigen elkaar aan en helpen elkaar, een kleine teambuilding.", "en": "Climbers cheer and help each other, a small piece of team-building."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  }
+]

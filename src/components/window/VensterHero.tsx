@@ -24,7 +24,11 @@ export function VensterHero({
             <span className="text-xs font-medium text-ink/70">{dict.badge.replace("{price}", price)}</span>
           </div>
           <h1 className="font-serif text-[2.6rem] leading-[1.05] tracking-[-0.015em] text-ink sm:text-6xl">
-            {dict.headline} <span className="italic text-accent">{dict.headlineEmphasis}</span>
+            {dict.headline} <span
+              className="italic text-gold-text bg-clip-text text-transparent [-webkit-box-decoration-break:clone] [box-decoration-break:clone] bg-[linear-gradient(100deg,#7c5f20_0%,#a67f2c_45%,#c2a05a_55%,#8f6c22_100%)]"
+            >
+              {dict.headlineEmphasis}
+            </span>
           </h1>
           <p className="max-w-md text-lg leading-relaxed text-ink/75">{dict.subcopy}</p>
           <div className="flex flex-col gap-3 sm:flex-row">

@@ -1,0 +1,504 @@
+[
+  {
+    "id": "RA-051",
+    "slug": "fermenteren",
+    "category": "CAT-13",
+    "types": ["MAK", "LER"],
+    "nl": "Fermenteren van voedsel",
+    "en": "Fermenting food",
+    "sub": {"nl": "Voedselbereiding", "en": "Food preparation"},
+    "desc": {"nl": "Groente, kool of drank laten fermenteren tot zuurkool, kimchi of kombucha.", "en": "Fermenting vegetables, cabbage or drinks into sauerkraut, kimchi or kombucha."},
+    "match": "exact",
+    "legacy_id": "fermenteren",
+    "v0_id": "ACT-045",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:5:D", "smaak:5:E", "geur:3:E", "geduld:5:V", "precisie:3:V", "experimenteren:5:E", "wetenschap:5:T", "duurzaamheid:4:T", "geschiedenis:3:T", "welzijn:3:T", "thuis:4:D", "onderzoeken:3:D", "verwondering:3:E", "wereldculturen:3:O", "natuur:3:O"],
+    "why": {
+      "wereldculturen": {"nl": "Kimchi, zuurkool, miso en kombucha zijn fermentatietradities op verschillende continenten.", "en": "Kimchi, sauerkraut, miso and kombucha are fermentation traditions on different continents."},
+      "natuur": {"nl": "Je werkt met levende micro-organismen, dus koken wordt zorgen voor een klein ecosysteem.", "en": "You work with living microbes, so cooking becomes caring for a small ecosystem."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-052",
+    "slug": "patisserie",
+    "category": "CAT-13",
+    "types": ["MAK", "LER"],
+    "nl": "Patisserie en sierlijke taartdecoratie",
+    "en": "Patisserie and decorative cake design",
+    "sub": {"nl": "Banketbakken", "en": "Baking"},
+    "desc": {"nl": "Taartjes, macarons en gebak bakken en decoreren.", "en": "Baking and decorating small cakes, macarons and pastries."},
+    "match": "exact",
+    "legacy_id": "patisserie",
+    "v0_id": "ACT-046",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:5:D", "smaak:5:E", "precisie:5:V", "vakmanschap:4:V", "geduld:4:V", "creativiteit:4:V", "motoriek:3:V", "ontwerpen:3:D", "schoonheid:4:E", "elegantie:4:E", "detail:5:E", "trots:5:E", "ornament:3:E", "gezelligheid:3:E", "wetenschap:3:T", "kunst:3:O", "architectuur:3:O", "ambacht:4:T", "miniatuur:3:E"],
+    "why": {
+      "kunst": {"nl": "Een taartje of macaron is een klein ontwerp, dus je werkt aan kleur, vorm en afwerking als beeldend kunstenaar.", "en": "A tart or macaron is a small piece of design, so you work on colour, form and finish like a visual artist."},
+      "architectuur": {"nl": "Gelaagde taarten vragen om structuur en balans, dezelfde logica als kleine gebouwen.", "en": "Layered cakes need structure and balance, the same logic as small buildings."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-119",
+    "slug": "zuurdesem",
+    "category": "CAT-13",
+    "types": ["MAK", "LER"],
+    "nl": "Brood bakken met zuurdesem",
+    "en": "Baking sourdough bread",
+    "sub": {"nl": "Bakken", "en": "Baking"},
+    "desc": {"nl": "Brood bakken met een zelfgekweekte zuurdesemstarter.", "en": "Baking bread with a starter you grow yourself."},
+    "match": "exact",
+    "legacy_id": "zuurdesem",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:5:D", "thuis:4:D", "precisie:3:V", "geduld:5:V", "vakmanschap:3:V", "wetenschap:4:T", "duurzaamheid:3:T", "geschiedenis:3:T", "smaak:5:E", "geur:5:E", "tast:4:E", "trots:5:E", "zorg:3:E", "rust:3:E", "natuur:3:O", "generaties:3:O", "ambacht:3:T"],
+    "why": {
+      "natuur": {"nl": "Een starter is een levende cultuur, dus bakken wordt zorgen voor een klein ecosysteem.", "en": "A starter is a living culture, so baking becomes tending a small ecosystem."},
+      "generaties": {"nl": "Starters gaan van keuken naar keuken, soms decennia lang.", "en": "Starters are passed from kitchen to kitchen, sometimes for decades."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-120",
+    "slug": "pasta-maken",
+    "category": "CAT-13",
+    "types": ["MAK", "LER"],
+    "nl": "Verse pasta maken",
+    "en": "Making fresh pasta",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "Verse pasta maken van meel en ei, rollen, snijden en vullen.", "en": "Making fresh pasta from flour and egg, rolling, cutting and filling."},
+    "match": "exact",
+    "legacy_id": "pasta-maken",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:5:D", "thuis:3:D", "motoriek:3:V", "precisie:2:V", "geduld:3:V", "creativiteit:3:V", "wereldculturen:4:T", "tast:4:E", "smaak:5:E", "gezelligheid:5:E", "samenwerking:3:E", "generaties:3:E", "geur:2:E", "geschiedenis:3:O", "wetenschap:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Regionale pastavormen dragen lokale geschiedenis en familierecepten.", "en": "Regional pasta shapes carry local history and family recipes."},
+      "wetenschap": {"nl": "Gluten en vocht bepalen het deeg, een beetje voedingswetenschap met je handen.", "en": "Gluten and hydration decide the dough, a little food science with your hands."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-121",
+    "slug": "kaas-maken",
+    "category": "CAT-13",
+    "types": ["MAK", "LER"],
+    "nl": "Kaas maken",
+    "en": "Making cheese",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "Zelf kaas maken van melk, stremsel en tijd.", "en": "Making cheese yourself from milk, rennet and time."},
+    "match": "exact",
+    "legacy_id": "kaas-maken",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:5:D", "thuis:3:D", "geduld:5:V", "precisie:4:V", "vakmanschap:3:V", "wetenschap:5:T", "duurzaamheid:2:T", "geschiedenis:3:T", "dieren:3:T", "smaak:5:E", "geur:4:E", "trots:4:E", "experimenteren:3:E", "wereldculturen:3:O", "natuur:3:O", "ambacht:3:T"],
+    "why": {
+      "wereldculturen": {"nl": "Elke kaasstreek heeft eigen methoden, dus je reist al proevend.", "en": "Every cheese region has its own methods, so you travel by tasting."},
+      "natuur": {"nl": "Bacteriën, schimmels en de melk van grazende dieren laten een landschap smaken.", "en": "Bacteria, moulds and the milk of grazing animals make a landscape taste."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-122",
+    "slug": "chocolade-maken",
+    "category": "CAT-13",
+    "types": ["MAK", "LER"],
+    "nl": "Chocolade maken",
+    "en": "Making chocolate",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "Chocolade maken van cacao tot bonbon, met temperen en vormen.", "en": "Making chocolate from cacao to bonbon, with tempering and moulding."},
+    "match": "exact",
+    "legacy_id": "chocolade-maken",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:5:D", "ontwerpen:3:D", "precisie:4:V", "vakmanschap:3:V", "geduld:3:V", "creativiteit:3:V", "wetenschap:3:T", "smaak:5:E", "geur:4:E", "schoonheid:3:E", "detail:3:E", "trots:4:E", "tast:3:E", "gezelligheid:3:E", "wereldculturen:3:O", "geschiedenis:3:O"],
+    "why": {
+      "wereldculturen": {"nl": "Cacao komt van ver, dus elke reep draagt een verhaal van handel en herkomst.", "en": "Cacao comes from far away, so every bar carries a story of trade and origin."},
+      "geschiedenis": {"nl": "Chocolade was eerst een rituele drank en daarna een luxe, wat elke bonbon een voorgeschiedenis geeft.", "en": "Chocolate was first a ritual drink and later a luxury, which gives every bonbon a backstory."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-123",
+    "slug": "inmaken",
+    "category": "CAT-13",
+    "types": ["MAK", "LER"],
+    "nl": "Jam en inmaken",
+    "en": "Jam and preserving",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "Fruit en groente inmaken tot jam, chutney of pickles.", "en": "Preserving fruit and vegetables into jam, chutney or pickles."},
+    "match": "exact",
+    "legacy_id": "inmaken",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:5:D", "thuis:4:D", "planten:3:M", "geduld:3:V", "precisie:3:V", "duurzaamheid:5:T", "natuur:3:T", "geschiedenis:3:T", "smaak:5:E", "geur:4:E", "trots:4:E", "zorg:3:E", "nostalgie:4:E", "gezelligheid:3:E", "wetenschap:3:O", "generaties:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Suiker, zout en zuur conserveren voedsel door scheikunde.", "en": "Sugar, salt and acid preserve food through chemistry."},
+      "generaties": {"nl": "Inmaken is een vaardigheid die door families wordt doorgegeven.", "en": "Preserving is a skill passed down through families."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-124",
+    "slug": "open-vuur-koken",
+    "category": "CAT-13",
+    "types": ["EXP", "MAK"],
+    "nl": "Koken op open vuur en barbecue",
+    "en": "Cooking over open fire and barbecue",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "Koken op open vuur of barbecue: vuur beheersen en eten laten smaken naar rook.", "en": "Cooking over an open fire or barbecue: controlling flames and giving food a smoky taste."},
+    "match": "exact",
+    "legacy_id": "open-vuur-koken",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["keuken:3:D", "bos:2:D", "vakmanschap:3:V", "geduld:3:V", "smaak:5:E", "geur:5:E", "gezelligheid:5:E", "samenwerking:3:E", "rauw:4:E", "vrijheid:3:E", "geschiedenis:3:T", "natuur:3:T", "wetenschap:3:O", "improviseren:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Hitte, rook en gloed zijn natuurkunde en scheikunde die je proeft.", "en": "Heat, smoke and embers are physics and chemistry you can taste."},
+      "improviseren": {"nl": "Vuur verschilt met wind en hout, dus je stuurt bij terwijl je kookt.", "en": "Fire varies with wind and wood, so you adjust as you cook."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-125",
+    "slug": "theeceremonie",
+    "category": "CAT-13",
+    "types": ["EXP", "LER"],
+    "nl": "Theeceremonie of theeproeverij",
+    "en": "Tea ceremony",
+    "sub": {"nl": "Proeven", "en": "Tasting"},
+    "desc": {"nl": "Een theeceremonie of theeproeverij bijwonen of zelf leiden, met aandacht voor ritueel en smaak.", "en": "Attending or leading a tea ceremony or tasting, with attention to ritual and flavour."},
+    "match": "exact",
+    "legacy_id": "theeceremonie",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:2:D", "thuis:2:D", "concentratie:4:V", "precisie:3:V", "geduld:3:V", "wereldculturen:5:T", "geschiedenis:3:T", "welzijn:4:T", "rust:5:E", "smaak:5:E", "geur:4:E", "elegantie:4:E", "minimalisme:3:E", "gezelligheid:3:E", "opgaan:3:E", "ritme:3:O", "kunst:3:O"],
+    "why": {
+      "ritme": {"nl": "De vaste volgorde van bewegingen en schenken is een trage choreografie.", "en": "The set order of movements and pouring is a slow choreography."},
+      "kunst": {"nl": "Theeservies, bloemen en kalligrafie vormen samen een kleine kunstwereld.", "en": "Tea ware, flowers and calligraphy together form a small art world."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-126",
+    "slug": "kook-club",
+    "category": "CAT-13",
+    "types": ["EXP", "MAK"],
+    "nl": "Samen koken (kookclub)",
+    "en": "Cooking club",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "Samen koken met een vaste groep: elke keer een ander menu of thema.", "en": "Cooking together with a regular group: a different menu or theme each time."},
+    "match": "exact",
+    "legacy_id": "kook-club",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["keuken:5:D", "organiseren:3:D", "thuis:3:D", "communicatie:2:V", "creativiteit:2:V", "leiding:2:V", "wereldculturen:3:T", "smaak:5:E", "gezelligheid:5:E", "samenwerking:5:E", "gemeenschap:4:E", "generaties:2:E", "speelsheid:3:E", "ontdekking:3:O", "verhalen:3:O"],
+    "why": {
+      "ontdekking": {"nl": "Elk nieuw menu is een kleine reis naar een andere keuken.", "en": "Every new menu is a small trip into another cuisine."},
+      "verhalen": {"nl": "Gerechten komen met verhalen over de families en reizen van de koks.", "en": "Dishes come with stories of the cooks' families and travels."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-127",
+    "slug": "hist-koken",
+    "category": "CAT-13",
+    "types": ["EXP", "LER"],
+    "nl": "Historisch koken",
+    "en": "Historical cooking",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "Koken met historische recepten, ingrediënten en technieken.", "en": "Cooking with historical recipes, ingredients and techniques."},
+    "match": "exact",
+    "legacy_id": "hist-koken",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["keuken:5:D", "onderzoeken:4:D", "thuis:2:D", "vakmanschap:2:V", "precisie:3:V", "geduld:2:V", "taalvaardig:2:V", "geschiedenis:5:T", "wereldculturen:3:T", "wetenschap:2:T", "smaak:5:E", "geur:4:E", "nostalgie:4:E", "verwondering:3:E", "ontdekking:4:E", "puzzelen:3:O", "kunst:3:O"],
+    "why": {
+      "puzzelen": {"nl": "Oude recepten laten tijden en hoeveelheden weg, dus je lost ze op als een raadsel.", "en": "Old recipes leave out times and amounts, so you solve them like a riddle."},
+      "kunst": {"nl": "Middeleeuwse en vroegmoderne feestmalen werden als show opgevoerd, dus koken ontmoet theater.", "en": "Medieval and early modern feasts were staged as shows, so cooking meets theatre."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-128",
+    "slug": "sushi-rollen",
+    "category": "CAT-13",
+    "types": ["MAK", "LER"],
+    "nl": "Sushi rollen",
+    "en": "Rolling sushi",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "Sushi leren rollen: rijst, vis of groente en de juiste snij- en rolltechniek.", "en": "Learning to roll sushi: rice, fish or vegetables and the right cutting and rolling technique."},
+    "match": "exact",
+    "legacy_id": "sushi-rollen",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:5:D", "motoriek:4:V", "precisie:4:V", "vakmanschap:3:V", "creativiteit:3:V", "geduld:2:V", "wereldculturen:4:T", "smaak:5:E", "detail:4:E", "minimalisme:3:E", "elegantie:3:E", "trots:4:E", "gezelligheid:3:E", "tast:3:E", "kunst:3:O", "water:3:O"],
+    "why": {
+      "kunst": {"nl": "Rolletjes en plakjes schikken is eetbare compositie.", "en": "Arranging rolls and slices is edible composition."},
+      "water": {"nl": "Sushi hangt af van zeeën, rijstvelden en schoon water, dus het verbindt eten met omgevingen.", "en": "Sushi depends on seas, rice paddies and clean water, so it ties food to environments."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-291",
+    "slug": "dumplings",
+    "category": "CAT-13",
+    "types": ["MAK", "EXP"],
+    "nl": "Dumplings vouwen",
+    "en": "Folding dumplings",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "Dumplings vouwen en vullen, alleen of in een groep.", "en": "Folding and filling dumplings, alone or in a group."},
+    "match": "exact",
+    "legacy_id": "dumplings",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:5:D", "thuis:3:D", "motoriek:4:V", "precisie:3:V", "creativiteit:2:V", "wereldculturen:4:T", "voeding:4:T", "smaak:5:E", "tast:4:E", "gezelligheid:5:E", "samenwerking:4:E", "generaties:3:E", "ritme:3:E", "patronen:3:O", "tradities:3:O"],
+    "why": {
+      "patronen": {"nl": "Elke plooi herhaalt een patroon dat je handen leren.", "en": "Each pleat repeats a pattern your hands learn."},
+      "tradities": {"nl": "Dumplings maken brengt families samen rond feesten en nieuwjaar.", "en": "Dumpling making brings families together around festivals and New Year."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-292",
+    "slug": "bier-brouwen",
+    "category": "CAT-13",
+    "types": ["MAK", "LER"],
+    "nl": "Bier brouwen",
+    "en": "Brewing beer",
+    "sub": {"nl": "Brouwen", "en": "Brewing"},
+    "desc": {"nl": "Bier brouwen: mout, hop, gist en geduld.", "en": "Brewing beer: malt, hops, yeast and patience."},
+    "match": "exact",
+    "legacy_id": "bier-brouwen",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["keuken:4:D", "thuis:3:D", "precisie:4:V", "geduld:4:V", "logica:3:V", "wetenschap:5:T", "voeding:3:T", "geschiedenis:3:T", "smaak:5:E", "geur:4:E", "experimenteren:4:E", "gezelligheid:3:E", "warmte:3:E", "zeevaart:3:O", "wereldculturen:3:O"],
+    "why": {
+      "zeevaart": {"nl": "Gehopt bier was een handelsproduct dat de zeeën over reisde.", "en": "Hopped beer was a trade product that travelled the seas."},
+      "wereldculturen": {"nl": "Bierstijlen tekenen streken af, van lambiek tot stout.", "en": "Beer styles map regions, from lambic to stout."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-293",
+    "slug": "wijnproeverij",
+    "category": "CAT-13",
+    "types": ["EXP", "LER"],
+    "nl": "Wijn proeven bij een wijnmaker",
+    "en": "Wine tasting at a winemaker's",
+    "sub": {"nl": "Proeven", "en": "Tasting"},
+    "desc": {"nl": "Wijn proeven bij een wijnmaker en leren herkennen wat je ruikt en smaakt.", "en": "Tasting wine at a winemaker's and learning to recognise what you smell and taste."},
+    "match": "exact",
+    "legacy_id": "wijnproeverij",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["concentratie:3:V", "communicatie:2:V", "voeding:4:T", "wereldculturen:3:T", "natuur:3:T", "weer:3:T", "smaak:5:E", "geur:5:E", "gezelligheid:4:E", "verwondering:3:E", "rust:3:E", "detail:3:E", "verbondenheid:2:E", "wetenschap:3:O", "kunst:3:O", "uitgaan:3:D"],
+    "why": {
+      "wetenschap": {"nl": "Bodem, klimaat en gist vormen een wijn, dus proeven is een studie van terroir.", "en": "Soil, climate and yeast shape a wine, so tasting is a study of terroir."},
+      "kunst": {"nl": "Een goede wijn wordt beoordeeld als een compositie: balans, lengte en verrassing.", "en": "A good wine is judged like a composition: balance, length and surprise."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-294",
+    "slug": "cocktailworkshop",
+    "category": "CAT-13",
+    "types": ["LER", "EXP"],
+    "nl": "Cocktails mixen",
+    "en": "Mixing cocktails",
+    "sub": {"nl": "Proeven", "en": "Tasting"},
+    "desc": {"nl": "Cocktails mixen leren: technieken, smaken en presentatie.", "en": "Learning to mix cocktails: techniques, flavours and presentation."},
+    "match": "exact",
+    "legacy_id": "cocktailworkshop",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["keuken:3:D", "precisie:3:V", "creativiteit:4:V", "motoriek:3:V", "communicatie:2:V", "smaak:5:E", "geur:4:E", "gezelligheid:5:E", "speelsheid:4:E", "ritme:3:E", "detail:3:E", "experimenteren:4:E", "verbondenheid:3:E", "voeding:2:T", "geschiedenis:3:O", "wetenschap:3:O", "uitgaan:5:D"],
+    "why": {
+      "geschiedenis": {"nl": "Klassieke cocktails komen met het verhaal van bars en tijdperken.", "en": "Classic cocktails come with the story of bars and eras."},
+      "wetenschap": {"nl": "Verdunning, temperatuur en suiker zijn scheikunde in een glas.", "en": "Dilution, temperature and sugar are chemistry in a glass."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-295",
+    "slug": "sap-persen",
+    "category": "CAT-13",
+    "types": ["EXP", "MAK"],
+    "nl": "Appels persen tot sap",
+    "en": "Pressing apples into juice",
+    "sub": {"nl": "Oogsten", "en": "Harvesting"},
+    "desc": {"nl": "Appels persen tot sap met een pers en een groep.", "en": "Pressing apples into juice with a press and a group."},
+    "match": "exact",
+    "legacy_id": "sap-persen",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["planten:3:M", "keuken:2:D", "samenwerking:4:E", "gezelligheid:4:E", "smaak:5:E", "geur:4:E", "voeding:4:T", "duurzaamheid:4:T", "natuur:3:T", "tradities:4:T", "gemeenschap:4:E", "beweging:2:E", "generaties:3:E", "weer:3:T", "technologie:3:O", "wetenschap:3:O"],
+    "why": {
+      "technologie": {"nl": "Oude persen zijn eenvoudige machines van schroeven en hefbomen.", "en": "Old presses are simple machines of screws and levers."},
+      "wetenschap": {"nl": "Gisting begint zodra sap blijft staan, wat cider verklaart.", "en": "Fermentation starts the moment juice stands, which explains cider."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-296",
+    "slug": "boerderijdag",
+    "category": "CAT-13",
+    "types": ["EXP"],
+    "nl": "Een dag op een boerderij",
+    "en": "A day on a farm",
+    "sub": {"nl": "Boerderij", "en": "Farm"},
+    "desc": {"nl": "Een dag meelopen op een boerderij: dieren, oogst en werk.", "en": "Spending a day on a farm: animals, harvest and work."},
+    "match": "exact",
+    "legacy_id": "boerderijdag",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["bos:2:D", "dieren:5:T", "voeding:4:T", "natuur:4:T", "duurzaamheid:3:T", "weer:3:T", "zorg:4:E", "beweging:3:E", "geur:4:E", "rauw:4:E", "samenwerking:3:E", "generaties:3:E", "tast:3:E", "tradities:3:O", "rechtvaardigheid:3:O"],
+    "why": {
+      "tradities": {"nl": "Boerenwerk volgt seizoensgebruiken die ouder zijn dan machines.", "en": "Farm work follows seasonal customs older than machines."},
+      "rechtvaardigheid": {"nl": "Zien waar eten vandaan komt roept vragen op over eerlijke prijzen en dierenwelzijn.", "en": "Seeing where food comes from raises questions about fair prices and animal welfare."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-297",
+    "slug": "streetfoodtour",
+    "category": "CAT-13",
+    "types": ["EXP"],
+    "nl": "Streetfoodtour",
+    "en": "Street-food tour",
+    "sub": {"nl": "Proeven", "en": "Tasting"},
+    "desc": {"nl": "Een tour langs eetkraampjes en proeven van lokaal eten.", "en": "A tour along food stalls tasting local dishes."},
+    "match": "exact",
+    "legacy_id": "streetfoodtour",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["stad:5:D", "navigeren:2:D", "voeding:4:T", "wereldculturen:5:T", "smaak:5:E", "geur:4:E", "gezelligheid:4:E", "ontdekking:4:E", "verbondenheid:3:E", "beweging:2:E", "vrijheid:2:E", "geschiedenis:3:O", "verhalen:3:O", "uitgaan:3:D"],
+    "why": {
+      "geschiedenis": {"nl": "Streetfood legt migratie, handel en wie waar woonde vast.", "en": "Street food records migration, trade and who lived where."},
+      "verhalen": {"nl": "Elke kraameigenaar heeft een verhaal achter het recept.", "en": "Every stall owner has a story behind the recipe."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-298",
+    "slug": "ijs-maken",
+    "category": "CAT-13",
+    "types": ["MAK"],
+    "nl": "IJs en sorbet maken",
+    "en": "Making ice cream and sorbet",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "IJs en sorbet maken van fruit en room, met of zonder machine.", "en": "Making ice cream and sorbet from fruit and cream, with or without a machine."},
+    "match": "exact",
+    "legacy_id": "ijs-maken",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:5:D", "thuis:3:D", "precisie:3:V", "creativiteit:3:V", "wetenschap:4:T", "voeding:3:T", "smaak:5:E", "warmte:4:E", "speelsheid:4:E", "gezelligheid:3:E", "generaties:3:E", "experimenteren:4:E", "weer:3:O", "patronen:3:O"],
+    "why": {
+      "weer": {"nl": "IJs is een zomerritueel dat van temperatuur en seizoen afhangt.", "en": "Ice cream is a summer ritual that depends on temperature and season."},
+      "patronen": {"nl": "Sorbetrecepten volgen verhoudingen van suiker, water en fruit.", "en": "Sorbet recipes follow ratios of sugar, water and fruit."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-299",
+    "slug": "pizza-oven",
+    "category": "CAT-13",
+    "types": ["MAK", "EXP"],
+    "nl": "Pizza bakken in een houtoven",
+    "en": "Baking pizza in a wood-fired oven",
+    "sub": {"nl": "Koken", "en": "Cooking"},
+    "desc": {"nl": "Pizza bakken in een houtgestookte oven: vuur, deeg en timing.", "en": "Baking pizza in a wood-fired oven: fire, dough and timing."},
+    "match": "exact",
+    "legacy_id": "pizza-oven",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["keuken:5:D", "hout:3:M", "vakmanschap:3:V", "precisie:3:V", "geduld:2:V", "voeding:3:T", "wereldculturen:3:T", "smaak:5:E", "geur:5:E", "warmte:5:E", "gezelligheid:5:E", "samenwerking:3:E", "rauw:3:E", "wetenschap:3:O", "tradities:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Een hete oven gaart in negentig seconden door stralingswarmte.", "en": "A hot oven cooks in ninety seconds through radiant heat."},
+      "tradities": {"nl": "Napolitaanse pizza maken is erkend als culturele traditie.", "en": "Neapolitan pizza making is recognised as a cultural tradition."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-300",
+    "slug": "kruidenlikeur",
+    "category": "CAT-13",
+    "types": ["MAK"],
+    "nl": "Kruidenlikeur of bitter maken",
+    "en": "Making herbal liqueur or bitters",
+    "sub": {"nl": "Proeven", "en": "Tasting"},
+    "desc": {"nl": "Kruidenlikeur of bitter maken met kruiden, fruit en alcohol, met mate.", "en": "Making herbal liqueur or bitters with herbs, fruit and alcohol, in moderation."},
+    "match": "exact",
+    "legacy_id": "kruidenlikeur",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["planten:4:M", "keuken:4:D", "thuis:3:D", "precisie:2:V", "geduld:3:V", "voeding:2:T", "natuur:3:T", "geschiedenis:3:T", "smaak:5:E", "geur:5:E", "experimenteren:4:E", "gezelligheid:3:E", "tradities:3:O", "welzijn:3:O"],
+    "why": {
+      "tradities": {"nl": "Kruidenlikeuren gaan terug op kloosters en apothekers.", "en": "Herbal liqueurs trace back to monasteries and apothecaries."},
+      "welzijn": {"nl": "Bitters begonnen als middelen voor de spijsvertering.", "en": "Bitters began as digestive remedies."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-301",
+    "slug": "high-tea",
+    "category": "CAT-13",
+    "types": ["EXP"],
+    "nl": "High tea",
+    "en": "High tea",
+    "sub": {"nl": "Proeven", "en": "Tasting"},
+    "desc": {"nl": "High tea: thee, hapjes en een rustig uurtje.", "en": "High tea: tea, treats and a calm hour."},
+    "match": "exact",
+    "legacy_id": "high-tea",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["keuken:2:D", "thuis:2:D", "smaak:5:E", "gezelligheid:5:E", "rust:4:E", "elegantie:4:E", "warmte:3:E", "verbondenheid:2:E", "nostalgie:3:E", "voeding:3:T", "wereldculturen:3:T", "tradities:3:T", "ornament:2:E", "wonen:3:O", "generaties:3:O", "uitgaan:3:D"],
+    "why": {
+      "wonen": {"nl": "De tafel dekken en het servies kiezen is interieurontwerp in het klein.", "en": "Setting the table and choosing the china is interior design in miniature."},
+      "generaties": {"nl": "Theemomenten brengen grootouders en kleinkinderen aan één tafel.", "en": "Tea moments bring grandparents and grandchildren to one table."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-500",
+    "slug": "vis-roken",
+    "category": "CAT-13",
+    "types": ["MAK", "LER"],
+    "nl": "Vis roken",
+    "en": "Smoking fish",
+    "sub": {"nl": "Conserveren", "en": "Preserving"},
+    "desc": {"nl": "Vis roken in een rookoven of op houtvuur, met zout, rook en tijd.", "en": "Smoking fish in a smoker or over a wood fire, with salt, smoke and time."},
+    "match": "exact",
+    "legacy_id": "vis-roken",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["keuken:5:D", "hout:3:M", "vakmanschap:3:V", "geduld:4:V", "voeding:4:T", "zeevaart:3:T", "geschiedenis:3:T", "smaak:5:E", "geur:5:E", "warmte:4:E", "rauw:3:E", "gezelligheid:3:E", "wetenschap:3:O", "tradities:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Zout en rook conserveren voedsel door uitdroging en scheikunde.", "en": "Salt and smoke preserve food through drying and chemistry."},
+      "tradities": {"nl": "Gerookte vis is een kust- en riviertraditie door heel Europa.", "en": "Smoked fish is a coastal and river tradition across Europe."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-501",
+    "slug": "wijngaard-oogst",
+    "category": "CAT-13",
+    "types": ["EXP"],
+    "nl": "Meehelpen met een oogst",
+    "en": "Helping with a harvest",
+    "sub": {"nl": "Oogsten", "en": "Harvesting"},
+    "desc": {"nl": "Meehelpen met de druivenoogst of een andere oogst bij een wijngaard of boerderij.", "en": "Helping with the grape harvest or another harvest at a vineyard or farm."},
+    "match": "exact",
+    "legacy_id": "wijngaard-oogst",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["planten:4:M", "beweging:4:E", "natuur:4:T", "weer:4:T", "voeding:4:T", "samenwerking:5:E", "gemeenschap:4:E", "gezelligheid:4:E", "rauw:3:E", "smaak:3:E", "geur:3:E", "doorzetten:3:E", "tradities:3:O", "wetenschap:3:O"],
+    "why": {
+      "tradities": {"nl": "Oogstfeesten houden oude liederen, maaltijden en rituelen levend.", "en": "Harvest festivals keep alive old songs, meals and rituals."},
+      "wetenschap": {"nl": "Suikergehalte en timing bepalen de oogstdatum, toegepaste scheikunde.", "en": "Sugar levels and timing decide a harvest date, applied chemistry."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  }
+]

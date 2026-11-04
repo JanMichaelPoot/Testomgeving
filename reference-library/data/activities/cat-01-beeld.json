@@ -1,0 +1,739 @@
+[
+  {
+    "id": "RA-001",
+    "slug": "levend-model-tekenen",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Levend model tekenen",
+    "en": "Life drawing",
+    "sub": {"nl": "Tekenen", "en": "Drawing"},
+    "desc": {"nl": "Tekenen naar een model dat poseert, in korte en lange houdingen, in een tekenatelier of -groep.", "en": "Drawing from a posing model in short and long poses, in a drawing studio or group."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 2, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:4:M", "observeren:5:D", "atelier:4:D", "precisie:4:V", "concentratie:5:V", "motoriek:4:V", "geduld:3:V", "kunst:5:T", "schoonheid:4:E", "opgaan:4:E", "licht:4:E", "imperfectie:3:E", "expressie:3:E", "beweging:3:O", "identiteit:3:O"],
+    "why": {
+      "beweging": {"nl": "Een lichaam lezen in houding en spanning traint je gevoel voor beweging, ook als je zelf stilzit.", "en": "Reading a body in pose and tension trains your feeling for movement, even when you sit still."},
+      "identiteit": {"nl": "Lichamen tekenen laat je nadenken over hoe mensen zich dragen en laten zien.", "en": "Drawing bodies makes you think about how people carry and present themselves."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-002",
+    "slug": "botanisch-tekenen",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Botanisch tekenen",
+    "en": "Botanical drawing",
+    "sub": {"nl": "Tekenen", "en": "Drawing"},
+    "desc": {"nl": "Planten tekenen met grote nauwkeurigheid, zoals botanisch illustratoren dat doen.", "en": "Drawing plants with great accuracy, as botanical illustrators do."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["planten:5:M", "papier:3:M", "verf:3:M", "observeren:5:D", "natuur:5:T", "wetenschap:3:T", "precisie:5:V", "concentratie:4:V", "geduld:4:V", "motoriek:4:V", "detail:5:E", "schoonheid:4:E", "rust:4:E", "opgaan:3:E", "geschiedenis:3:O", "verzamelen:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Botanisch tekenen komt voort uit de verslagen van ontdekkingsreizigers en apothekers, dus je stapt in een lange traditie van de wereld catalogiseren.", "en": "Botanical drawing grew out of the records of explorers and apothecaries, so you step into a long tradition of cataloguing the world."},
+      "verzamelen": {"nl": "Een schetsboek vol getekende soorten groeit uit tot een persoonlijke verzameling zonder dat je iets hoeft te plukken.", "en": "A sketchbook of drawn species grows into a personal collection without picking anything."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-003",
+    "slug": "kinderboek-illustreren",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Een kinderboek illustreren",
+    "en": "Illustrating a picture book",
+    "sub": {"nl": "Illustratie", "en": "Illustration"},
+    "desc": {"nl": "Illustraties maken bij een prentenboekverhaal, van personageschetsen tot afgewerkte dubbele pagina's.", "en": "Making illustrations for a picture book story, from character sketches to finished spreads."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:3:M", "verf:4:M", "ontwerpen:5:D", "atelier:3:D", "thuis:3:D", "creativiteit:5:V", "motoriek:3:V", "verhalen:5:T", "kunst:4:T", "fantasie:5:E", "speelsheid:5:E", "schoonheid:3:E", "expressie:4:E", "doorzetten:3:E", "generaties:3:O", "dieren:3:O"],
+    "why": {
+      "generaties": {"nl": "Een prentenboek is gemaakt voor een kind en een voorlezende volwassene tegelijk, dus je ontwerpt voor twee generaties.", "en": "A picture book is made for a child and a reading adult at once, so you design for two generations."},
+      "dieren": {"nl": "Dierfiguren zijn een oude manier om over mensen te praten, waardoor je gaat nadenken over wat jouw dieren over ons zeggen.", "en": "Animal characters are an old way to talk about people, so you start wondering what your animals say about us."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-004",
+    "slug": "stripverhaal-tekenen",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Een stripverhaal tekenen",
+    "en": "Drawing a comic",
+    "sub": {"nl": "Illustratie", "en": "Illustration"},
+    "desc": {"nl": "Een verhaal vertellen in plaatjes: plot, paginaopbouw, letters en inkten.", "en": "Telling a story in panels: plot, page layout, lettering and inking."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:3:M", "verf:3:M", "ontwerpen:4:D", "bouwen:3:D", "creativiteit:5:V", "taalvaardig:3:V", "ruimtelijk:3:V", "motoriek:3:V", "verhalen:5:T", "kunst:3:T", "fantasie:4:E", "speelsheid:4:E", "expressie:4:E", "opgaan:3:E", "ritme:3:E", "communicatie:3:O", "puzzelen:3:O"],
+    "why": {
+      "communicatie": {"nl": "Een pagina werkt als het oog van de lezer precies gaat waar jij wilt, dus je oefent aandacht sturen zonder woorden.", "en": "A page works when the reader's eye goes exactly where you want, so you practise guiding attention without words."},
+      "puzzelen": {"nl": "Verhaalmomenten passen in een vast aantal vakjes: een puzzel van wat je laat zien en wat je weglaat.", "en": "Fitting story beats into a fixed number of panels is a puzzle of what to show and what to leave out."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-005",
+    "slug": "aquarelleren",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Aquarelleren",
+    "en": "Watercolour painting",
+    "sub": {"nl": "Schilderen", "en": "Painting"},
+    "desc": {"nl": "Schilderen met waterverf: nat-in-nat, lagen opbouwen en het water een deel van het werk laten doen.", "en": "Painting with watercolour: wet-in-wet washes, building layers and letting the water do part of the work."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["verf:5:M", "papier:4:M", "water:3:D", "observeren:3:D", "kunst:4:T", "natuur:3:T", "licht:5:E", "rust:4:E", "schoonheid:4:E", "imperfectie:5:E", "expressie:3:E", "opgaan:4:E", "geduld:3:V", "motoriek:3:V", "creativiteit:4:V", "improviseren:3:O", "welzijn:3:O"],
+    "why": {
+      "improviseren": {"nl": "Waterverf laat zich niet volledig sturen, dus je leert reageren op wat de verf doet in plaats van het te forceren.", "en": "Watercolour cannot be fully controlled, so you learn to respond to what the paint does instead of forcing it."},
+      "welzijn": {"nl": "Zacht en langzaam schilderen wordt veel gebruikt als rustig dagelijks ritueel, dus het werkt ook om af te schakelen.", "en": "Soft, slow painting is widely used as a calm daily ritual, so it also works as a way to switch off."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-006",
+    "slug": "tekenen",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Tekenen en urban sketching",
+    "en": "Drawing and urban sketching",
+    "sub": {"nl": "Tekenen", "en": "Drawing"},
+    "desc": {"nl": "Tekenen op papier, thuis of onderweg, van stillevens tot straathoeken.", "en": "Drawing on paper, at home or on the move, from still lifes to street corners."},
+    "match": "exact",
+    "legacy_id": "tekenen",
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["papier:4:M", "observeren:5:D", "thuis:3:D", "stad:3:D", "creativiteit:5:V", "precisie:3:V", "motoriek:3:V", "concentratie:4:V", "geduld:3:V", "kunst:4:T", "licht:3:E", "schoonheid:3:E", "rust:4:E", "opgaan:4:E", "vrijheid:3:E", "expressie:4:E", "navigeren:3:O", "geschiedenis:3:O"],
+    "why": {
+      "navigeren": {"nl": "Kiezen waar je gaat zitten en wat je tekent stuurt je langs buurten waar je anders aan voorbij loopt.", "en": "Choosing where to sit and what to draw sends you through neighbourhoods you would otherwise walk past."},
+      "geschiedenis": {"nl": "Oude gevels en hoeken tekenen leert je lezen hoe een plek zijn vorm kreeg.", "en": "Drawing old facades and corners teaches you to read how a place got its shape."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-007",
+    "slug": "schilderen",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Schilderen",
+    "en": "Painting",
+    "sub": {"nl": "Schilderen", "en": "Painting"},
+    "desc": {"nl": "Schilderen met verf op doek of paneel, van eerste schets tot afgewerkt werk.", "en": "Painting with paint on canvas or panel, from first sketch to finished piece."},
+    "match": "exact",
+    "legacy_id": "schilderen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["verf:5:M", "papier:2:M", "atelier:4:D", "ontwerpen:3:D", "creativiteit:5:V", "vakmanschap:3:V", "motoriek:3:V", "concentratie:3:V", "kunst:5:T", "identiteit:3:T", "licht:4:E", "schoonheid:4:E", "expressie:5:E", "opgaan:4:E", "ontroering:3:E", "geschiedenis:3:O", "ruimtelijk:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Verf mengen en lagen opbouwen volgt methoden die schilders eeuwenlang doorgaven, dus je werkt letterlijk binnen de kunstgeschiedenis.", "en": "Mixing paint and building layers follows methods painters passed on for centuries, so you literally work inside art history."},
+      "ruimtelijk": {"nl": "Diepte schilderen op een plat vlak traint hoe je ruimte ziet.", "en": "Painting depth on a flat surface trains how you see space."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-148",
+    "slug": "pastel-tekenen",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Pastel tekenen",
+    "en": "Pastel drawing",
+    "sub": {"nl": "Tekenen", "en": "Drawing"},
+    "desc": {"nl": "Tekenen met zachte pastelkrijt op papier, met vlakken kleur en zachte overgangen.", "en": "Drawing with soft pastels on paper, with fields of colour and soft transitions."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["verf:3:M", "papier:4:M", "observeren:4:D", "atelier:3:D", "creativiteit:4:V", "motoriek:3:V", "kunst:4:T", "natuur:2:T", "licht:5:E", "tast:4:E", "schoonheid:4:E", "expressie:4:E", "opgaan:4:E", "rust:3:E", "imperfectie:3:E", "geschiedenis:3:O", "welzijn:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Degas en veel impressionisten kozen pastel voor vluchtig licht, dus je werkt met een materiaal dat voor het moment gemaakt is.", "en": "Degas and many impressionists chose pastel for fleeting light, so you work with a medium made for the moment."},
+      "welzijn": {"nl": "De zachte, vegende aanraking maakt het vergevingsgezind en ontspannend, wat het geschikt maakt voor beginners.", "en": "The soft, smudgy touch makes it forgiving and relaxing, which is why it suits beginners."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-149",
+    "slug": "sketchnotes-maken",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Sketchnotes en visuele notities maken",
+    "en": "Sketchnoting and visual note-taking",
+    "sub": {"nl": "Illustratie", "en": "Illustration"},
+    "desc": {"nl": "Lezingen, boeken en ideeën vastleggen met eenvoudige tekeningen, letters en pijlen.", "en": "Capturing talks, books and ideas with simple drawings, lettering and arrows."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "online"], "level": 0, "duration": 1, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:3:M", "ontwerpen:3:D", "observeren:3:D", "thuis:2:D", "creativiteit:5:V", "communicatie:3:V", "taalvaardig:3:V", "concentratie:4:V", "logica:3:V", "motoriek:2:V", "kunst:2:T", "speelsheid:4:E", "opgaan:3:E", "expressie:3:E", "onderzoeken:3:O", "gemeenschap:3:O", "online:3:D"],
+    "why": {
+      "onderzoeken": {"nl": "Een betoog in een plaatje omzetten dwingt je het eerst te begrijpen.", "en": "Turning an argument into a picture forces you to understand it first."},
+      "gemeenschap": {"nl": "Sketchnotegroepen delen hun aantekeningen van lezingen online, waardoor luisteren een gedeeld ambacht wordt.", "en": "Sketchnote groups share their notes of talks online, so listening becomes a shared craft."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-150",
+    "slug": "pen-inkt-tekenen",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Tekenen met pen en inkt",
+    "en": "Pen and ink drawing",
+    "sub": {"nl": "Tekenen", "en": "Drawing"},
+    "desc": {"nl": "Tekeningen maken met vulpen, fineliner of rietpen en inkt, met lijn, arcering en stippen.", "en": "Making drawings with fountain pen, fineliner or reed pen and ink, using line, hatching and dots."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["verf:4:M", "papier:3:M", "observeren:4:D", "precisie:5:V", "motoriek:4:V", "concentratie:4:V", "geduld:3:V", "creativiteit:3:V", "kunst:4:T", "detail:5:E", "minimalisme:3:E", "opgaan:4:E", "rust:3:E", "ornament:3:E", "geschiedenis:3:O", "logica:3:O"],
+    "why": {
+      "geschiedenis": {"nl": "Tekenen met ganzenpen en inkt loopt van middeleeuwse handschriften tot strips, dus elke lijn volgt oud gereedschap.", "en": "Quill and ink drawing runs from medieval manuscripts to comics, so each line follows old tools."},
+      "logica": {"nl": "Arcering bouwt schaduw op uit lijnen die volgens een regel liggen, een klein systeem om over na te denken.", "en": "Hatching builds shadow from lines placed by rule, a small system you can reason about."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-151",
+    "slug": "portret-tekenen",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Portret tekenen of schilderen",
+    "en": "Drawing or painting portraits",
+    "sub": {"nl": "Tekenen", "en": "Drawing"},
+    "desc": {"nl": "Gezichten tekenen of schilderen, naar model, foto of spiegel, met aandacht voor verhoudingen en uitdrukking.", "en": "Drawing or painting faces from a model, photo or mirror, with attention to proportion and expression."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["verf:3:M", "papier:3:M", "observeren:5:D", "atelier:3:D", "precisie:4:V", "concentratie:4:V", "creativiteit:3:V", "motoriek:3:V", "ruimtelijk:3:V", "kunst:5:T", "identiteit:4:T", "licht:4:E", "ontroering:4:E", "expressie:4:E", "opgaan:4:E", "communicatie:3:O", "zorg:3:O"],
+    "why": {
+      "communicatie": {"nl": "Een gezicht lezen leert je wat mensen zonder woorden zeggen.", "en": "Reading a face teaches you what people say without words."},
+      "zorg": {"nl": "Portretten van familie en vrienden zijn geschenken van aandacht.", "en": "Portraits of family and friends are gifts of attention."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-165",
+    "slug": "beeldhouwen",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Beeldhouwen",
+    "en": "Sculpting",
+    "sub": {"nl": "Beeldhouwen", "en": "Sculpture"},
+    "desc": {"nl": "Een beeld maken door klei, steen, hout of gips te vormen of weg te halen.", "en": "Making a sculpture by shaping or removing clay, stone, wood or plaster."},
+    "match": "exact",
+    "legacy_id": "beeldhouwen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 1, "source": "app"},
+    "links": ["steen:4:M", "klei:3:M", "hout:3:M", "atelier:5:D", "bouwen:3:D", "ontwerpen:4:D", "ruimtelijk:5:V", "vakmanschap:4:V", "motoriek:3:V", "creativiteit:4:V", "kunst:5:T", "tast:5:E", "schoonheid:3:E", "expressie:4:E", "opgaan:4:E", "trots:4:E", "architectuur:3:O", "geschiedenis:3:O"],
+    "why": {
+      "architectuur": {"nl": "Beeldhouwkunst is gebouwde ruimte, dus het traint je gevoel voor volume, balans en aanwezigheid.", "en": "Sculpture is built space, so it trains your sense of volume, balance and presence."},
+      "geschiedenis": {"nl": "Standbeelden markeren pleinen, graven en tuinen, dus beeldhouwen verbindt je met hoe steden herdenken.", "en": "Statues mark squares, graves and gardens, so carving connects you to how cities remember."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-166",
+    "slug": "zeefdruk",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Zeefdruk of linosnede",
+    "en": "Screen printing or linocut",
+    "sub": {"nl": "Grafiek", "en": "Printmaking"},
+    "desc": {"nl": "Beelden afdrukken met een zeef en inkt, in meerdere lagen kleur.", "en": "Printing images through a screen with ink, in several layers of colour."},
+    "match": "exact",
+    "legacy_id": "zeefdruk",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["papier:4:M", "textiel:3:M", "verf:5:M", "atelier:4:D", "ontwerpen:4:D", "precisie:4:V", "creativiteit:4:V", "geduld:3:V", "motoriek:2:V", "kunst:4:T", "mode:2:T", "detail:3:E", "speelsheid:3:E", "trots:4:E", "opgaan:3:E", "imperfectie:3:E", "gemeenschap:3:O", "wetenschap:3:O", "ambacht:4:T"],
+    "why": {
+      "gemeenschap": {"nl": "Drukateliers en affiches voor concerten verbinden het ambacht met muziek- en activistenscenes.", "en": "Print studios and gig posters connect the craft to music and activism scenes."},
+      "wetenschap": {"nl": "Kleur in lagen opdelen is toegepaste kleurenleer.", "en": "Separating colour into layers is applied colour theory."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-167",
+    "slug": "linosnede",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Linosnedes en handdrukken",
+    "en": "Lino cutting and hand printing",
+    "sub": {"nl": "Grafiek", "en": "Printmaking"},
+    "desc": {"nl": "Een afbeelding in linoleum snijden en afdrukken.", "en": "Cutting an image into linoleum and printing it."},
+    "match": "exact",
+    "legacy_id": "linosnede",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["papier:4:M", "verf:3:M", "ontwerpen:5:D", "atelier:3:D", "precisie:4:V", "motoriek:4:V", "creativiteit:4:V", "geduld:3:V", "kunst:4:T", "tast:3:E", "detail:4:E", "trots:4:E", "rauw:3:E", "opgaan:3:E", "imperfectie:4:E", "geschiedenis:3:O", "verhalen:3:O", "ambacht:4:T"],
+    "why": {
+      "geschiedenis": {"nl": "Reliëfdruk stamt af van houtsnededruk, die ideeën verspreidde vóór de fotografie.", "en": "Relief printing descends from woodblock printing, which spread ideas before photography."},
+      "verhalen": {"nl": "Linosneden illustreren protestaffiches, volksverhalen en boekomslagen.", "en": "Linocuts illustrate protest posters, folk tales and book covers."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-168",
+    "slug": "collage",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Collage of scrapbooken",
+    "en": "Collage and scrapbooking",
+    "sub": {"nl": "Collage", "en": "Collage"},
+    "desc": {"nl": "Collages of scrapbooks maken van papier, foto's en gevonden materiaal.", "en": "Making collages or scrapbooks from paper, photos and found material."},
+    "match": "exact",
+    "legacy_id": "collage",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["papier:5:M", "verf:2:M", "ontwerpen:3:D", "verzamelen:4:D", "thuis:3:D", "creativiteit:5:V", "precisie:2:V", "kunst:4:T", "verhalen:3:T", "identiteit:3:T", "speelsheid:5:E", "expressie:4:E", "nostalgie:4:E", "imperfectie:3:E", "opgaan:3:E", "duurzaamheid:3:O", "ontdekking:3:O"],
+    "why": {
+      "duurzaamheid": {"nl": "Oude tijdschriften, kaartjes en verpakkingen krijgen een tweede leven.", "en": "Old magazines, tickets and packaging get a second life."},
+      "ontdekking": {"nl": "Ongelijksoortige stukken schikken tot ze kloppen is een manier om ideeën te vinden die je niet gepland had.", "en": "Arranging unrelated pieces until they click is a way to find ideas you did not plan."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-169",
+    "slug": "graffiti",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Graffiti of muurschildering",
+    "en": "Graffiti or mural painting",
+    "sub": {"nl": "Muurschildering", "en": "Murals"},
+    "desc": {"nl": "Een muurschildering of graffitiwerk ontwerpen en schilderen, legaal op een toegestane muur.", "en": "Designing and painting a mural or graffiti piece, legally on a permitted wall."},
+    "match": "exact",
+    "legacy_id": "graffiti",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["verf:5:M", "stad:4:D", "ontwerpen:4:D", "creativiteit:5:V", "ruimtelijk:3:V", "motoriek:3:V", "kunst:5:T", "identiteit:4:T", "architectuur:3:T", "expressie:5:E", "rauw:4:E", "publiek:4:E", "moed:3:E", "trots:4:E", "vrijheid:3:E", "gemeenschap:3:O", "geschiedenis:3:O"],
+    "why": {
+      "gemeenschap": {"nl": "Muurschilderingen bepalen hoe een buurt eruitziet en aanvoelt, dus een schilder wordt deel van het openbare leven.", "en": "Murals shape how a neighbourhood looks and feels, so a painter becomes part of public life."},
+      "geschiedenis": {"nl": "Schrijven op muren gaat terug tot antieke opschriften.", "en": "Writing on walls goes back to ancient inscriptions."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-170",
+    "slug": "kalligrafie",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Kalligrafie",
+    "en": "Calligraphy",
+    "sub": {"nl": "Lettering", "en": "Lettering"},
+    "desc": {"nl": "Mooi schrijven met pen en inkt: lettervormen, ritme en compositie.", "en": "Beautiful writing with pen and ink: letterforms, rhythm and composition."},
+    "match": "exact",
+    "legacy_id": "kalligrafie",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["papier:4:M", "verf:4:M", "thuis:3:D", "precisie:5:V", "motoriek:5:V", "concentratie:4:V", "geduld:4:V", "taalvaardig:2:V", "kunst:4:T", "wereldculturen:3:T", "rust:5:E", "ritme:4:E", "elegantie:5:E", "detail:4:E", "opgaan:5:E", "minimalisme:3:E", "geschiedenis:3:O", "welzijn:3:O", "taal:4:T"],
+    "why": {
+      "geschiedenis": {"nl": "Schriften als gotisch, cursief of Arabisch tonen hoe schrijven in de loop van de tijd veranderde.", "en": "Scripts like Gothic, Italic or Arabic record how writing changed over time."},
+      "welzijn": {"nl": "Langzame herhaalde halen worden gebruikt als meditatieve oefening.", "en": "Slow repeated strokes are used as a meditative practice."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-171",
+    "slug": "digitale-kunst",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Digitaal tekenen en schilderen",
+    "en": "Digital drawing and painting",
+    "sub": {"nl": "Digitale kunst", "en": "Digital art"},
+    "desc": {"nl": "Digitaal tekenen en schilderen op tablet of computer.", "en": "Drawing and painting digitally on a tablet or computer."},
+    "match": "exact",
+    "legacy_id": "digitale-kunst",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:4:D", "thuis:3:D", "creativiteit:5:V", "motoriek:3:V", "precisie:3:V", "technologie:4:T", "kunst:5:T", "fantasie:4:E", "expressie:4:E", "opgaan:4:E", "licht:3:E", "experimenteren:4:E", "verhalen:3:O", "gemeenschap:3:O", "online:4:D"],
+    "why": {
+      "verhalen": {"nl": "Conceptart, strips en spelwerelden beginnen als digitale tekeningen.", "en": "Concept art, comics and game worlds start as digital drawings."},
+      "gemeenschap": {"nl": "Online kunstgemeenschappen delen penselen, tips en kritiek.", "en": "Online art communities share brushes, tips and critique."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-172",
+    "slug": "miniaturen",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Miniaturen schilderen",
+    "en": "Miniature painting",
+    "sub": {"nl": "Miniaturen", "en": "Miniatures"},
+    "desc": {"nl": "Miniatuurfiguren en -tafereeltjes schilderen met kleine penselen.", "en": "Painting miniature figures and scenes with fine brushes."},
+    "match": "exact",
+    "legacy_id": "miniaturen",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "duo", "small_group", "large_group", "online"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["verf:5:M", "ontwerpen:2:D", "thuis:3:D", "precisie:5:V", "motoriek:5:V", "geduld:4:V", "concentratie:4:V", "creativiteit:3:V", "kunst:3:T", "fantasie:4:E", "detail:5:E", "opgaan:4:E", "rust:4:E", "trots:4:E", "verhalen:3:O", "strategie:3:O", "miniatuur:5:E"],
+    "why": {
+      "verhalen": {"nl": "Elk figuurtje komt uit een wereld van spellen en legenden, dus schilderen betekent dat verhaal betreden.", "en": "Each figure comes from a world of games and legends, so painting it means entering that story."},
+      "strategie": {"nl": "Veel miniaturen worden geschilderd voor tafelspellen, waardoor ambacht en tactiek samenkomen.", "en": "Many miniatures are painted for tabletop games, tying craft to tactics."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-360",
+    "slug": "schilder-avond",
+    "category": "CAT-01",
+    "types": ["MAK", "EXP"],
+    "nl": "Een gezamenlijke schilderavond",
+    "en": "A group painting evening",
+    "sub": {"nl": "Schilderen", "en": "Painting"},
+    "desc": {"nl": "Een gezamenlijke schilderavond volgen waar je stap voor stap een schilderij maakt.", "en": "Joining a group painting evening where you make a painting step by step."},
+    "match": "exact",
+    "legacy_id": "schilder-avond",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known", "large_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["verf:5:M", "atelier:2:D", "creativiteit:3:V", "communicatie:2:V", "kunst:3:T", "gezelligheid:5:E", "speelsheid:4:E", "expressie:3:E", "verbondenheid:3:E", "opgaan:3:E", "licht:2:E", "imperfectie:2:E", "humor:3:O", "wonen:3:O", "uitgaan:4:D"],
+    "why": {
+      "humor": {"nl": "Ieders versie loopt anders af, en dat is de helft van de pret.", "en": "Everyone's version ends up different, which is half the fun."},
+      "wonen": {"nl": "Je neemt een stuk mee voor aan je eigen muur.", "en": "You take home a piece for your own wall."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-361",
+    "slug": "buurtkaart",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Je buurt tekenen als kaart",
+    "en": "Draw a map of your area",
+    "sub": {"nl": "Tekenen", "en": "Drawing"},
+    "desc": {"nl": "Je buurt tekenen als kaart met plekken, routes en eigen herinneringen.", "en": "Drawing your neighbourhood as a map with places, routes and your own memories."},
+    "match": "exact",
+    "legacy_id": "buurtkaart",
+    "facets": {"setting": "both", "social_formats": ["solo"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["papier:3:M", "ontwerpen:5:D", "observeren:4:D", "navigeren:3:D", "stad:4:D", "creativiteit:4:V", "ruimtelijk:3:V", "kunst:3:T", "verhalen:3:T", "identiteit:3:T", "ontdekking:3:E", "nostalgie:3:E", "expressie:3:E", "gemeenschap:3:O", "patronen:3:O"],
+    "why": {
+      "gemeenschap": {"nl": "Een getekende kaart van gedeelde plekken is een cadeau voor buren.", "en": "A drawn map of shared places is a gift to neighbours."},
+      "patronen": {"nl": "Straten, parken en routes tonen een vorm die je nooit had opgemerkt.", "en": "Streets, parks and routes reveal a shape you never noticed."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-362",
+    "slug": "muurschildering",
+    "category": "CAT-01",
+    "types": ["MAK", "EXP"],
+    "nl": "Meeschilderen aan een muurschildering",
+    "en": "Joining a mural project",
+    "sub": {"nl": "Muurschildering", "en": "Murals"},
+    "desc": {"nl": "Meeschilderen aan een gezamenlijke muurschildering in de buurt.", "en": "Helping paint a shared mural in the neighbourhood."},
+    "match": "exact",
+    "legacy_id": "muurschildering",
+    "facets": {"setting": "outdoor", "social_formats": ["drop_in_alone", "small_group", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["verf:5:M", "stad:3:D", "ontwerpen:3:D", "samenwerking:5:E", "gemeenschap:5:E", "gezelligheid:3:E", "expressie:3:E", "kunst:4:T", "identiteit:3:T", "creativiteit:3:V", "motoriek:2:V", "verbondenheid:3:E", "architectuur:3:O", "generaties:3:O"],
+    "why": {
+      "architectuur": {"nl": "Een muurschildering verandert hoe een muur en straat aanvoelen.", "en": "A mural changes how a wall and street feel."},
+      "generaties": {"nl": "Muurschilderingen worden vaak door verschillende leeftijden samen geschilderd.", "en": "Murals are often painted by mixed ages together."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-363",
+    "slug": "modeillustratie",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Modeillustratie",
+    "en": "Fashion illustration",
+    "sub": {"nl": "Illustratie", "en": "Illustration"},
+    "desc": {"nl": "Modeontwerpen tekenen en illustreren met stof- en kleurinspiratie.", "en": "Drawing and illustrating fashion designs with fabric and colour inspiration."},
+    "match": "exact",
+    "legacy_id": "modeillustratie",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["papier:3:M", "verf:3:M", "textiel:3:M", "ontwerpen:4:D", "creativiteit:4:V", "motoriek:3:V", "mode:5:T", "kunst:4:T", "elegantie:4:E", "expressie:4:E", "detail:3:E", "speelsheid:2:E", "beeldtaal:3:O", "wereldculturen:3:O"],
+    "why": {
+      "beeldtaal": {"nl": "Een modetekening verkoopt een stemming met een paar lijnen.", "en": "A fashion drawing sells a mood with a few lines."},
+      "wereldculturen": {"nl": "Patronen en silhouetten uit andere culturen blijven de mode voeden.", "en": "Patterns and silhouettes from other cultures keep feeding fashion."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-364",
+    "slug": "kaarten-maken",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Kaarten maken",
+    "en": "Cardmaking",
+    "sub": {"nl": "Papierkunst", "en": "Paper art"},
+    "desc": {"nl": "Wenskaarten en kleine papierkunstwerken maken.", "en": "Making greeting cards and small paper artworks."},
+    "match": "exact",
+    "legacy_id": "kaarten-maken",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["papier:5:M", "verf:2:M", "ontwerpen:3:D", "thuis:3:D", "creativiteit:4:V", "motoriek:3:V", "precisie:2:V", "kunst:2:T", "speelsheid:4:E", "zorg:4:E", "expressie:3:E", "detail:3:E", "rust:3:E", "ornament:3:E", "verbondenheid:3:O", "tradities:3:O"],
+    "why": {
+      "verbondenheid": {"nl": "Een zelfgemaakte kaart zegt iemand dat hij of zij ertoe doet.", "en": "A handmade card tells someone they matter."},
+      "tradities": {"nl": "Kaarten markeren verjaardagen, feestdagen en afscheid met eigen gebruiken.", "en": "Cards mark birthdays, holidays and farewells with their own conventions."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-365",
+    "slug": "zijde-schilderen",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Een zijden sjaal schilderen",
+    "en": "Painting a silk scarf",
+    "sub": {"nl": "Schilderen", "en": "Painting"},
+    "desc": {"nl": "Een zijden sjaal schilderen met vloeiende kleuren en een gutta-lijn.", "en": "Painting a silk scarf with flowing colours and a gutta outline."},
+    "match": "exact",
+    "legacy_id": "zijde-schilderen",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "duo"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["textiel:4:M", "verf:5:M", "ontwerpen:3:D", "creativiteit:4:V", "motoriek:3:V", "mode:4:T", "kunst:3:T", "licht:4:E", "tast:4:E", "schoonheid:4:E", "elegantie:3:E", "imperfectie:3:E", "rust:3:E", "wetenschap:3:O", "wereldculturen:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Kleurstof verspreidt zich door zijde via capillaire werking, die je stuurt.", "en": "Dye spreads through silk by capillary action, which you steer."},
+      "wereldculturen": {"nl": "Zijdeschilderen volgt Chinese, Japanse en Indiase tradities.", "en": "Silk painting follows Chinese, Japanese and Indian traditions."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-366",
+    "slug": "moodboard",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Een stijl-moodboard maken",
+    "en": "Making a style mood board",
+    "sub": {"nl": "Ontwerp", "en": "Design"},
+    "desc": {"nl": "Een moodboard maken van beelden, kleuren en stoffen die bij jou passen.", "en": "Making a mood board of images, colours and fabrics that suit you."},
+    "match": "exact",
+    "legacy_id": "moodboard",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["papier:3:M", "ontwerpen:3:D", "verzamelen:4:D", "thuis:3:D", "creativiteit:4:V", "mode:3:T", "identiteit:5:T", "wonen:3:T", "beeldtaal:4:T", "kunst:2:T", "expressie:4:E", "schoonheid:3:E", "ontdekking:3:E", "zelfstandig:2:E", "onderzoeken:3:O", "communicatie:3:O"],
+    "why": {
+      "onderzoeken": {"nl": "Beelden verzamelen toont welke kleuren en vormen je steeds weer kiest.", "en": "Collecting images shows which colours and shapes you keep returning to."},
+      "communicatie": {"nl": "Een moodboard legt een smaak uit aan een kleermaker, binnenhuisarchitect of vriend.", "en": "A mood board explains a taste to a tailor, decorator or friend."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"}
+  },
+  {
+    "id": "RA-367",
+    "slug": "ateliers",
+    "category": "CAT-01",
+    "types": ["EXP"],
+    "nl": "Ateliers en galeries op eigen tempo",
+    "en": "Studios and galleries",
+    "sub": {"nl": "Kunst bekijken", "en": "Looking at art"},
+    "desc": {"nl": "Ateliers en kleine galeries bezoeken, kijken en met makers praten.", "en": "Visiting studios and small galleries, looking and talking to makers."},
+    "match": "exact",
+    "legacy_id": "ateliers",
+    "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 3, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["stad:3:D", "observeren:4:D", "atelier:4:D", "verzamelen:2:D", "kunst:5:T", "communicatie:2:V", "ontdekking:4:E", "verwondering:3:E", "rust:3:E", "zelfstandig:3:E", "gezelligheid:2:E", "detail:2:E", "wonen:3:O", "gemeenschap:3:O", "cultuurplek:4:D"],
+    "why": {
+      "wonen": {"nl": "Zien hoe makers wonen en werken met kunst verandert hoe je je eigen muren ophangt.", "en": "Seeing how makers live and work with art changes how you hang your own walls."},
+      "gemeenschap": {"nl": "Open atelierroutes maken van een buurt een wandelroute.", "en": "Open studio weekends turn a neighbourhood into a route."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-368",
+    "slug": "slow-looking",
+    "category": "CAT-01",
+    "types": ["EXP"],
+    "nl": "Eén schilderij een uur bekijken",
+    "en": "Slow looking",
+    "sub": {"nl": "Kunst bekijken", "en": "Looking at art"},
+    "desc": {"nl": "Een uur lang naar één schilderij of voorwerp kijken, zonder haast.", "en": "Spending an hour looking at a single painting or object, without hurry."},
+    "match": "exact",
+    "legacy_id": "slow-looking",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo"], "level": 0, "duration": 1, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["observeren:5:D", "concentratie:5:V", "kunst:5:T", "beeldtaal:3:T", "rust:5:E", "stilte:3:E", "verwondering:4:E", "detail:4:E", "opgaan:4:E", "ontdekking:3:E", "licht:3:E", "zelfstandig:3:E", "spiritualiteit:3:O", "welzijn:3:O", "cultuurplek:4:D"],
+    "why": {
+      "spiritualiteit": {"nl": "Lang kijken werkt als een stille meditatie.", "en": "Long looking works like a quiet meditation."},
+      "welzijn": {"nl": "De blik vertragen is een tegenwicht voor de snelheid van schermen.", "en": "Slowing your gaze counters the speed of screens."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-369",
+    "slug": "plein-air-schilderen",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Buiten schilderen (plein air)",
+    "en": "Painting outdoors (plein air)",
+    "sub": {"nl": "Schilderen", "en": "Painting"},
+    "desc": {"nl": "Buiten naar het landschap schilderen of schetsen, met licht en weer als onderwerp.", "en": "Painting or sketching outdoors from the landscape, with light and weather as the subject."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["verf:5:M", "observeren:5:D", "bos:3:D", "kust:2:D", "creativiteit:3:V", "concentratie:4:V", "kunst:4:T", "natuur:4:T", "weer:4:T", "licht:5:E", "rust:4:E", "vrijheid:3:E", "opgaan:4:E", "schoonheid:3:E", "improviseren:3:O", "tradities:3:O"],
+    "why": {
+      "improviseren": {"nl": "Het licht verandert binnen het uur, dus je schildert snel en beslist stoutmoedig.", "en": "Light changes within the hour, so you paint fast and decide boldly."},
+      "tradities": {"nl": "Buiten schilderen verbindt je met impressionisten en Nederlandse landschapsscholen.", "en": "Plein air links you to impressionists and Dutch landscape schools."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-370",
+    "slug": "acryl-gieten",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Acryl gieten en abstract schilderen",
+    "en": "Acrylic pouring and abstract painting",
+    "sub": {"nl": "Schilderen", "en": "Painting"},
+    "desc": {"nl": "Verf laten vloeien, kantelen en mengen tot abstracte kleurpatronen.", "en": "Letting paint flow, tilt and mix into abstract colour patterns."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["verf:5:M", "atelier:2:D", "creativiteit:4:V", "motoriek:2:V", "kunst:4:T", "licht:4:E", "expressie:4:E", "speelsheid:5:E", "verwondering:4:E", "imperfectie:4:E", "experimenteren:5:E", "opgaan:3:E", "wetenschap:3:O", "patronen:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Viscositeit, dichtheid en cellen bij gieten zijn stromingsleer die je kunt zien.", "en": "Viscosity, density and cells in pouring are fluid dynamics you can watch."},
+      "patronen": {"nl": "De marmerende vormen echoën patronen in de natuur, van wolken tot kustlijnen.", "en": "The marbled forms echo patterns in nature from clouds to coastlines."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-371",
+    "slug": "kleurpotlood-tekenen",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Realistisch tekenen met kleurpotlood",
+    "en": "Realistic coloured-pencil drawing",
+    "sub": {"nl": "Tekenen", "en": "Drawing"},
+    "desc": {"nl": "Met kleurpotloden in lagen een realistische tekening opbouwen van fruit, dieren of portretten.", "en": "Building a realistic drawing in layers of coloured pencil, of fruit, animals or portraits."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:4:M", "thuis:3:D", "observeren:5:D", "precisie:5:V", "motoriek:4:V", "concentratie:4:V", "geduld:4:V", "kunst:3:T", "licht:4:E", "detail:5:E", "rust:4:E", "opgaan:4:E", "schoonheid:3:E", "wetenschap:3:O", "dieren:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Kleuren mengen door lagen is optica: het oog mengt wat het potlood niet doet.", "en": "Colour mixing by layering is optics: the eye blends what the pencil does not."},
+      "dieren": {"nl": "Vacht, veren en ogen zijn klassieke onderwerpen die kijken leren.", "en": "Fur, feathers and eyes are classic subjects that teach looking."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-372",
+    "slug": "handlettering",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Handlettering met brushpen",
+    "en": "Hand lettering with brush pen",
+    "sub": {"nl": "Lettering", "en": "Lettering"},
+    "desc": {"nl": "Letters en teksten vormgeven met brushpen en potlood, voor kaarten, posters en notities.", "en": "Shaping letters and phrases with brush pen and pencil, for cards, posters and notes."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:3:M", "verf:2:M", "thuis:3:D", "ontwerpen:3:D", "motoriek:5:V", "precisie:3:V", "creativiteit:4:V", "taalvaardig:2:V", "kunst:2:T", "rust:4:E", "ritme:3:E", "detail:3:E", "ornament:3:E", "expressie:3:E", "speelsheid:3:E", "communicatie:3:O", "tradities:3:O", "taal:4:T"],
+    "why": {
+      "communicatie": {"nl": "Een goed geletterd woord draagt toon voordat het wordt gelezen.", "en": "A well-lettered word carries tone before it is read."},
+      "tradities": {"nl": "Letterschilders, schrijvers en kalligrafen gaven alfabetten door.", "en": "Sign painters, scribes and calligraphers handed down alphabets."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-373",
+    "slug": "mandala-tekenen",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Mandala's en patronen tekenen",
+    "en": "Drawing mandalas and patterns",
+    "sub": {"nl": "Tekenen", "en": "Drawing"},
+    "desc": {"nl": "Cirkelvormige patronen en mandala's tekenen met passer, liniaal of uit de losse hand.", "en": "Drawing circular patterns and mandalas with compass, ruler or freehand."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:3:M", "thuis:3:D", "precisie:4:V", "concentratie:5:V", "motoriek:3:V", "creativiteit:3:V", "patronen:5:T", "spiritualiteit:3:T", "rust:5:E", "ornament:5:E", "detail:4:E", "opgaan:4:E", "minimalisme:2:E", "wetenschap:3:O", "wereldculturen:3:O"],
+    "why": {
+      "wetenschap": {"nl": "Symmetrie en vlakvulling in een mandala zijn meetkunde die zichtbaar wordt.", "en": "Symmetry and tiling in a mandala are geometry made visible."},
+      "wereldculturen": {"nl": "Mandala's komen voor in boeddhistische, hindoeïstische en vele andere tradities.", "en": "Mandalas appear in Buddhist, Hindu and many other traditions."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-374",
+    "slug": "papier-mache-beelden",
+    "category": "CAT-01",
+    "types": ["MAK"],
+    "nl": "Papier-maché beelden maken",
+    "en": "Making papier-mâché sculptures",
+    "sub": {"nl": "Beeldhouwen", "en": "Sculpture"},
+    "desc": {"nl": "Beelden, maskers en dieren bouwen van papier, lijm en een gaas of ballon.", "en": "Building sculptures, masks and animals from paper, glue and a mesh or balloon."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:5:M", "verf:3:M", "bouwen:4:D", "ontwerpen:3:D", "creativiteit:4:V", "ruimtelijk:4:V", "motoriek:3:V", "kunst:3:T", "speelsheid:4:E", "fantasie:4:E", "tast:3:E", "imperfectie:3:E", "duurzaamheid:3:O", "tradities:3:O"],
+    "why": {
+      "duurzaamheid": {"nl": "Oude kranten en karton worden kunst, zodat afval materiaal wordt.", "en": "Old newspaper and cardboard become art, so waste turns into material."},
+      "tradities": {"nl": "Papier-maché figuren horen bij carnaval, feesten en poppenspel.", "en": "Papier-mâché figures belong to carnival, festivals and puppetry."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-375",
+    "slug": "gouache-schilderen",
+    "category": "CAT-01",
+    "types": ["MAK", "LER"],
+    "nl": "Gouache schilderen",
+    "en": "Gouache painting",
+    "sub": {"nl": "Schilderen", "en": "Painting"},
+    "desc": {"nl": "Schilderen met dekkende gouache voor illustraties, kaarten en kleurstudies.", "en": "Painting with opaque gouache for illustrations, cards and colour studies."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
+    "links": ["verf:5:M", "papier:4:M", "ontwerpen:3:D", "creativiteit:4:V", "precisie:3:V", "motoriek:3:V", "kunst:4:T", "mode:2:T", "licht:3:E", "schoonheid:3:E", "expressie:3:E", "rust:3:E", "detail:3:E", "imperfectie:2:E", "beeldtaal:3:O", "wereldculturen:3:O"],
+    "why": {
+      "beeldtaal": {"nl": "Vlakke kleurvormen zijn hoe affiches en prentenboeken spreken.", "en": "Flat colour shapes are how posters and picture books speak."},
+      "wereldculturen": {"nl": "Gouache loopt van Perzische miniaturen tot Indiase hofschilderkunst.", "en": "Gouache runs from Persian miniatures to Indian court painting."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "checked"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-376",
+    "slug": "tekencursus-beginners",
+    "category": "CAT-01",
+    "types": ["LER"],
+    "nl": "Tekenen leren voor beginners",
+    "en": "Learning to draw for beginners",
+    "sub": {"nl": "Tekenen", "en": "Drawing"},
+    "desc": {"nl": "Een beginnerscursus tekenen volgen met perspectief, schaduw en schetsen.", "en": "Taking a beginner's drawing course covering perspective, shading and sketching."},
+    "match": "new",
+    "legacy_id": null,
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["papier:3:M", "observeren:4:D", "atelier:2:D", "creativiteit:3:V", "precisie:3:V", "ruimtelijk:4:V", "motoriek:3:V", "concentratie:3:V", "kunst:5:T", "ontdekking:3:E", "zelfstandig:3:E", "rust:3:E", "gezelligheid:3:E", "logica:3:O", "wonen:3:O", "leren:5:E"],
+    "why": {
+      "logica": {"nl": "Perspectief is een stelsel van regels dat diepte geloofwaardig maakt.", "en": "Perspective is a system of rules that makes depth believable."},
+      "wonen": {"nl": "Je gaat verhoudingen van kamers, stoelen en ramen opmerken.", "en": "You start noticing the proportions of rooms, chairs and windows."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  }
+]

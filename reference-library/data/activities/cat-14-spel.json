@@ -1,0 +1,505 @@
+[
+  {
+    "id": "RA-053",
+    "slug": "schaken",
+    "category": "CAT-14",
+    "types": ["EXP", "LER"],
+    "nl": "Schaken",
+    "en": "Chess",
+    "sub": {"nl": "Strategische spellen", "en": "Strategy games"},
+    "desc": {"nl": "Schaken tegen mensen of computers, van opening tot eindspel.", "en": "Playing chess against people or computers, from opening to endgame."},
+    "match": "exact",
+    "legacy_id": "schaken",
+    "v0_id": "ACT-047",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["strategie:5:V", "logica:4:V", "concentratie:5:V", "geduld:3:V", "competitie:5:E", "puzzelen:4:E", "meesterschap:4:E", "doorzetten:3:E", "spanning:3:E", "geschiedenis:3:T", "zelfstandig:3:E", "gemeenschap:3:E", "thuis:3:D", "kunst:3:O", "technologie:3:O", "spel:5:T"],
+    "why": {
+      "kunst": {"nl": "Schaakproblemen en beroemde partijen worden bewonderd om hun schoonheid, als composities.", "en": "Chess problems and famous games are admired for their beauty, like compositions."},
+      "technologie": {"nl": "Schaken is een van de eerste spellen waarin mensen zich met computers maten en van engines leerden.", "en": "Chess is one of the first games in which people measured themselves against computers and learned from engines."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-054",
+    "slug": "escape-room-ontwerpen",
+    "category": "CAT-14",
+    "types": ["MAK"],
+    "nl": "Een escape room ontwerpen",
+    "en": "Designing an escape room",
+    "sub": {"nl": "Spelontwerp", "en": "Game design"},
+    "desc": {"nl": "Een puzzelspel met verhaal, decor en aanwijzingen ontwerpen voor een groep.", "en": "Designing a puzzle game with a story, set and clues for a group."},
+    "match": "new",
+    "legacy_id": null,
+    "v0_id": "ACT-048",
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "with_known"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
+    "links": ["ontwerpen:5:D", "bouwen:4:D", "organiseren:3:D", "creativiteit:5:V", "logica:4:V", "ruimtelijk:3:V", "verhalen:5:T", "technologie:3:T", "puzzelen:5:E", "spanning:4:E", "fantasie:4:E", "speelsheid:4:E", "samenwerking:4:E", "architectuur:3:O", "communicatie:3:O", "spel:5:T"],
+    "why": {
+      "architectuur": {"nl": "Een kamer wordt een toneel voor beweging en ontdekking, dus je ontwerpt ruimte zoals architecten dat doen.", "en": "A room becomes a stage for movement and discovery, so you design space the way architects do."},
+      "communicatie": {"nl": "Je moet raden wat spelers weten en zien, dus je oefent uitleggen zonder te spreken.", "en": "You must guess what players know and see, so you practise explaining without speaking."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"},
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+  },
+  {
+    "id": "RA-129",
+    "slug": "tabletop-rpg",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Tabletop rollenspel (D&D)",
+    "en": "Tabletop role-playing",
+    "sub": {"nl": "Rollenspellen", "en": "Role-playing games"},
+    "desc": {"nl": "Een rollenspel als Dungeons & Dragons spelen: samen een verhaal bouwen met dobbelstenen.", "en": "Playing a role-playing game like Dungeons & Dragons: building a story together with dice."},
+    "match": "exact",
+    "legacy_id": "tabletop-rpg",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "small_group", "with_known", "online"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["ontwerpen:2:D", "organiseren:3:D", "thuis:3:D", "creativiteit:4:V", "improviseren:5:V", "strategie:4:V", "communicatie:3:V", "leiding:3:V", "verhalen:5:T", "fantasie:5:E", "samenwerking:5:E", "gezelligheid:4:E", "speelsheid:4:E", "spanning:3:E", "puzzelen:3:E", "podium:3:O", "logica:3:O", "spel:5:T", "kans:4:E"],
+    "why": {
+      "podium": {"nl": "Een personage spelen is amateurtheater rond een tafel.", "en": "Playing a character is amateur theatre around a table."},
+      "logica": {"nl": "Regels en kansberekening trainen je gevoel voor waarschijnlijkheid.", "en": "Rules and probabilities train your intuition for odds."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-130",
+    "slug": "legpuzzels",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Legpuzzels",
+    "en": "Jigsaw puzzles",
+    "sub": {"nl": "Puzzels", "en": "Puzzles"},
+    "desc": {"nl": "Legpuzzels leggen, van klassiek tot extra groot of moeilijk.", "en": "Solving jigsaw puzzles, from classic to extra large or hard."},
+    "match": "exact",
+    "legacy_id": "legpuzzels",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known", "online"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "papier:2:M", "ruimtelijk:4:V", "concentratie:5:V", "geduld:5:V", "logica:3:V", "precisie:2:V", "kunst:2:T", "puzzelen:5:E", "rust:5:E", "opgaan:5:E", "licht:3:E", "gezelligheid:3:E", "detail:3:E", "verhalen:3:O", "welzijn:3:O", "spel:4:T"],
+    "why": {
+      "verhalen": {"nl": "Een puzzel van een schilderij of kaart onthult langzaam een tafereel, als een verhaal stukje voor stukje.", "en": "A puzzle of a painting or map slowly reveals a scene like a story told piece by piece."},
+      "welzijn": {"nl": "Rustig, herhalend sorteren is een kalme routine waarmee veel mensen ontspannen.", "en": "Mindful, repetitive sorting is a calm routine many people use to unwind."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-131",
+    "slug": "speedcuben",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Speedcuben",
+    "en": "Speedcubing",
+    "sub": {"nl": "Puzzels", "en": "Puzzles"},
+    "desc": {"nl": "Een Rubiks kubus of andere draaipuzzel oplossen, steeds sneller.", "en": "Solving a Rubik's cube or other twisty puzzle, faster and faster."},
+    "match": "exact",
+    "legacy_id": "speedcuben",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "online"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:2:D", "ruimtelijk:5:V", "logica:5:V", "motoriek:5:V", "concentratie:4:V", "geduld:3:V", "strategie:3:V", "puzzelen:5:E", "competitie:4:E", "meesterschap:4:E", "doorzetten:4:E", "trots:4:E", "ritme:3:E", "wetenschap:2:T", "kunst:3:O", "gemeenschap:3:O", "spel:4:T", "snelheid:5:E"],
+    "why": {
+      "kunst": {"nl": "Kleurpatronen en symmetrie maken kubussen oplossen tot een visueel spel.", "en": "Colour patterns and symmetry make cube solving a visual game."},
+      "gemeenschap": {"nl": "Kubusbijeenkomsten zijn vriendelijk en mengen leeftijden rond timers en gedeelde tips.", "en": "Cubing meetups are friendly and mix ages around timers and shared tips."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-132",
+    "slug": "lego",
+    "category": "CAT-14",
+    "types": ["MAK", "EXP"],
+    "nl": "LEGO voor volwassenen",
+    "en": "LEGO for adults",
+    "sub": {"nl": "Bouwen en spelen", "en": "Building and play"},
+    "desc": {"nl": "Met LEGO bouwen als volwassene: sets, eigen creaties en miniatuurlandschappen.", "en": "Building with LEGO as an adult: sets, own creations and miniature landscapes."},
+    "match": "exact",
+    "legacy_id": "lego",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["bouwen:5:D", "ontwerpen:4:D", "thuis:3:D", "verzamelen:3:D", "ruimtelijk:5:V", "creativiteit:4:V", "precisie:3:V", "motoriek:3:V", "concentratie:3:V", "architectuur:3:T", "speelsheid:5:E", "opgaan:4:E", "trots:4:E", "nostalgie:4:E", "puzzelen:3:E", "gemeenschap:3:O", "verhalen:3:O", "spel:3:T", "miniatuur:4:E"],
+    "why": {
+      "gemeenschap": {"nl": "Fangroepen, tentoonstellingen en bouwclubs delen ontwerpen en tips.", "en": "Fan groups, exhibitions and building clubs share designs and tips."},
+      "verhalen": {"nl": "Een gebouwd tafereel vertelt een verhaal, van een stad tot een ruimtegevecht.", "en": "A built scene tells a story, from a city to a space battle."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-133",
+    "slug": "raadsels",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Raadsels en cryptogrammen",
+    "en": "Riddles and cryptic crosswords",
+    "sub": {"nl": "Puzzels", "en": "Puzzles"},
+    "desc": {"nl": "Raadsels, cryptogrammen en woordpuzzels oplossen of zelf bedenken.", "en": "Solving or devising riddles, cryptic crosswords and word puzzles."},
+    "match": "exact",
+    "legacy_id": "raadsels",
+    "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:2:D", "taalvaardig:5:V", "logica:4:V", "concentratie:4:V", "creativiteit:3:V", "puzzelen:5:E", "speelsheid:4:E", "doorzetten:3:E", "trots:4:E", "opgaan:3:E", "competitie:2:E", "verhalen:2:T", "gezelligheid:2:E", "geschiedenis:3:O", "onderzoeken:3:O", "taal:4:T", "spel:4:T"],
+    "why": {
+      "geschiedenis": {"nl": "Raadsels zijn een van de oudste volksverhalen en komen in mythen over de hele wereld voor.", "en": "Riddles are among the oldest forms of folk literature and appear in myths worldwide."},
+      "onderzoeken": {"nl": "Cryptische aanwijzingen leren je een zin op twee manieren tegelijk lezen.", "en": "Cryptic clues teach you to read a sentence in two ways at once."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-134",
+    "slug": "puzzeljacht",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Puzzeljacht (puzzle hunt)",
+    "en": "Puzzle hunt",
+    "sub": {"nl": "Puzzels", "en": "Puzzles"},
+    "desc": {"nl": "Een puzzeljacht of puzzle hunt: samen aanwijzingen oplossen in een stad of online.", "en": "A puzzle hunt: solving clues together in a city or online."},
+    "match": "exact",
+    "legacy_id": "puzzeljacht",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "small_group", "large_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["navigeren:4:D", "stad:4:D", "onderzoeken:3:D", "organiseren:2:D", "logica:4:V", "communicatie:3:V", "creativiteit:3:V", "strategie:3:V", "puzzelen:5:E", "competitie:4:E", "samenwerking:5:E", "spanning:3:E", "gezelligheid:4:E", "geschiedenis:3:T", "architectuur:3:O", "verhalen:3:O", "spel:5:T"],
+    "why": {
+      "architectuur": {"nl": "Aanwijzingen zitten in gevels, plaquettes en monumenten, dus je leest de stad.", "en": "Clues hide in facades, plaques and monuments, so you read the city."},
+      "verhalen": {"nl": "Goede jachten wikkelen aanwijzingen in een plot.", "en": "Good hunts wrap clues in a plot."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-135",
+    "slug": "bordspellen",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Moderne bordspellen",
+    "en": "Modern board games",
+    "sub": {"nl": "Bordspellen", "en": "Board games"},
+    "desc": {"nl": "Moderne bordspellen spelen, van samenwerken tot strategie, thuis of in een spelletjescafé.", "en": "Playing modern board games, from cooperative to strategy, at home or in a game café."},
+    "match": "exact",
+    "legacy_id": "bordspellen",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "strategie:5:V", "logica:3:V", "communicatie:3:V", "improviseren:2:V", "gezelligheid:5:E", "samenwerking:4:E", "competitie:4:E", "speelsheid:4:E", "puzzelen:3:E", "spanning:3:E", "verhalen:3:T", "wereldculturen:2:T", "ontwerpen:3:O", "geschiedenis:3:O", "spel:5:T", "uitgaan:3:D", "kans:3:E"],
+    "why": {
+      "ontwerpen": {"nl": "Veel spellen spelen laat zien hoe ontwerpers spanning met regels vormgeven, wat naar zelf maken kan leiden.", "en": "Playing many games shows how designers shape tension with rules, which can lead to making your own."},
+      "geschiedenis": {"nl": "Veel spellen stammen af van eeuwenoude spellen, dus je speelt met geschiedenis.", "en": "Many games descend from ancient ones, so you play with history."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-302",
+    "slug": "go",
+    "category": "CAT-14",
+    "types": ["EXP", "LER"],
+    "nl": "Go",
+    "en": "Go",
+    "sub": {"nl": "Strategiespellen", "en": "Strategy games"},
+    "desc": {"nl": "Go leren spelen: een eeuwenoud strategiespel met stenen.", "en": "Learning go: an ancient strategy game with stones."},
+    "match": "exact",
+    "legacy_id": "go",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:2:D", "strategie:5:V", "logica:4:V", "concentratie:5:V", "patronen:5:T", "wereldculturen:3:T", "minimalisme:4:E", "puzzelen:4:E", "competitie:3:E", "rust:3:E", "meesterschap:4:E", "stilte:3:E", "doorzetten:2:E", "technologie:3:O", "kunst:3:O", "spel:5:T"],
+    "why": {
+      "technologie": {"nl": "Go was een mijlpaal voor kunstmatige intelligentie, dus je speelt een spel dat het rekenen veranderde.", "en": "Go was a milestone for artificial intelligence, so you play a game that changed computing."},
+      "kunst": {"nl": "Spelers en meesters spreken van mooie zetten en vormen.", "en": "Players and masters speak of beautiful moves and shapes."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-303",
+    "slug": "mahjong",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Mahjong",
+    "en": "Mahjong",
+    "sub": {"nl": "Tegelspellen", "en": "Tile games"},
+    "desc": {"nl": "Mahjong spelen met tegels, patronen en een beetje geluk.", "en": "Playing mahjong with tiles, patterns and a bit of luck."},
+    "match": "exact",
+    "legacy_id": "mahjong",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:2:D", "strategie:4:V", "logica:3:V", "concentratie:3:V", "patronen:5:T", "wereldculturen:4:T", "gezelligheid:5:E", "competitie:3:E", "puzzelen:3:E", "klank:3:E", "tast:3:E", "ritme:3:E", "ornament:3:E", "verhalen:3:O", "generaties:3:O", "spel:5:T", "kans:3:E"],
+    "why": {
+      "verhalen": {"nl": "Tegelontwerpen dragen symbolen van seizoenen, bloemen en winden.", "en": "Tile designs carry symbols of seasons, flowers and winds."},
+      "generaties": {"nl": "Mahjong is vaak een familie- en buurtritueel over leeftijden heen.", "en": "Mahjong is often a family and neighbourhood ritual across ages."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-304",
+    "slug": "kaartspellen",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Kaartspellen (bridge, klaverjassen)",
+    "en": "Card games",
+    "sub": {"nl": "Kaartspellen", "en": "Card games"},
+    "desc": {"nl": "Kaartspellen als bridge of klaverjassen spelen met vaste of wisselende groepen.", "en": "Playing card games like bridge or klaverjas with fixed or changing groups."},
+    "match": "exact",
+    "legacy_id": "kaartspellen",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "large_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "strategie:5:V", "logica:4:V", "concentratie:4:V", "communicatie:3:V", "patronen:3:T", "tradities:3:T", "gezelligheid:5:E", "competitie:4:E", "samenwerking:3:E", "spanning:3:E", "verbondenheid:3:E", "tast:2:E", "humor:3:O", "wetenschap:3:O", "spel:5:T", "kans:3:E"],
+    "why": {
+      "humor": {"nl": "Tafelpraat en plagerijen horen bij kaartavonden.", "en": "Table talk and teasing are part of card evenings."},
+      "wetenschap": {"nl": "Kansrekening en gevolgtrekking lopen door elke hand.", "en": "Probability and inference run through every hand."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-305",
+    "slug": "larp",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "LARP (live action role-play)",
+    "en": "Live action role-play",
+    "sub": {"nl": "Rollenspellen", "en": "Role-playing games"},
+    "desc": {"nl": "LARP: een personage spelen in een live-rollenspel, vaak in kostuum.", "en": "LARP: playing a character in a live role-play, often in costume."},
+    "match": "exact",
+    "legacy_id": "larp",
+    "facets": {"setting": "both", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 1, "source": "app"},
+    "links": ["textiel:3:M", "bouwen:2:D", "optreden:3:D", "improviseren:5:V", "creativiteit:4:V", "communicatie:3:V", "verhalen:5:T", "mode:3:T", "fantasie:5:E", "speelsheid:5:E", "samenwerking:5:E", "gemeenschap:4:E", "spanning:3:E", "moed:3:E", "expressie:3:E", "identiteit:3:O", "geschiedenis:3:O", "spel:5:T", "kans:2:E"],
+    "why": {
+      "identiteit": {"nl": "Een rol spelen laat je testen wie je in een andere wereld zou zijn.", "en": "Playing a role lets you test who you would be in another world."},
+      "geschiedenis": {"nl": "Veel LARP's maken historische tijdperken of verzonnen werelden tot in detail na.", "en": "Many LARPs recreate historical eras or fictional worlds in detail."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-306",
+    "slug": "murder-mystery",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Murder mystery-avond",
+    "en": "Murder mystery night",
+    "sub": {"nl": "Rollenspellen", "en": "Role-playing games"},
+    "desc": {"nl": "Een murder mystery-avond spelen of organiseren.", "en": "Playing or hosting a murder mystery evening."},
+    "match": "exact",
+    "legacy_id": "murder-mystery",
+    "facets": {"setting": "indoor", "social_formats": ["small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["organiseren:3:D", "optreden:3:D", "improviseren:3:V", "communicatie:4:V", "logica:4:V", "verhalen:5:T", "mode:2:T", "puzzelen:5:E", "spanning:4:E", "fantasie:4:E", "humor:4:E", "gezelligheid:5:E", "samenwerking:3:E", "speelsheid:4:E", "wonen:3:O", "beeldtaal:3:O", "spel:5:T", "uitgaan:3:D", "kans:2:E"],
+    "why": {
+      "wonen": {"nl": "Gastheren versieren kamers, menu en tafel in de stijl van de zaak.", "en": "Hosts decorate rooms, menus and tables in the style of the case."},
+      "beeldtaal": {"nl": "Rekwisieten en kostuums maken een verhaal in één oogopslag leesbaar.", "en": "Props and costumes make a story readable at a glance."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-307",
+    "slug": "escape-room",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Escape room",
+    "en": "Escape room",
+    "sub": {"nl": "Puzzels", "en": "Puzzles"},
+    "desc": {"nl": "Een escape room doen: samen puzzels oplossen onder tijdsdruk.", "en": "Doing an escape room: solving puzzles together under time pressure."},
+    "match": "exact",
+    "legacy_id": "escape-room",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 1, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["logica:4:V", "communicatie:4:V", "strategie:3:V", "ruimtelijk:3:V", "technologie:2:T", "verhalen:3:T", "puzzelen:5:E", "samenwerking:5:E", "spanning:4:E", "competitie:3:E", "gezelligheid:4:E", "fantasie:3:E", "speelsheid:3:E", "architectuur:3:O", "leiding:3:O", "spel:5:T"],
+    "why": {
+      "architectuur": {"nl": "Kamers zijn opgebouwd als filmdecors waarvan de indeling aanwijzingen verbergt en toont.", "en": "Rooms are staged like film sets whose layout hides and reveals clues."},
+      "leiding": {"nl": "Teams laten snel zien wie leidt, wie luistert en wie details ziet.", "en": "Teams quickly show who leads, who listens and who spots details."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-308",
+    "slug": "pubquiz",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Pubquiz",
+    "en": "Pub quiz",
+    "sub": {"nl": "Quiz", "en": "Quiz"},
+    "desc": {"nl": "Een pubquiz spelen met een team: kennis, snelheid en gokwerk.", "en": "Playing a pub quiz with a team: knowledge, speed and guesswork."},
+    "match": "exact",
+    "legacy_id": "pubquiz",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["stad:2:D", "communicatie:3:V", "strategie:2:V", "wetenschap:3:T", "geschiedenis:3:T", "kunst:2:T", "gezelligheid:5:E", "competitie:4:E", "samenwerking:4:E", "humor:4:E", "verbondenheid:3:E", "speelsheid:3:E", "spanning:3:E", "ontdekking:3:O", "tradities:3:O", "spel:5:T", "uitgaan:5:D", "kans:2:E"],
+    "why": {
+      "ontdekking": {"nl": "Quizrondes trekken rare hoekjes van kennis in beeld.", "en": "Quiz rounds pull odd corners of knowledge into view."},
+      "tradities": {"nl": "De pubquiz is een Brits sociaal ritueel dat wereldwijd is verspreid.", "en": "The pub quiz is a British social ritual that has spread worldwide."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-309",
+    "slug": "coop-games",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Samen gamen (coöperatieve videogames)",
+    "en": "Co-op video games",
+    "sub": {"nl": "Videogames", "en": "Video games"},
+    "desc": {"nl": "Samen spelen in coöperatieve videogames, online of op de bank.", "en": "Playing co-operative video games together, online or on the couch."},
+    "match": "exact",
+    "legacy_id": "coop-games",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "communicatie:4:V", "strategie:3:V", "motoriek:3:V", "technologie:3:T", "verhalen:3:T", "samenwerking:5:E", "speelsheid:4:E", "gezelligheid:4:E", "spanning:3:E", "puzzelen:3:E", "competitie:2:E", "fantasie:3:E", "verbondenheid:3:E", "kunst:3:O", "leiding:3:O", "spel:5:T", "online:5:D"],
+    "why": {
+      "kunst": {"nl": "Spellen combineren beeld, muziek en ontwerp tot een medium op zich.", "en": "Games combine art, music and design into a medium of their own."},
+      "leiding": {"nl": "Coöperatieve opdrachten laten zien wie het plan roept en wie volgt.", "en": "Co-op tasks show who calls the plan and who follows."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-310",
+    "slug": "escape-doos",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Escape-doos thuis",
+    "en": "Escape box at home",
+    "sub": {"nl": "Puzzels", "en": "Puzzles"},
+    "desc": {"nl": "Thuis een escape-doos oplossen met aanwijzingen en slimme sloten.", "en": "Solving a home escape box with clues and clever locks."},
+    "match": "exact",
+    "legacy_id": "escape-doos",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:4:D", "papier:2:M", "logica:4:V", "communicatie:3:V", "concentratie:3:V", "verhalen:3:T", "puzzelen:5:E", "samenwerking:4:E", "spanning:3:E", "gezelligheid:4:E", "speelsheid:3:E", "fantasie:2:E", "ontwerpen:3:O", "ruimtelijk:3:O", "spel:5:T"],
+    "why": {
+      "ontwerpen": {"nl": "Na het oplossen van één gaan veel spelers zelf ontwerpen.", "en": "After solving one, many players start designing their own."},
+      "ruimtelijk": {"nl": "Veel sloten en puzzels vragen driedimensionaal denken.", "en": "Many locks and puzzles depend on thinking in three dimensions."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-311",
+    "slug": "vr-arcade",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "VR-arcade",
+    "en": "VR arcade",
+    "sub": {"nl": "Videogames", "en": "Video games"},
+    "desc": {"nl": "VR-arcade: virtuele werelden verkennen en spelen.", "en": "VR arcade: exploring and playing in virtual worlds."},
+    "match": "exact",
+    "legacy_id": "vr-arcade",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "app"},
+    "links": ["technologie:5:T", "ruimtelijk:4:V", "motoriek:3:V", "strategie:2:V", "beweging:4:E", "spanning:3:E", "fantasie:5:E", "verwondering:4:E", "speelsheid:4:E", "gezelligheid:3:E", "avontuur:3:E", "competitie:2:E", "beeldtaal:3:T", "kunst:3:O", "architectuur:3:O", "spel:4:T", "online:3:D"],
+    "why": {
+      "kunst": {"nl": "VR wordt gebruikt voor beeldhouwen, film en installaties.", "en": "VR is used for sculpture, film and installations."},
+      "architectuur": {"nl": "Je kunt door ongebouwde gebouwen lopen, wat architecten gebruiken om ontwerpen te testen.", "en": "You can walk through unbuilt buildings, which architects use to test designs."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-502",
+    "slug": "dammen",
+    "category": "CAT-14",
+    "types": ["EXP", "LER"],
+    "nl": "Dammen",
+    "en": "Checkers",
+    "sub": {"nl": "Strategiespellen", "en": "Strategy games"},
+    "desc": {"nl": "Dammen: een eenvoudig maar diep strategiespel.", "en": "Draughts: a simple but deep strategy game."},
+    "match": "exact",
+    "legacy_id": "dammen",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo", "with_known", "online"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:2:D", "strategie:5:V", "logica:4:V", "concentratie:4:V", "patronen:4:T", "tradities:3:T", "competitie:4:E", "puzzelen:3:E", "rust:3:E", "meesterschap:3:E", "doorzetten:2:E", "gezelligheid:3:E", "stilte:2:E", "geschiedenis:3:O", "wetenschap:3:O", "spel:5:T"],
+    "why": {
+      "geschiedenis": {"nl": "Dammen is een van de oudst bekende bordspellen.", "en": "Draughts is one of the oldest known board games."},
+      "wetenschap": {"nl": "Computers spelen dammen op topniveau en voor de Engelse variant is het spel zelfs opgelost, een mijlpaal in de speltheorie.", "en": "Computers play draughts at top level and the English variant has even been solved, a landmark in game theory."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-503",
+    "slug": "sudoku",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Sudoku",
+    "en": "Sudoku",
+    "sub": {"nl": "Puzzels", "en": "Puzzles"},
+    "desc": {"nl": "Sudoku oplossen: logica met cijfers en rasters.", "en": "Solving sudoku: logic with numbers and grids."},
+    "match": "exact",
+    "legacy_id": "sudoku",
+    "facets": {"setting": "both", "social_formats": ["solo", "online"], "level": 0, "duration": 1, "cost": 0, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:2:D", "logica:5:V", "concentratie:4:V", "patronen:5:T", "puzzelen:5:E", "rust:4:E", "opgaan:4:E", "doorzetten:3:E", "stilte:2:E", "zelfstandig:3:E", "competitie:2:E", "wetenschap:3:O", "welzijn:3:O", "spel:4:T"],
+    "why": {
+      "wetenschap": {"nl": "Sudoku is een beperkingsprobleem zoals die in de informatica voorkomen.", "en": "Sudoku is a constraint problem like those in computing."},
+      "welzijn": {"nl": "Rustig puzzelen is een routine waarmee veel mensen afschakelen.", "en": "Quiet puzzling is a routine many people use to wind down."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-504",
+    "slug": "backgammon",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Backgammon of dobbelspellen",
+    "en": "Backgammon or dice games",
+    "sub": {"nl": "Dobbelspellen", "en": "Dice games"},
+    "desc": {"nl": "Backgammon of andere dobbelspellen spelen: kans en tactiek.", "en": "Playing backgammon or other dice games: chance and tactics."},
+    "match": "exact",
+    "legacy_id": "backgammon",
+    "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "with_known"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["strategie:5:V", "logica:3:V", "patronen:3:T", "tradities:4:T", "wereldculturen:4:T", "competitie:4:E", "spanning:4:E", "gezelligheid:4:E", "puzzelen:2:E", "speelsheid:3:E", "verbondenheid:2:E", "geschiedenis:3:O", "wetenschap:3:O", "spel:5:T", "kans:5:E"],
+    "why": {
+      "geschiedenis": {"nl": "Backgammon is duizenden jaren oud en wordt gespeeld van Perzië tot Europa.", "en": "Backgammon is thousands of years old and played from Persia to Europe."},
+      "wetenschap": {"nl": "Kansrekening wordt intuïtie met elke worp.", "en": "Probability becomes intuition with every roll."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-505",
+    "slug": "bridge",
+    "category": "CAT-14",
+    "types": ["EXP", "LER"],
+    "nl": "Bridge leren",
+    "en": "Learning bridge",
+    "sub": {"nl": "Kaartspellen", "en": "Card games"},
+    "desc": {"nl": "Bridge leren: kaarten, bieden en samenspelen met een partner.", "en": "Learning bridge: cards, bidding and playing together with a partner."},
+    "match": "exact",
+    "legacy_id": "bridge",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "duo"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["strategie:5:V", "logica:4:V", "communicatie:4:V", "concentratie:4:V", "patronen:3:T", "tradities:3:T", "competitie:4:E", "samenwerking:5:E", "gezelligheid:4:E", "spanning:3:E", "meesterschap:3:E", "doorzetten:3:E", "generaties:3:E", "taalvaardig:3:O", "wetenschap:3:O", "spel:5:T", "kans:2:E"],
+    "why": {
+      "taalvaardig": {"nl": "Bieden is een gecodeerde taal tussen partners.", "en": "Bidding is a coded language between partners."},
+      "wetenschap": {"nl": "Kaarten tellen en kansrekening zijn wiskunde in het spel.", "en": "Card counting and probability are mathematics in play."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-506",
+    "slug": "wargaming",
+    "category": "CAT-14",
+    "types": ["EXP", "MAK"],
+    "nl": "Wargaming met miniaturen",
+    "en": "Miniature wargaming",
+    "sub": {"nl": "Tafelspellen", "en": "Tabletop games"},
+    "desc": {"nl": "Wargaming met miniaturen: strategie, schilderwerk en tafelspel.", "en": "Wargaming with miniatures: strategy, painting and tabletop play."},
+    "match": "exact",
+    "legacy_id": "wargaming",
+    "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group", "large_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 0, "source": "app"},
+    "links": ["verf:3:M", "bouwen:3:D", "thuis:3:D", "strategie:5:V", "precisie:3:V", "motoriek:3:V", "geschiedenis:3:T", "verhalen:3:T", "competitie:4:E", "gezelligheid:4:E", "fantasie:3:E", "samenwerking:2:E", "speelsheid:3:E", "detail:3:E", "kunst:3:O", "architectuur:3:O", "spel:5:T", "kans:3:E", "miniatuur:4:E"],
+    "why": {
+      "kunst": {"nl": "Geschilderde legers en terrein zijn een ambacht op zich.", "en": "Painted armies and terrain are a craft in their own right."},
+      "architectuur": {"nl": "Terrein bouwen is landschap en architectuur in miniatuur.", "en": "Building terrain is landscape and architecture in miniature."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  },
+  {
+    "id": "RA-507",
+    "slug": "solo-rpg",
+    "category": "CAT-14",
+    "types": ["EXP"],
+    "nl": "Solo-rollenspel en verhalenspellen",
+    "en": "Solo role-playing and journaling games",
+    "sub": {"nl": "Rollenspellen", "en": "Role-playing games"},
+    "desc": {"nl": "Solo-rollenspellen en verhalenspellen met dobbelstenen, kaarten en eigen verhaal.", "en": "Solo role-playing and story games with dice, cards and your own story."},
+    "match": "exact",
+    "legacy_id": "solo-rpg",
+    "facets": {"setting": "indoor", "social_formats": ["solo", "duo", "online"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "app"},
+    "links": ["thuis:3:D", "taalvaardig:3:V", "creativiteit:5:V", "improviseren:4:V", "logica:2:V", "verhalen:5:T", "fantasie:5:E", "opgaan:4:E", "rust:3:E", "zelfstandig:4:E", "speelsheid:3:E", "puzzelen:2:E", "spiritualiteit:3:O", "humor:3:O", "spel:5:T", "online:2:D", "kans:4:E"],
+    "why": {
+      "spiritualiteit": {"nl": "Orakels en prompts werken als reflectiemiddelen.", "en": "Oracles and prompts work like reflection tools."},
+      "humor": {"nl": "Willekeurige prompts geven absurde wendingen waar je om lacht.", "en": "Random prompts create absurd turns that make you laugh."}
+    },
+    "status": "Concept",
+    "qa": {"round": 1, "result": "adjusted"}
+  }
+]
