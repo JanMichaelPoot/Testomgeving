@@ -21,7 +21,7 @@ describe("the profile portrait of the two-page intake", () => {
     company: ["alone"],
     socialFormats: [],
     mustHaves: "",
-    gift: false,
+    forOther: false,
     name: "",
     ...extra,
   });
@@ -35,7 +35,7 @@ describe("the profile portrait of the two-page intake", () => {
   });
 
   it("speaks of the recipient in a gift, in both languages", () => {
-    const gift = buildProfileStory(input({ gift: true, name: "Anna", picks: ["Pottenbakken"] }), copy);
+    const gift = buildProfileStory(input({ forOther: true, name: "Anna", picks: ["Pottenbakken"] }), copy);
     expect(gift.story).toContain("Anna koos zelf ook pottenbakken");
     const enLib = buildAssociationLibrary("en");
     const en = buildProfileStory({ ...input({ picks: ["Pottery", "Climbing"] }), cards: enLib.cards, tagLabels: enLib.tagLabels }, getDictionary("en").venster.profile);

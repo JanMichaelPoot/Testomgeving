@@ -129,7 +129,8 @@ describe("prompt lines", () => {
 describe("applyImageIntake", () => {
   const base = {
     situation: "",
-    purpose: "gift",
+    purpose: "self",
+    searchContext: "adult",
     purposeFollowUp: "x",
     ageCategory: "65plus",
     location: "Laren",
@@ -190,9 +191,9 @@ describe("applyImageIntake", () => {
     expect(out.personalReflection).toBe("vaker buiten zijn");
   });
 
-  it("keeps a cleaned first name only for a gift", () => {
+  it("keeps a cleaned first name only when the window is for somebody else", () => {
     expect(applyImageIntake(base, "nl", "s").recipientName).toBe("Judith b");
-    expect(applyImageIntake({ ...base, purpose: "self" }, "nl", "s").recipientName).toBe("");
+    expect(applyImageIntake({ ...base, searchContext: "self" }, "nl", "s").recipientName).toBe("");
     expect(applyImageIntake({ ...base, purpose: "problem" }, "nl", "s").purpose).toBe("self");
     expect(cleanRecipientName("x".repeat(80))).toHaveLength(40);
   });

@@ -14,7 +14,6 @@ export interface InterpretRequest {
   corrections: string[];
   axesOverride?: AxesOverride;
   searchContext?: string;
-  purpose?: string;
   recipientName?: string;
 }
 
@@ -58,7 +57,7 @@ export function buildFacts(req: InterpretRequest, locale: "nl" | "en"): Interpre
   // Who the reading is about.
   const ctx = normalizeSearchContext(req.searchContext);
   const name = cleanRecipientName(req.recipientName ?? "");
-  const forOther = req.purpose === "gift" || ctx === "child" || ctx === "adult" || ctx === "group";
+  const forOther = ctx === "child" || ctx === "adult" || ctx === "group";
   const audience: InterpretAudience = ctx === "group" ? "group" : forOther ? (name ? "named" : "other") : "self";
   return {
     locale,

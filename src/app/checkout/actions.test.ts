@@ -213,7 +213,7 @@ describe("createCheckoutSession — the price test and the follow-up consent", (
   });
 
   it("records the follow-up consent only when it was given, on the order and in the Stripe metadata", async () => {
-    await expect(createCheckoutSession(true, true, undefined, undefined, undefined, true)).rejects.toThrow("NEXT_REDIRECT");
+    await expect(createCheckoutSession(true, true, undefined, undefined, true)).rejects.toThrow("NEXT_REDIRECT");
     expect(stripeParams[0].metadata.followup_consent).toBe("1");
     expect(orderRows[0].followup_consent_at).toEqual(expect.any(String));
 

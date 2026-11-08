@@ -100,14 +100,14 @@ describe("content", () => {
 
   it("counts what people filled in, without reading free text", () => {
     const s = intakeSummary([
-      { raw_json: { interestDomains: ["nature", "food"], budget: "25", intakeVariant: "associations", recipientName: "Anna", situation: "iets prive" } },
+      { raw_json: { interestDomains: ["nature", "food"], budget: "25", intakeVariant: "associations", searchContext: "child", situation: "iets prive" } },
       { raw_json: { interestDomains: ["nature"], budget: "25" } },
       { raw_json: null },
     ]);
     expect(s.total).toBe(3);
     expect(s.directions[0]).toEqual(["nature", 2]);
     expect(s.budget[0]).toEqual(["25", 2]);
-    expect(s.gift).toBe(1);
+    expect(s.forOther).toBe(1);
     expect(JSON.stringify(s)).not.toContain("prive");
   });
 

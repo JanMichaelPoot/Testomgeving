@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { GIFT_PRICE_CENTS, PRICE_CENTS } from "./pricing";
+import { PRICE_CENTS } from "./pricing";
 import { assignVariant, parsePriceTest, resolvePrice, variantIds } from "./priceTest";
 
-const CONFIG = parsePriceTest('{"B":{"self":650,"gift":1295},"C":{"self":850}}');
+const CONFIG = parsePriceTest('{"B":{"self":650},"C":{"self":850}}');
 
 describe("price test setting", () => {
   it("is off when nothing is set", () => {
@@ -13,7 +13,7 @@ describe("price test setting", () => {
   });
 
   it("reads the variants", () => {
-    expect(CONFIG).toEqual({ B: { self: 650, gift: 1295 }, C: { self: 850 } });
+    expect(CONFIG).toEqual({ B: { self: 650 }, C: { self: 850 } });
     expect(variantIds(CONFIG)).toEqual(["control", "B", "C"]);
   });
 
@@ -25,6 +25,7 @@ describe("price test setting", () => {
       '{"B":{"self":7}}', // 7 cents
       '{"B":{"self":99999999}}',
       '{"B":{"other":650}}',
+      '{"B":{"gift":1295}}', // the gift voucher no longer exists
       '{"B":{}}',
       '{"control":{"self":650}}',
       '{"a b":{"self":650}}',
@@ -54,12 +55,10 @@ describe("assigning a variant", () => {
 describe("the price a visitor pays", () => {
   it("is the normal price, and records nothing, while the test is off", () => {
     expect(resolvePrice("self", null, "B")).toEqual({ cents: PRICE_CENTS, variant: null });
-    expect(resolvePrice("gift", null, null)).toEqual({ cents: GIFT_PRICE_CENTS, variant: null });
   });
-  it("is the variant's price per product, and the normal price where the variant names none", () => {
+  it("is the variant's price", () => {
     expect(resolvePrice("self", CONFIG, "B")).toEqual({ cents: 650, variant: "B" });
-    expect(resolvePrice("gift", CONFIG, "B")).toEqual({ cents: 1295, variant: "B" });
-    expect(resolvePrice("gift", CONFIG, "C")).toEqual({ cents: GIFT_PRICE_CENTS, variant: "C" });
+    expect(resolvePrice("self", CONFIG, "C")).toEqual({ cents: 850, variant: "C" });
   });
   it("treats no cookie, 'control' and a variant that was removed as control at the normal price", () => {
     for (const cookie of [null, undefined, "control", "Z"]) {

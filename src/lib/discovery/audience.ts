@@ -25,9 +25,9 @@ export function normalizeSearchContext(raw: unknown): SearchContext {
   return typeof raw === "string" && (SEARCH_CONTEXTS as readonly string[]).includes(raw) ? (raw as SearchContext) : "unknown";
 }
 
-/** True when the window is for somebody else: a gift (landing button), or a context other than "for myself". */
-export function isForOther(answers: { purpose?: string; searchContext?: string }): boolean {
-  return answers.purpose === "gift" || OTHER_CONTEXTS.includes(normalizeSearchContext(answers.searchContext));
+/** True when the window is for somebody else: a context other than "for myself" (a child, another adult, a group). */
+export function isForOther(answers: { searchContext?: string }): boolean {
+  return OTHER_CONTEXTS.includes(normalizeSearchContext(answers.searchContext));
 }
 
 /**

@@ -1,7 +1,7 @@
 import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 import { sendEmail } from "@/lib/resend";
 import { EMAIL_COLORS as c, EMAIL_FONTS, emailButton, emailEyebrow, emailImages, emailShell, escapeHtml } from "@/lib/email/layout";
-import { getGiftCopy } from "@/lib/i18n/gift";
+import { getFollowUpCopy } from "@/lib/i18n/followUp";
 import { COMPANY_LINE } from "@/lib/company";
 import type { Locale } from "@/lib/locale";
 
@@ -18,7 +18,7 @@ export interface FollowUpEmailInput {
 }
 
 export function buildFollowUpEmail(input: FollowUpEmailInput): { subject: string; html: string; text: string } {
-  const t = getGiftCopy(input.locale).followUp;
+  const t = getFollowUpCopy(input.locale).followUp;
   const bodyHtml = `
     ${emailEyebrow("WindowInto", c.orangeText)}
     <h1 style="margin:0 0 14px;font-family:${EMAIL_FONTS.serif};font-size:28px;line-height:1.25;font-weight:400;color:${c.navy};">${escapeHtml(t.heading)}</h1>

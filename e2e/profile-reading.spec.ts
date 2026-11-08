@@ -103,7 +103,7 @@ test.describe("the order block", () => {
     await expect(toOrder).toBeHidden();
   });
 
-  test("the e-mail address is plainly optional and the gift fields exist only while it is a gift", async ({ page }) => {
+  test("the e-mail address is plainly optional", async ({ page }) => {
     await openProfile(page);
     await expect(page.getByText("E-mailadres voor je boek (optioneel)")).toBeVisible();
     await expect(page.getByText("Je hoeft hier niets in te vullen.")).toBeVisible();
@@ -111,37 +111,33 @@ test.describe("the order block", () => {
     await page.locator("main label:has(input[type='checkbox'])").nth(0).click();
     await page.locator("main label:has(input[type='checkbox'])").nth(1).click();
     await expect(page.getByRole("button", { name: /Betalen en mijn PDF ontvangen/ })).toBeEnabled();
-    await expect(page.locator("#gift-email")).toHaveCount(0);
-    await page.locator("#gift-switch").click();
-    await expect(page.locator("#gift-email")).toBeVisible();
-    // The recipient's address is then needed, and the delivery field gives way to it.
-    await expect(page.locator("#delivery-email")).toHaveCount(0);
+    await expect(page.locator("#delivery-email")).toBeVisible();
+    // A wrong address blocks it again.
+    await page.locator("#delivery-email").fill("not-an-address");
     await expect(page.getByRole("button", { name: /Betalen en mijn PDF ontvangen/ })).toBeDisabled();
-    await page.locator("#gift-email").fill("oma@example.com");
+    await page.locator("#delivery-email").fill("");
     await expect(page.getByRole("button", { name: /Betalen en mijn PDF ontvangen/ })).toBeEnabled();
-    await page.locator("#gift-switch").click();
-    await expect(page.locator("#gift-email")).toHaveCount(0);
   });
 });
 
-// The three switches (gift, memory, follow-up) must stay inside the screen at every phone width, in both languages and with all three on.
+// The two switches (memory, follow-up) must stay inside the screen at every phone width, in both languages and with both on.
 for (const locale of ["nl-NL", "en-US"]) {
   for (const width of [320, 360, 390]) {
     test.describe(`switches at ${width}px in ${locale}`, () => {
       test.use({ viewport: { width, height: 800 }, hasTouch: true, isMobile: true, locale });
 
-      test("all three stay on screen and nothing scrolls sideways", async ({ page }) => {
+      test("both stay on screen and nothing scrolls sideways", async ({ page }) => {
         await openProfile(page);
-        for (const id of ["gift", "memory", "followup"]) await page.locator(`#${id}-switch`).click();
-        for (const id of ["gift", "memory", "followup"]) {
+        for (const id of ["memory", "followup"]) await page.locator(`#${id}-switch`).click();
+        for (const id of ["memory", "followup"]) {
           await expect(page.locator(`#${id}-switch`)).toHaveAttribute("aria-checked", "true");
           const box = (await page.locator(`#${id}-switch`).boundingBox())!;
           expect(box.x, id).toBeGreaterThanOrEqual(0);
           expect(box.x + box.width, id).toBeLessThanOrEqual(width);
           expect(box.width, id).toBeGreaterThanOrEqual(44);
         }
-        await expect(page.locator("#gift-email")).toBeVisible();
-        const emailBox = (await page.locator("#gift-email").boundingBox())!;
+        await expect(page.locator("#delivery-email")).toBeVisible();
+        const emailBox = (await page.locator("#delivery-email").boundingBox())!;
         expect(emailBox.x + emailBox.width).toBeLessThanOrEqual(width);
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
       });

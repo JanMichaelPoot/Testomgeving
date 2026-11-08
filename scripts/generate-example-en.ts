@@ -31,7 +31,7 @@ async function main() {
   if (!row) throw new Error(`No ready plan starts with ${wanted}`);
   const { data: intake } = await supabase.from("intake_answers").select("raw_json").eq("session_id", row.session_id).maybeSingle();
   const stored = { ...(intake?.raw_json as StoredIntake), locale: "en" as const };
-  if (stored.purpose === "gift" || isForOther(stored) || stored.recipientName) throw new Error("This book is for someone else: not suitable as the public example.");
+  if (isForOther(stored) || stored.recipientName) throw new Error("This book is for someone else: not suitable as the public example.");
 
   const { book, report } = await generateIdeaBookFromSeeds(stored, "en", computeCharacterProfile(stored), { sessionId: row.session_id });
   console.log(`Written: ${book.ideas.map((i) => i.title).join(" | ")} | wildcard: ${book.wildcard.title}`);

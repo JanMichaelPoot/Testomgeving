@@ -44,7 +44,7 @@ describe("the 20 fixed profiles", () => {
 
   it("cover the kinds of visitors the audit asked for", () => {
     expect(profiles.filter((p) => p.kind === "cards").length).toBeGreaterThanOrEqual(3);
-    expect(profiles.filter((p) => p.stored.purpose === "gift").length).toBeGreaterThanOrEqual(2);
+    expect(profiles.filter((p) => p.stored.recipientName).length).toBeGreaterThanOrEqual(2);
     expect(profiles.filter((p) => p.edge).length).toBeGreaterThanOrEqual(4);
     expect(new Set(profiles.map((p) => p.stored.budget)).size).toBe(4);
     expect(new Set(profiles.map((p) => p.stored.timeAvailable)).size).toBeGreaterThanOrEqual(4);

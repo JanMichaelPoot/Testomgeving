@@ -1,4 +1,4 @@
-// Filling "{name}" in the gift copy. With a first name the text reads "Wat zou Anna aantrekken?"; without one the stand-in is a plain
+// Filling "{name}" in the copy for a search for somebody else. With a first name the text reads "Wat zou Anna aantrekken?"; without one the stand-in is a plain
 // noun ("de ontvanger" / "the recipient"), never a pronoun placeholder like "diegene" or "them". A name at the start of a sentence gets a
 // capital ("De ontvanger zoekt rust."). Pure, so the wizard, the profile portrait and the tests all use the same rule.
 

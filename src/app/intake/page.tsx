@@ -18,10 +18,6 @@ import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { checkTestQuota } from "@/lib/testQuota";
 import { getVisitorPrice } from "@/lib/visitorPrice";
 import { getDeviceId } from "@/lib/discovery/historyStore";
-import { getGiftCopy } from "@/lib/i18n/gift";
-import { getVoucherCookie } from "@/lib/voucher/cookie";
-import { findVoucherByCode } from "@/lib/voucher/store";
-import { voucherState } from "@/lib/voucher/code";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -74,15 +70,6 @@ export default async function IntakePage(props: PageProps<"/intake">) {
   const concretePool = wantsImages2 ? buildConcretePool(locale, month) : undefined;
   const visitorPrice = await getVisitorPrice("self");
 
-  // A recipient who pressed "Open je venster" on a valid gift voucher redeems it on the last screen instead of paying. Only for an intake for
-  // oneself (a gift intake is the giver filling it in), and only while the code can still be redeemed.
-  let voucher: { copy: ReturnType<typeof getGiftCopy>["panel"]; code: string; recipientName: string | null; giverName: string | null } | undefined;
-  const voucherCode = searchParams.for === "gift" ? null : await getVoucherCookie();
-  if (voucherCode) {
-    const row = await findVoucherByCode(createServiceRoleClient(), voucherCode);
-    if (row && voucherState(row) === "ok") voucher = { copy: getGiftCopy(locale).panel, code: row.code, recipientName: row.recipient_name, giverName: row.giver_name };
-  }
-
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
@@ -100,12 +87,10 @@ export default async function IntakePage(props: PageProps<"/intake">) {
             associations={buildAssociationLibrary(locale, month)}
             concretePool={concretePool}
             initial={initial}
-            purpose={searchParams.for === "gift" ? "gift" : "self"}
             payment={{
               dict: dict.checkout,
               price: visitorPrice.label(locale),
               priceVariant: visitorPrice.variant,
-              voucher,
               rememberInitially: (await getDeviceId()) !== null,
               testNotice: stripeTestNotice(dict.venster.testBanner),
               // Stripe sends the buyer back here (via /checkout) after a cancelled or failed payment.

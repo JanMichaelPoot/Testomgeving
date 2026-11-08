@@ -268,7 +268,7 @@ export interface IntakeSummary {
   age: [string, number][];
   company: [string, number][];
   variants: [string, number][];
-  gift: number;
+  forOther: number;
 }
 
 export function intakeSummary(rows: readonly IntakeRow[]): IntakeSummary {
@@ -287,6 +287,7 @@ export function intakeSummary(rows: readonly IntakeRow[]): IntakeSummary {
       objs.map((o) => (o.intakeVariant === "associations" ? (o.intakeFlow === "images2" ? "beeld-intake (2 pagina's)" : "beeld-intake") : Array.isArray(o.interests) && (o.interests as unknown[]).length ? "kaartenwizard" : "klassiek")),
       4,
     ),
-    gift: objs.filter((o) => typeof o.recipientName === "string" && o.recipientName).length,
+    // Searches for somebody else: a child, another adult or a group.
+    forOther: objs.filter((o) => o.searchContext === "child" || o.searchContext === "adult" || o.searchContext === "group").length,
   };
 }

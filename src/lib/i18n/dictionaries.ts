@@ -121,7 +121,6 @@ export interface Dictionary {
       privacy: string;
       contact: string;
     };
-    giftToggleLabel: string;
     memoryLabel: string;
     memoryHint: string;
     // One e-mail after six weeks, only with this switch on (improvement brief B5).
@@ -136,8 +135,6 @@ export interface Dictionary {
     deliveryEmailLabel: string;
     deliveryEmailPlaceholder: string;
     deliveryEmailHint: string;
-    giftEmailLabel: string;
-    giftEmailPlaceholder: string;
     ctaIdle: string;
     ctaPending: string;
     /** One line under the pay button: the guarantee. */
@@ -412,7 +409,7 @@ export interface Dictionary {
       optionalHint: string;
     };
     purpose: { label: string; options: Option[] };
-    purposeFollowUp: Record<"self" | "gift" | "problem" | "curious", FollowUpCopy>;
+    purposeFollowUp: Record<"self" | "problem" | "curious", FollowUpCopy>;
     ageCategory: { label: string; options: Option[] };
     location: { label: string; sub: string; placeholder: string };
     searchDistance: { label: string; options: Option[] };
@@ -448,13 +445,10 @@ export interface Dictionary {
       suggestions: string[];
       optionalHint: string;
     };
-    // Keyed by the same purpose the person chose on step 1 (see
-    // purposeFollowUp above) — "gift" needs different wording here, since
-    // by this point they've already told us the *recipient*, and a plain
-    // "who's this for?" reads as contradicting that earlier answer.
+    // Keyed by the same purpose the person chose on step 1 (see purposeFollowUp above).
     company: {
       label: string;
-      sub: Record<"self" | "gift" | "problem" | "curious", string>;
+      sub: Record<"self" | "problem" | "curious", string>;
       options: Option[];
     };
   };
@@ -673,13 +667,12 @@ const nl: Dictionary = {
       privacy: "Privacybeleid",
       contact: "Contact",
     },
-    giftToggleLabel: "Dit is een cadeau — stuur het naar iemand anders",
     memoryLabel: "Onthoud wat ik op dit apparaat heb gezien, zodat een volgend Idea Book het niet herhaalt",
     memoryHint:
       "Optioneel. Slaat 12 maanden een willekeurige code op in een cookie op dit apparaat, en alleen welke activiteiten je boeken lieten zien. Geen naam of e-mailadres. Je kunt het hier of op de privacypagina uitzetten en dan wordt alles verwijderd.",
     followUpLabel: "Mail me over zes weken één keer: tijd voor een nieuw venster?",
     followUpHint:
-      "Optioneel. Eén e-mail, ongeveer zes weken na je boek, naar het adres van je bestelling (ook bij een cadeau: naar het adres van degene die betaalt). Met een link naar een nieuwe intake die geen ideeën herhaalt die je al kreeg. Daarna niets meer; geen nieuwsbrief. Je kunt je toestemming altijd intrekken via hello@windowinto.nl.",
+      "Optioneel. Eén e-mail, ongeveer zes weken na je boek, naar het adres van je bestelling. Met een link naar een nieuwe intake die geen ideeën herhaalt die je al kreeg. Daarna niets meer; geen nieuwsbrief. Je kunt je toestemming altijd intrekken via hello@windowinto.nl.",
     choicesHeading: "Jouw keuzes",
     choicesHint: "Kijk ze nog één keer na. Je kunt alles nog wijzigen voordat je betaalt.",
     choicesEdit: "Wijzig",
@@ -695,8 +688,6 @@ const nl: Dictionary = {
     deliveryEmailLabel: "E-mailadres voor je boek (optioneel)",
     deliveryEmailPlaceholder: "jouw@voorbeeld.nl",
     deliveryEmailHint: "Je hoeft hier niets in te vullen. Laat je het leeg, dan sturen we je boek naar het adres dat je bij het betalen invult.",
-    giftEmailLabel: "E-mailadres van de ontvanger",
-    giftEmailPlaceholder: "naam@voorbeeld.nl",
     ctaIdle: "Betalen en mijn PDF ontvangen — {price}",
     ctaPending: "Checkout wordt geopend…",
     guarantee: "Klopt een plek niet? Je krijgt gratis een nieuw boek.",
@@ -1002,7 +993,6 @@ const nl: Dictionary = {
       label: "Waar ben je eigenlijk naar op zoek?",
       options: [
         { value: "self", label: "Iets te doen, alleen voor mezelf" },
-        { value: "gift", label: "Een cadeau of verrassing voor iemand anders" },
         { value: "problem", label: "Een specifiek probleem oplossen" },
         { value: "curious", label: "Gewoon nieuwsgierig wat er allemaal mogelijk is" },
       ],
@@ -1016,16 +1006,6 @@ const nl: Dictionary = {
           "Iets waar ik met plezier aan terugdenk",
           "Iets heel anders dan mijn dagelijkse routine",
           "Gewoon iets leuks, maak me verrast",
-        ],
-      },
-      gift: {
-        label: "Vertel ons over diegene.",
-        sub: "Wie is het, en waar houdt diegene van? Twee zinnen is genoeg, we hebben geen essay nodig.",
-        placeholder: "Mijn zus, die geobsedeerd is door planten en vreselijke woordgrappen…",
-        suggestions: [
-          "Mijn partner, die van lekker eten en verrassingen houdt",
-          "Een vriend(in) die alles al lijkt te hebben",
-          "Een collega die wel een oppepper kan gebruiken",
         ],
       },
       problem: {
@@ -1167,10 +1147,6 @@ const nl: Dictionary = {
       label: "Voor wie is dit venster?",
       sub: {
         self: "Wie er eventueel bij is.",
-        // "Purpose" already told us who the *gift* is for — this question
-        // is really about who joins in, so it needs to say that
-        // explicitly, or it reads as contradicting the earlier answer.
-        gift: "Dit gaat over wie er evt. bij is als het moment zelf plaatsvindt — niet over wie het cadeau ontvangt.",
         problem: "Wie er eventueel bij is.",
         curious: "Wie er eventueel bij is.",
       },
@@ -1397,13 +1373,12 @@ const en: Dictionary = {
       privacy: "Privacy Policy",
       contact: "Contact",
     },
-    giftToggleLabel: "This is a gift — send it to someone else",
     memoryLabel: "Remember what I was shown on this device, so a next Idea Book doesn't repeat it",
     memoryHint:
       "Optional. Stores a random code in a cookie on this device for 12 months, and only which activities your books showed. No name or e-mail address. You can switch it off here or on the privacy page and everything is deleted.",
     followUpLabel: "E-mail me once in six weeks: time for a new window?",
     followUpHint:
-      "Optional. One e-mail, about six weeks after your book, to the address of your order (for a gift too: to the address of whoever pays). It links to a new intake that does not repeat the ideas you already received. Nothing after that; no newsletter. You can withdraw your consent at any time via hello@windowinto.nl.",
+      "Optional. One e-mail, about six weeks after your book, to the address of your order. It links to a new intake that does not repeat the ideas you already received. Nothing after that; no newsletter. You can withdraw your consent at any time via hello@windowinto.nl.",
     choicesHeading: "Your choices",
     choicesHint: "Check them once more. You can still change everything before you pay.",
     choicesEdit: "Change",
@@ -1419,8 +1394,6 @@ const en: Dictionary = {
     deliveryEmailLabel: "E-mail address for your book (optional)",
     deliveryEmailPlaceholder: "you@example.com",
     deliveryEmailHint: "You don't have to fill this in. Leave it empty and we send your book to the address you enter when paying.",
-    giftEmailLabel: "Recipient's email address",
-    giftEmailPlaceholder: "name@example.com",
     ctaIdle: "Pay and get my PDF — {price}",
     ctaPending: "Opening checkout…",
     guarantee: "Is a place wrong? You get a new book for free.",
@@ -1726,7 +1699,6 @@ const en: Dictionary = {
       label: "What are you really after?",
       options: [
         { value: "self", label: "Something to do, just for me" },
-        { value: "gift", label: "A gift or surprise for someone else" },
         { value: "problem", label: "A specific problem to solve" },
         { value: "curious", label: "Just curious what's out there" },
       ],
@@ -1740,16 +1712,6 @@ const en: Dictionary = {
           "Something I'll look back on fondly",
           "Something totally different from my routine",
           "Just something fun, surprise me",
-        ],
-      },
-      gift: {
-        label: "Tell us about them.",
-        sub: "Who are they, and what do they love? Two sentences is plenty, no essay needed.",
-        placeholder: "My sister, who's obsessed with plants and terrible puns…",
-        suggestions: [
-          "My partner, who loves good food and surprises",
-          "A friend who seems to already have everything",
-          "A coworker who could use a pick-me-up",
         ],
       },
       problem: {
@@ -1892,7 +1854,6 @@ const en: Dictionary = {
       label: "Who's this window for?",
       sub: {
         self: "Who's coming along, if anyone.",
-        gift: "This is about who's there when the moment itself happens — not about who receives the gift.",
         problem: "Who's coming along, if anyone.",
         curious: "Who's coming along, if anyone.",
       },

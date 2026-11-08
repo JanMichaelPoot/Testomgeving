@@ -2,7 +2,7 @@ import { doorRange } from "@/lib/productStructure";
 // Copy of the image intake and its window ("Het venster", WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md).
 // Kept in its own file because dictionaries.ts is already very long; it is part of the same
 // Dictionary (dict.venster) and follows the same rules: nl and en, same tone (warm, curious,
-// a little mischievous). "{name}" is the recipient's first name in gift mode, or a neutral
+// a little mischievous). "{name}" is the first name of the person the search is for, or a neutral
 // fallback (see fill() in AssociationWizard).
 
 export interface VensterDictionary {

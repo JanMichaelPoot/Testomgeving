@@ -71,10 +71,8 @@ test.describe("the start page", () => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   });
 
-  test("a gift opens it without 'voor mezelf', and the choice changes the wording of the next page", async ({ page }) => {
-    await open(page, "?wizard=images2&for=gift&s=e2e-1");
-    await expect(page.locator('[data-context="self"]')).toHaveCount(0);
-    await expect(page.locator("[data-context]")).toHaveCount(4);
+  test("searching for another adult with a name changes the wording of the next page", async ({ page }) => {
+    await open(page);
     await page.locator('[data-context="adult"]').click();
     await page.getByRole("combobox").fill("Haarlem");
     await page.getByLabel("Hoe heet diegene? Met een naam wordt je boek persoonlijker.").fill("Oma Els");

@@ -1,13 +1,14 @@
 {
   "id": "P12",
-  "title": "Cadeau voor een kunstliefhebber",
+  "title": "Voor een kunstliefhebber (iemand anders)",
   "kind": "images",
-  "note": "Cadeau voor Anna, 55-64.",
+  "note": "Zoektocht voor Anna, 55-64.",
   "edge": false,
   "month": 3,
   "seed": "eval-P12",
   "stored": {
-    "purpose": "gift",
+    "purpose": "self",
+    "searchContext": "adult",
     "ageCategory": "55-64",
     "location": "Haarlem",
     "searchDistance": "city",

@@ -1,7 +1,6 @@
 "use client";
 
 import { fillName } from "@/lib/recipientName";
-import { decideDraft } from "@/lib/giftArrival";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Button } from "@/components/ui/Button";
@@ -13,8 +12,6 @@ import { trackEvent } from "@/lib/posthog/client";
 import { checkPicks, saveIntake, type IntakeAnswers } from "@/app/intake/actions";
 import { CheckoutPanel } from "@/components/window/CheckoutPanel";
 import { TestModeBanner } from "@/components/window/TestModeBanner";
-import { VoucherRedeemPanel } from "@/components/window/VoucherRedeemPanel";
-import { fill as fillGift, type GiftCopy } from "@/lib/i18n/gift";
 import { activityImage, domainImage } from "@/lib/discovery/paths";
 import { ASSOCIATION_ROUNDS, averageAxes, tagProfile, type AssociationCard, type AssociationLibrary, type AssociationRound, type AxisId } from "@/lib/discovery/associationProfile";
 import { MAX_CONCRETE_PICKS, MAX_IMAGE_PICKS, MAX_REFRESHES, composeConcretePage, registerMix, sampleBalancedBatch, type RegisteredCard } from "@/lib/discovery/twoPages";
@@ -44,7 +41,7 @@ import { DiscoveryFlow } from "@/components/window/DiscoveryFlow";
 // Every image lands in the window (WindowFrame), which stays in view: a sticky panel on a
 // computer, an icon that opens it on a phone. Only questions that change the search are
 // asked (vraag-audit, WindowInto/WINDOW_Vraag-audit_Fase1-1.md); the server derives the rest
-// (src/lib/discovery/imageIntake.ts). Works for oneself and, with other wording, as a gift.
+// (src/lib/discovery/imageIntake.ts). Works for oneself and, with other wording, for somebody else (child, other adult, group).
 
 type PageId = AnyVensterPageId;
 const ROUND_OF: Partial<Record<PageId, AssociationRound>> = { places: "places", moments: "moments", senses: "senses" };
@@ -148,36 +145,6 @@ function saveDraft(key: string, d: Draft) {
   }
 }
 
-const GIFT_ARRIVAL_KEY = "window-gift-arrival";
-
-/** Which stored draft (if any) this visit may continue: see src/lib/giftArrival.ts for the rule. */
-function draftForArrival(draft: Draft | null, purpose: "self" | "gift", key: string): Draft | null {
-  try {
-    const arrival = purpose === "gift" ? new URLSearchParams(window.location.search).get("s") : null;
-    const seenArrival = window.sessionStorage.getItem(GIFT_ARRIVAL_KEY);
-    if (arrival) window.sessionStorage.setItem(GIFT_ARRIVAL_KEY, arrival);
-    const decision = decideDraft({
-      purpose,
-      arrival,
-      seenArrival,
-      draft: draft
-        ? {
-            purpose: draft.answers.purpose,
-            page: draft.page,
-            started: draft.answers.location.trim().length > 0 || normalizeSearchContext(draft.answers.searchContext) !== "unknown" || (draft.answers.associations ?? []).length > 0,
-          }
-        : null,
-    });
-    if (decision === "discard") {
-      clearDraft(key);
-      return null;
-    }
-  } catch {
-    // Storage unavailable: nothing was stored either.
-  }
-  return draft;
-}
-
 function clearDraft(key: string) {
   try {
     window.sessionStorage.removeItem(key);
@@ -254,11 +221,6 @@ export interface WizardPayment {
   paymentFailed: boolean;
   /** The price-test variant this visitor was shown; null while the test is off. */
   priceVariant: string | null;
-  /**
-   * Set when the visitor came with a valid gift voucher (src/app/cadeau): the last screen then redeems it instead of taking a payment.
-   * Absent for everyone else.
-   */
-  voucher?: { copy: GiftCopy["panel"]; code: string; recipientName: string | null; giverName: string | null };
 }
 
 export function AssociationWizard({
@@ -267,7 +229,6 @@ export function AssociationWizard({
   library,
   domains,
   initial,
-  initialPurpose = "self",
   payment,
   flow,
   concretePool,
@@ -278,8 +239,6 @@ export function AssociationWizard({
   domains: { id: string; label: string }[];
   /** Changing choices before paying: stored answers and the page to open on. */
   initial?: { answers: IntakeAnswers; page: number };
-  /** From the landing page's two buttons (?for=gift). */
-  initialPurpose?: "self" | "gift";
   payment: WizardPayment;
   /** "images2": the intake in two image pages (docs/fase4-opzet.md). Absent: the four rounds. */
   flow?: "images2";
@@ -291,7 +250,7 @@ export function AssociationWizard({
   const draftKey = flow2 ? DRAFT_KEY_TWO : DRAFT_KEY;
   const variantName = flow2 ? "images2" : "associations";
   const [page, setPage] = useState(0);
-  const [answers, setAnswers] = useState<IntakeAnswers>({ ...EMPTY, purpose: initialPurpose, ...(flow2 ? { intakeFlow: "images2" as const } : {}) });
+  const [answers, setAnswers] = useState<IntakeAnswers>({ ...EMPTY, ...(flow2 ? { intakeFlow: "images2" as const } : {}) });
   // Two pages: extra pages of images ("Andere beelden") and page 2 as shown.
   const [imageMore, setImageMore] = useState<string[][]>([]);
   // Which set of images or activities is in view: null = the newest. Going back through the sets loses nothing that was chosen.
@@ -330,19 +289,17 @@ export function AssociationWizard({
   const startedAt = useRef(0);
 
   const pageId: PageId = pages[page];
-  // "For somebody else" covers a gift and the start page's child / other adult / group; the wording is the gift wording.
+  // "For somebody else": the start page's child / other adult / group. The "...Gift" keys of the copy hold that wording.
   const searchContext = normalizeSearchContext(answers.searchContext);
-  const gift = isForOther(answers);
-  const isGift = answers.purpose === "gift";
+  const forOther = isForOther(answers);
   // The first name as typed ("" when there is none): texts with variants then use the one that never names the person (see recipientName.ts).
   const name = (answers.recipientName ?? "").trim();
   const group = searchContext === "group";
   const fill = (s: string) => fillName(s, name, { group, fallback: dict.recipientFallback });
-  const pick = (self: string, giftText: string) => fill(gift ? giftText : self);
+  const pick = (self: string, otherText: string) => fill(forOther ? otherText : self);
 
   // Restore once on mount: stored answers when editing, else a draft of this tab.
   useEffect(() => {
-    let restoredDraft = false;
     if (initial) {
       const split = splitLimits(initial.answers.mustHaves ?? "", dict.who.limitChips);
       /* eslint-disable react-hooks/set-state-in-effect -- one-time, hydration-safe restore */
@@ -353,9 +310,8 @@ export function AssociationWizard({
       setSeed(newSeed());
       setSeenBefore(loadSeen());
     } else {
-      const draft = draftForArrival(loadDraft(draftKey), initialPurpose, draftKey);
+      const draft = loadDraft(draftKey);
       if (draft && (draft.page > 0 || (draft.answers.associations ?? []).length > 0 || draft.answers.location.trim().length > 0 || normalizeSearchContext(draft.answers.searchContext) !== "unknown")) {
-        restoredDraft = true;
         setAnswers(
           withKm({
             ...draft.answers,
@@ -363,7 +319,7 @@ export function AssociationWizard({
             budget: currentBudget(draft.answers.budget ?? ""),
             socialFormats: [],
             ageCategory: "",
-            purpose: draft.answers.purpose === "gift" || initialPurpose === "gift" ? "gift" : "self",
+            purpose: "self",
           }),
         );
         setLimitChips(draft.limitChips);
@@ -381,9 +337,8 @@ export function AssociationWizard({
     }
     setHydrated(true);
     startedAt.current = now();
-    trackEvent("intake_started", { wizard_variant: variantName, editing: !!initial, gift: initialPurpose === "gift" });
-    if (initialPurpose === "gift" && !initial && !restoredDraft) trackEvent("gift_started", { wizard_variant: variantName });
-    // Runs once: `initial` and `initialPurpose` are fixed for a mounted wizard.
+    trackEvent("intake_started", { wizard_variant: variantName, editing: !!initial });
+    // Runs once: `initial` is fixed for a mounted wizard.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -561,7 +516,7 @@ export function AssociationWizard({
             company: answers.company,
             socialFormats: answers.socialFormats ?? [],
             mustHaves: limitChips.join("; "),
-            gift,
+            forOther,
             name,
             group,
             fallbackName: dict.recipientFallback,
@@ -765,7 +720,6 @@ export function AssociationWizard({
       trackEvent("situation_done", { wizard_variant: variantName, duration_ms: duration });
       trackEvent("search_context_set", {
         context: searchContext,
-        is_gift: isGift,
         has_limits: answers.timeAvailable !== "" || answers.budget !== "" || limitChips.length > 0,
       });
     }
@@ -1044,7 +998,7 @@ export function AssociationWizard({
 
   // The start page ("Eerst de basis"): who we search for, where, and the few limits. Only the place is required.
   const startPage = (() => {
-    const choices = (["self", "child", "adult", "group", "unknown"] as const).filter((c) => !isGift || c !== "self");
+    const choices = (["self", "child", "adult", "group", "unknown"] as const);
     const sectionLabel = "text-xs font-bold uppercase tracking-[0.09em] text-gold-text";
     return (
       <div className="space-y-9">
@@ -1058,7 +1012,7 @@ export function AssociationWizard({
           <div>
             <p className={sectionLabel}>{dict.start.sections.who}</p>
             <h2 id="start-who" className="mt-1 font-semibold text-ink">
-              {isGift ? dict.start.who.labelGift : dict.start.who.label}
+              {dict.start.who.label}
             </h2>
             <p className="mt-1 text-sm text-ink/70">{dict.start.who.sub}</p>
           </div>
@@ -1084,7 +1038,7 @@ export function AssociationWizard({
               );
             })}
           </div>
-          {gift && searchContext !== "group" && (
+          {forOther && searchContext !== "group" && (
             <div className="max-w-sm">
               <label htmlFor="recipient" className="block text-sm font-semibold text-ink">
                 {dict.start.who.nameLabel}
@@ -1137,7 +1091,7 @@ export function AssociationWizard({
             <p className="mt-1 text-sm text-ink/70">{dict.start.limits.sub}</p>
           </div>
           <fieldset>
-            <legend className="font-semibold text-ink">{gift ? dict.start.limits.timeLabelOther : dict.room.timeLabel}</legend>
+            <legend className="font-semibold text-ink">{forOther ? dict.start.limits.timeLabelOther : dict.room.timeLabel}</legend>
             <div className="mt-3 flex flex-wrap gap-2">
               {intakeDict.timeAvailable.options.map((o) => (
                 <Chip key={o.value} selected={answers.timeAvailable === o.value} onClick={() => set("timeAvailable", answers.timeAvailable === o.value ? "" : o.value)}>
@@ -1326,7 +1280,7 @@ export function AssociationWizard({
             <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{dict.chapters.images}</p>
             <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.worlds.heading, dict.worlds.headingGift)}</h1>
             <p className="mt-2 text-ink/70">{dict.worlds.sub}</p>
-            {gift && (
+            {forOther && (
               <div className="mt-5 max-w-sm">
                 <label htmlFor="recipient" className="block text-sm font-semibold text-ink">
                   {dict.recipientLabel}
@@ -1461,38 +1415,7 @@ export function AssociationWizard({
               ) : null
             }
             payment={
-              payment.voucher ? (
-                <section id="bestellen" aria-labelledby="order-title" className="scroll-mt-24 overflow-hidden rounded-lg border border-border bg-paper">
-                  <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr]">
-                    <div>
-                      <h2 id="order-title" className="font-serif text-2xl leading-tight text-ink sm:text-3xl">
-                        {payment.voucher.recipientName ? fillGift(payment.voucher.copy.headingNamed, { name: payment.voucher.recipientName }) : payment.voucher.copy.heading}
-                      </h2>
-                      <p className="mt-3 text-sm leading-relaxed text-ink/75">
-                        {payment.voucher.giverName
-                          ? fillGift(payment.voucher.copy.validBody, { code: payment.voucher.code, giver: payment.voucher.giverName })
-                          : fillGift(payment.voucher.copy.validBodyAnon, { code: payment.voucher.code })}
-                      </p>
-                      <p className="mt-4 rounded-lg bg-surface-active px-4 py-3 text-sm font-medium text-ink">{payment.voucher.copy.freeNote}</p>
-                      <ul className="mt-6 flex flex-col gap-3">
-                        {dict.checkout.whatYouGet.map((line) => (
-                          <li key={line} className="flex items-start gap-3 text-sm leading-relaxed text-ink/75">
-                            <span aria-hidden="true" className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-light text-accent-dark">
-                              <svg width="9" height="9" viewBox="0 0 12 10" fill="none">
-                                <path d="M1 5l3.5 4L11 1" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                              </svg>
-                            </span>
-                            {line}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <VoucherRedeemPanel copy={payment.voucher.copy} beforeRedeem={saveForPayment} />
-                    </div>
-                  </div>
-                </section>
-              ) : (
+              (
               <section id="bestellen" aria-labelledby="order-title" className="scroll-mt-24 overflow-hidden rounded-lg border border-border bg-paper">
                 <TestModeBanner notice={payment.testNotice} />
                 <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr]">

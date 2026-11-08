@@ -126,7 +126,7 @@ export default async function AdminContentPage() {
           </Card>
           <Card>
             <p className="mb-3 text-xs text-ink/70">Gezelschap en soort intake</p>
-            <BarList items={[...intake.company.map(([k, n]) => ({ label: `Met: ${k}`, value: n })), ...intake.variants.map(([k, n]) => ({ label: `Intake: ${k}`, value: n })), { label: "Cadeau (voornaam ingevuld)", value: intake.gift }]} />
+            <BarList items={[...intake.company.map(([k, n]) => ({ label: `Met: ${k}`, value: n })), ...intake.variants.map(([k, n]) => ({ label: `Intake: ${k}`, value: n })), { label: "Zoekt voor iemand anders", value: intake.forOther }]} />
           </Card>
         </div>
       </Section>

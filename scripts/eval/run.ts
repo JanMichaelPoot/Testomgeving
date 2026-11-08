@@ -50,7 +50,7 @@ const COST_PER_BOOK_USD = 0.23;
 function briefOf(p: EvalProfile): string[] {
   const s = p.stored;
   const lines: string[] = [];
-  const who = [s.purpose === "gift" ? `cadeau voor ${s.recipientName || "iemand"}` : "voor zichzelf", s.ageCategory ? `leeftijd ${s.ageCategory}` : null, s.location].filter(Boolean);
+  const who = [s.recipientName ? `voor ${s.recipientName || "iemand"}` : "voor zichzelf", s.ageCategory ? `leeftijd ${s.ageCategory}` : null, s.location].filter(Boolean);
   lines.push(who.join(", "));
   lines.push(`budget ${s.budget ?? "?"}, tijd ${s.timeAvailable ?? "?"}, gezelschap ${(s.socialFormats ?? []).join(" / ") || "niet gezegd"}`);
   if (p.kind === "images") {

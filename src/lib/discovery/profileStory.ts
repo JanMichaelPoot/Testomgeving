@@ -43,7 +43,7 @@ export interface ProfileInput {
   socialFormats: readonly string[];
   /** The hard limits as the wizard will store them (chips and free text, joined). */
   mustHaves: string;
-  gift: boolean;
+  forOther: boolean;
   /** The first name as typed; empty when there is none (the text then uses its variant without a name). */
   name: string;
   /** The search is for a group: texts with a variant for it use "jullie". */
@@ -273,7 +273,7 @@ function resolveAll<T>(value: T, who: { name?: string; group?: boolean }): T {
 }
 
 export function buildProfileStory(input: ProfileInput, rawCopy: Copy): ProfileStory {
-  const copy = input.gift ? resolveAll(rawCopy, { name: input.name, group: input.group }) : rawCopy;
+  const copy = input.forOther ? resolveAll(rawCopy, { name: input.name, group: input.group }) : rawCopy;
   const override = sanitizeAxesOverride(input.override);
   const fromImages = averageAxes(input.cards, input.chosen);
   const axes = effectiveAxes(fromImages, override);
@@ -297,16 +297,16 @@ export function buildProfileStory(input: ProfileInput, rawCopy: Copy): ProfileSt
   const threadSentences: string[] = [];
   const directionSentences: string[] = [];
   if (pickedCards.length === 0) {
-    headline = input.gift ? copy.openHeadlineGift : copy.openHeadline;
-    const openStory = fill(input.gift ? copy.openStoryGift : copy.openStory, nameVars);
+    headline = input.forOther ? copy.openHeadlineGift : copy.openHeadline;
+    const openStory = fill(input.forOther ? copy.openStoryGift : copy.openStory, nameVars);
     sentences.push(openStory);
     threadSentences.push(openStory);
   } else {
     // The headline: the two strongest tags, in images ("plekken waar handen iets te doen hebben").
     const motifs = orderedIds.map((t) => copy.motifs[t]).filter((m): m is string => !!m);
-    if (motifs.length >= 2) headline = fill(input.gift ? copy.headlineGift : copy.headline, { ...nameVars, a: motifs[0], b: motifs[1] });
-    else if (motifs.length === 1) headline = fill(input.gift ? copy.headlineOneGift : copy.headlineOne, { ...nameVars, a: motifs[0] });
-    else headline = input.gift ? copy.headlineNoneGift : copy.headlineNone;
+    if (motifs.length >= 2) headline = fill(input.forOther ? copy.headlineGift : copy.headline, { ...nameVars, a: motifs[0], b: motifs[1] });
+    else if (motifs.length === 1) headline = fill(input.forOther ? copy.headlineOneGift : copy.headlineOne, { ...nameVars, a: motifs[0] });
+    else headline = input.forOther ? copy.headlineNoneGift : copy.headlineNone;
 
     // What the choices say: a sentence for the pair of tags that belong together, and one that reads the
     // choices against who comes along.
@@ -351,7 +351,7 @@ export function buildProfileStory(input: ProfileInput, rawCopy: Copy): ProfileSt
     const own = (input.picks ?? []).slice(0, 3);
     if (own.length > 0) {
       const list = own.length > 1 ? `${own.slice(0, -1).join(", ")} ${copy.and} ${own[own.length - 1]}` : own[0];
-      const picksLine = fill(input.gift ? copy.picksLineGift : copy.picksLine, { ...nameVars, list: list.toLowerCase() });
+      const picksLine = fill(input.forOther ? copy.picksLineGift : copy.picksLine, { ...nameVars, list: list.toLowerCase() });
       sentences.push(picksLine);
       threadSentences.push(picksLine);
     }
@@ -360,14 +360,14 @@ export function buildProfileStory(input: ProfileInput, rawCopy: Copy): ProfileSt
   // the tension, or the strongest lean, or the plain fact that nothing leans
   let tension: ProfileStory["tension"];
   if (pickedCards.length === 0) {
-    tension = { kind: "open", axis: null, text: input.gift ? fill(copy.openGift, nameVars) : copy.open };
+    tension = { kind: "open", axis: null, text: input.forOther ? fill(copy.openGift, nameVars) : copy.open };
   } else if (tensionAxis) {
-    tension = { kind: "tension", axis: tensionAxis, text: fill(input.gift ? copy.tensionGift[tensionAxis] : copy.tension[tensionAxis], nameVars) };
+    tension = { kind: "tension", axis: tensionAxis, text: fill(input.forOther ? copy.tensionGift[tensionAxis] : copy.tension[tensionAxis], nameVars) };
   } else {
     const strong = strongestAxis(fromImages, settled);
     tension = strong
-      ? { kind: "strong", axis: strong.axis, text: (input.gift ? copy.strongGift : copy.strong)[strong.axis][strong.dir] }
-      : { kind: "balanced", axis: null, text: input.gift ? copy.balancedGift : copy.balanced };
+      ? { kind: "strong", axis: strong.axis, text: (input.forOther ? copy.strongGift : copy.strong)[strong.axis][strong.dir] }
+      : { kind: "balanced", axis: null, text: input.forOther ? copy.balancedGift : copy.balanced };
   }
 
   // Where the choices lean: the sentences about the leanings, and what stands out (images that pull apart, or one that leans clearly).

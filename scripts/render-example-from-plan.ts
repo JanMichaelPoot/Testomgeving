@@ -6,7 +6,7 @@
 //   python scripts/make-sample-spreads.py          (then: cut the pages shown on the site)
 //
 // The stored book is the one Jan generated while testing: its ideas, places and texts are what the pipeline really wrote. The script
-// refuses a book for someone else (gift) and a book with a first name, and prints what it used so it can be checked by eye.
+// refuses a book for someone else (search for somebody else) and a book with a first name, and prints what it used so it can be checked by eye.
 import { writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { createClient } from "@supabase/supabase-js";
@@ -42,7 +42,7 @@ async function main() {
 
   const { data: intake } = await supabase.from("intake_answers").select("raw_json").eq("session_id", row.session_id).maybeSingle();
   const profile = (intake?.raw_json ?? {}) as StoredIntake;
-  if (profile.purpose === "gift" || isForOther(profile) || profile.recipientName) throw new Error("This book is for someone else: not suitable as the public example.");
+  if (isForOther(profile) || profile.recipientName) throw new Error("This book is for someone else: not suitable as the public example.");
 
   const book: GeneratedIdeaBook = {
     profile_summary: row.profile_summary ?? "",

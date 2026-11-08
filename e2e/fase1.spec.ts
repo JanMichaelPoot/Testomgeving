@@ -1,7 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-// Fase 1 of the improvement brief, in a real browser: keyboard use of the image cards, the mobile menu, and the gift link that
-// always starts clean.
+// Fase 1 of the improvement brief, in a real browser: keyboard use of the image cards and the mobile menu.
 
 test.describe("image cards by keyboard", () => {
   test("Space selects a card, Enter selects another, the focus ring is visible and aria-pressed follows", async ({ page }) => {
@@ -73,45 +72,5 @@ test.describe("mobile menu", () => {
       return { overflow: document.documentElement.scrollWidth - cw, offenders };
     });
     expect(overflow, offenders.join(" | ")).toBeLessThanOrEqual(0);
-  });
-});
-
-test.describe("gift link", () => {
-  test("a new arrival never inherits earlier answers; a reload keeps a gift in progress", async ({ page }) => {
-    // Someone's own, half-finished intake sits in this tab.
-    await page.addInitScript(() => {
-      if (sessionStorage.getItem("seeded")) return;
-      sessionStorage.setItem("seeded", "1");
-      sessionStorage.setItem("window-wizard-variant-v4", "images2");
-      sessionStorage.setItem(
-        "window-venster-draft-images2",
-        JSON.stringify({
-          v: 3,
-          page: 1,
-          answers: { associations: ["place-forest-edge"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations", purpose: "self" },
-          limitChips: [],
-          limitText: "",
-          seed: "e2e",
-          seen: [],
-        }),
-      );
-    });
-    await page.goto("/intake?for=gift&s=first1");
-    await page.locator("[data-context]").first().waitFor();
-    // Fresh: the start page (for whom, where), nothing chosen, and no pronoun placeholder in the heading.
-    await expect(page.locator('[data-context][aria-pressed="true"]')).toHaveCount(0);
-    const heading = await page.locator("main h1, main h2").first().innerText();
-    expect(heading).not.toMatch(/diegene|\bthem\b/i);
-    // Choose something, reload the same link: the gift in progress stays.
-    await page.locator("[data-context]").first().click();
-    await expect(page.locator('[data-context][aria-pressed="true"]')).toHaveCount(1);
-    await page.waitForTimeout(300);
-    await page.reload();
-    await page.locator("[data-context]").first().waitFor();
-    await expect(page.locator('[data-context][aria-pressed="true"]')).toHaveCount(1);
-    // A new arrival (another value) starts clean again.
-    await page.goto("/intake?for=gift&s=second2");
-    await page.locator("[data-context]").first().waitFor();
-    await expect(page.locator('[data-context][aria-pressed="true"]')).toHaveCount(0);
   });
 });

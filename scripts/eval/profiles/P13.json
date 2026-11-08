@@ -1,13 +1,14 @@
 {
   "id": "P13",
-  "title": "Cadeau voor een puber",
+  "title": "Voor een puber (iemand anders)",
   "kind": "images",
-  "note": "Cadeau voor Sam, onder 18, geen alcohol.",
+  "note": "Zoektocht voor Sam, onder 18, geen alcohol.",
   "edge": false,
   "month": 11,
   "seed": "eval-P13",
   "stored": {
-    "purpose": "gift",
+    "purpose": "self",
+    "searchContext": "adult",
     "ageCategory": "under18",
     "location": "Eindhoven",
     "searchDistance": "city",

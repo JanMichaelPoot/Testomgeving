@@ -83,13 +83,13 @@ describe("the search context", () => {
     expect(effectiveAgeCategory({ searchContext: "child", ageCategory: "18-24" })).toBe("18-24");
   });
 
-  it("is 'for somebody else' for a gift and for every context but 'self' and 'unknown'", () => {
-    expect(isForOther({ purpose: "gift" })).toBe(true);
-    expect(isForOther({ purpose: "self", searchContext: "child" })).toBe(true);
-    expect(isForOther({ purpose: "self", searchContext: "group" })).toBe(true);
-    expect(isForOther({ purpose: "self", searchContext: "self" })).toBe(false);
-    expect(isForOther({ purpose: "self" })).toBe(false);
-    expect(isForOther({ purpose: "self", searchContext: "unknown" })).toBe(false);
+  it("is 'for somebody else' for a child, another adult and a group, and for nothing else", () => {
+    expect(isForOther({ searchContext: "child" })).toBe(true);
+    expect(isForOther({ searchContext: "adult" })).toBe(true);
+    expect(isForOther({ searchContext: "group" })).toBe(true);
+    expect(isForOther({ searchContext: "self" })).toBe(false);
+    expect(isForOther({})).toBe(false);
+    expect(isForOther({ searchContext: "unknown" })).toBe(false);
   });
 });
 
@@ -261,11 +261,10 @@ describe("what the server stores for the start page", () => {
     expect(applyImageIntake({ ...base, searchContext: "self", recipientName: "Jan" }, "nl", "s", 6).recipientName).toBe("");
   });
 
-  it("treats a missing or invented context as unknown and a gift can never be 'for myself'", () => {
+  it("treats a missing or invented context as unknown", () => {
     expect(applyImageIntake({ ...base }, "nl", "s", 6).searchContext).toBe("unknown");
     expect(applyImageIntake({ ...base, searchContext: "teen" }, "nl", "s", 6).searchContext).toBe("unknown");
-    expect(applyImageIntake({ ...base, purpose: "gift", searchContext: "self" }, "nl", "s", 6).searchContext).toBe("unknown");
-    expect(applyImageIntake({ ...base, purpose: "gift", searchContext: "adult", recipientName: "Oma" }, "nl", "s", 6).recipientName).toBe("Oma");
+    expect(applyImageIntake({ ...base, searchContext: "adult", recipientName: "Oma" }, "nl", "s", 6).recipientName).toBe("Oma");
   });
 
   it("carries place, distance and limits through unchanged (they are asked once, first)", () => {

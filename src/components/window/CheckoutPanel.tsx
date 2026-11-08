@@ -94,8 +94,6 @@ export function CheckoutPanel({
   // from privacy, and from anything else. Neither implies the other.
   const [digitalDeliveryConsent, setDigitalDeliveryConsent] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const [isGift, setIsGift] = useState(false);
-  const [giftEmail, setGiftEmail] = useState("");
   // Where the book should go if that is not the address typed at Stripe (a tester, someone who wants another inbox).
   const [deliveryEmail, setDeliveryEmail] = useState("");
   // Optional repetition memory: never pre-ticked for a new visitor, and its own consent,
@@ -111,13 +109,12 @@ export function CheckoutPanel({
     trackEvent("checkout_viewed", { price_variant: priceVariant ?? "none" });
   }, [priceVariant]);
 
-  const giftEmailValid = !isGift || isValidEmail(giftEmail);
-  const deliveryEmailValid = isGift || deliveryEmail.trim() === "" || isValidEmail(deliveryEmail);
+  const deliveryEmailValid = deliveryEmail.trim() === "" || isValidEmail(deliveryEmail);
   // The button only ever becomes active once both are true (compliance
   // brief section 7) — this is the UX gate; src/app/checkout/actions.ts
   // re-validates both server-side regardless, since this client check can
   // be bypassed.
-  const canSubmit = digitalDeliveryConsent && termsAccepted && giftEmailValid && deliveryEmailValid;
+  const canSubmit = digitalDeliveryConsent && termsAccepted && deliveryEmailValid;
   const payHint = canSubmit
     ? ""
     : !digitalDeliveryConsent || !termsAccepted
@@ -126,8 +123,8 @@ export function CheckoutPanel({
 
   function handleSubmit() {
     if (!canSubmit) return;
-    trackEvent("pay_clicked", { is_gift: isGift, price_variant: priceVariant ?? "none" });
-    trackEvent("checkout_pay_clicked", { is_gift: isGift, price_variant: priceVariant ?? "none" });
+    trackEvent("pay_clicked", { price_variant: priceVariant ?? "none" });
+    trackEvent("checkout_pay_clicked", { price_variant: priceVariant ?? "none" });
     setError(null);
     startTransition(async () => {
       try {
@@ -135,9 +132,8 @@ export function CheckoutPanel({
         await createCheckoutSession(
           termsAccepted,
           digitalDeliveryConsent,
-          isGift ? giftEmail : undefined,
           remember,
-          !isGift && deliveryEmail.trim() ? deliveryEmail.trim() : undefined,
+          deliveryEmail.trim() ? deliveryEmail.trim() : undefined,
           followUp,
         );
       } catch (err) {
@@ -152,45 +148,22 @@ export function CheckoutPanel({
   return (
     <div>
       {/* Where the book goes: Stripe's own e-mail field is not always editable (autofill, Link), so ask here too. */}
-      {!isGift && (
-        <div className="mb-6">
-          <label htmlFor="delivery-email" className="block text-xs font-medium uppercase tracking-widest text-ink/70">
-            {dict.deliveryEmailLabel}
-          </label>
-          <input
-            id="delivery-email"
-            type="email"
-            autoComplete="email"
-            value={deliveryEmail}
-            onChange={(e) => setDeliveryEmail(e.target.value)}
-            placeholder={dict.deliveryEmailPlaceholder}
-            aria-invalid={!deliveryEmailValid}
-            className={EMAIL_INPUT}
-          />
-          <p className="mt-1.5 text-xs text-ink/70">{dict.deliveryEmailHint}</p>
-        </div>
-      )}
-
-      {/* Gift toggle: the recipient's field only exists while it is on. */}
-      <SwitchRow id="gift" label={dict.giftToggleLabel} checked={isGift} onChange={setIsGift}>
-        {isGift && (
-          <div className="mt-4">
-            <label htmlFor="gift-email" className="block text-xs font-medium uppercase tracking-widest text-ink/70">
-              {dict.giftEmailLabel}
-            </label>
-            <input
-              id="gift-email"
-              type="email"
-              autoComplete="off"
-              value={giftEmail}
-              onChange={(e) => setGiftEmail(e.target.value)}
-              placeholder={dict.giftEmailPlaceholder}
-              aria-invalid={!giftEmailValid}
-              className={EMAIL_INPUT}
-            />
-          </div>
-        )}
-      </SwitchRow>
+      <div className="mb-6">
+        <label htmlFor="delivery-email" className="block text-xs font-medium uppercase tracking-widest text-ink/70">
+          {dict.deliveryEmailLabel}
+        </label>
+        <input
+          id="delivery-email"
+          type="email"
+          autoComplete="email"
+          value={deliveryEmail}
+          onChange={(e) => setDeliveryEmail(e.target.value)}
+          placeholder={dict.deliveryEmailPlaceholder}
+          aria-invalid={!deliveryEmailValid}
+          className={EMAIL_INPUT}
+        />
+        <p className="mt-1.5 text-xs text-ink/70">{dict.deliveryEmailHint}</p>
+      </div>
 
       {/* Optional repetition memory (fase 5): its own choice, off unless switched on. */}
       <SwitchRow id="memory" label={dict.memoryLabel} hint={dict.memoryHint} checked={remember} onChange={setRemember} />

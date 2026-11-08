@@ -130,12 +130,12 @@ test.describe("touch targets on a phone", () => {
     for (const h of rows) expect(h).toBeGreaterThanOrEqual(44);
     // The pay button is grey until both are ticked, and a line says why.
     await expect(page.locator("#pay-hint")).toBeVisible();
-    // There are three switches, and the text beside one of them switches it too.
-    await expect(page.locator('main [role="switch"]')).toHaveCount(3);
-    const gift = page.locator("#gift-switch");
-    await expect(gift).toHaveAttribute("aria-checked", "false");
-    await page.locator("#gift-label").click();
-    await expect(gift).toHaveAttribute("aria-checked", "true");
+    // There are two switches, and the text beside one of them switches it too.
+    await expect(page.locator('main [role="switch"]')).toHaveCount(2);
+    const memory = page.locator("#memory-switch");
+    await expect(memory).toHaveAttribute("aria-checked", "false");
+    await page.locator("#memory-label").click();
+    await expect(memory).toHaveAttribute("aria-checked", "true");
   });
 });
 

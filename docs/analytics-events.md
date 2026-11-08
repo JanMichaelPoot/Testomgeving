@@ -51,14 +51,13 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `landing_viewed` | landingspagina getoond | – |
 | `sample_opened` | een pagina van het voorbeeldboek geopend in de lightbox op de homepage | `index` |
 | `landing_start_submitted` | startformulier op de landing verstuurd | `has_text` (ja/nee, nooit de tekst) |
-| `intake_started` | een wizard geopend | `wizard_variant`, `editing`, `gift`, `restored` |
+| `intake_started` | een wizard geopend | `wizard_variant`, `editing`, `restored` |
 | `images_done` | korte funnelnaam: pagina 1 (beelden) afgerond, samen met `images_page_completed` | `wizard_variant`, `selected`, `refreshes` |
 | `activities_done` | korte funnelnaam: pagina 2 (activiteiten) afgerond, samen met `concrete_page_completed` | `wizard_variant`, `selected`, `refreshes`, `explore_picked` |
-| `search_context_set` | de startpagina afgerond: voor wie we zoeken (`context`: self, child, adult, group, unknown), of het een cadeau is en of er een randvoorwaarde is opgegeven | `context`, `is_gift`, `has_limits` |
+| `search_context_set` | de startpagina afgerond: voor wie we zoeken (`context`: self, child, adult, group, unknown) en of er een randvoorwaarde is opgegeven | `context`, `has_limits` |
 | `situation_done` | korte funnelnaam: de startpagina (bij de vierrondes-intake het situatiescherm) afgerond, samen met `intake_page_completed` | `wizard_variant`, `duration_ms` |
-| `pay_clicked` | korte funnelnaam: de betaalknop ingedrukt, samen met `checkout_pay_clicked` | `is_gift`, `price_variant` |
+| `pay_clicked` | korte funnelnaam: de betaalknop ingedrukt, samen met `checkout_pay_clicked` | `price_variant` |
 | `pdf_opened` | korte funnelnaam: de PDF geopend, samen met `plan_pdf_downloaded` | `source` |
-| `gift_started` | een cadeau-intake begint schoon (geen herlaad, geen wijziging) | `wizard_variant` |
 | `intake_page_viewed` | een wizardpagina getoond | `wizard_variant`, `page`, `index`, `of` |
 | `intake_page_back` | op "Terug" gedrukt | `wizard_variant`, `page`, `index`, `stage` |
 | `intake_page_completed` | een wizardpagina afgerond | `wizard_variant`, `page`, `index`, `duration_ms` |
@@ -81,13 +80,8 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `profile_reflection` | bij akkoord: is "Wat missen we nog?" ingevuld | `has_reflection` |
 | `window_exported` | de afbeelding van het venster gedownload | `images` (aantal beelden) |
 | `checkout_viewed` | betaalpagina getoond | `price_variant` |
-| `checkout_pay_clicked` | "Maak het echt" ingedrukt | `is_gift`, `price_variant` |
-| `payment_succeeded` | een betaald boek start (Stripe zegt betaald), vanaf de server | `is_gift`, `amount_cents`, `price_variant` |
-| `gift_voucher_viewed` | de cadeaubonpagina getoond | `price_variant` |
-| `gift_voucher_pay_clicked` | de betaalknop van de cadeaubon ingedrukt | `has_message`, `price_variant` |
-| `gift_voucher_purchased` | een cadeaubon betaald en actief (Stripe zegt betaald), vanaf de server | `amount_cents`, `price_variant` |
-| `gift_voucher_redeem_started` | een ontvanger drukte op "Open je venster" op de pagina van een geldige code | – |
-| `gift_voucher_redeemed` | een bon ingewisseld: de ontvanger rondde de intake af, vanaf de server | `days_to_redeem` |
+| `checkout_pay_clicked` | "Maak het echt" ingedrukt | `price_variant` |
+| `payment_succeeded` | een betaald boek start (Stripe zegt betaald), vanaf de server | `amount_cents`, `price_variant` |
 | `followup_email_sent` | de follow-up e-mail verstuurd, vanaf de server | – |
 | `followup_link_opened` | de link in de follow-up e-mail geopend, vanaf de server | – |
 | `generation_stalled` | wachtscherm langer dan 120 s | `stage`, `seconds` |
@@ -138,7 +132,7 @@ verschil is wie op de knop drukte maar niet betaalde (of de Stripe-betaling afbr
 **Welk niveau wordt geopend?** `idea_opened`, uitgesplitst op `level` (1 Vertrouwd … 7 Onontdekt; 0 = oud boek).
 
 **Funnel uit de verbeterbrief (Fase 1)**: `intake_started` → `situation_done` (startpagina) → `images_done` → `activities_done` →
-`profile_viewed` → `pay_clicked` → `payment_succeeded` → `pdf_opened`; `gift_started` is de startgebeurtenis van de cadeau-route.
+`profile_viewed` → `pay_clicked` → `payment_succeeded` → `pdf_opened`.
 De korte namen worden samen met de oudere, uitgebreidere events verstuurd (dezelfde handeling, twee namen), dus tel ze
 nooit bij elkaar op.
 

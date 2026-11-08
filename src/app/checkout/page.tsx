@@ -186,7 +186,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
             </dl>
           </div>
 
-          {/* Right: gift/waiver/payment */}
+          {/* Right: waiver/payment */}
           <div className="lg:pl-0">
             <CheckoutPanel dict={dict.checkout} price={price} rememberInitially={rememberInitially} priceVariant={visitorPrice.variant} />
           </div>

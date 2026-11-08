@@ -19,10 +19,9 @@ for (const size of sizes) {
       // The next/back buttons sit in a bar the Next dev indicator can overlap: press them through the DOM, as the other specs do.
       const press = (name: string | RegExp) => page.getByRole("button", { name, exact: typeof name === "string" }).dispatchEvent("click");
 
-      // 1. Landing: the new line, one way in, no gift route.
+      // 1. Landing: the new line and one way in.
       await page.goto("/");
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Wat als je iets ontdekt");
-      await expect(page.locator('a[href="/cadeaubon"]')).toHaveCount(0);
       await noSideways();
       await page.getByRole("link", { name: /Open je venster/ }).first().click();
       await expect(page).toHaveURL(/\/intake/);
@@ -74,8 +73,7 @@ for (const size of sizes) {
       await pay.scrollIntoViewIfNeeded();
       await expect(pay).toBeDisabled();
       await expect(page.getByText("E-mailadres voor je boek (optioneel)")).toBeVisible();
-      await expect(page.locator("#gift-email")).toHaveCount(0);
-      for (const id of ["gift", "memory", "followup"]) {
+      for (const id of ["memory", "followup"]) {
         const box = (await page.locator(`#${id}-switch`).boundingBox())!;
         expect(box.x + box.width).toBeLessThanOrEqual(size.width);
       }

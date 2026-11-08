@@ -86,7 +86,6 @@ export function IntakeEntry({
   library,
   associations,
   initial,
-  purpose,
   payment,
   concretePool,
 }: {
@@ -97,8 +96,6 @@ export function IntakeEntry({
   associations: AssociationLibrary;
   // Changing choices before paying: the stored answers to start from (see IntakeWizard).
   initial?: { answers: IntakeAnswers; page: number };
-  // From the landing page's gift button (?for=gift). Only the image intake uses it.
-  purpose?: "self" | "gift";
   // What the image intake's last screen needs to take the payment (the older wizards still use /checkout).
   payment: WizardPayment;
   // Page 2 of the two-page intake (server-built); absent when that intake is not switched on.
@@ -132,7 +129,6 @@ export function IntakeEntry({
         library={associations}
         domains={library.domains.map((d) => ({ id: d.id, label: d.label }))}
         initial={initial}
-        initialPurpose={purpose}
         payment={payment}
         flow={variant === "images2" ? "images2" : undefined}
         concretePool={variant === "images2" ? concretePool : undefined}

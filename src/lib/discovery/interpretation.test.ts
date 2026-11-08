@@ -147,7 +147,7 @@ describe("the facts are rebuilt from ids, and the fixed reading always exists", 
     expect(buildFacts({ ...base, searchContext: "child", recipientName: "Emma" }, "nl")!.audience).toBe("named");
     expect(buildFacts({ ...base, searchContext: "adult" }, "nl")!.audience).toBe("other");
     expect(buildFacts({ ...base, searchContext: "group" }, "nl")!.audience).toBe("group");
-    expect(buildFacts({ ...base, purpose: "gift", recipientName: "<b>Els</b>" }, "nl")!.name).not.toMatch(/[<>]/);
+    expect(buildFacts({ ...base, searchContext: "adult", recipientName: "<b>Els</b>" }, "nl")!.name).not.toMatch(/[<>]/);
   });
 
   for (const locale of ["nl", "en"] as const) {
@@ -166,7 +166,7 @@ describe("the facts are rebuilt from ids, and the fixed reading always exists", 
           company: [],
           socialFormats: [],
           mustHaves: "",
-          gift: false,
+          forOther: false,
           name: "",
         },
         getDictionary(locale).venster.profile,

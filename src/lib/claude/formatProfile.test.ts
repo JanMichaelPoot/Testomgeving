@@ -41,10 +41,11 @@ describe("formatProfile", () => {
     expect(text).toMatch(/derived from these images by WINDOW, not picked/);
   });
 
-  it("writes a gift to the recipient", () => {
-    const text = formatProfile({ ...base, purpose: "gift", recipientName: "Judith" }, computeCharacterProfile(base));
-    expect(text).toMatch(/This Idea Book is a GIFT for Judith/);
+  it("writes to the person the search is for when that is somebody else", () => {
+    const text = formatProfile({ ...base, searchContext: "adult", recipientName: "Judith" }, computeCharacterProfile(base));
+    expect(text).toMatch(/NOT the person/);
+    expect(text).toMatch(/Judith/);
     expect(text).toMatch(/never "you picked"/);
-    expect(formatProfile(base, computeCharacterProfile(base))).not.toMatch(/GIFT/);
+    expect(formatProfile(base, computeCharacterProfile(base))).not.toMatch(/NOT the person/);
   });
 });

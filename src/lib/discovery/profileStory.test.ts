@@ -31,7 +31,7 @@ function input(locale: "nl" | "en", chosen: string[], extra: Partial<ProfileInpu
     company: ["alone"],
     socialFormats: [],
     mustHaves: "",
-    gift: false,
+    forOther: false,
     name: "",
     ...extra,
   };
@@ -65,7 +65,7 @@ describe("buildProfileStory", () => {
     });
 
     it(`${locale}: a gift talks about the recipient and never says "you chose" in the first person`, () => {
-      const r = buildProfileStory(input(locale, BUSY, { gift: true, name: "Anna" }), copy);
+      const r = buildProfileStory(input(locale, BUSY, { forOther: true, name: "Anna" }), copy);
       expect(r.headline).toContain("Anna");
       expect(r.headline).not.toMatch(/^(Je houdt van|You enjoy)/);
       expect(r.story).not.toMatch(/Je koos|You chose/);

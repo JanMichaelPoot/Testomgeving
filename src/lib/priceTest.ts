@@ -5,7 +5,7 @@ import { basePriceCents, type PriceKind } from "@/lib/pricing";
 //
 // PRICE_TEST is JSON naming the *other* variants; the visitors who are not in one of them are the "control" and see the normal price:
 //
-//   PRICE_TEST={"B":{"self":650,"gift":1295},"C":{"self":850}}
+//   PRICE_TEST={"B":{"self":650},"C":{"self":850}}
 //
 // Prices are final consumer prices in cents (the price a visitor pays) and always replace the whole price of that product; a variant
 // that names no price for a product leaves that product at its normal price. A variant is assigned per visitor, once, in a cookie
@@ -38,7 +38,7 @@ export function parsePriceTest(raw: string | undefined | null): PriceTestConfig 
     if (!prices || typeof prices !== "object" || Array.isArray(prices)) return null;
     const entry: Partial<Record<PriceKind, number>> = {};
     for (const [kind, cents] of Object.entries(prices)) {
-      if (kind !== "self" && kind !== "gift") return null;
+      if (kind !== "self") return null;
       if (typeof cents !== "number" || !Number.isInteger(cents) || cents < MIN_TEST_PRICE_CENTS || cents > MAX_TEST_PRICE_CENTS) return null;
       entry[kind] = cents;
     }
@@ -71,7 +71,7 @@ export interface ResolvedPrice {
  * variant that was removed from the setting, counts as control, so nobody is charged a price that is no longer on offer).
  */
 export function resolvePrice(kind: PriceKind, config: PriceTestConfig | null, cookieVariant: string | null | undefined): ResolvedPrice {
-  const base = basePriceCents(kind);
+  const base = basePriceCents();
   if (!config) return { cents: base, variant: null };
   const entry = cookieVariant ? config[cookieVariant] : undefined;
   if (!entry) return { cents: base, variant: CONTROL_VARIANT };

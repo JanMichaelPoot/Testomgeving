@@ -48,11 +48,9 @@ export function effortForPicks(fromImages: string, picks: readonly string[], ene
 export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed: string = randomUUID(), month: number = currentMonth()): StoredIntake {
   const { associations, associationCorrections } = sanitizeAssociations(stored);
   const axesOverride = sanitizeAxesOverride(stored.axesOverride);
-  const purpose = stored.purpose === "gift" ? "gift" : "self";
-  // Who the search is for. A gift is always for somebody else, so "for myself" cannot be its context.
-  let searchContext = normalizeSearchContext(stored.searchContext);
-  if (purpose === "gift" && searchContext === "self") searchContext = "unknown";
-  const forOther = isForOther({ purpose, searchContext });
+  // Who the search is for.
+  const searchContext = normalizeSearchContext(stored.searchContext);
+  const forOther = isForOther({ searchContext });
   // Two-page flow: the activities on page 2 are the person's own choice (sanitised again below, the browser is not trusted).
   const twoPages = stored.intakeFlow === "images2";
   const picks = twoPages
@@ -104,7 +102,7 @@ export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed
     ...stored,
     intakeVariant: "associations",
     ...(twoPages ? { intakeFlow: "images2" as const } : { intakeFlow: undefined }),
-    purpose,
+    purpose: "self",
     searchContext,
     audienceProfile,
     // A first name is kept whenever the window is for somebody else, except for a group (no single name).

@@ -24,7 +24,7 @@ import type { AudienceProfile } from "@/lib/discovery/audience";
 // intake data stays keyed off session_id rather than a user identity.
 //
 // Every chip/slider field stores a stable, English internal value (e.g.
-// "gift", "35-44") rather than the localized label shown on screen — see
+// "self", "35-44") rather than the localized label shown on screen — see
 // src/lib/i18n/dictionaries.ts's `Option` type — so switching the site
 // language never changes what's actually persisted.
 export interface IntakeAnswers {
@@ -80,12 +80,12 @@ export interface IntakeAnswers {
   // from what their images said (-1 .. 1). Only the axes they touched. Sanitised on the server.
   axesOverride?: { social?: number; energy?: number; setting?: number; novelty?: number };
   // The central start page (images2): who the search is for (src/lib/discovery/audience.ts): self, child, adult, group or unknown.
-  // Explicit input, normalised again on the server. Not the same as `purpose` (a gift) or the age: it is where the search starts.
+  // Explicit input, normalised again on the server. Not the same as `purpose` or the age: it is where the search starts.
   searchContext?: string;
   // Built by the server from the start page and the choices (never taken from the browser): the six dimensions of the Dynamic Audience &
   // Interest Profile, each with its provenance (explicit / inferred / unknown) and confidence.
   audienceProfile?: AudienceProfile;
-  // For a gift: the recipient's first name, for the cover and the greeting. Optional.
+  // When the search is for somebody else: their first name, for the cover and the greeting. Optional.
   recipientName?: string;
   // Set by the server when the visitor came through the follow-up e-mail (src/app/nieuw-venster): the ideas of the book they already have, which
   // this book leaves out, and (seasonal edition, off by default) the season to write for. Never taken from the browser's answers.

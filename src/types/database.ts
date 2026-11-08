@@ -183,7 +183,7 @@ export interface Database {
           progress_meta?: ProgressMeta | null;
           // 0019_association_sources.sql: the thread per door (see discovery/associations.ts).
           association_sources?: unknown | null;
-          // 0022_gift_vouchers_followup_pricing.sql: the one follow-up e-mail (optional until that migration has run).
+          // 0022_followup_pricing.sql: the one follow-up e-mail (optional until that migration has run).
           followup_email?: string | null;
           followup_sent_at?: string | null;
           created_at: string;
@@ -439,59 +439,6 @@ export interface Database {
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["test_feedback"]["Insert"]>;
-        Relationships: [];
-      };
-      // Gift vouchers, see supabase/migrations/0022_gift_vouchers_followup_pricing.sql.
-      gift_vouchers: {
-        Row: {
-          id: string;
-          code: string;
-          status: "pending" | "active" | "redeemed" | "void";
-          amount_cents: number;
-          currency: string;
-          locale: "nl" | "en";
-          giver_name: string | null;
-          recipient_name: string | null;
-          message: string | null;
-          buyer_session_id: string | null;
-          payment_id: string | null;
-          stripe_checkout_id: string | null;
-          buyer_email: string | null;
-          price_variant: string | null;
-          redeemer_email: string | null;
-          created_at: string;
-          activated_at: string | null;
-          expires_at: string | null;
-          email_sent_at: string | null;
-          redeemed_at: string | null;
-          redeemed_session_id: string | null;
-          plan_token: string | null;
-        };
-        Insert: {
-          id?: string;
-          code: string;
-          status?: "pending" | "active" | "redeemed" | "void";
-          amount_cents: number;
-          currency?: string;
-          locale?: "nl" | "en";
-          giver_name?: string | null;
-          recipient_name?: string | null;
-          message?: string | null;
-          buyer_session_id?: string | null;
-          payment_id?: string | null;
-          stripe_checkout_id?: string | null;
-          buyer_email?: string | null;
-          price_variant?: string | null;
-          redeemer_email?: string | null;
-          created_at?: string;
-          activated_at?: string | null;
-          expires_at?: string | null;
-          email_sent_at?: string | null;
-          redeemed_at?: string | null;
-          redeemed_session_id?: string | null;
-          plan_token?: string | null;
-        };
-        Update: Partial<Database["public"]["Tables"]["gift_vouchers"]["Insert"]>;
         Relationships: [];
       };
       // Test phase limit per IP address (keyed hash only), see supabase/migrations/0021_test_quota.sql.

@@ -29,7 +29,6 @@ import { checkTestQuota } from "@/lib/testQuota";
 export async function createCheckoutSession(
   termsAccepted: boolean,
   digitalDeliveryConsent: boolean,
-  giftRecipientEmail?: string,
   // The optional "remember what I was shown on this device" choice (fase 5): true = opt in,
   // false = opt out (and delete what was stored), undefined = leave as it is.
   rememberDevice?: boolean,
@@ -105,12 +104,8 @@ export async function createCheckoutSession(
     cancel_url: `${siteUrl}/checkout?payment=cancelled`,
     metadata: {
       session_id: sessionId,
-      // The buyer still pays and gets Stripe's own receipt at their own
-      // email; this only redirects where *our* delivery email (the PDF +
-      // the /plan link) goes. Empty string, not omitted, so a later read
-      // never has to distinguish "no metadata" from "not a gift".
-      gift_recipient_email: giftRecipientEmail?.trim() || "",
-      // Same idea for a buyer who wants the book in another inbox than the one typed at Stripe.
+      // For a buyer who wants the book in another inbox than the one typed at Stripe (the Stripe receipt stays at Stripe's address).
+      // Empty string, not omitted, so a later read never has to distinguish "no metadata" from "not set".
       delivery_email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(deliveryEmail?.trim() ?? "") ? deliveryEmail!.trim() : "",
       // "1" only when the buyer switched the follow-up e-mail on; the address is chosen later, from where the book is sent.
       followup_consent: followUpConsent === true ? "1" : "",

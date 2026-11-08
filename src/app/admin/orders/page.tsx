@@ -27,9 +27,8 @@ type OrderRow = {
   amount: number;
   currency: string;
   session_id: string;
-  // Migration 0022: the price-test variant shown (empty while the test is off) and the product (a gift voucher or a book).
+  // Migration 0022: the price-test variant shown (empty while the test is off).
   price_variant?: string | null;
-  product_id?: string | null;
 };
 
 export default async function AdminOrdersPage() {
@@ -40,11 +39,11 @@ export default async function AdminOrdersPage() {
   // price_variant exists from migration 0022 on; until then the page works without it.
   const withVariant = await supabase
     .from("payments")
-    .select("id, order_number, created_at, status, amount, currency, session_id, product_id, price_variant")
+    .select("id, order_number, created_at, status, amount, currency, session_id, price_variant")
     .order("created_at", { ascending: false })
     .limit(MAX_ROWS);
   const { data: orders, error } = withVariant.error
-    ? await supabase.from("payments").select("id, order_number, created_at, status, amount, currency, session_id, product_id").order("created_at", { ascending: false }).limit(MAX_ROWS)
+    ? await supabase.from("payments").select("id, order_number, created_at, status, amount, currency, session_id").order("created_at", { ascending: false }).limit(MAX_ROWS)
     : withVariant;
 
   const orderIds = (orders ?? []).map((o) => o.id);
@@ -92,7 +91,6 @@ export default async function AdminOrdersPage() {
                 <th className="px-4 py-3 font-medium">Datum</th>
                 <th className="px-4 py-3 font-medium">Betaling</th>
                 <th className="px-4 py-3 font-medium">Bedrag</th>
-                <th className="px-4 py-3 font-medium">Product</th>
                 <th className="px-4 py-3 font-medium">Prijsvariant</th>
                 <th className="px-4 py-3 font-medium">PDF</th>
                 <th className="px-4 py-3 font-medium">Voorwaarden</th>
@@ -124,9 +122,6 @@ export default async function AdminOrdersPage() {
                     </td>
                     <td className="px-4 py-3 text-ink/70">
                       {(order.amount / 100).toFixed(2)} {order.currency.toUpperCase()}
-                    </td>
-                    <td className="px-4 py-3 text-ink/70">
-                      {order.product_id === "windowinto-gift-voucher" ? "cadeaubon" : order.amount === 0 && order.product_id === "windowinto-pdf" ? "boek (bon)" : "boek"}
                     </td>
                     <td className="px-4 py-3 text-ink/70">{(order as { price_variant?: string | null }).price_variant ?? "—"}</td>
                     <td className="px-4 py-3 text-ink/70">{plan?.status ?? "—"}</td>

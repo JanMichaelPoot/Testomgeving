@@ -22,7 +22,7 @@ export const ANALYTICS_EVENTS = {
   landing_start_submitted: { when: "start form on the landing page sent", props: ["has_text"] },
 
   // --- intake (all three wizards; wizard_variant says which)
-  intake_started: { when: "a wizard opened", props: ["wizard_variant", "editing", "gift", "restored"] },
+  intake_started: { when: "a wizard opened", props: ["wizard_variant", "editing", "restored"] },
   intake_page_viewed: { when: "a wizard page shown", props: ["wizard_variant", "page", "index", "of"] },
   intake_page_back: { when: "back pressed", props: ["wizard_variant", "page", "index", "stage"] },
   intake_page_completed: { when: "a wizard page finished", props: ["wizard_variant", "page", "index", "duration_ms"] },
@@ -59,26 +59,20 @@ export const ANALYTICS_EVENTS = {
   // so a funnel can use these short names while the detailed events stay as they were. Counts, ids and fixed words only.
   images_done: { when: "images page finished (with images_page_completed; image intake in two pages)", props: ["wizard_variant", "selected", "refreshes"] },
   activities_done: { when: "activities page finished (with concrete_page_completed)", props: ["wizard_variant", "selected", "refreshes", "explore_picked"] },
-  search_context_set: { when: "the start page finished: who the search is for (self, child, adult, group, unknown), whether it is a gift, whether any limit was given", props: ["context", "is_gift", "has_limits"] },
+  search_context_set: { when: "the start page finished: who the search is for (self, child, adult, group, unknown), whether any limit was given", props: ["context", "has_limits"] },
   situation_done: { when: "situation / start page finished (with intake_page_completed)", props: ["wizard_variant", "duration_ms"] },
-  pay_clicked: { when: "the pay button pressed (with checkout_pay_clicked)", props: ["is_gift", "price_variant"] },
+  pay_clicked: { when: "the pay button pressed (with checkout_pay_clicked)", props: ["price_variant"] },
   pdf_opened: { when: "the PDF opened (with plan_pdf_downloaded)", props: ["source"] },
-  gift_started: { when: "a gift intake started clean (not a reload, not an edit)", props: ["wizard_variant"] },
 
   // --- checkout and waiting
   window_exported: { when: "the picture of the window downloaded", props: ["images"] },
   checkout_viewed: { when: "checkout page shown", props: ["price_variant"] },
-  checkout_pay_clicked: { when: "'Maak het echt' pressed", props: ["is_gift", "price_variant"] },
+  checkout_pay_clicked: { when: "'Maak het echt' pressed", props: ["price_variant"] },
   // Sent by the server (trackServerEvent), not the browser: it does not wait for the cookie banner and carries no
   // person. It cannot be joined to the browser events of the same visitor, by design: compare counts per day.
-  payment_succeeded: { when: "a paid book starts (Stripe says paid), server side", props: ["is_gift", "amount_cents", "price_variant"] },
+  payment_succeeded: { when: "a paid book starts (Stripe says paid), server side", props: ["amount_cents", "price_variant"] },
 
-  // --- gift voucher (improvement brief B3) and the one follow-up e-mail (B5). The "server side" ones carry no person, like payment_succeeded.
-  gift_voucher_viewed: { when: "the gift voucher page shown", props: ["price_variant"] },
-  gift_voucher_pay_clicked: { when: "the pay button of the gift voucher pressed", props: ["has_message", "price_variant"] },
-  gift_voucher_purchased: { when: "a gift voucher paid and activated (Stripe says paid), server side", props: ["amount_cents", "price_variant"] },
-  gift_voucher_redeem_started: { when: "a recipient pressed 'Open je venster' on the page of a valid code", props: [] },
-  gift_voucher_redeemed: { when: "a voucher redeemed: the recipient finished the intake, server side", props: ["days_to_redeem"] },
+  // --- the one follow-up e-mail (improvement brief B5). The "server side" ones carry no person, like payment_succeeded.
   followup_email_sent: { when: "the follow-up e-mail sent, server side", props: [] },
   followup_link_opened: { when: "the link in the follow-up e-mail opened, server side", props: [] },
   generation_stalled: { when: "the waiting screen passed 120 s", props: ["stage", "seconds"] },

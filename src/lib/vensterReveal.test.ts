@@ -21,8 +21,8 @@ describe("buildVensterEcho", () => {
     expect(echo.wrote).toBe("Je schreef: ‘vaker iets met mijn handen’.");
   });
 
-  it("speaks to the recipient of a gift and stays away from other wizards", () => {
-    expect(buildVensterEcho({ ...source, purpose: "gift" }, "nl", v)!.sentence).toMatch(/^Voor jou gekozen:/);
+  it("speaks to the person it is for when that is somebody else and stays away from other wizards", () => {
+    expect(buildVensterEcho({ ...source, searchContext: "child" }, "nl", v)!.sentence).toMatch(/^Voor jou gekozen:/);
     expect(buildVensterEcho({ ...source, intakeVariant: undefined }, "nl", v)).toBeNull();
     expect(buildVensterEcho(null, "nl", v)).toBeNull();
   });

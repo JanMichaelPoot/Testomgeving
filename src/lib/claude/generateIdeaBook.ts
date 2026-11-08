@@ -217,17 +217,7 @@ Rules for using the profile:
 // value the person did not choose, or the model would build on something nobody said.
 const stated = (v: string | undefined | null) => (v && v.trim() ? v.trim() : "not stated");
 
-/** Extra instructions when the book is a gift: everything describes the recipient. */
-function giftLines(intake: IntakeAnswers): string {
-  if (intake.purpose !== "gift") return otherLines(intake);
-  const name = (intake.recipientName ?? "").trim();
-  return `
-This Idea Book is a GIFT${name ? ` for ${name}` : ""}. Someone else answered the questions FOR the recipient: every
-answer, image and limit describes the recipient. Write the whole book to the recipient, addressing them as "you"${name ? ` (you may use the name ${name} once, in profile_summary)` : ""}.
-In why_it_fits say "the images chosen for you" or "chosen with you in mind", never "you picked" or "you chose".`;
-}
-
-/** The window is for somebody else without being a gift (a parent for a child, a team lead for a group): the book still describes them. */
+/** The window is for somebody else (a parent for a child, a team lead for a group): the book still describes them. */
 function otherLines(intake: IntakeAnswers): string {
   if (!isForOther(intake)) return "";
   const name = (intake.recipientName ?? "").trim();
@@ -269,7 +259,7 @@ Personal reflection (something they'd secretly like to do more): ${intake.person
     discoveryLines ? `
 ${discoveryLines}` : ""
   }${audienceLines ? `
-${audienceLines}` : ""}${imageNote}${giftLines(intake)}
+${audienceLines}` : ""}${imageNote}${otherLines(intake)}
 
 Internal character signals (derived, 0-100 each, 50 = neutral — for
 calibrating tone and door balance only, see the rules below):
