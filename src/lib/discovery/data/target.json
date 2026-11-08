@@ -292,7 +292,13 @@
     },
     "scene": "a polished granite curling stone with a red handle on a pale ice sheet with painted target circles",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-471"
+      }
+    ]
   },
   {
     "id": "biljarten",

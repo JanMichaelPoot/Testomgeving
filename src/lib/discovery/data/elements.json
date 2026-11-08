@@ -32,7 +32,13 @@
     },
     "scene": "a glowing orange blob of glass on the end of a steel blowpipe in front of a furnace mouth",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-185"
+      }
+    ]
   },
   {
     "id": "metaalgieten",
@@ -72,7 +78,13 @@
     },
     "scene": "a clay mould and a crucible with bright molten metal glowing orange and throwing sparks",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-409"
+      }
+    ]
   },
   {
     "id": "vuur-maken",
@@ -146,7 +158,13 @@
     },
     "scene": "a freshly fired raku pot glowing orange being lifted from a kiln into a bed of sawdust with smoke curling",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-186"
+      }
+    ]
   },
   {
     "id": "mes-smeden",
@@ -185,7 +203,13 @@
     },
     "scene": "a half-forged blade glowing dull red on an anvil beside a hammer in a dark forge",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-190"
+      }
+    ]
   },
   {
     "id": "kaarsen-gieten",
@@ -225,6 +249,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q29349255"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-188"
       }
     ],
     "aliases": {
@@ -268,7 +296,13 @@
     },
     "scene": "a half-carved birch wooden spoon on a stump beside a pile of pale curled wood shavings",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-014"
+      }
+    ]
   },
   {
     "id": "droge-stenen-muur",
@@ -313,7 +347,13 @@
     },
     "scene": "a dry-stone wall in progress with neat layered grey stones beside a heap of sorted rocks in low sun",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-358"
+      }
+    ]
   },
   {
     "id": "kettingzaagcursus",
@@ -351,7 +391,13 @@
     },
     "scene": "a freshly cut oak log on a sawhorse with sawdust piles, ear defenders and chaps hanging on a nail",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-391"
+      }
+    ]
   },
   {
     "id": "kano-uithollen",
@@ -385,7 +431,13 @@
     },
     "scene": "the curved ribs of an unfinished wooden canoe in a sunny boatyard shed with shavings on the floor",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-390"
+      }
+    ]
   },
   {
     "id": "bushcraft",
@@ -430,7 +482,13 @@
     },
     "scene": "a lean-to shelter of branches and bracken built against a leaning pine in a misty wood",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-208"
+      }
+    ]
   },
   {
     "id": "overleven",
@@ -513,7 +571,13 @@
     },
     "scene": "a red-and-white orienteering flag on a post in a green forest clearing, a punch box hanging below",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-038"
+      }
+    ]
   },
   {
     "id": "knopen-touwwerk",
@@ -592,7 +656,13 @@
     },
     "scene": "a small wooden treehouse with a lantern glowing in its window among autumn oak branches",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-100"
+      }
+    ]
   },
   {
     "id": "glasfusing",
@@ -628,7 +698,13 @@
     },
     "scene": "small pieces of coloured glass arranged on a kiln shelf, one already melted into a glossy tile",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-408"
+      }
+    ]
   },
   {
     "id": "wilgenvlechten",
@@ -663,7 +739,13 @@
     },
     "scene": "freshly cut willow rods in warm brown and green tied in bundles beside a half-woven basket",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-181"
+      }
+    ]
   },
   {
     "id": "houthakken",
@@ -708,7 +790,13 @@
     },
     "scene": "a chopping block beside a neat pile of split logs and a stack of kindling beside a woodshed",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-389"
+      }
+    ]
   },
   {
     "id": "kampvuuravond",
@@ -788,6 +876,12 @@
     },
     "scene": "a goldsmith's bench with a soldering torch flame on a silver ring, files, a mallet and a leather skin below",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-020"
+      }
+    ]
   }
 ]

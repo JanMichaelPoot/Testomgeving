@@ -13,7 +13,8 @@ function fresh(): Library {
   return structuredClone(loadLibrary());
 }
 const errorsOf = (lib: Library) => validateLibrary(lib, app).filter((i) => i.level === "error");
-const first = (lib: Library): RefActivity => lib.activities.find((a) => a.match === "new")!;
+// Any record will do for the rule tests below, which damage it on purpose. (Every "new" record has been written into the app by now.)
+const first = (lib: Library): RefActivity => lib.activities[0];
 
 describe("the shipped reference library", () => {
   it("has no errors against its own rules and the app's library; warnings may only be about spread", () => {
@@ -156,6 +157,8 @@ describe("the rules catch what they are meant to catch", () => {
   it("rejects a 'new' activity that already exists in the app, and a wrong crosswalk", () => {
     let lib = fresh();
     const a = first(lib);
+    a.match = "new";
+    a.legacy_id = null;
     a.nl = "Pottenbakken";
     expect(errorsOf(lib).some((e) => /marked new but/.test(e.message))).toBe(true);
 

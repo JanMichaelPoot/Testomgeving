@@ -113,8 +113,8 @@
     "en": "Woodturning on a lathe",
     "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
     "desc": {"nl": "Hout op een draaibank vormen tot kommen, pennen en spijlen.", "en": "Shaping wood on a lathe into bowls, pens and spindles."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "houtdraaien",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 2, "cost": 2, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "atelier:5:D", "ontwerpen:3:D", "bouwen:3:D", "vakmanschap:4:V", "precisie:4:V", "motoriek:4:V", "ruimtelijk:4:V", "concentratie:4:V", "geduld:3:V", "natuur:3:T", "geur:5:E", "tast:5:E", "opgaan:4:E", "trots:4:E", "schoonheid:3:E", "wetenschap:3:O", "duurzaamheid:3:O", "ambacht:5:T"],
     "why": {
@@ -123,7 +123,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-156",
@@ -134,8 +134,8 @@
     "en": "Marquetry and wood inlay",
     "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
     "desc": {"nl": "Plaatjes hout in verschillende kleuren tot een afbeelding of patroon inleggen.", "en": "Inlaying pieces of wood in different colours into a picture or pattern."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "houtinleg-marqueterie",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "ontwerpen:4:D", "atelier:3:D", "precisie:5:V", "vakmanschap:4:V", "motoriek:4:V", "geduld:5:V", "concentratie:4:V", "creativiteit:3:V", "kunst:4:T", "geschiedenis:3:T", "detail:5:E", "ornament:4:E", "schoonheid:4:E", "tast:3:E", "trots:4:E", "puzzelen:3:O", "natuur:3:O", "ambacht:5:T"],
     "why": {
@@ -144,7 +144,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-157",
@@ -155,8 +155,8 @@
     "en": "Making wooden toys",
     "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
     "desc": {"nl": "Speelgoed van hout maken, zoals autootjes, poppenmeubels, puzzels en dieren.", "en": "Making wooden toys such as little cars, doll furniture, puzzles and animals."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "houten-speelgoed-maken",
     "facets": {"setting": "indoor", "social_formats": ["solo", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "bouwen:4:D", "ontwerpen:4:D", "thuis:3:D", "motoriek:3:V", "creativiteit:4:V", "precisie:3:V", "geduld:3:V", "duurzaamheid:3:T", "speelsheid:5:E", "trots:4:E", "generaties:4:E", "nostalgie:4:E", "tast:4:E", "verhalen:3:O", "wetenschap:3:O"],
     "why": {
@@ -165,7 +165,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-179",
@@ -377,8 +377,8 @@
     "en": "Designing and building a piece of furniture",
     "sub": {"nl": "Meubelmaken", "en": "Furniture making"},
     "desc": {"nl": "Een tafel, kast of bank ontwerpen en bouwen van massief hout of plaat.", "en": "Designing and building a table, cabinet or bench from solid wood or board."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "meubel-bouwen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 3, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:5:D", "atelier:5:D", "vakmanschap:5:V", "precisie:4:V", "ruimtelijk:5:V", "creativiteit:3:V", "wonen:5:T", "architectuur:3:T", "geur:4:E", "tast:3:E", "opgaan:4:E", "trots:4:E", "wetenschap:3:O", "duurzaamheid:3:O", "ambacht:5:T"],
     "why": {
@@ -387,7 +387,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-396",
@@ -398,8 +398,8 @@
     "en": "Reupholstering a chair",
     "sub": {"nl": "Stoffeerder", "en": "Upholstery"},
     "desc": {"nl": "Een oude stoel strippen, opnieuw vullen en bekleden met nieuwe stof.", "en": "Stripping an old chair, refilling it and covering it with new fabric."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "stoel-bekleden",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
     "links": ["textiel:4:M", "hout:3:M", "restaureren:4:D", "repareren:4:D", "atelier:3:D", "precisie:3:V", "vakmanschap:4:V", "motoriek:3:V", "wonen:5:T", "duurzaamheid:4:T", "mode:2:T", "tast:4:E", "geur:2:E", "imperfectie:3:E", "trots:4:E", "nostalgie:3:E", "tradities:3:O", "ambacht:5:T"],
     "why": {
@@ -407,7 +407,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-397",
@@ -418,8 +418,8 @@
     "en": "Making a wooden box with dovetail joints",
     "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
     "desc": {"nl": "Een kist of doos bouwen met handgezaagde zwaluwstaartverbindingen.", "en": "Building a chest or box with hand-cut dovetail joints."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "zwaluwstaart-kist",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "bouwen:4:D", "ontwerpen:3:D", "atelier:4:D", "precisie:5:V", "vakmanschap:5:V", "ruimtelijk:4:V", "motoriek:4:V", "concentratie:4:V", "detail:5:E", "tast:3:E", "geur:3:E", "opgaan:4:E", "trots:4:E", "puzzelen:3:O", "ambacht:5:T"],
     "why": {
@@ -427,7 +427,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-398",
@@ -438,8 +438,8 @@
     "en": "Building a ukulele or guitar",
     "sub": {"nl": "Instrumentenbouw", "en": "Instrument making"},
     "desc": {"nl": "Een ukelele of eenvoudige gitaar bouwen van hout, met kit of vanaf nul.", "en": "Building a ukulele or simple guitar from wood, from a kit or from scratch."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "ukelele-bouwen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 3, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:3:D", "atelier:4:D", "precisie:5:V", "vakmanschap:4:V", "motoriek:4:V", "ruimtelijk:3:V", "klank:5:E", "tast:3:E", "geur:3:E", "schoonheid:3:E", "trots:4:E", "opgaan:3:E", "wetenschap:3:O", "tradities:3:O", "muziek:4:T", "ambacht:5:T"],
     "why": {
@@ -448,7 +448,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-399",
@@ -459,8 +459,8 @@
     "en": "Building a tree house or play hut",
     "sub": {"nl": "Bouwen", "en": "Building"},
     "desc": {"nl": "Een boomhut of speelhut ontwerpen en bouwen, voor kinderen of voor jezelf.", "en": "Designing and building a tree house or play hut, for children or for yourself."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "boomhut-bouwen",
     "facets": {"setting": "outdoor", "social_formats": ["small_group", "with_known"], "level": 2, "duration": 4, "cost": 3, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "bos:3:D", "lucht:3:D", "vakmanschap:3:V", "ruimtelijk:5:V", "precisie:3:V", "natuur:3:T", "architectuur:4:T", "speelsheid:5:E", "fantasie:4:E", "samenwerking:3:E", "trots:4:E", "vrijheid:3:E", "wetenschap:3:O", "zorg:3:O"],
     "why": {
@@ -469,7 +469,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-400",
@@ -480,8 +480,8 @@
     "en": "Making furniture from pallets and offcuts",
     "sub": {"nl": "Hergebruik", "en": "Reuse"},
     "desc": {"nl": "Van pallets en restmateriaal tafels, banken of tuinmeubels bouwen.", "en": "Building tables, benches or garden furniture from pallets and leftover timber."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "pallet-meubels",
     "facets": {"setting": "both", "social_formats": ["solo", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "bouwen:4:D", "ontwerpen:3:D", "repareren:2:D", "thuis:3:D", "motoriek:2:V", "creativiteit:4:V", "ruimtelijk:3:V", "duurzaamheid:5:T", "wonen:4:T", "rauw:4:E", "imperfectie:4:E", "zelfstandig:3:E", "speelsheid:2:E", "architectuur:3:O"],
     "why": {
@@ -489,7 +489,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Rechtvaardigheid en samenleving."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Rechtvaardigheid en samenleving.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-401",
@@ -500,8 +500,8 @@
     "en": "Building a beehive or bee hotel",
     "sub": {"nl": "Bouwen", "en": "Building"},
     "desc": {"nl": "Een bijenkast of bijenhotel bouwen van hout, met maatvoering voor de bijen.", "en": "Building a beehive or bee hotel from wood, sized to the needs of the bees."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "close",
+    "legacy_id": "nestkast-bouwen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:3:D", "atelier:3:D", "precisie:4:V", "vakmanschap:3:V", "ruimtelijk:3:V", "dieren:4:T", "natuur:4:T", "duurzaamheid:4:T", "zorg:4:E", "geur:3:E", "samenwerking:2:E", "patronen:3:O", "wetenschap:3:O", "ambacht:3:T"],
     "why": {
@@ -510,7 +510,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "The app already has this as 'nestkast-bouwen': linked, not imported again."]
   },
   {
     "id": "RA-402",
@@ -521,8 +521,8 @@
     "en": "Building a ship model",
     "sub": {"nl": "Modelbouw", "en": "Model building"},
     "desc": {"nl": "Een scheepsmodel bouwen van hout en kleine onderdelen, van kit tot eigen ontwerp.", "en": "Building a ship model from wood and small parts, from a kit to your own design."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "scheepsmodel-bouwen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["hout:4:M", "textiel:2:M", "bouwen:5:D", "ontwerpen:3:D", "thuis:3:D", "precisie:5:V", "motoriek:4:V", "ruimtelijk:4:V", "zeevaart:5:T", "geschiedenis:4:T", "technologie:3:T", "detail:5:E", "nostalgie:4:E", "opgaan:4:E", "tradities:3:O", "kunst:3:O", "mobiliteit:3:T", "miniatuur:5:E"],
     "why": {
@@ -531,7 +531,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-403",
@@ -542,8 +542,8 @@
     "en": "Making a chessboard or board game from wood",
     "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
     "desc": {"nl": "Een schaakbord, dambord of eigen bordspel van hout maken en afwerken.", "en": "Making and finishing a chessboard, draughts board or board game of your own from wood."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "schaakbord-maken",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "ontwerpen:4:D", "bouwen:3:D", "atelier:3:D", "precisie:5:V", "vakmanschap:4:V", "ruimtelijk:3:V", "patronen:5:T", "wonen:3:T", "detail:4:E", "schoonheid:3:E", "tast:3:E", "trots:4:E", "strategie:3:V", "spel:4:T", "geschiedenis:3:O", "ambacht:3:O"],
     "why": {
@@ -552,7 +552,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Problemen oplossen, Gezelligheid."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Problemen oplossen, Gezelligheid.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-404",
@@ -563,8 +563,8 @@
     "en": "Building garden furniture and a pergola",
     "sub": {"nl": "Buitenbouw", "en": "Outdoor building"},
     "desc": {"nl": "Een bank, tafel of pergola voor de tuin ontwerpen en bouwen van weerbestendig hout.", "en": "Designing and building a bench, table or pergola for the garden from weather-resistant wood."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "tuinmeubels-maken",
     "facets": {"setting": "both", "social_formats": ["solo", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "vakmanschap:4:V", "precisie:3:V", "ruimtelijk:4:V", "duurzaamheid:3:T", "wonen:4:T", "natuur:2:T", "rust:2:E", "trots:4:E", "gezelligheid:3:E", "tast:2:E", "architectuur:3:O", "planten:3:O"],
     "why": {
@@ -573,7 +573,7 @@
     },
     "status": "Concept",
     "qa": {"round": 2, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Overlaps strongly with 'vlonder-bouwen' (link similarity 0.91); keep both only if they stay distinct for the visitor.", "Steekproef Jan: Weer klopt niet; plek binnen of buiten; mist 'techniek': Vakmanschap verhoogd. Een aparte associatie Techniek bestaat niet, kandidaat voor de woordenlijst."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Overlaps strongly with 'vlonder-bouwen' (link similarity 0.91); keep both only if they stay distinct for the visitor.", "Steekproef Jan: Weer klopt niet; plek binnen of buiten; mist 'techniek': Vakmanschap verhoogd. Een aparte associatie Techniek bestaat niet, kandidaat voor de woordenlijst.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-405",
@@ -584,8 +584,8 @@
     "en": "Building a deck or terrace",
     "sub": {"nl": "Buitenbouw", "en": "Outdoor building"},
     "desc": {"nl": "Een vlonder of houten terras aanleggen met ondergrond, balken en planken.", "en": "Laying a wooden deck or terrace with foundation, beams and boards."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "vlonder-bouwen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "with_known"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:3:D", "vakmanschap:3:V", "precisie:4:V", "ruimtelijk:4:V", "logica:3:V", "weer:4:T", "duurzaamheid:3:T", "wonen:3:T", "rauw:2:E", "trots:4:E", "tast:2:E", "gezelligheid:2:E", "wetenschap:3:O", "ambacht:3:T"],
     "why": {
@@ -593,7 +593,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Overlaps strongly with 'tuinmeubels-maken' (link similarity 0.91); keep both only if they stay distinct for the visitor.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Overlaps strongly with 'tuinmeubels-maken' (link similarity 0.91); keep both only if they stay distinct for the visitor.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-406",
@@ -604,8 +604,8 @@
     "en": "Building a wooden clock or mechanical toy",
     "sub": {"nl": "Mechaniek", "en": "Mechanics"},
     "desc": {"nl": "Een houten klok, automaat of mechanisch speelgoed bouwen met tandwielen en veren.", "en": "Building a wooden clock, automaton or mechanical toy with gears and springs."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "houten-klok-bouwen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "bouwen:5:D", "ontwerpen:4:D", "atelier:3:D", "precisie:5:V", "logica:4:V", "ruimtelijk:4:V", "motoriek:4:V", "technologie:4:T", "patronen:3:T", "detail:4:E", "puzzelen:4:E", "opgaan:4:E", "geschiedenis:3:O", "ambacht:5:T"],
     "why": {
@@ -613,7 +613,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Fantasie."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Fantasie.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-407",
@@ -624,8 +624,8 @@
     "en": "Making a chopping or serving board",
     "sub": {"nl": "Houtbewerking", "en": "Woodworking"},
     "desc": {"nl": "Een snij- of serveerplank maken van lokaal hout, met lijmen, schaven en oliën.", "en": "Making a chopping or serving board from local wood, with gluing, planing and oiling."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "keukenplank-maken",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 1, "source": "authored"},
     "links": ["hout:5:M", "ontwerpen:3:D", "bouwen:3:D", "keuken:3:D", "atelier:3:D", "precisie:3:V", "vakmanschap:3:V", "motoriek:3:V", "duurzaamheid:3:T", "voeding:3:T", "tast:5:E", "geur:3:E", "schoonheid:3:E", "trots:4:E", "imperfectie:3:E", "wonen:3:O", "natuur:3:O"],
     "why": {
@@ -634,6 +634,6 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   }
 ]

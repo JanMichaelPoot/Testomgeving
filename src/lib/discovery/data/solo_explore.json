@@ -28,7 +28,13 @@
       "en": "Pick one neighbourhood you don't know and walk through it"
     },
     "scene": "a city map, a camera and a coffee cup on a café table with a street view",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-335"
+      }
+    ]
   },
   {
     "id": "film-theater",
@@ -91,7 +97,13 @@
       "en": "One coffee and thirty minutes"
     },
     "scene": "a notebook and pen with a latte on a café window table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-234"
+      }
+    ]
   },
   {
     "id": "fotowandeling",
@@ -122,7 +134,13 @@
       "en": "Pick a theme, for example doors or colors"
     },
     "scene": "colorful painted doors along an old street",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-336"
+      }
+    ]
   },
   {
     "id": "audiowandeling",
@@ -154,7 +172,13 @@
       "en": "Headphones and a route in an app"
     },
     "scene": "headphones on a park bench with a winding path behind",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-337"
+      }
+    ]
   },
   {
     "id": "trein-dagtrip",
@@ -185,7 +209,13 @@
       "en": "Drop a pin on a place an hour away"
     },
     "scene": "a small village train station platform with an old sign",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-099"
+      }
+    ]
   },
   {
     "id": "boekwinkels",
@@ -217,7 +247,13 @@
       "en": "Walk into three shops and take one book home"
     },
     "scene": "cozy bookshop shelves floor to ceiling with a rolling ladder",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-338"
+      }
+    ]
   },
   {
     "id": "ander-land",
@@ -290,7 +326,13 @@
       "en": "A blanket, a sandwich and a view"
     },
     "scene": "a picnic blanket with a basket on a hillside with a view",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-340"
+      }
+    ]
   },
   {
     "id": "buurtkaart",
@@ -322,7 +364,13 @@
       "en": "Paper, pen and half an hour of walking"
     },
     "scene": "a hand-drawn neighbourhood map with colored pencils on a table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-361"
+      }
+    ]
   },
   {
     "id": "fietsroute",
@@ -363,7 +411,13 @@
       "en": "A 30-kilometre route along water"
     },
     "scene": "a bicycle at a river bank at golden hour",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-339"
+      }
+    ]
   },
   {
     "id": "online-cursus",
@@ -395,7 +449,13 @@
       "en": "A free trial week or open course"
     },
     "scene": "a laptop showing a course next to a notebook and tea",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-349"
+      }
+    ]
   },
   {
     "id": "taal-leren",
@@ -427,7 +487,13 @@
       "en": "Ten minutes a day with an app"
     },
     "scene": "language flashcards and a phrasebook on a desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-060"
+      }
+    ]
   },
   {
     "id": "platenwinkel",
@@ -459,7 +525,13 @@
       "en": "Choose one album and put your phone away"
     },
     "scene": "a turntable playing a vinyl record beside a lamp",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-231"
+      }
+    ]
   },
   {
     "id": "ateliers",
@@ -491,7 +563,13 @@
       "en": "An open-studio day or gallery route"
     },
     "scene": "an artist studio door standing open with canvases and paint tubes",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-367"
+      }
+    ]
   },
   {
     "id": "detox",
@@ -555,7 +633,13 @@
       "en": "Pick something small: five minutes a day"
     },
     "scene": "a wall calendar with days crossed off in red marker",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-521"
+      }
+    ]
   },
   {
     "id": "slow-travel",
@@ -586,7 +670,13 @@
       "en": "One overnight stay, public transport only"
     },
     "scene": "a night-train window with a suitcase on the seat",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-164"
+      }
+    ]
   },
   {
     "id": "brieven",
@@ -619,7 +709,13 @@
       "en": "One letter to someone you haven't spoken to in a while"
     },
     "scene": "a handwritten letter with an envelope, stamps and a fountain pen",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-236"
+      }
+    ]
   },
   {
     "id": "markt-ingredient",
@@ -689,6 +785,125 @@
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q1547701",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "gebarentaal-leren",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Gebarentaal leren",
+      "en": "Learning sign language"
+    },
+    "tags": [
+      "language",
+      "movement",
+      "learning",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een introductiecursus of een open leesavond in je regio",
+      "en": "An introductory course or an open evening in your area"
+    },
+    "scene": "A set of illustrated sign alphabet cards laid out in a fan on a wooden table with a notebook and a pen.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-056",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "esperanto-leren",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Esperanto of een verzonnen taal leren",
+      "en": "Learning Esperanto or a constructed language"
+    },
+    "tags": [
+      "language",
+      "learning",
+      "puzzling",
+      "conviviality"
+    ],
+    "formats": [
+      "online",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis online cursus of een lokale Esperantogroep",
+      "en": "A free online course or a local Esperanto group"
+    },
+    "scene": "A small Esperanto textbook with a green star on the cover beside a notebook of phrases and a cup of tea.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-522",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "hoofdrekenen",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Hoofdrekenen en wiskundige trucs",
+      "en": "Mental arithmetic and maths tricks"
+    },
+    "tags": [
+      "puzzling",
+      "focus",
+      "learning",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kennismaking via een boek of een gratis online oefenapp",
+      "en": "An introduction through a book or a free online practice app"
+    },
+    "scene": "A chalkboard with mental arithmetic tricks, a worn abacus and a deck of playing cards on a wooden desk.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-525",
       "method": "curated"
     }
   }

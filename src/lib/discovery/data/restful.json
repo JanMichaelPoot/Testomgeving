@@ -34,7 +34,13 @@
       "en": "Trial class or a 20-minute online session"
     },
     "scene": "a rolled yoga mat and a block on a wooden floor in morning light",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-141"
+      }
+    ]
   },
   {
     "id": "meditatie",
@@ -216,7 +222,13 @@
       "en": "Often a free trial class in a park or community centre"
     },
     "scene": "a quiet park lawn at sunrise with mist and a bench",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-142"
+      }
+    ]
   },
   {
     "id": "massage",
@@ -325,6 +337,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q109577660"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-444"
       }
     ],
     "aliases": {
@@ -367,7 +383,13 @@
       "en": "A trial subscription or the library app"
     },
     "scene": "headphones resting on an open book on an armchair",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-445"
+      }
+    ]
   },
   {
     "id": "journaling",
@@ -399,7 +421,13 @@
       "en": "Three lines a day: what happened, how did I feel"
     },
     "scene": "an open journal with a pen and a cup of tea",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-240"
+      }
+    ]
   },
   {
     "id": "slow-looking",
@@ -432,7 +460,13 @@
       "en": "Pick one work in a museum and stay seated"
     },
     "scene": "a single painting on a gallery wall with a bench in front",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-368"
+      }
+    ]
   },
   {
     "id": "concert",
@@ -467,7 +501,13 @@
       "en": "A lunchtime concert or a small venue"
     },
     "scene": "a grand piano on an empty concert stage in warm light",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-228"
+      }
+    ]
   },
   {
     "id": "filosofie",
@@ -502,7 +542,13 @@
       "en": "A single evening, no prior knowledge needed"
     },
     "scene": "a stack of philosophy books with a lit candle and reading glasses",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-061"
+      }
+    ]
   },
   {
     "id": "theeceremonie",
@@ -537,7 +583,13 @@
       "en": "A small workshop at a tea house"
     },
     "scene": "a tea set with a ceramic teapot and cups, steam rising",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-125"
+      }
+    ]
   },
   {
     "id": "hangmat",
@@ -609,7 +661,13 @@
       "en": "A single lecture or trial lesson; pick something you know nothing about"
     },
     "scene": "a classroom desk with a notebook in front of a blackboard",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-350"
+      }
+    ]
   },
   {
     "id": "levenslijn",
@@ -674,7 +732,13 @@
       "en": "Every Sunday five minutes: what was nice, what do I want more of"
     },
     "scene": "a planner and a pen with a mug on a Sunday desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-520"
+      }
+    ]
   },
   {
     "id": "niets-doen",
@@ -782,7 +846,13 @@
     },
     "scene": "tall beeches with green light filtering down onto a quiet forest floor covered in moss and fern",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-279"
+      }
+    ]
   },
   {
     "id": "klankbad",
@@ -817,7 +887,13 @@
     },
     "scene": "several brass singing bowls and a large gong on a woven mat in a candlelit room",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-433"
+      }
+    ]
   },
   {
     "id": "thermen",

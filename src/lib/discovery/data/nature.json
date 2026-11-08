@@ -34,7 +34,13 @@
       "en": "A walking-node route or a free walking app"
     },
     "scene": "hiking boots on a forest trail with dappled sunlight and a trail marker post",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-266"
+      }
+    ]
   },
   {
     "id": "trektocht",
@@ -78,7 +84,13 @@
       "en": "Start with a two-day trek on a waymarked route"
     },
     "scene": "a backpack and trekking poles by a mountain hut door at sunrise",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-095"
+      }
+    ]
   },
   {
     "id": "gids-wandeling",
@@ -114,7 +126,13 @@
       "en": "A walk run by a nature organisation, just sign up"
     },
     "scene": "a wooden signpost in a nature reserve with binoculars hanging on it",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-267"
+      }
+    ]
   },
   {
     "id": "geocaching",
@@ -156,6 +174,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q14930"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-268"
       }
     ]
   },
@@ -206,6 +228,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q455550"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-102"
       }
     ],
     "aliases": {
@@ -257,6 +283,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q685629"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-047"
       }
     ],
     "aliases": {
@@ -296,7 +326,13 @@
     },
     "scene": "a leash and a dog bowl by an animal shelter door with folded blankets",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-359"
+      }
+    ]
   },
   {
     "id": "paardrijden",
@@ -341,6 +377,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q179226"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-278"
       }
     ],
     "aliases": {
@@ -387,7 +427,13 @@
     },
     "scene": "an agility hurdle and tunnel on a grassy field with dog toys",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-491"
+      }
+    ]
   },
   {
     "id": "imkeren",
@@ -439,6 +485,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q176353"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-269"
       }
     ],
     "aliases": {
@@ -490,7 +540,13 @@
     },
     "scene": "a bat detector and a torch on a fence post at dusk in a meadow",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-270"
+      }
+    ]
   },
   {
     "id": "vissen",
@@ -525,7 +581,13 @@
       "en": "Start with an introduction day; arrange the fishing licence beforehand"
     },
     "scene": "a fishing rod resting on a wooden jetty at misty dawn with a tackle box",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-271"
+      }
+    ]
   },
   {
     "id": "tuinieren",
@@ -580,15 +642,25 @@
       {
         "source_id": "S3",
         "source_record_id": "Q136499958"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-116"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-494"
       }
     ],
     "aliases": {
       "nl": [
-        "tuinieren"
+        "tuinieren",
+        "Een moestuin op balkon of dakterras"
       ],
       "en": [
         "gardening",
-        "food gardening"
+        "food gardening",
+        "A vegetable garden on a balcony or roof terrace"
       ]
     }
   },
@@ -624,7 +696,13 @@
       "en": "One cutting, one pot, one windowsill"
     },
     "scene": "propagation jars with plant cuttings on a bright windowsill",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-280"
+      }
+    ]
   },
   {
     "id": "kruiden",
@@ -672,7 +750,13 @@
       "en": "Only with a guide or expert; never taste anything without certainty"
     },
     "scene": "a basket of wild herbs and a field guide on a mossy log",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-117"
+      }
+    ]
   },
   {
     "id": "paddenstoelen",
@@ -722,6 +806,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q2391676"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-115"
       }
     ],
     "aliases": {
@@ -763,7 +851,13 @@
       "en": "Help out on a work day of a nature organisation"
     },
     "scene": "a wheelbarrow and hand tools in heathland at golden hour",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-272"
+      }
+    ]
   },
   {
     "id": "sterrenkijken",
@@ -800,7 +894,13 @@
       "en": "Open evening at an observatory or a star-chart app"
     },
     "scene": "a telescope silhouette under a milky-way sky over a dark field",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-048"
+      }
+    ]
   },
   {
     "id": "natuurfotografie",
@@ -836,7 +936,13 @@
       "en": "An early morning in a park with your phone"
     },
     "scene": "a camera with a long lens on a tripod at a misty lake at sunrise",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-192"
+      }
+    ]
   },
   {
     "id": "open-water",
@@ -881,7 +987,13 @@
       "en": "Only at designated spots or with a group and a buoy"
     },
     "scene": "an orange swim buoy floating on a calm lake at dawn",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-144"
+      }
+    ]
   },
   {
     "id": "zeehonden-varen",
@@ -925,7 +1037,13 @@
     },
     "scene": "grey seals resting on a pale sandbank at low tide, calm silver water and a distant boat mast",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-273"
+      }
+    ]
   },
   {
     "id": "insecten-tellen",
@@ -973,6 +1091,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q5002983"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-114"
       }
     ],
     "aliases": {
@@ -1022,7 +1144,13 @@
     },
     "scene": "wet meadow grass with silver dew drops catching low pink sunrise light and a mist over distant trees",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-274"
+      }
+    ]
   },
   {
     "id": "bomen-herkennen",
@@ -1057,7 +1185,13 @@
     },
     "scene": "a collection of oak, beech and maple leaves in autumn colours laid out in rows beside a small pocket guide",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-112"
+      }
+    ]
   },
   {
     "id": "wolken",
@@ -1092,7 +1226,13 @@
     },
     "scene": "towering white cumulus clouds with grey undersides over a flat green polder horizon",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-275"
+      }
+    ]
   },
   {
     "id": "plogging",
@@ -1128,7 +1268,13 @@
     },
     "scene": "a canvas bag half full of collected litter beside a reusable glove on a park bench at dawn",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-277"
+      }
+    ]
   },
   {
     "id": "proplifting",
@@ -1166,7 +1312,13 @@
       "source_id": "S3",
       "source_record_id": "Q108572898",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-281"
+      }
+    ]
   },
   {
     "id": "strandjutten",
@@ -1205,7 +1357,13 @@
       "source_id": "S3",
       "source_record_id": "Q1757816",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-276"
+      }
+    ]
   },
   {
     "id": "duiven-houden",
@@ -1328,6 +1486,12 @@
       7,
       8,
       9
+    ],
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-285"
+      }
     ]
   },
   {
@@ -1443,7 +1607,13 @@
       "en": "A demonstration at a bird park or falconer"
     },
     "scene": "a leather falconry glove, a feather and a small hood on a wooden perch",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-487"
+      }
+    ]
   },
   {
     "id": "vlindertuin",
@@ -1478,7 +1648,13 @@
       "en": "An hour's stroll, ideally on a sunny day"
     },
     "scene": "a glass greenhouse with orange and blue butterflies on a tropical leaf and a plant label",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-488"
+      }
+    ]
   },
   {
     "id": "reptielen",
@@ -1513,7 +1689,13 @@
       "en": "A visit to a reptile zoo or an open day"
     },
     "scene": "a glass terrarium with a coiled gecko on bark under a warm heat lamp glow",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-489"
+      }
+    ]
   },
   {
     "id": "stoeterij",
@@ -1619,7 +1801,13 @@
       "en": "A one-day workshop in a nature reserve or animal park"
     },
     "scene": "a long telephoto lens, a lens cloth and a field guide on a wooden hide ledge",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-416"
+      }
+    ]
   },
   {
     "id": "alpaca-wandeling",
@@ -1663,6 +1851,464 @@
       "en": "An hour's walk at an alpaca farm"
     },
     "scene": "a braided lead rope, a bag of pellets and a woolly fence post in a meadow",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-490"
+      }
+    ]
+  },
+  {
+    "id": "dierensporen-lezen",
+    "domain": "nature",
+    "sub": "walking",
+    "label": {
+      "nl": "Dierensporen en sporen in de natuur lezen",
+      "en": "Reading animal tracks and signs"
+    },
+    "tags": [
+      "nature",
+      "discovery",
+      "focus",
+      "animals"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      10,
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een sporenwandeling met een boswachter of natuurvereniging",
+      "en": "A tracking walk with a forest ranger or nature club"
+    },
+    "scene": "Animal tracks pressed into soft mud and snow beside a tracking guide book, a small ruler and a magnifying glass.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-082",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "amfibieen-tellen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Padden en kikkers tellen in het voorjaar",
+      "en": "Counting frogs and toads in spring"
+    },
+    "tags": [
+      "nature",
+      "water",
+      "animals",
+      "discovery"
+    ],
+    "formats": [
+      "small_group",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een avondtelling met een vrijwilligersgroep",
+      "en": "An evening count with a volunteer group"
+    },
+    "scene": "A common toad on wet leaves near a small pond edge at dusk, a small bucket with a reflector strip and a count sheet on a clipboard.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-083",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "composteren-wormenbak",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Composteren en een wormenbak beheren",
+      "en": "Composting and keeping a worm bin"
+    },
+    "tags": [
+      "nature",
+      "growing",
+      "stillness",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis workshop bij een gemeente of buurttuin",
+      "en": "A free workshop at a municipality or community garden"
+    },
+    "scene": "An open worm bin with dark crumbly compost, a handful of kitchen scraps and a small trowel on a balcony table.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-084",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "vijver-aanleggen",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Een tuinvijver of wildlifevijver aanleggen",
+      "en": "Building a garden or wildlife pond"
+    },
+    "tags": [
+      "water",
+      "growing",
+      "making",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een buurtklusdag of een kleine eerste vijver in een emmer",
+      "en": "A neighbourhood work day or a small first pond in a bucket"
+    },
+    "scene": "A small garden pond with marginal plants and stepping stones, a spade, a pond liner and a bucket of water plants.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-085",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "fruitbomen-snoeien",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Fruitbomen snoeien en enten",
+      "en": "Pruning and grafting fruit trees"
+    },
+    "tags": [
+      "growing",
+      "craft",
+      "precision",
+      "nature"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een snoeicursus van een fruitteeltvereniging",
+      "en": "A pruning course from a fruit-growers' association"
+    },
+    "scene": "A young apple tree with bare winter branches beside pruning shears, a small saw and a ladder in a cold sunny orchard.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-086",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "bloembollen-planten",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Bloembollen planten en zien bloeien",
+      "en": "Planting bulbs and watching them bloom"
+    },
+    "tags": [
+      "growing",
+      "nature",
+      "caring",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      9,
+      10,
+      11
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een plantdag in een buurttuin of een zakje bollen in je eigen tuin",
+      "en": "A planting day in a community garden or a bag of bulbs in your own garden"
+    },
+    "scene": "Tulip and crocus bulbs in a wooden crate beside a trowel and a patch of dark soil with a few rows planted.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-495",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "bloemenweide-inzaaien",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Een bloemenweide of insectenstrook inzaaien",
+      "en": "Sowing a flower meadow or insect strip"
+    },
+    "tags": [
+      "growing",
+      "nature",
+      "animals",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een buurtactie of een stuk gras met een zaadmengsel",
+      "en": "A neighbourhood action or a patch of lawn with a seed mix"
+    },
+    "scene": "A bare strip of soil raked and sown with wildflower seed mix, a packet of seeds with poppies and cornflowers and a watering can.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-496",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "tuin-ontwerpen",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Een tuin ontwerpen",
+      "en": "Designing a garden"
+    },
+    "tags": [
+      "growing",
+      "making",
+      "color",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een tuinontwerpworkshop of een schets van je eigen tuin of balkon",
+      "en": "A garden design workshop or a sketch of your own garden or balcony"
+    },
+    "scene": "A garden design plan on graph paper with plant symbols and a small scale ruler next to coloured pencils and a plant tag.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-497",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "zaailingen-kweken",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Zaailingen en planten uit zaad kweken",
+      "en": "Growing seedlings and plants from seed"
+    },
+    "tags": [
+      "growing",
+      "caring",
+      "stillness",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "months": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een zaaiavond of een startpakket op je vensterbank",
+      "en": "A sowing evening or a starter kit on your windowsill"
+    },
+    "scene": "A tray of tiny seedlings under a window with a labelled marker and a small spray bottle beside a bag of potting soil.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-498",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "kruidenspiraal-bouwen",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Een kruidenspiraal of kruidentuin bouwen",
+      "en": "Building a herb spiral or herb garden"
+    },
+    "tags": [
+      "craft",
+      "growing",
+      "making",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een bouwdag in een buurttuin of eerst een kleine versie in een pot",
+      "en": "A build day in a community garden or first a small version in a pot"
+    },
+    "scene": "A herb spiral built from stones with thyme, mint and parsley planted in tiers beside a wheelbarrow and a shovel.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-499",
+      "method": "curated"
+    }
   }
 ]

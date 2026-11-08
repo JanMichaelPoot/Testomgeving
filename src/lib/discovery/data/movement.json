@@ -46,6 +46,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q2093999"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-251"
       }
     ],
     "aliases": {
@@ -94,7 +98,13 @@
       "en": "Free trial lesson; poles are often lent"
     },
     "scene": "two nordic walking poles leaning on a wooden bench beside an autumn park path",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-252"
+      }
+    ]
   },
   {
     "id": "fietsen",
@@ -140,7 +150,13 @@
       "en": "A short loop along cycle-node routes, or a club tour"
     },
     "scene": "a vintage touring bicycle leaning against a brick wall on a canal-side path, panniers and a map in the basket",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-253"
+      }
+    ]
   },
   {
     "id": "schaatsen",
@@ -183,7 +199,13 @@
       "en": "A recreational hour on an ice rink, skates for hire"
     },
     "scene": "a pair of white figure skates on the edge of a frozen pond in soft winter light",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-143"
+      }
+    ]
   },
   {
     "id": "skaten",
@@ -227,7 +249,13 @@
       "en": "Beginner lesson with pads; gear for hire at skate parks"
     },
     "scene": "a skateboard and inline skates on a concrete skatepark ledge with a helmet beside them",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-461"
+      }
+    ]
   },
   {
     "id": "zwemmen",
@@ -266,6 +294,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q6388"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-254"
       }
     ],
     "aliases": {
@@ -315,7 +347,13 @@
       "en": "Rental or guided trip with a life jacket"
     },
     "scene": "a canoe on calm water at dawn with a paddle across it, reeds in the background",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-147"
+      }
+    ]
   },
   {
     "id": "zeilen",
@@ -368,6 +406,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q192520"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-255"
       }
     ],
     "aliases": {
@@ -465,7 +507,13 @@
       "en": "Intro evening with rental shoes, no experience needed"
     },
     "scene": "a bouldering wall with colorful holds and a chalk bucket on a crash mat",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-039"
+      }
+    ]
   },
   {
     "id": "klimmen",
@@ -503,7 +551,13 @@
       "en": "Intro course with an instructor; you learn belaying on site"
     },
     "scene": "a climbing rope and carabiners coiled on a rock ledge, harness beside them",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-145"
+      }
+    ]
   },
   {
     "id": "klimpark",
@@ -549,7 +603,13 @@
     },
     "scene": "a high ropes course among tall pine trees with wooden platforms",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-486"
+      }
+    ]
   },
   {
     "id": "vrije-val",
@@ -587,7 +647,13 @@
     },
     "scene": "a vertical wind tunnel glass chamber seen from outside, helmet and goggles on a bench",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-484"
+      }
+    ]
   },
   {
     "id": "dansen",
@@ -628,6 +694,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q11639"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-450"
       }
     ],
     "aliases": {
@@ -670,7 +740,13 @@
       "en": "Intro hour with racket rental"
     },
     "scene": "padel rackets and yellow balls in the corner of a glass-walled court",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-146"
+      }
+    ]
   },
   {
     "id": "teamsport",
@@ -703,7 +779,13 @@
       "en": "Recreational group or trial training"
     },
     "scene": "a leather ball and cones on a green pitch with goalposts in golden hour light",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-256"
+      }
+    ]
   },
   {
     "id": "aangepast-sporten",
@@ -736,7 +818,13 @@
       "en": "Special beginner groups; ask about adaptations for your situation"
     },
     "scene": "colorful soft balls and cones on a sports hall floor with sunlit windows",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-470"
+      }
+    ]
   },
   {
     "id": "frisbee",
@@ -780,7 +868,13 @@
       "en": "Open training; the rules take fifteen minutes to learn"
     },
     "scene": "a flying disc lying on a sunny meadow next to marker cones",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-257"
+      }
+    ]
   },
   {
     "id": "boogschieten",
@@ -819,7 +913,13 @@
       "en": "Intro lesson at an archery club, equipment provided"
     },
     "scene": "a recurve bow and arrows next to a straw target on a meadow",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-259"
+      }
+    ]
   },
   {
     "id": "vechtsport",
@@ -853,7 +953,13 @@
     },
     "scene": "a folded judo belt and gi on a tatami mat in morning light",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-258"
+      }
+    ]
   },
   {
     "id": "schietles",
@@ -1068,7 +1174,13 @@
     },
     "scene": "a steel cable and iron rungs running up a limestone cliff wall above a distant green valley",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-482"
+      }
+    ]
   },
   {
     "id": "wildwaterraften",
@@ -1117,7 +1229,13 @@
     },
     "scene": "an empty inflatable raft with paddles riding churning white water between wet rocks",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-483"
+      }
+    ]
   },
   {
     "id": "zweefvliegen",
@@ -1166,7 +1284,13 @@
     },
     "scene": "a white glider standing on a grass airfield under towering cumulus clouds",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-485"
+      }
+    ]
   },
   {
     "id": "quad-buggy",
@@ -1328,6 +1452,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q21368803"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-041"
       }
     ],
     "aliases": {
@@ -1370,7 +1498,13 @@
     },
     "scene": "a heavy black puck on the bottom of a bright blue swimming pool with floating lane ropes above",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-265"
+      }
+    ]
   },
   {
     "id": "trampolinepark",
@@ -1406,7 +1540,13 @@
     },
     "scene": "a wall-to-wall trampoline floor in bright colours under high white lights with foam pits at the edge",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-463"
+      }
+    ]
   },
   {
     "id": "calisthenics",
@@ -1443,7 +1583,13 @@
     },
     "scene": "a steel pull-up bar and parallel bars in a leafy park with chalk dust on the rails and a gym mat",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-260"
+      }
+    ]
   },
   {
     "id": "tennis-proefles",
@@ -1478,7 +1624,13 @@
     },
     "scene": "a worn tennis racket and three yellow balls on a clay court baseline with white chalk lines",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-467"
+      }
+    ]
   },
   {
     "id": "boksles",
@@ -1513,7 +1665,13 @@
     },
     "scene": "a red heavy bag hanging from a chain in a brick-walled gym with a worn floor mat and a timer clock",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-466"
+      }
+    ]
   },
   {
     "id": "wandeltocht-lang",
@@ -1558,7 +1716,13 @@
     },
     "scene": "a waymark post with a painted red-white stripe on a heathland path stretching into the distance",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-096"
+      }
+    ]
   },
   {
     "id": "zwemmen-baantjes",
@@ -1594,7 +1758,13 @@
     },
     "scene": "a calm lane of a bright blue pool with floating lane ropes and tiles below, soft overhead light",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-465"
+      }
+    ]
   },
   {
     "id": "paaldansen",
@@ -1671,7 +1841,13 @@
       "source_id": "S3",
       "source_record_id": "Q244158",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-464"
+      }
+    ]
   },
   {
     "id": "pilates",
@@ -1711,7 +1887,13 @@
       "source_id": "S3",
       "source_record_id": "Q272460",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-261"
+      }
+    ]
   },
   {
     "id": "rolschaatsen",
@@ -1751,7 +1933,13 @@
       "source_id": "S3",
       "source_record_id": "Q1707432",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-462"
+      }
+    ]
   },
   {
     "id": "bergtoppen-afvinken",
@@ -1836,7 +2024,13 @@
       "source_id": "S3",
       "source_record_id": "Q18544844",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-468"
+      }
+    ]
   },
   {
     "id": "sloep-varen",
@@ -1959,7 +2153,13 @@
     },
     "scene": "A ballet barre along a mirrored wall in an empty bright studio, a pair of pointe shoes hanging from the barre.",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-452"
+      }
+    ]
   },
   {
     "id": "flamenco",
@@ -1995,7 +2195,13 @@
     },
     "scene": "A wooden dance floor with a pair of black flamenco shoes, a red fringed shawl and a fan on a chair in a warmly lit studio.",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-453"
+      }
+    ]
   },
   {
     "id": "buikdans",
@@ -2031,7 +2237,13 @@
     },
     "scene": "Sequined hip scarves with golden coins draped over a studio mirror, finger cymbals and a sheer veil on a bench.",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-454"
+      }
+    ]
   },
   {
     "id": "bollywood",
@@ -2067,7 +2279,13 @@
     },
     "scene": "Bright dupattas in magenta and gold hanging in a dance studio with garlands of marigolds and a portable speaker.",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-455"
+      }
+    ]
   },
   {
     "id": "kpop-dans",
@@ -2103,7 +2321,13 @@
     },
     "scene": "A mirrored studio wall with neon light strips, a pair of white sneakers and a portable speaker on the floor.",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-456"
+      }
+    ]
   },
   {
     "id": "zumba",
@@ -2139,7 +2363,13 @@
     },
     "scene": "A bright fitness studio with coloured floor lines, a mirror wall, a bluetooth speaker and a water bottle.",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-469"
+      }
+    ]
   },
   {
     "id": "ballroom",
@@ -2175,7 +2405,13 @@
     },
     "scene": "A polished parquet ballroom floor with a chandelier reflected in it and a pair of satin dance shoes near the edge.",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-037"
+      }
+    ]
   },
   {
     "id": "badminton",
@@ -2209,7 +2445,13 @@
       "en": "Free play at an open evening at a club or sports hall"
     },
     "scene": "a badminton racket, a shuttlecock and the edge of a net in a bright sports hall",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-263"
+      }
+    ]
   },
   {
     "id": "squash",
@@ -2243,7 +2485,13 @@
       "en": "Rent a court and rally for an hour; rackets can be rented"
     },
     "scene": "a squash racket and a rubber ball on a polished wooden court floor",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-262"
+      }
+    ]
   },
   {
     "id": "golfles",
@@ -2324,6 +2572,142 @@
       "en": "An open training session or recreational group"
     },
     "scene": "a volleyball on a painted court line beside a net post",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-264"
+      }
+    ]
+  },
+  {
+    "id": "dansperformance-meedoen",
+    "domain": "movement",
+    "sub": "dance",
+    "label": {
+      "nl": "Meedoen aan een dansperformance",
+      "en": "Taking part in a dance performance"
+    },
+    "tags": [
+      "performance",
+      "movement",
+      "rhythm",
+      "teamwork"
+    ],
+    "formats": [
+      "large_group",
+      "small_group"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 1,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open repetitie of een workshop bij een dansgroep",
+      "en": "An open rehearsal or workshop with a dance group"
+    },
+    "scene": "A bright rehearsal hall with a wooden floor and mirrors, pointe shoes and a pile of colourful scarves and a music player.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-225",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "triathlon-trainen",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Training voor een triathlon of multisport",
+      "en": "Training for a triathlon or multisport event"
+    },
+    "tags": [
+      "challenge",
+      "movement",
+      "strategy",
+      "rhythm"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 3,
+    "level": 2,
+    "cost": 3,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een kennismakingstraining bij een triatlonvereniging",
+      "en": "A trial session at a triathlon club"
+    },
+    "scene": "A triathlon bike, running shoes and a swim cap with goggles arranged on a mat in a transition area with a wetsuit.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-093",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "tafeltennis",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Tafeltennis spelen",
+      "en": "Playing table tennis"
+    },
+    "tags": [
+      "competition",
+      "strategy",
+      "movement",
+      "focus"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "drop_in_alone"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een proefavond bij een tafeltennisvereniging of een openbare tafel",
+      "en": "A trial evening at a table tennis club or a public table"
+    },
+    "scene": "A table tennis table with a net, two paddles and a white ball bouncing mid-air in a sunny community hall.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-094",
+      "method": "curated"
+    }
   }
 ]

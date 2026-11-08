@@ -29,8 +29,8 @@
     "en": "Hand embroidery",
     "sub": {"nl": "Borduurwerk", "en": "Embroidery"},
     "desc": {"nl": "Met naald en garen patronen en beelden op stof zetten, steek voor steek.", "en": "Putting patterns and images on fabric with needle and thread, stitch by stitch."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "close",
+    "legacy_id": "borduren-weven",
     "v0_id": "ACT-007",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["textiel:5:M", "ornament:5:E", "detail:5:E", "precisie:4:V", "motoriek:5:V", "geduld:4:V", "concentratie:4:V", "creativiteit:3:V", "kunst:3:T", "mode:3:T", "wereldculturen:3:T", "rust:5:E", "opgaan:4:E", "nostalgie:3:E", "tast:3:E", "thuis:3:D", "gezelligheid:3:O", "verhalen:3:O", "miniatuur:3:E"],
@@ -40,7 +40,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "The app already has this as 'borduren-weven': linked, not imported again."]
   },
   {
     "id": "RA-010",
@@ -114,8 +114,8 @@
     "en": "Needle felting",
     "sub": {"nl": "Vilten", "en": "Felting"},
     "desc": {"nl": "Wol met een viltnaald tot figuurtjes, dieren of vlakken vormen.", "en": "Sculpting wool with a felting needle into figures, animals or flat pieces."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "naaldvilten",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "authored"},
     "links": ["textiel:5:M", "bouwen:3:D", "ontwerpen:3:D", "thuis:3:D", "motoriek:4:V", "geduld:4:V", "creativiteit:4:V", "ruimtelijk:3:V", "dieren:3:T", "kunst:2:T", "tast:5:E", "speelsheid:4:E", "fantasie:3:E", "rust:3:E", "opgaan:3:E", "wetenschap:3:O", "generaties:3:O"],
     "why": {
@@ -124,7 +124,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-153",
@@ -135,8 +135,8 @@
     "en": "Sashiko and visible mending",
     "sub": {"nl": "Reparatie", "en": "Repair"},
     "desc": {"nl": "Kleding repareren met zichtbare steken in Japans sashikopatroon, zodat de reparatie het ontwerp wordt.", "en": "Mending clothes with visible stitches in Japanese sashiko patterns so the repair becomes the design."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "sashiko-herstellen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["textiel:5:M", "repareren:5:D", "thuis:3:D", "precisie:3:V", "motoriek:4:V", "geduld:5:V", "creativiteit:3:V", "duurzaamheid:5:T", "mode:3:T", "wereldculturen:3:T", "rust:4:E", "ornament:4:E", "minimalisme:3:E", "imperfectie:5:E", "trots:4:E", "tast:3:E", "kunst:3:O", "geschiedenis:3:O", "ambacht:4:T"],
     "why": {
@@ -145,7 +145,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-154",
@@ -156,8 +156,8 @@
     "en": "Bobbin lace making",
     "sub": {"nl": "Kantwerk", "en": "Lace"},
     "desc": {"nl": "Kant maken door klosjes met draad over een patroonkussen te kruisen.", "en": "Making lace by crossing bobbins of thread over a pattern pillow."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "kantklossen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["textiel:5:M", "precisie:5:V", "motoriek:4:V", "geduld:4:V", "concentratie:4:V", "vakmanschap:4:V", "logica:3:V", "kunst:3:T", "geschiedenis:4:T", "mode:3:T", "detail:5:E", "ornament:5:E", "elegantie:4:E", "rust:4:E", "nostalgie:4:E", "trots:4:E", "ritme:3:O", "puzzelen:3:O", "ambacht:5:T", "miniatuur:3:E"],
     "why": {
@@ -166,7 +166,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-173",
@@ -559,8 +559,8 @@
     "en": "Tufting: making your own rug or wall hanging",
     "sub": {"nl": "Tapijt", "en": "Rugs"},
     "desc": {"nl": "Met een tuftingpistool of naald garen in doek schieten tot een eigen kleed of wandkleed.", "en": "Punching yarn into cloth with a tufting gun or needle to make a rug or wall hanging of your own."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "tuften",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 3, "safety_tier": 1, "source": "authored"},
     "links": ["textiel:5:M", "ontwerpen:4:D", "bouwen:2:D", "atelier:3:D", "creativiteit:5:V", "motoriek:3:V", "ruimtelijk:2:V", "kunst:3:T", "mode:2:T", "wonen:5:T", "tast:5:E", "speelsheid:4:E", "ornament:3:E", "opgaan:4:E", "patronen:3:O", "ambacht:3:T"],
     "why": {
@@ -568,7 +568,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Technologie."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Technologie.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-387",
@@ -579,8 +579,8 @@
     "en": "Dyeing fabric with plants and natural dyes",
     "sub": {"nl": "Verven", "en": "Dyeing"},
     "desc": {"nl": "Stof verven met bladeren, bloemen, schillen en wortels voor zachte natuurlijke kleuren.", "en": "Dyeing fabric with leaves, flowers, skins and roots for soft natural colours."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "planten-verven",
     "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "authored"},
     "links": ["textiel:5:M", "planten:5:M", "verf:3:M", "keuken:3:D", "natuur:4:T", "duurzaamheid:4:T", "creativiteit:3:V", "precisie:2:V", "experimenteren:4:E", "licht:3:E", "verwondering:4:E", "geur:3:E", "imperfectie:4:E", "rust:3:E", "wetenschap:3:O", "tradities:3:O"],
     "why": {
@@ -589,7 +589,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-388",
@@ -600,8 +600,8 @@
     "en": "Band weaving and weaving on a small loom",
     "sub": {"nl": "Weven", "en": "Weaving"},
     "desc": {"nl": "Smalle banden of kleine lappen weven op een tafelgetouw of bandweefraam.", "en": "Weaving narrow bands or small cloths on a table loom or band loom."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "bandweven",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["textiel:5:M", "ontwerpen:3:D", "thuis:3:D", "precisie:4:V", "motoriek:4:V", "logica:3:V", "creativiteit:3:V", "patronen:5:T", "wereldculturen:3:T", "mode:2:T", "rust:4:E", "ritme:5:E", "tast:4:E", "ornament:4:E", "opgaan:4:E", "technologie:3:O", "tradities:3:O", "ambacht:4:T"],
     "why": {
@@ -610,6 +610,6 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   }
 ]

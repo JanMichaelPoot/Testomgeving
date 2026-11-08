@@ -72,8 +72,8 @@
     "en": "Making a documentary portrait",
     "sub": {"nl": "Documentairefotografie", "en": "Documentary photography"},
     "desc": {"nl": "Eén persoon of plek over langere tijd fotograferen of filmen, met toestemming, om een verhaal in beeld te vertellen.", "en": "Photographing or filming one person or place over time, with consent, to tell a story in images."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "documentaireportret-maken",
     "v0_id": "ACT-019",
     "facets": {"setting": "both", "social_formats": ["duo", "small_group", "solo"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["observeren:5:D", "onderzoeken:4:D", "communicatie:5:V", "taalvaardig:3:V", "concentratie:3:V", "creativiteit:3:V", "geduld:4:V", "verhalen:5:T", "identiteit:4:T", "kunst:3:T", "geschiedenis:3:T", "ontroering:5:E", "licht:3:E", "gemeenschap:3:E", "generaties:3:O", "wereldculturen:3:O", "luisteren:4:V"],
@@ -83,7 +83,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-027",
@@ -94,8 +94,8 @@
     "en": "Field recordings and soundscapes",
     "sub": {"nl": "Geluidskunst", "en": "Sound art"},
     "desc": {"nl": "Geluiden van plekken opnemen met een handrecorder en tot een korte klankportret vormen.", "en": "Recording the sounds of places with a handheld recorder and shaping them into a short sound portrait."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "veldopnames-maken",
     "v0_id": "ACT-020",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["observeren:5:D", "navigeren:3:D", "bos:3:D", "stad:3:D", "concentratie:5:V", "creativiteit:4:V", "geduld:4:V", "technologie:4:T", "natuur:3:T", "kunst:3:T", "klank:5:E", "rust:4:E", "verwondering:4:E", "opgaan:3:E", "ritme:3:E", "dieren:3:O", "geschiedenis:3:O", "luisteren:4:V"],
@@ -105,7 +105,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-160",
@@ -116,8 +116,8 @@
     "en": "Cyanotype and sun printing",
     "sub": {"nl": "Alternatieve fotografie", "en": "Alternative photography"},
     "desc": {"nl": "Beelden afdrukken met zonlicht op papier of stof, met planten, negatieven of voorwerpen.", "en": "Printing images with sunlight on paper or fabric, using plants, negatives or objects."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "cyanotypie",
     "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 1, "source": "authored"},
     "links": ["papier:4:M", "planten:3:M", "atelier:2:D", "observeren:3:D", "creativiteit:3:V", "geduld:3:V", "kunst:4:T", "wetenschap:4:T", "natuur:3:T", "licht:5:E", "verwondering:5:E", "nostalgie:3:E", "imperfectie:3:E", "rust:3:E", "speelsheid:3:E", "geschiedenis:3:O", "experimenteren:3:O"],
     "why": {
@@ -126,7 +126,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-161",
@@ -137,8 +137,8 @@
     "en": "Video editing",
     "sub": {"nl": "Film", "en": "Film"},
     "desc": {"nl": "Beeld en geluid knippen en monteren tot een korte film met gratis of betaalde software.", "en": "Cutting and editing footage and sound into a short film with free or paid software."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "videomontage-leren",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["ontwerpen:3:D", "thuis:3:D", "logica:3:V", "creativiteit:4:V", "concentratie:4:V", "geduld:3:V", "precisie:3:V", "technologie:4:T", "verhalen:5:T", "kunst:3:T", "ritme:5:E", "klank:3:E", "opgaan:4:E", "trots:4:E", "expressie:3:E", "puzzelen:3:O", "communicatie:3:O", "online:4:D"],
     "why": {
@@ -147,7 +147,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-191",
@@ -379,8 +379,8 @@
     "en": "Macro photography: shooting up close",
     "sub": {"nl": "Fotografie", "en": "Photography"},
     "desc": {"nl": "Insecten, bloemen en kleine dingen van dichtbij fotograferen met macrolens of telefoonlens.", "en": "Shooting insects, flowers and small things up close with a macro lens or phone lens."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "macrofotografie",
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 2, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["observeren:5:D", "bos:2:D", "planten:2:M", "precisie:4:V", "geduld:4:V", "concentratie:4:V", "technologie:3:T", "natuur:4:T", "dieren:3:T", "beeldtaal:3:T", "detail:5:E", "licht:4:E", "verwondering:5:E", "rust:3:E", "opgaan:4:E", "wetenschap:3:O", "kunst:3:O", "miniatuur:4:E"],
     "why": {
@@ -389,7 +389,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-422",
@@ -400,8 +400,8 @@
     "en": "Learning portrait photography",
     "sub": {"nl": "Fotografie", "en": "Photography"},
     "desc": {"nl": "Mensen fotograferen met licht, houding en gesprek, in studio of buiten.", "en": "Photographing people with light, pose and conversation, in studio or outdoors."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "portretfotografie",
     "facets": {"setting": "both", "social_formats": ["duo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["observeren:4:D", "communicatie:5:V", "creativiteit:3:V", "concentratie:3:V", "technologie:3:T", "identiteit:4:T", "beeldtaal:4:T", "kunst:3:T", "licht:5:E", "ontroering:3:E", "expressie:3:E", "zorg:3:E", "verbondenheid:4:E", "luisteren:3:V", "stad:3:O", "geschiedenis:3:O"],
     "why": {
@@ -410,7 +410,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor, Verhalen."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor, Verhalen.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-423",
@@ -421,8 +421,8 @@
     "en": "Timelapse and capturing time",
     "sub": {"nl": "Fotografie", "en": "Photography"},
     "desc": {"nl": "Wolken, bouwwerken of planten in versnelde tijd filmen met een telefoon of camera.", "en": "Filming clouds, construction or plants in sped-up time with a phone or camera."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "timelapse-fotografie",
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["observeren:5:D", "bouwen:2:D", "geduld:4:V", "precisie:3:V", "logica:3:V", "technologie:4:T", "weer:4:T", "natuur:3:T", "beeldtaal:4:T", "licht:4:E", "verwondering:4:E", "rust:3:E", "ritme:4:E", "opgaan:3:E", "wetenschap:3:O", "kunst:3:O"],
     "why": {
@@ -431,7 +431,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-424",
@@ -442,8 +442,8 @@
     "en": "Making a vlog or video diary",
     "sub": {"nl": "Video", "en": "Video"},
     "desc": {"nl": "Een video-reeks of vlog maken over je hobby, reis of dag, met opnemen en monteren.", "en": "Making a video series or vlog about your hobby, trip or day, with shooting and editing."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "vlog-maken",
     "facets": {"setting": "both", "social_formats": ["solo", "online"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["ontwerpen:2:D", "organiseren:2:D", "communicatie:4:V", "creativiteit:4:V", "taalvaardig:3:V", "technologie:4:T", "beeldtaal:5:T", "verhalen:4:T", "identiteit:3:T", "expressie:4:E", "publiek:3:E", "moed:3:E", "doorzetten:3:E", "gemeenschap:3:E", "humor:3:O", "ritme:3:O", "online:4:D"],
     "why": {
@@ -452,7 +452,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-425",
@@ -463,8 +463,8 @@
     "en": "Joining a film club or film night",
     "sub": {"nl": "Film", "en": "Film"},
     "desc": {"nl": "Samen films kijken en erover praten in een filmclub, filmhuis of kring.", "en": "Watching films together and talking about them in a film club, cinema or circle."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "filmclub",
     "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["observeren:4:D", "stad:2:D", "communicatie:2:V", "taalvaardig:2:V", "beeldtaal:5:T", "kunst:3:T", "verhalen:4:T", "wereldculturen:3:T", "gezelligheid:4:E", "verbondenheid:3:E", "ontroering:3:E", "verwondering:3:E", "ontdekking:4:E", "gemeenschap:3:E", "uitgaan:3:D", "cultuurplek:4:D", "geschiedenis:3:O", "muziek:3:O"],
     "why": {
@@ -473,7 +473,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor, Architectuur."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor, Architectuur.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-426",
@@ -484,8 +484,8 @@
     "en": "Photographing stars and the Milky Way",
     "sub": {"nl": "Fotografie", "en": "Photography"},
     "desc": {"nl": "Sterrenhemel, maan en melkweg fotograferen met statief en lange sluitertijd op een donkere plek.", "en": "Photographing the starry sky, moon and Milky Way with a tripod and long exposure at a dark spot."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "sterren-fotograferen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["observeren:5:D", "navigeren:2:D", "geduld:4:V", "precisie:3:V", "concentratie:3:V", "heelal:5:T", "technologie:3:T", "natuur:3:T", "weer:4:T", "licht:5:E", "stilte:4:E", "verwondering:5:E", "rust:3:E", "ontdekking:3:E", "zelfstandig:2:E", "wetenschap:3:O", "zeevaart:3:O"],
     "why": {
@@ -494,7 +494,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-427",
@@ -505,8 +505,8 @@
     "en": "Making hand-drawn animation",
     "sub": {"nl": "Animatie", "en": "Animation"},
     "desc": {"nl": "Een korte animatie maken met tekeningen frame voor frame, op papier of tablet.", "en": "Making a short animation of drawings frame by frame, on paper or tablet."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "handgetekende-animatie",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["papier:3:M", "ontwerpen:3:D", "thuis:3:D", "creativiteit:5:V", "geduld:4:V", "motoriek:4:V", "precisie:3:V", "verhalen:5:T", "beeldtaal:4:T", "kunst:4:T", "fantasie:4:E", "speelsheid:4:E", "opgaan:4:E", "ritme:4:E", "doorzetten:3:E", "wetenschap:3:O", "humor:3:O"],
     "why": {
@@ -515,6 +515,6 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   }
 ]

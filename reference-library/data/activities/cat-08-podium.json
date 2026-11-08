@@ -152,8 +152,8 @@
     "en": "Directing an amateur production",
     "sub": {"nl": "Regie", "en": "Directing"},
     "desc": {"nl": "Een toneelstuk of scène met een groep amateurs kiezen, repeteren en op de planken brengen.", "en": "Choosing, rehearsing and staging a play or scene with a group of amateurs."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "regie-amateurstuk",
     "facets": {"setting": "indoor", "social_formats": ["small_group", "large_group"], "level": 2, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["organiseren:5:D", "podium:4:D", "optreden:3:D", "leiding:5:V", "communicatie:5:V", "creativiteit:4:V", "strategie:3:V", "ruimtelijk:3:V", "verhalen:4:T", "kunst:3:T", "samenwerking:5:E", "publiek:4:E", "spanning:3:E", "gemeenschap:3:E", "expressie:3:E", "beeldtaal:3:O"],
     "why": {
@@ -161,7 +161,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 2): brug Zorg voor anderen was zwak; vervangen door Film en beeldtaal.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 2): brug Zorg voor anderen was zwak; vervangen door Film en beeldtaal.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-225",
@@ -172,8 +172,8 @@
     "en": "Taking part in a dance performance",
     "sub": {"nl": "Dans", "en": "Dance"},
     "desc": {"nl": "Meedoen aan een gechoreografeerde groepsdans of performance voor publiek, ook zonder dansachtergrond.", "en": "Taking part in a choreographed group dance or performance for an audience, even without a dance background."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "dansperformance-meedoen",
     "facets": {"setting": "both", "social_formats": ["large_group", "small_group"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["optreden:5:D", "podium:4:D", "motoriek:3:V", "ruimtelijk:3:V", "concentratie:3:V", "beweging:5:E", "ritme:5:E", "samenwerking:5:E", "publiek:4:E", "expressie:4:E", "elegantie:3:E", "spanning:3:E", "gemeenschap:3:E", "moed:3:E", "architectuur:3:O", "verhalen:3:O"],
     "why": {
@@ -182,7 +182,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-241",

@@ -8,8 +8,8 @@
     "en": "Life drawing",
     "sub": {"nl": "Tekenen", "en": "Drawing"},
     "desc": {"nl": "Tekenen naar een model dat poseert, in korte en lange houdingen, in een tekenatelier of -groep.", "en": "Drawing from a posing model in short and long poses, in a drawing studio or group."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "levend-model-tekenen",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 2, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["papier:4:M", "observeren:5:D", "atelier:4:D", "precisie:4:V", "concentratie:5:V", "motoriek:4:V", "geduld:3:V", "kunst:5:T", "schoonheid:4:E", "opgaan:4:E", "licht:4:E", "imperfectie:3:E", "expressie:3:E", "beweging:3:O", "identiteit:3:O"],
     "why": {
@@ -18,7 +18,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-002",
@@ -29,8 +29,8 @@
     "en": "Botanical drawing",
     "sub": {"nl": "Tekenen", "en": "Drawing"},
     "desc": {"nl": "Planten tekenen met grote nauwkeurigheid, zoals botanisch illustratoren dat doen.", "en": "Drawing plants with great accuracy, as botanical illustrators do."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "botanisch-tekenen",
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["planten:5:M", "papier:3:M", "verf:3:M", "observeren:5:D", "natuur:5:T", "wetenschap:3:T", "precisie:5:V", "concentratie:4:V", "geduld:4:V", "motoriek:4:V", "detail:5:E", "schoonheid:4:E", "rust:4:E", "opgaan:3:E", "geschiedenis:3:O", "verzamelen:3:O"],
     "why": {
@@ -39,7 +39,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-003",
@@ -50,8 +50,8 @@
     "en": "Illustrating a picture book",
     "sub": {"nl": "Illustratie", "en": "Illustration"},
     "desc": {"nl": "Illustraties maken bij een prentenboekverhaal, van personageschetsen tot afgewerkte dubbele pagina's.", "en": "Making illustrations for a picture book story, from character sketches to finished spreads."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "kinderboek-illustreren",
     "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["papier:3:M", "verf:4:M", "ontwerpen:5:D", "atelier:3:D", "thuis:3:D", "creativiteit:5:V", "motoriek:3:V", "verhalen:5:T", "kunst:4:T", "fantasie:5:E", "speelsheid:5:E", "schoonheid:3:E", "expressie:4:E", "doorzetten:3:E", "generaties:3:O", "dieren:3:O"],
     "why": {
@@ -60,7 +60,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-004",
@@ -71,8 +71,8 @@
     "en": "Drawing a comic",
     "sub": {"nl": "Illustratie", "en": "Illustration"},
     "desc": {"nl": "Een verhaal vertellen in plaatjes: plot, paginaopbouw, letters en inkten.", "en": "Telling a story in panels: plot, page layout, lettering and inking."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "stripverhaal-tekenen",
     "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["papier:3:M", "verf:3:M", "ontwerpen:4:D", "bouwen:3:D", "creativiteit:5:V", "taalvaardig:3:V", "ruimtelijk:3:V", "motoriek:3:V", "verhalen:5:T", "kunst:3:T", "fantasie:4:E", "speelsheid:4:E", "expressie:4:E", "opgaan:3:E", "ritme:3:E", "communicatie:3:O", "puzzelen:3:O"],
     "why": {
@@ -81,7 +81,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-005",
@@ -92,8 +92,8 @@
     "en": "Watercolour painting",
     "sub": {"nl": "Schilderen", "en": "Painting"},
     "desc": {"nl": "Schilderen met waterverf: nat-in-nat, lagen opbouwen en het water een deel van het werk laten doen.", "en": "Painting with watercolour: wet-in-wet washes, building layers and letting the water do part of the work."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "aquarelleren",
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["verf:5:M", "papier:4:M", "water:3:D", "observeren:3:D", "kunst:4:T", "natuur:3:T", "licht:5:E", "rust:4:E", "schoonheid:4:E", "imperfectie:5:E", "expressie:3:E", "opgaan:4:E", "geduld:3:V", "motoriek:3:V", "creativiteit:4:V", "improviseren:3:O", "wetenschap:3:O"],
     "why": {
@@ -102,7 +102,7 @@
     },
     "status": "Concept",
     "qa": {"round": 2, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 2): brug Gezondheid en welzijn was onzin; vervangen door Wetenschap."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 2): brug Gezondheid en welzijn was onzin; vervangen door Wetenschap.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-006",
@@ -153,8 +153,8 @@
     "en": "Pastel drawing",
     "sub": {"nl": "Tekenen", "en": "Drawing"},
     "desc": {"nl": "Tekenen met zachte pastelkrijt op papier, met vlakken kleur en zachte overgangen.", "en": "Drawing with soft pastels on paper, with fields of colour and soft transitions."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "pastel-tekenen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["verf:3:M", "papier:4:M", "observeren:4:D", "atelier:3:D", "creativiteit:4:V", "motoriek:3:V", "kunst:4:T", "natuur:2:T", "licht:5:E", "tast:4:E", "schoonheid:4:E", "expressie:4:E", "opgaan:4:E", "rust:3:E", "imperfectie:3:E", "geschiedenis:3:O"],
     "why": {
@@ -162,7 +162,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Gezondheid en welzijn."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Gezondheid en welzijn.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-149",
@@ -173,8 +173,8 @@
     "en": "Sketchnoting and visual note-taking",
     "sub": {"nl": "Illustratie", "en": "Illustration"},
     "desc": {"nl": "Lezingen, boeken en ideeën vastleggen met eenvoudige tekeningen, letters en pijlen.", "en": "Capturing talks, books and ideas with simple drawings, lettering and arrows."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "sketchnotes-maken",
     "facets": {"setting": "both", "social_formats": ["solo", "online"], "level": 0, "duration": 1, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["papier:3:M", "ontwerpen:3:D", "observeren:3:D", "thuis:2:D", "creativiteit:5:V", "communicatie:3:V", "taalvaardig:3:V", "concentratie:4:V", "logica:3:V", "motoriek:2:V", "kunst:2:T", "speelsheid:4:E", "opgaan:3:E", "expressie:3:E", "onderzoeken:3:O", "gemeenschap:3:O", "online:3:D"],
     "why": {
@@ -183,7 +183,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-150",
@@ -194,8 +194,8 @@
     "en": "Pen and ink drawing",
     "sub": {"nl": "Tekenen", "en": "Drawing"},
     "desc": {"nl": "Tekeningen maken met vulpen, fineliner of rietpen en inkt, met lijn, arcering en stippen.", "en": "Making drawings with fountain pen, fineliner or reed pen and ink, using line, hatching and dots."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "pen-inkt-tekenen",
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["verf:4:M", "papier:3:M", "observeren:4:D", "precisie:5:V", "motoriek:4:V", "concentratie:4:V", "geduld:3:V", "creativiteit:3:V", "kunst:4:T", "detail:5:E", "minimalisme:3:E", "opgaan:4:E", "rust:3:E", "ornament:3:E", "geschiedenis:3:O"],
     "why": {
@@ -203,7 +203,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Logica."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Logica.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-151",
@@ -214,8 +214,8 @@
     "en": "Drawing or painting portraits",
     "sub": {"nl": "Tekenen", "en": "Drawing"},
     "desc": {"nl": "Gezichten tekenen of schilderen, naar model, foto of spiegel, met aandacht voor verhoudingen en uitdrukking.", "en": "Drawing or painting faces from a model, photo or mirror, with attention to proportion and expression."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "portret-tekenen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["verf:3:M", "papier:3:M", "observeren:5:D", "atelier:3:D", "precisie:4:V", "concentratie:4:V", "creativiteit:3:V", "motoriek:3:V", "ruimtelijk:3:V", "kunst:5:T", "identiteit:4:T", "licht:4:E", "ontroering:4:E", "expressie:4:E", "opgaan:4:E", "communicatie:3:O"],
     "why": {
@@ -223,7 +223,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zorg voor anderen."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zorg voor anderen.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-165",
@@ -575,8 +575,8 @@
     "en": "Painting outdoors (plein air)",
     "sub": {"nl": "Schilderen", "en": "Painting"},
     "desc": {"nl": "Buiten naar het landschap schilderen of schetsen, met licht en weer als onderwerp.", "en": "Painting or sketching outdoors from the landscape, with light and weather as the subject."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "plein-air-schilderen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["verf:5:M", "observeren:5:D", "bos:3:D", "kust:2:D", "creativiteit:3:V", "concentratie:4:V", "kunst:4:T", "natuur:4:T", "weer:4:T", "licht:5:E", "rust:4:E", "vrijheid:3:E", "opgaan:4:E", "schoonheid:3:E", "improviseren:3:O", "tradities:3:O"],
     "why": {
@@ -585,7 +585,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-370",
@@ -596,8 +596,8 @@
     "en": "Acrylic pouring and abstract painting",
     "sub": {"nl": "Schilderen", "en": "Painting"},
     "desc": {"nl": "Verf laten vloeien, kantelen en mengen tot abstracte kleurpatronen.", "en": "Letting paint flow, tilt and mix into abstract colour patterns."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "acryl-gieten",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["verf:5:M", "atelier:2:D", "creativiteit:4:V", "motoriek:2:V", "kunst:4:T", "licht:4:E", "expressie:4:E", "speelsheid:5:E", "verwondering:4:E", "imperfectie:4:E", "experimenteren:5:E", "opgaan:3:E", "wetenschap:3:O", "patronen:3:O"],
     "why": {
@@ -606,7 +606,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-371",
@@ -617,8 +617,8 @@
     "en": "Realistic coloured-pencil drawing",
     "sub": {"nl": "Tekenen", "en": "Drawing"},
     "desc": {"nl": "Met kleurpotloden in lagen een realistische tekening opbouwen van fruit, dieren of portretten.", "en": "Building a realistic drawing in layers of coloured pencil, of fruit, animals or portraits."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "kleurpotlood-tekenen",
     "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["papier:4:M", "thuis:3:D", "observeren:5:D", "precisie:5:V", "motoriek:4:V", "concentratie:4:V", "geduld:4:V", "kunst:3:T", "licht:4:E", "detail:5:E", "rust:4:E", "opgaan:4:E", "schoonheid:3:E", "wetenschap:3:O"],
     "why": {
@@ -626,7 +626,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Dieren."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Dieren.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-372",
@@ -637,8 +637,8 @@
     "en": "Hand lettering with brush pen",
     "sub": {"nl": "Lettering", "en": "Lettering"},
     "desc": {"nl": "Letters en teksten vormgeven met brushpen en potlood, voor kaarten, posters en notities.", "en": "Shaping letters and phrases with brush pen and pencil, for cards, posters and notes."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "handlettering",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["papier:3:M", "verf:2:M", "thuis:3:D", "ontwerpen:3:D", "motoriek:5:V", "precisie:3:V", "creativiteit:4:V", "taalvaardig:2:V", "kunst:2:T", "rust:4:E", "ritme:3:E", "detail:3:E", "ornament:3:E", "expressie:3:E", "speelsheid:3:E", "communicatie:3:O", "taal:4:T"],
     "why": {
@@ -646,7 +646,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Volkscultuur en tradities.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-373",
@@ -657,8 +657,8 @@
     "en": "Drawing mandalas and patterns",
     "sub": {"nl": "Tekenen", "en": "Drawing"},
     "desc": {"nl": "Cirkelvormige patronen en mandala's tekenen met passer, liniaal of uit de losse hand.", "en": "Drawing circular patterns and mandalas with compass, ruler or freehand."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "mandala-tekenen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["papier:3:M", "thuis:3:D", "precisie:4:V", "concentratie:5:V", "motoriek:3:V", "creativiteit:3:V", "patronen:5:T", "spiritualiteit:3:T", "rust:5:E", "ornament:5:E", "detail:4:E", "opgaan:4:E", "minimalisme:2:E", "wetenschap:3:O", "wereldculturen:3:O"],
     "why": {
@@ -667,7 +667,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-374",
@@ -678,8 +678,8 @@
     "en": "Making papier-mâché sculptures",
     "sub": {"nl": "Beeldhouwen", "en": "Sculpture"},
     "desc": {"nl": "Beelden, maskers en dieren bouwen van papier, lijm en een gaas of ballon.", "en": "Building sculptures, masks and animals from paper, glue and a mesh or balloon."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "papier-mache-beelden",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["papier:5:M", "verf:3:M", "bouwen:4:D", "ontwerpen:3:D", "creativiteit:4:V", "ruimtelijk:4:V", "motoriek:3:V", "kunst:3:T", "speelsheid:4:E", "fantasie:4:E", "tast:3:E", "imperfectie:3:E", "duurzaamheid:3:O", "tradities:3:O"],
     "why": {
@@ -688,7 +688,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-375",
@@ -699,8 +699,8 @@
     "en": "Gouache painting",
     "sub": {"nl": "Schilderen", "en": "Painting"},
     "desc": {"nl": "Schilderen met dekkende gouache voor illustraties, kaarten en kleurstudies.", "en": "Painting with opaque gouache for illustrations, cards and colour studies."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "gouache-schilderen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["verf:5:M", "papier:4:M", "ontwerpen:3:D", "creativiteit:4:V", "precisie:3:V", "motoriek:3:V", "kunst:4:T", "mode:2:T", "licht:3:E", "schoonheid:3:E", "expressie:3:E", "rust:3:E", "detail:3:E", "imperfectie:2:E", "wereldculturen:3:O"],
     "why": {
@@ -708,7 +708,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Film en beeldtaal."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Film en beeldtaal.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-376",
@@ -719,8 +719,8 @@
     "en": "Learning to draw for beginners",
     "sub": {"nl": "Tekenen", "en": "Drawing"},
     "desc": {"nl": "Een beginnerscursus tekenen volgen met perspectief, schaduw en schetsen.", "en": "Taking a beginner's drawing course covering perspective, shading and sketching."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "close",
+    "legacy_id": "tekenen",
     "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["papier:3:M", "observeren:4:D", "atelier:2:D", "creativiteit:3:V", "precisie:3:V", "ruimtelijk:4:V", "motoriek:3:V", "concentratie:3:V", "kunst:5:T", "ontdekking:3:E", "zelfstandig:3:E", "rust:3:E", "gezelligheid:3:E", "logica:3:O", "leren:5:E"],
     "why": {
@@ -728,6 +728,6 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wonen en interieur."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wonen en interieur.", "The app already has this as 'tekenen': linked, not imported again."]
   }
 ]

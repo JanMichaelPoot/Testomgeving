@@ -31,7 +31,13 @@
       "en": "A day trip past three places you do not know yet"
     },
     "scene": "a folded paper road map with a marked route, sunglasses and a travel thermos on a car dashboard",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-545"
+      }
+    ]
   },
   {
     "id": "nachttrein",
@@ -64,7 +70,13 @@
       "en": "Start with one night train to a faraway city, with a sleeper berth booked"
     },
     "scene": "a vintage train ticket, a small brass reading lamp and a folded blanket on a train seat by a dark window",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-098"
+      }
+    ]
   },
   {
     "id": "camper-weekend",
@@ -106,7 +118,13 @@
       "en": "One night at a campsite close by"
     },
     "scene": "a small campervan with its side door open at a campsite, an enamel mug and a folded camping chair",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-546"
+      }
+    ]
   },
   {
     "id": "eilandhoppen",
@@ -150,7 +168,13 @@
       "en": "One island, one day, first ferry out and last one back"
     },
     "scene": "a ferry ticket, a thermos and a tuft of dune grass on a wooden ferry bench",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-547"
+      }
+    ]
   },
   {
     "id": "kastelenroute",
@@ -185,7 +209,13 @@
       "en": "Three castles in one day by bike or car"
     },
     "scene": "a hand-drawn castle route map, a bicycle bell and a leaflet beside a stone gatehouse",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-548"
+      }
+    ]
   },
   {
     "id": "themareis",
@@ -260,7 +290,13 @@
       "en": "Two days with luggage and a place to sleep on the way"
     },
     "scene": "a loaded bicycle pannier, a folded map and a water bottle leaning on a wooden fence",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-097"
+      }
+    ]
   },
   {
     "id": "boot-slapen",
@@ -303,7 +339,13 @@
       "en": "Book a single night on a houseboat or in a boat hotel"
     },
     "scene": "a small brass porthole, a rolled-up blanket and a mug on a wooden bunk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-549"
+      }
+    ]
   },
   {
     "id": "pelgrimsroute",
@@ -346,7 +388,13 @@
       "en": "One stage of ten to fifteen kilometres, back by train"
     },
     "scene": "a worn walking stick, a shell badge and a small trail guide on a wooden milestone",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-550"
+      }
+    ]
   },
   {
     "id": "streek-weekend",
@@ -381,5 +429,123 @@
     },
     "scene": "a bed-and-breakfast key on a wooden tag, a regional map and a cup of tea on a windowsill",
     "status": "concept"
+  },
+  {
+    "id": "wandelroute-cartograferen",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een eigen wandelroute cartograferen",
+      "en": "Mapping your own walking route"
+    },
+    "tags": [
+      "discovery",
+      "making",
+      "focus",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een eigen rondje van 5 km uitzetten en lopen met een app",
+      "en": "Plan and walk your own 5 km loop with an app"
+    },
+    "scene": "A hand-drawn map of a walking route with landmarks and arrows on a clipboard, a compass and a pencil on a stone bench.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-076",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "reisdagboek-bijhouden",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een reisdagboek bijhouden",
+      "en": "Keeping a travel journal"
+    },
+    "tags": [
+      "story",
+      "language",
+      "discovery",
+      "focus"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een eerste dag in je eigen stad opschrijven alsof je er op reis bent",
+      "en": "Write down a first day in your own city as if you were travelling"
+    },
+    "scene": "A leather travel journal filled with sketches, ticket stubs and a pressed flower beside a pen and a small paintbrush.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-077",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "thematrip-plannen",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een thematrip plannen",
+      "en": "Planning a themed trip"
+    },
+    "tags": [
+      "discovery",
+      "teamwork",
+      "story",
+      "strategy"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een weekendje plannen rond een thema dat jou boeit",
+      "en": "Plan a weekend around a theme that fascinates you"
+    },
+    "scene": "A map pinned with themed stops and coloured string on a corkboard with a printed itinerary and a notebook.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-163",
+      "method": "curated"
+    }
   }
 ]

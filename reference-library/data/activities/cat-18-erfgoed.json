@@ -8,8 +8,8 @@
     "en": "Heraldry and family coats of arms",
     "sub": {"nl": "Heraldiek", "en": "Heraldry"},
     "desc": {"nl": "Wapens bestuderen, het wapenbeeld leren lezen en zelf een wapen ontwerpen.", "en": "Studying coats of arms, learning to read heraldic emblems and designing your own."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "heraldiek",
     "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["verzamelen:3:D", "onderzoeken:4:D", "ontwerpen:4:D", "geschiedenis:5:T", "kunst:4:T", "identiteit:4:T", "verhalen:4:T", "ornament:5:E", "detail:4:E", "nostalgie:4:E", "precisie:3:V", "creativiteit:3:V", "logica:3:V", "verf:3:M", "taalvaardig:3:O", "stad:3:O"],
     "why": {
@@ -18,7 +18,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-070",
@@ -29,8 +29,8 @@
     "en": "Recording oral history",
     "sub": {"nl": "Mondelinge geschiedenis", "en": "Oral history"},
     "desc": {"nl": "Ouderen interviewen over hun leven en de verhalen vastleggen voor familie, museum of archief.", "en": "Interviewing elders about their lives and recording the stories for family, a museum or an archive."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "mondelinge-geschiedenis",
     "facets": {"setting": "both", "social_formats": ["duo", "small_group"], "level": 1, "duration": 3, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["onderzoeken:4:D", "observeren:3:D", "communicatie:5:V", "taalvaardig:3:V", "geduld:4:V", "concentratie:3:V", "geschiedenis:5:T", "verhalen:5:T", "identiteit:3:T", "ontroering:5:E", "gemeenschap:4:E", "generaties:5:E", "zorg:3:E", "klank:3:O", "wereldculturen:3:O", "luisteren:5:V"],
     "why": {
@@ -39,7 +39,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-071",
@@ -230,8 +230,8 @@
     "en": "Indexing archive records as a volunteer",
     "sub": {"nl": "Vrijwilligerswerk", "en": "Volunteering"},
     "desc": {"nl": "Online of in een archief oude aktes, krantenartikelen of foto's doorzoekbaar maken.", "en": "Making old records, newspaper articles or photos searchable, online or in an archive."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "archief-indexeren",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["onderzoeken:4:D", "thuis:3:D", "papier:3:M", "concentratie:4:V", "taalvaardig:3:V", "precisie:4:V", "geschiedenis:5:T", "technologie:3:T", "rechtvaardigheid:2:T", "rust:3:E", "puzzelen:3:E", "gemeenschap:4:E", "zorg:3:E", "ontdekking:3:E", "doorzetten:3:E", "identiteit:3:O", "verhalen:3:O", "cultuurplek:3:D"],
     "why": {
@@ -240,7 +240,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-343",

@@ -42,6 +42,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q13464614"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-018"
       }
     ],
     "aliases": {
@@ -91,6 +95,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q816871"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-179"
       }
     ]
   },
@@ -131,6 +139,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q1186844"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-021"
       }
     ],
     "aliases": {
@@ -179,6 +191,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q11634"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-165"
       }
     ],
     "aliases": {
@@ -224,7 +240,13 @@
     },
     "scene": "mosaic tiles in bright colors laid out beside a half-finished mosaic",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-019"
+      }
+    ]
   },
   {
     "id": "sieraden",
@@ -265,6 +287,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q6189617"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-182"
       }
     ],
     "aliases": {
@@ -321,6 +347,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q208386"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-173"
       }
     ],
     "aliases": {
@@ -378,16 +408,26 @@
       {
         "source_id": "S3",
         "source_record_id": "Q192296"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-009"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-174"
       }
     ],
     "aliases": {
       "nl": [
         "borduren",
-        "weven"
+        "weven",
+        "Borduren met de hand"
       ],
       "en": [
         "embroidery",
-        "weaving"
+        "weaving",
+        "Hand embroidery"
       ]
     }
   },
@@ -428,6 +468,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q652122"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-008"
       }
     ],
     "aliases": {
@@ -472,7 +516,13 @@
       "en": "Half-day workshop, everything included"
     },
     "scene": "a handmade notebook with a stitched spine, a calligraphy pen and an ink pot",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-022"
+      }
+    ]
   },
   {
     "id": "zeefdruk",
@@ -507,7 +557,13 @@
     },
     "scene": "a screen-printing frame and a bright print on a table with a squeegee",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-166"
+      }
+    ]
   },
   {
     "id": "schilderen",
@@ -549,6 +605,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q11629"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-007"
       }
     ],
     "aliases": {
@@ -594,7 +654,25 @@
       "en": "A sketchbook and a pen; sketchcrawl groups are open"
     },
     "scene": "an open sketchbook with a pen sketch of a street and watercolor pencils on a café table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-006"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-376"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "Tekenen leren voor beginners"
+      ],
+      "en": [
+        "Learning to draw for beginners"
+      ]
+    }
   },
   {
     "id": "fotografie",
@@ -637,6 +715,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q11633"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-191"
       }
     ]
   },
@@ -679,6 +761,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q266177"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-168"
       }
     ],
     "aliases": {
@@ -723,7 +809,13 @@
     },
     "scene": "a stack of sheet music on a piano with a tuning fork in a church hall",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-030"
+      }
+    ]
   },
   {
     "id": "instrument",
@@ -759,7 +851,13 @@
       "en": "Trial lesson or rent an instrument; ukulele is quick to learn"
     },
     "scene": "a ukulele leaning on a chair beside a window with sheet music",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-028"
+      }
+    ]
   },
   {
     "id": "muziek-maken",
@@ -794,7 +892,13 @@
       "en": "Beginner workshop or free software"
     },
     "scene": "a small synthesizer and headphones on a desk with a laptop glow",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-226"
+      }
+    ]
   },
   {
     "id": "improvisatie",
@@ -828,7 +932,13 @@
       "en": "Beginner workshop where everyone is new"
     },
     "scene": "an empty small theatre stage with two chairs and a single spotlight",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-036"
+      }
+    ]
   },
   {
     "id": "schrijven",
@@ -865,7 +975,13 @@
       "en": "Writing group, or a writing prompt and thirty minutes"
     },
     "scene": "a typewriter with a sheet of paper and a mug of coffee on a desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-233"
+      }
+    ]
   },
   {
     "id": "graffiti",
@@ -901,7 +1017,13 @@
     },
     "scene": "a wall of layered spray-painted colours with rolled paint cans and a stencil leaning against a concrete block",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-169"
+      }
+    ]
   },
   {
     "id": "kalligrafie",
@@ -942,6 +1064,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q12681"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-170"
       }
     ]
   },
@@ -979,7 +1105,13 @@
     },
     "scene": "a red safelight glowing over a tray of developer with a wet print and hanging film strips",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-024"
+      }
+    ]
   },
   {
     "id": "indigo-verven",
@@ -1014,7 +1146,13 @@
     },
     "scene": "indigo-dyed cloths in deep blue with white tie-dye patterns hanging to dry on a line in a courtyard",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-175"
+      }
+    ]
   },
   {
     "id": "parfum-maken",
@@ -1048,7 +1186,13 @@
     },
     "scene": "rows of amber glass bottles and strips of paper in front of an organ of tiny scent vials on a marble table",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-411"
+      }
+    ]
   },
   {
     "id": "zeep-maken",
@@ -1088,6 +1232,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q68489725"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-187"
       }
     ],
     "aliases": {
@@ -1130,7 +1278,13 @@
     },
     "scene": "a carved lino block, an ink roller and a fresh print drying on a rack in a bright studio",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-167"
+      }
+    ]
   },
   {
     "id": "ballonmodelleren",
@@ -1208,7 +1362,13 @@
       "source_id": "S3",
       "source_record_id": "Q1460219",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-050"
+      }
+    ]
   },
   {
     "id": "quilten",
@@ -1247,7 +1407,13 @@
       "source_id": "S3",
       "source_record_id": "Q1920065",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-010"
+      }
+    ]
   },
   {
     "id": "kaarten-maken",
@@ -1286,7 +1452,13 @@
       "source_id": "S3",
       "source_record_id": "Q2987950",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-364"
+      }
+    ]
   },
   {
     "id": "eigen-taal",
@@ -1324,7 +1496,13 @@
       "source_id": "S3",
       "source_record_id": "Q19642588",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-442"
+      }
+    ]
   },
   {
     "id": "straatfotografie",
@@ -1363,7 +1541,13 @@
       "source_id": "S3",
       "source_record_id": "Q10284385",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-023"
+      }
+    ]
   },
   {
     "id": "figuurzagen",
@@ -1401,7 +1585,13 @@
       "source_id": "S3",
       "source_record_id": "Q2880401",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-180"
+      }
+    ]
   },
   {
     "id": "kostuumontwerp",
@@ -1438,7 +1628,13 @@
     },
     "scene": "a costume designer's table with fabric swatches, a mannequin draped in half-pinned velvet, pins and sketches",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-354"
+      }
+    ]
   },
   {
     "id": "hoeden-maken",
@@ -1475,7 +1671,13 @@
     },
     "scene": "a wooden hat block with a steamed felt hat, ribbons and millinery wire on a workbench",
     "status": "concept",
-    "supply": "rare"
+    "supply": "rare",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-011"
+      }
+    ]
   },
   {
     "id": "patroontekenen",
@@ -1512,7 +1714,13 @@
     },
     "scene": "large sheets of pattern paper with curved lines, tailor's chalk, a measuring tape and a french curve ruler",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-178"
+      }
+    ]
   },
   {
     "id": "upcycle-kleding",
@@ -1548,7 +1756,13 @@
       "en": "A mending evening: give a damaged garment new life with visible embroidery"
     },
     "scene": "a denim jacket with colourful visible stitching, embroidery thread skeins and a darning needle on a table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-177"
+      }
+    ]
   },
   {
     "id": "macrame",
@@ -1584,7 +1798,13 @@
       "en": "A beginner workshop: knot a wall hanging or plant hanger"
     },
     "scene": "cream cotton cord knotted into a wall hanging on a wooden dowel with a few thread tassels",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-012"
+      }
+    ]
   },
   {
     "id": "spinnen",
@@ -1621,7 +1841,13 @@
     },
     "scene": "a wooden spinning wheel beside baskets of carded wool in natural colours and a skein of hand-dyed yarn",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-176"
+      }
+    ]
   },
   {
     "id": "modeillustratie",
@@ -1655,7 +1881,13 @@
       "en": "An afternoon of fashion sketching with markers and watercolour, no experience needed"
     },
     "scene": "a sketchbook page of elongated fashion outlines with watercolour washes, markers and fabric swatches clipped beside it",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-363"
+      }
+    ]
   },
   {
     "id": "schoenmaken",
@@ -1690,7 +1922,13 @@
     },
     "scene": "a cobbler's bench with leather hide, wooden lasts, awls and a half-finished leather shoe",
     "status": "concept",
-    "supply": "rare"
+    "supply": "rare",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-189"
+      }
+    ]
   },
   {
     "id": "edelstenen-slijpen",
@@ -1725,7 +1963,13 @@
     },
     "scene": "a small faceting machine with a cut gemstone, polishing laps and tweezers on a bench",
     "status": "concept",
-    "supply": "rare"
+    "supply": "rare",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-184"
+      }
+    ]
   },
   {
     "id": "kralen-rijgen",
@@ -1761,7 +2005,13 @@
       "en": "An hour of beading at a table in a shop or café"
     },
     "scene": "bowls of glass beads in many colours with a beading board and a half-strung necklace",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-356"
+      }
+    ]
   },
   {
     "id": "emailleren",
@@ -1796,7 +2046,13 @@
     },
     "scene": "small copper discs with bright enamel glaze, a kiln tray and jars of fine powder",
     "status": "concept",
-    "supply": "rare"
+    "supply": "rare",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-183"
+      }
+    ]
   },
   {
     "id": "sieraad-ontwerpen",
@@ -1832,7 +2088,13 @@
     },
     "scene": "a jeweller's sketch of a ring with a pencil, a carved wax ring model and a ring sizer",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-410"
+      }
+    ]
   },
   {
     "id": "operazang",
@@ -1867,7 +2129,13 @@
     },
     "scene": "a grand piano with sheet music of an aria and a tuning fork in a warm rehearsal room",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-428"
+      }
+    ]
   },
   {
     "id": "schilder-avond",
@@ -1903,7 +2171,13 @@
       "en": "A painting evening with step-by-step guidance, no experience needed"
     },
     "scene": "easels holding the same half-painted landscape canvas, paint palettes, brushes and glasses on a long table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-360"
+      }
+    ]
   },
   {
     "id": "nestkast-bouwen",
@@ -1940,7 +2214,25 @@
       "en": "A kit or workshop through a nature society or garden centre"
     },
     "scene": "a wooden birdhouse with a round entrance hole on a workbench with a hammer, nails and cut planks",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-401"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-113"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "Een bijenkast bouwen"
+      ],
+      "en": [
+        "Building a bee hive box"
+      ]
+    }
   },
   {
     "id": "gedichten-schrijven",
@@ -1973,7 +2265,13 @@
       "en": "One four-line poem about something on your desk"
     },
     "scene": "a fountain pen, a loose page with short lines and a small vase on a wooden desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-033"
+      }
+    ]
   },
   {
     "id": "scenario-schrijven",
@@ -2006,7 +2304,13 @@
       "en": "One two-page scene with two characters"
     },
     "scene": "a typewriter with a half-typed script page and a small clapperboard on a desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-238"
+      }
+    ]
   },
   {
     "id": "songteksten",
@@ -2039,7 +2343,13 @@
       "en": "Write a verse about yesterday and read it aloud"
     },
     "scene": "a notebook with crossed-out lyric lines, a guitar pick and headphones on a bed",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-029"
+      }
+    ]
   },
   {
     "id": "vertalen",
@@ -2071,7 +2381,13 @@
       "en": "Translate one short text or song lyric"
     },
     "scene": "two open dictionaries, a pencil and a mug on a writing desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-136"
+      }
+    ]
   },
   {
     "id": "levensverhaal",
@@ -2103,7 +2419,13 @@
       "en": "Start with one memory of ten lines"
     },
     "scene": "a stack of old photographs, a notebook and a pen on a kitchen table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-032"
+      }
+    ]
   },
   {
     "id": "muziek-opnemen",
@@ -2136,7 +2458,13 @@
       "en": "A free recording app and one chord or rhythm"
     },
     "scene": "a small audio interface, headphones and a laptop showing a waveform on a desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-227"
+      }
+    ]
   },
   {
     "id": "digitale-kunst",
@@ -2168,7 +2496,13 @@
       "en": "A free drawing app and a tablet or mouse"
     },
     "scene": "a drawing tablet with a stylus, a half-finished colourful landscape on a screen and a mug",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-171"
+      }
+    ]
   },
   {
     "id": "fotobewerking",
@@ -2201,6 +2535,2928 @@
       "en": "Pick twenty photos from one trip and turn them into a booklet"
     },
     "scene": "a laptop with photo thumbnails, a printed photo book and a pencil on a desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-196"
+      }
+    ]
+  },
+  {
+    "id": "levend-model-tekenen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Levend model tekenen",
+      "en": "Life drawing"
+    },
+    "tags": [
+      "making",
+      "focus",
+      "precision",
+      "color"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open tekenavond of proefles in een atelier",
+      "en": "An open life-drawing night or trial class in a studio"
+    },
+    "scene": "A drawing board on an easel with a charcoal figure sketch, sticks of charcoal, a kneaded eraser and a draped stool in soft studio light.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-001",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "botanisch-tekenen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Botanisch tekenen",
+      "en": "Botanical drawing"
+    },
+    "tags": [
+      "precision",
+      "nature",
+      "growing",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een beginnersworkshop in een tuin of kruidentuin",
+      "en": "A beginners' workshop in a garden or botanical garden"
+    },
+    "scene": "A sketchbook open on a detailed ink-and-watercolour drawing of a fern beside a pressed leaf, fine pens and a small glass jar of water.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-002",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "kinderboek-illustreren",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Een kinderboek illustreren",
+      "en": "Illustrating a picture book"
+    },
+    "tags": [
+      "story",
+      "color",
+      "making",
+      "roleplay"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een korte cursus kinderboekillustratie of een online les",
+      "en": "A short children's-book illustration course or an online class"
+    },
+    "scene": "A drawing table with painted storybook pages drying, a fox character sketch, gouache pots and brushes, warm lamp light.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-003",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "stripverhaal-tekenen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Een stripverhaal tekenen",
+      "en": "Drawing a comic"
+    },
+    "tags": [
+      "story",
+      "making",
+      "play",
+      "roleplay"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een stripcursus voor beginners of een tekenavond",
+      "en": "A beginners' comics course or a drawing night"
+    },
+    "scene": "A comic page with inked panels and speech bubbles on a light table, brush pens, a ruler and pencil layouts around it.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-004",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "aquarelleren",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Aquarelleren",
+      "en": "Watercolour painting"
+    },
+    "tags": [
+      "color",
+      "making",
+      "stillness",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een aquarelproefles of een open schilderavond",
+      "en": "A watercolour trial class or an open painting evening"
+    },
+    "scene": "A watercolour palette with wet blooms of colour, a round brush resting on a half-finished landscape on thick paper, a jar of cloudy water.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-005",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "pastel-tekenen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Pastel tekenen",
+      "en": "Pastel drawing"
+    },
+    "tags": [
+      "color",
+      "making",
+      "focus",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een pasteltekenworkshop voor beginners",
+      "en": "A pastel drawing workshop for beginners"
+    },
+    "scene": "Soft pastel sticks in a wooden tray beside a dusty-coloured landscape on tinted paper, a smudged blending stump and a fixative can.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-148",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "sketchnotes-maken",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Sketchnotes en visuele notities maken",
+      "en": "Sketchnoting and visual note-taking"
+    },
+    "tags": [
+      "focus",
+      "play",
+      "making",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis online voorbeeld volgen of een uur oefenen met een eigen lezing",
+      "en": "Follow a free online example or practise for an hour on a talk you attend"
+    },
+    "scene": "A notebook page of hand-drawn sketchnotes with banners, arrows and tiny icons next to fine liner pens and a cup of tea.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-149",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "pen-inkt-tekenen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Tekenen met pen en inkt",
+      "en": "Pen and ink drawing"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "color",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een korte workshop pen en inkt of een uur oefenen thuis",
+      "en": "A short pen-and-ink workshop or an hour of practice at home"
+    },
+    "scene": "A dip pen and bottle of black ink on a page of fine crosshatched drawing of a leaf, with an inkwell and blotting paper.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-150",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "portret-tekenen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Portret tekenen of schilderen",
+      "en": "Drawing or painting portraits"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "color",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open tekenavond of beginnersles portret",
+      "en": "An open drawing evening or a beginners' portrait class"
+    },
+    "scene": "An easel with an oval sheet clipped in place showing a half-finished charcoal study, a tin of pencils, a hand mirror leaning on the easel and a kneaded eraser, soft window light.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-151",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "plein-air-schilderen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Buiten schilderen (plein air)",
+      "en": "Painting outdoors (plein air)"
+    },
+    "tags": [
+      "color",
+      "nature",
+      "focus",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een buitenschilderdag met een groep of een eerste schets in het park",
+      "en": "A plein-air painting day with a group or a first sketch in the park"
+    },
+    "scene": "A small field easel with a painted landscape of dunes and clouds, a folded stool, a paint box and a hat on the grass.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-369",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "acryl-gieten",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Acryl gieten en abstract schilderen",
+      "en": "Acrylic pouring and abstract painting"
+    },
+    "tags": [
+      "color",
+      "play",
+      "making",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een workshop acryl gieten met alle materialen erbij",
+      "en": "An acrylic pouring workshop with all materials provided"
+    },
+    "scene": "A canvas flooded with swirling poured acrylic in blue, teal and gold with cells and ripples, paint cups and a silicone spatula on a protected table.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-370",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "kleurpotlood-tekenen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Realistisch tekenen met kleurpotlood",
+      "en": "Realistic coloured-pencil drawing"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "color",
+      "making"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een startset en een uur oefenen met een online les",
+      "en": "A starter set and an hour of practice with an online lesson"
+    },
+    "scene": "A realistic coloured-pencil drawing of a pear half finished, a fan of pencils, a sharpener with shavings and a ruler.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-371",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "handlettering",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Handlettering met brushpen",
+      "en": "Hand lettering with brush pen"
+    },
+    "tags": [
+      "language",
+      "precision",
+      "making",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop handlettering of een gratis startset online",
+      "en": "A hand-lettering workshop or a free starter lesson online"
+    },
+    "scene": "A sheet of brush-pen lettering with flowing script and flourishes, a practice grid sheet, brush pens in a row and a cup of tea.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-372",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "mandala-tekenen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Mandala's en patronen tekenen",
+      "en": "Drawing mandalas and patterns"
+    },
+    "tags": [
+      "precision",
+      "focus",
+      "stillness",
+      "making",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een rustige teken-avond of een uur thuis met een eerste patroon",
+      "en": "A quiet drawing evening or an hour at home with a first pattern"
+    },
+    "scene": "A round mandala drawn in fine black pen with repeating petals and dots, a compass and ruler beside it, dried flowers on the paper.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-373",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "papier-mache-beelden",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Papier-maché beelden maken",
+      "en": "Making papier-mâché sculptures"
+    },
+    "tags": [
+      "making",
+      "play",
+      "roleplay",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop papier-maché of een middag thuis met een ballon",
+      "en": "A papier-mache workshop or an afternoon at home with a balloon"
+    },
+    "scene": "A half-finished papier-mache animal head with torn newspaper strips, a bowl of paste and a roll of masking tape on a covered table.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-374",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "gouache-schilderen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Gouache schilderen",
+      "en": "Gouache painting"
+    },
+    "tags": [
+      "color",
+      "making",
+      "focus",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een beginnerscursus gouache of een eerste schilderij thuis",
+      "en": "A beginners' gouache course or a first painting at home"
+    },
+    "scene": "Opaque gouache jars in bright flat colours and a small painting of overlapping shapes, a flat brush and a ceramic palette.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-375",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "naaldvilten",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Naaldvilten",
+      "en": "Needle felting"
+    },
+    "tags": [
+      "making",
+      "play",
+      "craft",
+      "miniature"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een naaldviltworkshop of een startpakket thuis",
+      "en": "A needle-felting workshop or a starter kit at home"
+    },
+    "scene": "A small felted fox in progress with a barbed needle in a cork handle, wool roving in orange and white and a foam pad.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-152",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "sashiko-herstellen",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Sashiko en zichtbaar repareren",
+      "en": "Sashiko and visible mending"
+    },
+    "tags": [
+      "craft",
+      "technique",
+      "making",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een herstelworkshop of eerste steken op een oude spijkerbroek",
+      "en": "A mending workshop or first stitches on an old pair of jeans"
+    },
+    "scene": "An indigo cloth with white running-stitch geometric patterns, a long needle, a spool of thick white thread and a small pair of scissors.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-153",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "kantklossen",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Kantklossen",
+      "en": "Bobbin lace making"
+    },
+    "tags": [
+      "precision",
+      "craft",
+      "making",
+      "history"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 2,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een proefles bij een kantkloslaboratorium of een museumdemonstratie",
+      "en": "A trial lesson at a lace-making guild or a museum demonstration"
+    },
+    "scene": "A round lace pillow with dozens of wooden bobbins and pins forming a delicate white lace edge in progress, a pattern card underneath.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-154",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "tuften",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Tuften: een eigen kleed of wandkleed maken",
+      "en": "Tufting: making your own rug or wall hanging"
+    },
+    "tags": [
+      "making",
+      "color",
+      "play",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 3,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een tuftworkshop waarin je een klein kleedje maakt",
+      "en": "A tufting workshop where you make a small rug"
+    },
+    "scene": "A tufting frame with a bold geometric rug design half filled with colourful yarn, a tufting gun and trimmed yarn tails on a mat.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-386",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "planten-verven",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Stof verven met planten en natuurlijke kleurstoffen",
+      "en": "Dyeing fabric with plants and natural dyes"
+    },
+    "tags": [
+      "nature",
+      "growing",
+      "color",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een kleurstoffenworkshop of eerste experimenten met uien en rode kool",
+      "en": "A natural-dye workshop or first experiments with onions and red cabbage"
+    },
+    "scene": "Skeins of wool dyed in ochre, madder red and indigo hanging beside a pot of simmering dye and bundles of dried plants.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-387",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "bandweven",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Bandweven en weven met een klein getouw",
+      "en": "Band weaving and weaving on a small loom"
+    },
+    "tags": [
+      "making",
+      "rhythm",
+      "precision",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een introductieles bandweven of een startersgetouw thuis",
+      "en": "An introductory band-weaving class or a starter loom at home"
+    },
+    "scene": "A narrow band loom with a striped woven ribbon in progress, small shuttles, a ball of cotton yarn and a wooden heddle.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-388",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "houtdraaien",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Houtdraaien op een draaibank",
+      "en": "Woodturning on a lathe"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "making",
+      "technique"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een workshop houtdraaien onder begeleiding bij een houtdraaiersclub",
+      "en": "A supervised woodturning workshop at a woodturning club"
+    },
+    "scene": "A wooden bowl on a lathe with curling shavings, turning chisels on a rack and a pile of pale beech blanks on a workshop bench.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-155",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "houtinleg-marqueterie",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Marqueterie en houtinleg",
+      "en": "Marquetry and wood inlay"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "making",
+      "puzzling"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een cursus marqueterie of een beginnerspakket",
+      "en": "A marquetry course or a beginner kit"
+    },
+    "scene": "A small box lid with intricate marquetry inlay in contrasting woods, a fretsaw, veneer scraps and a sharp knife on a green mat.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-156",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "houten-speelgoed-maken",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Houten speelgoed maken",
+      "en": "Making wooden toys"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "play",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een speelgoedworkshop in een werkplaats of een eerste klusje thuis",
+      "en": "A toy-making workshop at a workshop or a first job at home"
+    },
+    "scene": "A small wooden train and a rolling duck on a workbench with sandpaper, a vice and a few painted wooden wheels.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-157",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "meubel-bouwen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Een meubel ontwerpen en bouwen",
+      "en": "Designing and building a piece of furniture"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "precision",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 2,
+    "cost": 3,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een weekendcursus meubelbouw of een bouwpakket met begeleiding",
+      "en": "A weekend furniture-making course or a guided kit"
+    },
+    "scene": "A solid oak side table built with visible joints, a hand plane, clamps and a folding rule resting on a planked workbench.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-395",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "stoel-bekleden",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Een stoel opnieuw bekleden",
+      "en": "Reupholstering a chair"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "technique",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een workshop stoelen bekleden waarin je er een mee naar huis neemt",
+      "en": "An upholstery workshop where you take a chair home"
+    },
+    "scene": "A dining chair with its seat stripped to the wooden frame, new patterned fabric folded on top, a staple gun and an upholstery hammer.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-396",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "zwaluwstaart-kist",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Een houten kist met zwaluwstaartverbindingen maken",
+      "en": "Making a wooden box with dovetail joints"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "making",
+      "puzzling"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een zwaluwstaartworkshop in een houtwerkplaats",
+      "en": "A dovetail workshop at a woodworking shop"
+    },
+    "scene": "A small wooden chest with crisp dovetail joints at the corners, a marking gauge, a dovetail saw and chisels in a row.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-397",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "ukelele-bouwen",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Een ukelele of gitaar bouwen",
+      "en": "Building a ukulele or guitar"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "sound",
+      "precision"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 3,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een bouwworkshop waarin je een ukelele maakt, geen ervaring nodig",
+      "en": "A building workshop where you make a ukulele, no experience needed"
+    },
+    "scene": "A half-assembled ukulele body with braces and a spruce top beside binding strips, clamps and a luthier's small plane.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-398",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "boomhut-bouwen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Een boomhut of speelhut bouwen",
+      "en": "Building a tree house or play hut"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "play",
+      "outdoors"
+    ],
+    "formats": [
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 2,
+    "cost": 3,
+    "duration": 4,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een bouwdag bij een speeltuinvereniging of buurtproject",
+      "en": "A build day at a playground association or neighbourhood project"
+    },
+    "scene": "A small wooden treehouse platform with railing and a rope ladder in a leafy tree, a tool belt and a pile of planks below.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-399",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "pallet-meubels",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Meubels maken van pallets en restmateriaal",
+      "en": "Making furniture from pallets and offcuts"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "play",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een klusmiddag bij een repaircafé of een eerste plank thuis",
+      "en": "A workshop afternoon at a repair cafe or a first plank at home"
+    },
+    "scene": "A low garden bench built from sanded pallet planks with cushions and a pot of herbs, a crowbar and a sanding block nearby.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-400",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "scheepsmodel-bouwen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Een scheepsmodel bouwen",
+      "en": "Building a ship model"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "making",
+      "history"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een kennismaking bij een modelbouwclub of een startpakket",
+      "en": "An introduction at a model club or a starter kit"
+    },
+    "scene": "A detailed wooden sailing ship model with tiny rigging threads on a cradle, tweezers, a magnifying lamp and a plan sheet.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-402",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "schaakbord-maken",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Een schaakbord of spel van hout maken",
+      "en": "Making a chessboard or board game from wood"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "making",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een weekendcursus of een startpakket met stukken en bord",
+      "en": "A weekend course or a starter kit with board and pieces"
+    },
+    "scene": "A chessboard of light and dark wood squares being glued up, with a few carved pawns, clamps and a block plane.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-403",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "tuinmeubels-maken",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Tuinmeubels en een pergola bouwen",
+      "en": "Building garden furniture and a pergola"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "outdoors",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 3,
+    "duration": 3,
+    "setting": "both",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een bouwworkshop of een bouwpakket met uitleg",
+      "en": "A build workshop or a kit with instructions"
+    },
+    "scene": "A rustic garden bench with sawhorses, pine planks, a cordless drill and a pencil behind the ear of a tape measure.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-404",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "vlonder-bouwen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Een vlonder of terras bouwen",
+      "en": "Building a deck or terrace"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "outdoors",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een klusdag samen met een buurtproject of cursus",
+      "en": "A build day with a neighbourhood project or course"
+    },
+    "scene": "A neat wooden deck platform under construction beside a garden bed, deck screws, a spirit level and an impact driver.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-405",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "houten-klok-bouwen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Een houten klok of mechanisch speelgoed bouwen",
+      "en": "Building a wooden clock or mechanical toy"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "puzzling",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een bouwpakket of een workshop mechanisch speelgoed",
+      "en": "A kit or a mechanical-toy workshop"
+    },
+    "scene": "A wooden gear clock with exposed gears and a pendulum, small cut gears on a bench, a saw and a pair of calipers.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-406",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "keukenplank-maken",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Een snij- of serveerplank maken",
+      "en": "Making a chopping or serving board"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "technique",
+      "food"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een middagworkshop waarin je een plank maakt",
+      "en": "An afternoon workshop where you make a board"
+    },
+    "scene": "A serving board of walnut and maple with a rounded edge, a bottle of food-safe oil and a rag, a block plane and a rasp.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-407",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "papier-scheppen",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Papier scheppen",
+      "en": "Making handmade paper"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "nature",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop papier scheppen of een middag thuis met oud papier",
+      "en": "A paper-making workshop or an afternoon at home with scrap paper"
+    },
+    "scene": "A deckle-framed sheet of handmade paper with pressed flowers and dried petals drying on a cloth, a vat of pulp and a sponge.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-158",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "ebru-marmeren-papier",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Ebru en marmeren papier maken",
+      "en": "Ebru and paper marbling"
+    },
+    "tags": [
+      "color",
+      "making",
+      "play",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop ebru of marmeren papier",
+      "en": "A workshop in ebru or paper marbling"
+    },
+    "scene": "A shallow tray of floating swirled marbling inks in blue, red and gold with a comb and a sheet of paper lifted off.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-159",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "betonnen-schalen-maken",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Betonnen schalen en sierstukken gieten",
+      "en": "Casting concrete bowls and decor"
+    },
+    "tags": [
+      "making",
+      "craft",
+      "technique",
+      "style"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een gietworkshop met mallen en materialen erbij",
+      "en": "A casting workshop with moulds and materials provided"
+    },
+    "scene": "A small grey concrete bowl and a tealight holder beside silicone moulds, a mixing bucket and a smooth trowel on newspaper.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-413",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "polymeerklei-sieraden",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Sieraden en miniaturen van polymeerklei",
+      "en": "Jewellery and miniatures from polymer clay"
+    },
+    "tags": [
+      "making",
+      "precision",
+      "play",
+      "miniature"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een startset en een middag met een online les of een workshop",
+      "en": "A starter set and an afternoon with an online lesson or a workshop"
+    },
+    "scene": "Tiny polymer clay earrings in marbled colours, a pasta machine, a blade and a few baking tiles with small cane slices.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-414",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "lederen-armband-vlechten",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Lederen armbanden en riemen vlechten",
+      "en": "Braiding leather bracelets and belts"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "technique",
+      "style"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een korte workshop lederen sieraden of een kit thuis",
+      "en": "A short leather-jewellery workshop or a kit at home"
+    },
+    "scene": "A braided leather bracelet with a brass snap, strips of leather in brown and tan, a snap tool and a cutting mat.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-415",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "documentaireportret-maken",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Een documentaireportret maken",
+      "en": "Making a documentary portrait"
+    },
+    "tags": [
+      "story",
+      "discovery",
+      "focus",
+      "making"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een filmworkshop of een korte kennismaking met een lokale documentairemaker",
+      "en": "A film workshop or a short introduction with a local documentary maker"
+    },
+    "scene": "A tripod and a small camera in front of a worn armchair by a window with an interview notebook and a lamp, a pair of headphones on the arm.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-026",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "veldopnames-maken",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Veldopnames en soundscapes maken",
+      "en": "Field recordings and soundscapes"
+    },
+    "tags": [
+      "sound",
+      "technique",
+      "nature",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een geluidswandeling met een opnameset of met je telefoon",
+      "en": "A sound walk with a recorder or with your phone"
+    },
+    "scene": "A handheld audio recorder with a furry wind cover on a fence post, headphones and a notebook with sound notes in a misty field.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-027",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "cyanotypie",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Cyanotypie en zonneprint",
+      "en": "Cyanotype and sun printing"
+    },
+    "tags": [
+      "making",
+      "color",
+      "learning",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "entry": {
+      "nl": "Een zonneprint-workshop of een startpakket in de zon",
+      "en": "A sun-print workshop or a starter kit in the sun"
+    },
+    "scene": "A blue cyanotype print of ferns and leaves on cotton paper pinned out in the sun, a glass plate and a tray of rinse water.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-160",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "videomontage-leren",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Video monteren",
+      "en": "Video editing"
+    },
+    "tags": [
+      "technique",
+      "story",
+      "rhythm",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een online beginnerscursus of een uur oefenen met je eigen beelden",
+      "en": "An online beginners' course or an hour of practice with your own footage"
+    },
+    "scene": "A video editing timeline on a monitor with colourful clips, a mixing slider panel and a pair of headphones on a desk.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-161",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "macrofotografie",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Macrofotografie: heel dichtbij fotograferen",
+      "en": "Macro photography: shooting up close"
+    },
+    "tags": [
+      "precision",
+      "nature",
+      "focus",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een macroworkshop of een middag met een groot en klein lensje",
+      "en": "A macro workshop or an afternoon with a close-up lens"
+    },
+    "scene": "A close-up of dewdrops on a spider web and a small camera with a macro lens on a mini tripod low in the grass.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-421",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "portretfotografie",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Portretfotografie leren",
+      "en": "Learning portrait photography"
+    },
+    "tags": [
+      "focus",
+      "color",
+      "making",
+      "technique"
+    ],
+    "formats": [
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een workshop portretfotografie of samen oefenen met licht",
+      "en": "A portrait photography workshop or a session to practise lighting"
+    },
+    "scene": "A studio set with a soft light box and a reflector next to a stool and a plain backdrop, a camera on a tripod.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-422",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "timelapse-fotografie",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Timelapse en tijd in beeld brengen",
+      "en": "Timelapse and capturing time"
+    },
+    "tags": [
+      "technique",
+      "focus",
+      "rhythm",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop of een eerste timelapse vanuit je raam",
+      "en": "A workshop or a first timelapse from your window"
+    },
+    "scene": "A camera on a tripod pointed at a distant city skyline at dusk with a remote shutter, a spare battery and a dew shield.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-423",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "vlog-maken",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Een vlog of videodagboek maken",
+      "en": "Making a vlog or video diary"
+    },
+    "tags": [
+      "technique",
+      "story",
+      "making",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis workshop of een eerste filmpje over je eigen buurt",
+      "en": "A free workshop or a first short video about your own neighbourhood"
+    },
+    "scene": "A small camera on a mini tripod, a microphone and a notebook with shot ideas and a ring light on a desk.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-424",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "sterren-fotograferen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Sterren en melkweg fotograferen",
+      "en": "Photographing stars and the Milky Way"
+    },
+    "tags": [
+      "stars",
+      "focus",
+      "color",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      9,
+      10,
+      11,
+      12
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een nachtfotografie-workshop of een heldere nacht met een camera",
+      "en": "A night-photography workshop or a clear night with a camera"
+    },
+    "scene": "A camera on a tripod under a clear sky with a rich Milky Way arc over a dark field, a red headlamp and a star chart.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-426",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "handgetekende-animatie",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Handgetekende animatie maken",
+      "en": "Making hand-drawn animation"
+    },
+    "tags": [
+      "story",
+      "making",
+      "play",
+      "roleplay"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een animatieworkshop of je eerste flipbook",
+      "en": "An animation workshop or your first flipbook"
+    },
+    "scene": "A flipbook of animation drawings of a bouncing ball on a lightbox with a stack of frames and a pencil.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-427",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "elektronische-muziek-produceren",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Elektronische muziek produceren",
+      "en": "Producing electronic music"
+    },
+    "tags": [
+      "making",
+      "rhythm",
+      "sound",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis online beginnerscursus of een productieworkshop",
+      "en": "A free online beginners' course or a production workshop"
+    },
+    "scene": "A compact synth, a drum pad controller and a laptop with a tracker grid beside studio headphones and a few cables.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-031",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "drummen-leren",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Drummen leren",
+      "en": "Learning to play drums"
+    },
+    "tags": [
+      "rhythm",
+      "sound",
+      "focus",
+      "movement"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 3,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een proefles drummen of een oefenruimte met een docent",
+      "en": "A drum trial lesson or a rehearsal room with a teacher"
+    },
+    "scene": "A small drum kit with sticks resting across the snare, a metronome and a notebook of rhythm patterns in a practice room.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-090",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "muziek-componeren",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Muziek componeren",
+      "en": "Composing music"
+    },
+    "tags": [
+      "making",
+      "sound",
+      "puzzling",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een korte cursus of een eerste motief schrijven met gratis software",
+      "en": "A short course or writing a first motif with free software"
+    },
+    "scene": "Sheet music with pencil notes on a piano music stand next to a small keyboard and a pair of headphones.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-091",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "beiaard-leren",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Beiaard of carillon leren bespelen",
+      "en": "Learning to play the carillon"
+    },
+    "tags": [
+      "sound",
+      "focus",
+      "history",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 2,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een rondleiding in een beiaardtoren en een kennismaking",
+      "en": "A tour of a carillon tower and an introduction"
+    },
+    "scene": "A close view of a carillon keyboard of wooden batons and pedals inside a stone tower with bells visible overhead.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-092",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "drumcirkel",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Drumcirkel en samen slaginstrumenten spelen",
+      "en": "Drum circle and group percussion"
+    },
+    "tags": [
+      "rhythm",
+      "sound",
+      "teamwork",
+      "conviviality"
+    ],
+    "formats": [
+      "small_group",
+      "large_group",
+      "drop_in_alone"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open drumcirkel waar je zo kunt aansluiten",
+      "en": "An open drum circle where you can just join in"
+    },
+    "scene": "A circle of djembes and hand drums on a wooden floor with shakers and a bell tree in warm evening light.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-221",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "zangles",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Zangles voor beginners",
+      "en": "Singing lessons for beginners"
+    },
+    "tags": [
+      "sound",
+      "balance",
+      "learning",
+      "performance"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een proefles zang of een open zangavond",
+      "en": "A singing trial lesson or an open singing evening"
+    },
+    "scene": "A music stand with a song sheet beside a small upright piano and a glass of water, bright open room with a window.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-435",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "mondharmonica-leren",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Mondharmonica leren spelen",
+      "en": "Learning the harmonica"
+    },
+    "tags": [
+      "sound",
+      "rhythm",
+      "play",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een startpakket met een eerste liedje of een groepsles",
+      "en": "A starter pack with a first song or a group lesson"
+    },
+    "scene": "A silver harmonica on a worn denim jacket with a blues songbook and a small tambourine on a wooden table.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-436",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "fanfare-orkest",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Meespelen in een fanfare of harmonieorkest",
+      "en": "Joining a brass band or wind orchestra"
+    },
+    "tags": [
+      "performance",
+      "sound",
+      "rhythm",
+      "teamwork"
+    ],
+    "formats": [
+      "large_group",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een meerepetitie bij een lokale fanfare of harmonie",
+      "en": "A trial rehearsal with a local brass or wind band"
+    },
+    "scene": "A row of brass instruments and a snare drum on a bandstand with music stands and folded uniform caps.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-437",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "handpan-spelen",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Handpan of steeldrum spelen",
+      "en": "Playing the handpan or steel drum"
+    },
+    "tags": [
+      "sound",
+      "rhythm",
+      "stillness",
+      "fire"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een proefles handpan of een rustige speelavond",
+      "en": "A handpan trial lesson or a calm playing evening"
+    },
+    "scene": "A shiny steel handpan on a cloth in a quiet room with a candle and a small tapestry, soft overhead light.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-438",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "orgel-leren",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Orgel leren spelen",
+      "en": "Learning to play the organ"
+    },
+    "tags": [
+      "sound",
+      "focus",
+      "balance",
+      "history"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 2,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een kennismaking met een organist in een kerk",
+      "en": "An introduction with an organist in a church"
+    },
+    "scene": "A church organ console with stops and two keyboards and pedals, with sheet music and a bench in a stone nave.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-441",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "haiku-schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Haiku en korte vormen schrijven",
+      "en": "Writing haiku and other short forms"
+    },
+    "tags": [
+      "language",
+      "focus",
+      "nature",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een korte schrijfwandeling of een eerste haiku vanuit je raam",
+      "en": "A short writing walk or a first haiku from your window"
+    },
+    "scene": "A single sheet with a haiku in black ink on handmade paper beside a stone, a twig and an ink brush.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-087",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "blog-nieuwsbrief-schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Een eigen blog of nieuwsbrief schrijven",
+      "en": "Writing your own blog or newsletter"
+    },
+    "tags": [
+      "language",
+      "story",
+      "discovery",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een eerste bericht van 300 woorden over iets wat jij kent",
+      "en": "A first post of 300 words about something you know"
+    },
+    "scene": "A laptop with a blog draft and a notebook of headlines beside a mug and a stack of printed articles.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-088",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "fanfictie-schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Fanfictie schrijven",
+      "en": "Writing fan fiction"
+    },
+    "tags": [
+      "language",
+      "story",
+      "roleplay",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een eerste scene van een bestaand verhaal dat je liefhebt",
+      "en": "A first scene from a story you love"
+    },
+    "scene": "A notebook of character notes and plot arrows beside a laptop and a stack of well-loved paperback novels.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-089",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "roman-schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Een roman schrijven",
+      "en": "Writing a novel"
+    },
+    "tags": [
+      "language",
+      "story",
+      "focus",
+      "roleplay"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een schrijfclub of een schrijfuur per dag met een eerste hoofdstuk",
+      "en": "A writing club or a daily writing hour with a first chapter"
+    },
+    "scene": "A thick stack of printed manuscript pages with red pencil edits, a typewriter-style keyboard and a pot of tea.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-222",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "kinderverhaal-schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Een kinderverhaal schrijven",
+      "en": "Writing a children's story"
+    },
+    "tags": [
+      "language",
+      "story",
+      "play",
+      "roleplay"
+    ],
+    "formats": [
+      "solo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een eerste verhaaltje voor een kind dat je kent",
+      "en": "A first short story for a child you know"
+    },
+    "scene": "A picture-book dummy with rough drawings and a short story typed beside it, crayons and a small stuffed animal on the desk.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-223",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "reisverhaal-schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Een reisverhaal of reisessay schrijven",
+      "en": "Writing a travel story or essay"
+    },
+    "tags": [
+      "language",
+      "story",
+      "discovery",
+      "focus"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kort stuk over je laatste reis of dagtocht",
+      "en": "A short piece about your last trip or day out"
+    },
+    "scene": "A weathered travel journal open beside a postcard, a pen and a small map of a coastal town on a cafe table.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-446",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "column-schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Columns en korte opiniestukken schrijven",
+      "en": "Writing columns and short opinion pieces"
+    },
+    "tags": [
+      "language",
+      "story",
+      "focus",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een eerste column van 400 woorden over iets wat je ergert of verrast",
+      "en": "A first column of 400 words about something that annoys or surprises you"
+    },
+    "scene": "A newspaper-style column on a printed page with a red pen, a cup of coffee and a notepad with headlines.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-447",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "tweede-taal-schrijven",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Schrijven in een tweede taal",
+      "en": "Writing in a second language"
+    },
+    "tags": [
+      "language",
+      "discovery",
+      "learning",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kort stukje in een taal die je leert en een taalmaatje voor feedback",
+      "en": "A short piece in a language you are learning and a language partner for feedback"
+    },
+    "scene": "A notebook with a paragraph in another language and a pocket dictionary and a highlighter on a cafe table.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-448",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "brieven-aan-jezelf",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Brieven aan jezelf in de toekomst",
+      "en": "Letters to your future self"
+    },
+    "tags": [
+      "stillness",
+      "retro",
+      "language",
+      "story"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een brief schrijven die je over een jaar opent",
+      "en": "Write a letter you open in a year"
+    },
+    "scene": "A sealed envelope with a handwritten label to the future, a fountain pen and a small stack of old letters tied with string.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-449",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "muziektheorie-leren",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Muziektheorie leren",
+      "en": "Learning music theory"
+    },
+    "tags": [
+      "learning",
+      "puzzling",
+      "sound",
+      "rhythm"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis online beginnerscursus of een leesavond",
+      "en": "A free online beginners' course or a study evening"
+    },
+    "scene": "A notebook of scales, chords and circle-of-fifths diagrams beside a small keyboard and a pencil.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-162",
+      "method": "curated"
+    }
   }
 ]

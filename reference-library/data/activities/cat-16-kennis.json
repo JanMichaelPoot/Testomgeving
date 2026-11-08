@@ -8,8 +8,8 @@
     "en": "Learning sign language",
     "sub": {"nl": "Talen", "en": "Languages"},
     "desc": {"nl": "Nederlandse Gebarentaal leren om te praten met dove en slechthorende mensen.", "en": "Learning sign language to talk with deaf and hard-of-hearing people."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "gebarentaal-leren",
     "facets": {"setting": "indoor", "social_formats": ["drop_in_alone", "small_group"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["taalvaardig:5:V", "communicatie:5:V", "motoriek:3:V", "ruimtelijk:3:V", "concentratie:3:V", "identiteit:3:T", "beweging:4:E", "gemeenschap:5:E", "zorg:3:E", "ontroering:3:E", "ontdekking:3:E", "kunst:3:O", "verhalen:3:O", "taal:5:T", "leren:5:E"],
     "why": {
@@ -18,7 +18,7 @@
     },
     "status": "Concept",
     "qa": {"round": 2, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Steekproef Jan: Wereldculturen klopt niet."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Steekproef Jan: Wereldculturen klopt niet.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-057",
@@ -29,8 +29,8 @@
     "en": "Reading Latin or ancient Greek",
     "sub": {"nl": "Talen", "en": "Languages"},
     "desc": {"nl": "Klassieke teksten in de oorspronkelijke taal lezen met grammatica, woordenboek en een docent of groep.", "en": "Reading classical texts in the original language with grammar, dictionary and a teacher or group."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "latijn-grieks-lezen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["taalvaardig:5:V", "logica:5:V", "concentratie:4:V", "geduld:4:V", "precisie:3:V", "geschiedenis:5:T", "verhalen:4:T", "wereldculturen:3:T", "puzzelen:4:E", "doorzetten:4:E", "rust:3:E", "nostalgie:3:E", "trots:4:E", "thuis:3:D", "onderzoeken:4:D", "architectuur:3:O", "wetenschap:3:O", "taal:5:T", "leren:5:E"],
     "why": {
@@ -39,7 +39,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-058",
@@ -50,8 +50,8 @@
     "en": "Book club",
     "sub": {"nl": "Lezen en bespreken", "en": "Reading and discussing"},
     "desc": {"nl": "Elke maand een boek lezen en het bespreken met een groep.", "en": "Reading a book each month and discussing it with a group."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "leesclub",
     "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["taalvaardig:4:V", "communicatie:4:V", "concentratie:3:V", "verhalen:5:T", "identiteit:3:T", "kunst:2:T", "gezelligheid:5:E", "gemeenschap:4:E", "ontroering:3:E", "rust:3:E", "verwondering:3:E", "thuis:3:D", "ontdekking:3:E", "wereldculturen:3:O", "geschiedenis:3:O", "taal:4:T", "luisteren:3:V"],
     "why": {
@@ -60,7 +60,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-059",
@@ -71,8 +71,8 @@
     "en": "Socratic dialogue",
     "sub": {"nl": "Filosofie", "en": "Philosophy"},
     "desc": {"nl": "Een gestructureerd groepsgesprek waarin een vraag stap voor stap wordt uitgediept tot de groep ziet wat ze echt betekent.", "en": "A structured group conversation in which a question is explored step by step until the group sees what it really means."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "socratisch-gesprek",
     "facets": {"setting": "indoor", "social_formats": ["small_group"], "level": 1, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["communicatie:5:V", "logica:5:V", "taalvaardig:3:V", "concentratie:4:V", "identiteit:3:T", "geschiedenis:2:T", "ontdekking:5:E", "verwondering:4:E", "gemeenschap:3:E", "rust:3:E", "puzzelen:3:E", "onderzoeken:4:D", "welzijn:3:T", "improviseren:3:O", "taal:3:T", "luisteren:4:V"],
     "why": {
@@ -80,7 +80,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zorg voor anderen."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zorg voor anderen.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-060",
@@ -131,8 +131,8 @@
     "en": "Learning music theory",
     "sub": {"nl": "Muziek", "en": "Music"},
     "desc": {"nl": "Noten lezen, akkoorden, toonladders en ritme begrijpen, met een cursus of app.", "en": "Learning to read notes and understand chords, scales and rhythm, with a course or app."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "muziektheorie-leren",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["thuis:3:D", "logica:5:V", "concentratie:4:V", "geduld:3:V", "taalvaardig:2:V", "precisie:3:V", "kunst:3:T", "geschiedenis:2:T", "wetenschap:3:T", "klank:4:E", "ritme:4:E", "puzzelen:4:E", "doorzetten:3:E", "ruimtelijk:3:O", "verhalen:3:O", "muziek:5:T", "leren:5:E"],
     "why": {
@@ -141,7 +141,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-209",
@@ -394,8 +394,8 @@
     "en": "Learning Esperanto or a constructed language",
     "sub": {"nl": "Talen", "en": "Languages"},
     "desc": {"nl": "Esperanto leren, een bedachte taal met een wereldwijde gemeenschap.", "en": "Learning Esperanto, a constructed language with a worldwide community."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "esperanto-leren",
     "facets": {"setting": "indoor", "social_formats": ["online", "drop_in_alone", "small_group"], "level": 0, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["thuis:3:D", "taalvaardig:5:V", "logica:4:V", "concentratie:3:V", "communicatie:3:V", "patronen:5:T", "wereldculturen:4:T", "ontdekking:4:E", "gemeenschap:4:E", "verbondenheid:4:E", "doorzetten:3:E", "puzzelen:3:E", "rechtvaardigheid:3:O", "geschiedenis:3:O", "taal:5:T", "online:3:D", "leren:5:E"],
     "why": {
@@ -404,7 +404,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-523",
@@ -415,8 +415,8 @@
     "en": "Learning programming with Python",
     "sub": {"nl": "Programmeren", "en": "Programming"},
     "desc": {"nl": "Programmeren leren met Python: eenvoudige scripts, spelletjes en dataprojecten.", "en": "Learning programming with Python: simple scripts, games and data projects."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "close",
+    "legacy_id": "coderen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 1, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["bouwen:3:D", "thuis:3:D", "logica:5:V", "concentratie:3:V", "creativiteit:3:V", "technologie:5:T", "patronen:3:T", "wetenschap:2:T", "puzzelen:5:E", "doorzetten:4:E", "zelfstandig:4:E", "experimenteren:3:E", "kunst:3:O", "taalvaardig:3:O", "online:4:D", "leren:5:E"],
     "why": {
@@ -425,7 +425,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "The app already has this as 'coderen': linked, not imported again."]
   },
   {
     "id": "RA-524",
@@ -436,8 +436,8 @@
     "en": "Learning to understand statistics and numbers",
     "sub": {"nl": "Cijfers", "en": "Numbers"},
     "desc": {"nl": "Leren hoe je grafieken, gemiddelden en kansen leest, zodat nieuws en cijfers minder verwarren.", "en": "Learning how to read charts, averages and odds so news and numbers confuse less."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "statistiek-begrijpen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["onderzoeken:3:D", "thuis:3:D", "logica:5:V", "concentratie:3:V", "strategie:2:V", "patronen:5:T", "wetenschap:4:T", "technologie:2:T", "beeldtaal:3:T", "puzzelen:3:E", "ontdekking:3:E", "zelfstandig:4:E", "doorzetten:3:E", "rechtvaardigheid:3:O", "online:3:D", "leren:5:E"],
     "why": {
@@ -445,7 +445,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Humor.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-525",
@@ -456,8 +456,8 @@
     "en": "Mental arithmetic and maths tricks",
     "sub": {"nl": "Cijfers", "en": "Numbers"},
     "desc": {"nl": "Sneller leren hoofdrekenen met trucs, patronen en spelletjes.", "en": "Learning mental arithmetic faster with tricks, patterns and games."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "hoofdrekenen",
     "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["logica:4:V", "concentratie:4:V", "geduld:2:V", "creativiteit:2:V", "patronen:5:T", "wetenschap:2:T", "puzzelen:4:E", "speelsheid:3:E", "doorzetten:3:E", "zelfstandig:3:E", "competitie:2:E", "geschiedenis:3:O", "leren:5:E"],
     "why": {
@@ -465,7 +465,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Kunst.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-526",
@@ -476,8 +476,8 @@
     "en": "An art history course",
     "sub": {"nl": "Kunst", "en": "Art"},
     "desc": {"nl": "Een cursus kunstgeschiedenis volgen om stijlen, schilders en tijdperken te leren herkennen.", "en": "Taking an art history course to learn to recognise styles, painters and eras."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "kunstgeschiedenis-cursus",
     "facets": {"setting": "indoor", "social_formats": ["small_group", "online"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["observeren:4:D", "thuis:2:D", "concentratie:3:V", "taalvaardig:2:V", "kunst:5:T", "geschiedenis:4:T", "architectuur:3:T", "beeldtaal:4:T", "wereldculturen:3:T", "ontdekking:4:E", "verwondering:3:E", "schoonheid:3:E", "gezelligheid:2:E", "cultuurplek:2:D", "leren:5:E", "verzamelen:3:O", "stad:3:O"],
     "why": {
@@ -486,7 +486,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen, Identiteit."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen, Identiteit.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-527",
@@ -497,8 +497,8 @@
     "en": "Building your own note-taking system",
     "sub": {"nl": "Leren", "en": "Learning"},
     "desc": {"nl": "Een systeem opzetten om notities, ideeën en gelezen boeken te bewaren en te verbinden.", "en": "Setting up a system to keep and connect notes, ideas and books you have read."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "notities-systeem",
     "facets": {"setting": "indoor", "social_formats": ["solo"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["ontwerpen:3:D", "thuis:3:D", "papier:2:M", "logica:5:V", "taalvaardig:3:V", "concentratie:3:V", "technologie:3:T", "patronen:3:T", "identiteit:2:T", "ontdekking:3:E", "rust:3:E", "zelfstandig:4:E", "doorzetten:3:E", "puzzelen:2:E", "online:3:D", "leren:4:E", "onderzoeken:3:O", "organiseren:3:O"],
     "why": {
@@ -507,7 +507,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur, Verhalen."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur, Verhalen.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-528",
@@ -518,8 +518,8 @@
     "en": "Doing a small research project of your own",
     "sub": {"nl": "Onderzoek", "en": "Research"},
     "desc": {"nl": "Een vraag kiezen, bronnen verzamelen, metingen doen en je bevindingen opschrijven of delen.", "en": "Choosing a question, collecting sources, taking measurements and writing up or sharing your findings."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "mini-onderzoek-doen",
     "facets": {"setting": "both", "social_formats": ["solo", "small_group", "online"], "level": 1, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["onderzoeken:5:D", "observeren:3:D", "thuis:3:D", "logica:4:V", "taalvaardig:3:V", "concentratie:3:V", "wetenschap:4:T", "patronen:3:T", "ontdekking:5:E", "doorzetten:4:E", "zelfstandig:4:E", "puzzelen:3:E", "gemeenschap:3:O", "rechtvaardigheid:3:O", "leren:5:E"],
     "why": {
@@ -528,6 +528,6 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   }
 ]

@@ -29,7 +29,13 @@
       "en": "Usually you can join alone; ask about the introduction round"
     },
     "scene": "a long communal table set with plates, bowls and lanterns",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-529"
+      }
+    ]
   },
   {
     "id": "taalcafe",
@@ -61,7 +67,13 @@
       "en": "Free, often in the library; you can also just listen"
     },
     "scene": "a café table with a world map and coffee cups in a library corner",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-351"
+      }
+    ]
   },
   {
     "id": "wandelgroep",
@@ -94,7 +106,13 @@
       "en": "Join once; you don't have to talk"
     },
     "scene": "walking sticks and backpacks leaning together on a trailhead board",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-530"
+      }
+    ]
   },
   {
     "id": "book-club-stil",
@@ -126,7 +144,13 @@
       "en": "Bring your own book; talking is possible afterwards"
     },
     "scene": "armchairs in a circle with stacks of books and reading lamps",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-443"
+      }
+    ]
   },
   {
     "id": "kletscafe",
@@ -157,7 +181,13 @@
       "en": "Coming alone is normal; there is often a host"
     },
     "scene": "a cozy coffee-morning table with cups and a cake",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-531"
+      }
+    ]
   },
   {
     "id": "buurtvrijwilliger",
@@ -189,7 +219,13 @@
       "en": "An introduction afternoon without obligation"
     },
     "scene": "a neighbourhood community-center table with a pinboard and cups",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-066"
+      }
+    ]
   },
   {
     "id": "body-doubling",
@@ -221,7 +257,13 @@
       "en": "The camera is often off; see how it works"
     },
     "scene": "a laptop and a coffee cup on a home desk with a small plant in soft light",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-538"
+      }
+    ]
   },
   {
     "id": "potluck",
@@ -254,7 +296,13 @@
       "en": "Everyone brings one dish"
     },
     "scene": "a table full of different home-cooked dishes in mismatched bowls",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-532"
+      }
+    ]
   },
   {
     "id": "buurttuin",
@@ -297,7 +345,13 @@
       "en": "Open morning; work at your own pace"
     },
     "scene": "community garden beds with watering cans and hand tools",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-118"
+      }
+    ]
   },
   {
     "id": "nieuwkomers",
@@ -329,7 +383,25 @@
       "en": "Meant for people looking for someone; nobody knows each other"
     },
     "scene": "a welcome sign and blank name tags on a table at a meet-up",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-064"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-331"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "Taalmaatje voor een nieuwkomer"
+      ],
+      "en": [
+        "Language buddy for a newcomer"
+      ]
+    }
   },
   {
     "id": "open-podium",
@@ -362,7 +434,13 @@
       "en": "Watching and listening is enough; performing is not required"
     },
     "scene": "a small stage with a microphone and a stool in a warm room",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-249"
+      }
+    ]
   },
   {
     "id": "kook-club",
@@ -396,7 +474,13 @@
       "en": "Cooking workshop for beginners, just sign up"
     },
     "scene": "a kitchen counter with chopped vegetables and pans ready for a group",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-126"
+      }
+    ]
   },
   {
     "id": "spelavond-thuis",
@@ -428,7 +512,13 @@
       "en": "Invite two people and pick one easy game"
     },
     "scene": "a living-room coffee table with snacks and a board game",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-537"
+      }
+    ]
   },
   {
     "id": "vriendschapsdaten",
@@ -491,7 +581,13 @@
       "en": "An organised evening in a restaurant, in a public place"
     },
     "scene": "a long restaurant table set for many with candles",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-535"
+      }
+    ]
   },
   {
     "id": "wandelmaatje",
@@ -523,7 +619,13 @@
       "en": "A voluntary match via a welfare organisation"
     },
     "scene": "two pairs of walking shoes side by side at a trail start",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-534"
+      }
+    ]
   },
   {
     "id": "proefles-avond",
@@ -555,7 +657,13 @@
       "en": "Pick a course that says \"no experience needed\""
     },
     "scene": "a beginner-class sign on an easel in a community center",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-536"
+      }
+    ]
   },
   {
     "id": "festival-vrijwilliger",
@@ -595,7 +703,13 @@
       "en": "A short shift with a team and free entry"
     },
     "scene": "a volunteer vest and wristbands hanging on a fence at dusk with string lights",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-330"
+      }
+    ]
   },
   {
     "id": "familie-uitje",
@@ -659,7 +773,13 @@
       "en": "Read along without saying anything; join in when it feels right"
     },
     "scene": "a laptop showing a chat window and a mug on a sofa arm",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-533"
+      }
+    ]
   },
   {
     "id": "naaicafe",
@@ -694,7 +814,13 @@
     },
     "scene": "a long table with sewing machines, fabric offcuts, thread spools and mugs of tea",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-355"
+      }
+    ]
   },
   {
     "id": "schrijfcirkel",
@@ -729,7 +855,13 @@
     },
     "scene": "notebooks and pens on a library table with a lamp, a prompt card and cups of coffee",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-235"
+      }
+    ]
   },
   {
     "id": "kledingruil",
@@ -765,7 +897,13 @@
     },
     "scene": "clothes racks and folded sweaters on tables with hangers and a mirror in a community hall",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-382"
+      }
+    ]
   },
   {
     "id": "muurschildering",
@@ -810,6 +948,12 @@
       8,
       9,
       10
+    ],
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-362"
+      }
     ]
   },
   {
@@ -842,6 +986,51 @@
       "en": "A free drop-in drinks of a local business network"
     },
     "scene": "a table with coffee cups, name badges and a bowl of nuts at a casual meet-up",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-332"
+      }
+    ]
+  },
+  {
+    "id": "leesclub",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Leesclub",
+      "en": "Book club"
+    },
+    "tags": [
+      "language",
+      "story",
+      "conviviality",
+      "discovery"
+    ],
+    "formats": [
+      "small_group",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een open leesclub bij de bibliotheek",
+      "en": "An open reading club at the library"
+    },
+    "scene": "A circle of armchairs in a library corner with a stack of the same paperback, a pot of tea and reading glasses.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-058",
+      "method": "curated"
+    }
   }
 ]

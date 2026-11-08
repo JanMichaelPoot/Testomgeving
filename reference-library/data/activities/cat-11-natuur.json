@@ -50,8 +50,8 @@
     "en": "Reading animal tracks and signs",
     "sub": {"nl": "Natuurobservatie", "en": "Nature observation"},
     "desc": {"nl": "Voetafdrukken, uitwerpselen, vraatsporen en nesten herkennen en lezen welk dier er langs kwam.", "en": "Recognising footprints, droppings, feeding signs and nests and reading which animal passed by."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "dierensporen-lezen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "drop_in_alone", "duo"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["observeren:5:D", "onderzoeken:4:D", "bos:4:D", "navigeren:2:D", "geduld:4:V", "concentratie:4:V", "logica:3:V", "natuur:5:T", "dieren:5:T", "wetenschap:3:T", "verwondering:4:E", "ontdekking:5:E", "rust:3:E", "puzzelen:4:E", "verhalen:3:O", "ondergrond:3:O"],
     "why": {
@@ -60,7 +60,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-083",
@@ -71,8 +71,8 @@
     "en": "Counting frogs and toads in spring",
     "sub": {"nl": "Natuurobservatie", "en": "Nature observation"},
     "desc": {"nl": "In het voorjaar met een zaklamp amfibieën tellen en helpen oversteken tijdens de trek.", "en": "Counting amphibians by torchlight in spring and helping them cross during the migration."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "amfibieen-tellen",
     "facets": {"setting": "outdoor", "social_formats": ["small_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["observeren:5:D", "water:4:D", "bos:3:D", "natuur:5:T", "dieren:5:T", "wetenschap:3:T", "duurzaamheid:3:T", "zorg:5:E", "gemeenschap:3:E", "verwondering:4:E", "samenwerking:3:E", "geduld:3:V", "klank:3:O", "avontuur:3:O"],
     "why": {
@@ -81,7 +81,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-111",

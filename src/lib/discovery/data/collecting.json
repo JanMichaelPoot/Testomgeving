@@ -49,6 +49,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q125947645"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-016"
       }
     ],
     "aliases": {
@@ -100,7 +104,13 @@
       "en": "Paint evening at a hobby shop; paint is often lent"
     },
     "scene": "tiny painted miniature figures with brushes and paint pots under a lamp",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-172"
+      }
+    ]
   },
   {
     "id": "modeltreinen",
@@ -140,6 +150,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q623272"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-393"
       }
     ],
     "aliases": {
@@ -184,7 +198,13 @@
       "en": "A small scene on a small board"
     },
     "scene": "a miniature forest diorama with tiny trees and a cabin",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-017"
+      }
+    ]
   },
   {
     "id": "lego",
@@ -221,7 +241,13 @@
       "en": "A small set, or a building evening of a LEGO user group"
     },
     "scene": "a colorful brick architecture model on a table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-132"
+      }
+    ]
   },
   {
     "id": "bonsai",
@@ -261,6 +287,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q64365"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-049"
       }
     ]
   },
@@ -303,6 +333,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q83357"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-357"
       }
     ]
   },
@@ -349,6 +383,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q1437510"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-071"
       }
     ],
     "aliases": {
@@ -395,7 +433,13 @@
       "en": "An afternoon browsing a record shop"
     },
     "scene": "crates of vinyl records with colorful sleeves",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-431"
+      }
+    ]
   },
   {
     "id": "kringloop",
@@ -472,6 +516,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q136457624"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-493"
       }
     ],
     "aliases": {
@@ -562,7 +610,13 @@
       "en": "Plant swap fair or visit a specialist"
     },
     "scene": "rows of small cacti and succulents in terracotta pots",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-283"
+      }
+    ]
   },
   {
     "id": "zendamateur",
@@ -644,7 +698,13 @@
       "en": "Watch a club day first; rules apply to aircraft"
     },
     "scene": "a remote-controlled model airplane on a grass strip beside a transmitter",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-394"
+      }
+    ]
   },
   {
     "id": "spotten",
@@ -824,6 +884,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q96443"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-492"
       }
     ],
     "aliases": {
@@ -951,7 +1015,13 @@
     },
     "scene": "small pots of cuttings and paper seed envelopes lined up on a trestle table in a sunny yard",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-282"
+      }
+    ]
   },
   {
     "id": "postcrossing",
@@ -1062,7 +1132,13 @@
       "en": "An afternoon through vintage and charity shops, trying on and combining"
     },
     "scene": "a rail of vintage dresses and a velvet blazer, with leather shoes and a felt hat on a shelf above",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-381"
+      }
+    ]
   },
   {
     "id": "mineralen-edelstenen",
@@ -1133,7 +1209,13 @@
     },
     "scene": "an antique wooden music box open to show its brass comb and pinned cylinder beside porcelain figurines",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-432"
+      }
+    ]
   },
   {
     "id": "poppenhuis",
@@ -1169,7 +1251,13 @@
     },
     "scene": "a victorian dollhouse room with tiny furniture, a rug and a miniature lamp under warm light",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-013"
+      }
+    ]
   },
   {
     "id": "antieke-poppen",

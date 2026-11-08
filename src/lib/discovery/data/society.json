@@ -30,7 +30,13 @@
       "en": "An introduction at a mentoring programme; the organisation handles screening"
     },
     "scene": "two empty chairs at a small table with a notebook and a pencil case in a community centre",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-324"
+      }
+    ]
   },
   {
     "id": "voedselbank",
@@ -63,7 +69,13 @@
       "en": "Help for an afternoon with sorting or handing out"
     },
     "scene": "crates of fresh vegetables and tinned goods on a sorting table with a clipboard",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-325"
+      }
+    ]
   },
   {
     "id": "erfgoed-vrijwilliger",
@@ -96,7 +108,13 @@
       "en": "Attend an open day or work day"
     },
     "scene": "a brass mill key, a work glove and a feather duster on an old oak beam",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-068"
+      }
+    ]
   },
   {
     "id": "ouderenbezoek",
@@ -129,7 +147,13 @@
       "en": "First an introduction and training at the organisation"
     },
     "scene": "a teapot, two cups and a photo album on a small table by a window",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-326"
+      }
+    ]
   },
   {
     "id": "knotten-heggenvlechten",
@@ -170,7 +194,13 @@
       "en": "A work day of a nature organisation; tools are provided"
     },
     "scene": "a billhook, leather gloves and bundled willow rods against a pollarded willow trunk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-392"
+      }
+    ]
   },
   {
     "id": "buurtproject",
@@ -203,7 +233,13 @@
       "en": "Pick one thing and put a card through six neighbours' doors"
     },
     "scene": "a hand-painted neighbourhood sign, a pot of paint and a stack of flyers on a street bench",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-327"
+      }
+    ]
   },
   {
     "id": "huiswerkbegeleiding",
@@ -236,7 +272,13 @@
       "en": "An introduction at a school or library, which handles screening"
     },
     "scene": "a desk with a school exercise book, a ruler and a mug of hot chocolate",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-067"
+      }
+    ]
   },
   {
     "id": "bibliotheek-vrijwilliger",
@@ -269,7 +311,13 @@
       "en": "An afternoon helping at the desk or sorting books"
     },
     "scene": "a trolley of returned books, a date stamp and a reading lamp on a library desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-328"
+      }
+    ]
   },
   {
     "id": "zorgboerderij",
@@ -302,7 +350,13 @@
       "en": "An introduction day; the farm provides guidance"
     },
     "scene": "a wheelbarrow, a pair of rubber boots and a basket of eggs by a barn door",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-329"
+      }
+    ]
   },
   {
     "id": "straatfeest",
@@ -343,6 +397,178 @@
       "en": "An invitation in fifteen letterboxes and one long table"
     },
     "scene": "a long table of mismatched chairs, paper bunting and a tray of glasses on a quiet street",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-081"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "Een buurtevenement organiseren"
+      ],
+      "en": [
+        "Organising a neighbourhood event"
+      ]
+    }
+  },
+  {
+    "id": "bestuurslid-vereniging",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Bestuurslid van een vereniging",
+      "en": "Board member of an association"
+    },
+    "tags": [
+      "teamwork",
+      "conviviality",
+      "learning",
+      "strategy"
+    ],
+    "formats": [
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een vergadering als gast bijwonen bij een lokale vereniging",
+      "en": "Attend a meeting as a guest at a local association"
+    },
+    "scene": "A meeting table with a club agenda, a notebook, a gavel-like wooden block and a small stack of club flyers.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-062",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "jeugdtrainer",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Jeugdtrainer of begeleider",
+      "en": "Youth coach or guide"
+    },
+    "tags": [
+      "caring",
+      "conviviality",
+      "teamwork",
+      "movement"
+    ],
+    "formats": [
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 0,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een proefavond meelopen bij een lokale club",
+      "en": "A trial evening shadowing at a local club"
+    },
+    "scene": "A set of coloured training cones and a mesh bag of balls with a whistle and a clipboard on a sports-field line.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-063",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "inzamelingsactie-organiseren",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Een inzamelingsactie of crowdfunding organiseren",
+      "en": "Organising a fundraiser or crowdfunding campaign"
+    },
+    "tags": [
+      "teamwork",
+      "conviviality",
+      "caring",
+      "strategy"
+    ],
+    "formats": [
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kleine eigen actie met een doel in je straat of vereniging",
+      "en": "A small action of your own with a goal in your street or club"
+    },
+    "scene": "A donation box and hand-painted poster with a thermometer goal, a stack of flyers and a coffee urn on a folding table.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-065",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "vrijwilligers-coordineren",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Vrijwilligers coördineren",
+      "en": "Coordinating volunteers"
+    },
+    "tags": [
+      "teamwork",
+      "conviviality",
+      "caring",
+      "strategy"
+    ],
+    "formats": [
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een middag meedraaien bij een lokaal evenement of vrijwilligerscentrale",
+      "en": "An afternoon helping at a local event or volunteer centre"
+    },
+    "scene": "A volunteer schedule on a corkboard with coloured sticky notes and name tags, a coffee machine and a clipboard.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-543",
+      "method": "curated"
+    }
   }
 ]

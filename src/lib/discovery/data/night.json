@@ -33,7 +33,13 @@
     },
     "scene": "a glowing neon microphone sign and a lyrics screen in an empty karaoke room with a velvet sofa",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-430"
+      }
+    ]
   },
   {
     "id": "bingo-avond",
@@ -140,7 +146,13 @@
     },
     "scene": "a field of glowing white headphones hung on a rail with colour-changing LEDs at night",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-434"
+      }
+    ]
   },
   {
     "id": "dineren-in-het-donker",
@@ -215,7 +227,13 @@
     },
     "scene": "a white screen lit by a projection beneath tall trees at dusk with folding chairs in rows",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-419"
+      }
+    ]
   },
   {
     "id": "lichtfestival",
@@ -359,7 +377,13 @@
     },
     "scene": "a card table with four chairs and bidding boxes under a green shaded lamp",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-505"
+      }
+    ]
   },
   {
     "id": "backgammon",
@@ -402,6 +426,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q968853"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-504"
       }
     ],
     "aliases": {
@@ -482,7 +510,13 @@
     },
     "scene": "twin turntables and a mixer with glowing faders on a dark desk beside a stack of vinyl crates",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-429"
+      }
+    ]
   },
   {
     "id": "swingdansen",
@@ -518,7 +552,13 @@
     },
     "scene": "a polished wooden dance floor with vintage lamps and brass instruments waiting on a small stage",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-451"
+      }
+    ]
   },
   {
     "id": "klein-festival",
@@ -594,7 +634,13 @@
     },
     "scene": "a vintage hi-fi with a vinyl record spinning in a dim wood-panelled lounge",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-230"
+      }
+    ]
   },
   {
     "id": "jamsessie",
@@ -626,7 +672,13 @@
     },
     "scene": "a drum kit, an upright bass and a small amplifier on a low café stage under one warm lamp",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-229"
+      }
+    ]
   },
   {
     "id": "nachtmarkt",
@@ -705,7 +757,13 @@
     },
     "scene": "a small round table with two drinks facing a lit stage with a microphone and a brick wall",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-460"
+      }
+    ]
   },
   {
     "id": "variete",
@@ -776,5 +834,84 @@
     "scene": "a green ping-pong table with a net and two paddles under a hanging neon sign in a brick-walled bar",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "folk-sessie",
+    "domain": "night",
+    "sub": "music_night",
+    "label": {
+      "nl": "Een folksessie of sessie met traditionele muziek",
+      "en": "A folk session of traditional music"
+    },
+    "tags": [
+      "sound",
+      "rhythm",
+      "conviviality",
+      "teamwork"
+    ],
+    "formats": [
+      "small_group",
+      "drop_in_alone"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open sessie bij een café, ook als luisteraar",
+      "en": "An open session at a pub, listeners welcome too"
+    },
+    "scene": "A table in a pub corner with a fiddle, a tin whistle, a bodhran and pints, with warm lamp light and a stack of tune books.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-439",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "platenclub",
+    "domain": "night",
+    "sub": "music_night",
+    "label": {
+      "nl": "Een luisterclub of platenclub",
+      "en": "A listening club or record club"
+    },
+    "tags": [
+      "sound",
+      "conviviality",
+      "discovery",
+      "retro"
+    ],
+    "formats": [
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een luisteravond bij een platenzaak of buurthuis",
+      "en": "A listening night at a record shop or community centre"
+    },
+    "scene": "A turntable with a spinning record and speakers beside shelves of sleeves, two armchairs and warm lamplight.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-440",
+      "method": "curated"
+    }
   }
 ]

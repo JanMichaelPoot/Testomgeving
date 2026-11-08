@@ -37,6 +37,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q657069"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-219"
       }
     ],
     "aliases": {
@@ -84,7 +88,13 @@
     },
     "scene": "a fencing mask and a longsword on a wooden rack in a stone hall",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-040"
+      }
+    ]
   },
   {
     "id": "hist-dans",
@@ -118,7 +128,13 @@
       "en": "Beginner evening where the steps are explained"
     },
     "scene": "an empty historic ballroom with a polished floor and candelabras",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-457"
+      }
+    ]
   },
   {
     "id": "hist-koken",
@@ -153,7 +169,13 @@
       "en": "Workshop with old recipes in a museum or open-air museum"
     },
     "scene": "an iron pot over an open fire with herbs and an old cookbook",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-127"
+      }
+    ]
   },
   {
     "id": "ambachten",
@@ -189,7 +211,13 @@
       "en": "Demonstration day at an open-air museum with hands-on activities"
     },
     "scene": "a rope-making wheel and hemp cords in a rustic barn",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-412"
+      }
+    ]
   },
   {
     "id": "levend-verleden",
@@ -234,7 +262,13 @@
       "en": "Visit as a spectator; nobody expects you to dress up"
     },
     "scene": "banner-lined medieval market stalls with wooden goods",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-515"
+      }
+    ]
   },
   {
     "id": "genealogie",
@@ -275,6 +309,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q47307"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-218"
       }
     ],
     "aliases": {
@@ -330,6 +368,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q12301261"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-073"
       }
     ],
     "aliases": {
@@ -379,6 +421,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q1595570"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-216"
       }
     ],
     "aliases": {
@@ -434,6 +480,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q12360812"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-217"
       }
     ],
     "aliases": {
@@ -477,7 +527,13 @@
     },
     "scene": "an old handwritten manuscript page with a quill and an ink well",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-074"
+      }
+    ]
   },
   {
     "id": "stadswandeling",
@@ -514,7 +570,13 @@
       "en": "Guided group or audio tour, sign up or just start"
     },
     "scene": "an old brick city street with a wall plaque and a guide's flag pole",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-345"
+      }
+    ]
   },
   {
     "id": "monumenten",
@@ -550,7 +612,13 @@
       "en": "Open Monument Day or a single castle with an audio guide"
     },
     "scene": "a castle gatehouse with a drawbridge in warm evening light",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-344"
+      }
+    ]
   },
   {
     "id": "musea",
@@ -586,7 +654,13 @@
       "en": "A small museum near you; one room is enough"
     },
     "scene": "an empty museum gallery with a single large abstract painting in bold colours and a wooden bench in front of it",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-343"
+      }
+    ]
   },
   {
     "id": "industrieel-erfgoed",
@@ -622,7 +696,13 @@
       "en": "Mills and pumping stations often have an open day"
     },
     "scene": "a historic windmill with wooden sails beside a canal",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-072"
+      }
+    ]
   },
   {
     "id": "verzetsroute",
@@ -658,7 +738,13 @@
       "en": "A marked route with information panels or an app"
     },
     "scene": "a quiet forest path with a small memorial stone",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-516"
+      }
+    ]
   },
   {
     "id": "architectuur",
@@ -771,6 +857,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q108686383"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-346"
       }
     ],
     "aliases": {
@@ -994,7 +1084,13 @@
     },
     "scene": "an aged hand-coloured map of a coastline spread on a table under a green shaded reading lamp",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-348"
+      }
+    ]
   },
   {
     "id": "regency-bal",
@@ -1066,6 +1162,251 @@
       "en": "Visit a country estate or castle garden, with a tour or audio guide"
     },
     "scene": "a manor house reflected in a moat with clipped hedges and a gravel path in soft morning light",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-347"
+      }
+    ]
+  },
+  {
+    "id": "latijn-grieks-lezen",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Latijn of oud-Grieks lezen",
+      "en": "Reading Latin or ancient Greek"
+    },
+    "tags": [
+      "language",
+      "puzzling",
+      "history",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een beginnerscursus of een leesgroep",
+      "en": "A beginners' course or a reading group"
+    },
+    "scene": "A worn Latin textbook open on a page of Cicero beside a Greek lexicon, a pencil and a small marble bust.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-057",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "kunstgeschiedenis-cursus",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Een cursus kunstgeschiedenis",
+      "en": "An art history course"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "learning",
+      "focus"
+    ],
+    "formats": [
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open avond of een korte cursus bij een museum of volksuniversiteit",
+      "en": "An open evening or a short course at a museum or university for adults"
+    },
+    "scene": "A table with open art-history books and a set of postcards of paintings, a magnifier and a small notebook.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-526",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "mini-onderzoek-doen",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Een eigen mini-onderzoek doen",
+      "en": "Doing a small research project of your own"
+    },
+    "tags": [
+      "discovery",
+      "puzzling",
+      "learning",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kleine vraag en een gratis bron in de bibliotheek",
+      "en": "A small question and a free source at the library"
+    },
+    "scene": "A desk with a handwritten research question, index cards, a notebook of findings, a tape measure and a magnifier.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-528",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "heraldiek",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Heraldiek en familiewapens",
+      "en": "Heraldry and family coats of arms"
+    },
+    "tags": [
+      "history",
+      "story",
+      "making",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een kennismaking via een museum of een eigen wapen ontwerpen",
+      "en": "An introduction via a museum or designing your own coat of arms"
+    },
+    "scene": "A heraldic shield with a lion and bold colours on a parchment beside coloured pencils and a drawing compass.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-069",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "mondelinge-geschiedenis",
+    "domain": "history",
+    "sub": "lived_past",
+    "label": {
+      "nl": "Mondelinge geschiedenis opnemen",
+      "en": "Recording oral history"
+    },
+    "tags": [
+      "story",
+      "history",
+      "discovery",
+      "conviviality"
+    ],
+    "formats": [
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gesprek met een oudere in je buurt, eerst met je telefoon opgenomen",
+      "en": "A conversation with an older person in your neighbourhood, first recorded on your phone"
+    },
+    "scene": "A small voice recorder on a tablecloth between two cups of tea with a framed old photograph and a notebook.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-070",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "archief-indexeren",
+    "domain": "history",
+    "sub": "research",
+    "label": {
+      "nl": "Archiefstukken indexeren als vrijwilliger",
+      "en": "Indexing archive records as a volunteer"
+    },
+    "tags": [
+      "history",
+      "precision",
+      "discovery",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een vrijwilligersmiddag bij een archief of een online indexeerproject",
+      "en": "A volunteer afternoon at an archive or an online indexing project"
+    },
+    "scene": "A table with old index cards and a handwritten ledger under a desk lamp, a pair of cotton gloves and a magnifier.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-290",
+      "method": "curated"
+    }
   }
 ]

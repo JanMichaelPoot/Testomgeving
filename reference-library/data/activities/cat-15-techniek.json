@@ -189,8 +189,8 @@
     "en": "Building your own website",
     "sub": {"nl": "Digitaal maken", "en": "Digital making"},
     "desc": {"nl": "Een eigen site opzetten voor een hobby of project, met tekst, beeld en eenvoudige code.", "en": "Setting up a site of your own for a hobby or project, with text, image and simple code."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "website-bouwen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["ontwerpen:4:D", "bouwen:4:D", "thuis:3:D", "logica:4:V", "creativiteit:3:V", "precisie:3:V", "technologie:5:T", "beeldtaal:3:T", "puzzelen:4:E", "experimenteren:4:E", "opgaan:3:E", "zelfstandig:4:E", "doorzetten:3:E", "publiek:2:E", "verhalen:3:O", "online:5:D"],
     "why": {
@@ -198,7 +198,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-289",
@@ -209,8 +209,8 @@
     "en": "Measuring and reducing your energy use",
     "sub": {"nl": "Wetenschap thuis", "en": "Science at home"},
     "desc": {"nl": "Met een meter, slimme meter of thermometer ontdekken waar energie heen gaat en slim besparen.", "en": "Using a meter, smart meter or thermometer to find out where energy goes and save smartly."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "energie-besparen",
     "facets": {"setting": "indoor", "social_formats": ["solo", "with_known"], "level": 0, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["onderzoeken:5:D", "thuis:4:D", "repareren:2:D", "logica:3:V", "precisie:3:V", "technologie:4:T", "duurzaamheid:5:T", "wetenschap:3:T", "wonen:4:T", "puzzelen:3:E", "experimenteren:3:E", "zelfstandig:3:E", "warmte:4:E", "weer:3:O", "rechtvaardigheid:3:O"],
     "why": {
@@ -219,7 +219,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-312",

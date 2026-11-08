@@ -30,7 +30,13 @@
     },
     "scene": "a lone microphone on a stand under a warm spotlight in front of a brick wall in an empty comedy club",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-138"
+      }
+    ]
   },
   {
     "id": "poetry-slam",
@@ -63,7 +69,13 @@
     },
     "scene": "a stool and a microphone with a pool of warm light on a small dark stage",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-239"
+      }
+    ]
   },
   {
     "id": "storytelling",
@@ -96,7 +108,13 @@
     },
     "scene": "a lone wooden chair and a lamp on a stage beside a tall stack of old books",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-140"
+      }
+    ]
   },
   {
     "id": "amateurtoneel",
@@ -130,7 +148,13 @@
     },
     "scene": "a red velvet curtain half drawn on a school-hall stage with a painted backdrop of a village",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-137"
+      }
+    ]
   },
   {
     "id": "debatclub",
@@ -164,7 +188,13 @@
     },
     "scene": "two empty wooden lecterns facing each other under a hanging lamp in a wood-panelled hall",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-035"
+      }
+    ]
   },
   {
     "id": "podcast-maken",
@@ -200,7 +230,13 @@
     },
     "scene": "a condenser microphone with a pop filter, headphones and a folded blanket on a quiet desk",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-034"
+      }
+    ]
   },
   {
     "id": "goochelen",
@@ -240,6 +276,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q45999579"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-242"
       }
     ],
     "aliases": {
@@ -285,7 +325,13 @@
     },
     "scene": "three juggling balls and clubs scattered on a mat in a circus training hall with hanging aerial silks",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-139"
+      }
+    ]
   },
   {
     "id": "aerial-silks",
@@ -325,7 +371,13 @@
     },
     "scene": "two long crimson silks hanging from a high rig in a bright studio above soft mats",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-243"
+      }
+    ]
   },
   {
     "id": "poppentheater",
@@ -361,7 +413,13 @@
     },
     "scene": "a hand-sewn wool puppet with button eyes sitting in a tiny painted wooden puppet theatre",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-241"
+      }
+    ]
   },
   {
     "id": "cosplay",
@@ -402,6 +460,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q142554"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-353"
       }
     ],
     "aliases": {
@@ -451,6 +513,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q12996592"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-193"
       }
     ],
     "aliases": {
@@ -496,7 +562,13 @@
     },
     "scene": "a small clay figure on a miniature set under a desk lamp with a phone camera on a mount",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-025"
+      }
+    ]
   },
   {
     "id": "hoorspel",
@@ -531,7 +603,13 @@
     },
     "scene": "a coconut-shell pair, a rain stick and a tin tray beside a microphone on a blanket-draped table",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-194"
+      }
+    ]
   },
   {
     "id": "lokale-radio",
@@ -563,7 +641,13 @@
     },
     "scene": "an on-air sign glowing red above a studio door and a mixing desk with faders in a small booth",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-195"
+      }
+    ]
   },
   {
     "id": "schaduwtheater",
@@ -598,7 +682,13 @@
     },
     "scene": "a lit white sheet with the crisp black silhouette of a paper bird and a tree, a lamp behind it",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-244"
+      }
+    ]
   },
   {
     "id": "beatboxen",
@@ -639,6 +729,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q213608"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-245"
       }
     ],
     "aliases": {
@@ -684,7 +778,13 @@
     },
     "scene": "a notebook crammed with lyrics next to a small speaker and a headphone cable on a beat-up desk",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-246"
+      }
+    ]
   },
   {
     "id": "voorlezen",
@@ -718,7 +818,13 @@
     },
     "scene": "a warm reading armchair with an open picture book on its arm and a stack of books beside a standing lamp",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-247"
+      }
+    ]
   },
   {
     "id": "commedia",
@@ -752,7 +858,13 @@
     },
     "scene": "a leather half-mask with a long nose and a feathered hat resting on a wooden crate under a spotlight",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-248"
+      }
+    ]
   },
   {
     "id": "opera-bezoek",
@@ -788,7 +900,13 @@
     },
     "scene": "a gilded opera house with red velvet seats, a lit stage curtain and a crystal chandelier",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-458"
+      }
+    ]
   },
   {
     "id": "ballet-bezoek",
@@ -898,7 +1016,13 @@
     },
     "scene": "a dressing-room mirror with round bulbs, greasepaint sticks, brushes and a wig stand",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-250"
+      }
+    ]
   },
   {
     "id": "theater-backstage",
@@ -934,7 +1058,13 @@
     },
     "scene": "a theatre backstage with rope rigging, flight cases, a prop table and a work light over an empty stage",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-459"
+      }
+    ]
   },
   {
     "id": "stomme-film",
@@ -970,6 +1100,131 @@
     },
     "scene": "a vintage cinema auditorium with a piano beside a screen that glows with flickering black-and-white light",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-418"
+      }
+    ]
+  },
+  {
+    "id": "filmclub",
+    "domain": "stage",
+    "sub": "film_media",
+    "label": {
+      "nl": "Een filmclub of filmavond bijwonen",
+      "en": "Joining a film club or film night"
+    },
+    "tags": [
+      "story",
+      "discovery",
+      "conviviality",
+      "focus"
+    ],
+    "formats": [
+      "small_group",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een filmavond bij een filmhuis of buurtclub",
+      "en": "A film night at an arthouse cinema or neighbourhood club"
+    },
+    "scene": "A small cinema screen with a title frame and a row of red seats, a popcorn bowl and a program card on an armrest.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-425",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "bandje-beginnen",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Een bandje beginnen",
+      "en": "Starting a band"
+    },
+    "tags": [
+      "performance",
+      "sound",
+      "rhythm",
+      "teamwork"
+    ],
+    "formats": [
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 1,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een open repetitieruimte of een oproep voor muzikanten",
+      "en": "An open rehearsal room or a call for musicians"
+    },
+    "scene": "A rehearsal space with an electric guitar on a stand, a bass, a drum kit and an amplifier, with a setlist taped to a speaker.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-220",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "regie-amateurstuk",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Een amateurstuk regisseren",
+      "en": "Directing an amateur production"
+    },
+    "tags": [
+      "teamwork",
+      "performance",
+      "story",
+      "roleplay"
+    ],
+    "formats": [
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 1,
+    "level": 2,
+    "cost": 1,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Meekijken bij een repetitie van een toneelvereniging",
+      "en": "Watch a rehearsal of a local theatre company"
+    },
+    "scene": "A bare small stage with a director's chair, a clipboard script and a pair of spotlights, props stacked in the wings.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-224",
+      "method": "curated"
+    }
   }
 ]

@@ -8,8 +8,8 @@
     "en": "Board member of an association",
     "sub": {"nl": "Besturen", "en": "Governing"},
     "desc": {"nl": "Plaatsnemen in het bestuur van een club, vereniging of buurtorganisatie.", "en": "Joining the board of a club, society or neighbourhood association."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "bestuurslid-vereniging",
     "facets": {"setting": "indoor", "social_formats": ["small_group"], "level": 1, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["organiseren:5:D", "leiding:4:V", "communicatie:4:V", "strategie:3:V", "logica:2:V", "taalvaardig:3:V", "samenwerking:5:E", "gemeenschap:5:E", "doorzetten:3:E", "generaties:3:E", "zorg:3:E", "publiek:2:E", "duurzaamheid:3:O", "identiteit:3:O"],
     "why": {
@@ -18,7 +18,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-063",
@@ -29,8 +29,8 @@
     "en": "Youth coach or guide",
     "sub": {"nl": "Begeleiden", "en": "Coaching"},
     "desc": {"nl": "Een jeugdteam, club of groep trainen of begeleiden.", "en": "Coaching or guiding a youth team, club or group."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "jeugdtrainer",
     "facets": {"setting": "both", "social_formats": ["small_group", "large_group"], "level": 1, "duration": 4, "cost": 0, "safety_tier": 1, "source": "authored"},
     "links": ["leiding:5:V", "communicatie:4:V", "zorg:5:E", "generaties:5:E", "gemeenschap:4:E", "samenwerking:4:E", "trots:4:E", "beweging:3:E", "organiseren:4:D", "improviseren:3:V", "geduld:4:V", "welzijn:3:T", "speelsheid:3:O", "competitie:3:O"],
     "why": {
@@ -39,7 +39,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-064",
@@ -50,8 +50,8 @@
     "en": "Language buddy for a newcomer",
     "sub": {"nl": "Vrijwilligerswerk", "en": "Volunteering"},
     "desc": {"nl": "Regelmatig afspreken met iemand die nieuw is in Nederland om Nederlands te oefenen in alledaagse gesprekken.", "en": "Meeting regularly with someone new to the Netherlands to practise Dutch in everyday conversation."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "close",
+    "legacy_id": "nieuwkomers",
     "facets": {"setting": "both", "social_formats": ["duo"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["communicatie:5:V", "taalvaardig:4:V", "geduld:4:V", "zorg:5:E", "gemeenschap:4:E", "ontroering:4:E", "gezelligheid:3:E", "wereldculturen:5:T", "identiteit:3:T", "verhalen:3:T", "stad:3:D", "keuken:3:O", "taal:5:T", "luisteren:5:V"],
     "why": {
@@ -59,7 +59,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 3): brug Navigeren was zwak of onzin; verwijderd."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 3): brug Navigeren was zwak of onzin; verwijderd.", "The app already has this as 'nieuwkomers': linked, not imported again."]
   },
   {
     "id": "RA-065",
@@ -70,8 +70,8 @@
     "en": "Organising a fundraiser or crowdfunding campaign",
     "sub": {"nl": "Maatschappelijk project", "en": "Community project"},
     "desc": {"nl": "Een inzameling, benefietevenement of crowdfundingcampagne voor een goed doel opzetten.", "en": "Setting up a collection, charity event or crowdfunding campaign for a cause."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "inzamelingsactie-organiseren",
     "facets": {"setting": "both", "social_formats": ["small_group", "large_group"], "level": 1, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["organiseren:5:D", "leiding:4:V", "communicatie:5:V", "creativiteit:3:V", "strategie:3:V", "gemeenschap:5:E", "samenwerking:4:E", "zorg:4:E", "trots:4:E", "doorzetten:3:E", "duurzaamheid:3:T", "publiek:3:E", "technologie:2:T", "verhalen:3:O", "competitie:3:O"],
     "why": {
@@ -80,7 +80,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-066",
@@ -151,8 +151,8 @@
     "en": "Organising a neighbourhood event",
     "sub": {"nl": "Maatschappelijk project", "en": "Community project"},
     "desc": {"nl": "Een straatfeest, buurtmarkt of buitenfilm opzetten met buren.", "en": "Setting up a street party, neighbourhood market or outdoor film night with neighbours."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "close",
+    "legacy_id": "straatfeest",
     "facets": {"setting": "outdoor", "social_formats": ["large_group"], "level": 1, "duration": 3, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["organiseren:5:D", "stad:3:D", "leiding:4:V", "communicatie:4:V", "creativiteit:3:V", "strategie:2:V", "gemeenschap:5:E", "samenwerking:5:E", "gezelligheid:5:E", "generaties:4:E", "trots:4:E", "zorg:3:E", "duurzaamheid:2:T", "architectuur:3:O", "geschiedenis:3:O"],
     "why": {
@@ -161,7 +161,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "The app already has this as 'straatfeest': linked, not imported again."]
   },
   {
     "id": "RA-324",

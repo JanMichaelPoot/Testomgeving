@@ -33,7 +33,13 @@
     },
     "scene": "a brass cipher wheel, a strip of coded letters and a pencil on a worn desk under a green lamp",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-110"
+      }
+    ]
   },
   {
     "id": "lockpicking",
@@ -103,7 +109,13 @@
     },
     "scene": "a stack of folded riddles, a brass compass and a stopwatch on a map table lit by a desk lamp",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-134"
+      }
+    ]
   },
   {
     "id": "speurtocht-kaart",
@@ -325,7 +337,13 @@
     },
     "scene": "a forest path at blue hour with a single warm lantern glowing between dark trunks",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-341"
+      }
+    ]
   },
   {
     "id": "spookwandeling",
@@ -441,7 +459,13 @@
     },
     "scene": "a corkboard with red string, index cards and a desk lamp in a dim study",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-519"
+      }
+    ]
   },
   {
     "id": "forensisch",
@@ -476,7 +500,13 @@
     },
     "scene": "a fingerprint dusting kit with a soft brush, powder jar and a glass slide on a white table",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-518"
+      }
+    ]
   },
   {
     "id": "detective-wandeling",
@@ -548,7 +578,13 @@
     },
     "scene": "a hidden courtyard garden behind a heavy wooden door with a brick path, a pump and climbing roses",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-342"
+      }
+    ]
   },
   {
     "id": "kasteel-overnachting",
@@ -618,7 +654,13 @@
     },
     "scene": "a typewriter with a half-typed page, a magnifying glass, and a cup of black coffee on a dark desk",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-237"
+      }
+    ]
   },
   {
     "id": "spionagespel",
@@ -701,6 +743,45 @@
       "en": [
         "ghost hunting"
       ]
+    }
+  },
+  {
+    "id": "escape-room-ontwerpen",
+    "domain": "mystery",
+    "sub": "puzzle_rooms",
+    "label": {
+      "nl": "Een escape room ontwerpen",
+      "en": "Designing an escape room"
+    },
+    "tags": [
+      "making",
+      "puzzling",
+      "story",
+      "suspense"
+    ],
+    "formats": [
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop escape room ontwerpen of een eerste raadsel voor vrienden",
+      "en": "An escape-room design workshop or a first puzzle for friends"
+    },
+    "scene": "A pile of handwritten clue cards, a padlock, a locked toolbox and a small sketched floor plan on a table.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-054",
+      "method": "curated"
     }
   }
 ]

@@ -43,6 +43,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q141585202"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-135"
       }
     ],
     "aliases": {
@@ -95,6 +99,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q142714"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-304"
       }
     ],
     "aliases": {
@@ -140,7 +148,13 @@
       "en": "Free drop-in evening at a chess club, or online"
     },
     "scene": "a chessboard mid-game with a wooden set by a window",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-053"
+      }
+    ]
   },
   {
     "id": "go",
@@ -176,7 +190,13 @@
       "en": "Introduction evening; the rules are learned in ten minutes"
     },
     "scene": "a go board with black and white stones and wooden bowls",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-302"
+      }
+    ]
   },
   {
     "id": "mahjong",
@@ -212,7 +232,13 @@
       "en": "Beginner afternoon in a community centre or specialist shop"
     },
     "scene": "mahjong tiles arranged in rows on a table with a tea cup",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-303"
+      }
+    ]
   },
   {
     "id": "ruilkaarten",
@@ -284,7 +310,13 @@
     },
     "scene": "miniature armies on a detailed tabletop battlefield with terrain",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-506"
+      }
+    ]
   },
   {
     "id": "tabletop-rpg",
@@ -324,6 +356,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q160738"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-129"
       }
     ],
     "aliases": {
@@ -368,7 +404,13 @@
     },
     "scene": "a foam sword, a cloak and leather bracers on a wooden bench in a forest clearing",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-305"
+      }
+    ]
   },
   {
     "id": "solo-rpg",
@@ -402,7 +444,13 @@
       "en": "A small solo game with a die and a notebook"
     },
     "scene": "a single die, a notebook and a pencil on a cozy desk with a lamp",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-507"
+      }
+    ]
   },
   {
     "id": "murder-mystery",
@@ -437,7 +485,13 @@
       "en": "A ready-made game box or an organised evening"
     },
     "scene": "a magnifying glass, a candle and torn letters on a dark table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-306"
+      }
+    ]
   },
   {
     "id": "legpuzzels",
@@ -478,6 +532,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q181008"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-130"
       }
     ],
     "aliases": {
@@ -522,7 +580,13 @@
     },
     "scene": "old brass keys and a padlocked wooden chest with a map",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-307"
+      }
+    ]
   },
   {
     "id": "pubquiz",
@@ -556,7 +620,13 @@
       "en": "Coming alone is often fine: teams are formed"
     },
     "scene": "quiz sheets, pens and a chalkboard scoreboard on a café table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-308"
+      }
+    ]
   },
   {
     "id": "raadsels",
@@ -595,6 +665,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q83207"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-133"
       }
     ],
     "aliases": {
@@ -639,7 +713,13 @@
       "en": "A cube and an online tutorial"
     },
     "scene": "a scrambled colorful puzzle cube on a wooden desk with a timer",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-131"
+      }
+    ]
   },
   {
     "id": "coop-games",
@@ -674,7 +754,13 @@
       "en": "A cooperative game with friends or in a gaming café"
     },
     "scene": "two game controllers on a couch with a glowing screen",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-309"
+      }
+    ]
   },
   {
     "id": "lasergamen",
@@ -848,7 +934,13 @@
       "en": "A ready-made escape box or printable game, playable at home tonight"
     },
     "scene": "a closed wooden puzzle box with brass padlocks, old keys and a folded cryptic note on a dark table in candlelight",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-310"
+      }
+    ]
   },
   {
     "id": "vr-arcade",
@@ -884,7 +976,13 @@
     },
     "scene": "a virtual reality headset resting on a pedestal in a dark room washed in neon blue and magenta light",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-311"
+      }
+    ]
   },
   {
     "id": "simracen",
@@ -1065,7 +1163,13 @@
       "source_id": "S3",
       "source_record_id": "Q1293",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-502"
+      }
+    ]
   },
   {
     "id": "sudoku",
@@ -1102,7 +1206,13 @@
       "source_id": "S3",
       "source_record_id": "Q44914",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-503"
+      }
+    ]
   },
   {
     "id": "jojo",

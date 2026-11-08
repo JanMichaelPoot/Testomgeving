@@ -71,8 +71,8 @@
     "en": "Producing electronic music",
     "sub": {"nl": "Muziekproductie", "en": "Music production"},
     "desc": {"nl": "Beats, melodieën en klanklandschappen maken met software en synthesizers.", "en": "Making beats, melodies and soundscapes with software and synthesizers."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "elektronische-muziek-produceren",
     "v0_id": "ACT-024",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online", "small_group"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["ontwerpen:4:D", "bouwen:3:D", "thuis:4:D", "creativiteit:5:V", "logica:3:V", "precisie:3:V", "geduld:3:V", "concentratie:3:V", "ritme:5:E", "klank:5:E", "technologie:5:T", "kunst:3:T", "opgaan:4:E", "experimenteren:4:E", "expressie:3:E", "gemeenschap:3:O", "muziek:5:T", "online:3:D", "beeldtaal:3:O"],
@@ -82,7 +82,7 @@
     },
     "status": "Concept",
     "qa": {"round": 2, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 2): brug Ruimtelijk inzicht was onzin; vervangen door Film en beeldtaal."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Bruggen-steekproef Jan (ronde 2): brug Ruimtelijk inzicht was onzin; vervangen door Film en beeldtaal.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-090",
@@ -93,8 +93,8 @@
     "en": "Learning to play drums",
     "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
     "desc": {"nl": "Op een drumstel of oefenpad leren spelen, van basisritmes tot samenspel.", "en": "Learning to play a drum kit or practice pad, from basic rhythms to playing together."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "drummen-leren",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 1, "duration": 4, "cost": 3, "safety_tier": 0, "source": "authored"},
     "links": ["optreden:2:D", "thuis:2:D", "motoriek:5:V", "concentratie:4:V", "geduld:4:V", "improviseren:3:V", "ritme:5:E", "klank:5:E", "beweging:4:E", "opgaan:4:E", "trots:4:E", "doorzetten:4:E", "samenwerking:3:E", "expressie:3:E", "logica:3:O", "welzijn:3:O", "muziek:5:T", "coordinatie:5:V"],
     "why": {
@@ -103,7 +103,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-091",
@@ -114,8 +114,8 @@
     "en": "Composing music",
     "sub": {"nl": "Compositie", "en": "Composition"},
     "desc": {"nl": "Eigen muziek schrijven, met instrument, notatieprogramma of software.", "en": "Writing your own music, with an instrument, notation program or software."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "muziek-componeren",
     "facets": {"setting": "indoor", "social_formats": ["solo", "online"], "level": 2, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["ontwerpen:4:D", "thuis:3:D", "creativiteit:5:V", "logica:4:V", "concentratie:4:V", "geduld:3:V", "precisie:3:V", "kunst:3:T", "klank:5:E", "ritme:4:E", "expressie:5:E", "ontroering:4:E", "trots:4:E", "opgaan:4:E", "meesterschap:3:E", "verhalen:3:O", "muziek:5:T"],
     "why": {
@@ -123,7 +123,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Architectuur.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-092",
@@ -134,8 +134,8 @@
     "en": "Learning to play the carillon",
     "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
     "desc": {"nl": "Een beiaard bespelen met vuisten en voeten en de stad laten klinken vanuit een toren.", "en": "Playing a carillon with fists and feet and letting a tower fill the city with sound."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "beiaard-leren",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 1, "source": "authored"},
     "links": ["lucht:3:D", "stad:3:D", "metaal:4:M", "motoriek:4:V", "concentratie:4:V", "precisie:3:V", "geduld:4:V", "vakmanschap:3:V", "geschiedenis:4:T", "architectuur:3:T", "klank:5:E", "ritme:3:E", "trots:4:E", "publiek:3:E", "nostalgie:3:E", "verwondering:3:E", "gemeenschap:3:O", "wetenschap:3:O", "muziek:5:T"],
     "why": {
@@ -144,7 +144,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-220",
@@ -155,8 +155,8 @@
     "en": "Starting a band",
     "sub": {"nl": "Samenspel", "en": "Ensemble playing"},
     "desc": {"nl": "Met een paar anderen een band vormen: repertoire kiezen, repeteren en een eerste optreden doen.", "en": "Forming a band with a few others: choosing repertoire, rehearsing and playing a first gig."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "bandje-beginnen",
     "facets": {"setting": "indoor", "social_formats": ["small_group", "with_known"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["organiseren:3:D", "optreden:4:D", "podium:3:D", "motoriek:3:V", "improviseren:4:V", "communicatie:3:V", "leiding:2:V", "klank:5:E", "ritme:5:E", "samenwerking:5:E", "publiek:3:E", "expressie:4:E", "gezelligheid:4:E", "doorzetten:3:E", "humor:3:E", "identiteit:3:O", "muziek:5:T"],
     "why": {
@@ -164,7 +164,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-221",
@@ -175,8 +175,8 @@
     "en": "Drum circle and group percussion",
     "sub": {"nl": "Samenspel", "en": "Ensemble playing"},
     "desc": {"nl": "In een kring met djembés en andere slagwerkers samen ritmes bouwen, zonder noten of voorkennis.", "en": "Building rhythms together in a circle with djembes and other percussion, without notation or experience."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "drumcirkel",
     "facets": {"setting": "both", "social_formats": ["small_group", "large_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["ritme:5:E", "klank:5:E", "samenwerking:5:E", "gezelligheid:4:E", "verbondenheid:4:E", "beweging:4:E", "speelsheid:4:E", "opgaan:4:E", "motoriek:3:V", "improviseren:3:V", "communicatie:2:V", "wereldculturen:4:T", "welzijn:3:T", "gemeenschap:3:E", "tradities:3:O", "muziek:5:T", "spiritualiteit:3:O"],
     "why": {
@@ -185,7 +185,7 @@
     },
     "status": "Concept",
     "qa": {"round": 2, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Steekproef Jan: brug Wetenschap te zwak; vervangen door Spiritualiteit en zingeving."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Steekproef Jan: brug Wetenschap te zwak; vervangen door Spiritualiteit en zingeving.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-226",
@@ -478,8 +478,8 @@
     "en": "Singing lessons for beginners",
     "sub": {"nl": "Zingen", "en": "Singing"},
     "desc": {"nl": "Zingen leren met adem, houding, stemgebruik en liedjes.", "en": "Learning to sing with breath, posture, voice use and songs."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "zangles",
     "facets": {"setting": "indoor", "social_formats": ["solo", "drop_in_alone", "small_group"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["optreden:2:D", "thuis:2:D", "concentratie:3:V", "motoriek:2:V", "taalvaardig:2:V", "klank:5:E", "ritme:3:E", "expressie:4:E", "moed:4:E", "doorzetten:3:E", "ontroering:3:E", "welzijn:4:T", "kunst:3:T", "zelfstandig:3:E", "wetenschap:3:O", "verbondenheid:3:O", "muziek:5:T", "leren:5:E"],
     "why": {
@@ -488,7 +488,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-436",
@@ -499,8 +499,8 @@
     "en": "Learning the harmonica",
     "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
     "desc": {"nl": "Op een mondharmonica leren spelen: blues, folk en eenvoudige liedjes.", "en": "Learning to play the harmonica: blues, folk and simple songs."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "mondharmonica-leren",
     "facets": {"setting": "both", "social_formats": ["solo", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["thuis:2:D", "motoriek:3:V", "improviseren:3:V", "concentratie:3:V", "kunst:2:T", "wereldculturen:3:T", "klank:5:E", "ritme:4:E", "expressie:4:E", "vrijheid:3:E", "speelsheid:3:E", "rust:2:E", "welzijn:3:T", "tradities:3:O", "muziek:5:T"],
     "why": {
@@ -508,7 +508,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zee en scheepvaart."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Zee en scheepvaart.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-437",
@@ -519,8 +519,8 @@
     "en": "Joining a brass band or wind orchestra",
     "sub": {"nl": "Samenspel", "en": "Ensemble playing"},
     "desc": {"nl": "Meespelen in een fanfare, harmonie of brassband bij een lokale vereniging.", "en": "Playing in a brass band or wind orchestra at a local society."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "fanfare-orkest",
     "facets": {"setting": "indoor", "social_formats": ["large_group", "small_group"], "level": 1, "duration": 4, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["optreden:4:D", "podium:3:D", "organiseren:2:D", "motoriek:3:V", "concentratie:3:V", "communicatie:3:V", "klank:5:E", "ritme:4:E", "samenwerking:5:E", "gemeenschap:5:E", "gezelligheid:4:E", "generaties:4:E", "publiek:3:E", "tradities:4:T", "kunst:2:T", "stad:3:O", "technologie:3:O", "muziek:5:T"],
     "why": {
@@ -529,7 +529,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-438",
@@ -540,8 +540,8 @@
     "en": "Playing the handpan or steel drum",
     "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
     "desc": {"nl": "Een handpan of steeldrum bespelen met melodische, rustige klanken.", "en": "Playing a handpan or steel drum with melodic, calm sounds."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "handpan-spelen",
     "facets": {"setting": "both", "social_formats": ["solo", "small_group"], "level": 0, "duration": 3, "cost": 3, "safety_tier": 0, "source": "authored"},
     "links": ["metaal:4:M", "optreden:2:D", "motoriek:3:V", "concentratie:3:V", "improviseren:3:V", "klank:5:E", "ritme:4:E", "rust:4:E", "stilte:2:E", "expressie:3:E", "opgaan:3:E", "tast:3:E", "welzijn:3:T", "wereldculturen:3:T", "wetenschap:3:O", "spiritualiteit:3:O", "muziek:5:T"],
     "why": {
@@ -550,7 +550,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-439",
@@ -561,8 +561,8 @@
     "en": "A folk session of traditional music",
     "sub": {"nl": "Samenspel", "en": "Ensemble playing"},
     "desc": {"nl": "Meespelen of luisteren bij een sessie met traditionele muziek, vaak in een café of zaal.", "en": "Playing along or listening at a session of traditional music, often in a pub or hall."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "folk-sessie",
     "facets": {"setting": "indoor", "social_formats": ["small_group", "drop_in_alone"], "level": 1, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["optreden:3:D", "podium:2:D", "improviseren:3:V", "communicatie:2:V", "motoriek:2:V", "tradities:5:T", "wereldculturen:4:T", "klank:5:E", "ritme:5:E", "gezelligheid:5:E", "samenwerking:4:E", "verbondenheid:4:E", "gemeenschap:4:E", "beweging:2:E", "generaties:3:O", "muziek:5:T", "luisteren:3:V"],
     "why": {
@@ -570,7 +570,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Verhalen.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-440",
@@ -581,8 +581,8 @@
     "en": "A listening club or record club",
     "sub": {"nl": "Luisteren", "en": "Listening"},
     "desc": {"nl": "Met een groep elke keer één album of genre luisteren en erover praten.", "en": "Listening with a group to one album or genre each time and talking about it."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "platenclub",
     "facets": {"setting": "indoor", "social_formats": ["small_group"], "level": 0, "duration": 2, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["thuis:3:D", "verzamelen:2:D", "concentratie:3:V", "communicatie:3:V", "kunst:3:T", "geschiedenis:2:T", "klank:5:E", "gezelligheid:4:E", "verbondenheid:4:E", "ontdekking:4:E", "ontroering:3:E", "nostalgie:3:E", "stilte:2:E", "muziek:5:T", "luisteren:4:V", "wereldculturen:3:O", "technologie:3:O"],
     "why": {
@@ -591,7 +591,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen, Humor."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Wiskunde en patronen, Humor.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-441",
@@ -602,8 +602,8 @@
     "en": "Learning to play the organ",
     "sub": {"nl": "Instrumentale muziek", "en": "Instrumental music"},
     "desc": {"nl": "Orgel leren spelen, van kerkorgel tot huisorgel, met handen en voeten.", "en": "Learning to play the organ, from church organ to home organ, with hands and feet."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "orgel-leren",
     "facets": {"setting": "indoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["metaal:3:M", "hout:3:M", "motoriek:5:V", "concentratie:4:V", "ruimtelijk:3:V", "precisie:3:V", "kunst:3:T", "spiritualiteit:3:T", "architectuur:3:T", "klank:5:E", "stilte:3:E", "ontroering:4:E", "meesterschap:3:E", "doorzetten:3:E", "technologie:3:O", "geschiedenis:3:O", "muziek:5:T", "coordinatie:5:V"],
     "why": {
@@ -612,6 +612,6 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   }
 ]

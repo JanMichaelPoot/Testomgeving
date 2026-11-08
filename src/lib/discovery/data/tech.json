@@ -38,6 +38,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q122820085"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-103"
       }
     ],
     "aliases": {
@@ -85,6 +89,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q229367"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-104"
       }
     ],
     "aliases": {
@@ -130,7 +138,25 @@
       "en": "A free online environment and a first drawing"
     },
     "scene": "a laptop showing colorful generative art in a dim room",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-105"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-523"
+      }
+    ],
+    "aliases": {
+      "nl": [
+        "Programmeren leren met Python"
+      ],
+      "en": [
+        "Learning to program with Python"
+      ]
+    }
   },
   {
     "id": "robotica",
@@ -167,7 +193,13 @@
     },
     "scene": "a small wheeled robot with sensors on a workbench",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-055"
+      }
+    ]
   },
   {
     "id": "makerspace",
@@ -202,7 +234,13 @@
     },
     "scene": "a makerspace workshop with a laser cutter, tools and shelves",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-312"
+      }
+    ]
   },
   {
     "id": "drones",
@@ -247,6 +285,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q130374573"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-106"
       }
     ],
     "aliases": {
@@ -287,7 +329,13 @@
       "en": "Bring something broken or just look along, always free"
     },
     "scene": "a table with a toaster, screwdrivers and a tool roll at a repair café",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-313"
+      }
+    ]
   },
   {
     "id": "fietsreparatie",
@@ -322,7 +370,13 @@
       "en": "Bike mechanic workshop or a neighbourhood workshop"
     },
     "scene": "a bicycle upside down on a workshop stand with wrenches",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-109"
+      }
+    ]
   },
   {
     "id": "restaureren",
@@ -357,7 +411,13 @@
       "en": "Beginner course or a chair from a thrift shop"
     },
     "scene": "an old wooden chair with sandpaper and brushes in a workshop",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-015"
+      }
+    ]
   },
   {
     "id": "smeden",
@@ -395,7 +455,13 @@
     },
     "scene": "an anvil, a hammer and glowing iron in a dark forge",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-314"
+      }
+    ]
   },
   {
     "id": "lassen",
@@ -432,7 +498,13 @@
     },
     "scene": "a welding helmet and gloves on a steel workbench with sparks",
     "status": "concept",
-    "supply": "regional"
+    "supply": "regional",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-508"
+      }
+    ]
   },
   {
     "id": "klokken",
@@ -467,7 +539,13 @@
       "en": "Workshop or a cheap mechanical movement"
     },
     "scene": "an open mechanical watch movement with tweezers and a loupe",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-509"
+      }
+    ]
   },
   {
     "id": "telescoop",
@@ -509,6 +587,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q560575"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-315"
       }
     ],
     "aliases": {
@@ -556,7 +638,13 @@
       "en": "One counting app, one measurement, five minutes"
     },
     "scene": "a clipboard, a magnifier and a notebook beside a wildflower in a field",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-316"
+      }
+    ]
   },
   {
     "id": "microscopie",
@@ -591,7 +679,13 @@
       "en": "Look at a drop of pond water"
     },
     "scene": "a brass microscope with glass slides and a leaf sample",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-107"
+      }
+    ]
   },
   {
     "id": "geologie",
@@ -632,6 +726,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q1535038"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-317"
       }
     ],
     "aliases": {
@@ -673,7 +771,13 @@
       "en": "A simple rain gauge and a notebook"
     },
     "scene": "a small garden weather station with a rain gauge and an anemometer in a meadow",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-108"
+      }
+    ]
   },
   {
     "id": "wetenschapsmuseum",
@@ -709,7 +813,13 @@
       "en": "Adult evening or check a science center's calendar"
     },
     "scene": "interactive science exhibits with glowing light displays in a dim hall",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-211"
+      }
+    ]
   },
   {
     "id": "kookwetenschap",
@@ -744,7 +854,13 @@
       "en": "One experiment from a book, like making cheese or bread"
     },
     "scene": "glass flasks and a bowl of dough with a whisk on a kitchen counter",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-318"
+      }
+    ]
   },
   {
     "id": "data-visualisatie",
@@ -779,7 +895,13 @@
       "en": "A public dataset and a free tool"
     },
     "scene": "a screen showing a colorful chart beside a notebook with sketches",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-319"
+      }
+    ]
   },
   {
     "id": "radioamateur",
@@ -814,7 +936,13 @@
     },
     "scene": "a vintage radio set with glowing dials, a Morse key and a coil of antenna wire on a workbench",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-320"
+      }
+    ]
   },
   {
     "id": "synthesizer-bouwen",
@@ -850,7 +978,13 @@
     },
     "scene": "a circuit board with colourful knobs and patch cables laid out beside a soldering iron stand",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-232"
+      }
+    ]
   },
   {
     "id": "motor-sleutelen",
@@ -885,7 +1019,13 @@
     },
     "scene": "a half-disassembled vintage scooter engine on a workbench under a hanging lamp with a tidy set of spanners",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-321"
+      }
+    ]
   },
   {
     "id": "kortegolf-luisteren",
@@ -923,7 +1063,13 @@
       "source_id": "S3",
       "source_record_id": "Q1073309",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-510"
+      }
+    ]
   },
   {
     "id": "dxen",
@@ -961,7 +1107,13 @@
       "source_id": "S3",
       "source_record_id": "Q844865",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-511"
+      }
+    ]
   },
   {
     "id": "retrocomputing",
@@ -1000,7 +1152,13 @@
       "source_id": "S3",
       "source_record_id": "Q389525",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-322"
+      }
+    ]
   },
   {
     "id": "wikipedia-bijdragen",
@@ -1037,7 +1195,13 @@
       "source_id": "S3",
       "source_record_id": "Q134715708",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-352"
+      }
+    ]
   },
   {
     "id": "open-source",
@@ -1077,7 +1241,13 @@
       "source_id": "S3",
       "source_record_id": "Q7096425",
       "method": "curated"
-    }
+    },
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-512"
+      }
+    ]
   },
   {
     "id": "game-ontwikkelen",
@@ -1110,7 +1280,13 @@
       "en": "A game engine with a one-hour tutorial"
     },
     "scene": "a laptop showing a pixel-art level, a game controller and sticky notes with level sketches",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-323"
+      }
+    ]
   },
   {
     "id": "ai-creatie",
@@ -1143,6 +1319,90 @@
       "en": "A free AI image or text app and a vague idea"
     },
     "scene": "a laptop with abstract generated shapes on screen, a notebook with scribbled prompts and a mug",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-420"
+      }
+    ]
+  },
+  {
+    "id": "website-bouwen",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Een eigen website bouwen",
+      "en": "Building your own website"
+    },
+    "tags": [
+      "making",
+      "puzzling",
+      "technique",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis online beginnerscursus of een eerste pagina over je hobby",
+      "en": "A free online beginners' course or a first page about your hobby"
+    },
+    "scene": "A laptop showing a simple website layout in progress beside a notebook with wireframe sketches and a mug.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-288",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "energie-besparen",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Je energieverbruik meten en verlagen",
+      "en": "Measuring and reducing your energy use"
+    },
+    "tags": [
+      "discovery",
+      "technique",
+      "learning",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een energiecoach van de gemeente of een eerste meting thuis",
+      "en": "An energy coach from the municipality or a first home measurement"
+    },
+    "scene": "A smart energy meter reading on a wall with a thermostat, a small notebook of readings and an LED bulb on a shelf.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-289",
+      "method": "curated"
+    }
   }
 ]

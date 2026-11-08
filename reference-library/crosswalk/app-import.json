@@ -1,0 +1,2396 @@
+{
+ "version": 1,
+ "source_id": "RL",
+ "activities": {
+  "levend-model-tekenen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "making",
+    "focus",
+    "precision",
+    "color"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A drawing board on an easel with a charcoal figure sketch, sticks of charcoal, a kneaded eraser and a draped stool in soft studio light.",
+   "entry": {
+    "nl": "Een open tekenavond of proefles in een atelier",
+    "en": "An open life-drawing night or trial class in a studio"
+   },
+   "supply": "regional"
+  },
+  "botanisch-tekenen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "precision",
+    "nature",
+    "growing",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "nature",
+   "scene": "A sketchbook open on a detailed ink-and-watercolour drawing of a fern beside a pressed leaf, fine pens and a small glass jar of water.",
+   "entry": {
+    "nl": "Een beginnersworkshop in een tuin of kruidentuin",
+    "en": "A beginners' workshop in a garden or botanical garden"
+   }
+  },
+  "kinderboek-illustreren": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "story",
+    "color",
+    "making",
+    "roleplay"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A drawing table with painted storybook pages drying, a fox character sketch, gouache pots and brushes, warm lamp light.",
+   "entry": {
+    "nl": "Een korte cursus kinderboekillustratie of een online les",
+    "en": "A short children's-book illustration course or an online class"
+   }
+  },
+  "stripverhaal-tekenen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "story",
+    "making",
+    "play",
+    "roleplay"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A comic page with inked panels and speech bubbles on a light table, brush pens, a ruler and pencil layouts around it.",
+   "entry": {
+    "nl": "Een stripcursus voor beginners of een tekenavond",
+    "en": "A beginners' comics course or a drawing night"
+   }
+  },
+  "aquarelleren": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "color",
+    "making",
+    "stillness",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A watercolour palette with wet blooms of colour, a round brush resting on a half-finished landscape on thick paper, a jar of cloudy water.",
+   "entry": {
+    "nl": "Een aquarelproefles of een open schilderavond",
+    "en": "A watercolour trial class or an open painting evening"
+   }
+  },
+  "pastel-tekenen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "color",
+    "making",
+    "focus",
+    "retro"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "Soft pastel sticks in a wooden tray beside a dusty-coloured landscape on tinted paper, a smudged blending stump and a fixative can.",
+   "entry": {
+    "nl": "Een pasteltekenworkshop voor beginners",
+    "en": "A pastel drawing workshop for beginners"
+   }
+  },
+  "sketchnotes-maken": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "focus",
+    "play",
+    "making",
+    "learning"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A notebook page of hand-drawn sketchnotes with banners, arrows and tiny icons next to fine liner pens and a cup of tea.",
+   "entry": {
+    "nl": "Een gratis online voorbeeld volgen of een uur oefenen met een eigen lezing",
+    "en": "Follow a free online example or practise for an hour on a talk you attend"
+   }
+  },
+  "pen-inkt-tekenen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "precision",
+    "focus",
+    "color",
+    "making"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A dip pen and bottle of black ink on a page of fine crosshatched drawing of a leaf, with an inkwell and blotting paper.",
+   "entry": {
+    "nl": "Een korte workshop pen en inkt of een uur oefenen thuis",
+    "en": "A short pen-and-ink workshop or an hour of practice at home"
+   }
+  },
+  "portret-tekenen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "precision",
+    "focus",
+    "color",
+    "making"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "An easel with an oval sheet clipped in place showing a half-finished charcoal study, a tin of pencils, a hand mirror leaning on the easel and a kneaded eraser, soft window light.",
+   "entry": {
+    "nl": "Een open tekenavond of beginnersles portret",
+    "en": "An open drawing evening or a beginners' portrait class"
+   },
+   "supply": "regional"
+  },
+  "plein-air-schilderen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "color",
+    "nature",
+    "focus",
+    "stillness"
+   ],
+   "intensity": 1,
+   "register": "nature",
+   "scene": "A small field easel with a painted landscape of dunes and clouds, a folded stool, a paint box and a hat on the grass.",
+   "entry": {
+    "nl": "Een buitenschilderdag met een groep of een eerste schets in het park",
+    "en": "A plein-air painting day with a group or a first sketch in the park"
+   },
+   "months": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "acryl-gieten": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "color",
+    "play",
+    "making",
+    "discovery"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A canvas flooded with swirling poured acrylic in blue, teal and gold with cells and ripples, paint cups and a silicone spatula on a protected table.",
+   "entry": {
+    "nl": "Een workshop acryl gieten met alle materialen erbij",
+    "en": "An acrylic pouring workshop with all materials provided"
+   },
+   "supply": "regional"
+  },
+  "kleurpotlood-tekenen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "precision",
+    "focus",
+    "color",
+    "making"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A realistic coloured-pencil drawing of a pear half finished, a fan of pencils, a sharpener with shavings and a ruler.",
+   "entry": {
+    "nl": "Een startset en een uur oefenen met een online les",
+    "en": "A starter set and an hour of practice with an online lesson"
+   }
+  },
+  "handlettering": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "language",
+    "precision",
+    "making",
+    "stillness"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A sheet of brush-pen lettering with flowing script and flourishes, a practice grid sheet, brush pens in a row and a cup of tea.",
+   "entry": {
+    "nl": "Een workshop handlettering of een gratis startset online",
+    "en": "A hand-lettering workshop or a free starter lesson online"
+   }
+  },
+  "mandala-tekenen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "precision",
+    "focus",
+    "stillness",
+    "making",
+    "color"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A round mandala drawn in fine black pen with repeating petals and dots, a compass and ruler beside it, dried flowers on the paper.",
+   "entry": {
+    "nl": "Een rustige teken-avond of een uur thuis met een eerste patroon",
+    "en": "A quiet drawing evening or an hour at home with a first pattern"
+   }
+  },
+  "papier-mache-beelden": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "making",
+    "play",
+    "roleplay",
+    "craft"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A half-finished papier-mache animal head with torn newspaper strips, a bowl of paste and a roll of masking tape on a covered table.",
+   "entry": {
+    "nl": "Een workshop papier-maché of een middag thuis met een ballon",
+    "en": "A papier-mache workshop or an afternoon at home with a balloon"
+   }
+  },
+  "gouache-schilderen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "color",
+    "making",
+    "focus",
+    "play"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "Opaque gouache jars in bright flat colours and a small painting of overlapping shapes, a flat brush and a ceramic palette.",
+   "entry": {
+    "nl": "Een beginnerscursus gouache of een eerste schilderij thuis",
+    "en": "A beginners' gouache course or a first painting at home"
+   }
+  },
+  "naaldvilten": {
+   "domain": "creative",
+   "sub": "textile_paper",
+   "tags": [
+    "making",
+    "play",
+    "craft",
+    "miniature"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A small felted fox in progress with a barbed needle in a cork handle, wool roving in orange and white and a foam pad.",
+   "entry": {
+    "nl": "Een naaldviltworkshop of een startpakket thuis",
+    "en": "A needle-felting workshop or a starter kit at home"
+   }
+  },
+  "sashiko-herstellen": {
+   "domain": "creative",
+   "sub": "textile_paper",
+   "tags": [
+    "craft",
+    "technique",
+    "making",
+    "stillness"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "An indigo cloth with white running-stitch geometric patterns, a long needle, a spool of thick white thread and a small pair of scissors.",
+   "entry": {
+    "nl": "Een herstelworkshop of eerste steken op een oude spijkerbroek",
+    "en": "A mending workshop or first stitches on an old pair of jeans"
+   }
+  },
+  "kantklossen": {
+   "domain": "creative",
+   "sub": "textile_paper",
+   "tags": [
+    "precision",
+    "craft",
+    "making",
+    "history"
+   ],
+   "intensity": 1,
+   "register": "expressive",
+   "scene": "A round lace pillow with dozens of wooden bobbins and pins forming a delicate white lace edge in progress, a pattern card underneath.",
+   "entry": {
+    "nl": "Een proefles bij een kantkloslaboratorium of een museumdemonstratie",
+    "en": "A trial lesson at a lace-making guild or a museum demonstration"
+   },
+   "supply": "rare"
+  },
+  "tuften": {
+   "domain": "creative",
+   "sub": "textile_paper",
+   "tags": [
+    "making",
+    "color",
+    "play",
+    "technique"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A tufting frame with a bold geometric rug design half filled with colourful yarn, a tufting gun and trimmed yarn tails on a mat.",
+   "entry": {
+    "nl": "Een tuftworkshop waarin je een klein kleedje maakt",
+    "en": "A tufting workshop where you make a small rug"
+   },
+   "supply": "regional"
+  },
+  "planten-verven": {
+   "domain": "creative",
+   "sub": "textile_paper",
+   "tags": [
+    "nature",
+    "growing",
+    "color",
+    "making"
+   ],
+   "intensity": 0,
+   "register": "nature",
+   "scene": "Skeins of wool dyed in ochre, madder red and indigo hanging beside a pot of simmering dye and bundles of dried plants.",
+   "entry": {
+    "nl": "Een kleurstoffenworkshop of eerste experimenten met uien en rode kool",
+    "en": "A natural-dye workshop or first experiments with onions and red cabbage"
+   },
+   "supply": "regional",
+   "months": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "bandweven": {
+   "domain": "creative",
+   "sub": "textile_paper",
+   "tags": [
+    "making",
+    "rhythm",
+    "precision",
+    "craft"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A narrow band loom with a striped woven ribbon in progress, small shuttles, a ball of cotton yarn and a wooden heddle.",
+   "entry": {
+    "nl": "Een introductieles bandweven of een startersgetouw thuis",
+    "en": "An introductory band-weaving class or a starter loom at home"
+   }
+  },
+  "houtdraaien": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "precision",
+    "making",
+    "technique"
+   ],
+   "intensity": 1,
+   "register": "technical",
+   "scene": "A wooden bowl on a lathe with curling shavings, turning chisels on a rack and a pile of pale beech blanks on a workshop bench.",
+   "entry": {
+    "nl": "Een workshop houtdraaien onder begeleiding bij een houtdraaiersclub",
+    "en": "A supervised woodturning workshop at a woodturning club"
+   },
+   "supply": "regional"
+  },
+  "houtinleg-marqueterie": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "precision",
+    "making",
+    "puzzling"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A small box lid with intricate marquetry inlay in contrasting woods, a fretsaw, veneer scraps and a sharp knife on a green mat.",
+   "entry": {
+    "nl": "Een cursus marqueterie of een beginnerspakket",
+    "en": "A marquetry course or a beginner kit"
+   },
+   "supply": "rare"
+  },
+  "houten-speelgoed-maken": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "making",
+    "play",
+    "retro"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A small wooden train and a rolling duck on a workbench with sandpaper, a vice and a few painted wooden wheels.",
+   "entry": {
+    "nl": "Een speelgoedworkshop in een werkplaats of een eerste klusje thuis",
+    "en": "A toy-making workshop at a workshop or a first job at home"
+   }
+  },
+  "meubel-bouwen": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "making",
+    "precision",
+    "technique"
+   ],
+   "intensity": 1,
+   "register": "technical",
+   "scene": "A solid oak side table built with visible joints, a hand plane, clamps and a folding rule resting on a planked workbench.",
+   "entry": {
+    "nl": "Een weekendcursus meubelbouw of een bouwpakket met begeleiding",
+    "en": "A weekend furniture-making course or a guided kit"
+   },
+   "supply": "regional"
+  },
+  "stoel-bekleden": {
+   "domain": "creative",
+   "sub": "textile_paper",
+   "tags": [
+    "craft",
+    "making",
+    "technique",
+    "retro"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A dining chair with its seat stripped to the wooden frame, new patterned fabric folded on top, a staple gun and an upholstery hammer.",
+   "entry": {
+    "nl": "Een workshop stoelen bekleden waarin je er een mee naar huis neemt",
+    "en": "An upholstery workshop where you take a chair home"
+   },
+   "supply": "regional"
+  },
+  "zwaluwstaart-kist": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "precision",
+    "making",
+    "puzzling"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A small wooden chest with crisp dovetail joints at the corners, a marking gauge, a dovetail saw and chisels in a row.",
+   "entry": {
+    "nl": "Een zwaluwstaartworkshop in een houtwerkplaats",
+    "en": "A dovetail workshop at a woodworking shop"
+   }
+  },
+  "ukelele-bouwen": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "craft",
+    "making",
+    "sound",
+    "precision"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A half-assembled ukulele body with braces and a spruce top beside binding strips, clamps and a luthier's small plane.",
+   "entry": {
+    "nl": "Een bouwworkshop waarin je een ukelele maakt, geen ervaring nodig",
+    "en": "A building workshop where you make a ukulele, no experience needed"
+   },
+   "supply": "regional"
+  },
+  "boomhut-bouwen": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "making",
+    "play",
+    "outdoors"
+   ],
+   "intensity": 2,
+   "register": "technical",
+   "scene": "A small wooden treehouse platform with railing and a rope ladder in a leafy tree, a tool belt and a pile of planks below.",
+   "entry": {
+    "nl": "Een bouwdag bij een speeltuinvereniging of buurtproject",
+    "en": "A build day at a playground association or neighbourhood project"
+   },
+   "supply": "rare",
+   "months": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "pallet-meubels": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "making",
+    "play",
+    "retro"
+   ],
+   "intensity": 1,
+   "register": "nurturing",
+   "scene": "A low garden bench built from sanded pallet planks with cushions and a pot of herbs, a crowbar and a sanding block nearby.",
+   "entry": {
+    "nl": "Een klusmiddag bij een repaircafé of een eerste plank thuis",
+    "en": "A workshop afternoon at a repair cafe or a first plank at home"
+   }
+  },
+  "scheepsmodel-bouwen": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "precision",
+    "making",
+    "history"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A detailed wooden sailing ship model with tiny rigging threads on a cradle, tweezers, a magnifying lamp and a plan sheet.",
+   "entry": {
+    "nl": "Een kennismaking bij een modelbouwclub of een startpakket",
+    "en": "An introduction at a model club or a starter kit"
+   },
+   "supply": "regional"
+  },
+  "schaakbord-maken": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "precision",
+    "making",
+    "play"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A chessboard of light and dark wood squares being glued up, with a few carved pawns, clamps and a block plane.",
+   "entry": {
+    "nl": "Een weekendcursus of een startpakket met stukken en bord",
+    "en": "A weekend course or a starter kit with board and pieces"
+   }
+  },
+  "tuinmeubels-maken": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "making",
+    "outdoors",
+    "technique"
+   ],
+   "intensity": 1,
+   "register": "technical",
+   "scene": "A rustic garden bench with sawhorses, pine planks, a cordless drill and a pencil behind the ear of a tape measure.",
+   "entry": {
+    "nl": "Een bouwworkshop of een bouwpakket met uitleg",
+    "en": "A build workshop or a kit with instructions"
+   },
+   "months": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "vlonder-bouwen": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "making",
+    "outdoors",
+    "technique"
+   ],
+   "intensity": 2,
+   "register": "technical",
+   "scene": "A neat wooden deck platform under construction beside a garden bed, deck screws, a spirit level and an impact driver.",
+   "entry": {
+    "nl": "Een klusdag samen met een buurtproject of cursus",
+    "en": "A build day with a neighbourhood project or course"
+   },
+   "months": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "houten-klok-bouwen": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "precision",
+    "puzzling",
+    "making"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A wooden gear clock with exposed gears and a pendulum, small cut gears on a bench, a saw and a pair of calipers.",
+   "entry": {
+    "nl": "Een bouwpakket of een workshop mechanisch speelgoed",
+    "en": "A kit or a mechanical-toy workshop"
+   }
+  },
+  "keukenplank-maken": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "making",
+    "technique",
+    "food"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A serving board of walnut and maple with a rounded edge, a bottle of food-safe oil and a rag, a block plane and a rasp.",
+   "entry": {
+    "nl": "Een middagworkshop waarin je een plank maakt",
+    "en": "An afternoon workshop where you make a board"
+   }
+  },
+  "papier-scheppen": {
+   "domain": "creative",
+   "sub": "textile_paper",
+   "tags": [
+    "making",
+    "craft",
+    "nature",
+    "color"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A deckle-framed sheet of handmade paper with pressed flowers and dried petals drying on a cloth, a vat of pulp and a sponge.",
+   "entry": {
+    "nl": "Een workshop papier scheppen of een middag thuis met oud papier",
+    "en": "A paper-making workshop or an afternoon at home with scrap paper"
+   }
+  },
+  "ebru-marmeren-papier": {
+   "domain": "creative",
+   "sub": "textile_paper",
+   "tags": [
+    "color",
+    "making",
+    "play",
+    "technique"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A shallow tray of floating swirled marbling inks in blue, red and gold with a comb and a sheet of paper lifted off.",
+   "entry": {
+    "nl": "Een workshop ebru of marmeren papier",
+    "en": "A workshop in ebru or paper marbling"
+   }
+  },
+  "betonnen-schalen-maken": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "making",
+    "craft",
+    "technique",
+    "style"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A small grey concrete bowl and a tealight holder beside silicone moulds, a mixing bucket and a smooth trowel on newspaper.",
+   "entry": {
+    "nl": "Een gietworkshop met mallen en materialen erbij",
+    "en": "A casting workshop with moulds and materials provided"
+   }
+  },
+  "polymeerklei-sieraden": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "making",
+    "precision",
+    "play",
+    "miniature"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "Tiny polymer clay earrings in marbled colours, a pasta machine, a blade and a few baking tiles with small cane slices.",
+   "entry": {
+    "nl": "Een startset en een middag met een online les of een workshop",
+    "en": "A starter set and an afternoon with an online lesson or a workshop"
+   }
+  },
+  "lederen-armband-vlechten": {
+   "domain": "creative",
+   "sub": "shaping",
+   "tags": [
+    "craft",
+    "making",
+    "technique",
+    "style"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A braided leather bracelet with a brass snap, strips of leather in brown and tan, a snap tool and a cutting mat.",
+   "entry": {
+    "nl": "Een korte workshop lederen sieraden of een kit thuis",
+    "en": "A short leather-jewellery workshop or a kit at home"
+   }
+  },
+  "documentaireportret-maken": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "story",
+    "discovery",
+    "focus",
+    "making"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A tripod and a small camera in front of a worn armchair by a window with an interview notebook and a lamp, a pair of headphones on the arm.",
+   "entry": {
+    "nl": "Een filmworkshop of een korte kennismaking met een lokale documentairemaker",
+    "en": "A film workshop or a short introduction with a local documentary maker"
+   },
+   "supply": "regional"
+  },
+  "veldopnames-maken": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "sound",
+    "technique",
+    "nature",
+    "stillness"
+   ],
+   "intensity": 0,
+   "register": "nature",
+   "scene": "A handheld audio recorder with a furry wind cover on a fence post, headphones and a notebook with sound notes in a misty field.",
+   "entry": {
+    "nl": "Een geluidswandeling met een opnameset of met je telefoon",
+    "en": "A sound walk with a recorder or with your phone"
+   }
+  },
+  "cyanotypie": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "making",
+    "color",
+    "learning",
+    "nature"
+   ],
+   "intensity": 1,
+   "register": "nature",
+   "scene": "A blue cyanotype print of ferns and leaves on cotton paper pinned out in the sun, a glass plate and a tray of rinse water.",
+   "entry": {
+    "nl": "Een zonneprint-workshop of een startpakket in de zon",
+    "en": "A sun-print workshop or a starter kit in the sun"
+   },
+   "months": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ]
+  },
+  "videomontage-leren": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "technique",
+    "story",
+    "rhythm",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A video editing timeline on a monitor with colourful clips, a mixing slider panel and a pair of headphones on a desk.",
+   "entry": {
+    "nl": "Een online beginnerscursus of een uur oefenen met je eigen beelden",
+    "en": "An online beginners' course or an hour of practice with your own footage"
+   }
+  },
+  "macrofotografie": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "precision",
+    "nature",
+    "focus",
+    "color"
+   ],
+   "intensity": 0,
+   "register": "nature",
+   "scene": "A close-up of dewdrops on a spider web and a small camera with a macro lens on a mini tripod low in the grass.",
+   "entry": {
+    "nl": "Een macroworkshop of een middag met een groot en klein lensje",
+    "en": "A macro workshop or an afternoon with a close-up lens"
+   },
+   "months": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "portretfotografie": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "focus",
+    "color",
+    "making",
+    "technique"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A studio set with a soft light box and a reflector next to a stool and a plain backdrop, a camera on a tripod.",
+   "entry": {
+    "nl": "Een workshop portretfotografie of samen oefenen met licht",
+    "en": "A portrait photography workshop or a session to practise lighting"
+   },
+   "supply": "regional"
+  },
+  "timelapse-fotografie": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "technique",
+    "focus",
+    "rhythm",
+    "color"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A camera on a tripod pointed at a distant city skyline at dusk with a remote shutter, a spare battery and a dew shield.",
+   "entry": {
+    "nl": "Een workshop of een eerste timelapse vanuit je raam",
+    "en": "A workshop or a first timelapse from your window"
+   }
+  },
+  "vlog-maken": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "technique",
+    "story",
+    "making",
+    "discovery"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A small camera on a mini tripod, a microphone and a notebook with shot ideas and a ring light on a desk.",
+   "entry": {
+    "nl": "Een gratis workshop of een eerste filmpje over je eigen buurt",
+    "en": "A free workshop or a first short video about your own neighbourhood"
+   }
+  },
+  "filmclub": {
+   "domain": "stage",
+   "sub": "film_media",
+   "tags": [
+    "story",
+    "discovery",
+    "conviviality",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A small cinema screen with a title frame and a row of red seats, a popcorn bowl and a program card on an armrest.",
+   "entry": {
+    "nl": "Een filmavond bij een filmhuis of buurtclub",
+    "en": "A film night at an arthouse cinema or neighbourhood club"
+   },
+   "supply": "regional"
+  },
+  "sterren-fotograferen": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "stars",
+    "focus",
+    "color",
+    "technique"
+   ],
+   "intensity": 0,
+   "register": "nature",
+   "scene": "A camera on a tripod under a clear sky with a rich Milky Way arc over a dark field, a red headlamp and a star chart.",
+   "entry": {
+    "nl": "Een nachtfotografie-workshop of een heldere nacht met een camera",
+    "en": "A night-photography workshop or a clear night with a camera"
+   },
+   "months": [
+    1,
+    2,
+    3,
+    4,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  "handgetekende-animatie": {
+   "domain": "creative",
+   "sub": "visual",
+   "tags": [
+    "story",
+    "making",
+    "play",
+    "roleplay"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A flipbook of animation drawings of a bouncing ball on a lightbox with a stack of frames and a pencil.",
+   "entry": {
+    "nl": "Een animatieworkshop of je eerste flipbook",
+    "en": "An animation workshop or your first flipbook"
+   }
+  },
+  "elektronische-muziek-produceren": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "making",
+    "rhythm",
+    "sound",
+    "technique"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A compact synth, a drum pad controller and a laptop with a tracker grid beside studio headphones and a few cables.",
+   "entry": {
+    "nl": "Een gratis online beginnerscursus of een productieworkshop",
+    "en": "A free online beginners' course or a production workshop"
+   }
+  },
+  "drummen-leren": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "rhythm",
+    "sound",
+    "focus",
+    "movement"
+   ],
+   "intensity": 1,
+   "register": "technical",
+   "scene": "A small drum kit with sticks resting across the snare, a metronome and a notebook of rhythm patterns in a practice room.",
+   "entry": {
+    "nl": "Een proefles drummen of een oefenruimte met een docent",
+    "en": "A drum trial lesson or a rehearsal room with a teacher"
+   },
+   "supply": "regional"
+  },
+  "muziek-componeren": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "making",
+    "sound",
+    "puzzling",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "Sheet music with pencil notes on a piano music stand next to a small keyboard and a pair of headphones.",
+   "entry": {
+    "nl": "Een korte cursus of een eerste motief schrijven met gratis software",
+    "en": "A short course or writing a first motif with free software"
+   }
+  },
+  "beiaard-leren": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "sound",
+    "focus",
+    "history",
+    "craft"
+   ],
+   "intensity": 1,
+   "register": "expressive",
+   "scene": "A close view of a carillon keyboard of wooden batons and pedals inside a stone tower with bells visible overhead.",
+   "entry": {
+    "nl": "Een rondleiding in een beiaardtoren en een kennismaking",
+    "en": "A tour of a carillon tower and an introduction"
+   },
+   "supply": "rare"
+  },
+  "bandje-beginnen": {
+   "domain": "stage",
+   "sub": "show_craft",
+   "tags": [
+    "performance",
+    "sound",
+    "rhythm",
+    "teamwork"
+   ],
+   "intensity": 1,
+   "register": "expressive",
+   "scene": "A rehearsal space with an electric guitar on a stand, a bass, a drum kit and an amplifier, with a setlist taped to a speaker.",
+   "entry": {
+    "nl": "Een open repetitieruimte of een oproep voor muzikanten",
+    "en": "An open rehearsal room or a call for musicians"
+   }
+  },
+  "drumcirkel": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "rhythm",
+    "sound",
+    "teamwork",
+    "conviviality"
+   ],
+   "intensity": 1,
+   "register": "expressive",
+   "scene": "A circle of djembes and hand drums on a wooden floor with shakers and a bell tree in warm evening light.",
+   "entry": {
+    "nl": "Een open drumcirkel waar je zo kunt aansluiten",
+    "en": "An open drum circle where you can just join in"
+   },
+   "supply": "regional"
+  },
+  "zangles": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "sound",
+    "balance",
+    "learning",
+    "performance"
+   ],
+   "intensity": 1,
+   "register": "expressive",
+   "scene": "A music stand with a song sheet beside a small upright piano and a glass of water, bright open room with a window.",
+   "entry": {
+    "nl": "Een proefles zang of een open zangavond",
+    "en": "A singing trial lesson or an open singing evening"
+   },
+   "supply": "regional"
+  },
+  "mondharmonica-leren": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "sound",
+    "rhythm",
+    "play",
+    "retro"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A silver harmonica on a worn denim jacket with a blues songbook and a small tambourine on a wooden table.",
+   "entry": {
+    "nl": "Een startpakket met een eerste liedje of een groepsles",
+    "en": "A starter pack with a first song or a group lesson"
+   }
+  },
+  "fanfare-orkest": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "performance",
+    "sound",
+    "rhythm",
+    "teamwork"
+   ],
+   "intensity": 1,
+   "register": "expressive",
+   "scene": "A row of brass instruments and a snare drum on a bandstand with music stands and folded uniform caps.",
+   "entry": {
+    "nl": "Een meerepetitie bij een lokale fanfare of harmonie",
+    "en": "A trial rehearsal with a local brass or wind band"
+   },
+   "supply": "regional"
+  },
+  "handpan-spelen": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "sound",
+    "rhythm",
+    "stillness",
+    "fire"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A shiny steel handpan on a cloth in a quiet room with a candle and a small tapestry, soft overhead light.",
+   "entry": {
+    "nl": "Een proefles handpan of een rustige speelavond",
+    "en": "A handpan trial lesson or a calm playing evening"
+   },
+   "supply": "regional"
+  },
+  "folk-sessie": {
+   "domain": "night",
+   "sub": "music_night",
+   "tags": [
+    "sound",
+    "rhythm",
+    "conviviality",
+    "teamwork"
+   ],
+   "intensity": 1,
+   "register": "expressive",
+   "scene": "A table in a pub corner with a fiddle, a tin whistle, a bodhran and pints, with warm lamp light and a stack of tune books.",
+   "entry": {
+    "nl": "Een open sessie bij een café, ook als luisteraar",
+    "en": "An open session at a pub, listeners welcome too"
+   },
+   "supply": "regional"
+  },
+  "platenclub": {
+   "domain": "night",
+   "sub": "music_night",
+   "tags": [
+    "sound",
+    "conviviality",
+    "discovery",
+    "retro"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A turntable with a spinning record and speakers beside shelves of sleeves, two armchairs and warm lamplight.",
+   "entry": {
+    "nl": "Een luisteravond bij een platenzaak of buurthuis",
+    "en": "A listening night at a record shop or community centre"
+   },
+   "supply": "regional"
+  },
+  "orgel-leren": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "sound",
+    "focus",
+    "balance",
+    "history"
+   ],
+   "intensity": 1,
+   "register": "expressive",
+   "scene": "A church organ console with stops and two keyboards and pedals, with sheet music and a bench in a stone nave.",
+   "entry": {
+    "nl": "Een kennismaking met een organist in een kerk",
+    "en": "An introduction with an organist in a church"
+   },
+   "supply": "rare"
+  },
+  "haiku-schrijven": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "language",
+    "focus",
+    "nature",
+    "stillness"
+   ],
+   "intensity": 0,
+   "register": "nature",
+   "scene": "A single sheet with a haiku in black ink on handmade paper beside a stone, a twig and an ink brush.",
+   "entry": {
+    "nl": "Een korte schrijfwandeling of een eerste haiku vanuit je raam",
+    "en": "A short writing walk or a first haiku from your window"
+   }
+  },
+  "blog-nieuwsbrief-schrijven": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "language",
+    "story",
+    "discovery",
+    "technique"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A laptop with a blog draft and a notebook of headlines beside a mug and a stack of printed articles.",
+   "entry": {
+    "nl": "Een eerste bericht van 300 woorden over iets wat jij kent",
+    "en": "A first post of 300 words about something you know"
+   }
+  },
+  "fanfictie-schrijven": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "language",
+    "story",
+    "roleplay",
+    "play"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A notebook of character notes and plot arrows beside a laptop and a stack of well-loved paperback novels.",
+   "entry": {
+    "nl": "Een eerste scene van een bestaand verhaal dat je liefhebt",
+    "en": "A first scene from a story you love"
+   }
+  },
+  "roman-schrijven": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "language",
+    "story",
+    "focus",
+    "roleplay"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A thick stack of printed manuscript pages with red pencil edits, a typewriter-style keyboard and a pot of tea.",
+   "entry": {
+    "nl": "Een schrijfclub of een schrijfuur per dag met een eerste hoofdstuk",
+    "en": "A writing club or a daily writing hour with a first chapter"
+   }
+  },
+  "kinderverhaal-schrijven": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "language",
+    "story",
+    "play",
+    "roleplay"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A picture-book dummy with rough drawings and a short story typed beside it, crayons and a small stuffed animal on the desk.",
+   "entry": {
+    "nl": "Een eerste verhaaltje voor een kind dat je kent",
+    "en": "A first short story for a child you know"
+   }
+  },
+  "reisverhaal-schrijven": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "language",
+    "story",
+    "discovery",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A weathered travel journal open beside a postcard, a pen and a small map of a coastal town on a cafe table.",
+   "entry": {
+    "nl": "Een kort stuk over je laatste reis of dagtocht",
+    "en": "A short piece about your last trip or day out"
+   }
+  },
+  "column-schrijven": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "language",
+    "story",
+    "focus",
+    "technique"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A newspaper-style column on a printed page with a red pen, a cup of coffee and a notepad with headlines.",
+   "entry": {
+    "nl": "Een eerste column van 400 woorden over iets wat je ergert of verrast",
+    "en": "A first column of 400 words about something that annoys or surprises you"
+   }
+  },
+  "tweede-taal-schrijven": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "language",
+    "discovery",
+    "learning",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A notebook with a paragraph in another language and a pocket dictionary and a highlighter on a cafe table.",
+   "entry": {
+    "nl": "Een kort stukje in een taal die je leert en een taalmaatje voor feedback",
+    "en": "A short piece in a language you are learning and a language partner for feedback"
+   }
+  },
+  "brieven-aan-jezelf": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "stillness",
+    "retro",
+    "language",
+    "story"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A sealed envelope with a handwritten label to the future, a fountain pen and a small stack of old letters tied with string.",
+   "entry": {
+    "nl": "Een brief schrijven die je over een jaar opent",
+    "en": "Write a letter you open in a year"
+   }
+  },
+  "regie-amateurstuk": {
+   "domain": "stage",
+   "sub": "show_craft",
+   "tags": [
+    "teamwork",
+    "performance",
+    "story",
+    "roleplay"
+   ],
+   "intensity": 1,
+   "register": "expressive",
+   "scene": "A bare small stage with a director's chair, a clipboard script and a pair of spotlights, props stacked in the wings.",
+   "entry": {
+    "nl": "Meekijken bij een repetitie van een toneelvereniging",
+    "en": "Watch a rehearsal of a local theatre company"
+   },
+   "supply": "regional"
+  },
+  "dansperformance-meedoen": {
+   "domain": "movement",
+   "sub": "dance",
+   "tags": [
+    "performance",
+    "movement",
+    "rhythm",
+    "teamwork"
+   ],
+   "intensity": 2,
+   "register": "expressive",
+   "scene": "A bright rehearsal hall with a wooden floor and mirrors, pointe shoes and a pile of colourful scarves and a music player.",
+   "entry": {
+    "nl": "Een open repetitie of een workshop bij een dansgroep",
+    "en": "An open rehearsal or workshop with a dance group"
+   },
+   "supply": "regional"
+  },
+  "triathlon-trainen": {
+   "domain": "movement",
+   "sub": "endurance",
+   "tags": [
+    "challenge",
+    "movement",
+    "strategy",
+    "rhythm"
+   ],
+   "intensity": 3,
+   "register": "technical",
+   "scene": "A triathlon bike, running shoes and a swim cap with goggles arranged on a mat in a transition area with a wetsuit.",
+   "entry": {
+    "nl": "Een kennismakingstraining bij een triatlonvereniging",
+    "en": "A trial session at a triathlon club"
+   },
+   "supply": "regional",
+   "months": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "tafeltennis": {
+   "domain": "movement",
+   "sub": "precision_strength",
+   "tags": [
+    "competition",
+    "strategy",
+    "movement",
+    "focus"
+   ],
+   "intensity": 2,
+   "register": "technical",
+   "scene": "A table tennis table with a net, two paddles and a white ball bouncing mid-air in a sunny community hall.",
+   "entry": {
+    "nl": "Een proefavond bij een tafeltennisvereniging of een openbare tafel",
+    "en": "A trial evening at a table tennis club or a public table"
+   },
+   "supply": "regional"
+  },
+  "klifduiken": {
+   "domain": "adventure",
+   "sub": "heights_air",
+   "tags": [
+    "water",
+    "challenge",
+    "height",
+    "suspense"
+   ],
+   "intensity": 2,
+   "register": "technical",
+   "scene": "A coastal cliff edge with a calm blue sea below, safety ropes, a rescue buoy and a wetsuit hung over a rock.",
+   "entry": {
+    "nl": "Alleen via een erkende aanbieder met instructeur, begonnen op lage hoogte",
+    "en": "Only through a recognised provider with an instructor, starting from low heights"
+   },
+   "supply": "rare",
+   "months": [
+    6,
+    7,
+    8,
+    9
+   ]
+  },
+  "dierensporen-lezen": {
+   "domain": "nature",
+   "sub": "walking",
+   "tags": [
+    "nature",
+    "discovery",
+    "focus",
+    "animals"
+   ],
+   "intensity": 1,
+   "register": "nature",
+   "scene": "Animal tracks pressed into soft mud and snow beside a tracking guide book, a small ruler and a magnifying glass.",
+   "entry": {
+    "nl": "Een sporenwandeling met een boswachter of natuurvereniging",
+    "en": "A tracking walk with a forest ranger or nature club"
+   },
+   "supply": "regional",
+   "months": [
+    10,
+    11,
+    12,
+    1,
+    2,
+    3
+   ]
+  },
+  "amfibieen-tellen": {
+   "domain": "nature",
+   "sub": "animals",
+   "tags": [
+    "nature",
+    "water",
+    "animals",
+    "discovery"
+   ],
+   "intensity": 0,
+   "register": "nature",
+   "scene": "A common toad on wet leaves near a small pond edge at dusk, a small bucket with a reflector strip and a count sheet on a clipboard.",
+   "entry": {
+    "nl": "Een avondtelling met een vrijwilligersgroep",
+    "en": "An evening count with a volunteer group"
+   },
+   "supply": "regional",
+   "months": [
+    3,
+    4,
+    5
+   ]
+  },
+  "composteren-wormenbak": {
+   "domain": "nature",
+   "sub": "plants",
+   "tags": [
+    "nature",
+    "growing",
+    "stillness",
+    "caring"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "An open worm bin with dark crumbly compost, a handful of kitchen scraps and a small trowel on a balcony table.",
+   "entry": {
+    "nl": "Een gratis workshop bij een gemeente of buurttuin",
+    "en": "A free workshop at a municipality or community garden"
+   }
+  },
+  "vijver-aanleggen": {
+   "domain": "nature",
+   "sub": "plants",
+   "tags": [
+    "water",
+    "growing",
+    "making",
+    "nature"
+   ],
+   "intensity": 2,
+   "register": "nature",
+   "scene": "A small garden pond with marginal plants and stepping stones, a spade, a pond liner and a bucket of water plants.",
+   "entry": {
+    "nl": "Een buurtklusdag of een kleine eerste vijver in een emmer",
+    "en": "A neighbourhood work day or a small first pond in a bucket"
+   },
+   "months": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "fruitbomen-snoeien": {
+   "domain": "nature",
+   "sub": "plants",
+   "tags": [
+    "growing",
+    "craft",
+    "precision",
+    "nature"
+   ],
+   "intensity": 1,
+   "register": "nature",
+   "scene": "A young apple tree with bare winter branches beside pruning shears, a small saw and a ladder in a cold sunny orchard.",
+   "entry": {
+    "nl": "Een snoeicursus van een fruitteeltvereniging",
+    "en": "A pruning course from a fruit-growers' association"
+   },
+   "supply": "regional",
+   "months": [
+    11,
+    12,
+    1,
+    2,
+    3
+   ]
+  },
+  "bloembollen-planten": {
+   "domain": "nature",
+   "sub": "plants",
+   "tags": [
+    "growing",
+    "nature",
+    "caring",
+    "color"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "Tulip and crocus bulbs in a wooden crate beside a trowel and a patch of dark soil with a few rows planted.",
+   "entry": {
+    "nl": "Een plantdag in een buurttuin of een zakje bollen in je eigen tuin",
+    "en": "A planting day in a community garden or a bag of bulbs in your own garden"
+   },
+   "months": [
+    9,
+    10,
+    11
+   ]
+  },
+  "bloemenweide-inzaaien": {
+   "domain": "nature",
+   "sub": "plants",
+   "tags": [
+    "growing",
+    "nature",
+    "animals",
+    "caring"
+   ],
+   "intensity": 0,
+   "register": "nature",
+   "scene": "A bare strip of soil raked and sown with wildflower seed mix, a packet of seeds with poppies and cornflowers and a watering can.",
+   "entry": {
+    "nl": "Een buurtactie of een stuk gras met een zaadmengsel",
+    "en": "A neighbourhood action or a patch of lawn with a seed mix"
+   },
+   "months": [
+    3,
+    4,
+    5,
+    9,
+    10
+   ]
+  },
+  "tuin-ontwerpen": {
+   "domain": "nature",
+   "sub": "plants",
+   "tags": [
+    "growing",
+    "making",
+    "color",
+    "discovery"
+   ],
+   "intensity": 0,
+   "register": "nature",
+   "scene": "A garden design plan on graph paper with plant symbols and a small scale ruler next to coloured pencils and a plant tag.",
+   "entry": {
+    "nl": "Een tuinontwerpworkshop of een schets van je eigen tuin of balkon",
+    "en": "A garden design workshop or a sketch of your own garden or balcony"
+   }
+  },
+  "zaailingen-kweken": {
+   "domain": "nature",
+   "sub": "plants",
+   "tags": [
+    "growing",
+    "caring",
+    "stillness",
+    "color"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A tray of tiny seedlings under a window with a labelled marker and a small spray bottle beside a bag of potting soil.",
+   "entry": {
+    "nl": "Een zaaiavond of een startpakket op je vensterbank",
+    "en": "A sowing evening or a starter kit on your windowsill"
+   },
+   "months": [
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "kruidenspiraal-bouwen": {
+   "domain": "nature",
+   "sub": "plants",
+   "tags": [
+    "craft",
+    "growing",
+    "making",
+    "nature"
+   ],
+   "intensity": 1,
+   "register": "nature",
+   "scene": "A herb spiral built from stones with thyme, mint and parsley planted in tiers beside a wheelbarrow and a shovel.",
+   "entry": {
+    "nl": "Een bouwdag in een buurttuin of eerst een kleine versie in een pot",
+    "en": "A build day in a community garden or first a small version in a pot"
+   },
+   "months": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "escape-room-ontwerpen": {
+   "domain": "mystery",
+   "sub": "puzzle_rooms",
+   "tags": [
+    "making",
+    "puzzling",
+    "story",
+    "suspense"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A pile of handwritten clue cards, a padlock, a locked toolbox and a small sketched floor plan on a table.",
+   "entry": {
+    "nl": "Een workshop escape room ontwerpen of een eerste raadsel voor vrienden",
+    "en": "An escape-room design workshop or a first puzzle for friends"
+   }
+  },
+  "website-bouwen": {
+   "domain": "tech",
+   "sub": "making_tech",
+   "tags": [
+    "making",
+    "puzzling",
+    "technique",
+    "learning"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A laptop showing a simple website layout in progress beside a notebook with wireframe sketches and a mug.",
+   "entry": {
+    "nl": "Een gratis online beginnerscursus of een eerste pagina over je hobby",
+    "en": "A free online beginners' course or a first page about your hobby"
+   }
+  },
+  "energie-besparen": {
+   "domain": "tech",
+   "sub": "science",
+   "tags": [
+    "discovery",
+    "technique",
+    "learning",
+    "stillness"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A smart energy meter reading on a wall with a thermostat, a small notebook of readings and an LED bulb on a shelf.",
+   "entry": {
+    "nl": "Een energiecoach van de gemeente of een eerste meting thuis",
+    "en": "An energy coach from the municipality or a first home measurement"
+   }
+  },
+  "gebarentaal-leren": {
+   "domain": "solo_explore",
+   "sub": "own_pace",
+   "tags": [
+    "language",
+    "movement",
+    "learning",
+    "conviviality"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A set of illustrated sign alphabet cards laid out in a fan on a wooden table with a notebook and a pen.",
+   "entry": {
+    "nl": "Een introductiecursus of een open leesavond in je regio",
+    "en": "An introductory course or an open evening in your area"
+   },
+   "supply": "regional"
+  },
+  "latijn-grieks-lezen": {
+   "domain": "history",
+   "sub": "research",
+   "tags": [
+    "language",
+    "puzzling",
+    "history",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A worn Latin textbook open on a page of Cicero beside a Greek lexicon, a pencil and a small marble bust.",
+   "entry": {
+    "nl": "Een beginnerscursus of een leesgroep",
+    "en": "A beginners' course or a reading group"
+   },
+   "supply": "regional"
+  },
+  "leesclub": {
+   "domain": "together",
+   "sub": "join_in",
+   "tags": [
+    "language",
+    "story",
+    "conviviality",
+    "discovery"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A circle of armchairs in a library corner with a stack of the same paperback, a pot of tea and reading glasses.",
+   "entry": {
+    "nl": "Een open leesclub bij de bibliotheek",
+    "en": "An open reading club at the library"
+   }
+  },
+  "socratisch-gesprek": {
+   "domain": "growth",
+   "sub": "skills",
+   "tags": [
+    "puzzling",
+    "focus",
+    "discovery",
+    "conviviality"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A circle of simple chairs in a quiet room with a single question written on a flipchart and a pot of tea.",
+   "entry": {
+    "nl": "Een open Socratisch gesprek bij een filosofiecafé",
+    "en": "An open Socratic dialogue at a philosophy cafe"
+   },
+   "supply": "regional"
+  },
+  "muziektheorie-leren": {
+   "domain": "creative",
+   "sub": "sound_stage",
+   "tags": [
+    "learning",
+    "puzzling",
+    "sound",
+    "rhythm"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A notebook of scales, chords and circle-of-fifths diagrams beside a small keyboard and a pencil.",
+   "entry": {
+    "nl": "Een gratis online beginnerscursus of een leesavond",
+    "en": "A free online beginners' course or a study evening"
+   }
+  },
+  "esperanto-leren": {
+   "domain": "solo_explore",
+   "sub": "own_pace",
+   "tags": [
+    "language",
+    "learning",
+    "puzzling",
+    "conviviality"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A small Esperanto textbook with a green star on the cover beside a notebook of phrases and a cup of tea.",
+   "entry": {
+    "nl": "Een gratis online cursus of een lokale Esperantogroep",
+    "en": "A free online course or a local Esperanto group"
+   }
+  },
+  "statistiek-begrijpen": {
+   "domain": "growth",
+   "sub": "skills",
+   "tags": [
+    "learning",
+    "puzzling",
+    "discovery",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A notebook with a hand-drawn bar chart, a scatter plot and a calculator beside a printed newspaper table.",
+   "entry": {
+    "nl": "Een gratis online cursus of een avond analyse van cijfers die jij belangrijk vindt",
+    "en": "A free online course or an evening analysing numbers you care about"
+   }
+  },
+  "hoofdrekenen": {
+   "domain": "solo_explore",
+   "sub": "own_pace",
+   "tags": [
+    "puzzling",
+    "focus",
+    "learning",
+    "play"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A chalkboard with mental arithmetic tricks, a worn abacus and a deck of playing cards on a wooden desk.",
+   "entry": {
+    "nl": "Een kennismaking via een boek of een gratis online oefenapp",
+    "en": "An introduction through a book or a free online practice app"
+   }
+  },
+  "kunstgeschiedenis-cursus": {
+   "domain": "history",
+   "sub": "research",
+   "tags": [
+    "history",
+    "discovery",
+    "learning",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A table with open art-history books and a set of postcards of paintings, a magnifier and a small notebook.",
+   "entry": {
+    "nl": "Een open avond of een korte cursus bij een museum of volksuniversiteit",
+    "en": "An open evening or a short course at a museum or university for adults"
+   },
+   "supply": "regional"
+  },
+  "notities-systeem": {
+   "domain": "growth",
+   "sub": "skills",
+   "tags": [
+    "learning",
+    "puzzling",
+    "technique",
+    "stillness"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A neat notebook with index tabs, a card box of linked notes and a pen on a clean desk.",
+   "entry": {
+    "nl": "Een weekend een eenvoudig systeem uitproberen",
+    "en": "Try a simple system for a weekend"
+   }
+  },
+  "mini-onderzoek-doen": {
+   "domain": "history",
+   "sub": "research",
+   "tags": [
+    "discovery",
+    "puzzling",
+    "learning",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A desk with a handwritten research question, index cards, a notebook of findings, a tape measure and a magnifier.",
+   "entry": {
+    "nl": "Een kleine vraag en een gratis bron in de bibliotheek",
+    "en": "A small question and a free source at the library"
+   }
+  },
+  "bestuurslid-vereniging": {
+   "domain": "society",
+   "sub": "helping",
+   "tags": [
+    "teamwork",
+    "conviviality",
+    "learning",
+    "strategy"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A meeting table with a club agenda, a notebook, a gavel-like wooden block and a small stack of club flyers.",
+   "entry": {
+    "nl": "Een vergadering als gast bijwonen bij een lokale vereniging",
+    "en": "Attend a meeting as a guest at a local association"
+   },
+   "supply": "regional"
+  },
+  "jeugdtrainer": {
+   "domain": "society",
+   "sub": "helping",
+   "tags": [
+    "caring",
+    "conviviality",
+    "teamwork",
+    "movement"
+   ],
+   "intensity": 1,
+   "register": "nurturing",
+   "scene": "A set of coloured training cones and a mesh bag of balls with a whistle and a clipboard on a sports-field line.",
+   "entry": {
+    "nl": "Een proefavond meelopen bij een lokale club",
+    "en": "A trial evening shadowing at a local club"
+   },
+   "supply": "regional"
+  },
+  "inzamelingsactie-organiseren": {
+   "domain": "society",
+   "sub": "helping",
+   "tags": [
+    "teamwork",
+    "conviviality",
+    "caring",
+    "strategy"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A donation box and hand-painted poster with a thermometer goal, a stack of flyers and a coffee urn on a folding table.",
+   "entry": {
+    "nl": "Een kleine eigen actie met een doel in je straat of vereniging",
+    "en": "A small action of your own with a goal in your street or club"
+   }
+  },
+  "heraldiek": {
+   "domain": "history",
+   "sub": "research",
+   "tags": [
+    "history",
+    "story",
+    "making",
+    "discovery"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A heraldic shield with a lion and bold colours on a parchment beside coloured pencils and a drawing compass.",
+   "entry": {
+    "nl": "Een kennismaking via een museum of een eigen wapen ontwerpen",
+    "en": "An introduction via a museum or designing your own coat of arms"
+   }
+  },
+  "mondelinge-geschiedenis": {
+   "domain": "history",
+   "sub": "lived_past",
+   "tags": [
+    "story",
+    "history",
+    "discovery",
+    "conviviality"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A small voice recorder on a tablecloth between two cups of tea with a framed old photograph and a notebook.",
+   "entry": {
+    "nl": "Een gesprek met een oudere in je buurt, eerst met je telefoon opgenomen",
+    "en": "A conversation with an older person in your neighbourhood, first recorded on your phone"
+   }
+  },
+  "archief-indexeren": {
+   "domain": "history",
+   "sub": "research",
+   "tags": [
+    "history",
+    "precision",
+    "discovery",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A table with old index cards and a handwritten ledger under a desk lamp, a pair of cotton gloves and a magnifier.",
+   "entry": {
+    "nl": "Een vrijwilligersmiddag bij een archief of een online indexeerproject",
+    "en": "A volunteer afternoon at an archive or an online indexing project"
+   },
+   "supply": "regional"
+  },
+  "toost-speech-houden": {
+   "domain": "growth",
+   "sub": "speak_lead",
+   "tags": [
+    "performance",
+    "language",
+    "story",
+    "conviviality"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A small microphone stand beside a champagne flute and a handwritten speech card on a festive table with ribbons.",
+   "entry": {
+    "nl": "Een korte toost oefenen voor vrienden of een spreekavond",
+    "en": "Practise a short toast for friends or at a speaking evening"
+   }
+  },
+  "ondernemersidee-uitwerken": {
+   "domain": "growth",
+   "sub": "skills",
+   "tags": [
+    "making",
+    "discovery",
+    "strategy",
+    "puzzling"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A whiteboard sketch of a business idea with arrows and sticky notes beside a laptop and a cup of coffee.",
+   "entry": {
+    "nl": "Een idee in één pagina uitwerken en een gratis spreekuur van de Kamer van Koophandel",
+    "en": "Write your idea on one page and a free consultation hour from a chamber of commerce"
+   }
+  },
+  "lezing-workshop-geven": {
+   "domain": "growth",
+   "sub": "speak_lead",
+   "tags": [
+    "performance",
+    "learning",
+    "conviviality",
+    "story"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A projector slide and a small table with a laptop, a clicker and a glass of water facing a room of empty chairs.",
+   "entry": {
+    "nl": "Een korte presentatie voor vrienden of een kringgesprek bij een club",
+    "en": "A short talk for friends or at a club"
+   }
+  },
+  "onderhandelen-oefenen": {
+   "domain": "growth",
+   "sub": "speak_lead",
+   "tags": [
+    "strategy",
+    "learning",
+    "puzzling",
+    "discovery"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A table with two chairs, a printed price list and a notepad with offers marked on it, and a pen.",
+   "entry": {
+    "nl": "Een workshop onderhandelen of een rollenspel met een vriend",
+    "en": "A negotiation workshop or a role play with a friend"
+   },
+   "supply": "regional"
+  },
+  "pitch-geven": {
+   "domain": "growth",
+   "sub": "speak_lead",
+   "tags": [
+    "language",
+    "strategy",
+    "performance",
+    "suspense"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A countdown timer and a two-slide deck on a laptop with a glass of water and a handwritten script card.",
+   "entry": {
+    "nl": "Een pitchavond waar je een minuut vertelt",
+    "en": "A pitch night where you speak for a minute"
+   },
+   "supply": "regional"
+  },
+  "vergadering-leiden": {
+   "domain": "growth",
+   "sub": "speak_lead",
+   "tags": [
+    "teamwork",
+    "strategy",
+    "learning",
+    "technique"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A meeting table with an agenda printed on paper, a stack of name cards and a timer next to a glass of water.",
+   "entry": {
+    "nl": "Een training vergaderen of een eerste overleg met een agenda",
+    "en": "A meeting training or a first meeting with an agenda"
+   }
+  },
+  "slides-ontwerpen": {
+   "domain": "growth",
+   "sub": "skills",
+   "tags": [
+    "making",
+    "learning",
+    "technique",
+    "color"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A laptop showing a clean slide layout beside sketches of slide frames, a colour palette card and a pen.",
+   "entry": {
+    "nl": "Een gratis online les of een eerste deck over je hobby",
+    "en": "A free online lesson or a first deck about your hobby"
+   }
+  },
+  "eerste-klant-vinden": {
+   "domain": "growth",
+   "sub": "skills",
+   "tags": [
+    "strategy",
+    "discovery",
+    "making",
+    "learning"
+   ],
+   "intensity": 0,
+   "register": "technical",
+   "scene": "A notebook with a handwritten list of ideal customers and an outreach email draft, a calendar and a coffee cup.",
+   "entry": {
+    "nl": "Een gesprek met drie mensen die je werk nodig hebben",
+    "en": "A conversation with three people who need your work"
+   }
+  },
+  "mediation-leren": {
+   "domain": "growth",
+   "sub": "skills",
+   "tags": [
+    "caring",
+    "language",
+    "learning",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A round table with two glasses of water and a box of tissues, a notepad and a soft pair of chairs in a quiet room.",
+   "entry": {
+    "nl": "Een introductieworkshop van een mediationorganisatie",
+    "en": "An introductory workshop from a mediation organisation"
+   },
+   "supply": "regional"
+  },
+  "vrijwilligers-coordineren": {
+   "domain": "society",
+   "sub": "helping",
+   "tags": [
+    "teamwork",
+    "conviviality",
+    "caring",
+    "strategy"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "A volunteer schedule on a corkboard with coloured sticky notes and name tags, a coffee machine and a clipboard.",
+   "entry": {
+    "nl": "Een middag meedraaien bij een lokaal evenement of vrijwilligerscentrale",
+    "en": "An afternoon helping at a local event or volunteer centre"
+   },
+   "supply": "regional"
+  },
+  "feedback-geven": {
+   "domain": "growth",
+   "sub": "skills",
+   "tags": [
+    "caring",
+    "language",
+    "learning",
+    "conviviality"
+   ],
+   "intensity": 0,
+   "register": "nurturing",
+   "scene": "Two cards with a clearly written compliment and a suggestion on a table beside a notepad and a pen.",
+   "entry": {
+    "nl": "Een workshop feedback of oefenen met een collega of vriend",
+    "en": "A feedback workshop or practising with a colleague or friend"
+   }
+  },
+  "wandelroute-cartograferen": {
+   "domain": "travel",
+   "sub": "journeys",
+   "tags": [
+    "discovery",
+    "making",
+    "focus",
+    "outdoors"
+   ],
+   "intensity": 1,
+   "register": "nature",
+   "scene": "A hand-drawn map of a walking route with landmarks and arrows on a clipboard, a compass and a pencil on a stone bench.",
+   "entry": {
+    "nl": "Een eigen rondje van 5 km uitzetten en lopen met een app",
+    "en": "Plan and walk your own 5 km loop with an app"
+   }
+  },
+  "reisdagboek-bijhouden": {
+   "domain": "travel",
+   "sub": "journeys",
+   "tags": [
+    "story",
+    "language",
+    "discovery",
+    "focus"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A leather travel journal filled with sketches, ticket stubs and a pressed flower beside a pen and a small paintbrush.",
+   "entry": {
+    "nl": "Een eerste dag in je eigen stad opschrijven alsof je er op reis bent",
+    "en": "Write down a first day in your own city as if you were travelling"
+   }
+  },
+  "thematrip-plannen": {
+   "domain": "travel",
+   "sub": "journeys",
+   "tags": [
+    "discovery",
+    "teamwork",
+    "story",
+    "strategy"
+   ],
+   "intensity": 0,
+   "register": "expressive",
+   "scene": "A map pinned with themed stops and coloured string on a corkboard with a printed itinerary and a notebook.",
+   "entry": {
+    "nl": "Een weekendje plannen rond een thema dat jou boeit",
+    "en": "Plan a weekend around a theme that fascinates you"
+   }
+  }
+ },
+ "decisions": {
+  "RA-009": {
+   "action": "merge",
+   "app_id": "borduren-weven",
+   "alias": {
+    "nl": [
+     "Borduren met de hand"
+    ],
+    "en": [
+     "Hand embroidery"
+    ]
+   }
+  },
+  "RA-401": {
+   "action": "merge",
+   "app_id": "nestkast-bouwen",
+   "alias": {
+    "nl": [
+     "Een bijenkast bouwen"
+    ],
+    "en": [
+     "Building a bee hive box"
+    ]
+   }
+  },
+  "RA-081": {
+   "action": "merge",
+   "app_id": "straatfeest",
+   "alias": {
+    "nl": [
+     "Een buurtevenement organiseren"
+    ],
+    "en": [
+     "Organising a neighbourhood event"
+    ]
+   }
+  },
+  "RA-376": {
+   "action": "merge",
+   "app_id": "tekenen",
+   "alias": {
+    "nl": [
+     "Tekenen leren voor beginners"
+    ],
+    "en": [
+     "Learning to draw for beginners"
+    ]
+   }
+  },
+  "RA-523": {
+   "action": "merge",
+   "app_id": "coderen",
+   "alias": {
+    "nl": [
+     "Programmeren leren met Python"
+    ],
+    "en": [
+     "Learning to program with Python"
+    ]
+   }
+  },
+  "RA-494": {
+   "action": "merge",
+   "app_id": "tuinieren",
+   "alias": {
+    "nl": [
+     "Een moestuin op balkon of dakterras"
+    ],
+    "en": [
+     "A vegetable garden on a balcony or roof terrace"
+    ]
+   }
+  },
+  "RA-064": {
+   "action": "merge",
+   "app_id": "nieuwkomers",
+   "alias": {
+    "nl": [
+     "Taalmaatje voor een nieuwkomer"
+    ],
+    "en": [
+     "Language buddy for a newcomer"
+    ]
+   }
+  }
+ },
+ "safety_notes": {
+  "klifduiken": {
+   "nl": "Alleen via een erkende aanbieder met instructeur; hoogte, waterdiepte en omstandigheden worden ter plekke beoordeeld. Geen zelfstandige sprongen voorstellen.",
+   "en": "Only through a recognised provider with an instructor; height, water depth and conditions are judged on site. Never suggest solo jumps."
+  }
+ }
+}

@@ -1,7 +1,7 @@
 # WindowInto Activity Reference Library v1.0
 
 A standalone reference layer that sits next to the app's own discovery library (`src/lib/discovery/`).
-The app does **not** read it. It is an editorial master database: 20 main categories, activities,
+The app does **not** read it at run time. It is an editorial master database: 20 main categories, activities,
 a controlled vocabulary of associations, and the weighted links between them. It exports to one Excel
 workbook, and it is used to check and grow the app's library.
 
@@ -66,6 +66,17 @@ record has both. The check requires at least one discovery link per activity (it
 
 Nothing here changes the app's data. A `new` record is a candidate: to add it to the app it still needs tags
 from the app's vocabulary, a photo scene and a review.
+
+## Into the app (step 1 of the implementation plan)
+
+`npx tsx scripts/reference-library/import-to-app.ts [--write]` writes the reference activities into the app's library
+(`src/lib/discovery/data/*.json`). Input: this folder plus the hand-written `crosswalk/app-import.json` (the app-specific fields a
+reference record does not hold: domain, sub, tags, intensity, supply, months, style register, photo scene, entry, and a decision per
+record that was merged into an app activity instead). 124 activities were written and 7 merged; every exact or close record got a
+source link. New activities are `concept` and `image_pending`, so they stay invisible until their photos exist. After the import the
+reference record says `exact` (`legacy_id` = its slug) like any other. Idempotent; the report is `docs/reference-library-import.md`.
+`scripts/reference-library/measure-with-pending.ts` measures the selection as if they were visible (`docs/eval/2026-11-08-reference-import-measurement.md`).
+To add more: write the activity here, add its crosswalk record, run the import, then `npm run taxonomy:check` and `npm test`.
 
 ## Working with it
 

@@ -288,7 +288,13 @@
     },
     "scene": "a black steam locomotive puffing white steam beside a small station platform with an old lamp",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-101"
+      }
+    ]
   },
   {
     "id": "motorvlucht",
@@ -420,7 +426,13 @@
     },
     "scene": "a small black racing drone with green LEDs resting on a hexagonal gate frame in a dark hangar",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-513"
+      }
+    ]
   },
   {
     "id": "helikoptervlucht",
@@ -488,7 +500,13 @@
     },
     "scene": "a cockpit panel of dials and switches lit in amber with a wide screen showing a runway at dusk",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-514"
+      }
+    ]
   },
   {
     "id": "skihal",
@@ -567,7 +585,13 @@
     },
     "scene": "an empty ice-hockey rink with red and blue lines, a goal net and a puck on the ice, white glare",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-472"
+      }
+    ]
   },
   {
     "id": "sneeuwschoenen",

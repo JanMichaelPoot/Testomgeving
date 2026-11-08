@@ -29,8 +29,8 @@
     "en": "Designing an escape room",
     "sub": {"nl": "Spelontwerp", "en": "Game design"},
     "desc": {"nl": "Een puzzelspel met verhaal, decor en aanwijzingen ontwerpen voor een groep.", "en": "Designing a puzzle game with a story, set and clues for a group."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "escape-room-ontwerpen",
     "v0_id": "ACT-048",
     "facets": {"setting": "indoor", "social_formats": ["small_group", "with_known"], "level": 1, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["ontwerpen:5:D", "bouwen:4:D", "organiseren:3:D", "creativiteit:5:V", "logica:4:V", "ruimtelijk:3:V", "verhalen:5:T", "technologie:3:T", "puzzelen:5:E", "spanning:4:E", "fantasie:4:E", "speelsheid:4:E", "samenwerking:4:E", "architectuur:3:O", "communicatie:3:O", "spel:5:T"],
@@ -40,7 +40,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-129",

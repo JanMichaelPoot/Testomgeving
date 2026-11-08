@@ -36,7 +36,13 @@
     },
     "scene": "a red climbing rope hanging down a weathered brick tower wall, harness gear on a hook, soft morning light",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-197"
+      }
+    ]
   },
   {
     "id": "bungeejump",
@@ -73,7 +79,13 @@
     },
     "scene": "a tall steel crane arm against a bright sky with a thick elastic cord hanging down, a river far below",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-473"
+      }
+    ]
   },
   {
     "id": "tandem-parachute",
@@ -119,7 +131,13 @@
     },
     "scene": "a small yellow-and-orange parachute canopy open over green polder fields seen from far above",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-042"
+      }
+    ]
   },
   {
     "id": "paragliden",
@@ -165,7 +183,13 @@
     },
     "scene": "a curved paraglider wing laid out on a grassy hillside launch slope with a windsock, blue sky",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-043"
+      }
+    ]
   },
   {
     "id": "zipline",
@@ -200,7 +224,13 @@
     },
     "scene": "a steel cable stretching between two tall pine trees with a pulley and safety line, mist in the valley below",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-198"
+      }
+    ]
   },
   {
     "id": "ballonvaart",
@@ -234,7 +264,13 @@
     },
     "scene": "a large striped hot-air balloon on a dewy field at dawn, burner flame glowing, mist over meadows",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-199"
+      }
+    ]
   },
   {
     "id": "boomklimmen",
@@ -282,7 +318,13 @@
     },
     "scene": "a thick oak with a climbing rope rising into its canopy and a small seat sling, sun through green leaves",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-474"
+      }
+    ]
   },
   {
     "id": "grotduiken",
@@ -320,7 +362,13 @@
     },
     "scene": "a narrow flooded cave passage with turquoise water and one beam of light across pale limestone walls",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-475"
+      }
+    ]
   },
   {
     "id": "grotten-verkennen",
@@ -364,6 +412,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q200341"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-045"
       }
     ],
     "aliases": {
@@ -412,7 +464,13 @@
     },
     "scene": "a long black-and-white diving line hanging straight down in clear turquoise pool water, soft light",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-200"
+      }
+    ]
   },
   {
     "id": "snorkelen",
@@ -459,6 +517,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q2471422"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-476"
       }
     ],
     "aliases": {
@@ -516,7 +578,13 @@
     },
     "scene": "a round wooden tub of icy water with floating ice pieces beside a steaming sauna cabin in the snow",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-207"
+      }
+    ]
   },
   {
     "id": "surfles",
@@ -559,7 +627,13 @@
     },
     "scene": "a bright surfboard stuck upright in dune sand with grey-green waves breaking behind it",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-201"
+      }
+    ]
   },
   {
     "id": "kitesurfen",
@@ -606,7 +680,13 @@
     },
     "scene": "a large colourful kite arcing over a shallow lagoon beach, a small board lying on the sand",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-477"
+      }
+    ]
   },
   {
     "id": "wakeboarden",
@@ -649,7 +729,13 @@
     },
     "scene": "a cable wakeboard park on a lake with a taut tow line and floating ramps in low evening light",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-478"
+      }
+    ]
   },
   {
     "id": "suppen",
@@ -740,7 +826,13 @@
     },
     "scene": "wide grey tidal mudflats with ripple patterns and a long line of footprints toward a pale horizon at low tide",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-202"
+      }
+    ]
   },
   {
     "id": "canyoning",
@@ -785,7 +877,13 @@
     },
     "scene": "a narrow emerald canyon with a waterfall into a clear rock pool, slick stone walls and a rope along the rock",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-044"
+      }
+    ]
   },
   {
     "id": "mountainbiken",
@@ -827,6 +925,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q520611"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-203"
       }
     ]
   },
@@ -872,7 +974,13 @@
     },
     "scene": "a muddy wooden wall obstacle with a rope net in a sandy dune terrain under a grey sky",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-479"
+      }
+    ]
   },
   {
     "id": "parkour",
@@ -908,7 +1016,13 @@
     },
     "scene": "concrete blocks and low walls in an empty city park at dusk with chalk marks on the stone",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-204"
+      }
+    ]
   },
   {
     "id": "buiten-klimmen",
@@ -957,7 +1071,13 @@
     },
     "scene": "a sunlit sandstone rock wall with a line of fixed bolts and a rope hanging down, green forest below",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-205"
+      }
+    ]
   },
   {
     "id": "kajak-wildwater",
@@ -1005,7 +1125,13 @@
     },
     "scene": "a bright yellow kayak resting on rocks beside churning white water in a narrow river channel",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-480"
+      }
+    ]
   },
   {
     "id": "wrakduiken",
@@ -1043,7 +1169,13 @@
     },
     "scene": "the rusted bow of a sunken ship covered in green weed in dark blue water with a single shaft of light",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-481"
+      }
+    ]
   },
   {
     "id": "klipper-zeilen",
@@ -1088,7 +1220,13 @@
     },
     "scene": "a tall wooden sailing ship with brown sails under a blue sky on a calm grey-green sea, coiled ropes on deck",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-206"
+      }
+    ]
   },
   {
     "id": "modderlopen",
@@ -1225,6 +1363,56 @@
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q30589378",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "klifduiken",
+    "domain": "adventure",
+    "sub": "heights_air",
+    "label": {
+      "nl": "Klifduiken",
+      "en": "Cliff diving"
+    },
+    "tags": [
+      "water",
+      "challenge",
+      "height",
+      "suspense"
+    ],
+    "formats": [
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 2,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Alleen via een erkende aanbieder met instructeur; hoogte, waterdiepte en omstandigheden worden ter plekke beoordeeld. Geen zelfstandige sprongen voorstellen.",
+        "en": "Only through a recognised provider with an instructor; height, water depth and conditions are judged on site. Never suggest solo jumps."
+      }
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Alleen via een erkende aanbieder met instructeur, begonnen op lage hoogte",
+      "en": "Only through a recognised provider with an instructor, starting from low heights"
+    },
+    "scene": "A coastal cliff edge with a calm blue sea below, safety ropes, a rescue buoy and a wetsuit hung over a rock.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-046",
       "method": "curated"
     }
   }

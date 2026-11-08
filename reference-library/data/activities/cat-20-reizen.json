@@ -8,8 +8,8 @@
     "en": "Mapping your own walking route",
     "sub": {"nl": "Cartografie en exploratie", "en": "Cartography and exploration"},
     "desc": {"nl": "Een route lopen, meten en uittekenen die nog niet op kaart staat, en die delen met anderen.", "en": "Walking, measuring and drawing a route that is not yet on a map, and sharing it with others."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "wandelroute-cartograferen",
     "v0_id": "ACT-050",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "duo", "small_group"], "level": 1, "duration": 3, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["navigeren:5:D", "ontwerpen:4:D", "observeren:4:D", "bos:3:D", "logica:3:V", "precisie:3:V", "creativiteit:3:V", "ruimtelijk:4:V", "natuur:3:T", "kunst:2:T", "vrijheid:3:E", "ontdekking:4:E", "rust:3:E", "trots:4:E", "beweging:3:E", "geschiedenis:3:O", "gemeenschap:3:O"],
@@ -19,7 +19,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "checked"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-077",
@@ -30,8 +30,8 @@
     "en": "Keeping a travel journal",
     "sub": {"nl": "Reisverslag", "en": "Travel writing"},
     "desc": {"nl": "Onderweg schrijven, schetsen en plakken om een reis vast te leggen in een eigen boekje.", "en": "Writing, sketching and pasting along the way to record a trip in a notebook of your own."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "reisdagboek-bijhouden",
     "facets": {"setting": "both", "social_formats": ["solo"], "level": 0, "duration": 4, "cost": 0, "safety_tier": 0, "source": "authored"},
     "links": ["papier:3:M", "observeren:5:D", "navigeren:2:D", "stad:3:D", "taalvaardig:4:V", "creativiteit:4:V", "concentratie:3:V", "verhalen:5:T", "wereldculturen:4:T", "kunst:3:T", "identiteit:3:T", "ontdekking:4:E", "nostalgie:4:E", "rust:3:E", "expressie:4:E", "geschiedenis:3:O", "klank:3:O"],
     "why": {
@@ -40,7 +40,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-095",
@@ -192,8 +192,8 @@
     "en": "Planning a themed trip",
     "sub": {"nl": "Reisplanning", "en": "Trip planning"},
     "desc": {"nl": "Een stedentrip of rondreis rond één thema plannen, zoals architectuur, eten, boeken of muziek.", "en": "Planning a city break or round trip around one theme, such as architecture, food, books or music."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "thematrip-plannen",
     "facets": {"setting": "both", "social_formats": ["solo", "duo", "small_group"], "level": 0, "duration": 4, "cost": 2, "safety_tier": 0, "source": "authored"},
     "links": ["navigeren:4:D", "onderzoeken:4:D", "organiseren:5:D", "stad:4:D", "strategie:3:V", "creativiteit:3:V", "communicatie:2:V", "wereldculturen:4:T", "kunst:3:T", "geschiedenis:3:T", "architectuur:2:T", "ontdekking:4:E", "vrijheid:3:E", "gezelligheid:3:E", "verzamelen:3:O"],
     "why": {
@@ -201,7 +201,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Problemen oplossen, Identiteit.", "Bruggen-steekproef Jan (ronde 3): brug Voertuigen en vervoer was zwak of onzin; verwijderd."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Problemen oplossen, Identiteit.", "Bruggen-steekproef Jan (ronde 3): brug Voertuigen en vervoer was zwak of onzin; verwijderd.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-164",

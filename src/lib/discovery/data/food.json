@@ -32,7 +32,13 @@
     },
     "scene": "a scored round sourdough loaf with a golden crust on a floured wooden board, a steam-fogged window behind",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-119"
+      }
+    ]
   },
   {
     "id": "pasta-maken",
@@ -67,7 +73,13 @@
     },
     "scene": "ribbons of fresh egg pasta drying on a wooden rack over a floured counter",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-120"
+      }
+    ]
   },
   {
     "id": "dumplings",
@@ -102,7 +114,13 @@
     },
     "scene": "rows of pleated dumplings on a bamboo steamer beside a small dish of dark sauce",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-291"
+      }
+    ]
   },
   {
     "id": "open-vuur-koken",
@@ -147,7 +165,13 @@
     },
     "scene": "a glowing charcoal grill with a cast-iron pan and skewers over embers at dusk",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-124"
+      }
+    ]
   },
   {
     "id": "fermenteren",
@@ -182,7 +206,13 @@
     },
     "scene": "glass jars of bubbling kimchi and sauerkraut with muslin lids on a kitchen shelf",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-051"
+      }
+    ]
   },
   {
     "id": "chocolade-maken",
@@ -216,7 +246,13 @@
     },
     "scene": "tempered dark chocolate being poured on a marble slab with cacao nibs and a palette knife",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-122"
+      }
+    ]
   },
   {
     "id": "kaas-maken",
@@ -251,7 +287,13 @@
     },
     "scene": "a wheel of fresh cheese curd in a wooden mould pressed under a stone, with a draped muslin cloth",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-121"
+      }
+    ]
   },
   {
     "id": "patisserie",
@@ -285,7 +327,13 @@
     },
     "scene": "a tray of pastel macarons in neat rows beside a piping bag and a sieve of icing sugar",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-052"
+      }
+    ]
   },
   {
     "id": "bier-brouwen",
@@ -321,7 +369,13 @@
     },
     "scene": "copper brewing kettles and wooden barrels in a brick brewery with hop vines draped along a beam",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-292"
+      }
+    ]
   },
   {
     "id": "wijnproeverij",
@@ -357,7 +411,13 @@
     },
     "scene": "a row of wine glasses with different shades on a stone table, a corked bottle and candlelight",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-293"
+      }
+    ]
   },
   {
     "id": "cocktailworkshop",
@@ -393,7 +453,13 @@
     },
     "scene": "a copper cocktail shaker, a jigger and garnish herbs on a dark bar top with ice shavings",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-294"
+      }
+    ]
   },
   {
     "id": "sap-persen",
@@ -434,7 +500,13 @@
     },
     "scene": "a wooden apple press with a bucket of fresh cloudy juice and crates of red apples in an orchard barn",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-295"
+      }
+    ]
   },
   {
     "id": "foerageren",
@@ -485,6 +557,10 @@
       {
         "source_id": "S3",
         "source_record_id": "Q2991771"
+      },
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-111"
       }
     ],
     "aliases": {
@@ -536,7 +612,13 @@
     },
     "scene": "a wooden crate of ripe strawberries and cherries in a sunlit pick-your-own orchard row",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-284"
+      }
+    ]
   },
   {
     "id": "boerderijdag",
@@ -572,7 +654,13 @@
     },
     "scene": "a brick farm barn doorway with milk churns and fresh straw in soft light",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-296"
+      }
+    ]
   },
   {
     "id": "streetfoodtour",
@@ -607,7 +695,13 @@
     },
     "scene": "a lantern-lit street food stall counter with steaming bao buns and paper trays at dusk",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-297"
+      }
+    ]
   },
   {
     "id": "wijngaard-oogst",
@@ -648,7 +742,13 @@
     },
     "scene": "ripe dark grapes hanging in heavy bunches on a vine row with an empty wooden harvest crate below",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-501"
+      }
+    ]
   },
   {
     "id": "ijs-maken",
@@ -682,7 +782,13 @@
     },
     "scene": "three scoops of pastel ice cream in a glass bowl with fruit on the side and a vintage metal scoop",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-298"
+      }
+    ]
   },
   {
     "id": "sushi-rollen",
@@ -717,7 +823,13 @@
     },
     "scene": "neat sushi rolls cut in slices on a slate plate with pickled ginger, wasabi and a bamboo mat",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-128"
+      }
+    ]
   },
   {
     "id": "inmaken",
@@ -760,7 +872,13 @@
     },
     "scene": "glass jars of deep red jam with gingham lids and handwritten labels on a farmhouse shelf",
     "supply": "common",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-123"
+      }
+    ]
   },
   {
     "id": "pizza-oven",
@@ -795,7 +913,13 @@
     },
     "scene": "a domed clay wood-fired oven with flames glowing inside and a long wooden peel resting against it",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-299"
+      }
+    ]
   },
   {
     "id": "kruidenlikeur",
@@ -831,7 +955,13 @@
     },
     "scene": "glass bottles filled with herbs and amber liquid on a wooden shelf with dried botanicals and small funnels",
     "supply": "regional",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-300"
+      }
+    ]
   },
   {
     "id": "vis-roken",
@@ -866,7 +996,13 @@
     },
     "scene": "golden smoked fish hanging on racks inside a brick smokehouse with a curl of blue smoke",
     "supply": "rare",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-500"
+      }
+    ]
   },
   {
     "id": "high-tea",
@@ -901,6 +1037,12 @@
       "en": "High tea in a country house or garden room; booking is often simple"
     },
     "scene": "a three-tier stand with scones, small cakes and a porcelain teapot on a lace tablecloth by a window",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-301"
+      }
+    ]
   }
 ]

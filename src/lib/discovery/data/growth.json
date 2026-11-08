@@ -30,7 +30,13 @@
       "en": "A trial class or open evening"
     },
     "scene": "a lectern with a glass of water and a small stack of cue cards under a stage spotlight",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-075"
+      }
+    ]
   },
   {
     "id": "toastmasters",
@@ -63,7 +69,13 @@
       "en": "Guests are welcome; you do not need to prepare anything"
     },
     "scene": "a small wooden gavel, a timer card and an agenda on a meeting-room table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-212"
+      }
+    ]
   },
   {
     "id": "leiderschapsworkshop",
@@ -97,7 +109,13 @@
       "en": "A one-day introductory workshop"
     },
     "scene": "a flip chart with a simple diagram, sticky notes and a marker in a bright training room",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-213"
+      }
+    ]
   },
   {
     "id": "coachgesprek",
@@ -129,7 +147,13 @@
       "en": "An introductory conversation, often free; not therapy or medical advice"
     },
     "scene": "two armchairs, a glass of water and a notebook with a pen in a quiet bright room",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-334"
+      }
+    ]
   },
   {
     "id": "geheugentechnieken",
@@ -162,7 +186,13 @@
       "en": "A book or video course on memory palace techniques"
     },
     "scene": "a miniature building made of index cards, a pencil and a small deck of flash cards",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-209"
+      }
+    ]
   },
   {
     "id": "ehbo-cursus",
@@ -196,7 +226,13 @@
       "en": "A basic course of half a day"
     },
     "scene": "a green first-aid kit, rolled bandages and a certificate folder on a table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-517"
+      }
+    ]
   },
   {
     "id": "luistercursus",
@@ -230,7 +266,13 @@
       "en": "An introductory evening"
     },
     "scene": "two cups of tea on a low table between two soft chairs with a small notebook",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-210"
+      }
+    ]
   },
   {
     "id": "mentor-zoeken",
@@ -262,7 +304,13 @@
       "en": "Write down three names and ask one of them for a coffee"
     },
     "scene": "a notebook with three circled names, a pen and a coffee cup on a café table",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-215"
+      }
+    ]
   },
   {
     "id": "assertiviteit",
@@ -295,7 +343,13 @@
       "en": "An introductory evening or workshop"
     },
     "scene": "two chairs facing each other, a small card with a speech bubble and a glass of water in a training room",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-214"
+      }
+    ]
   },
   {
     "id": "plannen-workshop",
@@ -329,6 +383,523 @@
       "en": "A book or short online course on weekly planning"
     },
     "scene": "a wall planner with colour-coded sticky notes, a pencil and an hourglass on a clean desk",
-    "status": "concept"
+    "status": "concept",
+    "source_links": [
+      {
+        "source_id": "RL",
+        "source_record_id": "RA-333"
+      }
+    ]
+  },
+  {
+    "id": "socratisch-gesprek",
+    "domain": "growth",
+    "sub": "skills",
+    "label": {
+      "nl": "Socratisch gesprek",
+      "en": "Socratic dialogue"
+    },
+    "tags": [
+      "puzzling",
+      "focus",
+      "discovery",
+      "conviviality"
+    ],
+    "formats": [
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open Socratisch gesprek bij een filosofiecafé",
+      "en": "An open Socratic dialogue at a philosophy cafe"
+    },
+    "scene": "A circle of simple chairs in a quiet room with a single question written on a flipchart and a pot of tea.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-059",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "statistiek-begrijpen",
+    "domain": "growth",
+    "sub": "skills",
+    "label": {
+      "nl": "Statistiek en cijfers leren begrijpen",
+      "en": "Learning to understand statistics and numbers"
+    },
+    "tags": [
+      "learning",
+      "puzzling",
+      "discovery",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "online",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis online cursus of een avond analyse van cijfers die jij belangrijk vindt",
+      "en": "A free online course or an evening analysing numbers you care about"
+    },
+    "scene": "A notebook with a hand-drawn bar chart, a scatter plot and a calculator beside a printed newspaper table.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-524",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "notities-systeem",
+    "domain": "growth",
+    "sub": "skills",
+    "label": {
+      "nl": "Een eigen notitiesysteem opbouwen",
+      "en": "Building your own note-taking system"
+    },
+    "tags": [
+      "learning",
+      "puzzling",
+      "technique",
+      "stillness"
+    ],
+    "formats": [
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een weekend een eenvoudig systeem uitproberen",
+      "en": "Try a simple system for a weekend"
+    },
+    "scene": "A neat notebook with index tabs, a card box of linked notes and a pen on a clean desk.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-527",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "toost-speech-houden",
+    "domain": "growth",
+    "sub": "speak_lead",
+    "label": {
+      "nl": "Een toost of speech schrijven en houden",
+      "en": "Writing and giving a toast or speech"
+    },
+    "tags": [
+      "performance",
+      "language",
+      "story",
+      "conviviality"
+    ],
+    "formats": [
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een korte toost oefenen voor vrienden of een spreekavond",
+      "en": "Practise a short toast for friends or at a speaking evening"
+    },
+    "scene": "A small microphone stand beside a champagne flute and a handwritten speech card on a festive table with ribbons.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-078",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "ondernemersidee-uitwerken",
+    "domain": "growth",
+    "sub": "skills",
+    "label": {
+      "nl": "Een ondernemersidee uitwerken",
+      "en": "Developing a business idea"
+    },
+    "tags": [
+      "making",
+      "discovery",
+      "strategy",
+      "puzzling"
+    ],
+    "formats": [
+      "solo",
+      "small_group",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een idee in één pagina uitwerken en een gratis spreekuur van de Kamer van Koophandel",
+      "en": "Write your idea on one page and a free consultation hour from a chamber of commerce"
+    },
+    "scene": "A whiteboard sketch of a business idea with arrows and sticky notes beside a laptop and a cup of coffee.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-079",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "lezing-workshop-geven",
+    "domain": "growth",
+    "sub": "speak_lead",
+    "label": {
+      "nl": "Een lezing of workshop geven over je eigen vak of hobby",
+      "en": "Giving a talk or workshop on your own craft or hobby"
+    },
+    "tags": [
+      "performance",
+      "learning",
+      "conviviality",
+      "story"
+    ],
+    "formats": [
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een korte presentatie voor vrienden of een kringgesprek bij een club",
+      "en": "A short talk for friends or at a club"
+    },
+    "scene": "A projector slide and a small table with a laptop, a clicker and a glass of water facing a room of empty chairs.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-080",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "onderhandelen-oefenen",
+    "domain": "growth",
+    "sub": "speak_lead",
+    "label": {
+      "nl": "Onderhandelen oefenen",
+      "en": "Practising negotiation"
+    },
+    "tags": [
+      "strategy",
+      "learning",
+      "puzzling",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een workshop onderhandelen of een rollenspel met een vriend",
+      "en": "A negotiation workshop or a role play with a friend"
+    },
+    "scene": "A table with two chairs, a printed price list and a notepad with offers marked on it, and a pen.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-286",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "pitch-geven",
+    "domain": "growth",
+    "sub": "speak_lead",
+    "label": {
+      "nl": "Een pitch geven",
+      "en": "Giving a pitch"
+    },
+    "tags": [
+      "language",
+      "strategy",
+      "performance",
+      "suspense"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een pitchavond waar je een minuut vertelt",
+      "en": "A pitch night where you speak for a minute"
+    },
+    "scene": "A countdown timer and a two-slide deck on a laptop with a glass of water and a handwritten script card.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-287",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "vergadering-leiden",
+    "domain": "growth",
+    "sub": "speak_lead",
+    "label": {
+      "nl": "Een vergadering of overleg leiden",
+      "en": "Chairing a meeting"
+    },
+    "tags": [
+      "teamwork",
+      "strategy",
+      "learning",
+      "technique"
+    ],
+    "formats": [
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een training vergaderen of een eerste overleg met een agenda",
+      "en": "A meeting training or a first meeting with an agenda"
+    },
+    "scene": "A meeting table with an agenda printed on paper, a stack of name cards and a timer next to a glass of water.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-539",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "slides-ontwerpen",
+    "domain": "growth",
+    "sub": "skills",
+    "label": {
+      "nl": "Presentaties en slides ontwerpen",
+      "en": "Designing presentations and slides"
+    },
+    "tags": [
+      "making",
+      "learning",
+      "technique",
+      "color"
+    ],
+    "formats": [
+      "solo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gratis online les of een eerste deck over je hobby",
+      "en": "A free online lesson or a first deck about your hobby"
+    },
+    "scene": "A laptop showing a clean slide layout beside sketches of slide frames, a colour palette card and a pen.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-540",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "eerste-klant-vinden",
+    "domain": "growth",
+    "sub": "skills",
+    "label": {
+      "nl": "Je eerste klant of opdracht vinden",
+      "en": "Finding your first client or commission"
+    },
+    "tags": [
+      "strategy",
+      "discovery",
+      "making",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een gesprek met drie mensen die je werk nodig hebben",
+      "en": "A conversation with three people who need your work"
+    },
+    "scene": "A notebook with a handwritten list of ideal customers and an outreach email draft, a calendar and a coffee cup.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-541",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "mediation-leren",
+    "domain": "growth",
+    "sub": "skills",
+    "label": {
+      "nl": "Bemiddelen in conflicten leren",
+      "en": "Learning to mediate conflicts"
+    },
+    "tags": [
+      "caring",
+      "language",
+      "learning",
+      "focus"
+    ],
+    "formats": [
+      "small_group",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 2,
+    "cost": 2,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een introductieworkshop van een mediationorganisatie",
+      "en": "An introductory workshop from a mediation organisation"
+    },
+    "scene": "A round table with two glasses of water and a box of tissues, a notepad and a soft pair of chairs in a quiet room.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-542",
+      "method": "curated"
+    }
+  },
+  {
+    "id": "feedback-geven",
+    "domain": "growth",
+    "sub": "skills",
+    "label": {
+      "nl": "Feedback geven en ontvangen",
+      "en": "Giving and receiving feedback"
+    },
+    "tags": [
+      "caring",
+      "language",
+      "learning",
+      "conviviality"
+    ],
+    "formats": [
+      "small_group",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een workshop feedback of oefenen met een collega of vriend",
+      "en": "A feedback workshop or practising with a colleague or friend"
+    },
+    "scene": "Two cards with a clearly written compliment and a suggestion on a table beside a notepad and a pen.",
+    "status": "concept",
+    "image_pending": true,
+    "provenance": {
+      "source_id": "RL",
+      "source_record_id": "RA-544",
+      "method": "curated"
+    }
   }
 ]

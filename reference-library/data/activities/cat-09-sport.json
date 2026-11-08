@@ -92,8 +92,8 @@
     "en": "Training for a triathlon or multisport event",
     "sub": {"nl": "Duursport", "en": "Endurance sport"},
     "desc": {"nl": "Zwemmen, fietsen en lopen combineren in een trainingsplan naar een eerste wedstrijd.", "en": "Combining swimming, cycling and running in a training plan towards a first race."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "triathlon-trainen",
     "facets": {"setting": "outdoor", "social_formats": ["solo", "small_group"], "level": 2, "duration": 4, "cost": 3, "safety_tier": 1, "source": "authored"},
     "links": ["water:3:D", "bos:2:D", "strategie:4:V", "concentratie:3:V", "geduld:4:V", "beweging:5:E", "ritme:4:E", "doorzetten:5:E", "grenzen:5:E", "competitie:3:E", "trots:5:E", "gemeenschap:3:E", "vrijheid:3:E", "natuur:2:T", "welzijn:3:T", "wetenschap:3:O", "snelheid:3:E", "conditie:5:V"],
     "why": {
@@ -101,7 +101,7 @@
     },
     "status": "Concept",
     "qa": {"round": 3, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Logica."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Zelfbeoordeling van alle bruggen (ronde 3): zwakke brug(gen) verwijderd: Logica.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-094",
@@ -112,8 +112,8 @@
     "en": "Playing table tennis",
     "sub": {"nl": "Racketsport", "en": "Racket sport"},
     "desc": {"nl": "Tafeltennis spelen in een club of buurthuis, van gezellig tot competitie.", "en": "Playing table tennis at a club or community centre, from casual to competitive."},
-    "match": "new",
-    "legacy_id": null,
+    "match": "exact",
+    "legacy_id": "tafeltennis",
     "facets": {"setting": "indoor", "social_formats": ["duo", "small_group", "drop_in_alone"], "level": 0, "duration": 2, "cost": 1, "safety_tier": 0, "source": "authored"},
     "links": ["strategie:4:V", "motoriek:5:V", "concentratie:4:V", "precisie:3:V", "improviseren:3:V", "beweging:4:E", "competitie:4:E", "speelsheid:4:E", "gezelligheid:4:E", "spanning:3:E", "ritme:3:E", "generaties:3:E", "gemeenschap:3:E", "wetenschap:3:O", "samenwerking:3:O", "spel:3:T", "uitgaan:2:D", "snelheid:4:E", "coordinatie:4:V"],
     "why": {
@@ -122,7 +122,7 @@
     },
     "status": "Concept",
     "qa": {"round": 1, "result": "adjusted"},
-    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app."]
+    "qa_notes": ["Facets (setting, social forms, level, duration, cost, safety) are estimates, not copied from the app.", "Written into the app's library as a concept with its photo pending (import-to-app, step 1)."]
   },
   {
     "id": "RA-141",
