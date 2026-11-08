@@ -2574,9 +2574,8 @@
       "nl": "Een open tekenavond of proefles in een atelier",
       "en": "An open life-drawing night or trial class in a studio"
     },
-    "scene": "A drawing board on an easel with a charcoal figure sketch, sticks of charcoal, a kneaded eraser and a draped stool in soft studio light.",
+    "scene": "A drawing board on an easel with a charcoal study of folded drapery over a stool, sticks of charcoal, a kneaded eraser and an empty wooden posing platform in soft studio light; no human figure drawn.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-001",
@@ -2615,7 +2614,6 @@
     },
     "scene": "A sketchbook open on a detailed ink-and-watercolour drawing of a fern beside a pressed leaf, fine pens and a small glass jar of water.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-002",
@@ -2653,7 +2651,6 @@
     },
     "scene": "A drawing table with painted storybook pages drying, a fox character sketch, gouache pots and brushes, warm lamp light.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-003",
@@ -2689,9 +2686,8 @@
       "nl": "Een stripcursus voor beginners of een tekenavond",
       "en": "A beginners' comics course or a drawing night"
     },
-    "scene": "A comic page with inked panels and speech bubbles on a light table, brush pens, a ruler and pencil layouts around it.",
+    "scene": "A comic page with inked panels of a cat and a rocket and empty speech bubbles on a light table, brush pens, a ruler and pencil layouts; no human characters drawn.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-004",
@@ -2731,7 +2727,6 @@
     },
     "scene": "A watercolour palette with wet blooms of colour, a round brush resting on a half-finished landscape on thick paper, a jar of cloudy water.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-005",
@@ -2771,7 +2766,6 @@
     },
     "scene": "Soft pastel sticks in a wooden tray beside a dusty-coloured landscape on tinted paper, a smudged blending stump and a fixative can.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-148",
@@ -2810,7 +2804,6 @@
     },
     "scene": "A notebook page of hand-drawn sketchnotes with banners, arrows and tiny icons next to fine liner pens and a cup of tea.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-149",
@@ -2849,7 +2842,6 @@
     },
     "scene": "A dip pen and bottle of black ink on a page of fine crosshatched drawing of a leaf, with an inkwell and blotting paper.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-150",
@@ -2890,7 +2882,6 @@
     },
     "scene": "An easel with an oval sheet clipped in place showing a half-finished charcoal study, a tin of pencils, a hand mirror leaning on the easel and a kneaded eraser, soft window light.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-151",
@@ -2938,7 +2929,6 @@
     },
     "scene": "A small field easel with a painted landscape of dunes and clouds, a folded stool, a paint box and a hat on the grass.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-369",
@@ -2979,7 +2969,6 @@
     },
     "scene": "A canvas flooded with swirling poured acrylic in blue, teal and gold with cells and ripples, paint cups and a silicone spatula on a protected table.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-370",
@@ -3017,7 +3006,6 @@
     },
     "scene": "A realistic coloured-pencil drawing of a pear half finished, a fan of pencils, a sharpener with shavings and a ruler.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-371",
@@ -3057,7 +3045,6 @@
     },
     "scene": "A sheet of brush-pen lettering with flowing script and flourishes, a practice grid sheet, brush pens in a row and a cup of tea.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-372",
@@ -3097,7 +3084,6 @@
     },
     "scene": "A round mandala drawn in fine black pen with repeating petals and dots, a compass and ruler beside it, dried flowers on the paper.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-373",
@@ -3137,7 +3123,6 @@
     },
     "scene": "A half-finished papier-mache animal head with torn newspaper strips, a bowl of paste and a roll of masking tape on a covered table.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-374",
@@ -3176,7 +3161,6 @@
     },
     "scene": "Opaque gouache jars in bright flat colours and a small painting of overlapping shapes, a flat brush and a ceramic palette.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-375",
@@ -3216,7 +3200,6 @@
     },
     "scene": "A small felted fox in progress with a barbed needle in a cork handle, wool roving in orange and white and a foam pad.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-152",
@@ -3256,7 +3239,6 @@
     },
     "scene": "An indigo cloth with white running-stitch geometric patterns, a long needle, a spool of thick white thread and a small pair of scissors.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-153",
@@ -3296,7 +3278,6 @@
     },
     "scene": "A round lace pillow with dozens of wooden bobbins and pins forming a delicate white lace edge in progress, a pattern card underneath.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-154",
@@ -3336,7 +3317,6 @@
     },
     "scene": "A tufting frame with a bold geometric rug design half filled with colourful yarn, a tufting gun and trimmed yarn tails on a mat.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-386",
@@ -3384,7 +3364,6 @@
     },
     "scene": "Skeins of wool dyed in ochre, madder red and indigo hanging beside a pot of simmering dye and bundles of dried plants.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-387",
@@ -3424,7 +3403,6 @@
     },
     "scene": "A narrow band loom with a striped woven ribbon in progress, small shuttles, a ball of cotton yarn and a wooden heddle.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-388",
@@ -3464,7 +3442,6 @@
     },
     "scene": "A wooden bowl on a lathe with curling shavings, turning chisels on a rack and a pile of pale beech blanks on a workshop bench.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-155",
@@ -3504,7 +3481,6 @@
     },
     "scene": "A small box lid with intricate marquetry inlay in contrasting woods, a fretsaw, veneer scraps and a sharp knife on a green mat.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-156",
@@ -3543,7 +3519,6 @@
     },
     "scene": "A small wooden train and a rolling duck on a workbench with sandpaper, a vice and a few painted wooden wheels.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-157",
@@ -3583,7 +3558,6 @@
     },
     "scene": "A solid oak side table built with visible joints, a hand plane, clamps and a folding rule resting on a planked workbench.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-395",
@@ -3624,7 +3598,6 @@
     },
     "scene": "A dining chair with its seat stripped to the wooden frame, new patterned fabric folded on top, a staple gun and an upholstery hammer.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-396",
@@ -3663,7 +3636,6 @@
     },
     "scene": "A small wooden chest with crisp dovetail joints at the corners, a marking gauge, a dovetail saw and chisels in a row.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-397",
@@ -3703,7 +3675,6 @@
     },
     "scene": "A half-assembled ukulele body with braces and a spruce top beside binding strips, clamps and a luthier's small plane.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-398",
@@ -3752,7 +3723,6 @@
     },
     "scene": "A small wooden treehouse platform with railing and a rope ladder in a leafy tree, a tool belt and a pile of planks below.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-399",
@@ -3791,7 +3761,6 @@
     },
     "scene": "A low garden bench built from sanded pallet planks with cushions and a pot of herbs, a crowbar and a sanding block nearby.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-400",
@@ -3831,7 +3800,6 @@
     },
     "scene": "A detailed wooden sailing ship model with tiny rigging threads on a cradle, tweezers, a magnifying lamp and a plan sheet.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-402",
@@ -3870,7 +3838,6 @@
     },
     "scene": "A chessboard of light and dark wood squares being glued up, with a few carved pawns, clamps and a block plane.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-403",
@@ -3919,7 +3886,6 @@
     },
     "scene": "A rustic garden bench with sawhorses, pine planks, a cordless drill and a pencil behind the ear of a tape measure.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-404",
@@ -3967,7 +3933,6 @@
     },
     "scene": "A neat wooden deck platform under construction beside a garden bed, deck screws, a spirit level and an impact driver.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-405",
@@ -4006,7 +3971,6 @@
     },
     "scene": "A wooden gear clock with exposed gears and a pendulum, small cut gears on a bench, a saw and a pair of calipers.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-406",
@@ -4046,7 +4010,6 @@
     },
     "scene": "A serving board of walnut and maple with a rounded edge, a bottle of food-safe oil and a rag, a block plane and a rasp.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-407",
@@ -4085,7 +4048,6 @@
     },
     "scene": "A deckle-framed sheet of handmade paper with pressed flowers and dried petals drying on a cloth, a vat of pulp and a sponge.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-158",
@@ -4125,7 +4087,6 @@
     },
     "scene": "A shallow tray of floating swirled marbling inks in blue, red and gold with a comb and a sheet of paper lifted off.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-159",
@@ -4164,7 +4125,6 @@
     },
     "scene": "A small grey concrete bowl and a tealight holder beside silicone moulds, a mixing bucket and a smooth trowel on newspaper.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-413",
@@ -4203,7 +4163,6 @@
     },
     "scene": "Tiny polymer clay earrings in marbled colours, a pasta machine, a blade and a few baking tiles with small cane slices.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-414",
@@ -4242,7 +4201,6 @@
     },
     "scene": "A braided leather bracelet with a brass snap, strips of leather in brown and tan, a snap tool and a cutting mat.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-415",
@@ -4283,7 +4241,6 @@
     },
     "scene": "A tripod and a small camera in front of a worn armchair by a window with an interview notebook and a lamp, a pair of headphones on the arm.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-026",
@@ -4323,7 +4280,6 @@
     },
     "scene": "A handheld audio recorder with a furry wind cover on a fence post, headphones and a notebook with sound notes in a misty field.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-027",
@@ -4370,7 +4326,6 @@
     },
     "scene": "A blue cyanotype print of ferns and leaves on cotton paper pinned out in the sun, a glass plate and a tray of rinse water.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-160",
@@ -4409,7 +4364,6 @@
     },
     "scene": "A video editing timeline on a monitor with colourful clips, a mixing slider panel and a pair of headphones on a desk.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-161",
@@ -4457,7 +4411,6 @@
     },
     "scene": "A close-up of dewdrops on a spider web and a small camera with a macro lens on a mini tripod low in the grass.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-421",
@@ -4497,7 +4450,6 @@
     },
     "scene": "A studio set with a soft light box and a reflector next to a stool and a plain backdrop, a camera on a tripod.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-422",
@@ -4536,7 +4488,6 @@
     },
     "scene": "A camera on a tripod pointed at a distant city skyline at dusk with a remote shutter, a spare battery and a dew shield.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-423",
@@ -4575,7 +4526,6 @@
     },
     "scene": "A small camera on a mini tripod, a microphone and a notebook with shot ideas and a ring light on a desk.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-424",
@@ -4624,7 +4574,6 @@
     },
     "scene": "A camera on a tripod under a clear sky with a rich Milky Way arc over a dark field, a red headlamp and a star chart.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-426",
@@ -4663,7 +4612,6 @@
     },
     "scene": "A flipbook of animation drawings of a bouncing ball on a lightbox with a stack of frames and a pencil.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-427",
@@ -4703,7 +4651,6 @@
     },
     "scene": "A compact synth, a drum pad controller and a laptop with a tracker grid beside studio headphones and a few cables.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-031",
@@ -4743,7 +4690,6 @@
     },
     "scene": "A small drum kit with sticks resting across the snare, a metronome and a notebook of rhythm patterns in a practice room.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-090",
@@ -4782,7 +4728,6 @@
     },
     "scene": "Sheet music with pencil notes on a piano music stand next to a small keyboard and a pair of headphones.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-091",
@@ -4822,7 +4767,6 @@
     },
     "scene": "A close view of a carillon keyboard of wooden batons and pedals inside a stone tower with bells visible overhead.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-092",
@@ -4863,7 +4807,6 @@
     },
     "scene": "A circle of djembes and hand drums on a wooden floor with shakers and a bell tree in warm evening light.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-221",
@@ -4904,7 +4847,6 @@
     },
     "scene": "A music stand with a song sheet beside a small upright piano and a glass of water, bright open room with a window.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-435",
@@ -4943,7 +4885,6 @@
     },
     "scene": "A silver harmonica on a worn denim jacket with a blues songbook and a small tambourine on a wooden table.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-436",
@@ -4983,7 +4924,6 @@
     },
     "scene": "A row of brass instruments and a snare drum on a bandstand with music stands and folded uniform caps.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-437",
@@ -5023,7 +4963,6 @@
     },
     "scene": "A shiny steel handpan on a cloth in a quiet room with a candle and a small tapestry, soft overhead light.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-438",
@@ -5063,7 +5002,6 @@
     },
     "scene": "A church organ console with stops and two keyboards and pedals, with sheet music and a bench in a stone nave.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-441",
@@ -5102,7 +5040,6 @@
     },
     "scene": "A single sheet with a haiku in black ink on handmade paper beside a stone, a twig and an ink brush.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-087",
@@ -5141,7 +5078,6 @@
     },
     "scene": "A laptop with a blog draft and a notebook of headlines beside a mug and a stack of printed articles.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-088",
@@ -5180,7 +5116,6 @@
     },
     "scene": "A notebook of character notes and plot arrows beside a laptop and a stack of well-loved paperback novels.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-089",
@@ -5219,7 +5154,6 @@
     },
     "scene": "A thick stack of printed manuscript pages with red pencil edits, a typewriter-style keyboard and a pot of tea.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-222",
@@ -5258,7 +5192,6 @@
     },
     "scene": "A picture-book dummy with rough drawings and a short story typed beside it, crayons and a small stuffed animal on the desk.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-223",
@@ -5296,7 +5229,6 @@
     },
     "scene": "A weathered travel journal open beside a postcard, a pen and a small map of a coastal town on a cafe table.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-446",
@@ -5335,7 +5267,6 @@
     },
     "scene": "A newspaper-style column on a printed page with a red pen, a cup of coffee and a notepad with headlines.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-447",
@@ -5374,7 +5305,6 @@
     },
     "scene": "A notebook with a paragraph in another language and a pocket dictionary and a highlighter on a cafe table.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-448",
@@ -5412,7 +5342,6 @@
     },
     "scene": "A sealed envelope with a handwritten label to the future, a fountain pen and a small stack of old letters tied with string.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-449",
@@ -5452,7 +5381,6 @@
     },
     "scene": "A notebook of scales, chords and circle-of-fifths diagrams beside a small keyboard and a pencil.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-162",

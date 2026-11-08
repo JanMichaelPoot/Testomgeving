@@ -108,7 +108,7 @@ describe("the ranking weights", () => {
     });
     const report = evaluate(runs, lib, { strictFreeCost: true });
     for (const [rule, list] of Object.entries(report.violations)) expect(list, rule).toEqual([]);
-  }, 120_000);
+  }, 400_000); // three sessions per visitor over a library that keeps growing: it took 120 s at 578 activities, ~175 s at 702
 });
 
 describe("'if you only pick one' with a measured fit", () => {

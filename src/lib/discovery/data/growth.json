@@ -423,7 +423,6 @@
     },
     "scene": "A circle of simple chairs in a quiet room with a single question written on a flipchart and a pot of tea.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-059",
@@ -463,7 +462,6 @@
     },
     "scene": "A notebook with a hand-drawn bar chart, a scatter plot and a calculator beside a printed newspaper table.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-524",
@@ -501,7 +499,6 @@
     },
     "scene": "A neat notebook with index tabs, a card box of linked notes and a pen on a clean desk.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-527",
@@ -540,7 +537,6 @@
     },
     "scene": "A small microphone stand beside a champagne flute and a handwritten speech card on a festive table with ribbons.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-078",
@@ -580,7 +576,6 @@
     },
     "scene": "A whiteboard sketch of a business idea with arrows and sticky notes beside a laptop and a cup of coffee.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-079",
@@ -619,7 +614,6 @@
     },
     "scene": "A projector slide and a small table with a laptop, a clicker and a glass of water facing a room of empty chairs.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-080",
@@ -659,7 +653,6 @@
     },
     "scene": "A table with two chairs, a printed price list and a notepad with offers marked on it, and a pen.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-286",
@@ -699,7 +692,6 @@
     },
     "scene": "A countdown timer and a two-slide deck on a laptop with a glass of water and a handwritten script card.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-287",
@@ -738,7 +730,6 @@
     },
     "scene": "A meeting table with an agenda printed on paper, a stack of name cards and a timer next to a glass of water.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-539",
@@ -777,7 +768,6 @@
     },
     "scene": "A laptop showing a clean slide layout beside sketches of slide frames, a colour palette card and a pen.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-540",
@@ -816,7 +806,6 @@
     },
     "scene": "A notebook with a handwritten list of ideal customers and an outreach email draft, a calendar and a coffee cup.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-541",
@@ -856,7 +845,6 @@
     },
     "scene": "A round table with two glasses of water and a box of tissues, a notepad and a soft pair of chairs in a quiet room.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-542",
@@ -893,9 +881,8 @@
       "nl": "Een workshop feedback of oefenen met een collega of vriend",
       "en": "A feedback workshop or practising with a colleague or friend"
     },
-    "scene": "Two cards with a clearly written compliment and a suggestion on a table beside a notepad and a pen.",
+    "scene": "Two blank index cards, one marked with a green tick and one with a small star, on a table beside a notepad and a pen, no writing anywhere.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-544",

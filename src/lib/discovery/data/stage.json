@@ -1141,7 +1141,6 @@
     },
     "scene": "A small cinema screen with a title frame and a row of red seats, a popcorn bowl and a program card on an armrest.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-425",
@@ -1180,7 +1179,6 @@
     },
     "scene": "A rehearsal space with an electric guitar on a stand, a bass, a drum kit and an amplifier, with a setlist taped to a speaker.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-220",
@@ -1220,7 +1218,6 @@
     },
     "scene": "A bare small stage with a director's chair, a clipboard script and a pair of spotlights, props stacked in the wings.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-224",

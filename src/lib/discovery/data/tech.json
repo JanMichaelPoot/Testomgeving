@@ -1359,7 +1359,6 @@
     },
     "scene": "A laptop showing a simple website layout in progress beside a notebook with wireframe sketches and a mug.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-288",
@@ -1398,7 +1397,6 @@
     },
     "scene": "A smart energy meter reading on a wall with a thermostat, a small notebook of readings and an LED bulb on a shelf.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-289",

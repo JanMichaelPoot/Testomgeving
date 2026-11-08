@@ -2,184 +2,184 @@
  "note": "Seeds of the current engine for the 20 fixed profiles. Regenerate with: npx tsx scripts/eval/run.ts --engine current --write-baseline",
  "seeds": {
   "P01": [
-   "familiar:natural:macrame",
-   "familiar:natural:restaureren",
+   "familiar:natural:wilgenvlechten",
+   "familiar:natural:droogbloemen",
    "adjacent:discovery:ander-land",
    "adjacent:discovery:instrument",
    "unexpected:unexpected:stop-motion",
-   "stretch:stretch:hondensport",
-   "wildcard:wildcard:niets-doen"
+   "stretch:stretch:botanisch-tekenen",
+   "wildcard:wildcard:raadsels"
   ],
   "P02": [
-   "familiar:natural:pingpongbar",
-   "familiar:natural:hist-dans",
-   "adjacent:discovery:spionagespel",
-   "adjacent:discovery:kook-club",
-   "unexpected:unexpected:dansen",
+   "familiar:natural:kubb",
+   "familiar:natural:aangepast-sporten",
+   "adjacent:discovery:breien-haken",
+   "adjacent:discovery:casinoavond",
+   "unexpected:unexpected:podcast-maken",
    "stretch:stretch:teamsport",
-   "wildcard:wildcard:open-tuinen"
+   "wildcard:wildcard:veiling"
   ],
   "P03": [
-   "familiar:natural:zipline",
-   "familiar:natural:fietsvakantie",
-   "adjacent:discovery:onder-de-stad",
-   "adjacent:discovery:spotten",
-   "unexpected:unexpected:legendes",
-   "stretch:stretch:skihal",
-   "wildcard:wildcard:geocaching"
+   "familiar:natural:open-water",
+   "familiar:natural:abseilen",
+   "adjacent:discovery:oldtimerrit",
+   "adjacent:discovery:petanque",
+   "unexpected:unexpected:tekenen",
+   "stretch:stretch:obstacle-run",
+   "wildcard:wildcard:open-vuur-koken"
   ],
   "P04": [
-   "familiar:natural:stenen-stapelen",
-   "familiar:natural:limesroute",
-   "adjacent:discovery:capsule-garderobe",
-   "adjacent:discovery:vinyl",
-   "unexpected:unexpected:wandelen",
-   "stretch:stretch:korte-film",
-   "wildcard:wildcard:levensverhaal"
+   "familiar:natural:geologie",
+   "familiar:natural:fossielen",
+   "adjacent:discovery:tai-chi",
+   "adjacent:discovery:wandelroute-cartograferen",
+   "unexpected:unexpected:citizen-science",
+   "stretch:stretch:archief",
+   "wildcard:wildcard:gedichten-schrijven"
   ],
   "P05": [
-   "familiar:natural:proplifting",
-   "familiar:natural:massage",
-   "adjacent:discovery:theeceremonie",
-   "adjacent:discovery:kringloop",
-   "unexpected:unexpected:oude-kaarten",
-   "stretch:stretch:wandeltocht-lang",
-   "wildcard:wildcard:paaldansen"
+   "familiar:natural:streek-weekend",
+   "familiar:natural:pluktuin",
+   "adjacent:discovery:paaldansen",
+   "adjacent:discovery:upcycle-kleding",
+   "unexpected:unexpected:brocante-antiek",
+   "stretch:stretch:tuinieren",
+   "wildcard:wildcard:instrument"
   ],
   "P06": [
-   "familiar:natural:strips",
-   "familiar:natural:sagen",
-   "adjacent:discovery:capsule-garderobe",
-   "adjacent:discovery:bunkertocht",
-   "unexpected:unexpected:schaduwtheater",
-   "stretch:stretch:hist-koken",
-   "wildcard:wildcard:bijlwerpen"
+   "familiar:natural:verzetsroute",
+   "familiar:natural:solo-rpg",
+   "adjacent:discovery:ruilbeurs-planten",
+   "adjacent:discovery:pilates",
+   "unexpected:unexpected:vriendschapsdaten",
+   "stretch:stretch:kastelenroute",
+   "wildcard:wildcard:modemuseum"
   ],
   "P07": [
-   "familiar:natural:retrogaming",
-   "familiar:natural:middeleeuws-banket",
-   "adjacent:discovery:kaarsen-gieten",
-   "adjacent:discovery:pokeravond",
+   "familiar:natural:pizza-oven",
+   "familiar:natural:koffie-thee",
+   "adjacent:discovery:backgammon",
+   "adjacent:discovery:limesroute",
    "unexpected:unexpected:buurtproject",
-   "stretch:stretch:raku-stoken",
-   "wildcard:wildcard:collage"
+   "stretch:stretch:glasblazen",
+   "wildcard:wildcard:onder-de-stad"
   ],
   "P08": [
-   "familiar:natural:sudoku",
-   "familiar:natural:data-visualisatie",
-   "adjacent:discovery:monumenten",
-   "adjacent:discovery:biljarten",
+   "familiar:natural:coderen",
+   "familiar:natural:stop-motion",
+   "adjacent:discovery:parfum-ontdekken",
+   "adjacent:discovery:modemuseum",
    "unexpected:unexpected:poppenhuis",
-   "stretch:stretch:pilates",
-   "wildcard:wildcard:sagen"
+   "stretch:stretch:muziek-componeren",
+   "wildcard:wildcard:fotografie"
   ],
   "P09": [
-   "familiar:natural:microscopie",
-   "familiar:natural:vintage-kleding",
-   "adjacent:discovery:archief",
-   "adjacent:discovery:geologie",
+   "familiar:natural:stop-motion",
+   "familiar:natural:strandjutten",
+   "adjacent:discovery:personal-shopping",
+   "adjacent:discovery:sterrenkijken",
    "unexpected:unexpected:poppenhuis",
-   "stretch:stretch:kamerplanten",
-   "wildcard:wildcard:trein-dagtrip"
+   "stretch:stretch:fossielen",
+   "wildcard:wildcard:begraafplaats"
   ],
   "P10": [
-   "familiar:natural:tai-chi",
+   "familiar:natural:pumptrack",
    "familiar:natural:tennis-proefles",
+   "adjacent:discovery:onder-de-stad",
    "adjacent:discovery:sterrenkijken",
-   "adjacent:discovery:oldtimerrit",
-   "unexpected:unexpected:onder-de-stad",
+   "unexpected:unexpected:geologie",
    "stretch:stretch:obstacle-run",
-   "wildcard:wildcard:moodboard"
+   "wildcard:wildcard:cosplay"
   ],
   "P11": [
    "explore:natural:kaartspellen",
-   "explore:natural:zijde-schilderen",
-   "explore:discovery:nachtwandeling",
+   "explore:natural:cryptografie",
+   "explore:discovery:blokdruk-textiel",
    "explore:discovery:groundhoppen",
-   "explore:unexpected:dierenfotografie",
-   "explore:stretch:klimmen",
-   "wildcard:wildcard:mes-smeden"
+   "explore:unexpected:dierentuin",
+   "explore:stretch:rolschaatsen",
+   "wildcard:wildcard:instrument"
   ],
   "P12": [
    "familiar:natural:flamenco",
-   "familiar:natural:synthesizer-bouwen",
-   "adjacent:discovery:schilder-avond",
-   "adjacent:discovery:personal-shopping",
-   "unexpected:unexpected:stop-motion",
+   "familiar:natural:operazang",
+   "adjacent:discovery:capsule-garderobe",
+   "adjacent:discovery:reptielen",
+   "unexpected:unexpected:instrument",
    "stretch:stretch:langlaufen",
-   "wildcard:wildcard:stadsspel"
+   "wildcard:wildcard:monumenten"
   ],
   "P13": [
+   "familiar:natural:vr-arcade",
    "familiar:natural:paintball-airsoft",
-   "familiar:natural:spionagespel",
-   "adjacent:discovery:concert",
+   "adjacent:discovery:poppentheater",
    "adjacent:discovery:breien-haken",
    "unexpected:unexpected:wandelen",
    "stretch:stretch:open-source",
-   "wildcard:wildcard:yoga"
+   "wildcard:wildcard:parfum-ontdekken"
   ],
   "P14": [
    "familiar:natural:nordic-walking",
-   "familiar:natural:microscopie",
-   "adjacent:discovery:nachtdieren",
+   "familiar:natural:eilandhoppen",
+   "adjacent:discovery:cactussen",
    "adjacent:discovery:sterrenkijken",
-   "unexpected:unexpected:bonsai",
-   "stretch:stretch:ballroom",
-   "wildcard:wildcard:cryptografie"
+   "unexpected:unexpected:microscopie",
+   "stretch:stretch:rolschaatsen",
+   "wildcard:wildcard:leesclub"
   ],
   "P15": [
-   "familiar:natural:spotten",
    "familiar:natural:limesroute",
-   "adjacent:discovery:yoga",
-   "adjacent:discovery:sterrenkijken",
-   "unexpected:unexpected:citizen-science",
-   "stretch:stretch:houthakken",
-   "wildcard:wildcard:rappen"
+   "familiar:natural:kastelenroute",
+   "adjacent:discovery:kamerplanten",
+   "adjacent:discovery:speeldozen",
+   "unexpected:unexpected:wandelen",
+   "stretch:stretch:boulderen",
+   "wildcard:wildcard:groundhoppen"
   ],
   "P16": [
-   "familiar:natural:fietsroute",
    "familiar:natural:mountainbiken",
-   "adjacent:discovery:taal-leren",
+   "familiar:natural:fietsvakantie",
+   "adjacent:discovery:kinderboerderij",
    "adjacent:discovery:themareis",
    "unexpected:unexpected:legpuzzels",
    "stretch:stretch:skihal",
-   "wildcard:wildcard:data-visualisatie"
+   "wildcard:wildcard:reisverhaal-schrijven"
   ],
   "P17": [
+   "familiar:natural:buitenplaats",
    "familiar:natural:kastelenroute",
-   "familiar:natural:brocante-antiek",
-   "adjacent:discovery:taal-leren",
-   "adjacent:discovery:mineralen-edelstenen",
-   "unexpected:unexpected:restaureren",
+   "adjacent:discovery:cactussen",
+   "adjacent:discovery:muziek-componeren",
+   "unexpected:unexpected:high-tea",
    "stretch:stretch:kamperen",
-   "wildcard:wildcard:fermenteren"
+   "wildcard:wildcard:kruidenlikeur"
   ],
   "P18": [
    "familiar:natural:escape-room",
    "familiar:natural:kaartspellen",
-   "adjacent:discovery:schietles",
+   "adjacent:discovery:minigolf",
    "adjacent:discovery:biljarten",
    "unexpected:unexpected:wandelen",
    "stretch:stretch:pokeravond",
-   "wildcard:wildcard:modeshow"
+   "wildcard:wildcard:reptielen"
   ],
   "P19": [
    "familiar:natural:meditatie",
    "familiar:natural:journaling",
-   "adjacent:discovery:levensverhaal",
-   "adjacent:discovery:fossielen",
+   "adjacent:discovery:sagen",
+   "adjacent:discovery:vogels",
    "unexpected:unexpected:sterrenkijken",
-   "stretch:stretch:origami",
-   "wildcard:wildcard:geologie"
+   "stretch:stretch:online-cursus",
+   "wildcard:wildcard:storytelling"
   ],
   "P20": [
    "familiar:natural:abseilen",
-   "familiar:natural:schietles",
-   "adjacent:discovery:sloep-varen",
+   "familiar:natural:boogschieten",
    "adjacent:discovery:darten-pool",
-   "unexpected:unexpected:legendes",
-   "stretch:stretch:skihal",
-   "wildcard:wildcard:muziek-maken"
+   "adjacent:discovery:freediven",
+   "unexpected:unexpected:flipperkast",
+   "stretch:stretch:boksles",
+   "wildcard:wildcard:foerageren"
   ]
  }
 }

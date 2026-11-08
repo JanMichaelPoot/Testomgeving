@@ -463,7 +463,6 @@
     },
     "scene": "A hand-drawn map of a walking route with landmarks and arrows on a clipboard, a compass and a pencil on a stone bench.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-076",
@@ -501,7 +500,6 @@
     },
     "scene": "A leather travel journal filled with sketches, ticket stubs and a pressed flower beside a pen and a small paintbrush.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-077",
@@ -541,7 +539,6 @@
     },
     "scene": "A map pinned with themed stops and coloured string on a corkboard with a printed itinerary and a notebook.",
     "status": "concept",
-    "image_pending": true,
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-163",
