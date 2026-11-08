@@ -11,6 +11,9 @@
 //   KNOWLEDGE_ANCHOR_PICKS  Stap 125: the anchor model. Four of the person's own page-2 choices are in the book, two ideas are built
 //                         around them, one wildcard. Needs the B4 ranking (it selects with WEIGHTS_ANCHOR, which includes it).
 //
+//   KNOWLEDGE_ASSOCIATION_LAYER  Stap 2 of the reference-library plan: page 2 of the two-page intake also follows the associations the chosen images
+//                         evoke (src/lib/discovery/associationLayer.ts), not only their tags. Off by default.
+//
 // The old KNOWLEDGE_ENGINE_V2 still works as "both on", so an existing deployment behaves as before until it is changed.
 //
 // Server side only (plain, non-public environment variables). Components that need to know get the result as a prop.
@@ -72,4 +75,9 @@ export function concreteOptionsRequired(value: string | undefined = process.env.
   const v = (value ?? "").trim().replace(/^["']|["']$/g, "").toLowerCase();
   if (v === "") return true;
   return !["0", "false", "off", "no"].includes(v);
+}
+
+/** The association layer on page 2 of the two-page intake. Off unless KNOWLEDGE_ASSOCIATION_LAYER is set. */
+export function knowledgeAssociationLayerEnabled(value: string | undefined = process.env.KNOWLEDGE_ASSOCIATION_LAYER): boolean {
+  return isOn(value);
 }

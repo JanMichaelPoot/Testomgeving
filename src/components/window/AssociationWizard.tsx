@@ -14,6 +14,7 @@ import { CheckoutPanel } from "@/components/window/CheckoutPanel";
 import { TestModeBanner } from "@/components/window/TestModeBanner";
 import { activityImage, domainImage } from "@/lib/discovery/paths";
 import { ASSOCIATION_ROUNDS, averageAxes, tagProfile, type AssociationCard, type AssociationLibrary, type AssociationRound, type AxisId } from "@/lib/discovery/associationProfile";
+import { assocProfile } from "@/lib/discovery/associationLayer";
 import { MAX_CONCRETE_PICKS, MAX_IMAGE_PICKS, MAX_REFRESHES, composeConcretePage, registerMix, sampleBalancedBatch, type RegisteredCard } from "@/lib/discovery/twoPages";
 import type { ConcretePool } from "@/lib/discovery/concretePool";
 import { buildProfileStory } from "@/lib/discovery/profileStory";
@@ -425,6 +426,8 @@ export function AssociationWizard({
     const cards = ids.map((id) => cardById.get(id)).filter((c): c is AssociationCard => !!c);
     return {
       profile: tagProfile(library.cards, ids),
+      // The association layer (server-side flag): the images carry what they evoke only while it is on.
+      assocProfile: cards.some((c) => c.assoc) ? assocProfile(cards) : undefined,
       axes: averageAxes(library.cards, ids),
       genericTags: new Set(concretePool?.genericTags ?? []),
       mix: registerMix(cards.filter((c): c is AssociationCard & RegisteredCard => c.register !== undefined)),

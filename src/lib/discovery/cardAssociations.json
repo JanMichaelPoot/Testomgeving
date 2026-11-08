@@ -1,0 +1,795 @@
+{
+ "place-forest-edge": {
+  "bos": 1.0,
+  "natuur": 1.0,
+  "stilte": 0.7,
+  "rust": 0.7,
+  "verwondering": 0.4,
+  "vrijheid": 0.4
+ },
+ "place-workshop": {
+  "hout": 1.0,
+  "atelier": 1.0,
+  "vakmanschap": 0.7,
+  "bouwen": 0.7,
+  "geur": 0.4,
+  "concentratie": 0.4
+ },
+ "place-kitchen-table": {
+  "keuken": 1.0,
+  "gezelligheid": 1.0,
+  "voeding": 0.7,
+  "samenwerking": 0.7,
+  "warmte": 0.4,
+  "speelsheid": 0.4
+ },
+ "place-still-water": {
+  "water": 1.0,
+  "stilte": 1.0,
+  "rust": 0.7,
+  "natuur": 0.7,
+  "verwondering": 0.4
+ },
+ "place-reading-room": {
+  "geschiedenis": 0.7,
+  "verhalen": 1.0,
+  "stilte": 0.7,
+  "leren": 0.7,
+  "concentratie": 0.7,
+  "nostalgie": 0.4
+ },
+ "place-under-stars": {
+  "heelal": 1.0,
+  "verwondering": 1.0,
+  "stilte": 0.7,
+  "vrijheid": 0.7,
+  "natuur": 0.4
+ },
+ "place-light-studio": {
+  "atelier": 1.0,
+  "licht": 1.0,
+  "verf": 0.7,
+  "creativiteit": 0.7,
+  "expressie": 0.7,
+  "schoonheid": 0.4
+ },
+ "place-rain-window": {
+  "thuis": 1.0,
+  "rust": 0.7,
+  "stilte": 0.7,
+  "verhalen": 0.4,
+  "warmte": 0.4,
+  "weer": 0.7
+ },
+ "place-warm-corner": {
+  "thuis": 1.0,
+  "warmte": 1.0,
+  "rust": 0.7,
+  "zorg": 0.7,
+  "gezelligheid": 0.4
+ },
+ "place-long-lane": {
+  "precisie": 1.0,
+  "concentratie": 0.7,
+  "competitie": 0.7,
+  "meesterschap": 0.4
+ },
+ "place-arena-lights": {
+  "spanning": 1.0,
+  "publiek": 0.7,
+  "competitie": 0.7,
+  "samenwerking": 0.7,
+  "uitgaan": 0.4
+ },
+ "place-race-circuit": {
+  "snelheid": 1.0,
+  "competitie": 0.7,
+  "mobiliteit": 0.7,
+  "spanning": 0.7,
+  "avontuur": 0.4
+ },
+ "place-stage-lit": {
+  "podium": 1.0,
+  "optreden": 1.0,
+  "publiek": 0.7,
+  "spanning": 0.4,
+  "klank": 0.4
+ },
+ "place-cave-dark": {
+  "ondergrond": 1.0,
+  "avontuur": 0.7,
+  "spanning": 0.7,
+  "ontdekking": 0.7,
+  "stilte": 0.4
+ },
+ "place-mountain-ridge": {
+  "bergen": 1.0,
+  "lucht": 0.7,
+  "vrijheid": 0.7,
+  "avontuur": 0.7,
+  "verwondering": 0.4
+ },
+ "place-barn-animals": {
+  "dieren": 1.0,
+  "zorg": 0.7,
+  "warmte": 0.7,
+  "natuur": 0.4,
+  "geur": 0.4
+ },
+ "place-forge-fire": {
+  "metaal": 1.0,
+  "vakmanschap": 0.7,
+  "geur": 0.4,
+  "rauw": 0.7,
+  "moed": 0.4,
+  "ambacht": 0.7
+ },
+ "place-card-table": {
+  "spel": 1.0,
+  "kans": 0.7,
+  "strategie": 0.7,
+  "gezelligheid": 0.7,
+  "humor": 0.4
+ },
+ "place-miniature-world": {
+  "miniatuur": 1.0,
+  "detail": 0.7,
+  "verzamelen": 0.7,
+  "precisie": 0.7,
+  "concentratie": 0.4
+ },
+ "place-flea-market": {
+  "verzamelen": 1.0,
+  "nostalgie": 0.7,
+  "ontdekking": 0.7,
+  "gezelligheid": 0.4,
+  "duurzaamheid": 0.4
+ },
+ "place-night-street": {
+  "uitgaan": 1.0,
+  "stad": 0.7,
+  "klank": 0.7,
+  "gezelligheid": 0.4,
+  "vrijheid": 0.4
+ },
+ "place-steam-room": {
+  "warmte": 1.0,
+  "welzijn": 0.7,
+  "rust": 0.7,
+  "stilte": 0.4,
+  "water": 0.4
+ },
+ "place-fabric-atelier": {
+  "textiel": 1.0,
+  "atelier": 0.7,
+  "mode": 0.7,
+  "vakmanschap": 0.7,
+  "tast": 0.4,
+  "patronen": 0.4
+ },
+ "place-antique-parlour": {
+  "nostalgie": 1.0,
+  "verzamelen": 0.7,
+  "geschiedenis": 0.7,
+  "wonen": 0.4,
+  "ornament": 0.4,
+  "rust": 0.4
+ },
+ "place-dressing-room": {
+  "mode": 1.0,
+  "optreden": 0.7,
+  "elegantie": 0.7,
+  "spanning": 0.4,
+  "identiteit": 0.4
+ },
+ "place-ballroom": {
+  "elegantie": 1.0,
+  "geschiedenis": 0.4,
+  "ritme": 0.7,
+  "publiek": 0.4,
+  "schoonheid": 0.7,
+  "tradities": 0.4
+ },
+ "place-shop-window": {
+  "mode": 1.0,
+  "verzamelen": 0.4,
+  "schoonheid": 0.7,
+  "elegantie": 0.7,
+  "ontdekking": 0.4
+ },
+ "place-flower-shop": {
+  "planten": 1.0,
+  "schoonheid": 0.7,
+  "zorg": 0.4,
+  "elegantie": 0.4,
+  "geur": 0.7
+ },
+ "place-jeweller": {
+  "elegantie": 1.0,
+  "detail": 0.7,
+  "precisie": 0.4,
+  "schoonheid": 0.7,
+  "ambacht": 0.4
+ },
+ "place-dance-studio": {
+  "beweging": 1.0,
+  "ritme": 0.7,
+  "coordinatie": 0.7,
+  "expressie": 0.4,
+  "concentratie": 0.4
+ },
+ "place-tea-salon": {
+  "gezelligheid": 1.0,
+  "voeding": 0.4,
+  "nostalgie": 0.7,
+  "rust": 0.7,
+  "elegantie": 0.4
+ },
+ "place-wardrobe": {
+  "mode": 1.0,
+  "identiteit": 0.7,
+  "verzamelen": 0.4,
+  "elegantie": 0.7,
+  "patronen": 0.4
+ },
+ "place-peony-garden": {
+  "planten": 1.0,
+  "natuur": 0.7,
+  "schoonheid": 1.0,
+  "geur": 0.7,
+  "rust": 0.4
+ },
+ "place-bathhouse": {
+  "warmte": 1.0,
+  "welzijn": 0.7,
+  "water": 0.7,
+  "nostalgie": 0.4,
+  "rust": 0.7
+ },
+ "place-stable": {
+  "dieren": 1.0,
+  "zorg": 0.7,
+  "warmte": 0.7,
+  "natuur": 0.4
+ },
+ "place-platform": {
+  "mobiliteit": 1.0,
+  "avontuur": 0.7,
+  "verwondering": 0.4,
+  "nostalgie": 0.4,
+  "vrijheid": 0.4
+ },
+ "place-community-kitchen": {
+  "keuken": 1.0,
+  "gemeenschap": 0.7,
+  "zorg": 0.7,
+  "samenwerking": 0.7,
+  "verbondenheid": 0.7,
+  "voeding": 0.4
+ },
+ "place-lecture-room": {
+  "communicatie": 0.7,
+  "podium": 0.7,
+  "leiding": 0.4,
+  "spanning": 0.4,
+  "moed": 0.4,
+  "publiek": 0.7
+ },
+ "moment-clay": {
+  "klei": 1.0,
+  "creativiteit": 0.7,
+  "tast": 0.7,
+  "expressie": 0.4,
+  "geduld": 0.4,
+  "motoriek": 0.7
+ },
+ "moment-start": {
+  "spanning": 1.0,
+  "competitie": 0.7,
+  "moed": 0.4,
+  "snelheid": 0.4,
+  "doorzetten": 0.4
+ },
+ "moment-laughing": {
+  "humor": 1.0,
+  "gezelligheid": 0.7,
+  "verbondenheid": 0.7,
+  "speelsheid": 0.7
+ },
+ "moment-piece-fits": {
+  "puzzelen": 1.0,
+  "logica": 0.7,
+  "precisie": 0.4,
+  "ruimtelijk": 0.7,
+  "trots": 0.7
+ },
+ "moment-rhythm": {
+  "ritme": 1.0,
+  "beweging": 0.7,
+  "coordinatie": 0.7,
+  "expressie": 0.4,
+  "vrijheid": 0.4
+ },
+ "moment-summit": {
+  "bergen": 0.7,
+  "trots": 1.0,
+  "doorzetten": 0.7,
+  "conditie": 0.7,
+  "vrijheid": 0.7,
+  "avontuur": 0.4
+ },
+ "moment-growing": {
+  "planten": 1.0,
+  "geduld": 0.7,
+  "zorg": 0.7,
+  "natuur": 0.4,
+  "verwondering": 0.4,
+  "duurzaamheid": 0.4
+ },
+ "moment-lost-in-story": {
+  "verhalen": 1.0,
+  "fantasie": 0.7,
+  "opgaan": 1.0,
+  "rust": 0.4
+ },
+ "moment-stillness": {
+  "stilte": 1.0,
+  "rust": 1.0,
+  "opgaan": 0.4,
+  "welzijn": 0.4,
+  "spiritualiteit": 0.4
+ },
+ "moment-dead-centre": {
+  "precisie": 1.0,
+  "concentratie": 0.7,
+  "trots": 0.7,
+  "meesterschap": 0.4
+ },
+ "moment-countdown": {
+  "spanning": 1.0,
+  "puzzelen": 0.4,
+  "snelheid": 0.4,
+  "samenwerking": 0.4,
+  "logica": 0.4
+ },
+ "moment-scoreboard": {
+  "competitie": 1.0,
+  "samenwerking": 0.7,
+  "gezelligheid": 0.4,
+  "trots": 0.7,
+  "spanning": 0.4
+ },
+ "moment-applause": {
+  "trots": 1.0,
+  "optreden": 0.7,
+  "publiek": 0.7,
+  "expressie": 0.4,
+  "ontroering": 0.4
+ },
+ "moment-leap": {
+  "moed": 1.0,
+  "spanning": 0.7,
+  "avontuur": 0.7,
+  "grenzen": 0.7
+ },
+ "moment-campfire": {
+  "gezelligheid": 0.7,
+  "verhalen": 0.7,
+  "warmte": 0.7,
+  "verbondenheid": 0.7,
+  "natuur": 0.4
+ },
+ "moment-bread-oven": {
+  "voeding": 1.0,
+  "ambacht": 0.7,
+  "geur": 0.7,
+  "zorg": 0.4,
+  "trots": 0.4,
+  "geduld": 0.4
+ },
+ "moment-secret-door": {
+  "ontdekking": 1.0,
+  "verwondering": 0.7,
+  "spanning": 0.7,
+  "puzzelen": 0.4,
+  "verhalen": 0.4
+ },
+ "moment-first-lesson": {
+  "leren": 1.0,
+  "experimenteren": 0.7,
+  "ontdekking": 0.4,
+  "moed": 0.4,
+  "vakmanschap": 0.4
+ },
+ "moment-all-in": {
+  "kans": 1.0,
+  "spanning": 0.7,
+  "strategie": 0.4,
+  "moed": 0.4
+ },
+ "moment-deep-silence": {
+  "stilte": 1.0,
+  "water": 0.7,
+  "ondergrond": 0.7,
+  "rust": 0.7,
+  "avontuur": 0.4
+ },
+ "moment-collect": {
+  "verzamelen": 1.0,
+  "trots": 0.7,
+  "geduld": 0.4,
+  "nostalgie": 0.4,
+  "ontdekking": 0.4
+ },
+ "moment-curtain-rise": {
+  "optreden": 0.7,
+  "podium": 0.7,
+  "spanning": 0.7,
+  "verwondering": 0.4,
+  "verhalen": 0.4
+ },
+ "moment-gem-sparkle": {
+  "schoonheid": 1.0,
+  "licht": 0.7,
+  "detail": 0.7,
+  "verwondering": 0.7
+ },
+ "moment-first-stitch": {
+  "textiel": 1.0,
+  "vakmanschap": 0.7,
+  "geduld": 0.7,
+  "motoriek": 0.7,
+  "creativiteit": 0.4
+ },
+ "moment-first-dance": {
+  "beweging": 0.7,
+  "ritme": 0.7,
+  "verbondenheid": 0.7,
+  "elegantie": 0.4,
+  "moed": 0.4,
+  "spanning": 0.4
+ },
+ "moment-fitting": {
+  "mode": 1.0,
+  "identiteit": 0.7,
+  "elegantie": 0.4,
+  "verwondering": 0.4
+ },
+ "moment-mirror-evening": {
+  "mode": 0.7,
+  "uitgaan": 0.7,
+  "identiteit": 0.7,
+  "elegantie": 0.7,
+  "spanning": 0.4
+ },
+ "moment-pick-bouquet": {
+  "planten": 1.0,
+  "schoonheid": 0.7,
+  "geur": 0.7,
+  "natuur": 0.4,
+  "zorg": 0.4
+ },
+ "moment-unwrap": {
+  "verwondering": 0.7,
+  "zorg": 0.7,
+  "verbondenheid": 0.4,
+  "speelsheid": 0.4,
+  "ontroering": 0.4
+ },
+ "moment-clasp": {
+  "elegantie": 1.0,
+  "detail": 0.7,
+  "precisie": 0.4,
+  "trots": 0.4
+ },
+ "moment-tea-pour": {
+  "gezelligheid": 0.7,
+  "rust": 0.7,
+  "warmte": 0.7,
+  "voeding": 0.4,
+  "tradities": 0.4
+ },
+ "moment-braid": {
+  "geduld": 0.7,
+  "motoriek": 0.7,
+  "zorg": 0.7,
+  "mode": 0.4,
+  "ritme": 0.4,
+  "patronen": 0.4
+ },
+ "moment-first-snow": {
+  "weer": 1.0,
+  "stilte": 0.7,
+  "natuur": 0.7,
+  "verwondering": 0.7,
+  "rust": 0.4
+ },
+ "moment-gears": {
+  "technologie": 1.0,
+  "precisie": 0.7,
+  "logica": 0.7,
+  "puzzelen": 0.4,
+  "patronen": 0.4
+ },
+ "moment-feeding": {
+  "dieren": 1.0,
+  "zorg": 1.0,
+  "geduld": 0.4,
+  "natuur": 0.4,
+  "warmte": 0.4
+ },
+ "moment-departure": {
+  "mobiliteit": 0.7,
+  "avontuur": 0.7,
+  "vrijheid": 0.7,
+  "verwondering": 0.4,
+  "spanning": 0.4
+ },
+ "moment-work-day": {
+  "samenwerking": 1.0,
+  "gemeenschap": 0.7,
+  "zorg": 0.4,
+  "duurzaamheid": 0.4,
+  "doorzetten": 0.4
+ },
+ "moment-first-step": {
+  "moed": 1.0,
+  "spanning": 0.7,
+  "grenzen": 0.7,
+  "communicatie": 0.4
+ },
+ "sense-wood": {
+  "hout": 1.0,
+  "geur": 1.0,
+  "natuur": 0.4,
+  "vakmanschap": 0.4
+ },
+ "sense-salt": {
+  "water": 0.7,
+  "kust": 1.0,
+  "vrijheid": 0.7,
+  "avontuur": 0.4,
+  "tast": 0.4
+ },
+ "sense-wind": {
+  "vrijheid": 1.0,
+  "lucht": 0.7,
+  "beweging": 0.7,
+  "avontuur": 0.7
+ },
+ "sense-grass": {
+  "natuur": 1.0,
+  "tast": 0.7,
+  "rust": 0.7,
+  "vrijheid": 0.4
+ },
+ "sense-candlelight": {
+  "warmte": 0.7,
+  "rust": 1.0,
+  "licht": 0.7,
+  "gezelligheid": 0.4,
+  "spiritualiteit": 0.4
+ },
+ "sense-bass": {
+  "klank": 1.0,
+  "ritme": 0.7,
+  "beweging": 0.4,
+  "uitgaan": 0.4,
+  "muziek": 0.7
+ },
+ "sense-herbs": {
+  "geur": 1.0,
+  "planten": 0.7,
+  "voeding": 0.7,
+  "zorg": 0.4
+ },
+ "sense-cold-water": {
+  "water": 0.7,
+  "grenzen": 0.7,
+  "moed": 0.7,
+  "beweging": 0.4,
+  "tast": 0.4
+ },
+ "sense-old-book": {
+  "papier": 0.7,
+  "verhalen": 0.4,
+  "geschiedenis": 0.7,
+  "nostalgie": 0.7,
+  "geur": 0.7
+ },
+ "sense-click-metal": {
+  "precisie": 0.7,
+  "technologie": 0.7,
+  "metaal": 0.4,
+  "klank": 0.7,
+  "puzzelen": 0.4
+ },
+ "sense-engine-roar": {
+  "snelheid": 1.0,
+  "klank": 0.7,
+  "mobiliteit": 0.7,
+  "spanning": 0.7
+ },
+ "sense-drumroll": {
+  "spanning": 1.0,
+  "klank": 0.7,
+  "ritme": 0.7,
+  "speelsheid": 0.4,
+  "publiek": 0.4
+ },
+ "sense-wood-smoke": {
+  "geur": 1.0,
+  "warmte": 0.7,
+  "natuur": 0.4,
+  "rust": 0.4,
+  "nostalgie": 0.4
+ },
+ "sense-spotlight": {
+  "optreden": 0.7,
+  "licht": 0.7,
+  "warmte": 0.4,
+  "publiek": 0.7,
+  "spanning": 0.4
+ },
+ "sense-fresh-bread": {
+  "geur": 1.0,
+  "voeding": 1.0,
+  "warmte": 0.7,
+  "zorg": 0.4,
+  "gezelligheid": 0.4
+ },
+ "sense-vinyl-crackle": {
+  "klank": 0.7,
+  "nostalgie": 1.0,
+  "muziek": 0.7,
+  "verzamelen": 0.4,
+  "rust": 0.4
+ },
+ "sense-heartbeat": {
+  "spanning": 1.0,
+  "moed": 0.7,
+  "grenzen": 0.7,
+  "conditie": 0.4
+ },
+ "sense-cheering": {
+  "publiek": 0.7,
+  "competitie": 0.7,
+  "gezelligheid": 0.4,
+  "klank": 0.7,
+  "verbondenheid": 0.4
+ },
+ "sense-warm-fur": {
+  "dieren": 1.0,
+  "tast": 1.0,
+  "warmte": 0.7,
+  "zorg": 0.7
+ },
+ "sense-cave-cool": {
+  "ondergrond": 1.0,
+  "stilte": 0.4,
+  "spanning": 0.4,
+  "ontdekking": 0.7,
+  "verwondering": 0.4
+ },
+ "sense-fine-brush": {
+  "miniatuur": 0.7,
+  "detail": 1.0,
+  "precisie": 0.7,
+  "geduld": 0.7,
+  "verf": 0.4,
+  "motoriek": 0.7
+ },
+ "sense-warm-steam": {
+  "warmte": 1.0,
+  "geur": 0.7,
+  "welzijn": 0.7,
+  "rust": 0.7
+ },
+ "sense-silk-velvet": {
+  "tast": 1.0,
+  "textiel": 0.7,
+  "elegantie": 0.7,
+  "mode": 0.4
+ },
+ "sense-music-box": {
+  "klank": 0.7,
+  "nostalgie": 1.0,
+  "muziek": 0.7,
+  "ornament": 0.4,
+  "ontroering": 0.4
+ },
+ "sense-perfume": {
+  "geur": 1.0,
+  "elegantie": 0.7,
+  "identiteit": 0.4,
+  "schoonheid": 0.4
+ },
+ "sense-long-dress": {
+  "mode": 1.0,
+  "elegantie": 0.7,
+  "tast": 0.4,
+  "beweging": 0.4,
+  "klank": 0.4
+ },
+ "sense-powder-brush": {
+  "mode": 0.7,
+  "tast": 0.7,
+  "detail": 0.4,
+  "zorg": 0.4,
+  "schoonheid": 0.7
+ },
+ "sense-ballet-shoes": {
+  "beweging": 0.7,
+  "klank": 0.7,
+  "coordinatie": 0.7,
+  "elegantie": 0.4,
+  "concentratie": 0.4
+ },
+ "sense-peonies": {
+  "planten": 0.7,
+  "geur": 1.0,
+  "schoonheid": 0.7,
+  "tast": 0.4
+ },
+ "sense-facets": {
+  "licht": 0.7,
+  "detail": 0.7,
+  "schoonheid": 1.0,
+  "elegantie": 0.4,
+  "glas": 0.4
+ },
+ "sense-strings": {
+  "klank": 1.0,
+  "muziek": 1.0,
+  "ontroering": 0.7,
+  "spanning": 0.4
+ },
+ "sense-leather-bag": {
+  "leer": 1.0,
+  "geur": 0.7,
+  "mode": 0.4,
+  "vakmanschap": 0.4,
+  "tast": 0.7
+ },
+ "sense-lavender": {
+  "geur": 1.0,
+  "rust": 0.7,
+  "planten": 0.7,
+  "zorg": 0.4
+ },
+ "sense-ticking-clock": {
+  "precisie": 0.7,
+  "geduld": 0.4,
+  "technologie": 0.4,
+  "nostalgie": 0.4,
+  "klank": 0.7
+ },
+ "sense-feathers-fur": {
+  "tast": 1.0,
+  "dieren": 0.7,
+  "warmte": 0.7,
+  "zorg": 0.4
+ },
+ "sense-train-rhythm": {
+  "ritme": 1.0,
+  "mobiliteit": 0.7,
+  "nostalgie": 0.4,
+  "avontuur": 0.4,
+  "rust": 0.4
+ },
+ "sense-warm-soup": {
+  "geur": 0.7,
+  "voeding": 1.0,
+  "warmte": 0.7,
+  "gemeenschap": 0.7,
+  "zorg": 0.7
+ },
+ "sense-pencil-scratch": {
+  "stilte": 0.7,
+  "klank": 0.7,
+  "concentratie": 0.7,
+  "taalvaardig": 0.4,
+  "verhalen": 0.4,
+  "geduld": 0.4
+ }
+}

@@ -1,4 +1,6 @@
 import associationsJson from "@/lib/discovery/associations.json";
+import cardAssociationsJson from "@/lib/discovery/cardAssociations.json";
+import { knowledgeAssociationLayerEnabled } from "@/lib/knowledgeFlags";
 import { TAGS, getActivities, getActivity, isImagePending } from "@/lib/discovery/library";
 import { inSeason } from "@/lib/discovery/season";
 import { registerOfCard } from "@/lib/discovery/register";
@@ -62,7 +64,14 @@ export function hasOwnImage(c: { id: string; image: string }): boolean {
 }
 
 /** The slim card data the wizard receives (one language; no scenes). */
-export function buildAssociationLibrary(locale: "nl" | "en", month?: number): AssociationLibrary {
+const CARD_ASSOCIATIONS = cardAssociationsJson as Record<string, Record<string, number>>;
+
+/** The association layer's weights for a card: its family's (the variants of one family mean the same). */
+export function cardAssoc(c: { family?: string; id: string }): Record<string, number> | undefined {
+  return CARD_ASSOCIATIONS[c.family ?? c.id];
+}
+
+export function buildAssociationLibrary(locale: "nl" | "en", month?: number, layer: boolean = knowledgeAssociationLayerEnabled()): AssociationLibrary {
   return {
     cards: ASSOCIATIONS.filter(hasOwnImage).map((c) => ({
       id: c.id,
@@ -73,6 +82,7 @@ export function buildAssociationLibrary(locale: "nl" | "en", month?: number): As
       tagWeights: c.tagWeights,
       axes: c.axes,
       register: registerOfCard(c),
+      ...(layer && cardAssoc(c) ? { assoc: cardAssoc(c) } : {}),
     })),
     tagLabels: Object.fromEntries(TAGS.map((t) => [t.id, t.label[locale]])),
     correctionTags: CORRECTION_TAGS.filter((t) => TAGS.some((x) => x.id === t)),

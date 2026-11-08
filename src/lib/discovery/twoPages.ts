@@ -1,6 +1,7 @@
 import { hashSeed, mulberry32, shuffled } from "@/lib/discovery/rng";
 import { AXES, ENOUGH_PER_SIDE, SIDE, pickVariant } from "@/lib/discovery/associationSampling";
 import type { AssociationCardData } from "@/lib/discovery/associationProfile";
+import { assocCloseness, type ActivityVector } from "@/lib/discovery/associationLayer";
 import { REGISTERS, countRegisters, emptyCounts, type Register, type RegisterCounts } from "@/lib/discovery/registerTypes";
 
 // The two image pages of the image intake (docs/plan-twee-beeldpagina-s.md, docs/fase4-opzet.md):
@@ -205,6 +206,10 @@ export interface ConcreteActivity {
   tags: readonly string[];
   /** Where the activity sits on the three axes we know facets for (see activityAxes in associations.ts). */
   axes: { social: number; energy: number; setting: number };
+  /** The association layer's vector of the activity (idf-weighted), when the layer is on and the activity has one. */
+  assoc?: ActivityVector;
+  /** How broadly the activity lies close to images in general, relative to the average (1 = average; concretePool.ts). */
+  assocHub?: number;
 }
 
 export interface ConcreteOptions<A extends ConcreteActivity = ConcreteActivity> {
@@ -215,6 +220,10 @@ export interface ConcreteOptions<A extends ConcreteActivity = ConcreteActivity> 
   explore?: number;
   /** The tag profile of the chosen images (tagProfile). */
   profile: Record<string, number>;
+  /** The association layer: what the chosen images evoke (assocProfile). Leave out for the tags-only behaviour. */
+  assocProfile?: Record<string, number>;
+  /** Override of ASSOC_WEIGHT (the measuring script tries several). */
+  assocWeight?: number;
   /** The average axes of the chosen images; leave out for no preference. */
   axes?: { social: number; energy: number; setting: number };
   /** Tags that are only a mood: they count half (the `generic` tags of the vocabulary). */
@@ -236,6 +245,8 @@ export interface ConcreteSlot<A extends ConcreteActivity = ConcreteActivity> {
 }
 
 const JITTER = 0.5;
+/** How much the association layer counts next to tag closeness (1) when it is on. */
+export const ASSOC_WEIGHT = 0.35;
 
 /**
  * Page 2 (or a refresh of it): `size` concrete activities that follow from the chosen images.
@@ -261,7 +272,18 @@ export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A
   const maxClose = Math.max(0.0001, ...pool.map(closeness));
   const fit = (a: A) =>
     opts.axes ? 1 - (Math.abs(a.axes.social - opts.axes.social) + Math.abs(a.axes.energy - opts.axes.energy) + Math.abs(a.axes.setting - opts.axes.setting)) / 6 : 0.5;
-  const score = new Map(pool.map((a) => [a.id, closeness(a) / maxClose + 0.25 * fit(a) + (opts.prefer ? 0.3 * opts.prefer(a) : 0) + JITTER * rnd(a.id)]));
+  // The association layer adds a second closeness, in the vocabulary the tags lack (geur, warmte, trots, verwondering...). An activity
+  // without a vector (not in the reference library) gets the average, so it is neither lifted nor sunk against the others.
+  const layer = opts.assocProfile && Object.keys(opts.assocProfile).length > 0 ? opts.assocProfile : null;
+  // Divided by the square root of the activity's hubness, so a broadly matching activity does not win everywhere.
+  const assoc = (a: A) => (layer ? assocCloseness(layer, a.assoc) / Math.sqrt(Math.max(0.5, a.assocHub ?? 1)) : 0);
+  const maxAssoc = layer ? Math.max(0.0001, ...pool.map(assoc)) : 1;
+  const withVector = layer ? pool.filter((a) => a.assoc && a.assoc.length > 0) : [];
+  const meanAssoc = withVector.length ? withVector.reduce((s, a) => s + assoc(a), 0) / withVector.length / maxAssoc : 0;
+  // An activity without a vector gets half the average: not sunk against the ones that have one, but not lifted either.
+  const assocWeight = opts.assocWeight ?? ASSOC_WEIGHT;
+  const assocScore = (a: A) => (layer ? assocWeight * (a.assoc && a.assoc.length > 0 ? assoc(a) / maxAssoc : 0.5 * meanAssoc) : 0);
+  const score = new Map(pool.map((a) => [a.id, closeness(a) / maxClose + assocScore(a) + 0.25 * fit(a) + (opts.prefer ? 0.3 * opts.prefer(a) : 0) + JITTER * rnd(a.id)]));
 
   const keptList = pool.filter((a) => keepIds.has(a.id));
   const fresh = pool.filter((a) => !keepIds.has(a.id) && !excluded.has(a.id));

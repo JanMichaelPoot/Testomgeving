@@ -51,6 +51,8 @@ export interface AssociationCardData {
   round: AssociationRound;
   tagWeights: Record<string, number>;
   axes: AssociationAxes;
+  /** The reference-library associations the image evokes (association layer, cardAssociations.json). Only sent while the layer is on. */
+  assoc?: Record<string, number>;
 }
 
 /** Slim card for the browser: one language, no art direction. */
