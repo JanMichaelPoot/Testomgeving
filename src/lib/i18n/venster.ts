@@ -931,7 +931,7 @@ export const vensterNl: VensterDictionary = {
   },
   pdf: { coverTitle: "Een venster voor jou", coverTitleGift: "Een venster voor {name}", coverTitleGroup: "Een venster voor jullie" },
   testBanner: "Testversie · betaal met testkaart 4242 4242 4242 4242, er wordt niets afgeschreven.",
-  errorGeneric: "Er ging iets mis. Probeer het opnieuw.",
+  errorGeneric: "Er ging iets mis bij het opslaan van je keuzes. Ververs de pagina en probeer het opnieuw: je keuzes blijven bewaard.",
 };
 
 export const vensterEn: VensterDictionary = {
@@ -1538,5 +1538,5 @@ export const vensterEn: VensterDictionary = {
   },
   pdf: { coverTitle: "A window for you", coverTitleGift: "A window for {name}", coverTitleGroup: "A window for all of you" },
   testBanner: "Test version · pay with test card 4242 4242 4242 4242, nothing is charged.",
-  errorGeneric: "Something went wrong. Please try again.",
+  errorGeneric: "Something went wrong while saving your choices. Refresh the page and try again: your choices are kept.",
 };
