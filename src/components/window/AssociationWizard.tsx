@@ -26,6 +26,7 @@ import { buildSill, buildWindowItems, windowImageHref } from "@/lib/vensterPanes
 import { layoutWindow } from "@/lib/windowLayout";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { DRAFT_VERSION, TWO_PAGE_LAYOUT, chapterOf, migrateDraftPage, migrateTwoPageDraft, pagesFor, type AnyVensterPageId } from "@/lib/vensterPages";
+import { parseMustHaves } from "@/lib/discovery/engine/constraints";
 import { activityContextLean, allowedForContext, imagePreference, isForOther, normalizeSearchContext, type SearchContext } from "@/lib/discovery/audience";
 import { ContextIcon } from "@/components/window/ContextIcon";
 import { BUDGET_STEPS, budgetStepIndex, currentBudget } from "@/lib/budgetOptions";
@@ -404,11 +405,16 @@ export function AssociationWizard({
   const picks = answers.interests ?? [];
   const chosenImagesKey = chosen.join("|");
   // Page 2 is composed again when the images or who the search is for change.
-  const concreteKey = `${searchContext}#${chosenImagesKey}`;
+  // Going with children (the start page chip) keeps the same short list of unsuitable activities off page 2 as a young searcher does.
+  const withKids = useMemo(() => parseMustHaves(limitChips.join("; ")).verify.includes("children"), [limitChips]);
+  const concreteKey = `${searchContext}${withKids ? "+kids" : ""}#${chosenImagesKey}`;
   const allActivities = concretePool?.activities;
   const poolById = useMemo(() => new Map((allActivities ?? []).map((a) => [a.id, a])), [allActivities]);
   // For a child or young person nothing with alcohol, gambling, weapons or heavy tools is offered.
-  const poolActivities = useMemo(() => allActivities?.filter((a) => allowedForContext(a, searchContext)), [allActivities, searchContext]);
+  const poolActivities = useMemo(
+    () => allActivities?.filter((a) => allowedForContext(a, searchContext) && (!withKids || allowedForContext(a, "child"))),
+    [allActivities, searchContext, withKids],
+  );
   const contextPrefer = useMemo(
     () =>
       searchContext === "child" || searchContext === "group"

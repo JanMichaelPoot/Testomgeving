@@ -197,6 +197,32 @@ answer: "nothing verifiable in or near this place" is correct and expected whene
 show a venue that exists and is open now; a wrong venue in a paid book is far worse than none. You finish with
 exactly one JSON code block and nothing after it.`;
 
+/** Practical wishes of the person that change which venue is a good one (the engine only flags them; it has no data to filter on). */
+export type ResearchNeed = "evening" | "transport" | "accessibility" | "children";
+const NEED_BY_FLAG: Record<string, ResearchNeed> = { evening: "evening", transport: "transport", accessibility: "accessibility", children: "children" };
+
+/** The research-relevant wishes among the engine's `verify` flags, in a fixed order (they are part of the cache key). */
+export function researchNeedsFrom(verify: readonly string[]): ResearchNeed[] {
+  const found = new Set(verify.map((v) => NEED_BY_FLAG[v]).filter((n): n is ResearchNeed => !!n));
+  return (["evening", "transport", "accessibility", "children"] as const).filter((n) => found.has(n));
+}
+
+const NEED_TEXT: Record<ResearchNeed, string> = {
+  evening: "wants to go in the evening: prefer an option that actually runs in the evening (the source shows evening times or sessions) and sits somewhere busy and well lit, such as a venue in a town centre or on a main street, not a remote spot",
+  transport: "has no car: prefer an option that is easy to reach by public transport or on foot or by bike from the place above; say so in the note when the source shows the station or stop",
+  accessibility: "needs step-free access: prefer an option whose source says it is accessible; leave out one that the source says is not",
+  children: "goes with children: prefer an option where children are welcome; leave out one that is for adults only",
+};
+
+/** One paragraph for the research prompt, or an empty string when there is nothing to say. */
+export function needsBlock(needs: readonly ResearchNeed[]): string {
+  if (needs.length === 0) return "";
+  return `
+The person ${needs.map((n) => `(${n}) ${NEED_TEXT[n]}`).join("; ")}. This decides which options to keep when several qualify, and an option that clearly does not meet it
+is left out. It never lets you list something that fails the rules below (it must exist and be open now), and never write a claim the source does not show.
+`;
+}
+
 export function buildResearchPrompt(
   activityIds: string[],
   location: string,
@@ -204,6 +230,7 @@ export function buildResearchPrompt(
   locale: Locale,
   now: Date = new Date(),
   priority = false,
+  needs: readonly ResearchNeed[] = [],
 ): string {
   const language = locale === "nl" ? "Dutch" : "English";
   // Activities the person chose themselves: search each one separately and accept a little more distance and evidence for
@@ -230,7 +257,7 @@ For each activity below, find up to 4 real, currently operating options where a 
 there, preferring a low-threshold way in (trial class, beginner evening, open day, drop-in). Combine searches
 where one query can cover several activities (for example "creatieve workshops ${location || "Nederland"}").
 If nothing can be verified for an activity, give an empty options list instead of guessing.
-${priorityBlock}
+${priorityBlock}${needsBlock(needs)}
 It must be possible to take part within the next four weeks from today. So an option does NOT count when it is
 closed for the season, has stopped running, or is an event whose date has already passed. Seasonal offers (open-
 water swimming, outdoor pools, boat rental, ice rinks, markets, festivals, garden and farm days) only count when
@@ -357,6 +384,7 @@ async function searchOnce(
   locale: Locale,
   now: Date = new Date(),
   priority = false,
+  needs: readonly ResearchNeed[] = [],
 ): Promise<Map<string, LocalOption[]> | null> {
   const startedAt = Date.now();
   // The person's own choices get about one and a half searches each (measured: 6 searches for 3 choices cost ~$0.14, mostly the
@@ -368,7 +396,7 @@ async function searchOnce(
     model: RESEARCH_MODEL,
     max_tokens: 3500,
     system: SYSTEM,
-    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now, priority) }],
+    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now, priority, needs) }],
     tools: [
       {
         type: "web_search_20250305",
@@ -453,6 +481,8 @@ export async function researchSeeds(opts: {
    * Its answers are cached under their own key (the place hardly matters, but the month does).
    */
   mode?: "online";
+  /** Practical wishes (researchNeedsFrom): evening, no car, step-free, with children. They change which options are kept, so they are part of the cache key. */
+  needs?: readonly ResearchNeed[];
 }): Promise<{ byActivity: Map<string, SeedResearch>; stats: ResearchStats }> {
   const startedAt = Date.now();
   const { activityIds, location, searchDistance, locale } = opts;
@@ -464,7 +494,8 @@ export async function researchSeeds(opts: {
   // "v2": the notes are now always in the book's language; older cached notes could be in the language of the website.
   // "v3": options now carry ratings and passed the stricter "is it really open" rules; older answers are not trusted.
   const online = opts.mode === "online";
-  const cacheKey = `${online ? "online" : place}|${today.slice(0, 7)}|v3${online ? "|online" : ""}`;
+  const needs = online ? [] : researchNeedsFrom(opts.needs ?? []);
+  const cacheKey = `${online ? "online" : place}|${today.slice(0, 7)}|v3${online ? "|online" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
   const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 
@@ -503,7 +534,7 @@ export async function researchSeeds(opts: {
   const batch = async (ids: string[], own: boolean) => {
     if (ids.length === 0) return;
     try {
-      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own);
+      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own, needs);
       if (!found) throw new Error("the research answer could not be read");
       await Promise.all(
         ids.map(async (id) => {

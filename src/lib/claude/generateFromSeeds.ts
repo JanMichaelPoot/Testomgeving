@@ -17,7 +17,7 @@ import {
   toText,
   toTextArray,
 } from "@/lib/claude/generateIdeaBook";
-import { researchSeeds, type LocalOption, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
+import { researchNeedsFrom, researchSeeds, type LocalOption, type ResearchNeed, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
 import { currentMonth, describeToday, isoDateNL } from "@/lib/discovery/season";
 import { editionDate, type Season } from "@/lib/seasonEdition";
 import { engineInputFromIntake, relatedActivities, runEngine } from "@/lib/discovery/engine";
@@ -212,6 +212,20 @@ that same route, written separately.
 // B5 / V2, only with KNOWLEDGE_ENGINE_V2 on and only for the image intake: the person chose pictures, never
 // activities. The activities the selection derived from those pictures were presented to the writer as things
 // they "picked" ("Related to something they picked"), and the text followed. Inserted before "For every idea:".
+const NEED_RULES: Record<ResearchNeed, string> = {
+  evening: "They want to go in the evening. Say so in the first step (check that it runs in the evening) and name the evening time only when the verified options show it. Never suggest being somewhere remote or unlit after dark: where an activity is normally outdoors, write the version in a busy, lit place, or say plainly that it is better by day.",
+  transport: "They have no car. Never assume parking. Say how to get there without one only when the verified option shows the station or stop; otherwise tell them to check the route on 9292 before booking.",
+  accessibility: "They need step-free access. Never claim a place is accessible unless the verified option says so; in the first step tell them to ask about step-free access when booking.",
+  children: "They go with children. Write the idea as something to do with children, say in the first step to check the minimum age when booking, and never suggest anything for adults only.",
+};
+
+/** Practical wishes as writing rules, or an empty string. The engine can only flag these (no data to filter on), so the writer must carry them. */
+export function practicalNeedsPrompt(needs: readonly ResearchNeed[]): string {
+  if (needs.length === 0) return "";
+  const lines = needs.map((n) => `- ${NEED_RULES[n]}`);
+  return ["Practical needs the person stated (these apply to every idea; never invent a fact to satisfy them):", ...lines, "", ""].join("\n");
+}
+
 export const HONEST_ORIGIN_RULE = `The person chose IMAGES, not activities. An activity that is not marked as "chosen" was reached by us from
 their images. Never write that they picked, chose or selected an activity, and never claim an interest they did
 not state. Say what their images pointed to ("the image of candlelight pointed towards quiet, and this shares
@@ -671,6 +685,7 @@ export async function generateIdeaBookFromSeeds(
       known,
       now,
       priorityIds: [...ownPicks],
+      needs: researchNeedsFrom(engine.constraints.verify),
     });
   let research = await researchFor(engine.seeds);
 
@@ -761,7 +776,7 @@ export async function generateIdeaBookFromSeeds(
 
 ${formatProfile(intake, characterProfile)}
 
-The seven ideas (in this order; Idea ${seeds.length} is the wildcard):
+${practicalNeedsPrompt(researchNeedsFrom(engine.constraints.verify))}The seven ideas (in this order; Idea ${seeds.length} is the wildcard):
 
 ${seeds.map((s, i) => seedBlock(s, i, seedResearch(s, research.byActivity), locale, chosenImages, honestOrigin, explicitPicks, ownPicks.has(s.activityId))).join("\n\n")}`;
   const user = `${shared}

@@ -85,6 +85,7 @@ export function resolveConstraints(input: EngineInput, opts: ResolveOptions = {}
     verify: must.verify,
     month: input.month ?? null,
     ...(normalizeSearchContext(input.searchContext) === "child" ? { minorSafe: true } : {}),
+    ...(must.verify.includes("children") ? { withKids: true } : {}),
     ...(opts.strictFreeCost ? { strictFreeCost: true } : {}),
   };
 }
@@ -105,6 +106,8 @@ export function passesConstraints(a: Activity, c: ResolvedConstraints): FilterRe
   if (!inSeason(a, c.month)) return no;
   // A search for a child or young person: nothing with alcohol, gambling, weapons or heavy tools.
   if (c.minorSafe && !allowedForContext(a, "child")) return no;
+  // They go with children: the same short list (alcohol, gambling, weapons, heavy tools, adult-only forms) stays out of the book.
+  if (c.withKids && !allowedForContext(a, "child")) return no;
 
   if (a.cost === null) {
     // Unknown is not "free": with the strict rule nobody who asked for free is offered something we cannot vouch for.

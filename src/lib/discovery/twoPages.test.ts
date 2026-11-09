@@ -9,6 +9,8 @@ import { REGISTERS, countRegisters, type Register } from "@/lib/discovery/regist
 import {
   CONCRETE_PAGE_SIZE,
   EXPLORE_SLOTS,
+  GRACEFUL_FAMILIES,
+  GRACEFUL_MIN,
   IMAGES_PAGE_SIZE,
   MAX_IMAGE_PICKS,
   MIN_IMAGE_PICKS,
@@ -68,6 +70,32 @@ describe("page 1: a balanced batch of images", () => {
       expect(batch.filter((c) => c.axes.novelty <= -SIDE).length, `${i} novelty-`).toBeGreaterThanOrEqual(1);
       for (const round of ["places", "moments", "senses"] as const) expect(batch.filter((c) => c.round === round).length, `${i} ${round}`).toBeGreaterThanOrEqual(4);
     }
+  });
+
+  it("always shows at least five of the graceful world (dance, theatre, dolls, jewellery, clothing, flowers), on the first set and on every refresh while the pool has unseen ones", () => {
+    const fams = new Set(cards.map((c) => c.family ?? c.id));
+    const available = [...GRACEFUL_FAMILIES].filter((f) => fams.has(f)).length;
+    expect(available).toBeGreaterThanOrEqual(GRACEFUL_MIN * 4); // the pool can carry the floor on all four sets
+    expect(GRACEFUL_MIN).toBe(MIN_IMAGE_PICKS); // a person must be able to choose the fewest images from it
+    for (let i = 0; i < 300; i++) {
+      const seen: string[] = [];
+      for (let r = 0; r < 4; r++) {
+        const b = sampleBalancedBatch(cards, { seed: `graceful-${i}`, refresh: r, exclude: seen });
+        seen.push(...b.map((c) => c.id));
+        expect(b.filter((c) => GRACEFUL_FAMILIES.has(c.family ?? c.id)).length, `seed ${i} set ${r}`).toBeGreaterThanOrEqual(GRACEFUL_MIN);
+        // the other floors stand: every register at least a quarter
+        const counts = countRegisters(b.map((c) => c.register));
+        for (const reg of REGISTERS) expect(counts[reg], `${reg} seed ${i} set ${r}`).toBeGreaterThanOrEqual(4);
+      }
+    }
+  });
+
+  it("can be switched off, and the graceful families all exist", () => {
+    const fams = new Set(ASSOCIATIONS.map((c) => c.family ?? c.id));
+    for (const f of GRACEFUL_FAMILIES) expect(fams.has(f), f).toBe(true);
+    // without the floor some first sets carry fewer than five (so the floor is doing something)
+    const few = Array.from({ length: 200 }, (_, i) => sampleBalancedBatch(cards, { seed: `graceful-off-${i}`, theme: null }).filter((c) => GRACEFUL_FAMILIES.has(c.family ?? c.id)).length);
+    expect(Math.min(...few)).toBeLessThan(GRACEFUL_MIN);
   });
 
   it("is the same for the same seed and different for another", () => {

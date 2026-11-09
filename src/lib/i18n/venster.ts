@@ -28,7 +28,7 @@ export interface VensterDictionary {
     dropped: {
       title: string;
       body: string;
-      reasons: Record<"season" | "audience" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
+      reasons: Record<"season" | "audience" | "kids" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
       editSituation: string;
       editChoices: string;
     };
@@ -375,6 +375,7 @@ export const vensterNl: VensterDictionary = {
       reasons: {
         season: "past niet bij de tijd van het jaar",
         audience: "past niet bij voor wie je zoekt",
+        kids: "is niet voor kinderen",
         budget: "past niet bij je budget",
         effort: "vraagt meer inspanning dan je aangaf",
         supervised: "vraagt begeleiding en past niet bij je voorkeur voor het vertrouwde",
@@ -981,6 +982,7 @@ export const vensterEn: VensterDictionary = {
       reasons: {
         season: "does not fit the time of year",
         audience: "does not suit who you are searching for",
+        kids: "is not for children",
         budget: "does not fit your budget",
         effort: "takes more effort than you said",
         supervised: "needs guidance and does not fit your preference for the familiar",

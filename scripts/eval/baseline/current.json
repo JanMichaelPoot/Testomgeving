@@ -38,13 +38,13 @@
    "wildcard:wildcard:gedichten-schrijven"
   ],
   "P05": [
-   "familiar:natural:streek-weekend",
-   "familiar:natural:pluktuin",
-   "adjacent:discovery:paaldansen",
-   "adjacent:discovery:upcycle-kleding",
+   "familiar:natural:eilandhoppen",
+   "familiar:natural:straatfeest",
+   "adjacent:discovery:proplifting",
+   "adjacent:discovery:fietsvakantie",
    "unexpected:unexpected:brocante-antiek",
-   "stretch:stretch:tuinieren",
-   "wildcard:wildcard:instrument"
+   "stretch:stretch:natuurbeheer",
+   "wildcard:wildcard:rolschaatsen"
   ],
   "P06": [
    "familiar:natural:verzetsroute",

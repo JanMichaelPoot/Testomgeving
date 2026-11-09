@@ -91,6 +91,8 @@ export interface ResolvedConstraints {
   month: number | null;
   /** The search is for a child or young person: activities that are not for minors are not offered (audience.ts). */
   minorSafe?: boolean;
+  /** They go with children (the must-have chip "Kinderen"): what is not for children is left out too, like for a young searcher. */
+  withKids?: boolean;
   /** B4: unknown cost does not pass a free budget (weights.strictFreeCost). Absent = the rule of before B4. */
   strictFreeCost?: boolean;
 }

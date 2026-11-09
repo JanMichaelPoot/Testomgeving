@@ -1,3 +1,4 @@
+import gracefulJson from "@/lib/discovery/gracefulFamilies.json";
 import { hashSeed, mulberry32, shuffled } from "@/lib/discovery/rng";
 import { AXES, ENOUGH_PER_SIDE, SIDE, pickVariant } from "@/lib/discovery/associationSampling";
 import type { AssociationCardData } from "@/lib/discovery/associationProfile";
@@ -37,6 +38,14 @@ export type RegisteredCard = AssociationCardData & { register: Register };
 
 const familyOf = (c: AssociationCardData) => c.family ?? c.id;
 
+/**
+ * The graceful, decorative world (dance, theatre, dolls and miniatures, jewellery, clothing, beauty, flowers, tea) has a floor of its own on
+ * page 1: at least GRACEFUL_MIN of the 18 images, as far as the pool has unseen families of it, so a taste for it can always be expressed
+ * on the first set (five is also the fewest images a person must choose). The register floors stay; these families count towards them.
+ */
+export const GRACEFUL_FAMILIES: ReadonlySet<string> = new Set(gracefulJson.families);
+export const GRACEFUL_MIN = 5;
+
 export interface BatchOptions {
   /** One per session, kept in the draft. */
   seed: string;
@@ -55,6 +64,8 @@ export interface BatchOptions {
    * page but never make it one-sided. `index` is the card's position in the seeded order.
    */
   prefer?: (card: AssociationCardData, index: number) => number;
+  /** The graceful-theme floor; `null` switches it off (the default is GRACEFUL_FAMILIES with GRACEFUL_MIN). */
+  theme?: { families: ReadonlySet<string>; min: number } | null;
 }
 
 /** The lack of a list of families: how far it is from at least ENOUGH on each side of each axis, and from enough of every round. */
@@ -135,7 +146,11 @@ export function sampleBalancedBatch<T extends RegisteredCard>(cards: readonly T[
     }
     freshOrdered = merged;
   }
-  const order = [...freshOrdered, ...recycled];
+  const theme = opts.theme === undefined ? { families: GRACEFUL_FAMILIES, min: GRACEFUL_MIN } : opts.theme;
+  const themeKept = theme ? keptFamilies.filter((f) => theme.families.has(f)).length : 0;
+  // The floor: the first (min - kept) unseen theme families go to the front of the order, so they are picked before anything else of their register.
+  const themeFront = theme ? [...freshOrdered, ...recycled].filter((f) => theme.families.has(f)).slice(0, Math.max(0, theme.min - themeKept)) : [];
+  const order = [...themeFront, ...[...freshOrdered, ...recycled].filter((f) => !themeFront.includes(f))];
 
   const need = Math.max(0, Math.min(size - kept.length, order.length));
   const perRegister = Math.floor(size / REGISTERS.length);
@@ -164,6 +179,8 @@ export function sampleBalancedBatch<T extends RegisteredCard>(cards: readonly T[
     outer: for (const candidate of rest) {
       for (let i = list.length - 1; i >= 0; i--) {
         if (registerOf(list[i]) !== registerOf(candidate)) continue;
+        // A repair never takes the page below its graceful floor.
+        if (theme && theme.families.has(list[i]) && !theme.families.has(candidate) && themeKept + list.filter((f) => theme.families.has(f)).length <= theme.min) continue;
         const next = [...list];
         next[i] = candidate;
         if (lack([...keptFamilies, ...next]) < now) {

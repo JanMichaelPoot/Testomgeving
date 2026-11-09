@@ -9031,5 +9031,1793 @@
       "novelty": 0.2
     },
     "status": "concept"
+  },
+  {
+    "id": "place-long-table",
+    "family": "place-long-table",
+    "round": "places",
+    "label": {
+      "nl": "Een lange tafel onder lampjes",
+      "en": "A long table under string lights"
+    },
+    "scene": "A very long wooden table set for dinner under strings of warm lights in a garden at dusk, plates, candles and dishes, chairs empty, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "conviviality": 1,
+      "food": 0.8,
+      "play": 0.3,
+      "outdoors": 0.3
+    },
+    "axes": {
+      "social": 0.9,
+      "energy": -0.1,
+      "setting": 0.2,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-long-table-b",
+    "family": "place-long-table",
+    "round": "places",
+    "label": {
+      "nl": "Een gedekte tafel vol schalen",
+      "en": "A laid table full of dishes"
+    },
+    "scene": "A rustic indoor dining table laden with bowls of food, bread and bottles under a hanging lamp, empty chairs, warm evening light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "conviviality": 1,
+      "food": 0.8,
+      "play": 0.3,
+      "outdoors": 0.3
+    },
+    "axes": {
+      "social": 0.9,
+      "energy": -0.1,
+      "setting": 0.2,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-long-table-c",
+    "family": "place-long-table",
+    "round": "places",
+    "label": {
+      "nl": "Een oogsttafel onder een oude boom",
+      "en": "A harvest table under an old tree"
+    },
+    "scene": "A harvest table outdoors under an old tree with baskets of vegetables, jugs and cloths, set for a big meal, golden hour.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "conviviality": 1,
+      "food": 0.8,
+      "play": 0.3,
+      "outdoors": 0.3
+    },
+    "axes": {
+      "social": 0.9,
+      "energy": -0.1,
+      "setting": 0.2,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-language-cafe",
+    "family": "place-language-cafe",
+    "round": "places",
+    "label": {
+      "nl": "Een café met woordenboeken",
+      "en": "A café with dictionaries"
+    },
+    "scene": "A cosy café table with open dictionaries, a stack of phrase books, two cups and a small globe, soft window light, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 1,
+      "learning": 0.7,
+      "conviviality": 0.4,
+      "discovery": 0.4
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0,
+      "setting": -1,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-language-cafe-b",
+    "family": "place-language-cafe",
+    "round": "places",
+    "label": {
+      "nl": "Een leslokaal met vlaggetjes",
+      "en": "A classroom with bunting of flags"
+    },
+    "scene": "A small language school lounge with a string of small flags from many countries, bookshelves and a round table with phrase books.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 1,
+      "learning": 0.7,
+      "conviviality": 0.4,
+      "discovery": 0.4
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0,
+      "setting": -1,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-language-cafe-c",
+    "family": "place-language-cafe",
+    "round": "places",
+    "label": {
+      "nl": "Een tafel met ansichtkaarten",
+      "en": "A table of postcards"
+    },
+    "scene": "A café table with a tea pot, a stack of paperbacks and a fan of postcards from different countries, warm light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 1,
+      "learning": 0.7,
+      "conviviality": 0.4,
+      "discovery": 0.4
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0,
+      "setting": -1,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-writing-desk",
+    "family": "place-writing-desk",
+    "round": "places",
+    "label": {
+      "nl": "Een schrijftafel bij het raam",
+      "en": "A writing desk by the window"
+    },
+    "scene": "A wooden writing desk by a window with a notebook, a fountain pen, a lamp and a cup of tea, early morning light, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 0.8,
+      "story": 0.8,
+      "stillness": 0.6,
+      "learning": 0.3
+    },
+    "axes": {
+      "social": -0.8,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-writing-desk-b",
+    "family": "place-writing-desk",
+    "round": "places",
+    "label": {
+      "nl": "Een typemachine op zolder",
+      "en": "A typewriter in the attic"
+    },
+    "scene": "A typewriter on a small table in a quiet attic room with a sheet of paper rolled in and stacked drafts, soft light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 0.8,
+      "story": 0.8,
+      "stillness": 0.6,
+      "learning": 0.3
+    },
+    "axes": {
+      "social": -0.8,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-writing-desk-c",
+    "family": "place-writing-desk",
+    "round": "places",
+    "label": {
+      "nl": "Een tuinhuisje om in te schrijven",
+      "en": "A garden shed to write in"
+    },
+    "scene": "A garden shed turned writing retreat with a plain table, a notebook and a mug, the window open to green leaves.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 0.8,
+      "story": 0.8,
+      "stillness": 0.6,
+      "learning": 0.3
+    },
+    "axes": {
+      "social": -0.8,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-meadow-sheep",
+    "family": "place-meadow-sheep",
+    "round": "places",
+    "label": {
+      "nl": "Schapen in de ochtendmist",
+      "en": "Sheep in the morning mist"
+    },
+    "scene": "A misty green meadow at dawn with a flock of sheep grazing, a wooden fence and soft golden light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "nature": 0.7,
+      "stillness": 0.5,
+      "outdoors": 0.6
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": 1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-meadow-sheep-b",
+    "family": "place-meadow-sheep",
+    "round": "places",
+    "label": {
+      "nl": "Hooglanders in de mist",
+      "en": "Highland cattle in the fog"
+    },
+    "scene": "Shaggy highland cattle standing in morning fog on a hillside with dew on the grass, calm.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "nature": 0.7,
+      "stillness": 0.5,
+      "outdoors": 0.6
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": 1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-meadow-sheep-c",
+    "family": "place-meadow-sheep",
+    "round": "places",
+    "label": {
+      "nl": "Ganzen aan het water bij zonsopkomst",
+      "en": "Geese by the water at sunrise"
+    },
+    "scene": "A flock of geese at a quiet pond edge at sunrise with mist and reeds.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "nature": 0.7,
+      "stillness": 0.5,
+      "outdoors": 0.6
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": 1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-words",
+    "family": "moment-first-words",
+    "round": "moments",
+    "label": {
+      "nl": "De eerste zin in een nieuwe taal",
+      "en": "The first sentence in a new language"
+    },
+    "scene": "A language-learning notebook open on a table with colourful flashcards and a pencil, a small paper flag of another country, fresh light, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 1,
+      "learning": 0.8,
+      "discovery": 0.4,
+      "focus": 0.3
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0.1,
+      "setting": -0.5,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-words-b",
+    "family": "moment-first-words",
+    "round": "moments",
+    "label": {
+      "nl": "Een kaart, een pin en een taalgids",
+      "en": "A map, a pin and a phrasebook"
+    },
+    "scene": "A world map with a bright pin and a phrasebook on a table, a train ticket and a coffee cup, morning light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 1,
+      "learning": 0.8,
+      "discovery": 0.4,
+      "focus": 0.3
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0.1,
+      "setting": -0.5,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-words-c",
+    "family": "moment-first-words",
+    "round": "moments",
+    "label": {
+      "nl": "Een leeg klaslokaal met een wereldbol",
+      "en": "An empty classroom with a globe"
+    },
+    "scene": "Old-fashioned school desks in a sunlit classroom with a globe and a clean blackboard, nobody there.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 1,
+      "learning": 0.8,
+      "discovery": 0.4,
+      "focus": 0.3
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0.1,
+      "setting": -0.5,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-cheers",
+    "family": "moment-cheers",
+    "round": "moments",
+    "label": {
+      "nl": "Alle glazen bij elkaar",
+      "en": "All the glasses together"
+    },
+    "scene": "Several glasses of golden drink clustered close together in the centre of a festive table, sparkles of light, candles, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "conviviality": 1,
+      "food": 0.6,
+      "play": 0.3
+    },
+    "axes": {
+      "social": 1,
+      "energy": 0.3,
+      "setting": -0.5,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-cheers-b",
+    "family": "moment-cheers",
+    "round": "moments",
+    "label": {
+      "nl": "Een rij gevulde glazen",
+      "en": "A row of filled glasses"
+    },
+    "scene": "A row of filled champagne flutes on a silver tray with confetti and ribbons, soft festive light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "conviviality": 1,
+      "food": 0.6,
+      "play": 0.3
+    },
+    "axes": {
+      "social": 1,
+      "energy": 0.3,
+      "setting": -0.5,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-cheers-c",
+    "family": "moment-cheers",
+    "round": "moments",
+    "label": {
+      "nl": "De tafel na een toost",
+      "en": "The table after a toast"
+    },
+    "scene": "A table after a big toast: empty glasses with bubbles, party streamers and candles, warm tones.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "conviviality": 1,
+      "food": 0.6,
+      "play": 0.3
+    },
+    "axes": {
+      "social": 1,
+      "energy": 0.3,
+      "setting": -0.5,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-last-line",
+    "family": "moment-last-line",
+    "round": "moments",
+    "label": {
+      "nl": "De laatste regel van je verhaal",
+      "en": "The last line of your story"
+    },
+    "scene": "A finished manuscript stack of paper with a pen laid across the last page, a lamp and a cup of cold tea, late night light, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "story": 1,
+      "language": 0.8,
+      "focus": 0.4,
+      "craft": 0.3
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.4,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-last-line-b",
+    "family": "moment-last-line",
+    "round": "moments",
+    "label": {
+      "nl": "Een dagboek dat dichtgaat",
+      "en": "A journal that closes"
+    },
+    "scene": "A closed leather journal with a ribbon, a pen and a candle on a desk, calm.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "story": 1,
+      "language": 0.8,
+      "focus": 0.4,
+      "craft": 0.3
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.4,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-last-line-c",
+    "family": "moment-last-line",
+    "round": "moments",
+    "label": {
+      "nl": "Je eigen boek rechtop op tafel",
+      "en": "Your own book standing on the table"
+    },
+    "scene": "A freshly printed book standing upright on a desk beside a small bouquet and an open window.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "story": 1,
+      "language": 0.8,
+      "focus": 0.4,
+      "craft": 0.3
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.4,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-steps",
+    "family": "moment-first-steps",
+    "round": "moments",
+    "label": {
+      "nl": "Een lammetje staat voor het eerst",
+      "en": "A lamb stands for the first time"
+    },
+    "scene": "A newborn lamb standing wobbly on straw in a barn, warm light, nobody else in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.7,
+      "discovery": 0.3
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.2,
+      "setting": 0.7,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-steps-b",
+    "family": "moment-first-steps",
+    "round": "moments",
+    "label": {
+      "nl": "Een veulen bij het hek",
+      "en": "A foal by the fence"
+    },
+    "scene": "A small foal beside a fence at sunrise on long grass.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.7,
+      "discovery": 0.3
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.2,
+      "setting": 0.7,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-first-steps-c",
+    "family": "moment-first-steps",
+    "round": "moments",
+    "label": {
+      "nl": "Een kitten leert klimmen",
+      "en": "A kitten learns to climb"
+    },
+    "scene": "A kitten learning to climb a wooden step beside a basket with a soft blanket.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 1,
+      "caring": 0.7,
+      "discovery": 0.3
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.2,
+      "setting": 0.7,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-sizzle",
+    "family": "sense-sizzle",
+    "round": "senses",
+    "label": {
+      "nl": "Het sissen van de pan",
+      "en": "The sizzle of the pan"
+    },
+    "scene": "A hot frying pan with sizzling vegetables and steam on a stove, a wooden spoon beside, close-up, warm light, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "food": 1,
+      "conviviality": 0.4,
+      "craft": 0.3
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": 0.1,
+      "setting": -1,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-sizzle-b",
+    "family": "sense-sizzle",
+    "round": "senses",
+    "label": {
+      "nl": "Een pot stoof die pruttelt",
+      "en": "A stew simmering"
+    },
+    "scene": "A pot of stew bubbling on a stove with steam rising and herbs on a board, warm kitchen.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "food": 1,
+      "conviviality": 0.4,
+      "craft": 0.3
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": 0.1,
+      "setting": -1,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-sizzle-c",
+    "family": "sense-sizzle",
+    "round": "senses",
+    "label": {
+      "nl": "Pannenkoeken die goudbruin worden",
+      "en": "Pancakes turning golden"
+    },
+    "scene": "A griddle with pancakes turning golden, butter melting, close-up.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "food": 1,
+      "conviviality": 0.4,
+      "craft": 0.3
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": 0.1,
+      "setting": -1,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-ink-paper",
+    "family": "sense-ink-paper",
+    "round": "senses",
+    "label": {
+      "nl": "De geur van inkt en papier",
+      "en": "The smell of ink and paper"
+    },
+    "scene": "Close-up of a pile of old paper and an open ink bottle with a quill pen, warm lamp light, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 0.7,
+      "story": 0.7,
+      "learning": 0.5,
+      "stillness": 0.4,
+      "history": 0.3
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-ink-paper-b",
+    "family": "sense-ink-paper",
+    "round": "senses",
+    "label": {
+      "nl": "Een boekwinkel met oude boeken",
+      "en": "A used-book shop"
+    },
+    "scene": "Rows of old books in a used-book shop with sunlight drifting through dust.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 0.7,
+      "story": 0.7,
+      "learning": 0.5,
+      "stillness": 0.4,
+      "history": 0.3
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-ink-paper-c",
+    "family": "sense-ink-paper",
+    "round": "senses",
+    "label": {
+      "nl": "Een bundel brieven met lakzegel",
+      "en": "A bundle of letters with a wax seal"
+    },
+    "scene": "A stack of letters tied with ribbon and a wax seal, beside a brass key, warm light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "language": 0.7,
+      "story": 0.7,
+      "learning": 0.5,
+      "stillness": 0.4,
+      "history": 0.3
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-hens",
+    "family": "sense-hens",
+    "round": "senses",
+    "label": {
+      "nl": "Het geklok van kippen",
+      "en": "The clucking of hens"
+    },
+    "scene": "A farmyard with hens pecking in the sunlight near a wooden coop and a basket of eggs, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 0.9,
+      "caring": 0.4,
+      "outdoors": 0.4,
+      "growing": 0.3
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": -0.2,
+      "setting": 0.8,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-hens-b",
+    "family": "sense-hens",
+    "round": "senses",
+    "label": {
+      "nl": "Verse eieren in het stro",
+      "en": "Fresh eggs in the straw"
+    },
+    "scene": "A basket of fresh eggs on straw beside a coop door, warm morning light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 0.9,
+      "caring": 0.4,
+      "outdoors": 0.4,
+      "growing": 0.3
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": -0.2,
+      "setting": 0.8,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-hens-c",
+    "family": "sense-hens",
+    "round": "senses",
+    "label": {
+      "nl": "Een haan op het hek",
+      "en": "A rooster on the fence"
+    },
+    "scene": "A rooster on a fence post at dawn with a barn behind.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "animals": 0.9,
+      "caring": 0.4,
+      "outdoors": 0.4,
+      "growing": 0.3
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": -0.2,
+      "setting": 0.8,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-castle-stone",
+    "family": "sense-castle-stone",
+    "round": "senses",
+    "label": {
+      "nl": "Het koele steen van een kasteelmuur",
+      "en": "The cool stone of a castle wall"
+    },
+    "scene": "A cool stone castle wall and an arched doorway with ivy and light slanting in, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "history": 1,
+      "stillness": 0.4,
+      "discovery": 0.4,
+      "story": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0,
+      "setting": 0.2,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-castle-stone-b",
+    "family": "sense-castle-stone",
+    "round": "senses",
+    "label": {
+      "nl": "Een binnenplaats met een put",
+      "en": "A courtyard with a well"
+    },
+    "scene": "A medieval courtyard with a well, worn cobbles and weathered towers in evening light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "history": 1,
+      "stillness": 0.4,
+      "discovery": 0.4,
+      "story": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0,
+      "setting": 0.2,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-castle-stone-c",
+    "family": "sense-castle-stone",
+    "round": "senses",
+    "label": {
+      "nl": "Een abdijboog tegen de lucht",
+      "en": "An abbey arch against the sky"
+    },
+    "scene": "A ruined abbey arch against a pale sky with grass at its base.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "history": 1,
+      "stillness": 0.4,
+      "discovery": 0.4,
+      "story": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0,
+      "setting": 0.2,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-doll-house",
+    "family": "place-doll-house",
+    "round": "places",
+    "label": {
+      "nl": "Een poppenhuis in miniatuur",
+      "en": "A dollhouse in miniature"
+    },
+    "scene": "A Victorian dollhouse with tiny furniture, small chandeliers and miniature wallpaper, soft light, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "miniature": 0.9,
+      "retro": 0.5,
+      "story": 0.5,
+      "craft": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-doll-house-b",
+    "family": "place-doll-house",
+    "round": "places",
+    "label": {
+      "nl": "Een vitrinekast met porseleinen poppen",
+      "en": "A cabinet of porcelain dolls"
+    },
+    "scene": "A glass cabinet of antique porcelain dolls in lace dresses and bonnets, all seen from behind, warm light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "miniature": 0.9,
+      "retro": 0.5,
+      "story": 0.5,
+      "craft": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-doll-house-c",
+    "family": "place-doll-house",
+    "round": "places",
+    "label": {
+      "nl": "Een poppentheater met rode gordijnen",
+      "en": "A puppet theatre with red curtains"
+    },
+    "scene": "A tiny wooden puppet theatre with red velvet curtains and a painted backdrop, marionette strings hanging loose, empty stage.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "miniature": 0.9,
+      "retro": 0.5,
+      "story": 0.5,
+      "craft": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-hat-shop",
+    "family": "place-hat-shop",
+    "round": "places",
+    "label": {
+      "nl": "Een hoedenwinkel met veren",
+      "en": "A hat shop with feathers"
+    },
+    "scene": "A milliner's shop with hats on stands, feathers, netting and ribbons, soft light, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 1,
+      "craft": 0.5,
+      "retro": 0.5,
+      "color": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.3,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-hat-shop-b",
+    "family": "place-hat-shop",
+    "round": "places",
+    "label": {
+      "nl": "Een rek vol elegante hoeden",
+      "en": "A rack of elegant hats"
+    },
+    "scene": "A rack of wide-brimmed straw hats and pillbox hats in pastel colours against a pale wall.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 1,
+      "craft": 0.5,
+      "retro": 0.5,
+      "color": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.3,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-hat-shop-c",
+    "family": "place-hat-shop",
+    "round": "places",
+    "label": {
+      "nl": "Een passpiegel met een hoed ernaast",
+      "en": "A mirror with a hat beside it"
+    },
+    "scene": "An ornate standing mirror beside a small table with a velvet hat, gloves and hatpins, golden light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 1,
+      "craft": 0.5,
+      "retro": 0.5,
+      "color": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.3,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-catwalk",
+    "family": "place-catwalk",
+    "round": "places",
+    "label": {
+      "nl": "Een lege catwalk met spots",
+      "en": "An empty catwalk with spotlights"
+    },
+    "scene": "A fashion show runway lit by spotlights, rows of empty chairs on both sides, glossy floor, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.9,
+      "performance": 0.8,
+      "color": 0.4
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.3,
+      "setting": -1,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-catwalk-b",
+    "family": "place-catwalk",
+    "round": "places",
+    "label": {
+      "nl": "Een modeshow achter de schermen",
+      "en": "Behind the scenes at a fashion show"
+    },
+    "scene": "A backstage rail of designer dresses in jewel colours, shoes in a row, mirrors with lights, nobody there.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.9,
+      "performance": 0.8,
+      "color": 0.4
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.3,
+      "setting": -1,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-catwalk-c",
+    "family": "place-catwalk",
+    "round": "places",
+    "label": {
+      "nl": "Een catwalk in een oud pand",
+      "en": "A catwalk in an old building"
+    },
+    "scene": "A narrow runway in a grand historic hall with chandeliers and tall windows, empty gilded chairs.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.9,
+      "performance": 0.8,
+      "color": 0.4
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.3,
+      "setting": -1,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-theatre-boxes",
+    "family": "place-theatre-boxes",
+    "round": "places",
+    "label": {
+      "nl": "Een theater met rode zetels en balkons",
+      "en": "A theatre with red seats and balconies"
+    },
+    "scene": "An opera house auditorium with red velvet seats, gilded balconies and a chandelier, lights dimmed, empty.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "performance": 0.8,
+      "history": 0.5,
+      "story": 0.5,
+      "style": 0.3
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-theatre-boxes-b",
+    "family": "place-theatre-boxes",
+    "round": "places",
+    "label": {
+      "nl": "Een foyer met marmer en spiegels",
+      "en": "A foyer of marble and mirrors"
+    },
+    "scene": "A grand theatre foyer with a sweeping staircase, marble columns and tall mirrors, empty and glowing.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "performance": 0.8,
+      "history": 0.5,
+      "story": 0.5,
+      "style": 0.3
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-theatre-boxes-c",
+    "family": "place-theatre-boxes",
+    "round": "places",
+    "label": {
+      "nl": "Een loge met fluwelen gordijnen",
+      "en": "A box with velvet curtains"
+    },
+    "scene": "A theatre box with velvet curtains, small lamps and a view of the stage, empty.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "performance": 0.8,
+      "history": 0.5,
+      "story": 0.5,
+      "style": 0.3
+    },
+    "axes": {
+      "social": 0.6,
+      "energy": 0,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-tutu-hang",
+    "family": "moment-tutu-hang",
+    "round": "moments",
+    "label": {
+      "nl": "Een tutu aan de kapstok voor de voorstelling",
+      "en": "A tutu on the rail before the show"
+    },
+    "scene": "A white tulle tutu on a hanger beside a pair of satin pointe shoes in a backstage dressing room, soft lamps, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "movement": 0.5,
+      "performance": 0.8,
+      "style": 0.5,
+      "rhythm": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.2,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-tutu-hang-b",
+    "family": "moment-tutu-hang",
+    "round": "moments",
+    "label": {
+      "nl": "Een rij kostuums achter het gordijn",
+      "en": "A row of costumes behind the curtain"
+    },
+    "scene": "A rail of colourful stage costumes with feathers and sequins in the wings, soft backstage light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "movement": 0.5,
+      "performance": 0.8,
+      "style": 0.5,
+      "rhythm": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.2,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-tutu-hang-c",
+    "family": "moment-tutu-hang",
+    "round": "moments",
+    "label": {
+      "nl": "Een tiara op een fluwelen kussen",
+      "en": "A tiara on a velvet cushion"
+    },
+    "scene": "A sparkling tiara on a velvet cushion in front of a lit dressing-table mirror.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "movement": 0.5,
+      "performance": 0.8,
+      "style": 0.5,
+      "rhythm": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.2,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-bouquet",
+    "family": "moment-bouquet",
+    "round": "moments",
+    "label": {
+      "nl": "Een boeket dat wordt gebonden",
+      "en": "A bouquet being tied"
+    },
+    "scene": "A bouquet of garden flowers tied with ribbon on a worktable beside scissors and wrapping paper, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 0.7,
+      "color": 0.8,
+      "growing": 0.5,
+      "caring": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-bouquet-b",
+    "family": "moment-bouquet",
+    "round": "moments",
+    "label": {
+      "nl": "Een vaas met net geplukte bloemen",
+      "en": "A vase of freshly picked flowers"
+    },
+    "scene": "A large vase of freshly picked wildflowers on a kitchen table, morning light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 0.7,
+      "color": 0.8,
+      "growing": 0.5,
+      "caring": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-bouquet-c",
+    "family": "moment-bouquet",
+    "round": "moments",
+    "label": {
+      "nl": "Een bloemenkrans in de maak",
+      "en": "A flower crown in the making"
+    },
+    "scene": "A half-finished flower crown with wire, ribbon and blossoms on a linen cloth.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 0.7,
+      "color": 0.8,
+      "growing": 0.5,
+      "caring": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.4,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-wedding-dress",
+    "family": "moment-wedding-dress",
+    "round": "moments",
+    "label": {
+      "nl": "De jurk aan de kastdeur",
+      "en": "The gown on the wardrobe door"
+    },
+    "scene": "A white lace gown hanging on a wardrobe door in soft morning light, a veil and satin shoes beneath, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 1,
+      "story": 0.6,
+      "color": 0.4,
+      "retro": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-wedding-dress-b",
+    "family": "moment-wedding-dress",
+    "round": "moments",
+    "label": {
+      "nl": "Een sluier op een stoel",
+      "en": "A veil on a chair"
+    },
+    "scene": "A long tulle veil draped over a chair beside a bouquet and a small mirror, window light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 1,
+      "story": 0.6,
+      "color": 0.4,
+      "retro": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-wedding-dress-c",
+    "family": "moment-wedding-dress",
+    "round": "moments",
+    "label": {
+      "nl": "Een kapstok vol galajurken",
+      "en": "A rail of gala gowns"
+    },
+    "scene": "A rail of floor-length evening gowns in deep colours in a boutique, soft golden light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 1,
+      "story": 0.6,
+      "color": 0.4,
+      "retro": 0.3
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-cake-art",
+    "family": "moment-cake-art",
+    "round": "moments",
+    "label": {
+      "nl": "De laatste roos op de taart",
+      "en": "The last rose on the cake"
+    },
+    "scene": "A tiered cake with sugar roses and a piping bag on a turntable, soft bakery light, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 0.8,
+      "food": 0.7,
+      "precision": 0.7,
+      "color": 0.6
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.3,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-cake-art-b",
+    "family": "moment-cake-art",
+    "round": "moments",
+    "label": {
+      "nl": "Een rij taartjes met glazuur",
+      "en": "A row of iced cakes"
+    },
+    "scene": "A tray of tiny pastel iced cakes with sugar flowers on a marble counter.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 0.8,
+      "food": 0.7,
+      "precision": 0.7,
+      "color": 0.6
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.3,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-cake-art-c",
+    "family": "moment-cake-art",
+    "round": "moments",
+    "label": {
+      "nl": "Een bruidstaart met bloemen",
+      "en": "A wedding cake with flowers"
+    },
+    "scene": "A three-tier white cake decorated with fresh flowers on a lace cloth, candlelight.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 0.8,
+      "food": 0.7,
+      "precision": 0.7,
+      "color": 0.6
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.3,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-ribbon-knot",
+    "family": "moment-ribbon-knot",
+    "round": "moments",
+    "label": {
+      "nl": "Een lint dat in een strik valt",
+      "en": "A ribbon falling into a bow"
+    },
+    "scene": "Satin ribbons in several colours and a half-tied bow on a table beside a wrapped gift, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 0.5,
+      "style": 0.6,
+      "color": 0.5,
+      "caring": 0.3
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": -0.3,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-ribbon-knot-b",
+    "family": "moment-ribbon-knot",
+    "round": "moments",
+    "label": {
+      "nl": "Een cadeau met zijden papier",
+      "en": "A gift in silk paper"
+    },
+    "scene": "A gift wrapped in pale tissue paper and twine with a sprig of dried flowers, soft light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 0.5,
+      "style": 0.6,
+      "color": 0.5,
+      "caring": 0.3
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": -0.3,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-ribbon-knot-c",
+    "family": "moment-ribbon-knot",
+    "round": "moments",
+    "label": {
+      "nl": "Een doos met knopen en linten",
+      "en": "A box of buttons and ribbons"
+    },
+    "scene": "An open sewing tin full of buttons, ribbons and spools of coloured thread, warm light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 0.5,
+      "style": 0.6,
+      "color": 0.5,
+      "caring": 0.3
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": -0.3,
+      "setting": -1,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-lace",
+    "family": "sense-lace",
+    "round": "senses",
+    "label": {
+      "nl": "Kant en borduurwerk",
+      "en": "Lace and embroidery"
+    },
+    "scene": "Extreme close-up of delicate white lace and fine embroidery on linen in an embroidery hoop, soft light, nobody visible.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 1,
+      "style": 0.6,
+      "precision": 0.6,
+      "retro": 0.4
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-lace-b",
+    "family": "sense-lace",
+    "round": "senses",
+    "label": {
+      "nl": "Een kanten sjaal met bloemmotief",
+      "en": "A lace shawl with floral pattern"
+    },
+    "scene": "A close view of a cream lace shawl with a floral pattern draped over a chair, window light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 1,
+      "style": 0.6,
+      "precision": 0.6,
+      "retro": 0.4
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-lace-c",
+    "family": "sense-lace",
+    "round": "senses",
+    "label": {
+      "nl": "Een naald, draad en een stukje stof",
+      "en": "A needle, thread and a scrap of cloth"
+    },
+    "scene": "Close-up of a silver needle with bright silk thread beside a pattern of tiny flowers stitched on fabric.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "craft": 1,
+      "style": 0.6,
+      "precision": 0.6,
+      "retro": 0.4
+    },
+    "axes": {
+      "social": -0.7,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-pearls",
+    "family": "sense-pearls",
+    "round": "senses",
+    "label": {
+      "nl": "Parels in het licht",
+      "en": "Pearls in the light"
+    },
+    "scene": "Strands of pearls on dark velvet catching a soft highlight, close-up, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.8,
+      "color": 0.6,
+      "precision": 0.4,
+      "collecting": 0.3
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-pearls-b",
+    "family": "sense-pearls",
+    "round": "senses",
+    "label": {
+      "nl": "Een juwelenkistje dat openstaat",
+      "en": "An open jewellery box"
+    },
+    "scene": "An open jewellery box with a lace lining, earrings, brooches and a pearl necklace, warm light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.8,
+      "color": 0.6,
+      "precision": 0.4,
+      "collecting": 0.3
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-pearls-c",
+    "family": "sense-pearls",
+    "round": "senses",
+    "label": {
+      "nl": "Een broche met edelsteentjes",
+      "en": "A brooch with small gems"
+    },
+    "scene": "Close-up of a vintage brooch with tiny coloured stones on a satin cushion.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.8,
+      "color": 0.6,
+      "precision": 0.4,
+      "collecting": 0.3
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-fan",
+    "family": "sense-fan",
+    "round": "senses",
+    "label": {
+      "nl": "Een waaier van veren en kant",
+      "en": "A fan of feathers and lace"
+    },
+    "scene": "An open folding fan of painted silk and lace resting on a dark surface beside long gloves, soft light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.7,
+      "performance": 0.4,
+      "color": 0.6,
+      "retro": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.2,
+      "setting": -0.8,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-fan-b",
+    "family": "sense-fan",
+    "round": "senses",
+    "label": {
+      "nl": "Een paraplu met kant in de regen",
+      "en": "A lace parasol in the rain"
+    },
+    "scene": "A white lace parasol leaning against a stone wall with soft summer rain, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.7,
+      "performance": 0.4,
+      "color": 0.6,
+      "retro": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.2,
+      "setting": -0.8,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-fan-c",
+    "family": "sense-fan",
+    "round": "senses",
+    "label": {
+      "nl": "Een zijden sjaal in beweging",
+      "en": "A silk scarf in motion"
+    },
+    "scene": "A long silk scarf in jewel colours floating in the air against a soft grey wall.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.7,
+      "performance": 0.4,
+      "color": 0.6,
+      "retro": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.2,
+      "setting": -0.8,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-hair-brush",
+    "family": "sense-hair-brush",
+    "round": "senses",
+    "label": {
+      "nl": "Een kaptafel met borstel en spelden",
+      "en": "A vanity table with brush and pins"
+    },
+    "scene": "A vintage vanity table with a silver brush, hairpins, ribbons and a mirror, soft lamp light, nobody in the frame.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.6,
+      "craft": 0.3,
+      "caring": 0.4
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-hair-brush-b",
+    "family": "sense-hair-brush",
+    "round": "senses",
+    "label": {
+      "nl": "Een vlecht met een lint",
+      "en": "A braid with a ribbon"
+    },
+    "scene": "A long braid of hair with a silk ribbon draped over the back of a chair, soft light, seen from behind with nobody visible.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.6,
+      "craft": 0.3,
+      "caring": 0.4
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-hair-brush-c",
+    "family": "sense-hair-brush",
+    "round": "senses",
+    "label": {
+      "nl": "Een flesje parfum en een poederdons",
+      "en": "A perfume bottle and powder puff"
+    },
+    "scene": "A crystal perfume bottle with an atomiser and a swansdown powder puff on a mirror tray, warm light.",
+    "image": "/illustrations/associations/place-forest-edge.jpg",
+    "tagWeights": {
+      "style": 0.6,
+      "craft": 0.3,
+      "caring": 0.4
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.6,
+      "setting": -1,
+      "novelty": -0.1
+    },
+    "status": "concept"
   }
 ]
