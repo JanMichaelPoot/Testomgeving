@@ -8167,5 +8167,869 @@
       "novelty": -0.1
     },
     "status": "concept"
+  },
+  {
+    "id": "place-gallery",
+    "family": "place-gallery",
+    "round": "places",
+    "label": {
+      "nl": "Een museumzaal met schilderijen",
+      "en": "A museum room with paintings"
+    },
+    "scene": "A quiet museum gallery with large framed oil paintings on pale walls, a wooden bench in the middle and soft daylight from a skylight.",
+    "image": "/illustrations/associations/place-gallery.jpg",
+    "tagWeights": {
+      "color": 0.7,
+      "discovery": 0.8,
+      "stillness": 0.7,
+      "history": 0.5
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-gallery-b",
+    "family": "place-gallery",
+    "round": "places",
+    "label": {
+      "nl": "Een galerie met beelden in het licht",
+      "en": "A gallery with sculptures in the light"
+    },
+    "scene": "A white gallery hall with marble and bronze sculptures on plinths, long shadows on a polished floor and one tall window.",
+    "image": "/illustrations/associations/place-gallery-b.jpg",
+    "tagWeights": {
+      "color": 0.7,
+      "discovery": 0.8,
+      "stillness": 0.7,
+      "history": 0.5
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-gallery-c",
+    "family": "place-gallery",
+    "round": "places",
+    "label": {
+      "nl": "Een tentoonstelling met één groot werk",
+      "en": "An exhibition with one large work"
+    },
+    "scene": "A dim exhibition room dominated by one huge abstract canvas lit by a single spotlight, empty floor and a rope barrier.",
+    "image": "/illustrations/associations/place-gallery-c.jpg",
+    "tagWeights": {
+      "color": 0.7,
+      "discovery": 0.8,
+      "stillness": 0.7,
+      "history": 0.5
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.5,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-spice-market",
+    "family": "place-spice-market",
+    "round": "places",
+    "label": {
+      "nl": "Een markt vol specerijen en lantaarns",
+      "en": "A market of spices and lanterns"
+    },
+    "scene": "A covered bazaar stall with cones of red, yellow and brown spices in brass bowls, hanging mosaic lanterns and warm light.",
+    "image": "/illustrations/associations/place-spice-market.jpg",
+    "tagWeights": {
+      "food": 0.8,
+      "discovery": 0.8,
+      "conviviality": 0.6,
+      "color": 0.7
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.2,
+      "setting": 0,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-spice-market-b",
+    "family": "place-spice-market",
+    "round": "places",
+    "label": {
+      "nl": "Een kraam met thee en gedroogd fruit",
+      "en": "A stall of tea and dried fruit"
+    },
+    "scene": "A market stall with sacks of loose tea leaves, dried apricots and figs on trays, copper teapots and woven baskets.",
+    "image": "/illustrations/associations/place-spice-market-b.jpg",
+    "tagWeights": {
+      "food": 0.8,
+      "discovery": 0.8,
+      "conviviality": 0.6,
+      "color": 0.7
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.2,
+      "setting": 0,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-spice-market-c",
+    "family": "place-spice-market",
+    "round": "places",
+    "label": {
+      "nl": "Een straat vol kleurige kramen",
+      "en": "A street of colourful stalls"
+    },
+    "scene": "A narrow market street with striped awnings over crates of oranges, pomegranates and fragrant herbs, empty in the morning sun.",
+    "image": "/illustrations/associations/place-spice-market-c.jpg",
+    "tagWeights": {
+      "food": 0.8,
+      "discovery": 0.8,
+      "conviviality": 0.6,
+      "color": 0.7
+    },
+    "axes": {
+      "social": 0.5,
+      "energy": 0.2,
+      "setting": 0,
+      "novelty": 0.6
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-staircase",
+    "family": "place-staircase",
+    "round": "places",
+    "label": {
+      "nl": "Een wenteltrap onder een gewelf",
+      "en": "A spiral staircase under a vault"
+    },
+    "scene": "A stone spiral staircase seen from below, curling up toward a ribbed vaulted ceiling with a pool of daylight.",
+    "image": "/illustrations/associations/place-staircase.jpg",
+    "tagWeights": {
+      "history": 0.5,
+      "precision": 0.7,
+      "discovery": 0.7,
+      "stillness": 0.5
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.2,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-staircase-b",
+    "family": "place-staircase",
+    "round": "places",
+    "label": {
+      "nl": "Een gang met zuilen en bogen",
+      "en": "A corridor of columns and arches"
+    },
+    "scene": "A long arcade of stone columns and round arches with a chequered floor receding into warm light.",
+    "image": "/illustrations/associations/place-staircase-b.jpg",
+    "tagWeights": {
+      "history": 0.5,
+      "precision": 0.7,
+      "discovery": 0.7,
+      "stillness": 0.5
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.2,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-staircase-c",
+    "family": "place-staircase",
+    "round": "places",
+    "label": {
+      "nl": "Een koepel vol patronen",
+      "en": "A dome full of patterns"
+    },
+    "scene": "The inside of a tiled dome with geometric star patterns in blue and gold radiating from the centre.",
+    "image": "/illustrations/associations/place-staircase-c.jpg",
+    "tagWeights": {
+      "history": 0.5,
+      "precision": 0.7,
+      "discovery": 0.7,
+      "stillness": 0.5
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.2,
+      "setting": -1,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-harbour",
+    "family": "place-harbour",
+    "round": "places",
+    "label": {
+      "nl": "Een haven met oude zeilschepen",
+      "en": "A harbour with old sailing ships"
+    },
+    "scene": "A historic harbour at golden hour with tall wooden masts, coiled ropes on the quay and gentle water.",
+    "image": "/illustrations/associations/place-harbour.jpg",
+    "tagWeights": {
+      "water": 0.8,
+      "history": 0.6,
+      "outdoors": 0.7,
+      "discovery": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0,
+      "setting": 1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-harbour-b",
+    "family": "place-harbour",
+    "round": "places",
+    "label": {
+      "nl": "Een kade met touwen en netten",
+      "en": "A quay with ropes and nets"
+    },
+    "scene": "A weathered stone quay with heaps of fishing nets, thick mooring ropes and wooden crates, small boats behind.",
+    "image": "/illustrations/associations/place-harbour-b.jpg",
+    "tagWeights": {
+      "water": 0.8,
+      "history": 0.6,
+      "outdoors": 0.7,
+      "discovery": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0,
+      "setting": 1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-harbour-c",
+    "family": "place-harbour",
+    "round": "places",
+    "label": {
+      "nl": "Een vuurtoren aan zee",
+      "en": "A lighthouse by the sea"
+    },
+    "scene": "A white and red lighthouse on a rocky headland with waves breaking below under a soft evening sky.",
+    "image": "/illustrations/associations/place-harbour-c.jpg",
+    "tagWeights": {
+      "water": 0.8,
+      "history": 0.6,
+      "outdoors": 0.7,
+      "discovery": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": 0,
+      "setting": 1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-second-life",
+    "family": "moment-second-life",
+    "round": "moments",
+    "label": {
+      "nl": "Een oud meubel krijgt een tweede leven",
+      "en": "An old piece of furniture gets a second life"
+    },
+    "scene": "A worn wooden chair half sanded and half freshly painted, a sanding block, a paintbrush and open paint tins on newspaper.",
+    "image": "/illustrations/associations/moment-second-life.jpg",
+    "tagWeights": {
+      "craft": 0.7,
+      "technique": 0.6,
+      "caring": 0.6,
+      "focus": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.2,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-second-life-b",
+    "family": "moment-second-life",
+    "round": "moments",
+    "label": {
+      "nl": "Een kapotte klok die weer tikt",
+      "en": "A broken clock that ticks again"
+    },
+    "scene": "An opened vintage clock with its mechanism on a workbench, tiny screwdrivers, tweezers and oil in a small tray.",
+    "image": "/illustrations/associations/moment-second-life-b.jpg",
+    "tagWeights": {
+      "craft": 0.7,
+      "technique": 0.6,
+      "caring": 0.6,
+      "focus": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.2,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-second-life-c",
+    "family": "moment-second-life",
+    "round": "moments",
+    "label": {
+      "nl": "Een versleten jas wordt gelapt",
+      "en": "A worn coat gets patched"
+    },
+    "scene": "A faded denim jacket with a neat patch being stitched on, thread spools and a thimble on a wooden table.",
+    "image": "/illustrations/associations/moment-second-life-c.jpg",
+    "tagWeights": {
+      "craft": 0.7,
+      "technique": 0.6,
+      "caring": 0.6,
+      "focus": 0.5
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.2,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-procession",
+    "family": "moment-procession",
+    "round": "moments",
+    "label": {
+      "nl": "Vlak voor de optocht begint",
+      "en": "Just before the procession starts"
+    },
+    "scene": "A village street with hung paper garlands, a row of decorated lanterns on poles and a brass band's instruments on a cart, nobody in view.",
+    "image": "/illustrations/associations/moment-procession.jpg",
+    "tagWeights": {
+      "conviviality": 0.7,
+      "history": 0.5,
+      "performance": 0.5,
+      "color": 0.6
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": 0.2,
+      "setting": 0.5,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-procession-b",
+    "family": "moment-procession",
+    "round": "moments",
+    "label": {
+      "nl": "De tafel voor het feest wordt gedekt",
+      "en": "The feast table is being set"
+    },
+    "scene": "A very long festive outdoor table with white cloths, wooden benches, jugs and bunting under trees, set and empty.",
+    "image": "/illustrations/associations/moment-procession-b.jpg",
+    "tagWeights": {
+      "conviviality": 0.7,
+      "history": 0.5,
+      "performance": 0.5,
+      "color": 0.6
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": 0.2,
+      "setting": 0.5,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-procession-c",
+    "family": "moment-procession",
+    "round": "moments",
+    "label": {
+      "nl": "Een stoet van versierde wagens",
+      "en": "A line of decorated floats"
+    },
+    "scene": "Flower-covered parade floats parked in a row in a town square, ribbons and banners ready, early morning.",
+    "image": "/illustrations/associations/moment-procession-c.jpg",
+    "tagWeights": {
+      "conviviality": 0.7,
+      "history": 0.5,
+      "performance": 0.5,
+      "color": 0.6
+    },
+    "axes": {
+      "social": 0.7,
+      "energy": 0.2,
+      "setting": 0.5,
+      "novelty": 0
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-gold-crack",
+    "family": "moment-gold-crack",
+    "round": "moments",
+    "label": {
+      "nl": "Een barst die goud wordt",
+      "en": "A crack that turns to gold"
+    },
+    "scene": "A cracked ceramic bowl mended with a bright gold seam, resting on a linen cloth with a small brush and gold powder.",
+    "image": "/illustrations/associations/moment-gold-crack.jpg",
+    "tagWeights": {
+      "craft": 0.7,
+      "color": 0.6,
+      "stillness": 0.6,
+      "retro": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.5,
+      "setting": 0,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-gold-crack-b",
+    "family": "moment-gold-crack",
+    "round": "moments",
+    "label": {
+      "nl": "Een scheve kom met een verhaal",
+      "en": "A crooked bowl with a story"
+    },
+    "scene": "A slightly lopsided stoneware bowl with a rough glaze and soft ridges in the clay, on a plain wooden shelf.",
+    "image": "/illustrations/associations/moment-gold-crack-b.jpg",
+    "tagWeights": {
+      "craft": 0.7,
+      "color": 0.6,
+      "stillness": 0.6,
+      "retro": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.5,
+      "setting": 0,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-gold-crack-c",
+    "family": "moment-gold-crack",
+    "round": "moments",
+    "label": {
+      "nl": "Een oude plank met sporen van gebruik",
+      "en": "An old board with signs of use"
+    },
+    "scene": "A very old wooden cutting board with deep knife marks, stains and a worn edge, glowing in side light.",
+    "image": "/illustrations/associations/moment-gold-crack-c.jpg",
+    "tagWeights": {
+      "craft": 0.7,
+      "color": 0.6,
+      "stillness": 0.6,
+      "retro": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.5,
+      "setting": 0,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-pattern-fits",
+    "family": "moment-pattern-fits",
+    "round": "moments",
+    "label": {
+      "nl": "Het patroon dat ineens klopt",
+      "en": "The pattern that suddenly fits"
+    },
+    "scene": "A mosaic of coloured tiles with the last tile about to be set into a repeating geometric pattern, grout and a trowel beside.",
+    "image": "/illustrations/associations/moment-pattern-fits.jpg",
+    "tagWeights": {
+      "precision": 0.7,
+      "puzzling": 0.8,
+      "color": 0.6,
+      "focus": 0.7
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-pattern-fits-b",
+    "family": "moment-pattern-fits",
+    "round": "moments",
+    "label": {
+      "nl": "De laatste steek van een motief",
+      "en": "The last stitch of a motif"
+    },
+    "scene": "A cross-stitch sampler with a nearly complete symmetrical flower motif on linen in an embroidery hoop, needle and floss.",
+    "image": "/illustrations/associations/moment-pattern-fits-b.jpg",
+    "tagWeights": {
+      "precision": 0.7,
+      "puzzling": 0.8,
+      "color": 0.6,
+      "focus": 0.7
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-pattern-fits-c",
+    "family": "moment-pattern-fits",
+    "round": "moments",
+    "label": {
+      "nl": "Een kaleidoscoop die draait",
+      "en": "A kaleidoscope turning"
+    },
+    "scene": "A brass kaleidoscope on a table next to a printed projection of a symmetrical star pattern in jewel colours.",
+    "image": "/illustrations/associations/moment-pattern-fits-c.jpg",
+    "tagWeights": {
+      "precision": 0.7,
+      "puzzling": 0.8,
+      "color": 0.6,
+      "focus": 0.7
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-first-bite",
+    "family": "sense-first-bite",
+    "round": "senses",
+    "label": {
+      "nl": "De eerste hap van iets nieuws",
+      "en": "The first bite of something new"
+    },
+    "scene": "A single small plate with an unfamiliar, beautifully arranged dish and a fork resting against it, steam rising, on a dark table.",
+    "image": "/illustrations/associations/sense-first-bite.jpg",
+    "tagWeights": {
+      "food": 0.8,
+      "discovery": 0.8,
+      "play": 0.5,
+      "conviviality": 0.5
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": 0.1,
+      "setting": 0,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-first-bite-b",
+    "family": "sense-first-bite",
+    "round": "senses",
+    "label": {
+      "nl": "Een proefplankje met kleine hapjes",
+      "en": "A tasting board of small bites"
+    },
+    "scene": "A slate board with several tiny colourful bites, a drizzle of sauce and edible flowers, spoons lined up beside it.",
+    "image": "/illustrations/associations/sense-first-bite-b.jpg",
+    "tagWeights": {
+      "food": 0.8,
+      "discovery": 0.8,
+      "play": 0.5,
+      "conviviality": 0.5
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": 0.1,
+      "setting": 0,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-first-bite-c",
+    "family": "sense-first-bite",
+    "round": "senses",
+    "label": {
+      "nl": "Een lepel vol iets onverwachts",
+      "en": "A spoonful of something unexpected"
+    },
+    "scene": "A single spoon holding a glossy bright-coloured sauce and a crisp garnish above a small white bowl, macro, soft light.",
+    "image": "/illustrations/associations/sense-first-bite-c.jpg",
+    "tagWeights": {
+      "food": 0.8,
+      "discovery": 0.8,
+      "play": 0.5,
+      "conviviality": 0.5
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": 0.1,
+      "setting": 0,
+      "novelty": 0.7
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-white-room",
+    "family": "sense-white-room",
+    "round": "senses",
+    "label": {
+      "nl": "Een lege, lichte kamer",
+      "en": "An empty, bright room"
+    },
+    "scene": "A completely empty white room with a pale wooden floor, one tall window and a long soft shadow, no objects.",
+    "image": "/illustrations/associations/sense-white-room.jpg",
+    "tagWeights": {
+      "stillness": 0.9,
+      "balance": 0.7,
+      "focus": 0.5,
+      "color": 0.2
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.8,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-white-room-b",
+    "family": "sense-white-room",
+    "round": "senses",
+    "label": {
+      "nl": "Eén steen op een houten vloer",
+      "en": "One stone on a wooden floor"
+    },
+    "scene": "A single smooth grey stone on a bare light-oak floor with a thin line of sunlight across it.",
+    "image": "/illustrations/associations/sense-white-room-b.jpg",
+    "tagWeights": {
+      "stillness": 0.9,
+      "balance": 0.7,
+      "focus": 0.5,
+      "color": 0.2
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.8,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-white-room-c",
+    "family": "sense-white-room",
+    "round": "senses",
+    "label": {
+      "nl": "Een tafel met alleen een vaas",
+      "en": "A table with just a vase"
+    },
+    "scene": "A plain white table in an empty room holding one simple ceramic vase with a single green branch, soft window light.",
+    "image": "/illustrations/associations/sense-white-room-c.jpg",
+    "tagWeights": {
+      "stillness": 0.9,
+      "balance": 0.7,
+      "focus": 0.5,
+      "color": 0.2
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": -0.8,
+      "setting": 0,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-cosy-interior",
+    "family": "sense-cosy-interior",
+    "round": "senses",
+    "label": {
+      "nl": "Zacht licht in een ingerichte kamer",
+      "en": "Soft light in a furnished room"
+    },
+    "scene": "A cosy living room with a woollen blanket on an armchair, a floor lamp glowing, books and a plant, late afternoon.",
+    "image": "/illustrations/associations/sense-cosy-interior.jpg",
+    "tagWeights": {
+      "stillness": 0.7,
+      "caring": 0.6,
+      "retro": 0.4,
+      "balance": 0.6
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-cosy-interior-b",
+    "family": "sense-cosy-interior",
+    "round": "senses",
+    "label": {
+      "nl": "Een vensterbank met planten en kaarsen",
+      "en": "A windowsill with plants and candles"
+    },
+    "scene": "A deep windowsill with potted plants, small candles and a mug, rain-streaked glass and a grey day outside.",
+    "image": "/illustrations/associations/sense-cosy-interior-b.jpg",
+    "tagWeights": {
+      "stillness": 0.7,
+      "caring": 0.6,
+      "retro": 0.4,
+      "balance": 0.6
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-cosy-interior-c",
+    "family": "sense-cosy-interior",
+    "round": "senses",
+    "label": {
+      "nl": "Een keukentafel met een lamp erboven",
+      "en": "A kitchen table under a lamp"
+    },
+    "scene": "A solid wooden kitchen table with a pendant lamp above it, a bowl of fruit and a worn cloth, calm evening.",
+    "image": "/illustrations/associations/sense-cosy-interior-c.jpg",
+    "tagWeights": {
+      "stillness": 0.7,
+      "caring": 0.6,
+      "retro": 0.4,
+      "balance": 0.6
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": -0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-carved-ornament",
+    "family": "sense-carved-ornament",
+    "round": "senses",
+    "label": {
+      "nl": "Het reliëf van gebeeldhouwd steen",
+      "en": "The relief of carved stone"
+    },
+    "scene": "A close view of deeply carved floral relief on a pale stone wall, raking light picking out every ridge.",
+    "image": "/illustrations/associations/sense-carved-ornament.jpg",
+    "tagWeights": {
+      "precision": 0.7,
+      "craft": 0.6,
+      "history": 0.5,
+      "color": 0.3
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.3,
+      "setting": 0,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-carved-ornament-b",
+    "family": "sense-carved-ornament",
+    "round": "senses",
+    "label": {
+      "nl": "Een houtsnijwerk onder je vingers",
+      "en": "Wood carving under your fingertips"
+    },
+    "scene": "A close-up of an ornate carved oak panel with scrolling leaves and a rich dark patina, warm side light.",
+    "image": "/illustrations/associations/sense-carved-ornament-b.jpg",
+    "tagWeights": {
+      "precision": 0.7,
+      "craft": 0.6,
+      "history": 0.5,
+      "color": 0.3
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.3,
+      "setting": 0,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-carved-ornament-c",
+    "family": "sense-carved-ornament",
+    "round": "senses",
+    "label": {
+      "nl": "Een smeedijzeren leuning met krullen",
+      "en": "A wrought-iron railing with curls"
+    },
+    "scene": "A close view of an ornate black wrought-iron balustrade with scrolling curls against a soft blurred courtyard.",
+    "image": "/illustrations/associations/sense-carved-ornament-c.jpg",
+    "tagWeights": {
+      "precision": 0.7,
+      "craft": 0.6,
+      "history": 0.5,
+      "color": 0.3
+    },
+    "axes": {
+      "social": -0.4,
+      "energy": -0.3,
+      "setting": 0,
+      "novelty": 0.2
+    },
+    "status": "concept"
   }
 ]

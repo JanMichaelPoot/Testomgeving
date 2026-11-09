@@ -791,5 +791,99 @@
   "taalvaardig": 0.4,
   "verhalen": 0.4,
   "geduld": 0.4
+ },
+ "place-gallery": {
+  "kunst": 1.0,
+  "cultuurplek": 1.0,
+  "schoonheid": 0.7,
+  "stilte": 0.7,
+  "observeren": 0.7,
+  "architectuur": 0.4
+ },
+ "place-spice-market": {
+  "wereldculturen": 1.0,
+  "smaak": 0.7,
+  "geur": 1.0,
+  "ontdekking": 0.7,
+  "gezelligheid": 0.4,
+  "voeding": 0.4
+ },
+ "place-staircase": {
+  "architectuur": 1.0,
+  "ornament": 0.7,
+  "patronen": 0.7,
+  "ruimtelijk": 0.7,
+  "geschiedenis": 0.4,
+  "detail": 0.4
+ },
+ "place-harbour": {
+  "zeevaart": 1.0,
+  "water": 0.7,
+  "nostalgie": 0.7,
+  "kust": 0.7,
+  "mobiliteit": 0.4,
+  "ambacht": 0.4
+ },
+ "moment-second-life": {
+  "duurzaamheid": 1.0,
+  "repareren": 0.7,
+  "restaureren": 0.7,
+  "geduld": 0.7,
+  "trots": 0.4,
+  "hout": 0.4
+ },
+ "moment-procession": {
+  "tradities": 1.0,
+  "gemeenschap": 0.7,
+  "ornament": 0.7,
+  "verbondenheid": 0.7,
+  "muziek": 0.4,
+  "wereldculturen": 0.4
+ },
+ "moment-gold-crack": {
+  "imperfectie": 1.0,
+  "schoonheid": 0.7,
+  "rauw": 0.4,
+  "geduld": 0.7,
+  "repareren": 0.4,
+  "stilte": 0.4
+ },
+ "moment-pattern-fits": {
+  "patronen": 1.0,
+  "ruimtelijk": 0.7,
+  "logica": 0.7,
+  "ornament": 0.4,
+  "precisie": 0.7,
+  "opgaan": 0.4
+ },
+ "sense-first-bite": {
+  "smaak": 1.0,
+  "ontdekking": 0.7,
+  "voeding": 0.7,
+  "verwondering": 0.7,
+  "speelsheid": 0.4,
+  "geur": 0.4
+ },
+ "sense-white-room": {
+  "minimalisme": 1.0,
+  "stilte": 1.0,
+  "rust": 0.7,
+  "licht": 0.7,
+  "welzijn": 0.4
+ },
+ "sense-cosy-interior": {
+  "wonen": 1.0,
+  "warmte": 1.0,
+  "thuis": 0.7,
+  "rust": 0.7,
+  "zorg": 0.4
+ },
+ "sense-carved-ornament": {
+  "ornament": 1.0,
+  "tast": 1.0,
+  "detail": 0.7,
+  "architectuur": 0.4,
+  "ambacht": 0.4,
+  "geschiedenis": 0.4
  }
 }

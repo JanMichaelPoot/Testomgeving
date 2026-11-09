@@ -29,11 +29,13 @@ niet merkbaar schaadt. Of de pagina's er ook **beter** van worden is niet gemete
 beide kanten zien: meer passend bij hout en klei (meubels restaureren, makerspace, hoeden maken), bij wind en hoogte (paragliden, via ferrata, surfles), bij warm en stil (high tea,
 pizza in een houtoven); verlies van onder meer ballet en jazzconcert bij "warm en stil". Een mens moet beoordelen of dat beter is.
 
-## Gaten (associaties zonder beeldfamilie, gewicht ≥ 0,7)
+## Gaten en de 12 nieuwe beeldfamilies
 
-35 van de 127. Veel zijn handelingen of onderwerpen die slecht als beeld werken (ontwerpen, observeren, taal, zelfstandig). Echte beeldgaten, naar aantal activiteiten:
-**smaak** (33), **kunst** (38), **wereldculturen** (30), **duurzaamheid** (35), patronen (16), ornament (19), imperfectie (12), tradities (12), architectuur (11), minimalisme (7), zeevaart (5), wonen (8).
-Voorstel: 12 nieuwe families (4 plekken, 4 momenten, 4 zintuigen) van 3 varianten = 36 beelden = 4 vellen 3x3 ≈ $0,54 (+ herhalingen). Nog niet gemaakt: wacht op akkoord.
+Voor de uitbreiding hadden 35 van de 127 associaties geen beeldfamilie (gewicht ≥ 0,7). Er zijn 12 families van 3 beelden bijgemaakt (36 beelden, ≈ $0,54, 4 vellen 3x3, alle 36 bekeken: geen mensen of tekst):
+plekken: een museumzaal (kunst), een specerijenmarkt (wereldculturen, geur), een wenteltrap en gewelf (architectuur, ornament), een haven (zeevaart); momenten: een oud meubel krijgt een tweede leven (duurzaamheid), voor de optocht (tradities),
+een barst die goud wordt (imperfectie), het patroon dat klopt (patronen); zintuigen: de eerste hap (smaak), een lege lichte kamer (minimalisme), een ingerichte kamer (wonen), gebeeldhouwd ornament (ornament, tast).
+Gedekt nu: **108 van de 127** associaties (was 92). Wat overblijft zijn vooral handelingen en onderwerpen die slecht als beeld werken (ontwerpen, observeren, taal, onderzoeken, zelfstandig, leiding, online).
+De families staan op `concept`; ze verschijnen meteen in de rondes van de beeldpagina (nu 42 families per ronde, een bezoeker ziet er negen).
 
 ## Nog niet gedaan
 

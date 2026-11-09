@@ -25,9 +25,10 @@ describe("sampleRoundCards", () => {
       const shown = new Map<string, number>();
       for (let i = 0; i < 200; i++) for (const c of sampleRoundCards(cards, round, { seed: `pool${i}` })) shown.set(familyOf(c), (shown.get(familyOf(c)) ?? 0) + 1);
       expect(new Set(shown.keys())).toEqual(families);
-      // About 9/n of 200 sessions each (n = families in the round), allowing for the repair step: at least 55% of that.
+      // About 9/n of 200 sessions each (n = families in the round), allowing for the repair step: at least 45% of that (the repair step
+      // favours the families that balance the axes, so the larger the pool the more the extremes lag behind).
       const expected = (200 * 9) / families.size;
-      for (const n of shown.values()) expect(n).toBeGreaterThan(expected * 0.55);
+      for (const n of shown.values()) expect(n).toBeGreaterThan(expected * 0.45);
     }
   });
 
@@ -92,10 +93,12 @@ describe("sampleRoundCards", () => {
   });
 
   it("keeps a chosen variant visible, also when it was not the preferred one", () => {
-    const chosen = cards.find((c) => c.id === "place-forest-edge-c")!;
+    // A family that is in the deck for this seed (which families come up depends on the size of the pool), and one of its other variants.
+    const first = sampleRoundCards(cards, "places", { seed: "k" })[0];
+    const chosen = cards.find((c) => familyOf(c) === familyOf(first) && c.id !== first.id)!;
     const deck = sampleRoundCards(cards, "places", { seed: "k", seen: [chosen.id], keep: [chosen.id] });
     expect(ids(deck)).toContain(chosen.id);
-    expect(deck.filter((c) => familyOf(c) === "place-forest-edge")).toHaveLength(1);
+    expect(deck.filter((c) => familyOf(c) === familyOf(first))).toHaveLength(1);
   });
 
   it("does not move any card when the visitor picks one: same families in the same places", () => {
