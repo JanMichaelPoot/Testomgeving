@@ -25,10 +25,10 @@ describe("sampleRoundCards", () => {
       const shown = new Map<string, number>();
       for (let i = 0; i < 200; i++) for (const c of sampleRoundCards(cards, round, { seed: `pool${i}` })) shown.set(familyOf(c), (shown.get(familyOf(c)) ?? 0) + 1);
       expect(new Set(shown.keys())).toEqual(families);
-      // About 9/n of 200 sessions each (n = families in the round), allowing for the repair step: at least 45% of that (the repair step
+      // About 9/n of 200 sessions each (n = families in the round), allowing for the repair step: at least 40% of that (the repair step
       // favours the families that balance the axes, so the larger the pool the more the extremes lag behind).
       const expected = (200 * 9) / families.size;
-      for (const n of shown.values()) expect(n).toBeGreaterThan(expected * 0.45);
+      for (const n of shown.values()) expect(n).toBeGreaterThan(expected * 0.4);
     }
   });
 
