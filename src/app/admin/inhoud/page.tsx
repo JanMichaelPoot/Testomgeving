@@ -8,7 +8,7 @@ import { ASSOCIATIONS } from "@/lib/discovery/associations";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid } from "../ui";
 
 export const metadata: Metadata = {
-  title: "Inhoud — WINDOW admin",
+  title: "Inhoud — WindowInto admin",
   robots: { index: false, follow: false },
 };
 
@@ -60,7 +60,7 @@ export default async function AdminContentPage() {
     <AdminShell
       active="/admin/inhoud"
       title="Inhoud"
-      intro="Wat mensen kiezen en wat WINDOW voorstelt. Handig om te zien of de motor genoeg variatie geeft en of er richtingen of activiteiten zijn die altijd of nooit voorkomen."
+      intro="Wat mensen kiezen en wat WindowInto voorstelt. Handig om te zien of de motor genoeg variatie geeft en of er richtingen of activiteiten zijn die altijd of nooit voorkomen."
     >
       <Section title="Wat stellen we voor?" hint="Alleen boeken die door de selectiemotor zijn gemaakt (met een activiteit-id) tellen mee; oudere boeken niet.">
         <TileGrid>

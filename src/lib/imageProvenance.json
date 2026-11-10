@@ -8,6 +8,11 @@
       "license": "generated"
     },
     {
+      "match": "illustrations/hero-window/*.webp",
+      "source": "Photographic window frame for the landing hero (one Gemini image with chroma-green glass, cut out locally), scripts/generate-hero-window-photo.ts and scripts/process-hero-window-photo.ts",
+      "license": "generated"
+    },
+    {
       "match": "illustrations/hero-fan/hero.jpg",
       "source": "Supplied by the project owner (file Hero_goed.jpeg, 2026)",
       "license": "Supplied by the project owner; original tool and licence not recorded in the repository",

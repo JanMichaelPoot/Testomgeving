@@ -42,7 +42,7 @@ test.describe("hero window on a computer", () => {
     await expect(figure.locator(".window-pane-open")).toHaveCount(8);
     const box = (await figure.boundingBox())!;
     expect(box.y + box.height).toBeLessThanOrEqual(800);
-    expect(box.width).toBeLessThanOrEqual(560);
+    expect(box.width).toBeLessThanOrEqual(660);
     // The glass shows the same rectangular layout as the app: two columns, four rows (offsets, so the arrival animation does not matter).
     const rects = await figure.locator(".window-pane-open").evaluateAll((els) => els.map((e) => ({ x: Math.round((e as HTMLElement).offsetLeft), y: Math.round((e as HTMLElement).offsetTop) })));
     expect(new Set(rects.map((r) => r.x)).size).toBe(2);

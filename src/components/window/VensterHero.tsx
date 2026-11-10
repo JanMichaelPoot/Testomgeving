@@ -2,11 +2,11 @@ import { Button } from "@/components/ui/Button";
 import { HeroWindow } from "@/components/window/HeroWindow";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { HeroWindowData } from "@/lib/heroWindow";
-import { HERO_WINDOW_ASPECT } from "@/lib/heroWindowGeometry";
+import FRAME from "@/lib/heroWindowFrame.json";
 import { VENSTER_SELF_HREF } from "@/lib/vensterLanding";
 
 // Landing hero, seen from INSIDE the room: the whole band is a limewashed plaster wall (no card around anything), the headline and the
-// way in stand on the wall, and the app's own sash window (HeroWindow) is set into it, looking out on real images of the library
+// way in stand on the wall, and the photographed sash window (HeroWindow) is set into it, looking out on real images of the library
 // (another set on another visit). The wall is lit from the window and fades into the page at the bottom.
 const PLASTER = "url(/illustrations/hero-window/wall.jpg)";
 
@@ -33,7 +33,7 @@ export function VensterHero({
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-b from-transparent to-cream" />
 
       <div className="mx-auto w-full max-w-[84rem] px-4 pb-24 pt-8 sm:px-10 sm:pb-28 sm:pt-14">
-        <div className="grid w-full items-center gap-10 md:grid-cols-[1fr_1fr] lg:gap-16">
+        <div className="grid w-full items-center gap-10 md:grid-cols-[1fr_1.1fr] lg:gap-16">
           <div className="flex max-w-xl flex-col gap-6">
             <div className="inline-flex items-center gap-2 self-start rounded-full border border-border bg-paper px-3.5 py-1.5">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold" />
@@ -56,8 +56,8 @@ export function VensterHero({
 
           {/* On a phone the window comes first and the words follow; on a big screen it is as tall as fits under the header (never wider than 600px). */}
           <div
-            className="order-first mx-auto w-full max-w-[300px] sm:max-w-[420px] md:order-none lg:max-w-[clamp(380px,calc((100svh_-_190px)*var(--hero-aspect)),600px)]"
-            style={{ "--hero-aspect": HERO_WINDOW_ASPECT.toFixed(4) } as React.CSSProperties}
+            className="order-first mx-auto w-full max-w-[330px] sm:max-w-[440px] md:order-none lg:max-w-[clamp(380px,calc((100svh_-_170px)*var(--hero-aspect)),660px)]"
+            style={{ "--hero-aspect": FRAME.aspect.toFixed(4) } as React.CSSProperties}
           >
             <HeroWindow items={hero.items} spare={hero.spare} title={dict.heroAlt} />
           </div>

@@ -6,7 +6,7 @@ import { AdminLogTable, type AdminLogRow } from "../AdminLogTable";
 import { AdminShell } from "../ui";
 
 export const metadata: Metadata = {
-  title: "Logboek — WINDOW admin",
+  title: "Logboek — WindowInto admin",
   robots: { index: false, follow: false },
 };
 

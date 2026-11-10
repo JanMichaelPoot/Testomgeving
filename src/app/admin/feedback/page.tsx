@@ -6,7 +6,7 @@ import { feedbackSummary, percent, readScore, type FeedbackRow, type ScoreSummar
 import { AdminShell, BarList, Card, Section, Tile, TileGrid } from "../ui";
 
 export const metadata: Metadata = {
-  title: "Feedback — WINDOW admin",
+  title: "Feedback — WindowInto admin",
   robots: { index: false, follow: false },
 };
 

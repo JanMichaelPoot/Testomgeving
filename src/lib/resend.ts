@@ -28,7 +28,7 @@ export const EMAIL_FROM = process.env.EMAIL_FROM!;
 // a domain, but only to the e-mail address of the Resend account itself. So on exactly that refusal the mail is
 // tried once more from the test sender: in a test setup it then arrives at the owner's address, and for anyone
 // else Resend refuses it again and the error below is raised as before (nothing is lost or sent wrongly).
-export const TEST_SENDER = "WINDOW <onboarding@resend.dev>";
+export const TEST_SENDER = "WindowInto <onboarding@resend.dev>";
 
 export function isUnverifiedDomainError(error: { name?: string; message?: string } | null | undefined): boolean {
   return !!error && /domain/i.test(error.message ?? "") && /(not verified|not\s+registered|is not allowed)/i.test(error.message ?? "");

@@ -46,6 +46,6 @@ describe("production metadata", () => {
     expect(sitemap.every((entry) => entry.url.startsWith(PRODUCTION_SITE_URL))).toBe(true);
     expect(String(meta.metadataBase)).toBe(`${PRODUCTION_SITE_URL}/`);
     expect(meta.alternates?.canonical).toBe("/");
-    expect(meta.title).toBe("WINDOW — Ontdek wat er mogelijk is voor jou");
+    expect(meta.title).toBe("WindowInto — Ontdek wat er mogelijk is voor jou");
   });
 });

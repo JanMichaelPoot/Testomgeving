@@ -6,7 +6,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { AdminShell } from "../ui";
 
 export const metadata: Metadata = {
-  title: "Orders — WINDOW admin",
+  title: "Orders — WindowInto admin",
   robots: { index: false, follow: false },
 };
 

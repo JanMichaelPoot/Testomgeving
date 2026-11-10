@@ -7,7 +7,7 @@ import { AdminShell, Card, Section } from "../ui";
 import { cleanupAction } from "./actions";
 
 export const metadata: Metadata = {
-  title: "Opruimen — WINDOW admin",
+  title: "Opruimen — WindowInto admin",
   robots: { index: false, follow: false },
 };
 

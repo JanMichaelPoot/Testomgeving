@@ -481,13 +481,13 @@ const nl: Dictionary = {
   },
   consent: {
     message:
-      "We gebruiken alleen analytics om te begrijpen hoe WINDOW gebruikt wordt — pas na jouw toestemming.",
+      "We gebruiken alleen analytics om te begrijpen hoe WindowInto gebruikt wordt — pas na jouw toestemming.",
     accept: "Prima",
     decline: "Liever niet",
   },
   landing: {
     badgeLabel: "Gegenereerd door AI · Persoonlijk voor jou",
-    metaTitle: "WINDOW — Ontdek wat er mogelijk is voor jou",
+    metaTitle: "WindowInto — Ontdek wat er mogelijk is voor jou",
     headlineLine1: "Ontdek wat er",
     headlineEmphasis: "mogelijk is",
     headlineLine2: "voor jou.",
@@ -529,22 +529,22 @@ const nl: Dictionary = {
     ctaBannerCta: "Start de intake",
   },
   legal: {
-    privacyTitle: "Privacybeleid — WINDOW",
+    privacyTitle: "Privacybeleid — WindowInto",
     privacyHeading: "Privacybeleid",
     privacyForgetButton: "Vergeet dit apparaat",
     privacyForgetNone: "Op dit apparaat wordt niets onthouden.",
     privacyIntro:
-      "Kort en concreet: dit is wat er met jouw gegevens gebeurt wanneer je een Idea Book aanvraagt bij WINDOW.",
+      "Kort en concreet: dit is wat er met jouw gegevens gebeurt wanneer je een Idea Book aanvraagt bij WindowInto.",
     privacySections: [
       {
         id: "wie-zijn-we",
         heading: "Wie zijn we",
-        body: "WINDOW is een klein product in de testfase. Vragen of verzoeken over je gegevens? Mail naar hello@windowinto.nl.",
+        body: "WindowInto is een klein product in de testfase. Vragen of verzoeken over je gegevens? Mail naar hello@windowinto.nl.",
       },
       {
         id: "gegevens",
         heading: "Welke gegevens we verzamelen",
-        body: "Je intake-antwoorden (je situatie, leeftijd, locatie en voorkeuren) en, als je betaalt, het e-mailadres dat je bij Stripe invult. Bij een betaalde bestelling leggen we ook vast dat je de Algemene voorwaarden hebt geaccepteerd en toestemming hebt gegeven voor directe digitale levering — inclusief tijdstip, versie en (voor die ene toestemming) je IP-adres en browser, als bewijs bij een eventueel geschil. WINDOW slaat zelf nooit kaart- of betaalgegevens op — dat verloopt volledig via Stripe.",
+        body: "Je intake-antwoorden (je situatie, leeftijd, locatie en voorkeuren) en, als je betaalt, het e-mailadres dat je bij Stripe invult. Bij een betaalde bestelling leggen we ook vast dat je de Algemene voorwaarden hebt geaccepteerd en toestemming hebt gegeven voor directe digitale levering — inclusief tijdstip, versie en (voor die ene toestemming) je IP-adres en browser, als bewijs bij een eventueel geschil. WindowInto slaat zelf nooit kaart- of betaalgegevens op — dat verloopt volledig via Stripe.",
       },
       {
         id: "gebruik",
@@ -574,7 +574,7 @@ const nl: Dictionary = {
       {
         id: "cookies",
         heading: "Cookies en analytics",
-        body: "We gebruiken PostHog om te begrijpen hoe WINDOW gebruikt wordt. Waar dat wettelijk verplicht is, vragen we eerst je toestemming.",
+        body: "We gebruiken PostHog om te begrijpen hoe WindowInto gebruikt wordt. Waar dat wettelijk verplicht is, vragen we eerst je toestemming.",
       },
       {
         id: "contact",
@@ -587,9 +587,9 @@ const nl: Dictionary = {
         body: COMPANY_LINE.nl,
       },
     ],
-    termsTitle: "Algemene Voorwaarden — WINDOW",
+    termsTitle: "Algemene Voorwaarden — WindowInto",
     termsHeading: "Algemene Voorwaarden",
-    termsIntro: "De belangrijkste afspraken tussen jou en WINDOW, in gewone taal.",
+    termsIntro: "De belangrijkste afspraken tussen jou en WindowInto, in gewone taal.",
     termsSections: [
       {
         heading: "Wat je koopt",
@@ -616,7 +616,7 @@ const nl: Dictionary = {
         body: "Niet tevreden, of iets onduidelijk? Mail naar hello@windowinto.nl — we reageren zo snel mogelijk.",
       },
     ],
-    withdrawalTitle: "Herroepingsrecht — WINDOW",
+    withdrawalTitle: "Herroepingsrecht — WindowInto",
     withdrawalHeading: "Herroepingsrecht",
     withdrawalIntro:
       "Bij online aankopen hebben consumenten in beginsel een wettelijke bedenktijd van 14 dagen.",
@@ -636,7 +636,7 @@ const nl: Dictionary = {
     ],
   },
   checkout: {
-    pageTitle: "Maak het echt — WINDOW",
+    pageTitle: "Maak het echt — WindowInto",
     heading: "Jouw Idea Book",
     priceCaption: "eenmalig, inclusief btw",
     subcopy:
@@ -648,7 +648,7 @@ const nl: Dictionary = {
       "Je ziet 'm meteen hier, en we mailen 'm ook naar je.",
     ],
     disclaimer:
-      "WINDOW biedt mogelijkheden om te verkennen — geen medisch, therapeutisch, financieel of juridisch advies. Gebruik je eigen inzicht en raadpleeg een professional waar dat nodig is.",
+      "WindowInto biedt mogelijkheden om te verkennen — geen medisch, therapeutisch, financieel of juridisch advies. Gebruik je eigen inzicht en raadpleeg een professional waar dat nodig is.",
     digitalDeliveryHeading: "Digitale levering",
     digitalDeliveryBody:
       "Je persoonlijke WindowInto PDF wordt na betaling digitaal gegenereerd en beschikbaar gesteld.",
@@ -702,7 +702,7 @@ const nl: Dictionary = {
     errorPaymentFailed: "Je betaling kon niet worden verwerkt. Je PDF is nog niet geleverd.",
   },
   plan: {
-    pageTitle: "Jouw Idea Book — WINDOW",
+    pageTitle: "Jouw Idea Book — WindowInto",
     errorHeading: "Jouw Idea Book",
     refreshLink: "Vernieuwen",
     errorNoPayment:
@@ -805,13 +805,13 @@ const nl: Dictionary = {
     },
   },
   shared: {
-    pageTitle: "Gedeeld Idea Book — WINDOW",
+    pageTitle: "Gedeeld Idea Book — WindowInto",
     eyebrow: "Gedeeld Idea Book",
-    intro: "Iemand deelde dit Idea Book met je — gemaakt door WINDOW, op basis van hun eigen antwoorden.",
+    intro: "Iemand deelde dit Idea Book met je — gemaakt door WindowInto, op basis van hun eigen antwoorden.",
     ctaLabel: "Open zelf een venster",
     notFoundHeading: "Dit Idea Book bestaat niet (meer)",
     notFoundBody: "De link klopt niet, of dit Idea Book is niet meer beschikbaar.",
-    bannerHeading: "Idee uit een WINDOW Idea Book",
+    bannerHeading: "Idee uit een WindowInto Idea Book",
     bannerSub: "Wil jij ook jouw persoonlijke ideeën?",
     bannerCta: "Maak er een",
     ogTitle: "Een venster vol mogelijkheden",
@@ -852,7 +852,7 @@ const nl: Dictionary = {
     },
   },
   pdfChrome: {
-    coverEyebrow: "JOUW WINDOW IDEA BOOK",
+    coverEyebrow: "JOUW WINDOWINTO IDEA BOOK",
     coverTagline: "Een handvol mogelijkheden, gevormd naar wat je ons vertelde.",
     profileEyebrow: "JOUW PROFIEL",
     mustHaves: "VEREISTEN",
@@ -893,7 +893,7 @@ const nl: Dictionary = {
         limits: "Harde grenzen",
       },
     },
-    pageTitle: "Open een Venster — WINDOW",
+    pageTitle: "Open een Venster — WindowInto",
     discovery: {
       pages: {
         interests: {
@@ -1187,13 +1187,13 @@ const en: Dictionary = {
     navInvite: "Share an invitation",
   },
   consent: {
-    message: "We only use analytics to understand how WINDOW is used — and only after you say it's okay.",
+    message: "We only use analytics to understand how WindowInto is used — and only after you say it's okay.",
     accept: "Sounds good",
     decline: "No thanks",
   },
   landing: {
     badgeLabel: "Generated by AI · Personal to you",
-    metaTitle: "WINDOW — Discover what's possible for you",
+    metaTitle: "WindowInto — Discover what's possible for you",
     headlineLine1: "Discover what's",
     headlineEmphasis: "possible",
     headlineLine2: "for you.",
@@ -1235,22 +1235,22 @@ const en: Dictionary = {
     ctaBannerCta: "Start the intake",
   },
   legal: {
-    privacyTitle: "Privacy Policy — WINDOW",
+    privacyTitle: "Privacy Policy — WindowInto",
     privacyHeading: "Privacy Policy",
     privacyForgetButton: "Forget this device",
     privacyForgetNone: "Nothing is remembered on this device.",
     privacyIntro:
-      "Short and concrete: here's what happens to your data when you request an Idea Book from WINDOW.",
+      "Short and concrete: here's what happens to your data when you request an Idea Book from WindowInto.",
     privacySections: [
       {
         id: "wie-zijn-we",
         heading: "Who we are",
-        body: "WINDOW is a small product still in its testing phase. Questions or requests about your data? Email hello@windowinto.nl.",
+        body: "WindowInto is a small product still in its testing phase. Questions or requests about your data? Email hello@windowinto.nl.",
       },
       {
         id: "gegevens",
         heading: "What data we collect",
-        body: "Your intake answers (your situation, age, location and preferences) and, if you pay, the email address you enter with Stripe. For a paid order we also record that you accepted the Terms of Service and consented to immediate digital delivery — including the time, version, and (for that one consent) your IP address and browser — as evidence in case of a dispute. WINDOW never stores card or payment details itself — that runs entirely through Stripe.",
+        body: "Your intake answers (your situation, age, location and preferences) and, if you pay, the email address you enter with Stripe. For a paid order we also record that you accepted the Terms of Service and consented to immediate digital delivery — including the time, version, and (for that one consent) your IP address and browser — as evidence in case of a dispute. WindowInto never stores card or payment details itself — that runs entirely through Stripe.",
       },
       {
         id: "gebruik",
@@ -1280,7 +1280,7 @@ const en: Dictionary = {
       {
         id: "cookies",
         heading: "Cookies and analytics",
-        body: "We use PostHog to understand how WINDOW is used. Where required by law, we ask for your consent first.",
+        body: "We use PostHog to understand how WindowInto is used. Where required by law, we ask for your consent first.",
       },
       {
         id: "contact",
@@ -1293,9 +1293,9 @@ const en: Dictionary = {
         body: COMPANY_LINE.en,
       },
     ],
-    termsTitle: "Terms of Service — WINDOW",
+    termsTitle: "Terms of Service — WindowInto",
     termsHeading: "Terms of Service",
-    termsIntro: "The key agreements between you and WINDOW, in plain language.",
+    termsIntro: "The key agreements between you and WindowInto, in plain language.",
     termsSections: [
       {
         heading: "What you're buying",
@@ -1322,7 +1322,7 @@ const en: Dictionary = {
         body: "Not happy, or something unclear? Email hello@windowinto.nl — we'll get back to you as soon as we can.",
       },
     ],
-    withdrawalTitle: "Right of withdrawal — WINDOW",
+    withdrawalTitle: "Right of withdrawal — WindowInto",
     withdrawalHeading: "Right of withdrawal",
     withdrawalIntro:
       "For online purchases, consumers generally have a statutory 14-day cooling-off period.",
@@ -1342,7 +1342,7 @@ const en: Dictionary = {
     ],
   },
   checkout: {
-    pageTitle: "Make this real — WINDOW",
+    pageTitle: "Make this real — WindowInto",
     heading: "Your Idea Book",
     priceCaption: "one-time, VAT included",
     subcopy:
@@ -1354,7 +1354,7 @@ const en: Dictionary = {
       "You'll see it right here, and we'll email you a copy too.",
     ],
     disclaimer:
-      "WINDOW offers possibilities to explore — not medical, therapeutic, financial, or legal advice. Use your own judgment, and consult a professional where it matters.",
+      "WindowInto offers possibilities to explore — not medical, therapeutic, financial, or legal advice. Use your own judgment, and consult a professional where it matters.",
     digitalDeliveryHeading: "Digital delivery",
     digitalDeliveryBody:
       "Your personal WindowInto PDF is generated and made available digitally right after payment.",
@@ -1408,7 +1408,7 @@ const en: Dictionary = {
     errorPaymentFailed: "Your payment could not be processed. Your PDF has not been delivered.",
   },
   plan: {
-    pageTitle: "Your Idea Book — WINDOW",
+    pageTitle: "Your Idea Book — WindowInto",
     errorHeading: "Your Idea Book",
     refreshLink: "Refresh",
     errorNoPayment:
@@ -1511,13 +1511,13 @@ const en: Dictionary = {
     },
   },
   shared: {
-    pageTitle: "Shared Idea Book — WINDOW",
+    pageTitle: "Shared Idea Book — WindowInto",
     eyebrow: "Shared Idea Book",
-    intro: "Someone shared this Idea Book with you — made by WINDOW, from their own answers.",
+    intro: "Someone shared this Idea Book with you — made by WindowInto, from their own answers.",
     ctaLabel: "Open your own window",
     notFoundHeading: "This Idea Book doesn't exist (anymore)",
     notFoundBody: "The link is wrong, or this Idea Book is no longer available.",
-    bannerHeading: "An idea from a WINDOW Idea Book",
+    bannerHeading: "An idea from a WindowInto Idea Book",
     bannerSub: "Want your own personal ideas?",
     bannerCta: "Make one",
     ogTitle: "A window full of possibilities",
@@ -1558,7 +1558,7 @@ const en: Dictionary = {
     },
   },
   pdfChrome: {
-    coverEyebrow: "YOUR WINDOW IDEA BOOK",
+    coverEyebrow: "YOUR WINDOWINTO IDEA BOOK",
     coverTagline: "A handful of possibilities, shaped around what you told us.",
     profileEyebrow: "YOUR PROFILE",
     mustHaves: "MUST-HAVES",
@@ -1599,7 +1599,7 @@ const en: Dictionary = {
         limits: "Hard limits",
       },
     },
-    pageTitle: "Open a Window — WINDOW",
+    pageTitle: "Open a Window — WindowInto",
     discovery: {
       pages: {
         interests: {

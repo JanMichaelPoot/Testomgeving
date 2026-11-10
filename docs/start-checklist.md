@@ -19,7 +19,7 @@ Zonder dit krijgt alleen jij je boek per mail.
 2. Klik het domein open. Resend toont drie records die er moeten staan: een **TXT** `resend._domainkey` (staat er al), een **MX** op `send` en een **TXT** op `send` met `v=spf1 include:amazonses.com ~all`.
 3. Pas bij je domeinhost (Vimexx) de records op `send` aan zodat ze exact gelijk zijn aan wat Resend toont. Is er al een record op `send` van een ander doel, dan botst dat: vraag Resend welk subdomein je kunt gebruiken (je kunt een ander subdomein kiezen bij het toevoegen van het domein).
 4. Klik in Resend op "Verify DNS Records" en wacht tot de status **Verified** is (minuten tot een paar uur).
-5. Zet in Vercel (Production en Preview) `EMAIL_FROM` op `WINDOW <hello@jouwdomein.nl>`. Het adres hoeft niet te bestaan, het domein moet het verifieerde domein zijn.
+5. Zet in Vercel (Production en Preview) `EMAIL_FROM` op `WindowInto <hello@jouwdomein.nl>`. Het adres hoeft niet te bestaan, het domein moet het verifieerde domein zijn.
 6. Redeploy.
 
 Controle door mij: geef me een e-mailadres dat niet het jouwe is. Ik stuur dan een echte testmail met dezelfde code als de bevestigingsmail en lees het resultaat af.

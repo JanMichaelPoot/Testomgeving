@@ -10,7 +10,7 @@ zonder dat de rekening of de database ontspoort.
 | 1 | Migratie `supabase/migrations/0021_test_quota.sql` draaien in de Supabase SQL Editor | zonder deze tabel werkt de limiet niet (de site blijft werken, maar zonder limiet; er staat dan een waarschuwing in de log) |
 | 2 | In Vercel: `TEST_MAX_BOOKS_PER_IP` = `2` (scope = de omgeving waar je test, hier meestal Production) en opnieuw deployen | zet de limiet aan |
 | 3 | In Vercel: `NEXT_PUBLIC_TEST_FEEDBACK` = `1` en opnieuw deployen **zonder build-cache** | de vragenlijst onder het boek |
-| 4 | `windowinto.nl` verifiëren in Resend en `EMAIL_FROM` op `WINDOW <hello@windowinto.nl>` zetten | met `onboarding@resend.dev` kan Resend alleen naar jouw eigen adres mailen: je vrienden krijgen dan geen mail met de PDF |
+| 4 | `windowinto.nl` verifiëren in Resend en `EMAIL_FROM` op `WindowInto <hello@windowinto.nl>` zetten | met `onboarding@resend.dev` kan Resend alleen naar jouw eigen adres mailen: je vrienden krijgen dan geen mail met de PDF |
 | 5 | `/admin` → *Instellingen van deze deployment* controleren: alles groen | je ziet meteen wat de draaiende site van zijn instellingen ziet |
 | 6 | `/admin` → *Opruimen*: alle oude testgegevens verwijderen (datum van gisteren) | de cijfers gaan dan alleen over deze test |
 | 7 | Anthropic: een bestedingslimiet of waarschuwing instellen (console.anthropic.com → Limits) | vangnet voor het geval er iets doorschiet |

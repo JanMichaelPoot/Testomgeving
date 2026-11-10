@@ -59,7 +59,7 @@ export function shouldUseEngine(intake: Pick<IntakeAnswers, "interests" | "inter
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 
-The person has just paid for their WINDOW Idea Book: seven ideas (six regular ideas plus one wildcard),
+The person has just paid for their WindowInto Idea Book: seven ideas (six regular ideas plus one wildcard),
 printed as a PDF with one page per idea. The ideas have ALREADY BEEN CHOSEN for this person by a selection
 step. You receive the seven activities below, each with the door it belongs to, why it was chosen, how the
 person wants to take part, an easy way in, and real local options found by research. Your job is to write
@@ -135,7 +135,7 @@ Write absolutely everything in {{LANGUAGE}}, not English, unless {{LANGUAGE}} is
 // The layers are optional: if this call fails the book is delivered without them.
 const LAYERS_SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 
-The person has just paid for their WINDOW Idea Book. Seven ideas (six regular ideas plus one wildcard) have
+The person has just paid for their WindowInto Idea Book. Seven ideas (six regular ideas plus one wildcard) have
 ALREADY BEEN CHOSEN for them and are being written by someone else. You write ONLY the extra layers of each
 idea, in the order given. You receive the profile and the seven activities, each with the door it belongs to,
 how the person wants to take part, an easy way in, and real local options found by research.
@@ -936,7 +936,7 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   console.log(`WINDOW: options per idea: ${optionsCoverage.withOption}/${optionsCoverage.ideas} with a concrete option, ${optionsCoverage.withRating} with a rating`);
   const report: SeedPipelineReport = { seeds, notes, research: research.stats, options: optionsCoverage, issues, qa: { found: gate.foundBefore, remaining: gate.remaining } };
   console.log(
-    `WINDOW: seed pipeline: ${seeds.map((s) => `${s.direction}:${s.activityId}`).join(", ")} | issues: ${issues.length ? issues.join("; ") : "none"}`,
+    `WindowInto: seed pipeline: ${seeds.map((s) => `${s.direction}:${s.activityId}`).join(", ")} | issues: ${issues.length ? issues.join("; ") : "none"}`,
   );
   return { book, report };
 }

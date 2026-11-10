@@ -38,7 +38,7 @@ describe("formatProfile", () => {
     );
     expect(text).toMatch(/Imagery the person chose/);
     expect(text).toMatch(/Hands full of clay/);
-    expect(text).toMatch(/derived from these images by WINDOW, not picked/);
+    expect(text).toMatch(/derived from these images by WindowInto, not picked/);
   });
 
   it("writes to the person the search is for when that is somebody else", () => {

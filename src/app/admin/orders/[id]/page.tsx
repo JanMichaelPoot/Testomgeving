@@ -6,7 +6,7 @@ import { explainEmailError } from "@/lib/emailErrors";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
-  title: "Orderdetail — WINDOW admin",
+  title: "Orderdetail — WindowInto admin",
   robots: { index: false, follow: false },
 };
 

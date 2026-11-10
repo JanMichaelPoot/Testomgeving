@@ -36,7 +36,7 @@ describe("sendEmail", () => {
     send
       .mockResolvedValueOnce({ data: null, error: { name: "validation_error", message: "The windowinto.nl domain is not verified. Please add and verify your domain." } })
       .mockResolvedValueOnce({ data: { id: "msg_2" }, error: null });
-    await expect(sendEmail({ from: "WINDOW <hello@windowinto.nl>", to: "owner@d.nl", subject: "s", html: "x" })).resolves.toEqual({ id: "msg_2" });
+    await expect(sendEmail({ from: "WindowInto <hello@windowinto.nl>", to: "owner@d.nl", subject: "s", html: "x" })).resolves.toEqual({ id: "msg_2" });
     expect(send).toHaveBeenCalledTimes(2);
     expect(send.mock.calls[1][0].from).toBe(TEST_SENDER);
     expect(send.mock.calls[1][0].to).toBe("owner@d.nl");

@@ -20,7 +20,7 @@ export function AdminShell({ active, title, intro, children }: { active: (typeof
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-wrap items-start justify-between gap-4 border-b border-ink/10 pb-5">
           <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">WINDOW — admin</p>
+            <p className="text-xs font-medium uppercase tracking-widest text-accent-dark">WindowInto — admin</p>
             <h1 className="mt-1 font-serif text-2xl text-ink">{title}</h1>
             {intro && <div className="mt-1 max-w-2xl text-sm text-ink/70">{intro}</div>}
           </div>

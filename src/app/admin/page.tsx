@@ -9,7 +9,7 @@ import { isExemptIp, parseExemptIps, quotaOverview, requestIp } from "@/lib/test
 import { AdminShell, BarList, Card, Section, Tile, TileGrid, formatEuro, formatSeconds } from "./ui";
 
 export const metadata: Metadata = {
-  title: "Overzicht — WINDOW admin",
+  title: "Overzicht — WindowInto admin",
   robots: { index: false, follow: false },
 };
 
@@ -43,7 +43,7 @@ export default async function AdminOverviewPage() {
     <AdminShell
       active="/admin"
       title="Overzicht"
-      intro="Wat er gebeurt in WINDOW: hoeveel boeken, of ze aankomen, hoe snel ze klaar zijn en of mensen er iets mee doen. Alles is geaggregeerd; er staan geen namen of e-mailadressen op deze pagina."
+      intro="Wat er gebeurt in WindowInto: hoeveel boeken, of ze aankomen, hoe snel ze klaar zijn en of mensen er iets mee doen. Alles is geaggregeerd; er staan geen namen of e-mailadressen op deze pagina."
     >
       {planError && <p className="text-sm text-red-600">Kon de gegevens niet laden: {planError.message}</p>}
 

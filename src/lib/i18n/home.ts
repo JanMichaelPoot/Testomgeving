@@ -60,7 +60,7 @@ export interface HomeCopy {
 
 const NL: HomeCopy = {
   differentiators: {
-    heading: "Wat WINDOW anders maakt",
+    heading: "Wat WindowInto anders maakt",
     sub: "Geen vragenlijst en geen lijstje van de eerste Google-resultaten.",
     items: [
       { title: "Beelden in plaats van een vragenlijst", body: "Je kiest wat je aantrekt en wij lezen daar je smaak uit. Klaar in ±3 minuten." },
@@ -158,7 +158,7 @@ const NL: HomeCopy = {
 
 const EN: HomeCopy = {
   differentiators: {
-    heading: "What makes WINDOW different",
+    heading: "What makes WindowInto different",
     sub: "No questionnaire and no list of the first Google results.",
     items: [
       { title: "Images instead of a questionnaire", body: "You pick what draws you in and we read your taste from it. Ready in about 3 minutes." },

@@ -26,8 +26,8 @@ describe("envChecks", () => {
   });
 
   it("mentions the unverified-domain risk when the sender is on windowinto.nl", () => {
-    expect(envChecks({ EMAIL_FROM: "WINDOW <hello@windowinto.nl>" }).some((c) => c.name === "Afzenderdomein")).toBe(true);
-    expect(envChecks({ EMAIL_FROM: "WINDOW <onboarding@resend.dev>" }).some((c) => c.name === "Afzenderdomein")).toBe(false);
+    expect(envChecks({ EMAIL_FROM: "WindowInto <hello@windowinto.nl>" }).some((c) => c.name === "Afzenderdomein")).toBe(true);
+    expect(envChecks({ EMAIL_FROM: "WindowInto <onboarding@resend.dev>" }).some((c) => c.name === "Afzenderdomein")).toBe(false);
   });
 
   it("knows the Supabase key under its newer name too", () => {

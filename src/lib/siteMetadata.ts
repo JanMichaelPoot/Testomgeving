@@ -18,7 +18,7 @@ export function buildSiteMetadata(dict: Dictionary): Metadata {
       title,
       description: dict.landing.subcopy,
       url: "/",
-      siteName: "WINDOW",
+      siteName: "WindowInto",
       images: [ogImage],
       type: "website",
     },

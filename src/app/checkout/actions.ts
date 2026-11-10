@@ -88,7 +88,7 @@ export async function createCheckoutSession(
           currency: WINDOW_PLAN_PRICE.currency,
           unit_amount: price.cents,
           product_data: {
-            name: "Your WINDOW Idea Book",
+            name: "Your WindowInto Idea Book",
             description: "A personalized set of possibilities, made real.",
           },
         },

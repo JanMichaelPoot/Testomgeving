@@ -117,7 +117,7 @@ describe("matching: what may merge", () => {
 });
 
 describe("rejection rules", () => {
-  it("rejects what WINDOW never suggests, technical terms, generic fields, over-long names and records without a label", () => {
+  it("rejects what WindowInto never suggests, technical terms, generic fields, over-long names and records without a label", () => {
     expect(autoReject(norm(rec("Q1", "weapon collecting")))).toBe("unsafe_or_restricted");
     expect(autoReject(norm(rec("Q2", "Tyrosemiophilia")))).toBe("technical_term");
     expect(autoReject(norm(rec("Q3", "collecting")))).toBe("too_generic");

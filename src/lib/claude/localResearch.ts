@@ -189,7 +189,7 @@ export const RESEARCH_MODEL = process.env.WINDOW_RESEARCH_MODEL || "claude-haiku
 const MAX_SEARCHES = 5;
 const MAX_PRIORITY_SEARCHES = 4;
 
-const SYSTEM = `You are a meticulous local-options researcher for WINDOW, a possibility-discovery app.
+const SYSTEM = `You are a meticulous local-options researcher for WindowInto, a possibility-discovery app.
 Your only job is to use web search to find REAL, CURRENTLY OPERATING businesses, venues, clubs, routes, event
 series or platforms where a beginner can take part in the activities you are given. Always verify with a search
 and never rely on memory or a plausible-sounding guess. Never invent a name or a URL. An empty answer is a good
@@ -409,7 +409,7 @@ async function searchOnce(
   });
   const searches = message.content.filter((b) => b.type === "server_tool_use" && b.name === "web_search").length;
   console.log(
-    `WINDOW: research pass${priority ? " (own choices)" : ""} took ${Date.now() - startedAt}ms, ${searches} web searches for ${activityIds.length} activities (${RESEARCH_MODEL}), ` +
+    `WindowInto: research pass${priority ? " (own choices)" : ""} took ${Date.now() - startedAt}ms, ${searches} web searches for ${activityIds.length} activities (${RESEARCH_MODEL}), ` +
       `usage=${JSON.stringify(message.usage)}`,
   );
   const text = message.content

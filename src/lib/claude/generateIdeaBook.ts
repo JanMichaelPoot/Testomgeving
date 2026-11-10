@@ -45,7 +45,7 @@ import { describeAudienceForPrompt, isForOther, normalizeSearchContext } from "@
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 
-The person has just paid for their WINDOW Idea Book — a personalized set of
+The person has just paid for their WindowInto Idea Book — a personalized set of
 exactly 6 possibilities generated directly from their profile, plus one
 "wildcard" idea. There is no browsing or narrowing step: everything you
 generate here is the final, paid deliverable, so it needs to already feel
@@ -236,7 +236,7 @@ export function formatProfile(intake: IntakeAnswers, character: CharacterProfile
   const imageNote = imageLines
     ? `
 ${imageLines}
-The activities under "Concrete activities they picked" were derived from these images by WINDOW, not picked by the
+The activities under "Concrete activities they picked" were derived from these images by WindowInto, not picked by the
 person: never say they picked an activity; refer to the images instead.`
     : "";
   const audienceLines = intake.audienceProfile ? describeAudienceForPrompt(intake.audienceProfile) : "";
@@ -324,7 +324,7 @@ async function researchGroundedOptions(intake: IntakeAnswers, locale: Locale): P
       system: [
         {
           type: "text",
-          text: `You are a meticulous local-options researcher for WINDOW, a
+          text: `You are a meticulous local-options researcher for WindowInto, a
 possibility-discovery app. Your only job here is to use web search to find
 REAL, CURRENTLY OPERATING businesses, venues, routes, events, or platforms
 that concretely match the profile below — always verify with a search,
@@ -389,7 +389,7 @@ options qualify, keep the best rated ones (more reviews counts for more).`,
       (block) => block.type === "server_tool_use" && block.name === "web_search"
     ).length;
     console.log(
-      `WINDOW: research pass took ${Date.now() - startedAt}ms, ${searchCalls} web searches, ` +
+      `WindowInto: research pass took ${Date.now() - startedAt}ms, ${searchCalls} web searches, ` +
         `usage=${JSON.stringify(message.usage)}`
     );
 
@@ -399,7 +399,7 @@ options qualify, keep the best rated ones (more reviews counts for more).`,
       .join("\n");
   } catch (err) {
     console.error(
-      `WINDOW: grounded-options web search failed after ${Date.now() - startedAt}ms, continuing without it`,
+      `WindowInto: grounded-options web search failed after ${Date.now() - startedAt}ms, continuing without it`,
       err
     );
     return "";
@@ -591,7 +591,7 @@ quota); the wildcard's door is always "wildcard".`,
     tool_choice: { type: "tool", name: "create_idea_book" },
   });
   console.log(
-    `WINDOW: main generation call took ${Date.now() - generationStartedAt}ms, usage=${JSON.stringify(message.usage)}`
+    `WindowInto: main generation call took ${Date.now() - generationStartedAt}ms, usage=${JSON.stringify(message.usage)}`
   );
 
   const raw = extractToolInput<GeneratedIdeaBook>(message, "create_idea_book");

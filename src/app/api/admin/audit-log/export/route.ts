@@ -27,7 +27,7 @@ export async function GET() {
   const rows = data ?? [];
 
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = "WINDOW";
+  workbook.creator = "WindowInto";
   workbook.created = new Date();
 
   // One row per generation — the input profile alongside a summary of what

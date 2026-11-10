@@ -14,7 +14,7 @@ import { VENSTER_SELF_HREF } from "@/lib/vensterLanding";
 export async function generateMetadata(): Promise<Metadata> {
   const home = getHomeCopy(await getLocale());
   return {
-    title: `${home.inside.title} — WINDOW`,
+    title: `${home.inside.title} — WindowInto`,
     description: home.inside.metaDescription,
     alternates: { canonical: "/wat-zit-erin" },
   };
