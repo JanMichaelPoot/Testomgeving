@@ -63,7 +63,7 @@ export function SampleSpreads({ spreads, labels }: { spreads: Spread[]; labels: 
 
   return (
     <>
-      <ul className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-0">
+      <ul className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-4 lg:gap-5">
         {spreads.map((spread, i) => (
           <li key={spread.src} className="w-[72%] shrink-0 snap-center sm:w-auto">
             <button
@@ -80,7 +80,7 @@ export function SampleSpreads({ spreads, labels }: { spreads: Spread[]; labels: 
                 alt={spread.alt}
                 width={WIDTH}
                 height={HEIGHT}
-                sizes="(min-width: 1024px) 300px, (min-width: 640px) 30vw, 72vw"
+                sizes="(min-width: 1024px) 310px, (min-width: 640px) 45vw, 72vw"
                 className="h-auto w-full transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </button>

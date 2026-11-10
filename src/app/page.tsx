@@ -122,25 +122,27 @@ export default async function Home(props: {
 
         {/* The sample book: three pages as pictures with a lightbox, the PDF, and what is free before paying */}
         <section id="voorbeeld" className="mx-auto mt-16 w-full max-w-[84rem] scroll-mt-24 px-4 sm:px-10">
-          <div className="mb-8 max-w-2xl px-2 sm:px-0">
-            <h2 className="font-serif text-3xl text-ink sm:text-4xl">{home.sample.heading}</h2>
-            <p className="mt-3 text-ink/70">{home.sample.sub}</p>
+          <div className="mb-8 flex flex-col gap-4 px-2 sm:px-0 md:flex-row md:items-end md:justify-between md:gap-10">
+            <div className="max-w-2xl">
+              <h2 className="font-serif text-3xl text-ink sm:text-4xl">{home.sample.heading}</h2>
+              <p className="mt-3 text-ink/70">{home.sample.sub}</p>
+            </div>
+            <a
+              href={`/examples/idea-book-${locale}.pdf`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-11 shrink-0 items-center self-start rounded-lg border border-accent-dark px-5 text-sm font-semibold text-accent-dark transition hover:bg-accent-dark hover:text-paper focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60 md:self-auto"
+            >
+              {home.sample.pdfLink}
+            </a>
           </div>
           <SampleSpreads
             spreads={SAMPLE_SPREADS.map((file, i) => ({ src: `/examples/spreads/${locale}-${file}.jpg`, alt: home.sample.spreads[i].alt, name: home.sample.spreads[i].name }))}
             labels={home.sample}
           />
-          <div className="mt-6 flex flex-col gap-3 px-2 sm:flex-row sm:items-center sm:justify-between sm:px-0">
-            <p className="max-w-xl text-[15px] font-medium text-ink/80">{home.sample.freeNote}</p>
-            <a
-              href={`/examples/idea-book-${locale}.pdf`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex min-h-11 items-center text-sm font-semibold text-accent-dark underline underline-offset-2 hover:text-accent"
-            >
-              {home.sample.pdfLink}
-            </a>
-          </div>
+          <p className="mx-auto mt-8 max-w-2xl rounded-lg border border-border bg-paper px-5 py-3.5 text-center text-[15px] font-medium leading-relaxed text-ink/80">
+            {home.sample.freeNote}
+          </p>
         </section>
 
         {/* What makes it different */}
