@@ -23,7 +23,10 @@ import { paneBox, type WindowItem } from "@/lib/windowLayout";
 const TEXTURES = {
   oak: "url(/illustrations/hero-window/oak.jpg)",
   oakH: "url(/illustrations/hero-window/oak-h.jpg)",
-  plaster: "url(/illustrations/hero-window/plaster.jpg)",
+  wall: "url(/illustrations/hero-window/wall.jpg)",
+  moulding: "url(/illustrations/hero-window/moulding.jpg)",
+  mouldingV: "url(/illustrations/hero-window/moulding-v.jpg)",
+  sill: "url(/illustrations/hero-window/sill.jpg)",
 };
 
 const SWAP_EVERY_MS = 3400;
@@ -207,7 +210,7 @@ export function HeroWindow({ items, spare, title }: { items: readonly WindowItem
             ...place(reveal.x, reveal.y, reveal.w, reveal.h),
             clipPath: polygon(reveal, side.pts),
             backgroundColor: "#e4d8c4",
-            backgroundImage: `${side.shade}, ${TEXTURES.plaster}`,
+            backgroundImage: `${side.shade}, ${TEXTURES.wall}`,
             backgroundSize: "100% 100%, cover",
           }}
         />
@@ -219,13 +222,13 @@ export function HeroWindow({ items, spare, title }: { items: readonly WindowItem
           key={i}
           aria-hidden="true"
           className={`absolute shadow-[7px_9px_14px_-6px_rgba(40,25,15,0.5),inset_0_0_0_1px_rgba(0,0,0,0.5),inset_2px_0_0_rgba(255,235,205,0.14)]`}
-          style={{ ...place(b.x, b.y, b.w, b.h), backgroundColor: "#3c2920", backgroundImage: TEXTURES.oak, backgroundSize: "350% 100%", backgroundPosition: `${15 + i * 55}% 0` }}
+          style={{ ...place(b.x, b.y, b.w, b.h), backgroundColor: "#3c2920", backgroundImage: TEXTURES.mouldingV, backgroundSize: "100% 100%" }}
         />
       ))}
       <div
         aria-hidden="true"
         className={`absolute shadow-[0_10px_14px_-5px_rgba(40,25,15,0.55),inset_0_0_0_1px_rgba(0,0,0,0.5)] ${BEVEL_H}`}
-        style={{ ...place(head.x, head.y, head.w, head.h), backgroundColor: "#3c2920", backgroundImage: TEXTURES.oakH, backgroundSize: "120% auto", backgroundPosition: "10% 20%" }}
+        style={{ ...place(head.x, head.y, head.w, head.h), backgroundColor: "#3c2920", backgroundImage: TEXTURES.moulding, backgroundSize: "100% 100%" }}
       />
 
       {/* The sash frame, set into the recess: walnut, with the panes, the reflection and the latch. */}
@@ -319,12 +322,12 @@ export function HeroWindow({ items, spare, title }: { items: readonly WindowItem
           backgroundColor: "#5a4030",
           backgroundImage: [
             "linear-gradient(90deg, transparent 47.2%, rgba(35,22,12,0.22) 49.3%, rgba(35,22,12,0.22) 50.7%, transparent 52.8%)",
-            "linear-gradient(90deg, rgba(20,12,6,0.42) 0%, rgba(20,12,6,0) 16%, rgba(255,238,204,0.3) 32%, rgba(255,238,204,0.3) 68%, rgba(20,12,6,0) 84%, rgba(20,12,6,0.36) 100%)",
-            "linear-gradient(180deg, rgba(255,240,210,0.4), rgba(20,12,6,0.14))",
-            TEXTURES.oakH,
+            "linear-gradient(90deg, rgba(20,12,6,0.42) 0%, rgba(20,12,6,0) 16%, rgba(255,238,204,0.16) 32%, rgba(255,238,204,0.16) 68%, rgba(20,12,6,0) 84%, rgba(20,12,6,0.36) 100%)",
+            "linear-gradient(180deg, rgba(255,240,210,0.2), rgba(20,12,6,0.16))",
+            TEXTURES.sill,
           ].join(", "),
-          backgroundSize: "100% 100%, 100% 100%, 100% 100%, 140% auto",
-          backgroundPosition: "0 0, 0 0, 0 0, 30% 40%",
+          backgroundSize: "100% 100%, 100% 100%, 100% 100%, 100% 100%",
+          backgroundPosition: "0 0, 0 0, 0 0, 0 0",
         }}
       />
       <div
@@ -333,9 +336,9 @@ export function HeroWindow({ items, spare, title }: { items: readonly WindowItem
         style={{
           ...place(0, GEO.frontY, GEO.W, SILL_FRONT),
           backgroundColor: "#3c2920",
-          backgroundImage: `linear-gradient(180deg, rgba(255,235,200,0.3) 0%, rgba(255,235,200,0) 28%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.34) 100%), ${TEXTURES.oakH}`,
-          backgroundSize: "100% 100%, 110% auto",
-          backgroundPosition: "0 0, 0 60%",
+          backgroundImage: `linear-gradient(180deg, rgba(255,235,200,0.3) 0%, rgba(255,235,200,0) 28%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.34) 100%), ${TEXTURES.moulding}`,
+          backgroundSize: "100% 100%, 100% 100%",
+          backgroundPosition: "0 0, 0 0",
           borderRadius: "1.5px",
         }}
       />

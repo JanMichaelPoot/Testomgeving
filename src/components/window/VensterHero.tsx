@@ -8,7 +8,7 @@ import { VENSTER_SELF_HREF } from "@/lib/vensterLanding";
 // Landing hero, seen from INSIDE the room: the whole band is a limewashed plaster wall (no card around anything), the headline and the
 // way in stand on the wall, and the app's own sash window (HeroWindow) is set into it, looking out on real images of the library
 // (another set on another visit). The wall is lit from the window and fades into the page at the bottom.
-const PLASTER = "url(/illustrations/hero-window/plaster.jpg)";
+const PLASTER = "url(/illustrations/hero-window/wall.jpg)";
 
 export function VensterHero({
   dict,
@@ -24,7 +24,7 @@ export function VensterHero({
       {/* The wall. Plaster, a veil of the page colour so the text stays easy to read, the light that comes in at the window (more on the
           right, where it is) and a shadow towards the corners. */}
       <div aria-hidden="true" className="absolute inset-0 -z-10" style={{ backgroundColor: "#e4d8c4", backgroundImage: PLASTER, backgroundSize: "cover", backgroundPosition: "center" }} />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-cream/45" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-cream/22" />
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[radial-gradient(70%_80%_at_72%_46%,rgba(255,246,228,0.55),transparent_72%),radial-gradient(140%_120%_at_50%_40%,transparent_55%,rgba(60,41,32,0.22)_100%)]"
