@@ -44,6 +44,8 @@ export default async function InsidePage() {
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12 sm:px-10 sm:py-16">
         <h1 className="font-serif text-4xl leading-tight text-ink sm:text-5xl">{t.title}</h1>
         <p className="mt-4 text-lg leading-relaxed text-ink/75">{t.intro}</p>
+        {/* How the book comes about, stated here (not on the landing page): made with AI, places looked up on the web. */}
+        <p className="mt-3 text-sm text-ink/70">{home.trust.aiLine}</p>
 
         <section className="mt-12" aria-labelledby="doors-heading">
           <h2 id="doors-heading" className="font-serif text-2xl text-ink">

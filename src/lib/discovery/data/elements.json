@@ -883,5 +883,116 @@
         "source_record_id": "RA-020"
       }
     ]
+  },
+  {
+    "id": "tarp-nacht",
+    "domain": "elements",
+    "sub": "wild_skills",
+    "label": {
+      "nl": "Een nacht onder een zeil in het bos",
+      "en": "A night under a tarp in the woods"
+    },
+    "tags": [
+      "outdoors",
+      "craft",
+      "stillness",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Slaap een nacht onder een tarp op een officiële kampeerplek in het bos",
+      "en": "Sleep a night under a tarp at an official camping spot in the woods"
+    },
+    "scene": "a green tarp stretched between two pines with a small stove and a coil of rope at dusk",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "steenhouwen-dag",
+    "domain": "elements",
+    "sub": "wood_stone",
+    "label": {
+      "nl": "Een dag steenhouwen",
+      "en": "A day of stone carving"
+    },
+    "tags": [
+      "craft",
+      "technique",
+      "precision",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Boek een cursusdag steenhouwen waarin je een eenvoudige vorm uit kalksteen houwt",
+      "en": "Book a stone carving day in which you chisel a simple shape from limestone"
+    },
+    "scene": "a block of pale limestone with a chisel and a wooden mallet on a stone-cutter's bench in fine dust",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "steigerhout-meubel",
+    "domain": "elements",
+    "sub": "wood_stone",
+    "label": {
+      "nl": "Een meubel van steigerhout timmeren",
+      "en": "Building a piece of furniture from scaffold boards"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "technique",
+      "precision"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Bouw een lage bank of kist met een bouwtekening en een gedeelde werkplaats of een vriend met gereedschap",
+      "en": "Build a low bench or chest from a plan, in a shared workshop or with a friend who has tools"
+    },
+    "scene": "a sturdy low bench of weathered scaffold boards with a spirit level, pencil and a box of screws on top",
+    "status": "concept",
+    "image_pending": true
   }
 ]

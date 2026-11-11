@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { founderNoteFor, type HomeCopy, type HomeLocale, type Testimonial } from "@/lib/i18n/home";
 
-// The trust block on the homepage: what we do and do not claim, the guarantee, the honest "no reviews yet", the founder's note (hidden
+// The trust block on the homepage: the guarantee, the honest "no reviews yet", the founder's note (hidden
 // until it is filled in, src/lib/i18n/home.ts) and testimonials (hidden until there are some).
 export function TrustBlock({
   copy,
@@ -17,7 +17,6 @@ export function TrustBlock({
     <section id="vertrouwen" className="mx-auto w-full max-w-[84rem] scroll-mt-24 px-6 py-16 sm:px-10">
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="flex flex-col gap-4 rounded-lg border border-border bg-paper p-6 sm:p-8">
-          <p className="text-[15px] leading-relaxed text-ink/80">{copy.aiLine}</p>
           <div className="rounded-lg bg-surface-active p-4">
             <p className="font-semibold text-ink">{copy.guaranteeTitle}</p>
             <p className="mt-1 text-[15px] text-ink/80">{copy.guaranteeBody}</p>

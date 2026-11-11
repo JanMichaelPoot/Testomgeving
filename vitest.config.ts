@@ -15,7 +15,7 @@ export default defineConfig({
     // and switched on explicitly by the tests of the gate itself.
     // Likewise the two behaviours that are on by default in production (the anchor model, and "every idea needs a concrete option" with
     // its extra online pass) are off here: the older tests describe the pipeline without them, and the tests of those two switch them on.
-    env: { WINDOW_QA_GRAMMAR: "0", REQUIRE_CONCRETE_OPTIONS: "0", KNOWLEDGE_ANCHOR_PICKS: "0" },
+    env: { WINDOW_QA_GRAMMAR: "0", REQUIRE_CONCRETE_OPTIONS: "0", KNOWLEDGE_ANCHOR_PICKS: "0", PREWARM_RESEARCH: "0" },
   },
   resolve: {
     alias: {

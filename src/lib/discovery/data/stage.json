@@ -1223,5 +1223,78 @@
       "source_record_id": "RA-224",
       "method": "curated"
     }
+  },
+  {
+    "id": "jongleren-leren",
+    "domain": "stage",
+    "sub": "show_craft",
+    "label": {
+      "nl": "Leren jongleren",
+      "en": "Learning to juggle"
+    },
+    "tags": [
+      "precision",
+      "rhythm",
+      "learning",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Begin met twee sjaaltjes en tien minuten per dag, op een vaste plek",
+      "en": "Start with two scarves and ten minutes a day, in a fixed spot"
+    },
+    "scene": "three colourful juggling balls in mid-air above a wooden floor in soft window light",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "verteluur",
+    "domain": "stage",
+    "sub": "spoken_word",
+    "label": {
+      "nl": "Leren verhalen vertellen",
+      "en": "Learning to tell stories aloud"
+    },
+    "tags": [
+      "story",
+      "performance",
+      "language",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Ga naar een verteluur of vertelcafé en luister eerst, vertel de tweede keer zelf een korte anekdote",
+      "en": "Go to a storytelling evening and listen first, then tell a short anecdote yourself the second time"
+    },
+    "scene": "a wooden stool and a small lamp in a dim storytelling room with a worn rug",
+    "status": "concept",
+    "image_pending": true
   }
 ]

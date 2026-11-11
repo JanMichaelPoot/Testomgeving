@@ -4,9 +4,9 @@ import type { SearchContext } from "@/lib/discovery/audience";
 
 const COMMON = { fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round", strokeLinejoin: "round" } as const;
 
-export function ContextIcon({ context, className }: { context: SearchContext; className?: string }) {
+export function ContextIcon({ context, className, size = 40 }: { context: SearchContext; className?: string; size?: number }) {
   return (
-    <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true" className={className} {...COMMON}>
+    <svg viewBox="0 0 40 40" width={size} height={size} aria-hidden="true" className={className} {...COMMON}>
       {context === "self" && (
         <>
           <circle cx="20" cy="14" r="5.5" />

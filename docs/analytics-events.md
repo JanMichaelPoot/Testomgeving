@@ -76,7 +76,6 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `profile_viewed` | het scherm "Wat jouw keuzes ons vertellen" getoond | – |
 | `reading_shown` | de korte persoonlijke duiding getoond: de vaste tekst, of de door AI geschreven tekst zodra die er is | `source` (`fixed` of `ai`) |
 | `profile_agreed` | "Klopt, open mijn venster" | `adjusted` (is er bijgestuurd?) |
-| `profile_axis_changed` | een schuif op het profielscherm verplaatst | `axis` |
 | `profile_reflection` | bij akkoord: is "Wat missen we nog?" ingevuld | `has_reflection` |
 | `window_exported` | de afbeelding van het venster gedownload | `images` (aantal beelden) |
 | `checkout_viewed` | betaalpagina getoond | `price_variant` |
@@ -90,9 +89,9 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `idea_liked` | hartje of duim bij een idee | `planId`, `ideaKey`, `value` |
 | `idea_feedback_given` | duim omhoog of omlaag in het ideevenster | `planId`, `ideaKey`, `value` |
 | `one_thing_committed` | "Dit ga ik doen" | `planId`, `ideaKey`, `isOneThing` |
-| `wildcard_revealed` | de wildcard opengemaakt | `planId` |
 | `plan_pdf_downloaded` | de PDF geopend | `planId`, `source` |
 | `idea_book_share_clicked` | "Deel je Idea Book" ingedrukt | `url` |
+| `landing_share_clicked` | deelicoon op de voorpagina ingedrukt | `platform` |
 | `idea_book_share_whatsapp_clicked` | WhatsApp-link na het delen geklikt | – |
 | `shared_idea_book_viewed` | een gedeeld boek bekeken | `planId` |
 | `shared_idea_book_cta_clicked` | een knop op de gedeelde pagina geklikt | `planId` |

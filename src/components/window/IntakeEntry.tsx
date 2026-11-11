@@ -1,5 +1,6 @@
 "use client";
 
+import type { GeoHint } from "@/lib/geo";
 import { useEffect, useState } from "react";
 import { IntakeWizard } from "@/components/window/IntakeWizard";
 import { AssociationWizard, type WizardPayment } from "@/components/window/AssociationWizard";
@@ -88,6 +89,8 @@ export function IntakeEntry({
   initial,
   payment,
   concretePool,
+  geo,
+  locale,
 }: {
   dict: Dictionary["intake"];
   vensterDict: Dictionary["venster"];
@@ -100,6 +103,9 @@ export function IntakeEntry({
   payment: WizardPayment;
   // Page 2 of the two-page intake (server-built); absent when that intake is not switched on.
   concretePool?: ConcretePool;
+  // Where the visitor's connection seems to be (pre-fills the country and place of the image intake).
+  geo?: GeoHint | null;
+  locale: "nl" | "en";
 }) {
   const [variant, setVariant] = useState<Variant | null>(null);
 
@@ -132,6 +138,8 @@ export function IntakeEntry({
         payment={payment}
         flow={variant === "images2" ? "images2" : undefined}
         concretePool={variant === "images2" ? concretePool : undefined}
+        geo={geo}
+        locale={locale}
       />
     );
   }

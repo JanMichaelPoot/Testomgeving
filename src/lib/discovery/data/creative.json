@@ -5386,5 +5386,156 @@
       "source_record_id": "RA-162",
       "method": "curated"
     }
+  },
+  {
+    "id": "linoleum-snijden",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Een linoleumsnede maken",
+      "en": "Making a linocut"
+    },
+    "tags": [
+      "craft",
+      "color",
+      "precision",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Snijd een eenvoudig motief in een stukje linoleum en druk het af",
+      "en": "Cut a simple motif into a piece of lino and print it"
+    },
+    "scene": "a carved linoleum block beside an ink roller and a first print drying on a rack",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "batiken",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Stof batikken",
+      "en": "Batik on fabric"
+    },
+    "tags": [
+      "color",
+      "craft",
+      "making",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Volg een batikworkshop of begin met een pakketje was en verf op een katoenen lap",
+      "en": "Take a batik workshop or start with a kit of wax and dye on a cotton cloth"
+    },
+    "scene": "a cotton cloth with wax-resist patterns dipped in indigo, hung to dry on a line",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "djembe-trommelcirkel",
+    "domain": "creative",
+    "sub": "sound_stage",
+    "label": {
+      "nl": "Trommelen in een groep",
+      "en": "Drumming in a group"
+    },
+    "tags": [
+      "rhythm",
+      "sound",
+      "conviviality",
+      "teamwork"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Loop binnen bij een trommelcirkel of workshop djembé; instrumenten liggen klaar",
+      "en": "Drop in at a drum circle or djembe workshop; the instruments are ready"
+    },
+    "scene": "a circle of wooden drums with goatskin heads on a bare floor in warm light",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "zichtbaar-herstellen",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Kleding herstellen met zichtbare steken",
+      "en": "Mending clothes with visible stitches"
+    },
+    "tags": [
+      "craft",
+      "color",
+      "caring",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Herstel een gat in een trui met kleurige steken in plaats van onzichtbaar",
+      "en": "Mend a hole in a jumper with colourful stitches instead of invisibly"
+    },
+    "scene": "a worn knit jumper with a bright darned patch, wool in several colours and a darning mushroom",
+    "status": "concept",
+    "image_pending": true
   }
 ]

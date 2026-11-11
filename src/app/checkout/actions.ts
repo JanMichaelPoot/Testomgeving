@@ -3,6 +3,8 @@
 import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
+import { prewarmBookResearch } from "@/lib/claude/prewarmResearch";
 import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
@@ -32,7 +34,7 @@ export async function createCheckoutSession(
   // The optional "remember what I was shown on this device" choice (fase 5): true = opt in,
   // false = opt out (and delete what was stored), undefined = leave as it is.
   rememberDevice?: boolean,
-  // Where the book should be sent when that is not the address typed at Stripe. Optional.
+  // Where the book is sent: required (since the improvement brief of 11 Nov 2026), checked again here. It is also the address Stripe is given.
   deliveryEmail?: string,
   // The optional consent to one follow-up e-mail after six weeks (improvement brief B5). Never assumed.
   followUpConsent?: boolean,
@@ -45,6 +47,10 @@ export async function createCheckoutSession(
   }
   if (!digitalDeliveryConsent) {
     throw new Error(dict.errorConsentRequired);
+  }
+  const email = (deliveryEmail ?? "").trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
+    throw new Error(dict.errorEmailRequired);
   }
 
   const sessionId = await getSessionId();
@@ -95,6 +101,8 @@ export async function createCheckoutSession(
         quantity: 1,
       },
     ],
+    // The address the buyer gave us is the one Stripe uses for the receipt too (and it is not editable there: one address for everything).
+    customer_email: email,
     success_url: `${siteUrl}/plan?checkout_session_id={CHECKOUT_SESSION_ID}`,
     // A `payment=cancelled` marker so /checkout can show
     // dict.checkout.errorPaymentFailed when Stripe sends the buyer back
@@ -106,7 +114,7 @@ export async function createCheckoutSession(
       session_id: sessionId,
       // For a buyer who wants the book in another inbox than the one typed at Stripe (the Stripe receipt stays at Stripe's address).
       // Empty string, not omitted, so a later read never has to distinguish "no metadata" from "not set".
-      delivery_email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(deliveryEmail?.trim() ?? "") ? deliveryEmail!.trim() : "",
+      delivery_email: email,
       // "1" only when the buyer switched the follow-up e-mail on; the address is chosen later, from where the book is sent.
       followup_consent: followUpConsent === true ? "1" : "",
       price_variant: price.variant ?? "",
@@ -181,6 +189,10 @@ export async function createCheckoutSession(
   // Best effort and never a reason to block a payment.
   if (rememberDevice === true) await enableDeviceMemory(supabase, sessionId);
   else if (rememberDevice === false) await disableDeviceMemory(supabase);
+
+  // While the buyer pays at Stripe, the search for real places already runs (src/lib/claude/prewarmResearch.ts): after the order, the
+  // consents and the device memory are stored, so the real generation later reads every answer from the cache.
+  after(() => prewarmBookResearch(supabase, sessionId));
 
   redirect(checkoutSession.url);
 }

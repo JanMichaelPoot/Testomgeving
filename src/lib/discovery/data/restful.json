@@ -1071,5 +1071,41 @@
     "scene": "a Turkish hammam with a warm marble slab, copper bowls, a woven cotton towel and soft steam",
     "status": "concept",
     "supply": "regional"
+  },
+  {
+    "id": "koud-water-sessie",
+    "domain": "restful",
+    "sub": "body_breath",
+    "label": {
+      "nl": "Koud water: ijsbaden of winterzwemmen",
+      "en": "Cold water: ice baths or winter swimming"
+    },
+    "tags": [
+      "water",
+      "challenge",
+      "stillness",
+      "movement"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Doe een eerste sessie met een begeleider bij een ijsbad- of winterzwemgroep",
+      "en": "Do a first session with a guide at an ice bath or winter swimming group"
+    },
+    "scene": "a wooden jetty over still grey winter water with a steaming flask and a towel in morning mist",
+    "status": "concept",
+    "image_pending": true
   }
 ]

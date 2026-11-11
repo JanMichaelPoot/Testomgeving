@@ -782,5 +782,43 @@
       "source_record_id": "RA-054",
       "method": "curated"
     }
+  },
+  {
+    "id": "oude-kaart-wandeling",
+    "domain": "mystery",
+    "sub": "urban_explore",
+    "label": {
+      "nl": "Een wandeling met een oude kaart van je stad",
+      "en": "A walk with an old map of your city"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "outdoors",
+      "puzzling"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Print een historische kaart van je stad uit en zoek drie plekken waar nog iets van over is",
+      "en": "Print a historical map of your city and look for three places where something of it is left"
+    },
+    "scene": "an antique folded city map with a brass compass on a cobbled stone ledge",
+    "status": "concept",
+    "image_pending": true
   }
 ]

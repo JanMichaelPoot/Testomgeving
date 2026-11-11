@@ -566,5 +566,40 @@
       "source_record_id": "RA-543",
       "method": "curated"
     }
+  },
+  {
+    "id": "taalmaatje",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Taalmaatje voor iemand die de taal leert",
+      "en": "Language buddy for someone learning the language"
+    },
+    "tags": [
+      "language",
+      "caring",
+      "conviviality",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Meld je aan bij een taalmaatjesproject; de organisatie koppelt je en begeleidt de eerste afspraken",
+      "en": "Sign up with a language buddy project; the organisation matches you and guides the first meetings"
+    },
+    "scene": "two cups of tea on a table beside a phrasebook and a notepad with simple words",
+    "status": "concept",
+    "image_pending": true
   }
 ]

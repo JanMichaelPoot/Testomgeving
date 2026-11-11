@@ -1402,5 +1402,42 @@
       "source_record_id": "RA-289",
       "method": "curated"
     }
+  },
+  {
+    "id": "leren-programmeren",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Leren programmeren met een eigen project",
+      "en": "Learning to code with a project of your own"
+    },
+    "tags": [
+      "puzzling",
+      "learning",
+      "making",
+      "strategy"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Bouw in een weekend een klein programma dat iets doet wat jij nuttig of leuk vindt",
+      "en": "Build a small program in a weekend that does something you find useful or fun"
+    },
+    "scene": "a laptop showing lines of colourful code beside a notebook with a sketched plan and a mug",
+    "status": "concept",
+    "image_pending": true
   }
 ]

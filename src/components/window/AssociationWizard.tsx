@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Button } from "@/components/ui/Button";
 import { LocationAutocomplete } from "@/components/ui/LocationAutocomplete";
+import { HOME_COUNTRY, countryOptions } from "@/lib/countries";
+import type { GeoHint } from "@/lib/geo";
 import { WindowFrame, type WindowKind } from "@/components/window/WindowFrame";
 import { WindowDownload } from "@/components/window/WindowDownload";
 import { cn } from "@/lib/utils";
@@ -13,7 +15,7 @@ import { checkPicks, saveIntake, type IntakeAnswers } from "@/app/intake/actions
 import { CheckoutPanel } from "@/components/window/CheckoutPanel";
 import { TestModeBanner } from "@/components/window/TestModeBanner";
 import { activityImage, domainImage } from "@/lib/discovery/paths";
-import { ASSOCIATION_ROUNDS, averageAxes, tagProfile, type AssociationCard, type AssociationLibrary, type AssociationRound, type AxisId } from "@/lib/discovery/associationProfile";
+import { ASSOCIATION_ROUNDS, averageAxes, tagProfile, type AssociationCard, type AssociationLibrary, type AssociationRound } from "@/lib/discovery/associationProfile";
 import { assocProfile } from "@/lib/discovery/associationLayer";
 import { MAX_CONCRETE_PICKS, MAX_IMAGE_PICKS, MAX_REFRESHES, composeConcretePage, registerMix, sampleBalancedBatch, type RegisteredCard } from "@/lib/discovery/twoPages";
 import type { ConcretePool } from "@/lib/discovery/concretePool";
@@ -70,6 +72,7 @@ const EMPTY: IntakeAnswers = {
   purposeFollowUp: "",
   ageCategory: "",
   location: "",
+  country: "",
   searchDistance: "city",
   searchDistanceKm: DEFAULT_DISTANCE_KM,
   freeTimePattern: "",
@@ -195,6 +198,43 @@ function withKm(a: IntakeAnswers): IntakeAnswers {
   return { ...a, searchDistanceKm: km, searchDistance: distanceClassFor(km), company: [] };
 }
 
+/** "Other images" / "other activities": the one action that is always worth pressing, so it looks like one. */
+const MORE_BUTTON =
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-2 border-accent-dark bg-accent-dark px-5 text-[15px] font-semibold text-paper shadow-sm transition hover:bg-accent focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60 disabled:opacity-50 max-sm:w-full";
+
+function RefreshIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 12a9 9 0 0 1-15.5 6.2L3 16" />
+      <path d="M3 12a9 9 0 0 1 15.5-6.2L21 8" />
+      <path d="M21 3v5h-5M3 21v-5h5" />
+    </svg>
+  );
+}
+
+/** How many have been chosen against how many are needed: dots that fill up, and a plain sentence for what is still missing. */
+function ChoiceProgress({ chosen, needed, chosenText, missingText, className }: { chosen: number; needed: number; chosenText: string; missingText: string | null; className?: string }) {
+  const enough = chosen >= needed;
+  return (
+    <div
+      aria-live="polite"
+      className={cn(
+        "flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-xl border-2 px-4 py-3",
+        enough ? "border-gold/60 bg-gold/10" : "border-accent-dark/40 bg-paper",
+        className,
+      )}
+    >
+      <span className="flex items-center gap-1.5" aria-hidden="true">
+        {Array.from({ length: needed }).map((_, i) => (
+          <span key={i} className={cn("size-3.5 rounded-full border-2", i < chosen ? "border-gold bg-gold" : "border-accent-dark/40")} />
+        ))}
+      </span>
+      <p className="text-sm font-semibold text-ink">{chosenText}</p>
+      {!enough && missingText && <p className="text-sm text-ink/80">{missingText}</p>}
+    </div>
+  );
+}
+
 function Chip({ selected, onClick, children }: { selected: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <button
@@ -234,6 +274,8 @@ export function AssociationWizard({
   payment,
   flow,
   concretePool,
+  geo,
+  locale,
 }: {
   intakeDict: Dictionary["intake"];
   dict: Dictionary["venster"];
@@ -246,6 +288,9 @@ export function AssociationWizard({
   flow?: "images2";
   /** Two-page intake: the activities page 2 draws from (server-built, one language, in season). */
   concretePool?: ConcretePool;
+  /** Where the visitor's connection seems to be: pre-fills the country and place (always editable). */
+  geo?: GeoHint | null;
+  locale: "nl" | "en";
 }) {
   const flow2 = flow === "images2";
   const pages = pagesFor(flow);
@@ -267,10 +312,10 @@ export function AssociationWizard({
   const [droppedFor, setDroppedFor] = useState("");
   const [limitChips, setLimitChips] = useState<string[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  // The place and country were filled in from the connection and not touched since: a note says so.
+  const [geoFilled, setGeoFilled] = useState<{ location: string; country: string } | null>(null);
   const [mode, setMode] = useState<"grid" | "swipe">("grid");
   const [swipeIdx, setSwipeIdx] = useState(0);
-  // "Bijsturen" on the profile screen: the extra tags under "what do you want more of" are open.
-  const [adjusting, setAdjusting] = useState(false);
   const [windowOpen, setWindowOpen] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -343,6 +388,22 @@ export function AssociationWizard({
     // Runs once: `initial` is fixed for a mounted wizard.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Pre-fill the country and place from the connection (Vercel's headers, see lib/geo.ts) as an indication: only when nothing was answered yet
+  // (no stored answers, no draft with a place), only once, and always editable.
+  const geoDone = useRef(false);
+  useEffect(() => {
+    if (!hydrated || geoDone.current) return;
+    geoDone.current = true;
+    if (initial || !geo) return;
+    if (answers.location.trim() !== "" || (answers.country ?? "") !== "") return;
+    /* eslint-disable react-hooks/set-state-in-effect -- one-time pre-fill after the draft was restored */
+    setAnswers((prev) => ({ ...prev, location: geo.city, country: geo.country }));
+    setGeoFilled({ location: geo.city, country: geo.country });
+    /* eslint-enable react-hooks/set-state-in-effect */
+    // Runs once, after the restore.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
 
   useEffect(() => {
     if (hydrated && seed) saveDraft(draftKey, { page, answers, limitChips, seed, seen: seenBefore, imageMore, concrete, imageFirst });
@@ -682,7 +743,6 @@ export function AssociationWizard({
   function go(to: number) {
     setError(null);
     setNotice(null);
-    setAdjusting(false);
     setSwipeIdx(0);
     setPage(to);
     setWindowOpen(false);
@@ -735,19 +795,6 @@ export function AssociationWizard({
     trackEvent("intake_page_completed", { wizard_variant: variantName, page: pageId, index: page, duration_ms: duration });
     // The last screen has no "next": paying is on that screen itself (saveForPayment below).
     if (page < pages.length - 1) go(page + 1);
-  }
-
-  function setAxis(axis: AxisId, value: number) {
-    trackEvent("profile_axis_changed", { axis });
-    setAnswers((prev) => ({ ...prev, axesOverride: { ...(prev.axesOverride ?? {}), [axis]: value } }));
-  }
-
-  function toggleCorrection(tag: string) {
-    setAnswers((prev) => {
-      const cur = prev.associationCorrections ?? [];
-      if (!cur.includes(tag) && cur.length >= 3) return prev;
-      return { ...prev, associationCorrections: toggle(cur, tag) };
-    });
   }
 
   // What the model-written reading is made from (ids only; the server rebuilds the facts). Only for the screen that shows it.
@@ -973,10 +1020,11 @@ export function AssociationWizard({
           </button>
         ) : opts.canMore ? (
           <>
-            <button type="button" data-testid="set-more" disabled={opts.disabled} onClick={opts.onMore} className={btn}>
+            <button type="button" data-testid="set-more" disabled={opts.disabled} onClick={opts.onMore} className={MORE_BUTTON}>
+              <RefreshIcon />
               {opts.moreLabel}
             </button>
-            {opts.total === 1 && <span className="text-sm text-ink/70">{opts.moreSub}</span>}
+            <span className="text-sm text-ink/70">{opts.moreSub}</span>
           </>
         ) : (
           <span className="text-sm text-ink/70">{opts.noMore}</span>
@@ -985,29 +1033,36 @@ export function AssociationWizard({
     );
   };
 
-  /** The start page's "voor wie": toggling the chosen one off makes it "unknown" again; picks that are not offered to this audience go. */
+  /** The start page's "voor wie": sets who the search is for; picks that are not offered to this audience go. */
   function chooseContext(ctx: SearchContext) {
     setAnswers((prev) => {
-      // "Nog onbekend" is a choice of its own (stored as "unknown"); choosing the one that is already chosen takes it back.
-      const next = prev.searchContext === ctx ? "" : ctx;
-      const nextCtx = normalizeSearchContext(next);
+      const nextCtx = normalizeSearchContext(ctx);
       const interests = (prev.interests ?? []).filter((id) => {
         const a = poolById.get(id);
         return !a || allowedForContext(a, nextCtx);
       });
       return {
         ...prev,
-        searchContext: next,
+        searchContext: ctx,
         interests,
+        // For yourself there is no other name to keep.
+        ...(nextCtx === "self" ? { recipientName: "" } : {}),
         // A group has no single age; for a child or young person the age is read from the context and the images.
         ...(nextCtx === "group" || nextCtx === "child" ? { ageCategory: "" } : {}),
       };
     });
   }
 
+  const countries = useMemo(() => countryOptions(locale), [locale]);
+  const country = answers.country || HOME_COUNTRY;
+  function chooseCountry(code: string) {
+    setAnswers((prev) => ((prev.country || HOME_COUNTRY) === code ? prev : { ...prev, country: code, location: "" }));
+    setGeoFilled(null);
+  }
+  const showGeoNote = !!geoFilled && answers.location === geoFilled.location && (answers.country ?? "") === geoFilled.country;
+
   // The start page ("Eerst de basis"): who we search for, where, and the few limits. Only the place is required.
   const startPage = (() => {
-    const choices = (["self", "child", "adult", "group", "unknown"] as const);
     const sectionLabel = "text-xs font-bold uppercase tracking-[0.09em] text-gold-text";
     return (
       <div className="space-y-9">
@@ -1015,6 +1070,7 @@ export function AssociationWizard({
           <p className={sectionLabel}>{dict.start.kicker}</p>
           <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{dict.start.heading}</h1>
           <p className="mt-2 text-ink/70">{dict.start.sub}</p>
+          <p className="mt-3 rounded-lg bg-surface-active px-4 py-3 text-sm text-ink/80">{dict.start.optionalNote}</p>
         </div>
 
         <section aria-labelledby="start-who" className="space-y-3">
@@ -1025,40 +1081,76 @@ export function AssociationWizard({
             </h2>
             <p className="mt-1 text-sm text-ink/70">{dict.start.who.sub}</p>
           </div>
-          <div role="group" aria-labelledby="start-who" className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {choices.map((c) => {
-              const on = c === "unknown" ? answers.searchContext === "unknown" : searchContext === c;
+          {/* Two big, recognisable choices: for yourself, or for somebody else. Choosing nothing means for yourself. */}
+          <div role="group" aria-labelledby="start-who" className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {(["self", "other"] as const).map((kind) => {
+              const on = kind === "self" ? !forOther : forOther;
+              const text = kind === "self" ? dict.start.who.options.self : dict.start.who.otherCard;
               return (
                 <button
-                  key={c}
+                  key={kind}
                   type="button"
                   aria-pressed={on}
-                  onClick={() => chooseContext(c)}
-                  data-context={c}
+                  data-audience={kind}
+                  data-context={kind === "self" ? "self" : undefined}
+                  onClick={() => (kind === "self" ? chooseContext("self") : forOther ? undefined : chooseContext("adult"))}
                   className={cn(
-                    "flex min-h-28 flex-col items-start gap-2 rounded-xl border-2 p-4 text-left transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
-                    on ? "border-accent-dark bg-accent-dark text-paper" : "border-border bg-paper text-ink hover:border-walnut-light",
+                    "flex min-h-28 items-center gap-4 rounded-xl border-2 p-4 text-left transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
+                    on ? (kind === "self" ? "border-accent-dark bg-accent-dark text-paper" : "border-gold bg-accent-dark text-paper") : "border-border bg-paper text-ink hover:border-walnut-light",
                   )}
                 >
-                  <ContextIcon context={c} className={on ? "text-gold-light" : "text-accent-dark"} />
-                  <span className="font-semibold leading-snug">{dict.start.who.options[c].label}</span>
-                  <span className={cn("text-xs leading-snug", on ? "text-paper/80" : "text-ink/70")}>{dict.start.who.options[c].sub}</span>
+                  <ContextIcon context={kind === "self" ? "self" : "adult"} className={on ? "text-gold-light" : "text-accent-dark"} />
+                  <span className="flex flex-col gap-1">
+                    <span className="text-lg font-semibold leading-snug">{text.label}</span>
+                    <span className={cn("text-sm leading-snug", on ? "text-paper/80" : "text-ink/70")}>{text.sub}</span>
+                  </span>
                 </button>
               );
             })}
           </div>
-          {forOther && searchContext !== "group" && (
-            <div className="max-w-sm">
-              <label htmlFor="recipient" className="block text-sm font-semibold text-ink">
-                {dict.start.who.nameLabel}
-              </label>
-              <input
-                id="recipient"
-                value={answers.recipientName ?? ""}
-                onChange={(e) => set("recipientName", e.target.value.slice(0, 40))}
-                placeholder={dict.recipientPlaceholder}
-                className="mt-2 min-h-11 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
-              />
+          {forOther && (
+            <div className="rounded-xl border border-border bg-surface-active p-4">
+              <p id="start-other" className="text-sm font-semibold text-ink">
+                {dict.start.who.otherPrompt}
+              </p>
+              <div role="group" aria-labelledby="start-other" className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
+                {(["child", "adult", "group"] as const).map((c) => {
+                  const on = searchContext === c;
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      aria-pressed={on}
+                      data-context={c}
+                      onClick={() => chooseContext(c)}
+                      className={cn(
+                        "flex min-h-14 items-center gap-3 rounded-lg border-2 px-3 py-2 text-left transition focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60",
+                        on ? "border-accent-dark bg-accent-dark text-paper" : "border-border bg-paper text-ink hover:border-walnut-light",
+                      )}
+                    >
+                      <ContextIcon context={c} size={32} className={on ? "text-gold-light" : "text-accent-dark"} />
+                      <span className="flex flex-col">
+                        <span className="text-sm font-semibold leading-snug">{dict.start.who.options[c].label}</span>
+                        <span className={cn("text-xs leading-snug", on ? "text-paper/80" : "text-ink/70")}>{dict.start.who.options[c].sub}</span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              {searchContext !== "group" && (
+                <div className="mt-4 max-w-sm">
+                  <label htmlFor="recipient" className="block text-sm font-semibold text-ink">
+                    {dict.start.who.nameLabel}
+                  </label>
+                  <input
+                    id="recipient"
+                    value={answers.recipientName ?? ""}
+                    onChange={(e) => set("recipientName", e.target.value.slice(0, 40))}
+                    placeholder={dict.recipientPlaceholder}
+                    className="mt-2 min-h-11 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
+                  />
+                </div>
+              )}
             </div>
           )}
         </section>
@@ -1068,9 +1160,52 @@ export function AssociationWizard({
             <p className={sectionLabel}>{dict.start.sections.where}</p>
             <label id="start-where" htmlFor="location" className="mt-1 block font-semibold text-ink">
               {pick(dict.room.locationLabel, dict.room.locationLabelGift)}
+              <span className="ml-1 text-red-700" aria-hidden="true">
+                *
+              </span>
+              <span className="sr-only"> ({dict.start.required})</span>
             </label>
             <p className="mt-1 text-sm text-ink/70">{dict.room.locationSub}</p>
-            <LocationAutocomplete tidy id="location" value={answers.location} onChange={(v) => set("location", v)} placeholder={dict.room.locationPlaceholder} />
+            <div className="mt-3 grid gap-3 sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] sm:items-end">
+              <div>
+                <label htmlFor="country" className="block text-xs font-bold uppercase tracking-[0.09em] text-ink/70">
+                  {dict.start.country.label}
+                </label>
+                <select
+                  id="country"
+                  value={country}
+                  onChange={(e) => chooseCountry(e.target.value)}
+                  className="mt-2 min-h-11 w-full rounded-lg border border-border bg-paper px-3 py-3 text-ink outline-none focus:border-ink"
+                >
+                  {countries.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="[&_input]:mt-2">
+                <LocationAutocomplete
+                  tidy
+                  id="location"
+                  country={country}
+                  locale={locale}
+                  required
+                  describedBy={showGeoNote ? "geo-note" : undefined}
+                  value={answers.location}
+                  onChange={(v) => {
+                    set("location", v);
+                    setGeoFilled(null);
+                  }}
+                  placeholder={dict.room.locationPlaceholder}
+                />
+              </div>
+            </div>
+            {showGeoNote && (
+              <p id="geo-note" className="mt-2 text-sm text-ink/70" role="status">
+                {dict.start.country.geoNote}
+              </p>
+            )}
           </div>
           <StepSlider
             id="distance-km"
@@ -1155,10 +1290,21 @@ export function AssociationWizard({
       <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{dict.twoPages.images.kicker}</p>
       <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.twoPages.images.heading, dict.twoPages.images.headingGift)}</h1>
       <p className="mt-2 text-ink/70">{pick(dict.twoPages.images.sub, dict.twoPages.images.subGift)}</p>
-      <p className="mt-4 text-sm font-medium text-ink/70" aria-live="polite">
-        {dict.twoPages.images.chosen.replace("{n}", String(chosen.length))}
-        {chosen.length < MIN_IMAGES_REQUIRED && <span className="text-ink/70"> · {dict.twoPages.images.min.replace("{n}", String(MIN_IMAGES_REQUIRED))}</span>}
-      </p>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <ChoiceProgress
+          chosen={chosen.length}
+          needed={MIN_IMAGES_REQUIRED}
+          chosenText={dict.twoPages.images.chosen.replace("{n}", String(chosen.length))}
+          missingText={dict.twoPages.images.min.replace("{n}", String(MIN_IMAGES_REQUIRED))}
+          className="flex-1"
+        />
+        {imageViewIdx >= imageBatches.length - 1 && imageRefreshes < MAX_REFRESHES && (
+          <button type="button" data-testid="set-more-top" onClick={moreImages} className={MORE_BUTTON}>
+            <RefreshIcon />
+            {dict.twoPages.images.more}
+          </button>
+        )}
+      </div>
       {notice && (
         <p className="mt-3 rounded-md bg-surface-active px-3 py-2 text-sm text-ink/80" role="status">
           {notice}
@@ -1209,11 +1355,22 @@ export function AssociationWizard({
       <p className="text-xs font-bold uppercase tracking-[0.09em] text-gold-text">{dict.twoPages.concrete.kicker}</p>
       <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{pick(dict.twoPages.concrete.heading, dict.twoPages.concrete.headingGift)}</h1>
       <p className="mt-2 text-ink/70">{pick(dict.twoPages.concrete.sub, dict.twoPages.concrete.subGift)}</p>
-      <p className="mt-4 text-sm font-medium text-ink/70" aria-live="polite">
-        {dict.twoPages.concrete.chosen.replace("{n}", String(picks.length))}
-        {picks.length === 0 && !answers.surpriseMe && <span className="text-ink/70"> · {dict.twoPages.concrete.min}</span>}
-      </p>
-      <p className="mt-1 text-sm text-ink/70">{dict.twoPages.concrete.multi.replace("{max}", String(MAX_CONCRETE_PICKS))}</p>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <ChoiceProgress
+          chosen={answers.surpriseMe ? 1 : picks.length}
+          needed={1}
+          chosenText={dict.twoPages.concrete.chosen.replace("{n}", String(picks.length))}
+          missingText={dict.twoPages.concrete.min}
+          className="flex-1"
+        />
+        {concreteViewIdx >= concreteBatches.length - 1 && concreteRefreshes < MAX_REFRESHES && (
+          <button type="button" data-testid="set-more-top" onClick={moreConcrete} className={MORE_BUTTON}>
+            <RefreshIcon />
+            {dict.twoPages.concrete.more}
+          </button>
+        )}
+      </div>
+      <p className="mt-2 text-sm text-ink/70">{dict.twoPages.concrete.multi.replace("{max}", String(MAX_CONCRETE_PICKS))}</p>
       {notice && (
         <p className="mt-3 rounded-md bg-surface-active px-3 py-2 text-sm text-ink/80" role="status">
           {notice}
@@ -1376,8 +1533,6 @@ export function AssociationWizard({
           <ProfileStep
             copy={dict.profile}
             story={profile}
-            override={answers.axesOverride ?? {}}
-            onAxis={setAxis}
             heading={pick(dict.profile.heading, dict.profile.headingGift)}
             windowView={
               <div className="flex flex-col items-center">
@@ -1391,12 +1546,6 @@ export function AssociationWizard({
             missTitle={pick(dict.profile.missTitle, dict.profile.missTitleGift)}
             reflection={answers.personalReflection}
             onReflection={(text) => set("personalReflection", text)}
-            adjusting={adjusting}
-            onToggleAdjust={() => setAdjusting((v) => !v)}
-            correctionTags={library.correctionTags}
-            tagLabels={library.tagLabels}
-            corrections={answers.associationCorrections ?? []}
-            onToggleCorrection={toggleCorrection}
             notes={
               flow2 && dropped.length > 0 ? (
                 <section className="mt-10 rounded-lg border border-gold/60 bg-paper p-5" aria-labelledby="dropped-title">
@@ -1427,16 +1576,16 @@ export function AssociationWizard({
               (
               <section id="bestellen" aria-labelledby="order-title" className="scroll-mt-24 overflow-hidden rounded-lg border border-border bg-paper">
                 <TestModeBanner notice={payment.testNotice} />
-                <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr]">
+                <div className="flex flex-col gap-6 p-5 sm:p-6">
                   <div>
-                    <h2 id="order-title" className="font-serif text-2xl leading-tight text-ink sm:text-3xl">
+                    <h2 id="order-title" className="font-serif text-xl leading-tight text-ink sm:text-2xl">
                       {pick(dict.checkout.heading, dict.checkout.headingGift)}
                     </h2>
-                    <div className="mt-5 flex items-baseline gap-2 rounded-lg bg-surface-active px-4 py-3">
+                    <div className="mt-4 flex items-baseline gap-2 rounded-lg bg-surface-active px-4 py-3">
                       <span className="font-serif text-3xl font-semibold text-ink">{payment.price}</span>
                       <span className="text-xs text-ink/70">{payment.dict.priceCaption}</span>
                     </div>
-                    <ul className="mt-6 flex flex-col gap-3">
+                    <ul className="mt-4 flex flex-col gap-2.5">
                       {dict.checkout.whatYouGet.map((line) => (
                         <li key={line} className="flex items-start gap-3 text-sm leading-relaxed text-ink/75">
                           <span aria-hidden="true" className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-light text-accent-dark">
@@ -1554,6 +1703,19 @@ export function AssociationWizard({
         <span className="whitespace-nowrap text-xs font-semibold text-ink/70">
           {chapter + 1} · {chapterNames[chapter]}
         </span>
+        {flow2 && pageId !== "start" && (
+          <span
+            data-testid="audience-pill"
+            data-audience={forOther ? "other" : "self"}
+            className={cn(
+              "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 text-xs font-semibold",
+              forOther ? "border-gold bg-gold/15 text-ink" : "border-accent-dark/30 bg-paper text-accent-dark",
+            )}
+          >
+            <ContextIcon context={forOther ? (group ? "group" : searchContext === "child" ? "child" : "adult") : "self"} size={18} />
+            {group ? dict.start.who.pill.group : forOther ? (name ? dict.start.who.pill.named.replace("{name}", name) : dict.start.who.pill.other) : dict.start.who.pill.self}
+          </span>
+        )}
         <button
           type="button"
           onClick={() => setWindowOpen(true)}

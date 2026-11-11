@@ -1,5 +1,6 @@
 "use server";
 
+import { countryName, normalizeCountry } from "@/lib/countries";
 import { currentBudget } from "@/lib/budgetOptions";
 import { distanceClassFor, sanitizeDistanceKm } from "@/lib/distanceOptions";
 import { cookies } from "next/headers";
@@ -33,6 +34,8 @@ export interface IntakeAnswers {
   purposeFollowUp: string;
   ageCategory: string;
   location: string;
+  // The country of `location` (ISO 3166-1 alpha-2). Absent on older answers: the Netherlands. Sanitised on the server.
+  country?: string;
   searchDistance: string;
   // How far, in kilometres, measured from `location` (the start page's slider: 5, 10, 15, 25, 50, 75, 100, or 150 for "more than 100").
   // Sanitised on the server; `searchDistance` above is then derived from it so everything that reads the older three-way class keeps working.
@@ -119,6 +122,16 @@ async function persistIntake(answers: IntakeAnswers, opts: { edit?: boolean } = 
     budget: currentBudget(answers.budget),
     locale,
   };
+  // The country is one of the ISO codes, or nothing (older answers mean the Netherlands).
+  const country = normalizeCountry(answers.country);
+  if (country) stored.country = country;
+  else delete stored.country;
+  // Outside the Netherlands the country name is part of the place ("Lyon, Auvergne-Rhône-Alpes, Frankrijk"), so every later step reads
+  // an unambiguous place; the visitor's own wording stays as typed otherwise.
+  if (country && country !== "NL" && stored.location.trim() !== "") {
+    const name = countryName(country, locale);
+    if (!stored.location.toLowerCase().includes(name.toLowerCase())) stored.location = `${stored.location.trim()}, ${name}`;
+  }
   // The distance slider: only a real step survives, and the three-way class follows from the kilometres (never the other way round).
   const km = sanitizeDistanceKm(answers.searchDistanceKm);
   if (km !== undefined) {

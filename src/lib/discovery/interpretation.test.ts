@@ -180,13 +180,4 @@ describe("the facts are rebuilt from ids, and the fixed reading always exists", 
       expect(text).not.toMatch(/Wat ons opviel|What caught our eye/);
     });
   }
-
-  it("the outlook promises only what the book has: six ideas and one wildcard", () => {
-    const nl = getDictionary("nl").venster.profile.interpret.outlook;
-    const en = getDictionary("en").venster.profile.interpret.outlook;
-    expect(nl).toMatch(/zes ideeën/);
-    expect(nl).toMatch(/wildcard/);
-    expect(en).toMatch(/six ideas/);
-    expect(en).toMatch(/wildcard/);
-  });
 });

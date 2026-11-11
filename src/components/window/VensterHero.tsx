@@ -3,6 +3,7 @@ import { HeroWindow } from "@/components/window/HeroWindow";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { HeroWindowData } from "@/lib/heroWindow";
 import FRAME from "@/lib/heroWindowFrame.json";
+import { ShareLinks } from "@/components/window/ShareLinks";
 import { VENSTER_SELF_HREF } from "@/lib/vensterLanding";
 
 // Landing hero, seen from INSIDE the room: the whole band is a limewashed plaster wall (no card around anything), the headline and the
@@ -14,10 +15,12 @@ export function VensterHero({
   dict,
   price,
   hero,
+  siteUrl,
 }: {
   dict: Dictionary["venster"]["landing"];
   price: string;
   hero: HeroWindowData;
+  siteUrl: string;
 }) {
   return (
     <section className="relative isolate overflow-hidden">
@@ -39,19 +42,20 @@ export function VensterHero({
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold" />
               <span className="text-xs font-medium text-ink/70">{dict.badge.replace("{price}", price)}</span>
             </div>
-            <h1 className="font-serif text-[2.6rem] leading-[1.05] tracking-[-0.015em] text-ink sm:text-6xl">
-              {dict.headline} <span
-                className="italic text-gold-text bg-clip-text text-transparent [-webkit-box-decoration-break:clone] [box-decoration-break:clone] bg-[linear-gradient(100deg,#7c5f20_0%,#a67f2c_45%,#c2a05a_55%,#8f6c22_100%)]"
-              >
-                {dict.headlineEmphasis}
-              </span>
+            {/* The name is the title: it is what people should remember. The question is the line under it. */}
+            <h1 className="font-serif text-[3.4rem] leading-none tracking-[-0.02em] text-ink sm:text-7xl">
+              Window<span className="italic text-gold-text bg-clip-text text-transparent bg-[linear-gradient(100deg,#7c5f20_0%,#a67f2c_45%,#c2a05a_55%,#8f6c22_100%)]">Into</span>
             </h1>
+            <p className="font-serif text-2xl leading-snug tracking-[-0.01em] text-ink/85 sm:text-[1.75rem]">
+              {dict.headline} <em className="text-gold-text">{dict.headlineEmphasis}</em>
+            </p>
             <p className="max-w-md text-lg leading-relaxed text-ink/75">{dict.subcopy}</p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button href={VENSTER_SELF_HREF} size="lg" className="justify-center sm:min-w-64">
                 {dict.selfCta}
               </Button>
             </div>
+            <ShareLinks siteUrl={siteUrl} copy={dict.share} />
           </div>
 
           {/* On a phone the window comes first and the words follow; on a big screen it is as tall as fits under the header (never wider than 600px). */}

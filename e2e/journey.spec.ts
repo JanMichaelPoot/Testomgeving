@@ -21,7 +21,8 @@ for (const size of sizes) {
 
       // 1. Landing: the new line and one way in.
       await page.goto("/");
-      await expect(page.getByRole("heading", { level: 1 })).toContainText("Wat als je iets ontdekt");
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText("WindowInto");
+      await expect(page.getByText("Wat als je iets ontdekt")).toBeVisible();
       await noSideways();
       await page.getByRole("link", { name: /Open je venster/ }).first().click();
       await expect(page).toHaveURL(/\/intake/);
@@ -29,7 +30,7 @@ for (const size of sizes) {
       // 2. Start page: who, where (a place is the one required answer), the two sliders, the grouped limits.
       await expect(page.getByRole("heading", { level: 1 })).toHaveText("Een ontdekking begint bij jou");
       await page.locator('[data-context="self"]').click();
-      await page.getByRole("combobox").fill("Utrecht");
+      await page.locator("#location").fill("Utrecht");
       await page.locator("#distance-km").fill("3");
       await expect(page.getByTestId("distance-km-value")).toHaveText("Tot 25 km");
       await page.locator("#budget-pp").fill("2");
@@ -66,13 +67,28 @@ for (const size of sizes) {
       await expect(page.getByTestId("reading-opening")).not.toBeEmpty();
       await expect(page.getByTestId("reading-images").locator("li")).toHaveCount(5);
       await noSideways();
-      await expect(page.getByTestId("order-cue")).toContainText("Ga verder om jouw ontdekkingsboek te bestellen");
-      await page.getByTestId("order-cue").click();
-      await expect(page.locator("#bestellen")).toBeInViewport();
+      if (size.width >= 1024) {
+        // Two columns: the order block stands next to the reading, in view straight away, so there is no cue.
+        await expect(page.getByTestId("order-cue")).toBeHidden();
+        await expect(page.locator("#bestellen")).toBeInViewport();
+      } else {
+        await expect(page.getByTestId("order-cue")).toContainText("Ga verder om jouw ontdekkingsboek te bestellen");
+        await page.getByTestId("order-cue").click();
+        await expect(page.locator("#bestellen")).toBeInViewport();
+      }
       const pay = page.getByRole("button", { name: /Betalen en mijn PDF ontvangen/ });
       await pay.scrollIntoViewIfNeeded();
       await expect(pay).toBeDisabled();
-      await expect(page.getByText("E-mailadres voor je boek (optioneel)")).toBeVisible();
+      // The e-mail is required (red asterisk, required for a screen reader) and blocks paying until it is valid; the two boxes come on top of that.
+      const email = page.locator("#delivery-email");
+      await expect(page.locator('label[for="delivery-email"]')).toContainText("E-mailadres voor je boek");
+      await expect(email).toHaveAttribute("aria-required", "true");
+      await email.fill("geen-adres");
+      await expect(page.locator("#delivery-email-error")).toBeVisible();
+      await expect(pay).toBeDisabled();
+      await email.fill("lezer@example.com");
+      await expect(page.locator("#delivery-email-error")).toHaveCount(0);
+      await expect(pay).toBeDisabled(); // still the two boxes
       for (const id of ["memory", "followup"]) {
         const box = (await page.locator(`#${id}-switch`).boundingBox())!;
         expect(box.x + box.width).toBeLessThanOrEqual(size.width);

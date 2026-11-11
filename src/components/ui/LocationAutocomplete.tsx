@@ -13,6 +13,10 @@ export function LocationAutocomplete({
   placeholder,
   id,
   tidy = false,
+  country,
+  locale,
+  required = false,
+  describedBy,
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -21,6 +25,11 @@ export function LocationAutocomplete({
   /** Show "Laren, Noord-Holland" for "Laren, Laren, Noord-Holland" (display only; the value that is
    *  stored and what the suggest route returns stay as they are). Off for the other wizards. */
   tidy?: boolean;
+  /** The country the place is in (ISO code); suggestions come from that country. Left out: the Netherlands, as before. */
+  country?: string;
+  locale?: "nl" | "en";
+  required?: boolean;
+  describedBy?: string;
 }) {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
@@ -45,7 +54,7 @@ export function LocationAutocomplete({
         return;
       }
 
-      fetch(`/api/location-suggest?q=${encodeURIComponent(query)}`)
+      fetch(`/api/location-suggest?q=${encodeURIComponent(query)}${country ? `&country=${encodeURIComponent(country)}` : ""}${locale ? `&lang=${locale}` : ""}`)
         .then((res) => res.json())
         .then((data: { suggestions?: string[] }) => {
           setSuggestions(Array.isArray(data.suggestions) ? data.suggestions : []);
@@ -56,7 +65,7 @@ export function LocationAutocomplete({
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [value]);
+  }, [value, country, locale]);
 
   function select(suggestion: string) {
     setUntyped(suggestion);
@@ -87,7 +96,11 @@ export function LocationAutocomplete({
           setTimeout(() => setOpen(false), 120);
         }}
         placeholder={placeholder}
-        className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
+        required={required}
+        aria-required={required || undefined}
+        aria-describedby={describedBy}
+        autoComplete="off"
+        className="mt-3 min-h-11 w-full rounded-lg border border-border bg-paper px-4 py-3 text-ink outline-none placeholder:text-ink/70 focus:border-ink"
       />
       {open && suggestions.length > 0 && (
         <ul

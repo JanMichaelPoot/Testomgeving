@@ -1250,5 +1250,42 @@
       "source_record_id": "Q183621",
       "method": "curated"
     }
+  },
+  {
+    "id": "bordspel-ontwerpen",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Zelf een bordspel ontwerpen",
+      "en": "Designing your own board game"
+    },
+    "tags": [
+      "making",
+      "strategy",
+      "play",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Schets in een avond een spelbord, bedenk drie regels en test het met één vriend",
+      "en": "Sketch a board in one evening, make up three rules and test it with one friend"
+    },
+    "scene": "a sketched game board with wooden pieces, index cards and a pencil on a table",
+    "status": "concept",
+    "image_pending": true
   }
 ]

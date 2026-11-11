@@ -165,3 +165,28 @@ describe("high ratings first", () => {
     expect(rankOptions([o("Only", 3.6, 300)]).map((x) => x.name)).toEqual(["Only"]);
   });
 });
+
+describe("research only (warming the cache while the buyer pays)", () => {
+  const found = async (opts: unknown) => ({
+    byActivity: new Map(ids(opts).map((id) => [id, { activityId: id, source: "search", options: [option(`Lokaal ${id}`)] }])),
+    stats: stats(opts),
+  });
+
+  it("writes nothing and asks the same searches as the real generation", async () => {
+    researchSeeds.mockImplementation(found);
+    const warm = await generateIdeaBookFromSeeds(base, "nl", computeCharacterProfile(base), { sessionId: "options-test", researchOnly: true });
+    expect(create).not.toHaveBeenCalled(); // no model call: nothing is written
+    expect(warm.book).toBeNull();
+    expect(warm.report.seeds.length).toBe(7);
+    const warmCalls = researchSeeds.mock.calls.map((c) => JSON.stringify([ids(c[0]), modeOf(c[0])]));
+
+    researchSeeds.mockClear();
+    create.mockClear();
+    const real = await run(base);
+    expect(create).toHaveBeenCalled();
+    const realCalls = researchSeeds.mock.calls.map((c) => JSON.stringify([ids(c[0]), modeOf(c[0])]));
+    // The very same selection and the very same questions, so every answer is waiting in the cache when the book is written.
+    expect(realCalls).toEqual(warmCalls);
+    expect(real.report.seeds.map((s) => s.activityId)).toEqual(warm.report.seeds.map((s) => s.activityId));
+  });
+});

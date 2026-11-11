@@ -1062,5 +1062,101 @@
   "thuis": 0.4,
   "tast": 0.4,
   "nostalgie": 0.4
+ },
+ "place-fab-lab": {
+  "bouwen": 1.0,
+  "technologie": 0.7,
+  "ambacht": 0.7,
+  "experimenteren": 0.4,
+  "leren": 0.4,
+  "precisie": 0.4
+ },
+ "place-chess-board": {
+  "strategie": 1.0,
+  "logica": 0.7,
+  "concentratie": 0.7,
+  "competitie": 0.4,
+  "spel": 0.4,
+  "puzzelen": 0.4
+ },
+ "place-dojo-mats": {
+  "concentratie": 1.0,
+  "beweging": 0.7,
+  "conditie": 0.7,
+  "meesterschap": 0.4,
+  "coordinatie": 0.4,
+  "geduld": 0.4
+ },
+ "place-community-garden": {
+  "gemeenschap": 1.0,
+  "planten": 0.7,
+  "zorg": 0.7,
+  "duurzaamheid": 0.4,
+  "natuur": 0.4,
+  "samenwerking": 0.4
+ },
+ "place-clue-wall": {
+  "puzzelen": 1.0,
+  "spanning": 0.7,
+  "onderzoeken": 0.7,
+  "logica": 0.4,
+  "ontdekking": 0.4,
+  "observeren": 0.4
+ },
+ "place-pitch-huddle": {
+  "samenwerking": 1.0,
+  "competitie": 0.7,
+  "beweging": 0.7,
+  "speelsheid": 0.4,
+  "conditie": 0.4,
+  "gemeenschap": 0.4
+ },
+ "moment-team-pass": {
+  "samenwerking": 1.0,
+  "beweging": 0.7,
+  "coordinatie": 0.7,
+  "competitie": 0.4,
+  "speelsheid": 0.4,
+  "ritme": 0.4
+ },
+ "moment-costume-on": {
+  "fantasie": 1.0,
+  "optreden": 0.7,
+  "improviseren": 0.7,
+  "verhalen": 0.4,
+  "speelsheid": 0.4,
+  "expressie": 0.4
+ },
+ "moment-first-build": {
+  "bouwen": 1.0,
+  "vakmanschap": 0.7,
+  "trots": 0.7,
+  "ontwerpen": 0.4,
+  "leren": 0.4,
+  "precisie": 0.4
+ },
+ "moment-puzzle-solved-together": {
+  "puzzelen": 1.0,
+  "samenwerking": 0.7,
+  "spanning": 0.7,
+  "gezelligheid": 0.4,
+  "logica": 0.4,
+  "ontdekking": 0.4
+ },
+ "sense-chalk-dust": {
+  "beweging": 1.0,
+  "coordinatie": 0.7,
+  "precisie": 0.7,
+  "concentratie": 0.7,
+  "conditie": 0.4,
+  "tast": 0.4
+ },
+ "sense-dice-clatter": {
+  "spel": 1.0,
+  "kans": 0.7,
+  "strategie": 0.7,
+  "gezelligheid": 0.7,
+  "speelsheid": 0.4,
+  "spanning": 0.4
  }
 }

@@ -903,5 +903,40 @@
       "source_record_id": "RA-525",
       "method": "curated"
     }
+  },
+  {
+    "id": "alleen-uit-eten",
+    "domain": "solo_explore",
+    "sub": "own_pace",
+    "label": {
+      "nl": "Alleen uit eten gaan",
+      "en": "Going out for dinner alone"
+    },
+    "tags": [
+      "food",
+      "stillness",
+      "discovery",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Reserveer een tafel voor één in een restaurant dat je al lang wilt proberen",
+      "en": "Reserve a table for one at a restaurant you have wanted to try for a long time"
+    },
+    "scene": "a small table for one with a single candle, a folded napkin and a menu card in a quiet restaurant",
+    "status": "concept",
+    "image_pending": true
   }
 ]

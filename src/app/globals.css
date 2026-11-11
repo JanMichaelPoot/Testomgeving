@@ -181,6 +181,26 @@ body {
   animation: window-page-in 0.35s ease forwards;
 }
 
+/* The line on the waiting screen fades in; with reduced motion it just changes. */
+.window-quote {
+  animation: window-quote-in 0.9s ease both;
+}
+@keyframes window-quote-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .window-quote {
+    animation: none;
+  }
+}
+
 .animate-window-page-fade {
   animation: window-page-fade 0.3s ease backwards;
 }

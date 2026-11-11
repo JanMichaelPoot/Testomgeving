@@ -27,7 +27,7 @@ import { WindowFrame } from "@/components/window/WindowFrame";
 import { buildWindowItems, windowImageHref } from "@/lib/vensterPanes";
 import { WindowDownload } from "@/components/window/WindowDownload";
 import { buildAssociationLibrary } from "@/lib/discovery/associations";
-import { DOMAINS } from "@/lib/discovery/library";
+import { DOMAINS, getActivities } from "@/lib/discovery/library";
 import { paneActivities } from "@/lib/discovery/concretePool";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
@@ -199,6 +199,8 @@ export default async function PlanPage(props: PageProps<"/plan">) {
             place={displayPlace(waiting.place)}
             elapsedMs={elapsedSinceNow(err.info?.startedAt)}
             visual={waitingWindow(waiting.answers, locale, dict)}
+            quotes={g.quotes}
+            facts={{ activities: getActivities().length, directions: DOMAINS.length }}
           />
         );
       }

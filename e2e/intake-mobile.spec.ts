@@ -150,7 +150,7 @@ test.describe("situation screen needs a place", () => {
     const next = page.getByRole("button", { name: "Verder", exact: true });
     await expect(next).toHaveAttribute("aria-disabled", "true");
     await expect(page.locator("#continue-hint")).toHaveText("Vul nog even in: je plaats.");
-    await page.getByRole("combobox").fill("Utrecht");
+    await page.locator("#location").fill("Utrecht");
     await expect(page.locator("#continue-hint")).toBeHidden();
     await expect(next).not.toHaveAttribute("aria-disabled", "true");
   });

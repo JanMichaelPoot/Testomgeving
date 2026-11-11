@@ -1,3 +1,4 @@
+import { countryName } from "@/lib/countries";
 import { radiusText, sanitizeDistanceKm } from "@/lib/distanceOptions";
 import type Anthropic from "@anthropic-ai/sdk";
 import { anthropic } from "@/lib/anthropic";
@@ -231,14 +232,18 @@ export function buildResearchPrompt(
   now: Date = new Date(),
   priority = false,
   needs: readonly ResearchNeed[] = [],
+  /** The country when it is not the Netherlands (English name): the places are searched there, in its own language. */
+  country: string | null = null,
 ): string {
   const language = locale === "nl" ? "Dutch" : "English";
+  const searchLanguage = country ? "the local language of the country (and in English)" : "Dutch";
+  const countryName = country ?? "the Netherlands";
   // Activities the person chose themselves: search each one separately and accept a little more distance and evidence for
   // permanent places. Everything else (the rules of the next paragraphs: exists, open now, really offers it) stays as strict.
   const priorityBlock = priority
     ? `
-These activities were chosen by the person themselves, so try harder than usual. Search every activity on its own, in Dutch
-(for example "<activity> ${location || "Nederland"}", "<activity> proefles ${location || "Nederland"}", "<activity> in de buurt"). If the place
+These activities were chosen by the person themselves, so try harder than usual. Search every activity on its own, in ${searchLanguage}
+(for example "<activity> ${location || countryName}", "<activity> beginners class ${location || countryName}", "<activity> near me"). If the place
 itself has nothing, an option ${/^[0-9]+km$/.test(radius) ? "inside the search radius" : "within about 25 km"} counts: write its real city, never the place you searched. A permanent place
 (museum, estate, garden, shop, market hall) counts when its own website, or a source from the last 24 months, shows that it exists
 and is open. Classes, events and seasonal offers keep the stricter rules below.
@@ -250,12 +255,12 @@ and is open. Classes, events and seasonal offers keep the stricter rules below.
     const entry = a?.entry ? ` Usual way in: ${a.entry.en}.` : "";
     return `${i + 1}. id "${id}": ${a?.label.nl ?? id} (${a?.label.en ?? id}).${entry}`;
   });
-  return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). Place: ${location || "the Netherlands"}. Search radius: ${radiusLine(radius)}.
+  return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). Place: ${location || countryName}. Search radius: ${radiusLine(radius).replace("the Netherlands", countryName)}.
 Write the notes in ${language}: if the website is in another language, translate what you take from it (keep names, streets and titles as they are). A note in the wrong language is an error.
 
 For each activity below, find up to 4 real, currently operating options where a beginner can actually take part
 there, preferring a low-threshold way in (trial class, beginner evening, open day, drop-in). Combine searches
-where one query can cover several activities (for example "creatieve workshops ${location || "Nederland"}").
+where one query can cover several activities (for example "creative workshops ${location || countryName}").
 If nothing can be verified for an activity, give an empty options list instead of guessing.
 ${priorityBlock}${needsBlock(needs)}
 It must be possible to take part within the next four weeks from today. So an option does NOT count when it is
@@ -296,29 +301,30 @@ Finish with one JSON code block, exactly this shape:
  * association with a website, an app or platform. Same honesty rules as the local pass: it must exist, be operating now and really
  * offer the activity to beginners; a rating only when a search result showed it; the best rated first.
  */
-export function buildOnlinePrompt(activityIds: string[], location: string, locale: Locale, now: Date = new Date()): string {
+export function buildOnlinePrompt(activityIds: string[], location: string, locale: Locale, now: Date = new Date(), country: string | null = null): string {
   const language = locale === "nl" ? "Dutch" : "English";
+  const countryName = country ?? "the Netherlands";
   const lines = activityIds.map((id, i) => {
     const a = getActivity(id);
     return `${i + 1}. id "${id}": ${a?.label.nl ?? id} (${a?.label.en ?? id}).`;
   });
-  return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). The person lives near ${location || "the Netherlands"}.
-Nothing was found NEAR them for the activities below. For each one, find up to 3 real, currently operating options that someone in the
-Netherlands can use from home or by post/delivery, or that a national organisation offers through a website: an online course or
+  return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). The person lives near ${location || countryName}.
+Nothing was found NEAR them for the activities below. For each one, find up to 3 real, currently operating options that someone in
+${countryName} can use from home or by post/delivery, or that a national organisation offers through a website: an online course or
 class, a shop or webshop with a beginner kit, a national club or association (with local chapters) with a website, an app or a platform.
 Write the notes in ${language} (translate what you take from a website; keep names as they are).
 
 An option only counts when ALL of these are true:
 - Its own official website, or a source from the last 12 months, shows that it exists and is operating now (not closed, parked, "coming soon").
 - It really offers this activity to beginners, or the material to start it, not something merely similar.
-- It can actually be used by someone in the Netherlands (it ships to, or runs for, people there).
+- It can actually be used by someone in ${countryName} (it ships to, or runs for, people there).
 If the activity cannot sensibly be done or started online or by post (it needs a venue, a licence or an instructor on site), or nothing
 verifiable exists, give an empty options list. An empty answer is a good answer; never invent a name or URL.
 
 Ratings: when a search result shows a review score (Trustpilot, Google, the shop's own page, an app store, ...), give it as
 "rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Trustpilot"} (scale 5 or 10; "reviews" null when not stated). Never estimate or
 remember a score: "rating" is null when the results show none. When more than 3 qualify, keep the 3 with the highest ratings (more reviews counts for more).
-Write "Online" as the city for something that is used from home, "Nederland" for a national organisation, or the real city of a local chapter.
+Write "Online" as the city for something that is used from home, "${country ?? "Nederland"}" for a national organisation, or the real city of a local chapter.
 
 Activities:
 ${lines.join("\n")}
@@ -385,6 +391,8 @@ async function searchOnce(
   now: Date = new Date(),
   priority = false,
   needs: readonly ResearchNeed[] = [],
+  country: string | null = null,
+  countryCode: string | null = null,
 ): Promise<Map<string, LocalOption[]> | null> {
   const startedAt = Date.now();
   // The person's own choices get about one and a half searches each (measured: 6 searches for 3 choices cost ~$0.14, mostly the
@@ -396,14 +404,14 @@ async function searchOnce(
     model: RESEARCH_MODEL,
     max_tokens: 3500,
     system: SYSTEM,
-    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now, priority, needs) }],
+    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now, priority, needs, country) }],
     tools: [
       {
         type: "web_search_20250305",
         name: "web_search",
         max_uses: maxUses,
         // No country here: the person may be anywhere, and a forced "NL" would pull a search for Madrid towards the Netherlands.
-        ...(radius === "nl" ? {} : { user_location: { type: "approximate", city: location || null } }),
+        ...(radius === "nl" ? {} : { user_location: { type: "approximate", city: location || null, ...(countryCode ? { country: countryCode } : {}) } }),
       } as Anthropic.Messages.WebSearchTool20250305,
     ],
   });
@@ -426,13 +434,19 @@ async function searchOnlineOnce(
   _radius: string,
   locale: Locale,
   now: Date = new Date(),
+  // The online search shares the signature of searchOnce (researchSeeds calls either one the same way); these two do not apply to it.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _priority = false,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _needs: readonly ResearchNeed[] = [],
+  country: string | null = null,
 ): Promise<Map<string, LocalOption[]> | null> {
   const startedAt = Date.now();
   const message = await anthropic.messages.create({
     model: RESEARCH_MODEL,
     max_tokens: 3000,
     system: SYSTEM,
-    messages: [{ role: "user", content: buildOnlinePrompt(activityIds, location, locale, now) }],
+    messages: [{ role: "user", content: buildOnlinePrompt(activityIds, location, locale, now, country) }],
     tools: [
       {
         type: "web_search_20250305",
@@ -481,6 +495,8 @@ export async function researchSeeds(opts: {
    * Its answers are cached under their own key (the place hardly matters, but the month does).
    */
   mode?: "online";
+  /** The country of the place (ISO code) when it is not the Netherlands: it changes where is searched, so it is part of every cache key. */
+  country?: string | null;
   /** Practical wishes (researchNeedsFrom): evening, no car, step-free, with children. They change which options are kept, so they are part of the cache key. */
   needs?: readonly ResearchNeed[];
 }): Promise<{ byActivity: Map<string, SeedResearch>; stats: ResearchStats }> {
@@ -488,14 +504,17 @@ export async function researchSeeds(opts: {
   const { activityIds, location, searchDistance, locale } = opts;
   const now = opts.now ?? new Date();
   const today = isoDateNL(now);
-  const place = placeKey(location, searchDistance, opts.searchDistanceKm);
+  const foreign = opts.country && opts.country.toUpperCase() !== "NL" ? opts.country.toUpperCase() : null;
+  const countryEn = foreign ? countryName(foreign, "en") : null;
+  const countryTag = foreign ? `${foreign.toLowerCase()}:` : "";
+  const place = countryTag + placeKey(location, searchDistance, opts.searchDistanceKm);
   const radius = place.split("|")[1] ?? "city";
   // The cache is kept per month: what is open or running in June says nothing about December.
   // "v2": the notes are now always in the book's language; older cached notes could be in the language of the website.
   // "v3": options now carry ratings and passed the stricter "is it really open" rules; older answers are not trusted.
   const online = opts.mode === "online";
   const needs = online ? [] : researchNeedsFrom(opts.needs ?? []);
-  const cacheKey = `${online ? "online" : place}|${today.slice(0, 7)}|v3${online ? "|online" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
+  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${today.slice(0, 7)}|v3${online ? "|online" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
   const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 
@@ -534,7 +553,7 @@ export async function researchSeeds(opts: {
   const batch = async (ids: string[], own: boolean) => {
     if (ids.length === 0) return;
     try {
-      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own, needs);
+      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own, needs, countryEn, foreign);
       if (!found) throw new Error("the research answer could not be read");
       await Promise.all(
         ids.map(async (id) => {

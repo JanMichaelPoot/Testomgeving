@@ -14,6 +14,20 @@ export interface VensterDictionary {
     subcopy: string;
     heroAlt: string;
     chapters: { title: string; body: string }[];
+    /** The share icons under the hero button. */
+    share: {
+      heading: string;
+      nativeLabel: string;
+      whatsapp: string;
+      instagram: string;
+      facebook: string;
+      x: string;
+      linkedin: string;
+      email: string;
+      copiedForInstagram: string;
+      text: string;
+      emailSubject: string;
+    };
   };
   chapters: { images: string; situation: string; extra: string };
   recipientFallback: string;
@@ -129,8 +143,7 @@ export interface VensterDictionary {
     open: string;
     openGift: string; // {name}
     /** Titles and fixed sentences of the short personal reading. */
-    interpret: { threadTitle: string; directionTitle: string; outlookTitle: string; outlook: string; aiNote: string; chosenLabel: string };
-    axesTitle: string;
+    interpret: { threadTitle: string; directionTitle: string; chosenLabel: string };
     axes: Record<"social" | "energy" | "setting" | "novelty", { label: string; low: string; high: string }>;
     seekLines: {
       formats: Record<string, string>;
@@ -160,10 +173,6 @@ export interface VensterDictionary {
     missPlaceholder: string;
     suggestions: Record<string, string>;
     combos: { tags: [string, string]; text: string }[];
-    adjust: string;
-    adjustDone: string;
-    fixPrompt: string;
-    moreTitle: string;
   };
   /** The central start page of the two-page intake: who we search for, where, and the few limits (all optional except the place). */
   start: {
@@ -171,13 +180,24 @@ export interface VensterDictionary {
     heading: string;
     sub: string;
     sections: { who: string; where: string; limits: string };
+    /** The line under the heading: only the place is needed, the rest is optional. */
+    optionalNote: string;
+    /** The marker behind a required field, read out by a screen reader. */
+    required: string;
     who: {
       label: string;
       labelGift: string;
       sub: string;
-      options: Record<"self" | "child" | "adult" | "group" | "unknown", { label: string; sub: string }>;
+      /** "For myself" and "For someone else" are the two big choices; for someone else the kind of person follows. */
+      options: Record<"self" | "child" | "adult" | "group", { label: string; sub: string }>;
+      otherCard: { label: string; sub: string };
+      otherPrompt: string;
+      /** The small pill that stays on the screens after the start page: who the search is for. {name} is the first name. */
+      pill: { self: string; other: string; named: string; group: string };
       nameLabel: string;
     };
+    /** The country and the place, pre-filled from the connection as an indication. */
+    country: { label: string; geoNote: string };
     /** The two sliders under the place: how far to travel, and what it may cost per person. */
     distance: { label: string; hint: string; upTo: string; over100: string; tickOver100: string };
     budget: { label: string; hint: string; unset: string; clear: string; upTo: string; any: string };
@@ -334,6 +354,19 @@ export const vensterNl: VensterDictionary = {
     subcopy:
       "Kies beelden die je aanspreken. Wij vertalen ze naar activiteiten die je zelf misschien nooit had bedacht, met echte plekken bij jou in de buurt.",
     heroAlt: "Een klassiek schuifraam met acht ruiten, elk met een ander beeld",
+    share: {
+      heading: "Deel WindowInto",
+      nativeLabel: "Deel via je telefoon of computer",
+      whatsapp: "Deel via WhatsApp",
+      instagram: "Deel via Instagram",
+      facebook: "Deel via Facebook",
+      x: "Deel via X",
+      linkedin: "Deel via LinkedIn",
+      email: "Deel per e-mail",
+      copiedForInstagram: "Link gekopieerd. Plak hem in Instagram.",
+      text: "Ontdek wat er mogelijk is, voor jou. Open een venster op WindowInto:",
+      emailSubject: "Ontdek wat er mogelijk is, met WindowInto",
+    },
     chapters: [
       { title: "Jouw situatie", body: "Voor wie, waar en wat moet kloppen: de basis voor echte plekken in de buurt." },
       { title: "Jouw beelden", body: "Kies beelden en activiteiten die je aantrekken. Geen vragenlijst: klaar in ±3 minuten." },
@@ -401,7 +434,7 @@ export const vensterNl: VensterDictionary = {
       sub: "Kies wat je aanspreekt zonder er verder lang over na te denken. Er zijn geen goede of foute antwoorden. Vijf tot acht is mooi.",
       subGift: "Kies wat {name} zou aanspreken zonder er verder lang over na te denken. Er zijn geen goede of foute antwoorden. Vijf tot acht is mooi. ‖ Kies wat zou aanspreken zonder er verder lang over na te denken. Er zijn geen goede of foute antwoorden. Vijf tot acht is mooi. ‖ Kies wat jullie aanspreekt zonder er verder lang over na te denken. Er zijn geen goede of foute antwoorden. Vijf tot acht is mooi.",
       chosen: "{n} gekozen",
-      min: "Kies er nog even {n} of meer om verder te gaan.",
+      min: "Kies minimaal {n} beelden om verder te gaan.",
       max: "Dat zijn er acht. Haal er één weg om een ander te kiezen.",
       more: "Andere beelden",
       moreSub: "Wat je koos blijft staan.",
@@ -627,12 +660,8 @@ export const vensterNl: VensterDictionary = {
     interpret: {
       threadTitle: "De rode draad",
       directionTitle: "Jouw ontdekkingsrichting",
-      outlookTitle: "Wat je in je boek vindt",
-      outlook: "In je boek vind je zes ideeën die hierop aansluiten, van herkenbaar tot onverwacht, plus één wildcard. Bij elk idee lees je hoe het uit de keuzes volgt en waar je het kunt doen.",
-      aiNote: "Geschreven met AI, alleen op basis van de gekozen beelden en activiteiten.",
       chosenLabel: "De gekozen beelden",
     },
-    axesTitle: "Klopt dit? Pas het gerust aan.",
     axes: {
       social: { label: "Alleen of samen", low: "Alleen", high: "Samen" },
       energy: { label: "Rust of actie", low: "Rust", high: "Actie" },
@@ -727,29 +756,30 @@ export const vensterNl: VensterDictionary = {
       { tags: ["challenge", "outdoors"], text: "Buiten iets doen dat een beetje spannend is" },
       { tags: ["learning", "focus"], text: "Een middag ergens echt in verdiepen" },
     ],
-    adjust: "Iets anders kiezen",
-    adjustDone: "Klaar",
-    fixPrompt: "Wat zoek je meer? Kies er tot drie.",
-    moreTitle: "Bekijk en stuur bij",
   },
   start: {
     kicker: "Fijn dat je er bent",
     heading: "Een ontdekking begint bij jou",
-    sub: "Vertel ons voor wie we op zoek gaan en wat de mogelijkheden zijn. Zo kunnen we iets ontdekken dat echt aansluit. Alleen je plaats hebben we echt nodig.",
+    sub: "Vertel ons voor wie we op zoek gaan en waar. Zo kunnen we iets ontdekken dat echt aansluit.",
     sections: { who: "Voor wie", where: "Waar", limits: "Rekening mee houden" },
+    optionalNote: "Alleen je plaats is verplicht (*). Al het andere mag je overslaan; het maakt je boek alleen persoonlijker.",
+    required: "verplicht",
     who: {
       label: "Voor wie is deze zoektocht bedoeld?",
       labelGift: "Voor wie is dit venster?",
-      sub: "Dit bepaalt waar we naar kijken. Weet je het nog niet? Kies dan 'Nog onbekend'.",
+      sub: "Dit bepaalt waar we naar kijken. Kies je niets, dan zoeken we voor jezelf.",
       options: {
         self: { label: "Voor mezelf", sub: "Iets voor jezelf" },
-        child: { label: "Voor een kind of jongere", sub: "Een kind of een tiener" },
-        adult: { label: "Voor iemand anders", sub: "Een partner, vriend, ouder of collega" },
-        group: { label: "Voor een groep", sub: "Gezin, vrienden of een team" },
-        unknown: { label: "Nog onbekend", sub: "Dat zien we onderweg" },
+        child: { label: "Een kind of jongere", sub: "Een kind of een tiener" },
+        adult: { label: "Een volwassene", sub: "Partner, vriend, ouder of collega" },
+        group: { label: "Een groep", sub: "Gezin, vrienden of een team" },
       },
+      otherCard: { label: "Voor iemand anders", sub: "Een cadeau of een uitje voor een ander" },
+      otherPrompt: "Wie is het?",
+      pill: { self: "Voor mezelf", other: "Voor iemand anders", named: "Voor {name}", group: "Voor een groep" },
       nameLabel: "Hoe heet diegene? Met een naam wordt je boek persoonlijker.",
     },
+    country: { label: "Land", geoNote: "We vulden dit in op basis van je verbinding. Klopt het niet? Pas het gerust aan." },
     distance: {
       label: "Hoe ver wil je reizen?",
       hint: "We meten de afstand vanaf je vertrekplaats. Verder dan dit zoeken we niet.",
@@ -942,6 +972,19 @@ export const vensterEn: VensterDictionary = {
     headlineEmphasis: "you didn't know suited you?",
     subcopy: "Pick images that appeal to you. We turn them into activities you might never have thought of, with real places near you.",
     heroAlt: "A classic sash window with eight panes, each showing a different image",
+    share: {
+      heading: "Share WindowInto",
+      nativeLabel: "Share from your phone or computer",
+      whatsapp: "Share on WhatsApp",
+      instagram: "Share on Instagram",
+      facebook: "Share on Facebook",
+      x: "Share on X",
+      linkedin: "Share on LinkedIn",
+      email: "Share by e-mail",
+      copiedForInstagram: "Link copied. Paste it in Instagram.",
+      text: "Discover what's possible, for you. Open a window on WindowInto:",
+      emailSubject: "Discover what's possible with WindowInto",
+    },
     chapters: [
       { title: "Your situation", body: "For whom, where and what has to fit: the basis for real places nearby." },
       { title: "Your images", body: "Pick images and activities that pull you in. No questionnaire: ready in about 3 minutes." },
@@ -1008,7 +1051,7 @@ export const vensterEn: VensterDictionary = {
       sub: "Pick what appeals to you without thinking about it for long. There are no right or wrong answers. Five to eight is lovely.",
       subGift: "Pick what would appeal to {name} without thinking about it for long. There are no right or wrong answers. Five to eight is lovely. ‖ Pick what would appeal without thinking about it for long. There are no right or wrong answers. Five to eight is lovely. ‖ Pick what appeals to you all without thinking about it for long. There are no right or wrong answers. Five to eight is lovely.",
       chosen: "{n} chosen",
-      min: "Pick {n} or more to carry on.",
+      min: "Pick at least {n} images to carry on.",
       max: "That is eight. Remove one to choose another.",
       more: "Other images",
       moreSub: "What you chose stays.",
@@ -1234,12 +1277,8 @@ export const vensterEn: VensterDictionary = {
     interpret: {
       threadTitle: "The red thread",
       directionTitle: "Your direction of discovery",
-      outlookTitle: "What you'll find in your book",
-      outlook: "In your book you'll find six ideas that follow from this, from familiar to unexpected, plus one wildcard. With each idea you read how it follows from the choices and where you can do it.",
-      aiNote: "Written with AI, only from the images and activities chosen.",
       chosenLabel: "The images chosen",
     },
-    axesTitle: "Does this feel right? Adjust it any time.",
     axes: {
       social: { label: "Alone or together", low: "Alone", high: "Together" },
       energy: { label: "Calm or action", low: "Calm", high: "Action" },
@@ -1334,29 +1373,30 @@ export const vensterEn: VensterDictionary = {
       { tags: ["challenge", "outdoors"], text: "Do something outdoors that is a little scary" },
       { tags: ["learning", "focus"], text: "Dive properly into something for an afternoon" },
     ],
-    adjust: "Choose something else",
-    adjustDone: "Done",
-    fixPrompt: "What do you want more of? Pick up to three.",
-    moreTitle: "View and adjust",
   },
   start: {
     kicker: "Good to have you here",
     heading: "A discovery starts with you",
-    sub: "Tell us who we are searching for and what the possibilities are, so we can find something that really fits. We only really need your place.",
+    sub: "Tell us who we are searching for and where, so we can find something that really fits.",
     sections: { who: "For whom", where: "Where", limits: "Keep in mind" },
+    optionalNote: "Only your place is required (*). Everything else you can skip; it just makes your book more personal.",
+    required: "required",
     who: {
       label: "Who is this search for?",
       labelGift: "Who is this window for?",
-      sub: "This decides what we look at. Don't know yet? Choose 'Not known yet'.",
+      sub: "This decides what we look at. Choose nothing and we search for you.",
       options: {
         self: { label: "For myself", sub: "Something for you" },
-        child: { label: "For a child or young person", sub: "A child or a teenager" },
-        adult: { label: "For someone else", sub: "A partner, friend, parent or colleague" },
-        group: { label: "For a group", sub: "Family, friends or a team" },
-        unknown: { label: "Not known yet", sub: "We'll find out along the way" },
+        child: { label: "A child or young person", sub: "A child or a teenager" },
+        adult: { label: "An adult", sub: "Partner, friend, parent or colleague" },
+        group: { label: "A group", sub: "Family, friends or a team" },
       },
+      otherCard: { label: "For someone else", sub: "A gift or an outing for somebody else" },
+      otherPrompt: "Who is it?",
+      pill: { self: "For myself", other: "For someone else", named: "For {name}", group: "For a group" },
       nameLabel: "What's their name? A name makes your book more personal.",
     },
+    country: { label: "Country", geoNote: "We filled this in from your connection. Not right? Change it freely." },
     distance: {
       label: "How far would you travel?",
       hint: "We measure the distance from your starting place. We don't look further than this.",

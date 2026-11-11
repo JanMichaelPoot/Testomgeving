@@ -18,6 +18,7 @@ import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { checkTestQuota } from "@/lib/testQuota";
 import { getVisitorPrice } from "@/lib/visitorPrice";
 import { getDeviceId } from "@/lib/discovery/historyStore";
+import { getGeoHint } from "@/lib/geo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -69,6 +70,7 @@ export default async function IntakePage(props: PageProps<"/intake">) {
   const wantsImages2 = images2WizardPercent(process.env.NEXT_PUBLIC_IMAGES2_PERCENT) > 0 || forced === "images2" || initial?.answers.intakeFlow === "images2";
   const concretePool = wantsImages2 ? buildConcretePool(locale, month) : undefined;
   const visitorPrice = await getVisitorPrice("self");
+  const geo = await getGeoHint();
 
   return (
     <div className="flex min-h-full flex-col">
@@ -87,6 +89,8 @@ export default async function IntakePage(props: PageProps<"/intake">) {
             associations={buildAssociationLibrary(locale, month)}
             concretePool={concretePool}
             initial={initial}
+            geo={geo}
+            locale={locale}
             payment={{
               dict: dict.checkout,
               price: visitorPrice.label(locale),

@@ -544,5 +544,149 @@
       "source_record_id": "RA-163",
       "method": "curated"
     }
+  },
+  {
+    "id": "stedentrip-zonder-plan",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een stedentrip zonder vooraf geboekte activiteiten",
+      "en": "A city break with nothing booked in advance"
+    },
+    "tags": [
+      "discovery",
+      "outdoors",
+      "story",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Boek alleen een bed en een treinkaartje en laat de eerste dag de rest bepalen",
+      "en": "Book only a bed and a train ticket and let the first day decide the rest"
+    },
+    "scene": "a folded city map with a single pencil circle, a day ticket and a small rucksack on a station bench",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "willekeurig-station",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Uitstappen op een willekeurig station",
+      "en": "Getting off at a random station"
+    },
+    "tags": [
+      "discovery",
+      "outdoors",
+      "play",
+      "chance"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Gooi een dobbelsteen om een station in de buurt te kiezen, stap uit en loop een uur rond",
+      "en": "Roll a die to pick a station nearby, get off and walk around for an hour"
+    },
+    "scene": "a small wooden die on a station timetable board with a rail ticket beside it",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "week-meewerken-boerderij",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een week meewerken op een biologische boerderij",
+      "en": "A week helping out on an organic farm"
+    },
+    "tags": [
+      "outdoors",
+      "growing",
+      "caring",
+      "challenge"
+    ],
+    "formats": [
+      "solo",
+      "duo"
+    ],
+    "intensity": 2,
+    "level": 1,
+    "cost": 1,
+    "duration": 4,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Zoek via een erkend vrijwilligersplatform een boerderij die een week hulp zoekt, met kost en inwoning",
+      "en": "Find, through a recognised volunteering platform, a farm that wants help for a week, with board and lodging"
+    },
+    "scene": "a rustic farm gate with a wooden crate of vegetables and a pair of muddy boots in early light",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "huis-passen",
+    "domain": "travel",
+    "sub": "stays",
+    "label": {
+      "nl": "Een huis en huisdier passen op reis",
+      "en": "House-sitting and caring for a pet while travelling"
+    },
+    "tags": [
+      "animals",
+      "caring",
+      "discovery",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "duo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "both",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Meld je aan bij een betrouwbaar housesit-platform en begin met één korte klus in je eigen regio",
+      "en": "Sign up with a trustworthy house-sitting platform and start with one short job in your own region"
+    },
+    "scene": "a set of house keys with a leather tag, a dog lead on a hook and a map on a hallway table",
+    "status": "concept",
+    "image_pending": true
   }
 ]

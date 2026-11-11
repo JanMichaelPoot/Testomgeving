@@ -135,12 +135,19 @@ export interface Dictionary {
     deliveryEmailLabel: string;
     deliveryEmailPlaceholder: string;
     deliveryEmailHint: string;
+    /** Under the e-mail field when it is empty or wrong. */
+    emailError: string;
+    /** One line above the form: a red asterisk marks what is required. */
+    requiredNote: string;
+    /** Read out by a screen reader behind the asterisk. */
+    requiredMark: string;
+    errorEmailRequired: string;
     ctaIdle: string;
     ctaPending: string;
     /** One line under the pay button: the guarantee. */
     guarantee: string;
     /** Above the pay button while it is still grey: what is missing. */
-    payHint: { consent: string; email: string };
+    payHint: { consent: string; email: string; both: string };
     errorGeneric: string;
     errorTermsRequired: string;
     errorConsentRequired: string;
@@ -182,11 +189,17 @@ export interface Dictionary {
       stalledGeneric: string;
       orderRef: string; // {ref}
       autoRefreshNote: string;
+      /** Short lines that change while the book is being made: wisdom, small insights, facts about WindowInto ({activities} and {directions} are filled in). */
+      quotes: string[];
     };
     eyebrow: string;
     possibilitiesHeading: string;
     wildcardFallback: string;
     downloadPdf: string;
+    /** The closing block of the result page: one line above the single primary action, the button, and the line when the PDF is not ready. */
+    downloadHeading: string;
+    downloadNow: string;
+    pdfUnavailable: string;
     emailedCopy: string;
     emailNotSent: string;
     shareButtonLabel: string;
@@ -562,6 +575,11 @@ const nl: Dictionary = {
         body: "Alleen als je dat op de betaalpagina aanvinkt, slaan we 12 maanden een willekeurige code op in een cookie op je apparaat en — uitsluitend gekoppeld aan een gehashte versie van die code — welke activiteiten je Idea Books lieten zien, zodat het volgende ze niet herhaalt. Geen naam, geen e-mailadres. Zet het uit bij het afrekenen of druk hieronder op 'Vergeet dit apparaat' en alles wat voor het apparaat is opgeslagen wordt direct verwijderd; rijen vervallen ook na 12 maanden.",
       },
       {
+        id: "plaats",
+        heading: "Je land en plaats",
+        body: "Om je land en plaats alvast in te vullen kijken we naar het land en de stad die onze hostingprovider bij je verbinding meegeeft. Daarvoor lezen of bewaren we je IP-adres niet, en je kunt beide altijd aanpassen. Het land en de plaats die je invult gebruiken we om echte plekken in de buurt te zoeken. Zoek je buiten Nederland naar een plaats, dan sturen we alleen wat je typt (zonder naam of andere gegevens) naar Photon, een zoekdienst op basis van OpenStreetMap-gegevens (© OpenStreetMap-bijdragers, ODbL).",
+      },
+      {
         id: "testfase",
         heading: "Tijdens een testfase: een limiet per internetverbinding",
         body: "Tijdens een testfase kan het aantal boeken per internetverbinding beperkt zijn. Daarvoor bewaren we niet je IP-adres, maar een versleutelde code die daaruit is afgeleid (met een geheime sleutel die alleen op onze server staat) en die we niet kunnen terugrekenen. De code staat los van je naam en e-mailadres en wordt gewist met de sessie waar hij bij hoort; alleen de eigenaar kan hem zien.",
@@ -685,15 +703,20 @@ const nl: Dictionary = {
       interests: "Wat je trekt",
       final: "Hoe je het doet",
     },
-    deliveryEmailLabel: "E-mailadres voor je boek (optioneel)",
+    deliveryEmailLabel: "E-mailadres voor je boek",
     deliveryEmailPlaceholder: "jouw@voorbeeld.nl",
-    deliveryEmailHint: "Je hoeft hier niets in te vullen. Laat je het leeg, dan sturen we je boek naar het adres dat je bij het betalen invult.",
+    deliveryEmailHint: "Hier sturen we je boek en de PDF naartoe.",
+    emailError: "Vul een geldig e-mailadres in, bijvoorbeeld naam@voorbeeld.nl.",
+    requiredNote: "Velden met een * zijn verplicht.",
+    requiredMark: "verplicht",
+    errorEmailRequired: "Vul een geldig e-mailadres in om je boek te ontvangen.",
     ctaIdle: "Betalen en mijn PDF ontvangen — {price}",
     ctaPending: "Checkout wordt geopend…",
     guarantee: "Klopt een plek niet? Je krijgt gratis een nieuw boek.",
     payHint: {
       consent: "Vink de twee vakjes hierboven aan om te kunnen betalen.",
-      email: "Controleer het e-mailadres hierboven: dat lijkt niet te kloppen.",
+      email: "Vul een geldig e-mailadres in om te kunnen betalen.",
+      both: "Vul je e-mailadres in en vink de twee vakjes aan om te kunnen betalen.",
     },
     errorGeneric: "Er ging iets mis bij het openen van de checkout. Probeer het opnieuw.",
     errorTermsRequired: "Accepteer de Algemene voorwaarden om verder te gaan.",
@@ -744,11 +767,36 @@ const nl: Dictionary = {
       orderRef: "Bestelreferentie: {ref}",
       autoRefreshNote:
         "Dit duurt meestal 1 à 2 minuten. Je Idea Book komt ook in je mail, dus je mag dit scherm gerust sluiten.",
-    },
+
+      quotes: [
+        "Een ontdekking begint zelden met een plan. Meestal begint ze met een kleine nieuwsgierigheid.",
+        "Je hoeft niet te weten wat je zoekt om het te vinden.",
+        "De beste eerste stap is de kleinste die je vandaag kunt zetten.",
+        "Verrassing is geen toeval. Het is wat gebeurt als je binnenstapt waar je nooit eerder was.",
+        "Wat je als kind graag deed, zegt soms meer over je dan wat je nu kiest.",
+        "Een proefles is goedkoper dan twijfelen.",
+        "Je hoeft ergens niet goed in te zijn om het mooi te vinden.",
+        "Een nieuwe route naar een bekende plek is ook een kleine ontdekking.",
+        "Goede vragen brengen je verder dan snelle antwoorden.",
+        "Wij zoeken geen perfect idee voor je, maar een dat je morgen al kunt beginnen.",
+        "Elk beeld dat je koos vertelt iets dat je zelf misschien niet had kunnen zeggen.",
+        "Nieuwsgierigheid wordt sterker als je haar gebruikt.",
+        "Onze bibliotheek telt {activities} activiteiten in {directions} richtingen. Jouw boek kiest er zeven uit.",
+        "Elk idee in je boek krijgt een eerste stap die je meteen kunt zetten.",
+        "Soms is het mooiste idee het idee dat je zelf nooit had bedacht.",
+        "Een uur iets nieuws doen is genoeg om te weten of je er meer van wilt.",
+        "Geen enkel idee in je boek is verplicht. Het zijn deuren, geen opdrachten.",
+        "Twee dingen die niets met elkaar te maken lijken, vormen vaak de beste combinatie.",
+        "Je venster is van jou: zes ideeën, één wildcard en jij beslist wat je opent.",
+        "Een goede plek vind je het vaakst op een kilometer of tien van waar je al bent.",
+      ],    },
     eyebrow: "Jouw Idea Book",
     possibilitiesHeading: "Jouw mogelijkheden",
     wildcardFallback: "De wildcard",
     downloadPdf: "Download PDF",
+    downloadHeading: "Alles bij elkaar, om te bewaren en te delen.",
+    downloadNow: "Download nu de PDF",
+    pdfUnavailable: "Je PDF is nog niet beschikbaar. Ververs de pagina over een moment, of kijk in je e-mail.",
     emailedCopy: "We hebben ook een kopie gemaild.",
     emailNotSent: "De e-mail met je boek is niet aangekomen. Download de PDF hier: hij blijft beschikbaar.",
     shareButtonLabel: "Deel je Idea Book",
@@ -1268,6 +1316,11 @@ const en: Dictionary = {
         body: "Only if you tick it on the checkout page, we store a random code in a cookie on your device for 12 months, and — linked only to a hashed version of that code — which activities your Idea Books showed, so the next one doesn't repeat them. No name, no e-mail address. Switch it off at checkout or press 'Forget this device' below and everything stored for the device is deleted straight away; rows also expire after 12 months.",
       },
       {
+        id: "plaats",
+        heading: "Your country and place",
+        body: "To pre-fill your country and place we look at the country and city our hosting provider attaches to your connection. We do not read or store your IP address for that, and you can always change both. The country and place you enter are used to look up real places nearby. If you look for a place outside the Netherlands, we send only what you type (no name or other data) to Photon, a search service based on OpenStreetMap data (© OpenStreetMap contributors, ODbL).",
+      },
+      {
         id: "testfase",
         heading: "During a test phase: a limit per internet connection",
         body: "During a test phase the number of books per internet connection may be limited. For that we do not store your IP address, but an encrypted code derived from it (with a secret key that only exists on our server) which we cannot turn back into the address. The code is separate from your name and e-mail address and is deleted along with the session it belongs to; only the owner can see it.",
@@ -1391,15 +1444,20 @@ const en: Dictionary = {
       interests: "What draws you",
       final: "How you like to do it",
     },
-    deliveryEmailLabel: "E-mail address for your book (optional)",
+    deliveryEmailLabel: "E-mail address for your book",
     deliveryEmailPlaceholder: "you@example.com",
-    deliveryEmailHint: "You don't have to fill this in. Leave it empty and we send your book to the address you enter when paying.",
+    deliveryEmailHint: "This is where we send your book and the PDF.",
+    emailError: "Enter a valid e-mail address, for example name@example.com.",
+    requiredNote: "Fields marked * are required.",
+    requiredMark: "required",
+    errorEmailRequired: "Enter a valid e-mail address to receive your book.",
     ctaIdle: "Pay and get my PDF — {price}",
     ctaPending: "Opening checkout…",
     guarantee: "Is a place wrong? You get a new book for free.",
     payHint: {
       consent: "Tick the two boxes above to be able to pay.",
-      email: "Check the e-mail address above: it doesn't look right.",
+      email: "Enter a valid e-mail address to be able to pay.",
+      both: "Enter your e-mail address and tick the two boxes to be able to pay.",
     },
     errorGeneric: "Something went wrong opening checkout. Please try again.",
     errorTermsRequired: "Accept the Terms of Service to continue.",
@@ -1450,11 +1508,36 @@ const en: Dictionary = {
       orderRef: "Order reference: {ref}",
       autoRefreshNote:
         "This usually takes 1 to 2 minutes. Your Idea Book is also on its way to your inbox, so feel free to close this screen.",
-    },
+
+      quotes: [
+        "A discovery rarely starts with a plan. Usually it starts with a small curiosity.",
+        "You don't need to know what you're looking for to find it.",
+        "The best first step is the smallest one you can take today.",
+        "Surprise is no accident. It's what happens when you step into somewhere you've never been.",
+        "What you loved doing as a child sometimes says more about you than what you choose now.",
+        "A trial class is cheaper than doubting.",
+        "You don't have to be good at something to love it.",
+        "A new route to a familiar place is a small discovery too.",
+        "Good questions take you further than quick answers.",
+        "We're not looking for a perfect idea for you, but one you can start tomorrow.",
+        "Every image you chose says something you might not have been able to put into words.",
+        "Curiosity grows stronger when you use it.",
+        "Our library holds {activities} activities in {directions} directions. Your book picks seven of them.",
+        "Every idea in your book comes with a first step you can take right away.",
+        "Sometimes the best idea is the one you'd never have thought of yourself.",
+        "An hour of something new is enough to know whether you want more of it.",
+        "No idea in your book is compulsory. They're doors, not assignments.",
+        "Two things that seem unrelated often make the best combination.",
+        "Your window is yours: six ideas, one wildcard, and you decide what to open.",
+        "A good place is most often found within ten kilometres of where you already are.",
+      ],    },
     eyebrow: "Your Idea Book",
     possibilitiesHeading: "Your possibilities",
     wildcardFallback: "The wildcard",
     downloadPdf: "Download PDF",
+    downloadHeading: "Everything together, to keep and to share.",
+    downloadNow: "Download the PDF now",
+    pdfUnavailable: "Your PDF isn't available yet. Refresh the page in a moment, or check your e-mail.",
     emailedCopy: "We've also emailed a copy.",
     emailNotSent: "The e-mail with your book did not arrive. Download the PDF here: it stays available.",
     shareButtonLabel: "Share your Idea Book",

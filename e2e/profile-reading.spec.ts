@@ -60,29 +60,42 @@ test.describe("the results page", () => {
   test("is a short reading in blocks with the images chosen, and none of the old lists", async ({ page }) => {
     await openProfile(page);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Wat jouw keuzes ons vertellen");
-    for (const id of ["reading-opening", "reading-thread", "reading-direction", "reading-outlook"]) {
+    for (const id of ["reading-opening", "reading-thread", "reading-direction"]) {
       const text = (await page.getByTestId(id).textContent())?.trim() ?? "";
       expect(text.length, id).toBeGreaterThan(20);
     }
     await expect(page.getByRole("heading", { name: "De rode draad" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Jouw ontdekkingsrichting" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Wat je in je boek vindt" })).toBeVisible();
-    await expect(page.getByTestId("reading-outlook")).toContainText("zes ideeën");
     // The images that were chosen are part of the page, each with its caption.
     await expect(page.getByTestId("reading-images").locator("li")).toHaveCount(CHOSEN.length);
-    // Gone: "Wat ons opviel", the lists of what is sought and left out, and the old teaser.
-    for (const gone of ["Wat ons opviel", "Hier gaan we naar op zoek", "Dit laten we even liggen", "Eén van je zeven deuren"]) {
+    // Gone: "Wat ons opviel", the lists, the old teaser, the explanation of the generation and the generic outlook block.
+    for (const gone of ["Wat ons opviel", "Hier gaan we naar op zoek", "Dit laten we even liggen", "Eén van je zeven deuren", "Wat je in je boek vindt", "Geschreven met AI"]) {
       await expect(page.getByText(gone)).toHaveCount(0);
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   });
 
-  test("the sliders and extra themes wait behind 'Bekijk en stuur bij'", async ({ page }) => {
+  test("has no steering controls: no sliders, no 'Bekijk en stuur bij', no 'Iets anders kiezen'", async ({ page }) => {
     await openProfile(page);
-    await expect(page.locator("#axis-social")).toBeHidden();
-    await page.getByRole("button", { name: /Bekijk en stuur bij/ }).click();
-    await expect(page.locator("#axis-social")).toBeVisible();
+    await expect(page.getByRole("button", { name: /Bekijk en stuur bij/ })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: /Iets anders kiezen/ })).toHaveCount(0);
+    await expect(page.locator("input[type='range']")).toHaveCount(0);
     await expect(page.getByTestId("reading")).toBeVisible();
+  });
+});
+
+test.describe("on a computer", () => {
+  test.use({ viewport: { width: 1280, height: 900 }, locale: "nl-NL" });
+
+  test("the reading and the order stand side by side, so the order is in view at once", async ({ page }) => {
+    await openProfile(page);
+    const reading = (await page.getByTestId("reading").boundingBox())!;
+    const order = (await page.locator("#bestellen").boundingBox())!;
+    expect(order.x).toBeGreaterThan(reading.x + reading.width - 5);
+    await expect(page.locator("#bestellen")).toBeInViewport();
+    await expect(page.locator("#delivery-email")).toBeInViewport();
+    // No cue pointing down: the order is not below.
+    await expect(page.getByTestId("order-cue")).toBeHidden();
   });
 });
 
@@ -103,20 +116,37 @@ test.describe("the order block", () => {
     await expect(toOrder).toBeHidden();
   });
 
-  test("the e-mail address is plainly optional", async ({ page }) => {
+  test("the e-mail address is required: marked, explained, and the pay button waits for it", async ({ page }) => {
     await openProfile(page);
-    await expect(page.getByText("E-mailadres voor je boek (optioneel)")).toBeVisible();
-    await expect(page.getByText("Je hoeft hier niets in te vullen.")).toBeVisible();
-    // Without an address, ticking the two boxes is enough to pay.
+    const pay = page.getByRole("button", { name: /Betalen en mijn PDF ontvangen/ });
+    // A red asterisk marks the required fields: the e-mail and both boxes.
+    await expect(page.getByText("Velden met een * zijn verplicht.")).toBeVisible();
+    await expect(page.locator("label[for='delivery-email']")).toContainText("E-mailadres voor je boek");
+    await expect(page.locator("label[for='delivery-email'] span[aria-hidden]")).toHaveText("*");
+    await expect(page.locator("#delivery-email")).toHaveAttribute("aria-required", "true");
+    await expect(page.locator("main label:has(input[type='checkbox']) span.text-red-700")).toHaveCount(2);
+    // Both boxes ticked is not enough without an address.
     await page.locator("main label:has(input[type='checkbox'])").nth(0).click();
     await page.locator("main label:has(input[type='checkbox'])").nth(1).click();
-    await expect(page.getByRole("button", { name: /Betalen en mijn PDF ontvangen/ })).toBeEnabled();
-    await expect(page.locator("#delivery-email")).toBeVisible();
-    // A wrong address blocks it again.
+    await expect(pay).toBeDisabled();
+    await expect(page.locator("#pay-hint")).toHaveText("Vul een geldig e-mailadres in om te kunnen betalen.");
+    // A wrong address shows the validation message and keeps the button off.
     await page.locator("#delivery-email").fill("not-an-address");
-    await expect(page.getByRole("button", { name: /Betalen en mijn PDF ontvangen/ })).toBeDisabled();
-    await page.locator("#delivery-email").fill("");
-    await expect(page.getByRole("button", { name: /Betalen en mijn PDF ontvangen/ })).toBeEnabled();
+    await expect(page.locator("#delivery-email-error")).toHaveText("Vul een geldig e-mailadres in, bijvoorbeeld naam@voorbeeld.nl.");
+    await expect(page.locator("#delivery-email")).toHaveAttribute("aria-invalid", "true");
+    await expect(pay).toBeDisabled();
+    // A right address makes it work.
+    await page.locator("#delivery-email").fill("iemand@voorbeeld.nl");
+    await expect(page.locator("#delivery-email-error")).toHaveCount(0);
+    await expect(pay).toBeEnabled();
+  });
+
+  test("an empty e-mail shows its message once the field is left", async ({ page }) => {
+    await openProfile(page);
+    await expect(page.locator("#delivery-email-error")).toHaveCount(0);
+    await page.locator("#delivery-email").focus();
+    await page.locator("#delivery-email").blur();
+    await expect(page.locator("#delivery-email-error")).toBeVisible();
   });
 });
 

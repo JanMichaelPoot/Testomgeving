@@ -2706,5 +2706,298 @@
       "source_record_id": "RA-094",
       "method": "curated"
     }
+  },
+  {
+    "id": "rugby-proeftraining",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Een proeftraining rugby",
+      "en": "A taster rugby session"
+    },
+    "tags": [
+      "movement",
+      "teamwork",
+      "challenge",
+      "competition"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Loop mee met een open training bij een rugbyclub; ze lenen je wat je nodig hebt",
+      "en": "Join an open training at a rugby club; they lend you what you need"
+    },
+    "scene": "an oval ball on a muddy grass pitch beside tall H-shaped goalposts in early evening light",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "honkbal-softbal",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Honkbal of softbal bij een vereniging",
+      "en": "Baseball or softball at a club"
+    },
+    "tags": [
+      "teamwork",
+      "competition",
+      "precision",
+      "movement"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Probeer een open middag bij een honk- en softbalclub",
+      "en": "Try an open afternoon at a baseball and softball club"
+    },
+    "scene": "a worn leather glove, a white baseball and a wooden bat on the dusty infield in warm sun",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "cricket-beginners",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Cricket voor beginners",
+      "en": "Cricket for beginners"
+    },
+    "tags": [
+      "teamwork",
+      "competition",
+      "precision",
+      "retro"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Ga naar een introductietraining bij een cricketclub en leer eerst alleen slaan en vangen",
+      "en": "Go to an introductory session at a cricket club and learn just batting and catching first"
+    },
+    "scene": "a cricket bat leaning on white stumps on a neat green field in long afternoon light",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "handbal-vereniging",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Handbal bij een vereniging",
+      "en": "Handball at a club"
+    },
+    "tags": [
+      "teamwork",
+      "movement",
+      "competition",
+      "play"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Neem een gratis proeftraining bij een handbalvereniging in de buurt",
+      "en": "Take a free trial training at a handball club nearby"
+    },
+    "scene": "a sports hall with a handball goal, a ball resting on the wooden floor and orange court lines",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "waterpolo",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Waterpolo proberen",
+      "en": "Trying water polo"
+    },
+    "tags": [
+      "water",
+      "teamwork",
+      "competition",
+      "movement"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 3,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Vraag naar een proefles waterpolo bij een zwemclub; zwemmen kunnen is genoeg om te beginnen",
+      "en": "Ask for a trial session at a swimming club; being able to swim is enough to start"
+    },
+    "scene": "two small goals floating in a bright blue swimming pool with a yellow ball between them",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "draakbootvaren",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Draakbootvaren met een team",
+      "en": "Dragon boating with a team"
+    },
+    "tags": [
+      "water",
+      "teamwork",
+      "rhythm",
+      "movement"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Boek een eerste vaartocht met een draakbootclub; ze leggen het ritme uit voor je instapt",
+      "en": "Book a first outing with a dragon boat club; they explain the rhythm before you board"
+    },
+    "scene": "a long colourful dragon boat with a carved dragon head on calm morning water, paddles lined up on board",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "sloeproeien",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Roeien in een sloep op een rivier",
+      "en": "Rowing a longboat on a river"
+    },
+    "tags": [
+      "water",
+      "teamwork",
+      "rhythm",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Vraag een roeivereniging om een introductietocht in een brede, stabiele sloep",
+      "en": "Ask a rowing club for an introductory outing in a wide, stable longboat"
+    },
+    "scene": "a wooden longboat with oars raised, moored beside reeds on a misty river at dawn",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "slackline-park",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Slacklinen in het park",
+      "en": "Slacklining in the park"
+    },
+    "tags": [
+      "balance",
+      "challenge",
+      "outdoors",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Span een lage slackline tussen twee bomen of ga naar een open sessie in een park",
+      "en": "Set up a low slackline between two trees or go to an open session in a park"
+    },
+    "scene": "a taut flat line strung between two trees in a sunlit park, a rucksack on the grass",
+    "status": "concept",
+    "image_pending": true
   }
 ]

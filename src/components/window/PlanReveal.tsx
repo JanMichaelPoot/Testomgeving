@@ -1,25 +1,22 @@
 "use client";
 
 import { isDiscoveryLevel } from "@/lib/discoveryLevels";
-import { useEffect, useMemo, useState, useSyncExternalStore, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { DoorIcon } from "@/components/window/DoorIcon";
 import { IdeaDetail } from "@/components/window/IdeaDetail";
 import { IdeaDialog } from "@/components/window/IdeaDialog";
 import { IdeaFeedback } from "@/components/window/IdeaFeedback";
 import { IdeaThread } from "@/components/plan/IdeaThread";
-import { IdeaMore } from "@/components/plan/IdeaMore";
 import { pdfPageNumbers } from "@/lib/claude/ideaLayers";
 import { ShareButton } from "@/components/window/ShareButton";
 import { commitToIdea, submitIdeaFeedback, type IdeaFeedbackValue } from "@/app/plan/actions";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { ideaPhoto } from "@/lib/illustrations";
-import { mapsSearchUrl } from "@/lib/maps";
 import type { BecauseLine, VensterEcho } from "@/lib/vensterReveal";
 import type { IdeaThreadData } from "@/lib/ideaThread";
 import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
-import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
+import { DOOR_ORDER, orderIdeasByDoor } from "@/lib/possibilityMap";
 import type { PlanEcho } from "@/lib/planEcho";
 import { trackEvent } from "@/lib/posthog/client";
 import { cn } from "@/lib/utils";
@@ -29,71 +26,27 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 type Door = (typeof DOOR_ORDER)[number];
 type Reaction = IdeaFeedbackValue | null;
 
-// ---------------------------------------------------------------------------
-// "Wildcard opened" is per-visit UI state that should survive a refresh but
-// not outlive the browser tab, so it lives in sessionStorage. Read through
-// useSyncExternalStore (server snapshot: sealed) so hydration never
-// disagrees with the server render, with an in-memory copy so it still works
-// when storage is blocked.
-// ---------------------------------------------------------------------------
-const openedWildcards = new Set<string>();
-const wildcardListeners = new Set<() => void>();
-const wildcardStorageKey = (planId: string) => `window-wildcard-open-${planId}`;
-
-function subscribeWildcard(listener: () => void) {
-  wildcardListeners.add(listener);
-  return () => {
-    wildcardListeners.delete(listener);
-  };
-}
-
-function readWildcardOpen(planId: string): boolean {
-  if (openedWildcards.has(planId)) return true;
-  try {
-    return window.sessionStorage.getItem(wildcardStorageKey(planId)) === "1";
-  } catch {
-    return false;
-  }
-}
-
-function markWildcardOpen(planId: string) {
-  openedWildcards.add(planId);
-  try {
-    window.sessionStorage.setItem(wildcardStorageKey(planId), "1");
-  } catch {
-    // Storage blocked — the in-memory copy above still covers this page view.
-  }
-  wildcardListeners.forEach((listener) => listener());
-}
-
 function metaParts(idea: IdeaBookEntry, locale: Locale): string[] {
-  return [
-    idea.practical.estimated_cost,
-    idea.practical.duration,
-    DIFFICULTY_LABELS[locale][idea.practical.difficulty],
-  ].filter(Boolean);
-}
-
-function locationLabel(idea: IdeaBookEntry): string | null {
-  return idea.location ? [idea.location.name, idea.location.city].filter(Boolean).join(", ") : null;
+  return [idea.practical.estimated_cost, idea.practical.duration, DIFFICULTY_LABELS[locale][idea.practical.difficulty]].filter(Boolean);
 }
 
 function isDoor(value: string): value is Door {
   return (DOOR_ORDER as readonly string[]).includes(value);
 }
 
+/** The short explanation next to an option: its own one-line intro, else the first sentence of why it fits. */
+function shortExplanation(idea: IdeaBookEntry): string {
+  const intro = (idea.intro ?? "").trim();
+  if (intro) return intro;
+  const why = (idea.why_it_fits ?? "").trim();
+  const first = why.match(/^[^.!?]+[.!?]/);
+  return (first ? first[0] : why).trim();
+}
+
 function CheckIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M3 8.5l3.2 3.2L13 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function StarIcon({ className }: { className?: string }) {
-  return (
-    <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" className={className}>
-      <path d="M8 1.5l1.9 4.1 4.4.5-3.3 3 .9 4.4L8 11.3 4.1 13.5l.9-4.4-3.3-3 4.4-.5L8 1.5z" fill="currentColor" />
     </svg>
   );
 }
@@ -107,6 +60,14 @@ function HeartIcon({ filled }: { filled: boolean }) {
         strokeLinejoin="round"
         className={cn("stroke-accent", filled ? "fill-accent" : "fill-none")}
       />
+    </svg>
+  );
+}
+
+function DownloadIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3v12M7 11l5 5 5-5M4 20h16" />
     </svg>
   );
 }
@@ -133,20 +94,17 @@ export interface PlanRevealProps {
   initialCommittedKey: string | null;
   echo: PlanEcho;
   dateLabel: string;
-  // Books from the image intake ("Het venster"): the chosen images as the echo, and per idea
-  // key the image behind it. Absent for older books and the other wizards.
+  // Books from the image intake ("Het venster"): the chosen images as the echo. Absent for older books and the other wizards.
   vensterEcho?: VensterEcho | null;
   because?: Record<string, BecauseLine>;
   // Per idea key: how that door came about (image, tags, door, place). Only books that stored it.
   threads?: Record<string, IdeaThreadData>;
   vensterDict?: Dictionary["venster"];
-  /** The site's address, for the invitation card's link. */
 }
 
-// The paid result, as one scrolling page: an echo of what the person told us,
-// the single idea we'd start with, all six ideas grouped behind four doors,
-// the sealed wildcard. Replaces the earlier two-screen
-// stepper (IdeaBookViewer).
+// The paid result as one compact overview ("Jouw mogelijkheden in kaart"): all six ideas and the wildcard in one list, door by door, each with its
+// photo, its title, a short explanation and its practical facts next to it; one press opens the full idea in a dialog. At the bottom one primary
+// action: download the PDF (it opens in the browser). No long text blocks, no sealed wildcard, no second screen: the result is understood at a glance.
 export function PlanReveal({
   planId,
   ideas,
@@ -165,7 +123,6 @@ export function PlanReveal({
   echo,
   dateLabel,
   vensterEcho = null,
-  because = {},
   threads = {},
   vensterDict,
 }: PlanRevealProps) {
@@ -177,18 +134,11 @@ export function PlanReveal({
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
   const [, startTransition] = useTransition();
 
-  const wildcardOpen = useSyncExternalStore(
-    subscribeWildcard,
-    () => readWildcardOpen(planId),
-    () => false
-  );
-
   useEffect(() => {
     trackEvent("plan_viewed", { planId });
   }, [planId]);
 
-  // Same door order as the PDF, so an idea's page in the PDF is 4 + its
-  // position here (page 1 cover, 2 profile, 3 possibility map).
+  // Same door order as the PDF, so an idea's page in the PDF is 4 + its position (page 1 cover, 2 profile and map).
   const orderedIdeas = useMemo(() => orderIdeasByDoor(ideas), [ideas]);
   const pdfPageByKey = useMemo(() => {
     // An idea with extra layers has a second PDF page (R2.3), which pushes the later pages on.
@@ -198,21 +148,6 @@ export function PlanReveal({
     map.set(WILDCARD_KEY, pages.wildcard);
     return map;
   }, [orderedIdeas]);
-
-  const ideasByDoor = useMemo(() => {
-    const groups = new Map<Door, typeof orderedIdeas>(DOOR_ORDER.map((door) => [door, []]));
-    for (const entry of orderedIdeas) {
-      // generateIdeaBook normalises the door, but this is display code — an
-      // unrecognised one goes behind the furthest door rather than vanishing.
-      const door: Door = isDoor(entry.idea.door) ? entry.idea.door : "stretch";
-      groups.get(door)!.push(entry);
-    }
-    return groups;
-  }, [orderedIdeas]);
-
-  const featuredIndex = useMemo(() => pickOneThingIndex(ideas), [ideas]);
-  const featured = featuredIndex !== null ? ideas[featuredIndex] : null;
-  const featuredKey = featuredIndex !== null ? ideaKey(featuredIndex) : null;
 
   const selected = useMemo(() => {
     if (!selectedKey) return null;
@@ -271,15 +206,10 @@ export function PlanReveal({
     if (ok) {
       setCommittedKey(key);
       setCommitState("idle");
-      trackEvent("one_thing_committed", { planId, ideaKey: key, isOneThing: key === featuredKey });
+      trackEvent("one_thing_committed", { planId, ideaKey: key, isOneThing: false });
     } else {
       setCommitState("error");
     }
-  }
-
-  function revealWildcard() {
-    markWildcardOpen(planId);
-    trackEvent("wildcard_revealed", { planId });
   }
 
   const trackPdf = (source: string) => () => {
@@ -287,415 +217,123 @@ export function PlanReveal({
     trackEvent("plan_pdf_downloaded", { planId, source });
   };
 
-  const headline = vensterEcho ? (
-    <>
-      {vensterEcho.sentence}
-      {vensterEcho.wrote && (
-        <>
-          {" "}
-          <span className="italic text-accent">{vensterEcho.wrote}</span>
-        </>
-      )}
-    </>
-  ) : echo.situation ? (
-    <>
-      {t.headingSaid.replace("{situation}", echo.situation)}{" "}
-      <span className="italic text-accent">{t.headingClosing}</span>
-    </>
-  ) : (
-    <span className="italic text-accent">{t.headingFallback}</span>
-  );
+  // One row per idea: the six in door order, then the wildcard.
+  const rows = [
+    ...orderedIdeas.map(({ idea, originalIndex }, i) => ({ key: ideaKey(originalIndex), idea, photoIndex: originalIndex, number: i + 1, wildcard: false })),
+    ...(wildcard ? [{ key: WILDCARD_KEY, idea: wildcard, photoIndex: ideas.length, number: ideas.length + 1, wildcard: true }] : []),
+  ];
 
-  const shareClassName =
-    "min-h-11 rounded-md border-accent-dark bg-accent-dark px-5 py-0 text-paper shadow-none hover:bg-accent";
-
-  const featuredCommitted = committedKey !== null && committedKey === featuredKey;
+  const subline = vensterEcho
+    ? [vensterEcho.sentence, vensterEcho.wrote].filter(Boolean).join(" ")
+    : echo.situation
+      ? `${t.headingSaid.replace("{situation}", echo.situation)} ${t.headingClosing}`
+      : t.headingFallback;
 
   return (
     <div>
-      {/* A — actions */}
-      <div className="flex flex-wrap items-center justify-end gap-3">
-        {pdfUrl && (
+      <header className="flex flex-col gap-3">
+        <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-2">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">{t.eyebrow.replace("{date}", dateLabel)}</p>
+          <ShareButton
+            url={shareUrl}
+            label={planDict.shareButtonLabel}
+            copiedLabel={planDict.shareCopiedLabel}
+            whatsappLabel={planDict.shareWhatsappLabel}
+            className="min-h-11 border-0 bg-transparent px-2 py-0 text-sm font-semibold text-accent-dark shadow-none underline underline-offset-2 hover:bg-transparent hover:text-accent"
+          />
+        </div>
+        <h1 className="font-serif text-3xl font-normal leading-[1.1] tracking-[-0.01em] text-ink sm:text-4xl lg:text-5xl">{planDict.book.mapHeading}</h1>
+        <p className="max-w-3xl text-base leading-relaxed text-ink/75" data-testid="plan-subline">
+          {subline}
+        </p>
+        {emailNotSent && <p className="text-xs text-ink/70">{planDict.emailNotSent}</p>}
+        {showEmailedCopy && <p className="text-xs text-ink/70">{planDict.emailedCopy}</p>}
+      </header>
+
+      <ol className="mt-6 grid gap-3" data-testid="plan-overview" aria-label={planDict.book.mapHeading}>
+        {rows.map((row) => {
+          const liked = feedback[row.key] === "up";
+          const door = row.wildcard ? null : isDoor(row.idea.door) ? row.idea.door : null;
+          const eyebrow = row.wildcard ? `${row.number} · ${labels.wildcard_heading || t.wildcardOpenEyebrow}` : door ? `${row.number} · ${planDict.book.doors[door].label}` : String(row.number);
+          return (
+            <li
+              key={row.key}
+              data-testid="plan-row"
+              data-door={row.wildcard ? "wildcard" : (door ?? "")}
+              className={cn(
+                "grid grid-cols-[4.75rem_minmax(0,1fr)] items-center gap-x-4 gap-y-2 rounded-xl border bg-paper p-3 sm:grid-cols-[6rem_minmax(0,1fr)_auto] sm:gap-x-5 sm:p-4",
+                row.wildcard ? "border-gold/70 bg-gold/10" : "border-border",
+              )}
+            >
+              <button
+                type="button"
+                onClick={() => openIdea(row.key)}
+                aria-label={row.idea.title}
+                tabIndex={-1}
+                className="relative row-span-2 aspect-square w-full self-start overflow-hidden rounded-lg sm:row-span-1 sm:self-center"
+              >
+                <Image src={ideaPhoto(row.idea, row.photoIndex)} alt="" fill sizes="96px" className="object-cover" />
+              </button>
+              <div className="min-w-0">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-gold-text">{eyebrow}</p>
+                <h2 className="mt-0.5 font-serif text-lg font-medium leading-snug text-ink sm:text-xl">{row.idea.title}</h2>
+                <p className="mt-1 text-sm leading-snug text-ink/80 line-clamp-2 sm:line-clamp-none" data-testid="plan-row-text">
+                  {shortExplanation(row.idea)}
+                </p>
+                <p className="mt-1.5 text-xs text-ink/70">{metaParts(row.idea, locale).join(" · ")}</p>
+              </div>
+              <div className="col-span-2 flex items-center justify-between gap-2 sm:col-span-1 sm:flex-col sm:items-end sm:justify-center">
+                <button
+                  type="button"
+                  onClick={() => openIdea(row.key)}
+                  className="inline-flex min-h-11 items-center rounded-lg border border-border bg-cream px-4 text-sm font-semibold text-accent-dark transition-colors hover:border-accent-dark focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/35"
+                >
+                  {t.readIdea}
+                </button>
+                {canInteract && (
+                  <button
+                    type="button"
+                    aria-pressed={liked}
+                    aria-label={t.likeLabel}
+                    onClick={() => toggleHeart(row.key)}
+                    className={cn(
+                      "inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/35",
+                      liked ? "border-accent bg-surface-active" : "border-border bg-paper hover:border-walnut-light",
+                    )}
+                  >
+                    <HeartIcon filled={liked} />
+                  </button>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+
+      {/* The one primary action: the PDF. It opens in a new tab (the browser shows it straight away). */}
+      <div className="mt-8 flex flex-col items-center gap-3 rounded-2xl bg-accent-dark px-6 py-8 text-center sm:py-10">
+        <p className="font-serif text-2xl leading-snug text-paper sm:text-3xl">{planDict.downloadHeading}</p>
+        {pdfUrl ? (
           <Button
             href={pdfUrl}
             target="_blank"
             rel="noreferrer"
-            variant="secondary"
-            size="sm"
-            onClick={trackPdf("header")}
+            size="lg"
+            onClick={trackPdf("bottom")}
+            data-testid="download-pdf"
+            className="min-w-64 justify-center gap-2 border-gold-light bg-gold-light text-accent-dark hover:bg-paper"
           >
-            {planDict.downloadPdf}
+            <DownloadIcon />
+            {planDict.downloadNow}
           </Button>
-        )}
-        <ShareButton
-          url={shareUrl}
-          label={planDict.shareButtonLabel}
-          copiedLabel={planDict.shareCopiedLabel}
-          whatsappLabel={planDict.shareWhatsappLabel}
-          className={shareClassName}
-        />
-      </div>
-      {emailNotSent && <p className="mt-2 text-right text-xs text-ink/70">{planDict.emailNotSent}</p>}
-      {showEmailedCopy && (
-        <p className="mt-2 text-right text-xs text-ink/70">{planDict.emailedCopy}</p>
-      )}
-
-      {/* B — echo header */}
-      <header className="mt-10 flex flex-col gap-5 sm:mt-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-          {t.eyebrow.replace("{date}", dateLabel)}
-        </p>
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <h1 className="max-w-4xl text-balance font-serif text-4xl font-normal leading-[1.08] tracking-[-0.01em] text-ink sm:text-5xl lg:text-6xl">
-            {headline}
-          </h1>
-          {vensterEcho && vensterEcho.images.length > 0 && (
-            <div className="flex shrink-0 gap-2">
-              {vensterEcho.images.map((img) => (
-                <span key={img.src} className="relative h-14 w-14 overflow-hidden rounded-md ring-2 ring-gold sm:h-16 sm:w-16">
-                  <Image src={img.src} alt={img.alt} fill sizes="64px" className="object-cover" />
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-        {echo.chips.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-sm text-ink/65">{t.basedOn}</span>
-            {echo.chips.map((chip) => (
-              <span
-                key={chip}
-                className="inline-flex min-h-8 items-center rounded-full border border-border bg-surface-active px-3.5 text-[13px] font-medium text-accent-dark"
-              >
-                {chip}
-              </span>
-            ))}
-          </div>
-        )}
-      </header>
-
-      {/* C — "if you only pick one" */}
-      {featured && featuredKey && (
-        <section className="mt-10 sm:mt-12" aria-labelledby="one-thing-title">
-          <div className="grid overflow-hidden rounded-lg border border-border bg-paper md:grid-cols-2">
-            <div className="relative h-64 md:h-auto md:min-h-[460px]">
-              <Image
-                src={ideaPhoto(featured, featuredIndex!)}
-                alt=""
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-              <span className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-paper px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-accent-dark sm:left-6 sm:top-6">
-                <StarIcon className="text-gold" />
-                {planDict.book.oneThingBadge}
-              </span>
-            </div>
-            <div className="flex min-w-0 flex-col gap-5 p-6 sm:p-9 lg:p-12">
-              <div className="flex flex-col gap-2.5">
-                {isDoor(featured.door) && (
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink/70">
-                      {t.doorLabel
-                        .replace("{n}", String(DOOR_ORDER.indexOf(featured.door) + 1))
-                        .replace("{label}", planDict.book.doors[featured.door].label)}
-                    </p>
-                  )}
-                <h2
-                  id="one-thing-title"
-                  className="font-serif text-3xl font-medium leading-[1.1] text-ink sm:text-4xl"
-                >
-                  {featured.title}
-                </h2>
-                <div className="flex flex-wrap gap-2">
-                  {[...metaParts(featured, locale), locationLabel(featured)]
-                    .filter((part): part is string => Boolean(part))
-                    .map((part) => (
-                      <span
-                        key={part}
-                        className="rounded-sm bg-cream px-3 py-1.5 text-[13px] text-accent-dark"
-                      >
-                        {part}
-                      </span>
-                    ))}
-                </div>
-              </div>
-
-              {threads[featuredKey] && vensterDict ? (
-                <IdeaThread thread={threads[featuredKey]} copy={vensterDict.thread} />
-              ) : (
-                because[featuredKey] && (
-                <div className="flex items-center gap-3 rounded-md bg-surface-active p-2.5 pr-4">
-                  <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-sm">
-                    <Image src={because[featuredKey].src} alt={because[featuredKey].label} fill sizes="44px" className="object-cover" />
-                  </span>
-                  <span className="text-sm font-semibold text-accent-dark">{because[featuredKey].text}</span>
-                </div>
-                )
-              )}
-
-              <div className="flex flex-col gap-2">
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
-                  {t.whyHeading}
-                </p>
-                <p className="font-serif text-xl italic leading-[1.45] text-ink">
-                  {featured.why_it_fits}
-                </p>
-              </div>
-
-              {featured.location && vensterDict && (
-                <a
-                  href={mapsSearchUrl(featured.location.name, featured.location.city)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-accent underline underline-offset-2 hover:text-accent-dark"
-                >
-                  <span aria-hidden="true">⌖</span>
-                  {vensterDict.reveal.placeLabel}: {[featured.location.name, featured.location.city].filter(Boolean).join(", ")} · {vensterDict.reveal.mapLink}
-                </a>
-              )}
-
-              {featured.first_action && (
-                <div className="rounded-md bg-accent-dark p-5">
-                  <p className="mb-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-gold-light">
-                    {labels.first_action_heading || t.firstStepHeading}
-                  </p>
-                  <p className="text-[15px] leading-relaxed text-paper">{featured.first_action}</p>
-                </div>
-              )}
-
-              {vensterDict && <IdeaMore idea={featured} copy={vensterDict.more} />}
-
-              <div className="flex flex-wrap items-center gap-3">
-                {featuredCommitted ? (
-                  <p
-                    role="status"
-                    className="inline-flex min-h-12 items-center gap-2.5 rounded-md bg-surface-active px-4 text-[15px] font-medium text-accent-dark"
-                  >
-                    <CheckIcon />
-                    {t.committedNote}
-                  </p>
-                ) : (
-                  <>
-                    {canInteract && (
-                      <Button
-                        type="button"
-                        disabled={commitState === "pending"}
-                        onClick={() => commit(featuredKey)}
-                      >
-                        {t.commitCta}
-                      </Button>
-                    )}
-                    <Button href="#deuren" variant="secondary">
-                      {t.otherDoorCta}
-                    </Button>
-                  </>
-                )}
-              </div>
-              {commitState === "error" && !featuredCommitted && (
-                <p role="alert" className="text-sm text-ink/70">
-                  {t.commitError}
-                </p>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* D — four doors */}
-      <section id="deuren" className="scroll-mt-24 pt-16 sm:pt-20" aria-labelledby="doors-title">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-10">
-          <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-              {planDict.book.mapEyebrow}
-            </p>
-            <h2
-              id="doors-title"
-              className="mt-2.5 font-serif text-3xl font-normal leading-[1.1] text-ink sm:text-4xl lg:text-[44px]"
-            >
-              {planDict.book.mapHeading}
-            </h2>
-          </div>
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink/70">
-            {planDict.book.mapIntro} {canInteract ? t.heartHint : ""}
+        ) : (
+          <p className="max-w-md text-sm text-paper/80" role="status">
+            {planDict.pdfUnavailable}
           </p>
-        </div>
+        )}
+      </div>
 
-        <div className="mt-7 flex items-center gap-4" aria-hidden="true">
-          <span className="shrink-0 text-xs font-semibold uppercase tracking-[0.1em] text-ink/70">
-            {t.scaleNear}
-          </span>
-          <span className="h-0.5 flex-1 bg-border" />
-          <span className="shrink-0 text-right text-xs font-semibold uppercase tracking-[0.1em] text-accent">
-            {t.scaleFar}
-          </span>
-        </div>
-
-        <div className="mt-8 grid items-start gap-x-5 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
-          {DOOR_ORDER.map((door, doorIndex) => {
-            const entries = ideasByDoor.get(door) ?? [];
-            return (
-              <div key={door} className="flex flex-col gap-4">
-                <div className="flex items-center gap-3.5">
-                  <DoorIcon door={door} />
-                  <div className="flex flex-col gap-0.5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ink/70">
-                      {t.doorWord.replace("{n}", String(doorIndex + 1))}
-                    </p>
-                    <h3 className="font-serif text-2xl font-medium text-ink">
-                      {planDict.book.doors[door].label}
-                    </h3>
-                  </div>
-                </div>
-                <p className="min-h-[42px] text-sm leading-relaxed text-ink/70">
-                  {planDict.book.doors[door].description}
-                </p>
-
-                {entries.length === 0 && (
-                  <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-sm italic text-ink/70">
-                    {t.emptyDoor}
-                  </p>
-                )}
-
-                {entries.map(({ idea, originalIndex }) => {
-                  const key = ideaKey(originalIndex);
-                  const liked = feedback[key] === "up";
-                  return (
-                    <article
-                      key={key}
-                      className="overflow-hidden rounded-lg border border-border bg-paper"
-                    >
-                      <div className="relative h-[150px]">
-                        <Image
-                          src={ideaPhoto(idea, originalIndex)}
-                          alt=""
-                          fill
-                          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-                          className="object-cover"
-                        />
-                        {key === featuredKey && (
-                          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] text-accent-dark">
-                            <StarIcon className="h-3 w-3 text-gold" />
-                            {planDict.book.oneThingBadge}
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex flex-col gap-2 px-4 pb-3 pt-4">
-                        <h4 className="font-serif text-xl font-medium leading-tight text-ink">
-                          {idea.title}
-                        </h4>
-                        <p className="text-[13px] text-ink/65">{metaParts(idea, locale).join(" · ")}</p>
-                        {isDoor(idea.door) && (
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-gold-text">
-                            {planDict.book.doors[idea.door].label}
-                          </p>
-                        )}
-                        <div className="flex items-center justify-between pt-1">
-                          <button
-                            type="button"
-                            onClick={() => openIdea(key)}
-                            className="-ml-2 inline-flex min-h-11 items-center rounded-md px-2 text-[13px] font-semibold text-accent-dark hover:text-accent focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/35"
-                          >
-                            {t.readIdea}
-                          </button>
-                          {canInteract && (
-                            <button
-                              type="button"
-                              aria-pressed={liked}
-                              aria-label={t.likeLabel}
-                              onClick={() => toggleHeart(key)}
-                              className={cn(
-                                "inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/35",
-                                liked
-                                  ? "border-accent bg-surface-active"
-                                  : "border-border bg-paper hover:border-walnut-light"
-                              )}
-                            >
-                              <HeartIcon filled={liked} />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* E — the wildcard, sealed until opened */}
-      {wildcard && (
-        <section className="pt-16 sm:pt-20" aria-labelledby="wildcard-title">
-          {!wildcardOpen ? (
-            <div className="flex flex-col gap-8 overflow-hidden rounded-lg bg-accent-dark p-7 sm:p-12 md:flex-row md:items-center md:justify-between md:gap-12">
-              <div className="flex max-w-2xl flex-col gap-3.5">
-                <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold-light">
-                  <StarIcon />
-                  {t.wildcardSealedEyebrow}
-                </p>
-                <h2
-                  id="wildcard-title"
-                  className="font-serif text-3xl font-normal leading-[1.1] text-paper sm:text-4xl lg:text-[44px]"
-                >
-                  {t.wildcardSealedHeading}
-                </h2>
-                <p className="text-base leading-relaxed text-paper/80">{t.wildcardSealedSub}</p>
-              </div>
-              <button
-                type="button"
-                onClick={revealWildcard}
-                className="min-h-14 shrink-0 rounded-md border border-gold-light bg-gold-light px-8 text-base font-bold text-accent-dark transition-colors hover:bg-paper focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold-light/50 focus-visible:ring-offset-2 focus-visible:ring-offset-accent-dark"
-              >
-                {t.wildcardOpenCta}
-              </button>
-            </div>
-          ) : (
-            <div className="animate-window-fade-in grid overflow-hidden rounded-lg bg-accent-dark md:grid-cols-2">
-              <div className="flex flex-col gap-4 p-7 sm:p-12">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-light">
-                  {labels.wildcard_heading || t.wildcardOpenEyebrow}
-                </p>
-                <h2
-                  id="wildcard-title"
-                  className="font-serif text-3xl font-normal leading-[1.1] text-paper sm:text-4xl"
-                >
-                  {wildcard.title}
-                </h2>
-                <p className="font-serif text-xl italic leading-[1.45] text-paper/85">
-                  {wildcard.why_it_fits}
-                </p>
-                <p className="text-sm text-paper/70">{metaParts(wildcard, locale).join(" · ")}</p>
-                <div className="pt-2">
-                  <button
-                    type="button"
-                    onClick={() => openIdea(WILDCARD_KEY)}
-                    className="inline-flex min-h-12 items-center rounded-md border border-gold-light px-6 text-[15px] font-semibold text-gold-light transition-colors hover:bg-gold-light hover:text-accent-dark focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold-light/50"
-                  >
-                    {t.readIdea}
-                  </button>
-                </div>
-              </div>
-              <div className="relative h-64 md:h-auto md:min-h-[360px]">
-                <Image
-                  src={ideaPhoto(wildcard, ideas.length)}
-                  alt=""
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          )}
-        </section>
-      )}
-
-      <IdeaDialog
-        open={selected !== null}
-        title={selected?.idea.title ?? ""}
-        closeLabel={t.dialogClose}
-        onClose={() => setSelectedKey(null)}
-      >
+      <IdeaDialog open={selected !== null} title={selected?.idea.title ?? ""} closeLabel={t.dialogClose} onClose={() => setSelectedKey(null)}>
         {selected && selectedKey && (
           <div className="flex flex-col gap-4">
             <IdeaDetail
@@ -708,7 +346,7 @@ export function PlanReveal({
               isWildcard={selected.isWildcard}
               moreCopy={vensterDict?.more}
             />
-            {selectedKey && threads[selectedKey] && vensterDict && <IdeaThread thread={threads[selectedKey]} copy={vensterDict.thread} />}
+            {threads[selectedKey] && vensterDict && <IdeaThread thread={threads[selectedKey]} copy={vensterDict.thread} />}
             {canInteract && (
               <div className="flex flex-col gap-4 rounded-lg border border-border bg-paper p-4 sm:p-5">
                 <IdeaFeedback
@@ -727,19 +365,12 @@ export function PlanReveal({
                 />
                 <div className="flex flex-wrap items-center gap-3">
                   {committedKey === selectedKey ? (
-                    <p
-                      role="status"
-                      className="inline-flex min-h-12 items-center gap-2.5 rounded-md bg-surface-active px-4 text-[15px] font-medium text-accent-dark"
-                    >
+                    <p role="status" className="inline-flex min-h-12 items-center gap-2.5 rounded-md bg-surface-active px-4 text-[15px] font-medium text-accent-dark">
                       <CheckIcon />
                       {t.committedNote}
                     </p>
                   ) : (
-                    <Button
-                      type="button"
-                      disabled={commitState === "pending"}
-                      onClick={() => commit(selectedKey)}
-                    >
+                    <Button type="button" disabled={commitState === "pending"} onClick={() => commit(selectedKey)}>
                       {t.commitCta}
                     </Button>
                   )}

@@ -24,10 +24,13 @@ export function ComplianceCheckbox({
   checked,
   onChange,
   children,
+  requiredMark,
 }: {
   checked: boolean;
   onChange: (checked: boolean) => void;
   children: React.ReactNode;
+  /** Given: the box is required, marked with a red asterisk (and this word for a screen reader). */
+  requiredMark?: string;
 }) {
   return (
     <label className="group flex min-h-11 cursor-pointer items-start gap-3 py-1.5">
@@ -49,7 +52,17 @@ export function ComplianceCheckbox({
         onChange={(e) => onChange(e.target.checked)}
         className="sr-only"
       />
-      <span className="text-xs leading-relaxed text-ink/70">{children}</span>
+      <span className="text-xs leading-relaxed text-ink/70">
+        {children}
+        {requiredMark && (
+          <>
+            <span className="ml-1 font-bold text-red-700" aria-hidden="true">
+              *
+            </span>
+            <span className="sr-only"> ({requiredMark})</span>
+          </>
+        )}
+      </span>
     </label>
   );
 }
@@ -109,17 +122,17 @@ export function CheckoutPanel({
     trackEvent("checkout_viewed", { price_variant: priceVariant ?? "none" });
   }, [priceVariant]);
 
-  const deliveryEmailValid = deliveryEmail.trim() === "" || isValidEmail(deliveryEmail);
+  // The e-mail is required: the book is sent there. The message shows once the field was left (or something wrong is typed), never on a fresh form.
+  const [emailTouched, setEmailTouched] = useState(false);
+  const deliveryEmailValid = isValidEmail(deliveryEmail.trim());
+  const showEmailError = !deliveryEmailValid && (emailTouched || deliveryEmail.trim() !== "");
   // The button only ever becomes active once both are true (compliance
   // brief section 7) — this is the UX gate; src/app/checkout/actions.ts
   // re-validates both server-side regardless, since this client check can
   // be bypassed.
   const canSubmit = digitalDeliveryConsent && termsAccepted && deliveryEmailValid;
-  const payHint = canSubmit
-    ? ""
-    : !digitalDeliveryConsent || !termsAccepted
-      ? dict.payHint.consent
-      : dict.payHint.email;
+  const consentsMissing = !digitalDeliveryConsent || !termsAccepted;
+  const payHint = canSubmit ? "" : consentsMissing && !deliveryEmailValid ? dict.payHint.both : consentsMissing ? dict.payHint.consent : dict.payHint.email;
 
   function handleSubmit() {
     if (!canSubmit) return;
@@ -133,7 +146,7 @@ export function CheckoutPanel({
           termsAccepted,
           digitalDeliveryConsent,
           remember,
-          deliveryEmail.trim() ? deliveryEmail.trim() : undefined,
+          deliveryEmail.trim(),
           followUp,
         );
       } catch (err) {
@@ -147,22 +160,40 @@ export function CheckoutPanel({
 
   return (
     <div>
-      {/* Where the book goes: Stripe's own e-mail field is not always editable (autofill, Link), so ask here too. */}
+      <p className="mb-4 text-xs text-ink/70">{dict.requiredNote}</p>
+
+      {/* Where the book goes: required, and the address Stripe is given too. */}
       <div className="mb-6">
         <label htmlFor="delivery-email" className="block text-xs font-medium uppercase tracking-widest text-ink/70">
           {dict.deliveryEmailLabel}
+          <span className="ml-1 font-bold text-red-700" aria-hidden="true">
+            *
+          </span>
+          <span className="sr-only"> ({dict.requiredMark})</span>
         </label>
         <input
           id="delivery-email"
           type="email"
           autoComplete="email"
+          required
+          aria-required="true"
           value={deliveryEmail}
           onChange={(e) => setDeliveryEmail(e.target.value)}
+          onBlur={() => setEmailTouched(true)}
           placeholder={dict.deliveryEmailPlaceholder}
-          aria-invalid={!deliveryEmailValid}
-          className={EMAIL_INPUT}
+          aria-invalid={showEmailError}
+          aria-describedby={showEmailError ? "delivery-email-error" : "delivery-email-hint"}
+          className={`${EMAIL_INPUT} ${showEmailError ? "border-red-600 focus:border-red-600" : ""}`}
         />
-        <p className="mt-1.5 text-xs text-ink/70">{dict.deliveryEmailHint}</p>
+        {showEmailError ? (
+          <p id="delivery-email-error" role="alert" className="mt-1.5 text-sm font-medium text-red-700">
+            {dict.emailError}
+          </p>
+        ) : (
+          <p id="delivery-email-hint" className="mt-1.5 text-xs text-ink/70">
+            {dict.deliveryEmailHint}
+          </p>
+        )}
       </div>
 
       {/* Optional repetition memory (fase 5): its own choice, off unless switched on. */}
@@ -190,10 +221,10 @@ export function CheckoutPanel({
       {/* Two separate, independently required checkboxes — see
           ComplianceCheckbox above. */}
       <div className="mb-5 flex flex-col gap-4">
-        <ComplianceCheckbox checked={digitalDeliveryConsent} onChange={setDigitalDeliveryConsent}>
+        <ComplianceCheckbox checked={digitalDeliveryConsent} onChange={setDigitalDeliveryConsent} requiredMark={dict.requiredMark}>
           {dict.digitalDeliveryConsentLabel}
         </ComplianceCheckbox>
-        <ComplianceCheckbox checked={termsAccepted} onChange={setTermsAccepted}>
+        <ComplianceCheckbox checked={termsAccepted} onChange={setTermsAccepted} requiredMark={dict.requiredMark}>
           {dict.termsAcceptanceLabelPrefix}{" "}
           <Link href="/terms" target="_blank" className="underline underline-offset-2 hover:text-ink">
             {dict.termsAcceptanceLinkText}

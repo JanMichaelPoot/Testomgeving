@@ -52,7 +52,6 @@ export const ANALYTICS_EVENTS = {
   profile_viewed: { when: "the profile screen 'Wat jouw keuzes ons vertellen' shown", props: [] },
   reading_shown: { when: "the short personal reading on the profile screen shown: the fixed text, or the model-written text when it arrived", props: ["source"] },
   profile_agreed: { when: "'Klopt, open mijn venster' pressed", props: ["adjusted"] },
-  profile_axis_changed: { when: "a slider of the profile screen moved", props: ["axis"] },
   profile_reflection: { when: "profile agreed: did they fill 'Wat missen we nog?'", props: ["has_reflection"] },
 
   // --- the funnel names of the improvement brief (Fase 1). Each fires together with the older, more detailed event named in `when`,
@@ -83,11 +82,11 @@ export const ANALYTICS_EVENTS = {
   idea_liked: { when: "a heart or thumb on an idea", props: ["planId", "ideaKey", "value"] },
   idea_feedback_given: { when: "thumb up or down inside the idea dialog", props: ["planId", "ideaKey", "value"] },
   one_thing_committed: { when: "'Dit ga ik doen' pressed", props: ["planId", "ideaKey", "isOneThing"] },
-  wildcard_revealed: { when: "the sealed wildcard opened", props: ["planId"] },
   plan_pdf_downloaded: { when: "the PDF opened", props: ["planId", "source"] },
 
   // --- sharing
   idea_book_share_clicked: { when: "'Deel je Idea Book' pressed", props: ["url"] },
+  landing_share_clicked: { when: "a share icon on the landing page pressed", props: ["platform"] },
   idea_book_share_whatsapp_clicked: { when: "the WhatsApp link after sharing clicked", props: [] },
   shared_idea_book_viewed: { when: "a shared book viewed", props: ["planId"] },
   shared_idea_book_cta_clicked: { when: "a button on the shared page clicked", props: ["planId"] },

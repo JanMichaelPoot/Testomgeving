@@ -655,6 +655,11 @@ export async function generateIdeaBookFromSeeds(
     season?: Season | null;
     /** Called as the pipeline passes its steps, for the honest waiting screen. Never awaited for long. */
     onProgress?: (stage: "selected" | "researched", meta?: { ideas?: number; places?: number }) => Promise<void> | void;
+    /**
+     * Stop after the research (selection, local and online search, replacement rounds): nothing is written and `book` is null. Used to warm the
+     * research cache while the buyer is still paying (prewarmResearch.ts), so the real generation finds every answer waiting.
+     */
+    researchOnly?: boolean;
   } = {},
 ): Promise<{ book: GeneratedIdeaBook; report: SeedPipelineReport }> {
   // KNOWLEDGE_ENGINE_V2 (off by default): B4 ranking weights for the selection, B5 fill lines and honest wording for the writing.
@@ -686,6 +691,7 @@ export async function generateIdeaBookFromSeeds(
       now,
       priorityIds: [...ownPicks],
       needs: researchNeedsFrom(engine.constraints.verify),
+      country: intake.country,
     });
   let research = await researchFor(engine.seeds);
 
@@ -698,7 +704,7 @@ export async function generateIdeaBookFromSeeds(
     const lacking = [...new Set(seedList.filter((s) => (seedResearch(s, base.byActivity)?.options.length ?? 0) === 0 && !onlineTried.has(s.activityId)).map((s) => s.activityId))];
     if (lacking.length === 0) return base;
     for (const id of lacking) onlineTried.add(id);
-    const online = await researchSeeds({ activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online" });
+    const online = await researchSeeds({ activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online", country: intake.country });
     const merged = new Map(base.byActivity);
     for (const id of lacking) {
       const found = online.byActivity.get(id);
@@ -760,6 +766,10 @@ export async function generateIdeaBookFromSeeds(
   const foundPlaces = new Set<string>();
   for (const r of research.byActivity.values()) for (const o of r.options) foundPlaces.add(`${o.name}|${o.city}`.toLowerCase());
   await opts.onProgress?.("researched", { places: foundPlaces.size });
+  if (opts.researchOnly) {
+    // Nothing is written. The caller asked for the research only; `book` is never read in that case.
+    return { book: null as unknown as GeneratedIdeaBook, report: { seeds, notes, research: { ...research.stats }, issues: [] } };
+  }
 
   // 3. Write the ideas (one retry on a malformed answer, without repeating the research).
   const language = languageLabel(locale);
