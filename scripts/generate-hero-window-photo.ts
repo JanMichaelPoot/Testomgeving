@@ -24,9 +24,9 @@ const SUBJECT =
 
 async function main() {
   const attempt = process.argv[2] ?? "1";
-  mkdirSync("scratch", { recursive: true });
+  mkdirSync("data/sources/raw", { recursive: true });
   const image = await generateIllustration(SUBJECT, "3:4", PREFIX, "2K");
-  const out = `scratch/hero-photo-raw-${attempt}.jpg`;
+  const out = `data/sources/raw/hero-photo-raw-${attempt}.jpg`;
   writeFileSync(out, image.data);
   console.log(`Wrote ${out} (${image.data.length} bytes)`);
 }

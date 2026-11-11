@@ -4,7 +4,7 @@
 //   src/lib/heroWindowFrame.json                  { aspect, panes: [{ x, y, w, h }] }, row by row, left to right
 // The component puts the library images behind the glass. Nothing here costs anything; it can be re-run on the same raw photo.
 //
-//   npx tsx scripts/process-hero-window-photo.ts scratch/hero-photo-raw-1.jpg [--width 1200]
+//   npx tsx scripts/process-hero-window-photo.ts data/sources/raw/hero-photo-raw-1.jpg [--width 1200]
 import { readFileSync, writeFileSync } from "node:fs";
 import sharp from "sharp";
 
