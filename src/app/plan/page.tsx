@@ -51,8 +51,13 @@ export async function generateMetadata(): Promise<Metadata> {
 // projects) the ceiling is 300s on every plan, Hobby included; only without
 // Fluid compute does Hobby cap functions at 60s (Vercel docs, "Configuring
 // Maximum Duration", checked 4 Oct 2026). Check Settings -> Functions in
-// Vercel. PENDING_TIMEOUT_MS in data.ts must stay above this value.
-export const maxDuration = 120;
+// Vercel. PENDING_STALE_MS (src/lib/progressStage.ts) must stay above this value.
+//
+// 12 Nov 2026: 120 s was not enough. A real book (selection, the grouped web research, the writing call, the layers call, the checks and the PDF) takes
+// 100 to 150 s, longer still for a place abroad, where every idea needs its own web search. An order from Switzerland was killed at the ceiling while
+// it was writing: the row stayed "pending" at "researched" and the waiting screen counted on for ever. 300 s is the ceiling Fluid compute gives every
+// plan; the waiting screen and the retry now also handle a generation that is stopped anyway.
+export const maxDuration = 300;
 
 // The person's own window, opening pane by pane, on the waiting screen (image intake only).
 function waitingWindow(answers: Awaited<ReturnType<typeof getWaitingContext>>["answers"], locale: Locale, dict: Dictionary) {

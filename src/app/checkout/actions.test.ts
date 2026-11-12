@@ -66,8 +66,10 @@ vi.mock("@/lib/legal/versions", () => ({
   },
 }));
 
+// The headers the host adds to the request (country and city of the connection); empty on a local run.
+let requestHeaders: Record<string, string> = {};
 vi.mock("next/headers", () => ({
-  headers: vi.fn(async () => new Headers()),
+  headers: vi.fn(async () => new Headers(requestHeaders)),
   cookies: vi.fn(async () => ({ get: (name: string) => (name === "window_price_variant" && priceVariantCookie ? { value: priceVariantCookie } : undefined) })),
 }));
 
@@ -140,6 +142,7 @@ beforeEach(() => {
   afterCallbacks.length = 0;
   prewarmCalls.length = 0;
   priceVariantCookie = null;
+  requestHeaders = {};
   delete process.env.PRICE_TEST;
   process.env.NEXT_PUBLIC_SITE_URL = "https://windowinto.test";
 });
@@ -268,5 +271,20 @@ describe("createCheckoutSession — the price test and the follow-up consent", (
     await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
     expect(stripeParams[0].metadata.followup_consent).toBe("");
     expect("followup_consent_at" in orderRows[0]).toBe(false);
+  });
+});
+
+describe("createCheckoutSession — where the order was placed from", () => {
+  it("stores the country and place the host derives from the connection on the order, never the IP address", async () => {
+    requestHeaders = { "x-vercel-ip-country": "nl", "x-vercel-ip-city": "Den%20Haag", "x-forwarded-for": "203.0.113.9" };
+    await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
+    expect(orderRows[0]).toMatchObject({ ip_country: "NL", ip_city: "Den Haag" });
+    expect(JSON.stringify(orderRows[0])).not.toContain("203.0.113.9");
+  });
+
+  it("stores no geo columns without a hint (a local run), and the order is still made", async () => {
+    await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
+    expect("ip_country" in orderRows[0]).toBe(false);
+    expect(callLog).toContain("payments.insert");
   });
 });

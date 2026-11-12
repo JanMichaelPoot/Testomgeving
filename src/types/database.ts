@@ -258,6 +258,9 @@ export interface Database {
           // 0022: price variant shown (null while the price test is off) and the consent to one follow-up e-mail.
           price_variant?: string | null;
           followup_consent_at?: string | null;
+          // 0023: where the order was placed from, as the host derives it from the connection (ISO country code and city; never the IP address).
+          ip_country?: string | null;
+          ip_city?: string | null;
           created_at: string;
         };
         Insert: {
@@ -513,6 +516,9 @@ export interface Database {
           output_ideas_json: unknown[];
           output_wildcard_json: Record<string, unknown> | null;
           email_delivered: boolean;
+          // 0023: the country (ISO code) and place the order was placed from; null before the migration or without a hint.
+          orderer_country?: string | null;
+          orderer_city?: string | null;
         };
         Insert: {
           id?: string;

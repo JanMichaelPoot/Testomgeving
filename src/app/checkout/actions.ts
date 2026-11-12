@@ -11,6 +11,7 @@ import { getStripe } from "@/lib/stripe";
 import { WINDOW_PLAN_PRICE } from "@/lib/pricing";
 import { getVisitorPrice } from "@/lib/visitorPrice";
 import { isMissingColumnError } from "@/lib/supabase/errors";
+import { getOrdererGeo } from "@/lib/geo";
 import { nextOrderNumber } from "@/lib/orderNumber";
 import { recordTermsAcceptance, recordDigitalDeliveryConsent } from "@/lib/consent";
 import { LEGAL_VERSIONS } from "@/lib/legal/versions";
@@ -139,13 +140,16 @@ export async function createCheckoutSession(
   };
   // The two columns of migration 0022 are only written when there is something to record, and an order is never lost because that
   // migration has not been run: without the columns it is stored without them (the follow-up then also stays off, see plan/data.ts).
+  // Migration 0023: where the order was placed from (country and place the host derives from the connection; never the IP address).
+  const geo = await getOrdererGeo();
   const extras = {
     ...(price.variant ? { price_variant: price.variant } : {}),
+    ...(geo ? { ip_country: geo.country, ip_city: geo.city || null } : {}),
     ...(followUpConsent === true ? { followup_consent_at: new Date().toISOString() } : {}),
   };
   let { data: order, error: paymentError } = await supabase.from("payments").insert({ ...orderRow, ...extras }).select("id").single();
   if (paymentError && Object.keys(extras).length > 0 && isMissingColumnError(paymentError)) {
-    console.error("WINDOW: payments.price_variant / followup_consent_at missing; has migration 0022 been run? Storing the order without them.");
+    console.error("WINDOW: payments.price_variant / followup_consent_at / ip_country missing; have migrations 0022 and 0023 been run? Storing the order without them.");
     ({ data: order, error: paymentError } = await supabase.from("payments").insert(orderRow).select("id").single());
   }
 

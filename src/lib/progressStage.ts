@@ -25,13 +25,28 @@ export function activePhaseFor(stage: ProgressStage | null | undefined): number 
 
 // --- what the waiting screen says -------------------------------------------------------------
 
-/** No sign of life for this long and the screen says it takes longer than usual. Equal to the
- *  function ceiling in plan/page.tsx (maxDuration): a generation still open after that has most
- *  likely been stopped by the platform, and the row is marked failed shortly after (150 s). */
-export const STALL_AFTER_MS = 120_000;
+/** A generation that has run this long says on the screen that it takes longer than usual (a normal book is ready well before). */
+export const STALL_AFTER_MS = 150_000;
 
 export function isStalled(elapsedMs: number): boolean {
   return elapsedMs >= STALL_AFTER_MS;
+}
+
+/**
+ * A "pending" row older than this belongs to a generation the platform has already stopped: the work runs inside the /plan function, which is
+ * killed at `maxDuration` (plan/page.tsx, 300 s). It must stay above that ceiling, or a slow generation that is still running would be written off
+ * (a test keeps the two in step). Past it the waiting screen stops waiting: the page is loaded again, which retries once and then says so.
+ */
+export const PENDING_STALE_MS = 310_000;
+
+export function isStalePending(elapsedMs: number | null): boolean {
+  return elapsedMs !== null && elapsedMs >= PENDING_STALE_MS;
+}
+
+/** After a generation was stopped: one automatic second attempt per session. `failedRows` counts the failed rows of the session including the one just written off. */
+export const MAX_AUTOMATIC_ATTEMPTS = 2;
+export function shouldRetryStopped(failedRows: number): boolean {
+  return failedRows < MAX_AUTOMATIC_ATTEMPTS;
 }
 
 /** Milliseconds since `startedAtIso` (the pending row's own timestamp), null when unknown. */

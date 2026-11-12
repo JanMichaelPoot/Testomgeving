@@ -557,7 +557,7 @@ const nl: Dictionary = {
       {
         id: "gegevens",
         heading: "Welke gegevens we verzamelen",
-        body: "Je intake-antwoorden (je situatie, leeftijd, locatie en voorkeuren) en, als je betaalt, het e-mailadres dat je bij Stripe invult. Bij een betaalde bestelling leggen we ook vast dat je de Algemene voorwaarden hebt geaccepteerd en toestemming hebt gegeven voor directe digitale levering — inclusief tijdstip, versie en (voor die ene toestemming) je IP-adres en browser, als bewijs bij een eventueel geschil. WindowInto slaat zelf nooit kaart- of betaalgegevens op — dat verloopt volledig via Stripe.",
+        body: "Je intake-antwoorden (je situatie, leeftijd, locatie en voorkeuren) en, als je betaalt, het e-mailadres dat je bij Stripe invult. Bij een betaalde bestelling leggen we ook vast dat je de Algemene voorwaarden hebt geaccepteerd en toestemming hebt gegeven voor directe digitale levering — inclusief tijdstip, versie en (voor die ene toestemming) je IP-adres en browser, als bewijs bij een eventueel geschil. Daarnaast bewaren we bij een bestelling het land en de plaats die onze hostingprovider bij je verbinding meegeeft (nooit je IP-adres zelf), in de bestelling en in het logboek waarmee de eigenaar de kwaliteit van de boeken bewaakt; dat logboek bevat verder geen naam, e-mailadres of koppeling naar je sessie. WindowInto slaat zelf nooit kaart- of betaalgegevens op — dat verloopt volledig via Stripe.",
       },
       {
         id: "gebruik",
@@ -1298,7 +1298,7 @@ const en: Dictionary = {
       {
         id: "gegevens",
         heading: "What data we collect",
-        body: "Your intake answers (your situation, age, location and preferences) and, if you pay, the email address you enter with Stripe. For a paid order we also record that you accepted the Terms of Service and consented to immediate digital delivery — including the time, version, and (for that one consent) your IP address and browser — as evidence in case of a dispute. WindowInto never stores card or payment details itself — that runs entirely through Stripe.",
+        body: "Your intake answers (your situation, age, location and preferences) and, if you pay, the email address you enter with Stripe. For a paid order we also record that you accepted the Terms of Service and consented to immediate digital delivery — including the time, version, and (for that one consent) your IP address and browser — as evidence in case of a dispute. For an order we also keep the country and place our hosting provider attaches to your connection (never your IP address itself), in the order and in the log the owner uses to monitor the quality of the books; that log contains no name, e-mail address or link to your session. WindowInto never stores card or payment details itself — that runs entirely through Stripe.",
       },
       {
         id: "gebruik",

@@ -41,6 +41,8 @@ export default async function AdminLogPage() {
       wildcardTitle:
         wildcard && typeof wildcard.title === "string" ? wildcard.title : "",
       emailDelivered: row.email_delivered,
+      ordererCountry: row.orderer_country ?? "",
+      ordererCity: row.orderer_city ?? "",
     };
   });
 
@@ -50,7 +52,8 @@ export default async function AdminLogPage() {
       title="Logboek"
       intro={
         <>
-          Anonieme registratie van elke gegenereerde Idea Book — input- en outputgegevens, zonder e-mailadres of koppeling naar een sessie of persoon.
+          Registratie van elke gegenereerde Idea Book — input- en outputgegevens, zonder e-mailadres of koppeling naar een sessie of persoon. Alleen het land en de plaats waar de bestelling vandaan kwam
+          staan erbij (afgeleid van de verbinding door de hostingprovider; het IP-adres zelf wordt nooit bewaard).
           {rows.length === MAX_ROWS && ` Toont de meest recente ${MAX_ROWS} rijen — de .xlsx-download bevat het volledige logboek.`}{" "}
           <a href="/api/admin/audit-log/export" className="font-medium text-accent-dark hover:underline">
             Download .xlsx

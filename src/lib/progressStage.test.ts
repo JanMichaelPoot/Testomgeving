@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { activePhaseFor, elapsedSince, isStalled, mergeProgressMeta, phaseLabels, STALL_AFTER_MS } from "./progressStage";
+import { activePhaseFor, elapsedSince, isStalePending, isStalled, mergeProgressMeta, PENDING_STALE_MS, phaseLabels, shouldRetryStopped, STALL_AFTER_MS } from "./progressStage";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 
 describe("activePhaseFor", () => {
@@ -114,5 +114,29 @@ describe("stageDurations", () => {
   it("gives the seconds each step took, in the given order, and skips steps that did not report", () => {
     const out = stageDurations(1_000, { selected: 1_400, written: 36_400, rendered: 38_000 }, ["selected", "researched", "written", "rendered"]);
     expect(out).toEqual({ selected: 0.4, written: 35, rendered: 1.6 });
+  });
+});
+
+describe("the function ceiling and the thresholds that depend on it", () => {
+  // The /plan function is killed at maxDuration; a row still pending after that belongs to a dead generation. If the stale threshold were at or
+  // below the ceiling, a slow but running generation would be written off; if the screen's slow message came after the stale point it would never show.
+  const maxDuration = Number(readFileSync(path.join(process.cwd(), "src/app/plan/page.tsx"), "utf8").match(/export const maxDuration = (\d+);/)![1]);
+
+  it("keeps the stale threshold above the function ceiling, and the slow message before it", () => {
+    expect(maxDuration).toBeGreaterThanOrEqual(300);
+    expect(PENDING_STALE_MS).toBeGreaterThan(maxDuration * 1000);
+    expect(STALL_AFTER_MS).toBeLessThan(PENDING_STALE_MS);
+  });
+
+  it("retries a stopped generation once on its own, and then leaves it to the retry button", () => {
+    expect(shouldRetryStopped(1)).toBe(true); // the first one just written off
+    expect(shouldRetryStopped(2)).toBe(false); // the second attempt was stopped too
+    expect(shouldRetryStopped(5)).toBe(false);
+  });
+
+  it("calls a pending row stale only from the threshold on", () => {
+    expect(isStalePending(PENDING_STALE_MS - 1)).toBe(false);
+    expect(isStalePending(PENDING_STALE_MS)).toBe(true);
+    expect(isStalePending(null)).toBe(false);
   });
 });

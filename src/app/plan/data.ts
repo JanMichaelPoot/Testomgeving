@@ -12,6 +12,7 @@ import { DOMAINS } from "@/lib/discovery/library";
 import { paneActivities } from "@/lib/discovery/concretePool";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
 import { recordAuditLogEntry } from "@/lib/auditLog";
+import { getOrdererGeo, ordererGeoFrom, type OrdererGeo } from "@/lib/geo";
 import { computeCharacterProfile, type CharacterProfile } from "@/lib/characterProfile";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { LEGAL_VERSIONS } from "@/lib/legal/versions";
@@ -20,7 +21,7 @@ import { getSignedPdfUrl } from "@/lib/pdfAccess";
 import type { Locale } from "@/lib/language";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database, ProgressMeta, ProgressStage } from "@/types/database";
-import { mergeProgressMeta, stageDurations } from "@/lib/progressStage";
+import { PENDING_STALE_MS, mergeProgressMeta, shouldRetryStopped, stageDurations } from "@/lib/progressStage";
 import { localizeBook } from "@/lib/claude/localizeBook";
 import { checkTestQuota, recordTestBook } from "@/lib/testQuota";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
@@ -154,7 +155,7 @@ const UNIQUE_VIOLATION_CODE = "23505";
 // the platform's own function timeout) rather than one that's still
 // genuinely in flight — regenerate instead of waiting forever.
 //
-// Deliberately set above src/app/plan/page.tsx's `maxDuration` (120s) —
+// Deliberately set above src/app/plan/page.tsx's `maxDuration` (300s, PENDING_STALE_MS) —
 // real generations (Claude + web-search research pass + PDF render) have
 // been observed taking close to that ceiling themselves. A threshold at
 // or below the platform's own hard timeout meant a merely-slow-but-still-
@@ -167,7 +168,7 @@ const UNIQUE_VIOLATION_CODE = "23505";
 // an alarming failure. Setting this above the platform ceiling means a
 // row still "pending" past it can only belong to a task the platform has
 // already killed — it can no longer still be racing to finish.
-const PENDING_TIMEOUT_MS = 150_000;
+const PENDING_TIMEOUT_MS = PENDING_STALE_MS;
 
 async function findExistingPlan(
   supabase: ServiceRoleClient,
@@ -220,7 +221,10 @@ async function resolveExistingPlan(
       };
     }
     await supabase.from("window_plans").update({ status: "failed" }).eq("id", existing.id);
-    return null;
+    // One automatic second attempt (its research is mostly cached by then); a session whose second attempt was stopped too gets the failure
+    // screen with the retry button instead of an endless chain of generations that each cost money and each die the same way.
+    const { count } = await supabase.from("window_plans").select("id", { count: "exact", head: true }).eq("session_id", existing.session_id).eq("status", "failed");
+    return shouldRetryStopped(count ?? 0) ? null : "failed";
   }
   if (existing.status === "failed") return "failed";
   return null;
@@ -607,6 +611,8 @@ interface PaidOrder {
   amountCents: number;
   /** The price-test variant the buyer was shown, or null. */
   priceVariant: string | null;
+  /** Where the order was placed from (country and place of the connection), or null. Only for the admin log. */
+  orderer: OrdererGeo | null;
 }
 
 // Called from the /plan Server Component on every visit. Generation only
@@ -645,6 +651,11 @@ export async function getOrCreateWindowPlan(
     .eq("stripe_payment_id", checkoutSessionId)
     .maybeSingle();
 
+  // Where the order was placed from (migration 0023). Read on its own so that a database without the columns changes nothing else.
+  const { data: geoRow } = await supabase.from("payments").select("ip_country, ip_city").eq("stripe_payment_id", checkoutSessionId).maybeSingle();
+  const geoValues = geoRow as { ip_country?: string | null; ip_city?: string | null } | null;
+  const orderer = ordererGeoFrom(geoValues?.ip_country, geoValues?.ip_city);
+
   const customerEmail = checkoutSession.customer_details?.email ?? null;
   // The book goes to the address typed on the checkout page when there is one, otherwise to Stripe's; the buyer's own Stripe receipt and
   // account stay at Stripe's address either way.
@@ -661,6 +672,7 @@ export async function getOrCreateWindowPlan(
     followUpEmail,
     amountCents: checkoutSession.amount_total ?? 0,
     priceVariant: checkoutSession.metadata?.price_variant || null,
+    orderer,
   });
 }
 
@@ -809,6 +821,7 @@ async function createPaidPlan(order: PaidOrder): Promise<WindowPlanRow> {
         generated,
         emailDelivered,
         characterProfile: ctx.characterProfile,
+        orderer: order.orderer,
       });
     } catch (err) {
       if (err instanceof SupersededGenerationError) {
@@ -869,6 +882,8 @@ export async function getOrCreateTestWindowPlan(
   // The test e-mail goes to the owner's own inbox, so only a generation the owner started (logged in to
   // /admin in this browser) sends it. Testers who skip the payment must not fill that inbox.
   const sendOwnerTestMail = await isAdminAuthenticated();
+  // A tester has no order, so the geo of this very request stands in (read here, inside the request, before any background work starts).
+  const testerGeo = await getOrdererGeo().catch(() => null);
 
   after(async () => {
     let emailDelivered = false;
@@ -918,6 +933,7 @@ export async function getOrCreateTestWindowPlan(
         generated,
         emailDelivered,
         characterProfile: ctx.characterProfile,
+        orderer: testerGeo,
       });
     } catch (err) {
       if (err instanceof SupersededGenerationError) {

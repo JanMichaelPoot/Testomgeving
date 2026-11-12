@@ -36,6 +36,8 @@ export async function GET() {
   overview.columns = [
     { header: "ID", key: "id", width: 38 },
     { header: "Datum", key: "createdAt", width: 20 },
+    { header: "Land (verbinding)", key: "ordererCountry", width: 18 },
+    { header: "Plaats (verbinding)", key: "ordererCity", width: 20 },
     { header: "Taal", key: "locale", width: 8 },
     { header: "Situatie", key: "situation", width: 20 },
     { header: "Doel", key: "purpose", width: 20 },
@@ -121,6 +123,9 @@ export async function GET() {
     overview.addRow({
       id: row.id,
       createdAt,
+      // The country (named in Dutch, the code when unknown) and place the order was placed from; empty before migration 0023 or without a hint.
+      ordererCountry: row.orderer_country ? (new Intl.DisplayNames(["nl"], { type: "region" }).of(row.orderer_country) ?? row.orderer_country) : "",
+      ordererCity: row.orderer_city ?? "",
       locale: row.locale,
       situation: input.situation ?? "",
       purpose: input.purpose ?? "",

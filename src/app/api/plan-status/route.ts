@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
-import { elapsedSince } from "@/lib/progressStage";
+import { elapsedSince, isStalePending } from "@/lib/progressStage";
 import { isMissingColumnError } from "@/lib/supabase/errors";
 
 // How far the book of this browser's session has come: the waiting screen asks this every few seconds instead of rendering the whole /plan page
@@ -28,12 +28,16 @@ export async function GET() {
   if (error || !data) return NextResponse.json({ status: "unknown" }, { headers: { "Cache-Control": "no-store" } });
 
   const row = data as { status: string; progress_stage?: string | null; progress_meta?: unknown; created_at?: string };
+  const elapsedMs = elapsedSince(row.created_at, Date.now());
+  // A "pending" row older than the function ceiling belongs to a generation the platform has already stopped: nothing will ever finish it. Saying
+  // "failed" makes the waiting screen load the page again, which retries once (and then shows the failure and the retry button) instead of counting on.
+  const dead = row.status === "pending" && isStalePending(elapsedMs);
   return NextResponse.json(
     {
-      status: row.status === "ready" || row.status === "failed" || row.status === "pending" ? row.status : "unknown",
+      status: dead ? "failed" : row.status === "ready" || row.status === "failed" || row.status === "pending" ? row.status : "unknown",
       stage: row.progress_stage ?? null,
       meta: row.progress_meta ?? null,
-      elapsedMs: elapsedSince(row.created_at, Date.now()),
+      elapsedMs,
     },
     { headers: { "Cache-Control": "no-store" } },
   );
