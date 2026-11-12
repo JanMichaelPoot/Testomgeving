@@ -11,7 +11,10 @@ import { composeConcretePage, registerMix, sampleBalancedBatch, type ConcreteAct
 import { effortForPicks } from "@/lib/discovery/imageIntake";
 import { runEngine } from "@/lib/discovery/engine";
 import { WEIGHTS_ANCHOR } from "@/lib/discovery/engine/weights";
-import { MINOR_UNSUITABLE } from "@/lib/discovery/audience";
+import { MINOR_UNSUITABLE, allowedForContext } from "@/lib/discovery/audience";
+import { parseMustHaves } from "@/lib/discovery/engine/constraints";
+import { hiddenByNeeds } from "@/lib/discovery/needs";
+import { unfitFlags } from "@/lib/discovery/suitability";
 import type { Activity } from "@/lib/discovery/types";
 
 /** The month of the research (the engine filters seasonal activities). */
@@ -107,7 +110,14 @@ export function runSession(p: Persona, sid: string): Session {
   const picks = ranked.slice(0, Math.max(MIN_IMAGE_PICKS, Math.min(6, pool1.filter((c) => cardScore(c, p) >= 0.6).length)));
   const ids = picks.map((c) => c.id);
   const mix = registerMix(picks);
-  const slots = composeConcretePage(pool, { seed: sid, profile: tagProfile(cards, ids), axes: averageAxes(cards, ids), genericTags: generic, mix });
+  // Page 2 as the wizard composes it: what a stated need or the search context rules out is not offered (AssociationWizard poolActivities).
+  const needs = parseMustHaves(p.mustHaves);
+  const withKids = needs.verify.includes("children");
+  const offered = pool.filter((c) => {
+    const a = getActivity(c.id)!;
+    return allowedForContext(a, p.context) && (!withKids || allowedForContext(a, "child")) && !hiddenByNeeds(unfitFlags(a), needs);
+  });
+  const slots = composeConcretePage(offered, { seed: sid, profile: tagProfile(cards, ids), axes: averageAxes(cards, ids), genericTags: generic, mix });
   const hits = slots.filter((s) => actHit(s.activity, p));
   const concrete = (hits.length >= 3 ? hits : slots).slice(0, Math.max(3, Math.min(5, hits.length))).map((s) => s.activity.id);
   const derived = associationsToEngineInput({
