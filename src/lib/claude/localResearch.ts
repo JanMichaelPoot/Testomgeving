@@ -268,6 +268,12 @@ For each activity below, find up to 4 real, currently operating options where a 
 there, preferring a low-threshold way in (trial class, beginner evening, open day, drop-in). Combine searches
 where one query can cover several activities (for example "creative workshops ${location || countryName}").
 If nothing can be verified for an activity, give an empty options list instead of guessing.
+
+Only PHYSICAL places count here: a workshop, studio, atelier, school, club or association that gives trial classes, an organised outing or event, a
+play or activity venue, a farm, an animal park or a nature site: somewhere a person walks into or travels to. An online course, a video lesson, an app, a
+webshop or starter kit, a streaming platform, a national organisation without a local address or a home-delivery service does NOT count, however good it is.
+Write the venue's own city (the real town where it is, taken from its address on the website); never "Online" and never just the country. Search for
+${country ? "the local equivalents of " : ""}workshops, studios, classes, clubs, organised outings and play venues rather than for products.
 ${priorityBlock}${needsBlock(needs)}
 It must be possible to take part within the next four weeks from today. So an option does NOT count when it is
 closed for the season, has stopped running, or is an event whose date has already passed. Seasonal offers (open-
@@ -365,6 +371,18 @@ export function cleanOptions(raw: unknown, today?: string): LocalOption[] {
     if (out.length === MAX_CANDIDATES) break;
   }
   return rankOptions(out);
+}
+
+/**
+ * Whether an option is a place to go to: it has a real city (not "Online", not just the country) and is not by its name an online course, an app or a webshop.
+ * The prompt asks for it; this is the check behind the prompt, because a model sometimes lists a good online provider anyway.
+ */
+export function isPhysicalOption(o: Pick<LocalOption, "name" | "city">): boolean {
+  const city = o.city.trim();
+  if (!city) return false;
+  if (/^(online|webshop|web|internet|landelijk|nationaal|national|nederland|the netherlands|netherlands|belgi[eë]|belgium|schweiz|switzerland|zwitserland|deutschland|germany|duitsland|france|frankrijk)$/i.test(city)) return false;
+  if (/\b(webshop|online (cursus|course|class|les)|e-?learning|video ?(les|lessen|course)|app store)\b/i.test(o.name)) return false;
+  return true;
 }
 
 /** Reads the model's JSON answer; anything malformed yields null (the caller treats it as "no research"). */
@@ -518,9 +536,10 @@ export async function researchSeeds(opts: {
   // The cache is kept per month: what is open or running in June says nothing about December.
   // "v2": the notes are now always in the book's language; older cached notes could be in the language of the website.
   // "v3": options now carry ratings and passed the stricter "is it really open" rules; older answers are not trusted.
+  // "v4": physical places only; older answers may hold online providers and are not trusted.
   const online = opts.mode === "online";
   const needs = online ? [] : researchNeedsFrom(opts.needs ?? []);
-  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${today.slice(0, 7)}|v3${online ? "|online" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
+  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${today.slice(0, 7)}|v4${online ? "|online" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
   const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 
@@ -530,8 +549,10 @@ export async function researchSeeds(opts: {
 
   const toLookUp = activityIds.filter((id) => !opts.known?.has(id));
   const cached = cache ? await cache.get(toLookUp, cacheKey, locale) : new Map<string, LocalOption[]>();
+  // Physical places only (the online pass, when it is asked for at all, is the one exception).
+  const physical = (list: LocalOption[]) => (online ? list : list.filter(isPhysicalOption));
   for (const [id, stored] of cached) {
-    const options = cleanOptions(stored, today);
+    const options = physical(cleanOptions(stored, today));
     // Everything that was stored has run out since: that is a new question, not an answer.
     if (options.length === 0 && stored.length > 0) continue;
     // An empty shared answer does not settle a choice of the person's own: that one is searched with its own, wider call.
@@ -541,7 +562,7 @@ export async function researchSeeds(opts: {
   const ownToLookUp = toLookUp.filter((id) => priority.has(id) && !byActivity.has(id));
   if (cache && ownToLookUp.length > 0) {
     for (const [id, stored] of await cache.get(ownToLookUp, ownKey, locale)) {
-      const options = cleanOptions(stored, today);
+      const options = physical(cleanOptions(stored, today));
       if (options.length === 0 && stored.length > 0) continue;
       byActivity.set(id, { activityId: id, options, source: "cache" });
     }
@@ -563,7 +584,7 @@ export async function researchSeeds(opts: {
       if (!found) throw new Error("the research answer could not be read");
       await Promise.all(
         ids.map(async (id) => {
-          let options = found.get(id) ?? [];
+          let options = physical(found.get(id) ?? []);
           if (checker && options.length > 0) {
             const result = await checker(options);
             dropped += result.dropped.length;

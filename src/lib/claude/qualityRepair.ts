@@ -89,6 +89,7 @@ const REWRITE_SYSTEM = (locale: QaContext["locale"]) => `You fix a few ideas of 
 Rules:
 - Keep every name, website, price, number and place exactly as it is. Never add a new one.
 - Fix exactly what the problems say. A repeated sentence must be replaced by a sentence specific to THIS idea (what it is, why it suits this person); do not reuse wording from the other ideas shown under "Do not repeat".
+- An online_start problem means the idea lists a physical place but a step sends the person to a download, an app, an account, an online course, a video lesson or a webshop. Rewrite it as a visit to, a call to or a booking at the place named under "location" or "places" (its name and city). Never name a new place or website.
 - A seasonal problem means the idea names something that cannot be done in this month: rewrite it so it only describes what is possible now, without inventing a replacement activity.
 - Plain, concrete sentences. No arrows, no talk about images, choices or how the idea was found.
 - Keep the same number of details as before, and keep first_action doable in under a minute.`;
@@ -111,7 +112,7 @@ why_it_fits: ${entry.why_it_fits}
 details:
 ${entry.details.map((d, i) => `${i + 1}. ${d}`).join("\n")}
 first_action: ${entry.first_action}
-${repeated.length ? `Do not repeat these sentences from other ideas: ${repeated.join(" | ")}\n` : ""}Other ideas, for contrast (do not copy their wording):
+${entry.location ? `location: ${[entry.location.name, entry.location.city].filter(Boolean).join(", ")}\n` : ""}${entry.places?.length ? `places: ${entry.places.map((p) => [p.name, p.city].filter(Boolean).join(", ")).join(" | ")}\n` : ""}${repeated.length ? `Do not repeat these sentences from other ideas: ${repeated.join(" | ")}\n` : ""}Other ideas, for contrast (do not copy their wording):
 ${others.map((o) => `- ${o}`).join("\n")}`;
   });
   return `This month is month ${ctx.month} of the year (the Netherlands).\n\n${blocks.filter(Boolean).join("\n\n")}\n\nCall rewrite_ideas once, with one entry per idea above (where = the label such as idea3 or wildcard).`;

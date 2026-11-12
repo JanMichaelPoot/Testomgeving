@@ -23,7 +23,7 @@ import { DIFFICULTY_LABELS, type GeneratedIdeaBook, type IdeaBookEntry } from "@
 import { hasMoreLayers, pdfPageNumbers } from "@/lib/claude/ideaLayers";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
-import { mapsSearchUrl } from "@/lib/maps";
+import { hasMapLink, mapsSearchUrl } from "@/lib/maps";
 import { ideaPhoto } from "@/lib/illustrations";
 import { buildScrimPng } from "@/lib/pdf/scrim";
 import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
@@ -1751,7 +1751,7 @@ export async function renderIdeaBookPdf(
         ty -= 6;
         // Links: a text label with an underline and a clickable region (same technique as the idea page).
         let lx = x0 + PAD;
-        const links: { text: string; url: string }[] = [{ text: moreCopy.mapLink, url: mapsSearchUrl(r.place.name, r.place.city) }];
+        const links: { text: string; url: string }[] = hasMapLink(r.place) ? [{ text: moreCopy.mapLink, url: mapsSearchUrl(r.place.name, r.place.city) }] : [];
         if (r.place.url) links.push({ text: moreCopy.siteLink, url: r.place.url });
         for (const link of links) {
           const w = fonts.sansBold.widthOfTextAtSize(link.text, 9.25);

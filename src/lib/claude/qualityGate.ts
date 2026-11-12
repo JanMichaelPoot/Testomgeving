@@ -12,6 +12,7 @@
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { AVAILABLE_HOURS, BUDGET_CAP, parseDurationHours, parseMaxCost } from "@/lib/pdf/ideaContent";
 import { getActivity } from "@/lib/discovery/library";
+import { isOnlineCity } from "@/lib/maps";
 import type { Activity } from "@/lib/discovery/types";
 
 export type QaLocale = "nl" | "en";
@@ -23,6 +24,7 @@ export type QaCode =
   | "type_setting"
   | "time_chip"
   | "related"
+  | "online_start"
   | "coverage_time"
   | "coverage_budget";
 
@@ -134,6 +136,42 @@ export function repeatedSentences(book: GeneratedIdeaBook): { sentence: string; 
     }
   }
   return [...seen.values()].filter((r) => r.where.size > 1).map((r) => ({ sentence: r.sentence, where: [...r.where] }));
+}
+
+// --- an online start ------------------------------------------------------------------------------------
+
+/**
+ * Physical first (Jan, 13 Nov 2026): when an idea lists a place to go to, its first steps visit, call or book. A first step or detail that then sends the person to
+ * a download, an app, an account, an online course or lesson, a video or a webshop is an online start. "Open Google Maps" (to find the nearest place) is not.
+ * An idea whose only options are online providers starts online on purpose, and is not checked.
+ */
+const ONLINE_START: RegExp[] = [
+  /\b(download|downloaden|installeer|installeren|install)\b/i,
+  /\b(maak|maken|create|set up|sign up for|meld je aan voor)\b[^.]{0,30}\b(account|profiel|profile)\b/i,
+  /\b(gratis )?account (aan)?maken\b/i,
+  /\bonline (cursus|course|les|lessen|class|classes|workshop|module)\b/i,
+  /\b(webshop|web shop|bouwpakket bestellen|bestel (een|het|de) [^.]{0,30}(kit|set|pakket|startset))\b/i,
+  /\b(video ?(les|lessen|cursus|lessons?|course|tutorial))\b/i,
+  /\b(de|een|gratis|free|the|an?) app\b/i,
+];
+
+/** Whether an idea lists at least one place that is a town to go to (not an online provider). */
+export function hasPhysicalPlace(entry: Pick<IdeaBookEntry, "places" | "location">): boolean {
+  const physical = (city: string) => city.trim() !== "" && !isOnlineCity(city);
+  return (entry.places ?? []).some((p) => physical(p.city)) || !!(entry.location && physical(entry.location.city));
+}
+
+/** The first online start in the idea's first step or details, or null. Only when the idea lists a physical place; otherwise an online start is the way in. */
+export function onlineStart(entry: Pick<IdeaBookEntry, "first_action" | "details" | "places" | "location">): { field: string; match: string } | null {
+  if (!hasPhysicalPlace(entry)) return null;
+  const fields: [string, string][] = [["first_action", entry.first_action ?? ""], ...(entry.details ?? []).map((d, i) => [`details[${i}]`, d] as [string, string])];
+  for (const [field, text] of fields) {
+    for (const re of ONLINE_START) {
+      const m = text.match(re);
+      if (m) return { field, match: m[0].trim().slice(0, 40) };
+    }
+  }
+  return null;
 }
 
 // --- season ---------------------------------------------------------------------------------------
@@ -289,6 +327,8 @@ export function qaBook(book: GeneratedIdeaBook, ctx: QaContext): QaIssue[] {
     for (const r of entry.related ?? []) {
       if (!relatedIsPlausible(activity, r.id)) push("related", where, `${r.id} has nothing in common with ${entry.activity_id}`, false);
     }
+    const online = onlineStart(entry);
+    if (online) push("online_start", where, `${online.field}: "${online.match}"`, true);
   }
   for (const r of repeatedSentences(book)) push("repeated_sentence", r.where.join("+"), `"${r.sentence.slice(0, 80)}"`, true);
 

@@ -13,7 +13,7 @@ vi.mock("@/lib/claude/localResearch", async (orig) => ({
   researchSeeds: (...a: unknown[]) => researchSeeds(...a),
 }));
 
-import { generateIdeaBookFromSeeds } from "@/lib/claude/generateFromSeeds";
+import { generateIdeaBookFromSeeds, widerRadiusKm } from "@/lib/claude/generateFromSeeds";
 import { buildOnlinePrompt, rankOptions } from "@/lib/claude/localResearch";
 import { concreteOptionsRequired, knowledgeAnchorEnabled } from "@/lib/knowledgeFlags";
 
@@ -90,6 +90,57 @@ describe("the switches", () => {
     expect(knowledgeAnchorEnabled("1")).toBe(true);
     expect(knowledgeAnchorEnabled("0")).toBe(false);
     expect(knowledgeAnchorEnabled("false")).toBe(false);
+  });
+});
+
+// Physical first, online last (Jan, 13 Nov 2026): the local search asks for places to go to; an idea with nothing near the person first gets twice the distance, and only
+// then the online providers.
+describe("physical first, online last", () => {
+  const widerOf = (o: unknown) => (o as { searchDistanceKm?: number }).searchDistanceKm === 120;
+
+  it("tries twice the distance for an idea with nothing near the person, and then needs no online provider for it", async () => {
+    researchSeeds.mockImplementation(async (opts: unknown) => ({
+      byActivity: new Map(
+        ids(opts).map((id) => [id, { activityId: id, source: "search", options: modeOf(opts) === "online" ? [option(`Online ${id}`, "Online")] : id === "kralen-rijgen" && !widerOf(opts) ? [] : [option(`Lokaal ${id}`)] }]),
+      ),
+      stats: stats(opts),
+    }));
+    const { book, report } = await run(base);
+    const calls = researchSeeds.mock.calls.map((c) => c[0]);
+    const wide = calls.filter(widerOf);
+    expect(wide.flatMap((o) => ids(o))).toContain("kralen-rijgen");
+    expect(wide.flatMap((o) => ids(o))).not.toContain("high-tea");
+    // found at the wider distance, so there is nothing left for the online pass
+    expect(calls.filter((o) => modeOf(o) === "online").flatMap((o) => ids(o))).not.toContain("kralen-rijgen");
+    expect(report.notes).toContain("widened_radius:kralen-rijgen");
+    const kralen = [...book.ideas, book.wildcard].find((i) => i.activity_id === "kralen-rijgen");
+    expect(kralen?.places?.map((p) => p.name)).toEqual(["Lokaal kralen-rijgen"]);
+  });
+
+  it("asks the online providers last: after the local search and the wider search found nothing", async () => {
+    researchSeeds.mockImplementation(async (opts: unknown) => ({
+      byActivity: new Map(
+        ids(opts).map((id) => [id, { activityId: id, source: "search", options: modeOf(opts) === "online" ? [option(`Online ${id}`, "Online")] : id === "kralen-rijgen" ? [] : [option(`Lokaal ${id}`)] }]),
+      ),
+      stats: stats(opts),
+    }));
+    await run(base);
+    const calls = researchSeeds.mock.calls.map((c) => c[0]);
+    const firstWide = calls.findIndex((o) => widerOf(o) && ids(o).includes("kralen-rijgen"));
+    const firstOnline = calls.findIndex((o) => modeOf(o) === "online" && ids(o).includes("kralen-rijgen"));
+    expect(firstWide).toBeGreaterThanOrEqual(0);
+    expect(firstOnline).toBeGreaterThan(firstWide);
+    // only what still lacked an option goes to the online pass
+    expect(calls.filter((o) => modeOf(o) === "online").flatMap((o) => ids(o))).not.toContain("high-tea");
+  });
+
+  it("asks for the wider distance only where the chosen distance can be widened", () => {
+    expect(widerRadiusKm("hour", undefined)).toBe(120);
+    expect(widerRadiusKm("city", undefined)).toBe(30);
+    expect(widerRadiusKm("city", 25)).toBe(50);
+    expect(widerRadiusKm("hour", 75)).toBe(150);
+    expect(widerRadiusKm("hour", 100)).toBeNull();
+    expect(widerRadiusKm("anywhere", undefined)).toBeNull();
   });
 });
 

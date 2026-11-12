@@ -4,6 +4,7 @@ import {
   autoFix,
   coverageOf,
   exposedReasoning,
+  onlineStart,
   qaBook,
   repeatedSentences,
   rewriteTargets,
@@ -161,5 +162,45 @@ describe("a clean book", () => {
   it("has no issues", () => {
     expect(qaBook(book(six()), CTX)).toEqual([]);
     expect(splitSentences("Eén. Twee woorden hier staan. Drie!")).toHaveLength(3);
+  });
+});
+
+describe("an online start (physical first, online last)", () => {
+  const places = [{ name: "Klei Atelier", city: "Utrecht", url: null, note: "proefles" }];
+  const e = (first_action: string, details: string[] = ["Bel de studio.", "Neem een schort mee."], withPlace = true) => ({ first_action, details, places: withPlace ? places : [], location: null });
+
+  it("flags a first step or detail that sends the person online while the idea lists a place to go to", () => {
+    expect(onlineStart(e("Download de app Stop Motion Studio en maak je eerste tien seconden."))?.field).toBe("first_action");
+    expect(onlineStart(e("Maak een gratis account aan op Soofos."))?.field).toBe("first_action");
+    expect(onlineStart(e("Open maxvandaag.nl en start de online cursus bandplakken."))?.field).toBe("first_action");
+    expect(onlineStart(e("Bel de studio.", ["Bestel een startset in de webshop.", "Kom langs."]))?.field).toBe("details[0]");
+    expect(onlineStart(e("Bekijk de videolessen van de academie."))?.field).toBe("first_action");
+  });
+
+  it("leaves an idea alone whose only options are online: that is the last resort, so an online start is the way in", () => {
+    const onlinePlace = [{ name: "MAX Vandaag", city: "Online", url: "https://www.maxvandaag.nl", note: "cursus" }];
+    expect(onlineStart({ first_action: "Open maxvandaag.nl en start de online cursus.", details: ["Kijk de eerste video.", "Oefen een uur."], places: onlinePlace, location: null })).toBeNull();
+    expect(onlineStart(e("Download de app en start.", ["Kijk.", "Oefen."], false))).toBeNull();
+  });
+
+  it("lets a visit, a call, a booking and 'Open Google Maps' pass", () => {
+    for (const text of [
+      "Bel Klei Atelier in Utrecht en vraag naar de proefles van zaterdag.",
+      "Reserveer via de website van De Boog een plek voor de buurtmaaltijd.",
+      "Open Google Maps, zoek paardenfokkerij bij Utrecht en bel de dichtstbijzijnde.",
+      "Check de openingstijden van het museum en loop vanavond binnen.",
+      "Call the studio and book a trial class.",
+    ]) {
+      expect(onlineStart(e(text)), text).toBeNull();
+    }
+  });
+
+  it("is a qa issue that needs a rewrite, and a clean book has none", () => {
+    const clean = book([idea("Aardewerk", { places }), idea("Schilderen")]);
+    expect(qaBook(clean, CTX).filter((i) => i.code === "online_start")).toEqual([]);
+    const online = book([idea("Aardewerk", { places, first_action: "Download de app en start de eerste les." }), idea("Schilderen")]);
+    const issues = qaBook(online, CTX).filter((i) => i.code === "online_start");
+    expect(issues).toHaveLength(1);
+    expect(issues[0]).toMatchObject({ where: "idea1", needsRewrite: true });
   });
 });

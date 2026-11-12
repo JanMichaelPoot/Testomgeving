@@ -85,12 +85,17 @@ For every idea:
   "Why it was chosen" line of that idea: for something they picked themselves, refer to that pick; for an
   adjacent, unexpected, stretch or wildcard idea, make the connection visible in plain words ("You picked X,
   and this shares the Y with it"). Never invent a connection that is not given.
-- details: exactly 2 concrete, sequential steps that read like a ready-made how-to (max ~20 words each): what to
-  open, search or click. Name the website/app from the verified local options when there is one. Otherwise name
-  a certainly-real platform or search (Google Maps, Meetup, a plain Google search with an exact query). Never
-  "consider" or "look online".
-- first_action: one instruction the person can complete within 60 seconds of finishing reading, naming an exact
-  site/app/search term/button (max ~20 words).
+- details: exactly 2 concrete, sequential steps that read like a ready-made how-to (max ~20 words each). A physical
+  place comes first: when the verified local options of the idea include a place in a town (a workshop, studio, club
+  or venue), step 1 is to contact or visit that place (book, call, check the opening times or the trial class) and
+  step 2 is what happens or what to bring there; name the place and its city, and use its website only to book or
+  check times. Only when the verified options of the idea are online providers (marked "Online") is the way in an
+  online course, an app or a webshop: then name that provider and its website. Never prefer an online provider over
+  a physical place that is listed. When no verified option was found, say plainly to look up the activity with the
+  person's place on Google Maps and to call the nearest one. Never "consider" or "look online".
+- first_action: one instruction the person can complete within 60 seconds of finishing reading: with a physical
+  place listed, call or message it, open its booking page or check its opening times (name the place); with only an
+  online provider listed, open its website or start there (max ~20 words).
 - practical: estimated_cost (short, e.g. "€25–40" or "{{FREE}}"), duration (short), difficulty ("easy",
   "moderate" or "demanding") and preparation (one short line, or empty).
 - location: only when the idea happens at one specific, findable place taken from the verified local options of
@@ -618,6 +623,16 @@ export function needsProvider(a: Activity): boolean {
   return (a.cost !== null && a.cost >= 1) || a.safety.tier === 2 || a.supply === "rare" || a.supply === "regional";
 }
 
+/**
+ * The distance to search over for an idea with nothing near the person: twice the chosen one, at most 150 km. Null when they already search 100 km or more,
+ * or all of the Netherlands (there is nothing wider to try). `searchDistance` is the older three-way class, `km` the start page's slider.
+ */
+export function widerRadiusKm(searchDistance: string | undefined, km: number | undefined): number | null {
+  const base = km ?? (searchDistance === "hour" ? 60 : searchDistance === "anywhere" ? null : 15);
+  if (base === null || base >= 100) return null;
+  return Math.min(150, base * 2);
+}
+
 /** Rounds of replacing ideas whose provider could not be found. The last round only allows activities that need none. */
 export const SUPPLY_ROUNDS = 2;
 
@@ -705,6 +720,35 @@ export async function generateIdeaBookFromSeeds(
   // provider that serves anyone in the Netherlands from a website (an online course, a webshop with a kit, a national club, an app).
   const requireOptions = concreteOptionsRequired();
   const onlineTried = new Set<string>();
+  const widerKm = widerRadiusKm(intake.searchDistance, intake.searchDistanceKm);
+  const widerTried = new Set<string>();
+  const widened = new Set<string>();
+  const withWider = async (seedList: readonly Seed[], base: typeof research): Promise<typeof research> => {
+    if (!requireOptions || widerKm === null) return base;
+    const lacking = [...new Set(seedList.filter((s) => (seedResearch(s, base.byActivity)?.options.length ?? 0) === 0 && !widerTried.has(s.activityId)).map((s) => s.activityId))];
+    if (lacking.length === 0) return base;
+    for (const id of lacking) widerTried.add(id);
+    const wider = await researchSeeds({
+      activityIds: lacking,
+      location: intake.location,
+      searchDistance: intake.searchDistance,
+      searchDistanceKm: widerKm,
+      locale,
+      now,
+      priorityIds: lacking.filter((id) => ownPicks.has(id)),
+      needs: researchNeedsFrom(engine.constraints.verify),
+      country: intake.country,
+    });
+    const merged = new Map(base.byActivity);
+    for (const id of lacking) {
+      const found = wider.byActivity.get(id);
+      if (found && found.options.length > 0) {
+        merged.set(id, { activityId: id, options: found.options, source: "search" });
+        widened.add(id);
+      }
+    }
+    return { byActivity: merged, stats: addStats(base.stats, wider.stats) };
+  };
   const withOnline = async (seedList: readonly Seed[], base: typeof research): Promise<typeof research> => {
     if (!requireOptions) return base;
     const lacking = [...new Set(seedList.filter((s) => (seedResearch(s, base.byActivity)?.options.length ?? 0) === 0 && !onlineTried.has(s.activityId)).map((s) => s.activityId))];
@@ -718,6 +762,9 @@ export async function generateIdeaBookFromSeeds(
     }
     return { byActivity: merged, stats: addStats(base.stats, online.stats) };
   };
+  // Physical first (Jan, 13 Nov 2026): the local search asks for workshops, studios, clubs, outings and venues only. An idea with nothing near the
+  // person first gets one search over twice the distance, and only then the online providers below: online is the last resort, not an equal.
+  research = await withWider(engine.seeds, research);
   research = await withOnline(engine.seeds, research);
 
   // 2b. An idea that needs somebody's offer (a class, a rental, a club) but for which nothing real could be found near
@@ -739,15 +786,14 @@ export async function generateIdeaBookFromSeeds(
     // The last round only allows activities that need nobody's offer. It must not throw out what already has an offer or was chosen:
     // those stay eligible, so the rest of the selection hardly moves.
     const keep = new Set([...ownPicks, ...engine.seeds.filter((s) => !noSupply.includes(s)).map((s) => s.activityId)]);
-    // The last round still only takes activities that need nobody's offer (walks, puzzles, things at home): those have an online or
-    // national option to point to, which is what "every idea needs a concrete option" falls back on.
+    // The last round still only takes activities that need nobody's offer (a walk, a park, a market): a place to go to without a provider.
     const exclude = lastRound ? [...tried, ...ALL_ACTIVITIES.filter((a) => needsProvider(a) && !keep.has(a.id)).map((a) => a.id)] : tried;
     const retry = select(exclude);
     if (retry.seeds.length < 6) {
       notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
       break;
     }
-    const retryResearch = await withOnline(retry.seeds, await researchFor(retry.seeds, research.byActivity));
+    const retryResearch = await withOnline(retry.seeds, await withWider(retry.seeds, await researchFor(retry.seeds, research.byActivity)));
     // A replacement may swap one of the person's picks for another one (a pick without a provider for a pick with one), but it may
     // never leave the book with fewer of their picks than it had.
     const picksIn = (seeds: readonly Seed[]) => seeds.filter((s) => ownPicks.has(s.activityId)).length;
@@ -763,6 +809,7 @@ export async function generateIdeaBookFromSeeds(
       if (lastRound) notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
     }
   }
+  for (const id of widened) notes.push(`widened_radius:${id}`);
   // The picks that stay without a provider: said plainly in the book (see seedBlock), noted here for the log and the harness.
   for (const s of seedsWithoutSupply(engine.seeds, research.byActivity)) if (ownPicks.has(s.activityId)) notes.push(`pick_without_provider:${s.activityId}`);
   // What still has no option at all, after the local and the online pass: said, never hidden.

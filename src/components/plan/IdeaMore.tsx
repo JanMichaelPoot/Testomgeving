@@ -1,6 +1,6 @@
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { hasMoreLayers } from "@/lib/claude/ideaLayers";
-import { mapsSearchUrl } from "@/lib/maps";
+import { hasMapLink, mapsSearchUrl } from "@/lib/maps";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils";
 
@@ -82,14 +82,16 @@ function Layers({ idea, copy, mode }: { idea: IdeaBookEntry; copy: More; mode: "
                   </p>
                 )}
                 <p className="mt-1 flex flex-wrap gap-x-4">
-                  <a
-                    href={mapsSearchUrl(place.name, place.city)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex min-h-11 items-center text-sm font-semibold text-accent-dark underline underline-offset-2"
-                  >
-                    {copy.mapLink}
-                  </a>
+                  {hasMapLink(place) && (
+                    <a
+                      href={mapsSearchUrl(place.name, place.city)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex min-h-11 items-center text-sm font-semibold text-accent-dark underline underline-offset-2"
+                    >
+                      {copy.mapLink}
+                    </a>
+                  )}
                   {place.url && (
                     <a
                       href={place.url}
