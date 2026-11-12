@@ -4,6 +4,7 @@ import { AXES, ENOUGH_PER_SIDE, SIDE, pickVariant } from "@/lib/discovery/associ
 import type { AssociationCardData } from "@/lib/discovery/associationProfile";
 import { assocCloseness, type ActivityVector } from "@/lib/discovery/associationLayer";
 import { REGISTERS, countRegisters, emptyCounts, type Register, type RegisterCounts } from "@/lib/discovery/registerTypes";
+import type { UnfitFlag } from "@/lib/discovery/suitability";
 
 // The two image pages of the image intake (docs/plan-twee-beeldpagina-s.md, docs/fase4-opzet.md):
 //   page 1  associative: 18 images, mixed from places, moments and senses, balanced over the four style registers
@@ -228,7 +229,7 @@ export interface ConcreteActivity {
   /** How broadly the activity lies close to images in general, relative to the average (1 = average; concretePool.ts). */
   assocHub?: number;
   /** The needs this activity is known not to suit (suitability.ts): the browser has no safety or intensity data, so the server says it here. */
-  unfit?: readonly ("young_kids" | "wheelchair" | "calm")[];
+  unfit?: readonly UnfitFlag[];
 }
 
 export interface ConcreteOptions<A extends ConcreteActivity = ConcreteActivity> {

@@ -4,7 +4,15 @@ import type { EngineInput } from "@/lib/discovery/engine";
 import { whyNot } from "@/lib/discovery/engine/droppedPicks";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import {
+  ALCOHOL_CENTRAL,
+  ALCOHOL_SIDE,
+  LOUD_OR_CROWDED,
   WHEELCHAIR_UNSUITABLE,
+  meetingBias,
+  unfitFlags,
+  unsuitableForMeeting,
+  unsuitableForQuiet,
+  unsuitableWithoutAlcohol,
   YOUNG_KIDS_UNSUITABLE,
   unsuitableForCalmPace,
   unsuitableForWheelchair,
@@ -30,7 +38,7 @@ const BASE: EngineInput = {
 
 describe("the suitability lists", () => {
   it("only name activities that exist in the library", () => {
-    for (const id of [...YOUNG_KIDS_UNSUITABLE, ...WHEELCHAIR_UNSUITABLE]) expect(byId.has(id), id).toBe(true);
+    for (const id of [...YOUNG_KIDS_UNSUITABLE, ...WHEELCHAIR_UNSUITABLE, ...ALCOHOL_CENTRAL, ...ALCOHOL_SIDE, ...LOUD_OR_CROWDED]) expect(byId.has(id), id).toBe(true);
   });
 
   it("keep out what the research found for families, wheelchair users and a calm pace", () => {
@@ -111,5 +119,106 @@ describe("the engine with these needs", () => {
     expect(whyNot(byId.get("klimmen")!, c("Met de rolstoel bereikbaar"))).toBe("access");
     expect(whyNot(byId.get("hardlopen")!, c("Rustig tempo"))).toBe("effort");
     expect(whyNot(byId.get("urbex-tour")!, c("Rustig tempo"))).not.toBeNull();
+  });
+});
+
+// --- P1: the way of taking part, alcohol and few stimuli ---------------------------------------------------------------------
+
+describe("P1 chips", () => {
+  it("are read by the parser, in both languages", () => {
+    expect(parseMustHaves("Mensen ontmoeten").meetPeople).toBe(true);
+    expect(parseMustHaves("Meet people").meetPeople).toBe(true);
+    expect(parseMustHaves("Met één ander").withOne).toBe(true);
+    expect(parseMustHaves("With one other person").withOne).toBe(true);
+    expect(parseMustHaves("Met een groep").withGroup).toBe(true);
+    expect(parseMustHaves("With a group").withGroup).toBe(true);
+    // "Not in a group" is the opposite and stays a different thing.
+    expect(parseMustHaves("Niet in een groep").withGroup).toBeUndefined();
+    expect(parseMustHaves("Not in a group").withGroup).toBeUndefined();
+    expect(parseMustHaves("Zonder alcohol").noAlcohol).toBe(true);
+    expect(parseMustHaves("No alcohol").noAlcohol).toBe(true);
+    expect(parseMustHaves("Rustig en voorspelbaar").quiet).toBe(true);
+    expect(parseMustHaves("Quiet and predictable").quiet).toBe(true);
+    // A mention of alcohol that is not a wish for none is only checked.
+    expect(parseMustHaves("een glas wijn is prima").noAlcohol).toBeUndefined();
+    expect(parseMustHaves("een glas wijn is prima, alcohol mag").verify).toContain("alcohol");
+  });
+
+  it("exist on the start page in both languages", () => {
+    for (const [locale, chips] of [
+      ["nl", ["Mensen ontmoeten", "Met één ander", "Met een groep", "Rustig en voorspelbaar"]],
+      ["en", ["Meet people", "With one other person", "With a group", "Quiet and predictable"]],
+    ] as const) {
+      const all = getDictionary(locale).venster.who.limitChips;
+      for (const c of chips) expect(all, `${locale}: ${c}`).toContain(c);
+    }
+  });
+
+  it("turn the two forms into the forms the engine filters on, together with what was stated", () => {
+    expect(resolveConstraints({ ...BASE, mustHaves: "Met één ander" }).formats).toEqual(["duo"]);
+    expect(resolveConstraints({ ...BASE, mustHaves: "Met een groep" }).formats).toEqual(["small_group", "large_group"]);
+    expect(resolveConstraints({ ...BASE, mustHaves: "Met één ander; Met een groep" }).formats).toEqual(["duo", "small_group", "large_group"]);
+    expect(resolveConstraints({ ...BASE, mustHaves: "" }).formats).toBeNull();
+  });
+
+  it("keep the alcohol list to what is about drinking, and apart from the side issues", () => {
+    for (const id of ALCOHOL_CENTRAL) expect(ALCOHOL_SIDE.has(id), id).toBe(false);
+    expect(unsuitableWithoutAlcohol(byId.get("netwerkborrel")!)).toBe(true);
+    expect(unsuitableWithoutAlcohol(byId.get("pubquiz")!)).toBe(false);
+  });
+
+  it("keep loud and crowded ideas out of a quiet book, and a way to meet people in front", () => {
+    for (const id of ["karaoke", "klein-festival", "boksles", "trekkertrek"]) expect(unsuitableForQuiet(byId.get(id)!), id).toBe(true);
+    for (const id of ["legpuzzels", "schaken", "bonsai"]) expect(unsuitableForQuiet(byId.get(id)!), id).toBe(false);
+    // Something done alone is no way to meet people; a coffee morning where you can come alone is the best way.
+    expect(unsuitableForMeeting(byId.get("niets-doen")!)).toBe(true);
+    expect(unsuitableForMeeting(byId.get("kletscafe")!)).toBe(false);
+    expect(meetingBias(byId.get("kletscafe")!)).toBeLessThan(meetingBias(byId.get("spelavond-thuis")!));
+  });
+
+  it("send the flags the browser needs", () => {
+    expect(unfitFlags(byId.get("netwerkborrel")!)).toContain("alcohol");
+    expect(unfitFlags(byId.get("niets-doen")!)).toEqual(expect.arrayContaining(["no_meet", "no_group", "no_duo"]));
+    expect(unfitFlags(byId.get("kletscafe")!)).not.toContain("no_meet");
+  });
+});
+
+describe("the engine with the P1 chips", () => {
+  const sets = (mustHaves: string, n = 25) =>
+    Array.from({ length: n }, (_, i) => selectSeeds({ ...BASE, mustHaves, seed: `p1-${i}` }, lib).seeds.map((s) => byId.get(s.activityId)!));
+
+  it("never puts an alcohol activity in a book for someone who wants none", () => {
+    for (const set of sets("Zonder alcohol")) for (const a of set) expect(unsuitableWithoutAlcohol(a), a.id).toBe(false);
+  });
+
+  it("never puts a loud or crowded idea in a quiet book", () => {
+    for (const set of sets("Rustig en voorspelbaar")) for (const a of set) expect(unsuitableForQuiet(a), a.id).toBe(false);
+  });
+
+  it("gives someone who wants to meet people ideas with a way to meet others, and clearly more of them than without the chip", () => {
+    const withChip = sets("Mensen ontmoeten");
+    for (const set of withChip) for (const a of set) expect(unsuitableForMeeting(a), a.id).toBe(false);
+    const share = (all: typeof withChip) =>
+      all.flat().filter((a) => (a.formats ?? []).includes("drop_in_alone")).length / all.flat().length;
+    expect(share(withChip)).toBeGreaterThan(share(sets("")));
+  });
+
+  it("keeps every idea able to be done as a pair (or in a group) when asked", () => {
+    for (const set of sets("Met één ander")) for (const a of set) expect((a.formats ?? ["duo"]).includes("duo"), a.id).toBe(true);
+    for (const set of sets("Met een groep")) for (const a of set) expect((a.formats ?? ["small_group"]).some((f) => f === "small_group" || f === "large_group"), a.id).toBe(true);
+  });
+
+  it("still fills the set for each P1 chip", () => {
+    for (const chip of ["Zonder alcohol", "Rustig en voorspelbaar", "Mensen ontmoeten", "Met één ander", "Met een groep"]) {
+      for (const set of sets(chip, 5)) expect(set.length, chip).toBeGreaterThanOrEqual(7);
+    }
+  });
+
+  it("names the need when a chosen activity is ruled out by it", () => {
+    const c = (m: string) => resolveConstraints({ ...BASE, mustHaves: m });
+    expect(whyNot(byId.get("bier-brouwen")!, c("Zonder alcohol"))).toBe("no_alcohol");
+    expect(whyNot(byId.get("karaoke")!, c("Rustig en voorspelbaar"))).toBe("quiet");
+    expect(whyNot(byId.get("niets-doen")!, c("Mensen ontmoeten"))).toBe("meet");
+    expect(whyNot(byId.get("kletscafe")!, c("Mensen ontmoeten"))).toBeNull();
   });
 });

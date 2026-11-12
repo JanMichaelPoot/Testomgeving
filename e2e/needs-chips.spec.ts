@@ -85,3 +85,12 @@ test("with young children, a wheelchair and a calm pace, page 2 offers a full se
   expect(offered).not.toMatch(/mountainbik|klimmen|boulderen|urbex|abseilen|buurtvrijwilliger|boogparcours|vrije val|bungee/i);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
+
+test("with no alcohol, few stimuli and meeting people, page 2 offers a full set without drinking, noise or solitude", async ({ page }) => {
+  await open(page, 2, ["Zonder alcohol", "Rustig en voorspelbaar", "Mensen ontmoeten"]);
+  expect(await page.locator("main button[aria-pressed]:has(img)").count()).toBeGreaterThanOrEqual(12);
+  const offered = (await allOffered(page)).join(" | ");
+  expect(offered.length).toBeGreaterThan(0);
+  expect(offered).not.toMatch(/bier brouwen|wijn proeven|cocktails|borrel|karaoke|festival|stand-up|niets doen/i);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});

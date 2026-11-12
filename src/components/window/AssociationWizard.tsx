@@ -29,6 +29,7 @@ import { layoutWindow } from "@/lib/windowLayout";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { DRAFT_VERSION, TWO_PAGE_LAYOUT, chapterOf, migrateDraftPage, migrateTwoPageDraft, pagesFor, type AnyVensterPageId } from "@/lib/vensterPages";
 import { parseMustHaves } from "@/lib/discovery/engine/constraints";
+import { hiddenByNeeds } from "@/lib/discovery/needs";
 import { activityContextLean, allowedForContext, imagePreference, isForOther, normalizeSearchContext, type SearchContext } from "@/lib/discovery/audience";
 import { ContextIcon } from "@/components/window/ContextIcon";
 import { BUDGET_STEPS, budgetStepIndex, currentBudget } from "@/lib/budgetOptions";
@@ -469,8 +470,8 @@ export function AssociationWizard({
   // Going with children (the start page chip) keeps the same short list of unsuitable activities off page 2 as a young searcher does.
   const chipNeeds = useMemo(() => parseMustHaves(limitChips.join("; ")), [limitChips]);
   const withKids = chipNeeds.verify.includes("children");
-  // The same applies to young children, a wheelchair and a calm pace (suitability.ts): what is known not to suit them is not offered on page 2.
-  const needsKey = `${withKids ? "+kids" : ""}${chipNeeds.youngKids ? "+young" : ""}${chipNeeds.wheelchair ? "+wheel" : ""}${chipNeeds.calmPace ? "+calm" : ""}`;
+  // The same applies to the other needs the chips state (suitability.ts, needs.ts): what is known not to suit them is not offered on page 2.
+  const needsKey = `${withKids ? "+kids" : ""}${(["youngKids", "wheelchair", "calmPace", "noAlcohol", "quiet", "meetPeople", "withOne", "withGroup"] as const).map((k) => (chipNeeds[k] ? `+${k}` : "")).join("")}`;
   const concreteKey = `${searchContext}${needsKey}#${chosenImagesKey}`;
   const allActivities = concretePool?.activities;
   const poolById = useMemo(() => new Map((allActivities ?? []).map((a) => [a.id, a])), [allActivities]);
@@ -481,9 +482,7 @@ export function AssociationWizard({
         (a) =>
           allowedForContext(a, searchContext) &&
           (!withKids || allowedForContext(a, "child")) &&
-          !(chipNeeds.youngKids && a.unfit?.includes("young_kids")) &&
-          !(chipNeeds.wheelchair && a.unfit?.includes("wheelchair")) &&
-          !(chipNeeds.calmPace && a.unfit?.includes("calm")),
+          !hiddenByNeeds(a.unfit, chipNeeds),
       ),
     [allActivities, searchContext, withKids, chipNeeds],
   );

@@ -167,3 +167,31 @@ Het berekende gemiddelde over de 16 persona's gaat van 82,8 naar 83,2. De handma
 - Voor de rolstoel is de winst klein onder de strengere maatstaf van het onderzoek (binnen, geen beweging). Wat overblijft zijn stads- en spookwandelingen en fotografie buiten: die kunnen met een rolstoel, maar de bibliotheek weet niet of de route te doen is. Dat blijft een controle in het boek, geen filter; echt oplossen vraagt het veld `access` per activiteit (data, niet code).
 - P14 (eenzaam) verbetert op tempo maar niet op contact: dat is het sociale-vormpunt (P1).
 - De lijsten zijn met de hand gemaakt (`src/lib/discovery/suitability.ts`) en niet door een tweede persoon beoordeeld; een test garandeert alleen dat elk genoemd id bestaat. Een nieuwe activiteit komt er niet vanzelf op; zie de regressietest (P3).
+
+## H. Uitvoering van de P1-fixes (Stap 168)
+
+Gebouwd en gemeten zoals in sectie G (`scripts/audience-research.ts`, 30 sessies per persona, zelfde seeds; vijf persona's kregen de nieuwe chips). Geen betaalde aanroepen.
+
+**Wat er is gebouwd** (alles op de startpagina, nl en en, met dezelfde regels in de selectie, op pagina 2, in de "dit kon niet mee"-melding en voor de schrijver en het lokale onderzoek):
+- **Hoe wil je meedoen?** Drie chips: "Mensen ontmoeten", "Met één ander" en "Met een groep". "Met één ander" en "Met een groep" filteren op de sociale vorm van de activiteit (duo, of kleine en grote groep; samen is het een unie). "Mensen ontmoeten" sluit alles uit waar de bibliotheek alleen "alleen", "met z'n tweeën" of "met mensen die je al kent" kent, en geeft activiteiten waar je alleen kunt komen en anderen ontmoet (`drop_in_alone`) en de werelden `together`, `night` en `society` een duidelijke voorkeur in elke plek van de selectie.
+- **"Zonder alcohol"** is nu een filter: zeven activiteiten die om drank draaien (bier brouwen, wijnproeverij, cocktails, kruidenlikeur, luisterbar, netwerkborrel, casino-avond) vallen af. Acht activiteiten waar drank bijzaak is (pubquiz, jamsessie, pingpongbar, ...) blijven erin; de schrijver krijgt de regel om nooit rond drinken te plannen en bij een kroeg de variant zonder drankje te beschrijven.
+- **"Rustig en voorspelbaar"** (naast "Rustig tempo", dat over beweging gaat) sluit uit: een lijst van 63 luide, drukke of onvoorspelbare activiteiten (disco's, festivals, open podia, motor- en arcadelawaai, contactsport, trommelcirkels, netwerkborrels), alles met verplicht toezicht of intensiteit 3, en wat alleen in een grote groep kan. De schrijver krijgt de regel om vaste tijd, structuur en weinig lawaai te beschrijven.
+
+**Gemeten (selectie, 30 sessies):**
+
+| Persona | Chip | "Misser" (eigen maatstaf) | Sociale vorm past |
+|---|---|---|---|
+| P06 Mark en Eva | Met één ander | 22% naar 0% | 78% naar 100% |
+| P07 vriendengroep | Met een groep | 5% naar 0% | 95% naar 100% |
+| P12 Priya | Mensen ontmoeten | 22% naar 0% | 78% naar 100% |
+| P14 Gerda | Mensen ontmoeten | 18% naar 1% | 83% naar 100% |
+| P11 Bram | Rustig en voorspelbaar | 13% naar 10% | 96% naar 97% |
+| P16 Alex | Zonder alcohol | 0% naar 0% | 100% |
+
+Het berekende gemiddelde gaat van 83,2 naar 83,7 (na de P0-fixes; vooraf 82,8).
+
+**Lees deze cijfers met voorzichtigheid.**
+- De 100% bij P06, P12 en P14 is voor een deel circulair: de persona-maatstaf ("sociale vorm past") kijkt naar dezelfde bibliotheekeigenschap als het filter. Het bewijst dat de chip doet wat hij zegt, niet dat de ideeën goed zijn. De sterkere toets is de test die laat zien dat "Mensen ontmoeten" het aandeel `drop_in_alone`-ideeën duidelijk verhoogt, en de lijsten van sectie C: bij Priya zijn dat nu o.a. een dineravond met onbekenden, een verteluur en theater-backstage.
+- P16 (Alex) verbetert niet, want in de eerdere run was de netwerkborrel een uitschieter; met de chip kan die er niet meer in. Zijn werkelijke probleem ("sportief en cultureel" en geen actieve of culturele ideeën) is een smaak-, geen alcoholprobleem (P2).
+- P11 (Bram) verbetert nauwelijks: wat overblijft zijn dingen die de persona-maatstaf te druk vindt (tennis, detectivespellen) maar die rustig kunnen zijn. Echte "prikkelarm"-data (geluid, drukte, voorspelbaarheid per activiteit) bestaat niet; de lijst is een eerste stap.
+- De lijsten (alcohol, luid of druk) zijn met de hand gemaakt en niet door een tweede persoon beoordeeld. Een nieuwe activiteit staat er niet vanzelf op.

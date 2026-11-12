@@ -42,7 +42,7 @@ export interface VensterDictionary {
     dropped: {
       title: string;
       body: string;
-      reasons: Record<"season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
+      reasons: Record<"season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "no_alcohol" | "quiet" | "meet" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
       editSituation: string;
       editChoices: string;
     };
@@ -412,6 +412,9 @@ export const vensterNl: VensterDictionary = {
         young_kids: "is niet geschikt voor jonge kinderen",
         access: "is niet te doen met een rolstoel",
         calm: "past niet bij een rustig tempo",
+        no_alcohol: "draait om alcohol",
+        quiet: "is druk, luid of onvoorspelbaar",
+        meet: "biedt geen manier om mensen te ontmoeten",
         budget: "past niet bij je budget",
         effort: "vraagt meer inspanning dan je aangaf",
         supervised: "vraagt begeleiding en past niet bij je voorkeur voor het vertrouwde",
@@ -809,7 +812,8 @@ export const vensterNl: VensterDictionary = {
         { title: "Omgeving", chips: ["Alleen buiten", "Alleen binnen"] },
         { title: "Bereikbaarheid", chips: ["Met de rolstoel bereikbaar", "Zonder auto bereikbaar"] },
         { title: "Gezelschap", chips: ["Niet in een groep", "Met de hond", "Met kinderen", "Met jonge kinderen"] },
-        { title: "Tempo", chips: ["Rustig tempo"] },
+        { title: "Tempo en prikkels", chips: ["Rustig tempo", "Rustig en voorspelbaar"] },
+        { title: "Hoe wil je meedoen?", chips: ["Mensen ontmoeten", "Met één ander", "Met een groep"] },
         { title: "Eten en drinken", chips: ["Zonder alcohol", "Zonder vis of schaaldieren"] },
         { title: "Wanneer", chips: ["In het weekend", "'s Avonds"] },
       ],
@@ -845,6 +849,10 @@ export const vensterNl: VensterDictionary = {
       "Met kinderen",
       "Met jonge kinderen",
       "Rustig tempo",
+      "Rustig en voorspelbaar",
+      "Mensen ontmoeten",
+      "Met één ander",
+      "Met een groep",
       "Zonder auto bereikbaar",
       "In het weekend",
       "'s Avonds",
@@ -1035,6 +1043,9 @@ export const vensterEn: VensterDictionary = {
         young_kids: "does not suit young children",
         access: "cannot be done from a wheelchair",
         calm: "does not fit a calm pace",
+        no_alcohol: "is about alcohol",
+        quiet: "is busy, loud or unpredictable",
+        meet: "offers no way to meet people",
         budget: "does not fit your budget",
         effort: "takes more effort than you said",
         supervised: "needs guidance and does not fit your preference for the familiar",
@@ -1432,7 +1443,8 @@ export const vensterEn: VensterDictionary = {
         { title: "Setting", chips: ["Only outdoors", "Only indoors"] },
         { title: "Access", chips: ["Wheelchair accessible", "Reachable without a car"] },
         { title: "Company", chips: ["Not in a group", "With a dog", "With children", "With young children"] },
-        { title: "Pace", chips: ["Calm pace"] },
+        { title: "Pace and stimulation", chips: ["Calm pace", "Quiet and predictable"] },
+        { title: "How do you want to take part?", chips: ["Meet people", "With one other person", "With a group"] },
         { title: "Food and drink", chips: ["No alcohol", "No fish or shellfish"] },
         { title: "When", chips: ["On weekends", "In the evening"] },
       ],
@@ -1468,6 +1480,10 @@ export const vensterEn: VensterDictionary = {
       "With children",
       "With young children",
       "Calm pace",
+      "Quiet and predictable",
+      "Meet people",
+      "With one other person",
+      "With a group",
       "Reachable without a car",
       "On weekends",
       "In the evening",

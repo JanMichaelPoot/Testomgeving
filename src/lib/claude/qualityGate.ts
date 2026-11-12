@@ -91,7 +91,7 @@ const EXPOSED_PHRASES: RegExp[] = [
   /onderweg kwamen we langs/i,
   /dat leiden wij .{0,40}af/i,
   /(het is )?niet iets dat je zelf koos/i,
-  /uit (je|jouw) beelden af/i,
+  /uit (je|jouw) beelden af\b/i,
   /dit komt nergens uit je beelden/i,
   /we (leiden|leidden) (dit|dat) af/i,
   /reached from (their|your|the) images/i,

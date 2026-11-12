@@ -1,7 +1,14 @@
 import { SOCIAL_FORMATS, type Activity, type SocialFormat } from "@/lib/discovery/types";
 import { inSeason } from "@/lib/discovery/season";
 import { allowedForContext, normalizeSearchContext } from "@/lib/discovery/audience";
-import { unsuitableForCalmPace, unsuitableForWheelchair, unsuitableForYoungKids } from "@/lib/discovery/suitability";
+import {
+  unsuitableForCalmPace,
+  unsuitableForMeeting,
+  unsuitableForQuiet,
+  unsuitableForWheelchair,
+  unsuitableForYoungKids,
+  unsuitableWithoutAlcohol,
+} from "@/lib/discovery/suitability";
 import type { EngineInput, ResolvedConstraints } from "@/lib/discovery/engine/types";
 
 // Hard filters. The rule that keeps them honest: an activity is only excluded on a
@@ -23,7 +30,7 @@ const INTENSITY_CAP: Record<string, 0 | 1 | 2 | 3> = { minimal: 1, some: 2, comm
  * Deliberately narrow: everything else is left to the idea generator, which already
  * treats the text as hard constraints. Dutch and English.
  */
-export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting" | "noGroups" | "verify" | "wheelchair" | "youngKids" | "calmPace"> {
+export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting" | "noGroups" | "verify" | "wheelchair" | "youngKids" | "calmPace" | "noAlcohol" | "quiet" | "meetPeople" | "withOne" | "withGroup"> {
   const t = ` ${text.toLowerCase()} `;
   const verify: string[] = [];
   let setting: "indoor" | "outdoor" | null = null;
@@ -53,6 +60,9 @@ export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting
   // "Geen vis of schaaldieren" is one of the image intake's chips: a dietary limit too.
   if (/(allergie|allergy|allergic|dieet|\bdiet\b|vegetarisch|vegan|halal|koosjer|kosher|\bvis\b|\bfish\b|schaaldier|shellfish)/.test(t)) verify.push("dietary");
   if (/alcohol/.test(t)) verify.push("alcohol");
+  // "Without alcohol" is a filter on what is about drinking (suitability.ts) and a writing rule; any other mention of alcohol is only checked.
+  const noAlcohol = /(zonder alcohol|geen alcohol|alcoholvrij|alcohol-?free|no alcohol|without alcohol)/.test(t);
+  if (noAlcohol) verify.push("no_alcohol");
   if (/(kinderen|\bkids\b|children|\bbaby)/.test(t)) verify.push("children");
   // Young children (a toddler or pre-schooler): a stricter list than "with children", and a hint to the writer.
   const youngKids = /(jonge kinderen|kleine kinderen|kleuter|peuter|young children|small children|little kids|toddler|pre-?school)/.test(t);
@@ -60,12 +70,28 @@ export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting
   // A calm pace: only gentle, unsupervised, non-advanced activities (suitability.ts), and the writer is told not to rush.
   const calmPace = /(rustig tempo|rustig aan|calm pace|slow pace)/.test(t);
   if (calmPace) verify.push("calm_pace");
+  // Few stimuli: no loud, crowded or unpredictable activity (suitability.ts), and the writer keeps it calm and clear.
+  const quiet = /(rustig en voorspelbaar|weinig prikkels|quiet and predictable|few stimuli)/.test(t);
+  if (quiet) verify.push("quiet");
+  // How they want to take part. "Meet people" is a filter (a way to meet others) and a strong nudge; one other / a group are filters on the forms.
+  const meetPeople = /(mensen ontmoeten|nieuwe mensen|meet people|meet new people)/.test(t);
+  if (meetPeople) verify.push("meet_people");
+  const withOne = /(met (één|een|1) ander|with one other)/.test(t);
+  const withGroup = /(met een groep|with a group)/.test(t);
+  if (withOne) verify.push("with_one");
+  if (withGroup) verify.push("with_group");
   // Practical wishes of the start page: how to get there and when. No data in the library either, so they are checked, not filtered.
-  if (/(zonder auto|geen auto|openbaar vervoer|ov|without a car|no car|public transport|by train)/.test(t)) verify.push("transport");
+  if (/(zonder auto|geen auto|openbaar vervoer|\bov\b|without a car|no car|public transport|by train)/.test(t)) verify.push("transport");
   if (/weekend/.test(t)) verify.push("weekend");
   if (/(avond|evening)/.test(t)) verify.push("evening");
 
-  return { setting, noGroups, verify, ...(wheelchair ? { wheelchair } : {}), ...(youngKids ? { youngKids } : {}), ...(calmPace ? { calmPace } : {}) };
+  return { setting, noGroups, verify, ...(wheelchair ? { wheelchair } : {}), ...(youngKids ? { youngKids } : {}), ...(calmPace ? { calmPace } : {}),
+    ...(noAlcohol ? { noAlcohol } : {}),
+    ...(quiet ? { quiet } : {}),
+    ...(meetPeople ? { meetPeople } : {}),
+    ...(withOne ? { withOne } : {}),
+    ...(withGroup ? { withGroup } : {}),
+  };
 }
 
 export interface ResolveOptions {
@@ -77,8 +103,11 @@ export function resolveConstraints(input: EngineInput, opts: ResolveOptions = {}
   const must = parseMustHaves(input.mustHaves ?? "");
 
   const explicit = input.socialFormats.filter((f): f is SocialFormat => (SOCIAL_FORMATS as readonly string[]).includes(f));
+  // The start page chips "with one other" and "with a group" add their forms to what was stated explicitly.
+  const fromChips: SocialFormat[] = [...(must.withOne ? (["duo"] as const) : []), ...(must.withGroup ? (["small_group", "large_group"] as const) : [])];
+  const wanted = [...new Set([...explicit, ...fromChips])];
   // "No preference" and "depends on the day" (or nothing chosen) impose nothing.
-  const formats = explicit.length > 0 ? explicit : null;
+  const formats = wanted.length > 0 ? wanted : null;
 
   const costCap = COST_CAP[input.budget] ?? 2;
 
@@ -99,6 +128,9 @@ export function resolveConstraints(input: EngineInput, opts: ResolveOptions = {}
     ...(must.youngKids ? { youngKids: true } : {}),
     ...(must.wheelchair ? { wheelchair: true } : {}),
     ...(must.calmPace ? { calmPace: true } : {}),
+    ...(must.noAlcohol ? { noAlcohol: true } : {}),
+    ...(must.quiet ? { quiet: true } : {}),
+    ...(must.meetPeople ? { meetPeople: true } : {}),
     ...(opts.strictFreeCost ? { strictFreeCost: true } : {}),
   };
 }
@@ -125,6 +157,9 @@ export function passesConstraints(a: Activity, c: ResolvedConstraints): FilterRe
   if (c.youngKids && unsuitableForYoungKids(a)) return no;
   if (c.wheelchair && unsuitableForWheelchair(a)) return no;
   if (c.calmPace && unsuitableForCalmPace(a)) return no;
+  if (c.noAlcohol && unsuitableWithoutAlcohol(a)) return no;
+  if (c.quiet && unsuitableForQuiet(a)) return no;
+  if (c.meetPeople && unsuitableForMeeting(a)) return no;
 
   if (a.cost === null) {
     // Unknown is not "free": with the strict rule nobody who asked for free is offered something we cannot vouch for.

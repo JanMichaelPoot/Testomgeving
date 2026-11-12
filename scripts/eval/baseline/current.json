@@ -56,13 +56,13 @@
    "wildcard:wildcard:korte-film"
   ],
   "P07": [
+   "familiar:natural:dineren-in-het-donker",
    "familiar:natural:koffie-thee",
-   "familiar:natural:streek-weekend",
-   "adjacent:discovery:musea",
-   "adjacent:discovery:vuur-maken",
-   "unexpected:unexpected:bier-brouwen",
-   "stretch:stretch:hardlopen",
-   "wildcard:wildcard:groundhoppen"
+   "adjacent:discovery:archief",
+   "adjacent:discovery:retrogaming",
+   "unexpected:unexpected:buitenplaats",
+   "stretch:stretch:paddenstoelen",
+   "wildcard:wildcard:abseilen"
   ],
   "P08": [
    "familiar:natural:capsule-garderobe",
@@ -113,10 +113,10 @@
    "familiar:natural:spionagespel",
    "familiar:natural:bandje-beginnen",
    "adjacent:discovery:pubquiz",
-   "adjacent:discovery:live-comedy",
+   "adjacent:discovery:mahjong",
    "unexpected:unexpected:wandelen",
    "stretch:stretch:open-source",
-   "wildcard:wildcard:familie-uitje"
+   "wildcard:wildcard:cricket-beginners"
   ],
   "P14": [
    "familiar:natural:nordic-walking",

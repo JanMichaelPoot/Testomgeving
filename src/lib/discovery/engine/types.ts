@@ -99,6 +99,15 @@ export interface ResolvedConstraints {
   wheelchair?: boolean;
   /** They want a calm pace (chip "Rustig tempo"): only gentle, unsupervised activities. */
   calmPace?: boolean;
+  /** They do not want alcohol (chip "Zonder alcohol"): what is about drinking stays out. */
+  noAlcohol?: boolean;
+  /** They want quiet and predictable (chip "Rustig en voorspelbaar"): no loud, crowded or supervised activity. */
+  quiet?: boolean;
+  /** They want to meet people (chip "Mensen ontmoeten"): only activities with a way to meet others, and those weigh heavier. */
+  meetPeople?: boolean;
+  /** The chips "Met één ander" and "Met een groep" (their forms are in `formats`; these two say which were asked, for the writer). */
+  withOne?: boolean;
+  withGroup?: boolean;
   /** B4: unknown cost does not pass a free budget (weights.strictFreeCost). Absent = the rule of before B4. */
   strictFreeCost?: boolean;
 }

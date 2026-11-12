@@ -106,3 +106,81 @@ export function unsuitableForWheelchair(a: Facets): boolean {
 export function unsuitableForCalmPace(a: Facets): boolean {
   return (a.intensity !== null && a.intensity > 1) || a.safety.tier === 2 || a.level === 2;
 }
+
+// --- no alcohol ---------------------------------------------------------------------------------------------------------------
+
+/** Activities that are about drinking alcohol: a brewing day, a wine tasting, a cocktail class, a bar night. Out when the person says "no alcohol". */
+export const ALCOHOL_CENTRAL: ReadonlySet<string> = new Set(ids(`bier-brouwen wijnproeverij cocktailworkshop kruidenlikeur luisterbar netwerkborrel casinoavond`));
+
+/**
+ * Activities where a drink is a side issue (a pub quiz, a jam session in a café). They stay in, flagged "alcohol" so the writer plans around
+ * it; this list only exists so a test can keep the two apart and the report can name them.
+ */
+export const ALCOHOL_SIDE: ReadonlySet<string> = new Set(ids(`pubquiz jamsessie folk-sessie pingpongbar pokeravond bingo-avond sjoelen streetfoodtour`));
+
+export function unsuitableWithoutAlcohol(a: Pick<Activity, "id">): boolean {
+  return ALCOHOL_CENTRAL.has(a.id);
+}
+
+// --- few stimuli (quiet and predictable) ---------------------------------------------------------------------------------------
+
+/** Loud, crowded or unpredictable: discos and festivals, open stages, motor and arcade noise, contact team sport, drum circles. */
+export const LOUD_OR_CROWDED: ReadonlySet<string> = new Set(
+  ids(`karaoke silent-disco rolschaatsdisco klein-festival lichtfestival nachtmarkt dj-workshop live-comedy variete pingpongbar jamsessie folk-sessie platenclub
+    swingdansen bingo-avond stand-up poetry-slam open-podium beatboxen rappen festival-vrijwilliger straatfeest drumcirkel djembe-trommelcirkel fanfare-orkest
+    drummen-leren trekkertrek zeepkistenrace karten quad-buggy lasergamen bowlen vr-arcade flipperkast pubquiz darten-pool larp paintball-airsoft teamsport
+    rugby-proeftraining handbal-vereniging waterpolo onderwaterhockey ijshockey boksles streetfoodtour modeshow musical-bezoek wielerwedstrijd-kijken
+    paardenrennen circusles bollywood pokeravond casinoavond schermen hema driftles circuitdag enduro-offroad jetski
+    netwerkborrel vriendschapsdaten murder-mystery`),
+);
+
+/**
+ * True when an activity does not fit "quiet and predictable": on the loud list, heavy exertion, needs supervision, or only ever done in a
+ * big group.
+ */
+export function unsuitableForQuiet(a: Facets): boolean {
+  if (LOUD_OR_CROWDED.has(a.id)) return true;
+  if (a.intensity === 3 || a.safety.tier === 2) return true;
+  return !!a.formats && a.formats.length > 0 && a.formats.every((f) => f === "large_group");
+}
+
+// --- meeting people and the way of taking part -------------------------------------------------------------------------------
+
+const MEETING_FORMS = ["drop_in_alone", "small_group", "large_group"] as const;
+const MEETING_WORLDS: ReadonlySet<string> = new Set(["together", "night", "society"]);
+
+/** True when a known set of forms offers no way to meet other people: alone, as a pair, or only with people you already know. */
+export function unsuitableForMeeting(a: Pick<Activity, "formats">): boolean {
+  return !!a.formats && a.formats.length > 0 && !a.formats.some((f) => (MEETING_FORMS as readonly string[]).includes(f));
+}
+
+/**
+ * How much an activity helps to meet people, as a nudge for the selection (positive = less likely): come alone and meet others is best,
+ * the worlds built around being together count extra, a group you must bring yourself counts least.
+ */
+export function meetingBias(a: Pick<Activity, "domain" | "formats">): number {
+  const f = a.formats ?? [];
+  let bias = f.includes("drop_in_alone") ? -0.35 : f.includes("large_group") ? -0.1 : 0.2;
+  if (MEETING_WORLDS.has(a.domain)) bias -= 0.2;
+  return bias;
+}
+
+// --- what the browser needs to know -------------------------------------------------------------------------------------------
+
+/** The needs an activity is known not to suit, computed on the server so the browser needs no safety or intensity data (concretePool.ts). */
+export type UnfitFlag = "young_kids" | "wheelchair" | "calm" | "alcohol" | "quiet" | "no_meet" | "no_duo" | "no_group";
+
+export function unfitFlags(a: Facets): UnfitFlag[] {
+  const f = a.formats;
+  const known = !!f && f.length > 0;
+  return [
+    ...(unsuitableForYoungKids(a) ? (["young_kids"] as const) : []),
+    ...(unsuitableForWheelchair(a) ? (["wheelchair"] as const) : []),
+    ...(unsuitableForCalmPace(a) ? (["calm"] as const) : []),
+    ...(unsuitableWithoutAlcohol(a) ? (["alcohol"] as const) : []),
+    ...(unsuitableForQuiet(a) ? (["quiet"] as const) : []),
+    ...(unsuitableForMeeting(a) ? (["no_meet"] as const) : []),
+    ...(known && !f!.includes("duo") ? (["no_duo"] as const) : []),
+    ...(known && !f!.some((x) => x === "small_group" || x === "large_group") ? (["no_group"] as const) : []),
+  ];
+}
