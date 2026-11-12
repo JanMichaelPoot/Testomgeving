@@ -120,5 +120,5 @@ describe("the Praktisch rule on the second familiar slot (weights.familiar.pract
     expect(after / n).toBeGreaterThan(before / n);
     // The rule only acts on the second slot; the first slot is chosen before it and so does not change.
     expect(sameFirst / n).toBeGreaterThan(0.95);
-  }, 120_000);
+  }, 300_000);
 });

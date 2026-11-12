@@ -47,6 +47,26 @@ const familyOf = (c: AssociationCardData) => c.family ?? c.id;
 export const GRACEFUL_FAMILIES: ReadonlySet<string> = new Set(gracefulJson.families);
 export const GRACEFUL_MIN = 5;
 
+/**
+ * Tastes that are easy to miss on a first set of 18 because few images carry them: history, speed, strategy and puzzles, technique and
+ * collecting. Every theme has a floor of its own (NICHE_MIN image families, as far as the pool has unseen ones), so somebody who loves
+ * puzzles or old maps can show it on the first set without pressing "Andere beelden" three times. A family belongs to a theme when it carries one
+ * of the tags strongly (NICHE_WEIGHT); the register floors and the axis repair still apply, so the page stays balanced.
+ */
+export const NICHE_THEMES: readonly { id: string; tags: readonly string[] }[] = [
+  { id: "history", tags: ["history"] },
+  { id: "speed", tags: ["speed"] },
+  { id: "strategy", tags: ["strategy", "puzzling"] },
+  { id: "technique", tags: ["technique", "collecting", "miniature"] },
+];
+export const NICHE_MIN = 1;
+/**
+ * A page holds the floor of only this many niche tastes, a different pair per visitor and per page ("Andere beelden" rotates them): four floors on
+ * every page took four of the 18 places from the broad tastes (measured: it helped the niche tastes and hurt the rest to the same extent).
+ */
+export const NICHE_PER_PAGE = 2;
+export const NICHE_WEIGHT = 0.6;
+
 export interface BatchOptions {
   /** One per session, kept in the draft. */
   seed: string;
@@ -67,6 +87,8 @@ export interface BatchOptions {
   prefer?: (card: AssociationCardData, index: number) => number;
   /** The graceful-theme floor; `null` switches it off (the default is GRACEFUL_FAMILIES with GRACEFUL_MIN). */
   theme?: { families: ReadonlySet<string>; min: number } | null;
+  /** The niche-taste floors (NICHE_THEMES); `null` switches them off. */
+  niche?: readonly { id: string; tags: readonly string[] }[] | null;
 }
 
 /** The lack of a list of families: how far it is from at least ENOUGH on each side of each axis, and from enough of every round. */
@@ -148,10 +170,24 @@ export function sampleBalancedBatch<T extends RegisteredCard>(cards: readonly T[
     freshOrdered = merged;
   }
   const theme = opts.theme === undefined ? { families: GRACEFUL_FAMILIES, min: GRACEFUL_MIN } : opts.theme;
-  const themeKept = theme ? keptFamilies.filter((f) => theme.families.has(f)).length : 0;
-  // The floor: the first (min - kept) unseen theme families go to the front of the order, so they are picked before anything else of their register.
-  const themeFront = theme ? [...freshOrdered, ...recycled].filter((f) => theme.families.has(f)).slice(0, Math.max(0, theme.min - themeKept)) : [];
-  const order = [...themeFront, ...[...freshOrdered, ...recycled].filter((f) => !themeFront.includes(f))];
+  // Every floor (the graceful theme and each niche taste) is a set of families and a minimum.
+  const niche = opts.niche === undefined ? NICHE_THEMES : opts.niche;
+  const floors: { families: ReadonlySet<string>; min: number }[] = [
+    ...(theme ? [theme] : []),
+    ...shuffled([...(niche ?? [])], mulberry32(hashSeed(`${opts.seed}:img:${refresh}:niche`))).slice(0, NICHE_PER_PAGE).map((t) => ({
+      families: new Set([...families.keys()].filter((f) => t.tags.some((tag) => (first(f).tagWeights[tag] ?? 0) >= NICHE_WEIGHT))),
+      min: NICHE_MIN,
+    })),
+  ].filter((f) => f.families.size > 0);
+  const keptIn = (floor: { families: ReadonlySet<string> }) => keptFamilies.filter((f) => floor.families.has(f)).length;
+  // The floor: the first (min - kept) unseen families of each floor go to the front of the order, so they are picked before anything else of their register.
+  const front: string[] = [];
+  for (const floor of floors) {
+    const have = keptIn(floor) + front.filter((f) => floor.families.has(f)).length;
+    const add = [...freshOrdered, ...recycled].filter((f) => floor.families.has(f) && !front.includes(f)).slice(0, Math.max(0, floor.min - have));
+    front.push(...add);
+  }
+  const order = [...front, ...[...freshOrdered, ...recycled].filter((f) => !front.includes(f))];
 
   const need = Math.max(0, Math.min(size - kept.length, order.length));
   const perRegister = Math.floor(size / REGISTERS.length);
@@ -175,13 +211,17 @@ export function sampleBalancedBatch<T extends RegisteredCard>(cards: readonly T[
   for (let guard = 0; guard < size * 3; guard++) {
     const now = lack([...keptFamilies, ...list]);
     if (now === 0) break;
-    const rest = order.filter((f) => !list.includes(f));
+    // Families shown on an earlier page only come back when the pool has run out of unseen ones: a repair never brings one back by itself.
+    const poolRanOut = freshOrdered.length + kept.length < size;
+    const rest = order.filter((f) => !list.includes(f) && (poolRanOut || !recycled.includes(f)));
+    // How many families each floor has on the page now (counted once per round of swaps, not per candidate).
+    const floorHave = floors.map((fl) => keptIn(fl) + list.filter((f) => fl.families.has(f)).length);
     let swapped = false;
     outer: for (const candidate of rest) {
       for (let i = list.length - 1; i >= 0; i--) {
         if (registerOf(list[i]) !== registerOf(candidate)) continue;
-        // A repair never takes the page below its graceful floor.
-        if (theme && theme.families.has(list[i]) && !theme.families.has(candidate) && themeKept + list.filter((f) => theme.families.has(f)).length <= theme.min) continue;
+        // A repair never takes the page below any floor (graceful theme or niche taste).
+        if (floors.some((fl, k) => fl.families.has(list[i]) && !fl.families.has(candidate) && floorHave[k] <= fl.min)) continue;
         const next = [...list];
         next[i] = candidate;
         if (lack([...keptFamilies, ...next]) < now) {

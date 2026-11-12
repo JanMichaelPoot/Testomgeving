@@ -15,6 +15,10 @@ import {
   MAX_IMAGE_PICKS,
   MIN_IMAGE_PICKS,
   MIN_PER_REGISTER,
+  NICHE_MIN,
+  NICHE_PER_PAGE,
+  NICHE_THEMES,
+  NICHE_WEIGHT,
   composeConcretePage,
   registerMix,
   sampleBalancedBatch,
@@ -295,5 +299,40 @@ describe("page 2: the concrete page that follows from page 1", () => {
     const slots = composeConcretePage(small, { seed: "small", profile: {}, mix: registerMix([]), exclude: small.slice(0, 15).map((a) => a.id) });
     expect(slots.length).toBeGreaterThan(10);
     expect(new Set(slots.map((s) => s.activity.id)).size).toBe(slots.length);
+  });
+});
+
+describe("the niche-taste floors on page 1", () => {
+  const familyOf = (c: { id: string; family?: string }) => c.family ?? c.id;
+  const strong = (c: RegisteredCard, tags: readonly string[]) => tags.some((t) => (c.tagWeights[t] ?? 0) >= NICHE_WEIGHT);
+
+  it("every niche taste has images to show (speed used to have none)", () => {
+    for (const t of NICHE_THEMES) {
+      const fams = new Set(cards.filter((c) => strong(c, t.tags)).map(familyOf));
+      expect(fams.size, t.id).toBeGreaterThanOrEqual(3);
+    }
+  });
+
+  it("holds the floor of NICHE_PER_PAGE tastes on every first set, and rotates which ones over visitors", () => {
+    const shownThemes = new Set<string>();
+    for (let i = 0; i < 80; i++) {
+      const b = sampleBalancedBatch(cards, { seed: `niche-${i}` });
+      expect(b).toHaveLength(IMAGES_PAGE_SIZE);
+      const covered = NICHE_THEMES.filter((t) => b.some((c) => strong(c, t.tags)));
+      // At least the floored tastes are on the page; the others may be there by chance.
+      expect(covered.length, `seed ${i}`).toBeGreaterThanOrEqual(NICHE_PER_PAGE * NICHE_MIN);
+      covered.forEach((t) => shownThemes.add(t.id));
+    }
+    expect(shownThemes.size).toBe(NICHE_THEMES.length);
+  });
+
+  it("never breaks the register floors or the graceful floor, and can be switched off", () => {
+    for (let i = 0; i < 40; i++) {
+      const b = sampleBalancedBatch(cards, { seed: `niche-floor-${i}` });
+      for (const r of REGISTERS) expect(b.filter((c) => c.register === r).length, `seed ${i} ${r}`).toBeGreaterThanOrEqual(Math.floor(IMAGES_PAGE_SIZE / REGISTERS.length));
+      expect(b.filter((c) => GRACEFUL_FAMILIES.has(familyOf(c))).length, `seed ${i}`).toBeGreaterThanOrEqual(GRACEFUL_MIN);
+    }
+    const off = sampleBalancedBatch(cards, { seed: "niche-off", niche: null });
+    expect(off).toHaveLength(IMAGES_PAGE_SIZE);
   });
 });

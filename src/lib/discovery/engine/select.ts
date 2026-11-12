@@ -9,6 +9,7 @@ import { assignLevels, practicality } from "@/lib/discovery/engine/levels";
 import { WEIGHTS_CURRENT, type Weights } from "@/lib/discovery/engine/weights";
 import { audienceBias, effectiveAgeCategory } from "@/lib/discovery/audience";
 import { meetingBias } from "@/lib/discovery/suitability";
+import { MAX_PER_CLUSTER, clusterOf } from "@/lib/discovery/clusters";
 
 // The selection engine. Six regular seeds in four directions, plus one wildcard:
 //   familiar x2   the pick itself, or a direct neighbour of it
@@ -142,9 +143,13 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   const used = new Set<string>();
   const domainCount = new Map<string, number>();
   const subUsed = new Set<string>();
+  // Kinds of activity that repeat across worlds (three dances, four walks): never more than MAX_PER_CLUSTER of one kind in a book (clusters.ts).
+  const clusterCount = new Map<string, number>();
 
   const canUse = (a: Activity, relax: 0 | 1 | 2) => {
     if (used.has(a.id)) return false;
+    const kind = clusterOf(a.id);
+    if (kind && (clusterCount.get(kind) ?? 0) >= MAX_PER_CLUSTER) return false;
     if ((domainCount.get(a.domain) ?? 0) >= (relax === 2 ? 3 : 2)) return false;
     if (relax === 0 && subUsed.has(a.sub)) return false;
     return true;
@@ -221,6 +226,8 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     used.add(a.id);
     domainCount.set(a.domain, (domainCount.get(a.domain) ?? 0) + 1);
     subUsed.add(a.sub);
+    const kind = clusterOf(a.id);
+    if (kind) clusterCount.set(kind, (clusterCount.get(kind) ?? 0) + 1);
   }
 
   type Cand<T = object> = { a: Activity; score: number } & T;

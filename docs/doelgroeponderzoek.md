@@ -195,3 +195,34 @@ Het berekende gemiddelde gaat van 83,2 naar 83,7 (na de P0-fixes; vooraf 82,8).
 - P16 (Alex) verbetert niet, want in de eerdere run was de netwerkborrel een uitschieter; met de chip kan die er niet meer in. Zijn werkelijke probleem ("sportief en cultureel" en geen actieve of culturele ideeën) is een smaak-, geen alcoholprobleem (P2).
 - P11 (Bram) verbetert nauwelijks: wat overblijft zijn dingen die de persona-maatstaf te druk vindt (tennis, detectivespellen) maar die rustig kunnen zijn. Echte "prikkelarm"-data (geluid, drukte, voorspelbaarheid per activiteit) bestaat niet; de lijst is een eerste stap.
 - De lijsten (alcohol, luid of druk) zijn met de hand gemaakt en niet door een tweede persoon beoordeeld. Een nieuwe activiteit staat er niet vanzelf op.
+
+## I. Uitvoering van de P2-fixes (Stap 169)
+
+Gemeten zoals in sectie G en H (`scripts/audience-research.ts`, 30 sessies per persona, zelfde seeds). Uitgegeven: $0,40 aan Gemini voor 27 beelden (akkoord vooraf). Geen echte boeken genomen (Jan koos "Geen"), dus het derde P2-punt, de presentatie per doelgroep, **blijft onbeoordeeld**.
+
+**1. Herhaling van een cluster in één boek.** Het onderzoek zag drie dansen in een boek (swingdansen, dansen, historisch dansen). Ze zitten in drie verschillende sub-domeinen, dus de bestaande regel "één per sub-domein" zag ze niet. Nieuw: `src/lib/discovery/clusters.ts` met 14 handmatige clusters van dezelfde soort activiteit (dans, wandelen, sterren, archief, schrijven, tekenen, hout, muziek, foto, textiel, tafelspellen, escape, radio, dieren). De selectie laat er maximaal twee van een soort in een boek toe; de eigen keuzes van de bezoeker tellen mee maar worden nooit geweigerd. Gemeten: boeken met drie of meer van één soort 4,4% naar 0,8% (Mila 23% naar 0%; wat overblijft zijn eigen keuzes).
+
+**2. Standaardideeën.** Niet gebouwd, omdat de meting het verhaal uit sectie C corrigeert: "wandelen komt bij 12 van de 16 persona's voor" klinkt veel, maar het betekent dat het in minstens één van 30 sessies voorkwam. Gemeten als aandeel van **alle** 480 boeken staat wandelen in 8%, geocaching en kastelenroute in 6%. Dat is ruim boven het gemiddelde (ongeveer 1%) maar geen monocultuur. Na de clusterlimiet staat wandelen in 10% van de boeken: de limiet kiest de best passende uit een soort, en dat is vaak wandelen. Een dempend gewicht is dus mogelijk als Jan vindt dat 10% te veel is; ik heb het niet gebouwd zonder dat oordeel.
+
+**3. Eerste set van 18 beelden dekt niche-smaken niet.**
+- Snelheid had geen enkel beeld (de tag `speed` kwam in 163 families niet voor). Nieuw: 9 families van elk 3 varianten (27 beelden): snelheid (racebaan, startlichten, rondetijd, chroom en motor, gestroomlijnde vormen), geschiedenis (vestingmuur, oude kaart, zegel op oud papier) en techniek (radiomast). Gemaakt met `generate-discovery-illustrations.ts --associations --sheet 3x3`, precies de $0,40 uit de dry-run, alle 27 bekeken op twee contactvellen (geen mensen of handen; één zweefvliegtuig toont een heel klein stukje piloot en één scorebord een leesbare tabel, beide gelaten). De profieltekst (`profileStory`) kent nu ook "snelheid".
+- De eerste set (`sampleBalancedBatch`) houdt de vloer voor twee van vier niche-smaken (geschiedenis, snelheid, strategie en puzzels, techniek en verzamelen), een ander paar per bezoeker en per "Andere beelden"; de graceful-vloer en de registervloeren blijven. Vier vloeren tegelijk kostte vier van de 18 plaatsen en haalde net zoveel bij de brede smaken weg als het bij de niches won (gemeten); twee geeft het beste evenwicht.
+
+**Gemeten (aandeel sessies waarin de eerste set minstens vijf beelden naar de smaak bevat):**
+
+| Persona | Eerste set voor | Eerste set na |
+|---|---|---|
+| P02 Daan (snelheid, techniek) | 13% | 30% |
+| P11 Bram (puzzelen, strategie) | 7% | 30% |
+| P04 gezin met kleuters | 27% | 43% |
+| P10 Anouk (cultuur, taal) | 57% | 80% |
+| P13 Jan en Ria | 73% | 93% |
+| P06 Mark en Eva | 77% | 100% |
+| P08 Henk (gereedschap, techniek) | 53% | 30% |
+| P12 Priya | 87% | 70% |
+| P05 Joyce | 53% | 37% |
+| P16 Alex | 30% | 23% |
+
+Het gemiddelde over de 16 persona's gaat van 57% naar 59%, het aantal keren "Andere beelden" van 0,46 naar 0,44, het berekende totaal van 83,7 naar 83,9. **Dit is een verschuiving, geen winst voor iedereen**: wie een niche-smaak heeft wint duidelijk, een paar brede smaken (Henk, Priya, Joyce, Alex) verliezen plaatsen aan de nieuwe beelden. Of dat de goede ruil is, is aan Jan; terugdraaien kan met `niche: null` of door `NICHE_PER_PAGE` te verlagen.
+
+**Onderweg gevonden en hersteld.** De herstelstap in `sampleBalancedBatch` kon een familie terugbrengen die al op de vorige pagina stond, terwijl er genoeg nieuwe waren (zichtbaar in het hero-venster: dezelfde familie in de zichtbare ramen en in de reserve). Een herstel haalt nu alleen nog families die al getoond zijn terug als de pool op is.

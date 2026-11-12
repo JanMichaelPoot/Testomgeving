@@ -35,7 +35,7 @@
    "adjacent:discovery:oude-kaart-wandeling",
    "unexpected:unexpected:citizen-science",
    "stretch:stretch:wandelroute-cartograferen",
-   "wildcard:wildcard:detox"
+   "wildcard:wildcard:dertig-dagen"
   ],
   "P05": [
    "familiar:natural:potluck",
@@ -125,7 +125,7 @@
    "adjacent:discovery:bingo-avond",
    "unexpected:unexpected:telescoop",
    "stretch:stretch:ballroom",
-   "wildcard:wildcard:fanfare-orkest"
+   "wildcard:wildcard:zangles"
   ],
   "P15": [
    "familiar:natural:willekeurig-station",
@@ -143,7 +143,7 @@
    "adjacent:discovery:nachttrein",
    "unexpected:unexpected:geocaching",
    "stretch:stretch:triathlon-trainen",
-   "wildcard:wildcard:kruidenlikeur"
+   "wildcard:wildcard:high-tea"
   ],
   "P17": [
    "familiar:natural:stoomtrein",

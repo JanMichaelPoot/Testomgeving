@@ -6,6 +6,7 @@
 //   - It does NOT write the book (no text, no places, no links): the presentation is out of scope here.
 // Scores 1-10 per criterion are computed from the library facets of the selected activities, with the rules written next to each persona.
 //   npx tsx scripts/audience-research.ts [sessionsPerPersona]   (default 30; writes scratch/audience-results.json)
+import { clusterOf } from "@/lib/discovery/clusters";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { ASSOCIATIONS, associationsToEngineInput, hasOwnImage, activityAxes } from "../src/lib/discovery/associations";
 import { TAGS, getActivities, getActivity } from "../src/lib/discovery/library";
@@ -185,6 +186,8 @@ for (const p of PERSONAS) {
     for (const s of sessions) for (const x of s.seeds) { const a = getActivity(x.id)!; if (!p.stage(a) || !p.feasible(a) || (a.formats !== null && !p.social(a))) misses.set(x.id, (misses.get(x.id) ?? 0) + 1); }
     console.log(`${p.id} misses:`, [...misses.entries()].sort((a, b) => b[1] - a[1]).map(([id, n]) => `${id} ${n}`).join(", "));
   }
+  // Books with a cluster of the same kind (dances, walks, ...) three times or more: the "one idea said three times" problem (clusters.ts).
+  const clusterRepeat = avg(sessions.map((s) => { const c = new Map<string, number>(); for (const x of s.seeds) { const k = clusterOf(x.id); if (k) c.set(k, (c.get(k) ?? 0) + 1); } return Math.max(0, ...c.values()) >= 3 ? 1 : 0; }));
   const subRepeat = avg(sessions.map((s) => { const c = new Map<string, number>(); for (const x of s.seeds) { const sub = getActivity(x.id)!.sub; c.set(sub, (c.get(sub) ?? 0) + 1); } return Math.max(...c.values()); }));
   const socialRate = avg(sessions.map((s) => s.seeds.reduce((t, x) => { const a = getActivity(x.id)!; return t + (a.formats === null ? 0.5 : p.social(a) ? 1 : 0); }, 0) / Math.max(1, s.seeds.length)));
   const feasibleRate = rate((_, a) => p.feasible(a));
@@ -210,7 +213,7 @@ for (const p of PERSONAS) {
   const tier2 = avg(sessions.map((s) => (s.seeds.some((x) => x.tier === 2) ? 1 : 0)));
   const verifyAcc = avg(sessions.map((s) => (s.seeds.some((x) => x.verify.includes("accessibility")) ? 1 : 0)));
   const distinct = new Set(sessions.flatMap((s) => s.seeds.map((x) => x.id))).size;
-  out.push({ registers: Object.fromEntries(Object.entries(regAvg).map(([k, v]) => [k, Math.round(v * 10) / 10])), persona: p.id, label: p.label, who: p.who, needs: p.needs, context: p.context, mustHaves: p.mustHaves, budget: p.budget, time: p.time, rates: { firstSetOk, avgRefresh, avgPickHits, interestLoose, mismatch, subRepeat, stageRate, interestRate, socialRate, feasibleRate, originalRate, diversityRate, relevanceAuto }, scores, total, failed, tier2Share: tier2, verifyAccessibilityShare: verifyAcc, distinctActivitiesOverSessions: distinct, manualRelevance: manual, relevanceAutoScore: score(relevanceAuto), representative: sessions[0], top: [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([id, n]) => `${id} ${Math.round((n / N) * 100)}%`), directionMix: Object.fromEntries(["familiar", "adjacent", "unexpected", "stretch", "wildcard", "explore"].map((d) => [d, Math.round(avg(sessions.map((s) => s.seeds.filter((x) => x.direction === d).length)) * 10) / 10])) });
+  out.push({ registers: Object.fromEntries(Object.entries(regAvg).map(([k, v]) => [k, Math.round(v * 10) / 10])), persona: p.id, label: p.label, who: p.who, needs: p.needs, context: p.context, mustHaves: p.mustHaves, budget: p.budget, time: p.time, rates: { clusterRepeat, firstSetOk, avgRefresh, avgPickHits, interestLoose, mismatch, subRepeat, stageRate, interestRate, socialRate, feasibleRate, originalRate, diversityRate, relevanceAuto }, scores, total, failed, tier2Share: tier2, verifyAccessibilityShare: verifyAcc, distinctActivitiesOverSessions: distinct, manualRelevance: manual, relevanceAutoScore: score(relevanceAuto), representative: sessions[0], top: [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([id, n]) => `${id} ${Math.round((n / N) * 100)}%`), directionMix: Object.fromEntries(["familiar", "adjacent", "unexpected", "stretch", "wildcard", "explore"].map((d) => [d, Math.round(avg(sessions.map((s) => s.seeds.filter((x) => x.direction === d).length)) * 10) / 10])) });
 }
 
 // overlap: how many personas get the same activity at least once, and the pairwise Jaccard of their top-20 sets
@@ -219,7 +222,11 @@ const jac = (a: Set<string>, b: Set<string>) => [...a].filter((x) => b.has(x)).l
 const pairs: { a: string; b: string; j: number }[] = [];
 for (let i = 0; i < PERSONAS.length; i++) for (let j = i + 1; j < PERSONAS.length; j++) pairs.push({ a: PERSONAS[i].id, b: PERSONAS[j].id, j: Math.round(jac(top(PERSONAS[i].id), top(PERSONAS[j].id)) * 100) / 100 });
 pairs.sort((x, y) => y.j - x.j);
-const everywhere = [...freq.entries()].filter(([, s]) => s.size >= 8).sort((a, b) => b[1].size - a[1].size).map(([id, s]) => `${id} (${s.size} van ${PERSONAS.length})`);
+// Share of ALL books (every persona, every session) that contain the activity: the honest measure of a "standard idea".
+const bookShare = new Map<string, number>();
+for (const m of sessionCount.values()) for (const [id, n] of m) bookShare.set(id, (bookShare.get(id) ?? 0) + n);
+const totalBooks = PERSONAS.length * N;
+const everywhere = [...bookShare.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12).map(([id, n]) => `${id} (${Math.round((n / totalBooks) * 100)}% van alle boeken, ${freq.get(id)!.size} van ${PERSONAS.length} persona's)`);
 
 mkdirSync("scratch", { recursive: true });
 writeFileSync("scratch/audience-results.json", JSON.stringify({ n: N, month: MONTH, weights: WEIGHTS, personas: out, topPairs: pairs.slice(0, 10), everywhere }, null, 1));

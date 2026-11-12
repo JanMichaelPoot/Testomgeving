@@ -11683,5 +11683,653 @@
       "novelty": 0.1
     },
     "status": "concept"
+  },
+  {
+    "id": "place-race-track",
+    "family": "place-race-track",
+    "round": "places",
+    "label": {
+      "nl": "Een lege racebaan in de ochtend",
+      "en": "An empty race track in the morning"
+    },
+    "scene": "A long empty asphalt race track at sunrise, red and white kerbs, faint tyre marks in the curve, mist over the infield, no cars.",
+    "image": "/illustrations/associations/place-race-track.jpg",
+    "tagWeights": {
+      "speed": 1,
+      "competition": 0.6,
+      "outdoors": 0.7,
+      "challenge": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.8,
+      "setting": 0.8,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-race-track-b",
+    "family": "place-race-track",
+    "round": "places",
+    "label": {
+      "nl": "Een lege racebaan in de ochtend",
+      "en": "An empty race track in the morning"
+    },
+    "scene": "A banked racing circuit seen from the top of the stand, a ribbon of grey asphalt curving into the distance, flags hanging still.",
+    "image": "/illustrations/associations/place-race-track-b.jpg",
+    "tagWeights": {
+      "speed": 1,
+      "competition": 0.6,
+      "outdoors": 0.7,
+      "challenge": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.8,
+      "setting": 0.8,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-race-track-c",
+    "family": "place-race-track",
+    "round": "places",
+    "label": {
+      "nl": "Een lege racebaan in de ochtend",
+      "en": "An empty race track in the morning"
+    },
+    "scene": "A straight of a race track with a painted finish line and a row of orange cones, long shadows, early light.",
+    "image": "/illustrations/associations/place-race-track-c.jpg",
+    "tagWeights": {
+      "speed": 1,
+      "competition": 0.6,
+      "outdoors": 0.7,
+      "challenge": 0.5
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0.8,
+      "setting": 0.8,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-fortress-wall",
+    "family": "place-fortress-wall",
+    "round": "places",
+    "label": {
+      "nl": "Een eeuwenoude vestingmuur",
+      "en": "A centuries-old fortress wall"
+    },
+    "scene": "A weathered brick fortress wall with a round tower and a moat, low autumn sun, grass on the rampart.",
+    "image": "/illustrations/associations/place-fortress-wall.jpg",
+    "tagWeights": {
+      "history": 1,
+      "discovery": 0.6,
+      "outdoors": 0.6,
+      "story": 0.5
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.1,
+      "setting": 0.9,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-fortress-wall-b",
+    "family": "place-fortress-wall",
+    "round": "places",
+    "label": {
+      "nl": "Een eeuwenoude vestingmuur",
+      "en": "A centuries-old fortress wall"
+    },
+    "scene": "A stone gateway in an old town wall with a worn cobbled passage and a wooden door, warm evening light.",
+    "image": "/illustrations/associations/place-fortress-wall-b.jpg",
+    "tagWeights": {
+      "history": 1,
+      "discovery": 0.6,
+      "outdoors": 0.6,
+      "story": 0.5
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.1,
+      "setting": 0.9,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-fortress-wall-c",
+    "family": "place-fortress-wall",
+    "round": "places",
+    "label": {
+      "nl": "Een eeuwenoude vestingmuur",
+      "en": "A centuries-old fortress wall"
+    },
+    "scene": "A long rampart walk along a medieval city wall, moss on the stone, a bare tree, soft haze.",
+    "image": "/illustrations/associations/place-fortress-wall-c.jpg",
+    "tagWeights": {
+      "history": 1,
+      "discovery": 0.6,
+      "outdoors": 0.6,
+      "story": 0.5
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.1,
+      "setting": 0.9,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-radio-mast",
+    "family": "place-radio-mast",
+    "round": "places",
+    "label": {
+      "nl": "Een radiomast boven het land",
+      "en": "A radio mast above the land"
+    },
+    "scene": "A tall steel lattice radio mast against a pale evening sky, red warning light on top, a small equipment hut at its base.",
+    "image": "/illustrations/associations/place-radio-mast.jpg",
+    "tagWeights": {
+      "technique": 1,
+      "discovery": 0.5,
+      "outdoors": 0.5,
+      "precision": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": 0.1,
+      "setting": 0.7,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-radio-mast-b",
+    "family": "place-radio-mast",
+    "round": "places",
+    "label": {
+      "nl": "Een radiomast boven het land",
+      "en": "A radio mast above the land"
+    },
+    "scene": "A hilltop with a row of antennas and a satellite dish, wind-bent grass, clouds moving fast.",
+    "image": "/illustrations/associations/place-radio-mast-b.jpg",
+    "tagWeights": {
+      "technique": 1,
+      "discovery": 0.5,
+      "outdoors": 0.5,
+      "precision": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": 0.1,
+      "setting": 0.7,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "place-radio-mast-c",
+    "family": "place-radio-mast",
+    "round": "places",
+    "label": {
+      "nl": "Een radiomast boven het land",
+      "en": "A radio mast above the land"
+    },
+    "scene": "A workshop shelf of old radio sets with glowing valve dials, wood cases and brass knobs, dim warm light.",
+    "image": "/illustrations/associations/place-radio-mast-c.jpg",
+    "tagWeights": {
+      "technique": 1,
+      "discovery": 0.5,
+      "outdoors": 0.5,
+      "precision": 0.4
+    },
+    "axes": {
+      "social": -0.5,
+      "energy": 0.1,
+      "setting": 0.7,
+      "novelty": 0.3
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-start-lights",
+    "family": "moment-start-lights",
+    "round": "moments",
+    "label": {
+      "nl": "De lampjes vlak voor de start",
+      "en": "The lights just before the start"
+    },
+    "scene": "A row of five red starting lights glowing above an empty racing grid, a moment before they go out, dusk.",
+    "image": "/illustrations/associations/moment-start-lights.jpg",
+    "tagWeights": {
+      "speed": 1,
+      "suspense": 0.8,
+      "competition": 0.7,
+      "focus": 0.4
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": 0.7,
+      "setting": 0.4,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-start-lights-b",
+    "family": "moment-start-lights",
+    "round": "moments",
+    "label": {
+      "nl": "De lampjes vlak voor de start",
+      "en": "The lights just before the start"
+    },
+    "scene": "A starting gate on a race track with a chequered line painted on the asphalt and a green light about to turn on.",
+    "image": "/illustrations/associations/moment-start-lights-b.jpg",
+    "tagWeights": {
+      "speed": 1,
+      "suspense": 0.8,
+      "competition": 0.7,
+      "focus": 0.4
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": 0.7,
+      "setting": 0.4,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-start-lights-c",
+    "family": "moment-start-lights",
+    "round": "moments",
+    "label": {
+      "nl": "De lampjes vlak voor de start",
+      "en": "The lights just before the start"
+    },
+    "scene": "A traffic-light style start tree with amber lights lit, an empty drag strip stretching into the haze.",
+    "image": "/illustrations/associations/moment-start-lights-c.jpg",
+    "tagWeights": {
+      "speed": 1,
+      "suspense": 0.8,
+      "competition": 0.7,
+      "focus": 0.4
+    },
+    "axes": {
+      "social": 0.2,
+      "energy": 0.7,
+      "setting": 0.4,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-map-unrolled",
+    "family": "moment-map-unrolled",
+    "round": "moments",
+    "label": {
+      "nl": "Een oude kaart die wordt uitgerold",
+      "en": "An old map being unrolled"
+    },
+    "scene": "A large yellowed map unrolled on an oak table, weighted at the corners with brass paperweights, a magnifying glass beside it.",
+    "image": "/illustrations/associations/moment-map-unrolled.jpg",
+    "tagWeights": {
+      "history": 0.9,
+      "discovery": 0.9,
+      "story": 0.6,
+      "collecting": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.2,
+      "setting": -0.6,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-map-unrolled-b",
+    "family": "moment-map-unrolled",
+    "round": "moments",
+    "label": {
+      "nl": "Een oude kaart die wordt uitgerold",
+      "en": "An old map being unrolled"
+    },
+    "scene": "An antique sea chart spread across a desk, faded coastlines and compass roses, lamp light.",
+    "image": "/illustrations/associations/moment-map-unrolled-b.jpg",
+    "tagWeights": {
+      "history": 0.9,
+      "discovery": 0.9,
+      "story": 0.6,
+      "collecting": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.2,
+      "setting": -0.6,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-map-unrolled-c",
+    "family": "moment-map-unrolled",
+    "round": "moments",
+    "label": {
+      "nl": "Een oude kaart die wordt uitgerold",
+      "en": "An old map being unrolled"
+    },
+    "scene": "A rolled map tube and a flat map of an old city on a drawing table, pencil and ruler beside it, window light.",
+    "image": "/illustrations/associations/moment-map-unrolled-c.jpg",
+    "tagWeights": {
+      "history": 0.9,
+      "discovery": 0.9,
+      "story": 0.6,
+      "collecting": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": -0.2,
+      "setting": -0.6,
+      "novelty": 0.4
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-lap-timer",
+    "family": "moment-lap-timer",
+    "round": "moments",
+    "label": {
+      "nl": "De tijd die net op de klok staat",
+      "en": "The time that just appeared on the clock"
+    },
+    "scene": "A stopwatch showing a split time on a pit wall, a clipboard of lap times beside it, harsh daylight.",
+    "image": "/illustrations/associations/moment-lap-timer.jpg",
+    "tagWeights": {
+      "speed": 0.9,
+      "precision": 0.8,
+      "competition": 0.7,
+      "technique": 0.4
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.5,
+      "setting": 0,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-lap-timer-b",
+    "family": "moment-lap-timer",
+    "round": "moments",
+    "label": {
+      "nl": "De tijd die net op de klok staat",
+      "en": "The time that just appeared on the clock"
+    },
+    "scene": "A large digital scoreboard showing lap times in red numerals above an empty track, blue hour.",
+    "image": "/illustrations/associations/moment-lap-timer-b.jpg",
+    "tagWeights": {
+      "speed": 0.9,
+      "precision": 0.8,
+      "competition": 0.7,
+      "technique": 0.4
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.5,
+      "setting": 0,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "moment-lap-timer-c",
+    "family": "moment-lap-timer",
+    "round": "moments",
+    "label": {
+      "nl": "De tijd die net op de klok staat",
+      "en": "The time that just appeared on the clock"
+    },
+    "scene": "An old analogue stopwatch lying on a table next to a printed list of race results, soft focus.",
+    "image": "/illustrations/associations/moment-lap-timer-c.jpg",
+    "tagWeights": {
+      "speed": 0.9,
+      "precision": 0.8,
+      "competition": 0.7,
+      "technique": 0.4
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": 0.5,
+      "setting": 0,
+      "novelty": 0.2
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-chrome-engine",
+    "family": "sense-chrome-engine",
+    "round": "senses",
+    "label": {
+      "nl": "Glanzend chroom en een warme motor",
+      "en": "Gleaming chrome and a warm engine"
+    },
+    "scene": "A polished chrome motorcycle engine with exhaust pipes, reflecting a garage's strip lights, a few oil drops on the concrete.",
+    "image": "/illustrations/associations/sense-chrome-engine.jpg",
+    "tagWeights": {
+      "speed": 0.9,
+      "technique": 0.8,
+      "precision": 0.5,
+      "retro": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0.5,
+      "setting": -0.4,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-chrome-engine-b",
+    "family": "sense-chrome-engine",
+    "round": "senses",
+    "label": {
+      "nl": "Glanzend chroom en een warme motor",
+      "en": "Gleaming chrome and a warm engine"
+    },
+    "scene": "The open bonnet of a vintage racing car, brass and steel, a polishing cloth draped over the edge, workshop light.",
+    "image": "/illustrations/associations/sense-chrome-engine-b.jpg",
+    "tagWeights": {
+      "speed": 0.9,
+      "technique": 0.8,
+      "precision": 0.5,
+      "retro": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0.5,
+      "setting": -0.4,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-chrome-engine-c",
+    "family": "sense-chrome-engine",
+    "round": "senses",
+    "label": {
+      "nl": "Glanzend chroom en een warme motor",
+      "en": "Gleaming chrome and a warm engine"
+    },
+    "scene": "A row of gleaming exhaust pipes and a fuel cap on a sports bike, close view, shallow focus.",
+    "image": "/illustrations/associations/sense-chrome-engine-c.jpg",
+    "tagWeights": {
+      "speed": 0.9,
+      "technique": 0.8,
+      "precision": 0.5,
+      "retro": 0.4
+    },
+    "axes": {
+      "social": -0.3,
+      "energy": 0.5,
+      "setting": -0.4,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-streamlined",
+    "family": "sense-streamlined",
+    "round": "senses",
+    "label": {
+      "nl": "Gestroomlijnde, snelle vormen",
+      "en": "Streamlined, fast shapes"
+    },
+    "scene": "A sleek low sports car body in silver, the long curve of the roof catching the light, motion-blurred road behind it.",
+    "image": "/illustrations/associations/sense-streamlined.jpg",
+    "tagWeights": {
+      "speed": 1,
+      "style": 0.6,
+      "movement": 0.5,
+      "technique": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.7,
+      "setting": 0.2,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-streamlined-b",
+    "family": "sense-streamlined",
+    "round": "senses",
+    "label": {
+      "nl": "Gestroomlijnde, snelle vormen",
+      "en": "Streamlined, fast shapes"
+    },
+    "scene": "The needle-shaped nose of a racing sailboat hull skimming over water, spray on both sides, bright sun.",
+    "image": "/illustrations/associations/sense-streamlined-b.jpg",
+    "tagWeights": {
+      "speed": 1,
+      "style": 0.6,
+      "movement": 0.5,
+      "technique": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.7,
+      "setting": 0.2,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-streamlined-c",
+    "family": "sense-streamlined",
+    "round": "senses",
+    "label": {
+      "nl": "Gestroomlijnde, snelle vormen",
+      "en": "Streamlined, fast shapes"
+    },
+    "scene": "A glider with long thin wings seen from the side above a green valley, clean white lines against blue sky.",
+    "image": "/illustrations/associations/sense-streamlined-c.jpg",
+    "tagWeights": {
+      "speed": 1,
+      "style": 0.6,
+      "movement": 0.5,
+      "technique": 0.4
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": 0.7,
+      "setting": 0.2,
+      "novelty": 0.5
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-wax-seal",
+    "family": "sense-wax-seal",
+    "round": "senses",
+    "label": {
+      "nl": "Een zegel in rode lak op oud papier",
+      "en": "A seal of red wax on old paper"
+    },
+    "scene": "A folded letter closed with a red wax seal and a brass stamp beside it, a quill and an inkwell, candle light.",
+    "image": "/illustrations/associations/sense-wax-seal.jpg",
+    "tagWeights": {
+      "history": 0.9,
+      "story": 0.7,
+      "collecting": 0.6,
+      "craft": 0.4
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-wax-seal-b",
+    "family": "sense-wax-seal",
+    "round": "senses",
+    "label": {
+      "nl": "Een zegel in rode lak op oud papier",
+      "en": "A seal of red wax on old paper"
+    },
+    "scene": "A bundle of old letters tied with string on a wooden desk, one open to show brown ink writing, soft window light.",
+    "image": "/illustrations/associations/sense-wax-seal-b.jpg",
+    "tagWeights": {
+      "history": 0.9,
+      "story": 0.7,
+      "collecting": 0.6,
+      "craft": 0.4
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
+  },
+  {
+    "id": "sense-wax-seal-c",
+    "family": "sense-wax-seal",
+    "round": "senses",
+    "label": {
+      "nl": "Een zegel in rode lak op oud papier",
+      "en": "A seal of red wax on old paper"
+    },
+    "scene": "A tray of antique stamps, coins and a magnifier on green felt, a lamp casting a warm pool of light.",
+    "image": "/illustrations/associations/sense-wax-seal-c.jpg",
+    "tagWeights": {
+      "history": 0.9,
+      "story": 0.7,
+      "collecting": 0.6,
+      "craft": 0.4
+    },
+    "axes": {
+      "social": -0.6,
+      "energy": -0.7,
+      "setting": -1,
+      "novelty": 0.1
+    },
+    "status": "concept"
   }
 ]

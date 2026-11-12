@@ -893,6 +893,15 @@
     "moment-first-build": "technical",
     "moment-puzzle-solved-together": "technical",
     "sense-chalk-dust": "technical",
-    "sense-dice-clatter": "technical"
+    "sense-dice-clatter": "technical",
+    "place-race-track": "technical",
+    "place-fortress-wall": "nature",
+    "place-radio-mast": "technical",
+    "moment-start-lights": "technical",
+    "moment-map-unrolled": "nature",
+    "moment-lap-timer": "technical",
+    "sense-chrome-engine": "technical",
+    "sense-streamlined": "expressive",
+    "sense-wax-seal": "nurturing"
   }
 }

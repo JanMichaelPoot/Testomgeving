@@ -1158,5 +1158,53 @@
   "gezelligheid": 0.7,
   "speelsheid": 0.4,
   "spanning": 0.4
+ },
+ "place-race-track": {
+  "snelheid": 1.0,
+  "spanning": 0.7,
+  "concentratie": 0.4
+ },
+ "place-fortress-wall": {
+  "geschiedenis": 1.0,
+  "ontdekking": 0.7,
+  "stilte": 0.4
+ },
+ "place-radio-mast": {
+  "technologie": 1.0,
+  "precisie": 0.7,
+  "ontdekking": 0.4
+ },
+ "moment-start-lights": {
+  "snelheid": 1.0,
+  "spanning": 1.0,
+  "concentratie": 0.4
+ },
+ "moment-map-unrolled": {
+  "geschiedenis": 1.0,
+  "ontdekking": 1.0,
+  "papier": 0.7,
+  "nostalgie": 0.4
+ },
+ "moment-lap-timer": {
+  "snelheid": 1.0,
+  "precisie": 0.7,
+  "spanning": 0.7
+ },
+ "sense-chrome-engine": {
+  "snelheid": 1.0,
+  "metaal": 1.0,
+  "precisie": 0.4,
+  "vakmanschap": 0.4
+ },
+ "sense-streamlined": {
+  "snelheid": 1.0,
+  "motoriek": 0.4,
+  "technologie": 0.4
+ },
+ "sense-wax-seal": {
+  "geschiedenis": 1.0,
+  "papier": 1.0,
+  "nostalgie": 0.7,
+  "vakmanschap": 0.4
  }
 }
