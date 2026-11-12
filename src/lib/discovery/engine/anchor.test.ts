@@ -13,6 +13,9 @@ import { buildGraph } from "@/lib/discovery/engine/graph";
 
 const lib = defaultEngineLibrary();
 const profiles = syntheticTwoPageProfiles(60, "anchor-test");
+// "The anchor model off": WEIGHTS_V2 with the same hub damping (weights.hub, Stap 171) the production set has. The tests below are about the anchor
+// model changing nothing for visitors it does not apply to, so the one other difference between the two sets is held equal.
+const WITHOUT_ANCHOR = { ...WEIGHTS_V2, hub: WEIGHTS_ANCHOR.hub };
 
 const usable = (id: string, result: ReturnType<typeof selectSeeds>) => {
   const a = getActivity(id);
@@ -28,7 +31,7 @@ describe("the anchor model", () => {
 
   it("puts min(4, usable choices) of the person's own choices in the book, seven ideas, one wildcard", () => {
     for (const p of profiles) {
-      const off = selectSeeds(p.input, lib, { weights: WEIGHTS_V2 });
+      const off = selectSeeds(p.input, lib, { weights: WITHOUT_ANCHOR });
       const on = selectSeeds(p.input, lib, { weights: WEIGHTS_ANCHOR });
       const own = [...new Set(p.input.interests)].filter((id) => usable(id, on));
       const inBook = own.filter((id) => on.seeds.some((s) => s.activityId === id)).length;
@@ -48,7 +51,7 @@ describe("the anchor model", () => {
   it("does not weaken the picks of the person who gave fewer than three", () => {
     const base = profiles[0];
     const few = { ...base.input, interests: base.input.interests.slice(0, 2) };
-    const off = selectSeeds(few, lib, { weights: WEIGHTS_V2 });
+    const off = selectSeeds(few, lib, { weights: WITHOUT_ANCHOR });
     const on = selectSeeds(few, lib, { weights: WEIGHTS_ANCHOR });
     expect(on.seeds.map((s) => s.activityId)).toEqual(off.seeds.map((s) => s.activityId));
   });
@@ -56,7 +59,7 @@ describe("the anchor model", () => {
   it("is only for choices the person made themselves: image-derived interests are not anchored", () => {
     const base = profiles.find((p) => p.input.interests.length >= 4)!;
     const derived = { ...base.input, explicitPicks: false };
-    const off = selectSeeds(derived, lib, { weights: WEIGHTS_V2 });
+    const off = selectSeeds(derived, lib, { weights: WITHOUT_ANCHOR });
     const on = selectSeeds(derived, lib, { weights: WEIGHTS_ANCHOR });
     expect(on.seeds.map((s) => s.activityId)).toEqual(off.seeds.map((s) => s.activityId));
   });
