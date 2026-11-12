@@ -818,7 +818,6 @@
       "en": "Print a historical map of your city and look for three places where something of it is left"
     },
     "scene": "an antique folded city map with a brass compass on a cobbled stone ledge",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

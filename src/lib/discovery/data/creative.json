@@ -5422,8 +5422,7 @@
       "en": "Cut a simple motif into a piece of lino and print it"
     },
     "scene": "a carved linoleum block beside an ink roller and a first print drying on a rack",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "batiken",
@@ -5460,8 +5459,7 @@
       "en": "Take a batik workshop or start with a kit of wax and dye on a cotton cloth"
     },
     "scene": "a cotton cloth with wax-resist patterns dipped in indigo, hung to dry on a line",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "djembe-trommelcirkel",
@@ -5497,8 +5495,7 @@
       "en": "Drop in at a drum circle or djembe workshop; the instruments are ready"
     },
     "scene": "a circle of wooden drums with goatskin heads on a bare floor in warm light",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "zichtbaar-herstellen",
@@ -5535,7 +5532,6 @@
       "en": "Mend a hole in a jumper with colourful stitches instead of invisibly"
     },
     "scene": "a worn knit jumper with a bright darned patch, wool in several colours and a darning mushroom",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

@@ -10829,7 +10829,7 @@
       "en": "A maker lab with a 3D printer and a soldering iron"
     },
     "scene": "A tidy makerspace bench with a small 3D printer mid-print, a soldering iron on its stand and spools of coloured filament, warm lamp light.",
-    "image": "/illustrations/associations/place-workshop.jpg",
+    "image": "/illustrations/associations/place-fab-lab.jpg",
     "tagWeights": {
       "making": 1,
       "technique": 0.8,
@@ -10853,7 +10853,7 @@
       "en": "A maker lab with a 3D printer and a soldering iron"
     },
     "scene": "A pegboard wall of neatly hung chisels, saws and pliers above a bench with a half-built wooden box, clamps and pencil marks, soft daylight from a skylight.",
-    "image": "/illustrations/associations/place-workshop.jpg",
+    "image": "/illustrations/associations/place-fab-lab-b.jpg",
     "tagWeights": {
       "making": 1,
       "technique": 0.8,
@@ -10877,7 +10877,7 @@
       "en": "A maker lab with a 3D printer and a soldering iron"
     },
     "scene": "A circuit board under a desk magnifier with tiny components, a coil of solder and a steaming mug beside it, evening light.",
-    "image": "/illustrations/associations/place-workshop.jpg",
+    "image": "/illustrations/associations/place-fab-lab-c.jpg",
     "tagWeights": {
       "making": 1,
       "technique": 0.8,
@@ -10901,7 +10901,7 @@
       "en": "A chess board in the middle of a cafe"
     },
     "scene": "A wooden chess board mid-game on a small cafe table, a cup of coffee at the side, warm window light.",
-    "image": "/illustrations/associations/place-card-table.jpg",
+    "image": "/illustrations/associations/place-chess-board.jpg",
     "tagWeights": {
       "strategy": 1,
       "puzzling": 0.7,
@@ -10912,7 +10912,7 @@
       "social": 0.3,
       "energy": -0.5,
       "setting": -0.9,
-      "novelty": 0.0
+      "novelty": 0
     },
     "status": "concept"
   },
@@ -10925,7 +10925,7 @@
       "en": "A chess board in the middle of a cafe"
     },
     "scene": "Close view of black and white chess pieces in a tense endgame, shallow focus, a pocket chess clock beside the board.",
-    "image": "/illustrations/associations/place-card-table.jpg",
+    "image": "/illustrations/associations/place-chess-board-b.jpg",
     "tagWeights": {
       "strategy": 1,
       "puzzling": 0.7,
@@ -10936,7 +10936,7 @@
       "social": 0.3,
       "energy": -0.5,
       "setting": -0.9,
-      "novelty": 0.0
+      "novelty": 0
     },
     "status": "concept"
   },
@@ -10949,7 +10949,7 @@
       "en": "A chess board in the middle of a cafe"
     },
     "scene": "A long table of unfinished board games in a quiet club room, tidy rows of boxes behind, lamp light.",
-    "image": "/illustrations/associations/place-card-table.jpg",
+    "image": "/illustrations/associations/place-chess-board-c.jpg",
     "tagWeights": {
       "strategy": 1,
       "puzzling": 0.7,
@@ -10960,7 +10960,7 @@
       "social": 0.3,
       "energy": -0.5,
       "setting": -0.9,
-      "novelty": 0.0
+      "novelty": 0
     },
     "status": "concept"
   },
@@ -10973,7 +10973,7 @@
       "en": "A dojo with mats in low sun"
     },
     "scene": "An empty dojo with worn tatami mats and a wooden floor, low sun slanting through a high window, a folded white belt at the edge.",
-    "image": "/illustrations/associations/place-dance-studio.jpg",
+    "image": "/illustrations/associations/place-dojo-mats.jpg",
     "tagWeights": {
       "technique": 1,
       "focus": 0.8,
@@ -10984,7 +10984,7 @@
       "social": 0.1,
       "energy": 0.4,
       "setting": -0.8,
-      "novelty": 0.0
+      "novelty": 0
     },
     "status": "concept"
   },
@@ -10997,7 +10997,7 @@
       "en": "A dojo with mats in low sun"
     },
     "scene": "A rack of wooden practice swords and a hanging calligraphy scroll on a plain dojo wall, calm light.",
-    "image": "/illustrations/associations/place-dance-studio.jpg",
+    "image": "/illustrations/associations/place-dojo-mats-b.jpg",
     "tagWeights": {
       "technique": 1,
       "focus": 0.8,
@@ -11008,7 +11008,7 @@
       "social": 0.1,
       "energy": 0.4,
       "setting": -0.8,
-      "novelty": 0.0
+      "novelty": 0
     },
     "status": "concept"
   },
@@ -11021,7 +11021,7 @@
       "en": "A dojo with mats in low sun"
     },
     "scene": "A pair of well-worn practice gloves and a rolled mat in the corner of a quiet training hall, late afternoon light.",
-    "image": "/illustrations/associations/place-dance-studio.jpg",
+    "image": "/illustrations/associations/place-dojo-mats-c.jpg",
     "tagWeights": {
       "technique": 1,
       "focus": 0.8,
@@ -11032,7 +11032,7 @@
       "social": 0.1,
       "energy": 0.4,
       "setting": -0.8,
-      "novelty": 0.0
+      "novelty": 0
     },
     "status": "concept"
   },
@@ -11045,7 +11045,7 @@
       "en": "A community garden with wooden planters"
     },
     "scene": "Raised wooden planters of lettuce, beans and marigolds in a shared city garden, a watering can and a row of boots, soft morning light.",
-    "image": "/illustrations/associations/place-peony-garden.jpg",
+    "image": "/illustrations/associations/place-community-garden.jpg",
     "tagWeights": {
       "caring": 1,
       "growing": 0.9,
@@ -11069,7 +11069,7 @@
       "en": "A community garden with wooden planters"
     },
     "scene": "A painted sign and a rain barrel at the gate of a community vegetable garden, sunflowers behind.",
-    "image": "/illustrations/associations/place-peony-garden.jpg",
+    "image": "/illustrations/associations/place-community-garden-b.jpg",
     "tagWeights": {
       "caring": 1,
       "growing": 0.9,
@@ -11093,7 +11093,7 @@
       "en": "A community garden with wooden planters"
     },
     "scene": "A wheelbarrow of fresh compost and a table with jars of seedlings on a communal garden plot, warm afternoon light.",
-    "image": "/illustrations/associations/place-peony-garden.jpg",
+    "image": "/illustrations/associations/place-community-garden-c.jpg",
     "tagWeights": {
       "caring": 1,
       "growing": 0.9,
@@ -11117,7 +11117,7 @@
       "en": "A wall full of clues and red string"
     },
     "scene": "A cork board of photos, maps and notes joined by red string, lit by a single desk lamp in a dark study.",
-    "image": "/illustrations/associations/moment-secret-door.jpg",
+    "image": "/illustrations/associations/place-clue-wall.jpg",
     "tagWeights": {
       "puzzling": 1,
       "suspense": 0.8,
@@ -11141,7 +11141,7 @@
       "en": "A wall full of clues and red string"
     },
     "scene": "An old wooden desk with a magnifying glass, a locked box, a brass key and scattered handwritten clues, moody warm light.",
-    "image": "/illustrations/associations/moment-secret-door.jpg",
+    "image": "/illustrations/associations/place-clue-wall-b.jpg",
     "tagWeights": {
       "puzzling": 1,
       "suspense": 0.8,
@@ -11165,7 +11165,7 @@
       "en": "A wall full of clues and red string"
     },
     "scene": "A narrow corridor with a heavy door and a mysterious symbol carved into the wall, lantern light.",
-    "image": "/illustrations/associations/moment-secret-door.jpg",
+    "image": "/illustrations/associations/place-clue-wall-c.jpg",
     "tagWeights": {
       "puzzling": 1,
       "suspense": 0.8,
@@ -11189,7 +11189,7 @@
       "en": "A pitch where a team comes together"
     },
     "scene": "An empty grass pitch with painted lines and a net in the early morning mist, a bag of balls at the centre circle.",
-    "image": "/illustrations/associations/place-arena-lights.jpg",
+    "image": "/illustrations/associations/place-pitch-huddle.jpg",
     "tagWeights": {
       "teamwork": 1,
       "play": 0.7,
@@ -11213,7 +11213,7 @@
       "en": "A pitch where a team comes together"
     },
     "scene": "A row of numbered bibs hung over a fence beside a muddy sports field in warm evening light.",
-    "image": "/illustrations/associations/place-arena-lights.jpg",
+    "image": "/illustrations/associations/place-pitch-huddle-b.jpg",
     "tagWeights": {
       "teamwork": 1,
       "play": 0.7,
@@ -11237,7 +11237,7 @@
       "en": "A pitch where a team comes together"
     },
     "scene": "A sports hall with a ball resting on the line and team benches along the wall, low sun through tall windows.",
-    "image": "/illustrations/associations/place-arena-lights.jpg",
+    "image": "/illustrations/associations/place-pitch-huddle-c.jpg",
     "tagWeights": {
       "teamwork": 1,
       "play": 0.7,
@@ -11261,7 +11261,7 @@
       "en": "The pass that lands"
     },
     "scene": "A ball in mid-air above a sunlit court with a net behind it, motion blur.",
-    "image": "/illustrations/associations/moment-dead-centre.jpg",
+    "image": "/illustrations/associations/moment-team-pass.jpg",
     "tagWeights": {
       "teamwork": 1,
       "play": 0.8,
@@ -11272,7 +11272,7 @@
       "social": 0.9,
       "energy": 0.9,
       "setting": 0.3,
-      "novelty": 0.0
+      "novelty": 0
     },
     "status": "concept"
   },
@@ -11285,7 +11285,7 @@
       "en": "The pass that lands"
     },
     "scene": "A relay baton passed in the golden light of a running track, motion blur.",
-    "image": "/illustrations/associations/moment-dead-centre.jpg",
+    "image": "/illustrations/associations/moment-team-pass-b.jpg",
     "tagWeights": {
       "teamwork": 1,
       "play": 0.8,
@@ -11296,7 +11296,7 @@
       "social": 0.9,
       "energy": 0.9,
       "setting": 0.3,
-      "novelty": 0.0
+      "novelty": 0
     },
     "status": "concept"
   },
@@ -11309,7 +11309,7 @@
       "en": "The pass that lands"
     },
     "scene": "A volleyball caught at the top of an arc against a bright sky over a net.",
-    "image": "/illustrations/associations/moment-dead-centre.jpg",
+    "image": "/illustrations/associations/moment-team-pass-c.jpg",
     "tagWeights": {
       "teamwork": 1,
       "play": 0.8,
@@ -11320,7 +11320,7 @@
       "social": 0.9,
       "energy": 0.9,
       "setting": 0.3,
-      "novelty": 0.0
+      "novelty": 0
     },
     "status": "concept"
   },
@@ -11333,7 +11333,7 @@
       "en": "Costume on, role taken"
     },
     "scene": "A velvet cloak and a feathered hat on a stand beside a lit mirror backstage, warm tungsten light.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-costume-on.jpg",
     "tagWeights": {
       "roleplay": 1,
       "performance": 0.8,
@@ -11357,7 +11357,7 @@
       "en": "Costume on, role taken"
     },
     "scene": "A painted leather mask, a prop sword and a script with pencil notes on a wooden table, soft side light.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-costume-on-b.jpg",
     "tagWeights": {
       "roleplay": 1,
       "performance": 0.8,
@@ -11381,7 +11381,7 @@
       "en": "Costume on, role taken"
     },
     "scene": "A rack of fantasy costumes with a crown on top, ready for a game night, warm light.",
-    "image": "/illustrations/associations/moment-curtain-rise.jpg",
+    "image": "/illustrations/associations/moment-costume-on-c.jpg",
     "tagWeights": {
       "roleplay": 1,
       "performance": 0.8,
@@ -11405,7 +11405,7 @@
       "en": "The first build that stands"
     },
     "scene": "A small wobbly wooden birdhouse just finished on a workbench, sawdust around it, warm raking light.",
-    "image": "/illustrations/associations/moment-piece-fits.jpg",
+    "image": "/illustrations/associations/moment-first-build.jpg",
     "tagWeights": {
       "making": 1,
       "technique": 0.7,
@@ -11413,7 +11413,7 @@
       "learning": 0.5
     },
     "axes": {
-      "social": 0.0,
+      "social": 0,
       "energy": 0.3,
       "setting": -0.4,
       "novelty": 0.4
@@ -11429,7 +11429,7 @@
       "en": "The first build that stands"
     },
     "scene": "A home-built bookshelf standing for the first time against a bare wall, a spirit level on top, soft daylight.",
-    "image": "/illustrations/associations/moment-piece-fits.jpg",
+    "image": "/illustrations/associations/moment-first-build-b.jpg",
     "tagWeights": {
       "making": 1,
       "technique": 0.7,
@@ -11437,7 +11437,7 @@
       "learning": 0.5
     },
     "axes": {
-      "social": 0.0,
+      "social": 0,
       "energy": 0.3,
       "setting": -0.4,
       "novelty": 0.4
@@ -11453,7 +11453,7 @@
       "en": "The first build that stands"
     },
     "scene": "A freshly assembled model bridge made of lollipop sticks holding up a small weight, close view, even light.",
-    "image": "/illustrations/associations/moment-piece-fits.jpg",
+    "image": "/illustrations/associations/moment-first-build-c.jpg",
     "tagWeights": {
       "making": 1,
       "technique": 0.7,
@@ -11461,7 +11461,7 @@
       "learning": 0.5
     },
     "axes": {
-      "social": 0.0,
+      "social": 0,
       "energy": 0.3,
       "setting": -0.4,
       "novelty": 0.4
@@ -11477,7 +11477,7 @@
       "en": "Finding the last clue together"
     },
     "scene": "A lock clicking open on an old chest, torch light spilling from inside onto a table of notes.",
-    "image": "/illustrations/associations/moment-secret-door.jpg",
+    "image": "/illustrations/associations/moment-puzzle-solved-together.jpg",
     "tagWeights": {
       "puzzling": 1,
       "teamwork": 0.8,
@@ -11501,7 +11501,7 @@
       "en": "Finding the last clue together"
     },
     "scene": "A table scattered with riddle cards, a magnifying glass and one card turned over, warm light.",
-    "image": "/illustrations/associations/moment-secret-door.jpg",
+    "image": "/illustrations/associations/moment-puzzle-solved-together-b.jpg",
     "tagWeights": {
       "puzzling": 1,
       "teamwork": 0.8,
@@ -11525,7 +11525,7 @@
       "en": "Finding the last clue together"
     },
     "scene": "A key turning in a wooden door at the end of a candlelit corridor, a hint of golden light.",
-    "image": "/illustrations/associations/moment-secret-door.jpg",
+    "image": "/illustrations/associations/moment-puzzle-solved-together-c.jpg",
     "tagWeights": {
       "puzzling": 1,
       "teamwork": 0.8,
@@ -11549,7 +11549,7 @@
       "en": "Chalk dust and a grip that holds"
     },
     "scene": "A cloud of white chalk dust hanging in warm gym light above a bucket of chalk.",
-    "image": "/illustrations/associations/sense-click-metal.jpg",
+    "image": "/illustrations/associations/sense-chalk-dust.jpg",
     "tagWeights": {
       "technique": 1,
       "movement": 0.8,
@@ -11557,7 +11557,7 @@
       "focus": 0.6
     },
     "axes": {
-      "social": 0.0,
+      "social": 0,
       "energy": 0.7,
       "setting": -0.2,
       "novelty": 0.2
@@ -11573,7 +11573,7 @@
       "en": "Chalk dust and a grip that holds"
     },
     "scene": "Colourful climbing holds with chalk marks on a bouldering wall, shallow focus, soft light.",
-    "image": "/illustrations/associations/sense-click-metal.jpg",
+    "image": "/illustrations/associations/sense-chalk-dust-b.jpg",
     "tagWeights": {
       "technique": 1,
       "movement": 0.8,
@@ -11581,7 +11581,7 @@
       "focus": 0.6
     },
     "axes": {
-      "social": 0.0,
+      "social": 0,
       "energy": 0.7,
       "setting": -0.2,
       "novelty": 0.2
@@ -11597,7 +11597,7 @@
       "en": "Chalk dust and a grip that holds"
     },
     "scene": "A chalked wooden beam and a pair of worn grips on a mat in low gym light, close view.",
-    "image": "/illustrations/associations/sense-click-metal.jpg",
+    "image": "/illustrations/associations/sense-chalk-dust-c.jpg",
     "tagWeights": {
       "technique": 1,
       "movement": 0.8,
@@ -11605,7 +11605,7 @@
       "focus": 0.6
     },
     "axes": {
-      "social": 0.0,
+      "social": 0,
       "energy": 0.7,
       "setting": -0.2,
       "novelty": 0.2
@@ -11621,7 +11621,7 @@
       "en": "Dice rolling across wood"
     },
     "scene": "Two dice caught mid-roll above a wooden table with a game board and little wooden pieces, warm lamp light.",
-    "image": "/illustrations/associations/sense-drumroll.jpg",
+    "image": "/illustrations/associations/sense-dice-clatter.jpg",
     "tagWeights": {
       "play": 1,
       "chance": 0.8,
@@ -11645,7 +11645,7 @@
       "en": "Dice rolling across wood"
     },
     "scene": "A pile of dice in different colours and a leather cup on a dark wooden table, close view, shallow focus.",
-    "image": "/illustrations/associations/sense-drumroll.jpg",
+    "image": "/illustrations/associations/sense-dice-clatter-b.jpg",
     "tagWeights": {
       "play": 1,
       "chance": 0.8,
@@ -11669,7 +11669,7 @@
       "en": "Dice rolling across wood"
     },
     "scene": "A handful of wooden tokens, a pencil and a score pad beside a rolling die, evening light.",
-    "image": "/illustrations/associations/sense-drumroll.jpg",
+    "image": "/illustrations/associations/sense-dice-clatter-c.jpg",
     "tagWeights": {
       "play": 1,
       "chance": 0.8,

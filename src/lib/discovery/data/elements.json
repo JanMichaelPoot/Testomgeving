@@ -918,8 +918,7 @@
       "en": "Sleep a night under a tarp at an official camping spot in the woods"
     },
     "scene": "a green tarp stretched between two pines with a small stove and a coil of rope at dusk",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "steenhouwen-dag",
@@ -955,8 +954,7 @@
       "en": "Book a stone carving day in which you chisel a simple shape from limestone"
     },
     "scene": "a block of pale limestone with a chisel and a wooden mallet on a stone-cutter's bench in fine dust",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "steigerhout-meubel",
@@ -992,7 +990,6 @@
       "en": "Build a low bench or chest from a plan, in a shared workshop or with a friend who has tools"
     },
     "scene": "a sturdy low bench of weathered scaffold boards with a spirit level, pencil and a box of screws on top",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

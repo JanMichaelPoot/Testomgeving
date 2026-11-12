@@ -2740,8 +2740,7 @@
       "en": "Join an open training at a rugby club; they lend you what you need"
     },
     "scene": "an oval ball on a muddy grass pitch beside tall H-shaped goalposts in early evening light",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "honkbal-softbal",
@@ -2777,8 +2776,7 @@
       "en": "Try an open afternoon at a baseball and softball club"
     },
     "scene": "a worn leather glove, a white baseball and a wooden bat on the dusty infield in warm sun",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "cricket-beginners",
@@ -2814,8 +2812,7 @@
       "en": "Go to an introductory session at a cricket club and learn just batting and catching first"
     },
     "scene": "a cricket bat leaning on white stumps on a neat green field in long afternoon light",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "handbal-vereniging",
@@ -2850,8 +2847,7 @@
       "en": "Take a free trial training at a handball club nearby"
     },
     "scene": "a sports hall with a handball goal, a ball resting on the wooden floor and orange court lines",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "waterpolo",
@@ -2886,8 +2882,7 @@
       "en": "Ask for a trial session at a swimming club; being able to swim is enough to start"
     },
     "scene": "two small goals floating in a bright blue swimming pool with a yellow ball between them",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "draakbootvaren",
@@ -2923,8 +2918,7 @@
       "en": "Book a first outing with a dragon boat club; they explain the rhythm before you board"
     },
     "scene": "a long colourful dragon boat with a carved dragon head on calm morning water, paddles lined up on board",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "sloeproeien",
@@ -2959,8 +2953,7 @@
       "en": "Ask a rowing club for an introductory outing in a wide, stable longboat"
     },
     "scene": "a wooden longboat with oars raised, moored beside reeds on a misty river at dawn",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "slackline-park",
@@ -2997,7 +2990,6 @@
       "en": "Set up a low slackline between two trees or go to an open session in a park"
     },
     "scene": "a taut flat line strung between two trees in a sunlit park, a rucksack on the grass",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

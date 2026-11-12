@@ -1258,8 +1258,7 @@
       "en": "Start with two scarves and ten minutes a day, in a fixed spot"
     },
     "scene": "three colourful juggling balls in mid-air above a wooden floor in soft window light",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "verteluur",
@@ -1294,7 +1293,6 @@
       "en": "Go to a storytelling evening and listen first, then tell a short anecdote yourself the second time"
     },
     "scene": "a wooden stool and a small lamp in a dim storytelling room with a worn rug",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

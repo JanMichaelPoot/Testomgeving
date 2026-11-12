@@ -579,8 +579,7 @@
       "en": "Book only a bed and a train ticket and let the first day decide the rest"
     },
     "scene": "a folded city map with a single pencil circle, a day ticket and a small rucksack on a station bench",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "willekeurig-station",
@@ -616,8 +615,7 @@
       "en": "Roll a die to pick a station nearby, get off and walk around for an hour"
     },
     "scene": "a small wooden die on a station timetable board with a rail ticket beside it",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "week-meewerken-boerderij",
@@ -651,8 +649,7 @@
       "en": "Find, through a recognised volunteering platform, a farm that wants help for a week, with board and lodging"
     },
     "scene": "a rustic farm gate with a wooden crate of vegetables and a pair of muddy boots in early light",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "huis-passen",
@@ -686,7 +683,6 @@
       "en": "Sign up with a trustworthy house-sitting platform and start with one short job in your own region"
     },
     "scene": "a set of house keys with a leather tag, a dog lead on a hook and a map on a hallway table",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]
