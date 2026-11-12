@@ -199,13 +199,13 @@ show a venue that exists and is open now; a wrong venue in a paid book is far wo
 exactly one JSON code block and nothing after it.`;
 
 /** Practical wishes of the person that change which venue is a good one (the engine only flags them; it has no data to filter on). */
-export type ResearchNeed = "evening" | "transport" | "accessibility" | "children" | "young_children" | "calm_pace" | "no_alcohol" | "quiet" | "meet_people";
-const NEED_BY_FLAG: Record<string, ResearchNeed> = { evening: "evening", transport: "transport", accessibility: "accessibility", children: "children", young_children: "young_children", calm_pace: "calm_pace", no_alcohol: "no_alcohol", quiet: "quiet", meet_people: "meet_people" };
+export type ResearchNeed = "evening" | "transport" | "accessibility" | "children" | "young_children" | "calm_pace" | "no_alcohol" | "quiet" | "meet_people" | "no_dutch";
+const NEED_BY_FLAG: Record<string, ResearchNeed> = { evening: "evening", transport: "transport", accessibility: "accessibility", children: "children", young_children: "young_children", calm_pace: "calm_pace", no_alcohol: "no_alcohol", quiet: "quiet", meet_people: "meet_people", no_dutch: "no_dutch" };
 
 /** The research-relevant wishes among the engine's `verify` flags, in a fixed order (they are part of the cache key). */
 export function researchNeedsFrom(verify: readonly string[]): ResearchNeed[] {
   const found = new Set(verify.map((v) => NEED_BY_FLAG[v]).filter((n): n is ResearchNeed => !!n));
-  return (["evening", "transport", "accessibility", "children", "young_children", "calm_pace", "no_alcohol", "quiet", "meet_people"] as const).filter((n) => found.has(n));
+  return (["evening", "transport", "accessibility", "children", "young_children", "calm_pace", "no_alcohol", "quiet", "meet_people", "no_dutch"] as const).filter((n) => found.has(n));
 }
 
 const NEED_TEXT: Record<ResearchNeed, string> = {
@@ -217,6 +217,7 @@ const NEED_TEXT: Record<ResearchNeed, string> = {
   calm_pace: "wants a calm pace: prefer an option without a rush, a crowd or a performance; leave out one that is fast, loud or competitive",
   no_alcohol: "does not want alcohol: prefer an option where drinking is not the point; leave out a bar, tasting or brewery",
   quiet: "wants quiet and predictable: prefer a small, structured option with a fixed programme and little noise; leave out a loud, crowded or improvised one",
+  no_dutch: "does not speak Dutch: prefer an option that works in English or without much language (the source says English, international or expat, or it is a physical activity); leave out one that is only in Dutch",
   meet_people: "wants to meet new people: prefer an option where newcomers are welcome and people talk to each other (an open evening, a course, a regular group); leave out one you can only do alone or with people you already know",
 };
 

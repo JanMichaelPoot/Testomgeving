@@ -94,3 +94,12 @@ test("with no alcohol, few stimuli and meeting people, page 2 offers a full set 
   expect(offered).not.toMatch(/bier brouwen|wijn proeven|cocktails|borrel|karaoke|festival|stand-up|niets doen/i);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
+
+test("without Dutch, page 2 offers a full set without what is done in Dutch", async ({ page }) => {
+  await open(page, 2, ["Zonder Nederlands"]);
+  expect(await page.locator("main button[aria-pressed]:has(img)").count()).toBeGreaterThanOrEqual(12);
+  const offered = (await allOffered(page)).join(" | ");
+  expect(offered.length).toBeGreaterThan(0);
+  expect(offered).not.toMatch(/stand-up|poetry|debatclub|voedselbank|buurtvrijwilliger|genealogie|volksuniversiteit|leesclub/i);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});

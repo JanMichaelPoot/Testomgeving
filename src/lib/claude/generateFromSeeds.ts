@@ -220,6 +220,7 @@ const NEED_RULES: Record<ResearchNeed, string> = {
   young_children: "They go with young children (toddlers and pre-schoolers). Write every idea so it works with children of that age: short, close by, room to move, no long waiting. In the first step say to check the minimum age and whether a parent may join, and never suggest anything with a minimum age above six.",
   no_alcohol: "They do not want alcohol. Never plan an idea around drinking. Where a place is a bar, café or brewery, write the version that works without a drink and say that in the first step.",
   quiet: "They want quiet and predictable. Write every idea with a fixed time, a clear structure and little noise: say what happens, how long it takes and how many people are likely to be there, and never suggest anything improvised, loud or crowded.",
+  no_dutch: "They do not speak Dutch. Say in the first step that no Dutch is needed or that they should ask whether the host speaks English, and never rely on them reading Dutch signs, forms or websites; give the English name of a place or event when there is one.",
   meet_people: "They want to meet new people. Write every idea so that meeting others is part of it: say in the first step how to join (an open evening, a regular group, a course), that coming alone is fine, and never rely on them bringing friends.",
   calm_pace: "They want a calm pace. Write every idea as something unhurried: no rush, no competition, no long exertion. Offer the quiet version of an activity and name when a place is likely to be busy.",
 };

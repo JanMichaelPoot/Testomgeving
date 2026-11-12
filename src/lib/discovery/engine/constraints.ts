@@ -8,6 +8,7 @@ import {
   unsuitableForWheelchair,
   unsuitableForYoungKids,
   unsuitableWithoutAlcohol,
+  unsuitableWithoutDutch,
 } from "@/lib/discovery/suitability";
 import type { EngineInput, ResolvedConstraints } from "@/lib/discovery/engine/types";
 
@@ -30,7 +31,7 @@ const INTENSITY_CAP: Record<string, 0 | 1 | 2 | 3> = { minimal: 1, some: 2, comm
  * Deliberately narrow: everything else is left to the idea generator, which already
  * treats the text as hard constraints. Dutch and English.
  */
-export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting" | "noGroups" | "verify" | "wheelchair" | "youngKids" | "calmPace" | "noAlcohol" | "quiet" | "meetPeople" | "withOne" | "withGroup"> {
+export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting" | "noGroups" | "verify" | "wheelchair" | "youngKids" | "calmPace" | "noAlcohol" | "quiet" | "meetPeople" | "withOne" | "withGroup" | "noDutch"> {
   const t = ` ${text.toLowerCase()} `;
   const verify: string[] = [];
   let setting: "indoor" | "outdoor" | null = null;
@@ -76,6 +77,9 @@ export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting
   // How they want to take part. "Meet people" is a filter (a way to meet others) and a strong nudge; one other / a group are filters on the forms.
   const meetPeople = /(mensen ontmoeten|nieuwe mensen|meet people|meet new people)/.test(t);
   if (meetPeople) verify.push("meet_people");
+  // No Dutch: a filter on what is done in Dutch (suitability.ts), a nudge towards what welcomes newcomers, and a writing rule.
+  const noDutch = /(zonder nederlands|geen nederlands|no dutch|without dutch|engels is genoeg|english is enough)/.test(t);
+  if (noDutch) verify.push("no_dutch");
   const withOne = /(met (één|een|1) ander|with one other)/.test(t);
   const withGroup = /(met een groep|with a group)/.test(t);
   if (withOne) verify.push("with_one");
@@ -91,6 +95,7 @@ export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting
     ...(meetPeople ? { meetPeople } : {}),
     ...(withOne ? { withOne } : {}),
     ...(withGroup ? { withGroup } : {}),
+    ...(noDutch ? { noDutch } : {}),
   };
 }
 
@@ -131,6 +136,7 @@ export function resolveConstraints(input: EngineInput, opts: ResolveOptions = {}
     ...(must.noAlcohol ? { noAlcohol: true } : {}),
     ...(must.quiet ? { quiet: true } : {}),
     ...(must.meetPeople ? { meetPeople: true } : {}),
+    ...(must.noDutch ? { noDutch: true } : {}),
     ...(opts.strictFreeCost ? { strictFreeCost: true } : {}),
   };
 }
@@ -160,6 +166,7 @@ export function passesConstraints(a: Activity, c: ResolvedConstraints): FilterRe
   if (c.noAlcohol && unsuitableWithoutAlcohol(a)) return no;
   if (c.quiet && unsuitableForQuiet(a)) return no;
   if (c.meetPeople && unsuitableForMeeting(a)) return no;
+  if (c.noDutch && unsuitableWithoutDutch(a)) return no;
 
   if (a.cost === null) {
     // Unknown is not "free": with the strict rule nobody who asked for free is offered something we cannot vouch for.

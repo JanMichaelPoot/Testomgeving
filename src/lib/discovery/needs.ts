@@ -10,6 +10,8 @@ export interface Needs {
   noAlcohol?: boolean;
   quiet?: boolean;
   meetPeople?: boolean;
+  /** They do not speak Dutch (chip "Zonder Nederlands"). */
+  noDutch?: boolean;
   /** "With one other person" and "with a group": the forms of taking part they asked for (union). */
   withOne?: boolean;
   withGroup?: boolean;
@@ -25,6 +27,7 @@ export function hiddenByNeeds(unfit: readonly UnfitFlag[] | undefined, n: Needs)
   if (n.noAlcohol && has("alcohol")) return true;
   if (n.quiet && has("quiet")) return true;
   if (n.meetPeople && has("no_meet")) return true;
+  if (n.noDutch && has("dutch")) return true;
   // The forms are a union: only hidden when it fits none of the forms they asked for.
   if (n.withOne || n.withGroup) {
     const fitsOne = !!n.withOne && !has("no_duo");

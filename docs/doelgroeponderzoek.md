@@ -226,3 +226,26 @@ Gemeten zoals in sectie G en H (`scripts/audience-research.ts`, 30 sessies per p
 Het gemiddelde over de 16 persona's gaat van 57% naar 59%, het aantal keren "Andere beelden" van 0,46 naar 0,44, het berekende totaal van 83,7 naar 83,9. **Dit is een verschuiving, geen winst voor iedereen**: wie een niche-smaak heeft wint duidelijk, een paar brede smaken (Henk, Priya, Joyce, Alex) verliezen plaatsen aan de nieuwe beelden. Of dat de goede ruil is, is aan Jan; terugdraaien kan met `niche: null` of door `NICHE_PER_PAGE` te verlagen.
 
 **Onderweg gevonden en hersteld.** De herstelstap in `sampleBalancedBatch` kon een familie terugbrengen die al op de vorige pagina stond, terwijl er genoeg nieuwe waren (zichtbaar in het hero-venster: dezelfde familie in de zichtbare ramen en in de reserve). Een herstel haalt nu alleen nog families die al getoond zijn terug als de pool op is.
+
+## J. Uitvoering van de P3-fixes (Stap 170)
+
+Geen betaalde aanroepen. Gemeten met dezelfde seeds als in sectie G tot en met I.
+
+**1. Taal en cultuur als dimensie (Priya, de internationale inwoner).** Eén chip op de startpagina, "Zonder Nederlands" (en: "No Dutch needed"), in een eigen groep "Taal". Het is de kleinste vorm van het voorstel uit het rapport (een veld `language` per activiteit): de bibliotheek heeft geen taalveld en een veld voor 729 activiteiten is data, dus de regels staan als twee handmatige lijsten in `src/lib/discovery/suitability.ts`:
+- `DUTCH_BOUND` (55 activiteiten waarvan het medium het Nederlands is: stand-up, poetry slam, debatclub, toastmasters, vrijwilligerswerk met Nederlandse buren of papieren, Nederlandse archieven, een rondleiding in het Nederlands) vallen af: een filter, op pagina 2, in de selectie en in de "dit kon niet mee"-melding ("wordt in het Nederlands gedaan").
+- `INTERNATIONAL_FRIENDLY` (taalcafé, taalmaatje, nieuwkomers, een buurtmaaltijd, een dinerkring, bordspellen, ...) en de werelden waar taal zelden uitmaakt (bewegen, eten, natuur, avontuur, maken) krijgen een voorkeur in de selectie.
+- De schrijver krijgt een regel (zeg in de eerste stap dat geen Nederlands nodig is of vraag of de gastheer Engels spreekt; noem de Engelse naam van een plek) en het lokale onderzoek zoekt naar opties waarvan de bron Engels, internationaal of expat zegt.
+
+Gemeten voor Priya (30 sessies): zonder de chip is **29%** van haar ideeën Nederlandstalig gebonden (de bibliotheek-vrijwilliger, een leesclub, een rondleiding in het Nederlands), met de chip **0%**; ideeën die nieuwkomers verwelkomen gaan van 10% naar 30% (taalmaatje, onbekenden-diner, taalcafé, buurtmaaltijd). Dat is een eigenschap van de lijst, niet van de kwaliteit: of een taalmaatje voor haar de beste suggestie is, is aan een lezer, en de lijst is met de hand gemaakt en niet door een tweede persoon beoordeeld.
+
+**Wat dit niet doet.** Niets herkent automatisch dat een bezoeker internationaal is; de chip staat er niet voorgekozen, ook niet bij de Engelse taalknop. Een voorstel (niet gebouwd, want het raakt de startpagina): bij Engelse site-taal de chip als suggestie tonen. De bibliotheek weet ook niet welke activiteiten in Nederland in het Engels worden aangeboden; dat blijft een controle van het boek.
+
+**2. Persona-regressietest.** `scripts/audience-research.ts` is gesplitst: de persona's, de simulatie van één bezoek en de hulpfuncties staan nu in `src/lib/discovery/eval/audience.ts`, het script is het rapport (zelfde uitkomst, de totalen zijn identiek getoetst). Nieuw: `src/lib/discovery/eval/audience.regression.test.ts` draait 16 persona's x 6 bezoeken door de productie-intake en de productie-engine (± 20 s, geen betaalde aanroepen) en eist:
+- elk bezoek geeft zeven ideeën;
+- wat een persona uitsluit staat er nooit in (geen toezicht of zwaar voor gezin met kleuters en 68+, geen rolstoelconflict, niets luids bij "rustig en voorspelbaar", geen alcohol, niets Nederlands voor Priya, niets zonder ontmoetvorm voor Priya en Gerda, de vorm "met één ander" of "met een groep" voor Mark en Eva en de vriendengroep);
+- een bovengrens voor de "misser" per persona (30%, voor zes persona's met behoeften 20%; gemeten zit het onder de 22%);
+- niet meer dan 10% van de boeken heeft drie of meer van één soort activiteit (dans, wandelen, ...), geen activiteit staat in meer dan 25% van alle boeken, elke persona krijgt minstens 20 verschillende ideeën;
+- de eerste set van 18 beelden bevat vaak genoeg een smaak (minstens 35% van de bezoeken, "Andere beelden" gemiddeld hooguit één keer).
+Een controle dat de test ook echt iets vangt: met het filter voor "rustig tempo" en "zonder Nederlands" uitgezet faalt hij direct ("P13 ... is not calm: boogparcours-3d").
+
+**Wat de regressietest niet bewaakt.** Hij toetst de selectie, niet de tekst: of een boek goed is geschreven, of de plekken kloppen en of de links werken is niet gemeten, ook nu niet (geen betaalde boeken). Dat blijft het open derde punt uit P2.

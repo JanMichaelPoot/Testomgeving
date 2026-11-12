@@ -8,6 +8,7 @@ import {
   unsuitableForWheelchair,
   unsuitableForYoungKids,
   unsuitableWithoutAlcohol,
+  unsuitableWithoutDutch,
 } from "@/lib/discovery/suitability";
 import type { ResolvedConstraints } from "@/lib/discovery/engine/types";
 
@@ -16,7 +17,7 @@ import type { ResolvedConstraints } from "@/lib/discovery/engine/types";
 // screen names it and says why, and the person can change the limit or the choice. This is the same rule as passesConstraints
 // (a test keeps the two in step), only it says which limit.
 
-export type DroppedReason = "season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "no_alcohol" | "quiet" | "meet" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups";
+export type DroppedReason = "season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "no_alcohol" | "quiet" | "meet" | "no_dutch" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups";
 
 const GROUP_ONLY: readonly SocialFormat[] = ["small_group", "large_group"];
 
@@ -39,6 +40,7 @@ export function whyNot(a: Activity, c: ResolvedConstraints, opts: { explicitPick
   if (c.noAlcohol && unsuitableWithoutAlcohol(a)) return "no_alcohol";
   if (c.quiet && unsuitableForQuiet(a)) return "quiet";
   if (c.meetPeople && unsuitableForMeeting(a)) return "meet";
+  if (c.noDutch && unsuitableWithoutDutch(a)) return "no_dutch";
   if (c.setting && a.setting !== null && a.setting !== "both" && a.setting !== c.setting) return "setting";
   if (a.formats !== null) {
     if (c.formats && !a.formats.some((f) => c.formats!.includes(f))) return "format";

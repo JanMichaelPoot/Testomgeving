@@ -6,6 +6,10 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import {
   ALCOHOL_CENTRAL,
   ALCOHOL_SIDE,
+  DUTCH_BOUND,
+  INTERNATIONAL_FRIENDLY,
+  internationalBias,
+  unsuitableWithoutDutch,
   LOUD_OR_CROWDED,
   WHEELCHAIR_UNSUITABLE,
   meetingBias,
@@ -220,5 +224,47 @@ describe("the engine with the P1 chips", () => {
     expect(whyNot(byId.get("karaoke")!, c("Rustig en voorspelbaar"))).toBe("quiet");
     expect(whyNot(byId.get("niets-doen")!, c("Mensen ontmoeten"))).toBe("meet");
     expect(whyNot(byId.get("kletscafe")!, c("Mensen ontmoeten"))).toBeNull();
+  });
+});
+
+// --- P3: no Dutch needed ---------------------------------------------------------------------------------------------------------
+
+describe("P3 chip: no Dutch needed", () => {
+  it("names only activities that exist", () => {
+    for (const id of [...DUTCH_BOUND, ...INTERNATIONAL_FRIENDLY]) expect(byId.has(id), id).toBe(true);
+    for (const id of INTERNATIONAL_FRIENDLY) expect(DUTCH_BOUND.has(id), `${id} is both`).toBe(false);
+  });
+
+  it("is read by the parser and exists on the start page in both languages", () => {
+    expect(parseMustHaves("Zonder Nederlands").noDutch).toBe(true);
+    expect(parseMustHaves("No Dutch needed").noDutch).toBe(true);
+    expect(parseMustHaves("No Dutch needed").verify).toContain("no_dutch");
+    expect(parseMustHaves("Met de hond").noDutch).toBeUndefined();
+    expect(getDictionary("nl").venster.who.limitChips).toContain("Zonder Nederlands");
+    expect(getDictionary("en").venster.who.limitChips).toContain("No Dutch needed");
+  });
+
+  it("keeps what is done in Dutch out of the book and names the reason for a dropped pick", () => {
+    expect(unsuitableWithoutDutch(byId.get("stand-up")!)).toBe(true);
+    expect(unsuitableWithoutDutch(byId.get("taalcafe")!)).toBe(false);
+    for (let i = 0; i < 25; i++) {
+      const set = selectSeeds({ ...BASE, mustHaves: "Zonder Nederlands", seed: `nl-${i}` }, lib).seeds.map((s) => byId.get(s.activityId)!);
+      expect(set.length).toBeGreaterThanOrEqual(7);
+      for (const a of set) expect(unsuitableWithoutDutch(a), a.id).toBe(false);
+    }
+    expect(whyNot(byId.get("stand-up")!, resolveConstraints({ ...BASE, mustHaves: "Zonder Nederlands" }))).toBe("no_dutch");
+  });
+
+  it("favours language-free worlds and what welcomes newcomers over the same book without the chip", () => {
+    const friendly = (mh: string) => {
+      const all = Array.from({ length: 25 }, (_, i) => selectSeeds({ ...BASE, mustHaves: mh, seed: `intl-${i}` }, lib).seeds.map((s) => byId.get(s.activityId)!)).flat();
+      return all.filter((a) => internationalBias(a) < 0).length / all.length;
+    };
+    expect(friendly("Zonder Nederlands")).toBeGreaterThan(friendly(""));
+  });
+
+  it("sends the flag the browser needs", () => {
+    expect(unfitFlags(byId.get("stand-up")!)).toContain("dutch");
+    expect(unfitFlags(byId.get("taalcafe")!)).not.toContain("dutch");
   });
 });

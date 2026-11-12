@@ -168,7 +168,7 @@ export function meetingBias(a: Pick<Activity, "domain" | "formats">): number {
 // --- what the browser needs to know -------------------------------------------------------------------------------------------
 
 /** The needs an activity is known not to suit, computed on the server so the browser needs no safety or intensity data (concretePool.ts). */
-export type UnfitFlag = "young_kids" | "wheelchair" | "calm" | "alcohol" | "quiet" | "no_meet" | "no_duo" | "no_group";
+export type UnfitFlag = "young_kids" | "wheelchair" | "calm" | "alcohol" | "quiet" | "no_meet" | "no_duo" | "no_group" | "dutch";
 
 export function unfitFlags(a: Facets): UnfitFlag[] {
   const f = a.formats;
@@ -180,7 +180,42 @@ export function unfitFlags(a: Facets): UnfitFlag[] {
     ...(unsuitableWithoutAlcohol(a) ? (["alcohol"] as const) : []),
     ...(unsuitableForQuiet(a) ? (["quiet"] as const) : []),
     ...(unsuitableForMeeting(a) ? (["no_meet"] as const) : []),
+    ...(unsuitableWithoutDutch(a) ? (["dutch"] as const) : []),
     ...(known && !f!.includes("duo") ? (["no_duo"] as const) : []),
     ...(known && !f!.some((x) => x === "small_group" || x === "large_group") ? (["no_group"] as const) : []),
   ];
+}
+
+// --- no Dutch needed ------------------------------------------------------------------------------------------------------------
+
+/**
+ * Activities whose medium is the Dutch language: a stand-up or poetry night, a debate club, a talking course, volunteering with Dutch paperwork or
+ * neighbours, Dutch archives, a guided walk in Dutch. Out when somebody does not speak Dutch (chip "Zonder Nederlands"). Doing the same thing in English
+ * exists, but is not what the library describes, so the book only offers it where the language does not matter.
+ */
+export const DUTCH_BOUND: ReadonlySet<string> = new Set(
+  ids(`stand-up poetry-slam storytelling verteluur debatclub amateurtoneel hoorspel voorlezen podcast-maken lokale-radio schrijfcirkel leesclub book-club-stil kletscafe
+    toost-speech-houden presenteren toastmasters leiderschapsworkshop coachgesprek assertiviteit socratisch-gesprek filosofie volksuniversiteit mediation-leren
+    feedback-geven onderhandelen-oefenen pitch-geven vergadering-leiden luistercursus mentor-zoeken geheugentechnieken ondernemersidee-uitwerken eerste-klant-vinden
+    plannen-workshop live-comedy gids-wandeling mondelinge-geschiedenis genealogie archief archief-indexeren handschriften legendes sagen
+    voedselbank buurtvrijwilliger buurtproject ouderenbezoek bestuurslid-vereniging inzamelingsactie-organiseren vrijwilligers-coordineren erfgoed-vrijwilliger
+    huiswerkbegeleiding bibliotheek-vrijwilliger mentor-jongere festival-vrijwilliger`),
+);
+
+/** Welcoming to newcomers and mostly language-free: a language café, a shared dinner, board games, a repair evening. Favoured for somebody without Dutch. */
+export const INTERNATIONAL_FRIENDLY: ReadonlySet<string> = new Set(
+  ids(`taalcafe taalmaatje nieuwkomers buurtmaaltijd potluck onbekenden-diner bordspellen kaartspellen schaken escape-room spelavond-thuis repair-cafe proefles-avond
+    wandelgroep dansen swingdansen drumcirkel jamsessie koor`),
+);
+/** Worlds where the language of the host rarely matters: moving, cooking, nature, making, adventure. */
+const LANGUAGE_FREE_WORLDS: ReadonlySet<string> = new Set(["movement", "food", "nature", "adventure", "speed", "elements", "target", "restful", "creative"]);
+
+export function unsuitableWithoutDutch(a: Pick<Activity, "id">): boolean {
+  return DUTCH_BOUND.has(a.id);
+}
+
+/** A nudge for the selection (positive = less likely) when Dutch is not spoken: favours what welcomes newcomers and what needs no language. */
+export function internationalBias(a: Pick<Activity, "id" | "domain">): number {
+  if (INTERNATIONAL_FRIENDLY.has(a.id)) return -0.35;
+  return LANGUAGE_FREE_WORLDS.has(a.domain) ? -0.15 : 0.1;
 }

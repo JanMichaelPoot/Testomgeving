@@ -105,6 +105,8 @@ export interface ResolvedConstraints {
   quiet?: boolean;
   /** They want to meet people (chip "Mensen ontmoeten"): only activities with a way to meet others, and those weigh heavier. */
   meetPeople?: boolean;
+  /** They do not speak Dutch (chip "Zonder Nederlands"): what is done in Dutch stays out and what welcomes newcomers weighs more. */
+  noDutch?: boolean;
   /** The chips "Met één ander" and "Met een groep" (their forms are in `formats`; these two say which were asked, for the writer). */
   withOne?: boolean;
   withGroup?: boolean;
