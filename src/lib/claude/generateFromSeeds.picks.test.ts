@@ -106,8 +106,10 @@ describe("a chosen activity without a provider", () => {
     researchSeeds.mockImplementation(async (opts: unknown) => ({ byActivity: new Map(ids(opts).map((id) => [id, withoutOptions(id)])), stats: stats(opts) }));
     const { report } = await run(base);
     const ids2 = report.seeds.map((s) => s.activityId);
-    for (const id of picksInBook) expect(ids2, id).toContain(id);
-    for (const id of picksInBook.filter((p) => needsProvider(getActivity(p)!))) expect(report.notes, id).toContain(`pick_without_provider:${id}`);
+    // The guard counts picks (see the swap test below): the person never ends with fewer of their own choices, but a pick that has no
+    // provider may make room for another pick, so which ones are left depends on what the library offers.
+    expect(ids2.filter((id) => PICKS.includes(id)).length).toBeGreaterThanOrEqual(picksInBook.length);
+    for (const id of ids2.filter((id) => PICKS.includes(id) && needsProvider(getActivity(id)!))) expect(report.notes, id).toContain(`pick_without_provider:${id}`);
     // what the engine added by itself and could not support is gone: nothing else in the book needs a provider
     for (const s of report.seeds) if (!PICKS.includes(s.activityId)) expect(needsProvider(getActivity(s.activityId)!), s.activityId).toBe(false);
   });

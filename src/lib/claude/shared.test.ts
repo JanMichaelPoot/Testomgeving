@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { repairStringifiedFields } from "@/lib/claude/shared";
+import { insertMissingClosers, repairStringifiedFields } from "@/lib/claude/shared";
 
 beforeEach(() => {
   vi.spyOn(console, "warn").mockImplementation(() => {});
@@ -41,5 +41,27 @@ describe("repairStringifiedFields", () => {
     expect(repairStringifiedFields(null)).toBeNull();
     expect(repairStringifiedFields([1, 2])).toEqual([1, 2]);
     expect(repairStringifiedFields("text")).toBe("text");
+  });
+});
+
+describe("a list string that forgot a closing bracket (seen in a real generation: \"Unexpected token ']'\")", () => {
+  const broken = '[{"title":"A","first_action":"Bel \\"De Poort\\"."},{"title":"B","first_action":"Loop ]binnen."]';
+
+  it("puts the missing brace back and keeps what was written, also brackets inside text", () => {
+    expect(insertMissingClosers(broken)).toBe('[{"title":"A","first_action":"Bel \\"De Poort\\"."},{"title":"B","first_action":"Loop ]binnen."}]');
+    const out = repairStringifiedFields({ ideas: broken }, "create_idea_book") as { ideas: { title: string; first_action: string }[] };
+    expect(out.ideas.map((i) => i.title)).toEqual(["A", "B"]);
+    expect(out.ideas[1].first_action).toBe("Loop ]binnen.");
+  });
+
+  it("does not repair a text that just ends early, a closer with nothing open, or valid JSON", () => {
+    expect(insertMissingClosers('[{"title":"A"')).toBeNull();
+    expect(insertMissingClosers('{"a":1}]')).toBeNull();
+    expect(insertMissingClosers('[{"title":"A"}]')).toBeNull();
+    expect(repairStringifiedFields({ n: "[1, 2" })).toEqual({ n: "[1, 2" });
+  });
+
+  it("gives up when more than a few brackets are missing", () => {
+    expect(insertMissingClosers('[{"a":{"b":{"c":{"d":1]')).toBeNull();
   });
 });
