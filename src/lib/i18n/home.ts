@@ -36,9 +36,6 @@ export interface HomeCopy {
   };
   trust: {
     aiLine: string;
-    guaranteeTitle: string;
-    guaranteeBody: string;
-    noReviews: string;
     testimonialsHeading: string;
     founderHeading: string;
   };
@@ -91,9 +88,6 @@ const NL: HomeCopy = {
   },
   trust: {
     aiLine: "Gemaakt met AI. De plekken zoeken we op het web en we controleren of hun website bestaat.",
-    guaranteeTitle: "Klopt een plek niet?",
-    guaranteeBody: `Je krijgt gratis een nieuw boek. Mail naar ${CONTACT_EMAIL}.`,
-    noReviews: "We zijn net begonnen, dus nog geen reviews. Liever zelf oordelen? Bekijk hierboven een voorbeeld.",
     testimonialsHeading: "Wat anderen zeggen",
     founderHeading: "Waarom ik dit maak",
   },
@@ -189,9 +183,6 @@ const EN: HomeCopy = {
   },
   trust: {
     aiLine: "Made with AI. We look places up on the web and check that their website exists.",
-    guaranteeTitle: "Is a place wrong?",
-    guaranteeBody: `You get a new book for free. Email ${CONTACT_EMAIL}.`,
-    noReviews: "We've only just started, so no reviews yet. Rather judge for yourself? See a sample above.",
     testimonialsHeading: "What others say",
     founderHeading: "Why I make this",
   },

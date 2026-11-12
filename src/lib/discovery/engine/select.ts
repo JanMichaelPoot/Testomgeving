@@ -96,7 +96,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   // Age weighting uses the explicit age, else the soft reading of the search context; a group context nudges to doing it together.
   const ageCat = effectiveAgeCategory({ ageCategory: input.ageCategory, searchContext: input.searchContext });
   // "Meet people" weighs heavily: what helps to meet others is far more likely, what only a pair or a closed group can do is less (suitability.ts).
-  const age = (a: Activity) => agePenalty(a, ageCat) + audienceBias(a, input.searchContext) + (constraints.meetPeople ? meetingBias(a) : 0) + (constraints.noDutch ? internationalBias(a) : 0);
+  const age = (a: Activity) => agePenalty(a, ageCat) + audienceBias(a, input.searchContext) + (constraints.meetPeople ? meetingBias(a) : 0) + (constraints.noDutch ? internationalBias(a) : 0) + hubCost(a);
   // Variety: lift the long tail (rare tag mixes) and go easy on things that need a provider that may not be near.
   // The lift is not the same for everybody: each visitor (seed) weighs an activity's rarity a little differently,
   // so the same few rare activities do not become the new hubs.
@@ -104,6 +104,8 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   const supplyCost = (a: Activity) => supplyPenalty(a, W.supply);
   const pickedIds = [...new Set(input.interests)].filter((id) => byId.has(id));
   const pickSet = new Set(pickedIds);
+  // The most connected activities lead too many books: a little off, never for the person's own picks (weights.hub).
+  const hubCost = (a: Activity) => (W.hub > 0 && !pickSet.has(a.id) ? W.hub * graph.hubness(a) : 0);
 
   // --- the pool: what may be suggested at all ------------------------------------
   const verifyOf = new Map<string, string[]>();

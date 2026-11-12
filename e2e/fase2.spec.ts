@@ -88,11 +88,11 @@ test.describe("sample book lightbox", () => {
 });
 
 test.describe("trust and guarantee", () => {
-  test("founder note and testimonials stay hidden while they are empty; the guarantee is on the page", async ({ page }) => {
+  test("the trust block stays off the homepage while the founder note and the testimonials are empty (no guarantee card, no 'no reviews yet')", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("#vertrouwen")).toContainText("Klopt een plek niet?");
-    await expect(page.locator("#vertrouwen blockquote")).toHaveCount(0);
-    await expect(page.locator("#vertrouwen")).not.toContainText("Waarom ik dit maak");
+    await expect(page.locator("#vertrouwen")).toHaveCount(0);
+    await expect(page.locator("body")).not.toContainText("Klopt een plek niet?");
+    await expect(page.locator("body")).not.toContainText("nog geen reviews");
   });
 
   test("the guarantee stands under the pay button on the profile screen", async ({ page }) => {

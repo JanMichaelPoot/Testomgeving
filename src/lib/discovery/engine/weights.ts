@@ -25,6 +25,12 @@ export interface Weights {
    * with this one ("two variations of the same thing"). 0 = off (WEIGHTS_CURRENT).
    */
   sharedPairPenalty: number;
+  /**
+   * Hub damping: score lost, for an idea the person did not pick, times its hubness (Graph.hubness, 0..1). The most connected activities fit nearly every
+   * taste and so lead too many books (measured: a long walk in 10% of all persona books); this brings them down to the level of their neighbours
+   * without removing them. 0 = off (every set but WEIGHTS_ANCHOR, so the pinned seeds of the other sets do not move).
+   */
+  hub: number;
 
   // --- per direction ---------------------------------------------------------------------------------
   familiar: {
@@ -64,6 +70,7 @@ export const WEIGHTS_CURRENT: Weights = {
   supply: { rare: 0.18, regional: 0.04 },
   redundancyPerBridge: 0.05,
   sharedPairPenalty: 0,
+  hub: 0,
   familiar: { pickedScore: 2, nearRel: 0.4, noise: 0.3, spreadPerSameDomain: 0.35, practicalBonus: 0 },
   unexpected: { hybridBase: 2.5, hybridBridge: 0.15, hybridNoise: 0.3, chainNoise: 0.15, oneStepBridge: 0.1, oneStepNoise: 0.15, farRelMax: 0.3 },
   adjacent: { noise: 0.15, noveltyOtherWorld: 0.15, peak: 0.38 },
@@ -91,6 +98,7 @@ export const WEIGHTS_V2: Weights = {
 export const WEIGHTS_ANCHOR: Weights = {
   ...WEIGHTS_V2,
   anchor: { picks: 4, indirect: true },
+  hub: 0.6,
 };
 
 /** Doors and directions are listed here only so the type stays close to the weights that use them. */

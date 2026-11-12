@@ -18,6 +18,12 @@ export interface Graph {
    * The engine uses it to lift the long tail, so the same few activities do not lead every book.
    */
   rarity(a: Activity): number;
+  /**
+   * 0..1: how many other activities this one is strongly connected to (a real shared tag), relative to the library: 0 for the typical activity or
+   * less, 1 for the most connected one. A long walk, geocaching or nature work fit almost every taste, so they would lead far too many books; the
+   * engine takes a little off them (Weights.hub). It is a property of the library's tags, not a list: a new hub is found by itself.
+   */
+  hubness(a: Activity): number;
 }
 
 /** A bridge at least this strong counts as a real connection (roughly: one tag used by fewer than ~27 of 200 activities). */
@@ -96,7 +102,25 @@ export function buildGraph(activities: readonly Activity[], tags: readonly Tag[]
   const hi = values.length ? Math.max(...values) : 1;
   const rarity = (a: Activity) => (hi > lo ? ((rawRarity.get(a.id) ?? lo) - lo) / (hi - lo) : 0.5);
 
-  const graph: Graph = { bridge, shared, sim, rarity };
+  // Hubness: the number of other activities with a real bridge to this one, stretched from the median (0) to the maximum (1). Computed on first use.
+  let hubValues: Map<string, number> | null = null;
+  const hubness = (a: Activity) => {
+    if (!hubValues) {
+      const strong = new Map<string, number>();
+      for (const x of activities) {
+        let count = 0;
+        for (const y of activities) if (x !== y && bridge(x, y) >= BRIDGE_MIN) count++;
+        strong.set(x.id, count);
+      }
+      const sorted = [...strong.values()].sort((p, q) => p - q);
+      const median = sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0;
+      const max = sorted.length ? sorted[sorted.length - 1] : 0;
+      hubValues = new Map([...strong].map(([id, c]) => [id, max > median ? Math.max(0, Math.min(1, (c - median) / (max - median))) : 0]));
+    }
+    return hubValues.get(a.id) ?? 0;
+  };
+
+  const graph: Graph = { bridge, shared, sim, rarity, hubness };
   cache.set(activities, graph);
   return graph;
 }
