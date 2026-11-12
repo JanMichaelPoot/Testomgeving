@@ -93,6 +93,12 @@ export interface ResolvedConstraints {
   minorSafe?: boolean;
   /** They go with children (the must-have chip "Kinderen"): what is not for children is left out too, like for a young searcher. */
   withKids?: boolean;
+  /** They go with young children (chip "Met jonge kinderen"): a stricter list than withKids, see suitability.ts. */
+  youngKids?: boolean;
+  /** They use a wheelchair (chip "Met de rolstoel bereikbaar"): what is known to be impossible from one stays out. */
+  wheelchair?: boolean;
+  /** They want a calm pace (chip "Rustig tempo"): only gentle, unsupervised activities. */
+  calmPace?: boolean;
   /** B4: unknown cost does not pass a free budget (weights.strictFreeCost). Absent = the rule of before B4. */
   strictFreeCost?: boolean;
 }

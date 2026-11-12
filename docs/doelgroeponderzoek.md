@@ -140,3 +140,30 @@ Diversiteit tussen sessies is goed: dezelfde persona krijgt in 30 sessies 108 to
 | **P3** | Persona-regressietest ontbreekt | Neem `scripts/audience-research.ts` op in de testsuite met drempels per persona (bv. geen toezicht bij 65+ met de chip) | Voorkomt terugval bij bibliotheekuitbreiding | Tests | Laag |
 
 **Opmerking over herhaalbaarheid.** De uitkomsten zijn deterministisch voor dezelfde seed en bibliotheek; een nieuwe bibliotheekversie (zoals de 27 activiteiten van Stap 164) verandert de lijsten. De generatiestap (AI) kan bij dezelfde selectie andere tekst geven; die is hier niet gemeten.
+
+## G. Uitvoering van de P0-fixes (Stap 167)
+
+Gebouwd en gemeten met `scripts/audience-research.ts` (zelfde 30 sessies per persona, zelfde seeds; de drie persona's kregen de nieuwe chips). Geen betaalde aanroepen.
+
+**Wat er is gebouwd.** Twee nieuwe chips op de startpagina (nl en en) en een filter voor de bestaande rolstoelchip, alle drie met dezelfde regels in de selectie, op pagina 2 en in de "dit kon niet mee"-melding:
+- **"Met jonge kinderen"** sluit uit: intensiteit 3, verplicht toezicht (tier 2), de werelden `growth` en (bijna) `society`/`together`/`night`, en 242 benoemde activiteiten die niet bij kleuters passen (scherp gereedschap, wellness, solo-werk, vrijwilligerswerk). Plus de bestaande kinderlijst.
+- **"Met de rolstoel bereikbaar"** sluit uit wat bekend onmogelijk is vanuit een rolstoel: alles met tag `height` of `depths` (klimmen, grotten, duiken) en een lijst ruw terrein, hardlopen, schaatsen en bootinstappen. De rest blijft erin met de bestaande controle op stap-vrije toegang.
+- **"Rustig tempo"** begrenst op lichte beweging (intensiteit ≤ 1), geen toezicht en geen gevorderd niveau, ook niet voor een zelf gekozen activiteit. Dit is de leeftijdsvrije vervanger van de leeftijdsvraag (Stap 135: niemand wordt op leeftijdsklasse gelabeld).
+- De schrijver en het lokale onderzoek krijgen voor de twee nieuwe chips een eigen schrijfregel ("jonge kinderen", "rustig tempo").
+
+**Gemeten (selectie, 30 sessies):**
+
+| Persona | Sessies met toezicht-idee | "Misser" (eigen maatstaf van het onderzoek) | Eerste set |
+|---|---|---|---|
+| P04 gezin met kleuters | 43% naar 0% | 14% naar 7% | n.v.t. |
+| P13 Jan en Ria (68+) | 30% naar 0% | 21% naar 8% | n.v.t. |
+| P14 Gerda (79) | 10% naar 0% | 21% naar 18% | n.v.t. |
+| P10 Anouk (rolstoel) | 27% naar 13% | 16% naar 14% | n.v.t. |
+
+Het berekende gemiddelde over de 16 persona's gaat van 82,8 naar 83,2. De handmatige relevantiescores (de zeven beoordeelde activiteiten) zijn niet opnieuw gegeven, dus een nieuw "gecorrigeerd" gemiddelde ontbreekt bewust.
+
+**Wat dit wel en niet oplost.**
+- Gezinnen en "rustig tempo" zijn echt verbeterd: geen toezicht-ideeën meer, geen boogparcours of mountainbiken.
+- Voor de rolstoel is de winst klein onder de strengere maatstaf van het onderzoek (binnen, geen beweging). Wat overblijft zijn stads- en spookwandelingen en fotografie buiten: die kunnen met een rolstoel, maar de bibliotheek weet niet of de route te doen is. Dat blijft een controle in het boek, geen filter; echt oplossen vraagt het veld `access` per activiteit (data, niet code).
+- P14 (eenzaam) verbetert op tempo maar niet op contact: dat is het sociale-vormpunt (P1).
+- De lijsten zijn met de hand gemaakt (`src/lib/discovery/suitability.ts`) en niet door een tweede persoon beoordeeld; een test garandeert alleen dat elk genoemd id bestaat. Een nieuwe activiteit komt er niet vanzelf op; zie de regressietest (P3).

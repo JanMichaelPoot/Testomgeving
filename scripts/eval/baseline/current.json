@@ -48,12 +48,12 @@
   ],
   "P06": [
    "familiar:natural:solo-rpg",
-   "familiar:natural:levensverhaal",
-   "adjacent:discovery:capsule-garderobe",
-   "adjacent:discovery:geologie",
-   "unexpected:unexpected:patroontekenen",
+   "familiar:natural:verzetsroute",
+   "adjacent:discovery:ruilbeurs-planten",
+   "adjacent:discovery:fossielen",
+   "unexpected:unexpected:restaureren",
    "stretch:stretch:kamperen",
-   "wildcard:wildcard:concert"
+   "wildcard:wildcard:korte-film"
   ],
   "P07": [
    "familiar:natural:koffie-thee",

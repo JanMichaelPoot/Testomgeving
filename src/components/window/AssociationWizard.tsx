@@ -467,14 +467,25 @@ export function AssociationWizard({
   const chosenImagesKey = chosen.join("|");
   // Page 2 is composed again when the images or who the search is for change.
   // Going with children (the start page chip) keeps the same short list of unsuitable activities off page 2 as a young searcher does.
-  const withKids = useMemo(() => parseMustHaves(limitChips.join("; ")).verify.includes("children"), [limitChips]);
-  const concreteKey = `${searchContext}${withKids ? "+kids" : ""}#${chosenImagesKey}`;
+  const chipNeeds = useMemo(() => parseMustHaves(limitChips.join("; ")), [limitChips]);
+  const withKids = chipNeeds.verify.includes("children");
+  // The same applies to young children, a wheelchair and a calm pace (suitability.ts): what is known not to suit them is not offered on page 2.
+  const needsKey = `${withKids ? "+kids" : ""}${chipNeeds.youngKids ? "+young" : ""}${chipNeeds.wheelchair ? "+wheel" : ""}${chipNeeds.calmPace ? "+calm" : ""}`;
+  const concreteKey = `${searchContext}${needsKey}#${chosenImagesKey}`;
   const allActivities = concretePool?.activities;
   const poolById = useMemo(() => new Map((allActivities ?? []).map((a) => [a.id, a])), [allActivities]);
   // For a child or young person nothing with alcohol, gambling, weapons or heavy tools is offered.
   const poolActivities = useMemo(
-    () => allActivities?.filter((a) => allowedForContext(a, searchContext) && (!withKids || allowedForContext(a, "child"))),
-    [allActivities, searchContext, withKids],
+    () =>
+      allActivities?.filter(
+        (a) =>
+          allowedForContext(a, searchContext) &&
+          (!withKids || allowedForContext(a, "child")) &&
+          !(chipNeeds.youngKids && a.unfit?.includes("young_kids")) &&
+          !(chipNeeds.wheelchair && a.unfit?.includes("wheelchair")) &&
+          !(chipNeeds.calmPace && a.unfit?.includes("calm")),
+      ),
+    [allActivities, searchContext, withKids, chipNeeds],
   );
   const contextPrefer = useMemo(
     () =>

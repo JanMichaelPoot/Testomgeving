@@ -42,7 +42,7 @@ export interface VensterDictionary {
     dropped: {
       title: string;
       body: string;
-      reasons: Record<"season" | "audience" | "kids" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
+      reasons: Record<"season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
       editSituation: string;
       editChoices: string;
     };
@@ -409,6 +409,9 @@ export const vensterNl: VensterDictionary = {
         season: "past niet bij de tijd van het jaar",
         audience: "past niet bij voor wie je zoekt",
         kids: "is niet voor kinderen",
+        young_kids: "is niet geschikt voor jonge kinderen",
+        access: "is niet te doen met een rolstoel",
+        calm: "past niet bij een rustig tempo",
         budget: "past niet bij je budget",
         effort: "vraagt meer inspanning dan je aangaf",
         supervised: "vraagt begeleiding en past niet bij je voorkeur voor het vertrouwde",
@@ -805,7 +808,8 @@ export const vensterNl: VensterDictionary = {
       groups: [
         { title: "Omgeving", chips: ["Alleen buiten", "Alleen binnen"] },
         { title: "Bereikbaarheid", chips: ["Met de rolstoel bereikbaar", "Zonder auto bereikbaar"] },
-        { title: "Gezelschap", chips: ["Niet in een groep", "Met de hond", "Met kinderen"] },
+        { title: "Gezelschap", chips: ["Niet in een groep", "Met de hond", "Met kinderen", "Met jonge kinderen"] },
+        { title: "Tempo", chips: ["Rustig tempo"] },
         { title: "Eten en drinken", chips: ["Zonder alcohol", "Zonder vis of schaaldieren"] },
         { title: "Wanneer", chips: ["In het weekend", "'s Avonds"] },
       ],
@@ -839,6 +843,8 @@ export const vensterNl: VensterDictionary = {
       "Zonder alcohol",
       "Zonder vis of schaaldieren",
       "Met kinderen",
+      "Met jonge kinderen",
+      "Rustig tempo",
       "Zonder auto bereikbaar",
       "In het weekend",
       "'s Avonds",
@@ -1026,6 +1032,9 @@ export const vensterEn: VensterDictionary = {
         season: "does not fit the time of year",
         audience: "does not suit who you are searching for",
         kids: "is not for children",
+        young_kids: "does not suit young children",
+        access: "cannot be done from a wheelchair",
+        calm: "does not fit a calm pace",
         budget: "does not fit your budget",
         effort: "takes more effort than you said",
         supervised: "needs guidance and does not fit your preference for the familiar",
@@ -1422,7 +1431,8 @@ export const vensterEn: VensterDictionary = {
       groups: [
         { title: "Setting", chips: ["Only outdoors", "Only indoors"] },
         { title: "Access", chips: ["Wheelchair accessible", "Reachable without a car"] },
-        { title: "Company", chips: ["Not in a group", "With a dog", "With children"] },
+        { title: "Company", chips: ["Not in a group", "With a dog", "With children", "With young children"] },
+        { title: "Pace", chips: ["Calm pace"] },
         { title: "Food and drink", chips: ["No alcohol", "No fish or shellfish"] },
         { title: "When", chips: ["On weekends", "In the evening"] },
       ],
@@ -1456,6 +1466,8 @@ export const vensterEn: VensterDictionary = {
       "No alcohol",
       "No fish or shellfish",
       "With children",
+      "With young children",
+      "Calm pace",
       "Reachable without a car",
       "On weekends",
       "In the evening",

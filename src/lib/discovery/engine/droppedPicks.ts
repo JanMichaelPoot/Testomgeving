@@ -1,6 +1,7 @@
 import type { Activity, SocialFormat } from "@/lib/discovery/types";
 import { inSeason } from "@/lib/discovery/season";
 import { allowedForContext } from "@/lib/discovery/audience";
+import { unsuitableForCalmPace, unsuitableForWheelchair, unsuitableForYoungKids } from "@/lib/discovery/suitability";
 import type { ResolvedConstraints } from "@/lib/discovery/engine/types";
 
 // In the two-page intake the person chooses concrete activities (page 2) BEFORE the screen with budget, time and place. A hard
@@ -8,7 +9,7 @@ import type { ResolvedConstraints } from "@/lib/discovery/engine/types";
 // screen names it and says why, and the person can change the limit or the choice. This is the same rule as passesConstraints
 // (a test keeps the two in step), only it says which limit.
 
-export type DroppedReason = "season" | "audience" | "kids" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups";
+export type DroppedReason = "season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups";
 
 const GROUP_ONLY: readonly SocialFormat[] = ["small_group", "large_group"];
 
@@ -20,11 +21,14 @@ export function whyNot(a: Activity, c: ResolvedConstraints, opts: { explicitPick
   if (!inSeason(a, c.month)) return "season";
   if (c.minorSafe && !allowedForContext(a, "child")) return "audience";
   if (c.withKids && !allowedForContext(a, "child")) return "kids";
+  if (c.youngKids && unsuitableForYoungKids(a)) return "young_kids";
+  if (c.wheelchair && unsuitableForWheelchair(a)) return "access";
   if (a.cost === null) {
     if (c.strictFreeCost && c.costCap === 0) return "budget";
   } else if (a.cost > c.costCap) return "budget";
   if (a.intensity !== null && a.intensity > c.intensityCap) return "effort";
   if (a.safety.tier === 2 && c.hideSupervised && !opts.explicitPick) return "supervised";
+  if (c.calmPace && unsuitableForCalmPace(a)) return "calm";
   if (c.setting && a.setting !== null && a.setting !== "both" && a.setting !== c.setting) return "setting";
   if (a.formats !== null) {
     if (c.formats && !a.formats.some((f) => c.formats!.includes(f))) return "format";

@@ -1,6 +1,7 @@
 import { SOCIAL_FORMATS, type Activity, type SocialFormat } from "@/lib/discovery/types";
 import { inSeason } from "@/lib/discovery/season";
 import { allowedForContext, normalizeSearchContext } from "@/lib/discovery/audience";
+import { unsuitableForCalmPace, unsuitableForWheelchair, unsuitableForYoungKids } from "@/lib/discovery/suitability";
 import type { EngineInput, ResolvedConstraints } from "@/lib/discovery/engine/types";
 
 // Hard filters. The rule that keeps them honest: an activity is only excluded on a
@@ -22,7 +23,7 @@ const INTENSITY_CAP: Record<string, 0 | 1 | 2 | 3> = { minimal: 1, some: 2, comm
  * Deliberately narrow: everything else is left to the idea generator, which already
  * treats the text as hard constraints. Dutch and English.
  */
-export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting" | "noGroups" | "verify"> {
+export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting" | "noGroups" | "verify" | "wheelchair" | "youngKids" | "calmPace"> {
   const t = ` ${text.toLowerCase()} `;
   const verify: string[] = [];
   let setting: "indoor" | "outdoor" | null = null;
@@ -45,18 +46,26 @@ export function parseMustHaves(text: string): Pick<ResolvedConstraints, "setting
   // No accessibility or pet data in the library: cannot filter, must be checked.
   // No word boundary at the start: the wizard's own chip is the compound "Rolstoeltoegankelijk",
   // and "hondvriendelijk" is what the placeholder suggests.
+  // The wheelchair itself is a filter on the activities that are known to be impossible from one (suitability.ts); the rest is checked.
+  const wheelchair = /(rolstoel|wheelchair)/.test(t);
   if (/(rolstoel|wheelchair|toegankelijk|accessible|slecht ter been|mobility)/.test(t)) verify.push("accessibility");
   if (/(hond(?!erd)|\bdogs?\b|huisdier|\bpets?\b)/.test(t)) verify.push("pet_friendly");
   // "Geen vis of schaaldieren" is one of the image intake's chips: a dietary limit too.
   if (/(allergie|allergy|allergic|dieet|\bdiet\b|vegetarisch|vegan|halal|koosjer|kosher|\bvis\b|\bfish\b|schaaldier|shellfish)/.test(t)) verify.push("dietary");
   if (/alcohol/.test(t)) verify.push("alcohol");
   if (/(kinderen|\bkids\b|children|\bbaby)/.test(t)) verify.push("children");
+  // Young children (a toddler or pre-schooler): a stricter list than "with children", and a hint to the writer.
+  const youngKids = /(jonge kinderen|kleine kinderen|kleuter|peuter|young children|small children|little kids|toddler|pre-?school)/.test(t);
+  if (youngKids) verify.push("young_children");
+  // A calm pace: only gentle, unsupervised, non-advanced activities (suitability.ts), and the writer is told not to rush.
+  const calmPace = /(rustig tempo|rustig aan|calm pace|slow pace)/.test(t);
+  if (calmPace) verify.push("calm_pace");
   // Practical wishes of the start page: how to get there and when. No data in the library either, so they are checked, not filtered.
   if (/(zonder auto|geen auto|openbaar vervoer|ov|without a car|no car|public transport|by train)/.test(t)) verify.push("transport");
   if (/weekend/.test(t)) verify.push("weekend");
   if (/(avond|evening)/.test(t)) verify.push("evening");
 
-  return { setting, noGroups, verify };
+  return { setting, noGroups, verify, ...(wheelchair ? { wheelchair } : {}), ...(youngKids ? { youngKids } : {}), ...(calmPace ? { calmPace } : {}) };
 }
 
 export interface ResolveOptions {
@@ -76,7 +85,8 @@ export function resolveConstraints(input: EngineInput, opts: ResolveOptions = {}
   return {
     costCap,
     nearBudgetCost: NEAR_BUDGET[input.budget] ?? null,
-    intensityCap: INTENSITY_CAP[input.effort] ?? 2,
+    // A calm pace never allows more than light movement, whatever the effort dial says.
+    intensityCap: must.calmPace ? (Math.min(INTENSITY_CAP[input.effort] ?? 2, 1) as 0 | 1 | 2 | 3) : INTENSITY_CAP[input.effort] ?? 2,
     // Only offered to people who said they are open to something less predictable.
     hideSupervised: input.practicalToWild === "grounded" || input.practicalToWild === "practical",
     formats,
@@ -86,6 +96,9 @@ export function resolveConstraints(input: EngineInput, opts: ResolveOptions = {}
     month: input.month ?? null,
     ...(normalizeSearchContext(input.searchContext) === "child" ? { minorSafe: true } : {}),
     ...(must.verify.includes("children") ? { withKids: true } : {}),
+    ...(must.youngKids ? { youngKids: true } : {}),
+    ...(must.wheelchair ? { wheelchair: true } : {}),
+    ...(must.calmPace ? { calmPace: true } : {}),
     ...(opts.strictFreeCost ? { strictFreeCost: true } : {}),
   };
 }
@@ -108,6 +121,10 @@ export function passesConstraints(a: Activity, c: ResolvedConstraints): FilterRe
   if (c.minorSafe && !allowedForContext(a, "child")) return no;
   // They go with children: the same short list (alcohol, gambling, weapons, heavy tools, adult-only forms) stays out of the book.
   if (c.withKids && !allowedForContext(a, "child")) return no;
+  // The people the book is for set what cannot be in it at all (suitability.ts): young children, a wheelchair, a calm pace.
+  if (c.youngKids && unsuitableForYoungKids(a)) return no;
+  if (c.wheelchair && unsuitableForWheelchair(a)) return no;
+  if (c.calmPace && unsuitableForCalmPace(a)) return no;
 
   if (a.cost === null) {
     // Unknown is not "free": with the strict rule nobody who asked for free is offered something we cannot vouch for.

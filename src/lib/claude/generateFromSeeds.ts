@@ -217,6 +217,8 @@ const NEED_RULES: Record<ResearchNeed, string> = {
   transport: "They have no car. Never assume parking. Say how to get there without one only when the verified option shows the station or stop; otherwise tell them to check the route on 9292 before booking.",
   accessibility: "They need step-free access. Never claim a place is accessible unless the verified option says so; in the first step tell them to ask about step-free access when booking.",
   children: "They go with children. Write the idea as something to do with children, say in the first step to check the minimum age when booking, and never suggest anything for adults only.",
+  young_children: "They go with young children (toddlers and pre-schoolers). Write every idea so it works with children of that age: short, close by, room to move, no long waiting. In the first step say to check the minimum age and whether a parent may join, and never suggest anything with a minimum age above six.",
+  calm_pace: "They want a calm pace. Write every idea as something unhurried: no rush, no competition, no long exertion. Offer the quiet version of an activity and name when a place is likely to be busy.",
 };
 
 /** Practical wishes as writing rules, or an empty string. The engine can only flag these (no data to filter on), so the writer must carry them. */

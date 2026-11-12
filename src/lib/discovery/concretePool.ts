@@ -7,6 +7,7 @@ import type { ConcreteActivity } from "@/lib/discovery/twoPages";
 import activityAssociations from "@/lib/discovery/activityAssociations.json";
 import { assocCloseness, type ActivityVector } from "@/lib/discovery/associationLayer";
 import { ASSOCIATIONS as ALL_CARDS, cardAssoc } from "@/lib/discovery/associations";
+import { unsuitableForCalmPace, unsuitableForWheelchair, unsuitableForYoungKids } from "@/lib/discovery/suitability";
 import { knowledgeAssociationLayerEnabled } from "@/lib/knowledgeFlags";
 
 // Server side: the slim activity data page 2 of the two-page intake needs in the browser. One language, only what can be done
@@ -61,16 +62,24 @@ export function buildConcretePool(locale: "nl" | "en", month?: number, layer: bo
   return {
     activities: getActivities({ minStatus: DISCOVERY_MIN_STATUS })
       .filter((a) => inSeason(a, month))
-      .map((a) => ({
-        id: a.id,
-        domain: a.domain,
-        sub: a.sub,
-        register: registerOfActivity(a),
-        tags: a.tags,
-        axes: activityAxes(a),
-        label: a.label[locale],
-        ...(layer && activityVector(a.id) ? { assoc: activityVector(a.id), assocHub: relativeHub(a.id) } : {}),
-      })),
+      .map((a) => {
+        const unfit: NonNullable<ConcretePoolItem["unfit"]> = [
+          ...(unsuitableForYoungKids(a) ? (["young_kids"] as const) : []),
+          ...(unsuitableForWheelchair(a) ? (["wheelchair"] as const) : []),
+          ...(unsuitableForCalmPace(a) ? (["calm"] as const) : []),
+        ];
+        return {
+          id: a.id,
+          domain: a.domain,
+          sub: a.sub,
+          register: registerOfActivity(a),
+          tags: a.tags,
+          axes: activityAxes(a),
+          label: a.label[locale],
+          ...(unfit.length > 0 ? { unfit } : {}),
+          ...(layer && activityVector(a.id) ? { assoc: activityVector(a.id), assocHub: relativeHub(a.id) } : {}),
+        };
+      }),
     genericTags: TAGS.filter((t) => t.generic).map((t) => t.id),
   };
 }

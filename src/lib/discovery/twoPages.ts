@@ -227,6 +227,8 @@ export interface ConcreteActivity {
   assoc?: ActivityVector;
   /** How broadly the activity lies close to images in general, relative to the average (1 = average; concretePool.ts). */
   assocHub?: number;
+  /** The needs this activity is known not to suit (suitability.ts): the browser has no safety or intensity data, so the server says it here. */
+  unfit?: readonly ("young_kids" | "wheelchair" | "calm")[];
 }
 
 export interface ConcreteOptions<A extends ConcreteActivity = ConcreteActivity> {

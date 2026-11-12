@@ -199,13 +199,13 @@ show a venue that exists and is open now; a wrong venue in a paid book is far wo
 exactly one JSON code block and nothing after it.`;
 
 /** Practical wishes of the person that change which venue is a good one (the engine only flags them; it has no data to filter on). */
-export type ResearchNeed = "evening" | "transport" | "accessibility" | "children";
-const NEED_BY_FLAG: Record<string, ResearchNeed> = { evening: "evening", transport: "transport", accessibility: "accessibility", children: "children" };
+export type ResearchNeed = "evening" | "transport" | "accessibility" | "children" | "young_children" | "calm_pace";
+const NEED_BY_FLAG: Record<string, ResearchNeed> = { evening: "evening", transport: "transport", accessibility: "accessibility", children: "children", young_children: "young_children", calm_pace: "calm_pace" };
 
 /** The research-relevant wishes among the engine's `verify` flags, in a fixed order (they are part of the cache key). */
 export function researchNeedsFrom(verify: readonly string[]): ResearchNeed[] {
   const found = new Set(verify.map((v) => NEED_BY_FLAG[v]).filter((n): n is ResearchNeed => !!n));
-  return (["evening", "transport", "accessibility", "children"] as const).filter((n) => found.has(n));
+  return (["evening", "transport", "accessibility", "children", "young_children", "calm_pace"] as const).filter((n) => found.has(n));
 }
 
 const NEED_TEXT: Record<ResearchNeed, string> = {
@@ -213,6 +213,8 @@ const NEED_TEXT: Record<ResearchNeed, string> = {
   transport: "has no car: prefer an option that is easy to reach by public transport or on foot or by bike from the place above; say so in the note when the source shows the station or stop",
   accessibility: "needs step-free access: prefer an option whose source says it is accessible; leave out one that the source says is not",
   children: "goes with children: prefer an option where children are welcome; leave out one that is for adults only",
+  young_children: "goes with young children (toddlers and pre-schoolers): prefer an option that welcomes them, with a minimum age they meet, short sessions and room to move; leave out one with an age limit above theirs",
+  calm_pace: "wants a calm pace: prefer an option without a rush, a crowd or a performance; leave out one that is fast, loud or competitive",
 };
 
 /** One paragraph for the research prompt, or an empty string when there is nothing to say. */
