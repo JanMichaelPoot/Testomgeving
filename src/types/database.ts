@@ -275,6 +275,9 @@ export interface Database {
           product_id?: string;
           price_variant?: string | null;
           followup_consent_at?: string | null;
+          // 0023: where the order was placed from (ISO country code and city; never the IP address).
+          ip_country?: string | null;
+          ip_city?: string | null;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["payments"]["Insert"]>;
@@ -535,6 +538,9 @@ export interface Database {
           output_ideas_json?: unknown[];
           output_wildcard_json?: Record<string, unknown> | null;
           email_delivered?: boolean;
+          // 0023: the country (ISO code) and place the order was placed from.
+          orderer_country?: string | null;
+          orderer_city?: string | null;
         };
         Update: Partial<Database["public"]["Tables"]["audit_log"]["Insert"]>;
         Relationships: [];

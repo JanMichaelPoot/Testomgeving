@@ -958,7 +958,7 @@ export function IntakeWizard({
           ) : (
             <span />
           )}
-          <Button onClick={goNext} disabled={!canContinue || isPending}>
+          <Button variant="hero" onClick={goNext} disabled={!canContinue || isPending} className="min-h-14 font-semibold">
             {isLastPage
               ? isPending
                 ? dict.opening

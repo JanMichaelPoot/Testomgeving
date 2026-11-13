@@ -155,7 +155,7 @@ describe("the broad pass", () => {
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Brede club")]])));
     const { byActivity } = await researchSeeds({ ...cfg, activityIds: ["yoga"], cache, search, pass: "broad" });
     expect(search).toHaveBeenCalledTimes(1);
-    expect(search.mock.calls[0][9]).toBe("broad");
+    expect((search.mock.calls[0] as unknown[])[9]).toBe("broad");
     expect(byActivity.get("yoga")?.options[0].name).toBe("Brede club");
     expect(store.get("yoga|utrecht|city|2026-10|v5|broad")?.map((o) => o.name)).toEqual(["Brede club"]);
     expect(store.get("yoga|utrecht|city|2026-10|v5")).toEqual([]);
@@ -164,7 +164,7 @@ describe("the broad pass", () => {
   it("is never used for the online providers", async () => {
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [{ ...opt("Cursus"), city: "Online" }]])));
     await researchSeeds({ ...cfg, activityIds: ["yoga"], cache: null, search, mode: "online", pass: "broad" });
-    expect(search.mock.calls[0][9]).toBe("standard");
+    expect((search.mock.calls[0] as unknown[])[9]).toBe("standard");
   });
 });
 

@@ -201,7 +201,7 @@ function withKm(a: IntakeAnswers): IntakeAnswers {
 
 /** "Other images" / "other activities": the one action that is always worth pressing, so it looks like one. */
 const MORE_BUTTON =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-2 border-accent-dark bg-accent-dark px-5 text-[15px] font-semibold text-paper shadow-sm transition hover:bg-accent focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60 disabled:opacity-50 max-sm:w-full";
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-2 border-gold bg-accent-dark px-5 text-[15px] font-semibold text-paper shadow-sm transition hover:bg-accent hover:shadow-[0_8px_20px_rgba(60,41,32,0.25)] motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-gold/60 disabled:opacity-50 max-sm:w-full";
 
 function RefreshIcon() {
   return (
@@ -1818,7 +1818,7 @@ export function AssociationWizard({
                 )}
                 {/* The last screen pays itself (the order block above): "Terug" stays in the bar, plus a button that jumps to the order. */}
                 {isLast && isProfile && !orderInView && (
-                  <Button href="#bestellen" data-testid="to-order" className="flex-1 lg:flex-none lg:min-w-56">
+                  <Button href="#bestellen" data-testid="to-order" variant="hero" className="min-h-14 flex-1 px-5 text-base font-semibold lg:min-w-64 lg:flex-none lg:px-8">
                     {dict.nav.toOrder}
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                       <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />

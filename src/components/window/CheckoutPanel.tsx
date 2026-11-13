@@ -269,10 +269,16 @@ export function CheckoutPanel({
         onClick={handleSubmit}
         disabled={!canSubmit || isPending}
         aria-describedby={payHint ? "pay-hint" : undefined}
+        variant="hero"
         size="lg"
-        className="w-full justify-center"
+        className="min-h-14 w-full justify-center text-lg font-semibold"
       >
         {isPending ? dict.ctaPending : dict.ctaIdle.replace("{price}", price)}
+        {!isPending && (
+          <span aria-hidden="true" className="cta-arrow inline-block">
+            →
+          </span>
+        )}
       </Button>
       {/* The promise that goes with the payment, right where the decision is made. */}
       <p className="mt-3 text-center text-sm text-ink/70">{dict.guarantee}</p>
