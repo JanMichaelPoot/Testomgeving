@@ -50,10 +50,14 @@ export function VensterHero({
               {dict.headline} <em className="text-gold-text">{dict.headlineEmphasis}</em>
             </p>
             <p className="max-w-md text-lg leading-relaxed text-ink/75">{dict.subcopy}</p>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button href={VENSTER_SELF_HREF} size="lg" className="justify-center sm:min-w-64">
-                {dict.selfCta}
+            <div className="flex flex-col gap-3">
+              <Button href={VENSTER_SELF_HREF} variant="hero" size="lg" className="min-h-14 w-full justify-center px-10 text-lg font-semibold sm:w-auto sm:min-w-72 sm:self-start">
+                {dict.heroCta}
+                <span aria-hidden="true" className="cta-arrow inline-block">
+                  →
+                </span>
               </Button>
+              <p className="text-sm text-ink/65 sm:text-left">{dict.heroCtaNote}</p>
             </div>
             <ShareLinks siteUrl={siteUrl} copy={dict.share} />
           </div>

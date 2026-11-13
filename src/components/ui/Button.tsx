@@ -23,6 +23,9 @@ const variants = {
   secondary:
     "bg-cream text-accent-dark border border-border hover:border-walnut-light hover:bg-surface-active",
   ghost: "text-ink hover:bg-ink/5",
+  // The landing hero's way in: a walnut gradient with an always-visible gold edge, a sheen that sweeps over on hover and a calm gold
+  // glow while the page is new (see .cta-hero in globals.css). Only for that one button.
+  hero: "cta-hero group relative overflow-hidden border border-gold bg-[linear-gradient(135deg,#5b3f2f_0%,#3c2920_100%)] text-paper shadow-[0_4px_14px_rgba(60,41,32,0.25)] motion-safe:hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(60,41,32,0.3)]",
 };
 
 type Variant = keyof typeof variants;

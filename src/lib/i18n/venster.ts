@@ -8,6 +8,8 @@ import { doorRange } from "@/lib/productStructure";
 export interface VensterDictionary {
   landing: {
     selfCta: string;
+    heroCta: string; // the big button in the hero (the banner at the bottom keeps selfCta)
+    heroCtaNote: string; // the line under it
     badge: string; // {price}
     headline: string;
     headlineEmphasis: string; // the italic part, shown after headline
@@ -353,11 +355,13 @@ export interface VensterDictionary {
 export const vensterNl: VensterDictionary = {
   landing: {
     selfCta: "Open je venster",
-    badge: "Nieuw · {price} · geen account",
+    heroCta: "Kijk door het venster",
+    heroCtaNote: "Kost 2 minuten · geen account nodig",
+    badge: "Nieuw · {price} · geen account, klaar in minuten",
     headline: "Wat als je iets ontdekt waarvan je",
     headlineEmphasis: "nog niet wist dat het bij je past?",
     subcopy:
-      "Kies beelden die je aanspreken. Wij vertalen ze naar activiteiten die je zelf misschien nooit had bedacht, met echte plekken bij jou in de buurt.",
+      "Kies een paar beelden waar je blij van wordt. Wij zoeken de activiteiten die daarbij horen: dingen waar je zelf misschien nooit aan dacht, met echte plekken bij jou in de buurt. Het begint met één blik door het venster.",
     heroAlt: "Een klassiek schuifraam met acht ruiten, elk met een ander beeld",
     share: {
       heading: "Deel WindowInto",
@@ -1004,10 +1008,13 @@ export const vensterNl: VensterDictionary = {
 export const vensterEn: VensterDictionary = {
   landing: {
     selfCta: "Open your window",
-    badge: "New · {price} · no account",
+    heroCta: "Look through the window",
+    heroCtaNote: "Takes 2 minutes · no account needed",
+    badge: "New · {price} · no account, ready in minutes",
     headline: "What if you discover something",
     headlineEmphasis: "you didn't know suited you?",
-    subcopy: "Pick images that appeal to you. We turn them into activities you might never have thought of, with real places near you.",
+    subcopy:
+      "Pick a few images that make you smile. We find the activities that go with them: things you might never have thought of, with real places near you. It all starts with one look through the window.",
     heroAlt: "A classic sash window with eight panes, each showing a different image",
     share: {
       heading: "Share WindowInto",

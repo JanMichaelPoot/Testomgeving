@@ -24,7 +24,7 @@ for (const size of sizes) {
       await expect(page.getByRole("heading", { level: 1 })).toHaveText("WindowInto");
       await expect(page.getByText("Wat als je iets ontdekt")).toBeVisible();
       await noSideways();
-      await page.getByRole("link", { name: /Open je venster/ }).first().click();
+      await page.getByRole("link", { name: /Kijk door het venster/ }).first().click();
       await expect(page).toHaveURL(/\/intake/);
 
       // 2. Start page: who, where (a place is the one required answer), the two sliders, the grouped limits.

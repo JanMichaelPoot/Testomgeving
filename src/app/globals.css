@@ -281,6 +281,49 @@ body {
   background: var(--color-border);
 }
 
+/* The hero button ("Kijk door het venster"): a sheen sweeps over it once on hover and the arrow steps right; for the first
+   seconds a gold glow breathes round it (three times, then it rests). Without motion it only changes colour. */
+.cta-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 246, 228, 0.28) 50%, transparent 65%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+.cta-hero:hover,
+.cta-hero:focus-visible {
+  border-color: var(--color-gold-light);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cta-hero::after {
+    transition: none;
+  }
+  .cta-hero:hover::after {
+    transform: translateX(120%);
+    transition: transform 0.6s ease;
+  }
+  .cta-hero {
+    animation: cta-hero-glow 2.4s ease-in-out 1.2s 3;
+  }
+  .cta-hero .cta-arrow {
+    transition: transform 0.2s ease;
+  }
+  .cta-hero:hover .cta-arrow,
+  .cta-hero:focus-visible .cta-arrow {
+    transform: translateX(4px);
+  }
+}
+@keyframes cta-hero-glow {
+  0%,
+  100% {
+    box-shadow: 0 4px 14px rgba(60, 41, 32, 0.25), 0 0 0 0 rgba(176, 138, 74, 0);
+  }
+  50% {
+    box-shadow: 0 4px 14px rgba(60, 41, 32, 0.25), 0 0 0 6px rgba(176, 138, 74, 0.28);
+  }
+}
+
 /* The arrow under "Ga verder om jouw ontdekkingsboek te bestellen": a slow nudge downwards; still with reduced motion. */
 @media (prefers-reduced-motion: no-preference) {
   .scroll-cue {
