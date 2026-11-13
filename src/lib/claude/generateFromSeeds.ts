@@ -356,7 +356,9 @@ function seedBlock(
     `  Easy way in: ${a.entry ? a.entry[locale] : "not known; suggest a beginner-friendly first step"}`,
     a.safety.tier === 2 && a.safety.note
       ? `  Supervision: only with qualified supervision. ${a.safety.note[locale]}`
-      : null,
+      : a.safety.note
+        ? `  Permit or rule to mention in the first step: ${a.safety.note[locale]}`
+        : null,
     seed.verify.includes("cost_unknown")
       ? "  Cost: not known; keep the estimate approximate and say it varies."
       : seed.verify.includes("cost_near_budget")

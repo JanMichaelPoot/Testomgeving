@@ -42,7 +42,7 @@ export interface VensterDictionary {
     dropped: {
       title: string;
       body: string;
-      reasons: Record<"season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "no_alcohol" | "quiet" | "meet" | "no_dutch" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
+      reasons: Record<"season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "no_alcohol" | "quiet" | "meet" | "no_dutch" | "hunt_fish" | "animals" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
       editSituation: string;
       editChoices: string;
     };
@@ -416,6 +416,8 @@ export const vensterNl: VensterDictionary = {
         quiet: "is druk, luid of onvoorspelbaar",
         meet: "biedt geen manier om mensen te ontmoeten",
         no_dutch: "wordt in het Nederlands gedaan",
+        hunt_fish: "gaat over jagen of vissen",
+        animals: "draait om dieren",
         budget: "past niet bij je budget",
         effort: "vraagt meer inspanning dan je aangaf",
         supervised: "vraagt begeleiding en past niet bij je voorkeur voor het vertrouwde",
@@ -820,6 +822,7 @@ export const vensterNl: VensterDictionary = {
         { title: "Hoe wil je meedoen?", chips: ["Mensen ontmoeten", "Met één ander", "Met een groep"] },
         { title: "Eten en drinken", chips: ["Zonder alcohol", "Zonder vis of schaaldieren"] },
         { title: "Taal", chips: ["Zonder Nederlands"] },
+        { title: "Dieren", chips: ["Zonder jagen of vissen", "Zonder dieren"] },
         { title: "Wanneer", chips: ["In het weekend", "'s Avonds"] },
       ],
     },
@@ -852,6 +855,8 @@ export const vensterNl: VensterDictionary = {
       "Zonder alcohol",
       "Zonder vis of schaaldieren",
       "Zonder Nederlands",
+      "Zonder jagen of vissen",
+      "Zonder dieren",
       "Met kinderen",
       "Met jonge kinderen",
       "Rustig tempo",
@@ -1053,6 +1058,8 @@ export const vensterEn: VensterDictionary = {
         quiet: "is busy, loud or unpredictable",
         meet: "offers no way to meet people",
         no_dutch: "is done in Dutch",
+        hunt_fish: "is about hunting or fishing",
+        animals: "is about animals",
         budget: "does not fit your budget",
         effort: "takes more effort than you said",
         supervised: "needs guidance and does not fit your preference for the familiar",
@@ -1457,6 +1464,7 @@ export const vensterEn: VensterDictionary = {
         { title: "How do you want to take part?", chips: ["Meet people", "With one other person", "With a group"] },
         { title: "Food and drink", chips: ["No alcohol", "No fish or shellfish"] },
         { title: "Language", chips: ["No Dutch needed"] },
+        { title: "Animals", chips: ["No hunting or fishing", "No animals"] },
         { title: "When", chips: ["On weekends", "In the evening"] },
       ],
     },
@@ -1489,6 +1497,8 @@ export const vensterEn: VensterDictionary = {
       "No alcohol",
       "No fish or shellfish",
       "No Dutch needed",
+      "No hunting or fishing",
+      "No animals",
       "With children",
       "With young children",
       "Calm pace",

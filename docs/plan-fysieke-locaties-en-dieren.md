@@ -24,7 +24,7 @@ Opdracht van Jan (13 nov 2026), met een correctie dezelfde dag: de **activiteite
 
 **Nog te meten (kost geld).** Of dit in echte boeken werkt: het aandeel ideeën met een fysieke plek, en of een online aanbieder alleen nog verschijnt waar niets fysieks bestaat. Dat vraagt dezelfde vier persona-boeken als in sectie K (± $0,22 per boek, ± $0,9) en een akkoord van Jan.
 
-## Onderdeel B: activiteiten met dieren (nog te bouwen)
+## Onderdeel B: activiteiten met dieren (gebouwd, Stap 176)
 
 Ongeveer 30 nieuwe activiteiten in vijf groepen; ze krijgen de gewone bibliotheekvelden en komen dus ook langs de fysieke zoekronde van onderdeel A.
 
@@ -49,7 +49,9 @@ Randvoorwaarden:
 | Fase | Inhoud | Kosten | Stand |
 |---|---|---|---|
 | 1 | Onderdeel A | $0 | **gebouwd** |
-| 2 | Onderdeel B: 30 activiteiten, chips, vergunningsregel, seizoen; beelden na akkoord | $0 data, ± $0,40 tot $0,55 beelden | wacht op de beslispunten |
+| 2 | Onderdeel B: 27 activiteiten, twee uitzet-chips, vergunningsnotitie, seizoen, 27 activiteitsfoto's ($0,40) | $0,40 | **gebouwd** |
 | 3 | Meting met echte boeken (de vier persona's van sectie K en een dierenliefhebber) | ± $0,22 per boek | wacht op akkoord |
 
-Beslispunten voor Jan: (1) jagen opnemen als kennismaking met vergunninguitleg en een uitzet-chip, of alleen vissen en dieren zonder jagen; (2) akkoord op het beeldbudget (± $0,40 tot $0,55); (3) akkoord op de meting met echte boeken (± $0,9 tot $1,1).
+Besloten door Jan (13 nov): jagen als kennismaking met vergunninguitleg en een uitzet-chip; beeldbudget akkoord. Nog open: de meting met echte boeken (± $0,9 tot $1,1) wacht op een akkoord.
+
+Afwijking van het plan: de 27 beelden zijn de activiteitsfoto's voor pagina 2 (nodig om de activiteiten te tonen), geen nieuwe beeldfamilies voor pagina 1; die hadden het budget overschreden en kunnen later.

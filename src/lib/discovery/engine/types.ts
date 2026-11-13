@@ -107,6 +107,9 @@ export interface ResolvedConstraints {
   meetPeople?: boolean;
   /** They do not speak Dutch (chip "Zonder Nederlands"): what is done in Dutch stays out and what welcomes newcomers weighs more. */
   noDutch?: boolean;
+  /** Chips "Zonder jagen of vissen" and "Zonder dieren": hunting and fishing stay out, or every activity with animals. */
+  noHuntFish?: boolean;
+  noAnimals?: boolean;
   /** The chips "Met één ander" and "Met een groep" (their forms are in `formats`; these two say which were asked, for the writer). */
   withOne?: boolean;
   withGroup?: boolean;

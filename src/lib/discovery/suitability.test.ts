@@ -3,9 +3,13 @@ import { defaultEngineLibrary, parseMustHaves, resolveConstraints, selectSeeds }
 import type { EngineInput } from "@/lib/discovery/engine";
 import { whyNot } from "@/lib/discovery/engine/droppedPicks";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { hiddenByNeeds } from "@/lib/discovery/needs";
 import {
   ALCOHOL_CENTRAL,
   ALCOHOL_SIDE,
+  HUNT_OR_FISH,
+  unsuitableWithoutAnimals,
+  unsuitableWithoutHuntFish,
   DUTCH_BOUND,
   INTERNATIONAL_FRIENDLY,
   internationalBias,
@@ -266,5 +270,76 @@ describe("P3 chip: no Dutch needed", () => {
   it("sends the flag the browser needs", () => {
     expect(unfitFlags(byId.get("stand-up")!)).toContain("dutch");
     expect(unfitFlags(byId.get("taalcafe")!)).not.toContain("dutch");
+  });
+});
+
+// --- animals: knuffelen, wedstrijden, vissen, jagen -----------------------------------------------------------------------------------------
+
+describe("the animal activities", () => {
+  const NEW = ["kattencafe", "geitenyoga", "ezel-wandeling", "lammetjesdag", "dierenopvang-knuffelen", "paardenverzorgingsdag", "ponyrijden", "hondenshow", "paardensportwedstrijd",
+    "duivenwedstrijd", "pluimveetentoonstelling", "schapendrijven", "ringrijden", "karpervissen", "vliegvissen", "zeevissen", "visvijver", "krabben-vangen", "jachtkennismaking",
+    "wildkijken", "hertenbronst", "valkerij", "jachthoorn-blazen", "jachthonden-demo", "kaninhop", "koeknuffelen", "ganzenkijken"];
+
+  it("are in the library, visible (their photo exists) and part of the nature world", () => {
+    for (const id of NEW) {
+      const a = byId.get(id);
+      expect(a, id).toBeDefined();
+      expect(a!.domain, id).toBe("nature");
+    }
+    expect(NEW).toHaveLength(27);
+  });
+
+  it("explain the permit for hunting and fishing, and hunting needs qualified supervision", () => {
+    for (const id of ["karpervissen", "vliegvissen", "zeevissen"]) expect(byId.get(id)!.safety.note?.nl, id).toMatch(/VISpas/);
+    const hunt = byId.get("jachtkennismaking")!;
+    expect(hunt.safety.tier).toBe(2);
+    expect(hunt.safety.note?.nl).toMatch(/jachtakte/);
+    expect(hunt.safety.note?.en).toMatch(/hunting licence/);
+  });
+
+  it("keep the seasonal ones to their months", () => {
+    expect(byId.get("lammetjesdag")!.months).toEqual([3, 4, 5]);
+    expect(byId.get("hertenbronst")!.months).toEqual([9, 10]);
+    expect(byId.get("pluimveetentoonstelling")!.months).toEqual([11, 12, 1, 2]);
+  });
+
+  it("keep hunting from young searchers and children", () => {
+    const c = resolveConstraints({ ...BASE, searchContext: "child" });
+    expect(whyNot(byId.get("jachtkennismaking")!, c)).toBe("audience");
+    expect(whyNot(byId.get("kattencafe")!, c)).toBeNull();
+  });
+
+  it("have two opt-out chips in both languages, read by the parser", () => {
+    expect(parseMustHaves("Zonder jagen of vissen").noHuntFish).toBe(true);
+    expect(parseMustHaves("No hunting or fishing").noHuntFish).toBe(true);
+    expect(parseMustHaves("Zonder dieren").noAnimals).toBe(true);
+    expect(parseMustHaves("No animals").noAnimals).toBe(true);
+    expect(parseMustHaves("Met de hond").noAnimals).toBeUndefined();
+    for (const c of ["Zonder jagen of vissen", "Zonder dieren"]) expect(getDictionary("nl").venster.who.limitChips).toContain(c);
+    for (const c of ["No hunting or fishing", "No animals"]) expect(getDictionary("en").venster.who.limitChips).toContain(c);
+  });
+
+  it("never put hunting or fishing in a book of someone who chose 'Zonder jagen of vissen', and nothing with animals for 'Zonder dieren'", () => {
+    const sets = (mh: string) => Array.from({ length: 25 }, (_, i) => selectSeeds({ ...BASE, mustHaves: mh, seed: `animals-${i}` }, lib).seeds.map((s) => byId.get(s.activityId)!)).flat();
+    for (const a of sets("Zonder jagen of vissen")) expect(unsuitableWithoutHuntFish(a), a.id).toBe(false);
+    for (const a of sets("Zonder dieren")) {
+      expect(unsuitableWithoutAnimals(a), a.id).toBe(false);
+      expect(unsuitableWithoutHuntFish(a), a.id).toBe(false);
+    }
+    // Without the chips the animals are there like anything else.
+    expect(sets("").some((a) => unsuitableWithoutAnimals(a))).toBe(true);
+    expect(whyNot(byId.get("vissen")!, resolveConstraints({ ...BASE, mustHaves: "Zonder jagen of vissen" }))).toBe("hunt_fish");
+    expect(whyNot(byId.get("kattencafe")!, resolveConstraints({ ...BASE, mustHaves: "Zonder dieren" }))).toBe("animals");
+    expect(whyNot(byId.get("kattencafe")!, resolveConstraints({ ...BASE, mustHaves: "Zonder jagen of vissen" }))).toBeNull();
+  });
+
+  it("send the flags the browser needs, and every id on the hunt-or-fish list exists", () => {
+    for (const id of HUNT_OR_FISH) expect(byId.has(id), id).toBe(true);
+    expect(unfitFlags(byId.get("karpervissen")!)).toEqual(expect.arrayContaining(["hunt_fish", "animals"]));
+    expect(unfitFlags(byId.get("kattencafe")!)).toContain("animals");
+    expect(unfitFlags(byId.get("kattencafe")!)).not.toContain("hunt_fish");
+    expect(hiddenByNeeds(["animals"], { noAnimals: true })).toBe(true);
+    expect(hiddenByNeeds(["animals"], { noHuntFish: true })).toBe(false);
+    expect(hiddenByNeeds(["hunt_fish", "animals"], { noHuntFish: true })).toBe(true);
   });
 });

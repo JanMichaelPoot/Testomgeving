@@ -165,10 +165,26 @@ export function meetingBias(a: Pick<Activity, "domain" | "formats">): number {
   return bias;
 }
 
+// --- no hunting or fishing, no animals ----------------------------------------------------------------------------------------------------
+
+/** Hunting and fishing: taking part in killing or catching animals. Out when the visitor chooses "Zonder jagen of vissen". Crab and shrimp catching counts as fishing. */
+export const HUNT_OR_FISH: ReadonlySet<string> = new Set(
+  ids(`jachtkennismaking jachthoorn-blazen jachthonden-demo vissen karpervissen vliegvissen zeevissen visvijver krabben-vangen`),
+);
+
+export function unsuitableWithoutHuntFish(a: Pick<Activity, "id">): boolean {
+  return HUNT_OR_FISH.has(a.id);
+}
+
+/** Anything with animals in it (tag "animals"), plus fishing, which carries no animal tag. Out when the visitor chooses "Zonder dieren" (afraid, allergic or against it). */
+export function unsuitableWithoutAnimals(a: Pick<Activity, "id"> & { tags: readonly string[] }): boolean {
+  return a.tags.includes("animals") || HUNT_OR_FISH.has(a.id);
+}
+
 // --- what the browser needs to know -------------------------------------------------------------------------------------------
 
 /** The needs an activity is known not to suit, computed on the server so the browser needs no safety or intensity data (concretePool.ts). */
-export type UnfitFlag = "young_kids" | "wheelchair" | "calm" | "alcohol" | "quiet" | "no_meet" | "no_duo" | "no_group" | "dutch";
+export type UnfitFlag = "young_kids" | "wheelchair" | "calm" | "alcohol" | "quiet" | "no_meet" | "no_duo" | "no_group" | "dutch" | "hunt_fish" | "animals";
 
 export function unfitFlags(a: Facets): UnfitFlag[] {
   const f = a.formats;
@@ -181,6 +197,8 @@ export function unfitFlags(a: Facets): UnfitFlag[] {
     ...(unsuitableForQuiet(a) ? (["quiet"] as const) : []),
     ...(unsuitableForMeeting(a) ? (["no_meet"] as const) : []),
     ...(unsuitableWithoutDutch(a) ? (["dutch"] as const) : []),
+    ...(unsuitableWithoutHuntFish(a) ? (["hunt_fish"] as const) : []),
+    ...(unsuitableWithoutAnimals(a) ? (["animals"] as const) : []),
     ...(known && !f!.includes("duo") ? (["no_duo"] as const) : []),
     ...(known && !f!.some((x) => x === "small_group" || x === "large_group") ? (["no_group"] as const) : []),
   ];

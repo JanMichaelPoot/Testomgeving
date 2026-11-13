@@ -2300,5 +2300,1110 @@
       "source_record_id": "RA-499",
       "method": "curated"
     }
+  },
+  {
+    "id": "kattencafe",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een kattencafé bezoeken",
+      "en": "Visiting a cat café"
+    },
+    "tags": [
+      "animals",
+      "stillness",
+      "caring"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een uurtje met een kop thee tussen de katten; reserveren kan vaak vooraf",
+      "en": "An hour with a cup of tea among the cats; booking ahead is often possible"
+    },
+    "scene": "a sunny cafe window sill with two sleeping cats, a teacup and a soft cushion",
+    "status": "concept"
+  },
+  {
+    "id": "geitenyoga",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Yoga tussen de geiten",
+      "en": "Yoga among the goats"
+    },
+    "tags": [
+      "animals",
+      "balance",
+      "outdoors"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een proefsessie op een geitenboerderij; mat en uitleg zijn er",
+      "en": "A trial session at a goat farm; the mat and the instructions are there"
+    },
+    "scene": "two goats standing on yoga mats in a green meadow with a wooden barn behind them",
+    "status": "concept"
+  },
+  {
+    "id": "ezel-wandeling",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Wandelen met een ezel",
+      "en": "Walking with a donkey"
+    },
+    "tags": [
+      "animals",
+      "outdoors",
+      "caring"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een uur of een middag wandelen met een ezel bij een ezelhouderij",
+      "en": "An hour or an afternoon walking with a donkey at a donkey farm"
+    },
+    "scene": "a grey donkey with a leather halter and a lead rope beside a hedgerow in golden light",
+    "status": "concept"
+  },
+  {
+    "id": "lammetjesdag",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Lammetjesdag op een schapenboerderij",
+      "en": "Lamb day on a sheep farm"
+    },
+    "tags": [
+      "animals",
+      "caring",
+      "outdoors"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open dag in het voorjaar; lammetjes kijken, aaien en soms een flesje geven",
+      "en": "A spring open day; watching and stroking the lambs and sometimes bottle-feeding"
+    },
+    "scene": "a spring meadow with a few small lambs beside a wooden fence and a farm gate",
+    "status": "concept"
+  },
+  {
+    "id": "dierenopvang-knuffelen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Knuffelen en voeren bij een dierenopvang",
+      "en": "Cuddling and feeding at an animal shelter"
+    },
+    "tags": [
+      "animals",
+      "caring",
+      "stillness"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open dag of knuffelmiddag bij een opvang voor konijnen, cavia's en katten",
+      "en": "An open day or cuddle afternoon at a shelter for rabbits, guinea pigs and cats"
+    },
+    "scene": "a soft blanket with a rabbit and two guinea pigs in a wooden pen in warm light",
+    "status": "concept"
+  },
+  {
+    "id": "paardenverzorgingsdag",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een dag paarden verzorgen",
+      "en": "A day of horse care"
+    },
+    "tags": [
+      "animals",
+      "caring",
+      "outdoors"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een proefdag bij een manege of paardenstal: borstelen, voeren en uitmesten",
+      "en": "A trial day at a riding school or stable: grooming, feeding and mucking out"
+    },
+    "scene": "a brown horse tied at a stable door with a brush, a hoof pick and a bucket on a bale of straw",
+    "status": "concept"
+  },
+  {
+    "id": "ponyrijden",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Ponyrijden voor beginners",
+      "en": "Pony riding for beginners"
+    },
+    "tags": [
+      "animals",
+      "balance",
+      "play"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een rondje of een proefles op een pony, aan de hand geleid bij een manege of kinderboerderij",
+      "en": "A ride or trial lesson on a pony, led by an instructor at a riding school or petting farm"
+    },
+    "scene": "a small pony with a leather saddle in a sandy paddock behind a white fence",
+    "status": "concept"
+  },
+  {
+    "id": "hondenshow",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een hondenshow of -wedstrijd bezoeken",
+      "en": "Visiting a dog show or competition"
+    },
+    "tags": [
+      "animals",
+      "competition",
+      "performance"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een tentoonstelling of behendigheidswedstrijd van een rasvereniging; vaak gratis te bezoeken",
+      "en": "An exhibition or agility competition by a breed club; often free to visit"
+    },
+    "scene": "a green show ring with a rope border, a blue ribbon and a bowl of water, a groomed spaniel waiting",
+    "status": "concept"
+  },
+  {
+    "id": "paardensportwedstrijd",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een ruiter- of ponywedstrijd bekijken",
+      "en": "Watching a riding or pony competition"
+    },
+    "tags": [
+      "animals",
+      "competition",
+      "balance"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een springconcours of dressuurwedstrijd van een manege of ruitervereniging; kijken is meestal gratis",
+      "en": "A show-jumping or dressage event of a riding school or club; watching is usually free"
+    },
+    "scene": "an empty sand arena with a colourful show-jumping fence and a bell on a pole",
+    "status": "concept"
+  },
+  {
+    "id": "duivenwedstrijd",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een duivenwedstrijd of -tentoonstelling",
+      "en": "A pigeon race or pigeon show"
+    },
+    "tags": [
+      "animals",
+      "competition",
+      "collecting"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een open dag bij een duivenvereniging of een tentoonstelling in het najaar",
+      "en": "An open day at a pigeon fanciers' club or a show in the autumn"
+    },
+    "scene": "a wooden pigeon loft at dusk with pigeons on the landing board and a numbered ring on a post",
+    "status": "concept"
+  },
+  {
+    "id": "pluimveetentoonstelling",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een kippen- en konijnenshow",
+      "en": "A poultry and rabbit show"
+    },
+    "tags": [
+      "animals",
+      "competition",
+      "collecting"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een tentoonstelling van een fokkersvereniging in de winter; kijken en vragen stellen",
+      "en": "A winter show by a breeders' association; looking and asking questions"
+    },
+    "scene": "rows of cages with proud hens and a rooster in a hall, rosette ribbons pinned to a board",
+    "status": "concept"
+  },
+  {
+    "id": "schapendrijven",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Schapendrijven met border collies bekijken",
+      "en": "Watching sheepdog herding with border collies"
+    },
+    "tags": [
+      "animals",
+      "performance",
+      "technique"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een demonstratie of wedstrijd bij een schaapherder of herdersclub",
+      "en": "A demonstration or competition at a shepherd's or sheepdog club"
+    },
+    "scene": "a border collie crouching low in front of a small flock of sheep on a green slope",
+    "status": "concept"
+  },
+  {
+    "id": "ringrijden",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Ringrijden",
+      "en": "Ring-riding festival"
+    },
+    "tags": [
+      "animals",
+      "competition",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een ringrijderijfeest in Zeeland of Brabant; kijken naar de optocht en het rijden",
+      "en": "A ring-riding festival in Zeeland or Brabant; watching the parade and the riding"
+    },
+    "scene": "a wooden arch with a small ring hanging from a hook and a decorated horse harness nearby",
+    "status": "concept"
+  },
+  {
+    "id": "karpervissen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Karpervissen-proefdag",
+      "en": "Carp fishing trial day"
+    },
+    "tags": [
+      "nature",
+      "stillness",
+      "focus",
+      "water"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1,
+      "note": {
+        "nl": "Vissen mag alleen met een VISpas en toestemming van de visrechthebbende; een clinic of proefdag regelt dat vaak voor je.",
+        "en": "Fishing needs a VISpas and permission from whoever holds the fishing rights; a clinic or trial day often arranges both."
+      }
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een proefdag bij een hengelsportvereniging of viswater; VISpas en materiaal worden vaak geregeld",
+      "en": "A trial day at an angling club or fishing water; the VISpas and the gear are often arranged"
+    },
+    "scene": "a fishing rod on a rod pod beside a calm pond at sunrise with a landing net and a small tent",
+    "status": "concept"
+  },
+  {
+    "id": "vliegvissen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een vliegviscursus",
+      "en": "A fly-fishing course"
+    },
+    "tags": [
+      "water",
+      "technique",
+      "focus"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1,
+      "note": {
+        "nl": "Vissen mag alleen met een VISpas en toestemming van de visrechthebbende; een clinic of proefdag regelt dat vaak voor je.",
+        "en": "Fishing needs a VISpas and permission from whoever holds the fishing rights; a clinic or trial day often arranges both."
+      }
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een introductiecursus bij een vliegvisschool; het werpen leer je op het gras",
+      "en": "An introduction course at a fly-fishing school; you learn casting on the grass"
+    },
+    "scene": "a fly rod and a small box of colourful flies on a mossy stone beside a clear stream",
+    "status": "concept"
+  },
+  {
+    "id": "zeevissen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Zeevissen op een kotter",
+      "en": "Sea fishing on a cutter"
+    },
+    "tags": [
+      "water",
+      "outdoors",
+      "challenge"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 1,
+      "note": {
+        "nl": "Vissen mag alleen met een VISpas en toestemming van de visrechthebbende; een clinic of proefdag regelt dat vaak voor je.",
+        "en": "Fishing needs a VISpas and permission from whoever holds the fishing rights; a clinic or trial day often arranges both."
+      }
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een dagtocht op een zeehengelaarskotter; het gerei is te huur en de schipper helpt",
+      "en": "A day trip on a sea-angling cutter; gear is for rent and the skipper helps"
+    },
+    "scene": "a fishing cutter with rods in holders on the deck, gulls and a grey sea at sunrise",
+    "status": "concept"
+  },
+  {
+    "id": "visvijver",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een middag vissen aan een visvijver",
+      "en": "An afternoon at a fishing pond"
+    },
+    "tags": [
+      "water",
+      "stillness",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een visvijver waar je een hengel kunt huren en waar vissen vrij is; goed met kinderen",
+      "en": "A fishing pond where you can rent a rod and where fishing is allowed; good with children"
+    },
+    "scene": "a small pond with a wooden jetty and a bright red float on the water, a bucket and a net",
+    "status": "concept"
+  },
+  {
+    "id": "krabben-vangen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Krabben of garnalen vangen langs de kust",
+      "en": "Catching crabs or shrimp along the coast"
+    },
+    "tags": [
+      "water",
+      "discovery",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Een krabbenlijn en een emmer bij een pier of havenmuur; kinderen vinden het geweldig",
+      "en": "A crab line and a bucket at a pier or harbour wall; children love it"
+    },
+    "scene": "a bucket with small crabs on wet sand at a pier, a string with bait and a crab line",
+    "status": "concept"
+  },
+  {
+    "id": "jachtkennismaking",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Kennismaking met de jacht",
+      "en": "An introduction to hunting"
+    },
+    "tags": [
+      "nature",
+      "outdoors",
+      "learning",
+      "animals"
+    ],
+    "formats": [
+      "duo",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 2,
+      "note": {
+        "nl": "Jagen mag alleen met een jachtakte, na een erkende opleiding en een examen. Dit is een kennismaking: meekijken en uitleg, nooit zelf jagen.",
+        "en": "Hunting is only allowed with a hunting licence (jachtakte), after a recognised course and an exam. This is an introduction: watching and explanations, never hunting yourself."
+      }
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een open dag of kennismakingsavond van een jagersvereniging of jachtopleiding; meekijken en uitleg",
+      "en": "An open day or introductory evening of a hunters' association or hunting course; watching and explanations"
+    },
+    "scene": "a forest clearing with a wooden high seat and a notebook of nature notes on a tree stump in autumn light",
+    "status": "concept"
+  },
+  {
+    "id": "wildkijken",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Wildkijken met een boswachter",
+      "en": "Wildlife watching with a ranger"
+    },
+    "tags": [
+      "animals",
+      "outdoors",
+      "discovery",
+      "nature"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een rondleiding in de schemering met een boswachter; reeën, herten en everzwijnen",
+      "en": "A guided walk at dusk with a ranger; roe deer, red deer and wild boar"
+    },
+    "scene": "a deer standing at a misty forest clearing, seen through binoculars resting on a wooden post",
+    "status": "concept"
+  },
+  {
+    "id": "hertenbronst",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "De hertenbronst beluisteren",
+      "en": "Listening to the red deer rut"
+    },
+    "tags": [
+      "animals",
+      "suspense",
+      "outdoors",
+      "nature"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "solo"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 3,
+    "setting": "outdoor",
+    "months": [
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een excursie bij zonsopgang of schemering op de Veluwe of in de Oostvaardersplassen",
+      "en": "An excursion at sunrise or dusk on the Veluwe or in the Oostvaardersplassen"
+    },
+    "scene": "a red deer stag in the autumn mist with its breath visible and its antlers against the grey",
+    "status": "concept"
+  },
+  {
+    "id": "valkerij",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een valkerij-ervaring",
+      "en": "A falconry experience"
+    },
+    "tags": [
+      "animals",
+      "technique",
+      "outdoors"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een workshop bij een valkenier; een roofvogel laten vliegen en weer terug laten komen",
+      "en": "A workshop with a falconer; flying a bird of prey and calling it back"
+    },
+    "scene": "a peregrine falcon on a leather perch with a small hood and a leather falconry glove on a wooden post",
+    "status": "concept"
+  },
+  {
+    "id": "jachthoorn-blazen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Jachthoorn blazen",
+      "en": "Playing the hunting horn"
+    },
+    "tags": [
+      "sound",
+      "rhythm",
+      "performance"
+    ],
+    "formats": [
+      "solo",
+      "small_group",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een proefles bij een jachthoornblazersgroep; signalen blazen in het bos of in de zaal",
+      "en": "A trial lesson with a hunting-horn group; blowing signals in the woods or in the hall"
+    },
+    "scene": "a polished brass hunting horn lying on green felt next to sheet music in warm lamp light",
+    "status": "concept"
+  },
+  {
+    "id": "jachthonden-demo",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Een demonstratie met jachthonden",
+      "en": "A hunting-dog demonstration"
+    },
+    "tags": [
+      "animals",
+      "technique",
+      "competition"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een open dag of proefwedstrijd van een jachthondenvereniging: apporteren en volgen",
+      "en": "An open day or trial by a hunting-dog club: retrieving and tracking"
+    },
+    "scene": "a retriever with a training dummy in its mouth in a field of long grass and a whistle hanging on a post",
+    "status": "concept"
+  },
+  {
+    "id": "kaninhop",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Kaninhop: konijnen over een hindernisbaan",
+      "en": "Rabbit hopping: rabbits over a course"
+    },
+    "tags": [
+      "animals",
+      "competition",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een demonstratie of open dag van een kaninhopvereniging; kijken en soms zelf proberen",
+      "en": "A demonstration or open day of a rabbit-hopping club; watching and sometimes trying"
+    },
+    "scene": "a rabbit jumping over a small wooden hurdle on a green mat with bunting in the background",
+    "status": "concept"
+  },
+  {
+    "id": "koeknuffelen",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Koeien knuffelen op een boerderij",
+      "en": "Cow cuddling on a farm"
+    },
+    "tags": [
+      "animals",
+      "caring",
+      "stillness"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Een uur bij de koeien op een zorg- of melkveeboerderij; borstelen en knuffelen",
+      "en": "An hour with the cows on a care farm or dairy farm; brushing and cuddling"
+    },
+    "scene": "a gentle black-and-white cow leaning over a farm gate in soft light with a brush hanging beside it",
+    "status": "concept"
+  },
+  {
+    "id": "ganzenkijken",
+    "domain": "nature",
+    "sub": "animals",
+    "label": {
+      "nl": "Ganzen en zwanen kijken in de winter",
+      "en": "Watching geese and swans in winter"
+    },
+    "tags": [
+      "animals",
+      "outdoors",
+      "stillness",
+      "nature"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      11,
+      12,
+      1,
+      2
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Een vogelkijkhut of een excursie van een vogelwerkgroep bij de overwinterende ganzen",
+      "en": "A bird hide or an excursion by a bird group to the wintering geese"
+    },
+    "scene": "a flock of geese landing on a frosty field at dawn with a wooden bird hide at the edge",
+    "status": "concept"
   }
 ]
