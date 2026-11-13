@@ -1270,8 +1270,9 @@ export function AssociationWizard({
           />
           <div role="group" aria-labelledby="start-chips" className="space-y-4">
             <div>
-              <h3 id="start-chips" className="font-semibold text-ink">
+              <h3 id="start-chips" className="flex flex-wrap items-center gap-2 font-semibold text-ink">
                 {dict.start.limits.chipsTitle}
+                <span className="rounded-full border border-border bg-surface-active px-2.5 py-0.5 text-xs font-medium text-ink/70">{dict.start.limits.optional}</span>
               </h3>
               <p className="mt-1 text-sm text-ink/70">{dict.start.limits.chipsSub}</p>
             </div>
@@ -1287,6 +1288,7 @@ export function AssociationWizard({
                 </div>
               </fieldset>
             ))}
+            <p className="text-sm italic text-ink/65">{dict.start.limits.chipsSkip}</p>
           </div>
         </section>
       </div>
@@ -1825,12 +1827,16 @@ export function AssociationWizard({
                 )}
                 {!isLast && (
                   <Button
+                    variant="hero"
                     onClick={next}
                     disabled={!canContinue}
                     aria-describedby={continueHint ? "continue-hint" : undefined}
-                    className="flex-1 lg:flex-none lg:min-w-56"
+                    className="min-h-14 flex-1 text-base font-semibold lg:min-w-64 lg:flex-none"
                   >
                     {primaryLabel}
+                    <span aria-hidden="true" className="cta-arrow inline-block">
+                      →
+                    </span>
                   </Button>
                 )}
               </div>

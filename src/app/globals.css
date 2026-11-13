@@ -291,7 +291,10 @@ body {
   transform: translateX(-120%);
   pointer-events: none;
 }
-.cta-hero:hover,
+.cta-hero:disabled::after {
+  display: none;
+}
+.cta-hero:hover:not(:disabled),
 .cta-hero:focus-visible {
   border-color: var(--color-gold-light);
 }
@@ -299,17 +302,17 @@ body {
   .cta-hero::after {
     transition: none;
   }
-  .cta-hero:hover::after {
+  .cta-hero:hover:not(:disabled)::after {
     transform: translateX(120%);
     transition: transform 0.6s ease;
   }
-  .cta-hero {
+  .cta-hero:not(:disabled) {
     animation: cta-hero-glow 2.4s ease-in-out 1.2s 3;
   }
   .cta-hero .cta-arrow {
     transition: transform 0.2s ease;
   }
-  .cta-hero:hover .cta-arrow,
+  .cta-hero:hover:not(:disabled) .cta-arrow,
   .cta-hero:focus-visible .cta-arrow {
     transform: translateX(4px);
   }

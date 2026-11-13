@@ -208,6 +208,8 @@ export interface VensterDictionary {
       timeLabelOther: string;
       chipsLabel: string;
       chipsSub: string;
+      /** The line under the chips: nothing ticked is fine. */
+      chipsSkip: string;
       /** The heading of the grouped chips ("Tik aan wat voor jou belangrijk is"). */
       chipsTitle: string;
       optional: string;
@@ -821,7 +823,8 @@ export const vensterNl: VensterDictionary = {
       timeLabelOther: "Hoeveel tijd is er?",
       chipsLabel: "Houden we ergens rekening mee?",
       chipsTitle: "Tik aan wat voor jou belangrijk is",
-      chipsSub: "Dit stuurt waar we naar zoeken. Je mag er meerdere aantikken.",
+      chipsSub: "Helemaal optioneel: we zoeken ook zonder. Tik alleen aan wat voor jou echt telt. Je mag er meerdere kiezen.",
+      chipsSkip: "Niets bijzonders? Dan ga je gewoon verder.",
       optional: "optioneel",
       groups: [
         { title: "Omgeving", chips: ["Alleen buiten", "Alleen binnen"] },
@@ -1473,7 +1476,8 @@ export const vensterEn: VensterDictionary = {
       timeLabelOther: "How much time is there?",
       chipsLabel: "Anything we should keep in mind?",
       chipsTitle: "Tap what matters to you",
-      chipsSub: "This steers what we search for. You can tap several.",
+      chipsSub: "Entirely optional: we search just fine without. Only tap what really matters to you. You can pick several.",
+      chipsSkip: "Nothing in particular? Just carry on.",
       optional: "optional",
       groups: [
         { title: "Setting", chips: ["Only outdoors", "Only indoors"] },
