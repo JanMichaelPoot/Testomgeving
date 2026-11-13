@@ -1,0 +1,2 @@
+# Git hooks must keep Unix line endings, or sh cannot run them on a Windows checkout.
+.githooks/* text eol=lf
