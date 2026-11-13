@@ -20,10 +20,11 @@ const DOOR_KIND: Record<string, string> = {
   wildcard: "Wildcard",
 };
 
-const SCALE: Record<"flow" | "profile" | "doors", string[]> = {
+const SCALE: Record<"flow" | "profile" | "doors" | "places", string[]> = {
   flow: ["Zwaar", "Matig", "Prima", "Fijn", "Heerlijk"],
   profile: ["Helemaal niet", "Niet echt", "Half", "Redelijk", "Volledig"],
   doors: ["Helemaal niet", "Niet echt", "Half", "Redelijk", "Volledig"],
+  places: ["Helemaal niet", "Niet echt", "Half", "Redelijk", "Volledig"],
 };
 
 function ScoreCard({ title, question, summary, scale }: { title: string; question: string; summary: ScoreSummary; scale: string[] }) {
@@ -86,6 +87,10 @@ export default async function AdminFeedbackPage() {
               <strong>Welke deur?</strong> Kiest bijna iedereen de vertrouwde deur, dan staat het onverwachte misschien te ver af. Kiest bijna niemand de wildcard, dan is die te vreemd of te weinig uitgenodigd.
             </li>
             <li>
+              <strong>De plekken</strong> zijn de eerlijkste meting van de inhoud: een lage score hier betekent dat de aanbieders niet bestaan, te ver liggen of niet bij de persoon passen, ook al leest het boek goed. Controleer dan zelf
+              twee of drie plekken uit dat boek.
+            </li>
+            <li>
               <strong>De opmerkingen</strong> (&quot;waar twijfelde je&quot;) zijn het waardevolst: hier staat waarom iemand afhaakt. Zie je hetzelfde twee keer, dan is het een echt probleem.
             </li>
             <li>
@@ -104,16 +109,33 @@ export default async function AdminFeedbackPage() {
             tone={s.payScore === null ? undefined : s.payScore >= 0.6 ? "good" : s.payScore < 0.4 ? "bad" : undefined}
             sub={`${s.wouldPay.yes} ja · ${s.wouldPay.maybe} misschien · ${s.wouldPay.no} nee`}
           />
-          <Tile label="Meest zwak" value={<span className="text-base">{s.weakest ?? "—"}</span>} sub="laagste gemiddelde van de drie scorevragen" />
+          <Tile label="Meest zwak" value={<span className="text-base">{s.weakest ?? "—"}</span>} sub="laagste gemiddelde van de scorevragen" />
         </TileGrid>
       </Section>
 
       <Section title="Scores">
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <ScoreCard title="Het invullen" question="Hoe voelde het om je venster te vullen?" summary={s.flow} scale={SCALE.flow} />
           <ScoreCard title="Het profiel" question={'Voelde je je begrepen door "Wat jouw keuzes ons vertellen"?'} summary={s.profile} scale={SCALE.profile} />
           <ScoreCard title="De deuren" question="Snapte je waarom je deze deuren kreeg?" summary={s.doors} scale={SCALE.doors} />
+          <ScoreCard title="De plekken" question="Klopten de plekken en aanbieders in je boek met jouw omgeving?" summary={s.places} scale={SCALE.places} />
         </div>
+      </Section>
+
+      <Section title="Is de mail aangekomen?" hint="Antwoord van de tester zelf: dit meet wat in de inbox terechtkwam, niet wat de server verstuurde (dat staat op het Overzicht).">
+        <Card>
+          <BarList
+            items={[
+              { label: "Ja, in de inbox", value: s.mail.inbox },
+              { label: "Ja, maar in de spam", value: s.mail.spam },
+              { label: "Nog niet", value: s.mail.missing },
+            ]}
+            total={s.mail.answered}
+          />
+          {s.mail.answered > 0 && s.mail.spam + s.mail.missing > 0 && (
+            <p className="mt-3 text-xs text-ink/70">Spam of niet aangekomen bij meer dan één tester: controleer het domein van EMAIL_FROM in Resend (SPF en DKIM).</p>
+          )}
+        </Card>
       </Section>
 
       <Section title="Welke deur zou men echt doen?" hint="Het soort deur van het idee dat een tester koos.">

@@ -23,15 +23,21 @@ export async function submitTestFeedback(
     doubt: clean.doubt || null,
     locale: locale === "en" ? "en" : "nl",
   };
-  let { error } = await supabase.from("test_feedback").insert({
+  const scores = {
     ...base,
     profile_score: clean.profileScore,
     doors_score: clean.doorsScore,
     door_pick: clean.doorPick,
     door_kind: clean.doorKind,
-  });
+  };
+  let { error } = await supabase.from("test_feedback").insert({ ...scores, places_score: clean.placesScore, mail_status: clean.mailStatus });
   if (isMissingColumnError(error)) {
-    // Migration 0020 has not been run yet: keep the older answers rather than lose everything.
+    // Migration 0024 has not been run yet: keep everything but the places and e-mail answers.
+    console.error(`WINDOW: test feedback saved without the places and e-mail answers (run migration 0024?): ${error?.message}`);
+    ({ error } = await supabase.from("test_feedback").insert(scores));
+  }
+  if (isMissingColumnError(error)) {
+    // Migration 0020 has not been run yet either: keep the older answers rather than lose everything.
     console.error(`WINDOW: test feedback saved without the R2.4 answers (run migration 0020?): ${error?.message}`);
     ({ error } = await supabase.from("test_feedback").insert(base));
   }

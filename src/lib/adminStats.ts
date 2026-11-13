@@ -38,6 +38,9 @@ export interface FeedbackRow {
   door_pick: number | null;
   door_kind: string | null;
   would_pay: "yes" | "maybe" | "no" | null;
+  /** Both come from migration 0024; absent on rows (and databases) from before it. */
+  places_score?: number | null;
+  mail_status?: "inbox" | "spam" | "missing" | null;
   doubt: string | null;
   locale: string | null;
   created_at: string;
@@ -189,12 +192,16 @@ export interface FeedbackSummary {
   flow: ScoreSummary;
   profile: ScoreSummary;
   doors: ScoreSummary;
+  /** Did the places and providers fit the tester's surroundings (empty before migration 0024). */
+  places: ScoreSummary;
+  /** Did the e-mail with the book arrive. */
+  mail: { inbox: number; spam: number; missing: number; answered: number };
   wouldPay: { yes: number; maybe: number; no: number; answered: number };
   /** Of the people who said yes or maybe or no: yes + half of maybe, as a share (a cautious reading). */
   payScore: number | null;
   doorKinds: [string, number][];
   doubts: { at: string; text: string; locale: string | null }[];
-  /** The three questions that scored lowest, to read first. */
+  /** The scored question with the lowest mean, to read first. */
   weakest: string | null;
 }
 
@@ -206,13 +213,22 @@ export function feedbackSummary(rows: readonly FeedbackRow[]): FeedbackSummary {
       wouldPay.answered++;
     }
   }
+  const mail = { inbox: 0, spam: 0, missing: 0, answered: 0 };
+  for (const r of rows) {
+    if (r.mail_status) {
+      mail[r.mail_status]++;
+      mail.answered++;
+    }
+  }
   const flow = scoreSummary(rows.map((r) => r.flow_score));
   const profile = scoreSummary(rows.map((r) => r.profile_score));
   const doors = scoreSummary(rows.map((r) => r.doors_score));
+  const places = scoreSummary(rows.map((r) => r.places_score ?? null));
   const named: [string, ScoreSummary][] = [
     ["het invullen van het venster", flow],
     ["het profiel ('Wat jouw keuzes ons vertellen')", profile],
     ["begrijpen waarom je deze deuren kreeg", doors],
+    ["de plekken en aanbieders in het boek", places],
   ];
   const scored = named.filter(([, s]) => s.mean !== null);
   const weakest = scored.length >= 2 ? scored.sort((a, b) => a[1].mean! - b[1].mean!)[0][0] : null;
@@ -221,6 +237,8 @@ export function feedbackSummary(rows: readonly FeedbackRow[]): FeedbackSummary {
     flow,
     profile,
     doors,
+    places,
+    mail,
     wouldPay,
     payScore: wouldPay.answered ? (wouldPay.yes + wouldPay.maybe * 0.5) / wouldPay.answered : null,
     doorKinds: topCounts(rows.map((r) => r.door_kind), 5),

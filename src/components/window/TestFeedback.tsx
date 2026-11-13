@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { submitTestFeedback } from "@/app/plan/feedbackActions";
 import { trackEvent } from "@/lib/posthog/client";
-import { DOUBT_MAX, type DoorKind, type WouldPay } from "@/lib/testFeedback";
+import { DOUBT_MAX, type DoorKind, type MailStatus, type WouldPay } from "@/lib/testFeedback";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 /** One idea of the reveal the tester can pick: its position (1-6, the wildcard 7), kind and title (the title is only shown, never sent). */
@@ -13,7 +13,7 @@ export interface FeedbackDoor {
   title: string;
 }
 
-// Six short questions under the reveal, only on the test preview (fase 8, extended in R2.4).
+// Eight short questions under the reveal, only on the test preview (fase 8, extended in R2.4 and with the places and e-mail questions).
 // PostHog gets the scores, the pay answer and the NUMBER of the chosen door; the free text and the
 // same numbers also go to the test_feedback table (the numbers there so they are not lost while no
 // PostHog key is set). A door's title never leaves the page.
@@ -35,13 +35,15 @@ export function TestFeedback({
   const [doorsScore, setDoorsScore] = useState<number | null>(null);
   /** 0 = none of them. */
   const [pick, setPick] = useState<number | null>(null);
+  const [placesScore, setPlacesScore] = useState<number | null>(null);
+  const [mail, setMail] = useState<MailStatus | null>(null);
   const [pay, setPay] = useState<WouldPay | null>(null);
   const [doubt, setDoubt] = useState("");
   const [state, setState] = useState<"idle" | "sent" | "error">("idle");
   const [pending, startTransition] = useTransition();
 
   const picked = doors.find((d) => d.number === pick) ?? null;
-  const nothing = score === null && profileScore === null && doorsScore === null && pick === null && pay === null && doubt.trim() === "";
+  const nothing = score === null && profileScore === null && doorsScore === null && pick === null && placesScore === null && mail === null && pay === null && doubt.trim() === "";
 
   function send() {
     startTransition(async () => {
@@ -53,6 +55,8 @@ export function TestFeedback({
         doorPick: pick,
         doorKind,
         wouldPay: pay,
+        placesScore,
+        mailStatus: mail,
         doubt,
       });
       trackEvent("test_feedback_submitted", {
@@ -62,6 +66,8 @@ export function TestFeedback({
         door_pick: pick,
         door_kind: doorKind,
         would_pay: pay,
+        places_score: placesScore,
+        mail_status: mail,
         has_doubt: doubt.trim() !== "",
         stored: res.ok,
       });
@@ -119,6 +125,19 @@ export function TestFeedback({
           <button type="button" aria-pressed={pick === 0} className={`${chip(pick === 0)} w-full text-left`} onClick={() => setPick(0)}>
             {dict.pickNone}
           </button>
+        </div>
+      </fieldset>
+
+      {scale(dict.placesLabel, dict.agreeOptions, placesScore, setPlacesScore)}
+
+      <fieldset className="mt-6">
+        <legend className="text-sm font-semibold text-ink">{dict.mailLabel}</legend>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {dict.mailOptions.map((o) => (
+            <button key={o.value} type="button" aria-pressed={mail === o.value} className={chip(mail === o.value)} onClick={() => setMail(o.value)}>
+              {o.label}
+            </button>
+          ))}
         </div>
       </fieldset>
 

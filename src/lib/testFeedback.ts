@@ -1,6 +1,10 @@
 // Pure checks for the tester questionnaire (fase 8, extended in R2.4), shared by the form and the server action.
 export type WouldPay = "yes" | "maybe" | "no";
 
+/** Did the e-mail with the book arrive: in the inbox, in the spam folder, or not at all. */
+export const MAIL_STATUSES = ["inbox", "spam", "missing"] as const;
+export type MailStatus = (typeof MAIL_STATUSES)[number];
+
 export const DOOR_KINDS = ["natural", "discovery", "unexpected", "stretch", "wildcard"] as const;
 export type DoorKind = (typeof DOOR_KINDS)[number];
 
@@ -18,6 +22,9 @@ export interface TestFeedbackInput {
   /** The kind of that door; only present together with a pick of 1-7. */
   doorKind: DoorKind | null;
   wouldPay: WouldPay | null;
+  /** "Did the places and providers in your book fit your surroundings?" 1-5. */
+  placesScore: number | null;
+  mailStatus: MailStatus | null;
   doubt: string;
 }
 
@@ -42,7 +49,9 @@ export function cleanTestFeedback(input: Partial<TestFeedbackInput>): TestFeedba
   const doorPick = Number.isInteger(input.doorPick) && input.doorPick! >= 0 && input.doorPick! <= MAX_DOOR_PICK ? input.doorPick! : null;
   const doorKind = doorPick !== null && doorPick >= 1 && (DOOR_KINDS as readonly string[]).includes(input.doorKind as string) ? (input.doorKind as DoorKind) : null;
   const wouldPay = input.wouldPay === "yes" || input.wouldPay === "maybe" || input.wouldPay === "no" ? input.wouldPay : null;
+  const placesScore = score(input.placesScore);
+  const mailStatus = (MAIL_STATUSES as readonly string[]).includes(input.mailStatus as string) ? (input.mailStatus as MailStatus) : null;
   const doubt = typeof input.doubt === "string" ? input.doubt.trim().slice(0, DOUBT_MAX) : "";
-  if (flowScore === null && profileScore === null && doorsScore === null && doorPick === null && wouldPay === null && doubt === "") return null;
-  return { flowScore, profileScore, doorsScore, doorPick, doorKind, wouldPay, doubt };
+  if (flowScore === null && profileScore === null && doorsScore === null && doorPick === null && wouldPay === null && placesScore === null && mailStatus === null && doubt === "") return null;
+  return { flowScore, profileScore, doorsScore, doorPick, doorKind, wouldPay, placesScore, mailStatus, doubt };
 }

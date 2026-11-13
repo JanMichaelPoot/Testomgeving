@@ -28,6 +28,11 @@ describe("test feedback", () => {
     expect(out.doorKind).toBeNull();
     expect(typeof out.doorPick).toBe("number");
   });
+  it("keeps the places score and the e-mail answer, and drops values outside the scale", () => {
+    expect(cleanTestFeedback({ placesScore: 2, mailStatus: "spam" })).toMatchObject({ placesScore: 2, mailStatus: "spam", flowScore: null });
+    expect(cleanTestFeedback({ mailStatus: "missing" })).toMatchObject({ mailStatus: "missing", placesScore: null });
+    expect(cleanTestFeedback({ placesScore: 6, mailStatus: "later" as never })).toBeNull();
+  });
   it("caps the free text", () => {
     expect(cleanTestFeedback({ doubt: "x".repeat(DOUBT_MAX + 50) })!.doubt).toHaveLength(DOUBT_MAX);
   });

@@ -332,6 +332,11 @@ export interface VensterDictionary {
     agreeOptions: string[];
     pickLabel: string;
     pickNone: string;
+    /** Did the places and providers in the book fit the tester's surroundings (1-5, the agree scale). */
+    placesLabel: string;
+    /** Did the e-mail with the book arrive. */
+    mailLabel: string;
+    mailOptions: { value: "inbox" | "spam" | "missing"; label: string }[];
     payLabel: string; // {price}
     payOptions: { value: "yes" | "maybe" | "no"; label: string }[];
     doubtLabel: string;
@@ -964,7 +969,7 @@ export const vensterNl: VensterDictionary = {
   },
   feedback: {
     heading: "Je helpt ons enorm",
-    sub: "Dit is een testversie. Zes korte vragen, het kost ongeveer een minuut. Alles mag je overslaan.",
+    sub: "Dit is een testversie. Acht korte vragen, het kost ongeveer twee minuten. Alles mag je overslaan.",
     scoreLabel: "Hoe voelde het om je venster te vullen?",
     scoreOptions: ["Taai", "Matig", "Prima", "Fijn", "Heerlijk"],
     profileLabel: "Voelde je je begrepen door \u201CWat jouw keuzes ons vertellen\u201D?",
@@ -972,6 +977,13 @@ export const vensterNl: VensterDictionary = {
     agreeOptions: ["Helemaal niet", "Niet echt", "Half", "Vrij goed", "Helemaal"],
     pickLabel: "Welke deur zou je echt gaan doen?",
     pickNone: "Geen van deze",
+    placesLabel: "Klopten de plekken en aanbieders in je boek met jouw omgeving? (Bestaan ze, liggen ze echt bij jou in de buurt, kon je er iets mee?)",
+    mailLabel: "Is de mail met je boek aangekomen?",
+    mailOptions: [
+      { value: "inbox", label: "Ja, in mijn inbox" },
+      { value: "spam", label: "Ja, maar in de spam" },
+      { value: "missing", label: "Nog niet" },
+    ],
     payLabel: "Zou je {price} betalen voor dit boek?",
     payOptions: [
       { value: "yes", label: "Ja" },
@@ -1606,7 +1618,7 @@ export const vensterEn: VensterDictionary = {
   },
   feedback: {
     heading: "You're helping us a lot",
-    sub: "This is a test version. Six short questions, about a minute. You can skip anything.",
+    sub: "This is a test version. Eight short questions, about two minutes. You can skip anything.",
     scoreLabel: "How did it feel to fill your window?",
     scoreOptions: ["Tough", "So-so", "Fine", "Nice", "Lovely"],
     profileLabel: "Did you feel understood by \u201CWhat your choices tell us\u201D?",
@@ -1614,6 +1626,13 @@ export const vensterEn: VensterDictionary = {
     agreeOptions: ["Not at all", "Not really", "Half", "Fairly well", "Completely"],
     pickLabel: "Which door would you really do?",
     pickNone: "None of these",
+    placesLabel: "Did the places and providers in your book fit your surroundings? (Do they exist, are they really near you, could you do something with them?)",
+    mailLabel: "Did the e-mail with your book arrive?",
+    mailOptions: [
+      { value: "inbox", label: "Yes, in my inbox" },
+      { value: "spam", label: "Yes, but in spam" },
+      { value: "missing", label: "Not yet" },
+    ],
     payLabel: "Would you pay {price} for this book?",
     payOptions: [
       { value: "yes", label: "Yes" },

@@ -85,6 +85,18 @@ describe("feedback", () => {
     expect(s.doubts.map((d) => d.text)).toEqual(["Prijs?"]);
   });
 
+  it("summarises the places score and the e-mail answers, and tolerates rows from before migration 0024", () => {
+    const s = feedbackSummary([
+      row({ flow_score: 5, doors_score: 5, places_score: 2, mail_status: "inbox" }),
+      row({ flow_score: 5, doors_score: 5, places_score: 3, mail_status: "spam" }),
+      row({ flow_score: 5, doors_score: 5 }),
+    ]);
+    expect(s.places.n).toBe(2);
+    expect(s.places.mean).toBeCloseTo(2.5);
+    expect(s.mail).toEqual({ inbox: 1, spam: 1, missing: 0, answered: 2 });
+    expect(s.weakest).toMatch(/plekken/);
+  });
+
   it("says plainly when there are too few answers to conclude anything", () => {
     expect(readScore(null, 0)).toBe("nog geen antwoorden");
     expect(readScore(4.8, 3)).toMatch(/te weinig/);

@@ -424,6 +424,8 @@ export interface Database {
           door_pick: number | null;
           door_kind: "natural" | "discovery" | "unexpected" | "stretch" | "wildcard" | null;
           would_pay: "yes" | "maybe" | "no" | null;
+          places_score: number | null;
+          mail_status: "inbox" | "spam" | "missing" | null;
           doubt: string | null;
           locale: string | null;
           created_at: string;
@@ -437,6 +439,8 @@ export interface Database {
           door_pick?: number | null;
           door_kind?: "natural" | "discovery" | "unexpected" | "stretch" | "wildcard" | null;
           would_pay?: "yes" | "maybe" | "no" | null;
+          places_score?: number | null;
+          mail_status?: "inbox" | "spam" | "missing" | null;
           doubt?: string | null;
           locale?: string | null;
           created_at?: string;

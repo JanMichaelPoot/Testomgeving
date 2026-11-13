@@ -97,7 +97,7 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `shared_idea_book_cta_clicked` | een knop op de gedeelde pagina geklikt | `planId` |
 | `invite_card_opened` | het uitnodigingspaneel geopend | `source` |
 | `invite_card_shared` | uitnodiging gedeeld, gedownload of gekopieerd | `format`, `method`, `source` |
-| `test_feedback_submitted` | de testvragenlijst verstuurd | `flow_score`, `profile_score`, `doors_score`, `door_pick`, `door_kind`, `would_pay`, `has_doubt`, `stored` |
+| `test_feedback_submitted` | de testvragenlijst verstuurd | `flow_score`, `profile_score`, `doors_score`, `door_pick`, `door_kind`, `places_score`, `mail_status`, `would_pay`, `has_doubt`, `stored` |
 
 ### De testvragenlijst (alleen op de testversie)
 
@@ -108,14 +108,16 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `doors_score` | Snapte je waarom je deze deuren kreeg? | 1–5 |
 | `door_pick` | Welke deur zou je echt gaan doen? | 1–6 de ideeën, 7 de wildcard (de volgorde waarin het boek ze toont), 0 = geen van deze |
 | `door_kind` | de soort van die deur | `natural`, `discovery`, `unexpected`, `stretch`, `wildcard` |
+| `places_score` | Klopten de plekken en aanbieders in je boek met jouw omgeving? | 1–5 |
+| `mail_status` | Is de mail met je boek aangekomen? | `inbox`, `spam`, `missing` |
 | `would_pay` | Zou je de prijs betalen? | `yes`, `maybe`, `no` |
 | `has_doubt` | is "Waar twijfelde je?" ingevuld | ja/nee |
 | `stored` | is het antwoord ook in Supabase opgeslagen | ja/nee |
 
 Dezelfde cijfers staan ook in Supabase (`test_feedback`: `flow_score`, `profile_score`, `doors_score`,
-`door_pick`, `door_kind`, `would_pay`), zodat ze niet verloren gaan zolang de PostHog-sleutel
-ontbreekt, plus de vrije tekst in `doubt`. De kolommen komen uit migratie `0020`; zonder die migratie
-slaat de app alleen de oudere antwoorden op en meldt dat in de serverlog.
+`door_pick`, `door_kind`, `places_score`, `mail_status`, `would_pay`), zodat ze niet verloren gaan zolang de PostHog-sleutel
+ontbreekt, plus de vrije tekst in `doubt`. De kolommen komen uit migratie `0020` (scores en deur) en `0024`
+(`places_score`, `mail_status`); zonder die migraties slaat de app de oudere antwoorden op en meldt dat in de serverlog.
 
 ## Een testrun in één oogopslag
 

@@ -96,7 +96,7 @@ export const ANALYTICS_EVENTS = {
   // --- the tester questionnaire (test preview only)
   test_feedback_submitted: {
     when: "the tester questionnaire sent",
-    props: ["flow_score", "profile_score", "doors_score", "door_pick", "door_kind", "would_pay", "has_doubt", "stored"],
+    props: ["flow_score", "profile_score", "doors_score", "door_pick", "door_kind", "places_score", "mail_status", "would_pay", "has_doubt", "stored"],
   },
 } as const satisfies Record<string, AnalyticsEventSpec>;
 

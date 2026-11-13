@@ -35,6 +35,8 @@ describe("submitTestFeedback", () => {
       doorPick: 2,
       doorKind: "natural",
       wouldPay: "maybe",
+      placesScore: 4,
+      mailStatus: "spam",
       doubt: " de prijs ",
     });
     expect(res).toEqual({ ok: true });
@@ -47,26 +49,42 @@ describe("submitTestFeedback", () => {
       door_pick: 2,
       door_kind: "natural",
       would_pay: "maybe",
+      places_score: 4,
+      mail_status: "spam",
       doubt: "de prijs",
       locale: "nl",
     });
   });
 
-  it("keeps the older answers when migration 0020 has not been run (column missing), instead of losing them", async () => {
-    insert.mockResolvedValueOnce({ error: { code: "42703", message: 'column "profile_score" does not exist' } }).mockResolvedValueOnce({ error: null });
-    const res = await submitTestFeedback(PLAN, "en", { flowScore: 4, profileScore: 5, doubt: "slow" });
+  it("keeps the R2.4 answers when only migration 0024 is missing (places and e-mail columns), instead of dropping them too", async () => {
+    insert
+      .mockResolvedValueOnce({ error: { code: "PGRST204", message: "Could not find the 'places_score' column of 'test_feedback' in the schema cache" } })
+      .mockResolvedValueOnce({ error: null });
+    const res = await submitTestFeedback(PLAN, "nl", { flowScore: 4, profileScore: 5, placesScore: 2, mailStatus: "missing" });
     expect(res).toEqual({ ok: true });
     expect(insert).toHaveBeenCalledTimes(2);
-    expect(insert.mock.calls[1][0]).toEqual({ plan_id: PLAN, flow_score: 4, would_pay: null, doubt: "slow", locale: "en" });
+    expect(insert.mock.calls[1][0]).toMatchObject({ flow_score: 4, profile_score: 5 });
+    expect(insert.mock.calls[1][0]).not.toHaveProperty("places_score");
+    expect(insert.mock.calls[1][0]).not.toHaveProperty("mail_status");
+  });
+
+  it("keeps the older answers when migration 0020 has not been run (column missing), instead of losing them", async () => {
+    const missing = { error: { code: "42703", message: 'column "profile_score" does not exist' } };
+    insert.mockResolvedValueOnce(missing).mockResolvedValueOnce(missing).mockResolvedValueOnce({ error: null });
+    const res = await submitTestFeedback(PLAN, "en", { flowScore: 4, profileScore: 5, doubt: "slow" });
+    expect(res).toEqual({ ok: true });
+    expect(insert).toHaveBeenCalledTimes(3);
+    expect(insert.mock.calls[2][0]).toEqual({ plan_id: PLAN, flow_score: 4, would_pay: null, doubt: "slow", locale: "en" });
   });
 
   it("recognises the PostgREST shape of a missing column too (PGRST204), which is what a real insert returns", async () => {
     insert
       .mockResolvedValueOnce({ error: { code: "PGRST204", message: "Could not find the 'door_kind' column of 'test_feedback' in the schema cache" } })
+      .mockResolvedValueOnce({ error: { code: "PGRST204", message: "Could not find the 'door_kind' column of 'test_feedback' in the schema cache" } })
       .mockResolvedValueOnce({ error: null });
     expect(await submitTestFeedback(PLAN, "nl", { doorPick: 2, doorKind: "natural", flowScore: 3 })).toEqual({ ok: true });
-    expect(insert).toHaveBeenCalledTimes(2);
-    expect(insert.mock.calls[1][0]).not.toHaveProperty("door_kind");
+    expect(insert).toHaveBeenCalledTimes(3);
+    expect(insert.mock.calls[2][0]).not.toHaveProperty("door_kind");
   });
 
   it("reports a real failure", async () => {

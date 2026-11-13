@@ -6,7 +6,7 @@ import { csvCell } from "@/lib/csv";
 // All tester feedback as CSV (one row per answer), behind the same admin password as the pages.
 export const dynamic = "force-dynamic";
 
-const COLUMNS = ["created_at", "locale", "flow_score", "profile_score", "doors_score", "door_pick", "door_kind", "would_pay", "doubt"] as const;
+const COLUMNS = ["created_at", "locale", "flow_score", "profile_score", "doors_score", "door_pick", "door_kind", "places_score", "mail_status", "would_pay", "doubt"] as const;
 
 export async function GET() {
   if (!(await isAdminAuthenticated())) return new NextResponse("Niet toegestaan", { status: 401 });
