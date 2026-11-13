@@ -92,7 +92,7 @@ describe("the person's own choices (Stap 124)", () => {
   });
 
   it("does not trust an empty answer in the shared cache for a pick, but does trust a found one", async () => {
-    const key = `utrecht|city|2026-10|v4`;
+    const key = `utrecht|city|2026-10|v5`;
     const { cache } = memoryCache({ [`high-tea|${key}`]: [], [`kralen-rijgen|${key}`]: [opt("Kralenwinkel")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuw")]])));
     const { byActivity } = await researchSeeds({ ...config, activityIds: ["high-tea", "kralen-rijgen"], priorityIds: ["high-tea", "kralen-rijgen"], cache, search });
@@ -114,13 +114,57 @@ describe("the person's own choices (Stap 124)", () => {
 });
 
 describe("the research prompt and the date", () => {
-  it("tells the model today's date and that only what can be done in the next four weeks counts", () => {
+  it("tells the model today's date and that a dated event or seasonal offer only counts in the next four weeks", () => {
     const text = buildResearchPrompt(["open-water"], "Utrecht", "city", "nl", NOW);
     expect(text).toContain("25 October 2026 (autumn)");
     expect(text).toContain("2026-10-25");
-    expect(text).toContain("within the next four weeks");
+    expect(text).toContain("a date in the next four weeks");
     expect(text).toContain("closed for the season");
     expect(text).toContain('"until"');
+  });
+
+  it("lets a permanent place or group count without a dated session, and asks how a beginner takes part", () => {
+    const text = buildResearchPrompt(["nordic-walking"], "Utrecht", "city", "nl", NOW);
+    expect(text).toContain("A permanent place or group");
+    expect(text).toContain("does NOT need a dated session");
+    expect(text).toContain("how a beginner takes part");
+  });
+
+  it("gives each activity the kind of option and the search terms that fit it (a repair cafe for a bike, a club for nordic walking)", () => {
+    const text = buildResearchPrompt(["fietsreparatie", "nordic-walking"], "Utrecht", "city", "nl", NOW);
+    expect(text).toContain("repair café fiets");
+    expect(text).toContain("nordic walking club");
+    expect(text).toContain("Look for a club, association or regular group");
+  });
+
+  it("the second, broad attempt names the wider kinds of provider; the first search does not", () => {
+    const standard = buildResearchPrompt(["fietsreparatie"], "Utrecht", "city", "nl", NOW);
+    const broad = buildResearchPrompt(["fietsreparatie"], "Utrecht", "city", "nl", NOW, false, [], null, "broad");
+    expect(standard).not.toContain("SECOND ATTEMPT");
+    expect(broad).toContain("SECOND ATTEMPT");
+    expect(broad).toContain("libraries, repair cafes");
+    expect(broad).toContain("PHYSICAL places"); // still physical only
+  });
+});
+
+describe("the broad pass", () => {
+  const cfg = { location: "Utrecht", searchDistance: "city", locale: "nl" as const, now: NOW, verify: false as const };
+
+  it("is a pass of its own: its answers are cached under their own key and the standard cache does not answer for it", async () => {
+    const { cache, store } = memoryCache({ "yoga|utrecht|city|2026-10|v5": [] });
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Brede club")]])));
+    const { byActivity } = await researchSeeds({ ...cfg, activityIds: ["yoga"], cache, search, pass: "broad" });
+    expect(search).toHaveBeenCalledTimes(1);
+    expect(search.mock.calls[0][9]).toBe("broad");
+    expect(byActivity.get("yoga")?.options[0].name).toBe("Brede club");
+    expect(store.get("yoga|utrecht|city|2026-10|v5|broad")?.map((o) => o.name)).toEqual(["Brede club"]);
+    expect(store.get("yoga|utrecht|city|2026-10|v5")).toEqual([]);
+  });
+
+  it("is never used for the online providers", async () => {
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [{ ...opt("Cursus"), city: "Online" }]])));
+    await researchSeeds({ ...cfg, activityIds: ["yoga"], cache: null, search, mode: "online", pass: "broad" });
+    expect(search.mock.calls[0][9]).toBe("standard");
   });
 });
 
@@ -201,7 +245,7 @@ describe("researchSeeds", () => {
   });
 
   it("uses cached answers and only searches for what is missing", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v4": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v5": [opt("Yoga Studio")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt(id)]])));
     const { byActivity, stats } = await researchSeeds({ ...args, activityIds: ["hardlopen", "yoga"], cache, search });
     expect(search.mock.calls[0][0]).toEqual(["hardlopen"]);
@@ -210,14 +254,14 @@ describe("researchSeeds", () => {
   });
 
   it("makes no call at all when everything is cached", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v4": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v5": [opt("Yoga Studio")] });
     const search = vi.fn();
     await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).not.toHaveBeenCalled();
   });
 
   it("does not share answers between different places or radii", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v4": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v5": [opt("Yoga Studio")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, []])));
     await researchSeeds({ ...args, location: "Haarlem", activityIds: ["yoga"], cache, search });
     await researchSeeds({ ...args, searchDistance: "hour", activityIds: ["yoga"], cache, search });
@@ -228,7 +272,7 @@ describe("researchSeeds", () => {
     const { cache, store } = memoryCache();
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [] as LocalOption[]])));
     await researchSeeds({ ...args, activityIds: ["larp"], cache, search });
-    expect(store.get("larp|utrecht|city|2026-10|v4")).toEqual([]);
+    expect(store.get("larp|utrecht|city|2026-10|v5")).toEqual([]);
     await researchSeeds({ ...args, activityIds: ["larp"], cache, search });
     expect(search).toHaveBeenCalledTimes(1);
   });
@@ -255,7 +299,7 @@ describe("researchSeeds", () => {
   });
 
   it("searches again when every cached option has run out since", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v4": [opt("Herfstmarkt", "2026-10-10")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v5": [opt("Herfstmarkt", "2026-10-10")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuwe markt", "2026-11-15")]])));
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).toHaveBeenCalledTimes(1);
@@ -274,7 +318,7 @@ describe("researchSeeds", () => {
     warn.mockRestore();
     expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Echt"]);
     expect(stats.dropped).toBe(1);
-    expect(store.get("yoga|utrecht|city|2026-10|v4")?.map((o) => o.name)).toEqual(["Echt"]);
+    expect(store.get("yoga|utrecht|city|2026-10|v5")?.map((o) => o.name)).toEqual(["Echt"]);
   });
 
   it("works without a cache", async () => {

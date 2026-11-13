@@ -50,8 +50,25 @@ Randvoorwaarden:
 |---|---|---|---|
 | 1 | Onderdeel A | $0 | **gebouwd** |
 | 2 | Onderdeel B: 27 activiteiten, twee uitzet-chips, vergunningsnotitie, seizoen, 27 activiteitsfoto's ($0,40) | $0,40 | **gebouwd** |
-| 3 | Meting met echte boeken (de vier persona's van sectie K en een dierenliefhebber) | ± $0,22 per boek | wacht op akkoord |
+| 3 | Meting met echte boeken | $0,50 akkoord; besteed $0,33 (boek P13 $0,254 + één losse zoekronde $0,079) | **uitgevoerd, één boek**: zie onderaan |
 
 Besloten door Jan (13 nov): jagen als kennismaking met vergunninguitleg en een uitzet-chip; beeldbudget akkoord. Nog open: de meting met echte boeken (± $0,9 tot $1,1) wacht op een akkoord.
 
 Afwijking van het plan: de 27 beelden zijn de activiteitsfoto's voor pagina 2 (nodig om de activiteiten te tonen), geen nieuwe beeldfamilies voor pagina 1; die hadden het budget overschreden en kunnen later.
+
+## Meting (13 nov 2026): P13, Jan en Ria (68 en 70, geen auto, rustig tempo)
+
+Eén echt boek (de reserve van $0,25 per boek liet binnen $0,50 geen tweede toe; $0,254) en één losse zoekronde als diagnose ($0,079).
+
+- **Fysieke zoekronde:** 2 van 7 ideeën kregen een fysieke optie (trekvogelexcursie Griftpark, klaverjasvereniging Utrecht). Paardenverzorging, wandelmeditatie, nordic walking, nestkast en fietsreparatie vonden in de eerste ronden niets en vielen terug op online (NHA, Mindfulness.nl, MAX, een bouwpakket-webshop). Nordic walking kreeg helemaal geen optie.
+- **De schrijver doet wat is afgesproken** waar hij kan: bij paardenverzorging staat stap 1 "zoek een manege op Google Maps en bel", met de online cursus alleen als tweede. Bij insectenhotel, wandelmeditatie en fietsreparatie staat de online aanbieder vooraan, omdat er niets fysieks bekend was.
+- **Waarom leeg?** De losse zoekronde (zelfde prompt, zelfde model) vond wél een manege voor paardenverzorging (Stal van Brenk, Utrecht), maar niets voor nordic walking (alleen cursusdata uit 2024), wandelmeditatie (data verlopen) en nestkast (geen workshop in november). Twee oorzaken dus: ruis tussen twee zoekrondes (paardenverzorging stond in het boek als leeg opgeslagen) en de strenge regel "binnen vier weken te doen" in een seizoenstille maand, die terecht lege uitkomsten geeft.
+- **Fietsreparatie** vindt geen plek omdat de zoekopdracht naar workshops en studio's zoekt; een repair café of fietsenmaker met cursus valt erbuiten. Mogelijke verbetering (niet gebouwd): per activiteit een zoekwoord-hint ("repair café", "manege proefles"), of een tweede poging bij een leeg resultaat voor een idee dat de bezoeker zelf koos.
+- **Dieren:** paardenverzorgingsdag en ganzenkijken (uit de nieuwe set) zaten in dit boek en kwamen goed door de pijplijn.
+- Eén boek is geen statistiek: de aantallen zijn een indicatie, geen meting.
+
+## Onderdeel C: geen idee zonder optie (gebouwd, Stap 177)
+
+Opdracht van Jan (14 nov 2026) na de meting hierboven: de opties in het boek moeten goed en nuttig zijn, er mogen geen lege uitkomsten zijn, en desnoods wordt een ander idee uitgewerkt. Volgorde nu per idee: standaard zoeken met zoektermen per activiteit, breed zoeken op dezelfde afstand, dubbele afstand, een ander idee (voor eigen keuzes een verwante activiteit, met een zin in het boek), en pas als allerlaatste online. Een plek wordt niet voor twee ideeën gebruikt en het onderzoek stopt na 120 seconden met nieuwe rondes. Details en tests: `docs/changelog.md`, Stap 177.
+
+Nog te meten (kost geld): twee echte boeken (P13 en P04, ± $0,6) om te zien hoeveel ideeën nu een fysieke optie hebben en wat de extra zoekrondes kosten (verwacht: $0,05 tot $0,12 per boek meer).

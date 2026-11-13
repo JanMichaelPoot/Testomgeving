@@ -1,0 +1,2914 @@
+{
+  "hardlopen": {
+    "kind": "club",
+    "terms": "loopclub beginners; hardlopen proeftraining; beginnersgroep hardlopen"
+  },
+  "fietsen": {
+    "kind": "club",
+    "terms": "fietsknooppunten toertocht; fietsclub touren; rondleiding fietsroute"
+  },
+  "schaatsen": {
+    "kind": "venue",
+    "terms": "ijsbaan recreatief uur; schaatsbaan; schaatsen te huur"
+  },
+  "skaten": {
+    "kind": "venue",
+    "terms": "skatepark beginnersles; skatebaan verhuur; skeeleren beginners"
+  },
+  "zwemmen": {
+    "kind": "venue",
+    "terms": "zwembad baantjes; rustig uur zwemmen; ochtendzwemmen"
+  },
+  "kanoen": {
+    "kind": "venue",
+    "terms": "kanoën verhuur; kano suppen begeleiding; kanoverhuurbedrijf"
+  },
+  "zeilen": {
+    "kind": "venue",
+    "terms": "zeilschool proefzeilen; zeilvereniging proefles; zeilen beginners"
+  },
+  "duiken": {
+    "kind": "venue",
+    "terms": "duikschool proefduik; zwembad duiken beginners; padi cursus"
+  },
+  "klimmen": {
+    "kind": "venue",
+    "terms": "klimzaal introductie; rotsklimmen les; klimschool beginners"
+  },
+  "klimpark": {
+    "kind": "place",
+    "terms": "klimpark hoogtouwbaan; avonturenpark met klimmen; adventure park"
+  },
+  "vrije-val": {
+    "kind": "venue",
+    "terms": "indoor skydive windtunnel; skydiven beginners; vrije val simulator"
+  },
+  "dansen": {
+    "kind": "venue",
+    "terms": "dansschool salsa beginners; swing dansles; latin dans voor beginners"
+  },
+  "padel": {
+    "kind": "venue",
+    "terms": "padelbaan introductie; padel les racket verhuur; padelclub beginners"
+  },
+  "teamsport": {
+    "kind": "club",
+    "terms": "voetbal recreantengroep; basketbal beginners; volleybal proeftraining"
+  },
+  "aangepast-sporten": {
+    "kind": "club",
+    "terms": "wandelvoetbal; zitvolleybal; aangepast sport club"
+  },
+  "frisbee": {
+    "kind": "club",
+    "terms": "ultimate frisbee training; frisbee club open training; frisbee beginners"
+  },
+  "boogschieten": {
+    "kind": "venue",
+    "terms": "handboogvereniging introductie; boogschieten les; boogschiet club"
+  },
+  "vechtsport": {
+    "kind": "venue",
+    "terms": "judo proefles; aikido beginners; boksen recreanten"
+  },
+  "schietles": {
+    "kind": "venue",
+    "terms": "schietvereniging introductie; sportschieten les; schietbaan beginners"
+  },
+  "kleiduifschieten": {
+    "kind": "venue",
+    "terms": "kleiduifschietbaan introductie; kleiduif club; trap shooting beginners"
+  },
+  "bijlwerpen": {
+    "kind": "venue",
+    "terms": "bijlwerpcentrum introductie; axe throwing les; bijl gooien"
+  },
+  "karten": {
+    "kind": "venue",
+    "terms": "kartbaan proefsessie; indoor karten; karting beginners"
+  },
+  "via-ferrata": {
+    "kind": "event",
+    "terms": "via ferrata begeleide tocht; klettersteig begeleiding; via ferrata introductie"
+  },
+  "wildwaterraften": {
+    "kind": "event",
+    "terms": "wildwatersporten begeleiding; rafting beginners; river rafting Nederland"
+  },
+  "zweefvliegen": {
+    "kind": "event",
+    "terms": "zweefvliegclub proefvlucht; gliding beginners; zweefvliegen les"
+  },
+  "quad-buggy": {
+    "kind": "event",
+    "terms": "quad safari beginners; buggy tour; quad rijden begeleiding"
+  },
+  "minigolf": {
+    "kind": "place",
+    "terms": "minigolfbaan; minigolf; putting green"
+  },
+  "boogparcours-3d": {
+    "kind": "place",
+    "terms": "3D boogparcours; handboog wandelroute; 3D archery course"
+  },
+  "roeien": {
+    "kind": "venue",
+    "terms": "roeivereniging proefles; roeien beginners; riemen les"
+  },
+  "onderwaterhockey": {
+    "kind": "venue",
+    "terms": "onderwaterhockey proefles; onderwater sport club; snorkelen hockey"
+  },
+  "trampolinepark": {
+    "kind": "place",
+    "terms": "trampolinepark; trampoline hall; springzaal"
+  },
+  "calisthenics": {
+    "kind": "club",
+    "terms": "calisthenics buurttraining; street workout groep; parktraining beginners"
+  },
+  "tennis-proefles": {
+    "kind": "venue",
+    "terms": "tennisclub proefles; tennis beginners; squash les"
+  },
+  "boksles": {
+    "kind": "venue",
+    "terms": "boksschool proefles; kickboksen beginners; sportschool boksen"
+  },
+  "wandeltocht-lang": {
+    "kind": "place",
+    "terms": "lange-afstandspad etappe; wandelroute etappes; lange afstandswandeling"
+  },
+  "zwemmen-baantjes": {
+    "kind": "venue",
+    "terms": "zwembad baantjes; training zwemmen; baan zwemmen"
+  },
+  "paaldansen": {
+    "kind": "venue",
+    "terms": "paaldansen studio beginners; pole dance les; pole fitness"
+  },
+  "touwtjespringen": {
+    "kind": "place",
+    "terms": "springtouw training; jump rope park; touwtjespringen groep"
+  },
+  "pilates": {
+    "kind": "venue",
+    "terms": "pilates studio matles; pilates beginners; pilates klas"
+  },
+  "rolschaatsen": {
+    "kind": "venue",
+    "terms": "rolschaats baan verhuur; skates huren; rolschaats les"
+  },
+  "bergtoppen-afvinken": {
+    "kind": "place",
+    "terms": "provinciale hoogtepunten; heuvelwandeling kaart; bergtoppen route"
+  },
+  "langlaufen": {
+    "kind": "venue",
+    "terms": "langlaufschool; langlaufen les; Nordic skiing Nederland"
+  },
+  "sloep-varen": {
+    "kind": "venue",
+    "terms": "sloep huren; electroboot verhuur; sloepverhuur grachten"
+  },
+  "natuurbad": {
+    "kind": "place",
+    "terms": "natuurbad zwemvijver; natuurlijk zwemmen; open water zwemmen"
+  },
+  "ballet-beginners": {
+    "kind": "venue",
+    "terms": "ballet dansschool volwassenen; ballet beginners proefles; ballet voor volwassenen"
+  },
+  "flamenco": {
+    "kind": "venue",
+    "terms": "flamenco dansles; flamenco beginners; flamenco studio"
+  },
+  "buikdans": {
+    "kind": "venue",
+    "terms": "buikdans les; belly dance beginners; buikdansen studio"
+  },
+  "bollywood": {
+    "kind": "venue",
+    "terms": "bollywood dans les; Bollywood dansschool; Indian dance beginners"
+  },
+  "kpop-dans": {
+    "kind": "venue",
+    "terms": "K-pop dans les; kpop dance class; K-pop choreografie"
+  },
+  "zumba": {
+    "kind": "venue",
+    "terms": "zumba les; dansfitness groep; zumba beginners"
+  },
+  "ballroom": {
+    "kind": "venue",
+    "terms": "stijldansen beginnerscursus; ballroom dansles; dansschool ballroom"
+  },
+  "badminton": {
+    "kind": "club",
+    "terms": "badminton club open avond; badminton vereniging beginners; badminton sporthal training"
+  },
+  "squash": {
+    "kind": "venue",
+    "terms": "squash baan huren; squash les beginners; squashclub proeftraining"
+  },
+  "golfles": {
+    "kind": "venue",
+    "terms": "golf introductie; golf driving range; golfles beginners"
+  },
+  "volleybal": {
+    "kind": "club",
+    "terms": "volleybal beginners; volleybal club open training; recreanten volleybal"
+  },
+  "dansperformance-meedoen": {
+    "kind": "event",
+    "terms": "dansgroep open repetitie; dansperformance workshop; dansgezelschap beginners"
+  },
+  "triathlon-trainen": {
+    "kind": "club",
+    "terms": "triathlon club kennismaking; multisport training beginners; triatlonvereniging"
+  },
+  "tafeltennis": {
+    "kind": "club",
+    "terms": "tafeltennis club proefavond; tafeltennisvereniging beginners; tafeltennistabel"
+  },
+  "rugby-proeftraining": {
+    "kind": "club",
+    "terms": "rugby club open training; rugby beginners; rugbyvereniging proeftraining"
+  },
+  "honkbal-softbal": {
+    "kind": "club",
+    "terms": "honkbal softbal club; honkbalvereniging beginners; softbal open middag"
+  },
+  "cricket-beginners": {
+    "kind": "club",
+    "terms": "cricket club introductie; cricketvereniging beginners; cricket training"
+  },
+  "handbal-vereniging": {
+    "kind": "club",
+    "terms": "handbal club proeftraining; handbalvereniging beginners; handbal open training"
+  },
+  "waterpolo": {
+    "kind": "club",
+    "terms": "waterpolo les zwemclub; waterpolo beginners; waterpolo proefles"
+  },
+  "draakbootvaren": {
+    "kind": "club",
+    "terms": "draakboot club; draakbootvaren beginners; draakbootroeien eerste tocht"
+  },
+  "sloeproeien": {
+    "kind": "club",
+    "terms": "roeien club introductie; sloeproeien beginners; roeivereniging"
+  },
+  "slackline-park": {
+    "kind": "place",
+    "terms": "slackline park; slacklinen Nederlands; slackline sessie"
+  },
+  "pottenbakken": {
+    "kind": "venue",
+    "terms": "pottenbakken workshop; keramiek beginnerscursus; aardewerk les"
+  },
+  "houtbewerking": {
+    "kind": "venue",
+    "terms": "houtbewerking cursus; houtwerken beginners; woodworking workshop Nederland"
+  },
+  "lederwerk": {
+    "kind": "venue",
+    "terms": "lederwerk workshop; leerwerk beginners; leathercraft les"
+  },
+  "beeldhouwen": {
+    "kind": "venue",
+    "terms": "beeldhouwen workshop; sculptuur dagcursus; klei beeldhouwen beginners"
+  },
+  "glas-mozaiek": {
+    "kind": "venue",
+    "terms": "glas in lood workshop; mozaïek cursus; glaskunst les"
+  },
+  "sieraden": {
+    "kind": "venue",
+    "terms": "sieraden maken workshop; zilversmeden beginners; kralen sieraden cursus"
+  },
+  "breien-haken": {
+    "kind": "venue",
+    "terms": "breicafé; breien les beginners; haken cursus"
+  },
+  "borduren-weven": {
+    "kind": "venue",
+    "terms": "borduren workshop; weven cursus beginners; textielkunst les"
+  },
+  "naaien": {
+    "kind": "venue",
+    "terms": "naaicafé; naailes beginners; kledingles naaien"
+  },
+  "papier-boek": {
+    "kind": "venue",
+    "terms": "boekbinden workshop; kalligrafie cursus; papierkunst les"
+  },
+  "zeefdruk": {
+    "kind": "venue",
+    "terms": "zeefdruk workshop; linosnede cursus; printmaak atelier"
+  },
+  "schilderen": {
+    "kind": "venue",
+    "terms": "schilderworkshop; schilderen les beginners; schilderklas"
+  },
+  "tekenen": {
+    "kind": "event",
+    "terms": "tekenen workshop; sketchcrawl; urban sketching groep"
+  },
+  "fotografie": {
+    "kind": "event",
+    "terms": "fotografie beginnerscursus; fotowandeling; fotografieles"
+  },
+  "collage": {
+    "kind": "venue",
+    "terms": "collage workshop; scrapbooking cursus; collage avond"
+  },
+  "koor": {
+    "kind": "club",
+    "terms": "open koor; zangkoor beginners; korepetitie"
+  },
+  "instrument": {
+    "kind": "venue",
+    "terms": "gitaar les beginners; piano proefles; ukelele cursus"
+  },
+  "muziek-maken": {
+    "kind": "venue",
+    "terms": "muziek maken workshop; dj workshop beginners; muziekles"
+  },
+  "improvisatie": {
+    "kind": "venue",
+    "terms": "improvisatietheater workshop; improv cursus beginners; theaterimpro les"
+  },
+  "schrijven": {
+    "kind": "club",
+    "terms": "schrijfgroep; creatief schrijven workshop; schrijfclub"
+  },
+  "graffiti": {
+    "kind": "event",
+    "terms": "graffiti workshop legaal; muurschildering les; streetart workshop"
+  },
+  "kalligrafie": {
+    "kind": "venue",
+    "terms": "kalligrafie cursus; schoonschrift les; kalligrafie workshop"
+  },
+  "analoge-fotografie": {
+    "kind": "venue",
+    "terms": "donkere kamer workshop; analoge fotografie cursus; filmfotografie les"
+  },
+  "indigo-verven": {
+    "kind": "venue",
+    "terms": "indigo verven workshop; batik cursus; textielverven les"
+  },
+  "parfum-maken": {
+    "kind": "venue",
+    "terms": "parfum workshop; geurmakerij cursus; reukwater maken"
+  },
+  "zeep-maken": {
+    "kind": "venue",
+    "terms": "zeep maken workshop; zeepmakersles; natuurlijke zeep cursus"
+  },
+  "linosnede": {
+    "kind": "venue",
+    "terms": "linosnede workshop; linoprintles; handdruk cursus"
+  },
+  "ballonmodelleren": {
+    "kind": "venue",
+    "terms": "ballonmodelleren workshop; ballon kunst cursus; modelleerballon les"
+  },
+  "bloemschikken": {
+    "kind": "venue",
+    "terms": "bloemschik workshop; bloemschikken cursus; floristry les"
+  },
+  "quilten": {
+    "kind": "venue",
+    "terms": "quiltcafé; quilten beginnerscursus; quilt workshop"
+  },
+  "kaarten-maken": {
+    "kind": "venue",
+    "terms": "kaarten maken workshop; cardmaking cursus; kaartmaak les"
+  },
+  "eigen-taal": {
+    "kind": "place",
+    "terms": "conlang Nederlands; eigen taal maken; kunsttaal workshop"
+  },
+  "straatfotografie": {
+    "kind": "event",
+    "terms": "straatfotografie wandeling; street photography tour; fotografie stadstocht"
+  },
+  "figuurzagen": {
+    "kind": "venue",
+    "terms": "figuurzagen cursus; fretsaw workshop; zagen hobbyclub"
+  },
+  "kostuumontwerp": {
+    "kind": "venue",
+    "terms": "kostuumontwerp workshop; toneelgroep kostuumatelier cursus; beginners kostuumontwerp les"
+  },
+  "hoeden-maken": {
+    "kind": "venue",
+    "terms": "hoeden maken workshop; vilten hoeden cursus; beginners hoedenmaken les"
+  },
+  "patroontekenen": {
+    "kind": "venue",
+    "terms": "patroontekenen cursus; kledingontwerp beginners workshop; mode patroon les"
+  },
+  "upcycle-kleding": {
+    "kind": "event",
+    "terms": "herstelavond kleding; kledingherstellessen; upcycle workshop"
+  },
+  "macrame": {
+    "kind": "venue",
+    "terms": "macramé workshop; macramé beginners les; wandkleed knopen cursus"
+  },
+  "spinnen": {
+    "kind": "venue",
+    "terms": "wol spinnen workshop; spinnewiel les; natuur verven spinnen"
+  },
+  "modeillustratie": {
+    "kind": "venue",
+    "terms": "modeillustratie workshop; mode tekenen les; fashion illustration beginners"
+  },
+  "schoenmaken": {
+    "kind": "venue",
+    "terms": "schoenen maken workshop; schoenmaker introductie; leren schoenen cursus"
+  },
+  "edelstenen-slijpen": {
+    "kind": "venue",
+    "terms": "edelstenen slijpen workshop; sieradenatelierles; edelsteenslijperij introductie"
+  },
+  "kralen-rijgen": {
+    "kind": "venue",
+    "terms": "kralen rijgen workshop; kralenwinkel cursus; kralen rijgen café"
+  },
+  "emailleren": {
+    "kind": "venue",
+    "terms": "emailleren workshop; email sieraden cursus; emailleerles beginners"
+  },
+  "sieraad-ontwerpen": {
+    "kind": "venue",
+    "terms": "sieraadontwerp workshop; sieraden ontwerpen les; was snijden sieraad"
+  },
+  "operazang": {
+    "kind": "venue",
+    "terms": "klassieke zang les; opera beginners proefles; zangles aria"
+  },
+  "schilder-avond": {
+    "kind": "event",
+    "terms": "schilderavond workshop; paint night beginners; schilderles stap voor stap"
+  },
+  "gedichten-schrijven": {
+    "kind": "club",
+    "terms": "poëzie schrijven groep; gedichtenclub; creatief schrijven bijeenkomst"
+  },
+  "scenario-schrijven": {
+    "kind": "club",
+    "terms": "scenario schrijven workshop; schrijfclub scene; creatief schrijven groep"
+  },
+  "songteksten": {
+    "kind": "club",
+    "terms": "songtekst schrijven workshop; liedjesschrijving groep; songwriting les"
+  },
+  "vertalen": {
+    "kind": "club",
+    "terms": "vertalen hobby groep; vertaalclub; vertalingsbijeenkomst"
+  },
+  "levensverhaal": {
+    "kind": "club",
+    "terms": "levensverhaal schrijven groep; familieverhalen workshop; memoir writing les"
+  },
+  "muziek-opnemen": {
+    "kind": "venue",
+    "terms": "opnamestudio beginners; muziek opnemen workshop; home recording les"
+  },
+  "digitale-kunst": {
+    "kind": "venue",
+    "terms": "digitaal tekenen workshop; digitale art les; tablet schilderen cursus"
+  },
+  "fotobewerking": {
+    "kind": "venue",
+    "terms": "fotobewerking workshop; fotoboek maken les; foto-editing cursus"
+  },
+  "levend-model-tekenen": {
+    "kind": "event",
+    "terms": "model tekenen avond; open atelier sessie; tekenen met levend model"
+  },
+  "botanisch-tekenen": {
+    "kind": "venue",
+    "terms": "botanisch tekenen workshop; plantentekening les; kruidentuin workshop"
+  },
+  "kinderboek-illustreren": {
+    "kind": "venue",
+    "terms": "kinderboek illustratie cursus; childrens book workshop; illustratie les"
+  },
+  "stripverhaal-tekenen": {
+    "kind": "venue",
+    "terms": "strip tekenen workshop; stripklas beginners; comic art les"
+  },
+  "aquarelleren": {
+    "kind": "venue",
+    "terms": "aquarel workshop; aquarelschilderen les; watercolor beginners cursus"
+  },
+  "pastel-tekenen": {
+    "kind": "venue",
+    "terms": "pastel tekenen workshop; pastelklas beginners; pastel schilderen les"
+  },
+  "sketchnotes-maken": {
+    "kind": "event",
+    "terms": "sketchnotes workshop; visuele notities les; graphic recording training"
+  },
+  "pen-inkt-tekenen": {
+    "kind": "venue",
+    "terms": "pen en inkt workshop; inktekenen les; pen art cursus"
+  },
+  "portret-tekenen": {
+    "kind": "venue",
+    "terms": "portret tekenen workshop; gezichtstekening les; portretschildering cursus"
+  },
+  "plein-air-schilderen": {
+    "kind": "event",
+    "terms": "plein air schilderen dag; outdoor painting workshop; buiten schilderen groep"
+  },
+  "acryl-gieten": {
+    "kind": "venue",
+    "terms": "acryl gieten workshop; abstract schilderen les; pouring art cursus"
+  },
+  "kleurpotlood-tekenen": {
+    "kind": "venue",
+    "terms": "kleurpotlood tekenen workshop; kleurpotlood realisme les; colored pencil cursus"
+  },
+  "handlettering": {
+    "kind": "venue",
+    "terms": "handlettering workshop; brushpen les; kalligrafie cursus"
+  },
+  "mandala-tekenen": {
+    "kind": "event",
+    "terms": "mandala tekenen avond; mandala workshop; patroon tekenen les"
+  },
+  "papier-mache-beelden": {
+    "kind": "venue",
+    "terms": "papier-maché workshop; papiermaché beelden les; sculpture beginners"
+  },
+  "gouache-schilderen": {
+    "kind": "venue",
+    "terms": "gouache schilderen workshop; gouache cursus beginners; gouache les"
+  },
+  "naaldvilten": {
+    "kind": "venue",
+    "terms": "naaldvilten workshop; vilten cursus; needle felting les"
+  },
+  "sashiko-herstellen": {
+    "kind": "venue",
+    "terms": "sashiko workshop; zichtbaar herstellen les; japanse naaldwerk cursus"
+  },
+  "kantklossen": {
+    "kind": "venue",
+    "terms": "kantklossen workshop; kantkloslaboratorium; bobbin lace les"
+  },
+  "tuften": {
+    "kind": "venue",
+    "terms": "tuften workshop; tufting cursus; eigentufted kleed maken"
+  },
+  "planten-verven": {
+    "kind": "venue",
+    "terms": "natuurlijke kleurstof workshop; stof verven plant; natuurlijke verfstoffen cursus"
+  },
+  "bandweven": {
+    "kind": "venue",
+    "terms": "bandweven workshop; weven cursus beginners; tablet weaving les"
+  },
+  "houtdraaien": {
+    "kind": "club",
+    "terms": "houtdraaiersclub; houtdraaien workshop; draaibank cursus beginners"
+  },
+  "houtinleg-marqueterie": {
+    "kind": "venue",
+    "terms": "marqueterie workshop; houtinleg cursus; inlaywork les"
+  },
+  "houten-speelgoed-maken": {
+    "kind": "venue",
+    "terms": "houten speelgoed workshop; speelgoed maken cursus; houtwerk beginners"
+  },
+  "meubel-bouwen": {
+    "kind": "venue",
+    "terms": "meubelbouw cursus; meubelmaak workshop; interieur maken les"
+  },
+  "stoel-bekleden": {
+    "kind": "venue",
+    "terms": "stoel bekleden workshop; stoelenbekleden cursus; upholstery les"
+  },
+  "zwaluwstaart-kist": {
+    "kind": "venue",
+    "terms": "zwaluwstaart workshop; houten kist cursus; dovetail joint les"
+  },
+  "ukelele-bouwen": {
+    "kind": "venue",
+    "terms": "ukelele bouwworkshop; gitaar bouwen workshop; instrumenten maken cursus"
+  },
+  "boomhut-bouwen": {
+    "kind": "event",
+    "terms": "boomhut bouwen speeltuin; speelhut bouwdag; buurtproject kinderklus"
+  },
+  "pallet-meubels": {
+    "kind": "venue",
+    "terms": "repaircafé pallet meubels; pallet meubels workshop; klusmiddag hout"
+  },
+  "scheepsmodel-bouwen": {
+    "kind": "club",
+    "terms": "modelbouwclub; scheepsmodel bouwclub; modelbouwvereniging"
+  },
+  "schaakbord-maken": {
+    "kind": "venue",
+    "terms": "schaakbord hout workshop; spelbord maken cursus; houtwerk weekend"
+  },
+  "tuinmeubels-maken": {
+    "kind": "venue",
+    "terms": "tuinmeubels workshop; pergola bouwen cursus; tuinmeubels bouwdag"
+  },
+  "vlonder-bouwen": {
+    "kind": "event",
+    "terms": "vlonder bouwen workshop; terras bouwen cursus; buurtproject tuin"
+  },
+  "houten-klok-bouwen": {
+    "kind": "venue",
+    "terms": "houten klok workshop; mechanisch speelgoed bouwen; klokwerk cursus"
+  },
+  "keukenplank-maken": {
+    "kind": "venue",
+    "terms": "snijplank maken workshop; serveerplank cursus; houtwerk middag"
+  },
+  "papier-scheppen": {
+    "kind": "venue",
+    "terms": "papier scheppen workshop; papiermaken cursus; handgeschept papier"
+  },
+  "ebru-marmeren-papier": {
+    "kind": "venue",
+    "terms": "ebru workshop; marmeren papier maken; ebru cursus"
+  },
+  "betonnen-schalen-maken": {
+    "kind": "venue",
+    "terms": "beton gieten workshop; betonnen schalen cursus; beton gietwerkshop"
+  },
+  "polymeerklei-sieraden": {
+    "kind": "venue",
+    "terms": "polymeerklei sieraden workshop; fimo sieraden cursus; klei miniaturen"
+  },
+  "lederen-armband-vlechten": {
+    "kind": "venue",
+    "terms": "leer vlechten workshop; lederen sieraden cursus; armband maken"
+  },
+  "documentaireportret-maken": {
+    "kind": "venue",
+    "terms": "documentaire workshop; filmportret cursus; documentairemaker kennismaking"
+  },
+  "veldopnames-maken": {
+    "kind": "event",
+    "terms": "geluidswandeling; veldopnames workshop; soundscape wandeling"
+  },
+  "cyanotypie": {
+    "kind": "venue",
+    "terms": "cyanotypie workshop; zonneprint cursus; zonnefotografie"
+  },
+  "videomontage-leren": {
+    "kind": "venue",
+    "terms": "videomontage workshop; videobewerking cursus; editing voor beginners"
+  },
+  "macrofotografie": {
+    "kind": "venue",
+    "terms": "macrofotografie workshop; macro fotografie cursus; closeup fotografie"
+  },
+  "portretfotografie": {
+    "kind": "venue",
+    "terms": "portretfotografie workshop; portret cursus; portretlicht workshop"
+  },
+  "timelapse-fotografie": {
+    "kind": "venue",
+    "terms": "timelapse workshop; timelapse fotografie cursus; timelapsefilmpje"
+  },
+  "vlog-maken": {
+    "kind": "venue",
+    "terms": "vlog workshop; videodagboek cursus; vlogging voor beginners"
+  },
+  "sterren-fotograferen": {
+    "kind": "event",
+    "terms": "nachtfotografie workshop; sterren fotograferen; melkweg fotografie"
+  },
+  "handgetekende-animatie": {
+    "kind": "venue",
+    "terms": "animatie workshop; stop-motion cursus; flipbook maken"
+  },
+  "elektronische-muziek-produceren": {
+    "kind": "venue",
+    "terms": "elektronische muziek workshop; muziekproductie cursus; beat maken"
+  },
+  "drummen-leren": {
+    "kind": "venue",
+    "terms": "drumles; drums leren; drumschool beginners"
+  },
+  "muziek-componeren": {
+    "kind": "venue",
+    "terms": "muziek componeren cursus; compositie workshop; melodie schrijven"
+  },
+  "beiaard-leren": {
+    "kind": "venue",
+    "terms": "beiaard les; carillon leren; beiaardtoren kennismaking"
+  },
+  "drumcirkel": {
+    "kind": "club",
+    "terms": "drumcirkel; slagwerk groep; ritmecirkel"
+  },
+  "zangles": {
+    "kind": "venue",
+    "terms": "zangles beginners; zang cursus; zangschool"
+  },
+  "mondharmonica-leren": {
+    "kind": "venue",
+    "terms": "mondharmonica les; mondharmonica cursus; harmonica spelen"
+  },
+  "fanfare-orkest": {
+    "kind": "club",
+    "terms": "fanfare; harmonieorkest; blaasband"
+  },
+  "handpan-spelen": {
+    "kind": "venue",
+    "terms": "handpan les; steeldrum cursus; handpan workshop"
+  },
+  "orgel-leren": {
+    "kind": "venue",
+    "terms": "orgel les; orgel cursus; organist kennismaking"
+  },
+  "haiku-schrijven": {
+    "kind": "event",
+    "terms": "haiku workshop; schrijfwandeling; poëzie voor beginners"
+  },
+  "blog-nieuwsbrief-schrijven": {
+    "kind": "venue",
+    "terms": "blog schrijven cursus; nieuwsbrief workshop; online schrijven"
+  },
+  "fanfictie-schrijven": {
+    "kind": "club",
+    "terms": "schrijfclub; creatief schrijven groep; fanfiction workshop"
+  },
+  "roman-schrijven": {
+    "kind": "club",
+    "terms": "schrijfclub; roman schrijven groep; schrijfgezelschap"
+  },
+  "kinderverhaal-schrijven": {
+    "kind": "venue",
+    "terms": "kinderverhaal workshop; kinderboek schrijven; verhaalschrijven"
+  },
+  "reisverhaal-schrijven": {
+    "kind": "venue",
+    "terms": "reisverhaal workshop; reisessay cursus; reisschrijven"
+  },
+  "column-schrijven": {
+    "kind": "venue",
+    "terms": "columnschrijven workshop; opiniestuk cursus; journalistiek beginners"
+  },
+  "tweede-taal-schrijven": {
+    "kind": "club",
+    "terms": "schrijfclub vreemde taal; taaluitwisselinggroep; taalmaatje"
+  },
+  "brieven-aan-jezelf": {
+    "kind": "event",
+    "terms": "schrijfwerkshop brieven; mindfulness writing; reflectie workshop"
+  },
+  "muziektheorie-leren": {
+    "kind": "venue",
+    "terms": "muziektheorie cursus; muziekles beginners; theorieles"
+  },
+  "linoleum-snijden": {
+    "kind": "venue",
+    "terms": "linosnede workshop; linoleumsnijden cursus; drukkunst workshop"
+  },
+  "batiken": {
+    "kind": "venue",
+    "terms": "batik workshop; batiken cursus; textielverf workshop"
+  },
+  "djembe-trommelcirkel": {
+    "kind": "club",
+    "terms": "trommelcirkel; djembé groep; trommelen workshop"
+  },
+  "zichtbaar-herstellen": {
+    "kind": "venue",
+    "terms": "visible mending workshop; kleding repareren cursus; sticken workshop"
+  },
+  "wandelen": {
+    "kind": "place",
+    "terms": "wandelknooppunt; wandelroute; wandelen Nederland"
+  },
+  "gids-wandeling": {
+    "kind": "event",
+    "terms": "natuurwandeling gids; geleide wandeling; natuurorganisatie wandeling"
+  },
+  "geocaching": {
+    "kind": "place",
+    "terms": "geocaching Nederland; geocaching beginners; geocachen route"
+  },
+  "kamperen": {
+    "kind": "venue",
+    "terms": "trekkershut Nederland; minicamping; glamping beginners"
+  },
+  "vogels": {
+    "kind": "club",
+    "terms": "vogelwerkgroep; vogelclub Nederland; vogelspotten groep"
+  },
+  "dierenasiel": {
+    "kind": "club",
+    "terms": "vrijwilliger dierenasiel; asiel hondenuitlaten; dierenasiel inloop"
+  },
+  "paardrijden": {
+    "kind": "venue",
+    "terms": "manege proefles; paardrijden beginners; paardenrijschool"
+  },
+  "hondensport": {
+    "kind": "club",
+    "terms": "hondenvereniging; hondentraining club; hondensport proefles"
+  },
+  "imkeren": {
+    "kind": "venue",
+    "terms": "imkerij open dag; imkerijcursus beginners; imker introductie"
+  },
+  "nachtdieren": {
+    "kind": "event",
+    "terms": "vleermuizen avondwandeling; natuurvereniging nachtdieren; vleermuizen spotten"
+  },
+  "vissen": {
+    "kind": "venue",
+    "terms": "vissen introductiedag; viswerkgroep Nederland; vissen cursus"
+  },
+  "tuinieren": {
+    "kind": "venue",
+    "terms": "buurttuin; moestuin; stadstuinieren"
+  },
+  "kamerplanten": {
+    "kind": "place",
+    "terms": "kamerplanten winkel; plantencafé; plantenruilbeurs"
+  },
+  "paddenstoelen": {
+    "kind": "event",
+    "terms": "paddenstoelen excursie; mycoloog wandeling; herfst schimmelwandeling"
+  },
+  "natuurbeheer": {
+    "kind": "club",
+    "terms": "natuurbeheer vrijwilliger; natuurwerk dag; natuurvereniging werkdag"
+  },
+  "sterrenkijken": {
+    "kind": "venue",
+    "terms": "sterrenwacht open avond; planetarium; sterrenclub Nederland"
+  },
+  "natuurfotografie": {
+    "kind": "place",
+    "terms": "natuurfotografie route; fotowandeling; natuurpark"
+  },
+  "open-water": {
+    "kind": "place",
+    "terms": "openwaterzwemmen; wild swimming Nederland; zwemlocatie meer"
+  },
+  "zeehonden-varen": {
+    "kind": "event",
+    "terms": "zeehonden boottocht Waddenzee; zeehonden spotten boot; zeezeehonden tour"
+  },
+  "insecten-tellen": {
+    "kind": "event",
+    "terms": "vlindertelling meedoen; insectentelling Nederland; waarnemingen app"
+  },
+  "dauwtrappen": {
+    "kind": "place",
+    "terms": "dauwtrappen; ochtendwandeling natuurpark; blote voeten route"
+  },
+  "bomen-herkennen": {
+    "kind": "place",
+    "terms": "boomroute; herkenningsroute bomen; natuurpad"
+  },
+  "wolken": {
+    "kind": "place",
+    "terms": "wolkenroute; natuurpark ligging; open veld"
+  },
+  "proplifting": {
+    "kind": "venue",
+    "terms": "tuincentrum proplifting; plantenwinkel afval; plantenjacht"
+  },
+  "strandjutten": {
+    "kind": "place",
+    "terms": "strandwandeling vloedlijn; strandjutten route; beachcombing Nederland"
+  },
+  "duiven-houden": {
+    "kind": "club",
+    "terms": "colombofiele vereniging; duivensport club; duivenhouders"
+  },
+  "mieren-houden": {
+    "kind": "venue",
+    "terms": "formicarium winkel; mieren nest kwekerij; aquarium speciaalzaak"
+  },
+  "open-tuinen": {
+    "kind": "event",
+    "terms": "open tuinen dag; tuinenroute; open tuin route"
+  },
+  "dierentuin": {
+    "kind": "place",
+    "terms": "dierentuin; zoo Nederland; dierenpark"
+  },
+  "kinderboerderij": {
+    "kind": "place",
+    "terms": "kinderboerderij; petting farm; boerderijbezoek"
+  },
+  "roofvogelshow": {
+    "kind": "event",
+    "terms": "roofvogelshow; valkeniersdag; vogeldemonstatie"
+  },
+  "vlindertuin": {
+    "kind": "place",
+    "terms": "vlindertuin; tropische kas; vlinderhuis"
+  },
+  "reptielen": {
+    "kind": "place",
+    "terms": "reptielenzoo; reptielen expositie; spinnenexpo"
+  },
+  "stoeterij": {
+    "kind": "place",
+    "terms": "stoeterij open dag; paardenhouderij bezoek; fokkerij rondleiding"
+  },
+  "dierenfotografie": {
+    "kind": "event",
+    "terms": "dierenfotografie workshop; natuurfoto cursus; wildlife fotografie"
+  },
+  "alpaca-wandeling": {
+    "kind": "venue",
+    "terms": "alpaca wandeling; lama trekking; alpaca houderij"
+  },
+  "dierensporen-lezen": {
+    "kind": "event",
+    "terms": "sporenwandeling; voetafdruk wandeling; boswachter sporen"
+  },
+  "amfibieen-tellen": {
+    "kind": "event",
+    "terms": "padden telling; kikker inventarisatie; amfibieënwerkgroep"
+  },
+  "composteren-wormenbak": {
+    "kind": "venue",
+    "terms": "composteren workshop; wormenbak cursus; buurttuin compost"
+  },
+  "vijver-aanleggen": {
+    "kind": "event",
+    "terms": "vijver aanleg workshop; buurtklusdag vijver; wildlifevijver"
+  },
+  "fruitbomen-snoeien": {
+    "kind": "venue",
+    "terms": "snoeicursus fruitbomen; fruitteeltvereniging; boom snoei workshop"
+  },
+  "bloembollen-planten": {
+    "kind": "event",
+    "terms": "bloembollen plantdag; buurttuin plantactie; bollencursis"
+  },
+  "bloemenweide-inzaaien": {
+    "kind": "event",
+    "terms": "bloemenweide inzaaien; buurtactie zaad; wilde bloemenstrook"
+  },
+  "tuin-ontwerpen": {
+    "kind": "venue",
+    "terms": "tuinontwerp workshop; tuinarchitect cursus; tuinplannen"
+  },
+  "zaailingen-kweken": {
+    "kind": "venue",
+    "terms": "zaaiavond; zaaicursus; plantenkweek workshop"
+  },
+  "kruidenspiraal-bouwen": {
+    "kind": "event",
+    "terms": "kruidenspiraal workshop; buurttuin bouwdag; kruidentuin"
+  },
+  "kattencafe": {
+    "kind": "place",
+    "terms": "kattencafé; cat café Nederland; poescafé"
+  },
+  "geitenyoga": {
+    "kind": "venue",
+    "terms": "geitenyoga; yoga geiten boerderij; geitenhouderij yogasessie"
+  },
+  "ezel-wandeling": {
+    "kind": "venue",
+    "terms": "ezel wandeling; ezelhouderij; met ezel trekken"
+  },
+  "lammetjesdag": {
+    "kind": "event",
+    "terms": "lammetjesdag; schapenboerderij open dag; lam voeren"
+  },
+  "dierenopvang-knuffelen": {
+    "kind": "venue",
+    "terms": "dierenopvang knuffelmiddag; konijnenopvang open dag; dierenknuffeldag"
+  },
+  "ponyrijden": {
+    "kind": "venue",
+    "terms": "ponyrijden kinderboerderij; pony manege; ponylesgeven"
+  },
+  "hondenshow": {
+    "kind": "event",
+    "terms": "hondenshow Nederland; rashondententoonstelling; hondenshow bezoeken"
+  },
+  "paardensportwedstrijd": {
+    "kind": "event",
+    "terms": "springconcours bezoeken; dressuurwedstrijd kijken; ruiter wedstrijd"
+  },
+  "duivenwedstrijd": {
+    "kind": "event",
+    "terms": "duivenwedstrijd open dag; duivententoonstelling Nederland; duivenvereniging"
+  },
+  "pluimveetentoonstelling": {
+    "kind": "event",
+    "terms": "kippenshow; konijnententoonstelling; pluimveeshow Nederland"
+  },
+  "schapendrijven": {
+    "kind": "event",
+    "terms": "schapendrijven demonstratie; border collie herding; herdersclub wedstrijd"
+  },
+  "ringrijden": {
+    "kind": "event",
+    "terms": "ringrijden feest; ringrijderij Zeeland Brabant; ringrijden bezoeken"
+  },
+  "karpervissen": {
+    "kind": "venue",
+    "terms": "karpervissen proefdag; hengelsportvereniging; viswater karper"
+  },
+  "vliegvissen": {
+    "kind": "venue",
+    "terms": "vliegviscursus; vliegvisschool cursus; vliegvissen beginners"
+  },
+  "zeevissen": {
+    "kind": "event",
+    "terms": "zeevissen kotter dagtocht; zeehengelaarskotter; zeevissen excursie"
+  },
+  "visvijver": {
+    "kind": "place",
+    "terms": "visvijver hengel huren; visplek kinderen; viskwekerij bezoeken"
+  },
+  "krabben-vangen": {
+    "kind": "place",
+    "terms": "krabben vangen pier; garnalen vangen kust; krabbenlijn"
+  },
+  "jachtkennismaking": {
+    "kind": "event",
+    "terms": "jagersvereniging open dag; jacht kennismaking; jachtopleiding cursus"
+  },
+  "wildkijken": {
+    "kind": "event",
+    "terms": "wildkijken boswachter excursie; reeën herten spotten; natuurrondleiding"
+  },
+  "hertenbronst": {
+    "kind": "event",
+    "terms": "hertenbronst excursie; bronstijd herten beluisteren; Veluwe natuurexcursie"
+  },
+  "valkerij": {
+    "kind": "venue",
+    "terms": "valkerij workshop; valkenier ervaring; roofvogel vliegen"
+  },
+  "jachthoorn-blazen": {
+    "kind": "club",
+    "terms": "jachthoornblazersgroep; jachthoorn proefles; jachthoornblazen club"
+  },
+  "jachthonden-demo": {
+    "kind": "event",
+    "terms": "jachthondenvereniging open dag; jachthond demonstratie; hondenwedstrijd jacht"
+  },
+  "kaninhop": {
+    "kind": "event",
+    "terms": "kaninhop vereniging; konijnen hindernisbaan; kaninhop open dag"
+  },
+  "koeknuffelen": {
+    "kind": "place",
+    "terms": "koeien knuffelen boerderij; dierenboerderij koeien; koeienboerderij bezoeken"
+  },
+  "schermen": {
+    "kind": "venue",
+    "terms": "HEMA schermen club; historisch schermen cursus; zwaardvechten club"
+  },
+  "hist-dans": {
+    "kind": "venue",
+    "terms": "historische dans cursus; renaissance dans; middeleeuwse dans"
+  },
+  "hist-koken": {
+    "kind": "event",
+    "terms": "historisch koken workshop; openluchtmuseum workshop; oude recepten"
+  },
+  "ambachten": {
+    "kind": "event",
+    "terms": "openluchtmuseum ambachten; touw slaan demonstratie; weven workshop"
+  },
+  "levend-verleden": {
+    "kind": "event",
+    "terms": "vikingmarkt bezoeken; Romeins festival; living history event"
+  },
+  "genealogie": {
+    "kind": "club",
+    "terms": "genealogie club; stamboomonderzoek groep; erfgoedvereniging"
+  },
+  "opgraving": {
+    "kind": "event",
+    "terms": "archeologie opgraving vrijwilliger; archeologische open dag; opgravingsproject"
+  },
+  "archief": {
+    "kind": "place",
+    "terms": "lokaal archief; gemeentearchief bezoeken; historisch centrum"
+  },
+  "metaaldetectie": {
+    "kind": "club",
+    "terms": "metaaldetectie club Nederland; metaldetecting vereniging; schattenzoekers club"
+  },
+  "handschriften": {
+    "kind": "venue",
+    "terms": "paleografie cursus; handschriften lezen; archief paleografie"
+  },
+  "stadswandeling": {
+    "kind": "event",
+    "terms": "stadswandeling geschiedenis gids; historische stadstour; architecture walk"
+  },
+  "monumenten": {
+    "kind": "event",
+    "terms": "Open Monumentendag; kasteel bezoeken; kerkbezoek"
+  },
+  "musea": {
+    "kind": "place",
+    "terms": "museum bezoeken; lokaal museum; kunstmuseum"
+  },
+  "industrieel-erfgoed": {
+    "kind": "event",
+    "terms": "molens open dag; gemaal bezoeken; industrieel erfgoed"
+  },
+  "verzetsroute": {
+    "kind": "place",
+    "terms": "verzetsroute wandeling; herdenkingsroute; WOII route"
+  },
+  "architectuur": {
+    "kind": "event",
+    "terms": "architectuurwandeling gids; bouwkundig erfgoed tour; architectuur route"
+  },
+  "legendes": {
+    "kind": "event",
+    "terms": "spooktocht; legendes stadswandeling; nachtelijke gidsroute"
+  },
+  "begraafplaats": {
+    "kind": "place",
+    "terms": "begraafplaats wandeling; oude begraafplaats; rondleiding kerkhof"
+  },
+  "sagen": {
+    "kind": "event",
+    "terms": "verhalenwandeling; sagen en mythen; folklore tour"
+  },
+  "slagveld": {
+    "kind": "place",
+    "terms": "slagveld route gids; historische slag bezoeken; battlefield tour"
+  },
+  "limesroute": {
+    "kind": "place",
+    "terms": "Romeinse limes route; limes fietsroute; romeins erfgoed wandeling"
+  },
+  "middeleeuws-banket": {
+    "kind": "event",
+    "terms": "middeleeuws banket; historisch banket reserveren; kasteel diner"
+  },
+  "hema": {
+    "kind": "venue",
+    "terms": "HEMA club; historisch zwaardvechten; schermclub HEMA"
+  },
+  "oude-kaarten": {
+    "kind": "place",
+    "terms": "oude kaarten archief; historische kaarten bibliotheek; cartografie collectie"
+  },
+  "regency-bal": {
+    "kind": "event",
+    "terms": "historische balavond; regency bal; historische dansavond"
+  },
+  "latijn-grieks-lezen": {
+    "kind": "venue",
+    "terms": "Latijn cursus; Oud-Grieks lesgroep; klassieke talen cursus"
+  },
+  "kunstgeschiedenis-cursus": {
+    "kind": "venue",
+    "terms": "kunstgeschiedenis cursus; museum workshop; volksuniversiteit cursus"
+  },
+  "mini-onderzoek-doen": {
+    "kind": "place",
+    "terms": "bibliotheek onderzoek; lokaal archief onderzoek; erfgoedgroep"
+  },
+  "heraldiek": {
+    "kind": "venue",
+    "terms": "heraldiek workshop; familiewapen ontwerpen; heraldiek cursus"
+  },
+  "mondelinge-geschiedenis": {
+    "kind": "club",
+    "terms": "mondelinge geschiedenis project; ouderengetuigenis; herinneringenproject"
+  },
+  "archief-indexeren": {
+    "kind": "club",
+    "terms": "archief vrijwilliger; indexeerproject; archiefbewerking vrijwilligers"
+  },
+  "bordspellen": {
+    "kind": "venue",
+    "terms": "spellencafé; spelavond bordspellen; boardgame café"
+  },
+  "kaartspellen": {
+    "kind": "club",
+    "terms": "kaartclub beginners; bridge club inloopavond; klaverjassen vereniging"
+  },
+  "schaken": {
+    "kind": "club",
+    "terms": "schaakclub inloopavond; schaakvereniging beginners; schaakcafé"
+  },
+  "go": {
+    "kind": "club",
+    "terms": "go club introductieavond; go vereniging; go spelavond"
+  },
+  "mahjong": {
+    "kind": "venue",
+    "terms": "mahjong beginnersmiddag; mahjong workshop; mahjong buurthuis"
+  },
+  "ruilkaarten": {
+    "kind": "venue",
+    "terms": "Magic Pokémon speelavond; kaartspelwinkel; beginnerstoernooi Magic"
+  },
+  "wargaming": {
+    "kind": "venue",
+    "terms": "wargaming demospel; miniaturen speelwinkel; wargaming workshop"
+  },
+  "tabletop-rpg": {
+    "kind": "venue",
+    "terms": "D&D one-shot beginners; tabletop RPG workshop; rollenspel speelwinkel"
+  },
+  "larp": {
+    "kind": "event",
+    "terms": "LARP beginnersdag; live action roleplay event; LARP for beginners"
+  },
+  "murder-mystery": {
+    "kind": "venue",
+    "terms": "murder mystery avond; moordspel georganiseerd; spelbox murder mystery"
+  },
+  "escape-room": {
+    "kind": "venue",
+    "terms": "escape room; escape room beginners; escape game"
+  },
+  "pubquiz": {
+    "kind": "venue",
+    "terms": "pubquiz; quiz avond café; trivia night"
+  },
+  "speedcuben": {
+    "kind": "club",
+    "terms": "speedcubing club; cuben wedstrijd; speedcube competitie"
+  },
+  "coop-games": {
+    "kind": "venue",
+    "terms": "gamecafé; coöperatieve spellen; gaming café"
+  },
+  "lasergamen": {
+    "kind": "venue",
+    "terms": "lasergamen; paintball; laser tag"
+  },
+  "darten-pool": {
+    "kind": "venue",
+    "terms": "dartsbaan; poolbiljart café; darts en pool"
+  },
+  "bowlen": {
+    "kind": "venue",
+    "terms": "bowlingbaan; bowling; bowlen"
+  },
+  "stadsspel": {
+    "kind": "place",
+    "terms": "stadsspel; outdoor escape; escape walk"
+  },
+  "escape-doos": {
+    "kind": "venue",
+    "terms": "escape box thuisbezorgd; escape room box"
+  },
+  "vr-arcade": {
+    "kind": "venue",
+    "terms": "VR arcade; virtual reality arcade; VR speelhal"
+  },
+  "simracen": {
+    "kind": "venue",
+    "terms": "simracing center; racesimulator; sim racing"
+  },
+  "bubble-football": {
+    "kind": "venue",
+    "terms": "bubble football; bubble soccer; opblaasbare voetbal"
+  },
+  "flipperkast": {
+    "kind": "venue",
+    "terms": "flippermuseum; arcade hal; flipperkasten"
+  },
+  "rummikub-kaartclub": {
+    "kind": "venue",
+    "terms": "spelletjescafé; gezelschapsspellen café; spelcafé"
+  },
+  "dammen": {
+    "kind": "club",
+    "terms": "damclub; damvereniging; dammers inloopavond"
+  },
+  "jojo": {
+    "kind": "place",
+    "terms": "jojo kopen; speelgoedwinkel"
+  },
+  "bordspel-ontwerpen": {
+    "kind": "event",
+    "terms": "bordspel design workshop; spelbord ontwerp avond"
+  },
+  "modelbouw": {
+    "kind": "venue",
+    "terms": "modelbouw workshop; modelbouw hobby; scale model"
+  },
+  "miniaturen": {
+    "kind": "venue",
+    "terms": "miniaturen schilderen; miniatuurschildering workshop; hobbywinkel schilderavond"
+  },
+  "modeltreinen": {
+    "kind": "club",
+    "terms": "modelspoor vereniging; model trein club; modeltrein expositie"
+  },
+  "diorama": {
+    "kind": "place",
+    "terms": "diorama expositie; modelbouw museum; landschapsbouw tentoonstelling"
+  },
+  "lego": {
+    "kind": "club",
+    "terms": "LEGO user group; LEGO bouwavond; AFOL community"
+  },
+  "bonsai": {
+    "kind": "venue",
+    "terms": "bonsai workshop; bonsai beginnerscursus; bonsai school"
+  },
+  "origami": {
+    "kind": "venue",
+    "terms": "origami workshop; origami cursus; vouwen workshop"
+  },
+  "munten-zegels": {
+    "kind": "event",
+    "terms": "munten ruilbeurs; postzegel ruilbeurs; verzamelaarsvereniging"
+  },
+  "vinyl": {
+    "kind": "place",
+    "terms": "platenwinkel; vinyl record winkel; lp's kopen"
+  },
+  "kringloop": {
+    "kind": "place",
+    "terms": "kringloopwinkel; vintage winkel; tweedehands winkel"
+  },
+  "strips": {
+    "kind": "place",
+    "terms": "stripwinkel; stripboek shop; bibliotheek strips"
+  },
+  "cactussen": {
+    "kind": "event",
+    "terms": "plantenruilbeurs; plantenbeurs; cactus verzameling"
+  },
+  "zendamateur": {
+    "kind": "club",
+    "terms": "zendamateur club; radioamateur vereniging; introductiedag radio"
+  },
+  "rc-modellen": {
+    "kind": "club",
+    "terms": "RC auto club; modelvliegtuig club; RC boat clubdag"
+  },
+  "vulpennen": {
+    "kind": "place",
+    "terms": "pennenwinkel; vulpennen shop; pennenbeurs"
+  },
+  "koffie-thee": {
+    "kind": "venue",
+    "terms": "koffie proeverij; specialty coffee; thee proefdag"
+  },
+  "aquarium": {
+    "kind": "venue",
+    "terms": "aquarium workshop; aquascaping club; aquaria vereniging"
+  },
+  "retrogaming": {
+    "kind": "venue",
+    "terms": "retrogaming avond; arcade speelhal; vintage games café"
+  },
+  "veiling": {
+    "kind": "event",
+    "terms": "veilinghuis kijkdag; veiling bezoeken; opbod"
+  },
+  "ruilbeurs-planten": {
+    "kind": "event",
+    "terms": "plantenruilbeurs; zaden ruildag; plantenbeurs"
+  },
+  "postcrossing": {
+    "kind": "club",
+    "terms": "postcrossing; ansichtkaarten verzamelen; pen pal"
+  },
+  "pins-ruilen": {
+    "kind": "event",
+    "terms": "pins ruilbeurs; pin trading; pin ruildag"
+  },
+  "vintage-kleding": {
+    "kind": "place",
+    "terms": "vintage winkel; retro kledingwinkel; kringloop kleding"
+  },
+  "mineralen-edelstenen": {
+    "kind": "place",
+    "terms": "mineralenmuseum Nederland; edelsteenbeurs; mineralen tentoonstelling"
+  },
+  "speeldozen": {
+    "kind": "place",
+    "terms": "speeldozenmuseum; muziekautomatenmuseum; speeldozenbeurs"
+  },
+  "poppenhuis": {
+    "kind": "venue",
+    "terms": "poppenhuis workshop; miniatuurbouwen cursus; poppenhuis bouwworkshop"
+  },
+  "antieke-poppen": {
+    "kind": "place",
+    "terms": "poppenmuseum Nederland; poppenbeurs; pop restauratie workshop"
+  },
+  "brocante-antiek": {
+    "kind": "place",
+    "terms": "brocantemarkt Nederland; antiekmarkt; rommelmarkt"
+  },
+  "elektronica": {
+    "kind": "venue",
+    "terms": "Arduino workshop; solderworkshop; elektronica beginnerscursus"
+  },
+  "ontwerp-print": {
+    "kind": "venue",
+    "terms": "3D printen makerspace; 3D design workshop; bibliotheek 3D printer"
+  },
+  "coderen": {
+    "kind": "venue",
+    "terms": "programmeren voor beginners; codering workshop; code cursus"
+  },
+  "robotica": {
+    "kind": "club",
+    "terms": "roboticaclub Nederland; robotics groep; LEGO robotica club"
+  },
+  "makerspace": {
+    "kind": "venue",
+    "terms": "makerspace open inloop; fablab Nederland; DIY makerspace"
+  },
+  "drones": {
+    "kind": "club",
+    "terms": "droneclub Nederland; drone vliegclub; drone beginnerscursus"
+  },
+  "repair-cafe": {
+    "kind": "event",
+    "terms": "repair café agenda; reparatiecafé; repair café locaties"
+  },
+  "restaureren": {
+    "kind": "venue",
+    "terms": "meubelrestauratie cursus; meubelherstellings workshop; restauratie beginnerscursus"
+  },
+  "smeden": {
+    "kind": "venue",
+    "terms": "smeedcursus; metaalbewerking workshop; smederij cursus"
+  },
+  "lassen": {
+    "kind": "venue",
+    "terms": "lascursus beginners; lassen introductiecursus; lassentraining"
+  },
+  "klokken": {
+    "kind": "venue",
+    "terms": "klokreparatie workshop; horlogewerking cursus; klokken repareren"
+  },
+  "telescoop": {
+    "kind": "place",
+    "terms": "sterrenwacht openbare avond; astronomie waarneming; telescoop avond"
+  },
+  "geologie": {
+    "kind": "event",
+    "terms": "geologie excursie; stenen lezen gids; steenexcursie Nederland"
+  },
+  "weerstation": {
+    "kind": "place",
+    "terms": "weerstation museum; weer waarneming workshop; meteorologie cursus"
+  },
+  "wetenschapsmuseum": {
+    "kind": "place",
+    "terms": "wetenschapsmuseum; science center workshop; innovatiemuseum"
+  },
+  "kookwetenschap": {
+    "kind": "venue",
+    "terms": "kookwetenschap workshop; voedingswetenschappen cursus; experimenteel koken"
+  },
+  "data-visualisatie": {
+    "kind": "venue",
+    "terms": "data visualisatie workshop; datawetenschap cursus; data analyse beginners"
+  },
+  "radioamateur": {
+    "kind": "club",
+    "terms": "radioamateurvereniging; zendamateur club; HAM radio club"
+  },
+  "motor-sleutelen": {
+    "kind": "venue",
+    "terms": "motorsleutel garage; zelf sleutelen motor; DIY motorwerkplaats"
+  },
+  "kortegolf-luisteren": {
+    "kind": "venue",
+    "terms": "shortwave luisteren; radioluisteren workshop; kortegolf ontvanger cursus"
+  },
+  "dxen": {
+    "kind": "club",
+    "terms": "DXing club; radiozendersluisteren; DX listening group"
+  },
+  "retrocomputing": {
+    "kind": "club",
+    "terms": "retrocomputerclub; retro computer beurs; oude computers museum"
+  },
+  "wikipedia-bijdragen": {
+    "kind": "venue",
+    "terms": "Wikipedia workshop; Wikimedia cursus; Wikipedia bewerking training"
+  },
+  "open-source": {
+    "kind": "venue",
+    "terms": "open source workshop; programmeren beginners; code contribution training"
+  },
+  "game-ontwikkelen": {
+    "kind": "venue",
+    "terms": "game development workshop; spelontwikkeling cursus; game engine tutorial"
+  },
+  "ai-creatie": {
+    "kind": "venue",
+    "terms": "AI creatief workshop; kunstmatige intelligentie cursus; AI tools training"
+  },
+  "website-bouwen": {
+    "kind": "venue",
+    "terms": "website bouwcursus; webdesign workshop; HTML CSS beginners"
+  },
+  "energie-besparen": {
+    "kind": "venue",
+    "terms": "energiecoach gemeente; energiebesparing workshop; duurzaamheid cursus"
+  },
+  "leren-programmeren": {
+    "kind": "venue",
+    "terms": "programmeren beginners; coding cursus; programmeer workshop"
+  },
+  "toerist": {
+    "kind": "place",
+    "terms": "stadswandeling; buurtverkenning route; stadstour"
+  },
+  "film-theater": {
+    "kind": "venue",
+    "terms": "bioscoop; filmhuis; theater agenda"
+  },
+  "cafe-schrijven": {
+    "kind": "place",
+    "terms": "café; coffeeshop; schrijfcafé"
+  },
+  "fotowandeling": {
+    "kind": "event",
+    "terms": "fotowandeling gids; fotografie excursie; foto tour"
+  },
+  "audiowandeling": {
+    "kind": "place",
+    "terms": "audiowandeling app; podcastroute; geluidsroute"
+  },
+  "trein-dagtrip": {
+    "kind": "place",
+    "terms": "onbekend plaatsje trein; dagtrip route; treinreis"
+  },
+  "boekwinkels": {
+    "kind": "place",
+    "terms": "boekwinkel; bibliotheek; boekmarkt"
+  },
+  "ander-land": {
+    "kind": "place",
+    "terms": "etnische winkel; wereldwinkel; buitenlandse supermarkt"
+  },
+  "picknick": {
+    "kind": "place",
+    "terms": "picknick plek; park uitzicht; natuurgebied"
+  },
+  "buurtkaart": {
+    "kind": "place",
+    "terms": "buurt wandelen; stadswandeling; kaart maken route"
+  },
+  "fietsroute": {
+    "kind": "place",
+    "terms": "fietsroute rivier; kustroute fiets; waterroute fietsen"
+  },
+  "taal-leren": {
+    "kind": "venue",
+    "terms": "taalcursus; spraakles; taal workshop"
+  },
+  "platenwinkel": {
+    "kind": "place",
+    "terms": "platenzaak; vinyl winkel; platenmuseum"
+  },
+  "ateliers": {
+    "kind": "event",
+    "terms": "open atelierdag; galerieronde; atelier route"
+  },
+  "detox": {
+    "kind": "place",
+    "terms": "wandeling zonder telefoon; natuur; park"
+  },
+  "dertig-dagen": {
+    "kind": "event",
+    "terms": "30-daagse challenge; maandelijkse uitdaging; groepsuitdaging"
+  },
+  "slow-travel": {
+    "kind": "event",
+    "terms": "slow travel weekend Nederland; treinreis weekend; staycation openbaar vervoer"
+  },
+  "brieven": {
+    "kind": "club",
+    "terms": "brief schrijven groep; pen pal club Nederland; brieven schrijven bijeenkomst"
+  },
+  "markt-ingredient": {
+    "kind": "place",
+    "terms": "weekmarkt Nederland; boeremarkt; lokale markt groente"
+  },
+  "groundhoppen": {
+    "kind": "event",
+    "terms": "groundhopping groep; stadion tour voetbal; amateurvoetbal wedstrijden"
+  },
+  "gebarentaal-leren": {
+    "kind": "venue",
+    "terms": "gebarentaal cursus; dove cultuur workshop; gebarentaal introductie"
+  },
+  "esperanto-leren": {
+    "kind": "club",
+    "terms": "Esperanto groep; esperanto bijeenkomst; taalgroep esperanto"
+  },
+  "hoofdrekenen": {
+    "kind": "venue",
+    "terms": "rekentraining workshop; wiskundeclub; mentaal rekenen cursus"
+  },
+  "alleen-uit-eten": {
+    "kind": "place",
+    "terms": "restaurant solo dineren; eettafels voor één; solo diner ervaring"
+  },
+  "buurtmaaltijd": {
+    "kind": "event",
+    "terms": "buurtmaaltijd; eetclub buurt; potluck community dinner"
+  },
+  "taalcafe": {
+    "kind": "venue",
+    "terms": "taalcafé bibliotheek; language café; taal oefenen groep"
+  },
+  "wandelgroep": {
+    "kind": "club",
+    "terms": "wandelgroep beginners; wandelen club; wandeltochten groep"
+  },
+  "book-club-stil": {
+    "kind": "club",
+    "terms": "silent book club; stille leesclub; samen lezen groep"
+  },
+  "kletscafe": {
+    "kind": "venue",
+    "terms": "kletscafé; koffie-ochtend; gesprekscafé"
+  },
+  "buurtvrijwilliger": {
+    "kind": "event",
+    "terms": "buurtvrijwilliger kennismaking; vrijwilligerswerk buurt; buurtproject"
+  },
+  "body-doubling": {
+    "kind": "club",
+    "terms": "body doubling groep; samen werken meetup; focus groep"
+  },
+  "potluck": {
+    "kind": "event",
+    "terms": "potluck avond; eetclub; potluck diner"
+  },
+  "buurttuin": {
+    "kind": "place",
+    "terms": "buurttuin; community garden; tuinclub"
+  },
+  "nieuwkomers": {
+    "kind": "event",
+    "terms": "nieuwkomers meetup; newcomers group; integratie bijeenkomst"
+  },
+  "open-podium": {
+    "kind": "event",
+    "terms": "open podium avond; open mic night; amateur talent night"
+  },
+  "kook-club": {
+    "kind": "venue",
+    "terms": "kookclub beginners; kookworkshop; kookles cursus"
+  },
+  "spelavond-thuis": {
+    "kind": "club",
+    "terms": "spelavond groep; bordspel club; game night"
+  },
+  "vriendschapsdaten": {
+    "kind": "event",
+    "terms": "vriendschapsdaten; friendship dating event; maatjes matching"
+  },
+  "onbekenden-diner": {
+    "kind": "event",
+    "terms": "diner onbekenden; strangers dinner; dineren met vreemden"
+  },
+  "wandelmaatje": {
+    "kind": "club",
+    "terms": "wandelmaatje programma; wandel buddy; maatjes wandelen"
+  },
+  "proefles-avond": {
+    "kind": "venue",
+    "terms": "proefavond cursus; intro les geen ervaring; schnupperkurs"
+  },
+  "festival-vrijwilliger": {
+    "kind": "event",
+    "terms": "festival vrijwilliger; festival volunteering; evenement vrijwilligerswerk"
+  },
+  "familie-uitje": {
+    "kind": "place",
+    "terms": "familiepret dag; gezinsactiviteit; family outing"
+  },
+  "online-praatgroep": {
+    "kind": "club",
+    "terms": "interessegroep online; Discord community; forum groep"
+  },
+  "naaicafe": {
+    "kind": "venue",
+    "terms": "naaicafé; herstelavond; naaiatelier"
+  },
+  "schrijfcirkel": {
+    "kind": "club",
+    "terms": "schrijfcirkel bibliotheek; schrijfgroep; creatief schrijven"
+  },
+  "kledingruil": {
+    "kind": "event",
+    "terms": "kledingruilfeest; kleding swap; ruilbeurs kleding"
+  },
+  "muurschildering": {
+    "kind": "event",
+    "terms": "muurschildering project; buurtkunst; graffiti workshop"
+  },
+  "netwerkborrel": {
+    "kind": "event",
+    "terms": "netwerkborrel; ondernemersnetwerk; networking inloop"
+  },
+  "leesclub": {
+    "kind": "club",
+    "terms": "leesclub bibliotheek; boekenclub; leesgroep"
+  },
+  "yoga": {
+    "kind": "venue",
+    "terms": "yoga proefles; yoga studio beginners; yoga cursus"
+  },
+  "meditatie": {
+    "kind": "venue",
+    "terms": "meditatie les; meditatiegroep; mindfulness cursus"
+  },
+  "sauna": {
+    "kind": "venue",
+    "terms": "sauna; thermae; wellnesscentrum"
+  },
+  "ademwerk": {
+    "kind": "venue",
+    "terms": "breathwork sessie; ademtechniek workshop; holotrope adem"
+  },
+  "tai-chi": {
+    "kind": "venue",
+    "terms": "tai chi les; qigong proefles; tai chi park"
+  },
+  "massage": {
+    "kind": "venue",
+    "terms": "massage behandeling; wellness dag; spa ervaring"
+  },
+  "stilteweekend": {
+    "kind": "event",
+    "terms": "retraite centrum; stilteweekend; meditatie retraite"
+  },
+  "lezen": {
+    "kind": "place",
+    "terms": "bibliotheek; boekerij; leeshoek"
+  },
+  "luisterboek": {
+    "kind": "place",
+    "terms": "luisterboek bibliotheek; audiobook abonnement; bibliotheek-app"
+  },
+  "journaling": {
+    "kind": "club",
+    "terms": "journal schrijfgroep; journaling workshop; reflectie groep"
+  },
+  "slow-looking": {
+    "kind": "place",
+    "terms": "museum; kunstmuseum; galerie"
+  },
+  "concert": {
+    "kind": "event",
+    "terms": "lunchconcert; klassiek concert; jazzconcert"
+  },
+  "filosofie": {
+    "kind": "venue",
+    "terms": "filosofiecafé; filosofie cursus; ethiek discussie"
+  },
+  "theeceremonie": {
+    "kind": "venue",
+    "terms": "theeceremonie workshop; theeproeverij; theehuis"
+  },
+  "volksuniversiteit": {
+    "kind": "venue",
+    "terms": "volksuniversiteit cursus; volwasseneneducatie; losse lezing"
+  },
+  "levenslijn": {
+    "kind": "event",
+    "terms": "levenslijn workshop; biografisch tekenen; levensverhaal groep"
+  },
+  "weekreview": {
+    "kind": "club",
+    "terms": "mindfulness groep; meditatie cirkel; reflectie bijeenkomst"
+  },
+  "niets-doen": {
+    "kind": "club",
+    "terms": "meditatie les; stille zit groep; mindfulness workshop"
+  },
+  "floattank": {
+    "kind": "venue",
+    "terms": "floattank sessie; float centrum; floaten"
+  },
+  "bosbaden": {
+    "kind": "event",
+    "terms": "shinrin-yoku wandeling; bosbaden geleide; forest bathing sessie"
+  },
+  "klankbad": {
+    "kind": "venue",
+    "terms": "klankbad sessie; klankschalenbad; sound bath"
+  },
+  "thermen": {
+    "kind": "place",
+    "terms": "thermenbad; thermaal bad; therme"
+  },
+  "stenen-stapelen": {
+    "kind": "place",
+    "terms": "strand; rivier oever; natuurgebied"
+  },
+  "spa-dag": {
+    "kind": "venue",
+    "terms": "spa dag pakket; wellness centrum; sauna en massage"
+  },
+  "wellnessweekend": {
+    "kind": "venue",
+    "terms": "wellness hotel; wellnessweekend pakket; spa resort"
+  },
+  "hammam": {
+    "kind": "venue",
+    "terms": "hammam; Turks stoombad; oriental bath"
+  },
+  "koud-water-sessie": {
+    "kind": "club",
+    "terms": "ijsbad groep; winterzwemmen; cold water club"
+  },
+  "abseilen": {
+    "kind": "venue",
+    "terms": "klimcentrum abseilen; outdoor abseiling; introductie abseilen"
+  },
+  "bungeejump": {
+    "kind": "venue",
+    "terms": "bungeejump Nederland; bungee jumping operator; bungeespringen"
+  },
+  "tandem-parachute": {
+    "kind": "venue",
+    "terms": "tandemparachutespringen; parachutistenschool; skydiving Nederland"
+  },
+  "paragliden": {
+    "kind": "event",
+    "terms": "tandem paragliding; paragliding vlucht; paraglide tandem"
+  },
+  "zipline": {
+    "kind": "venue",
+    "terms": "zipline parcours; kabelbaanrit bos; zip line adventure"
+  },
+  "ballonvaart": {
+    "kind": "event",
+    "terms": "ballonvaart; luchtballon vlucht; hot air balloon ride"
+  },
+  "boomklimmen": {
+    "kind": "venue",
+    "terms": "boomklimmen les; tree climbing; boom klim workshop"
+  },
+  "grotduiken": {
+    "kind": "venue",
+    "terms": "cavern duiken; cave diving cursus; grotduik school"
+  },
+  "grotten-verkennen": {
+    "kind": "event",
+    "terms": "mergelgrotten geleide tour; grotten verkenning; speleo wandeling"
+  },
+  "freediven": {
+    "kind": "venue",
+    "terms": "apneu cursus; freediving les; apnoe training"
+  },
+  "snorkelen": {
+    "kind": "place",
+    "terms": "snorkelgebied; meer zee snorkelen; snorkelroute"
+  },
+  "ijsbaden": {
+    "kind": "club",
+    "terms": "ijsbad groep; winter zwem club; cold water swimming"
+  },
+  "surfles": {
+    "kind": "venue",
+    "terms": "surf school; surfles beginners; surfkursus"
+  },
+  "kitesurfen": {
+    "kind": "venue",
+    "terms": "kitesurf school; kitesurfing cursus; kite surf les"
+  },
+  "wakeboarden": {
+    "kind": "venue",
+    "terms": "wakeboard kabelbaan; cable park; wakepark"
+  },
+  "suppen": {
+    "kind": "venue",
+    "terms": "SUP les; paddleboard verhuur; stand up paddle school"
+  },
+  "wadlopen": {
+    "kind": "event",
+    "terms": "wadlooptocht gids; waddenzee wandelen; wadlopen begeleide"
+  },
+  "canyoning": {
+    "kind": "event",
+    "terms": "canyoning tocht; canyon descent; canyoneer gids"
+  },
+  "mountainbiken": {
+    "kind": "place",
+    "terms": "mountainbike route; bike park; MTB trail"
+  },
+  "obstacle-run": {
+    "kind": "event",
+    "terms": "obstacle run; modderrace; mud run Nederland"
+  },
+  "parkour": {
+    "kind": "venue",
+    "terms": "parkour school; freerunning les; parkour training"
+  },
+  "buiten-klimmen": {
+    "kind": "event",
+    "terms": "rotsklimmen gids; outdoor climbing; klim dag"
+  },
+  "kajak-wildwater": {
+    "kind": "venue",
+    "terms": "kajak school; wildwater kayak cursus; kayak clinic"
+  },
+  "wrakduiken": {
+    "kind": "venue",
+    "terms": "wrak duik school; wreck diving cursus; duik expeditie"
+  },
+  "klipper-zeilen": {
+    "kind": "event",
+    "terms": "klipper meezeilen; zeiltocht klassiek; tjalk zeiltrip"
+  },
+  "modderlopen": {
+    "kind": "event",
+    "terms": "modderloop; mud run; modderspel"
+  },
+  "tokkelbaan": {
+    "kind": "venue",
+    "terms": "tokkelbaan; klimpark; adventure park"
+  },
+  "magneetvissen": {
+    "kind": "event",
+    "terms": "magneetvissen; magnet fishing; schoonmaakactie rivier"
+  },
+  "klifduiken": {
+    "kind": "venue",
+    "terms": "cliff diving operator; klif duik cursus; klifduiken gids"
+  },
+  "meswerpen": {
+    "kind": "venue",
+    "terms": "meswerpen club; throwing workshop; mes werpbaan"
+  },
+  "speerwerpen-atlatl": {
+    "kind": "event",
+    "terms": "speerwerpen workshop; atlatl workshop; prehistorisch museum"
+  },
+  "frisbeegolf": {
+    "kind": "place",
+    "terms": "frisbeegolf baan; discgolf parcours; disc golf"
+  },
+  "klootschieten": {
+    "kind": "club",
+    "terms": "klootschieten club; boßeln; boßel wedstrijd"
+  },
+  "werpspellen-boules": {
+    "kind": "club",
+    "terms": "boules club; jeu de boules; boulesvereniging"
+  },
+  "petanque": {
+    "kind": "club",
+    "terms": "petanque club; pétanque speelgroep; jeu de boules avond"
+  },
+  "curling": {
+    "kind": "venue",
+    "terms": "curling baan; curling club; curlingles"
+  },
+  "biljarten": {
+    "kind": "place",
+    "terms": "biljart café; snooker zaal; pool hall"
+  },
+  "driving-range": {
+    "kind": "venue",
+    "terms": "driving range; golfbaan les; golf beginners"
+  },
+  "kubb": {
+    "kind": "place",
+    "terms": "kubb spel; Zweeds werpspel; park speelveld"
+  },
+  "kruisboog": {
+    "kind": "club",
+    "terms": "schuttersgilde kruisboog; kruisboogschieten vereniging; schutterij beginners"
+  },
+  "luchtbukschieten": {
+    "kind": "club",
+    "terms": "luchtbukschieten vereniging; schietsportvereniging kennismaking; luchtbuks club"
+  },
+  "paintball-airsoft": {
+    "kind": "venue",
+    "terms": "paintball speelveld startersdag; airsoft beginners; paintball airsoft baan"
+  },
+  "pistoolschieten": {
+    "kind": "club",
+    "terms": "pistoolschieten vereniging; sportschietvereniging kennismaking; pistoolschiet club"
+  },
+  "blaaspijp": {
+    "kind": "event",
+    "terms": "blaaspijpschieten workshop; blaaspijp museum demonstratie; blaaspijpschieten evenement"
+  },
+  "boerengolf": {
+    "kind": "venue",
+    "terms": "boerengolf boerderij; boerengolf weidebaan; boerengolf ronde"
+  },
+  "boomerang": {
+    "kind": "place",
+    "terms": "boomerang gooien veld; boomerang workshop; boemerangwerpen beginners"
+  },
+  "katapult-schieten": {
+    "kind": "event",
+    "terms": "katapultschieten speldag; katapult workshop; katapultschieten evenement"
+  },
+  "highlandgames": {
+    "kind": "event",
+    "terms": "highland games proefdag; highlandgames festival; kogelstoten boomstamwerpen"
+  },
+  "beugelen": {
+    "kind": "place",
+    "terms": "beugelbaan; beugelen locatie; beugel sport"
+  },
+  "sjoelen": {
+    "kind": "venue",
+    "terms": "sjoelbak kroeg; sjoelen cafe; sjoelbaan"
+  },
+  "pitch-and-putt": {
+    "kind": "venue",
+    "terms": "pitch and putt baan; pitch putt beginners; par-3 golfbaan"
+  },
+  "driftles": {
+    "kind": "venue",
+    "terms": "driftles beginners; skidpan training; drift les"
+  },
+  "circuitdag": {
+    "kind": "venue",
+    "terms": "racecircuit rijervaring; circuitdag beginners; circuit les"
+  },
+  "enduro-offroad": {
+    "kind": "venue",
+    "terms": "enduro offroad les; motorles beginners; offroad training"
+  },
+  "oldtimerrit": {
+    "kind": "event",
+    "terms": "oldtimerrit club; klassiekerdag; oldtimer rit"
+  },
+  "pumptrack": {
+    "kind": "place",
+    "terms": "pumptrack; BMX baan; pumptrack fiets"
+  },
+  "zeepkistenrace": {
+    "kind": "event",
+    "terms": "zeepkistenrace; zeepkist bouwen; zeepkisten race"
+  },
+  "stoomtrein": {
+    "kind": "place",
+    "terms": "museumstoomtrein rit; stoomtrein; stoomtreinrit"
+  },
+  "motorvlucht": {
+    "kind": "venue",
+    "terms": "introductievlucht vliegschool; proefvlucht klein vliegtuig; motorvlucht beginners"
+  },
+  "vlieger-stunt": {
+    "kind": "event",
+    "terms": "stuntvliegeren; vliegerfestival; stuntvieger"
+  },
+  "fpv-drone": {
+    "kind": "club",
+    "terms": "droneclub FPV; droneracen trainingsavond; FPV drone club"
+  },
+  "helikoptervlucht": {
+    "kind": "venue",
+    "terms": "helikoptervlucht heliport; helikopter rondvlucht; helikoptervlucht kust"
+  },
+  "vliegsimulator": {
+    "kind": "venue",
+    "terms": "vliegsimulator sessie; vliegsimulator ervaring; simulator vlucht"
+  },
+  "skihal": {
+    "kind": "venue",
+    "terms": "skihal les beginners; indoor skiën; snowboard les"
+  },
+  "ijshockey": {
+    "kind": "club",
+    "terms": "ijshockey club proefles; ice hockey beginners; ijshockeyvereniging"
+  },
+  "sneeuwschoenen": {
+    "kind": "event",
+    "terms": "sneeuwschoenwandelen dagtocht; sneeuwschoen wandeling; sneeuwschoenen huren"
+  },
+  "paardenrennen": {
+    "kind": "event",
+    "terms": "paardenrennen wedstrijddag; hippodroom races; paardenrennen kijken"
+  },
+  "strandzeilen": {
+    "kind": "venue",
+    "terms": "strandzeilen les; strandzeilen kart; strandzeil sessie"
+  },
+  "rib-boot": {
+    "kind": "venue",
+    "terms": "RIB-boot tocht; speedboot tour; RIB-bootrit"
+  },
+  "jetski": {
+    "kind": "venue",
+    "terms": "jetskiverhuur; jetski les; jet ski beginners"
+  },
+  "trekkertrek": {
+    "kind": "event",
+    "terms": "trekkertrek evenement; tractor pulling; tractor trek race"
+  },
+  "wielerwedstrijd-kijken": {
+    "kind": "event",
+    "terms": "wielerwedstrijd; wielerronde; wielerklassieker"
+  },
+  "deltavliegen": {
+    "kind": "venue",
+    "terms": "deltavliegen tandemvlucht; deltavlieg school; delta vliegen"
+  },
+  "lockpicking": {
+    "kind": "club",
+    "terms": "lockpicking club; lockpicking sport vereniging; lockpick evenement"
+  },
+  "puzzeljacht": {
+    "kind": "event",
+    "terms": "puzzeljacht event; puzzle hunt; puzzeljacht stad"
+  },
+  "speurtocht-kaart": {
+    "kind": "event",
+    "terms": "speurtocht boeken; cryptische speurtocht; speurtocht stad"
+  },
+  "detectivebox": {
+    "kind": "venue",
+    "terms": "detectivebox spel; misdaadspel; detective box workshop"
+  },
+  "urbex-tour": {
+    "kind": "event",
+    "terms": "urbex tour gids; verlaten plekken tour; urban exploration"
+  },
+  "bunkertocht": {
+    "kind": "venue",
+    "terms": "bunkermuseum rondleiding; fortentocht; Waterlinie fort"
+  },
+  "onder-de-stad": {
+    "kind": "venue",
+    "terms": "stadskelders rondleiding; vestingtunnels tour; rioolmuseum"
+  },
+  "nachtwandeling": {
+    "kind": "event",
+    "terms": "nachtwandeling natuurorganisatie; nacht wandel route; nightwalk"
+  },
+  "spookwandeling": {
+    "kind": "event",
+    "terms": "spookwandeling gids; legendes avondwandeling; spook tour"
+  },
+  "vuurtoren": {
+    "kind": "place",
+    "terms": "vuurtoren beklimmen; vuurtoren bezoek; lighthouse climb"
+  },
+  "cold-case": {
+    "kind": "venue",
+    "terms": "cold case workshop; cold case documentaire; true crime onderzoek"
+  },
+  "forensisch": {
+    "kind": "venue",
+    "terms": "forensische workshop museum; vingerafdruk workshop; sporen onderzoek"
+  },
+  "hofjes": {
+    "kind": "place",
+    "terms": "hofjeswandeling; verborgen hofjes; hofjes tour"
+  },
+  "kasteel-overnachting": {
+    "kind": "place",
+    "terms": "kasteelhotel overnachting; kasteel logement; spookhotel"
+  },
+  "detectiveverhaal": {
+    "kind": "venue",
+    "terms": "detectiveverhaal workshop; creatief schrijven mystery; detective story"
+  },
+  "spionagespel": {
+    "kind": "event",
+    "terms": "spionagespel stad; stadsspel geheim; spy game"
+  },
+  "paranormaal": {
+    "kind": "event",
+    "terms": "geestenjacht Nederland; spookwandeling historisch gebouw; paranormaal onderzoek gids"
+  },
+  "escape-room-ontwerpen": {
+    "kind": "venue",
+    "terms": "escape room workshop maken; escape room design cursus"
+  },
+  "oude-kaart-wandeling": {
+    "kind": "event",
+    "terms": "historische stadswandeling; oude kaart wandeling gids"
+  },
+  "glasblazen": {
+    "kind": "venue",
+    "terms": "glasblazen proefles; glasblazerij cursus; glasblazen workshop"
+  },
+  "metaalgieten": {
+    "kind": "venue",
+    "terms": "metaalgieten workshop; brons gieten cursus; gieterij les"
+  },
+  "vuur-maken": {
+    "kind": "event",
+    "terms": "bushcraft cursus vuur maken; vuurstaal workshop"
+  },
+  "raku-stoken": {
+    "kind": "event",
+    "terms": "raku-stookdag pottenbakkerij; raku workshop Nederland"
+  },
+  "mes-smeden": {
+    "kind": "venue",
+    "terms": "mes smeden workshop; smid cursus beginners; smederij les"
+  },
+  "kaarsen-gieten": {
+    "kind": "venue",
+    "terms": "kaarsen maken workshop; kaarsengietery cursus"
+  },
+  "houtsnijden": {
+    "kind": "venue",
+    "terms": "houtsnijden workshop; houten lepel kerven cursus; houtcarving les"
+  },
+  "droge-stenen-muur": {
+    "kind": "club",
+    "terms": "landschapsbeheer vrijwilliger; droge stenen muur vereniging"
+  },
+  "kettingzaagcursus": {
+    "kind": "venue",
+    "terms": "kettingzaagcursus beginners; kettingzaag veiligheidscursus"
+  },
+  "kano-uithollen": {
+    "kind": "event",
+    "terms": "kano bouwen weekend; botenwerf bouwworkshop; boot bouwen cursus"
+  },
+  "bushcraft": {
+    "kind": "event",
+    "terms": "bushcraft dag schuilplaats; bushcraft workshop Nederland"
+  },
+  "overleven": {
+    "kind": "event",
+    "terms": "overlevingstraining instructeur; survival training weekend"
+  },
+  "orientatieloop": {
+    "kind": "place",
+    "terms": "orientatieloop beginners; O-loop post Nederland"
+  },
+  "knopen-touwwerk": {
+    "kind": "venue",
+    "terms": "knopen touwwerk workshop; zeemansknopen cursus"
+  },
+  "boomhut-nacht": {
+    "kind": "place",
+    "terms": "boomhut overnachting; tipi verblijf camping Nederland"
+  },
+  "glasfusing": {
+    "kind": "venue",
+    "terms": "glasfusing workshop; glas smelten cursus"
+  },
+  "wilgenvlechten": {
+    "kind": "venue",
+    "terms": "wilgen vlechten workshop; mand vlechten cursus"
+  },
+  "houthakken": {
+    "kind": "event",
+    "terms": "bosbeheer dag vrijwilliger; houthakken cursus"
+  },
+  "kampvuuravond": {
+    "kind": "place",
+    "terms": "vuurplek camping; bosperceel kampvuur"
+  },
+  "goudsmeden": {
+    "kind": "venue",
+    "terms": "zilversmeden workshop; goudsmid cursus ring maken"
+  },
+  "tarp-nacht": {
+    "kind": "place",
+    "terms": "tarp kamperen; zelf tarp kampeerplaats Nederland"
+  },
+  "steenhouwen-dag": {
+    "kind": "venue",
+    "terms": "steenhouwen workshop; steenhouwen cursus beginners"
+  },
+  "steigerhout-meubel": {
+    "kind": "venue",
+    "terms": "steigerhout workshop; timmeren cursus gedeelde werkplaats"
+  },
+  "zuurdesem": {
+    "kind": "venue",
+    "terms": "brood bakken workshop zuurdesem; broodmaak cursus"
+  },
+  "pasta-maken": {
+    "kind": "venue",
+    "terms": "pastaworkshop; pasta maken cursus"
+  },
+  "dumplings": {
+    "kind": "venue",
+    "terms": "dumplings workshop; Aziatische kookworkshop"
+  },
+  "open-vuur-koken": {
+    "kind": "event",
+    "terms": "vuurkook workshop; open vuur koken cursus"
+  },
+  "chocolade-maken": {
+    "kind": "venue",
+    "terms": "chocolade workshop; chocolatier cursus"
+  },
+  "kaas-maken": {
+    "kind": "venue",
+    "terms": "kaasmaak workshop boerderij; kaasmakerij cursus"
+  },
+  "patisserie": {
+    "kind": "venue",
+    "terms": "patisserie workshop; macaron cursus banketbakker"
+  },
+  "bier-brouwen": {
+    "kind": "venue",
+    "terms": "brouwdag brouwerij; bier brouwen workshop"
+  },
+  "wijnproeverij": {
+    "kind": "event",
+    "terms": "wijn proeven wijngaard; wijnproeverij workshop"
+  },
+  "cocktailworkshop": {
+    "kind": "venue",
+    "terms": "cocktail workshop bar; mixology cursus"
+  },
+  "sap-persen": {
+    "kind": "event",
+    "terms": "appelsap persen dag; perssessie boomgaard"
+  },
+  "foerageren": {
+    "kind": "event",
+    "terms": "foerageerwandeling gids; wilde planten wandeling"
+  },
+  "pluktuin": {
+    "kind": "place",
+    "terms": "pluktuin fruit plukken; boomgaard Nederland"
+  },
+  "boerderijdag": {
+    "kind": "event",
+    "terms": "boerderijdag open dag; boer voor een dag educatieve boerderij"
+  },
+  "streetfoodtour": {
+    "kind": "event",
+    "terms": "eetwandeling streetfood; food tour gids"
+  },
+  "wijngaard-oogst": {
+    "kind": "event",
+    "terms": "wijnoogst vrijwilliger; druiven plukken"
+  },
+  "ijs-maken": {
+    "kind": "venue",
+    "terms": "ijs maken workshop; sorbet cursus"
+  },
+  "sushi-rollen": {
+    "kind": "venue",
+    "terms": "sushi workshop; Japanse kookles sushi"
+  },
+  "inmaken": {
+    "kind": "venue",
+    "terms": "jam maken workshop; inmaken cursus"
+  },
+  "pizza-oven": {
+    "kind": "event",
+    "terms": "pizza oven workshop; pizzabacken houtoven"
+  },
+  "kruidenlikeur": {
+    "kind": "venue",
+    "terms": "kruidenbitter workshop; likeur maken cursus"
+  },
+  "vis-roken": {
+    "kind": "event",
+    "terms": "visrook workshop; rookoven cursus"
+  },
+  "high-tea": {
+    "kind": "place",
+    "terms": "high tea landhuis; high tea reservering kamer"
+  },
+  "stand-up": {
+    "kind": "event",
+    "terms": "open mic comedy; stand-up comedy avond"
+  },
+  "poetry-slam": {
+    "kind": "event",
+    "terms": "poetry slam nederland; slamavond open lijst; spoken word avond"
+  },
+  "storytelling": {
+    "kind": "event",
+    "terms": "vertelAvond nederland; storytelling avond; verhalen vertellen podium"
+  },
+  "amateurtoneel": {
+    "kind": "club",
+    "terms": "toneelgroep open repetitie; amateurtoneel auditie; toneelvereniging"
+  },
+  "debatclub": {
+    "kind": "club",
+    "terms": "debatclub nederlands; debatvereniging; debatavond"
+  },
+  "podcast-maken": {
+    "kind": "venue",
+    "terms": "podcastworkshop; podcast leren maken cursus; podcaststudio"
+  },
+  "goochelen": {
+    "kind": "club",
+    "terms": "goochelclub nederlands; goochelen leren cursus; goochelvereniging"
+  },
+  "circusles": {
+    "kind": "venue",
+    "terms": "circusschool nederlands; circusles proefles; jongleren acrobatiek cursus"
+  },
+  "aerial-silks": {
+    "kind": "venue",
+    "terms": "aerial silks cursus; luchtacrobatiek les; circusschool luchtacrobatiek"
+  },
+  "poppentheater": {
+    "kind": "venue",
+    "terms": "poppentheater workshop; poppenmaken cursus; poppenspel les"
+  },
+  "cosplay": {
+    "kind": "event",
+    "terms": "cosplay convention nederlands; cosplay evenement; anime convention"
+  },
+  "korte-film": {
+    "kind": "event",
+    "terms": "filmworkshop korte film; filmmaking cursus; video maken workshop"
+  },
+  "stop-motion": {
+    "kind": "venue",
+    "terms": "stop-motion workshop; animatie cursus; stopmotion les"
+  },
+  "hoorspel": {
+    "kind": "event",
+    "terms": "hoorspel maken workshop; radiodrama cursus; geluidsevenement"
+  },
+  "lokale-radio": {
+    "kind": "venue",
+    "terms": "lokale radio meedraaien; radiostation jong talent; omroep vrijwilliger"
+  },
+  "schaduwtheater": {
+    "kind": "venue",
+    "terms": "schaduwtheater workshop; shadowtheatre cursus; schaduwspel les"
+  },
+  "beatboxen": {
+    "kind": "venue",
+    "terms": "beatboxen cursus; beatbox les nederlands; mondperkussie workshop"
+  },
+  "rappen": {
+    "kind": "venue",
+    "terms": "rappen cursus nederlands; freestyle workshop; hiphop les"
+  },
+  "voorlezen": {
+    "kind": "venue",
+    "terms": "voorlezer bibliotheek; voorleesavond; verhalen voorlezen vrijwillig"
+  },
+  "commedia": {
+    "kind": "venue",
+    "terms": "commedia dell'arte workshop; maskerspel cursus; theaterschool"
+  },
+  "opera-bezoek": {
+    "kind": "event",
+    "terms": "opera nederlands; opera voorstelling; studentenopera"
+  },
+  "ballet-bezoek": {
+    "kind": "event",
+    "terms": "ballet nederland; balletvoorstelling; open repetitie ballet"
+  },
+  "musical-bezoek": {
+    "kind": "event",
+    "terms": "musical nederlands; musicalvoorstelling; broadway"
+  },
+  "theatermake-up": {
+    "kind": "venue",
+    "terms": "theatermake-up workshop; schminkworkshop; make-up cursus"
+  },
+  "theater-backstage": {
+    "kind": "event",
+    "terms": "rondleiding achter schermen theater; backstage tour schouwburg; operahuis rondleiding"
+  },
+  "stomme-film": {
+    "kind": "event",
+    "terms": "stille film live muziek; silent film; filmhuis pianobegeleiding"
+  },
+  "filmclub": {
+    "kind": "club",
+    "terms": "filmclub nederland; filmavond; filmhuis"
+  },
+  "bandje-beginnen": {
+    "kind": "venue",
+    "terms": "repetitieruimte nederlands; bandruimte; muziekstudio verhuur"
+  },
+  "regie-amateurstuk": {
+    "kind": "club",
+    "terms": "toneelvereniging repetitie; regiewerk toneel; theaterklas"
+  },
+  "jongleren-leren": {
+    "kind": "venue",
+    "terms": "jongleercircus; jongleer workshop; circus school"
+  },
+  "verteluur": {
+    "kind": "event",
+    "terms": "verteluur; vertelcafé; storytelling avond"
+  },
+  "karaoke": {
+    "kind": "venue",
+    "terms": "karaoke bar; karaokeavond; zingen karaoke"
+  },
+  "bingo-avond": {
+    "kind": "event",
+    "terms": "bingo avond; spelletjesavond buurthuis; bingo club"
+  },
+  "rolschaatsdisco": {
+    "kind": "venue",
+    "terms": "rolschaatsbaan disco; skaten discoavond; roller disco"
+  },
+  "silent-disco": {
+    "kind": "event",
+    "terms": "silent disco; stille disco; headphone party"
+  },
+  "dineren-in-het-donker": {
+    "kind": "venue",
+    "terms": "diner in het donker; blinde dineeravond; restaurant donker"
+  },
+  "openluchtbioscoop": {
+    "kind": "place",
+    "terms": "openluchtbioscoop; openluchtfilm park; buitenbioscoop"
+  },
+  "lichtfestival": {
+    "kind": "place",
+    "terms": "lichtfestival nederlands; lichtjesroute; kunstlichtfestival"
+  },
+  "pokeravond": {
+    "kind": "event",
+    "terms": "pokeravond beginners; pokerclub nederland; poker les"
+  },
+  "casinoavond": {
+    "kind": "event",
+    "terms": "casinoavond speelgeld; casino workshop; pokerkast huren"
+  },
+  "bridge": {
+    "kind": "venue",
+    "terms": "bridgeclub; bridge cursus; bridge les"
+  },
+  "backgammon": {
+    "kind": "venue",
+    "terms": "spelletjescafé; backgammon club; bordspelcafé"
+  },
+  "tarot": {
+    "kind": "venue",
+    "terms": "tarot workshop; tarot kaarten leren; spirituele cursus"
+  },
+  "dj-workshop": {
+    "kind": "venue",
+    "terms": "dj workshop beginners; dj cursus; dj academy"
+  },
+  "swingdansen": {
+    "kind": "venue",
+    "terms": "swingdansen cursus; lindy hop les; swing dansevenement"
+  },
+  "klein-festival": {
+    "kind": "event",
+    "terms": "klein festival nederland; dorpsfeest; buurt festival"
+  },
+  "luisterbar": {
+    "kind": "venue",
+    "terms": "luisterbar; luisteravond platen; vinylbar nederland"
+  },
+  "jamsessie": {
+    "kind": "event",
+    "terms": "jamsessie café; jam session live; openmic avond"
+  },
+  "nachtmarkt": {
+    "kind": "event",
+    "terms": "nachtmarkt; avondmarkt; night market"
+  },
+  "live-comedy": {
+    "kind": "event",
+    "terms": "comedy avond nederland; comedyclub; standup comedy"
+  },
+  "variete": {
+    "kind": "event",
+    "terms": "variété theater; cabaretavond; kleinkunst"
+  },
+  "pingpongbar": {
+    "kind": "venue",
+    "terms": "pingpongbar Nederland; tafeltennis bar; ping pong club"
+  },
+  "folk-sessie": {
+    "kind": "event",
+    "terms": "folk sessie café; traditionele muziek sessie; open folk night"
+  },
+  "platenclub": {
+    "kind": "club",
+    "terms": "luisterclub platen; platenzaak luisteravond; vinyl listening club"
+  },
+  "tas-maken": {
+    "kind": "venue",
+    "terms": "tasmaak workshop; leertasje maken workshop; handmade tas workshop"
+  },
+  "portemonnee-maken": {
+    "kind": "venue",
+    "terms": "portemonnee workshop; leren portemonnee maken; kaarthouder workshop"
+  },
+  "zijde-schilderen": {
+    "kind": "venue",
+    "terms": "zijdeschilderen workshop; zijden sjaal schilderen; silk painting workshop"
+  },
+  "blokdruk-textiel": {
+    "kind": "venue",
+    "terms": "blokdruk workshop; tekstiel blokdruk; stof bedrukken workshop"
+  },
+  "sneakers-customizen": {
+    "kind": "venue",
+    "terms": "sneakers customizen workshop; schoenen customisatie; custom sneakers"
+  },
+  "haaraccessoires": {
+    "kind": "club",
+    "terms": "haaraccessoires workshop; spelden maken knutsel; jewelry club"
+  },
+  "stijladvies": {
+    "kind": "venue",
+    "terms": "kleuranalyse stijladvies; color analysis; persoonlijk stijladvies"
+  },
+  "make-up-workshop": {
+    "kind": "venue",
+    "terms": "make-up workshop; schminkworkshop; beginners make-up"
+  },
+  "kapsel-vlechten": {
+    "kind": "venue",
+    "terms": "kapsel vlechten workshop; haar vlechten les; hairstyle workshop"
+  },
+  "nagelstyling": {
+    "kind": "venue",
+    "terms": "nail art workshop; nagelstyling cursus; nagel workshop"
+  },
+  "cosmetica-maken": {
+    "kind": "venue",
+    "terms": "cosmetica maken workshop; zelfgemaakte crème; natuurlijke zeep workshop"
+  },
+  "gezichtsbehandeling": {
+    "kind": "venue",
+    "terms": "schoonheidsspecialist gezichtsbehandeling; facial treatment; beauty treatment"
+  },
+  "parfum-ontdekken": {
+    "kind": "place",
+    "terms": "parfumerie; geurenproeverij; parfum winkel"
+  },
+  "droogbloemen": {
+    "kind": "venue",
+    "terms": "droogbloemen workshop; bloemen binden; droogbloemenkrans maken"
+  },
+  "bloemenmarkt": {
+    "kind": "place",
+    "terms": "bloemenmarkt; bloemenveiling; bloemenkwekerij bezoeken"
+  },
+  "modeshow": {
+    "kind": "event",
+    "terms": "modeshow; modebeurs; fashion show events"
+  },
+  "personal-shopping": {
+    "kind": "venue",
+    "terms": "personal shopper; personal shopping sessie; style consultation"
+  },
+  "capsule-garderobe": {
+    "kind": "club",
+    "terms": "capsule wardrobe workshop; garderobecoaching; stijl groepsles"
+  },
+  "fotoshoot": {
+    "kind": "venue",
+    "terms": "portretfoto; fotoshoot studio; lifestyle fotografie"
+  },
+  "moodboard": {
+    "kind": "club",
+    "terms": "moodboard workshop; creatieve atelier; design club"
+  },
+  "roadtrip-route": {
+    "kind": "event",
+    "terms": "dagroute; roadtrip route; dagexcursie"
+  },
+  "nachttrein": {
+    "kind": "event",
+    "terms": "nachttrein; treinreis; sleeper train"
+  },
+  "camper-weekend": {
+    "kind": "place",
+    "terms": "camperplaats; camping; camper verhuur"
+  },
+  "eilandhoppen": {
+    "kind": "place",
+    "terms": "eilandhopping; veerboot route; eilanden"
+  },
+  "kastelenroute": {
+    "kind": "place",
+    "terms": "kastelentocht; kastelen route; historische routes"
+  },
+  "themareis": {
+    "kind": "event",
+    "terms": "thematrip; themed city trip; stedentrip thema"
+  },
+  "fietsvakantie": {
+    "kind": "event",
+    "terms": "meerdaagse fietstocht; fietsroute; fietsvakantie organisatie"
+  },
+  "boot-slapen": {
+    "kind": "place",
+    "terms": "woonboot slapen; botel; huisboot overnachting"
+  },
+  "pelgrimsroute": {
+    "kind": "place",
+    "terms": "pelgrimsroute; pelgrimstocht; wandelroute"
+  },
+  "streek-weekend": {
+    "kind": "event",
+    "terms": "weekend weg; bed and breakfast; weekendtrip"
+  },
+  "wandelroute-cartograferen": {
+    "kind": "club",
+    "terms": "wandelen groep; route planning app; hiking club"
+  },
+  "reisdagboek-bijhouden": {
+    "kind": "club",
+    "terms": "reisdagboek workshop; journaling groep; schrijfclub"
+  },
+  "thematrip-plannen": {
+    "kind": "club",
+    "terms": "reisclub; trip planning groep; adventure club"
+  },
+  "stedentrip-zonder-plan": {
+    "kind": "event",
+    "terms": "spontane stedentrip; city trip; weekend getaway"
+  },
+  "willekeurig-station": {
+    "kind": "event",
+    "terms": "random station challenge; treinroulette; wandeling onbekend"
+  },
+  "week-meewerken-boerderij": {
+    "kind": "event",
+    "terms": "vrijwilligers boerderij; workaway; biologische boerderij"
+  },
+  "huis-passen": {
+    "kind": "event",
+    "terms": "housesitting; huispassen; dierenoppas reis"
+  },
+  "mentor-jongere": {
+    "kind": "club",
+    "terms": "mentorprogramma; mentor jonge; vrijwilligers organisatie"
+  },
+  "voedselbank": {
+    "kind": "event",
+    "terms": "voedselbank vrijwilliger; voedsel uitdelen; caritas"
+  },
+  "erfgoed-vrijwilliger": {
+    "kind": "event",
+    "terms": "molen vrijwilliger; historisch erfgoed; open monumentendag"
+  },
+  "ouderenbezoek": {
+    "kind": "club",
+    "terms": "bezoekvrijwilliger ouderen; ouderenorganisatie; zorgwerk"
+  },
+  "knotten-heggenvlechten": {
+    "kind": "event",
+    "terms": "natuurworkdag; landschapsbeheer; natuurorganisatie"
+  },
+  "buurtproject": {
+    "kind": "event",
+    "terms": "buurt iniatief; buurthuis project; gemeenschapsproject"
+  },
+  "huiswerkbegeleiding": {
+    "kind": "club",
+    "terms": "huiswerkbegeleiding; leesmaatje; basisschool volunteer"
+  },
+  "bibliotheek-vrijwilliger": {
+    "kind": "venue",
+    "terms": "bibliotheek vrijwilliger; boekenruilpunt; bibliotheek medewerker"
+  },
+  "zorgboerderij": {
+    "kind": "place",
+    "terms": "zorgboerderij; therapiehoeve; agrarische zorg"
+  },
+  "straatfeest": {
+    "kind": "event",
+    "terms": "straatfeest organiseren; buurtborrel; buurtfeest"
+  },
+  "bestuurslid-vereniging": {
+    "kind": "club",
+    "terms": "lokale vereniging lidmaatschap; bestuur vrijwilligers vereniging; inloop avond vereniging"
+  },
+  "jeugdtrainer": {
+    "kind": "club",
+    "terms": "jeugdtrainer opleiding sportclub; trainers gezocht club; proeftraining voetbal basketbal"
+  },
+  "inzamelingsactie-organiseren": {
+    "kind": "event",
+    "terms": "inzamelingsactie organiseren buurt; crowdfunding Nederlands initiatief; vrijwilligers inzameling"
+  },
+  "vrijwilligers-coordineren": {
+    "kind": "club",
+    "terms": "vrijwilligerscentrale Nederland; vrijwilligerswerk coördinatie; lokale vrijwilligersorganisatie"
+  },
+  "taalmaatje": {
+    "kind": "club",
+    "terms": "taalmaatjesprogramma Nederlands; taalmaatje project aanmelden; taalbegeleiding vrijwilliger"
+  },
+  "presenteren": {
+    "kind": "venue",
+    "terms": "presentatietraining cursus; presenteren leren groep; speech training workshop"
+  },
+  "toastmasters": {
+    "kind": "club",
+    "terms": "Toastmasters Nederland; spreektraining club bijeenkomst; toastmasters gastendag"
+  },
+  "leiderschapsworkshop": {
+    "kind": "venue",
+    "terms": "leiderschapsworkshop training; leiderschap cursus één dag; managementtraining Nederlands"
+  },
+  "coachgesprek": {
+    "kind": "venue",
+    "terms": "coaching gesprek persoonlijk development; life coach kennismaking; executive coach sessie"
+  },
+  "geheugentechnieken": {
+    "kind": "venue",
+    "terms": "geheugentraining cursus; geheugenpaleis workshop; geheugen oefenen klas"
+  },
+  "ehbo-cursus": {
+    "kind": "venue",
+    "terms": "EHBO cursus basiscursus; eerste hulp training; KNHT EHBO les"
+  },
+  "luistercursus": {
+    "kind": "venue",
+    "terms": "actief luisteren training; communicatiecursus groep; gespreksvaardigheden workshop"
+  },
+  "mentor-zoeken": {
+    "kind": "club",
+    "terms": "mentorprogramma Nederland; mentor matching organisatie; mentor gezocht vrijwilliger"
+  },
+  "assertiviteit": {
+    "kind": "venue",
+    "terms": "assertiviteit training workshop; assertief communiceren cursus; zelfverzekerdheid training"
+  },
+  "plannen-workshop": {
+    "kind": "venue",
+    "terms": "planning workshop productiviteit; timemanagement training; plannen cursus focus"
+  },
+  "socratisch-gesprek": {
+    "kind": "place",
+    "terms": "filosofiecafé socratisch; open philosophie avond; wijsheidsgroep discussie"
+  },
+  "statistiek-begrijpen": {
+    "kind": "venue",
+    "terms": "statistiek workshop begrijpen; cijfersanalyse training; datageletterdheid cursus"
+  },
+  "notities-systeem": {
+    "kind": "venue",
+    "terms": "notitiesysteem workshop; notetaking training; productiviteitssysteem klas"
+  },
+  "toost-speech-houden": {
+    "kind": "venue",
+    "terms": "speechwriting workshop toost; spreektraining cursus; toastmasters openingsavond"
+  },
+  "ondernemersidee-uitwerken": {
+    "kind": "venue",
+    "terms": "ondernemersworkshop idee; startup cursus; Kamer van Koophandel spreekuur"
+  },
+  "lezing-workshop-geven": {
+    "kind": "club",
+    "terms": "kringgesprek club voordracht; presentatie vereniging; workshop geven cursus"
+  },
+  "onderhandelen-oefenen": {
+    "kind": "venue",
+    "terms": "onderhandelingstraining workshop; negotiation cursus; conflictbeslechtingstraining"
+  },
+  "pitch-geven": {
+    "kind": "event",
+    "terms": "pitchavond entrepreneurship; startup pitch event; elevation pitch night"
+  },
+  "vergadering-leiden": {
+    "kind": "venue",
+    "terms": "vergadertraining facilitation; vergadervaardigheden cursus; bijeenkomingsleiding workshop"
+  },
+  "slides-ontwerpen": {
+    "kind": "venue",
+    "terms": "presentatieontwerp training; PowerPoint workshop; visual communication cursus"
+  },
+  "eerste-klant-vinden": {
+    "kind": "club",
+    "terms": "ondernemersnetwerk meeluisteren; business networking groep; klantwerving training"
+  },
+  "mediation-leren": {
+    "kind": "venue",
+    "terms": "mediationtraining workshop; bemiddelingsopleidingen; conflictbemiddeling cursus"
+  },
+  "feedback-geven": {
+    "kind": "venue",
+    "terms": "feedbacktraining workshop; communicatievaardigheden cursus; feedback geven leren"
+  }
+}

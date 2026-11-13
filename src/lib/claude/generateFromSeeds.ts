@@ -18,7 +18,7 @@ import {
   toTextArray,
 } from "@/lib/claude/generateIdeaBook";
 import { researchNeedsFrom, researchSeeds, type LocalOption, type ResearchNeed, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
-import { currentMonth, describeToday, isoDateNL } from "@/lib/discovery/season";
+import { currentMonth, describeToday, inSeason, isoDateNL } from "@/lib/discovery/season";
 import { editionDate, type Season } from "@/lib/seasonEdition";
 import { engineInputFromIntake, relatedActivities, runEngine } from "@/lib/discovery/engine";
 import { WEIGHTS_ANCHOR, WEIGHTS_V2 } from "@/lib/discovery/engine/weights";
@@ -323,6 +323,8 @@ function seedBlock(
   honest = false,
   explicitPicks = false,
   ownPick = false,
+  /** The label of the activity the person chose themselves that this idea replaces (nothing real was found for it near them). */
+  replaces?: string,
 ): string {
   const a = getActivity(seed.activityId)!;
   // Image intake: the chosen image that lies behind this idea, for "Omdat je X koos".
@@ -351,6 +353,9 @@ function seedBlock(
     `Idea ${index + 1} — ${seed.direction === "wildcard" ? "WILDCARD (the separate wildcard slot)" : `door: ${seed.door}`}`,
     `  Activity: ${name}`,
     `  Why it was chosen: ${why(seed, locale, chosenImages.length > 0 && !explicitPicks, honest)}`,
+    replaces
+      ? `  Replaces their own choice: the person chose "${replaces}" themselves, but nothing real could be found for it near them. Say so in one short, warm sentence in why_it_fits (for example "Je koos ${replaces}; in jouw buurt vonden we daar niets dat nu past, dus dit verwante idee."), then write this idea fully on its own.`
+      : null,
     behind ? `  Image behind it: "${behind}" (the chosen image this idea connects to; name it in why_it_fits)` : null,
     `  How to take part: ${take}`,
     `  Easy way in: ${a.entry ? a.entry[locale] : "not known; suggest a beginner-friendly first step"}`,
@@ -639,6 +644,38 @@ export function widerRadiusKm(searchDistance: string | undefined, km: number | u
 export const SUPPLY_ROUNDS = 2;
 
 /**
+ * How long the research of one book may keep starting new search rounds (ms). Every round takes about 15 s; the whole function may run 300 s and
+ * the writing needs about 100 s of that. After this, what is still without an option is settled from what the earlier rounds already found.
+ */
+export const RESEARCH_BUDGET_MS = 120_000;
+
+/** An activity that is online by nature (a writing course, a language app): its option is an online provider from the start, not a place. */
+export function isOnlineByNature(a: Activity | undefined): boolean {
+  return !!a && !!a.formats && a.formats.includes("online") && a.formats.every((f) => f === "online" || f === "solo");
+}
+
+/**
+ * One place, one idea: an option (name + city) that an earlier idea already has is taken away from a later one. The person's own choices
+ * come first, so a place they asked for is never lost to an idea the engine added. A later idea whose every option was already taken is left
+ * with none, and so counts as lacking an option (it is replaced, never written around a place that is already used).
+ */
+export function dedupePlaces(seeds: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>, ownPicks: ReadonlySet<string> = new Set()): Map<string, SeedResearch> {
+  const out = new Map(byActivity);
+  const used = new Set<string>();
+  const key = (o: LocalOption) => `${o.name}|${o.city}`.toLowerCase();
+  const ordered = [...seeds.filter((s) => ownPicks.has(s.activityId)), ...seeds.filter((s) => !ownPicks.has(s.activityId))];
+  for (const s of ordered) {
+    const r = out.get(s.activityId);
+    if (!r || r.options.length === 0) continue;
+    const kept = r.options.filter((o) => !used.has(key(o)));
+    if (kept.length !== r.options.length) out.set(s.activityId, { ...r, options: kept });
+    // only the first option is "the" place of the idea; the others are alternatives and may be shared
+    if (kept[0]) used.add(key(kept[0]));
+  }
+  return out;
+}
+
+/**
  * The activities the person chose themselves (page 2 of the two-page intake, or the cards of the card wizard). Never swapped
  * for something else because no provider was found: they stay in the book, honestly described. In the image intake of the
  * older kind the interests are only derived from images, so nothing is protected there.
@@ -703,6 +740,9 @@ export async function generateIdeaBookFromSeeds(
 
   // 2. Research, grouped and cached (once, outside the retry loop below).
   const ownPicks = new Set(explicitPickIds(intake));
+  const researchStartedAt = Date.now();
+  // No further search round starts after the budget (RESEARCH_BUDGET_MS); what is still empty is then settled from what earlier rounds found.
+  const overBudget = () => Date.now() - researchStartedAt > RESEARCH_BUDGET_MS;
   const researchFor = (seedList: readonly Seed[], known?: ReadonlyMap<string, SeedResearch>) =>
     researchSeeds({
       activityIds: researchIds(seedList),
@@ -717,17 +757,58 @@ export async function generateIdeaBookFromSeeds(
       country: intake.country,
     });
   let research = await researchFor(engine.seeds);
+  // Every answer of every round, also of selections that were not kept: the last safety net swaps an idea without an option for one of these.
+  const everything = new Map<string, SeedResearch>(research.byActivity);
+  const everSeen = new Map<string, Seed>(engine.seeds.map((s) => [s.activityId, s]));
+  const remember = (seedList: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>) => {
+    for (const s of seedList) everSeen.set(s.activityId, s);
+    for (const [id, r] of byActivity) if (r.options.length > 0 || !everything.has(id)) everything.set(id, r);
+  };
 
   // Every idea needs a concrete, real option (Jan, 31 Oct 2026). An idea with nothing near the person gets one second chance: a
   // provider that serves anyone in the Netherlands from a website (an online course, a webshop with a kit, a national club, an app).
   const requireOptions = concreteOptionsRequired();
   const onlineTried = new Set<string>();
   const widerKm = widerRadiusKm(intake.searchDistance, intake.searchDistanceKm);
+  const broadTried = new Set<string>();
   const widerTried = new Set<string>();
   const widened = new Set<string>();
+  const broadened = new Set<string>();
+  // The activities of a list that still have no option at all (a curated combination counts the options of both halves).
+  const lackingOf = (seedList: readonly Seed[], base: typeof research) => [...new Set(seedList.filter((s) => (seedResearch(s, base.byActivity)?.options.length ?? 0) === 0).map((s) => s.activityId))];
+  // A physical search makes no sense for what is online by nature (a writing course, a language app): that goes to the online providers at once.
+  const physicalLacking = (seedList: readonly Seed[], base: typeof research) => lackingOf(seedList, base).filter((id) => !isOnlineByNature(getActivity(id)));
+  /** A second, wider search for the ideas the first one found nothing for: other kinds of provider (clubs, community centres, libraries, repair cafes ...) at the same distance. */
+  const withBroad = async (seedList: readonly Seed[], base: typeof research): Promise<typeof research> => {
+    if (!requireOptions || overBudget()) return base;
+    const lacking = physicalLacking(seedList, base).filter((id) => !broadTried.has(id));
+    if (lacking.length === 0) return base;
+    for (const id of lacking) broadTried.add(id);
+    const broad = await researchSeeds({
+      activityIds: lacking,
+      location: intake.location,
+      searchDistance: intake.searchDistance,
+      searchDistanceKm: intake.searchDistanceKm,
+      locale,
+      now,
+      pass: "broad",
+      priorityIds: lacking.filter((id) => ownPicks.has(id)),
+      needs: researchNeedsFrom(engine.constraints.verify),
+      country: intake.country,
+    });
+    const merged = new Map(base.byActivity);
+    for (const id of lacking) {
+      const found = broad.byActivity.get(id);
+      if (found && found.options.length > 0) {
+        merged.set(id, { activityId: id, options: found.options, source: "search" });
+        broadened.add(id);
+      }
+    }
+    return { byActivity: merged, stats: addStats(base.stats, broad.stats) };
+  };
   const withWider = async (seedList: readonly Seed[], base: typeof research): Promise<typeof research> => {
-    if (!requireOptions || widerKm === null) return base;
-    const lacking = [...new Set(seedList.filter((s) => (seedResearch(s, base.byActivity)?.options.length ?? 0) === 0 && !widerTried.has(s.activityId)).map((s) => s.activityId))];
+    if (!requireOptions || widerKm === null || overBudget()) return base;
+    const lacking = physicalLacking(seedList, base).filter((id) => !widerTried.has(id));
     if (lacking.length === 0) return base;
     for (const id of lacking) widerTried.add(id);
     const wider = await researchSeeds({
@@ -737,6 +818,7 @@ export async function generateIdeaBookFromSeeds(
       searchDistanceKm: widerKm,
       locale,
       now,
+      pass: "broad",
       priorityIds: lacking.filter((id) => ownPicks.has(id)),
       needs: researchNeedsFrom(engine.constraints.verify),
       country: intake.country,
@@ -751,9 +833,12 @@ export async function generateIdeaBookFromSeeds(
     }
     return { byActivity: merged, stats: addStats(base.stats, wider.stats) };
   };
-  const withOnline = async (seedList: readonly Seed[], base: typeof research): Promise<typeof research> => {
+  /** Physical options near the person: the standard search is followed by the broad one and then by the wider distance, for what still lacks an option. */
+  const settle = async (seedList: readonly Seed[], base: typeof research) => withWider(seedList, await withBroad(seedList, base));
+  /** The online providers: "nature" for what is online by its own nature, "all" as the very last resort for everything that still has no option. */
+  const withOnline = async (seedList: readonly Seed[], base: typeof research, which: "nature" | "all"): Promise<typeof research> => {
     if (!requireOptions) return base;
-    const lacking = [...new Set(seedList.filter((s) => (seedResearch(s, base.byActivity)?.options.length ?? 0) === 0 && !onlineTried.has(s.activityId)).map((s) => s.activityId))];
+    const lacking = lackingOf(seedList, base).filter((id) => !onlineTried.has(id) && (which === "all" || isOnlineByNature(getActivity(id))));
     if (lacking.length === 0) return base;
     for (const id of lacking) onlineTried.add(id);
     const online = await researchSeeds({ activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online", country: intake.country });
@@ -765,9 +850,11 @@ export async function generateIdeaBookFromSeeds(
     return { byActivity: merged, stats: addStats(base.stats, online.stats) };
   };
   // Physical first (Jan, 13 Nov 2026): the local search asks for workshops, studios, clubs, outings and venues only. An idea with nothing near the
-  // person first gets one search over twice the distance, and only then the online providers below: online is the last resort, not an equal.
-  research = await withWider(engine.seeds, research);
-  research = await withOnline(engine.seeds, research);
+  // person gets a second, broader search (other kinds of provider), then one over twice the distance, then another idea instead (below), and only as
+  // the very last resort the online providers: online is not an equal. (Jan, 14 Nov 2026: no idea goes into the book without an option.)
+  research = await settle(engine.seeds, research);
+  research = await withOnline(engine.seeds, research, "nature");
+  remember(engine.seeds, research.byActivity);
 
   // 2b. An idea that needs somebody's offer (a class, a rental, a club) but for which nothing real could be found near
   // this person is replaced by the next-best activity, once, and only the new ones are researched (the others are
@@ -778,11 +865,12 @@ export async function generateIdeaBookFromSeeds(
   // ideas the engine added on its own are replaced, and the engine keeps every pick it had selected (a replacement that loses one is refused).
   const notes = [...engine.notes];
   const tried: string[] = [];
+  // One place, one idea: a place that an earlier idea already has does not count for a later one.
   const unsupported = (seeds: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>) =>
-    seedsWithoutSupply(seeds, byActivity, requireOptions).filter((s) => !ownPicks.has(s.activityId));
+    seedsWithoutSupply(seeds, dedupePlaces(seeds, byActivity, ownPicks), requireOptions).filter((s) => !ownPicks.has(s.activityId));
   for (let round = 1; round <= SUPPLY_ROUNDS; round++) {
     const noSupply = unsupported(engine.seeds, research.byActivity);
-    if (noSupply.length === 0) break;
+    if (noSupply.length === 0 || overBudget()) break;
     tried.push(...noSupply.map((s) => s.activityId));
     const lastRound = round === SUPPLY_ROUNDS;
     // The last round only allows activities that need nobody's offer. It must not throw out what already has an offer or was chosen:
@@ -795,7 +883,8 @@ export async function generateIdeaBookFromSeeds(
       notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
       break;
     }
-    const retryResearch = await withOnline(retry.seeds, await withWider(retry.seeds, await researchFor(retry.seeds, research.byActivity)));
+    const retryResearch = await withOnline(retry.seeds, await settle(retry.seeds, await researchFor(retry.seeds, research.byActivity)), "nature");
+    remember(retry.seeds, retryResearch.byActivity);
     // A replacement may swap one of the person's picks for another one (a pick without a provider for a pick with one), but it may
     // never leave the book with fewer of their picks than it had.
     const picksIn = (seeds: readonly Seed[]) => seeds.filter((s) => ownPicks.has(s.activityId)).length;
@@ -811,6 +900,77 @@ export async function generateIdeaBookFromSeeds(
       if (lastRound) notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
     }
   }
+  // 2c. A choice of the person's own for which nothing real was found near them, not even by the broader and the wider search, is replaced by a
+  // related activity that does have a real option (Jan, 14 Nov 2026: the book is about good, useful options; an idea without one is not worth a place).
+  // The replacement comes from the relation graph, with the same hard filters as the selection, and the book says in one sentence that it replaces the choice.
+  const replacedPicks = new Map<string, string>(); // replacement activity id -> the label of the choice it replaces
+  const lackingPicks = () => seedsWithoutSupply(engine.seeds, dedupePlaces(engine.seeds, research.byActivity, ownPicks), requireOptions).filter((s) => ownPicks.has(s.activityId));
+  const toReplace = requireOptions && !overBudget() ? lackingPicks() : [];
+  if (toReplace.length > 0) {
+    const used = new Set<string>([...engine.seeds.flatMap((s) => [s.activityId, s.hybrid?.partnerId ?? ""]), ...tried, ...(opts.history ?? [])].filter(Boolean));
+    const proposals = new Map<string, Seed[]>();
+    for (const s of toReplace) {
+      const related = relatedActivities(s.activityId, engine.constraints, [...used], 6)
+        .filter((a) => inSeason(a, month))
+        .slice(0, 4);
+      for (const a of related) used.add(a.id);
+      proposals.set(
+        s.activityId,
+        related.map((a): Seed => {
+          const lead = s.lead && a.formats?.includes(s.lead) ? s.lead : null;
+          return {
+            ...s,
+            activityId: a.id,
+            direction: "adjacent",
+            chain: [s.activityId, a.id],
+            via: [],
+            hybrid: undefined,
+            lead,
+            alsoFormats: (a.formats ?? []).filter((f) => f !== lead && f !== "online"),
+            verify: s.verify.filter((v) => !v.startsWith("cost_")),
+            reasons: [...(s.reasons ?? []), `replaces:${s.activityId}`],
+          };
+        }),
+      );
+    }
+    const candidates = [...proposals.values()].flat();
+    if (candidates.length > 0) {
+      const found = await withOnline(candidates, await settle(candidates, await researchFor(candidates, research.byActivity)), "nature");
+      remember(candidates, found.byActivity);
+      // `found` only holds the candidates: what the book already has stays.
+      research = { byActivity: new Map([...research.byActivity, ...found.byActivity]), stats: addStats(research.stats, found.stats) };
+      const taken = new Set<string>();
+      for (const s of toReplace) {
+        const choice = (proposals.get(s.activityId) ?? []).find((c) => !taken.has(c.activityId) && (seedResearch(c, research.byActivity)?.options.length ?? 0) > 0);
+        if (!choice) continue;
+        taken.add(choice.activityId);
+        engine = { ...engine, seeds: engine.seeds.map((x) => (x === s ? choice : x)) };
+        replacedPicks.set(choice.activityId, getActivity(s.activityId)?.label[locale] ?? s.activityId);
+        notes.push(`replaced_pick:${s.activityId}>${choice.activityId}`);
+      }
+    }
+  }
+  // 2d. The very last resort for what still has no option: the online providers (a physical option, another idea, and only then this).
+  research = await withOnline(engine.seeds, research, "all");
+  remember(engine.seeds, research.byActivity);
+  // 2e. Never an idea without an option: what still has none is swapped for an idea that an earlier round researched and that does have one.
+  research = { ...research, byActivity: dedupePlaces(engine.seeds, research.byActivity, ownPicks) };
+  if (requireOptions) {
+    for (const s of seedsWithoutSupply(engine.seeds, research.byActivity, true)) {
+      const inBook = new Set(engine.seeds.flatMap((x) => [x.activityId, x.hybrid?.partnerId ?? ""]));
+      const fits = (c: Seed) => !inBook.has(c.activityId) && (seedResearch(c, everything)?.options.length ?? 0) > 0 && (c.direction === "wildcard") === (s.direction === "wildcard");
+      const pool = [...everSeen.values()].filter(fits);
+      const swap = pool.find((c) => c.direction === s.direction) ?? pool[0];
+      if (!swap) continue;
+      const merged = new Map(research.byActivity);
+      for (const id of [swap.activityId, swap.hybrid?.partnerId ?? ""]) if (id && everything.has(id)) merged.set(id, everything.get(id)!);
+      research = { ...research, byActivity: dedupePlaces(engine.seeds.map((x) => (x === s ? swap : x)), merged, ownPicks) };
+      engine = { ...engine, seeds: engine.seeds.map((x) => (x === s ? { ...swap, level: s.level } : x)) };
+      if (ownPicks.has(s.activityId)) replacedPicks.set(swap.activityId, getActivity(s.activityId)?.label[locale] ?? s.activityId);
+      notes.push(`swapped_no_option:${s.activityId}>${swap.activityId}`);
+    }
+  }
+  for (const id of broadened) notes.push(`broadened_search:${id}`);
   for (const id of widened) notes.push(`widened_radius:${id}`);
   // The picks that stay without a provider: said plainly in the book (see seedBlock), noted here for the log and the harness.
   for (const s of seedsWithoutSupply(engine.seeds, research.byActivity)) if (ownPicks.has(s.activityId)) notes.push(`pick_without_provider:${s.activityId}`);
@@ -843,7 +1003,7 @@ ${formatProfile(intake, characterProfile)}
 
 ${practicalNeedsPrompt(researchNeedsFrom(engine.constraints.verify))}The seven ideas (in this order; Idea ${seeds.length} is the wildcard):
 
-${seeds.map((s, i) => seedBlock(s, i, seedResearch(s, research.byActivity), locale, chosenImages, honestOrigin, explicitPicks, ownPicks.has(s.activityId))).join("\n\n")}`;
+${seeds.map((s, i) => seedBlock(s, i, seedResearch(s, research.byActivity), locale, chosenImages, honestOrigin, explicitPicks, ownPicks.has(s.activityId), replacedPicks.get(s.activityId))).join("\n\n")}`;
   const user = `${shared}
 
 Call the create_idea_book tool exactly once: ${seeds.length - 1} entries in "ideas" (Ideas 1-${seeds.length - 1}, same order) plus the wildcard entry for Idea ${seeds.length}.`;

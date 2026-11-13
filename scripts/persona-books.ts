@@ -4,6 +4,7 @@
 //
 //   npx tsx scripts/persona-books.ts --dry-run                  free: the intake, the seeds and the rules the writer will get, per persona
 //   npx tsx scripts/persona-books.ts --budget 1.00 P04 P12 P10   real books, in this order, stopping before the budget could be passed
+//   add --reserve 0.25 to assume a cheaper worst case per book (the four books measured so far cost 0.21-0.23)
 //
 // The budget is checked BEFORE each book against the worst cost seen so far (RESERVE until two books are measured, then 1.25 x the dearest): a book cannot be stopped halfway, so the
 // total can only pass the budget if a single book costs more than the reserve. Books go to scratch/persona-books/<id>.json with a compact review.
@@ -17,7 +18,7 @@ const MODEL_PRICE: Record<string, { input: number; output: number }> = {
 };
 const SEARCH = 0.01;
 /** Worst case assumed for the next book until a more expensive one has been seen (USD). */
-const RESERVE = 0.3;
+const RESERVE = process.argv.includes("--reserve") ? Number(process.argv[process.argv.indexOf("--reserve") + 1]) : 0.3;
 
 interface Usage {
   input_tokens?: number;

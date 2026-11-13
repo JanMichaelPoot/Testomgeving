@@ -3,6 +3,7 @@ import { radiusText, sanitizeDistanceKm } from "@/lib/distanceOptions";
 import type Anthropic from "@anthropic-ai/sdk";
 import { anthropic } from "@/lib/anthropic";
 import { getActivity } from "@/lib/discovery/library";
+import { hintLine } from "@/lib/discovery/searchHints";
 import { describeToday, isoDateNL } from "@/lib/discovery/season";
 import { cleanRating, type Rating } from "@/lib/claude/rating";
 import { verifyOptionUrls } from "@/lib/claude/verifyUrls";
@@ -64,6 +65,9 @@ export function rankOptions(options: LocalOption[]): LocalOption[] {
   const keptRated = bestRated >= POOR_SCORE ? rated.filter((o) => adjustedScore(o.rating!) >= POOR_SCORE) : rated;
   return [...keptRated, ...unrated].slice(0, MAX_OPTIONS);
 }
+
+/** "standard": the first search. "broad": the second attempt, for activities the first one found nothing for. */
+export type ResearchPass = "standard" | "broad";
 
 export interface SeedResearch {
   activityId: string;
@@ -189,6 +193,7 @@ export function createSupabaseResearchCache(): ResearchCache {
 export const RESEARCH_MODEL = process.env.WINDOW_RESEARCH_MODEL || "claude-haiku-4-5-20251001";
 const MAX_SEARCHES = 5;
 const MAX_PRIORITY_SEARCHES = 4;
+const MAX_BROAD_SEARCHES = 6;
 
 const SYSTEM = `You are a meticulous local-options researcher for WindowInto, a possibility-discovery app.
 Your only job is to use web search to find REAL, CURRENTLY OPERATING businesses, venues, clubs, routes, event
@@ -240,6 +245,8 @@ export function buildResearchPrompt(
   needs: readonly ResearchNeed[] = [],
   /** The country when it is not the Netherlands (English name): the places are searched there, in its own language. */
   country: string | null = null,
+  /** "broad": the second attempt for activities the first search found nothing for (clubs, community centres, adult education, libraries, repair cafes ...). */
+  pass: ResearchPass = "standard",
 ): string {
   const language = locale === "nl" ? "Dutch" : "English";
   const searchLanguage = country ? "the local language of the country (and in English)" : "Dutch";
@@ -259,8 +266,14 @@ and is open. Classes, events and seasonal offers keep the stricter rules below.
   const lines = activityIds.map((id, i) => {
     const a = getActivity(id);
     const entry = a?.entry ? ` Usual way in: ${a.entry.en}.` : "";
-    return `${i + 1}. id "${id}": ${a?.label.nl ?? id} (${a?.label.en ?? id}).${entry}`;
+    return `${i + 1}. id "${id}": ${a?.label.nl ?? id} (${a?.label.en ?? id}).${entry}${hintLine(id)}`;
   });
+  const broadBlock =
+    pass === "broad"
+      ? `
+SECOND ATTEMPT: a first search found nothing for these activities, so search more widely for WHO really offers or organises them: clubs and associations (and their club finders or member lists), community centres and neighbourhood workshops, adult-education courses, libraries, repair cafes, nature, heritage and sports associations (for example IVN, Natuurmonumenten, a sports federation's club finder), municipal activity calendars, museums and visitor centres, farms and animal parks. Use the search terms given per activity and also the broader name of the activity. A group that meets regularly counts even when its website is simple.
+`
+      : "";
   return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). Place: ${location || countryName}. Search radius: ${radiusLine(radius).replace("the Netherlands", countryName)}.
 Write the notes in ${language}: if the website is in another language, translate what you take from it (keep names, streets and titles as they are). A note in the wrong language is an error.
 
@@ -274,12 +287,16 @@ play or activity venue, a farm, an animal park or a nature site: somewhere a per
 webshop or starter kit, a streaming platform, a national organisation without a local address or a home-delivery service does NOT count, however good it is.
 Write the venue's own city (the real town where it is, taken from its address on the website); never "Online" and never just the country. Search for
 ${country ? "the local equivalents of " : ""}workshops, studios, classes, clubs, organised outings and play venues rather than for products.
-${priorityBlock}${needsBlock(needs)}
-It must be possible to take part within the next four weeks from today. So an option does NOT count when it is
-closed for the season, has stopped running, or is an event whose date has already passed. Seasonal offers (open-
-water swimming, outdoor pools, boat rental, ice rinks, markets, festivals, garden and farm days) only count when
-the source shows they are running in this season. When the source gives a date or an end date, put the last day
-in "until" (YYYY-MM-DD); otherwise "until" is null.
+${broadBlock}${priorityBlock}${needsBlock(needs)}
+It must be possible to take part now or soon. An option does NOT count when it is closed for the season, has stopped running, or is an
+event whose date has already passed. Two kinds of option:
+- A permanent place or group (a club, association, studio, school, workshop, manege, repair cafe, museum, garden, venue): it counts when its own
+  website, or a source from the last 12 months, shows that it exists and is operating now and says how a newcomer joins or visits (a trial lesson,
+  an open evening, drop-in, opening hours, enrolling). It does NOT need a dated session in the next four weeks: when the next start is not shown,
+  say in the note that the person should ask for the next start.
+- A dated event, a course with a fixed start or a seasonal offer (open-water swimming, outdoor pools, boat rental, ice rinks, markets, festivals,
+  garden and farm days): it only counts when the source shows a date in the next four weeks, or that it is running in this season.
+When the source gives a date or an end date, put the last day in "until" (YYYY-MM-DD); otherwise "until" is null.
 
 An option only counts when ALL of these are true:
 - It is in or near the place above (the same city or region${priority ? ", up to about 25 km for the person's own choices" : ""}). Never offer a venue in another city or country as a
@@ -299,7 +316,7 @@ Activities:
 ${lines.join("\n")}
 
 Rules: only list options that appear in your search results. Give the website exactly as it appeared, or null.
-The note is one short line: what it is, and prices or times only when the source states them. Prefer the option's own website over a listing or directory page.
+The note is one short line: what it is, how a beginner takes part (trial lesson, open evening, drop-in, booking), and prices or times only when the source states them. Prefer the option's own website over a listing or directory page.
 
 Finish with one JSON code block, exactly this shape:
 \`\`\`json
@@ -417,18 +434,23 @@ async function searchOnce(
   needs: readonly ResearchNeed[] = [],
   country: string | null = null,
   countryCode: string | null = null,
+  pass: ResearchPass = "standard",
 ): Promise<Map<string, LocalOption[]> | null> {
   const startedAt = Date.now();
   // The person's own choices get about one and a half searches each (measured: 6 searches for 3 choices cost ~$0.14, mostly the
   // search results read back in); the rest of the book shares a few.
-  const maxUses = priority
-    ? Math.min(MAX_PRIORITY_SEARCHES, Math.max(3, Math.ceil(activityIds.length * 1.5)))
-    : Math.min(MAX_SEARCHES, Math.max(2, Math.ceil(activityIds.length * 0.7)));
+  // The second attempt has more room: the first one already failed on these.
+  const maxUses =
+    pass === "broad"
+      ? Math.min(MAX_BROAD_SEARCHES, Math.max(3, activityIds.length * 2))
+      : priority
+        ? Math.min(MAX_PRIORITY_SEARCHES, Math.max(3, Math.ceil(activityIds.length * 1.5)))
+        : Math.min(MAX_SEARCHES, Math.max(2, Math.ceil(activityIds.length * 0.7)));
   const message = await anthropic.messages.create({
     model: RESEARCH_MODEL,
     max_tokens: 3500,
     system: SYSTEM,
-    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now, priority, needs, country) }],
+    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now, priority, needs, country, pass) }],
     tools: [
       {
         type: "web_search_20250305",
@@ -441,7 +463,7 @@ async function searchOnce(
   });
   const searches = message.content.filter((b) => b.type === "server_tool_use" && b.name === "web_search").length;
   console.log(
-    `WindowInto: research pass${priority ? " (own choices)" : ""} took ${Date.now() - startedAt}ms, ${searches} web searches for ${activityIds.length} activities (${RESEARCH_MODEL}), ` +
+    `WindowInto: research pass${pass === "broad" ? " (broad)" : ""}${priority ? " (own choices)" : ""} took ${Date.now() - startedAt}ms, ${searches} web searches for ${activityIds.length} activities (${RESEARCH_MODEL}), ` +
       `usage=${JSON.stringify(message.usage)}`,
   );
   const text = message.content
@@ -519,6 +541,8 @@ export async function researchSeeds(opts: {
    * Its answers are cached under their own key (the place hardly matters, but the month does).
    */
   mode?: "online";
+  /** "broad": the second attempt for what the standard pass found nothing for (its answers are cached under their own key). */
+  pass?: ResearchPass;
   /** The country of the place (ISO code) when it is not the Netherlands: it changes where is searched, so it is part of every cache key. */
   country?: string | null;
   /** Practical wishes (researchNeedsFrom): evening, no car, step-free, with children. They change which options are kept, so they are part of the cache key. */
@@ -536,10 +560,11 @@ export async function researchSeeds(opts: {
   // The cache is kept per month: what is open or running in June says nothing about December.
   // "v2": the notes are now always in the book's language; older cached notes could be in the language of the website.
   // "v3": options now carry ratings and passed the stricter "is it really open" rules; older answers are not trusted.
-  // "v4": physical places only; older answers may hold online providers and are not trusted.
+  // "v4": physical places only. "v5": permanent places and groups count without a dated session, with search terms per activity; the empties of v4 came from a stricter question.
   const online = opts.mode === "online";
   const needs = online ? [] : researchNeedsFrom(opts.needs ?? []);
-  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${today.slice(0, 7)}|v4${online ? "|online" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
+  const pass: ResearchPass = !online && opts.pass === "broad" ? "broad" : "standard";
+  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${today.slice(0, 7)}|v5${online ? "|online" : ""}${pass === "broad" ? "|broad" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
   const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 
@@ -580,7 +605,7 @@ export async function researchSeeds(opts: {
   const batch = async (ids: string[], own: boolean) => {
     if (ids.length === 0) return;
     try {
-      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own, needs, countryEn, foreign);
+      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own, needs, countryEn, foreign, pass);
       if (!found) throw new Error("the research answer could not be read");
       await Promise.all(
         ids.map(async (id) => {
