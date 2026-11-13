@@ -1,0 +1,758 @@
+[
+ {
+  "area": "Bibliotheek",
+  "claim": "Aantal activiteiten",
+  "expected": "756",
+  "actual": "756",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Aantal werelden (domeinen)",
+  "expected": "22",
+  "actual": "22",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Aantal subdomeinen",
+  "expected": "68",
+  "actual": "68",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Aantal tags",
+  "expected": "43",
+  "actual": "43",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Aantal generieke tags",
+  "expected": "7",
+  "actual": "7",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Gecureerde combinaties",
+  "expected": "80",
+  "actual": "80",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Activiteiten op status concept",
+  "expected": "756",
+  "actual": "756",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Activiteiten met reviewed_by",
+  "expected": "0",
+  "actual": "0",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Activiteiten met niveau 0",
+  "expected": "636",
+  "actual": "636",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Activiteiten zonder supply-waarde",
+  "expected": "320",
+  "actual": "320",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Activiteiten met seizoen",
+  "expected": "143",
+  "actual": "143",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Activiteiten met verplicht toezicht (tier 2)",
+  "expected": "58",
+  "actual": "58",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Kosten onbekend",
+  "expected": "4",
+  "actual": "4",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Intensiteit 0 (kalm)",
+  "expected": "452",
+  "actual": "452",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Wereld 'creative' telt",
+  "expected": "133",
+  "actual": "133",
+  "ok": true
+ },
+ {
+  "area": "Beelden",
+  "claim": "Aantal beeldkaarten",
+  "expected": "516",
+  "actual": "516",
+  "ok": true
+ },
+ {
+  "area": "Beelden",
+  "claim": "Aantal families",
+  "expected": "172",
+  "actual": "172",
+  "ok": true
+ },
+ {
+  "area": "Beelden",
+  "claim": "Kaarten in ronde places",
+  "expected": "177",
+  "actual": "177",
+  "ok": true
+ },
+ {
+  "area": "Beelden",
+  "claim": "Kaarten in ronde moments",
+  "expected": "174",
+  "actual": "174",
+  "ok": true
+ },
+ {
+  "area": "Beelden",
+  "claim": "Kaarten in ronde senses",
+  "expected": "165",
+  "actual": "165",
+  "ok": true
+ },
+ {
+  "area": "Bibliotheek",
+  "claim": "Aantal handmatige clusters",
+  "expected": "14",
+  "actual": "14",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "MAX_PER_CLUSTER",
+  "expected": "2",
+  "actual": "2",
+  "ok": true
+ },
+ {
+  "area": "Doelgroep",
+  "claim": "Ids op de kind-lijst (MINOR_UNSUITABLE)",
+  "expected": "33",
+  "actual": "33",
+  "ok": true
+ },
+ {
+  "area": "Doelgroep",
+  "claim": "CONFIDENCE_FLOOR",
+  "expected": "0.3",
+  "actual": "0.3",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "IMAGES_PAGE_SIZE",
+  "expected": "18",
+  "actual": "18",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "CONCRETE_PAGE_SIZE",
+  "expected": "18",
+  "actual": "18",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "MAX_IMAGE_PICKS",
+  "expected": "8",
+  "actual": "8",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "MAX_CONCRETE_PICKS",
+  "expected": "8",
+  "actual": "8",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "MAX_REFRESHES",
+  "expected": "3",
+  "actual": "3",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "EXPLORE_SLOTS",
+  "expected": "3",
+  "actual": "3",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "MIN_PER_REGISTER",
+  "expected": "2",
+  "actual": "2",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "GRACEFUL_MIN",
+  "expected": "5",
+  "actual": "5",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "NICHE_PER_PAGE",
+  "expected": "2",
+  "actual": "2",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "ASSOC_WEIGHT (associatielaag)",
+  "expected": "0.35",
+  "actual": "0.35",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "MIN_IMAGE_PICKS (simulatie)",
+  "expected": "5",
+  "actual": "5",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "MIN_CONCRETE_PICKS (simulatie)",
+  "expected": "3",
+  "actual": "3",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "Minimum beelden in de wizard",
+  "expected": "3",
+  "actual": "3",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "Wizard laat 1 activiteit toe",
+  "expected": "true",
+  "actual": "true",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "Wizard stuurt leeftijd en sociale vormen leeg",
+  "expected": "true",
+  "actual": "true",
+  "ok": true
+ },
+ {
+  "area": "Pagina's",
+  "claim": "Wizard bewaart alleen de chips als mustHaves",
+  "expected": "true",
+  "actual": "true",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "BRIDGE_MIN",
+  "expected": "2",
+  "actual": "2",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "WEIGHTS_ANCHOR: aantal ankers",
+  "expected": "4",
+  "actual": "4",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "WEIGHTS_ANCHOR: hub",
+  "expected": "0.6",
+  "actual": "0.6",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "WEIGHTS_V2: sharedPairPenalty",
+  "expected": "0.45",
+  "actual": "0.45",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Aangrenzend: peak",
+  "expected": "0.38",
+  "actual": "0.38",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Onverwacht: hybridBase",
+  "expected": "2.5",
+  "actual": "2.5",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Familiar: pickedScore",
+  "expected": "2",
+  "actual": "2",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Familiar: practicalBonus (V2)",
+  "expected": "0.3",
+  "actual": "0.3",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Wildcard: ageDecay",
+  "expected": "2",
+  "actual": "2",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Wildcard: supplyDecay",
+  "expected": "3",
+  "actual": "3",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Wildcard: redundancyFactor",
+  "expected": "4",
+  "actual": "4",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Aanbodstraf rare",
+  "expected": "0.18",
+  "actual": "0.18",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Aanbodstraf regional",
+  "expected": "0.04",
+  "actual": "0.04",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Stretch: doelen per wildheid",
+  "expected": "1,1.2,2,2.8",
+  "actual": "1,1.2,2,2.8",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Niveau-toekenning: wildcard is niveau 7",
+  "expected": "true",
+  "actual": "true",
+  "ok": true
+ },
+ {
+  "area": "Motor",
+  "claim": "Stretch alleen als nog geen 6 zaden of geen ankers",
+  "expected": "true",
+  "actual": "true",
+  "ok": true
+ },
+ {
+  "area": "Filters",
+  "claim": "Tijd wordt niet gelezen in constraints.ts",
+  "expected": "false",
+  "actual": "false",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "MAX_OPTIONS",
+  "expected": "3",
+  "actual": "3",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "MAX_SEARCHES",
+  "expected": "5",
+  "actual": "5",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "MAX_PRIORITY_SEARCHES",
+  "expected": "4",
+  "actual": "4",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "MAX_BROAD_SEARCHES",
+  "expected": "4",
+  "actual": "4",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "FOUND_TTL_DAYS",
+  "expected": "30",
+  "actual": "30",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "EMPTY_TTL_DAYS",
+  "expected": "7",
+  "actual": "7",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "PICK_EMPTY_TTL_DAYS",
+  "expected": "2",
+  "actual": "2",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "PRIOR_SCORE",
+  "expected": "4",
+  "actual": "4",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "PRIOR_WEIGHT",
+  "expected": "20",
+  "actual": "20",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "Onderzoeksmodel",
+  "expected": "claude-haiku-4-5-20251001",
+  "actual": "claude-haiku-4-5-20251001",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "RESEARCH_BUDGET_MS",
+  "expected": "120000",
+  "actual": "120000",
+  "ok": true
+ },
+ {
+  "area": "Zoeken",
+  "claim": "SUPPLY_ROUNDS",
+  "expected": "2",
+  "actual": "2",
+  "ok": true
+ },
+ {
+  "area": "Schrijven",
+  "claim": "max_tokens hoofdaanroep",
+  "expected": "9000",
+  "actual": "9000",
+  "ok": true
+ },
+ {
+  "area": "Schrijven",
+  "claim": "max_tokens lagen",
+  "expected": "6000",
+  "actual": "6000",
+  "ok": true
+ },
+ {
+  "area": "Schrijven",
+  "claim": "Schrijfmodel",
+  "expected": "claude-sonnet-5",
+  "actual": "claude-sonnet-5",
+  "ok": true
+ },
+ {
+  "area": "Controle",
+  "claim": "Websitecheck: maximale paginagrootte (bytes)",
+  "expected": "150000",
+  "actual": "150000",
+  "ok": true
+ },
+ {
+  "area": "Product",
+  "claim": "Prijs in centen",
+  "expected": "750",
+  "actual": "750",
+  "ok": true
+ },
+ {
+  "area": "Platform",
+  "claim": "maxDuration van /plan",
+  "expected": "300",
+  "actual": "300",
+  "ok": true
+ },
+ {
+  "area": "Platform",
+  "claim": "Aantal migraties",
+  "expected": "24",
+  "actual": "24",
+  "ok": true
+ },
+ {
+  "area": "Platform",
+  "claim": "Cron: herinnering minimaal 2 dagen",
+  "expected": "2",
+  "actual": "2",
+  "ok": true
+ },
+ {
+  "area": "Platform",
+  "claim": "Cron: herinnering maximaal 9 dagen",
+  "expected": "9",
+  "actual": "9",
+  "ok": true
+ },
+ {
+  "area": "Platform",
+  "claim": "Cron: vervolgmail na 42 dagen",
+  "expected": "42",
+  "actual": "42",
+  "ok": true
+ },
+ {
+  "area": "Platform",
+  "claim": "Cron-schema's",
+  "expected": "0 9 * * *,30 9 * * *",
+  "actual": "0 9 * * *,30 9 * * *",
+  "ok": true
+ },
+ {
+  "area": "Schakelaars",
+  "claim": "Ankermodel standaard aan (leeg = aan)",
+  "expected": "true",
+  "actual": "true",
+  "ok": true
+ },
+ {
+  "area": "Schakelaars",
+  "claim": "Associatielaag standaard uit",
+  "expected": "true",
+  "actual": "true",
+  "ok": true
+ },
+ {
+  "area": "Schakelaars",
+  "claim": "Concrete opties standaard aan",
+  "expected": "true",
+  "actual": "true",
+  "ok": true
+ },
+ {
+  "area": "Document",
+  "claim": "Elke genoemde bevinding (F-nn) bestaat in de lijst",
+  "expected": "",
+  "actual": "",
+  "ok": true
+ },
+ {
+  "area": "Document",
+  "claim": "Elke bevinding wordt in de tekst of lijst genoemd",
+  "expected": "",
+  "actual": "",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'overview' noemt '516 beelden' en de tekst noemt '516'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'overview' noemt '172 families' en de tekst noemt '172 families'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'overview' noemt '756 activiteiten' en de tekst noemt '756 in 22 werelden'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'overview' noemt '22 werelden' en de tekst noemt '22 werelden'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'assoc' noemt '516 beeldkaarten' en de tekst noemt '516'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'assoc' noemt 'plekken 177, momenten 174, zintuigen 165' en de tekst noemt 'plekken 177, momenten 174, zintuigen 165'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'assoc' noemt '22 werelden, 68 subdomeinen' en de tekst noemt '68 subdomeinen'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'assoc' noemt '3,6 tags' en de tekst noemt 'gemiddeld 3,6'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'taxonomy' noemt '756 activiteiten in 22 werelden' en de tekst noemt '756 activiteiten in 22 werelden'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'audience' noemt '33 activiteiten' en de tekst noemt '33 activiteiten'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'concrete' noemt 'hoogstens 150 km' en de tekst noemt 'hoogstens 150 km'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'concrete' noemt '30 dagen' en de tekst noemt '30 dagen'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'concrete' noemt '2 dagen' en de tekst noemt '2 dagen'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'slots' noemt '80 beschikbaar' en de tekst noemt '80 gecureerde combinaties'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'choices' noemt 'Minstens 3, hoogstens 8' en de tekst noemt 'minstens 3 en hoogstens 8'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'journey' noemt 'Kiest 1 tot 8' en de tekst noemt '1 tot 8'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'windows7' noemt 'Vertrouwd' en de tekst noemt 'Vertrouwd'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'windows7' noemt 'Onontdekt' en de tekst noemt 'Onontdekt'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Figuur 'distance' noemt 'niveau 6' en de tekst noemt 'niveau 6'",
+  "expected": "beide",
+  "actual": "beide",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "De tegels van de taxonomie tellen op tot het aantal activiteiten",
+  "expected": "756",
+  "actual": "756",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Voorbeeld A: wildcard in figuur 5 en tabel komt uit dezelfde run",
+  "expected": "true",
+  "actual": "true",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Elke niveau-naam in het zevenvensters-figuur staat ook in het afstandsmodel",
+  "expected": "true",
+  "actual": "true",
+  "ok": true
+ },
+ {
+  "area": "Figuren",
+  "claim": "Elke figuur staat precies één keer in het document",
+  "expected": "",
+  "actual": "",
+  "ok": true
+ }
+]

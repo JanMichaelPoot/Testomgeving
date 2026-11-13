@@ -1,0 +1,869 @@
+[
+ {
+  "key": "A",
+  "name": "Marijke (Zwolle, voor zichzelf)",
+  "context": "self",
+  "location": "Zwolle",
+  "km": 25,
+  "budget": "25",
+  "cards": [
+   "Een oude leeszaal",
+   "Het kraken van een oud boek",
+   "Stil water bij zonsopgang",
+   "Helemaal stil worden",
+   "Kaarslicht",
+   "Een stille bosrand"
+  ],
+  "topTags": [
+   "Stilte:3.4",
+   "Geschiedenis:1.9",
+   "Natuur:1.9",
+   "Verhaal:1.8",
+   "Evenwicht:1.7",
+   "Focus:1.0"
+  ],
+  "axes": {
+   "social": -0.53,
+   "energy": -0.68,
+   "setting": -0.17,
+   "novelty": -0.13
+  },
+  "dials": {
+   "practicalToWild": "either",
+   "effort": "minimal"
+  },
+  "mix": {
+   "expressive": 0,
+   "nurturing": 1,
+   "technical": 0,
+   "nature": 5
+  },
+  "page2": [
+   "Literaire detectivewandeling",
+   "Een stedentrip rond één thema",
+   "Haiku en korte vormen schrijven",
+   "*Sushi rollen",
+   "Journaling",
+   "*Een live comedy-avond",
+   "Wandelgroep voor beginners",
+   "Stenen stapelen",
+   "Spookwandeling en legendes bij kaarslicht",
+   "Kruisboogschieten (schuttersgilde)",
+   "Metaaldetecteren (met toestemming)",
+   "*Repair café",
+   "Vissen",
+   "Solo-rollenspel en verhalenspellen",
+   "Een historische buitenplaats",
+   "Een lange wandeling",
+   "Wolken en weer lezen",
+   "Een dag zonder telefoon"
+  ],
+  "picks": [
+   "Stenen stapelen",
+   "Vissen",
+   "Een historische buitenplaats",
+   "Een stedentrip rond één thema",
+   "Sushi rollen"
+  ],
+  "audience": {
+   "interests": {
+    "value": [
+     "history",
+     "nature",
+     "story",
+     "balance",
+     "water"
+    ],
+    "source": "explicit",
+    "confidence": 0.95
+   },
+   "orientation": {
+    "value": [
+     "relaxed",
+     "creative"
+    ],
+    "source": "inferred",
+    "confidence": 0.75
+   },
+   "breadth": 0.79,
+   "audience": {
+    "value": "unknown",
+    "source": "unknown",
+    "confidence": 0
+   }
+  },
+  "constraints": {
+   "costCap": 2,
+   "intensityCap": 1,
+   "hideSupervised": false,
+   "formats": null,
+   "verify": []
+  },
+  "notes": [
+   "anchor_picks:4",
+   "indirect_slot"
+  ],
+  "seeds": [
+   {
+    "activity": "Een historische buitenplaats",
+    "id": "buitenplaats",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "1 Vertrouwd",
+    "chain": [
+     "Een historische buitenplaats"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar"
+    ],
+    "verify": [],
+    "domain": "history",
+    "cost": 1,
+    "supply": "-",
+    "entry": "Een buitenplaats of kasteeltuin bezoeken, met een rondleiding of audiotour"
+   },
+   {
+    "activity": "Vissen",
+    "id": "vissen",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "1 Vertrouwd",
+    "chain": [
+     "Vissen"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar"
+    ],
+    "verify": [],
+    "domain": "nature",
+    "cost": 1,
+    "supply": "-",
+    "entry": "Begin met een introductiedag; visvergunning regel je vooraf"
+   },
+   {
+    "activity": "Sushi rollen",
+    "id": "sushi-rollen",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "1 Vertrouwd",
+    "chain": [
+     "Sushi rollen"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar",
+     "verify:cost_near_budget"
+    ],
+    "verify": [
+     "cost_near_budget"
+    ],
+    "domain": "food",
+    "cost": 2,
+    "supply": "regional",
+    "entry": "Boek een sushiworkshop of oefen met een bamboemat thuis"
+   },
+   {
+    "activity": "Stenen stapelen",
+    "id": "stenen-stapelen",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "2 Praktisch",
+    "chain": [
+     "Stenen stapelen"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar"
+    ],
+    "verify": [],
+    "domain": "restful",
+    "cost": 0,
+    "supply": "-",
+    "entry": "Een stille oever of strand met platte stenen; begin met drie"
+   },
+   {
+    "activity": "Wandeling over een oude begraafplaats",
+    "id": "begraafplaats",
+    "direction": "adjacent",
+    "door": "discovery",
+    "level": "3 Verwant",
+    "chain": [
+     "Een historische buitenplaats",
+     "Wandeling over een oude begraafplaats"
+    ],
+    "via": [
+     "Geschiedenis",
+     "Verhaal"
+    ],
+    "hybrid": null,
+    "fit": 0.64,
+    "reasons": [
+     "chain:buitenplaats>begraafplaats",
+     "bridge:history+story",
+     "direction:adjacent"
+    ],
+    "verify": [],
+    "domain": "history",
+    "cost": 0,
+    "supply": "-",
+    "entry": "Rondleiding of eigen wandeling met respect voor de plek"
+   },
+   {
+    "activity": "High tea",
+    "id": "high-tea",
+    "direction": "unexpected",
+    "door": "unexpected",
+    "level": "5 Verrassend",
+    "chain": [
+     "Een historische buitenplaats",
+     "High tea"
+    ],
+    "via": [
+     "Retro",
+     "Verhaal"
+    ],
+    "hybrid": "High tea op een historische buitenplaats",
+    "fit": 0.4,
+    "reasons": [
+     "hybrid:buitenplaats",
+     "chain:buitenplaats>high-tea",
+     "bridge:retro+story",
+     "direction:unexpected",
+     "verify:cost_near_budget"
+    ],
+    "verify": [
+     "cost_near_budget"
+    ],
+    "domain": "food",
+    "cost": 2,
+    "supply": "-",
+    "entry": "Een high tea in een landhuis of tuinkamer; reserveren kan vaak eenvoudig"
+   },
+   {
+    "activity": "Een linoleumsnede maken",
+    "id": "linoleum-snijden",
+    "direction": "wildcard",
+    "door": "wildcard",
+    "level": "7 Onontdekt",
+    "chain": [
+     "Sushi rollen",
+     "Een linoleumsnede maken"
+    ],
+    "via": [
+     "Vakmanschap"
+    ],
+    "hybrid": null,
+    "fit": 0.13,
+    "reasons": [
+     "chain:sushi-rollen>linoleum-snijden",
+     "bridge:craft",
+     "new_world",
+     "direction:wildcard"
+    ],
+    "verify": [],
+    "domain": "creative",
+    "cost": 1,
+    "supply": "common",
+    "entry": "Snijd een eenvoudig motief in een stukje linoleum en druk het af"
+   }
+  ],
+  "time": "halfday"
+ },
+ {
+  "key": "B",
+  "name": "Ouder zoekt voor Sam (kind, Utrecht)",
+  "context": "child",
+  "location": "Utrecht",
+  "km": 15,
+  "budget": "25",
+  "cards": [
+   "Samen hard lachen",
+   "Een stal met warm stro",
+   "Handen vol klei",
+   "Wind in je gezicht",
+   "Een makerslab met een 3D-printer en soldeerbout",
+   "Vlak voor de start"
+  ],
+  "topTags": [
+   "Zelf maken:2.0",
+   "Beweging:1.5",
+   "Vakmanschap:1.3",
+   "Uitdaging:1.2",
+   "Gezelligheid:1.0",
+   "Dieren:1.0"
+  ],
+  "axes": {
+   "social": 0.22,
+   "energy": 0.28,
+   "setting": -0.03,
+   "novelty": 0.23
+  },
+  "dials": {
+   "practicalToWild": "unexpected",
+   "effort": "committed"
+  },
+  "mix": {
+   "expressive": 0,
+   "nurturing": 3,
+   "technical": 2,
+   "nature": 1
+  },
+  "page2": [
+   "Fotowandeling door een onbekende wijk",
+   "*Langs de Romeinse limes",
+   "Tuften: een eigen kleed of wandkleed maken",
+   "Graffiti of muurschildering",
+   "Plogging: joggen en afval opruimen",
+   "Calisthenics in het park",
+   "Een huis en huisdier passen op reis",
+   "Zumba of dansfitness",
+   "Lasergamen of paintball",
+   "Natuurlijke cosmetica maken",
+   "Zeep maken",
+   "Naaicafé",
+   "Padel of tennis",
+   "*Bridge leren",
+   "Kaninhop: konijnen over een hindernisbaan",
+   "Een week meewerken op een biologische boerderij",
+   "*Introductievlucht in een klein vliegtuig",
+   "Wilgentenen vlechten"
+  ],
+  "picks": [
+   "Calisthenics in het park",
+   "Lasergamen of paintball",
+   "Plogging: joggen en afval opruimen",
+   "Naaicafé",
+   "Langs de Romeinse limes"
+  ],
+  "audience": {
+   "interests": {
+    "value": [
+     "movement",
+     "outdoors",
+     "caring",
+     "craft",
+     "challenge"
+    ],
+    "source": "explicit",
+    "confidence": 0.95
+   },
+   "orientation": {
+    "value": [
+     "active",
+     "social"
+    ],
+    "source": "inferred",
+    "confidence": 0.75
+   },
+   "breadth": 1,
+   "audience": {
+    "value": "child_or_youth",
+    "source": "inferred",
+    "confidence": 0.6
+   }
+  },
+  "constraints": {
+   "costCap": 2,
+   "intensityCap": 3,
+   "hideSupervised": false,
+   "formats": null,
+   "minorSafe": true,
+   "verify": []
+  },
+  "notes": [
+   "anchor_picks:4",
+   "indirect_slot"
+  ],
+  "seeds": [
+   {
+    "activity": "Calisthenics in het park",
+    "id": "calisthenics",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "2 Praktisch",
+    "chain": [
+     "Calisthenics in het park"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar"
+    ],
+    "verify": [],
+    "domain": "movement",
+    "cost": 0,
+    "supply": "common",
+    "entry": "Sluit aan bij een gratis buurttraining of begin met een beginnersschema"
+   },
+   {
+    "activity": "Naaicafé",
+    "id": "naaicafe",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "1 Vertrouwd",
+    "chain": [
+     "Naaicafé"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar"
+    ],
+    "verify": [],
+    "domain": "together",
+    "cost": 1,
+    "supply": "regional",
+    "entry": "Een naaicafé of herstelavond: neem je eigen project mee, anderen helpen"
+   },
+   {
+    "activity": "Langs de Romeinse limes",
+    "id": "limesroute",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "1 Vertrouwd",
+    "chain": [
+     "Langs de Romeinse limes"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar"
+    ],
+    "verify": [],
+    "domain": "history",
+    "cost": 0,
+    "supply": "regional",
+    "entry": "Volg een fiets- of wandelroute langs de Romeinse limes"
+   },
+   {
+    "activity": "Lasergamen of paintball",
+    "id": "lasergamen",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "1 Vertrouwd",
+    "chain": [
+     "Lasergamen of paintball"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar",
+     "verify:cost_near_budget"
+    ],
+    "verify": [
+     "cost_near_budget"
+    ],
+    "domain": "games",
+    "cost": 2,
+    "supply": "regional",
+    "entry": "Beginnersronde met uitleg en uitrusting"
+   },
+   {
+    "activity": "Oriëntatielopen",
+    "id": "orientatieloop",
+    "direction": "adjacent",
+    "door": "discovery",
+    "level": "3 Verwant",
+    "chain": [
+     "Lasergamen of paintball",
+     "Oriëntatielopen"
+    ],
+    "via": [
+     "Competitie",
+     "Beweging"
+    ],
+    "hybrid": null,
+    "fit": 0.28,
+    "reasons": [
+     "chain:lasergamen>orientatieloop",
+     "bridge:competition+movement",
+     "new_world",
+     "direction:adjacent"
+    ],
+    "verify": [],
+    "domain": "elements",
+    "cost": 1,
+    "supply": "regional",
+    "entry": "Loop een beginnersroute bij een orientatielooppost"
+   },
+   {
+    "activity": "Parfumerie bezoeken en geuren leren herkennen",
+    "id": "parfum-ontdekken",
+    "direction": "unexpected",
+    "door": "unexpected",
+    "level": "5 Verrassend",
+    "chain": [
+     "Naaicafé",
+     "Natuurlijke cosmetica maken",
+     "Parfumerie bezoeken en geuren leren herkennen"
+    ],
+    "via": [
+     "Stijl"
+    ],
+    "hybrid": null,
+    "fit": 0,
+    "reasons": [
+     "chain:naaicafe>cosmetica-maken>parfum-ontdekken",
+     "bridge:style",
+     "new_world",
+     "direction:unexpected"
+    ],
+    "verify": [],
+    "domain": "style",
+    "cost": 1,
+    "supply": "common",
+    "entry": "Loop een parfumerie binnen en vraag om een geurenproeverij met proefstrips"
+   },
+   {
+    "activity": "Kaarsen maken",
+    "id": "kaarsen-gieten",
+    "direction": "wildcard",
+    "door": "wildcard",
+    "level": "7 Onontdekt",
+    "chain": [
+     "Naaicafé",
+     "Kaarsen maken"
+    ],
+    "via": [
+     "Vakmanschap"
+    ],
+    "hybrid": null,
+    "fit": 0.13,
+    "reasons": [
+     "chain:naaicafe>kaarsen-gieten",
+     "bridge:craft",
+     "new_world",
+     "direction:wildcard"
+    ],
+    "verify": [],
+    "domain": "elements",
+    "cost": 1,
+    "supply": "common",
+    "entry": "Begin met een startersset of een korte workshop"
+   }
+  ],
+  "time": "halfday"
+ },
+ {
+  "key": "C",
+  "name": "Vriendengroep (6 pers., Eindhoven)",
+  "context": "group",
+  "location": "Eindhoven",
+  "km": 25,
+  "budget": "50",
+  "cards": [
+   "Een arena vol licht",
+   "Het scorebord na een spannende ronde",
+   "Een muur vol aanwijzingen met rode draden",
+   "Samen de laatste aanwijzing vinden",
+   "Een circuit met banden en vlaggen",
+   "Dobbelstenen die over het hout rollen"
+  ],
+  "topTags": [
+   "Samenwerken:2.4",
+   "Spelen:2.4",
+   "Spanning:2.2",
+   "Competitie:2.2",
+   "Puzzelen:2.0",
+   "Gezelligheid:1.9"
+  ],
+  "axes": {
+   "social": 0.63,
+   "energy": 0.53,
+   "setting": -0.47,
+   "novelty": 0.33
+  },
+  "dials": {
+   "practicalToWild": "unexpected",
+   "effort": "committed"
+  },
+  "mix": {
+   "expressive": 0,
+   "nurturing": 0,
+   "technical": 6,
+   "nature": 0
+  },
+  "page2": [
+   "Backgammon of dobbelspellen",
+   "Puzzeljacht (puzzle hunt)",
+   "Een pingpongbar",
+   "Paintball of airsoft",
+   "Hoofdrekenen en wiskundige trucs",
+   "Waterpolo proberen",
+   "Bestuurslid van een vereniging",
+   "Een eigen computerspel maken",
+   "Oriëntatielopen",
+   "Handbal bij een vereniging",
+   "*Zeep maken",
+   "Escape room",
+   "Lasergamen of paintball",
+   "*Een route langs kastelen en buitenplaatsen",
+   "Curling",
+   "Murder mystery-avond",
+   "Badminton spelen",
+   "*Een safaripark of wildlife park"
+  ],
+  "picks": [
+   "Paintball of airsoft",
+   "Handbal bij een vereniging",
+   "Lasergamen of paintball",
+   "Puzzeljacht (puzzle hunt)",
+   "Zeep maken"
+  ],
+  "audience": {
+   "interests": {
+    "value": [
+     "teamwork",
+     "competition",
+     "play",
+     "movement",
+     "suspense"
+    ],
+    "source": "explicit",
+    "confidence": 0.95
+   },
+   "orientation": {
+    "value": [
+     "social",
+     "active"
+    ],
+    "source": "inferred",
+    "confidence": 0.75
+   },
+   "breadth": 0.86,
+   "audience": {
+    "value": "mixed",
+    "source": "inferred",
+    "confidence": 0.5
+   }
+  },
+  "constraints": {
+   "costCap": 2,
+   "intensityCap": 3,
+   "hideSupervised": false,
+   "formats": [
+    "small_group",
+    "large_group"
+   ],
+   "verify": [
+    "with_group"
+   ]
+  },
+  "notes": [
+   "anchor_picks:4",
+   "indirect_slot"
+  ],
+  "seeds": [
+   {
+    "activity": "Lasergamen of paintball",
+    "id": "lasergamen",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "1 Vertrouwd",
+    "chain": [
+     "Lasergamen of paintball"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar",
+     "verify:with_group"
+    ],
+    "verify": [
+     "with_group"
+    ],
+    "domain": "games",
+    "cost": 2,
+    "supply": "regional",
+    "entry": "Beginnersronde met uitleg en uitrusting"
+   },
+   {
+    "activity": "Zeep maken",
+    "id": "zeep-maken",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "2 Praktisch",
+    "chain": [
+     "Zeep maken"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar",
+     "verify:with_group"
+    ],
+    "verify": [
+     "with_group"
+    ],
+    "domain": "creative",
+    "cost": 1,
+    "supply": "common",
+    "entry": "Start met een zeepmakersset of volg een korte workshop"
+   },
+   {
+    "activity": "Paintball of airsoft",
+    "id": "paintball-airsoft",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "1 Vertrouwd",
+    "chain": [
+     "Paintball of airsoft"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar",
+     "verify:with_group"
+    ],
+    "verify": [
+     "with_group"
+    ],
+    "domain": "target",
+    "cost": 2,
+    "supply": "regional",
+    "entry": "Boek een startersdag bij een speelveld, uitrusting en uitleg inbegrepen"
+   },
+   {
+    "activity": "Puzzeljacht (puzzle hunt)",
+    "id": "puzzeljacht",
+    "direction": "familiar",
+    "door": "natural",
+    "level": "1 Vertrouwd",
+    "chain": [
+     "Puzzeljacht (puzzle hunt)"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 1,
+    "reasons": [
+     "picked",
+     "direction:familiar",
+     "verify:with_group"
+    ],
+    "verify": [
+     "with_group"
+    ],
+    "domain": "mystery",
+    "cost": 1,
+    "supply": "regional",
+    "entry": "Doe mee met een lokale puzzeljacht of probeer er thuis een met vrienden"
+   },
+   {
+    "activity": "IJshockey proefles",
+    "id": "ijshockey",
+    "direction": "adjacent",
+    "door": "discovery",
+    "level": "3 Verwant",
+    "chain": [
+     "Paintball of airsoft",
+     "IJshockey proefles"
+    ],
+    "via": [
+     "Competitie",
+     "Samenwerken"
+    ],
+    "hybrid": null,
+    "fit": 0.27,
+    "reasons": [
+     "chain:paintball-airsoft>ijshockey",
+     "bridge:competition+teamwork",
+     "new_world",
+     "direction:adjacent",
+     "verify:with_group"
+    ],
+    "verify": [
+     "with_group"
+    ],
+    "domain": "speed",
+    "cost": 2,
+    "supply": "regional",
+    "entry": "Proefles bij een ijshockeyclub; uitrusting wordt uitgeleend"
+   },
+   {
+    "activity": "Een eigen mini-onderzoek doen",
+    "id": "mini-onderzoek-doen",
+    "direction": "unexpected",
+    "door": "unexpected",
+    "level": "5 Verrassend",
+    "chain": [
+     "Puzzeljacht (puzzle hunt)",
+     "Codes kraken: cryptografie voor beginners",
+     "Een eigen mini-onderzoek doen"
+    ],
+    "via": [
+     "Puzzelen"
+    ],
+    "hybrid": null,
+    "fit": 0.21,
+    "reasons": [
+     "chain:puzzeljacht>cryptografie>mini-onderzoek-doen",
+     "bridge:puzzling",
+     "new_world",
+     "direction:unexpected",
+     "verify:with_group"
+    ],
+    "verify": [
+     "with_group"
+    ],
+    "domain": "history",
+    "cost": 0,
+    "supply": "-",
+    "entry": "Een kleine vraag en een gratis bron in de bibliotheek"
+   },
+   {
+    "activity": "Modelbouw (plastic, schepen, vliegtuigen)",
+    "id": "modelbouw",
+    "direction": "wildcard",
+    "door": "wildcard",
+    "level": "7 Onontdekt",
+    "chain": [
+     "Modelbouw (plastic, schepen, vliegtuigen)"
+    ],
+    "via": [],
+    "hybrid": null,
+    "fit": 0,
+    "reasons": [
+     "new_world",
+     "direction:wildcard",
+     "verify:with_group"
+    ],
+    "verify": [
+     "with_group"
+    ],
+    "domain": "collecting",
+    "cost": 1,
+    "supply": "-",
+    "entry": "Een startset en één avond"
+   }
+  ],
+  "time": "fullday"
+ }
+]

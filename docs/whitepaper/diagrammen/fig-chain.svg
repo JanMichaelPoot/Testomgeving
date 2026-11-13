@@ -1,0 +1,85 @@
+<svg style="font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 384" width="640" height="384" role="img" aria-label="Voorbeeldketens: associatie, subassociatie, activiteit, aanbieder, bezoek" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8C857A"/></marker>
+<marker id="ah-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#8C857A"/></marker>
+</defs><text x="8" y="14.0" font-size="11" font-weight="700" fill="#5B3F2F" text-anchor="start">A  Van smaak naar activiteit (motor)</text>
+<text x="8" y="28.0" font-size="9.2" font-weight="400" fill="#6A655D" text-anchor="start">Reproduceerbaar en gratis: fictief profiel A uit hoofdstuk 11, echte bibliotheek.</text>
+<rect x="8" y="45.5" width="112" height="112" rx="7" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="16" y="62.3" font-size="9.8" font-weight="700" fill="#4A3611" text-anchor="start">1 Associatie</text>
+<text x="16" y="77.9" font-size="8.9" font-weight="400" fill="#4A3611" text-anchor="start">Beeld 'Een oude</text>
+<text x="16" y="89.4" font-size="8.9" font-weight="400" fill="#4A3611" text-anchor="start">leeszaal' (ronde</text>
+<text x="16" y="101.0" font-size="8.9" font-weight="400" fill="#4A3611" text-anchor="start">plekken). Draagt de</text>
+<text x="16" y="112.6" font-size="8.9" font-weight="400" fill="#4A3611" text-anchor="start">tags geschiedenis,</text>
+<text x="16" y="124.1" font-size="8.9" font-weight="400" fill="#4A3611" text-anchor="start">verhaal en leren.</text>
+<path d="M120 101.5 L135 101.5" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="135" y="45.5" width="112" height="112" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="143" y="62.3" font-size="9.8" font-weight="700" fill="#1F3447" text-anchor="start">2 Subassociatie</text>
+<text x="143" y="77.9" font-size="8.9" font-weight="400" fill="#1F3447" text-anchor="start">Tags geschiedenis</text>
+<text x="143" y="89.4" font-size="8.9" font-weight="400" fill="#1F3447" text-anchor="start">en verhaal. Hun</text>
+<text x="143" y="101.0" font-size="8.9" font-weight="400" fill="#1F3447" text-anchor="start">gewicht: ln(756/57)</text>
+<text x="143" y="112.6" font-size="8.9" font-weight="400" fill="#1F3447" text-anchor="start">= 2,58 en</text>
+<text x="143" y="124.1" font-size="8.9" font-weight="400" fill="#1F3447" text-anchor="start">ln(756/107) = 1,96.</text>
+<path d="M247 101.5 L262 101.5" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="262" y="45.5" width="112" height="112" rx="7" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="270" y="62.3" font-size="9.8" font-weight="700" fill="#4A3611" text-anchor="start">3 Eigen keuze</text>
+<text x="270" y="77.9" font-size="8.9" font-weight="400" fill="#4A3611" text-anchor="start">Pagina 2 biedt 'Een</text>
+<text x="270" y="89.4" font-size="8.9" font-weight="400" fill="#4A3611" text-anchor="start">historische</text>
+<text x="270" y="101.0" font-size="8.9" font-weight="400" fill="#4A3611" text-anchor="start">buitenplaats' aan:</text>
+<text x="270" y="112.6" font-size="8.9" font-weight="400" fill="#4A3611" text-anchor="start">dezelfde tags. De</text>
+<text x="270" y="124.1" font-size="8.9" font-weight="400" fill="#4A3611" text-anchor="start">bezoeker kiest het.</text>
+<path d="M374 101.5 L389 101.5" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="389" y="45.5" width="112" height="112" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="397" y="62.3" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">4 Verbonden idee</text>
+<text x="397" y="77.9" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">Brug van 4,54 (≥</text>
+<text x="397" y="89.4" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">2,0) naar</text>
+<text x="397" y="101.0" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">'Wandeling over een</text>
+<text x="397" y="112.6" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">oude begraafplaats'</text>
+<text x="397" y="124.1" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">(fit 0,64).</text>
+<path d="M501 101.5 L516 101.5" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="516" y="45.5" width="112" height="112" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="524" y="62.3" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">5 Activiteit</text>
+<text x="524" y="77.9" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">Seed: aangrenzend,</text>
+<text x="524" y="89.4" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">niveau 3 'Verwant',</text>
+<text x="524" y="101.0" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">met als keten</text>
+<text x="524" y="112.6" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">buitenplaats naar</text>
+<text x="524" y="124.1" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">begraafplaats.</text>
+<text x="8" y="216.0" font-size="11" font-weight="700" fill="#5B3F2F" text-anchor="start">B  Van activiteit naar bezoek (zoeken)</text>
+<text x="8" y="230.0" font-size="9.2" font-weight="400" fill="#6A655D" text-anchor="start">Een eerder gegenereerd meetboek (persona P13, Utrecht). Het zoeken gebruikt het live web en is dus niet gratis te</text>
+<text x="8" y="241.5" font-size="9.2" font-weight="400" fill="#6A655D" text-anchor="start">herhalen.</text>
+<rect x="8" y="259" width="112" height="112" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="16" y="275.8" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">1 Activiteit</text>
+<text x="16" y="291.4" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">'Paardenverzorgingsdag'</text>
+<text x="16" y="302.9" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">was een eigen keuze</text>
+<text x="16" y="314.5" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">(anker, niveau 1).</text>
+<path d="M120 315 L135 315" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="135" y="259" width="112" height="112" rx="7" fill="#EEE2F1" stroke="#7A4E7E" stroke-width="1.2"/>
+<text x="143" y="275.8" font-size="9.8" font-weight="700" fill="#3E2144" text-anchor="start">2 Zoekopdracht</text>
+<text x="143" y="291.4" font-size="8.9" font-weight="400" fill="#3E2144" text-anchor="start">Haiku 4.5 met</text>
+<text x="143" y="302.9" font-size="8.9" font-weight="400" fill="#3E2144" text-anchor="start">webzoeken:</text>
+<text x="143" y="314.5" font-size="8.9" font-weight="400" fill="#3E2144" text-anchor="start">aanbieders in en</text>
+<text x="143" y="326.1" font-size="8.9" font-weight="400" fill="#3E2144" text-anchor="start">rond Utrecht,</text>
+<text x="143" y="337.6" font-size="8.9" font-weight="400" fill="#3E2144" text-anchor="start">alleen fysieke</text>
+<text x="143" y="349.2" font-size="8.9" font-weight="400" fill="#3E2144" text-anchor="start">plekken.</text>
+<path d="M247 315 L262 315" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="262" y="259" width="112" height="112" rx="7" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="270" y="275.8" font-size="9.8" font-weight="700" fill="#27431F" text-anchor="start">3 Aanbieders</text>
+<text x="270" y="291.4" font-size="8.9" font-weight="400" fill="#27431F" text-anchor="start">Manege 't Hoogt en</text>
+<text x="270" y="302.9" font-size="8.9" font-weight="400" fill="#27431F" text-anchor="start">Manege Groenestyn,</text>
+<text x="270" y="314.5" font-size="8.9" font-weight="400" fill="#27431F" text-anchor="start">beide in Utrecht,</text>
+<text x="270" y="326.1" font-size="8.9" font-weight="400" fill="#27431F" text-anchor="start">met website en</text>
+<text x="270" y="337.6" font-size="8.9" font-weight="400" fill="#27431F" text-anchor="start">korte notitie.</text>
+<path d="M374 315 L389 315" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="389" y="259" width="112" height="112" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="397" y="275.8" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">4 Controle</text>
+<text x="397" y="291.4" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">Bestaat de website?</text>
+<text x="397" y="302.9" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">Zegt hij</text>
+<text x="397" y="314.5" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">'gesloten'? Is hij</text>
+<text x="397" y="326.1" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">geparkeerd? Staat</text>
+<text x="397" y="337.6" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">de naam erop?</text>
+<path d="M501 315 L516 315" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="516" y="259" width="112" height="112" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="524" y="275.8" font-size="9.8" font-weight="700" fill="#1F3447" text-anchor="start">5 Bezoek</text>
+<text x="524" y="291.4" font-size="8.9" font-weight="400" fill="#1F3447" text-anchor="start">In het boek: 'Bel</text>
+<text x="524" y="302.9" font-size="8.9" font-weight="400" fill="#1F3447" text-anchor="start">Manege 't Hoogt en</text>
+<text x="524" y="314.5" font-size="8.9" font-weight="400" fill="#1F3447" text-anchor="start">vraag naar een dag</text>
+<text x="524" y="326.1" font-size="8.9" font-weight="400" fill="#1F3447" text-anchor="start">paardenverzorging',</text>
+<text x="524" y="337.6" font-size="8.9" font-weight="400" fill="#1F3447" text-anchor="start">met kaartlink.</text></svg>

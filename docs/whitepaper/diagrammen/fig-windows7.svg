@@ -1,0 +1,78 @@
+<svg style="font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 600" width="640" height="600" role="img" aria-label="De zeven vensters (ontdekkingsniveaus): per niveau de regel, de deur in het boek en een voorbeeld" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8C857A"/></marker>
+<marker id="ah-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#8C857A"/></marker>
+</defs><text x="10" y="16.0" font-size="9.6" font-weight="700" fill="#5B3F2F" text-anchor="start">Niveau en naam</text>
+<text x="150" y="16.0" font-size="9.6" font-weight="700" fill="#5B3F2F" text-anchor="start">Hoe het idee wordt gekozen</text>
+<text x="418" y="16.0" font-size="9.6" font-weight="700" fill="#5B3F2F" text-anchor="start">Deur in het boek</text>
+<text x="512" y="16.0" font-size="9.6" font-weight="700" fill="#5B3F2F" text-anchor="start">Voorbeeld (fictief profiel A)</text>
+<rect x="6" y="24" width="628" height="524" rx="6" fill="#6B4A37" stroke="#3C2920" stroke-width="1.6"/>
+<rect x="12" y="30" width="616" height="68" rx="3" fill="#F3E1AE" stroke="#3C2920" stroke-width="1"/>
+<text x="26" y="71.0" font-size="26" font-weight="700" fill="#3C2920" text-anchor="start">1</text>
+<text x="54" y="59.0" font-size="11.6" font-weight="700" fill="#3C2920" text-anchor="start">Vertrouwd</text>
+<text x="54" y="74.0" font-size="9" font-weight="400" fill="#5B4636" text-anchor="start" font-style="italic">familiar</text>
+<text x="142" y="48.0" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">Je eigen keuze (een anker), of een directe buur</text>
+<text x="142" y="59.8" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">ervan. Bij het ankermodel tot drie van je eigen</text>
+<text x="142" y="71.6" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">keuzes.</text>
+<text x="416" y="48.0" font-size="9.6" font-weight="700" fill="#3C2920" text-anchor="start">Vertrouwd</text>
+<text x="506" y="48.0" font-size="9.2" font-weight="400" fill="#2B1D15" text-anchor="start">Een historische</text>
+<text x="506" y="59.2" font-size="9.2" font-weight="400" fill="#2B1D15" text-anchor="start">buitenplaats, Vissen,</text>
+<text x="506" y="70.4" font-size="9.2" font-weight="400" fill="#2B1D15" text-anchor="start">Sushi rollen</text>
+<rect x="12" y="104" width="616" height="68" rx="3" fill="#EBCF93" stroke="#3C2920" stroke-width="1"/>
+<text x="26" y="145.0" font-size="26" font-weight="700" fill="#3C2920" text-anchor="start">2</text>
+<text x="54" y="133.0" font-size="11.6" font-weight="700" fill="#3C2920" text-anchor="start">Praktisch</text>
+<text x="54" y="148.0" font-size="9" font-weight="400" fill="#5B4636" text-anchor="start" font-style="italic">familiar</text>
+<text x="142" y="122.0" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">Het praktischste van de vertrouwde ideeën:</text>
+<text x="142" y="133.8" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">goedkoop, kort, overal een aanbieder, alleen te</text>
+<text x="142" y="145.6" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">doen, met een instap.</text>
+<text x="416" y="122.0" font-size="9.6" font-weight="700" fill="#3C2920" text-anchor="start">Vertrouwd</text>
+<text x="506" y="122.0" font-size="9.2" font-weight="400" fill="#2B1D15" text-anchor="start">Stenen stapelen</text>
+<rect x="12" y="178" width="616" height="68" rx="3" fill="#E0BC85" stroke="#3C2920" stroke-width="1"/>
+<text x="26" y="219.0" font-size="26" font-weight="700" fill="#3C2920" text-anchor="start">3</text>
+<text x="54" y="207.0" font-size="11.6" font-weight="700" fill="#3C2920" text-anchor="start">Verwant</text>
+<text x="54" y="222.0" font-size="9" font-weight="400" fill="#5B4636" text-anchor="start" font-style="italic">adjacent</text>
+<text x="142" y="196.0" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">Niet gekozen, wel een echte brug (≥ 2,0) met een</text>
+<text x="142" y="207.8" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">keuze. Het best passende aangrenzende idee</text>
+<text x="142" y="219.6" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">(hoogste fit).</text>
+<text x="416" y="196.0" font-size="9.6" font-weight="700" fill="#3C2920" text-anchor="start">Ontdekking</text>
+<text x="506" y="196.0" font-size="9.2" font-weight="400" fill="#2B1D15" text-anchor="start">Wandeling over een oude</text>
+<text x="506" y="207.2" font-size="9.2" font-weight="400" fill="#2B1D15" text-anchor="start">begraafplaats (brug:</text>
+<text x="506" y="218.4" font-size="9.2" font-weight="400" fill="#2B1D15" text-anchor="start">geschiedenis + verhaal)</text>
+<rect x="12" y="252" width="616" height="68" rx="3" fill="#CDB190" stroke="#3C2920" stroke-width="1"/>
+<text x="26" y="293.0" font-size="26" font-weight="700" fill="#3C2920" text-anchor="start">4</text>
+<text x="54" y="281.0" font-size="11.6" font-weight="700" fill="#3C2920" text-anchor="start">Inspirerend</text>
+<text x="54" y="296.0" font-size="9" font-weight="400" fill="#5B4636" text-anchor="start" font-style="italic">adjacent</text>
+<text x="142" y="270.0" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">Het andere aangrenzende idee: verder weg, een</text>
+<text x="142" y="281.8" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">nieuwe invalshoek op een bekende smaak.</text>
+<text x="416" y="270.0" font-size="9.6" font-weight="700" fill="#3C2920" text-anchor="start">Ontdekking</text>
+<text x="506" y="270.0" font-size="9.2" font-weight="400" fill="#5B4636" text-anchor="start" font-style="italic">Leeg in dit voorbeeld</text>
+<rect x="12" y="326" width="616" height="68" rx="3" fill="#B9AEA2" stroke="#3C2920" stroke-width="1"/>
+<text x="26" y="367.0" font-size="26" font-weight="700" fill="#3C2920" text-anchor="start">5</text>
+<text x="54" y="355.0" font-size="11.6" font-weight="700" fill="#3C2920" text-anchor="start">Verrassend</text>
+<text x="54" y="370.0" font-size="9" font-weight="400" fill="#5B4636" text-anchor="start" font-style="italic">unexpected</text>
+<text x="142" y="344.0" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">Ver van alle keuzes, bereikt via een gecureerde</text>
+<text x="142" y="355.8" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">combinatie of een keten keuze, tussenstap, ver</text>
+<text x="142" y="367.6" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">idee.</text>
+<text x="416" y="344.0" font-size="9.6" font-weight="700" fill="#3C2920" text-anchor="start">Onverwacht</text>
+<text x="506" y="344.0" font-size="9.2" font-weight="400" fill="#2B1D15" text-anchor="start">High tea (combinatie</text>
+<text x="506" y="355.2" font-size="9.2" font-weight="400" fill="#2B1D15" text-anchor="start">met de buitenplaats)</text>
+<rect x="12" y="400" width="616" height="68" rx="3" fill="#A4AAB4" stroke="#3C2920" stroke-width="1"/>
+<text x="26" y="441.0" font-size="26" font-weight="700" fill="#3C2920" text-anchor="start">6</text>
+<text x="54" y="429.0" font-size="11.6" font-weight="700" fill="#3C2920" text-anchor="start">Uitdagend</text>
+<text x="54" y="444.0" font-size="9" font-weight="400" fill="#5B4636" text-anchor="start" font-style="italic">stretch</text>
+<text x="142" y="418.0" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">Eén kenmerk dat jij niet vastlegde gaat omhoog:</text>
+<text x="142" y="429.8" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">binnen of buiten, inspanning, niveau, duur of een</text>
+<text x="142" y="441.6" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">nieuwe vorm.</text>
+<text x="416" y="418.0" font-size="9.6" font-weight="700" fill="#3C2920" text-anchor="start">Uitdaging</text>
+<text x="506" y="418.0" font-size="9.2" font-weight="400" fill="#5B4636" text-anchor="start" font-style="italic">Leeg in dit voorbeeld</text>
+<rect x="12" y="474" width="616" height="68" rx="3" fill="#8FA0B6" stroke="#3C2920" stroke-width="1"/>
+<text x="26" y="515.0" font-size="26" font-weight="700" fill="#3C2920" text-anchor="start">7</text>
+<text x="54" y="503.0" font-size="11.6" font-weight="700" fill="#3C2920" text-anchor="start">Onontdekt</text>
+<text x="54" y="518.0" font-size="9" font-weight="400" fill="#5B4636" text-anchor="start" font-style="italic">wildcard</text>
+<text x="142" y="492.0" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">Een toevalsprikkel uit een wereld die je niet</text>
+<text x="142" y="503.8" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">koos. Toeval bepaalt welke, de harde filters</text>
+<text x="142" y="515.6" font-size="9.4" font-weight="400" fill="#2B1D15" text-anchor="start">bepalen of het past.</text>
+<text x="416" y="492.0" font-size="9.6" font-weight="700" fill="#3C2920" text-anchor="start">Wildcard</text>
+<text x="416" y="503.8" font-size="9.6" font-weight="700" fill="#3C2920" text-anchor="start">(verzegeld)</text>
+<text x="506" y="492.0" font-size="9.2" font-weight="400" fill="#2B1D15" text-anchor="start">Een linoleumsnede maken</text>
+<text x="10" y="566.0" font-size="9.4" font-weight="400" fill="#6A655D" text-anchor="start">Elke pane is een idee. In het ankermodel (de standaard) staan vier eigen keuzes in het boek, dus de niveaus 4 en 6</text>
+<text x="10" y="578.0" font-size="9.4" font-weight="400" fill="#6A655D" text-anchor="start">blijven dan meestal leeg en niveau 1 telt tot drie ideeën.</text></svg>

@@ -1,0 +1,64 @@
+<svg style="font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 432" width="640" height="432" role="img" aria-label="Afstandsmodel: relevantie tegen nieuwheid voor de vijf richtingen van het boek" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8C857A"/></marker>
+<marker id="ah-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#8C857A"/></marker>
+</defs><rect x="74" y="34" width="150.64000000000001" height="256" rx="0" fill="#F6EBD0" stroke="none" stroke-width="1.2"/>
+<text x="149.32" y="282.0" font-size="10.5" font-weight="700" fill="#5B3F2F" text-anchor="middle">Wat je al kent</text>
+<rect x="224.64000000000001" y="34" width="161.39999999999995" height="256" rx="0" fill="#F1E4D6" stroke="none" stroke-width="1.2"/>
+<text x="305.34" y="282.0" font-size="10.5" font-weight="700" fill="#5B3F2F" text-anchor="middle">Wat je mogelijk leuk vindt</text>
+<rect x="386.03999999999996" y="34" width="225.96000000000004" height="256" rx="0" fill="#E6E9EE" stroke="none" stroke-width="1.2"/>
+<text x="499.02" y="282.0" font-size="10.5" font-weight="700" fill="#5B3F2F" text-anchor="middle">Wat je nog niet kent</text>
+<line x1="74" y1="290" x2="612" y2="290" stroke="#202020" stroke-width="1.2"/>
+<line x1="74" y1="34" x2="74" y2="290" stroke="#202020" stroke-width="1.2"/>
+<line x1="74" y1="290" x2="74" y2="294" stroke="#202020" stroke-width="1.2"/>
+<text x="74" y="306.0" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle">0</text>
+<line x1="70" y1="290" x2="74" y2="290" stroke="#202020" stroke-width="1.2"/>
+<text x="66" y="293.5" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="end">0</text>
+<line x1="208.5" y1="290" x2="208.5" y2="294" stroke="#202020" stroke-width="1.2"/>
+<text x="208.5" y="306.0" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle">25</text>
+<line x1="70" y1="226" x2="74" y2="226" stroke="#202020" stroke-width="1.2"/>
+<text x="66" y="229.5" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="end">25</text>
+<line x1="74" y1="226" x2="612" y2="226" stroke="#E3DDD1" stroke-width="0.8" stroke-dasharray="3 4"/>
+<line x1="343" y1="290" x2="343" y2="294" stroke="#202020" stroke-width="1.2"/>
+<text x="343" y="306.0" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle">50</text>
+<line x1="70" y1="162" x2="74" y2="162" stroke="#202020" stroke-width="1.2"/>
+<text x="66" y="165.5" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="end">50</text>
+<line x1="74" y1="162" x2="612" y2="162" stroke="#E3DDD1" stroke-width="0.8" stroke-dasharray="3 4"/>
+<line x1="477.5" y1="290" x2="477.5" y2="294" stroke="#202020" stroke-width="1.2"/>
+<text x="477.5" y="306.0" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle">75</text>
+<line x1="70" y1="98" x2="74" y2="98" stroke="#202020" stroke-width="1.2"/>
+<text x="66" y="101.5" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="end">75</text>
+<line x1="74" y1="98" x2="612" y2="98" stroke="#E3DDD1" stroke-width="0.8" stroke-dasharray="3 4"/>
+<line x1="612" y1="290" x2="612" y2="294" stroke="#202020" stroke-width="1.2"/>
+<text x="612" y="306.0" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle">100</text>
+<line x1="70" y1="34" x2="74" y2="34" stroke="#202020" stroke-width="1.2"/>
+<text x="66" y="37.5" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="end">100</text>
+<text x="343" y="322.0" font-size="10.5" font-weight="600" fill="#202020" text-anchor="middle">Nieuwheid: hoe ver van wat je al kent (0 tot 100)</text>
+<text transform="translate(18 162) rotate(-90)" font-size="10.5" font-weight="600" text-anchor="middle" fill="#202020">Aansluiting bij jouw keuzes (0 tot 100)</text>
+<path d="M154.7 54.47999999999999 L332.24 105.68 L493.64 146.64 L429.08000000000004 156.88 L558.2 197.84" fill="none" stroke="#5B3F2F" stroke-width="1.6" stroke-dasharray="5 4"/>
+<circle cx="147.2" cy="54.47999999999999" r="9" fill="#F3E1AE" stroke="#3C2920" stroke-width="1.3"/>
+<text x="147.2" y="58.1" font-size="10" font-weight="700" fill="#3C2920" text-anchor="middle">1</text>
+<circle cx="162.2" cy="54.47999999999999" r="9" fill="#EBCF93" stroke="#3C2920" stroke-width="1.3"/>
+<text x="162.2" y="58.1" font-size="10" font-weight="700" fill="#3C2920" text-anchor="middle">2</text>
+<text x="176.7" y="58.5" font-size="9.6" font-weight="600" fill="#202020" text-anchor="start">Vertrouwd en Praktisch (niveau 1 en 2)</text>
+<circle cx="324.74" cy="105.68" r="9" fill="#E0BC85" stroke="#3C2920" stroke-width="1.3"/>
+<text x="324.74" y="109.3" font-size="10" font-weight="700" fill="#3C2920" text-anchor="middle">3</text>
+<circle cx="339.74" cy="105.68" r="9" fill="#CDB190" stroke="#3C2920" stroke-width="1.3"/>
+<text x="339.74" y="109.3" font-size="10" font-weight="700" fill="#3C2920" text-anchor="middle">4</text>
+<text x="328.24" y="89.7" font-size="9.6" font-weight="600" fill="#202020" text-anchor="middle">Verwant en Inspirerend (niveau 3 en 4)</text>
+<circle cx="429.08000000000004" cy="156.88" r="9" fill="#A4AAB4" stroke="#3C2920" stroke-width="1.3"/>
+<text x="429.08000000000004" y="160.5" font-size="10" font-weight="700" fill="#3C2920" text-anchor="middle">6</text>
+<text x="415.08000000000004" y="184.9" font-size="9.6" font-weight="600" fill="#202020" text-anchor="end">Uitdagend</text>
+<text x="415.08000000000004" y="196.4" font-size="9.6" font-weight="600" fill="#202020" text-anchor="end">(niveau 6)</text>
+<circle cx="493.64" cy="146.64" r="9" fill="#B9AEA2" stroke="#3C2920" stroke-width="1.3"/>
+<text x="493.64" y="150.2" font-size="10" font-weight="700" fill="#3C2920" text-anchor="middle">5</text>
+<text x="509.64" y="142.6" font-size="9.6" font-weight="600" fill="#202020" text-anchor="start">Verrassend (niveau 5)</text>
+<circle cx="558.2" cy="197.84" r="9" fill="#8FA0B6" stroke="#3C2920" stroke-width="1.3"/>
+<text x="558.2" y="201.4" font-size="10" font-weight="700" fill="#3C2920" text-anchor="middle">7</text>
+<text x="544.2" y="223.8" font-size="9.6" font-weight="600" fill="#202020" text-anchor="end">Onontdekt: de wildcard</text>
+<text x="544.2" y="235.3" font-size="9.6" font-weight="600" fill="#202020" text-anchor="end">(niveau 7)</text>
+<rect x="74" y="326" width="538" height="57.048" rx="7" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="82" y="343.5" font-size="10.6" font-weight="700" fill="#27431F" text-anchor="start">Wat je echt kunt ondernemen</text>
+<text x="82" y="360.1" font-size="9.8" font-weight="400" fill="#27431F" text-anchor="start">Geen niveau maar een eis aan elk idee, ook aan de wildcard: minstens een echte, gecontroleerde</text>
+<text x="82" y="372.8" font-size="9.8" font-weight="400" fill="#27431F" text-anchor="start">optie (plek of aanbieder). Zonder optie komt een idee niet in het boek.</text>
+<text x="10" y="410.0" font-size="9.2" font-weight="400" fill="#6A655D" text-anchor="start">Bron: vaste ordeningsscores per richting in src/lib/discovery/engine/scores.ts. Het zijn indicaties voor de volgorde,</text>
+<text x="10" y="421.8" font-size="9.2" font-weight="400" fill="#6A655D" text-anchor="start">geen metingen.</text></svg>

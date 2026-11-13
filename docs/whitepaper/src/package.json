@@ -1,0 +1,11 @@
+{
+  "name": "windowinto-whitepaper-build",
+  "private": true,
+  "type": "module",
+  "description": "Build scripts for the WindowInto product whitepaper (HTML, PDF, DOCX, diagram appendix). Not part of the app.",
+  "dependencies": {
+    "docx": "9.5.1",
+    "mammoth": "^1.13.0",
+    "pdfjs-dist": "^4.10.38"
+  }
+}

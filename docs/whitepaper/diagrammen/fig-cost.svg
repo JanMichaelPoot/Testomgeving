@@ -1,0 +1,41 @@
+<svg style="font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 244" width="640" height="244" role="img" aria-label="AI-kosten per gegenereerd boek in vier meetboeken, verdeeld over zoeken, schrijven en lagen" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8C857A"/></marker>
+<marker id="ah-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#8C857A"/></marker>
+</defs><text x="6" y="16.0" font-size="10.6" font-weight="700" fill="#5B3F2F" text-anchor="start">Kosten van het zoeken en schrijven per boek, in dollars</text>
+<line x1="214" y1="30" x2="214" y2="186" stroke="#E6E0D4" stroke-width="0.8"/>
+<text x="214" y="200.0" font-size="9" font-weight="400" fill="#6A655D" text-anchor="middle">$0,00</text>
+<line x1="304" y1="30" x2="304" y2="186" stroke="#E6E0D4" stroke-width="0.8"/>
+<text x="304" y="200.0" font-size="9" font-weight="400" fill="#6A655D" text-anchor="middle">$0,10</text>
+<line x1="394" y1="30" x2="394" y2="186" stroke="#E6E0D4" stroke-width="0.8"/>
+<text x="394" y="200.0" font-size="9" font-weight="400" fill="#6A655D" text-anchor="middle">$0,20</text>
+<line x1="484" y1="30" x2="484" y2="186" stroke="#E6E0D4" stroke-width="0.8"/>
+<text x="484" y="200.0" font-size="9" font-weight="400" fill="#6A655D" text-anchor="middle">$0,30</text>
+<line x1="574" y1="30" x2="574" y2="186" stroke="#E6E0D4" stroke-width="0.8"/>
+<text x="574" y="200.0" font-size="9" font-weight="400" fill="#6A655D" text-anchor="middle">$0,40</text>
+<text x="8" y="53.0" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">P04 gezin, kinderen van 3 en 6</text>
+<rect x="214" y="38" width="103.5" height="22" rx="2" fill="#5E8A5B" stroke="none" stroke-width="1.2"/>
+<rect x="317.5" y="38" width="40.5" height="22" rx="2" fill="#7A4E7E" stroke="none" stroke-width="1.2"/>
+<rect x="358" y="38" width="51.300000000000004" height="22" rx="2" fill="#B692BA" stroke="none" stroke-width="1.2"/>
+<text x="415.3" y="53.0" font-size="9.6" font-weight="700" fill="#202020" text-anchor="start">$0,217</text>
+<text x="8" y="91.0" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">P10 rolstoelgebruiker</text>
+<rect x="214" y="76" width="72.9" height="22" rx="2" fill="#5E8A5B" stroke="none" stroke-width="1.2"/>
+<rect x="286.9" y="76" width="72" height="22" rx="2" fill="#7A4E7E" stroke="none" stroke-width="1.2"/>
+<rect x="358.9" y="76" width="46.8" height="22" rx="2" fill="#B692BA" stroke="none" stroke-width="1.2"/>
+<text x="411.7" y="91.0" font-size="9.6" font-weight="700" fill="#202020" text-anchor="start">$0,213</text>
+<text x="8" y="129.0" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">P12 internationale inwoner</text>
+<rect x="214" y="114" width="126.89999999999999" height="22" rx="2" fill="#5E8A5B" stroke="none" stroke-width="1.2"/>
+<rect x="340.9" y="114" width="39.599999999999994" height="22" rx="2" fill="#7A4E7E" stroke="none" stroke-width="1.2"/>
+<rect x="380.5" y="114" width="43.2" height="22" rx="2" fill="#B692BA" stroke="none" stroke-width="1.2"/>
+<text x="429.7" y="129.0" font-size="9.6" font-weight="700" fill="#202020" text-anchor="start">$0,233</text>
+<text x="8" y="167.0" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">P13 stel, gepensioneerd (deels uit</text>
+<text x="8" y="178.0" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">cache)</text>
+<rect x="214" y="152" width="254.7" height="22" rx="2" fill="#5E8A5B" stroke="none" stroke-width="1.2"/>
+<rect x="468.7" y="152" width="42.3" height="22" rx="2" fill="#7A4E7E" stroke="none" stroke-width="1.2"/>
+<rect x="511" y="152" width="53.099999999999994" height="22" rx="2" fill="#B692BA" stroke="none" stroke-width="1.2"/>
+<text x="570.1" y="167.0" font-size="9.6" font-weight="700" fill="#202020" text-anchor="start">$0,389</text>
+<rect x="8" y="218" width="13" height="13" rx="3" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="27" y="228.5" font-size="9.4" font-weight="400" fill="#6A655D" text-anchor="start">Zoeken naar plekken</text>
+<rect x="142.123" y="218" width="13" height="13" rx="3" fill="#EEE2F1" stroke="#7A4E7E" stroke-width="1.2"/>
+<text x="161.123" y="228.5" font-size="9.4" font-weight="400" fill="#6A655D" text-anchor="start">Schrijven van de ideeën</text>
+<rect x="344" y="218" width="13" height="13" rx="3" fill="#B692BA" stroke="#7A4E7E" stroke-width="1.2"/>
+<text x="363" y="228.0" font-size="9.4" font-weight="400" fill="#6A655D" text-anchor="start">Lagen (drie maten, sfeer, volgende stap)</text></svg>

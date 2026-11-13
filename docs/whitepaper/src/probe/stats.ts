@@ -1,0 +1,24 @@
+import { ALL_ACTIVITIES, TAGS } from "@/lib/discovery/library";
+import { ASSOCIATIONS } from "@/lib/discovery/associations";
+import hybrids from "@/lib/discovery/hybrids.json";
+import reg from "@/lib/discovery/register.json";
+const acts = ALL_ACTIVITIES;
+const by = (f:(a:any)=>any)=>{const m:Record<string,number>={};for(const a of acts){const k=String(f(a));m[k]=(m[k]??0)+1}return m};
+const out:any={};
+out.activities=acts.length;
+out.status=by(a=>a.status);
+out.domains=by(a=>a.domain);
+out.subs=new Set(acts.map((a:any)=>a.domain+"/"+a.sub)).size;
+out.cost=by(a=>a.cost); out.intensity=by(a=>a.intensity); out.level=by(a=>a.level); out.tier=by(a=>a.safety.tier);
+out.supply=by(a=>a.supply); out.setting=by(a=>a.setting); out.duration=by(a=>a.duration);
+out.withEntry=acts.filter((a:any)=>a.entry).length;
+out.withMonths=acts.filter((a:any)=>a.months).length;
+out.withFormats=acts.filter((a:any)=>a.formats).length;
+out.tags=TAGS.length; out.genericTags=TAGS.filter((t:any)=>t.generic).length;
+out.genericTagIds=TAGS.filter((t:any)=>t.generic).map((t:any)=>t.id);
+const rounds:Record<string,number>={}; const fams=new Set<string>();
+for(const c of ASSOCIATIONS as any[]){rounds[c.round]=(rounds[c.round]??0)+1; fams.add(c.family??c.id)}
+out.cards=ASSOCIATIONS.length; out.cardRounds=rounds; out.families=fams.size;
+out.hybrids=(hybrids as any).length ?? Object.keys(hybrids as any).length;
+console.log(JSON.stringify(out,null,1));
+console.log(Object.keys(reg as any).slice(0,5));

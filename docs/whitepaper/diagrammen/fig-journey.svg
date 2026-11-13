@@ -1,0 +1,287 @@
+<svg style="font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 536" width="960" height="536" role="img" aria-label="End-to-end customer journey van het eerste bezoek tot het ontvangen boek, in negen stappen" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8C857A"/></marker>
+<marker id="ah-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#8C857A"/></marker>
+</defs><rect x="94" y="8" width="92.44444444444444" height="34" rx="6" fill="#5B3F2F" stroke="none" stroke-width="1.2"/>
+<circle cx="108" cy="25" r="9" fill="#B08A4A"/>
+<text x="108" y="28.6" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">0</text>
+<text x="122" y="29.0" font-size="10.8" font-weight="700" fill="#fff" text-anchor="start">Landing</text>
+<rect x="190.44444444444446" y="8" width="92.44444444444444" height="34" rx="6" fill="#5B3F2F" stroke="none" stroke-width="1.2"/>
+<circle cx="204.44444444444446" cy="25" r="9" fill="#B08A4A"/>
+<text x="204.44444444444446" y="28.6" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+<text x="218.44444444444446" y="29.0" font-size="10.8" font-weight="700" fill="#fff" text-anchor="start">Start</text>
+<rect x="286.8888888888889" y="8" width="92.44444444444444" height="34" rx="6" fill="#5B3F2F" stroke="none" stroke-width="1.2"/>
+<circle cx="300.8888888888889" cy="25" r="9" fill="#B08A4A"/>
+<text x="300.8888888888889" y="28.6" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+<text x="314.8888888888889" y="29.0" font-size="10.8" font-weight="700" fill="#fff" text-anchor="start">Beelden</text>
+<rect x="383.3333333333333" y="8" width="92.44444444444444" height="34" rx="6" fill="#5B3F2F" stroke="none" stroke-width="1.2"/>
+<circle cx="397.3333333333333" cy="25" r="9" fill="#B08A4A"/>
+<text x="397.3333333333333" y="28.6" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+<text x="411.3333333333333" y="29.0" font-size="10.8" font-weight="700" fill="#fff" text-anchor="start">Activiteiten</text>
+<rect x="479.77777777777777" y="8" width="92.44444444444444" height="34" rx="6" fill="#5B3F2F" stroke="none" stroke-width="1.2"/>
+<circle cx="493.77777777777777" cy="25" r="9" fill="#B08A4A"/>
+<text x="493.77777777777777" y="28.6" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+<text x="507.77777777777777" y="29.0" font-size="10.8" font-weight="700" fill="#fff" text-anchor="start">Profiel</text>
+<rect x="576.2222222222222" y="8" width="92.44444444444444" height="34" rx="6" fill="#5B3F2F" stroke="none" stroke-width="1.2"/>
+<circle cx="590.2222222222222" cy="25" r="9" fill="#B08A4A"/>
+<text x="590.2222222222222" y="28.6" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+<text x="604.2222222222222" y="29.0" font-size="10.8" font-weight="700" fill="#fff" text-anchor="start">Betalen</text>
+<rect x="672.6666666666666" y="8" width="92.44444444444444" height="34" rx="6" fill="#5B3F2F" stroke="none" stroke-width="1.2"/>
+<circle cx="686.6666666666666" cy="25" r="9" fill="#B08A4A"/>
+<text x="686.6666666666666" y="28.6" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">6</text>
+<text x="700.6666666666666" y="29.0" font-size="10.8" font-weight="700" fill="#fff" text-anchor="start">Wachten</text>
+<rect x="769.1111111111111" y="8" width="92.44444444444444" height="34" rx="6" fill="#5B3F2F" stroke="none" stroke-width="1.2"/>
+<circle cx="783.1111111111111" cy="25" r="9" fill="#B08A4A"/>
+<text x="783.1111111111111" y="28.6" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">7</text>
+<text x="797.1111111111111" y="29.0" font-size="10.8" font-weight="700" fill="#fff" text-anchor="start">Boek</text>
+<rect x="865.5555555555555" y="8" width="92.44444444444444" height="34" rx="6" fill="#5B3F2F" stroke="none" stroke-width="1.2"/>
+<circle cx="879.5555555555555" cy="25" r="9" fill="#B08A4A"/>
+<text x="879.5555555555555" y="28.6" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">8</text>
+<text x="893.5555555555555" y="29.0" font-size="10.8" font-weight="700" fill="#fff" text-anchor="start">Daarna</text>
+<rect x="2" y="50" width="86" height="80" rx="6" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="45" y="90.0" font-size="10" font-weight="700" fill="#202020" text-anchor="middle">Scherm</text>
+<rect x="94" y="50" width="92.44444444444444" height="80" rx="6" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="100" y="64.6" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">Schuifraam met</text>
+<text x="100" y="76.5" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">acht ruiten,</text>
+<text x="100" y="88.3" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">een knop: Open</text>
+<text x="100" y="100.1" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">je venster</text>
+<rect x="190.44444444444446" y="50" width="92.44444444444444" height="80" rx="6" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="196.44444444444446" y="64.6" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">Voor wie, waar,</text>
+<text x="196.44444444444446" y="76.5" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">randvoorwaarden</text>
+<rect x="286.8888888888889" y="50" width="92.44444444444444" height="80" rx="6" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="292.8888888888889" y="64.6" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">18 foto's in 3</text>
+<text x="292.8888888888889" y="76.5" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">kolommen</text>
+<rect x="383.3333333333333" y="50" width="92.44444444444444" height="80" rx="6" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="389.3333333333333" y="64.6" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">18 concrete</text>
+<text x="389.3333333333333" y="76.5" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">activiteiten</text>
+<rect x="479.77777777777777" y="50" width="92.44444444444444" height="80" rx="6" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="485.77777777777777" y="64.6" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">Venster met</text>
+<text x="485.77777777777777" y="76.5" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">jouw keuzes en</text>
+<text x="485.77777777777777" y="88.3" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">een korte</text>
+<text x="485.77777777777777" y="100.1" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">duiding</text>
+<rect x="576.2222222222222" y="50" width="92.44444444444444" height="80" rx="6" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="582.2222222222222" y="64.6" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">Bestelblok</text>
+<text x="582.2222222222222" y="76.5" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">onder het</text>
+<text x="582.2222222222222" y="88.3" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">profiel</text>
+<rect x="672.6666666666666" y="50" width="92.44444444444444" height="80" rx="6" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="678.6666666666666" y="64.6" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">Voortgangsscherm</text>
+<rect x="769.1111111111111" y="50" width="92.44444444444444" height="80" rx="6" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="775.1111111111111" y="64.6" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">/plan: zeven</text>
+<text x="775.1111111111111" y="76.5" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">ideeën, vier</text>
+<text x="775.1111111111111" y="88.3" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">deuren,</text>
+<text x="775.1111111111111" y="100.1" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">verzegelde</text>
+<text x="775.1111111111111" y="112.0" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">wildcard</text>
+<rect x="865.5555555555555" y="50" width="92.44444444444444" height="80" rx="6" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="871.5555555555555" y="64.6" font-size="9.1" font-weight="400" fill="#202020" text-anchor="start">E-mail</text>
+<rect x="2" y="134" width="86" height="120" rx="6" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="45" y="188.0" font-size="10" font-weight="700" fill="#4A3611" text-anchor="middle">Bezoeker</text>
+<text x="45" y="200.5" font-size="10" font-weight="700" fill="#4A3611" text-anchor="middle">doet</text>
+<rect x="94" y="134" width="92.44444444444444" height="120" rx="6" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="100" y="148.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Kijkt rond,</text>
+<text x="100" y="160.5" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">kiest NL of EN,</text>
+<text x="100" y="172.3" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">klikt op de</text>
+<text x="100" y="184.1" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">knop.</text>
+<rect x="190.44444444444446" y="134" width="92.44444444444444" height="120" rx="6" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="196.44444444444446" y="148.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Kiest voor wie</text>
+<text x="196.44444444444446" y="160.5" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">(zelf, kind,</text>
+<text x="196.44444444444446" y="172.3" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">volwassene,</text>
+<text x="196.44444444444446" y="184.1" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">groep). Plaats</text>
+<text x="196.44444444444446" y="196.0" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">en afstand.</text>
+<text x="196.44444444444446" y="207.8" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Optioneel tijd,</text>
+<text x="196.44444444444446" y="219.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">budget, 'wat</text>
+<text x="196.44444444444446" y="231.4" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">moet kloppen'</text>
+<text x="196.44444444444446" y="243.3" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">(chips).</text>
+<rect x="286.8888888888889" y="134" width="92.44444444444444" height="120" rx="6" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="292.8888888888889" y="148.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Tikt minstens 3</text>
+<text x="292.8888888888889" y="160.5" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">en hoogstens 8</text>
+<text x="292.8888888888889" y="172.3" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">beelden.</text>
+<text x="292.8888888888889" y="184.1" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">'Andere</text>
+<text x="292.8888888888889" y="196.0" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">beelden' geeft</text>
+<text x="292.8888888888889" y="207.8" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">een nieuwe set</text>
+<text x="292.8888888888889" y="219.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">(max 3 keer).</text>
+<rect x="383.3333333333333" y="134" width="92.44444444444444" height="120" rx="6" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="389.3333333333333" y="148.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Kiest 1 tot 8</text>
+<text x="389.3333333333333" y="160.5" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">(3 of meer</text>
+<text x="389.3333333333333" y="172.3" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">werkt het</text>
+<text x="389.3333333333333" y="184.1" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">best), of kiest</text>
+<text x="389.3333333333333" y="196.0" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">'verras me'.</text>
+<text x="389.3333333333333" y="207.8" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Drie plekken</text>
+<text x="389.3333333333333" y="219.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">zijn 'Misschien</text>
+<text x="389.3333333333333" y="231.4" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">ook?'.</text>
+<rect x="479.77777777777777" y="134" width="92.44444444444444" height="120" rx="6" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="485.77777777777777" y="148.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Leest de</text>
+<text x="485.77777777777777" y="160.5" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">duiding.</text>
+<text x="485.77777777777777" y="172.3" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Schuift vier</text>
+<text x="485.77777777777777" y="184.1" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">assen bij of</text>
+<text x="485.77777777777777" y="196.0" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">voegt thema's</text>
+<text x="485.77777777777777" y="207.8" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">toe.</text>
+<rect x="576.2222222222222" y="134" width="92.44444444444444" height="120" rx="6" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="582.2222222222222" y="148.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Vult e-mail in,</text>
+<text x="582.2222222222222" y="160.5" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">vinkt</text>
+<text x="582.2222222222222" y="172.3" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">voorwaarden en</text>
+<text x="582.2222222222222" y="184.1" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">directe</text>
+<text x="582.2222222222222" y="196.0" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">levering aan,</text>
+<text x="582.2222222222222" y="207.8" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">betaalt via</text>
+<text x="582.2222222222222" y="219.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Stripe.</text>
+<rect x="672.6666666666666" y="134" width="92.44444444444444" height="120" rx="6" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="678.6666666666666" y="148.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Wacht ± 1 tot 2</text>
+<text x="678.6666666666666" y="160.5" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">minuten.</text>
+<rect x="769.1111111111111" y="134" width="92.44444444444444" height="120" rx="6" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="775.1111111111111" y="148.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Leest, opent de</text>
+<text x="775.1111111111111" y="160.5" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">wildcard, geeft</text>
+<text x="775.1111111111111" y="172.3" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">hartje of duim,</text>
+<text x="775.1111111111111" y="184.1" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">kiest 'Dit ga</text>
+<text x="775.1111111111111" y="196.0" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">ik doen',</text>
+<text x="775.1111111111111" y="207.8" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">deelt,</text>
+<text x="775.1111111111111" y="219.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">downloadt.</text>
+<rect x="865.5555555555555" y="134" width="92.44444444444444" height="120" rx="6" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="871.5555555555555" y="148.6" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Krijgt het boek</text>
+<text x="871.5555555555555" y="160.5" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">per mail.</text>
+<text x="871.5555555555555" y="172.3" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">Optioneel:</text>
+<text x="871.5555555555555" y="184.1" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">herinnering en</text>
+<text x="871.5555555555555" y="196.0" font-size="9.1" font-weight="400" fill="#4A3611" text-anchor="start">vervolgmail.</text>
+<rect x="2" y="258" width="86" height="82" rx="6" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="45" y="293.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="middle">Verzameld en</text>
+<text x="45" y="305.5" font-size="10" font-weight="700" fill="#1F3447" text-anchor="middle">doorgegeven</text>
+<rect x="94" y="258" width="92.44444444444444" height="82" rx="6" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="100" y="272.6" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">Taalkeuze</text>
+<text x="100" y="284.5" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">(cookie).</text>
+<text x="100" y="296.3" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">Analytics pas</text>
+<text x="100" y="308.1" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">na toestemming.</text>
+<rect x="190.44444444444446" y="258" width="92.44444444444444" height="82" rx="6" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="196.44444444444446" y="272.6" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">Zoekcontext,</text>
+<text x="196.44444444444446" y="284.5" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">plaats en land,</text>
+<text x="196.44444444444446" y="296.3" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">km (5 tot 150),</text>
+<text x="196.44444444444446" y="308.1" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">tijd, budget,</text>
+<text x="196.44444444444446" y="320.0" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">chips.</text>
+<rect x="286.8888888888889" y="258" width="92.44444444444444" height="82" rx="6" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="292.8888888888889" y="272.6" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">Kaart-id's, max</text>
+<text x="292.8888888888889" y="284.5" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">5 per ronde</text>
+<text x="292.8888888888889" y="296.3" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">(plek, moment,</text>
+<text x="292.8888888888889" y="308.1" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">zintuig).</text>
+<rect x="383.3333333333333" y="258" width="92.44444444444444" height="82" rx="6" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="389.3333333333333" y="272.6" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">Activiteit-id's:</text>
+<text x="389.3333333333333" y="284.5" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">jouw eigen</text>
+<text x="389.3333333333333" y="296.3" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">keuzes (max 8).</text>
+<rect x="479.77777777777777" y="258" width="92.44444444444444" height="82" rx="6" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="485.77777777777777" y="272.6" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">Schuifwaarden,</text>
+<text x="485.77777777777777" y="284.5" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">correcties (max</text>
+<text x="485.77777777777777" y="296.3" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">3).</text>
+<rect x="576.2222222222222" y="258" width="92.44444444444444" height="82" rx="6" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="582.2222222222222" y="272.6" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">Antwoorden</text>
+<text x="582.2222222222222" y="284.5" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">(raw_json),</text>
+<text x="582.2222222222222" y="296.3" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">toestemmingen,</text>
+<text x="582.2222222222222" y="308.1" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">order.</text>
+<rect x="672.6666666666666" y="258" width="92.44444444444444" height="82" rx="6" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="678.6666666666666" y="272.6" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">Niets nieuws.</text>
+<rect x="769.1111111111111" y="258" width="92.44444444444444" height="82" rx="6" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="775.1111111111111" y="272.6" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">Feedback,</text>
+<text x="775.1111111111111" y="284.5" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">gekozen idee.</text>
+<text x="775.1111111111111" y="296.3" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">In de test:</text>
+<text x="775.1111111111111" y="308.1" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">vragenlijst.</text>
+<rect x="865.5555555555555" y="258" width="92.44444444444444" height="82" rx="6" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="871.5555555555555" y="272.6" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">Opt-in voor de</text>
+<text x="871.5555555555555" y="284.5" font-size="9.1" font-weight="400" fill="#1F3447" text-anchor="start">vervolgmail.</text>
+<rect x="2" y="344" width="86" height="100" rx="6" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="45" y="388.0" font-size="10" font-weight="700" fill="#33221A" text-anchor="middle">Op de</text>
+<text x="45" y="400.5" font-size="10" font-weight="700" fill="#33221A" text-anchor="middle">achtergrond</text>
+<rect x="94" y="344" width="92.44444444444444" height="100" rx="6" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="100" y="358.6" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Foto's komen</text>
+<text x="100" y="370.5" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">uit eigen</text>
+<text x="100" y="382.3" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">bestanden.</text>
+<text x="100" y="394.1" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">PostHog:</text>
+<text x="100" y="406.0" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">landing_viewed.</text>
+<rect x="190.44444444444446" y="344" width="92.44444444444444" height="100" rx="6" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="196.44444444444446" y="358.6" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Server-proxy</text>
+<text x="196.44444444444446" y="370.5" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">naar PDOK (NL)</text>
+<text x="196.44444444444446" y="382.3" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">of Photon geeft</text>
+<text x="196.44444444444446" y="394.1" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">plaatsnamen.</text>
+<rect x="286.8888888888889" y="344" width="92.44444444444444" height="100" rx="6" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="292.8888888888889" y="358.6" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Browser stelt</text>
+<text x="292.8888888888889" y="370.5" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">de set samen:</text>
+<text x="292.8888888888889" y="382.3" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">seeded, vier</text>
+<text x="292.8888888888889" y="394.1" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">registers en</text>
+<text x="292.8888888888889" y="406.0" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">vier assen in</text>
+<text x="292.8888888888889" y="417.8" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">balans.</text>
+<rect x="383.3333333333333" y="344" width="92.44444444444444" height="100" rx="6" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="389.3333333333333" y="358.6" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Pagina 2 volgt</text>
+<text x="389.3333333333333" y="370.5" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">de beelden:</text>
+<text x="389.3333333333333" y="382.3" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">tag-nabijheid,</text>
+<text x="389.3333333333333" y="394.1" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">vloer per</text>
+<text x="389.3333333333333" y="406.0" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">register, 3</text>
+<text x="389.3333333333333" y="417.8" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">verkenplekken.</text>
+<rect x="479.77777777777777" y="344" width="92.44444444444444" height="100" rx="6" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="485.77777777777777" y="358.6" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Vaste tekst uit</text>
+<text x="485.77777777777777" y="370.5" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">de keuzes;</text>
+<text x="485.77777777777777" y="382.3" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">optioneel een</text>
+<text x="485.77777777777777" y="394.1" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">korte</text>
+<text x="485.77777777777777" y="406.0" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">AI-duiding,</text>
+<text x="485.77777777777777" y="417.8" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">gecontroleerd.</text>
+<rect x="576.2222222222222" y="344" width="92.44444444444444" height="100" rx="6" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="582.2222222222222" y="358.6" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Server vertaalt</text>
+<text x="582.2222222222222" y="370.5" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">alles eenmalig.</text>
+<text x="582.2222222222222" y="382.3" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Het zoeken naar</text>
+<text x="582.2222222222222" y="394.1" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">plekken start</text>
+<text x="582.2222222222222" y="406.0" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">al tijdens het</text>
+<text x="582.2222222222222" y="417.8" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">betalen.</text>
+<rect x="672.6666666666666" y="344" width="92.44444444444444" height="100" rx="6" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="678.6666666666666" y="358.6" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Motor, zoeken,</text>
+<text x="678.6666666666666" y="370.5" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">schrijven,</text>
+<text x="678.6666666666666" y="382.3" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">kwaliteitspoort,</text>
+<text x="678.6666666666666" y="394.1" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">PDF, opslag,</text>
+<text x="678.6666666666666" y="406.0" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">e-mail.</text>
+<rect x="769.1111111111111" y="344" width="92.44444444444444" height="100" rx="6" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="775.1111111111111" y="358.6" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Tijdelijke link</text>
+<text x="775.1111111111111" y="370.5" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">naar de PDF.</text>
+<text x="775.1111111111111" y="382.3" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Meetpunten</text>
+<text x="775.1111111111111" y="394.1" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">zonder tekst.</text>
+<rect x="865.5555555555555" y="344" width="92.44444444444444" height="100" rx="6" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="871.5555555555555" y="358.6" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">Resend. Twee</text>
+<text x="871.5555555555555" y="370.5" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">dagelijkse</text>
+<text x="871.5555555555555" y="382.3" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">taken (09:00 en</text>
+<text x="871.5555555555555" y="394.1" font-size="9.1" font-weight="400" fill="#33221A" text-anchor="start">09:30 UTC).</text>
+<rect x="2" y="448" width="86" height="58" rx="6" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="45" y="471.0" font-size="10" font-weight="700" fill="#27431F" text-anchor="middle">Invloed van</text>
+<text x="45" y="483.5" font-size="10" font-weight="700" fill="#27431F" text-anchor="middle">de bezoeker</text>
+<rect x="94" y="448" width="92.44444444444444" height="58" rx="6" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="100" y="462.6" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">Taal van site</text>
+<text x="100" y="474.5" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">en boek.</text>
+<rect x="190.44444444444446" y="448" width="92.44444444444444" height="58" rx="6" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="196.44444444444446" y="462.6" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">Harde grenzen,</text>
+<text x="196.44444444444446" y="474.5" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">zoekgebied,</text>
+<text x="196.44444444444446" y="486.3" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">toon.</text>
+<rect x="286.8888888888889" y="448" width="92.44444444444444" height="58" rx="6" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="292.8888888888889" y="462.6" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">Smaakprofiel en</text>
+<text x="292.8888888888889" y="474.5" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">tempo.</text>
+<rect x="383.3333333333333" y="448" width="92.44444444444444" height="58" rx="6" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="389.3333333333333" y="462.6" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">Dit zijn de</text>
+<text x="389.3333333333333" y="474.5" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">ankers: tot 4</text>
+<text x="389.3333333333333" y="486.3" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">komen zeker in</text>
+<text x="389.3333333333333" y="498.1" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">het boek.</text>
+<rect x="479.77777777777777" y="448" width="92.44444444444444" height="58" rx="6" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="485.77777777777777" y="462.6" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">Schuiven</text>
+<text x="485.77777777777777" y="474.5" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">vervangen wat</text>
+<text x="485.77777777777777" y="486.3" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">de beelden</text>
+<text x="485.77777777777777" y="498.1" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">zeiden.</text>
+<rect x="576.2222222222222" y="448" width="92.44444444444444" height="58" rx="6" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="582.2222222222222" y="462.6" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">Wijzigen kan</text>
+<text x="582.2222222222222" y="474.5" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">tot de</text>
+<text x="582.2222222222222" y="486.3" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">betaling.</text>
+<rect x="672.6666666666666" y="448" width="92.44444444444444" height="58" rx="6" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="678.6666666666666" y="462.6" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">Geen.</text>
+<rect x="769.1111111111111" y="448" width="92.44444444444444" height="58" rx="6" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="775.1111111111111" y="462.6" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">Gekozen idee</text>
+<text x="775.1111111111111" y="474.5" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">stuurt de</text>
+<text x="775.1111111111111" y="486.3" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">herinnering.</text>
+<rect x="865.5555555555555" y="448" width="92.44444444444444" height="58" rx="6" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="871.5555555555555" y="462.6" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">Vervolgboek</text>
+<text x="871.5555555555555" y="474.5" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">herhaalt</text>
+<text x="871.5555555555555" y="486.3" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">eerdere ideeën</text>
+<text x="871.5555555555555" y="498.1" font-size="9.1" font-weight="400" fill="#27431F" text-anchor="start">niet.</text>
+<rect x="8" y="514" width="13" height="13" rx="3" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="27" y="524.5" font-size="10" font-weight="400" fill="#6A655D" text-anchor="start">Wat de bezoeker doet</text>
+<rect x="154" y="514" width="13" height="13" rx="3" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="173" y="524.5" font-size="10" font-weight="400" fill="#6A655D" text-anchor="start">Data die doorgaat</text>
+<rect x="283.35" y="514" width="13" height="13" rx="3" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="302.35" y="524.5" font-size="10" font-weight="400" fill="#6A655D" text-anchor="start">Eigen code en AI</text>
+<rect x="407.15000000000003" y="514" width="13" height="13" rx="3" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="426.15000000000003" y="524.5" font-size="10" font-weight="400" fill="#6A655D" text-anchor="start">Invloed op het resultaat</text></svg>

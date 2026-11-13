@@ -1,0 +1,137 @@
+picks ids resolved: [ 'stenen-stapelen', 'vissen', 'buitenplaats', 'sushi-rollen' ]
+[
+ {
+  "id": "kruidenlikeur",
+  "label": "Kruidenlikeur of bitter maken",
+  "sharers": 3,
+  "strong": 1,
+  "sub": 0.25,
+  "dom": 0,
+  "base": 2.15,
+  "rarity": 0.22,
+  "rareTerm": 0.045,
+  "hubness": 0.1,
+  "age": 0.06,
+  "sup": 0.04,
+  "redundancy": 0.14,
+  "score": 1.95,
+  "sharedTags": [
+   "Eten",
+   "Vakmanschap"
+  ]
+ },
+ {
+  "id": "begraafplaats",
+  "label": "Wandeling over een oude begraafplaats",
+  "sharers": 3,
+  "strong": 1,
+  "sub": 0,
+  "dom": 0,
+  "base": 1.9,
+  "rarity": 0.22,
+  "rareTerm": 0.043,
+  "hubness": 0.22,
+  "age": 0.13,
+  "sup": 0,
+  "redundancy": 0.1,
+  "score": 1.71,
+  "sharedTags": [
+   "Geschiedenis",
+   "Verhaal"
+  ]
+ },
+ {
+  "id": "stoel-bekleden",
+  "label": "Een stoel opnieuw bekleden",
+  "sharers": 2,
+  "strong": 1,
+  "sub": 0.25,
+  "dom": 0.15,
+  "base": 1.8,
+  "rarity": 0.2,
+  "rareTerm": 0.039,
+  "hubness": 0,
+  "age": 0,
+  "sup": 0.04,
+  "redundancy": 0.15,
+  "score": 1.65,
+  "sharedTags": [
+   "Vakmanschap",
+   "Techniek"
+  ]
+ },
+ {
+  "id": "sieraad-ontwerpen",
+  "label": "Een eigen sieraad ontwerpen",
+  "sharers": 2,
+  "strong": 1,
+  "sub": 0.25,
+  "dom": 0.15,
+  "base": 1.8,
+  "rarity": 0.07,
+  "rareTerm": 0.014,
+  "hubness": 0.16,
+  "age": 0.09,
+  "sup": 0.04,
+  "redundancy": 0.1,
+  "score": 1.58,
+  "sharedTags": [
+   "Vakmanschap",
+   "Techniek"
+  ]
+ },
+ {
+  "id": "strandjutten",
+  "label": "Strandjutten",
+  "sharers": 2,
+  "strong": 1,
+  "sub": 0.25,
+  "dom": 0,
+  "base": 1.65,
+  "rarity": 0.44,
+  "rareTerm": 0.088,
+  "hubness": 0.27,
+  "age": 0.16,
+  "sup": 0,
+  "redundancy": 0,
+  "score": 1.57,
+  "sharedTags": [
+   "Water",
+   "Natuur"
+  ]
+ },
+ {
+  "id": "industrieel-erfgoed",
+  "label": "Industrieel erfgoed (fabrieken, molens, gemalen)",
+  "sharers": 2,
+  "strong": 1,
+  "sub": 0,
+  "dom": 0,
+  "base": 1.4,
+  "rarity": 0.14,
+  "rareTerm": 0.029,
+  "hubness": 0,
+  "age": 0,
+  "sup": 0,
+  "redundancy": 0,
+  "score": 1.43,
+  "sharedTags": [
+   "Vakmanschap",
+   "Techniek"
+  ]
+ }
+]
+pair {
+  bridge: 4.54,
+  sim: 0.64,
+  shared: [ 'history', 'story' ],
+  rarity: 0.22,
+  hubness: 0.22
+}
+history 57 2.58
+story 107 1.96
+retro 40 2.94
+stillness 86 2.17
+nature 98 2.04
+craft 126 1.79
+BRIDGE_MIN 2 N 756

@@ -1,0 +1,30 @@
+import { defaultEngineLibrary } from "@/lib/discovery/engine";
+import { buildGraph, BRIDGE_MIN } from "@/lib/discovery/engine/graph";
+import { WEIGHTS_ANCHOR as W } from "@/lib/discovery/engine/weights";
+import { passesConstraints, resolveConstraints } from "@/lib/discovery/engine/constraints";
+import { supplyPenalty } from "@/lib/discovery/engine/select";
+import { TAGS, getActivity } from "@/lib/discovery/library";
+const lib = defaultEngineLibrary();
+const g = buildGraph(lib.activities, lib.tags);
+const picks = ["stenen-stapelen","vissen","buitenplaats","stedentrip-thema","sushi-rollen"].map((i)=>getActivity(i)).filter(Boolean) as any[];
+console.log("picks ids resolved:", picks.map(p=>p.id));
+const used = new Set(["buitenplaats","vissen","sushi-rollen","stenen-stapelen"]);
+const c = resolveConstraints({ interests: [], interestDomains: [], socialFormats: [], practicalToWild: "either", budget: "25", effort: "minimal", timeAvailable: "halfday", ageCategory: "", searchContext: "self", mustHaves: "", seed: "x", month: 11 }, { strictFreeCost: true });
+const pickDomains = new Set(picks.map(p=>p.domain)); const pickSubs = new Set(picks.map(p=>p.sub));
+const rows = lib.activities.filter(a=>!used.has(a.id) && !picks.some(p=>p.id===a.id) && passesConstraints(a,c).ok).map(a=>{
+  const sharers = picks.filter(p=>g.shared(a,p).length>=1).length; const strong = picks.filter(p=>g.shared(a,p).length>=2).length;
+  if (sharers<2||strong<1) return null;
+  const base = sharers*0.5+strong*0.4+(pickSubs.has(a.sub)?0:0.25)+(pickDomains.has(a.domain)?0:0.15);
+  const rare = g.rarity(a)*(W.rareJitter.base+W.rareJitter.spread*0.5);
+  const age = W.hub*g.hubness(a); // the live route sends no age, so only the hub damping remains
+  const sup = supplyPenalty(a, W.supply);
+  const hb=getActivity("high-tea")!; const redundancy = g.bridge(a,hb)*W.redundancyPerBridge + (g.shared(a,hb).length>=2?W.sharedPairPenalty:0);
+  const score = base + W.rare.adjacent*rare - age - sup - redundancy;
+  return { id:a.id, label:a.label.nl, sharers, strong, sub:pickSubs.has(a.sub)?0:0.25, dom:pickDomains.has(a.domain)?0:0.15, base:+base.toFixed(2), rarity:+g.rarity(a).toFixed(2), rareTerm:+(W.rare.adjacent*rare).toFixed(3), hubness:+g.hubness(a).toFixed(2), age:+age.toFixed(2), sup, redundancy:+redundancy.toFixed(2), score:+score.toFixed(2), sharedTags: g.shared(a, picks.find(p=>g.shared(a,p).length>=2)!).map(t=>TAGS.find(x=>x.id===t)?.label.nl) };
+}).filter(Boolean).sort((x:any,y:any)=>y.score-x.score).slice(0,6);
+console.log(JSON.stringify(rows,null,1));
+const a = getActivity("begraafplaats")!, b = getActivity("buitenplaats")!;
+console.log("pair", { bridge:+g.bridge(a,b).toFixed(2), sim:+g.sim(a,b).toFixed(2), shared:g.shared(a,b), rarity:+g.rarity(a).toFixed(2), hubness:+g.hubness(a).toFixed(2) });
+const N = lib.activities.length; const uses = new Map<string,number>(); for (const x of lib.activities) for (const t of x.tags) uses.set(t,(uses.get(t)??0)+1);
+for (const t of ["history","story","retro","stillness","nature","craft"]) console.log(t, uses.get(t), +Math.log(N/(uses.get(t)??1)).toFixed(2));
+console.log("BRIDGE_MIN", BRIDGE_MIN, "N", N);

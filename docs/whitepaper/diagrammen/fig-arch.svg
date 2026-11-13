@@ -1,0 +1,124 @@
+<svg style="font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 662.9" width="640" height="662.9" role="img" aria-label="Technische architectuur: browser, Next.js op Vercel, Supabase en de externe diensten" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8C857A"/></marker>
+<marker id="ah-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#8C857A"/></marker>
+</defs><rect x="6" y="6" width="416" height="155.7" rx="9" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="18" y="25.0" font-size="11" font-weight="700" fill="#4A3611" text-anchor="start">Browser (de bezoeker)</text>
+<rect x="16" y="34" width="193" height="60.50000000000001" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="22" y="48.8" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Wizard en pagina's</text>
+<text x="22" y="64.4" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">React-componenten: startpagina,</text>
+<text x="22" y="75.7" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">beelden, activiteiten, profiel,</text>
+<text x="22" y="87.0" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">wachtscherm, boek.</text>
+<rect x="219" y="34" width="193" height="60.50000000000001" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="225" y="48.8" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Eigen rekenwerk</text>
+<text x="225" y="64.4" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">Kiezen van de beelden en activiteiten</text>
+<text x="225" y="75.7" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">gebeurt hier, met dezelfde code als</text>
+<text x="225" y="87.0" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">op de server.</text>
+<rect x="16" y="102.5" width="193" height="49.2" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="22" y="117.3" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Concept</text>
+<text x="22" y="132.9" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">sessionStorage bewaart je antwoorden</text>
+<text x="22" y="144.2" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">tot het opslaan.</text>
+<rect x="219" y="102.5" width="193" height="49.2" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="225" y="117.3" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Meten</text>
+<text x="225" y="132.9" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">PostHog, pas na toestemming, zonder</text>
+<text x="225" y="144.2" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">vrije tekst.</text>
+<rect x="6" y="191.7" width="416" height="224.2" rx="9" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="18" y="210.7" font-size="11" font-weight="700" fill="#33221A" text-anchor="start">Next.js op Vercel (App Router, TypeScript)</text>
+<rect x="16" y="219.7" width="193" height="49.2" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="22" y="234.5" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Server Components en Actions</text>
+<text x="22" y="250.1" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">Opslaan van antwoorden, afrekenen,</text>
+<text x="22" y="261.4" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">boek ophalen, feedback.</text>
+<rect x="219" y="219.7" width="193" height="49.2" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="225" y="234.5" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Route handlers</text>
+<text x="225" y="250.1" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">Plaatssuggestie, Stripe-webhook,</text>
+<text x="225" y="261.4" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">vensterafbeelding, admin-export.</text>
+<rect x="16" y="276.9" width="193" height="71.80000000000001" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="22" y="291.7" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Selectiemotor en bibliotheek</text>
+<text x="22" y="307.3" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">756 activiteiten en 516 beeldkaarten</text>
+<text x="22" y="318.6" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">als JSON in de code. Geen database</text>
+<text x="22" y="329.9" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">voor de bibliotheek.</text>
+<rect x="219" y="276.9" width="193" height="71.80000000000001" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="225" y="291.7" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Boekpijplijn</text>
+<text x="225" y="307.3" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">Zoeken, schrijven, kwaliteitspoort,</text>
+<text x="225" y="318.6" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">PDF (pdf-lib), e-mail. Draait na de</text>
+<text x="225" y="329.9" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">respons in after() met maximaal 300</text>
+<text x="225" y="341.2" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">s.</text>
+<rect x="16" y="356.7" width="193" height="49.2" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="22" y="371.5" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Twee dagelijkse taken</text>
+<text x="22" y="387.1" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">Herinnering (09:00 UTC) en</text>
+<text x="22" y="398.4" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">vervolgmail (09:30 UTC).</text>
+<rect x="219" y="356.7" width="193" height="49.2" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="225" y="371.5" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Proxy en beheer</text>
+<text x="225" y="387.1" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">Beheer achter één wachtwoord;</text>
+<text x="225" y="398.4" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">taalkeuze en cookies.</text>
+<rect x="6" y="445.9" width="416" height="167" rx="9" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="18" y="464.9" font-size="11" font-weight="700" fill="#1F3447" text-anchor="start">Supabase (Postgres en opslag)</text>
+<rect x="16" y="473.9" width="193" height="60.50000000000001" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="22" y="488.7" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Per sessie</text>
+<text x="22" y="504.3" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">sessions, intake_answers (raw_json),</text>
+<text x="22" y="515.6" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">window_plans, payments,</text>
+<text x="22" y="526.9" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">toestemmingen, idee-feedback.</text>
+<rect x="219" y="473.9" width="193" height="60.50000000000001" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="225" y="488.7" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Gedeeld en anoniem</text>
+<text x="225" y="504.3" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">local_research_cache (plaats +</text>
+<text x="225" y="515.6" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">activiteit, geen persoon), test_quota</text>
+<text x="225" y="526.9" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">(afgeleide hash), test_feedback.</text>
+<rect x="16" y="542.4" width="193" height="60.50000000000001" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="22" y="557.2" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Optioneel geheugen</text>
+<text x="22" y="572.8" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">discovery_history: alleen een SHA-256</text>
+<text x="22" y="584.1" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">van een apparaatcode en</text>
+<text x="22" y="595.4" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">activiteit-id's.</text>
+<rect x="219" y="542.4" width="193" height="60.50000000000001" rx="6" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="1.2"/>
+<text x="225" y="557.2" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Bestanden</text>
+<text x="225" y="572.8" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">Privé-bucket window-plans: de PDF,</text>
+<text x="225" y="584.1" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">alleen via een tijdelijke link.</text>
+<text x="446" y="12.0" font-size="11" font-weight="700" fill="#5B3F2F" text-anchor="start">Externe diensten</text>
+<rect x="446" y="30" width="188" height="60.47399999999999" rx="7" fill="#EEE2F1" stroke="#7A4E7E" stroke-width="1.2"/>
+<text x="452" y="44.8" font-size="9.8" font-weight="700" fill="#3E2144" text-anchor="start">Anthropic Claude</text>
+<text x="452" y="60.4" font-size="8.7" font-weight="400" fill="#3E2144" text-anchor="start">Sonnet 5: schrijven en duiding.</text>
+<text x="452" y="71.7" font-size="8.7" font-weight="400" fill="#3E2144" text-anchor="start">Haiku 4.5: zoeken met web_search en</text>
+<text x="452" y="83.0" font-size="8.7" font-weight="400" fill="#3E2144" text-anchor="start">een grammaticacontrole.</text>
+<rect x="446" y="98.47399999999999" width="188" height="60.47399999999999" rx="7" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="452" y="113.3" font-size="9.8" font-weight="700" fill="#27431F" text-anchor="start">Stripe</text>
+<text x="452" y="128.8" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">Checkout in test- en livemodus; geen</text>
+<text x="452" y="140.1" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">kaartgegevens bij ons. Webhook voor</text>
+<text x="452" y="151.5" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">status.</text>
+<rect x="446" y="166.94799999999998" width="188" height="49.164" rx="7" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="452" y="181.8" font-size="9.8" font-weight="700" fill="#27431F" text-anchor="start">Resend</text>
+<text x="452" y="197.3" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">E-mail met de PDF, herinnering en</text>
+<text x="452" y="208.6" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">vervolgmail.</text>
+<rect x="446" y="224.11199999999997" width="188" height="49.164" rx="7" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="452" y="238.9" font-size="9.8" font-weight="700" fill="#27431F" text-anchor="start">PDOK en Photon</text>
+<text x="452" y="254.5" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">Plaatsnamen: PDOK (NL), Photon op</text>
+<text x="452" y="265.8" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">OpenStreetMap-data (buitenland).</text>
+<rect x="446" y="281.27599999999995" width="188" height="49.164" rx="7" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="452" y="296.1" font-size="9.8" font-weight="700" fill="#27431F" text-anchor="start">Websites van aanbieders</text>
+<text x="452" y="311.6" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">Gelezen voor de controle: bestaat de</text>
+<text x="452" y="322.9" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">plek, is hij open?</text>
+<rect x="446" y="338.43999999999994" width="188" height="60.47399999999999" rx="7" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="452" y="353.3" font-size="9.8" font-weight="700" fill="#27431F" text-anchor="start">PostHog en Vercel</text>
+<text x="452" y="368.8" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">Meetpunten; Vercel geeft land en</text>
+<text x="452" y="380.1" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">plaats uit de verbinding en voert de</text>
+<text x="452" y="391.4" font-size="8.7" font-weight="400" fill="#27431F" text-anchor="start">taken uit.</text>
+<rect x="446" y="406.91399999999993" width="188" height="60.47399999999999" rx="7" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="452" y="421.7" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Alleen offline</text>
+<text x="452" y="437.3" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">Gemini maakt beeldmateriaal met</text>
+<text x="452" y="448.6" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">scripts. Niets daarvan draait bij</text>
+<text x="452" y="459.9" font-size="8.7" font-weight="400" fill="#202020" text-anchor="start">een bezoek.</text>
+<path d="M174 163.7 L174 189.7" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" marker-start="url(#ah-s)" stroke-linejoin="round"/>
+<path d="M254 417.9 L254 443.9" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" marker-start="url(#ah-s)" stroke-linejoin="round"/>
+<path d="M422 215.7 L434 215.7 L434 60.236999999999995 L446 60.236999999999995" fill="none" stroke="#B8B1A4" stroke-width="1" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M422 250.94 L440 250.94 L440 128.71099999999998 L446 128.71099999999998" fill="none" stroke="#B8B1A4" stroke-width="1" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M422 286.17999999999995 L434 286.17999999999995 L434 191.52999999999997 L446 191.52999999999997" fill="none" stroke="#B8B1A4" stroke-width="1" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M422 321.41999999999996 L440 321.41999999999996 L440 248.69399999999996 L446 248.69399999999996" fill="none" stroke="#B8B1A4" stroke-width="1" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M422 356.65999999999997 L434 356.65999999999997 L434 305.85799999999995 L446 305.85799999999995" fill="none" stroke="#B8B1A4" stroke-width="1" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M422 391.9 L440 391.9 L440 368.6769999999999 L446 368.6769999999999" fill="none" stroke="#B8B1A4" stroke-width="1" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="8" y="640.9" width="13" height="13" rx="3" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="27" y="651.4" font-size="9.6" font-weight="400" fill="#6A655D" text-anchor="start">Bezoeker</text>
+<rect x="85.624" y="640.9" width="13" height="13" rx="3" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="104.624" y="651.4" font-size="9.6" font-weight="400" fill="#6A655D" text-anchor="start">Eigen code</text>
+<rect x="173.904" y="640.9" width="13" height="13" rx="3" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="192.904" y="651.4" font-size="9.6" font-weight="400" fill="#6A655D" text-anchor="start">Opslag</text>
+<rect x="240.872" y="640.9" width="13" height="13" rx="3" fill="#EEE2F1" stroke="#7A4E7E" stroke-width="1.2"/>
+<text x="259.872" y="651.4" font-size="9.6" font-weight="400" fill="#6A655D" text-anchor="start">AI</text>
+<rect x="286.528" y="640.9" width="13" height="13" rx="3" fill="#E2EEE0" stroke="#5E8A5B" stroke-width="1.2"/>
+<text x="305.528" y="651.4" font-size="9.6" font-weight="400" fill="#6A655D" text-anchor="start">Extern</text></svg>

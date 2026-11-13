@@ -1,0 +1,534 @@
+{
+ "visible": 756,
+ "all": 756,
+ "domains": [
+  {
+   "id": "movement",
+   "nl": "Sport & avontuur",
+   "n": 68,
+   "subs": [
+    "Uithouding(12)",
+    "Water(10)",
+    "Klimmen & hoogte(6)",
+    "Samen bewegen(15)",
+    "Precisie & kracht(17)",
+    "Dans(8)"
+   ]
+  },
+  {
+   "id": "creative",
+   "nl": "Creatief & ambacht",
+   "n": 133,
+   "subs": [
+    "Vormen met je handen(32)",
+    "Textiel & papier(27)",
+    "Beeld(37)",
+    "Klank & podium(37)"
+   ]
+  },
+  {
+   "id": "nature",
+   "nl": "Natuur & dieren",
+   "n": 77,
+   "subs": [
+    "Wandelen & ontdekken(7)",
+    "Dieren(48)",
+    "Planten & grond(17)",
+    "Licht, lucht & water(5)"
+   ]
+  },
+  {
+   "id": "history",
+   "nl": "Geschiedenis",
+   "n": 33,
+   "subs": [
+    "Doorleefd verleden(10)",
+    "Onderzoek & spoorzoeken(11)",
+    "Plekken & verhalen(12)"
+   ]
+  },
+  {
+   "id": "games",
+   "nl": "Spel & strategie",
+   "n": 31,
+   "subs": [
+    "Aan tafel(10)",
+    "Verhalen spelen(4)",
+    "Puzzelen(9)",
+    "Digitaal & actie(8)"
+   ]
+  },
+  {
+   "id": "collecting",
+   "nl": "Verzamelen & modellen",
+   "n": 30,
+   "subs": [
+    "Klein bouwen & schilderen(8)",
+    "Verzamelen & speuren(15)",
+    "Specialistisch(7)"
+   ]
+  },
+  {
+   "id": "tech",
+   "nl": "Techniek & wetenschap",
+   "n": 33,
+   "subs": [
+    "Maken met techniek(15)",
+    "Repareren & vakmanschap(8)",
+    "Wetenschap & onderzoek(10)"
+   ]
+  },
+  {
+   "id": "solo_explore",
+   "nl": "Zelf op ontdekking",
+   "n": 25,
+   "subs": [
+    "Op eigen tempo(25)"
+   ]
+  },
+  {
+   "id": "together",
+   "nl": "Samen, laagdrempelig",
+   "n": 26,
+   "subs": [
+    "Aanschuiven(21)",
+    "Samen organiseren(5)"
+   ]
+  },
+  {
+   "id": "restful",
+   "nl": "Rust & leren",
+   "n": 29,
+   "subs": [
+    "Lichaam & adem(20)",
+    "Lezen & luisteren(4)",
+    "Reflectie(5)"
+   ]
+  },
+  {
+   "id": "adventure",
+   "nl": "Avontuur & adrenaline",
+   "n": 29,
+   "subs": [
+    "Hoogte & lucht(10)",
+    "Diep & donker(5)",
+    "Wild water & golven(10)",
+    "Ruw terrein(4)"
+   ]
+  },
+  {
+   "id": "target",
+   "nl": "Mikken & werpen",
+   "n": 22,
+   "subs": [
+    "Schieten(5)",
+    "Werpen & mikken(7)",
+    "Fijn mikken(10)"
+   ]
+  },
+  {
+   "id": "speed",
+   "nl": "Snelheid & vliegen",
+   "n": 22,
+   "subs": [
+    "Wielen & motoren(13)",
+    "Vleugels & lucht(6)",
+    "Sneeuw & ijs(3)"
+   ]
+  },
+  {
+   "id": "mystery",
+   "nl": "Mysterie & speurwerk",
+   "n": 21,
+   "subs": [
+    "Kamers vol raadsels(7)",
+    "Verborgen plekken(10)",
+    "Zaken & sporen(4)"
+   ]
+  },
+  {
+   "id": "elements",
+   "nl": "Vuur & overleven",
+   "n": 23,
+   "subs": [
+    "Vuur & metaal(9)",
+    "Hout & steen(8)",
+    "Overleven & kamp(6)"
+   ]
+  },
+  {
+   "id": "food",
+   "nl": "Eten & proeven",
+   "n": 24,
+   "subs": [
+    "Koken & bakken(12)",
+    "Brouwen & proeven(6)",
+    "Oogsten & foerageren(6)"
+   ]
+  },
+  {
+   "id": "stage",
+   "nl": "Podium & show",
+   "n": 31,
+   "subs": [
+    "Woord op het podium(9)",
+    "Magie, circus & show(16)",
+    "Film, beeld & geluid(6)"
+   ]
+  },
+  {
+   "id": "night",
+   "nl": "Avond uit",
+   "n": 23,
+   "subs": [
+    "Avond uit(11)",
+    "Kaart & kans(5)",
+    "Muziek & nachtleven(7)"
+   ]
+  },
+  {
+   "id": "style",
+   "nl": "Stijl & schoonheid",
+   "n": 21,
+   "subs": [
+    "Mode & accessoires maken(6)",
+    "Uiterlijk & verzorging(5)",
+    "Stijl beleven(7)",
+    "Bloemen & geur(3)"
+   ]
+  },
+  {
+   "id": "travel",
+   "nl": "Reizen & routes",
+   "n": 17,
+   "subs": [
+    "Reizen & routes(14)",
+    "Bijzonder logeren(3)"
+   ]
+  },
+  {
+   "id": "society",
+   "nl": "Helpen & betrokken",
+   "n": 15,
+   "subs": [
+    "Mensen helpen(10)",
+    "Plekken en erfgoed verzorgen(5)"
+   ]
+  },
+  {
+   "id": "growth",
+   "nl": "Groeien & leren",
+   "n": 23,
+   "subs": [
+    "Spreken, leiden & samenwerken(10)",
+    "Vaardigheden & leren(13)"
+   ]
+  }
+ ],
+ "tags": [
+  {
+   "id": "making",
+   "nl": "Zelf maken",
+   "generic": true,
+   "n": 164
+  },
+  {
+   "id": "technique",
+   "nl": "Techniek",
+   "generic": false,
+   "n": 136
+  },
+  {
+   "id": "discovery",
+   "nl": "Ontdekken",
+   "generic": true,
+   "n": 127
+  },
+  {
+   "id": "craft",
+   "nl": "Vakmanschap",
+   "generic": false,
+   "n": 126
+  },
+  {
+   "id": "focus",
+   "nl": "Focus",
+   "generic": true,
+   "n": 120
+  },
+  {
+   "id": "conviviality",
+   "nl": "Gezelligheid",
+   "generic": true,
+   "n": 120
+  },
+  {
+   "id": "story",
+   "nl": "Verhaal",
+   "generic": false,
+   "n": 107
+  },
+  {
+   "id": "outdoors",
+   "nl": "Buiten",
+   "generic": false,
+   "n": 100
+  },
+  {
+   "id": "color",
+   "nl": "Kleur",
+   "generic": false,
+   "n": 100
+  },
+  {
+   "id": "nature",
+   "nl": "Natuur",
+   "generic": false,
+   "n": 98
+  },
+  {
+   "id": "learning",
+   "nl": "Leren",
+   "generic": true,
+   "n": 96
+  },
+  {
+   "id": "precision",
+   "nl": "Precisie",
+   "generic": true,
+   "n": 93
+  },
+  {
+   "id": "stillness",
+   "nl": "Stilte",
+   "generic": true,
+   "n": 86
+  },
+  {
+   "id": "challenge",
+   "nl": "Uitdaging",
+   "generic": false,
+   "n": 83
+  },
+  {
+   "id": "movement",
+   "nl": "Beweging",
+   "generic": false,
+   "n": 78
+  },
+  {
+   "id": "teamwork",
+   "nl": "Samenwerken",
+   "generic": false,
+   "n": 75
+  },
+  {
+   "id": "play",
+   "nl": "Spelen",
+   "generic": false,
+   "n": 75
+  },
+  {
+   "id": "caring",
+   "nl": "Zorgen voor",
+   "generic": false,
+   "n": 72
+  },
+  {
+   "id": "language",
+   "nl": "Taal",
+   "generic": false,
+   "n": 69
+  },
+  {
+   "id": "competition",
+   "nl": "Competitie",
+   "generic": false,
+   "n": 62
+  },
+  {
+   "id": "rhythm",
+   "nl": "Ritme",
+   "generic": false,
+   "n": 59
+  },
+  {
+   "id": "puzzling",
+   "nl": "Puzzelen",
+   "generic": false,
+   "n": 58
+  },
+  {
+   "id": "history",
+   "nl": "Geschiedenis",
+   "generic": false,
+   "n": 57
+  },
+  {
+   "id": "performance",
+   "nl": "Optreden",
+   "generic": false,
+   "n": 52
+  },
+  {
+   "id": "sound",
+   "nl": "Klank",
+   "generic": false,
+   "n": 50
+  },
+  {
+   "id": "water",
+   "nl": "Water",
+   "generic": false,
+   "n": 49
+  },
+  {
+   "id": "animals",
+   "nl": "Dieren",
+   "generic": false,
+   "n": 47
+  },
+  {
+   "id": "food",
+   "nl": "Eten",
+   "generic": false,
+   "n": 46
+  },
+  {
+   "id": "retro",
+   "nl": "Retro",
+   "generic": false,
+   "n": 40
+  },
+  {
+   "id": "strategy",
+   "nl": "Strategie",
+   "generic": false,
+   "n": 37
+  },
+  {
+   "id": "balance",
+   "nl": "Evenwicht",
+   "generic": false,
+   "n": 31
+  },
+  {
+   "id": "collecting",
+   "nl": "Verzamelen",
+   "generic": false,
+   "n": 29
+  },
+  {
+   "id": "growing",
+   "nl": "Groeien",
+   "generic": false,
+   "n": 25
+  },
+  {
+   "id": "speed",
+   "nl": "Snelheid",
+   "generic": false,
+   "n": 25
+  },
+  {
+   "id": "style",
+   "nl": "Stijl",
+   "generic": false,
+   "n": 23
+  },
+  {
+   "id": "height",
+   "nl": "Hoogte",
+   "generic": false,
+   "n": 22
+  },
+  {
+   "id": "roleplay",
+   "nl": "Rollenspel",
+   "generic": false,
+   "n": 21
+  },
+  {
+   "id": "suspense",
+   "nl": "Spanning",
+   "generic": false,
+   "n": 21
+  },
+  {
+   "id": "miniature",
+   "nl": "Kleinschalig",
+   "generic": false,
+   "n": 15
+  },
+  {
+   "id": "fire",
+   "nl": "Vuur",
+   "generic": false,
+   "n": 15
+  },
+  {
+   "id": "chance",
+   "nl": "Kans",
+   "generic": false,
+   "n": 6
+  },
+  {
+   "id": "depths",
+   "nl": "Diepte",
+   "generic": false,
+   "n": 5
+  },
+  {
+   "id": "stars",
+   "nl": "Sterren",
+   "generic": false,
+   "n": 4
+  }
+ ],
+ "avgTags": 3.6,
+ "edges": 44295,
+ "avgDeg": 117.2,
+ "isolated": 14,
+ "topHubs": [
+  "Vrijwilliger bij natuurbeheer(280)",
+  "Mountainbiken(267)",
+  "Nordic walking(264)",
+  "Zwemmen in een natuurbad(255)",
+  "Roeien in een sloep op een rivier(245)",
+  "Ultimate frisbee(242)",
+  "Wildwaterraften(239)",
+  "Bloembollen planten en zien bloeien(239)"
+ ],
+ "rarest": [
+  "Modelbouw (plastic, schepen, vliegtuigen)",
+  "Origami",
+  "Microscopie",
+  "Onder de stad: tunnels en kelders",
+  "Sterrenkijken"
+ ],
+ "activityRegisters": {
+  "nature": 156,
+  "technical": 237,
+  "expressive": 193,
+  "nurturing": 170
+ },
+ "cardRegisters": {
+  "nature": 96,
+  "technical": 135,
+  "nurturing": 132,
+  "expressive": 153
+ },
+ "cardAssocFamilies": 172,
+ "activitiesWithVector": 544,
+ "assocIdf": 127,
+ "hybrids": 80,
+ "clusters": 165,
+ "maxPerCluster": 2,
+ "imagePending": 0,
+ "tier2": 58,
+ "provenance": {
+  "source": 0,
+  "inferred": 0,
+  "reviewed": 0
+ }
+}

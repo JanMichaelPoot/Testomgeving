@@ -1,0 +1,91 @@
+<svg style="font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 824.576" width="640" height="824.576" role="img" aria-label="Beslisboom van de selectiemotor: hoe de zeven zaden worden gekozen" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8C857A"/></marker>
+<marker id="ah-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#8C857A"/></marker>
+</defs><rect x="200" y="6" width="240" height="53.684" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="208" y="22.8" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">Pool</text>
+<text x="208" y="38.4" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">Alles dat door de harde filters komt, zonder</text>
+<text x="208" y="49.9" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">wat recent getoond is of is uitgesloten.</text>
+<path d="M320 59.684 L320 73.684" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M206 73.684 H434 L446 96.684 L434 119.684 H206 L194 96.684 Z" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.3"/>
+<text x="320" y="94.4" font-size="9.6" font-weight="700" fill="#4A3611" text-anchor="middle">Heeft de bezoeker activiteiten</text>
+<text x="320" y="106.0" font-size="9.6" font-weight="700" fill="#4A3611" text-anchor="middle">gekozen?</text>
+<path d="M194 96.684 L164 96.684" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="178" y="91.7" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle" font-style="italic">nee</text>
+<rect x="6" y="67.684" width="158" height="65.254" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="14" y="84.5" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">Verkennen</text>
+<text x="14" y="100.0" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">6 ideeën uit 6 verschillende</text>
+<text x="14" y="111.6" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">werelden, mildste eerst,</text>
+<text x="14" y="123.2" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">plus een wildcard.</text>
+<path d="M320 119.684 L320 135.684" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="332" y="130.7" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle" font-style="italic">ja</text>
+<path d="M206 135.684 H434 L446 158.684 L434 181.684 H206 L194 158.684 Z" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.3"/>
+<text x="320" y="156.4" font-size="9.6" font-weight="700" fill="#4A3611" text-anchor="middle">Minstens 3 eigen keuzes van pagina 2</text>
+<text x="320" y="168.0" font-size="9.6" font-weight="700" fill="#4A3611" text-anchor="middle">bruikbaar?</text>
+<path d="M194 158.684 L85 158.684 L85 169.684" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="174" y="153.7" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle" font-style="italic">nee</text>
+<path d="M446 158.684 L554 158.684 L554 169.684" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="466" y="153.7" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle" font-style="italic">ja</text>
+<rect x="6" y="169.684" width="158" height="77.798" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="14" y="186.5" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">Gewoon pad: 2 ×</text>
+<text x="14" y="199.0" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">vertrouwd</text>
+<text x="14" y="214.6" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">Een keuze of een directe</text>
+<text x="14" y="226.2" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">buur. Het tweede slot leunt</text>
+<text x="14" y="237.7" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">naar het praktische.</text>
+<rect x="474" y="169.684" width="160" height="76.824" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="482" y="186.5" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">Ankermodel (standaard)</text>
+<text x="482" y="202.0" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">4 eigen keuzes komen zeker in</text>
+<text x="482" y="213.6" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">het boek, verdeeld over</text>
+<text x="482" y="225.2" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">werelden. Daarna 1</text>
+<text x="482" y="236.8" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">aangrenzend, 1 onverwacht.</text>
+<rect x="180" y="273.48199999999997" width="280" height="112.50800000000001" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="188" y="290.3" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">B Onverwacht × 1 (eerste die past, in deze</text>
+<text x="188" y="302.8" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">volgorde)</text>
+<text x="188" y="318.4" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">1 gecureerde combinatie met een van je keuzes (80</text>
+<text x="188" y="330.0" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">beschikbaar)</text>
+<text x="188" y="341.5" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">2 keten keuze, tussenstap, ver idee: elke stap met</text>
+<text x="188" y="353.1" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">brug ≥ 2,0</text>
+<text x="188" y="364.7" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">3 één stap met een echte brug</text>
+<text x="188" y="376.2" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">4 iets uit een wereld die je niet koos</text>
+<path d="M85 247.482 L85 303.48199999999997 L85 303.48199999999997" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M85 303.48199999999997 L180 303.48199999999997" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M554 246.50799999999998 L554 303.48199999999997" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M554 303.48199999999997 L460 303.48199999999997" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M320 385.99 L320 399.99" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="180" y="399.99" width="280" height="76.824" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="188" y="416.8" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">C Aangrenzend × 1 (ankermodel) of × 2</text>
+<text x="188" y="432.4" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">Eerst de 'indirecte plek': deelt een tag met minstens</text>
+<text x="188" y="443.9" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">twee keuzes en twee tags met één.</text>
+<text x="188" y="455.5" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">Dan: nabijheid 0,2 tot 0,6 met brug ≥ 2,0, daarna 0,1</text>
+<text x="188" y="467.1" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">tot 0,75 met brug ≥ 1,2.</text>
+<path d="M320 476.814 L320 490.814" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M206 490.814 H434 L446 513.8140000000001 L434 536.8140000000001 H206 L194 513.8140000000001 Z" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.3"/>
+<text x="320" y="517.3" font-size="9.6" font-weight="700" fill="#4A3611" text-anchor="middle">Zijn er al 6 zaden?</text>
+<path d="M446 513.8140000000001 L474 513.8140000000001" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="462" y="508.8" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle" font-style="italic">ja</text>
+<rect x="474" y="486.814" width="160" height="53.684" rx="7" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="482" y="503.6" font-size="9.8" font-weight="700" fill="#202020" text-anchor="start">Geen uitdaging nodig</text>
+<text x="482" y="519.2" font-size="8.9" font-weight="400" fill="#202020" text-anchor="start">In het ankermodel is het boek</text>
+<text x="482" y="530.7" font-size="8.9" font-weight="400" fill="#202020" text-anchor="start">dan al vol.</text>
+<path d="M320 536.8140000000001 L320 552.8140000000001" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="334" y="547.8" font-size="9.5" font-weight="400" fill="#6A655D" text-anchor="middle" font-style="italic">nee</text>
+<rect x="180" y="552.8140000000001" width="280" height="65.254" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="188" y="569.6" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">D Uitdaging × 1</text>
+<text x="188" y="585.2" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">Eén kenmerk omhoog: binnen of buiten, intensiteit,</text>
+<text x="188" y="596.7" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">niveau, duur, nieuwe vorm of andere wereld. De</text>
+<text x="188" y="608.3" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">doelsterkte volgt je wildheidsdial: 1, 1,2, 2 of 2,8.</text>
+<path d="M320 618.0680000000001 L320 632.0680000000001" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="180" y="632.0680000000001" width="280" height="53.684" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="188" y="648.9" font-size="9.8" font-weight="700" fill="#33221A" text-anchor="start">Aanvullen</text>
+<text x="188" y="664.4" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">Alleen als er nog geen zes zijn: het meest verwante</text>
+<text x="188" y="676.0" font-size="8.9" font-weight="400" fill="#33221A" text-anchor="start">idee dat past.</text>
+<path d="M554 540.498 L554 658.9100000000001" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M554 658.9100000000001 L460 658.9100000000001" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M320 685.7520000000001 L320 699.7520000000001" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="180" y="699.7520000000001" width="280" height="76.824" rx="7" fill="#EEE2F1" stroke="#7A4E7E" stroke-width="1.2"/>
+<text x="188" y="716.6" font-size="9.8" font-weight="700" fill="#3E2144" text-anchor="start">E Wildcard × 1: gewogen loting</text>
+<text x="188" y="732.1" font-size="8.9" font-weight="400" fill="#3E2144" text-anchor="start">Uit werelden die je niet koos. Gewicht = (1 + 2·brug</text>
+<text x="188" y="743.7" font-size="8.9" font-weight="400" fill="#3E2144" text-anchor="start">+ 2·nog niet getoonde wereld) / (1 + 4·overlap) ×</text>
+<text x="188" y="755.3" font-size="8.9" font-weight="400" fill="#3E2144" text-anchor="start">e^(−2·leeftijdsstraf) × (0,5 + 1,5·zeldzaamheid) ×</text>
+<text x="188" y="766.8" font-size="8.9" font-weight="400" fill="#3E2144" text-anchor="start">e^(−3·aanbodstraf).</text>
+<text x="6" y="796.6" font-size="9" font-weight="400" fill="#6A655D" text-anchor="start">Overal geldt: hoogstens 2 per wereld (op de valreep 3), 1 per subdomein, hoogstens 2 per soort (cluster). Daarna krijgt elk</text>
+<text x="6" y="808.0" font-size="9" font-weight="400" fill="#6A655D" text-anchor="start">zaad zijn deur en niveau.</text></svg>

@@ -1,0 +1,54 @@
+<svg style="font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 504" width="640" height="504" role="img" aria-label="Beslisboom: wat de keuze 'voor wie' in de rest van de applicatie verandert" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8C857A"/></marker>
+<marker id="ah-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#8C857A"/></marker>
+</defs><rect x="8" y="196" width="108" height="92" rx="7" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="16" y="213.1" font-size="10.1" font-weight="700" fill="#4A3611" text-anchor="start">Voor wie zoek</text>
+<text x="16" y="226.0" font-size="10.1" font-weight="700" fill="#4A3611" text-anchor="start">je?</text>
+<text x="16" y="241.9" font-size="9.6" font-weight="400" fill="#4A3611" text-anchor="start">Eerste vraag op</text>
+<text x="16" y="254.4" font-size="9.6" font-weight="400" fill="#4A3611" text-anchor="start">de startpagina.</text>
+<text x="16" y="266.9" font-size="9.6" font-weight="400" fill="#4A3611" text-anchor="start">Niets kiezen kan.</text>
+<rect x="150" y="8" width="120" height="56" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="158" y="38.8" font-size="10.6" font-weight="700" fill="#33221A" text-anchor="start">Voor mezelf</text>
+<rect x="290" y="8" width="342" height="56" rx="7" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="299" y="32.6" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">Geen aanname over leeftijd of smaak. Het boek spreekt 'jou'</text>
+<text x="299" y="45.1" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">aan.</text>
+<path d="M270 36 L288 36" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M116 242 L132 242 L132 36 L148 36" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="150" y="72" width="120" height="106" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="158" y="127.8" font-size="10.6" font-weight="700" fill="#33221A" text-anchor="start">Kind of jongere</text>
+<rect x="290" y="72" width="342" height="106" rx="7" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="299" y="109.1" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">Zachte weging 'onder 18'. HARD: een lijst van 33</text>
+<text x="299" y="121.6" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">activiteiten valt weg (alcohol, gokken, wapens, zwaar</text>
+<text x="299" y="134.1" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">gereedschap, risicosporten). Beelden en activiteiten met</text>
+<text x="299" y="146.6" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">spel, dieren en maken wegen zwaarder.</text>
+<path d="M270 125 L288 125" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M116 242 L132 242 L132 125 L148 125" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="150" y="186" width="120" height="56" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="158" y="210.0" font-size="10.6" font-weight="700" fill="#33221A" text-anchor="start">Andere</text>
+<text x="158" y="223.5" font-size="10.6" font-weight="700" fill="#33221A" text-anchor="start">volwassene</text>
+<rect x="290" y="186" width="342" height="56" rx="7" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="299" y="210.6" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">Niets aangenomen. Het boek wordt aan die persoon geschreven,</text>
+<text x="299" y="223.1" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">met voornaam als je die geeft.</text>
+<path d="M270 214 L288 214" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M116 242 L132 242 L132 214 L148 214" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="150" y="250" width="120" height="80" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="158" y="292.8" font-size="10.6" font-weight="700" fill="#33221A" text-anchor="start">Groep</text>
+<rect x="290" y="250" width="342" height="80" rx="7" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="299" y="280.4" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">Kleine voorkeur voor samen doen (-0,15) en een kleine straf</text>
+<text x="299" y="292.8" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">voor puur solo (+0,3). Samenwerken en competitie wegen mee.</text>
+<text x="299" y="305.3" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">Boek voor 'jullie', geen naam.</text>
+<path d="M270 290 L288 290" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M116 242 L132 242 L132 290 L148 290" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="150" y="338" width="120" height="56" rx="7" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="158" y="368.8" font-size="10.6" font-weight="700" fill="#33221A" text-anchor="start">Niet ingevuld</text>
+<rect x="290" y="338" width="342" height="56" rx="7" fill="#F7F5F0" stroke="#DED8CE" stroke-width="1.2"/>
+<text x="299" y="362.6" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">Telt als onbekend en werkt als 'voor mezelf'. Er wordt niets</text>
+<text x="299" y="375.1" font-size="9.6" font-weight="400" fill="#202020" text-anchor="start">geforceerd.</text>
+<path d="M270 366 L288 366" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M116 242 L132 242 L132 366 L148 366" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="8" y="408" width="624" height="82.528" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="16" y="425.5" font-size="10.6" font-weight="700" fill="#1F3447" text-anchor="start">Voor alle vijf geldt</text>
+<text x="16" y="442.1" font-size="9.8" font-weight="400" fill="#1F3447" text-anchor="start">De standaardroute vraagt niet meer naar leeftijd: de enige leeftijdsaanname komt uit 'kind of jongere'. Elke</text>
+<text x="16" y="454.8" font-size="9.8" font-weight="400" fill="#1F3447" text-anchor="start">leeftijdsweging is zacht: ze verschuift een score en sluit niets uit. De enige harde uitzondering is de lijst</text>
+<text x="16" y="467.6" font-size="9.8" font-weight="400" fill="#1F3447" text-anchor="start">bij 'kind of jongere'.</text>
+<text x="16" y="480.3" font-size="9.8" font-weight="400" fill="#1F3447" text-anchor="start">Het geslacht wordt nergens gevraagd, opgeslagen of afgeleid.</text></svg>

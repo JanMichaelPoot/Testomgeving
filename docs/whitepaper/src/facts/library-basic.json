@@ -1,0 +1,93 @@
+{
+ "activities": 756,
+ "status": {
+  "concept": 756
+ },
+ "domains": {
+  "movement": 68,
+  "creative": 133,
+  "nature": 77,
+  "history": 33,
+  "games": 31,
+  "collecting": 30,
+  "tech": 33,
+  "solo_explore": 25,
+  "together": 26,
+  "restful": 29,
+  "adventure": 29,
+  "target": 22,
+  "speed": 22,
+  "mystery": 21,
+  "elements": 23,
+  "food": 24,
+  "stage": 31,
+  "night": 23,
+  "style": 21,
+  "travel": 17,
+  "society": 15,
+  "growth": 23
+ },
+ "subs": 68,
+ "cost": {
+  "0": 175,
+  "1": 258,
+  "2": 219,
+  "3": 100,
+  "null": 4
+ },
+ "intensity": {
+  "0": 452,
+  "1": 189,
+  "2": 81,
+  "3": 34
+ },
+ "level": {
+  "0": 636,
+  "1": 98,
+  "2": 22
+ },
+ "tier": {
+  "0": 515,
+  "1": 183,
+  "2": 58
+ },
+ "supply": {
+  "undefined": 320,
+  "regional": 300,
+  "rare": 57,
+  "common": 79
+ },
+ "setting": {
+  "outdoor": 233,
+  "both": 119,
+  "indoor": 404
+ },
+ "duration": {
+  "1": 47,
+  "2": 413,
+  "3": 192,
+  "4": 104
+ },
+ "withEntry": 756,
+ "withMonths": 143,
+ "withFormats": 756,
+ "tags": 43,
+ "genericTags": 7,
+ "genericTagIds": [
+  "precision",
+  "making",
+  "focus",
+  "stillness",
+  "discovery",
+  "learning",
+  "conviviality"
+ ],
+ "cards": 516,
+ "cardRounds": {
+  "places": 177,
+  "moments": 174,
+  "senses": 165
+ },
+ "families": 172,
+ "hybrids": 80
+}

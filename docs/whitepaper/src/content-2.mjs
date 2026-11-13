@@ -1,0 +1,156 @@
+import { h1, h2, h3, p, ul, ol, laagA, laagB, fig, tab, code, note, facts, pb, steps } from "./dsl.mjs";
+
+// ====================================================================================================================
+// Chapter 4
+// ====================================================================================================================
+export const ch4 = h1("ch4", "Intake en contextbepaling", { blocks: [
+  laagA("Voordat er een beeld op het scherm komt, weet WindowInto drie dingen: voor wie je zoekt, waar, en wat er niet mag. Dat bepaalt welke beelden voorrang krijgen, welke activiteiten nooit getoond worden, en in welke buurt de applicatie later zoekt."),
+  h2("Wat wordt gevraagd, bewaard en gebruikt"),
+  tab("intake", "De antwoorden van de startpagina en wat de code ermee doet", ["Antwoord", "Veld in de code", "Wat het doet"], [
+    ["Voor wie", "`searchContext`", "Vijf waarden: self, child, adult, group, unknown. Stuurt een zachte weging, één harde lijst (kind), de beeldvoorkeur en de toon van het boek."],
+    ["Voornaam (optioneel)", "`recipientName`", "Alleen voor het omslag en de aanspreekvorm; niet bij een groep. Maximaal 40 tekens, gezuiverd."],
+    ["Plaats en land", "`location`, `country`", "Begin van het zoeken. Plaatsnamen via PDOK (Nederland) of Photon (andere landen). Buiten Nederland komt de landnaam in de plaats te staan."],
+    ["Afstand", "`searchDistanceKm`", "5, 10, 15, 25, 50, 75, 100 of 150 (meer dan 100). Bepaalt de zoekstraal en de cachesleutel; de brede zoekronde verdubbelt hem tot hoogstens 150 km."],
+    ["Tijd (optioneel)", "`timeAvailable`", "Een uur, halve dag, hele dag of weekend. Geen filter: wel een schrijfregel en een kwaliteitscontrole."],
+    ["Budget per persoon (optioneel)", "`budget`", "Tot € 10, 25, 50, 100, 200 of 'maakt niet uit'. Bepaalt een kostenklasse als harde grens (zie hieronder)."],
+    ["Hoe meedoen (chips)", "in `mustHaves`", "'Met één ander', 'Met een groep', 'Mensen ontmoeten', 'Niet in een groep'. Dit zijn harde filters op de sociale vorm van de activiteit."],
+    ["Leeftijd en gezelschap", "`ageCategory`, `company`", "Worden in de standaardroute niet meer gevraagd en leeg opgeslagen. De velden en de weging bestaan nog voor oudere concepten en andere routes (bevinding F-08)."],
+    ["Wat moet kloppen (chips)", "`mustHaves`", "De gekozen chips, met `; ` samengevoegd. Een deel wordt een harde filter, een deel een controlevlag (zie {tab:chips}). Vrije tekst bestaat in de standaardroute niet."],
+  ], { widths: [24, 22, 54] }),
+  p("De antwoorden worden eenmalig vertaald naar één record (`StoredIntake`) en bewaard in `intake_answers.raw_json`, gekoppeld aan een anonieme sessie en niet aan een e-mailadres. Het publieksprofiel wordt op de server gebouwd uit deze antwoorden en uit de gekozen beelden; de browser kan het niet instellen."),
+  h2("Hoe de doelgroep wordt vastgesteld"),
+  p("De eerste vraag is voor wie je zoekt. Dat is *invoer*, geen conclusie: 'voor mezelf' zegt niets over leeftijd, 'kind of jongere' zegt niet of het een kind of tiener is, en 'groep' is niet één leeftijd. Alleen 'kind of jongere' geeft een standaard aan de leeftijdsweging (`under18`). Een zelf opgegeven leeftijd zou altijd winnen, maar de standaardroute vraagt er niet meer naar."),
+  fig("audience", "Beslisboom voor de zoekcontext: wat de keuze 'voor wie' verandert in de rest van de applicatie."),
+  laagB("Laag B: het publieksprofiel met herkomst en zekerheid", [
+    p("`buildAudienceProfile` (`src/lib/discovery/audience.ts`) bouwt zes dimensies: zoekcontext, doelgroep (leeftijdsfase), leefwereld, interesses, activiteitenoriëntatie en voorkeuren. Elke dimensie krijgt een **herkomst** (`explicit`, `inferred`, `unknown`) en een **zekerheid** (0 tot 1). Onder de ondergrens `CONFIDENCE_FLOOR = 0,3` blijft een dimensie `unknown`: er wordt geen conclusie geforceerd."),
+    code("interesses.zekerheid = min(0,95, (aantal beelden + 1,5 × aantal gekozen activiteiten) / 10)\ntag-score  = Σ beeldtag + 1,5 per gekozen activiteit + 2 per 'Niet helemaal'-thema\n             (generieke tags tellen 0,4)\nbreedte    = min(1, aantal verschillende niet-generieke tags / 14)", "text"),
+    p("Gekozen activiteiten tellen als expliciet en zwaarder dan beelden. De beelden-gebaseerde dimensies zijn altijd `inferred`. Omdat `company` in de standaardroute leeg is, is de leefwereld alleen bekend bij 'kind' (afgeleid, zekerheid 0,4). Het profiel gaat naar de schrijfopdracht met 'stated' of 'inferred ... confidence NN%' per regel, plus de regel dat er altijd een idee buiten de interesses moet liggen en dat een afgeleide lezing nooit als feit aan de bezoeker wordt gezegd."),
+  ]),
+  h2("Locatie, zoekgebied en voorwaarden"),
+  p("De plaats is het enige verplichte antwoord, omdat het zoeken naar echte plekken daar begint. De afstand bepaalt de straal: een eerste zoekronde zoekt in en rond de plaats binnen de gekozen afstand; een tweede, bredere ronde gebruikt tot tweemaal die afstand (hoogstens 150 km), de nabijste opties eerst. Zoeken buiten Nederland gebeurt in de taal van het land en in het Engels."),
+  p("Het **budget** werkt via vier kostenklassen die elk een *bereik* zijn: 0 gratis, 1 tot € 15, 2 van € 15 tot € 50, 3 boven € 50. 'Tot € 10' laat klasse 1 toe, 'tot € 25' en 'tot € 50' klasse 2, 'tot € 100' en meer klasse 3. Een activiteit waarvan het bereik boven het budget kan uitkomen, blijft staan met de vlag `cost_near_budget`, en de schrijver moet dan zeggen dat de prijs varieert. Een activiteit met onbekende kosten blijft ook staan, met de vlag `cost_unknown`."),
+  tab("chips", "'Wat moet kloppen': van chip naar werking", ["Chip of tekst", "Harde filter", "Controlevlag voor het zoeken en schrijven"], [
+    ["Alleen buiten, alleen binnen", "Ja: een activiteit met het tegenovergestelde setting valt af", "`setting_unknown` als het setting niet bekend is"],
+    ["Geen groepen", "Ja: alleen-groepsvormen vallen af", "`formats_unknown`"],
+    ["Met de rolstoel bereikbaar", "Ja: wat bekend onmogelijk is vanuit een rolstoel valt af", "`accessibility`"],
+    ["Met kinderen; met jonge kinderen", "Ja: de kind-lijst; bij jonge kinderen een strengere lijst", "`children`, `young_children`"],
+    ["Rustig tempo; rustig en voorspelbaar", "Ja: alleen zachte, onbegeleide activiteiten; geen lawaaierige of drukke", "`calm_pace`, `quiet`"],
+    ["Mensen ontmoeten", "Ja: alleen activiteiten met een manier om anderen te ontmoeten; weegt zwaar", "`meet_people`"],
+    ["Met één ander; met een groep", "Ja: via de sociale vormen *duo* respectievelijk *kleine of grote groep*", "`with_one`, `with_group` worden alleen vastgelegd; zoeken en schrijven gebruiken ze niet"],
+    ["Zonder alcohol", "Ja: alles waarbij drinken de kern is", "`no_alcohol`"],
+    ["Zonder Nederlands", "Ja: 55 activiteiten waarvan het medium Nederlands is; nieuwkomersvriendelijk weegt zwaarder", "`no_dutch`"],
+    ["Zonder jagen of vissen; zonder dieren", "Ja", "`no_hunt_fish`, `no_animals`"],
+    ["Zonder auto, in het weekend, 's avonds", "Nee: de bibliotheek heeft er geen gegevens over", "`transport`, `weekend`, `evening`"],
+    ["Dieet, allergie, hond, vegetarisch", "Nee", "`dietary`, `pet_friendly`"],
+  ], { widths: [28, 38, 34] }),
+  note("eerlijk", "De chips worden als tekst samengevoegd en dan door `parseMustHaves` gelezen, dat alleen betrouwbaar leesbare wensen oppakt (een duidelijke wens voor buiten of binnen, 'geen groepen', de chipwoorden). Onduidelijke of tegenstrijdige tekst, zoals 'buiten of binnen', wordt genegeerd in plaats van gegokt. De volledige tekst gaat ook ongewijzigd als harde eis naar de schrijfopdracht."),
+  fig("inputs", "Inputmodel: welke invoer waar ingrijpt. Een stip betekent dat de code de invoer daar gebruikt."),
+  h2("Hoe de invoer de rest beïnvloedt"),
+  p("Het inputmodel laat zien dat vrijwel elke invoer op meer dan één plek werkt. Drie voorbeelden. *Budget* is tegelijk een harde grens in de motor, een schrijfregel (minstens twee ideeën gebruiken 40 tot 100 procent van het budget) en een kwaliteitscontrole achteraf. *Plaats* werkt niet in de motor, wel in het zoeken en in de tekst. De vier *schuiven* op het profielscherm vervangen wat de beelden zeiden, en daarmee zowel de weging als de twee harde dials."),
+] });
+
+// ====================================================================================================================
+// Chapter 5
+// ====================================================================================================================
+export const ch5 = h1("ch5", "Het associatiemodel", { blocks: [
+  laagA("Een beeld van een oude leeszaal zegt meer dan de vraag 'houd je van geschiedenis?'. WindowInto laat je beelden kiezen en vertaalt ze naar kenmerken. Daarna toont het concrete activiteiten die bij die kenmerken passen, en pas daarna kiest de motor ideeën die steeds iets verder van je af liggen."),
+  h2("Hoe de associaties zijn opgebouwd"),
+  p("Een **beeldkaart** is geen activiteit. Het is een foto van een plek, een moment of een zintuig, gemaakt om een gevoel op te roepen: *een stille bosrand*, *handen vol klei*, *kaarslicht*. De bibliotheek heeft 516 kaarten in 172 families van drie varianten. De varianten zijn bedoeld zodat wat de code leest niet afhangt van welke foto je toevallig zag. De kaarten zitten in drie rondes: plekken (177), momenten (174) en zintuigen (165)."),
+  p("Elke kaart draagt twee soorten informatie. Eén: twee tot vijf gewogen **tags** uit een woordenschat van 43 (zoals *natuur*, *vakmanschap*, *stilte*, *competitie*). Twee: vier **assen** van -1 tot 1: sociaal (alleen tot samen), energie (kalm tot actief), binnen of buiten, en vertrouwd of nieuw. Daarnaast heeft elke kaart een **stijlregister** (expressief, verzorgend, technisch, natuur) dat alleen dient om de sets in balans te houden en nooit aan de bezoeker wordt getoond."),
+  fig("assoc", "Het associatiemodel: van beeldkaarten en tags naar de pagina met activiteiten, en wat de motor ervan krijgt."),
+  h2("Pagina 1: de eerste set van 18 beelden"),
+  p("De code stelt de set samen met een vaste seed per bezoeker, dus een verversing toont dezelfde beelden. De set is bewust in balans, zodat de manier waarop iemand kiest iets zegt over die persoon en niet over de set:"),
+  ul([
+    "Per familie komt één variant op de pagina; families die je al zag komen niet terug tot de voorraad op is.",
+    "Elk van de vier registers heeft minstens vier van de 18 beelden (`size / 4`).",
+    "Op elke as staan minstens twee beelden aan beide kanten (voor 'vertrouwd of nieuw' minstens één), en elke ronde (plek, moment, zintuig) is vertegenwoordigd, zover de voorraad het toelaat. Dit wordt hersteld door wisselen binnen hetzelfde register.",
+    "De sierlijke, decoratieve wereld (dans, theater, poppen, juwelen, kleding, bloemen, thee) heeft een eigen vloer van minstens vijf beelden. Vier smaken die op een set van 18 makkelijk gemist worden (geschiedenis, snelheid, strategie en puzzels, techniek en verzamelen) krijgen elk een vloer van één beeld, met per pagina een ander paar van de vier.",
+    "Bij 'voor een kind' of 'voor een groep' gaat elk tweede beeld naar de beelden die het best bij die context passen; de plekken ertussen blijven seeded willekeurig. Dit is een lichte voorkeur, geen filter.",
+  ]),
+  p("'Andere beelden' bouwt een nieuwe set uit wat nog niet getoond is, hoogstens drie keer. De set wisselt af: de ene helft dicht bij wat je al koos, de andere helft iets wat je nog niet koos. Zo wordt het profiel verdiept én verbreed."),
+  h2("Van beelden naar smaakprofiel"),
+  laagB("Laag B: tag-profiel, assen en dials", [
+    code("tagProfiel[t]  = Σ over gekozen beelden van tagWeights[t]   (+ 2,5 per 'Niet helemaal'-thema)\nassen          = gemiddelde van de assen van de gekozen beelden\n                 (een schuif op het profielscherm vervangt één as)\nnovelty < -0,45 → grounded | < -0,15 → practical | < 0,2 → either | < 0,5 → unexpected | anders wild\nenergy  < -0,40 → minimal  | > 0,35 → committed | anders some", "text"),
+    p("De twee dials (`practicalToWild` en `effort`) worden niet gevraagd maar afgeleid, omdat ze de motor hard sturen: `grounded` of `practical` verbergt activiteiten met verplicht toezicht, en `effort` stelt de intensiteitsgrens (minimal ≤ 1, some ≤ 2, committed ≤ 3). Rekent de bezoeker zelf een activiteit aan die meer inspanning vraagt dan de beelden suggereren, dan stijgt `effort` mee (`effortForPicks`), tenzij de bezoeker de energieschuif zelf verzette."),
+  ]),
+  h2("Pagina 2: van beeld naar concrete activiteit"),
+  p("Pagina 2 toont 18 activiteiten uit de pool van wat dit seizoen kan. Het grootste deel ligt dicht bij de beelden (gedeelde tags); drie 'verkenplekken' komen bewust van ver, uit een andere wereld en een ander register. Elk register krijgt minstens twee plekken, hoe eenzijdig pagina 1 ook was; de rest volgt de verdeling van pagina 1. Hoogstens één activiteit per subdomein en drie per wereld."),
+  code("score(a) = nabijheid(a) / max_nabijheid + 0,25 × aspassing(a) + 0,3 × contextvoorkeur(a) + 0,5 × toeval(a, seed)\nnabijheid(a) = Σ tagProfiel[t] × (0,5 als t generiek, anders 1) / √(aantal tags van a)\naspassing    = 1 − (|Δsociaal| + |Δenergie| + |Δbinnen/buiten|) / 6", "text"),
+  p("De bezoeker kiest er minstens één en hoogstens acht. 'Andere activiteiten' kan drie keer; wat je koos blijft staan."),
+  fig("choices", "Procesdiagram van de opeenvolgende keuzes, met per stap wat er doorgaat naar de volgende."),
+  h2("Hoe breed of specifiek zijn de associaties?"),
+  p("De beelden zijn breed (een stemming, een zintuig), de activiteiten zijn specifiek (*Nordic walking*, *Zeep maken*). Het profiel is zo breed als de keuzes: de code meet dat als `breedte`. Een smal profiel (weinig verschillende tags) wordt niet gestraft; de motor houdt ook dan ruimte voor het onverwachte. Het omgekeerde, een kleine specifieke smaak, wordt beschermd door de vloeren op pagina 1: wie van puzzels of oude kaarten houdt, hoeft niet drie keer op 'Andere beelden' te drukken om dat te kunnen zeggen."),
+  h2("Hoe voorkomt de applicatie dat je binnen je interesses blijft?"),
+  tab("echo", "Zeven mechanismen tegen een echokamer", ["Waar", "Mechanisme"], [
+    ["Pagina 1", "'Andere beelden' wisselt af tussen dichtbij wat je koos en iets wat je nog niet koos."],
+    ["Pagina 2", "Drie verkenplekken: andere wereld, ander register, ver van de beelden. Een vloer per register."],
+    ["Motor: onverwacht", "Alleen uit een wereld die je niet koos, via een gecureerde combinatie of een keten met echte bruggen."],
+    ["Motor: aangrenzend", "Een bonus (+0,15) voor een wereld die je niet koos; de 'indirecte plek' mag wel dicht bij je keuzes blijven."],
+    ["Motor: wildcard", "Alleen uit werelden die je niet koos; bij herhaald gebruik liefst uit werelden die je nog nooit zag."],
+    ["Motor: diversiteit", "Hoogstens twee ideeën per wereld, één per subdomein, hoogstens twee van dezelfde soort (14 clusters). Een idee dat veel bruggen deelt met al gekozen ideeën scoort lager."],
+    ["Bibliotheek", "Een lange-staartlift: zeldzame tagcombinaties scoren hoger, de meest verbonden activiteiten krijgen een kleine demping (`hub = 0,6`)."],
+  ], { widths: [22, 78] }),
+  h2("De zeven vensters"),
+  p("Elk zaad dat de motor kiest krijgt een **niveau** van 1 tot 7. Een niveau ordent de ideeën van het dichtst bij wat je koos tot het nieuwst. Het is geen stap en geen pagina; het zijn de zeven ruiten van één raam. Het boek toont ze aan de bezoeker als vier deuren en een verzegelde wildcard."),
+  fig("windows7", "De zeven vensters: per niveau de regel waarmee het idee wordt gekozen, de deur in het boek en een voorbeeld uit fictief profiel A."),
+  laagB("Laag B: hoe niveaus worden toegekend", [
+    p("`assignLevels` (`src/lib/discovery/engine/levels.ts`) zet de richtingen om in niveaus. Bij twee vertrouwde ideeën wordt het meest *praktische* niveau 2 (`practicality`), het andere niveau 1. Bij twee aangrenzende ideeën krijgt het best passende (hoogste `fit`) niveau 3, het andere niveau 4. Onverwacht is 5, uitdaging 6, wildcard 7. Heeft een groep minder zaden dan niveaus, dan blijft het hogere niveau leeg in plaats van dat een zaad in een niveau valt waar het niet bij hoort; heeft ze er meer, dan krijgen de extra's het hoogste niveau van die groep."),
+    code("praktisch(a) = (2·kosten + duur + niveau + veiligheid + 1,5·aanbod + 0,5·alleen + 0,5·instap) / 7,5\n  kosten  = [1; 0,85; 0,55; 0,25][kostenklasse]      onbekend = 0,4\n  duur    = [1; 0,9; 0,6; 0,35][duurklasse]          onbekend = 0,5\n  niveau  = [1; 0,7; 0,3][niveau]                    onbekend = 0,5\n  veiligh = [1; 0,8; 0,3][tier]\n  aanbod  = 1 (gewoon) | 0,5 (regionaal) | 0,1 (zeldzaam)\n  alleen  = 1 als solo of alleen-erbij mogelijk, anders 0,6;  instap = 1 als er een instap is, anders 0,4", "text"),
+  ]),
+  note("bevinding", "In de standaardinstelling (het ankermodel) klopt het beeld 'zeven zaden op zeven niveaus' niet. Vier eigen keuzes zijn zaden, dus niveau 1 heeft er tot drie en niveau 2 één, en omdat het boek met één aangrenzend en één onverwacht idee al zes zaden heeft, ontbreekt de uitdaging. De niveaus 4 en 6 zijn dan leeg (in alle drie de voorbeelden van hoofdstuk 11, en in meetboek P13). De documentatie en het testharnas die 'alle zeven niveaus' noemen, beschrijven het oudere pad zonder ankers (bevinding F-02)."),
+  h2("Een gebruikersroute uitgewerkt: fictieve bezoeker A"),
+  p("Fictief profiel A is een vrouw uit Zwolle die voor zichzelf zoekt, binnen 25 km, met een budget tot € 25 per persoon, in november. Haar leeftijd (67) is deel van het verhaal maar wordt niet ingevoerd: de standaardroute vraagt er niet naar. De route hieronder is een echte run van de echte motor met een seed (`wp-A`). Wat zij 'kiest' is gesimuleerd: de vier activiteiten met de hoogste tag-nabijheid plus één verkenplek. Dat is een model van een bezoeker, geen echt gedrag."),
+  tab("routeA", "Route van bezoeker A", ["Stap", "Wat er gebeurt", "Resultaat"], [
+    ["1 Start", "Voor zichzelf, Zwolle, 25 km, budget tot € 25", "`searchContext = self`; geen leeftijdsweging; kostenklasse t/m 2"],
+    ["2 Beelden", "Ze tikt: oude leeszaal, kraken van een oud boek, stil water bij zonsopgang, helemaal stil worden, kaarslicht, stille bosrand", "Sterkste tags: stilte 3,4; geschiedenis 1,9; natuur 1,9; verhaal 1,8; evenwicht 1,7"],
+    ["3 Smaak", "Assen: sociaal -0,53, energie -0,68, binnen/buiten -0,17, nieuw -0,13", "Dials: `either`, `effort = minimal` (intensiteit t/m 1)"],
+    ["4 Pagina 2", "18 activiteiten, o.a. *Literaire detectivewandeling*, *Haiku schrijven*, *Wandelgroep voor beginners*, *Een historische buitenplaats*", "Ze kiest: Stenen stapelen, Vissen, Een historische buitenplaats, Een stedentrip rond één thema, Sushi rollen (verkenplek)"],
+    ["5 Profiel", "Het publieksprofiel: interesses geschiedenis, natuur, verhaal, evenwicht, water (expliciet); oriëntatie rustig en creatief (afgeleid)", "Duiding: wat de keuzes wijzen naar, geen etiket"],
+    ["6 Motor", "Vier ankers, één onverwacht, één aangrenzend, één wildcard", "Zie figuur 11.1: buitenplaats, vissen, sushi, stenen stapelen; high tea op een buitenplaats; wandeling over een oude begraafplaats; een linoleumsnede maken"],
+  ], { widths: [14, 46, 40] }),
+  p("Twee dingen vallen op. De vijfde keuze (*Een stedentrip rond één thema*) haalt het boek niet, omdat het ankermodel er vier opneemt. En de wildcard, *Een linoleumsnede maken*, is verbonden met de keuze *Sushi rollen* via één brug (*vakmanschap*) met een aansluiting van 0,13: de toevalsloting kiest bewust iets dat ver van de smaak ligt, en de code laat zien dat de verbinding zwak is."),
+] });
+
+// ====================================================================================================================
+// Chapter 6
+// ====================================================================================================================
+export const ch6 = h1("ch6", "De activiteitenbibliotheek", { blocks: [
+  laagA("De bibliotheek is de kaart waarop de motor navigeert: 756 dingen om te doen, elk met een paar kenmerken, gegroepeerd in 22 werelden. Hoe meer kenmerken twee activiteiten delen, en hoe zeldzamer die kenmerken zijn, hoe dichter ze bij elkaar liggen."),
+  h2("Omvang en indeling"),
+  p("De bibliotheek bestaat uit JSON-bestanden in de code (`src/lib/discovery/data/*.json`, één per wereld) en wordt met de applicatie meegeleverd. Er is geen database voor de bibliotheek: een wijziging is een code-wijziging. De 756 activiteiten zitten in 22 werelden en 68 subdomeinen. *Creatief en ambacht* is de grootste wereld (133), gevolgd door *Natuur en dieren* (77, waarvan 48 met dieren) en *Sport en avontuur* (68). *Helpen en betrokken* (15) en *Reizen en routes* (17) zijn de kleinste."),
+  fig("taxonomy", "Visuele taxonomie: 22 werelden naar aantal activiteiten, en hoe volledig de eigenschappen zijn ingevuld."),
+  h2("Wat een activiteit vastlegt"),
+  tab("facetten", "De eigenschappen van een activiteit", ["Eigenschap", "Schaal", "Dekking"], [
+    ["Tags (2 tot 5, gemiddeld 3,6)", "43 gewogen kenmerken; 7 daarvan generiek (een sfeer, geen verband)", "Alle 756"],
+    ["Sociale vormen", "solo, alleen erbij, duo, kleine groep, grote groep, met bekenden, online", "Alle 756"],
+    ["Intensiteit", "0 kalm tot 3 zwaar", "Bijna alle; 452 zijn kalm (0)"],
+    ["Niveau", "0 geen ervaring, 1 basis helpt, 2 gevorderd", "636 van 756 staan op 0"],
+    ["Kosten", "0 gratis, 1 tot € 15, 2 tot € 50, 3 daarboven", "752 van 756 bekend"],
+    ["Duur", "1 minder dan een uur tot 4 meerdaags of doorlopend", "Alle 756"],
+    ["Binnen of buiten", "indoor, outdoor, both", "Alle 756"],
+    ["Seizoen", "De maanden waarin een beginner het in Nederland kan doen", "143 activiteiten hebben een beperking"],
+    ["Toezicht (tier)", "0 geen risico, 1 basisregels, 2 alleen onder gekwalificeerd toezicht", "58 activiteiten zijn tier 2"],
+    ["Aanbod (supply)", "common, regional of rare: hoe makkelijk is een aanbieder te vinden?", "436 vastgelegd; 320 leeg (telt als gewoon)"],
+    ["Instap (entry)", "Een laagdrempelige eerste stap: proefles, open dag, beginnersavond", "Alle 756"],
+    ["Scène", "Beeldregie voor de foto (nooit mensen of gezichten)", "Alle 756"],
+  ], { widths: [26, 46, 28] }),
+  h2("Hoe activiteiten met elkaar en met associaties zijn verbonden"),
+  p("Er zijn vier soorten relaties, alle afgeleid uit de data en geen van alle met een AI-aanroep."),
+  ul([
+    "**Tags.** Twee activiteiten die een niet-generieke tag delen, zijn verbonden met een gewicht dat met de zeldzaamheid van de tag toeneemt. Dit levert 44.295 echte verbindingen op, gemiddeld 117 per activiteit. De meest verbonden zijn *Vrijwilliger bij natuurbeheer* (280), *Mountainbiken* (267) en *Nordic walking* (264). Veertien activiteiten hebben geen enkele echte verbinding.",
+    "**Gecureerde combinaties.** 80 handgemaakte paren van activiteiten uit verschillende werelden, elk samengevoegd tot één concrete en legale activiteit (*high tea op een historische buitenplaats*). Dit is een concept, geen belofte dat er aanbod is.",
+    "**Clusters.** 14 handmatige groepen van dezelfde soort activiteit (165 activiteiten, bijvoorbeeld drie dansvormen of vier wandelingen) zodat een boek er hoogstens twee van dezelfde soort heeft.",
+    "**Beeld naar activiteit.** Via de gedeelde tags: een gekozen beeld en een activiteit horen bij elkaar als ze tags delen. `imagesBehind` vindt per idee het beeld met de meeste overlap voor de zin 'Omdat je … koos'.",
+  ]),
+  p("Er bestaat ook een tweede, rijkere woordenschat van 127 associaties (geur, trots, vrijheid, verwondering), met per beeldfamilie en voor 544 van de 756 activiteiten een gewogen vector. Die associatielaag is gebouwd en gemeten, maar staat standaard uit (`KNOWLEDGE_ASSOCIATION_LAYER`). Haar effect op de kwaliteit van pagina 2 is niet beoordeeld (bevinding F-19)."),
+  h2("Van abstract begrip naar concrete activiteit"),
+  p("Het voorbeeld uit de opdracht (associatie, subassociatie, activiteit, aanbieder, bezoek) past gedeeltelijk op de werkelijkheid. De eerste drie schakels bestaan in de code, maar *subassociatie* is geen eigen laag: het is een gedeelde tag. De laatste twee schakels zijn geen onderdeel van de bibliotheek maar van het zoeken en horen bij hoofdstuk 8."),
+  fig("chain", "Twee echte ketens. A loopt van beeld naar activiteit (motor, gratis). B loopt van activiteit naar bezoek (zoeken, eerder gegenereerd meetboek P13)."),
+  h2("De referentiebibliotheek: een aparte laag"),
+  p("Naast de bibliotheek van de app staat een redactionele masterdatabase (`reference-library/`): 20 hoofdcategorieën, een woordenschat van 127 associaties in tien domeinen, en per activiteit gewogen koppelingen met een reden bij elke ontdekkingsverbinding. De app leest die niet tijdens het draaien. Ze dient om de app-bibliotheek te controleren en te laten groeien: 124 activiteiten zijn eruit in de app geïmporteerd en 7 samengevoegd met bestaande. Alles in de referentiebibliotheek is een hypothese tot een mens het gecontroleerd heeft."),
+  laagB("Laag B: herkomst en controle", [
+    p("Elke activiteit heeft een `status` (`concept`, `reviewed`, `live`, `retired`) en kan een `provenance` en `reviewed_by` dragen. Voor `reviewed` en `live` is `reviewed_by` verplicht. In de huidige bibliotheek staan alle 756 activiteiten op `concept`, geen enkele heeft een `reviewed_by` of een `source`-herkomst. De motor leest alles vanaf `DISCOVERY_MIN_STATUS`, dus `concept` is wat bezoekers zien. Een nieuwe activiteit kan met `image_pending` worden aangemaakt: ze is dan onzichtbaar tot haar foto bestaat."),
+    p("Voor het zoeken heeft elke activiteit zoektermen (`searchHints.generated.json`, door Haiku gemaakt voor 728 activiteiten, plus handwerk in `searchHints.manual.json`)."),
+  ]),
+  note("eerlijk", "De bibliotheek is zo goed als haar data. Geen van de 756 activiteiten is door een kenner getoetst, 84 procent heeft niveau 0 (het facet onderscheidt dus nauwelijks), en bij 42 procent is het aanbod niet vastgelegd (bevinding F-10)."),
+] });

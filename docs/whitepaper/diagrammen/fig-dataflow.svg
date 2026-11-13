@@ -1,0 +1,89 @@
+<svg style="font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 388" width="960" height="388" role="img" aria-label="Datastroomdiagram: welke objecten door de applicatie gaan, van invoer tot boek" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif"><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8C857A"/></marker>
+<marker id="ah-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#8C857A"/></marker>
+</defs><rect x="6" y="30" width="124" height="92" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="14" y="47.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="start">IntakeAnswers</text>
+<text x="14" y="62.8" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">concept in de browser</text>
+<text x="14" y="74.2" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">(sessionStorage)</text>
+<rect x="208" y="30" width="124" height="92" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="216" y="47.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="start">StoredIntake</text>
+<text x="216" y="62.8" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">raw_json in</text>
+<text x="216" y="74.2" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">intake_answers, per</text>
+<text x="216" y="85.7" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">sessie</text>
+<rect x="410" y="30" width="124" height="92" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="418" y="47.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="start">EngineInput</text>
+<text x="418" y="62.8" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">interests, dials,</text>
+<text x="418" y="74.2" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">budget, maand, seed,</text>
+<text x="418" y="85.7" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">geschiedenis</text>
+<rect x="612" y="30" width="124" height="92" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="620" y="47.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="start">Seed [7]</text>
+<text x="620" y="62.8" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">activiteit, richting,</text>
+<text x="620" y="74.2" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">deur, niveau, keten,</text>
+<text x="620" y="85.7" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">fit, redenen</text>
+<rect x="814" y="30" width="124" height="92" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="822" y="47.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="start">LocalOption []</text>
+<text x="822" y="62.8" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">per activiteit: naam,</text>
+<text x="822" y="74.2" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">plaats, url, notitie,</text>
+<text x="822" y="85.7" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">beoordeling</text>
+<rect x="814" y="190" width="124" height="92" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="822" y="207.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="start">Prompt</text>
+<text x="822" y="222.8" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">profiel, 7 seeds met</text>
+<text x="822" y="234.2" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">opties, datum, regels</text>
+<rect x="612" y="190" width="124" height="92" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="620" y="207.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="start">Ruwe tekst</text>
+<text x="620" y="222.8" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">ideeën en lagen, uit</text>
+<text x="620" y="234.2" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">twee aanroepen</text>
+<rect x="410" y="190" width="124" height="92" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="418" y="207.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="start">IdeaBookEntry [7]</text>
+<text x="418" y="222.8" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">gecontroleerd, met</text>
+<text x="418" y="234.2" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">plaatsen, scores, deur</text>
+<rect x="208" y="190" width="124" height="92" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="216" y="207.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="start">GeneratedIdeaBook</text>
+<text x="216" y="222.8" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">na de kwaliteitspoort</text>
+<rect x="6" y="190" width="124" height="92" rx="7" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="14" y="207.0" font-size="10" font-weight="700" fill="#1F3447" text-anchor="start">Plan, PDF, e-mail</text>
+<text x="14" y="222.8" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">window_plans,</text>
+<text x="14" y="234.2" font-size="8.8" font-weight="400" fill="#1F3447" text-anchor="start">privé-opslag, Resend</text>
+<path d="M130 76 L208 76" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="133" y="36" width="72" height="30" rx="5" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="169" y="48.0" font-size="8.6" font-weight="600" fill="#4A3611" text-anchor="middle">saveIntake</text>
+<path d="M332 76 L410 76" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="335" y="36" width="72" height="30" rx="5" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="371" y="43.4" font-size="8.6" font-weight="600" fill="#33221A" text-anchor="middle">applyImage</text>
+<text x="371" y="53.4" font-size="8.6" font-weight="600" fill="#33221A" text-anchor="middle">Intake</text>
+<path d="M534 76 L612 76" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="537" y="36" width="72" height="30" rx="5" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="573" y="48.0" font-size="8.6" font-weight="600" fill="#33221A" text-anchor="middle">selectSeeds</text>
+<path d="M736 76 L814 76" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="739" y="36" width="72" height="30" rx="5" fill="#EEE2F1" stroke="#7A4E7E" stroke-width="1.2"/>
+<text x="775" y="43.4" font-size="8.6" font-weight="600" fill="#3E2144" text-anchor="middle">research</text>
+<text x="775" y="53.4" font-size="8.6" font-weight="600" fill="#3E2144" text-anchor="middle">Seeds</text>
+<path d="M876 122 L876 190" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="886" y="144" width="82" height="30" rx="5" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="927" y="155.0" font-size="8.6" font-weight="600" fill="#33221A" text-anchor="middle">formatProfile,</text>
+<text x="927" y="165.0" font-size="8.6" font-weight="600" fill="#33221A" text-anchor="middle">seedBlock</text>
+<path d="M814 236 L736 236" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="739" y="196" width="72" height="30" rx="5" fill="#EEE2F1" stroke="#7A4E7E" stroke-width="1.2"/>
+<text x="775" y="203.4" font-size="8.6" font-weight="600" fill="#3E2144" text-anchor="middle">Sonnet 5</text>
+<text x="775" y="213.4" font-size="8.6" font-weight="600" fill="#3E2144" text-anchor="middle">(2 calls)</text>
+<path d="M612 236 L534 236" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="537" y="196" width="72" height="30" rx="5" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="573" y="203.4" font-size="8.6" font-weight="600" fill="#33221A" text-anchor="middle">checkEntry,</text>
+<text x="573" y="213.4" font-size="8.6" font-weight="600" fill="#33221A" text-anchor="middle">buildEntry</text>
+<path d="M410 236 L332 236" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="335" y="196" width="72" height="30" rx="5" fill="#EEE2F1" stroke="#7A4E7E" stroke-width="1.2"/>
+<text x="371" y="203.4" font-size="8.6" font-weight="600" fill="#3E2144" text-anchor="middle">runQuality</text>
+<text x="371" y="213.4" font-size="8.6" font-weight="600" fill="#3E2144" text-anchor="middle">Gate</text>
+<path d="M208 236 L130 236" fill="none" stroke="#8C857A" stroke-width="1.4" marker-end="url(#ah)" stroke-linejoin="round"/>
+<rect x="133" y="196" width="72" height="30" rx="5" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="169" y="203.4" font-size="8.6" font-weight="600" fill="#33221A" text-anchor="middle">renderIdea</text>
+<text x="169" y="213.4" font-size="8.6" font-weight="600" fill="#33221A" text-anchor="middle">BookPdf</text>
+<text x="6" y="16.0" font-size="9.2" font-weight="400" fill="#6A655D" text-anchor="start">Rij 1 loopt naar rechts, rij 2 terug naar links. De gekleurde labels zijn de bewerkingen tussen de gegevens.</text>
+<rect x="6" y="364" width="13" height="13" rx="3" fill="#E1EAF2" stroke="#3E5C76" stroke-width="1.2"/>
+<text x="25" y="374.5" font-size="9.6" font-weight="400" fill="#6A655D" text-anchor="start">Gegevens</text>
+<rect x="83.624" y="364" width="13" height="13" rx="3" fill="#F8EFD9" stroke="#B08A4A" stroke-width="1.2"/>
+<text x="102.624" y="374.5" font-size="9.6" font-weight="400" fill="#6A655D" text-anchor="start">Server-actie na invoer</text>
+<rect x="235.84" y="364" width="13" height="13" rx="3" fill="#EFE4DB" stroke="#5B3F2F" stroke-width="1.2"/>
+<text x="254.84" y="374.5" font-size="9.6" font-weight="400" fill="#6A655D" text-anchor="start">Eigen code</text>
+<rect x="324.12" y="364" width="13" height="13" rx="3" fill="#EEE2F1" stroke="#7A4E7E" stroke-width="1.2"/>
+<text x="343.12" y="374.5" font-size="9.6" font-weight="400" fill="#6A655D" text-anchor="start">AI-aanroep</text></svg>
