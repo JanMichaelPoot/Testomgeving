@@ -771,14 +771,17 @@ export async function generateIdeaBookFromSeeds(
   const onlineTried = new Set<string>();
   const widerKm = widerRadiusKm(intake.searchDistance, intake.searchDistanceKm);
   const broadTried = new Set<string>();
-  const widerTried = new Set<string>();
   const widened = new Set<string>();
   const broadened = new Set<string>();
   // The activities of a list that still have no option at all (a curated combination counts the options of both halves).
   const lackingOf = (seedList: readonly Seed[], base: typeof research) => [...new Set(seedList.filter((s) => (seedResearch(s, base.byActivity)?.options.length ?? 0) === 0).map((s) => s.activityId))];
   // A physical search makes no sense for what is online by nature (a writing course, a language app): that goes to the online providers at once.
   const physicalLacking = (seedList: readonly Seed[], base: typeof research) => lackingOf(seedList, base).filter((id) => !isOnlineByNature(getActivity(id)));
-  /** A second, wider search for the ideas the first one found nothing for: other kinds of provider (clubs, community centres, libraries, repair cafes ...) at the same distance. */
+  /**
+   * The second search, for the ideas the standard one found nothing for: one broad pass (other kinds of provider: clubs, community centres, libraries, repair cafes ...)
+   * over twice the chosen distance, nearest first. One round instead of two (a broad one at the same distance and a wider one): every round reads 35-55k tokens of
+   * search results back, and the two together made a book cost four times as much (measured 14 Nov 2026). Where the distance cannot be widened it stays as chosen.
+   */
   const withBroad = async (seedList: readonly Seed[], base: typeof research): Promise<typeof research> => {
     if (!requireOptions || overBudget()) return base;
     const lacking = physicalLacking(seedList, base).filter((id) => !broadTried.has(id));
@@ -788,7 +791,7 @@ export async function generateIdeaBookFromSeeds(
       activityIds: lacking,
       location: intake.location,
       searchDistance: intake.searchDistance,
-      searchDistanceKm: intake.searchDistanceKm,
+      searchDistanceKm: widerKm ?? intake.searchDistanceKm,
       locale,
       now,
       pass: "broad",
@@ -802,39 +805,13 @@ export async function generateIdeaBookFromSeeds(
       if (found && found.options.length > 0) {
         merged.set(id, { activityId: id, options: found.options, source: "search" });
         broadened.add(id);
+        if (widerKm !== null) widened.add(id);
       }
     }
     return { byActivity: merged, stats: addStats(base.stats, broad.stats) };
   };
-  const withWider = async (seedList: readonly Seed[], base: typeof research): Promise<typeof research> => {
-    if (!requireOptions || widerKm === null || overBudget()) return base;
-    const lacking = physicalLacking(seedList, base).filter((id) => !widerTried.has(id));
-    if (lacking.length === 0) return base;
-    for (const id of lacking) widerTried.add(id);
-    const wider = await researchSeeds({
-      activityIds: lacking,
-      location: intake.location,
-      searchDistance: intake.searchDistance,
-      searchDistanceKm: widerKm,
-      locale,
-      now,
-      pass: "broad",
-      priorityIds: lacking.filter((id) => ownPicks.has(id)),
-      needs: researchNeedsFrom(engine.constraints.verify),
-      country: intake.country,
-    });
-    const merged = new Map(base.byActivity);
-    for (const id of lacking) {
-      const found = wider.byActivity.get(id);
-      if (found && found.options.length > 0) {
-        merged.set(id, { activityId: id, options: found.options, source: "search" });
-        widened.add(id);
-      }
-    }
-    return { byActivity: merged, stats: addStats(base.stats, wider.stats) };
-  };
-  /** Physical options near the person: the standard search is followed by the broad one and then by the wider distance, for what still lacks an option. */
-  const settle = async (seedList: readonly Seed[], base: typeof research) => withWider(seedList, await withBroad(seedList, base));
+  /** Physical options near the person: the standard search, then one broad search over twice the distance for what still lacks an option. */
+  const settle = async (seedList: readonly Seed[], base: typeof research) => withBroad(seedList, base);
   /** The online providers: "nature" for what is online by its own nature, "all" as the very last resort for everything that still has no option. */
   const withOnline = async (seedList: readonly Seed[], base: typeof research, which: "nature" | "all"): Promise<typeof research> => {
     if (!requireOptions) return base;

@@ -105,7 +105,9 @@ async function main() {
     const calls: string[] = [];
     console.log = (...a: unknown[]) => {
       const line = a.map(String).join(" ");
-      const m = line.match(/WINDOW: ([\w -]+?) took (\d+)ms.*usage=(\{.*\})/);
+      // Every model call logs "<prefix>: <what> took <ms>ms ... usage={...}". The prefix is "WINDOW" or "WindowInto" and the label may hold brackets ("research pass (broad)");
+      // an older pattern matched only "WINDOW: " and so left the standard and broad research passes out of the total (found 14 Nov 2026).
+      const m = line.match(/(?:WINDOW|WindowInto): (.+?) took (\d+)ms.*usage=(\{.*\})/);
       if (m) {
         const model = line.match(/\((claude-[\w.-]+)\)/)?.[1];
         const c = price(JSON.parse(m[3]) as Usage, model);

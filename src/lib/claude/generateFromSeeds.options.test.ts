@@ -138,23 +138,23 @@ describe("physical first, online last", () => {
     expect(kralen?.places?.map((p) => p.name)).toEqual(["Lokaal kralen-rijgen"]);
   });
 
-  it("asks the online providers last: after the local, the broad and the wider search found nothing, and after another idea was tried", async () => {
+  it("asks the online providers last: after the local and the broad search over twice the distance found nothing, and after another idea was tried", async () => {
     mockOnlyTheFirstSelectionHasPlaces();
     await run(base);
     const calls = researchSeeds.mock.calls.map((c) => c[0]);
     const firstStandard = calls.findIndex((o) => !passOf(o) && modeOf(o) !== "online" && !widerOf(o) && ids(o).includes("kralen-rijgen"));
-    const firstBroad = calls.findIndex((o) => passOf(o) === "broad" && !widerOf(o) && ids(o).includes("kralen-rijgen"));
-    const firstWide = calls.findIndex((o) => widerOf(o) && ids(o).includes("kralen-rijgen"));
+    const firstBroad = calls.findIndex((o) => passOf(o) === "broad" && widerOf(o) && ids(o).includes("kralen-rijgen"));
     const firstOnline = calls.findIndex((o) => modeOf(o) === "online" && ids(o).includes("kralen-rijgen"));
     expect(firstStandard).toBe(0);
     expect(firstBroad).toBeGreaterThan(firstStandard);
-    expect(firstWide).toBeGreaterThan(firstBroad);
-    expect(firstOnline).toBeGreaterThan(firstWide);
+    expect(firstOnline).toBeGreaterThan(firstBroad);
+    // one broad round, not two: kralen-rijgen is never searched broadly at the chosen distance as well
+    expect(calls.filter((o) => passOf(o) === "broad" && !widerOf(o) && ids(o).includes("kralen-rijgen"))).toHaveLength(0);
     // only what still lacked an option goes to the online pass
     expect(calls.filter((o) => modeOf(o) === "online").flatMap((o) => ids(o))).not.toContain("high-tea");
   });
 
-  it("gives an idea with nothing a second, broader search at the same distance before it widens the distance", async () => {
+  it("gives an idea with nothing one broad search over twice the distance (one round, not a broad and then a wider one)", async () => {
     researchSeeds.mockImplementation(async (opts: unknown) => ({
       byActivity: new Map(
         ids(opts).map((id) => [id, { activityId: id, source: "search", options: id === "kralen-rijgen" && passOf(opts) !== "broad" ? [] : [option(`Lokaal ${id}`)] }]),
@@ -163,9 +163,13 @@ describe("physical first, online last", () => {
     }));
     const { book, report } = await run(base);
     const calls = researchSeeds.mock.calls.map((c) => c[0]);
-    expect(calls.filter((o) => passOf(o) === "broad").flatMap((o) => ids(o))).toEqual(["kralen-rijgen"]);
-    expect(calls.filter(widerOf).flatMap((o) => ids(o))).not.toContain("kralen-rijgen");
+    const broad = calls.filter((o) => passOf(o) === "broad");
+    expect(broad.flatMap((o) => ids(o))).toEqual(["kralen-rijgen"]);
+    expect(broad.every(widerOf)).toBe(true);
+    // nothing else was searched over the wider distance, and nothing was asked online for it
+    expect(calls.filter(widerOf)).toHaveLength(1);
     expect(report.notes).toContain("broadened_search:kralen-rijgen");
+    expect(report.notes).toContain("widened_radius:kralen-rijgen");
     const kralen = [...book.ideas, book.wildcard].find((i) => i.activity_id === "kralen-rijgen");
     expect(kralen?.places?.map((p) => p.name)).toEqual(["Lokaal kralen-rijgen"]);
   });

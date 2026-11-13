@@ -87,7 +87,8 @@ async function main() {
     const calls: (typeof rows)[number]["calls"] = [];
     console.log = (...args: unknown[]) => {
       const line = args.map(String).join(" ");
-      const m = line.match(/WINDOW: (research pass|main generation call|[\w -]+?) took (\d+)ms.*usage=(\{.*\})/);
+      // "WindowInto" since the rename of Step 163; an older pattern matched only "WINDOW: " and left the local research passes out of every total after that step.
+      const m = line.match(/(?:WINDOW|WindowInto): (research pass|main generation call|.+?) took (\d+)ms.*usage=(\{.*\})/);
       if (m) {
         const u = JSON.parse(m[3]) as Usage;
         const model = line.match(/\((claude-[\w.-]+)\)/)?.[1];

@@ -193,7 +193,8 @@ export function createSupabaseResearchCache(): ResearchCache {
 export const RESEARCH_MODEL = process.env.WINDOW_RESEARCH_MODEL || "claude-haiku-4-5-20251001";
 const MAX_SEARCHES = 5;
 const MAX_PRIORITY_SEARCHES = 4;
-const MAX_BROAD_SEARCHES = 6;
+// The broad pass reads a lot back (35-55k tokens per round, measured): four searches at most.
+const MAX_BROAD_SEARCHES = 4;
 
 const SYSTEM = `You are a meticulous local-options researcher for WindowInto, a possibility-discovery app.
 Your only job is to use web search to find REAL, CURRENTLY OPERATING businesses, venues, clubs, routes, event
@@ -271,7 +272,7 @@ and is open. Classes, events and seasonal offers keep the stricter rules below.
   const broadBlock =
     pass === "broad"
       ? `
-SECOND ATTEMPT: a first search found nothing for these activities, so search more widely for WHO really offers or organises them: clubs and associations (and their club finders or member lists), community centres and neighbourhood workshops, adult-education courses, libraries, repair cafes, nature, heritage and sports associations (for example IVN, Natuurmonumenten, a sports federation's club finder), municipal activity calendars, museums and visitor centres, farms and animal parks. Use the search terms given per activity and also the broader name of the activity. A group that meets regularly counts even when its website is simple.
+SECOND ATTEMPT: a first search found nothing for these activities, so search more widely for WHO really offers or organises them: clubs and associations (and their club finders or member lists), community centres and neighbourhood workshops, adult-education courses, libraries, repair cafes, nature, heritage and sports associations (for example IVN, Natuurmonumenten, a sports federation's club finder), municipal activity calendars, museums and visitor centres, farms and animal parks. Use the search terms given per activity and also the broader name of the activity. A group that meets regularly counts even when its website is simple. The radius above may be wide: look in and around the place itself first, widen only as far as needed, and list the nearest options first.
 `
       : "";
   return `Today is ${describeToday(now, "en")} (${isoDateNL(now)}). Place: ${location || countryName}. Search radius: ${radiusLine(radius).replace("the Netherlands", countryName)}.
