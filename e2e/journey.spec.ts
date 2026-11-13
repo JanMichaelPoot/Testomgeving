@@ -40,7 +40,7 @@ for (const size of sizes) {
       await press("Verder");
 
       // 3. Images: the question, the indicator, five picks.
-      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Waar gaat jouw nieuwsgierigheid naar uit?");
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Welke beelden maken jou nieuwsgierig?");
       await expect(page.getByTestId("discovery-flow")).toBeVisible();
       const images = page.locator("main button[aria-pressed]:has(img)");
       for (let i = 0; i < 5; i++) await images.nth(i).click();

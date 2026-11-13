@@ -83,7 +83,7 @@ test.describe("the start page", () => {
     await page.locator("#location").fill("Haarlem");
     await page.getByLabel("Hoe heet diegene? Met een naam wordt je boek persoonlijker.").fill("Oma Els");
     await page.getByRole("button", { name: "Verder", exact: true }).click();
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Waar gaat de nieuwsgierigheid van Oma Els naar uit?");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Welke beelden maken Oma Els nieuwsgierig?");
   });
 
   test("choosing a child changes the images and the wording, and 'terug' keeps the answers", async ({ page }) => {
@@ -104,7 +104,7 @@ test.describe("the start page", () => {
     await page.getByRole("button", { name: "Alleen buiten", exact: true }).click();
     await page.getByRole("button", { name: "Zonder auto bereikbaar", exact: true }).click();
     await page.getByRole("button", { name: "Verder", exact: true }).click();
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Waar gaat de nieuwsgierigheid naar uit?");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Welke beelden wekken nieuwsgierigheid?");
     // 18 images, none of them chosen yet.
     await expect(page.locator("main button[aria-pressed] img")).toHaveCount(18);
     // Back: everything is still there, nothing is asked again. (In dev, the Next.js indicator floats over the corner of the bar and
@@ -156,7 +156,7 @@ test.describe("country and place from the connection", () => {
     await expect(page.locator("#geo-note")).toHaveCount(0);
     await page.locator("#location").fill("Gent");
     await page.getByRole("button", { name: "Verder", exact: true }).click();
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Waar gaat jouw nieuwsgierigheid naar uit?");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Welke beelden maken jou nieuwsgierig?");
     const draft = await page.evaluate((k) => JSON.parse(sessionStorage.getItem(k) ?? "{}"), DRAFT);
     expect(draft.answers.country).toBe("BE");
     expect(draft.answers.location).toBe("Gent");

@@ -55,11 +55,11 @@ async function open(page: Page, pageIndex: number, answers: Record<string, unkno
 test.describe("the images page", () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, locale: "nl-NL" });
 
-  test("asks about curiosity, keeps the calm subtitle, and shows the wide-then-sharp indicator", async ({ page }) => {
+  test("asks about curiosity, invites with a warm subtitle, and shows the wide-then-sharp indicator", async ({ page }) => {
     await open(page, 1, { associations: [] });
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Waar gaat jouw nieuwsgierigheid naar uit?");
-    await expect(page.getByText("Kies wat je aanspreekt zonder er verder lang over na te denken.")).toBeVisible();
-    await expect(page.getByText("Er zijn geen goede of foute antwoorden.")).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Welke beelden maken jou nieuwsgierig?");
+    await expect(page.getByText("Laat je verleiden door wat je ziet.")).toBeVisible();
+    await expect(page.getByText("Er is geen goed of fout.")).toBeVisible();
     const flow = page.getByTestId("discovery-flow");
     await expect(flow).toBeVisible();
     await expect(flow.locator('[data-active="true"]')).toContainText("Breed ontdekken");
@@ -130,7 +130,7 @@ test.describe("the activities page", () => {
     const back = page.getByRole("button", { name: "Terug naar de beelden" });
     await expect(back).toBeVisible();
     await back.dispatchEvent("click");
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Waar gaat jouw nieuwsgierigheid naar uit?");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Welke beelden maken jou nieuwsgierig?");
     await expect(page.getByText("3 gekozen")).toBeVisible();
     await page.getByRole("button", { name: "Verder", exact: true }).dispatchEvent("click");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Van jouw associaties naar nieuwe mogelijkheden");

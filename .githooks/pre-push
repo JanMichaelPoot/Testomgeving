@@ -1,0 +1,14 @@
+#!/bin/sh
+# Stops a push whose code would not build on Vercel: runs the same type check as `next build` (npm run typecheck).
+# Turn it on once per clone with: git config core.hooksPath .githooks
+# Skip it for one push (not recommended) with: SKIP_TYPECHECK=1 git push
+if [ -n "$SKIP_TYPECHECK" ]; then
+  echo "pre-push: type check skipped (SKIP_TYPECHECK is set)"
+  exit 0
+fi
+echo "pre-push: type check (the same one Vercel runs)..."
+if ! npm run --silent typecheck; then
+  echo ""
+  echo "pre-push: the type check failed, so this code would not build on Vercel. Fix the errors above and push again."
+  exit 1
+fi

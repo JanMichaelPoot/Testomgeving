@@ -1,0 +1,8 @@
+{
+  // The type check that matches what `next build` (and so Vercel) runs on the real app: everything except the throwaway `scratch/`
+  // folder. A syntax error in a scratch file makes plain `tsc` stop before it checks the types in `src/`, which once hid the errors that
+  // broke every deploy (Step 184). Run it with `npm run typecheck`.
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "incremental": false },
+  "exclude": ["node_modules", "scratch", ".next"]
+}
