@@ -79,13 +79,13 @@ describe("one answer for several radii", () => {
   });
 
   it("takes the nearest smaller radius that found something", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|5km|v6": [opt("Dichtbij")], "yoga|utrecht|15km|v6": [opt("Iets verder")] });
+    const { cache } = memoryCache({ "yoga|utrecht|5km|v6": [opt("Yoga dichtbij")], "yoga|utrecht|15km|v6": [opt("Yoga iets verder")] });
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search: searchAll() });
-    expect(byActivity.get("yoga")?.options[0].name).toBe("Iets verder");
+    expect(byActivity.get("yoga")?.options[0].name).toBe("Yoga iets verder");
   });
 
   it("does not use what only a larger radius found: it may be too far for this person", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|50km|v6": [opt("Ver weg")] });
+    const { cache } = memoryCache({ "yoga|utrecht|50km|v6": [opt("Yoga ver weg")] });
     const search = searchAll();
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).toHaveBeenCalledTimes(1);
@@ -107,15 +107,15 @@ describe("one answer for several radii", () => {
   });
 
   it("lets what was found win over an empty answer of another radius", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|10km|v6": [opt("Gevonden")], "yoga|utrecht|50km|v6": [] });
+    const { cache } = memoryCache({ "yoga|utrecht|10km|v6": [opt("Yoga gevonden")], "yoga|utrecht|50km|v6": [] });
     const search = searchAll();
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).not.toHaveBeenCalled();
-    expect(byActivity.get("yoga")?.options[0].name).toBe("Gevonden");
+    expect(byActivity.get("yoga")?.options[0].name).toBe("Yoga gevonden");
   });
 
   it("keeps the passes and the needs apart: a standard answer never serves a broad question", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|15km|v6": [opt("Standaard")] });
+    const { cache } = memoryCache({ "yoga|utrecht|15km|v6": [opt("Yoga standaard")] });
     const search = searchAll();
     await researchSeeds({ ...args, activityIds: ["yoga"], pass: "broad", cache, search });
     expect(search).toHaveBeenCalledTimes(1);

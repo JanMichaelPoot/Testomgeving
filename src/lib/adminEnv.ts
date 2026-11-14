@@ -85,7 +85,7 @@ export function envChecks(env: Env): EnvCheck[] {
   add("GEMINI_API_KEY", has(env.GEMINI_API_KEY), has(env.GEMINI_API_KEY) ? "aanwezig" : "niet nodig voor de site (alleen om beelden te maken)", false);
   add("NEXT_PUBLIC_POSTHOG_KEY", has(env.NEXT_PUBLIC_POSTHOG_KEY), has(env.NEXT_PUBLIC_POSTHOG_KEY) ? "aanwezig" : "ontbreekt: geen gedragsmeting", false);
   add("CRON_SECRET", has(env.CRON_SECRET), has(env.CRON_SECRET) ? "aanwezig" : "ontbreekt: de herinneringsmail-route is open voor iedereen", false);
-  add("NEXT_PUBLIC_TEST_FEEDBACK", true, has(env.NEXT_PUBLIC_TEST_FEEDBACK) ? `ingesteld op "${env.NEXT_PUBLIC_TEST_FEEDBACK}" (vragenlijst onder het boek)` : "niet ingesteld (geen vragenlijst)", false);
+  add("NEXT_PUBLIC_TEST_FEEDBACK", true, has(env.NEXT_PUBLIC_TEST_FEEDBACK) ? `ingesteld op "${env.NEXT_PUBLIC_TEST_FEEDBACK}" (de mail met de pdf vraagt om de vragenlijst; die staat op /feedback/<boek>, niet meer onder het boek)` : "niet ingesteld (geen vragenlijst)", false);
   const limit = Number((env.TEST_MAX_BOOKS_PER_IP ?? "").trim());
   add("TEST_MAX_BOOKS_PER_IP", true, Number.isInteger(limit) && limit > 0 ? `${limit} boek(en) per internetverbinding (testlimiet aan; jij bent als ingelogde admin onbeperkt)` : "niet ingesteld: geen limiet", false);
   const exempt = (env.TEST_QUOTA_EXEMPT_IPS ?? "").split(/[,;\s]+/).filter(Boolean).length;

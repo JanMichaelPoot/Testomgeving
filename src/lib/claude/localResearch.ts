@@ -9,6 +9,7 @@ import { cleanRating, type Rating } from "@/lib/claude/rating";
 import type { RatingEnricher } from "@/lib/claude/placesRatings";
 import type { CostLedger } from "@/lib/claude/costLedger";
 import { verifyOptionUrls } from "@/lib/claude/verifyUrls";
+import { filterRelevant, relevantOptions } from "@/lib/claude/optionRelevance";
 
 export type { Rating };
 import type { Locale } from "@/lib/locale";
@@ -377,6 +378,8 @@ An option only counts when ALL of these are true:
   reviews does not count. A listing that merely says such a venue exists in a country or region does not count.
 - It really offers this activity to beginners, not something merely similar.
 If no option meets all three, the options list for that activity is empty. Do not fill it up.
+Every option is listed under the activity it is about. Never put an option under an activity it does not offer, and never list the same provider under several activities
+unless it really offers each of them: an option found for one activity is not a substitute for another, and an empty list is the right answer when nothing fits.
 
 How to search (this decides how good the options are):
 - Search the way a local looks for it, in ${searchLanguage}, and combine related activities in one query where that works. Good queries: "<activity> <place>",
@@ -433,6 +436,8 @@ An option only counts when ALL of these are true:
 - It can actually be used by someone in ${countryName} (it ships to, or runs for, people there).
 If the activity cannot sensibly be done or started online or by post (it needs a venue, a licence or an instructor on site), or nothing
 verifiable exists, give an empty options list. An empty answer is a good answer; never invent a name or URL.
+Every option is listed under the activity it is about. Never put an option under an activity it does not offer, and never list the same provider under several activities
+unless it really offers each of them: an option found for one activity is not a substitute for another, so when nothing fits an activity its list is empty.
 
 Ratings: when a search result shows a review score (Trustpilot, Google, the shop's own page, an app store, ...), give it as
 "rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Trustpilot"} (scale 5 or 10; "reviews" null when not stated). Never estimate or
@@ -676,8 +681,10 @@ export async function researchSeeds(opts: {
   const cached = cache ? await cache.get(toLookUp, cacheKey, locale) : new Map<string, LocalOption[]>();
   // Physical places only (the online pass, when it is asked for at all, is the one exception).
   const physical = (list: LocalOption[]) => (online ? list : list.filter(isPhysicalOption));
+  // And only what is about the activity it is stored for (optionRelevance.ts): an answer cached before that check existed may hold another activity's options.
+  const about = (id: string, list: LocalOption[]) => relevantOptions(list, id, { online });
   for (const [id, stored] of cached) {
-    const options = physical(cleanOptions(stored, today));
+    const options = about(id, physical(cleanOptions(stored, today)));
     // Everything that was stored has run out since: that is a new question, not an answer.
     if (options.length === 0 && stored.length > 0) continue;
     // An empty shared answer does not settle a choice of the person's own: that one is searched with its own, wider call.
@@ -688,7 +695,7 @@ export async function researchSeeds(opts: {
   const ownToLookUp = toLookUp.filter((id) => priority.has(id) && !byActivity.has(id));
   if (cache && ownToLookUp.length > 0) {
     for (const [id, stored] of await cache.get(ownToLookUp, ownKey, locale)) {
-      const options = physical(cleanOptions(stored, today));
+      const options = about(id, physical(cleanOptions(stored, today)));
       if (options.length === 0 && stored.length > 0) continue;
       byActivity.set(id, { activityId: id, options, source: "cache" });
       ownFrom.add(id);
@@ -712,7 +719,7 @@ export async function researchSeeds(opts: {
         const found = list
           .filter((r) => narrower.has(r.key))
           .sort((a, b) => kmOf(b.key) - kmOf(a.key))
-          .map((r) => physical(cleanOptions(r.options, today)))
+          .map((r) => about(id, physical(cleanOptions(r.options, today))))
           .find((o) => o.length > 0);
         if (found) {
           byActivity.set(id, { activityId: id, options: found, source: "cache" });
@@ -755,9 +762,14 @@ export async function researchSeeds(opts: {
     try {
       const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own, needs, countryEn, foreign, pass, opts.ledger);
       if (!found) throw new Error("the research answer could not be read");
+      // Is each option about the activity it was given for? One call answers for several activities and the model sometimes files a provider under the wrong one
+      // (the make-up courses under "design a board game", 14 Nov 2026). The same option under two activities stays with the one it fits best.
+      const answer = filterRelevant(new Map(ids.map((id) => [id, physical(found.get(id) ?? [])] as const)), { online });
+      for (const d of answer.dropped) console.warn(`WindowInto: research option refused (${d.reason}): "${d.option.name}" is not about ${d.activityId}`);
+      dropped += answer.dropped.length;
       await Promise.all(
         ids.map(async (id) => {
-          let options = physical(found.get(id) ?? []);
+          let options = answer.kept.get(id) ?? [];
           if (checker && options.length > 0) {
             const result = await checker(options);
             dropped += result.dropped.length;

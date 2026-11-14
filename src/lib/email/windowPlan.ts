@@ -27,6 +27,8 @@ export function buildIdeaBookEmail(params: {
   title: string;
   book: GeneratedIdeaBook;
   planUrl: string;
+  /** The page with the short questionnaire for this book (/feedback/<book>); when given, the mail asks the reader to fill it in. Absent = no request. */
+  feedbackUrl?: string | null;
   locale: Locale;
   siteUrl: string;
   // Model C digital sale compliance (section 17: "correcte orderbevestiging").
@@ -46,7 +48,7 @@ export function buildIdeaBookEmail(params: {
     termsVersion: string;
   };
 }): { subject: string; html: string; text: string } {
-  const { title, book, planUrl, locale, siteUrl, order } = params;
+  const { title, book, planUrl, feedbackUrl, locale, siteUrl, order } = params;
   const fullDict = getDictionary(locale);
   const dict = fullDict.email;
   const images = emailImages(siteUrl);
@@ -125,6 +127,17 @@ export function buildIdeaBookEmail(params: {
     </table>`
     : "";
 
+  // The request to answer the short questionnaire: after the book, before the order data. A button to a page, since a form cannot live in a mail.
+  const feedbackHtml = feedbackUrl
+    ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:32px;">
+      <tr><td bgcolor="${c.skySoft}" style="background:${c.skySoft};border-radius:16px;padding:20px 22px;">
+        ${emailEyebrow(dict.feedbackHeading)}
+        <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:${c.ink};">${escapeHtml(dict.feedbackLead)}</p>
+        ${emailButton(feedbackUrl, dict.feedbackButton)}
+      </td></tr>
+    </table>`
+    : "";
+
   const bodyHtml = `
     ${emailEyebrow(title, c.orangeText)}
     <h1 style="margin:0 0 14px;font-family:${EMAIL_FONTS.serif};font-size:32px;line-height:1.2;font-weight:normal;color:${c.navy};letter-spacing:-0.01em;">${escapeHtml(dict.readyHeading)}</h1>
@@ -142,7 +155,8 @@ export function buildIdeaBookEmail(params: {
     ${wildcardHtml}
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;"><tr><td>
       <a href="${escapeHtml(planUrl)}" style="font-family:${EMAIL_FONTS.sans};font-size:15px;font-weight:700;color:${c.blue};text-decoration:underline;">${escapeHtml(dict.viewOnline)} &rarr;</a>
-    </td></tr></table>`;
+    </td></tr></table>
+    ${feedbackHtml}`;
 
   const orderRow = (label: string, value: string, bold = false) => `<tr>
       <td style="padding:3px 0;font-size:12px;color:${c.muted};">${escapeHtml(label)}</td>
@@ -182,6 +196,10 @@ export function buildIdeaBookEmail(params: {
     ...book.ideas.map((idea, i) => `${i + 1}. ${doorOf(idea) ? `[${doorOf(idea)}] ` : ""}${idea.title}: ${idea.intro}`),
     `${wildcardHeading}: ${book.wildcard.title}: ${book.wildcard.intro}`,
     "",
+    feedbackUrl ? `${dict.feedbackHeading.toUpperCase()}
+${dict.feedbackLead}
+${dict.feedbackButton}: ${feedbackUrl}
+` : "",
     `${dict.orderHeading}: ${dict.orderNumberLabel} ${order.orderNumber}, ${dict.priceLabel} ${price}, ${dict.dateLabel} ${orderDateFormatted}`,
     dict.digitalDeliveryNote,
     dict.consentConfirmation,

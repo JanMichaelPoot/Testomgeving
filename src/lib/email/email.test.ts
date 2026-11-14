@@ -128,6 +128,42 @@ describe("buildIdeaBookEmail", () => {
   });
 });
 
+describe("buildIdeaBookEmail: the request to fill in the questionnaire (Jan, 14 Nov 2026)", () => {
+  const params = {
+    title: "Jouw Window Idea Book",
+    book,
+    planUrl: "https://windowinto.nl/plan?checkout_session_id=cs_test_1",
+    locale: "nl" as const,
+    siteUrl: "https://windowinto.nl",
+    order: { orderNumber: "W-0001", amountCents: 750, currency: "eur", orderDate: new Date("2026-09-25"), termsVersion: "1" },
+  };
+  const link = "https://windowinto.nl/feedback/6f1c2d3e-0000-4000-8000-000000000001?utm_source=window_mail&utm_medium=email";
+
+  it("asks the reader to answer the questions, with a button to the page, in the mail and in its plain text", () => {
+    const { html, text } = buildIdeaBookEmail({ ...params, feedbackUrl: link });
+    expect(html).toContain("Heb je twee minuten voor ons?");
+    expect(html).toContain("Vul de vragen in");
+    expect(html).toContain(link.replace(/&/g, "&amp;"));
+    expect(text).toContain("HEB JE TWEE MINUTEN VOOR ONS?");
+    expect(text).toContain(link);
+  });
+
+  it("asks in English for an English book", () => {
+    const { html } = buildIdeaBookEmail({ ...params, locale: "en", feedbackUrl: link });
+    expect(html).toContain("Have two minutes for us?");
+    expect(html).toContain("Answer the questions");
+  });
+
+  it("asks nothing when there is no page for it (the questionnaire is switched off)", () => {
+    for (const none of [undefined, null]) {
+      const { html, text } = buildIdeaBookEmail({ ...params, feedbackUrl: none });
+      expect(html).not.toContain("twee minuten");
+      expect(html).not.toContain("/feedback/");
+      expect(text).not.toContain("/feedback/");
+    }
+  });
+});
+
 describe("buildIdeaBookEmail: look and content", () => {
   const params = {
     title: "Jouw Window Idea Book",

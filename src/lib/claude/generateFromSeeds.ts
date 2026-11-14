@@ -19,6 +19,7 @@ import {
 } from "@/lib/claude/generateIdeaBook";
 import { bookCostMeta, createCostLedger, type CostLedger, type RoundKind } from "@/lib/claude/costLedger";
 import { loadQuietSupply } from "@/lib/claude/supplyIndex";
+import { relevantOptions } from "@/lib/claude/optionRelevance";
 import type { BookCostMeta } from "@/types/database";
 import { PLACES_LIST_PRICE_USD, createRatingEnricher } from "@/lib/claude/placesRatings";
 import { researchNeedsFrom, researchSeeds, type LocalOption, type ResearchNeed, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
@@ -612,11 +613,20 @@ export function researchIds(seeds: readonly Seed[]): string[] {
  */
 export function seedResearch(seed: Seed, byActivity: ReadonlyMap<string, SeedResearch>): SeedResearch | undefined {
   const own = byActivity.get(seed.activityId);
-  const partner = seed.hybrid && seed.hybrid.partnerId !== seed.activityId ? byActivity.get(seed.hybrid.partnerId) : undefined;
-  if (!partner || partner.options.length === 0) return own;
+  const partnerId = seed.hybrid && seed.hybrid.partnerId !== seed.activityId ? seed.hybrid.partnerId : undefined;
+  const partner = partnerId ? byActivity.get(partnerId) : undefined;
+  // The last guard before an option reaches the book or the count of what is still missing: it must be about this idea's activity (or its partner's). The research
+  // refuses what is not already (optionRelevance.ts); this also covers answers that came from anywhere else, so a place that does not fit can never be shown.
+  const fitting = (r: SeedResearch | undefined): SeedResearch | undefined => {
+    if (!r || r.options.length === 0) return r;
+    const options = relevantOptions(r.options, seed.activityId, { partnerId });
+    return options.length === r.options.length ? r : { ...r, options };
+  };
+  const mine = fitting(own);
+  if (!partner || partner.options.length === 0) return mine;
   const key = (o: LocalOption) => `${o.name}|${o.city}`.toLowerCase();
-  const seen = new Set((own?.options ?? []).map(key));
-  const options = [...(own?.options ?? []), ...partner.options.filter((o) => !seen.has(key(o)))];
+  const seen = new Set((mine?.options ?? []).map(key));
+  const options = [...(mine?.options ?? []), ...(fitting(partner)?.options ?? []).filter((o) => !seen.has(key(o)))];
   return { activityId: seed.activityId, options, source: own?.source === "search" || partner.source === "search" ? "search" : (own?.source ?? partner.source) };
 }
 

@@ -286,6 +286,10 @@ export interface Dictionary {
     wildcardTag: string;
     headerAlt: string;
     attachmentNote: string;
+    /** The request to fill in the short questionnaire (the form itself lives at /feedback/<book>): a heading, a lead and the button. */
+    feedbackHeading: string;
+    feedbackLead: string;
+    feedbackButton: string;
     orderHeading: string;
     // Order confirmation additions (section 17): order number, price,
     // date, an explicit digital-delivery note, a re-confirmation of the
@@ -858,6 +862,9 @@ const nl: Dictionary = {
     wildcardTag: "De wildcard",
     headerAlt: "Vier ramen op de wereld: een atelier, een waterval, een zeilboot en een luchtballon",
     attachmentNote: "De PDF zit als bijlage bij deze mail, zodat je hem ook offline kunt bewaren.",
+    feedbackHeading: "Heb je twee minuten voor ons?",
+    feedbackLead: "WindowInto is nog jong, en jij hebt zojuist als een van de eersten een boek gekregen. Acht korte vragen: wat klopte, wat niet, en welke deur je echt gaat openen. Alles mag je overslaan.",
+    feedbackButton: "Vul de vragen in",
     orderHeading: "Je bestelling",
     orderNumberLabel: "Ordernummer",
     priceLabel: "Prijs",
@@ -1589,6 +1596,9 @@ const en: Dictionary = {
     wildcardTag: "The wildcard",
     headerAlt: "Four windows on the world: a studio, a waterfall, a sailboat and a hot-air balloon",
     attachmentNote: "The PDF is attached to this email, so you can keep it offline too.",
+    feedbackHeading: "Have two minutes for us?",
+    feedbackLead: "WindowInto is still young, and you just got one of the first books. Eight short questions: what fit, what did not, and which door you will really open. You may skip any of them.",
+    feedbackButton: "Answer the questions",
     orderHeading: "Your order",
     orderNumberLabel: "Order number",
     priceLabel: "Price",

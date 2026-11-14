@@ -77,7 +77,7 @@ describe("the person's own choices (Stap 124)", () => {
 
   it("searches them in their own call, next to the call for the rest, and keeps their empty answers only two days", async () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const search = vi.fn(async (ids: string[], _l?: string, _r?: string, _lo?: string, _n?: Date, _own?: boolean) => new Map(ids.map((id) => [id, id === "high-tea" ? [opt("Theehuis")] : []])));
+    const search = vi.fn(async (ids: string[], _l?: string, _r?: string, _lo?: string, _n?: Date, _own?: boolean) => new Map(ids.map((id) => [id, id === "high-tea" ? [opt("High tea Theehuis")] : []])));
     const { cache, store } = memoryCache();
     const puts: { activityId: string; emptyTtlDays?: number }[] = [];
     const wrapped: ResearchCache = { get: cache.get, put: async (e, p, l) => { puts.push(...e); return cache.put(e, p, l); } };
@@ -106,7 +106,7 @@ describe("the person's own choices (Stap 124)", () => {
 
   it("a failure of one call leaves the other call's answer standing", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
-    const search = vi.fn(async (ids: string[], _l: string, _r: string, _lo: string, _n: Date, own?: boolean) => (own ? null : new Map(ids.map((id) => [id, [opt("Klei")]]))));
+    const search = vi.fn(async (ids: string[], _l: string, _r: string, _lo: string, _n: Date, own?: boolean) => (own ? null : new Map(ids.map((id) => [id, [opt("Pottenbakken Klei")]]))));
     const { byActivity, stats } = await researchSeeds({ ...config, activityIds: ["high-tea", "pottenbakken"], priorityIds: ["high-tea"], cache: null, search: search as never });
     expect(byActivity.get("high-tea")?.source).toBe("none");
     expect(byActivity.get("pottenbakken")?.options).toHaveLength(1);
@@ -302,25 +302,25 @@ describe("researchSeeds", () => {
 
   it("searches again when every cached option has run out since", async () => {
     const { cache } = memoryCache({ "yoga|utrecht|city|v6": [opt("Herfstmarkt", "2026-10-10")] });
-    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuwe markt", "2026-11-15")]])));
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuwe yogaklas", "2026-11-15")]])));
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).toHaveBeenCalledTimes(1);
-    expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Nieuwe markt"]);
+    expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Nieuwe yogaklas"]);
   });
 
   it("throws away options whose website does not exist before they are stored, and counts them", async () => {
     const { cache, store } = memoryCache();
-    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Echt"), opt("Verzonnen")]])));
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Yoga Echt"), opt("Yoga Verzonnen")]])));
     const verify = vi.fn(async (options: LocalOption[]) => ({
-      kept: options.filter((o) => o.name === "Echt"),
-      dropped: options.filter((o) => o.name !== "Echt").map((option) => ({ option, reason: "host_does_not_exist" })),
+      kept: options.filter((o) => o.name === "Yoga Echt"),
+      dropped: options.filter((o) => o.name !== "Yoga Echt").map((option) => ({ option, reason: "host_does_not_exist" })),
     }));
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     const { byActivity, stats } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search, verify });
     warn.mockRestore();
-    expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Echt"]);
+    expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Yoga Echt"]);
     expect(stats.dropped).toBe(1);
-    expect(store.get("yoga|utrecht|city|v6")?.map((o) => o.name)).toEqual(["Echt"]);
+    expect(store.get("yoga|utrecht|city|v6")?.map((o) => o.name)).toEqual(["Yoga Echt"]);
   });
 
   it("works without a cache", async () => {

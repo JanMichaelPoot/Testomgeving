@@ -25,6 +25,7 @@ import { PENDING_STALE_MS, mergeProgressMeta, publicProgressMeta, shouldRetrySto
 import { bookCostMeta, createCostLedger } from "@/lib/claude/costLedger";
 import { localizeBook } from "@/lib/claude/localizeBook";
 import { checkTestQuota, recordTestBook } from "@/lib/testQuota";
+import { feedbackLink } from "@/lib/testFeedback";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { isMissingColumnError } from "@/lib/supabase/errors";
 import { buildAssociationSources, type AssociationSources } from "@/lib/discovery/associations";
@@ -799,6 +800,7 @@ async function createPaidPlan(order: PaidOrder): Promise<WindowPlanRow> {
             book: generated,
             pdfBytes,
             planUrl: `${siteUrl}/plan?${order.planQuery}`,
+            feedbackUrl: feedbackLink(siteUrl, plan.id),
             locale: plan.language as "nl" | "en",
             siteUrl,
             order: {
@@ -917,6 +919,7 @@ export async function getOrCreateTestWindowPlan(
           book: generated,
           pdfBytes,
           planUrl: `${siteUrl}/plan?test_session_id=${sessionId}`,
+          feedbackUrl: feedbackLink(siteUrl, plan.id),
           locale: plan.language as "nl" | "en",
           siteUrl,
           order: {

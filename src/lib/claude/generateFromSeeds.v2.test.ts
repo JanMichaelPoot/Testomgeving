@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { IntakeAnswers } from "@/app/intake/actions";
 import { computeCharacterProfile } from "@/lib/characterProfile";
 import { languageLabel } from "@/lib/locale";
+import { getActivity } from "@/lib/discovery/library";
 
 // B5 (V1 + V2) behind KNOWLEDGE_ENGINE_V2: the model and the research are replaced, so this tests what the
 // pipeline asks for and what it does with the answer. Nothing here costs anything.
@@ -244,7 +245,7 @@ describe("the title follows the first found place (Jan, 14 Nov 2026)", () => {
           {
             activityId: id,
             source: "search",
-            options: [{ name: "Theehuis 't Bluk", city: "Laren", url: null, note: "High tea op afspraak.", until: null, rating: null, kind: "café op de hei", match: "close" }],
+            options: [{ name: "Theehuis 't Bluk", city: "Laren", url: null, note: `${getActivity(id)?.label.nl ?? id}: high tea op afspraak.`, until: null, rating: null, kind: "café op de hei", match: "close" }],
           },
         ]),
       ),

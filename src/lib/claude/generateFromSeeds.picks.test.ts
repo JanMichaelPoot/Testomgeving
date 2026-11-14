@@ -179,10 +179,10 @@ describe("a curated combination counts the providers of both halves", () => {
     const opt = (name: string) => ({ name, city: "Laren", url: null, note: "", until: null, rating: null });
     const byActivity = new Map([
       ["buitenplaats", { activityId: "buitenplaats", source: "search" as const, options: [opt("Landgoed")] }],
-      ["high-tea", { activityId: "high-tea", source: "search" as const, options: [opt("Theehuis"), opt("Landgoed")] }],
+      ["high-tea", { activityId: "high-tea", source: "search" as const, options: [opt("High tea Theehuis"), opt("Landgoed")] }],
     ]);
     const merged = seedResearch(seedOf("buitenplaats", "high-tea"), byActivity);
-    expect(merged?.options.map((o) => o.name)).toEqual(["Landgoed", "Theehuis"]);
+    expect(merged?.options.map((o) => o.name)).toEqual(["Landgoed", "High tea Theehuis"]);
     // a plain seed is untouched
     expect(seedResearch(seedOf("buitenplaats"), byActivity)).toBe(byActivity.get("buitenplaats"));
   });
@@ -191,7 +191,7 @@ describe("a curated combination counts the providers of both halves", () => {
     const { seedsWithoutSupply } = await import("@/lib/claude/generateFromSeeds");
     const byActivity = new Map([
       ["buitenplaats", { activityId: "buitenplaats", source: "search" as const, options: [] }],
-      ["high-tea", { activityId: "high-tea", source: "search" as const, options: [{ name: "Theehuis", city: "Laren", url: null, note: "", until: null, rating: null }] }],
+      ["high-tea", { activityId: "high-tea", source: "search" as const, options: [{ name: "High tea Theehuis", city: "Laren", url: null, note: "", until: null, rating: null }] }],
     ]);
     expect(seedsWithoutSupply([seedOf("buitenplaats", "high-tea")], byActivity)).toHaveLength(0);
     expect(seedsWithoutSupply([seedOf("buitenplaats")], byActivity).length).toBeLessThanOrEqual(1);

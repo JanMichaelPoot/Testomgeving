@@ -39,6 +39,20 @@ export function testFeedbackEnabled(raw: string | undefined): boolean {
   return value === "1" || value === "true" || value === "yes" || value === "on";
 }
 
+/** The page with the questionnaire of one book, for the e-mail; null when the questionnaire is switched off (NEXT_PUBLIC_TEST_FEEDBACK). */
+export function feedbackLink(siteUrl: string, planId: string, env: string | undefined = process.env.NEXT_PUBLIC_TEST_FEEDBACK): string | null {
+  return testFeedbackEnabled(env) ? `${siteUrl}/feedback/${planId}?utm_source=window_mail&utm_medium=email` : null;
+}
+
+/** The ideas a tester can pick in the questionnaire: numbered the way the reveal shows them (door order, the wildcard last). Only the number and the kind of door go to the analytics, never the title. */
+export function feedbackDoorsFor<T extends { door?: string; title: string }>(ordered: readonly T[], wildcard: { title: string } | null | undefined): { number: number; kind: DoorKind; title: string }[] {
+  const kind = (d: string | undefined): DoorKind => ((DOOR_KINDS as readonly string[]).includes(d ?? "") ? (d as DoorKind) : "natural");
+  return [
+    ...ordered.map((idea, i) => ({ number: i + 1, kind: kind(idea.door), title: idea.title })),
+    ...(wildcard ? [{ number: ordered.length + 1, kind: "wildcard" as const, title: wildcard.title }] : []),
+  ];
+}
+
 const score = (v: unknown): number | null => (Number.isInteger(v) && (v as number) >= 1 && (v as number) <= 5 ? (v as number) : null);
 
 /** Cleaned input, or null when there is nothing worth storing. */

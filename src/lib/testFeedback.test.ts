@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cleanTestFeedback, DOUBT_MAX, testFeedbackEnabled } from "./testFeedback";
+import { cleanTestFeedback, DOUBT_MAX, feedbackDoorsFor, feedbackLink, testFeedbackEnabled } from "./testFeedback";
 
 describe("test feedback", () => {
   it("is on for 1 and the usual ways of writing a switch, off for everything else", () => {
@@ -35,5 +35,26 @@ describe("test feedback", () => {
   });
   it("caps the free text", () => {
     expect(cleanTestFeedback({ doubt: "x".repeat(DOUBT_MAX + 50) })!.doubt).toHaveLength(DOUBT_MAX);
+  });
+});
+
+describe("the questionnaire in the e-mail (Jan, 14 Nov 2026)", () => {
+  const id = "6f1c2d3e-0000-4000-8000-000000000001";
+
+  it("links to the page of the book while the questionnaire is on, and to nothing when it is off", () => {
+    expect(feedbackLink("https://windowinto.nl", id, "1")).toBe(`https://windowinto.nl/feedback/${id}?utm_source=window_mail&utm_medium=email`);
+    expect(feedbackLink("https://windowinto.nl", id, "0")).toBeNull();
+    expect(feedbackLink("https://windowinto.nl", id, undefined)).toBeNull();
+  });
+
+  it("numbers the doors the way the book shows them, the wildcard last, and keeps only a known kind", () => {
+    const doors = feedbackDoorsFor([{ door: "natural", title: "A" }, { door: "stretch", title: "B" }, { door: "bogus", title: "C" }], { title: "W" });
+    expect(doors).toEqual([
+      { number: 1, kind: "natural", title: "A" },
+      { number: 2, kind: "stretch", title: "B" },
+      { number: 3, kind: "natural", title: "C" },
+      { number: 4, kind: "wildcard", title: "W" },
+    ]);
+    expect(feedbackDoorsFor([{ door: "natural", title: "A" }], null)).toHaveLength(1);
   });
 });
