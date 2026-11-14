@@ -558,8 +558,8 @@ const nl: Dictionary = {
       },
       {
         id: "apparaatgeheugen",
-        heading: "Optioneel: onthouden wat je al zag",
-        body: "Alleen als je dat op de betaalpagina aanvinkt, slaan we 12 maanden een willekeurige code op in een cookie op je apparaat en — uitsluitend gekoppeld aan een gehashte versie van die code — welke activiteiten je Idea Books lieten zien, zodat het volgende ze niet herhaalt. Geen naam, geen e-mailadres. Zet het uit bij het afrekenen of druk hieronder op 'Vergeet dit apparaat' en alles wat voor het apparaat is opgeslagen wordt direct verwijderd; rijen vervallen ook na 12 maanden.",
+        heading: "Geheugen op dit apparaat (alleen als je het eerder aanzette)",
+        body: "We bieden dit niet meer aan: bij een nieuwe bestelling kun je niet meer kiezen om te onthouden wat je al zag. Heb je dat eerder wel aangezet, dan staat er nog een cookie met een willekeurige code op je apparaat (12 maanden) en bewaren we — uitsluitend gekoppeld aan een gehashte versie van die code — welke activiteiten je Idea Books lieten zien, zodat het volgende ze niet herhaalt. Zolang dat cookie er staat, wordt het bij een nieuwe bestelling bijgewerkt. Geen naam, geen e-mailadres. Druk hieronder op 'Vergeet dit apparaat' en alles wat voor het apparaat is opgeslagen wordt direct verwijderd; rijen vervallen ook na 12 maanden.",
       },
       {
         id: "plaats",
@@ -1284,8 +1284,8 @@ const en: Dictionary = {
       },
       {
         id: "apparaatgeheugen",
-        heading: "Optional: remembering what you were shown",
-        body: "Only if you tick it on the checkout page, we store a random code in a cookie on your device for 12 months, and — linked only to a hashed version of that code — which activities your Idea Books showed, so the next one doesn't repeat them. No name, no e-mail address. Switch it off at checkout or press 'Forget this device' below and everything stored for the device is deleted straight away; rows also expire after 12 months.",
+        heading: "Memory on this device (only if you turned it on earlier)",
+        body: "We no longer offer this: with a new order you can no longer choose to remember what you were shown. If you did turn it on earlier, a cookie with a random code is still on your device (12 months) and we keep — linked only to a hashed version of that code — which activities your Idea Books showed, so the next one doesn't repeat them. As long as that cookie is there, it is updated with a new order. No name, no e-mail address. Press 'Forget this device' below and everything stored for the device is deleted straight away; rows also expire after 12 months.",
       },
       {
         id: "plaats",
