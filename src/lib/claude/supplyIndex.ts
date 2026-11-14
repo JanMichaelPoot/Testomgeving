@@ -94,6 +94,25 @@ export function quietActivities(rows: readonly CacheEvidenceRow[], req: { place:
   return [...empties.entries()].filter(([id, keys]) => keys.size >= SILENT_MIN_OBSERVATIONS && !found.has(id)).map(([id]) => id).sort();
 }
 
+/** Found options count as evidence for a year: a studio that was there in spring is a good bet in autumn, and a bad bet costs one search, not a book. */
+export const FOUND_MAX_AGE_DAYS = 365;
+
+/**
+ * The activities for which earlier research found a real option near this place, within the requested radius (found within 15 km is valid for someone
+ * searching within 25, not the other way round). Used to try those first when an idea has to be replaced: their answers are often in the cache already.
+ */
+export function foundActivities(rows: readonly CacheEvidenceRow[], req: { place: string; radiusKm: number }, now: number): string[] {
+  const found = new Set<string>();
+  for (const row of rows) {
+    const key = parseCacheKey(row.place_key);
+    if (!key || key.place !== req.place || key.radiusKm > req.radiusKm) continue;
+    const age = now - Date.parse(row.searched_at);
+    if (!Number.isFinite(age) || age < SETTLING_MS || age > FOUND_MAX_AGE_DAYS * DAY) continue;
+    if (hasOptions(row.options)) found.add(row.activity_id);
+  }
+  return [...found].sort();
+}
+
 /** Off with WINDOW_SUPPLY_INDEX=0 (also the setting of the older tests): the selection then ignores what earlier research found. */
 export function supplyIndexEnabled(env: Record<string, string | undefined> = process.env): boolean {
   const v = (env.WINDOW_SUPPLY_INDEX ?? "").trim().toLowerCase();
@@ -110,9 +129,18 @@ export async function loadQuietSupply(
   where: { location: string; searchDistance: string; searchDistanceKm?: number; country?: string | null },
   now: number = Date.now(),
 ): Promise<string[]> {
-  if (!supplyIndexEnabled()) return [];
+  return (await loadSupplyEvidence(where, now)).quiet;
+}
+
+/** What the cache knows about this place: the activities nothing was found for (quiet) and the ones something was found for (found). Fails soft. */
+export async function loadSupplyEvidence(
+  where: { location: string; searchDistance: string; searchDistanceKm?: number; country?: string | null },
+  now: number = Date.now(),
+): Promise<{ quiet: string[]; found: string[] }> {
+  const none = { quiet: [], found: [] };
+  if (!supplyIndexEnabled()) return none;
   const req = requestedPlace(where.location, where.searchDistance, where.searchDistanceKm, where.country);
-  if (!req) return [];
+  if (!req) return none;
   try {
     const { createServiceRoleClient } = await import("@/lib/supabase/server");
     const { data, error } = await createServiceRoleClient()
@@ -122,12 +150,13 @@ export async function loadQuietSupply(
       .order("searched_at", { ascending: false })
       .limit(ROW_LIMIT);
     if (error) throw new Error(error.message);
-    return quietActivities((data ?? []) as CacheEvidenceRow[], req, now);
+    const rows = (data ?? []) as CacheEvidenceRow[];
+    return { quiet: quietActivities(rows, req, now), found: foundActivities(rows, req, now) };
   } catch (err) {
     if (!warned) {
       warned = true;
       console.warn(`WindowInto: supply index unavailable, selecting without it: ${err instanceof Error ? err.message : String(err)}`);
     }
-    return [];
+    return none;
   }
 }

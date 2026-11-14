@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  FOUND_MAX_AGE_DAYS,
   SETTLING_MS,
   SILENT_MAX_AGE_DAYS,
+  foundActivities,
   loadQuietSupply,
   parseCacheKey,
   quietActivities,
@@ -103,6 +105,25 @@ describe("quietActivities", () => {
   it("returns the ids in a fixed order", () => {
     const rows = ["zang", "boogschieten", "larp"].flatMap((id) => [row(id, "laren|15km|v6", []), row(id, "laren|15km|v6|broad", [])]);
     expect(quietActivities(rows, req, NOW)).toEqual(["boogschieten", "larp", "zang"]);
+  });
+});
+
+describe("foundActivities", () => {
+  it("lists the activities something was found for near this place, within the requested radius, in any version", () => {
+    const rows = [
+      row("keramiek", "laren|15km|v6", FOUND),
+      row("zeilen", "laren|city|2026-03|v4", FOUND, 200),
+      row("klimmen", "laren|50km|v6", FOUND), // found within 50 km says nothing about someone who searches within 15
+      row("larp", "laren|15km|v6", []),
+      row("schilderen", "blaricum|15km|v6", FOUND), // another place
+    ];
+    expect(foundActivities(rows, req, NOW)).toEqual(["keramiek", "zeilen"]);
+  });
+
+  it("ignores what is too old and what is too fresh (the warm-up must not change the order of the replacements of the real generation)", () => {
+    const old = FOUND_MAX_AGE_DAYS + 1;
+    const fresh: CacheEvidenceRow = { activity_id: "vers", place_key: "laren|15km|v6", searched_at: new Date(NOW - SETTLING_MS / 2).toISOString(), options: FOUND };
+    expect(foundActivities([row("oud", "laren|15km|v6", FOUND, old), fresh], req, NOW)).toEqual([]);
   });
 });
 

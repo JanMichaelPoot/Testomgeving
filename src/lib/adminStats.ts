@@ -127,6 +127,11 @@ export function describeBookCost(cost: BookCostMeta): string {
   if (cost.pipeline === "classic_after_failure") parts.push("de seed-pijplijn faalde; de klassieke generatie maakte het boek (de kosten daarvan zijn niet gemeten)");
   if (cost.placesLookups !== undefined) parts.push(`${cost.placesLookups} Google-opzoekingen`);
   if (cost.research) parts.push(`onderzoek: ${cost.research.cached} uit de cache, ${cost.research.searched} gezocht`);
+  if (cost.coverage && (cost.coverage.replaced > 0 || cost.coverage.dropped > 0 || cost.coverage.incomplete)) {
+    parts.push(
+      `ideeën zonder plek: ${cost.coverage.replaced} vervangen, ${cost.coverage.dropped} weggelaten${cost.coverage.incomplete ? ", en bij minstens één idee kon geen plek worden gevonden" : ""}`,
+    );
+  }
   if (cost.quiet && cost.quiet.known > 0) parts.push(`aanbodindex: ${cost.quiet.known} stille activiteiten bekend, ${cost.quiet.inBook} toch in het boek`);
   return parts.join("; ");
 }

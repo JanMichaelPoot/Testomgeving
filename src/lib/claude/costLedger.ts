@@ -49,6 +49,19 @@ export const DEFAULT_ROUND_USD: Record<RoundKind, number> = { standard: 0.075, o
 export const WRITING_RESERVE_USD = 0.11;
 export const DEFAULT_BOOK_CAP_USD = 0.4;
 
+/**
+ * The ceiling for the rounds that make sure every idea has a real place (Jan, 14 Nov 2026: "all options must have real, fitting, concrete places"). Those rounds
+ * are not optional, so they may go past the soft cap above, but not without end: WINDOW_BOOK_HARD_CAP, default 0.80; "0" or "off" switches it off (null).
+ */
+export const DEFAULT_BOOK_HARD_CAP_USD = 0.8;
+export function bookHardCap(env: Record<string, string | undefined> = process.env): number | null {
+  const raw = env.WINDOW_BOOK_HARD_CAP?.trim().toLowerCase();
+  if (!raw) return DEFAULT_BOOK_HARD_CAP_USD;
+  if (raw === "off" || raw === "0") return null;
+  const n = Number(raw);
+  return Number.isFinite(n) && n > 0 ? n : DEFAULT_BOOK_HARD_CAP_USD;
+}
+
 /** The cap in USD: WINDOW_BOOK_COST_CAP, default 0.40; "0" or "off" switches the limit off (null). */
 export function bookCostCap(env: Record<string, string | undefined> = process.env): number | null {
   const raw = env.WINDOW_BOOK_COST_CAP?.trim().toLowerCase();
@@ -66,7 +79,7 @@ const roundUsd = (n: number) => Math.round(n * 10000) / 10000;
  */
 export function bookCostMeta(
   ledger: CostLedger,
-  extra: { placesLookups?: number; research?: { cached: number; searched: number; failed: number }; quiet?: { known: number; inBook: number }; pipeline?: "classic" | "classic_after_failure"; placesListPriceUsd?: number } = {},
+  extra: { placesLookups?: number; research?: { cached: number; searched: number; failed: number }; quiet?: { known: number; inBook: number }; coverage?: { replaced: number; dropped: number; incomplete: boolean }; pipeline?: "classic" | "classic_after_failure"; placesListPriceUsd?: number } = {},
 ): BookCostMeta {
   const meta: BookCostMeta = {
     usd: roundUsd(ledger.spentUsd()),
@@ -80,6 +93,7 @@ export function bookCostMeta(
   }
   if (extra.research) meta.research = { cached: extra.research.cached, searched: extra.research.searched, failed: extra.research.failed };
   if (extra.quiet) meta.quiet = { known: extra.quiet.known, inBook: extra.quiet.inBook };
+  if (extra.coverage) meta.coverage = { ...extra.coverage };
   if (extra.pipeline) meta.pipeline = extra.pipeline;
   return meta;
 }
@@ -95,13 +109,17 @@ export interface CostLedger {
   estimate(kind: RoundKind): number;
   /** Whether a round of this kind fits under the cap, with the writing still to be paid. Always true without a cap. */
   canAfford(kind: RoundKind): boolean;
+  /** The same against the hard ceiling: for the rounds that make sure every idea has a real place. Always true without a ceiling. */
+  canAffordCoverage(kind: RoundKind): boolean;
   /** Notes that a round was skipped for cost. */
   skip(kind: RoundKind): void;
   skipped(): string[];
 }
 
-export function createCostLedger(opts: { capUsd?: number | null; writingReserveUsd?: number } = {}): CostLedger {
+export function createCostLedger(opts: { capUsd?: number | null; hardCapUsd?: number | null; writingReserveUsd?: number } = {}): CostLedger {
   const capUsd = opts.capUsd === undefined ? bookCostCap() : opts.capUsd;
+  // Never below the soft cap: a ceiling under it would make the "must have" rounds stricter than the optional ones.
+  const hardCapUsd = opts.hardCapUsd === undefined ? bookHardCap() : opts.hardCapUsd;
   const reserve = opts.writingReserveUsd ?? WRITING_RESERVE_USD;
   const spent: Record<string, number> = {};
   const last: Partial<Record<RoundKind, number>> = {};
@@ -120,6 +138,7 @@ export function createCostLedger(opts: { capUsd?: number | null; writingReserveU
     breakdown: () => Object.fromEntries(Object.entries(spent).map(([k, v]) => [k, Math.round(v * 1000) / 1000])),
     estimate,
     canAfford: (kind) => capUsd === null || total() + estimate(kind) + reserve <= capUsd,
+    canAffordCoverage: (kind) => hardCapUsd === null || capUsd === null || total() + estimate(kind) + reserve <= Math.max(hardCapUsd, capUsd),
     skip(kind) {
       if (!skipped.includes(kind)) skipped.push(kind);
     },

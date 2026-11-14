@@ -7,7 +7,7 @@ import type { IntakeAnswers } from "@/app/intake/actions";
 import type { CharacterProfile } from "@/lib/characterProfile";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { checkFill, fillConflicts, fillContext, repeatedOpenings, type IdeaFill } from "@/lib/claude/ideaFill";
-import { concreteOptionsRequired, knowledgeAnchorEnabled, knowledgeIndirectEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
+import { concreteOptionsRequired, coverageEnabled, knowledgeAnchorEnabled, knowledgeIndirectEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import {
   LOCATION_SCHEMA,
   PRACTICAL_SCHEMA,
@@ -18,7 +18,7 @@ import {
   toTextArray,
 } from "@/lib/claude/generateIdeaBook";
 import { bookCostMeta, createCostLedger, type CostLedger, type RoundKind } from "@/lib/claude/costLedger";
-import { loadQuietSupply } from "@/lib/claude/supplyIndex";
+import { loadSupplyEvidence } from "@/lib/claude/supplyIndex";
 import { relevantOptions } from "@/lib/claude/optionRelevance";
 import type { BookCostMeta } from "@/types/database";
 import { PLACES_LIST_PRICE_USD, createRatingEnricher } from "@/lib/claude/placesRatings";
@@ -669,7 +669,13 @@ export const SUPPLY_ROUNDS = 2;
  * How long the research of one book may keep starting new search rounds (ms). Every round takes about 15 s; the whole function may run 300 s and
  * the writing needs about 100 s of that. After this, what is still without an option is settled from what the earlier rounds already found.
  */
-export const RESEARCH_BUDGET_MS = 120_000;
+export const RESEARCH_BUDGET_MS = 150_000;
+
+/** Rounds that replace ideas without a real place (the coverage stage), and how many candidates each lacking idea gets per round. */
+export const COVERAGE_ROUNDS = 3;
+export const COVERAGE_CANDIDATES_PER_SEED = 5;
+/** The fewest ideas (the wildcard included) a book is left with when ideas without a real place are left out. */
+export const MIN_SEEDS = 5;
 
 /** An activity that is online by nature (a writing course, a language app): its option is an online provider from the start, not a place. */
 export function isOnlineByNature(a: Activity | undefined): boolean {
@@ -748,6 +754,8 @@ export async function generateIdeaBookFromSeeds(
     ledger?: CostLedger;
     /** Activities that earlier research near the person's place found nothing for (supplyIndex.ts). Without it they are read from the research cache. */
     quietSupply?: readonly string[];
+    /** Activities that earlier research found a real option for near the person's place: tried first when an idea has to be replaced. */
+    foundSupply?: readonly string[];
   } = {},
 ): Promise<{ book: GeneratedIdeaBook; report: SeedPipelineReport }> {
   // KNOWLEDGE_ENGINE_V2 (off by default): B4 ranking weights for the selection, B5 fill lines and honest wording for the writing.
@@ -762,7 +770,11 @@ export async function generateIdeaBookFromSeeds(
   const selectionSeed = opts.sessionId ?? `${Date.now()}`;
   // What earlier books already learned about this place: activities nothing was found for, twice. A soft penalty in the selection, so fewer ideas
   // need a broad, an online or a replacement round afterwards (the person's own picks are never touched). Fails soft: without it the selection is the old one.
-  const quietSupply = opts.quietSupply ?? (await loadQuietSupply({ location: intake.location, searchDistance: intake.searchDistance, searchDistanceKm: intake.searchDistanceKm, country: intake.country }));
+  const evidence = opts.quietSupply || opts.foundSupply
+    ? { quiet: [...(opts.quietSupply ?? [])], found: [...(opts.foundSupply ?? [])] }
+    : await loadSupplyEvidence({ location: intake.location, searchDistance: intake.searchDistance, searchDistanceKm: intake.searchDistanceKm, country: intake.country });
+  const quietSupply = evidence.quiet;
+  const foundSupply = new Set(evidence.found);
   const select = (exclude: readonly string[]) =>
     runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude, quietSupply }), anchor ? { weights: knowledgeIndirectEnabled() ? WEIGHTS_ANCHOR : { ...WEIGHTS_ANCHOR, anchor: { ...WEIGHTS_ANCHOR.anchor, indirect: false } } } : ranking ? { weights: WEIGHTS_V2 } : undefined);
   let engine: EngineResult = select([]);
@@ -779,8 +791,10 @@ export async function generateIdeaBookFromSeeds(
   // No further search round starts after the budget (RESEARCH_BUDGET_MS); what is still empty is then settled from what earlier rounds found.
   const overBudget = () => Date.now() - researchStartedAt > RESEARCH_BUDGET_MS;
   // The cost version: an optional round of this kind is skipped (and said so in the report) when it would take the book past its cap.
+  // Once the book is in its coverage stage (below), a round is held to the hard ceiling instead: every idea must have a real place, so those rounds are not optional.
+  let coverageStage = false;
   const costBlocks = (kind: RoundKind) => {
-    if (ledger.canAfford(kind)) return false;
+    if (coverageStage ? ledger.canAffordCoverage(kind) : ledger.canAfford(kind)) return false;
     ledger.skip(kind);
     return true;
   };
@@ -811,6 +825,8 @@ export async function generateIdeaBookFromSeeds(
   // Every idea needs a concrete, real option (Jan, 31 Oct 2026). An idea with nothing near the person gets one second chance: a
   // provider that serves anyone in the Netherlands from a website (an online course, a webshop with a kit, a national club, an app).
   const requireOptions = concreteOptionsRequired();
+  // No idea without a real place (coverageEnabled): replaces the separate replacing of the person's own choices below (2c) by the coverage stage (2c'), which covers every idea.
+  const coverage = requireOptions && coverageEnabled();
   const onlineTried = new Set<string>();
   const widerKm = widerRadiusKm(intake.searchDistance, intake.searchDistanceKm);
   const broadTried = new Set<string>();
@@ -928,7 +944,7 @@ export async function generateIdeaBookFromSeeds(
   // The replacement comes from the relation graph, with the same hard filters as the selection, and the book says in one sentence that it replaces the choice.
   const replacedPicks = new Map<string, string>(); // replacement activity id -> the label of the choice it replaces
   const lackingPicks = () => seedsWithoutSupply(engine.seeds, dedupePlaces(engine.seeds, research.byActivity, ownPicks), requireOptions).filter((s) => ownPicks.has(s.activityId));
-  const toReplace = requireOptions && !overBudget() && !(lackingPicks().length > 0 && costBlocks("standard")) ? lackingPicks() : [];
+  const toReplace = requireOptions && !coverage && !overBudget() && !(lackingPicks().length > 0 && costBlocks("standard")) ? lackingPicks() : [];
   if (toReplace.length > 0) {
     const used = new Set<string>([...engine.seeds.flatMap((s) => [s.activityId, s.hybrid?.partnerId ?? ""]), ...tried, ...(opts.history ?? [])].filter(Boolean));
     const proposals = new Map<string, Seed[]>();
@@ -973,6 +989,63 @@ export async function generateIdeaBookFromSeeds(
       }
     }
   }
+  // 2c'. Coverage (Jan, 14 Nov 2026: "all options in the book must have real, fitting, concrete places; if not, the option may not be shown, find another one that does,
+  // even in a somewhat wider area"). Every idea that still has no real place, a choice of the person's own included, is replaced by a related activity that has one.
+  // Up to COVERAGE_ROUNDS rounds: each researches the candidates of all lacking ideas in one grouped call (the standard search, then the broad one over a wider
+  // area, then the online providers only for what is online by nature) and takes the first candidate per idea that has a place. These rounds are held to the hard
+  // ceiling (WINDOW_BOOK_HARD_CAP), not the soft cap, and to the research time budget. Candidates that earlier research found nothing for near this place are left
+  // out, and the ones it found something for come first (their answers are often in the cache already, which costs nothing).
+  const coverageTried = new Set<string>();
+  const lackingNow = () => seedsWithoutSupply(engine.seeds, dedupePlaces(engine.seeds, research.byActivity, ownPicks), true);
+  if (coverage && lackingNow().length > 0) coverageStage = true;
+  for (let round = 1; coverageStage && round <= COVERAGE_ROUNDS; round++) {
+    const lacking = lackingNow();
+    if (lacking.length === 0 || overBudget() || !ledger.canAffordCoverage("standard")) break;
+    const taken = new Set<string>([...engine.seeds.flatMap((s) => [s.activityId, s.hybrid?.partnerId ?? ""]), ...tried, ...coverageTried, ...(opts.history ?? [])].filter(Boolean));
+    const quiet = new Set(quietSupply);
+    const proposals = new Map<Seed, Seed[]>();
+    for (const s of lacking) {
+      const related = relatedActivities(s.activityId, engine.constraints, [...taken], 10)
+        .filter((a) => inSeason(a, month) && !quiet.has(a.id))
+        .sort((a, b) => Number(foundSupply.has(b.id)) - Number(foundSupply.has(a.id)))
+        .slice(0, COVERAGE_CANDIDATES_PER_SEED);
+      for (const a of related) taken.add(a.id);
+      proposals.set(
+        s,
+        related.map((a): Seed => {
+          const lead = s.lead && a.formats?.includes(s.lead) ? s.lead : null;
+          return {
+            ...s,
+            activityId: a.id,
+            // A wildcard stays a wildcard (the writer treats the last idea as the wildcard); anything else is a neighbour of what it replaces.
+            direction: s.direction === "wildcard" ? "wildcard" : "adjacent",
+            chain: [s.activityId, a.id],
+            via: [],
+            hybrid: undefined,
+            lead,
+            alsoFormats: (a.formats ?? []).filter((f) => f !== lead && f !== "online"),
+            verify: s.verify.filter((v) => !v.startsWith("cost_")),
+            reasons: [...(s.reasons ?? []), `replaces:${s.activityId}`],
+          };
+        }),
+      );
+    }
+    const candidates = [...proposals.values()].flat();
+    if (candidates.length === 0) break;
+    for (const c of candidates) coverageTried.add(c.activityId);
+    const found = await withOnline(candidates, await settle(candidates, await researchFor(candidates, research.byActivity)), "nature");
+    remember(candidates, found.byActivity);
+    research = { byActivity: new Map([...research.byActivity, ...found.byActivity]), stats: addStats(research.stats, found.stats) };
+    const taking = new Set<string>();
+    for (const s of lacking) {
+      const choice = (proposals.get(s) ?? []).find((c) => !taking.has(c.activityId) && (seedResearch(c, research.byActivity)?.options.length ?? 0) > 0);
+      if (!choice) continue;
+      taking.add(choice.activityId);
+      engine = { ...engine, seeds: engine.seeds.map((x) => (x === s ? { ...choice, level: s.level } : x)) };
+      if (ownPicks.has(s.activityId)) replacedPicks.set(choice.activityId, getActivity(s.activityId)?.label[locale] ?? s.activityId);
+      notes.push(`coverage_replaced:${s.activityId}>${choice.activityId}`);
+    }
+  }
   // 2d. The very last resort for what still has no option: the online providers (a physical option, another idea, and only then this).
   research = await withOnline(engine.seeds, research, "all");
   remember(engine.seeds, research.byActivity);
@@ -992,6 +1065,18 @@ export async function generateIdeaBookFromSeeds(
       if (ownPicks.has(s.activityId)) replacedPicks.set(swap.activityId, getActivity(s.activityId)?.label[locale] ?? s.activityId);
       notes.push(`swapped_no_option:${s.activityId}>${swap.activityId}`);
     }
+  }
+  // 2g. What still has no real place after all of that is not shown (Jan, 14 Nov 2026): the idea is left out of the book, as long as at least MIN_SEEDS remain.
+  // The wildcard stays (the writer treats the last idea as the wildcard) and so do the ideas that have a place; the ones of the engine's own go before the person's
+  // own choices. What cannot be left out is reported (coverage_incomplete) and written honestly, as before.
+  if (coverage) {
+    const lackingFinal = seedsWithoutSupply(engine.seeds, research.byActivity, true).filter((s) => s.direction !== "wildcard");
+    const droppable = [...lackingFinal.filter((s) => !ownPicks.has(s.activityId)), ...lackingFinal.filter((s) => ownPicks.has(s.activityId))].slice(0, Math.max(0, engine.seeds.length - MIN_SEEDS));
+    if (droppable.length > 0) {
+      for (const s of droppable) notes.push(`dropped_no_option:${s.activityId}`);
+      engine = { ...engine, seeds: engine.seeds.filter((x) => !droppable.includes(x)) };
+    }
+    if (seedsWithoutSupply(engine.seeds, research.byActivity, true).length > 0) notes.push("coverage_incomplete");
   }
   for (const id of broadened) notes.push(`broadened_search:${id}`);
   for (const id of widened) notes.push(`widened_radius:${id}`);
@@ -1013,6 +1098,9 @@ export async function generateIdeaBookFromSeeds(
       placesListPriceUsd: PLACES_LIST_PRICE_USD,
       research: research.stats,
       quiet: { known: quiet.size, inBook: seeds.filter((s) => quiet.has(s.activityId)).length },
+      ...(coverage
+        ? { coverage: { replaced: notes.filter((n) => n.startsWith("coverage_replaced:")).length, dropped: notes.filter((n) => n.startsWith("dropped_no_option:")).length, incomplete: notes.includes("coverage_incomplete") } }
+        : {}),
     });
   };
   if (opts.researchOnly) {

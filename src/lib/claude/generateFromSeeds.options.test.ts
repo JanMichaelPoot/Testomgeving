@@ -13,7 +13,7 @@ vi.mock("@/lib/claude/localResearch", async (orig) => ({
   researchSeeds: (...a: unknown[]) => researchSeeds(...a),
 }));
 
-import { generateIdeaBookFromSeeds, widerRadiusKm } from "@/lib/claude/generateFromSeeds";
+import { RESEARCH_BUDGET_MS, generateIdeaBookFromSeeds, widerRadiusKm } from "@/lib/claude/generateFromSeeds";
 import { buildOnlinePrompt, rankOptions } from "@/lib/claude/localResearch";
 import { concreteOptionsRequired, knowledgeAnchorEnabled } from "@/lib/knowledgeFlags";
 
@@ -327,7 +327,7 @@ describe("no idea goes into the book without an option (Jan, 14 Nov 2026)", () =
 
   it("stops starting new search rounds once the research has used its time, and still writes the book", async () => {
     researchSeeds.mockImplementation(async (opts: unknown) => {
-      vi.setSystemTime(Date.now() + 150_000); // every round "takes" 150 s
+      vi.setSystemTime(Date.now() + RESEARCH_BUDGET_MS + 10_000); // every round "takes" longer than the whole budget
       return { byActivity: new Map(ids(opts).map((id) => [id, { activityId: id, source: "search", options: id === "kralen-rijgen" ? [] : [option(`Plek ${id}`)] }])), stats: stats(opts) };
     });
     const { book } = await run(base);

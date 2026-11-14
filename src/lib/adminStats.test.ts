@@ -180,6 +180,13 @@ describe("describeBookCost", () => {
     expect(line).toBe("$0.361 aan modelaanroepen (standard 0.070, writing 0.100); overgeslagen voor de kostengrens: broad; 4 Google-opzoekingen; onderzoek: 2 uit de cache, 5 gezocht; aanbodindex: 3 stille activiteiten bekend, 1 toch in het boek");
   });
 
+  it("says what the coverage stage did: ideas replaced, left out, and any that stayed without a place", () => {
+    const base = { usd: 0.5, capUsd: 0.4, skipped: [], breakdown: {} };
+    expect(describeBookCost({ ...base, coverage: { replaced: 2, dropped: 1, incomplete: false } })).toContain("ideeën zonder plek: 2 vervangen, 1 weggelaten");
+    expect(describeBookCost({ ...base, coverage: { replaced: 0, dropped: 0, incomplete: true } })).toContain("kon geen plek worden gevonden");
+    expect(describeBookCost({ ...base, coverage: { replaced: 0, dropped: 0, incomplete: false } })).not.toContain("ideeën zonder plek");
+  });
+
   it("is honest that the classic generation's own cost is not measured", () => {
     expect(describeBookCost({ usd: 0.2, capUsd: 0.4, skipped: [], breakdown: {}, pipeline: "classic_after_failure" })).toContain("de kosten daarvan zijn niet gemeten");
   });

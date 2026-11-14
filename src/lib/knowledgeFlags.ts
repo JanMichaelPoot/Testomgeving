@@ -77,6 +77,17 @@ export function concreteOptionsRequired(value: string | undefined = process.env.
   return !["0", "false", "off", "no"].includes(v);
 }
 
+/**
+ * No idea without a real place in the book (Jan, 14 Nov 2026): an idea that still has none after the local, the broad and the wider search is replaced by a related activity
+ * that has one (the person's own choices too), and what cannot be replaced is left out of the book. On by default; WINDOW_COVERAGE=0 switches the extra rounds and the leaving-out
+ * off again (then only the older rules apply: a pick stays, described honestly). Only meaningful while concreteOptionsRequired is on.
+ */
+export function coverageEnabled(value: string | undefined = process.env.WINDOW_COVERAGE): boolean {
+  const v = (value ?? "").trim().replace(/^["']|["']$/g, "").toLowerCase();
+  if (v === "") return true;
+  return !["0", "false", "off", "no"].includes(v);
+}
+
 /** The association layer on page 2 of the two-page intake. Off unless KNOWLEDGE_ASSOCIATION_LAYER is set. */
 export function knowledgeAssociationLayerEnabled(value: string | undefined = process.env.KNOWLEDGE_ASSOCIATION_LAYER): boolean {
   return isOn(value);

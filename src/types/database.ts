@@ -39,6 +39,11 @@ export type BookCostMeta = {
    */
   quiet?: { known: number; inBook: number };
   /**
+   * The coverage stage (Stap 197): how many ideas without a real place were replaced by another, how many were left out of the book, and whether any idea
+   * still had none at the end (a remote place). Absent when the stage did not run.
+   */
+  coverage?: { replaced: number; dropped: number; incomplete: boolean };
+  /**
    * Absent for a book of the seed pipeline. "classic": the older intake without the selection engine. "classic_after_failure": the seed pipeline failed
    * after `usd` was spent and the classic generation made the book. The classic generation's own cost (about 0.22) is not measured.
    */

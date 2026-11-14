@@ -72,6 +72,17 @@ export function envChecks(env: Env): EnvCheck[] {
       false,
     );
   }
+  {
+    const raw = env.WINDOW_BOOK_HARD_CAP?.trim().toLowerCase();
+    const off = raw === "off" || raw === "0";
+    const cap = raw && Number(raw) > 0 ? Number(raw).toFixed(2) : "0,80";
+    add(
+      "WINDOW_BOOK_HARD_CAP",
+      true,
+      off ? "UIT: de rondes die zorgen dat elk idee een echte plek heeft hebben geen grens" : `maximaal $${cap} per boek voor de rondes die zorgen dat elk idee een echte plek heeft (de gewone kostengrens geldt voor de optionele rondes)`,
+      false,
+    );
+  }
   add("ANTHROPIC_API_KEY", has(env.ANTHROPIC_API_KEY), has(env.ANTHROPIC_API_KEY) ? "aanwezig" : "ontbreekt: boeken kunnen niet worden gemaakt");
   const stripe = env.STRIPE_SECRET_KEY?.trim();
   const stripeInfo = stripeModeInfo(env);
