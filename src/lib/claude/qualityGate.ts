@@ -6,6 +6,7 @@
 //   type_setting        the type chip contradicts the activity (an "outdoor" idea that is done indoors)
 //   time_chip           the time chip contradicts what the idea says about its own length
 //   related             an "also in this direction" item that has nothing to do with the idea
+//   title_place         the title names a kind of place (a country house, a beach, a rooftop ...) that none of the places found for the idea is
 //   coverage_time / coverage_budget   the book does not use the time or budget the person gave
 // Pure functions, no network: the repair calls to the model live in qualityRepair.ts and only run for what this file cannot fix.
 
@@ -25,6 +26,7 @@ export type QaCode =
   | "time_chip"
   | "related"
   | "online_start"
+  | "title_place"
   | "coverage_time"
   | "coverage_budget";
 
@@ -172,6 +174,84 @@ export function onlineStart(entry: Pick<IdeaBookEntry, "first_action" | "details
     }
   }
   return null;
+}
+
+// --- the title must be true of the places found (Jan, 14 Nov 2026) -------------------------------------------------
+
+/**
+ * Kinds of place that a title can claim and that a real venue either is or is not. A title that claims one needs a found place that shows
+ * it (in its name or its note); otherwise the title promises something the book cannot deliver (a "high tea in a country house" when the
+ * only place found is a café on the heath). Deliberately short and concrete: a false alarm only costs a plainer title.
+ */
+export const TITLE_PLACE_KINDS: { label: string; title: RegExp; shows: RegExp }[] = [
+  { label: "country house", title: /\b(landhuis|landhuizen|landgoed|buitenplaats|kasteel|villa|herenhuis|country house|manor|castle|mansion|estate)\b/i, shows: /(landhuis|landgoed|buitenplaats|kasteel|villa|herenhuis|country house|manor|castle|mansion|estate|slot\b|havezate)/i },
+  { label: "farm", title: /\b(boerderij|hoeve|farm|farmhouse)\b/i, shows: /(boerderij|hoeve|farm|boer\b|erf\b)/i },
+  { label: "rooftop", title: /\b(dakterras|rooftop|roof terrace)\b/i, shows: /(dakterras|rooftop|roof terrace|dak\b)/i },
+  { label: "beach", title: /\b(strand|beach)\b/i, shows: /(strand|beach|boulevard|zee\b|sea\b)/i },
+  { label: "heath or woods", title: /\b(op de hei|op de heide|heide|heath|in het bos|in de bossen|woods|forest)\b/i, shows: /(\bhei\b|heide|heath|\bbos\b|bossen|woods|forest|veluwe|duin)/i },
+  { label: "church or abbey", title: /\b(kerk|klooster|abdij|church|abbey|monastery)\b/i, shows: /(kerk|klooster|abdij|church|abbey|monastery|kapel|chapel)/i },
+  { label: "brewery", title: /\b(brouwerij|brewery)\b/i, shows: /(brouwerij|brewery|bierbrouwer)/i },
+  { label: "harbour", title: /\b(jachthaven|haven|harbour|harbor|marina)\b/i, shows: /(jachthaven|haven|harbour|harbor|marina|werf\b)/i },
+  { label: "tea house", title: /\b(theehuis|theesalon|tea house|tearoom|tea room)\b/i, shows: /(theehuis|theesalon|tea house|tearoom|tea room|theetuin|tuinkamer)/i },
+  { label: "garden room", title: /\b(tuinkamer|serre|orangerie|orangery|conservatory)\b/i, shows: /(tuinkamer|serre|orangerie|orangery|conservatory|kas\b|tuin)/i },
+];
+
+/** The text a found place can show a kind of place in: its name, city and note (what the research read about it), and the idea's own location name. */
+function placeEvidence(entry: Pick<IdeaBookEntry, "places" | "location">): string {
+  const places = (entry.places ?? []).map((p) => `${p.name} ${p.city} ${p.note}`);
+  if (entry.location) places.push(`${entry.location.name} ${entry.location.city}`);
+  return places.join(" | ");
+}
+
+/** Words after "in / op / bij / at ..." that say nothing about a kind of place. */
+const SETTING_STOP = new Set(["buurt", "stad", "natuur", "regio", "omgeving", "avond", "ochtend", "middag", "weekend", "groep", "groepje", "kleine", "vrije", "eigen", "tempo", "nature", "evening", "morning", "group", "small", "area", "town", "city", "week", "dag", "sfeer", "style", "kring"]);
+
+/** The setting a title names after a preposition ("in a wine cellar" gives "wine cellar"), or null. */
+export function titleSetting(title: string): string | null {
+  const m = title.match(/\b(?:in|op|bij|aan|onder|at|on|by|inside|under)\s+(?:(?:een|de|het|the|a|an)\s+)?([^,.:;]+)$/i);
+  return m ? m[1].trim() : null;
+}
+
+/** The 5-letter stems of the words of five letters or more, lower case. */
+function stemsOf(text: string): Set<string> {
+  return new Set((text.toLowerCase().match(/[\p{L}]{5,}/gu) ?? []).map((w) => w.slice(0, 5)));
+}
+
+/**
+ * The kinds of place the title claims that no found place shows. Only for an idea that has found places (without any, the writer is told to
+ * keep to the plain activity, and there is nothing to compare with).
+ */
+export function titlePlaceConflicts(entry: Pick<IdeaBookEntry, "title" | "places" | "location">): string[] {
+  const evidence = placeEvidence(entry);
+  if (!evidence.replace(/[|\s]/g, "")) return [];
+  const kinds = TITLE_PLACE_KINDS.filter((k) => k.title.test(entry.title) && !k.shows.test(evidence)).map((k) => k.label);
+  // Any other setting the title names after "in / op / bij / at" has to turn up in what the found places say (their name, city or note).
+  const setting = titleSetting(entry.title);
+  if (setting && kinds.length === 0) {
+    const have = stemsOf(evidence);
+    const unsupported = (setting.match(/[\p{L}]{5,}/gu) ?? []).filter((w) => !SETTING_STOP.has(w.toLowerCase()) && !have.has(w.toLowerCase().slice(0, 5)));
+    if (unsupported.length > 0) kinds.push(`"${setting}"`);
+  }
+  return kinds;
+}
+
+/** A plain title that is true of the first found place: the activity's own name, "bij" / "at" the place (or in its city when the name is long). */
+export function plainTitleFor(entry: Pick<IdeaBookEntry, "places" | "location" | "activity_id" | "title" | "reasons">, locale: QaLocale): string {
+  // A combination ("hybrid:high-tea") is found through its first half: that half is what the places are, so that is the plain title.
+  const hybridId = (entry.reasons ?? []).find((r) => r.startsWith("hybrid:"))?.slice("hybrid:".length);
+  const activityId = hybridId || entry.activity_id;
+  const activity = activityId ? getActivity(activityId) : undefined;
+  // The label of an activity can carry a clause ("Detective box: solving a case at the table"): the plain title is the part before it.
+  const base = activity ? activity.label[locale].split(/s*[:—–]s*/)[0] : entry.title;
+  const first = (entry.places ?? [])[0];
+  // The place the idea itself names (its location) when there is one, else the first found place.
+  const name = entry.location?.name || first?.name || "";
+  const city = entry.location?.city || first?.city || "";
+  const at = locale === "nl" ? "bij" : "at";
+  if (name && name.toLowerCase().includes(base.toLowerCase())) return name.length <= 52 ? name : base;
+  if (name && `${base} ${at} ${name}`.length <= 52) return `${base} ${at} ${name}`;
+  if (city && !isOnlineCity(city)) return `${base} in ${city}`;
+  return base;
 }
 
 // --- season ---------------------------------------------------------------------------------------
@@ -329,6 +409,8 @@ export function qaBook(book: GeneratedIdeaBook, ctx: QaContext): QaIssue[] {
     }
     const online = onlineStart(entry);
     if (online) push("online_start", where, `${online.field}: "${online.match}"`, true);
+    const titleKinds = titlePlaceConflicts(entry);
+    if (titleKinds.length > 0) push("title_place", where, `the title "${entry.title}" claims ${titleKinds.join(", ")}, which none of the found places shows`, false);
   }
   for (const r of repeatedSentences(book)) push("repeated_sentence", r.where.join("+"), `"${r.sentence.slice(0, 80)}"`, true);
 
@@ -373,6 +455,10 @@ export function autoFix(book: GeneratedIdeaBook, locale: QaLocale): { book: Gene
       return cleaned;
     });
     const activity = entry.activity_id ? getActivity(entry.activity_id) : undefined;
+    if (titlePlaceConflicts(next).length > 0) {
+      next = { ...next, title: plainTitleFor(next, locale) };
+      fixes.push(`${where}:title_from_found_place`);
+    }
     if (activity && timeChipConflict(next, activity)) {
       const text = durationTextFor(activity, locale);
       if (text) {

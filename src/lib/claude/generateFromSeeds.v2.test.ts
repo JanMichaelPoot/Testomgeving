@@ -234,3 +234,31 @@ describe("why(): the line that tells the writer where an idea came from", () => 
     expect(why(seed({}), "en", false, true)).toContain("Related to something they picked");
   });
 });
+
+describe("the title follows the first found place (Jan, 14 Nov 2026)", () => {
+  it("tells the writer to take the setting from the option, not from the general hint, and shows what each place really is", async () => {
+    researchSeeds.mockImplementation(async (opts: { activityIds: string[] }) => ({
+      byActivity: new Map(
+        opts.activityIds.map((id) => [
+          id,
+          {
+            activityId: id,
+            source: "search",
+            options: [{ name: "Theehuis 't Bluk", city: "Laren", url: null, note: "High tea op afspraak.", until: null, rating: null, kind: "café op de hei", match: "close" }],
+          },
+        ]),
+      ),
+      stats: { cached: 0, searched: opts.activityIds.length, failed: 0, ms: 1 },
+    }));
+    respond();
+    await run();
+    const [core] = callsFor("create_idea_book");
+    const system = squash(core.system);
+    expect(system).toContain("it must be TRUE OF THE FIRST verified local option");
+    expect(system).toContain("never a high tea in a country house");
+    expect(system).toContain("that none of the verified options shows");
+    const user = squash(core.messages[0].content);
+    expect(user).toContain("Theehuis 't Bluk (Laren) — is: café op de hei [another form than the usual way in]");
+    expect(user).toContain("Easy way in (a general hint, not a fact about the options below)");
+  });
+});

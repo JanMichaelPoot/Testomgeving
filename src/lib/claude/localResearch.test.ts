@@ -6,6 +6,7 @@ import {
   isPhysicalOption,
   parseResearchAnswer,
   placeKey,
+  rankOptions,
   researchSeeds,
   type LocalOption,
   type ResearchCache,
@@ -92,7 +93,7 @@ describe("the person's own choices (Stap 124)", () => {
   });
 
   it("does not trust an empty answer in the shared cache for a pick, but does trust a found one", async () => {
-    const key = `utrecht|city|2026-10|v5`;
+    const key = `utrecht|city|2026-10|v6`;
     const { cache } = memoryCache({ [`high-tea|${key}`]: [], [`kralen-rijgen|${key}`]: [opt("Kralenwinkel")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuw")]])));
     const { byActivity } = await researchSeeds({ ...config, activityIds: ["high-tea", "kralen-rijgen"], priorityIds: ["high-tea", "kralen-rijgen"], cache, search });
@@ -151,14 +152,14 @@ describe("the broad pass", () => {
   const cfg = { location: "Utrecht", searchDistance: "city", locale: "nl" as const, now: NOW, verify: false as const };
 
   it("is a pass of its own: its answers are cached under their own key and the standard cache does not answer for it", async () => {
-    const { cache, store } = memoryCache({ "yoga|utrecht|city|2026-10|v5": [] });
+    const { cache, store } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Brede club")]])));
     const { byActivity } = await researchSeeds({ ...cfg, activityIds: ["yoga"], cache, search, pass: "broad" });
     expect(search).toHaveBeenCalledTimes(1);
     expect((search.mock.calls[0] as unknown[])[9]).toBe("broad");
     expect(byActivity.get("yoga")?.options[0].name).toBe("Brede club");
-    expect(store.get("yoga|utrecht|city|2026-10|v5|broad")?.map((o) => o.name)).toEqual(["Brede club"]);
-    expect(store.get("yoga|utrecht|city|2026-10|v5")).toEqual([]);
+    expect(store.get("yoga|utrecht|city|2026-10|v6|broad")?.map((o) => o.name)).toEqual(["Brede club"]);
+    expect(store.get("yoga|utrecht|city|2026-10|v6")).toEqual([]);
   });
 
   it("is never used for the online providers", async () => {
@@ -200,7 +201,7 @@ describe("parseResearchAnswer", () => {
   it("reads the fenced JSON block", () => {
     const answer = 'Some notes.\n```json\n[{"activity_id":"pottenbakken","options":[{"name":"Klei Atelier","city":"Utrecht","url":"https://klei.nl","note":"proefles"}]}]\n```';
     const out = parseResearchAnswer(answer, wanted)!;
-    expect(out.get("pottenbakken")).toEqual([{ name: "Klei Atelier", city: "Utrecht", url: "https://klei.nl", note: "proefles", until: null, rating: null }]);
+    expect(out.get("pottenbakken")).toEqual([{ name: "Klei Atelier", city: "Utrecht", url: "https://klei.nl", note: "proefles", until: null, rating: null, kind: null, match: null }]);
   });
 
   it("treats an activity the model skipped as searched-but-nothing-found", () => {
@@ -245,7 +246,7 @@ describe("researchSeeds", () => {
   });
 
   it("uses cached answers and only searches for what is missing", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v5": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [opt("Yoga Studio")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt(id)]])));
     const { byActivity, stats } = await researchSeeds({ ...args, activityIds: ["hardlopen", "yoga"], cache, search });
     expect(search.mock.calls[0][0]).toEqual(["hardlopen"]);
@@ -254,14 +255,14 @@ describe("researchSeeds", () => {
   });
 
   it("makes no call at all when everything is cached", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v5": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [opt("Yoga Studio")] });
     const search = vi.fn();
     await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).not.toHaveBeenCalled();
   });
 
   it("does not share answers between different places or radii", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v5": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [opt("Yoga Studio")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, []])));
     await researchSeeds({ ...args, location: "Haarlem", activityIds: ["yoga"], cache, search });
     await researchSeeds({ ...args, searchDistance: "hour", activityIds: ["yoga"], cache, search });
@@ -272,7 +273,7 @@ describe("researchSeeds", () => {
     const { cache, store } = memoryCache();
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [] as LocalOption[]])));
     await researchSeeds({ ...args, activityIds: ["larp"], cache, search });
-    expect(store.get("larp|utrecht|city|2026-10|v5")).toEqual([]);
+    expect(store.get("larp|utrecht|city|2026-10|v6")).toEqual([]);
     await researchSeeds({ ...args, activityIds: ["larp"], cache, search });
     expect(search).toHaveBeenCalledTimes(1);
   });
@@ -299,7 +300,7 @@ describe("researchSeeds", () => {
   });
 
   it("searches again when every cached option has run out since", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v5": [opt("Herfstmarkt", "2026-10-10")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [opt("Herfstmarkt", "2026-10-10")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuwe markt", "2026-11-15")]])));
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).toHaveBeenCalledTimes(1);
@@ -318,7 +319,7 @@ describe("researchSeeds", () => {
     warn.mockRestore();
     expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Echt"]);
     expect(stats.dropped).toBe(1);
-    expect(store.get("yoga|utrecht|city|2026-10|v5")?.map((o) => o.name)).toEqual(["Echt"]);
+    expect(store.get("yoga|utrecht|city|2026-10|v6")?.map((o) => o.name)).toEqual(["Echt"]);
   });
 
   it("works without a cache", async () => {
@@ -341,5 +342,50 @@ describe("physical places only", () => {
     expect(text).toMatch(/Only PHYSICAL places count/);
     expect(text).toMatch(/online course, a video lesson, an app, a\s+webshop/);
     expect(text).toMatch(/never "Online"/);
+  });
+});
+
+describe("searching for the form and for reviews (Jan, 14 Nov 2026)", () => {
+  const text = buildResearchPrompt(["high-tea"], "Laren", "city", "nl", new Date("2026-11-14T10:00:00Z"));
+
+  it("tells the researcher how to search: queries that surface reviews, reading the reviews of the best candidates, and the bar", () => {
+    expect(text).toMatch(/How to search/);
+    expect(text).toMatch(/"<activity> <place>"/);
+    expect(text).toMatch(/beoordelingen/);
+    expect(text).toMatch(/reviews of your best candidates/);
+    expect(text).toMatch(/4\.3 or more from at\s+least 15 reviews/);
+  });
+
+  it("asks for the form the idea names first, and for what each place really is", () => {
+    expect(text).toMatch(/Match the form first/);
+    expect(text).toMatch(/a café on the heath is not a country house/);
+    expect(text).toMatch(/"kind": "\.\.\."/);
+    expect(text).toMatch(/"match": "exact"/);
+  });
+
+  it("reads kind and match from an answer, and ignores a match it does not know", () => {
+    const out = cleanOptions([
+      { name: "Theehuis 't Bluk", city: "Laren", kind: " café op de hei ", match: "close", url: "https://example.nl", note: "high tea" },
+      { name: "Landhuis X", city: "Blaricum", kind: "high tea in een landhuis", match: "perfect", url: null, note: "" },
+    ]);
+    expect(out.map((o) => [o.name, o.kind, o.match])).toEqual([
+      ["Landhuis X", "high tea in een landhuis", null],
+      ["Theehuis 't Bluk", "café op de hei", "close"],
+    ]);
+  });
+
+  it("puts the option of the form the idea names before a close one, and keeps the better rated first within a form", () => {
+    const o = (name: string, match: "exact" | "close" | null, score: number | null): LocalOption => ({
+      name,
+      city: "Laren",
+      url: null,
+      note: "",
+      until: null,
+      rating: score ? { score, reviews: 200, source: "Google" } : null,
+      kind: null,
+      match,
+    });
+    const ranked = rankOptions([o("Close best", "close", 4.9), o("Exact good", "exact", 4.5), o("Exact better", "exact", 4.7)]);
+    expect(ranked.map((x) => x.name)).toEqual(["Exact better", "Exact good", "Close best"]);
   });
 });

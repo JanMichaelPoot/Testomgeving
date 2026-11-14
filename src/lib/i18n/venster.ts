@@ -1008,7 +1008,7 @@ export const vensterNl: VensterDictionary = {
     thanks: "Dank je wel. Dit helpt echt.",
     error: "Versturen lukte niet. Probeer het later nog eens.",
   },
-  pdf: { coverTitle: "Een venster voor jou", coverTitleGift: "Een venster voor {name}", coverTitleGroup: "Een venster voor jullie" },
+  pdf: { coverTitle: "Jouw venster staat open", coverTitleGift: "Het venster van {name} staat open", coverTitleGroup: "Jullie venster staat open" },
   testBanner: "Testversie · betaal met testkaart 4242 4242 4242 4242, er wordt niets afgeschreven.",
   errorGeneric: "Er ging iets mis bij het opslaan van je keuzes. Ververs de pagina en probeer het opnieuw: je keuzes blijven bewaard.",
 };
@@ -1663,7 +1663,7 @@ export const vensterEn: VensterDictionary = {
     thanks: "Thank you. This really helps.",
     error: "Sending didn't work. Please try again later.",
   },
-  pdf: { coverTitle: "A window for you", coverTitleGift: "A window for {name}", coverTitleGroup: "A window for all of you" },
+  pdf: { coverTitle: "Your window is open", coverTitleGift: "{name}'s window is open", coverTitleGroup: "Your window is open, all of you" },
   testBanner: "Test version · pay with test card 4242 4242 4242 4242, nothing is charged.",
   errorGeneric: "Something went wrong while saving your choices. Refresh the page and try again: your choices are kept.",
 };

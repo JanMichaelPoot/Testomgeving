@@ -34,6 +34,10 @@ export interface LocalOption {
   until: string | null;
   /** A review score that a search result actually showed, with its source; null when none was found. Never estimated. */
   rating: Rating | null;
+  /** What the place really is, in a few words ("café op de hei", "keramiekstudio met proeflessen"); null when the research did not say (older cached answers). The idea's title follows this. */
+  kind?: string | null;
+  /** "exact": it is the form the activity's usual way in names (a high tea in a country house); "close": the same activity in another form (a café on the heath). Absent when not stated. */
+  match?: "exact" | "close" | null;
 }
 
 /** The most options kept per activity. The model may return one more, so the best rated can be chosen. */
@@ -55,15 +59,18 @@ export function adjustedScore(r: Rating): number {
 }
 
 /**
- * The options worth showing: best rated first (see adjustedScore), the unrated after them in the order given, a poorly
- * rated one only when it is all there is. At most MAX_OPTIONS. Deterministic, and stable when applied twice.
+ * The options worth showing: the form the idea names first (match "exact"), then best rated first (see adjustedScore), the unrated
+ * after them in the order given, a poorly rated one only when it is all there is. At most MAX_OPTIONS. Deterministic, and stable when applied twice.
  */
 export function rankOptions(options: LocalOption[]): LocalOption[] {
   const rated = options.filter((o) => o.rating).sort((a, b) => adjustedScore(b.rating!) - adjustedScore(a.rating!));
   const unrated = options.filter((o) => !o.rating);
   const bestRated = rated[0] ? adjustedScore(rated[0].rating!) : 0;
   const keptRated = bestRated >= POOR_SCORE ? rated.filter((o) => adjustedScore(o.rating!) >= POOR_SCORE) : rated;
-  return [...keptRated, ...unrated].slice(0, MAX_OPTIONS);
+  // The form the idea names comes before the rating (an idea written about a country house should name one when it exists); the sort is
+  // stable, so within a form the better rated one stays first.
+  const formRank = (o: LocalOption) => (o.match === "close" ? 1 : 0);
+  return [...keptRated, ...unrated].sort((a, b) => formRank(a) - formRank(b)).slice(0, MAX_OPTIONS);
 }
 
 /** "standard": the first search. "broad": the second attempt, for activities the first one found nothing for. */
@@ -191,8 +198,9 @@ export function createSupabaseResearchCache(): ResearchCache {
 
 /** Notes-taking from search results; a smaller model is enough (see docs/discovery-api-costs.md). */
 export const RESEARCH_MODEL = process.env.WINDOW_RESEARCH_MODEL || "claude-haiku-4-5-20251001";
-const MAX_SEARCHES = 5;
-const MAX_PRIORITY_SEARCHES = 4;
+// Room to search AND to read the reviews of the best candidates (Jan, 14 Nov 2026: the options must be the highly rated ones): two more than before.
+const MAX_SEARCHES = 7;
+const MAX_PRIORITY_SEARCHES = 5;
 // The broad pass reads a lot back (35-55k tokens per round, measured): four searches at most.
 const MAX_BROAD_SEARCHES = 4;
 
@@ -308,10 +316,23 @@ An option only counts when ALL of these are true:
 - It really offers this activity to beginners, not something merely similar.
 If no option meets all three, the options list for that activity is empty. Do not fill it up.
 
+How to search (this decides how good the options are):
+- Search the way a local looks for it, in ${searchLanguage}, and combine related activities in one query where that works. Good queries: "<activity> <place>",
+  "<activity> proefles <place>", "<activity> cursus <place> beoordelingen", "beste <activity> <place>", "<activity> <place> reviews". Put "reviews" or "beoordelingen"
+  in the first query so the results show review scores (Google Maps and Tripadvisor snippets, the venue's own page).
+- Take the exact name and the town from the result itself. A listing page of many venues is a lead, not an option: open or search the venue it names.
+- Spend at least one search on the reviews of your best candidates ("<name> <town> reviews") and keep the highest rated. Aim for a Google score of 4.3 or more from at
+  least 15 reviews. 4.0 to 4.2 is acceptable. Below 4.0 only when nothing better exists, and then last. An option without any score ranks after the rated ones.
+- Match the form first. The "Usual way in" of an activity names the form people expect (a high tea in a country house or garden room, a class in a studio). Look inside the
+  radius for options of that form first, and widen within the radius before you accept a different form. Only then list the nearest thing that really exists, and say
+  plainly in "kind" what it is. Never describe an option as more than it is: a café on the heath is not a country house.
+
 Ratings: when a search result shows a review score for an option (Google, Tripadvisor, the venue's own page, ...), give it as
 "rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Google"} (scale 5 or 10; "reviews" null when not stated).
 Never estimate or remember a score: "rating" is null when the results do not show one. When more than 3 options qualify,
 keep the 3 with the highest ratings (more reviews counts for more), and never pick a poorly rated option over a better one.
+"kind" is what the place really is in a few words, in ${language} (for example "café op de hei", "keramiekstudio met proeflessen"); "match" is "exact" when it is the form of the
+usual way in and "close" when it is the same activity in another form.
 
 Activities:
 ${lines.join("\n")}
@@ -321,7 +342,7 @@ The note is one short line: what it is, how a beginner takes part (trial lesson,
 
 Finish with one JSON code block, exactly this shape:
 \`\`\`json
-[{"activity_id": "<id>", "options": [{"name": "...", "city": "...", "url": "https://..." , "note": "...", "until": null, "rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Google"}}]}]
+[{"activity_id": "<id>", "options": [{"name": "...", "city": "...", "kind": "...", "match": "exact", "url": "https://..." , "note": "...", "until": null, "rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Google"}}]}]
 \`\`\``;
 }
 
@@ -353,7 +374,8 @@ verifiable exists, give an empty options list. An empty answer is a good answer;
 
 Ratings: when a search result shows a review score (Trustpilot, Google, the shop's own page, an app store, ...), give it as
 "rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Trustpilot"} (scale 5 or 10; "reviews" null when not stated). Never estimate or
-remember a score: "rating" is null when the results show none. When more than 3 qualify, keep the 3 with the highest ratings (more reviews counts for more).
+remember a score: "rating" is null when the results show none. When more than 3 qualify, keep the 3 with the highest ratings (more reviews counts for more). Put "reviews" or "beoordelingen"
+in a query so the results show scores, and aim for 4.3 or more from at least 15 reviews; below 4.0 only when nothing better exists.
 Write "Online" as the city for something that is used from home, "${country ?? "Nederland"}" for a national organisation, or the real city of a local chapter.
 
 Activities:
@@ -385,6 +407,8 @@ export function cleanOptions(raw: unknown, today?: string): LocalOption[] {
       note: typeof r.note === "string" ? r.note.trim() : "",
       until,
       rating: cleanRating(r.rating),
+      kind: typeof r.kind === "string" && r.kind.trim() ? r.kind.trim().slice(0, 70) : null,
+      match: r.match === "exact" || r.match === "close" ? r.match : null,
     });
     if (out.length === MAX_CANDIDATES) break;
   }
@@ -446,7 +470,7 @@ async function searchOnce(
       ? Math.min(MAX_BROAD_SEARCHES, Math.max(3, activityIds.length * 2))
       : priority
         ? Math.min(MAX_PRIORITY_SEARCHES, Math.max(3, Math.ceil(activityIds.length * 1.5)))
-        : Math.min(MAX_SEARCHES, Math.max(2, Math.ceil(activityIds.length * 0.7)));
+        : Math.min(MAX_SEARCHES, Math.max(3, Math.ceil(activityIds.length * 0.9)));
   const message = await anthropic.messages.create({
     model: RESEARCH_MODEL,
     max_tokens: 3500,
@@ -562,10 +586,11 @@ export async function researchSeeds(opts: {
   // "v2": the notes are now always in the book's language; older cached notes could be in the language of the website.
   // "v3": options now carry ratings and passed the stricter "is it really open" rules; older answers are not trusted.
   // "v4": physical places only. "v5": permanent places and groups count without a dated session, with search terms per activity; the empties of v4 came from a stricter question.
+  // "v6": the research reads reviews on purpose and says what each place really is (kind) and whether it is the form the idea names (match).
   const online = opts.mode === "online";
   const needs = online ? [] : researchNeedsFrom(opts.needs ?? []);
   const pass: ResearchPass = !online && opts.pass === "broad" ? "broad" : "standard";
-  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${today.slice(0, 7)}|v5${online ? "|online" : ""}${pass === "broad" ? "|broad" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
+  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${today.slice(0, 7)}|v6${online ? "|online" : ""}${pass === "broad" ? "|broad" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
   const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 

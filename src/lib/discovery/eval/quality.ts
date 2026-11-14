@@ -10,7 +10,7 @@ export interface QualitySummary {
   books: number;
   ideas: number;
   /** Findings per quality code, over all books. */
-  counts: Record<"exposed_reasoning" | "repeated_sentence" | "season" | "type_setting" | "time_chip" | "related" | "coverage_time" | "coverage_budget", number>;
+  counts: Record<"exposed_reasoning" | "repeated_sentence" | "season" | "type_setting" | "time_chip" | "related" | "title_place" | "coverage_time" | "coverage_budget", number>;
   /** Ideas (wildcard included) that name at least one real place found in the research, and that place has a website. */
   ideasWithPlace: number;
   ideasWithPlaceSite: number;
@@ -22,7 +22,7 @@ export interface QualitySummary {
   releaseGate: { pass: boolean; failures: string[] };
 }
 
-const CODES = ["exposed_reasoning", "repeated_sentence", "season", "type_setting", "time_chip", "related", "coverage_time", "coverage_budget"] as const;
+const CODES = ["exposed_reasoning", "repeated_sentence", "season", "type_setting", "time_chip", "related", "title_place", "coverage_time", "coverage_budget"] as const;
 
 export function summariseQuality(books: Record<string, GeneratedIdeaBook>, findings: readonly Finding[], runInfo?: Record<string, EvalRunInfo>): QualitySummary {
   const counts = Object.fromEntries(CODES.map((c) => [c, 0])) as QualitySummary["counts"];

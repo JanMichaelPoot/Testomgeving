@@ -26,7 +26,7 @@ import type { Locale } from "@/lib/language";
 import { hasMapLink, mapsSearchUrl } from "@/lib/maps";
 import { ideaPhoto } from "@/lib/illustrations";
 import { buildScrimPng } from "@/lib/pdf/scrim";
-import { DOOR_ORDER, orderIdeasByDoor, pickOneThingIndex } from "@/lib/possibilityMap";
+import { DOOR_ORDER, orderIdeasByDoor } from "@/lib/possibilityMap";
 import {
   EXPERIENCE_DIMENSIONS,
   activityKindFor,
@@ -272,6 +272,24 @@ function wrapText(
   return lines;
 }
 
+/** Two lines of about equal width ("Jouw venster / staat open" instead of "Jouw venster staat / open"); a text that fits on one line, or needs three, is wrapped as usual. */
+function balancedLines(text: string, font: PDFFont, size: number, maxWidth: number): string[] {
+  const plain = wrapText(text, font, size, maxWidth);
+  if (plain.length !== 2) return plain;
+  const words = text.split(/\s+/).filter(Boolean);
+  let best = plain;
+  let bestWidth = Math.max(...plain.map((l) => font.widthOfTextAtSize(l, size)));
+  for (let i = 1; i < words.length; i++) {
+    const pair = [words.slice(0, i).join(" "), words.slice(i).join(" ")];
+    const widest = Math.max(...pair.map((l) => font.widthOfTextAtSize(l, size)));
+    if (widest <= maxWidth && widest < bestWidth) {
+      best = pair;
+      bestWidth = widest;
+    }
+  }
+  return best;
+}
+
 // A rounded-rectangle SVG path, top-left origin, Y increasing downward
 // (standard SVG convention) — pdf-lib's drawSvgPath flips this to match
 // the page's own upward-Y space, so passing the panel's top-left corner
@@ -440,7 +458,6 @@ export async function renderIdeaBookPdf(
   // character set is replaced or dropped before drawing, so no glyph ever renders as a box.
   book = makeBookPrintable(book, glyphFilter([fonts.display, fonts.displayItalic, fonts.serif, fonts.sans, fonts.sansBold]));
   const orderedIdeas = orderIdeasByDoor(book.ideas);
-  const oneThingIndex = pickOneThingIndex(book.ideas);
 
   const [coverBytes, backgroundBytes, logoCreamBytes, logoColorBytes] = await Promise.all([
     readFile(path.join(IMAGES_DIR, "cover.jpg")),
@@ -690,11 +707,11 @@ export async function renderIdeaBookPdf(
     const logoWidth = logoHeight * (coverLogo.width / coverLogo.height);
     page.drawImage(coverLogo, { x: (PAGE_WIDTH - logoWidth) / 2, y: PAGE_HEIGHT - 56, width: logoWidth, height: logoHeight });
 
-    // The window: 300pt wide, 4:3 portrait, centred.
-    const w = 300;
+    // The window: 262pt wide, 4:3 portrait, centred. A little smaller than it was: the title and the tagline now stand much larger beneath it.
+    const w = 262;
     const h = (w * 4) / 3;
     const x0 = (PAGE_WIDTH - w) / 2;
-    const y0 = PAGE_HEIGHT - 100 - h;
+    const y0 = PAGE_HEIGHT - 92 - h;
     await drawCoverWindow(page, win.items, x0, y0, w, h);
 
     // Sill: the text answers under the window, on a slightly lighter walnut band.
@@ -719,12 +736,14 @@ export async function renderIdeaBookPdf(
     const v = dict.venster;
     const name = (win.recipientName ?? "").trim();
     const coverTitle = name ? v.pdf.coverTitleGift.replace("{name}", name) : win.forGroup ? v.pdf.coverTitleGroup : v.pdf.coverTitle;
-    cursor -= 40;
+    cursor -= 34;
     centred(`${chrome.coverEyebrow} · ${win.dateLabel}`.toUpperCase(), fonts.sansBold, 8.5, theme.cover.eyebrow, cursor, 1.1);
-    cursor -= 52;
-    for (const line of wrapText(coverTitle, fonts.display, 52, PWA4_CONTENT_WIDTH, 2)) {
-      centred(line, fonts.display, 52, theme.cover.title, cursor);
-      cursor -= 52;
+    // The title is as large as fits on two lines (a name in it makes it longer): 68pt for "Jouw venster staat open", smaller for a long one.
+    const titleSize = [68, 62, 56, 50, 44].find((s) => wrapText(coverTitle, fonts.display, s, PWA4_CONTENT_WIDTH - 24).length <= 2) ?? 44;
+    cursor -= titleSize * 0.92;
+    for (const line of balancedLines(coverTitle, fonts.display, titleSize, PWA4_CONTENT_WIDTH - 24)) {
+      centred(line, fonts.display, titleSize, theme.cover.title, cursor);
+      cursor -= titleSize * 0.96;
     }
     if (theme.cover.collector) {
       // A small rule with a diamond in the middle, between the title and the tagline.
@@ -734,10 +753,10 @@ export async function renderIdeaBookPdf(
       page.drawSvgPath("M 0 -4 L 4 0 L 0 4 L -4 0 Z", { x: mid, y: cursor + 18, color: PWA4_ACCENT });
       cursor -= 14;
     }
-    cursor -= 2;
-    for (const line of wrapText(chrome.coverTagline, fonts.displayItalic, 18, 400, 3)) {
-      centred(line, fonts.displayItalic, 18, theme.cover.tagline, cursor);
-      cursor -= 23;
+    cursor -= 4;
+    for (const line of balancedLines(chrome.coverTagline, fonts.displayItalic, 23, 450)) {
+      centred(line, fonts.displayItalic, 23, theme.cover.tagline, cursor);
+      cursor -= 27;
     }
     centred("WINDOWINTO.NL", fonts.sansBold, 7.5, theme.cover.eyebrow, 40, 1.6);
   } else {
@@ -773,145 +792,150 @@ export async function renderIdeaBookPdf(
     // Eyebrow, title and tagline, each with enough clearance for the
     // serif title's own ascenders (NotoSerif-Bold's cap-height runs well
     // above its nominal size) not to crowd the line above it.
-    y = 262; // the title is large now: start high enough that title and tagline stay on the cover
+    y = 318; // the title and the tagline are large now: start high enough that both stay on the cover
     drawTrackedLine(chrome.coverEyebrow, fonts.sansBold, 9, PWA4_INK_INVERSE, PWA4_BODY_PAD_X, y, 0.9);
-    y -= 9 + PWA4_SPACE_7 + 16;
-    drawParagraph(title, fonts.display, 46, PWA4_INK_INVERSE, 8, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
+    y -= 9 + PWA4_SPACE_7 + 34; // the 60pt title's ascenders need room below the eyebrow
+    drawParagraph(title, fonts.display, 60, PWA4_INK_INVERSE, 8, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
     y -= PWA4_SPACE_3;
-    drawParagraph(chrome.coverTagline, fonts.displayItalic, 18, PWA4_INK_INVERSE, 5, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
+    drawParagraph(chrome.coverTagline, fonts.displayItalic, 24, PWA4_INK_INVERSE, 6, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH - 40, 3);
   }
 
   }
 
-  // --- Page 2: Profile — a top photo band (no overlay — the text sits on
-  // the plain page below, per the design system), the profile summary, and
-  // (if present) must-have/preference pill rows.
+  // --- Page 2: the profile and the way in. A photo band, the one-sentence reading of the person at a large size, their must-haves and
+  // preferences as chips, then "where do you want to start?": a card per door with its ideas (title, page and, when there is room,
+  // the one-line intro), the wildcard and a closing invitation. The page picks the richest layout that fits (it is measured first
+  // with the dry-run cursor) and spreads what is left over between the sections, so it is always full and never overflows.
   page = addPage();
   {
-    // The page holds the profile AND the possibility map, so the photo band gives way to long content: a long summary, many
-    // chips or many ideas behind one door each cost a measured amount of height (reference: a two-line summary, one chip row
-    // per label and two ideas per door row leave about 80 pt free under a band of 120 pt).
-    const chipRows = (items: string[]) => {
-      if (items.length === 0) return 0;
-      let rows = 1;
-      let cursorX = PWA4_BODY_PAD_X;
-      for (const item of items) {
-        const w = fonts.sansBold.widthOfTextAtSize(item, 9.75) + PWA4_SPACE_3 * 2;
-        if (cursorX + w > PWA4_BODY_PAD_X + PWA4_CONTENT_WIDTH && cursorX > PWA4_BODY_PAD_X) {
-          rows += 1;
-          cursorX = PWA4_BODY_PAD_X;
-        }
-        cursorX += w + PWA4_SPACE_2;
-      }
-      return rows;
-    };
-    const summaryLineCount = wrapText(book.profile_summary, fonts.displayItalic, 21, PWA4_CONTENT_WIDTH, 7).length;
-    const doorRows = DOOR_ORDER.filter((door) => orderedIdeas.some(({ idea }) => idea.door === door)).map((door) => orderedIdeas.filter(({ idea }) => idea.door === door).length);
-    const mapLines = [Math.max(doorRows[0] ?? 0, doorRows[1] ?? 0), Math.max(doorRows[2] ?? 0, doorRows[3] ?? 0)].reduce((sum, n) => sum + n, 0);
-    const extraHeight =
-      (summaryLineCount - 2) * 30 +
-      (book.must_haves.length > 0 ? (chipRows(book.must_haves) - 1) * 28 : -58) +
-      (book.preferences.length > 0 ? (chipRows(book.preferences) - 1) * 28 : -58) +
-      (mapLines - 4) * 14;
-    const bandHeight = Math.max(24, Math.min(150, Math.round(120 + (80 - extraHeight) - 30)));
-    drawPhotoBand(images.background, bandHeight, 0.15);
-
-    y = PAGE_HEIGHT - bandHeight - PWA4_SPACE_5;
-    drawTrackedLine(chrome.profileEyebrow, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
-    y -= 8.25 + PWA4_SPACE_2 + 16; // room for the tall italic line below
-    drawParagraph(book.profile_summary, fonts.displayItalic, 21, PWA4_INK, 7, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 7);
-
-    if (book.must_haves.length > 0) {
-      y -= PWA4_SPACE_5;
-      drawTrackedLine(chrome.mustHaves, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
-      y -= 8.25 + PWA4_SPACE_2;
-      drawPillRow(book.must_haves, PWA4_SURFACE_INVERSE, PWA4_INK_INVERSE);
-      y -= PWA4_SPACE_3;
-    }
-
-    if (book.preferences.length > 0) {
-      y -= PWA4_SPACE_5;
-      drawTrackedLine(chrome.preferences, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
-      y -= 8.25 + PWA4_SPACE_2;
-      drawPillRow(book.preferences, PWA4_SURFACE_PANEL, PWA4_INK);
-    }
-  }
-
-  // --- Possibility map, on the same page as the profile (Fase 3: two half-empty pages became one full one).
-  // One surface-panel door card per door that has ideas in it (title, description, and a numbered
-  // mini-list with real "p. N" page references), and the "if you only pick one" dark CTA panel
-  // (reusing pwa4DrawCta, defined below — function declarations are hoisted, so calling it here
-  // before its own declaration is safe).
-  {
-    y -= PWA4_SPACE_5;
-    page.drawRectangle({ x: PWA4_BODY_PAD_X, y, width: PWA4_CONTENT_WIDTH, height: 0.75, color: PWA4_GOLD_LIGHT, opacity: 0.8 });
-    y -= PWA4_SPACE_5;
-    drawTrackedLine(mapCopy.mapEyebrow, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
-    y -= 8.25 + PWA4_SPACE_3 + 15; // room for the heading below
-    drawParagraph(mapCopy.mapHeading, fonts.display, 26, PWA4_INK, 5, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
-    y -= 2;
-    y -= PWA4_SPACE_4; // the intro line of the old map page is gone: the page has to hold the profile as well
-
+    // The closing invitation breaks to a new page when the cursor is closer than MARGIN + its own height to the bottom, so the layout has to end above this line.
+    const BOTTOM = MARGIN + PWA4_SPACE_5 + 2;
+    type ProfileMode = { band: number; summarySize: number; summaryLines: number; intros: boolean; headingSize: number; closing: boolean };
+    // From the richest to the most compact; the first that fits is used.
+    const MODES: ProfileMode[] = [
+      { band: 110, summarySize: 26, summaryLines: 5, intros: true, headingSize: 28, closing: true },
+      { band: 150, summarySize: 27, summaryLines: 5, intros: false, headingSize: 30, closing: true },
+      { band: 112, summarySize: 26, summaryLines: 5, intros: false, headingSize: 28, closing: true },
+      { band: 84, summarySize: 24, summaryLines: 4, intros: false, headingSize: 26, closing: true },
+      { band: 56, summarySize: 21, summaryLines: 3, intros: false, headingSize: 24, closing: true },
+      // The last resort for a very long summary with many chips: everything stays on this one page, without the closing invitation.
+      { band: 36, summarySize: 19, summaryLines: 3, intros: false, headingSize: 22, closing: false },
+    ];
     const doorsWithIdeas = DOOR_ORDER.filter((door) => orderedIdeas.some(({ idea }) => idea.door === door));
     const cardGap = PWA4_SPACE_4;
     const cardWidth = (PWA4_CONTENT_WIDTH - cardGap) / 2;
-    const cardPad = PWA4_SPACE_4;
-    let colX = PWA4_BODY_PAD_X;
-    let rowTop = y;
-    let rowMaxHeight = 0;
+    const cardPad = PWA4_SPACE_4 + 2;
+    const innerWidth = cardWidth - cardPad * 2;
 
-    doorsWithIdeas.forEach((door, i) => {
-      const doorIdeas = orderedIdeas.filter(({ idea }) => idea.door === door);
-
-      function drawCardContent() {
-        y -= cardPad;
-        drawTrackedLine(mapCopy.doors[door].label.toUpperCase(), fonts.sansBold, 8, PWA4_INK_MUTED, colX + cardPad, y, 0.8);
-        y -= 8 + 4;
-        drawParagraph(mapCopy.doors[door].description, fonts.sans, 8.75, PWA4_INK_MUTED, 3, colX + cardPad, cardWidth - cardPad * 2, 2);
-        y -= PWA4_SPACE_2;
-        doorIdeas.forEach(({ idea, originalIndex }) => {
-          const pageNum = pdfPages.ideas[orderedIdeas.findIndex((e) => e.originalIndex === originalIndex)];
-          const isOneThing = originalIndex === oneThingIndex;
-          drawParagraph(
-            `${idea.title}  ·  p. ${pageNum}`,
-            fonts.sans,
-            9,
-            isOneThing ? PWA4_INK : PWA4_INK_MUTED,
-            3,
-            colX + cardPad,
-            cardWidth - cardPad * 2,
-            2
-          );
+    // One door card, drawn from `top` downwards at column `x`. Returns its content height; with a `height` given the panel is that tall (so two
+    // cards in a row are equally tall).
+    const doorCard = (door: (typeof DOOR_ORDER)[number], x: number, top: number, intros: boolean, height?: number): number => {
+      const outerDry = dryRun;
+      const saveY = y;
+      if (height === undefined) dryRun = true;
+      else if (!outerDry) page.drawSvgPath(roundedRectPath(cardWidth, height, PWA4_RADIUS_MD), { x, y: top, color: PWA4_SURFACE_PANEL });
+      y = top - cardPad - 8;
+      drawTrackedLine(mapCopy.doors[door].label.toUpperCase(), fonts.sansBold, 8.5, PWA4_ACCENT, x + cardPad, y, 0.9);
+      y -= 8.5 + 5;
+      drawParagraph(mapCopy.doors[door].description, fonts.sans, 9, PWA4_INK_MUTED, 3, x + cardPad, innerWidth, 2);
+      y -= PWA4_SPACE_3;
+      for (const { idea, originalIndex } of orderedIdeas.filter((e) => e.idea.door === door)) {
+        const pageLabel = `p. ${pdfPages.ideas[orderedIdeas.findIndex((e) => e.originalIndex === originalIndex)]}`;
+        const pageWidth = fonts.sansBold.widthOfTextAtSize(pageLabel, 9);
+        const titleLines = wrapText(idea.title, fonts.sansBold, 10.75, innerWidth - pageWidth - 8, 2);
+        titleLines.forEach((line, i) => {
+          if (!dryRun) {
+            page.drawText(line, { x: x + cardPad, y, size: 10.75, font: fonts.sansBold, color: PWA4_INK });
+            if (i === 0) page.drawText(pageLabel, { x: x + cardWidth - cardPad - pageWidth, y, size: 9, font: fonts.sansBold, color: PWA4_ACCENT });
+          }
+          y -= 10.75 + 3.5;
         });
-        y -= cardPad;
+        if (intros && idea.intro) {
+          drawParagraph(idea.intro, fonts.sans, 8.75, PWA4_INK_MUTED, 2.5, x + cardPad, innerWidth, 2);
+        }
+        y -= PWA4_SPACE_3;
+      }
+      y -= cardPad - PWA4_SPACE_3;
+      const used = top - y;
+      y = saveY;
+      dryRun = outerDry;
+      return used;
+    };
+
+    // The whole page, top to bottom. `extra` is added to the gaps between sections. Returns where the cursor ends.
+    const layout = (m: ProfileMode, extra: number): number => {
+      if (!dryRun) drawPhotoBand(images.background, m.band, 0.15);
+      y = PAGE_HEIGHT - m.band - PWA4_SPACE_5 - PWA4_SPACE_2 - extra;
+      drawTrackedLine(chrome.profileEyebrow, fonts.sansBold, 8.5, PWA4_ACCENT, PWA4_BODY_PAD_X, y, 1.1);
+      y -= 8.5 + PWA4_SPACE_3 + 6;
+      if (!dryRun) page.drawRectangle({ x: PWA4_BODY_PAD_X, y: y + 4, width: 34, height: 1.6, color: PWA4_GOLD_LIGHT });
+      y -= PWA4_SPACE_4 + m.summarySize * 0.55;
+      drawParagraph(book.profile_summary, fonts.displayItalic, m.summarySize, PWA4_INK, 9, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, m.summaryLines);
+
+      if (book.must_haves.length > 0) {
+        y -= PWA4_SPACE_4 + extra;
+        drawTrackedLine(chrome.mustHaves, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
+        y -= 8.25 + PWA4_SPACE_2;
+        drawPillRow(book.must_haves, PWA4_SURFACE_INVERSE, PWA4_INK_INVERSE);
+      }
+      if (book.preferences.length > 0) {
+        y -= PWA4_SPACE_4 + extra;
+        drawTrackedLine(chrome.preferences, fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
+        y -= 8.25 + PWA4_SPACE_2;
+        drawPillRow(book.preferences, PWA4_SURFACE_PANEL, PWA4_INK);
       }
 
-      const measureStart = rowTop;
-      y = measureStart;
+      y -= PWA4_SPACE_5 + extra;
+      if (!dryRun) page.drawRectangle({ x: PWA4_BODY_PAD_X, y, width: PWA4_CONTENT_WIDTH, height: 0.75, color: PWA4_GOLD_LIGHT, opacity: 0.8 });
+      y -= PWA4_SPACE_5 + 3;
+      drawTrackedLine(mapCopy.mapEyebrow.toUpperCase(), fonts.sansBold, 8.25, PWA4_INK_MUTED, PWA4_BODY_PAD_X, y, 0.9);
+      y -= 8.25 + PWA4_SPACE_2 + m.headingSize * 0.62;
+      drawParagraph(chrome.mapHeading, fonts.display, m.headingSize, PWA4_INK, 0, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
+      y -= PWA4_SPACE_2 + extra;
+
+      // the door cards, two to a row, equally tall within a row
+      for (let i = 0; i < doorsWithIdeas.length; i += 2) {
+        const pair = doorsWithIdeas.slice(i, i + 2);
+        const top = y;
+        const rowHeight = Math.max(...pair.map((door) => doorCard(door, PWA4_BODY_PAD_X, top, m.intros)));
+        pair.forEach((door, j) => doorCard(door, PWA4_BODY_PAD_X + j * (cardWidth + cardGap), top, m.intros, rowHeight));
+        y = top - rowHeight - cardGap;
+      }
+
+      // the wildcard: one line with its page, and nothing given away
+      {
+        const wildcardTop = y;
+        const wildHeight = 44;
+        if (!dryRun) {
+          page.drawSvgPath(roundedRectPath(PWA4_CONTENT_WIDTH, wildHeight, PWA4_RADIUS_MD), { x: PWA4_BODY_PAD_X, y: wildcardTop, color: PWA4_SURFACE_PANEL });
+          const label = `${chrome.mapWildcardLabel.toUpperCase()}  ·  p. ${pdfPages.wildcard}`;
+          drawTrackedLine(label, fonts.sansBold, 8.5, PWA4_ACCENT, PWA4_BODY_PAD_X + cardPad, wildcardTop - 17, 0.9);
+          page.drawText(wrapText(chrome.mapWildcardBody, fonts.sans, 9, PWA4_CONTENT_WIDTH - cardPad * 2, 1)[0], { x: PWA4_BODY_PAD_X + cardPad, y: wildcardTop - 32, size: 9, font: fonts.sans, color: PWA4_INK_MUTED });
+        }
+        y = wildcardTop - wildHeight - PWA4_SPACE_5 - extra;
+      }
+
+      if (m.closing) pwa4DrawCta(chrome.nextLabel, chrome.nextBody);
+      return y;
+    };
+
+    // The richest layout that fits, then what is left over is spread between the sections.
+    let chosen = MODES[MODES.length - 1];
+    for (const m of MODES) {
       dryRun = true;
-      drawCardContent();
-      const cardHeight = measureStart - y;
+      const end = layout(m, 0);
       dryRun = false;
-
-      y = measureStart;
-      page.drawSvgPath(roundedRectPath(cardWidth, cardHeight, PWA4_RADIUS_MD), { x: colX, y, color: PWA4_SURFACE_PANEL });
-      drawCardContent();
-      rowMaxHeight = Math.max(rowMaxHeight, cardHeight);
-
-      if (i % 2 === 1 || i === doorsWithIdeas.length - 1) {
-        colX = PWA4_BODY_PAD_X;
-        rowTop = rowTop - rowMaxHeight - cardGap;
-        rowMaxHeight = 0;
-      } else {
-        colX = PWA4_BODY_PAD_X + cardWidth + cardGap;
+      if (end >= (m.closing ? BOTTOM : MARGIN + 4)) {
+        chosen = m;
+        break;
       }
-    });
-
-    y = rowTop - PWA4_SPACE_5;
-
-    if (oneThingIndex !== null && book.ideas[oneThingIndex]) {
-      pwa4DrawCta(mapCopy.oneThingBadge, `${book.ideas[oneThingIndex].title}. ${mapCopy.oneThingCaption}`);
     }
+    dryRun = true;
+    const endY = layout(chosen, 0);
+    dryRun = false;
+    // spread the free space over the (at most six) gaps that take it, never more than 18pt per gap
+    const extra = Math.max(0, Math.min(18, (endY - (chosen.closing ? BOTTOM : MARGIN + 4)) / 6.5));
+    layout(chosen, extra);
   }
 
   // Closing CTA — surface-inverse panel, the spark glyph in accent beside

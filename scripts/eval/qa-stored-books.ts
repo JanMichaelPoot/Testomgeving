@@ -29,7 +29,7 @@ async function main() {
   const plans: { id: string; session_id: string; language: string; created_at: string; status: string; ideas_json: IdeaBookEntry[]; wildcard_json: IdeaBookEntry; pdf_version?: number }[] = await get(
     `window_plans?select=id,session_id,language,created_at,status,pdf_version,ideas_json,wildcard_json&status=eq.ready&order=created_at.desc&limit=${limit}`,
   );
-  const codes: QaCode[] = ["exposed_reasoning", "repeated_sentence", "season", "type_setting", "time_chip", "related", "coverage_time", "coverage_budget"];
+  const codes: QaCode[] = ["exposed_reasoning", "repeated_sentence", "season", "type_setting", "time_chip", "related", "title_place", "coverage_time", "coverage_budget"];
   const total: Record<string, number> = Object.fromEntries(codes.map((c) => [c, 0]));
   const booksWith: Record<string, number> = Object.fromEntries(codes.map((c) => [c, 0]));
   let books = 0;

@@ -204,3 +204,59 @@ describe("an online start (physical first, online last)", () => {
     expect(issues[0]).toMatchObject({ where: "idea1", needsRewrite: true });
   });
 });
+
+describe("the title must be true of the places found (Jan, 14 Nov 2026)", () => {
+  const heath = [{ name: "Theehuis 't Bluk", city: "Laren", url: null, note: "Café op de hei met een high tea op afspraak." }];
+  const highTea = (title: string, places = heath) => idea(title, { activity_id: "high-tea", places, location: null });
+
+  it("flags a title that claims a country house when the only place found is a café on the heath", () => {
+    const issues = qaBook(book([highTea("Een high tea in een landhuis")]), CTX).filter((i) => i.code === "title_place");
+    expect(issues).toHaveLength(1);
+    expect(issues[0]).toMatchObject({ where: "idea1", needsRewrite: false });
+    expect(issues[0].detail).toContain("country house");
+  });
+
+  it("leaves a title alone that a found place shows, in its name or its note", () => {
+    expect(qaBook(book([highTea("Een high tea op de hei")]), CTX).filter((i) => i.code === "title_place")).toEqual([]);
+    expect(qaBook(book([highTea("High tea in een theehuis")]), CTX).filter((i) => i.code === "title_place")).toEqual([]);
+    const manor = [{ name: "Landgoed De Hooge Vuursche", city: "Baarn", url: null, note: "Theeschenkerij in het koetshuis." }];
+    expect(qaBook(book([highTea("High tea op een landgoed", manor)]), CTX).filter((i) => i.code === "title_place")).toEqual([]);
+  });
+
+  it("does nothing for a title without a claimed kind of place, or for an idea without found places", () => {
+    expect(qaBook(book([highTea("Een middag high tea")]), CTX).filter((i) => i.code === "title_place")).toEqual([]);
+    expect(qaBook(book([highTea("Een high tea in een landhuis", [])]), CTX).filter((i) => i.code === "title_place")).toEqual([]);
+  });
+
+  it("repairs it without a model: the activity's own name at the first found place", () => {
+    const fixed = autoFix(book([highTea("Een high tea in een landhuis")]), "nl");
+    expect(fixed.book.ideas[0].title).toBe("High tea bij Theehuis 't Bluk");
+    expect(fixed.fixes).toContain("idea1:title_from_found_place");
+    expect(qaBook(fixed.book, CTX).filter((i) => i.code === "title_place")).toEqual([]);
+    const long = [{ name: "Het Bijzonder Lange Theehuis op de Heide van Laren en Blaricum", city: "Laren", url: null, note: "Café op de hei." }];
+    expect(autoFix(book([highTea("High tea in een landhuis", long)]), "nl").book.ideas[0].title).toBe("High tea in Laren");
+  });
+});
+
+describe("any other setting a title names has to turn up in the places (the measurement of 14 Nov 2026)", () => {
+  const teds = { name: "Teds Utrecht", city: "Utrecht", url: null, note: "Original Afternoon Tea from €27.50 pp." };
+  const ubica = { name: "Ubica Utrecht", city: "Utrecht", url: null, note: "High tea from €29 pp. Reservation required, can be served in historic wine cellar." };
+  const combo = (places: typeof teds[]) => idea("High Tea in a Wine Cellar", { activity_id: "buitenplaats", reasons: ["hybrid:high-tea", "chain:high-tea>buitenplaats"], places, location: { name: "Ubica Utrecht", address: "", city: "Utrecht" } });
+
+  it("lets a setting stand that a place's note shows, and flags one that no place shows", () => {
+    expect(qaBook(book([combo([teds, ubica])]), CTX).filter((i) => i.code === "title_place")).toEqual([]);
+    const issues = qaBook(book([combo([teds])]), CTX).filter((i) => i.code === "title_place");
+    expect(issues).toHaveLength(1);
+    expect(issues[0].detail).toContain("Wine Cellar");
+  });
+
+  it("repairs a combination with the plain name of its first half at the place the idea names", () => {
+    const fixed = autoFix(book([combo([teds])]), "en");
+    expect(fixed.book.ideas[0].title).toBe("High tea at Ubica Utrecht");
+  });
+
+  it("does not flag a place or a plain location after 'in' or 'bij'", () => {
+    const plain = (title: string) => idea(title, { activity_id: "high-tea", places: [teds], location: null });
+    for (const t of ["High tea in Utrecht", "High tea bij Teds Utrecht", "Een middag in de buurt"]) expect(qaBook(book([plain(t)]), CTX).filter((i) => i.code === "title_place"), t).toEqual([]);
+  });
+});

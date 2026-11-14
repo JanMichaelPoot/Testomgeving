@@ -311,6 +311,12 @@ export interface Dictionary {
     coverEyebrow: string;
     coverTagline: string;
     profileEyebrow: string;
+    /** The heading of the "where do you want to start" part of the profile page, the wildcard line and the closing invitation. */
+    mapHeading: string;
+    mapWildcardLabel: string;
+    mapWildcardBody: string;
+    nextLabel: string;
+    nextBody: string;
     mustHaves: string;
     preferences: string;
     possibilityEyebrow: string;
@@ -873,8 +879,13 @@ const nl: Dictionary = {
   },
   pdfChrome: {
     coverEyebrow: "JOUW WINDOWINTO IDEA BOOK",
-    coverTagline: "Een handvol mogelijkheden, gevormd naar wat je ons vertelde.",
-    profileEyebrow: "JOUW PROFIEL",
+    coverTagline: "Zes ideeën die je zelf nog niet had bedacht. En één wildcard die je niet zag aankomen.",
+    profileEyebrow: "DIT ZIEN WIJ IN JOUW KEUZES",
+    mapHeading: "Waar wil je beginnen?",
+    mapWildcardLabel: "Plus één wildcard",
+    mapWildcardBody: "Apart gekaderd, bewust een beetje gewaagd. We verklappen hier niets.",
+    nextLabel: "Jouw volgende stap",
+    nextBody: "Blader door, zet een streep onder wat je kriebelt en doe er deze week één van.",
     mustHaves: "VEREISTEN",
     preferences: "VOORKEUREN",
     possibilityEyebrow: "MOGELIJKHEID",
@@ -1599,8 +1610,13 @@ const en: Dictionary = {
   },
   pdfChrome: {
     coverEyebrow: "YOUR WINDOWINTO IDEA BOOK",
-    coverTagline: "A handful of possibilities, shaped around what you told us.",
-    profileEyebrow: "YOUR PROFILE",
+    coverTagline: "Six ideas you hadn't thought of yet. And one wildcard you won't see coming.",
+    profileEyebrow: "WHAT WE SEE IN YOUR CHOICES",
+    mapHeading: "Where do you want to start?",
+    mapWildcardLabel: "Plus one wildcard",
+    mapWildcardBody: "Framed apart, deliberately a little daring. We won't give anything away here.",
+    nextLabel: "Your next step",
+    nextBody: "Page through, underline what tickles you and do one of them this week.",
     mustHaves: "MUST-HAVES",
     preferences: "PREFERENCES",
     possibilityEyebrow: "POSSIBILITY",

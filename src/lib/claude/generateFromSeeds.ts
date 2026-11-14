@@ -80,7 +80,12 @@ Rules for using the profile:
   this, but that's exactly why you'll love it" spirit, and it still respects the must-haves.
 
 For every idea:
-- title (max ~6 words), intro (one sentence, max ~18 words).
+- title (max ~6 words), intro (one sentence, max ~18 words). The title says what the person will do and it must be TRUE OF THE FIRST verified
+  local option of that idea: take the setting from that option's "is" line (what the place really is) and its note, never from the "Easy way in"
+  line, which is only a general hint (a country house, a studio, a rooftop or a beach in it is not a fact about the options). When the first
+  option is a café on the heath, the title is a high tea at a café on the heath, or simply a high tea, never a high tea in a country house.
+  Never put a setting, a building or a kind of place in the title (or anywhere in the idea) that none of the verified options shows. When no
+  option was found, keep the title to the plain activity.
 - why_it_fits: one sentence (max ~18 words), a direct, personal callback that proves you listened. Follow the
   "Why it was chosen" line of that idea: for something they picked themselves, refer to that pick; for an
   adjacent, unexpected, stretch or wildcard idea, make the connection visible in plain words ("You picked X,
@@ -108,7 +113,9 @@ For every idea:
 - If an idea says it may only be suggested with qualified supervision, say so in its steps and only offer the
   supervised, legal way in.
 - Never invent a business name, street address, ticket price, opening hours or website that is not in that idea's
-  verified local options. Keep costs approximate and do not mention opening hours.
+  verified local options. Never say anything about a venue itself (a room, a cellar, a garden, a view, its history, a special seating, a menu) that
+  its verified note does not state. For an idea that is a combination of two activities and has places for one half only, the other half is
+  something the person can add or look for (a historic setting, a second activity), never a claim about the venue. Keep costs approximate and do not mention opening hours.
 - Write final text only. Never include a self-correction, hesitation or alternative in a step or action (no "nee,",
   "eigenlijk", "or rather", "..." followed by a better version). Check every website address against that
   idea's verified local options BEFORE you write it, and write it once, correctly.
@@ -340,7 +347,7 @@ function seedBlock(
     ? research.options
         .map(
           (o) =>
-            `    - ${o.name}${o.city ? ` (${o.city})` : ""}: ${o.note}${o.until ? ` (until ${o.until})` : ""}` +
+            `    - ${o.name}${o.city ? ` (${o.city})` : ""}${o.kind ? ` — is: ${o.kind}` : ""}${o.match === "close" ? " [another form than the usual way in]" : ""}: ${o.note}${o.until ? ` (until ${o.until})` : ""}` +
             `${o.rating ? ` [rated ${o.rating.score}/5${o.rating.reviews !== null ? `, ${o.rating.reviews} reviews` : ""}, ${o.rating.source}]` : ""}${o.url ? ` — ${o.url}` : ""}`,
         )
         .join("\n")
@@ -358,7 +365,7 @@ function seedBlock(
       : null,
     behind ? `  Image behind it: "${behind}" (the chosen image this idea connects to; name it in why_it_fits)` : null,
     `  How to take part: ${take}`,
-    `  Easy way in: ${a.entry ? a.entry[locale] : "not known; suggest a beginner-friendly first step"}`,
+    `  Easy way in (a general hint, not a fact about the options below): ${a.entry ? a.entry[locale] : "not known; suggest a beginner-friendly first step"}`,
     a.safety.tier === 2 && a.safety.note
       ? `  Supervision: only with qualified supervision. ${a.safety.note[locale]}`
       : a.safety.note
