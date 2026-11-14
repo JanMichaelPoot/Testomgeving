@@ -262,3 +262,58 @@ describe("the title follows the first found place (Jan, 14 Nov 2026)", () => {
     expect(user).toContain("Easy way in (a general hint, not a fact about the options below)");
   });
 });
+
+describe("the cost of one book (Jan, 14 Nov 2026: at most USD 0.40)", () => {
+  // Every research call "costs" USD 0.25 (twenty-five searches) and finds nothing, so every optional round is wanted (the test setup has them off by default).
+  const spendy = () => {
+    vi.stubEnv("REQUIRE_CONCRETE_OPTIONS", "1");
+    researchSeeds.mockImplementation(async (opts: { activityIds: string[]; ledger?: { add: (kind: string, usage: unknown) => void } }) => {
+      opts.ledger?.add("standard", { server_tool_use: { web_search_requests: 25 } });
+      return {
+        byActivity: new Map(opts.activityIds.map((id) => [id, { activityId: id, source: "search", options: [] }])),
+        stats: { cached: 0, searched: opts.activityIds.length, failed: 0, ms: 1 },
+      };
+    });
+  };
+
+  it("stops the optional rounds when the next one would pass the cap, and says so in the report", async () => {
+    spendy();
+    respond();
+    const { report } = await run();
+    // Only the first search: 0.25 spent, so neither a broad round (0.09) nor an online round (0.05) fits with the writing (0.11) still to pay.
+    expect(researchSeeds).toHaveBeenCalledTimes(1);
+    expect(report.cost?.skipped).toEqual(expect.arrayContaining(["broad", "standard"]));
+    expect(report.cost?.skipped).toContain("online");
+    expect(report.notes).toContain("cost_cap_skipped:broad");
+    expect(report.cost?.capUsd).toBe(0.4);
+    expect(report.cost?.usd).toBeGreaterThanOrEqual(0.25);
+  });
+
+  it("still delivers a complete book when rounds were skipped", async () => {
+    spendy();
+    respond();
+    const { book } = await run();
+    expect(book.ideas).toHaveLength(6);
+    expect(book.wildcard.title).toBeTruthy();
+  });
+
+  it("runs the rounds as before when the limit is off", async () => {
+    vi.stubEnv("WINDOW_BOOK_COST_CAP", "off");
+    spendy();
+    respond();
+    const { report } = await run();
+    expect(researchSeeds.mock.calls.length).toBeGreaterThan(1);
+    expect(report.cost?.capUsd).toBeNull();
+    expect(report.cost?.skipped).toEqual([]);
+  });
+
+  it("counts the writing in the book's cost", async () => {
+    vi.stubEnv("WINDOW_BOOK_COST_CAP", "off");
+    create.mockImplementation(async (args: { tools: { name: string }[] }) => ({
+      ...(args.tools[0].name === "create_layers" ? layersAnswer(sevenLayers()) : coreAnswer()),
+      usage: { input_tokens: 10_000, output_tokens: 3_000 },
+    }));
+    const { report } = await run();
+    expect(report.cost?.breakdown.writing).toBeGreaterThan(0.05); // two calls of 10k in and 3k out at $2 and $10 per million
+  });
+});

@@ -61,6 +61,17 @@ export function envChecks(env: Env): EnvCheck[] {
       : "niet ingesteld: de plekken krijgen geen Google-score (niet erg: het boek wordt gewoon gemaakt)",
     false,
   );
+  {
+    const raw = env.WINDOW_BOOK_COST_CAP?.trim().toLowerCase();
+    const off = raw === "off" || raw === "0";
+    const cap = raw && Number(raw) > 0 ? Number(raw).toFixed(2) : "0,40";
+    add(
+      "WINDOW_BOOK_COST_CAP",
+      true,
+      off ? "UIT: een boek heeft geen kostengrens (de optionele onderzoeksrondes lopen altijd)" : `maximaal ${cap} per boek aan modelkosten: de optionele onderzoeksrondes stoppen als de volgende er overheen zou gaan`,
+      false,
+    );
+  }
   add("ANTHROPIC_API_KEY", has(env.ANTHROPIC_API_KEY), has(env.ANTHROPIC_API_KEY) ? "aanwezig" : "ontbreekt: boeken kunnen niet worden gemaakt");
   const stripe = env.STRIPE_SECRET_KEY?.trim();
   const stripeInfo = stripeModeInfo(env);

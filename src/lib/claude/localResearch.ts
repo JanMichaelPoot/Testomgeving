@@ -7,6 +7,7 @@ import { hintLine } from "@/lib/discovery/searchHints";
 import { describeToday, isoDateNL } from "@/lib/discovery/season";
 import { cleanRating, type Rating } from "@/lib/claude/rating";
 import type { RatingEnricher } from "@/lib/claude/placesRatings";
+import type { CostLedger } from "@/lib/claude/costLedger";
 import { verifyOptionUrls } from "@/lib/claude/verifyUrls";
 
 export type { Rating };
@@ -464,6 +465,7 @@ async function searchOnce(
   country: string | null = null,
   countryCode: string | null = null,
   pass: ResearchPass = "standard",
+  ledger?: CostLedger,
 ): Promise<Map<string, LocalOption[]> | null> {
   const startedAt = Date.now();
   // The person's own choices get about one and a half searches each (measured: 6 searches for 3 choices cost ~$0.14, mostly the
@@ -490,6 +492,7 @@ async function searchOnce(
       } as Anthropic.Messages.WebSearchTool20250305,
     ],
   });
+  ledger?.add(pass === "broad" ? "broad" : priority ? "own" : "standard", message.usage, RESEARCH_MODEL);
   const searches = message.content.filter((b) => b.type === "server_tool_use" && b.name === "web_search").length;
   console.log(
     `WindowInto: research pass${pass === "broad" ? " (broad)" : ""}${priority ? " (own choices)" : ""} took ${Date.now() - startedAt}ms, ${searches} web searches for ${activityIds.length} activities (${RESEARCH_MODEL}), ` +
@@ -515,6 +518,11 @@ async function searchOnlineOnce(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _needs: readonly ResearchNeed[] = [],
   country: string | null = null,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _countryCode: string | null = null,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _pass: ResearchPass = "standard",
+  ledger?: CostLedger,
 ): Promise<Map<string, LocalOption[]> | null> {
   const startedAt = Date.now();
   const message = await anthropic.messages.create({
@@ -530,6 +538,7 @@ async function searchOnlineOnce(
       } as Anthropic.Messages.WebSearchTool20250305,
     ],
   });
+  ledger?.add("online", message.usage, RESEARCH_MODEL);
   const searches = message.content.filter((b) => b.type === "server_tool_use" && b.name === "web_search").length;
   console.log(`WINDOW: online research pass took ${Date.now() - startedAt}ms, ${searches} web searches for ${activityIds.length} activities (${RESEARCH_MODEL}), usage=${JSON.stringify(message.usage)}`);
   const text = message.content
@@ -576,6 +585,8 @@ export async function researchSeeds(opts: {
   country?: string | null;
   /** Practical wishes (researchNeedsFrom): evening, no car, step-free, with children. They change which options are kept, so they are part of the cache key. */
   needs?: readonly ResearchNeed[];
+  /** The book's cost ledger: every search call of this research is recorded in it (src/lib/claude/costLedger.ts). */
+  ledger?: CostLedger;
   /** Adds the Google score to the places found (and to cached places that never had one); one enricher serves a whole book, so its cap holds for the book. */
   ratings?: RatingEnricher;
 }): Promise<{ byActivity: Map<string, SeedResearch>; stats: ResearchStats }> {
@@ -655,7 +666,7 @@ export async function researchSeeds(opts: {
   const batch = async (ids: string[], own: boolean) => {
     if (ids.length === 0) return;
     try {
-      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own, needs, countryEn, foreign, pass);
+      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own, needs, countryEn, foreign, pass, opts.ledger);
       if (!found) throw new Error("the research answer could not be read");
       await Promise.all(
         ids.map(async (id) => {

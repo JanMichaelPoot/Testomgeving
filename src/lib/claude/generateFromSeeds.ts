@@ -17,6 +17,7 @@ import {
   toText,
   toTextArray,
 } from "@/lib/claude/generateIdeaBook";
+import { createCostLedger, type CostLedger, type RoundKind } from "@/lib/claude/costLedger";
 import { createRatingEnricher } from "@/lib/claude/placesRatings";
 import { researchNeedsFrom, researchSeeds, type LocalOption, type ResearchNeed, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
 import { currentMonth, describeToday, inSeason, isoDateNL } from "@/lib/discovery/season";
@@ -439,7 +440,7 @@ interface RawLayer {
  * The second call: the layers of all ideas, in the order of the seeds. Never throws and is not retried:
  * the layers are optional, so a failure just means a book without them (and it is logged).
  */
-async function writeLayers(system: string, user: string, count: number, v2 = false): Promise<RawLayer[] | null> {
+async function writeLayers(system: string, user: string, count: number, v2 = false, ledger?: CostLedger): Promise<RawLayer[] | null> {
   try {
     const startedAt = Date.now();
     const message = await anthropic.messages.create({
@@ -460,6 +461,7 @@ async function writeLayers(system: string, user: string, count: number, v2 = fal
       ],
       tool_choice: { type: "tool", name: "create_layers" },
     });
+    ledger?.add("writing", message.usage, CLAUDE_MODEL);
     console.log(`WINDOW: layers call took ${Date.now() - startedAt}ms, usage=${JSON.stringify(message.usage)}`);
     const input = extractToolInput<{ ideas?: unknown }>(message, "create_layers");
     if (!Array.isArray(input.ideas) || input.ideas.length !== count) {
@@ -710,6 +712,8 @@ export interface SeedPipelineReport {
   issues: string[];
   /** The quality gate: what it found before repairing and what was still wrong afterwards. */
   qa?: { found: QaIssue[]; remaining: QaIssue[] };
+  /** What the model calls of this book cost (USD), against the cap, and which optional rounds were skipped to stay under it. */
+  cost?: { usd: number; capUsd: number | null; skipped: string[]; breakdown: Record<string, number> };
 }
 
 export async function generateIdeaBookFromSeeds(
@@ -751,8 +755,16 @@ export async function generateIdeaBookFromSeeds(
   const researchStartedAt = Date.now();
   // One enricher for the whole book: the Google scores of its places, within its own cap and the month's free allowance (placesRatings.ts).
   const ratings = createRatingEnricher();
+  // What this book has cost so far (src/lib/claude/costLedger.ts): the optional rounds below stop when the next one would pass the cap (default USD 0.40).
+  const ledger = createCostLedger();
   // No further search round starts after the budget (RESEARCH_BUDGET_MS); what is still empty is then settled from what earlier rounds found.
   const overBudget = () => Date.now() - researchStartedAt > RESEARCH_BUDGET_MS;
+  // The cost version: an optional round of this kind is skipped (and said so in the report) when it would take the book past its cap.
+  const costBlocks = (kind: RoundKind) => {
+    if (ledger.canAfford(kind)) return false;
+    ledger.skip(kind);
+    return true;
+  };
   const researchFor = (seedList: readonly Seed[], known?: ReadonlyMap<string, SeedResearch>) =>
     researchSeeds({
       ratings,
@@ -766,6 +778,7 @@ export async function generateIdeaBookFromSeeds(
       priorityIds: [...ownPicks],
       needs: researchNeedsFrom(engine.constraints.verify),
       country: intake.country,
+      ledger,
     });
   let research = await researchFor(engine.seeds);
   // Every answer of every round, also of selections that were not kept: the last safety net swaps an idea without an option for one of these.
@@ -796,7 +809,7 @@ export async function generateIdeaBookFromSeeds(
   const withBroad = async (seedList: readonly Seed[], base: typeof research): Promise<typeof research> => {
     if (!requireOptions || overBudget()) return base;
     const lacking = physicalLacking(seedList, base).filter((id) => !broadTried.has(id));
-    if (lacking.length === 0) return base;
+    if (lacking.length === 0 || costBlocks("broad")) return base;
     for (const id of lacking) broadTried.add(id);
     const broad = await researchSeeds({
       ratings,
@@ -810,6 +823,7 @@ export async function generateIdeaBookFromSeeds(
       priorityIds: lacking.filter((id) => ownPicks.has(id)),
       needs: researchNeedsFrom(engine.constraints.verify),
       country: intake.country,
+      ledger,
     });
     const merged = new Map(base.byActivity);
     for (const id of lacking) {
@@ -828,10 +842,10 @@ export async function generateIdeaBookFromSeeds(
   const withOnline = async (seedList: readonly Seed[], base: typeof research, which: "nature" | "all"): Promise<typeof research> => {
     if (!requireOptions) return base;
     const lacking = lackingOf(seedList, base).filter((id) => !onlineTried.has(id) && (which === "all" || isOnlineByNature(getActivity(id))));
-    if (lacking.length === 0) return base;
+    if (lacking.length === 0 || costBlocks("online")) return base;
     for (const id of lacking) onlineTried.add(id);
     const online = await researchSeeds({
-      activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online", country: intake.country });
+      activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online", country: intake.country, ledger });
     const merged = new Map(base.byActivity);
     for (const id of lacking) {
       const found = online.byActivity.get(id);
@@ -860,7 +874,7 @@ export async function generateIdeaBookFromSeeds(
     seedsWithoutSupply(seeds, dedupePlaces(seeds, byActivity, ownPicks), requireOptions).filter((s) => !ownPicks.has(s.activityId));
   for (let round = 1; round <= SUPPLY_ROUNDS; round++) {
     const noSupply = unsupported(engine.seeds, research.byActivity);
-    if (noSupply.length === 0 || overBudget()) break;
+    if (noSupply.length === 0 || overBudget() || costBlocks("standard")) break;
     tried.push(...noSupply.map((s) => s.activityId));
     const lastRound = round === SUPPLY_ROUNDS;
     // The last round only allows activities that need nobody's offer. It must not throw out what already has an offer or was chosen:
@@ -895,7 +909,7 @@ export async function generateIdeaBookFromSeeds(
   // The replacement comes from the relation graph, with the same hard filters as the selection, and the book says in one sentence that it replaces the choice.
   const replacedPicks = new Map<string, string>(); // replacement activity id -> the label of the choice it replaces
   const lackingPicks = () => seedsWithoutSupply(engine.seeds, dedupePlaces(engine.seeds, research.byActivity, ownPicks), requireOptions).filter((s) => ownPicks.has(s.activityId));
-  const toReplace = requireOptions && !overBudget() ? lackingPicks() : [];
+  const toReplace = requireOptions && !overBudget() && !(lackingPicks().length > 0 && costBlocks("standard")) ? lackingPicks() : [];
   if (toReplace.length > 0) {
     const used = new Set<string>([...engine.seeds.flatMap((s) => [s.activityId, s.hybrid?.partnerId ?? ""]), ...tried, ...(opts.history ?? [])].filter(Boolean));
     const proposals = new Map<string, Seed[]>();
@@ -973,7 +987,8 @@ export async function generateIdeaBookFromSeeds(
   await opts.onProgress?.("researched", { places: foundPlaces.size });
   if (opts.researchOnly) {
     // Nothing is written. The caller asked for the research only; `book` is never read in that case.
-    return { book: null as unknown as GeneratedIdeaBook, report: { seeds, notes, research: { ...research.stats }, issues: [] } };
+    for (const kind of ledger.skipped()) notes.push(`cost_cap_skipped:${kind}`);
+    return { book: null as unknown as GeneratedIdeaBook, report: { seeds, notes, research: { ...research.stats }, issues: [], cost: { usd: ledger.spentUsd(), capUsd: ledger.capUsd, skipped: ledger.skipped(), breakdown: ledger.breakdown() } } };
   }
 
   // 3. Write the ideas (one retry on a malformed answer, without repeating the research).
@@ -1002,7 +1017,7 @@ Call the create_idea_book tool exactly once: ${seeds.length - 1} entries in "ide
 Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", for Ideas 1-${seeds.length} in the order given (Idea ${seeds.length} is the wildcard).`;
 
   // The layers are written at the same time as the ideas themselves, so they add no waiting time.
-  const layersPromise = writeLayers(layersSystem, layersUser, seeds.length, v2);
+  const layersPromise = writeLayers(layersSystem, layersUser, seeds.length, v2, ledger);
 
   let raw: RawBook | null = null;
   let lastError: unknown;
@@ -1033,6 +1048,7 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
         ],
         tool_choice: { type: "tool", name: "create_idea_book" },
       });
+      ledger.add("writing", message.usage, CLAUDE_MODEL);
       console.log(`WINDOW: main generation call took ${Date.now() - startedAt}ms, usage=${JSON.stringify(message.usage)}`);
       const candidate = extractToolInput<RawBook>(message, "create_idea_book");
       const split = splitCoreAnswer(candidate, seeds.length);
@@ -1151,7 +1167,11 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   const placesLine = ratings.summary();
   if (placesLine) console.log(placesLine);
   console.log(`WINDOW: options per idea: ${optionsCoverage.withOption}/${optionsCoverage.ideas} with a concrete option, ${optionsCoverage.withRating} with a rating`);
-  const report: SeedPipelineReport = { seeds, notes, research: research.stats, options: optionsCoverage, issues, qa: { found: gate.foundBefore, remaining: gate.remaining } };
+  for (const kind of ledger.skipped()) notes.push(`cost_cap_skipped:${kind}`);
+  const cost = { usd: ledger.spentUsd(), capUsd: ledger.capUsd, skipped: ledger.skipped(), breakdown: ledger.breakdown() };
+  // One line for the logs (the cost meters read the lines with "took ... usage", not this one): the book against its cap, and what was left out for it.
+  console.log(`WindowInto: book cost so far ${cost.usd.toFixed(3)} of a cap of ${cost.capUsd === null ? "none" : "$" + cost.capUsd.toFixed(2)} (${JSON.stringify(cost.breakdown)})${cost.skipped.length ? `, rounds skipped for cost: ${cost.skipped.join(", ")}` : ""}`);
+  const report: SeedPipelineReport = { seeds, notes, research: research.stats, options: optionsCoverage, issues, qa: { found: gate.foundBefore, remaining: gate.remaining }, cost };
   console.log(
     `WindowInto: seed pipeline: ${seeds.map((s) => `${s.direction}:${s.activityId}`).join(", ")} | issues: ${issues.length ? issues.join("; ") : "none"}`,
   );
