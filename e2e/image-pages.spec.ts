@@ -98,9 +98,9 @@ test.describe("the activities page", () => {
 
   test("says where the activities come from, allows many choices and shows how many", async ({ page }) => {
     await open(page, 2);
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Van jouw associaties naar nieuwe mogelijkheden");
-    await expect(page.getByText("Op basis van jouw keuzes hebben we activiteiten samengesteld die aansluiten bij jouw interesses.")).toBeVisible();
-    await expect(page.getByText("Sommige herkenbaar, andere misschien verrassend nieuw.")).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dit past bij jouw beelden: waar heb je zin in?");
+    await expect(page.getByText("Jouw beelden brachten ons op ideeën.")).toBeVisible();
+    await expect(page.getByText("Eén is genoeg.")).toBeVisible();
     await expect(page.getByTestId("discovery-flow").locator('[data-active="true"]')).toContainText("Richting bepalen");
     await expect(page.getByText("Kies er zoveel als je wilt, tot 8.")).toBeVisible();
     const tiles = page.locator("main button[aria-pressed]:has(img)");
@@ -133,7 +133,7 @@ test.describe("the activities page", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Welke beelden maken jou nieuwsgierig?");
     await expect(page.getByText("3 gekozen")).toBeVisible();
     await page.getByRole("button", { name: "Verder", exact: true }).dispatchEvent("click");
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Van jouw associaties naar nieuwe mogelijkheden");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dit past bij jouw beelden: waar heb je zin in?");
     await expect(page.getByText("3 gekozen")).toBeVisible();
     const draft = await page.evaluate((k) => JSON.parse(sessionStorage.getItem(k) ?? "{}"), DRAFT);
     expect(draft.answers.interests).toHaveLength(3);

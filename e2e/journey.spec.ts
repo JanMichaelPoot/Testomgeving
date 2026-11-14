@@ -49,7 +49,7 @@ for (const size of sizes) {
       await press("Verder");
 
       // 4. Activities: the new title, several choices.
-      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Van jouw associaties naar nieuwe mogelijkheden");
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dit past bij jouw beelden: waar heb je zin in?");
       const activities = page.locator("main button[aria-pressed]:has(img)");
       for (let i = 0; i < 4; i++) await activities.nth(i).click();
       await expect(page.getByText("4 gekozen")).toBeVisible();

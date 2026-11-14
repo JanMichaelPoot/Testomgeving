@@ -77,7 +77,7 @@ test("the activities page without a need still offers what the needs would leave
 
 test("with young children, a wheelchair and a calm pace, page 2 offers a full set without the known conflicts", async ({ page }) => {
   await open(page, 2, ["Met jonge kinderen", "Met de rolstoel bereikbaar", "Rustig tempo"]);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Van jouw associaties naar nieuwe mogelijkheden");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dit past bij jouw beelden: waar heb je zin in?");
   expect(await page.locator("main button[aria-pressed]:has(img)").count()).toBeGreaterThanOrEqual(12);
   const offered = (await allOffered(page)).join(" | ");
   expect(offered.length).toBeGreaterThan(0);
