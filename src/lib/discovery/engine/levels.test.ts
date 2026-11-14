@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { defaultEngineLibrary, selectSeeds, WEIGHTS_CURRENT, WEIGHTS_V2 } from "@/lib/discovery/engine";
+import { defaultEngineLibrary, selectSeeds, WEIGHTS_ANCHOR, WEIGHTS_CURRENT, WEIGHTS_V2 } from "@/lib/discovery/engine";
 import { practicality } from "@/lib/discovery/engine/levels";
 import { syntheticProfiles } from "@/lib/discovery/engine/synthetic";
+import { syntheticTwoPageProfiles } from "@/lib/discovery/engine/syntheticTwoPages";
 import { DISCOVERY_LEVELS, LEVEL_NAMES, isDiscoveryLevel, levelName } from "@/lib/discoveryLevels";
 
 // Fase 3: the seven discovery levels and the "Praktisch" rule. All on the free, deterministic path.
@@ -46,18 +47,22 @@ describe("practicality (uitvoerbaarheid)", () => {
   });
 });
 
+// A book of five (Stap 198) uses the levels 1, 3, 5, 6 and 7: the one familiar idea is level 1 and the one adjacent idea level 3; levels 2 and 4 stay empty
+// (a group with fewer seeds than levels leaves its higher level empty). An anchored book has two of the person's own choices: level 1 and 2.
 describe("the seven levels on the seeds", () => {
   const profiles = syntheticProfiles(300, "f3-levels", lib);
 
-  it("gives a full set of seven seeds one level each, 1 to 7, over 300 visitors", () => {
+  it("gives a full book of five seeds one level each (1, 3, 5, 6 and 7), over 300 visitors", () => {
     let full = 0;
     for (const p of profiles) {
       const r = selectSeeds(p.input, lib);
       expect(r.seeds.every((s) => s.level !== undefined), p.input.seed).toBe(true);
-      if (r.seeds.length === 7 && !r.notes.some((n) => n.startsWith("direction_"))) {
+      if (r.seeds.length === 5 && !r.notes.some((n) => n.startsWith("direction_"))) {
         full++;
         // The list stays ordered by door (the Idea Book's order); the levels are a property of each seed.
-        expect(r.seeds.map((s) => s.level).sort()).toEqual([1, 2, 3, 4, 5, 6, 7]);
+        // A visitor with nothing to go on gets four "explore" ideas ranked by how demanding they are (levels 1 to 4) and the wildcard.
+        const explore = r.seeds.some((s) => s.direction === "explore");
+        expect(r.seeds.map((s) => s.level).sort(), p.input.seed).toEqual(explore ? [1, 2, 3, 4, 7] : [1, 3, 5, 6, 7]);
       }
     }
     expect(full).toBeGreaterThan(200);
@@ -83,23 +88,26 @@ describe("the seven levels on the seeds", () => {
     }
   }, 60_000);
 
-  it("makes level 2 (Praktisch) the more practical of the two familiar ideas", () => {
-    for (const p of profiles.slice(0, 120)) {
-      const fam = selectSeeds(p.input, lib).seeds.filter((s) => s.direction === "familiar");
+  it("makes level 2 (Praktisch) the more practical of the two familiar ideas of an anchored book", () => {
+    let checked = 0;
+    for (const p of syntheticTwoPageProfiles(60, "f3-levels-anchor")) {
+      const fam = selectSeeds(p.input, lib, { weights: WEIGHTS_ANCHOR }).seeds.filter((s) => s.direction === "familiar");
       if (fam.length !== 2) continue;
+      checked++;
       const [one, two] = [fam.find((s) => s.level === 1)!, fam.find((s) => s.level === 2)!];
       expect(practicality(byId.get(two.activityId)!), p.input.seed).toBeGreaterThanOrEqual(practicality(byId.get(one.activityId)!));
     }
+    expect(checked).toBeGreaterThan(10);
   }, 60_000);
 });
 
-describe("the Praktisch rule on the second familiar slot (weights.familiar.practicalBonus)", () => {
+describe("the Praktisch rule on the familiar slot (weights.familiar.practicalBonus)", () => {
   it("is off in the current weights and on in v2", () => {
     expect(WEIGHTS_CURRENT.familiar.practicalBonus).toBe(0);
     expect(WEIGHTS_V2.familiar.practicalBonus).toBeGreaterThan(0);
   });
 
-  it("makes the second familiar idea more practical on average, without touching the first", () => {
+  it("makes the familiar idea more practical on average", () => {
     const profiles = syntheticProfiles(300, "f3-praktisch", lib);
     let before = 0;
     let after = 0;
@@ -110,15 +118,15 @@ describe("the Praktisch rule on the second familiar slot (weights.familiar.pract
       const b = selectSeeds(p.input, lib, { weights: WEIGHTS_V2 });
       const fa = a.seeds.filter((s) => s.direction === "familiar");
       const fb = b.seeds.filter((s) => s.direction === "familiar");
-      if (fa.length !== 2 || fb.length !== 2) continue;
+      if (fa.length !== 1 || fb.length !== 1) continue;
       n++;
       if (fa[0].activityId === fb[0].activityId) sameFirst++;
-      before += practicality(byId.get(fa[1].activityId)!);
-      after += practicality(byId.get(fb[1].activityId)!);
+      before += practicality(byId.get(fa[0].activityId)!);
+      after += practicality(byId.get(fb[0].activityId)!);
     }
     expect(n).toBeGreaterThan(150);
     expect(after / n).toBeGreaterThan(before / n);
-    // The rule only acts on the second slot; the first slot is chosen before it and so does not change.
-    expect(sameFirst / n).toBeGreaterThan(0.95);
+    // A pick of the person's own scores far above the bonus, so the idea only changes where it was a near neighbour, not a pick.
+    expect(sameFirst / n).toBeGreaterThan(0.5);
   }, 300_000);
 });

@@ -102,7 +102,7 @@ export interface PlanRevealProps {
   vensterDict?: Dictionary["venster"];
 }
 
-// The paid result as one compact overview ("Jouw mogelijkheden in kaart"): all six ideas and the wildcard in one list, door by door, each with its
+// The paid result as one compact overview ("Jouw mogelijkheden in kaart"): all the ideas and the wildcard in one list, door by door, each with its
 // photo, its title, a short explanation and its practical facts next to it; one press opens the full idea in a dialog. At the bottom one primary
 // action: download the PDF (it opens in the browser). No long text blocks, no sealed wildcard, no second screen: the result is understood at a glance.
 export function PlanReveal({
@@ -217,7 +217,7 @@ export function PlanReveal({
     trackEvent("plan_pdf_downloaded", { planId, source });
   };
 
-  // One row per idea: the six in door order, then the wildcard.
+  // One row per idea: the regular ideas in door order, then the wildcard.
   const rows = [
     ...orderedIdeas.map(({ idea, originalIndex }, i) => ({ key: ideaKey(originalIndex), idea, photoIndex: originalIndex, number: i + 1, wildcard: false })),
     ...(wildcard ? [{ key: WILDCARD_KEY, idea: wildcard, photoIndex: ideas.length, number: ideas.length + 1, wildcard: true }] : []),

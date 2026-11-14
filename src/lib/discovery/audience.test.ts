@@ -279,7 +279,7 @@ describe("what the server stores for the start page", () => {
   it("works with nothing but a place (no context, no limits)", () => {
     const out = applyImageIntake({ ...base, searchContext: undefined, budget: "", timeAvailable: "", company: [] }, "nl", "s", 6);
     const result = runEngine(engineInputFromIntake({ ...out, interests: [] }, { seed: "s", month: 6 }));
-    expect(result.seeds.length).toBeGreaterThanOrEqual(6);
+    expect(result.seeds.length).toBeGreaterThanOrEqual(4);
   });
 });
 

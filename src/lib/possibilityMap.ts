@@ -87,7 +87,7 @@ function oneThingScore(idea: IdeaBookEntry): number {
 
 // Returns the index (into the original, unsorted `ideas` array) of the
 // single idea to highlight as "One Thing" — or null for an empty array.
-// Only considers the 6 regular ideas, never the wildcard: the wildcard
+// Only considers the regular ideas, never the wildcard: the wildcard
 // already gets its own spotlight, and "if you only do one thing" should
 // point at something squarely achievable.
 export function pickOneThingIndex(ideas: IdeaBookEntry[]): number | null {

@@ -10,7 +10,7 @@ import type { EngineInput, EngineResult } from "@/lib/discovery/engine/types";
 //    the stepwise ranking of WEIGHTS_V2 (diversity step, unknown cost never passes a free budget, measured fit for
 //    "if you only pick one"). Its seeds therefore differ from "current"; the hard limits must not.
 
-//  - "anchor": "v2" plus the anchor model of Stap 125 (four of the person's own picks in the book).
+//  - "anchor": "v2" plus the anchor model of Stap 125 (two of the person's own picks in the book).
 export const ENGINE_NAMES = ["current", "v2", "anchor"] as const;
 export type EngineName = (typeof ENGINE_NAMES)[number];
 

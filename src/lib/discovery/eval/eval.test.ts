@@ -127,9 +127,9 @@ describe("checkSeedRun catches what it should", () => {
   });
 
   it("flags too few worlds and a missing wildcard", () => {
-    const oneWorld = ALL_ACTIVITIES.filter((a) => a.domain === "creative" && a.cost === 0).slice(0, 7);
+    const oneWorld = ALL_ACTIVITIES.filter((a) => a.domain === "creative" && a.cost === 0).slice(0, 5);
     expect(oneWorld.length).toBeGreaterThanOrEqual(1);
-    const seeds = base.result.seeds.map((s, i) => ({ ...s, direction: i === 6 ? ("adjacent" as const) : s.direction, activityId: ALL_ACTIVITIES.filter((a) => a.domain === "creative")[i].id }));
+    const seeds = base.result.seeds.map((s, i) => ({ ...s, direction: i === 4 ? ("adjacent" as const) : s.direction, activityId: ALL_ACTIVITIES.filter((a) => a.domain === "creative")[i].id }));
     const findings = checkSeedRun({ ...base, result: { ...base.result, seeds } }, engine.library);
     expect(findings.some((f) => f.check === "spread:domains")).toBe(true);
     expect(findings.some((f) => f.check === "seeds:wildcard")).toBe(true);

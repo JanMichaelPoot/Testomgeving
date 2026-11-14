@@ -82,7 +82,7 @@ describe("the ranking weights", () => {
 
   it("with nothing to compare to the fit is neutral, never favourable", () => {
     const { seeds } = selectSeeds({ ...BASE, surpriseMe: true }, lib, { weights: WEIGHTS_V2 });
-    expect(seeds.length).toBeGreaterThanOrEqual(6);
+    expect(seeds.length).toBeGreaterThanOrEqual(4);
     expect(seeds.every((s) => s.fit === 0.5)).toBe(true);
   });
 

@@ -100,10 +100,10 @@ export const WEIGHTS_V2: Weights = {
   explain: true,
 };
 
-/** B4 plus the anchor model: four of the person's own choices are in the book (Jan, 31 Oct 2026: 4 own + 2 anchored + 1 wildcard). */
+/** B4 plus the anchor model: two of the person's own choices are in the book (Jan, 14 Nov 2026: a book of five, 2 own + 1 indirect + 1 unexpected + 1 wildcard; it was 4 + 2 + 1 of seven). */
 export const WEIGHTS_ANCHOR: Weights = {
   ...WEIGHTS_V2,
-  anchor: { picks: 4, indirect: true },
+  anchor: { picks: 2, indirect: true },
   hub: 0.6,
 };
 

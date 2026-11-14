@@ -8,7 +8,7 @@ export type MailStatus = (typeof MAIL_STATUSES)[number];
 export const DOOR_KINDS = ["natural", "discovery", "unexpected", "stretch", "wildcard"] as const;
 export type DoorKind = (typeof DOOR_KINDS)[number];
 
-/** Six ideas and the wildcard. */
+/** The highest position a tester can pick: books made before Stap 198 have six ideas and the wildcard (7); a book now has four and the wildcard (5). */
 export const MAX_DOOR_PICK = 7;
 
 export interface TestFeedbackInput {

@@ -42,7 +42,7 @@ describe("quiet supply in the selection", () => {
     expect(now).toBeLessThan(before);
     // Measured with these 30 books: 53 appearances of the five before, 3 after. The penalty is the size of a noise unit, so wherever a near-equal alternative
     // exists the selection takes it; a quiet activity only stays when nothing else fits. The books are still full ones and the picks are still in them.
-    expect(after.every((ids) => ids.length === 7)).toBe(true);
+    expect(after.every((ids) => ids.length === 5)).toBe(true);
     expect(share(after, "wandelen")).toBeGreaterThan(0);
   }, 120_000);
 

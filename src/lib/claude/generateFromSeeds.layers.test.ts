@@ -58,7 +58,7 @@ const layer = (n: number, extra: Record<string, unknown> = {}) => ({
 });
 
 const toolUse = (name: string, input: unknown) => ({ content: [{ type: "tool_use", name, input }], usage: {} });
-const coreAnswer = (n = 7) =>
+const coreAnswer = (n = 5) =>
   toolUse("create_idea_book", {
     profile_summary: "Samenvatting.",
     must_haves: [],
@@ -67,14 +67,14 @@ const coreAnswer = (n = 7) =>
     wildcard: entry(n),
   });
 const layersAnswer = (layers: unknown[]) => toolUse("create_layers", { ideas: layers });
-const sevenLayers = (extra: (n: number) => Record<string, unknown> = () => ({})) => [1, 2, 3, 4, 5, 6, 7].map((n) => layer(n, extra(n)));
+const fiveLayers = (extra: (n: number) => Record<string, unknown> = () => ({})) => [1, 2, 3, 4, 5].map((n) => layer(n, extra(n)));
 
 /** Answers each call by the tool it asks for. */
 function respond(opts: { core?: () => unknown; layers?: () => unknown }) {
   create.mockImplementation(async (args: { tools: { name: string }[] }) => {
     const name = args.tools[0].name;
     if (name === "create_layers") {
-      const out = (opts.layers ?? (() => layersAnswer(sevenLayers())))();
+      const out = (opts.layers ?? (() => layersAnswer(fiveLayers())))();
       if (out instanceof Error) throw out;
       return out;
     }
@@ -123,7 +123,7 @@ describe("the R2.3 layers: a second call next to the ideas", () => {
     expect(coreProps).not.toEqual(expect.arrayContaining(["feels_like"]));
     expect(core.system).not.toContain("feels_like");
     expect(Object.keys(extra.tools[0].input_schema.properties.ideas.items.properties)).toEqual(["feels_like", "sizes", "next_step"]);
-    expect(extra.tools[0].input_schema.properties.ideas.minItems).toBe(7);
+    expect(extra.tools[0].input_schema.properties.ideas.minItems).toBe(5);
     // The honesty rules are in the prompt that writes the layers (line breaks do not matter).
     const layersPrompt: string = extra.system.replace(/\s+/g, " ");
     expect(layersPrompt).toContain("ONLY when it appears in THAT idea's verified local options");
@@ -139,7 +139,7 @@ describe("the R2.3 layers: a second call next to the ideas", () => {
     create.mockImplementation(async (args: { tools: { name: string }[] }) => {
       if (args.tools[0].name === "create_layers") {
         layersStarted();
-        return layersAnswer(sevenLayers());
+        return layersAnswer(fiveLayers());
       }
       await started;
       return coreAnswer();
@@ -156,11 +156,11 @@ describe("the R2.3 layers: a second call next to the ideas", () => {
       expect(idea.next_step).toBe(`Doe het nog eens ${i + 1}.`);
       expect(idea.sizes?.map((s) => s.kind)).toEqual(["taste", "do", "deepen"]);
     });
-    expect(book.wildcard.feels_like).toBe("Koel 7. Stil.");
+    expect(book.wildcard.feels_like).toBe("Koel 5. Stil.");
   });
 
   it("takes the places from the research, never from the model, and only where research found some", async () => {
-    respond({ layers: () => layersAnswer(sevenLayers(() => ({ places: [{ name: "Verzonnen", city: "X", url: null, note: "" }] }))) });
+    respond({ layers: () => layersAnswer(fiveLayers(() => ({ places: [{ name: "Verzonnen", city: "X", url: null, note: "" }] }))) });
     const { book } = await run();
     const all = [...book.ideas, book.wildcard];
     const withPlaces = all.filter((i) => i.places?.length);
@@ -195,29 +195,27 @@ describe("the R2.3 layers: a second call next to the ideas", () => {
           layer(1, { feels_like: undefined }),
           layer(2, { sizes: [size(1), size(2)] }),
           layer(3, { next_step: "x".repeat(400) }),
-          layer(4, { sizes: undefined, feels_like: undefined, next_step: undefined }),
+          layer(4, { feels_like: 42, sizes: "nope" }),
           layer(5),
-          layer(6, { feels_like: 42, sizes: "nope" }),
-          layer(7),
         ]),
     });
     const { book, report } = await run();
     expect(report.issues).toContain("idea2:sizes_dropped (2 sizes instead of 3)");
-    expect(report.issues).toContain("idea6:sizes_dropped (not a list)");
+    expect(report.issues).toContain("idea4:sizes_dropped (not a list)");
     expect(book.ideas[0].feels_like).toBeUndefined();
     expect(book.ideas[0].sizes).toHaveLength(3);
     expect(book.ideas[1].sizes).toBeUndefined();
     expect(book.ideas[1].feels_like).toBe("Koel 2. Stil.");
     expect(book.ideas[2].next_step).toBeUndefined();
     expect(book.ideas[3].sizes).toBeUndefined();
-    expect(book.ideas[5].feels_like).toBeUndefined();
-    expect(book.wildcard.title).toBe("Idee 7");
+    expect(book.ideas[3].feels_like).toBeUndefined();
+    expect(book.wildcard.title).toBe("Idee 5");
   });
 
   it("delivers the book without layers when the layers call fails, and does not try it again", async () => {
     respond({ layers: () => new Error("overloaded") });
     const { book } = await run();
-    expect(book.ideas).toHaveLength(6);
+    expect(book.ideas).toHaveLength(4);
     for (const idea of [...book.ideas, book.wildcard]) {
       expect(idea.feels_like).toBeUndefined();
       expect(idea.sizes).toBeUndefined();
@@ -226,15 +224,15 @@ describe("the R2.3 layers: a second call next to the ideas", () => {
     // What code fills in does not depend on the model. An activity with few neighbours (knots, say) may have none left
     // once the other doors are excluded, so this asks for most ideas, not every one.
     const withRelated = [...book.ideas, book.wildcard].filter((idea) => idea.related !== undefined).length;
-    expect(withRelated).toBeGreaterThanOrEqual(5);
+    expect(withRelated).toBeGreaterThanOrEqual(3);
     expect(callsFor("create_layers")).toHaveLength(1);
   });
 
   it("also delivers the book when the layers call returns the wrong number of entries", async () => {
-    respond({ layers: () => layersAnswer(sevenLayers().slice(0, 5)) });
+    respond({ layers: () => layersAnswer(fiveLayers().slice(0, 3)) });
     const { book } = await run();
     expect(book.ideas[0].feels_like).toBeUndefined();
-    expect(book.wildcard.title).toBe("Idee 7");
+    expect(book.wildcard.title).toBe("Idee 5");
   });
 
   it("retries only the ideas call when it answers badly, not the layers", async () => {
@@ -255,36 +253,36 @@ describe("the R2.3 layers: a second call next to the ideas", () => {
 describe("an ideas answer that is a near miss is used instead of paid for twice", () => {
   const list = (n: number) => Array.from({ length: n }, (_, i) => entry(i + 1));
 
-  it("accepts seven entries under ideas and no wildcard: the last one is the wildcard", () => {
-    const split = splitCoreAnswer({ ideas: list(7) }, 7)!;
-    expect(split.ideas).toHaveLength(6);
-    expect((split.wildcard as { title: string }).title).toBe("Idee 7");
+  it("accepts five entries under ideas and no wildcard: the last one is the wildcard", () => {
+    const split = splitCoreAnswer({ ideas: list(5) }, 5)!;
+    expect(split.ideas).toHaveLength(4);
+    expect((split.wildcard as { title: string }).title).toBe("Idee 5");
   });
 
-  it("accepts seven entries and a wildcard: the wildcard that was given is used", () => {
+  it("accepts five entries and a wildcard: the wildcard that was given is used", () => {
     const given = entry(99);
-    const split = splitCoreAnswer({ ideas: list(7), wildcard: given }, 7)!;
-    expect(split.ideas).toHaveLength(6);
+    const split = splitCoreAnswer({ ideas: list(5), wildcard: given }, 5)!;
+    expect(split.ideas).toHaveLength(4);
     expect(split.wildcard).toBe(given);
   });
 
   it("keeps the normal answer as it is", () => {
-    const split = splitCoreAnswer({ ideas: list(6), wildcard: entry(7) }, 7)!;
-    expect(split.ideas).toHaveLength(6);
+    const split = splitCoreAnswer({ ideas: list(4), wildcard: entry(5) }, 5)!;
+    expect(split.ideas).toHaveLength(4);
   });
 
-  it("still refuses what cannot be read: too few entries, no list, six entries without a wildcard", () => {
-    expect(splitCoreAnswer({ ideas: list(5), wildcard: entry(7) }, 7)).toBeNull();
-    expect(splitCoreAnswer({ ideas: list(6) }, 7)).toBeNull();
-    expect(splitCoreAnswer({ ideas: "nope" as unknown as unknown[] }, 7)).toBeNull();
-    expect(splitCoreAnswer({}, 7)).toBeNull();
+  it("still refuses what cannot be read: too few entries, no list, four entries without a wildcard", () => {
+    expect(splitCoreAnswer({ ideas: list(3), wildcard: entry(5) }, 5)).toBeNull();
+    expect(splitCoreAnswer({ ideas: list(4) }, 5)).toBeNull();
+    expect(splitCoreAnswer({ ideas: "nope" as unknown as unknown[] }, 5)).toBeNull();
+    expect(splitCoreAnswer({}, 5)).toBeNull();
   });
 
-  it("makes one ideas call, not two, when the model lists all seven under ideas", async () => {
-    respond({ core: () => toolUse("create_idea_book", { profile_summary: "S.", must_haves: [], preferences: [], ideas: list(7) }) });
+  it("makes one ideas call, not two, when the model lists all five under ideas", async () => {
+    respond({ core: () => toolUse("create_idea_book", { profile_summary: "S.", must_haves: [], preferences: [], ideas: list(5) }) });
     const { book } = await run();
     expect(callsFor("create_idea_book")).toHaveLength(1);
-    expect(book.ideas).toHaveLength(6);
-    expect(book.wildcard.title).toBe("Idee 7");
+    expect(book.ideas).toHaveLength(4);
+    expect(book.wildcard.title).toBe("Idee 5");
   });
 });

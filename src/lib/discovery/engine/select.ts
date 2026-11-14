@@ -10,10 +10,11 @@ import { WEIGHTS_CURRENT, type Weights } from "@/lib/discovery/engine/weights";
 import { audienceBias, effectiveAgeCategory } from "@/lib/discovery/audience";
 import { internationalBias, meetingBias } from "@/lib/discovery/suitability";
 import { MAX_PER_CLUSTER, clusterOf } from "@/lib/discovery/clusters";
+import { IDEA_COUNT } from "@/lib/productStructure";
 
-// The selection engine. Six regular seeds in four directions, plus one wildcard:
-//   familiar x2   the pick itself, or a direct neighbour of it
-//   adjacent x2   a related but new activity (a real bridge to a pick, not the same sub-domain)
+// The selection engine. Four regular seeds in four directions, plus one wildcard (Stap 198: five ideas, fewer but better worked out):
+//   familiar x1   the pick itself, or a direct neighbour of it
+//   adjacent x1   a related but new activity (a real bridge to a pick, not the same sub-domain)
 //   unexpected x1 far from every pick, reached by a curated combination or a two-step chain
 //   stretch x1    one facet the person did not fix is turned up (never the social form)
 //   wildcard x1   a random prompt from a world they did not pick (random decides WHICH, not IF it fits)
@@ -35,6 +36,9 @@ const DOOR: Record<Direction, IdeaDoor> = {
   explore: "discovery", // replaced by a challenge-based door in explore mode
 };
 const DOOR_ORDER: IdeaDoor[] = ["natural", "discovery", "unexpected", "stretch"];
+
+/** A person who picked from one world only: their adjacent idea leans to that world by this much (Stap 198), so the book of four has two ideas in it. */
+const NICHE_ADJACENT_BONUS = 0.5;
 
 const WILDNESS: Record<string, number> = { grounded: 0, practical: 0, either: 1, unexpected: 2, wild: 3 };
 
@@ -272,7 +276,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     const domains = shuffled([...new Set(pool.map((a) => a.domain))], rnd);
     const chosen: Activity[] = [];
     for (const d of domains) {
-      if (chosen.length === 6) break;
+      if (chosen.length === IDEA_COUNT) break;
       const inDomain = pool.filter((a) => a.domain === d && a.entry);
       // The age weighting nudges which one of the domain's activities is shown first.
       const pickOne = shuffled(inDomain.length ? inDomain : pool.filter((a) => a.domain === d), rnd)
@@ -282,7 +286,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     }
     // Doors by how demanding it is: the gentlest first.
     const ranked = [...chosen].sort((x, y) => challenge(x) - challenge(y));
-    const doors: IdeaDoor[] = ["natural", "natural", "discovery", "discovery", "unexpected", "stretch"];
+    const doors: IdeaDoor[] = ["natural", "discovery", "unexpected", "stretch"];
     ranked.forEach((a, i) => commit(a, "explore", {}, doors[i] ?? "discovery"));
     // A world not used yet if there is one; with a very tight pool, any unused activity.
     const rest = domains.filter((d) => !domainCount.has(d));
@@ -294,11 +298,11 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   }
 
   // --- anchor model: the person's own picks are seeds themselves ---------------------------
-  // With three or more usable picks on a concrete page, up to W.anchor.picks of them come first (spread over worlds and
+  // With two or more usable picks on a concrete page, up to W.anchor.picks of them come first (spread over worlds and
   // sub-domains by preference, never by a hard cap: they are the person's own choices), and the remaining slots are built
-  // around them. With fewer picks the ordinary structure below already puts them in the two familiar slots.
+  // around them. With fewer picks the ordinary structure below already puts the pick in the one familiar slot.
   const usablePicks = pool.filter((a) => pickSet.has(a.id));
-  const anchored = !!input.explicitPicks && W.anchor.picks > 0 && usablePicks.length >= 3;
+  const anchored = !!input.explicitPicks && W.anchor.picks > 0 && usablePicks.length >= 2;
   if (anchored) {
     const want = Math.min(W.anchor.picks, usablePicks.length);
     for (let i = 0; i < want; i++) {
@@ -315,17 +319,16 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     notes.push(`anchor_picks:${seeds.length}`);
   }
 
-  // --- familiar x2 ---------------------------------------------------------------------
-  for (let i = 0; i < (anchored ? 0 : 2); i++) {
+  // --- familiar x1 ---------------------------------------------------------------------
+  for (let i = 0; i < (anchored ? 0 : 1); i++) {
     const cands: Cand[] = [];
     for (const a of pool) {
       const picked = pickSet.has(a.id);
       const near = pickedDomains.has(a.domain) && rel(a) >= W.familiar.nearRel;
       if (!picked && !near) continue;
-      // A second familiar idea prefers another world when the person picked from several.
       const spread = W.familiar.spreadPerSameDomain * (domainCount.get(a.domain) ?? 0);
-      // Fase 3: the second slot is the "Praktisch" level, so it leans towards what is easiest to start.
-      const practical = i === 1 ? W.familiar.practicalBonus * practicality(a) : 0;
+      // Fase 3: the familiar idea is the one the person can start tomorrow, so it leans towards what is easiest to start.
+      const practical = W.familiar.practicalBonus * practicality(a);
       cands.push({ a, score: (picked ? W.familiar.pickedScore : rel(a) - age(a) + RARE.familiar * rare(a) - supplyCost(a)) + rnd() * W.familiar.noise - spread + practical });
     }
     const top = best(cands);
@@ -393,14 +396,16 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     } else notes.push("direction_missing:unexpected");
   }
 
-  // --- adjacent x2 (x1 around the anchored picks) ----------------------------------------------
-  for (let i = 0; i < (anchored ? 1 : 2); i++) {
+  // --- adjacent x1 ----------------------------------------------------------------------------
+  {
     const set = (lo: number, hi: number, minBridge: number) => () =>
       pool
         .filter((a) => !pickSet.has(a.id) && rel(a) >= lo && rel(a) < hi && bestBridgeTo(a) >= minBridge)
         .map<Cand>((a) => {
           const r = rel(a);
-          const novelty = pickedDomains.has(a.domain) ? 0 : W.adjacent.noveltyOtherWorld;
+          // Someone who picked from one world only (a niche) keeps the one adjacent idea in that world: with four ideas, their own world has to be worth
+          // two of them (the pick and its neighbour); the unexpected idea, the stretch and the wildcard are what leave it (Stap 198).
+          const novelty = pickedDomains.size === 1 ? (pickedDomains.has(a.domain) ? NICHE_ADJACENT_BONUS : 0) : pickedDomains.has(a.domain) ? 0 : W.adjacent.noveltyOtherWorld;
           return { a, score: r * (1 - Math.abs(r - W.adjacent.peak)) + novelty + rnd() * W.adjacent.noise - redundancy(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a) };
         });
     // The master prompt's "indirect" slot (Stap 127): with the anchor on, the one non-picked idea around the choices comes from
@@ -421,20 +426,22 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
           score: sharers * 0.5 + strong * 0.4 + (pickSubs.has(a.sub) ? 0 : 0.25) + (pickedDomains.has(a.domain) ? 0 : 0.15) + rnd() * W.adjacent.noise - redundancyBeyondPicks(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a),
         }));
     };
-    const found = firstFit([indirect, set(0.2, 0.6, BRIDGE_MIN), set(0.1, 0.75, 1.2)]);
+    // A niche's neighbours in their own world are close to their picks: the preferred set reaches further for them.
+    const reach = pickedDomains.size === 1 ? 0.8 : 0.6;
+    const found = firstFit([indirect, set(0.2, reach, BRIDGE_MIN), set(0.1, 0.75, 1.2)]);
     if (!found) {
       notes.push("direction_relaxed:adjacent");
-      break;
+    } else {
+      // set 0 is the indirect set (empty unless it applies), so the ordinary preferred set is index 1
+      if (found.set === 0) notes.push("indirect_slot");
+      else if (found.set > 1) notes.push("direction_relaxed:adjacent");
+      const from = nearestRef(found.top.a);
+      commit(found.top.a, "adjacent", from ? { chain: [from.id, found.top.a.id], via: graph.shared(from, found.top.a).slice(0, 2) } : {});
     }
-    // set 0 is the indirect set (empty unless it applies), so the ordinary preferred set is index 1
-    if (found.set === 0) notes.push("indirect_slot");
-    else if (found.set > 1) notes.push("direction_relaxed:adjacent");
-    const from = nearestRef(found.top.a);
-    commit(found.top.a, "adjacent", from ? { chain: [from.id, found.top.a.id], via: graph.shared(from, found.top.a).slice(0, 2) } : {});
   }
 
-  // --- stretch x1: turn up one facet they did not fix (not needed once four of their own picks are in) ------------------
-  if (!anchored || seeds.length < 6) {
+  // --- stretch x1: turn up one facet they did not fix (not needed once their own picks fill the other slots) ------------------
+  if (seeds.length < IDEA_COUNT) {
     const scale = WILDNESS[input.practicalToWild] ?? 1;
     // The reference is the most physically demanding pick, so "more" means more than that.
     const p0 = [...refs].sort((x, y) => (y.intensity ?? 0) - (x.intensity ?? 0) || rnd() - 0.5)[0];
@@ -470,8 +477,8 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     }
   }
 
-  // --- fill: never fewer than six regular seeds when the pool allows it -------------------
-  while (seeds.length < 6) {
+  // --- fill: never fewer than the regular seeds of a book when the pool allows it -------------------
+  while (seeds.length < IDEA_COUNT) {
     const top = best(pool.filter((a) => !pickSet.has(a.id) && rel(a) > 0.05).map<Cand>((a) => ({ a, score: rel(a) + rnd() * 0.05 - age(a) })))
       ?? best(pool.map<Cand>((a) => ({ a, score: rnd() - age(a) })));
     if (!top) break;

@@ -60,7 +60,7 @@ function answerAll() {
   create.mockImplementation(async (args: { tools: { name: string }[] }) =>
     args.tools[0].name === "create_layers"
       ? toolUse("create_layers", { ideas: [] })
-      : toolUse("create_idea_book", { profile_summary: "S.", must_haves: [], preferences: [], ideas: [1, 2, 3, 4, 5, 6].map(entry), wildcard: entry(7) }),
+      : toolUse("create_idea_book", { profile_summary: "S.", must_haves: [], preferences: [], ideas: [1, 2, 3, 4].map(entry), wildcard: entry(5) }),
   );
 }
 

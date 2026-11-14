@@ -8,8 +8,8 @@
 //   KNOWLEDGE_WRITING_V2  B5: activity-specific fill lines, honest origin wording, the visible chain. The blind comparison
 //                         split 2-2 (Stap 104), so it stays off until a clearer result.
 //
-//   KNOWLEDGE_ANCHOR_PICKS  Stap 125: the anchor model. Four of the person's own page-2 choices are in the book, two ideas are built
-//                         around them, one wildcard. Needs the B4 ranking (it selects with WEIGHTS_ANCHOR, which includes it).
+//   KNOWLEDGE_ANCHOR_PICKS  Stap 125: the anchor model. Two of the person's own page-2 choices are in the book, two ideas are built
+//                         around them (one indirect, one unexpected), one wildcard. Needs the B4 ranking (it selects with WEIGHTS_ANCHOR, which includes it).
 //
 //   KNOWLEDGE_ASSOCIATION_LAYER  Stap 2 of the reference-library plan: page 2 of the two-page intake also follows the associations the chosen images
 //                         evoke (src/lib/discovery/associationLayer.ts), not only their tags. Off by default.

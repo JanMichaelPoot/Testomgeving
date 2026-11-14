@@ -61,7 +61,7 @@ describe("the ten scenarios: start page to generator", () => {
     expect(prompt).toMatch(/do not assume a young child or a teenager/);
     expect(prompt).toContain("NOT the person");
     expect(prompt).toContain("Emma");
-    expect(result.seeds.length).toBeGreaterThanOrEqual(6);
+    expect(result.seeds.length).toBeGreaterThanOrEqual(4);
     for (const s of result.seeds) expect(MINOR_UNSUITABLE.has(s.activityId), s.activityId).toBe(false);
   });
 
@@ -84,7 +84,7 @@ describe("the ten scenarios: start page to generator", () => {
     expect(stored.searchContext).toBe("adult");
     expect(stored.audienceProfile?.audience).toMatchObject({ value: "adult", source: "inferred" });
     expect(prompt).not.toMatch(/older person|senior|quiet or traditional/i);
-    expect(result.seeds.length).toBeGreaterThanOrEqual(6);
+    expect(result.seeds.length).toBeGreaterThanOrEqual(4);
   });
 
   it("6. for a group with different ages: no single age, no name, ideas that hold for a mixed group", () => {
@@ -101,7 +101,7 @@ describe("the ten scenarios: start page to generator", () => {
     expect(stored.searchContext).toBe("unknown");
     expect(stored.audienceProfile?.searchContext.source).toBe("unknown");
     expect(prompt).toContain("Search context (unknown): not stated");
-    expect(result.seeds.length).toBeGreaterThanOrEqual(6);
+    expect(result.seeds.length).toBeGreaterThanOrEqual(4);
   });
 
   it("8. only a place, no limits: the book is still made and the place is the one thing that is required", () => {
@@ -110,7 +110,7 @@ describe("the ten scenarios: start page to generator", () => {
     expect(prompt).toContain("Location: Maastricht");
     expect(prompt).toContain("Time available: not stated");
     expect(prompt).toContain("Budget (per person): not stated");
-    expect(result.seeds.length).toBeGreaterThanOrEqual(6);
+    expect(result.seeds.length).toBeGreaterThanOrEqual(4);
   });
 
   it("9. several limits: distance, budget, time, setting, access and moment all reach the engine and the writer", () => {

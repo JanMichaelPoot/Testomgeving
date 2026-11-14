@@ -42,11 +42,12 @@ import { describeAssociationsForPrompt } from "@/lib/discovery/associations";
 import { describeToday, isoDateNL } from "@/lib/discovery/season";
 import { describeDiscoveryForPrompt } from "@/lib/discovery/answers";
 import { describeAudienceForPrompt, isForOther, normalizeSearchContext } from "@/lib/discovery/audience";
+import { IDEA_COUNT } from "@/lib/productStructure";
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 
 The person has just paid for their WindowInto Idea Book — a personalized set of
-exactly 6 possibilities generated directly from their profile, plus one
+exactly 4 possibilities generated directly from their profile, plus one
 "wildcard" idea. There is no browsing or narrowing step: everything you
 generate here is the final, paid deliverable, so it needs to already feel
 considered and worth the money. The book is printed as a PDF with one full
@@ -54,11 +55,11 @@ page per idea, so there's real room to breathe — but every field still has
 a length guideline below. Stay close to it: concise and specific reads as
 considered, padding to fill space reads as filler.
 
-Open Doors — how to structure the 6 ideas:
-Each of the 6 regular ideas belongs to exactly one "door" — how far it sits
+Open Doors — how to structure the 4 ideas:
+Each of the 4 regular ideas belongs to exactly one "door" — how far it sits
 from what this person already does. Quality comes before quota: don't
 force a weak idea into an empty door just to fill it, but aim to spread the
-6 across all four doors rather than clustering them in one or two.
+4 across all four doors (one each) rather than clustering them in one or two.
 - "natural": a confident, well-executed extension of something they
   already clearly enjoy or already do. Low risk, but still needs to feel
   fresh and specific — not a rehash of what they described back to them.
@@ -75,7 +76,7 @@ force a weak idea into an empty door just to fill it, but aim to spread the
   high, stay gentler when it's low — but a stretch idea must stay
   achievable, never reckless.
 The separate wildcard keeps its own door, "wildcard" — see below, it's
-always its own slot and not counted among the 6.
+always its own slot and not counted among the 4.
 
 Combinatorial creativity — avoid generic, single-signal ideas. For every
 idea, actively combine at least two distinct signals from the profile (a
@@ -84,7 +85,7 @@ personal-reflection signal) into one idea that feels assembled specifically
 for this person's combination of answers — not something that could have
 been generated for almost anyone who shares just one of their interests.
 
-Internal scoring — for every idea (the 6 plus the wildcard), also return a
+Internal scoring — for every idea (the 4 plus the wildcard), also return a
 "scores" object: your own honest internal estimate, each 0-100, never
 shown to the person. relevance (fit with their stated needs/must-haves),
 novelty (how new this would likely be to them specifically), feasibility
@@ -95,7 +96,7 @@ to their stated budget), social_fit (how well it matches their
 company/context), and challenge_level (how far it pushes their comfort
 zone). Differentiate honestly — a "natural" idea should score lower on
 novelty/surprise/challenge_level than a "stretch" or "wildcard" idea; don't
-return near-identical numbers across all 7 ideas.
+return near-identical numbers across all 5 ideas.
 
 Final text only — never put a self-correction, hesitation or alternative in a
 step or action (no "nee,", "eigenlijk", "or rather", "..." followed by a better
@@ -117,7 +118,7 @@ Rules for using the profile:
   lean toward them where it fits naturally, but don't force every idea to
   satisfy every preference, and don't treat them as requirements.
 - If the profile lists concrete interests they picked from a card library:
-  at least two of the six ideas (the "natural" door) must build directly on
+  at least one of the four ideas (the "natural" door) must build directly on
   those interests, the others may reach further and should connect back to
   them where they can. Never conclude anything about a person's sociability,
   shyness or character from their interests. Only the explicit "how they like
@@ -428,7 +429,7 @@ export const LOCATION_SCHEMA = {
 };
 
 // Fase 3 (Possibility/Door Engine) — see the master prompt sections 6 and
-// 11. Shared between the 6 regular ideas and the wildcard: the wildcard is
+// 11. Shared between the regular ideas and the wildcard: the wildcard is
 // distinguished by always carrying door "wildcard" (enforced defensively in
 // normalizeEntry below, not just trusted from the model's output).
 const SCORES_SCHEMA = {
@@ -553,7 +554,7 @@ ${formatProfile(intake, characterProfile)}
 ${researchBlock}
 
 Generate the full Idea Book by calling the create_idea_book tool exactly
-once, with exactly 6 ideas plus one separate wildcard. Spread the 6 ideas
+once, with exactly 4 ideas plus one separate wildcard. Spread the 4 ideas
 across the natural/discovery/unexpected/stretch doors (quality over a rigid
 quota); the wildcard's door is always "wildcard".`,
       },
@@ -570,8 +571,8 @@ quota); the wildcard's door is always "wildcard".`,
             preferences: { type: "array", items: { type: "string" } },
             ideas: {
               type: "array",
-              minItems: 6,
-              maxItems: 6,
+              minItems: IDEA_COUNT,
+              maxItems: IDEA_COUNT,
               items: IDEA_ENTRY_SCHEMA,
             },
             wildcard: IDEA_ENTRY_SCHEMA,

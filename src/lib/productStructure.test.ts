@@ -4,10 +4,10 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { LEVEL_NAMES } from "./discoveryLevels";
 
 describe("product structure", () => {
-  it("a book is six ideas and one wildcard, and the doors add up to that", () => {
-    expect(IDEA_COUNT).toBe(6);
+  it("a book is four ideas and one wildcard, and the doors add up to that", () => {
+    expect(IDEA_COUNT).toBe(4);
     expect(WILDCARD_COUNT).toBe(1);
-    expect(BOOK_COUNT).toBe(7);
+    expect(BOOK_COUNT).toBe(5);
     expect(DOORS.reduce((sum, d) => sum + d.count, 0)).toBe(BOOK_COUNT);
     expect(DOORS.filter((d) => d.id !== "wildcard").reduce((sum, d) => sum + d.count, 0)).toBe(IDEA_COUNT);
     expect(DOORS[DOORS.length - 1].id).toBe("wildcard");

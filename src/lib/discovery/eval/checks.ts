@@ -2,7 +2,8 @@ import { repeatedOpenings } from "@/lib/claude/ideaFill";
 import { qaBook, type QaContext } from "@/lib/claude/qualityGate";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { getActivity } from "@/lib/discovery/library";
-import { evaluate, type EvaluateOptions, type Run } from "@/lib/discovery/engine/evaluate";
+import { MIN_DOMAINS, evaluate, type EvaluateOptions, type Run } from "@/lib/discovery/engine/evaluate";
+import { BOOK_COUNT, IDEA_COUNT } from "@/lib/productStructure";
 import type { EngineLibrary } from "@/lib/discovery/engine/select";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import type { Activity } from "@/lib/discovery/types";
@@ -21,7 +22,7 @@ export interface Finding {
 }
 
 /** Floors for the spread of one book. The baseline averages are 6.0 worlds and about 5 photo categories. */
-export const MIN_DOMAINS_PER_BOOK = 4;
+export const MIN_DOMAINS_PER_BOOK = MIN_DOMAINS;
 export const MIN_PHOTO_CATEGORIES_PER_BOOK = 3;
 
 const normalise = (s: string) =>
@@ -67,12 +68,12 @@ export function checkSeedRun(run: Run, lib: EngineLibrary, lookup: (id: string) 
   // 3. Spread across worlds and photo categories.
   const domains = new Set(known.map((a) => a.domain)).size;
   const categories = new Set(known.map((a) => photoCategoryFor(a))).size;
-  if (known.length >= 6 && domains < MIN_DOMAINS_PER_BOOK) push("spread:domains", `only ${domains} worlds in one book (minimum ${MIN_DOMAINS_PER_BOOK})`);
-  if (known.length >= 6 && categories < MIN_PHOTO_CATEGORIES_PER_BOOK) push("spread:categories", `only ${categories} photo categories in one book (minimum ${MIN_PHOTO_CATEGORIES_PER_BOOK})`);
+  if (known.length >= IDEA_COUNT && domains < MIN_DOMAINS_PER_BOOK) push("spread:domains", `only ${domains} worlds in one book (minimum ${MIN_DOMAINS_PER_BOOK})`);
+  if (known.length >= IDEA_COUNT && categories < MIN_PHOTO_CATEGORIES_PER_BOOK) push("spread:categories", `only ${categories} photo categories in one book (minimum ${MIN_PHOTO_CATEGORIES_PER_BOOK})`);
 
   // 4. Exactly one wildcard, and seven seeds unless the pool was tiny (the engine notes that itself).
   if (seeds.filter((s) => s.direction === "wildcard").length !== 1 && !run.result.notes.includes("pool_small")) push("seeds:wildcard", "a book needs exactly one wildcard");
-  if (seeds.length < 7 && !run.result.notes.includes("pool_small")) push("seeds:count", `${seeds.length} seeds instead of 7`, "warn");
+  if (seeds.length < BOOK_COUNT && !run.result.notes.includes("pool_small")) push("seeds:count", `${seeds.length} seeds instead of ${BOOK_COUNT}`, "warn");
   return out;
 }
 

@@ -31,8 +31,8 @@ const activities = (id: string) => (runs.get(id) ?? []).flatMap((s) => s.seeds.m
 const share = (list: unknown[], bad: number) => (list.length ? bad / list.length : 0);
 
 describe("the 16 audience personas, through the production engine", () => {
-  it("every visit gives a full set of seven ideas", () => {
-    for (const p of PERSONAS) for (const s of runs.get(p.id)!) expect(s.seeds.length, `${p.id}`).toBeGreaterThanOrEqual(7);
+  it("every visit gives a full set of five ideas", () => {
+    for (const p of PERSONAS) for (const s of runs.get(p.id)!) expect(s.seeds.length, `${p.id}`).toBeGreaterThanOrEqual(5);
   });
 
   it("keeps what each stated need rules out of the book, for every visit", () => {

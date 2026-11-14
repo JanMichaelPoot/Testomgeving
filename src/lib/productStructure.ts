@@ -2,10 +2,10 @@
 // descriptions in Dutch and English. The homepage ("Wat je krijgt"), the checkout bullets, the /plan page, the e-mail and the PDF
 // overview and idea pages all read their numbers and door names from here, so they cannot disagree.
 //
-// A book is 6 ideas + 1 wildcard. The engine also sorts the ideas into seven internal "discovery levels" (src/lib/discoveryLevels.ts);
+// A book is 4 ideas + 1 wildcard (Stap 198, Jan 14 Nov 2026: fewer ideas, each worked out better, and a book that stays within USD 0.50). The engine also sorts the ideas into seven internal "discovery levels" (src/lib/discoveryLevels.ts);
 // those are an ordering for the engine and the evaluation, not something a visitor sees, so no level name appears in the interface.
 
-export const IDEA_COUNT = 6;
+export const IDEA_COUNT = 4;
 export const WILDCARD_COUNT = 1;
 export const BOOK_COUNT = IDEA_COUNT + WILDCARD_COUNT;
 
@@ -25,7 +25,7 @@ interface DoorSpec {
 export const DOORS: readonly DoorSpec[] = [
   {
     id: "natural",
-    count: 2,
+    count: 1,
     label: { nl: "Vertrouwd", en: "Familiar" },
     description: {
       nl: "Dicht bij wat je al doet, maar dan net iets beter uitgewerkt.",
@@ -34,7 +34,7 @@ export const DOORS: readonly DoorSpec[] = [
   },
   {
     id: "discovery",
-    count: 2,
+    count: 1,
     label: { nl: "Ontdekking", en: "Discovery" },
     description: {
       nl: "Iets wat aansluit bij wat je leuk vindt, maar dat je nog niet had geprobeerd.",
@@ -80,7 +80,7 @@ export function doorTexts(locale: Locale): Record<IdeaDoorId, { label: string; d
   return out;
 }
 
-/** "Vertrouwd tot Uitdaging": the span of the six ideas, from the closest door to the furthest (the wildcard is its own seventh). */
+/** "Vertrouwd tot Uitdaging": the span of the four ideas, from the closest door to the furthest (the wildcard is its own fifth). */
 export function doorRange(locale: Locale): string {
   const ideaDoors = DOORS.filter((d) => d.id !== "wildcard");
   const first = ideaDoors[0].label[locale];

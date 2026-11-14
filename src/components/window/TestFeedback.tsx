@@ -6,7 +6,7 @@ import { trackEvent } from "@/lib/posthog/client";
 import { DOUBT_MAX, type DoorKind, type MailStatus, type WouldPay } from "@/lib/testFeedback";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-/** One idea of the reveal the tester can pick: its position (1-6, the wildcard 7), kind and title (the title is only shown, never sent). */
+/** One idea of the reveal the tester can pick: its position (1-4, the wildcard 5; older books 1-6 and 7), kind and title (the title is only shown, never sent). */
 export interface FeedbackDoor {
   number: number;
   kind: DoorKind;

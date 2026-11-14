@@ -8,7 +8,7 @@ Plak dit als eerste prompt in een nieuwe Claude Code-sessie in dit project, of s
 
 Ik bouw **WindowInto** (voorheen WINDOW), een digitale possibility-discovery app. Gebruikers vullen
 een rijk persoonsprofiel in (situatie, doel, wie ze zijn, waar ze zijn, en een
-reeks dial-achtige voorkeuren); de app genereert direct via AI 6-7
+reeks dial-achtige voorkeuren); de app genereert direct via AI 4-5
 gepersonaliseerde mogelijkheden plus één expliciet gekaderde "wildcard"-optie
 — geen los browse/like-scherm meer. Voor een klein bedrag (€2–5) levert
 WINDOW dit als een gepersonaliseerd, meerpagina's "Idea Book" (PDF).
@@ -71,7 +71,7 @@ een lijst kaarten.
    beeld-intake ("Het venster") staat dit blok onderaan het laatste scherm (het
    profiel, Stap 108); de aparte `/checkout`-pagina blijft alleen voor de oudere
    kaarten- en klassieke wizard.
-4. **Idea Book** — het betaalde resultaat: profielsamenvatting, 6-7
+4. **Idea Book** — het betaalde resultaat: profielsamenvatting, 4-5
    gepersonaliseerde mogelijkheden, en één apart gekaderde "wildcard".
    Meerpagina's-PDF (cover, profiel, per-idee pagina's, wildcard-pagina) en
    per e-mail, in de door de gebruiker gekozen taal.
@@ -201,7 +201,7 @@ zodat we conform AVG zo min mogelijk herleidbare data bewaren.
 **Het volledige voortgangslogboek (Stap 1 t/m 163, in het Nederlands) staat in `docs/changelog.md`, niet hier.** Lees het alleen als je weet waar je naar zoekt (`Grep` op stapnummer of term). Voeg nieuwe stappen **onderaan `docs/changelog.md`** toe, in dezelfde stijl: wat is gedaan, wat is getest, wat is bewust niet gedaan. Houd dit bestand kort.
 
 Wat hierboven uit de oorspronkelijke bouwopdracht nog steeds geldt: techstack, merk (Warm Walnut), juridische eisen en scope. Wat inmiddels anders is dan de tekst hierboven:
-- De app heet **WindowInto** (voorheen WINDOW); prijs **€7,50** (vast in `src/lib/pricing.ts`); de intake is de beeld-intake met twee beeldpagina's (`start` → `images` → `concrete` → `profile`, betalen op het profielscherm); het Idea Book is 6 ideeën + 1 wildcard (PDF ±16 pagina's).
+- De app heet **WindowInto** (voorheen WINDOW); prijs **€7,50** (vast in `src/lib/pricing.ts`); de intake is de beeld-intake met twee beeldpagina's (`start` → `images` → `concrete` → `profile`, betalen op het profielscherm); het Idea Book is 4 ideeën + 1 wildcard (Stap 198: vijf in totaal, PDF 7 tot ±12 pagina's); een boek mag in totaal maximaal $0,50 aan modelkosten kosten (`src/lib/claude/costLedger.ts`).
 - Geen cadeaubon of cadeauroute meer (Stap 150); "voor iemand anders zoeken" bestaat wel.
 - Ideeën komen uit de selectiemotor (`src/lib/discovery/engine/`) met de bibliotheek (`src/lib/discovery/data/`, ±700 activiteiten); de referentiebibliotheek in `reference-library/` is een aparte laag.
 

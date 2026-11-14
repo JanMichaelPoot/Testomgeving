@@ -66,7 +66,7 @@ const NL: HomeCopy = {
         body: "We zoeken ze op het web en controleren of hun website bestaat. Vinden we bij een idee geen plek, dan zeggen we dat.",
       },
       { title: "Een boek om te bewaren", body: "Een vormgegeven PDF om uit te printen of te delen, ook meteen in je mail." },
-      { title: "Eén wildcard", body: "Naast zes ideeën een zevende die we eigenlijk niet zouden voorstellen. Maar toch doen." },
+      { title: "Eén wildcard", body: "Naast vier ideeën een vijfde die we eigenlijk niet zouden voorstellen. Maar toch doen." },
     ],
   },
   sample: {
@@ -99,7 +99,7 @@ const NL: HomeCopy = {
       {
         id: "wat-krijg-ik",
         question: "Wat krijg ik precies?",
-        answer: `Een persoonlijk Idea Book met zes ideeën en één wildcard, verdeeld over de deuren ${doorRange("nl")}. Bij elk idee lees je waarom het bij je past, drie manieren om te beginnen (proeven, doen, doorpakken), plekken bij jou in de buurt en een eerste stap. Je krijgt het online, als PDF en in je mail.`,
+        answer: `Een persoonlijk Idea Book met vier ideeën en één wildcard, verdeeld over de deuren ${doorRange("nl")}. Bij elk idee lees je waarom het bij je past, drie manieren om te beginnen (proeven, doen, doorpakken), plekken bij jou in de buurt en een eerste stap. Je krijgt het online, als PDF en in je mail.`,
         link: { href: "/wat-zit-erin", label: "Bekijk wat er in zit" },
       },
       {
@@ -128,9 +128,9 @@ const NL: HomeCopy = {
   },
   inside: {
     title: "Wat zit er in je Idea Book?",
-    metaDescription: "Zes ideeën en één wildcard, met waarom ze bij je passen, drie manieren om te beginnen, plekken bij jou in de buurt en een eerste stap.",
-    intro: "Een persoonlijk boek met zes ideeën en één wildcard, gemaakt uit de beelden die jij koos. Dit zit erin.",
-    doorsHeading: "Zeven ideeën, vijf deuren",
+    metaDescription: "Vier ideeën en één wildcard, met waarom ze bij je passen, drie manieren om te beginnen, plekken bij jou in de buurt en een eerste stap.",
+    intro: "Een persoonlijk boek met vier ideeën en één wildcard, gemaakt uit de beelden die jij koos. Dit zit erin.",
+    doorsHeading: "Vijf ideeën, vijf deuren",
     doorsIntro: `Elk idee zit achter een deur: hoe verder de deur, hoe verder van je comfortzone (${doorsSummary("nl")}).`,
     perIdeaHeading: "Bij elk idee",
     perIdea: [
@@ -161,7 +161,7 @@ const EN: HomeCopy = {
         body: "We look them up on the web and check that their website exists. If we find no place for an idea, we say so.",
       },
       { title: "A book to keep", body: "A designed PDF to print or share, also in your inbox right away." },
-      { title: "One wildcard", body: "Besides six ideas, a seventh we probably shouldn't suggest. But do anyway." },
+      { title: "One wildcard", body: "Besides four ideas, a fifth we probably shouldn't suggest. But do anyway." },
     ],
   },
   sample: {
@@ -194,7 +194,7 @@ const EN: HomeCopy = {
       {
         id: "wat-krijg-ik",
         question: "What exactly do I get?",
-        answer: `A personal Idea Book with six ideas and one wildcard, spread over the doors ${doorRange("en")}. For each idea you read why it fits you, three ways to start (taste, do, go deeper), places near you and a first step. You get it online, as a PDF and in your inbox.`,
+        answer: `A personal Idea Book with four ideas and one wildcard, spread over the doors ${doorRange("en")}. For each idea you read why it fits you, three ways to start (taste, do, go deeper), places near you and a first step. You get it online, as a PDF and in your inbox.`,
         link: { href: "/wat-zit-erin", label: "See what is inside" },
       },
       {
@@ -223,9 +223,9 @@ const EN: HomeCopy = {
   },
   inside: {
     title: "What is in your Idea Book?",
-    metaDescription: "Six ideas and one wildcard, with why they fit you, three ways to start, places near you and a first step.",
-    intro: "A personal book with six ideas and one wildcard, made from the images you picked. This is what is inside.",
-    doorsHeading: "Seven ideas, five doors",
+    metaDescription: "Four ideas and one wildcard, with why they fit you, three ways to start, places near you and a first step.",
+    intro: "A personal book with four ideas and one wildcard, made from the images you picked. This is what is inside.",
+    doorsHeading: "Five ideas, five doors",
     doorsIntro: `Every idea sits behind a door: the further the door, the further from your comfort zone (${doorsSummary("en")}).`,
     perIdeaHeading: "With every idea",
     perIdea: [

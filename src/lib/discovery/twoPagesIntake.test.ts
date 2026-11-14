@@ -68,7 +68,7 @@ describe("the two-page intake: what the server stores", () => {
     expect(out.interests).toEqual([]);
     expect(out.surpriseMe).toBe(true);
     const result = runEngine(engineInputFromIntake(out, { seed: "s", month: 7 }));
-    expect(result.seeds).toHaveLength(7);
+    expect(result.seeds).toHaveLength(5);
   });
 
   it("leaves the four-round intake as it was (no intakeFlow, interests derived from the images)", () => {
@@ -93,7 +93,7 @@ describe("the engine honours what was chosen on page 2", () => {
       const plain = { ...input, explicitPicks: undefined };
       if (runEngine(plain).seeds.some((s) => s.activityId === "schietles")) without += 1;
     }
-    expect(withPick).toBeGreaterThan(10); // one of the two "familiar" slots in about half of the books; see docs/fase4-opzet.md
+    expect(withPick).toBeGreaterThan(4); // the one "familiar" slot goes to one of the three picks: about a third of the books (it was half with two slots); see docs/fase4-opzet.md
     expect(without).toBe(0);
   }, 60000);
 

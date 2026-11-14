@@ -41,10 +41,11 @@ import { scoresForSeed } from "@/lib/discovery/engine/scores";
 import { ALL_ACTIVITIES, TAGS, getActivity } from "@/lib/discovery/library";
 import type { Activity } from "@/lib/discovery/types";
 import { getAssociation, imagesBehind } from "@/lib/discovery/associations";
+import { BOOK_COUNT, IDEA_COUNT } from "@/lib/productStructure";
 
 // The Idea Book pipeline for people who used the card wizard (phase 4 of the discovery
 // upgrade). Four steps, only two of which cost money:
-//   1. the selection engine picks seven seeds            (code, free)
+//   1. the selection engine picks five seeds             (code, free)
 //   2. local research for those seeds, grouped + cached   (one small-model call, often none)
 //   3. Claude writes the ideas around the seeds           (one call)
 //   4. checks against the research and the seeds          (code, free)
@@ -64,9 +65,9 @@ export function shouldUseEngine(intake: Pick<IntakeAnswers, "interests" | "inter
 
 const SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 
-The person has just paid for their WindowInto Idea Book: seven ideas (six regular ideas plus one wildcard),
-printed as a PDF with one page per idea. The ideas have ALREADY BEEN CHOSEN for this person by a selection
-step. You receive the seven activities below, each with the door it belongs to, why it was chosen, how the
+The person has just paid for their WindowInto Idea Book: five ideas (four regular ideas plus one wildcard),
+printed as a PDF with a page or two per idea. The ideas have ALREADY BEEN CHOSEN for this person by a selection
+step. You receive the five activities below, each with the door it belongs to, why it was chosen, how the
 person wants to take part, an easy way in, and real local options found by research. Your job is to write
 each idea well, in the order given.
 
@@ -130,7 +131,7 @@ For every idea:
   one of that idea's verified local options; use a date only when an option states it. If an option ends soon
   (it has an end date), say so in the steps.
 
-- Use what the person gave (the profile lists their time, budget, company and distance). Across the seven ideas: at
+- Use what the person gave (the profile lists their time, budget, company and distance). Across the five ideas: at
   least one idea must fill the time they have (say its real duration honestly); at least two ideas must have an
   estimated_cost that uses 40-100% of their budget and never goes above it; the others may cost less. Never inflate a
   price to hit this: base the cost on the activity's typical cost and the verified local options, and when an idea
@@ -152,9 +153,9 @@ Write absolutely everything in {{LANGUAGE}}, not English, unless {{LANGUAGE}} is
 // The layers are optional: if this call fails the book is delivered without them.
 const LAYERS_SYSTEM_PROMPT = `${WINDOW_VOICE_SYSTEM_PROMPT}
 
-The person has just paid for their WindowInto Idea Book. Seven ideas (six regular ideas plus one wildcard) have
+The person has just paid for their WindowInto Idea Book. Five ideas (four regular ideas plus one wildcard) have
 ALREADY BEEN CHOSEN for them and are being written by someone else. You write ONLY the extra layers of each
-idea, in the order given. You receive the profile and the seven activities, each with the door it belongs to,
+idea, in the order given. You receive the profile and the five activities, each with the door it belongs to,
 how the person wants to take part, an easy way in, and real local options found by research.
 
 Do not swap, add, drop or rename the activities and do not change their order. Every field has a length limit:
@@ -210,10 +211,10 @@ export const FILL_PROMPT_RULES = `- timeline: exactly four short lines (max ~12 
 - suggestions: exactly three short lines (max ~12 words each): small, concrete ways to make THIS activity theirs
   (what to bring, what to try, what to note down). They must fit the "How to take part" line: for something done
   alone, never suggest bringing or meeting other people; for an online activity, never mention travelling, parking,
-  cash or a bank card; for an indoor activity, never mention rain or sun gear. Vary the openings across all seven
-  ideas: no verb may start more than two of the 21 suggestions in the whole book, and a note-taking tip at most
-  twice in total. Every suggestion is written entirely in {{LANGUAGE}}, its first word included. Check the 21
-  openings before you answer and change any verb that comes up more than twice.
+  cash or a bank card; for an indoor activity, never mention rain or sun gear. Vary the openings across all the
+  ideas: no verb may start more than two of the suggestions in the whole book (three per idea), and a note-taking tip at most
+  twice in total. Every suggestion is written entirely in {{LANGUAGE}}, its first word included. Check the
+  openings of all the suggestions before you answer and change any verb that comes up more than twice.
 `;
 
 // B5 / V1 (KNOWLEDGE_ENGINE_V2): the separately written fill lines (timeline, takeaways, suggestions) follow the route of
@@ -486,11 +487,11 @@ interface RawBook {
 }
 
 /**
- * The ideas call is asked for six ideas plus a separate wildcard. In both test books made for a gift, the first
+ * The ideas call is asked for four ideas plus a separate wildcard. In both test books made for a gift, the first
  * answer was thrown away for having "the wrong number of ideas" and the whole call was paid for again (twice
  * the cost, and 35 s more). The two near misses that cannot be misread are accepted instead:
- *  - seven entries under "ideas" and no wildcard: the last one is the wildcard (it is the last idea we asked for),
- *  - seven entries under "ideas" and a wildcard: the wildcard that was given is used.
+ *  - five entries under "ideas" and no wildcard: the last one is the wildcard (it is the last idea we asked for),
+ *  - five entries under "ideas" and a wildcard: the wildcard that was given is used.
  * Anything else is still an unusable answer (null) and goes to the retry.
  */
 export function splitCoreAnswer(candidate: RawBook, count: number): { ideas: unknown[]; wildcard: unknown } | null {
@@ -675,7 +676,7 @@ export const RESEARCH_BUDGET_MS = 150_000;
 export const COVERAGE_ROUNDS = 3;
 export const COVERAGE_CANDIDATES_PER_SEED = 5;
 /** The fewest ideas (the wildcard included) a book is left with when ideas without a real place are left out. */
-export const MIN_SEEDS = 5;
+export const MIN_SEEDS = BOOK_COUNT - 1;
 
 /** An activity that is online by nature (a writing course, a language app): its option is an online provider from the start, not a place. */
 export function isOnlineByNature(a: Activity | undefined): boolean {
@@ -778,7 +779,7 @@ export async function generateIdeaBookFromSeeds(
   const select = (exclude: readonly string[]) =>
     runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude, quietSupply }), anchor ? { weights: knowledgeIndirectEnabled() ? WEIGHTS_ANCHOR : { ...WEIGHTS_ANCHOR, anchor: { ...WEIGHTS_ANCHOR.anchor, indirect: false } } } : ranking ? { weights: WEIGHTS_V2 } : undefined);
   let engine: EngineResult = select([]);
-  if (engine.seeds.length < 6) throw new Error("The selection engine could not find enough activities for this profile.");
+  if (engine.seeds.length < IDEA_COUNT) throw new Error("The selection engine could not find enough activities for this profile.");
   await opts.onProgress?.("selected", { ideas: engine.seeds.length });
 
   // 2. Research, grouped and cached (once, outside the retry loop below).
@@ -918,7 +919,7 @@ export async function generateIdeaBookFromSeeds(
     // The last round still only takes activities that need nobody's offer (a walk, a park, a market): a place to go to without a provider.
     const exclude = lastRound ? [...tried, ...ALL_ACTIVITIES.filter((a) => needsProvider(a) && !keep.has(a.id)).map((a) => a.id)] : tried;
     const retry = select(exclude);
-    if (retry.seeds.length < 6) {
+    if (retry.seeds.length < IDEA_COUNT) {
       notes.push(...noSupply.map((s) => `no_local_offer:${s.activityId}`));
       break;
     }
@@ -1085,7 +1086,7 @@ export async function generateIdeaBookFromSeeds(
   // What still has no option at all, after the local and the online pass: said, never hidden.
   for (const s of engine.seeds) if ((seedResearch(s, research.byActivity)?.options.length ?? 0) === 0) notes.push(`no_option:${s.activityId}`);
   const seeds = engine.seeds;
-  // Only what was really found: distinct places over all seven ideas (name + city).
+  // Only what was really found: distinct places over all the ideas (name + city).
   const foundPlaces = new Set<string>();
   for (const r of research.byActivity.values()) for (const o of r.options) foundPlaces.add(`${o.name}|${o.city}`.toLowerCase());
   await opts.onProgress?.("researched", { places: foundPlaces.size });
@@ -1124,7 +1125,7 @@ export async function generateIdeaBookFromSeeds(
 
 ${formatProfile(intake, characterProfile)}
 
-${practicalNeedsPrompt(researchNeedsFrom(engine.constraints.verify))}The seven ideas (in this order; Idea ${seeds.length} is the wildcard):
+${practicalNeedsPrompt(researchNeedsFrom(engine.constraints.verify))}The ideas (in this order; Idea ${seeds.length} is the wildcard):
 
 ${seeds.map((s, i) => seedBlock(s, i, seedResearch(s, research.byActivity), locale, chosenImages, honestOrigin, explicitPicks, ownPicks.has(s.activityId), replacedPicks.get(s.activityId))).join("\n\n")}`;
   const user = `${shared}

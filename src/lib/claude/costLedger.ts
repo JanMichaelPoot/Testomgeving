@@ -1,4 +1,4 @@
-// What one book has cost so far, and whether the next OPTIONAL research round still fits (Jan, 14 Nov 2026: a book may cost at most USD 0.40).
+// What one book has cost so far, and whether the next OPTIONAL research round still fits (Jan, 14 Nov 2026: a book may cost at most USD 0.50; the optional rounds stop at 0.40 so the rounds that give every idea a real place still fit under 0.50).
 //
 // The model calls of a book are priced from their own `usage` (the same prices as scripts/persona-books.ts and scripts/measure-generation.ts),
 // so the ledger and the cost meters agree. Two parts of a book are not optional: the first search (the standard pass and the pass for the
@@ -51,9 +51,9 @@ export const DEFAULT_BOOK_CAP_USD = 0.4;
 
 /**
  * The ceiling for the rounds that make sure every idea has a real place (Jan, 14 Nov 2026: "all options must have real, fitting, concrete places"). Those rounds
- * are not optional, so they may go past the soft cap above, but not without end: WINDOW_BOOK_HARD_CAP, default 0.80; "0" or "off" switches it off (null).
+ * are not optional, so they may go past the soft cap above, but not without end: WINDOW_BOOK_HARD_CAP, default 0.50 (Stap 198: the most a book may cost, in total); "0" or "off" switches it off (null).
  */
-export const DEFAULT_BOOK_HARD_CAP_USD = 0.8;
+export const DEFAULT_BOOK_HARD_CAP_USD = 0.5;
 export function bookHardCap(env: Record<string, string | undefined> = process.env): number | null {
   const raw = env.WINDOW_BOOK_HARD_CAP?.trim().toLowerCase();
   if (!raw) return DEFAULT_BOOK_HARD_CAP_USD;

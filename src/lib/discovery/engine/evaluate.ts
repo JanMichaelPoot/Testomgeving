@@ -2,6 +2,10 @@ import { BRIDGE_MIN, buildGraph } from "@/lib/discovery/engine/graph";
 import { selectSeeds, type EngineLibrary } from "@/lib/discovery/engine/select";
 import type { SyntheticProfile } from "@/lib/discovery/engine/synthetic";
 import type { EngineInput, EngineResult } from "@/lib/discovery/engine/types";
+import { BOOK_COUNT, IDEA_COUNT } from "@/lib/productStructure";
+
+/** The fewest different worlds a book of five ideas may span (E2). */
+export const MIN_DOMAINS = 3;
 
 // Measures the engine's rules over a set of profiles: the automatic acceptance
 // criteria E1-E8 of the test plan. Used by the vitest regression test and by
@@ -107,7 +111,7 @@ export function evaluate(runs: readonly Run[], lib: EngineLibrary, opts: Evaluat
     // E4: exactly one wildcard.
     // (Exempt: contradictory input that leaves fewer than seven activities to choose from.)
     const wild = seeds.filter((s) => s.direction === "wildcard").length;
-    const exhausted = result.notes.includes("pool_small") && seeds.length < 7;
+    const exhausted = result.notes.includes("pool_small") && seeds.length < BOOK_COUNT;
     if (wild !== 1 && !exhausted) v.E4.push(`${profile.id}: ${wild} wildcards`);
 
     // E3: nothing repeated from the previous two sessions unless picked again.
@@ -120,16 +124,18 @@ export function evaluate(runs: readonly Run[], lib: EngineLibrary, opts: Evaluat
 
     // Soft criteria.
     const regular = seeds.filter((s) => s.direction !== "wildcard");
-    if (regular.length >= 6) hits.six++;
+    // The key keeps its old name (seedsAtLeastSix) so the stored reports stay comparable; since Stap 198 it counts books with all IDEA_COUNT (4) regular ideas.
+    if (regular.length >= IDEA_COUNT) hits.six++;
     const domains = seeds.map((s) => byId.get(s.activityId)!.domain);
-    if (new Set(domains).size >= 4) hits.four++;
+    // The key stays fourDomains so stored reports remain comparable; a book of five needs MIN_DOMAINS (3) worlds since Stap 198 (it was 4 of 7).
+    if (new Set(domains).size >= MIN_DOMAINS) hits.four++;
     const perDomain = new Map<string, number>();
     for (const d of domains) perDomain.set(d, (perDomain.get(d) ?? 0) + 1);
     if ([...perDomain.values()].every((n) => n <= 2)) hits.cap2++;
     const dirs = new Set(seeds.map((s) => s.direction));
     if (dirs.has("explore") || (dirs.has("familiar") && dirs.has("adjacent") && dirs.has("unexpected") && dirs.has("stretch"))) hits.dirs++;
 
-    // E8: a niche gets its own world in at least two of the six ideas (when that is possible).
+    // E8: a niche gets its own world in at least two of the four ideas (when that is possible).
     if (profile.archetype === "niche" && profile.nicheDomain) {
       const possible = lib.activities.filter((a) => a.domain === profile.nicheDomain && a.status !== "retired").filter((a) => {
         const cost = a.cost === null ? !(opts.strictFreeCost && costCap === 0) : a.cost <= costCap;

@@ -73,13 +73,13 @@ const coreAnswer = () =>
     profile_summary: "Samenvatting.",
     must_haves: [],
     preferences: [],
-    ideas: [1, 2, 3, 4, 5, 6].map(entry),
-    wildcard: entry(7),
+    ideas: [1, 2, 3, 4].map(entry),
+    wildcard: entry(5),
   });
 const layersAnswer = (layers: unknown[]) => toolUse("create_layers", { ideas: layers });
-const sevenLayers = (extra: (n: number) => Record<string, unknown> = () => ({})) => [1, 2, 3, 4, 5, 6, 7].map((n) => layer(n, extra(n)));
+const fiveLayers = (extra: (n: number) => Record<string, unknown> = () => ({})) => [1, 2, 3, 4, 5].map((n) => layer(n, extra(n)));
 
-function respond(layers: () => unknown = () => layersAnswer(sevenLayers())) {
+function respond(layers: () => unknown = () => layersAnswer(fiveLayers())) {
   create.mockImplementation(async (args: { tools: { name: string }[] }) => (args.tools[0].name === "create_layers" ? layers() : coreAnswer()));
 }
 const callsFor = (tool: string) => create.mock.calls.map((c) => c[0]).filter((a) => a.tools[0].name === tool);
@@ -102,7 +102,7 @@ const run = (over: Partial<IntakeAnswers> = {}) => {
 
 describe("KNOWLEDGE_ENGINE_V2 off (the default): nothing changes", () => {
   it("asks for no fill lines, adds no new prompt rule and stores no fill", async () => {
-    respond(() => layersAnswer(sevenLayers()));
+    respond(() => layersAnswer(fiveLayers()));
     const { book } = await run();
     const [extra] = callsFor("create_layers");
     const [core] = callsFor("create_idea_book");
@@ -141,8 +141,8 @@ describe("KNOWLEDGE_ENGINE_V2 on", () => {
     const [core] = callsFor("create_idea_book");
     expect(squash(core.system)).toContain(squash(HONEST_ORIGIN_RULE).trim());
     const why = (core.messages[0].content as string).split("\n").filter((l) => l.includes("Why it was chosen"));
-    expect(why.length).toBe(7);
-    // The familiar ideas are read from the images ("point to"); none of the seven says "picked" or "chose" about an activity.
+    expect(why.length).toBe(5);
+    // The familiar ideas are read from the images ("point to"); none of the five says "picked" or "chose" about an activity.
     expect(why.filter((l) => /(?<!not )picked|chose themselves|on the cards/i.test(l))).toEqual([]);
   });
 
@@ -150,12 +150,12 @@ describe("KNOWLEDGE_ENGINE_V2 on", () => {
     respond();
     const { book, report } = await run();
     book.ideas.forEach((idea, i) => expect(idea.fill).toEqual(fillOf(i + 1)));
-    expect(book.wildcard.fill).toEqual(fillOf(7));
+    expect(book.wildcard.fill).toEqual(fillOf(5));
     expect(report.issues.filter((x) => x.includes("fill_"))).toEqual([]);
   });
 
   it("drops a fill with the wrong number of lines and says why, without failing the book", async () => {
-    respond(() => layersAnswer(sevenLayers((n) => (n === 2 ? { takeaways: ["Eén"] } : n === 3 ? { timeline: undefined } : {}))));
+    respond(() => layersAnswer(fiveLayers((n) => (n === 2 ? { takeaways: ["Eén"] } : n === 3 ? { timeline: undefined } : {}))));
     const { book, report } = await run();
     expect(book.ideas[1].fill).toBeUndefined();
     expect(book.ideas[2].fill).toBeUndefined();
@@ -167,7 +167,7 @@ describe("KNOWLEDGE_ENGINE_V2 on", () => {
   });
 
   it("drops a fill that contradicts the idea: 'bring someone' for a person who goes alone", async () => {
-    respond(() => layersAnswer(sevenLayers(() => ({ suggestions: ["Neem iemand mee", "Tip b", "Tip c"] }))));
+    respond(() => layersAnswer(fiveLayers(() => ({ suggestions: ["Neem iemand mee", "Tip b", "Tip c"] }))));
     const { book, report } = await run({ company: ["alone"] });
     expect([...book.ideas, book.wildcard].every((i) => !i.fill)).toBe(true);
     expect(report.issues.some((x) => x.startsWith("idea1:fill_conflict") && x.includes("suggestions:solo"))).toBe(true);
@@ -182,14 +182,14 @@ describe("KNOWLEDGE_ENGINE_V2 on", () => {
     expect(squash(core.system).indexOf("Route. The")).toBeLessThan(squash(core.system).indexOf("For every idea:"));
     const layers = squash(extra.system);
     expect(layers).toContain("never switch the medium or the route");
-    expect(layers).toContain("no verb may start more than two of the 21 suggestions in the whole book");
+    expect(layers).toContain("no verb may start more than two of the suggestions in the whole book");
     expect(layers).toContain(`written entirely in ${languageLabel("nl")}`);
   });
 
   it("reports an opening word that starts many suggestions, and still keeps every line", async () => {
-    respond(() => layersAnswer(sevenLayers((n) => ({ suggestions: [`Noteer a${n}`, `Noteer b${n}`, `${OPENERS[n]} c${n}`] }))));
+    respond(() => layersAnswer(fiveLayers((n) => ({ suggestions: [`Noteer a${n}`, `Noteer b${n}`, `${OPENERS[n]} c${n}`] }))));
     const { book, report } = await run();
-    expect(report.issues).toContain("fill_repetitive (noteer x14)");
+    expect(report.issues).toContain("fill_repetitive (noteer x10)");
     expect([...book.ideas, book.wildcard].every((i) => i.fill)).toBe(true);
   });
 
@@ -294,7 +294,7 @@ describe("the cost of one book (Jan, 14 Nov 2026: at most USD 0.40)", () => {
     spendy();
     respond();
     const { book } = await run();
-    expect(book.ideas).toHaveLength(6);
+    expect(book.ideas).toHaveLength(4);
     expect(book.wildcard.title).toBeTruthy();
   });
 
@@ -311,7 +311,7 @@ describe("the cost of one book (Jan, 14 Nov 2026: at most USD 0.40)", () => {
   it("counts the writing in the book's cost", async () => {
     vi.stubEnv("WINDOW_BOOK_COST_CAP", "off");
     create.mockImplementation(async (args: { tools: { name: string }[] }) => ({
-      ...(args.tools[0].name === "create_layers" ? layersAnswer(sevenLayers()) : coreAnswer()),
+      ...(args.tools[0].name === "create_layers" ? layersAnswer(fiveLayers()) : coreAnswer()),
       usage: { input_tokens: 10_000, output_tokens: 3_000 },
     }));
     const { report } = await run();
@@ -326,7 +326,7 @@ describe("what is kept with the book (Stap 195)", () => {
   };
   const price = { usage: { input_tokens: 10_000, output_tokens: 3_000 } };
   const answerWithUsage = () =>
-    create.mockImplementation(async (args: { tools: { name: string }[] }) => ({ ...(args.tools[0].name === "create_layers" ? layersAnswer(sevenLayers()) : coreAnswer()), ...price }));
+    create.mockImplementation(async (args: { tools: { name: string }[] }) => ({ ...(args.tools[0].name === "create_layers" ? layersAnswer(fiveLayers()) : coreAnswer()), ...price }));
 
   it("reports the cost in the shape that goes into progress_meta: model calls, the Google lookups, the research counts and the supply index", async () => {
     vi.stubEnv("WINDOW_BOOK_COST_CAP", "off");

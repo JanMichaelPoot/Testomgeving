@@ -29,8 +29,8 @@ interface LevelSeed {
 }
 
 /**
- * The seven levels, one per seed. The seven seeds are built as two familiar, two adjacent, one unexpected, one stretch
- * and one wildcard, so the levels follow the directions:
+ * The seven levels, one per seed. The five seeds are built as one familiar, one adjacent, one unexpected, one stretch
+ * and one wildcard (an anchored book has two of the person's own choices instead of a familiar and a stretch), so the levels follow the directions:
  *   familiar    the more practical of the two is level 2 (Praktisch), the other level 1 (Vertrouwd)
  *   adjacent    the closer to the person's picks is level 3 (Verwant), the further level 4 (Inspirerend)
  *   unexpected  5 · stretch 6 · wildcard 7

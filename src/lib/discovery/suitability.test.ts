@@ -117,7 +117,7 @@ describe("the engine with these needs", () => {
 
   it("still fills the full set of ideas for each need", () => {
     for (const chip of ["Met jonge kinderen", "Met de rolstoel bereikbaar", "Rustig tempo"]) {
-      for (const set of seedsFor(chip, 5)) expect(set.length, chip).toBeGreaterThanOrEqual(7);
+      for (const set of seedsFor(chip, 5)) expect(set.length, chip).toBeGreaterThanOrEqual(5);
     }
   });
 
@@ -218,7 +218,7 @@ describe("the engine with the P1 chips", () => {
 
   it("still fills the set for each P1 chip", () => {
     for (const chip of ["Zonder alcohol", "Rustig en voorspelbaar", "Mensen ontmoeten", "Met één ander", "Met een groep"]) {
-      for (const set of sets(chip, 5)) expect(set.length, chip).toBeGreaterThanOrEqual(7);
+      for (const set of sets(chip, 5)) expect(set.length, chip).toBeGreaterThanOrEqual(5);
     }
   });
 
@@ -253,7 +253,7 @@ describe("P3 chip: no Dutch needed", () => {
     expect(unsuitableWithoutDutch(byId.get("taalcafe")!)).toBe(false);
     for (let i = 0; i < 25; i++) {
       const set = selectSeeds({ ...BASE, mustHaves: "Zonder Nederlands", seed: `nl-${i}` }, lib).seeds.map((s) => byId.get(s.activityId)!);
-      expect(set.length).toBeGreaterThanOrEqual(7);
+      expect(set.length).toBeGreaterThanOrEqual(5);
       for (const a of set) expect(unsuitableWithoutDutch(a), a.id).toBe(false);
     }
     expect(whyNot(byId.get("stand-up")!, resolveConstraints({ ...BASE, mustHaves: "Zonder Nederlands" }))).toBe("no_dutch");

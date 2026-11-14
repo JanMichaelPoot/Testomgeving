@@ -59,7 +59,7 @@ const ids = (opts: unknown) => (opts as { activityIds: string[] }).activityIds;
 const modeOf = (opts: unknown) => (opts as { mode?: string }).mode;
 const stats = (opts: unknown) => ({ cached: 0, searched: ids(opts).length, failed: 0, dropped: 0, ms: 1 });
 /** How many ideas the writer is asked for: the book is made for as many seeds as are left, so the model's answer follows the prompt. */
-const seedCountIn = (args: { messages?: { content?: unknown }[] }) => Number(/Idea (\d+) is the wildcard/.exec(String(args.messages?.[0]?.content ?? ""))?.[1] ?? 7);
+const seedCountIn = (args: { messages?: { content?: unknown }[] }) => Number(/Idea (\d+) is the wildcard/.exec(String(args.messages?.[0]?.content ?? ""))?.[1] ?? 5);
 const layerFor = (n: number) => ({ feels_like: `Koel ${n}. Stil.`, sizes: [], next_step: `Doe het ${n}.` });
 
 /**
@@ -109,20 +109,20 @@ describe("the switch and the ceiling", () => {
     for (const off of ["0", "false", "off", "No"]) expect(coverageEnabled(off)).toBe(false);
   });
 
-  it("has a hard ceiling of USD 0.80 by default, set by WINDOW_BOOK_HARD_CAP, off with 0 or off", () => {
-    expect(bookHardCap({})).toBe(0.8);
+  it("has a hard ceiling of USD 0.50 by default, set by WINDOW_BOOK_HARD_CAP, off with 0 or off", () => {
+    expect(bookHardCap({})).toBe(0.5);
     expect(bookHardCap({ WINDOW_BOOK_HARD_CAP: "1.2" })).toBe(1.2);
     expect(bookHardCap({ WINDOW_BOOK_HARD_CAP: "off" })).toBeNull();
-    expect(bookHardCap({ WINDOW_BOOK_HARD_CAP: "nonsense" })).toBe(0.8);
+    expect(bookHardCap({ WINDOW_BOOK_HARD_CAP: "nonsense" })).toBe(0.5);
   });
 
   it("lets the rounds that make sure every idea has a place pass the soft cap, up to the ceiling, and never lets the soft cap be stricter than it", () => {
-    const l = createCostLedger({ capUsd: 0.4, hardCapUsd: 0.8 });
+    const l = createCostLedger({ capUsd: 0.4, hardCapUsd: 0.5 });
     l.add("standard", { server_tool_use: { web_search_requests: 25 } }); // 0.25 spent
     expect(l.canAfford("broad")).toBe(false); // 0.25 + 0.09 + 0.11 > 0.40
-    expect(l.canAffordCoverage("broad")).toBe(true); // 0.45 <= 0.80
+    expect(l.canAffordCoverage("broad")).toBe(true); // 0.45 <= 0.50
     l.add("broad", { server_tool_use: { web_search_requests: 40 } }); // 0.65 spent
-    expect(l.canAffordCoverage("standard")).toBe(false); // 0.65 + 0.075 + 0.11 > 0.80
+    expect(l.canAffordCoverage("standard")).toBe(false); // 0.65 + 0.075 + 0.11 > 0.50
     expect(createCostLedger({ capUsd: 0.5, hardCapUsd: 0.3 }).canAffordCoverage("standard")).toBe(true);
     expect(createCostLedger({ capUsd: null }).canAffordCoverage("standard")).toBe(true);
   });
@@ -179,8 +179,8 @@ describe("an idea that cannot be replaced is left out", () => {
     const { book, report } = await run();
     expect(report.notes).toContain("dropped_no_option:kralen-rijgen");
     expect(report.seeds.map((s) => s.activityId)).not.toContain("kralen-rijgen");
-    expect(report.seeds).toHaveLength(6);
-    expect(book.ideas).toHaveLength(5);
+    expect(report.seeds).toHaveLength(4);
+    expect(book.ideas).toHaveLength(3);
     expect([...book.ideas, book.wildcard].every((i) => (i.places?.length ?? 0) > 0)).toBe(true);
     expect(report.notes).not.toContain("coverage_incomplete");
     // kept with the book (progress_meta.cost.coverage), so it can be read from the admin

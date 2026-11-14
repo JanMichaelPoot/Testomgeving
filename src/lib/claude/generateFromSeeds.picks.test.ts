@@ -66,7 +66,7 @@ beforeEach(() => {
   create.mockImplementation(async (args: { tools: { name: string }[] }) =>
     args.tools[0].name === "create_layers"
       ? toolUse("create_layers", { ideas: [] })
-      : toolUse("create_idea_book", { profile_summary: "S.", must_haves: [], preferences: [], ideas: [1, 2, 3, 4, 5, 6].map(entry), wildcard: entry(7) }),
+      : toolUse("create_idea_book", { profile_summary: "S.", must_haves: [], preferences: [], ideas: [1, 2, 3, 4].map(entry), wildcard: entry(5) }),
   );
   vi.spyOn(console, "log").mockImplementation(() => {});
   vi.spyOn(console, "warn").mockImplementation(() => {});
@@ -99,7 +99,7 @@ describe("a chosen activity without a provider", () => {
     researchSeeds.mockImplementation(async (opts: unknown) => ({ byActivity: new Map(ids(opts).map((id) => [id, withOptions(id)])), stats: stats(opts) }));
     const reference = await run(base);
     const picksInBook = reference.report.seeds.map((s) => s.activityId).filter((id) => PICKS.includes(id));
-    expect(picksInBook.length).toBeGreaterThanOrEqual(2);
+    expect(picksInBook.length).toBeGreaterThanOrEqual(1);
 
     // Now nothing is found anywhere. The picks must still be there.
     researchSeeds.mockReset();
@@ -129,7 +129,7 @@ describe("a chosen activity without a provider", () => {
     }));
     const { report } = await run(base);
     const reference = report.seeds.filter((s) => PICKS.includes(s.activityId)).map((s) => s.activityId);
-    expect(reference.length).toBeGreaterThanOrEqual(2);
+    expect(reference.length).toBeGreaterThanOrEqual(1);
     expect(report.notes.some((n) => n.startsWith("pick_without_provider:"))).toBe(false);
   });
 });

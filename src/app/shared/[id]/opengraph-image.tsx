@@ -17,7 +17,7 @@ import { shareCardLine } from "@/lib/shareCard";
 // pasted (R1.3). Next.js wires a file with this name into openGraph/twitter metadata by itself.
 //
 // What it shows: the person's own window (four photo panes in the arch), the WindowInto logo and
-// one line, "7 doors from one window". For books made with the other intakes the fixed cover
+// one line, "5 doors from one window". For books made with the other intakes the fixed cover
 // photo stands in for the window. What it never shows: the open answer, age, place, profile
 // text, a name. Only which images were chosen (see getSharedWindowSource).
 //

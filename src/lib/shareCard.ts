@@ -6,7 +6,7 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 // everything in here: show what is meant for a stranger, never the buyer's personal answers (no
 // open answer, age, place or profile text).
 
-/** "7 deuren uit één venster". The wildcard counts as a door, so 6 ideas + 1 wildcard = 7. */
+/** "5 deuren uit één venster". The wildcard counts as a door, so 4 ideas + 1 wildcard = 5 (books made before Stap 198 say 7). */
 export function shareCardLine(dict: Dictionary["shared"], doors: number): string {
   return doors === 1 ? dict.cardLineOne : dict.cardLine.replace("{n}", String(doors));
 }

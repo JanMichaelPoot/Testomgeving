@@ -53,8 +53,8 @@ for (const [k, list] of Object.entries(report.violations)) {
 }
 console.log("\nSoft criteria:");
 const r = report.rates;
-console.log(`  six regular ideas .............. ${pct(r.seedsAtLeastSix)}`);
-console.log(`  at least 4 worlds .............. ${pct(r.fourDomains)}`);
+console.log(`  all regular ideas (4) ........... ${pct(r.seedsAtLeastSix)}`);
+console.log(`  at least 3 worlds .............. ${pct(r.fourDomains)}`);
 console.log(`  at most 2 per world ............ ${pct(r.maxTwoPerDomain)}`);
 console.log(`  all four directions ............ ${pct(r.allDirections)}`);
 console.log(`  niche gets its own world (E8) .. ${pct(r.nicheOwnWorld)}`);

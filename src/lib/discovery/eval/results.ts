@@ -8,7 +8,7 @@ import type { EngineName } from "@/lib/discovery/eval/engines";
 import { summariseQuality, type QualitySummary } from "@/lib/discovery/eval/quality";
 import type { QaContext } from "@/lib/claude/qualityGate";
 
-// What one harness run leaves behind: the metrics, the checks and, per profile, the seven ideas
+// What one harness run leaves behind: the metrics, the checks and, per profile, the five ideas
 // (and, for a `--full` run, the written book). The same file feeds the Markdown report and the blind A/B sheet.
 
 export interface EvalSeedRow {
@@ -42,7 +42,7 @@ export interface EvalRunInfo {
   seconds: number;
   /** The pipeline's own issues ("idea3:fill_conflict (...)", "idea5:sizes_dropped (...)", ...). */
   issues: string[];
-  /** Ideas (of 7) that carry the activity-specific fill. */
+  /** Ideas (of 5) that carry the activity-specific fill. */
   fillCount: number;
   /** Where the PDF of this book was written, relative to the project. */
   pdf?: string;

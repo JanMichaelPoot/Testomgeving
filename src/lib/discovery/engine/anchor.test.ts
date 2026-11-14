@@ -8,7 +8,7 @@ import { evaluate, type Run } from "@/lib/discovery/engine/evaluate";
 import { getActivity } from "@/lib/discovery/library";
 import { buildGraph } from "@/lib/discovery/engine/graph";
 
-// Stap 125, the anchor model: with three or more usable choices of their own, up to four of them are seeds themselves,
+// Stap 125, the anchor model: with two or more usable choices of their own, up to two of them are seeds themselves (Stap 198: four of seven became two of five),
 // one idea is built around them, one is unexpected, and the wildcard stays separate. Free: no model, no research.
 
 const lib = defaultEngineLibrary();
@@ -26,31 +26,31 @@ describe("the anchor model", () => {
   it("is off in every set but WEIGHTS_ANCHOR, so nothing changes for the ones that ship today", () => {
     expect(WEIGHTS_CURRENT.anchor.picks).toBe(0);
     expect(WEIGHTS_V2.anchor.picks).toBe(0);
-    expect(WEIGHTS_ANCHOR.anchor.picks).toBe(4);
+    expect(WEIGHTS_ANCHOR.anchor.picks).toBe(2);
   });
 
-  it("puts min(4, usable choices) of the person's own choices in the book, seven ideas, one wildcard", () => {
+  it("puts min(2, usable choices) of the person's own choices in the book, five ideas, one wildcard", () => {
     for (const p of profiles) {
       const off = selectSeeds(p.input, lib, { weights: WITHOUT_ANCHOR });
       const on = selectSeeds(p.input, lib, { weights: WEIGHTS_ANCHOR });
       const own = [...new Set(p.input.interests)].filter((id) => usable(id, on));
       const inBook = own.filter((id) => on.seeds.some((s) => s.activityId === id)).length;
-      if (own.length >= 3) {
-        expect(inBook, p.id).toBeGreaterThanOrEqual(Math.min(4, own.length));
+      if (own.length >= 2) {
+        expect(inBook, p.id).toBeGreaterThanOrEqual(Math.min(2, own.length));
         expect(on.notes.some((n) => n.startsWith("anchor_picks:")), p.id).toBe(true);
       } else {
-        // fewer than three usable choices: the ordinary structure, bit for bit
+        // fewer than two usable choices: the ordinary structure, bit for bit
         expect(on.seeds.map((s) => s.activityId), p.id).toEqual(off.seeds.map((s) => s.activityId));
       }
-      expect(on.seeds.length, p.id).toBeGreaterThanOrEqual(6);
+      expect(on.seeds.length, p.id).toBeGreaterThanOrEqual(4);
       expect(on.seeds.filter((s) => s.direction === "wildcard"), p.id).toHaveLength(1);
       expect(new Set(on.seeds.map((s) => s.activityId)).size, p.id).toBe(on.seeds.length);
     }
   }, 120000);
 
-  it("does not weaken the picks of the person who gave fewer than three", () => {
+  it("does not weaken the pick of the person who gave only one", () => {
     const base = profiles[0];
-    const few = { ...base.input, interests: base.input.interests.slice(0, 2) };
+    const few = { ...base.input, interests: base.input.interests.slice(0, 1) };
     const off = selectSeeds(few, lib, { weights: WITHOUT_ANCHOR });
     const on = selectSeeds(few, lib, { weights: WEIGHTS_ANCHOR });
     expect(on.seeds.map((s) => s.activityId)).toEqual(off.seeds.map((s) => s.activityId));

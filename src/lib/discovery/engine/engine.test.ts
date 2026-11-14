@@ -87,12 +87,12 @@ describe("passesConstraints", () => {
 describe("selectSeeds", () => {
   const picks = ["hardlopen", "boulderen", "pottenbakken"];
 
-  it("gives six regular seeds and one wildcard, all different", () => {
+  it("gives four regular seeds and one wildcard, all different", () => {
     const { seeds } = selectSeeds({ ...BASE, interests: picks, interestDomains: ["movement", "creative"] }, lib);
-    expect(seeds).toHaveLength(7);
+    expect(seeds).toHaveLength(5);
     expect(seeds.filter((s) => s.direction === "wildcard")).toHaveLength(1);
     expect(seeds.at(-1)!.direction).toBe("wildcard");
-    expect(new Set(seeds.map((s) => s.activityId)).size).toBe(7);
+    expect(new Set(seeds.map((s) => s.activityId)).size).toBe(5);
   });
 
   it("is deterministic for a seed and varies with another", () => {
@@ -104,14 +104,14 @@ describe("selectSeeds", () => {
     expect(c).not.toEqual(a);
   });
 
-  it("builds the two familiar ideas from what they picked", () => {
+  it("builds the familiar idea from what they picked", () => {
     const { seeds } = selectSeeds({ ...BASE, interests: picks }, lib);
     const familiar = seeds.filter((s) => s.direction === "familiar");
-    expect(familiar).toHaveLength(2);
+    expect(familiar).toHaveLength(1);
     for (const s of familiar) expect(picks).toContain(s.activityId);
   });
 
-  it("orders the six regular seeds by door and gives each direction its own door", () => {
+  it("orders the four regular seeds by door and gives each direction its own door", () => {
     const { seeds } = selectSeeds({ ...BASE, interests: picks }, lib);
     const doors = seeds.filter((s) => s.direction !== "wildcard").map((s) => s.door);
     const order = ["natural", "discovery", "unexpected", "stretch"];
@@ -164,8 +164,8 @@ describe("selectSeeds", () => {
     const { seeds, notes } = selectSeeds({ ...BASE, surpriseMe: true }, lib);
     expect(notes).toContain("surprise_me");
     const regular = seeds.filter((s) => s.direction !== "wildcard");
-    expect(regular).toHaveLength(6);
-    expect(new Set(regular.map((s) => byId.get(s.activityId)!.domain)).size).toBe(6);
+    expect(regular).toHaveLength(4);
+    expect(new Set(regular.map((s) => byId.get(s.activityId)!.domain)).size).toBe(4);
     expect(regular[0].door).toBe("natural");
   });
 
@@ -223,7 +223,7 @@ describe("seasons", () => {
     expect(first).toContain("pottenbakken");
     const again = selectSeeds({ ...BASE, interests: ["pottenbakken"], seed: "x", month: 6, exclude: ["pottenbakken"] }, lib).seeds.map((s) => s.activityId);
     expect(again).not.toContain("pottenbakken");
-    expect(again.length).toBeGreaterThanOrEqual(6);
+    expect(again.length).toBeGreaterThanOrEqual(4);
   });
 });
 

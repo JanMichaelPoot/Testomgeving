@@ -574,7 +574,7 @@ export async function renderIdeaBookPdf(
   let dryRun = false;
 
   // A page-margin safety net only — the primary defense against overflow
-  // is the tightened Claude schema (exactly 6 ideas, exactly 3 steps) plus
+  // is the tightened Claude schema (exactly 4 ideas, exactly 2 steps) plus
   // the maxLines caps below. This just stops a pathological response from
   // corrupting the layout instead of guaranteeing the fixed card zones.
   function newPageIfNeeded(nextLineHeight: number) {
@@ -633,7 +633,7 @@ export async function renderIdeaBookPdf(
   // MediaBox and never rendered, the standard full-bleed technique. An
   // optional horizontal pan (-1..1, a fraction of the available overflow)
   // gives the same shared background photo a slightly different crop from
-  // page to page instead of looking pixel-identical seven times in a row.
+  // page to page instead of looking pixel-identical five times in a row.
   function drawFullBleedImage(image: PDFImage, panX = 0) {
     const { width, height } = coverFitSize(image, PAGE_WIDTH, PAGE_HEIGHT);
     const maxShiftX = Math.max(0, (width - PAGE_WIDTH) / 2);

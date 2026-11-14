@@ -88,7 +88,7 @@ beforeEach(() => {
   create.mockImplementation(async (args: { tools: { name: string }[] }) =>
     args.tools[0].name === "create_layers"
       ? toolUse("create_layers", { ideas: [] })
-      : toolUse("create_idea_book", { profile_summary: "S.", must_haves: [], preferences: [], ideas: [1, 2, 3, 4, 5, 6].map(entry), wildcard: entry(7) }),
+      : toolUse("create_idea_book", { profile_summary: "S.", must_haves: [], preferences: [], ideas: [1, 2, 3, 4].map(entry), wildcard: entry(5) }),
   );
   vi.spyOn(console, "log").mockImplementation(() => {});
   vi.spyOn(console, "warn").mockImplementation(() => {});
@@ -278,7 +278,7 @@ describe("research only (warming the cache while the buyer pays)", () => {
     const warm = await generateIdeaBookFromSeeds(base, "nl", computeCharacterProfile(base), { sessionId: "options-test", researchOnly: true });
     expect(create).not.toHaveBeenCalled(); // no model call: nothing is written
     expect(warm.book).toBeNull();
-    expect(warm.report.seeds.length).toBe(7);
+    expect(warm.report.seeds.length).toBe(5);
     const warmCalls = researchSeeds.mock.calls.map((c) => JSON.stringify([ids(c[0]), modeOf(c[0])]));
 
     researchSeeds.mockClear();
@@ -334,7 +334,7 @@ describe("no idea goes into the book without an option (Jan, 14 Nov 2026)", () =
     const calls = researchSeeds.mock.calls.map((c) => c[0]);
     // the first round ran; after that nothing was started (no broad, no wider, no other idea tried)
     expect(calls.filter((o) => passOf(o) === "broad" || widerOf(o))).toHaveLength(0);
-    expect(book.ideas.length).toBe(6);
+    expect(book.ideas.length).toBe(4);
   });
 });
 
