@@ -59,10 +59,10 @@
   ],
   "P09": [
    "familiar:natural:stop-motion",
-   "adjacent:discovery:fossielen",
-   "unexpected:unexpected:poppenhuis",
-   "stretch:stretch:wandelroute-cartograferen",
-   "wildcard:wildcard:bordspel-ontwerpen"
+   "adjacent:discovery:pallet-meubels",
+   "unexpected:unexpected:oude-kaarten",
+   "stretch:stretch:stedentrip-zonder-plan",
+   "wildcard:wildcard:kamerplanten"
   ],
   "P10": [
    "familiar:natural:tennis-proefles",
@@ -108,17 +108,17 @@
   ],
   "P16": [
    "familiar:natural:mountainbiken",
-   "adjacent:discovery:cryptografie",
+   "adjacent:discovery:hoofdrekenen",
    "unexpected:unexpected:fietsen",
    "stretch:stretch:skihal",
-   "wildcard:wildcard:wandelmeditatie"
+   "wildcard:wildcard:munten-zegels"
   ],
   "P17": [
    "familiar:natural:buitenplaats",
    "adjacent:discovery:mineralen-edelstenen",
-   "unexpected:unexpected:high-tea",
-   "stretch:stretch:fanfictie-schrijven",
-   "wildcard:wildcard:oude-kaart-wandeling"
+   "unexpected:unexpected:klankbad",
+   "stretch:stretch:kringloop",
+   "wildcard:wildcard:willekeurig-station"
   ],
   "P18": [
    "familiar:natural:escape-room",

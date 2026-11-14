@@ -2,7 +2,7 @@
  "engine": "current",
  "mode": "seeds-only",
  "source": "scripts/eval/profiles (20 vaste profielen)",
- "generatedAt": "2026-11-14T19:21:01.368Z",
+ "generatedAt": "2026-11-14T21:51:35.552Z",
  "metrics": {
   "profiles": 20,
   "seeds": 100,
@@ -27,18 +27,18 @@
    "direction_relaxed": 1
   },
   "worldsPerBook": 4.4,
-  "subsPerBook": 4.65,
-  "photoCategoriesPerBook": 3.95,
-  "kindsPerBook": 3.85,
-  "pairBooks": 0.5,
-  "sameSubBooks": 0.3,
+  "subsPerBook": 4.6,
+  "photoCategoriesPerBook": 3.75,
+  "kindsPerBook": 3.65,
+  "pairBooks": 0.4,
+  "sameSubBooks": 0.35,
   "relaxedBooks": 0.05,
   "verifySeeds": 0.44,
   "tier2Seeds": 0.03,
-  "costUnknownSeeds": 0.01,
+  "costUnknownSeeds": 0.02,
   "freeBudgetBooks": 2,
   "freeBudgetWithUnknownCost": 0,
-  "socialKindShare": 0.2,
+  "socialKindShare": 0.17,
   "oneThingByDoor": {
    "unexpected": 0.95,
    "natural": 0.05
@@ -64,12 +64,12 @@
    "goalMet": 0,
    "none": 0
   },
-  "activitiesUsed": 91,
+  "activitiesUsed": 90,
   "topActivity": {
    "id": "groundhoppen",
    "share": 0.15
   },
-  "top10Share": 0.19
+  "top10Share": 0.2
  },
  "profiles": [
   {
@@ -887,31 +887,47 @@
      "verify": []
     },
     {
-     "activityId": "fossielen",
+     "activityId": "pallet-meubels",
      "label": {
-      "nl": "Fossielen en mineralen zoeken",
-      "en": "Fossil and mineral hunting"
+      "nl": "Meubels maken van pallets en restmateriaal",
+      "en": "Making furniture from pallets and offcuts"
      },
      "door": "discovery",
      "direction": "adjacent",
      "chain": [
-      "Vintagekleding struinen",
-      "Fossielen en mineralen zoeken"
+      "Klokken en horloges repareren",
+      "Meubels maken van pallets en restmateriaal"
      ],
      "lead": "solo",
      "verify": []
     },
     {
-     "activityId": "poppenhuis",
+     "activityId": "oude-kaarten",
      "label": {
-      "nl": "Een poppenhuis inrichten",
-      "en": "Furnishing a dollhouse"
+      "nl": "Oude kaarten en prenten bekijken",
+      "en": "Studying old maps and prints"
      },
      "door": "unexpected",
      "direction": "unexpected",
      "chain": [
-      "Stop-motion animatie",
-      "Een poppenhuis inrichten"
+      "Vintagekleding struinen",
+      "Munten en postzegels verzamelen",
+      "Oude kaarten en prenten bekijken"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "stedentrip-zonder-plan",
+     "label": {
+      "nl": "Een stedentrip zonder vooraf geboekte activiteiten",
+      "en": "A city break with nothing booked in advance"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Groundhoppen: stadions bezoeken",
+      "Een stedentrip zonder vooraf geboekte activiteiten"
      ],
      "lead": "solo",
      "verify": [
@@ -919,31 +935,16 @@
      ]
     },
     {
-     "activityId": "wandelroute-cartograferen",
+     "activityId": "kamerplanten",
      "label": {
-      "nl": "Een eigen wandelroute cartograferen",
-      "en": "Mapping your own walking route"
-     },
-     "door": "stretch",
-     "direction": "stretch",
-     "chain": [
-      "Groundhoppen: stadions bezoeken",
-      "Een eigen wandelroute cartograferen"
-     ],
-     "lead": "solo",
-     "verify": []
-    },
-    {
-     "activityId": "bordspel-ontwerpen",
-     "label": {
-      "nl": "Zelf een bordspel ontwerpen",
-      "en": "Designing your own board game"
+      "nl": "Kamerplanten en stekjes",
+      "en": "Houseplants and cuttings"
      },
      "door": "wildcard",
      "direction": "wildcard",
      "chain": [
-      "Naaldvilten",
-      "Zelf een bordspel ontwerpen"
+      "Vintagekleding struinen",
+      "Kamerplanten en stekjes"
      ],
      "lead": "solo",
      "verify": []
@@ -1552,16 +1553,16 @@
      ]
     },
     {
-     "activityId": "cryptografie",
+     "activityId": "hoofdrekenen",
      "label": {
-      "nl": "Codes kraken: cryptografie voor beginners",
-      "en": "Cracking codes: cryptography for beginners"
+      "nl": "Hoofdrekenen en wiskundige trucs",
+      "en": "Mental arithmetic and maths tricks"
      },
      "door": "discovery",
      "direction": "adjacent",
      "chain": [
       "Boulderen",
-      "Codes kraken: cryptografie voor beginners"
+      "Hoofdrekenen en wiskundige trucs"
      ],
      "lead": "solo",
      "verify": [
@@ -1604,19 +1605,19 @@
      ]
     },
     {
-     "activityId": "wandelmeditatie",
+     "activityId": "munten-zegels",
      "label": {
-      "nl": "Wandelmeditatie",
-      "en": "Walking meditation"
+      "nl": "Munten en postzegels verzamelen",
+      "en": "Coins and stamps"
      },
      "door": "wildcard",
      "direction": "wildcard",
      "chain": [
-      "Mountainbiken",
-      "Wandelmeditatie"
+      "Munten en postzegels verzamelen"
      ],
      "lead": "solo",
      "verify": [
+      "cost_unknown",
       "transport"
      ]
     }
@@ -1666,16 +1667,17 @@
      "verify": []
     },
     {
-     "activityId": "high-tea",
+     "activityId": "klankbad",
      "label": {
-      "nl": "High tea",
-      "en": "High tea"
+      "nl": "Een klankbad",
+      "en": "A sound bath"
      },
      "door": "unexpected",
      "direction": "unexpected",
      "chain": [
-      "Een historische buitenplaats",
-      "High tea"
+      "Luisterbar of luisteravond",
+      "Een klein festival of dorpsfeest",
+      "Een klankbad"
      ],
      "lead": "solo",
      "verify": [
@@ -1683,31 +1685,31 @@
      ]
     },
     {
-     "activityId": "fanfictie-schrijven",
+     "activityId": "kringloop",
      "label": {
-      "nl": "Fanfictie schrijven",
-      "en": "Writing fan fiction"
+      "nl": "Kringloop en vintage speuren",
+      "en": "Thrift and vintage hunting"
      },
      "door": "stretch",
      "direction": "stretch",
      "chain": [
-      "Een dag boekwinkels en bibliotheken",
-      "Fanfictie schrijven"
+      "Een veiling of kijkdag bezoeken",
+      "Kringloop en vintage speuren"
      ],
      "lead": "solo",
      "verify": []
     },
     {
-     "activityId": "oude-kaart-wandeling",
+     "activityId": "willekeurig-station",
      "label": {
-      "nl": "Een wandeling met een oude kaart van je stad",
-      "en": "A walk with an old map of your city"
+      "nl": "Uitstappen op een willekeurig station",
+      "en": "Getting off at a random station"
      },
      "door": "wildcard",
      "direction": "wildcard",
      "chain": [
-      "Een historische buitenplaats",
-      "Een wandeling met een oude kaart van je stad"
+      "Mondharmonica leren spelen",
+      "Uitstappen op een willekeurig station"
      ],
      "lead": "solo",
      "verify": []

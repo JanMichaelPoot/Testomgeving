@@ -350,7 +350,9 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
         for (const [p, q] of [[h.a, h.b], [h.b, h.a]] as const) {
           const from = byId.get(p);
           const to = byId.get(q);
-          if (!from || !to || !pickSet.has(p) || !pool.includes(to) || to.domain === from.domain) continue;
+          // A combination IS its pick plus something else: when the pick is already an idea of the book (the person's own choice), the combination would be the same
+          // idea twice, with the same providers (the Laren book of 14 Nov 2026: "fountain pens" and "letters with a fountain pen"). Only a pick that is not in the book qualifies.
+          if (!from || !to || !pickSet.has(p) || used.has(p) || !pool.includes(to) || to.domain === from.domain) continue;
           cands.push({
             a: to,
             score: W.unexpected.hybridBase + graph.bridge(from, to) * W.unexpected.hybridBridge + rnd() * W.unexpected.hybridNoise - redundancy(to) - age(to) + RARE.unexpected * rare(to) - supplyCost(to),

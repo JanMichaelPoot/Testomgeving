@@ -42,6 +42,7 @@ import { ALL_ACTIVITIES, TAGS, getActivity } from "@/lib/discovery/library";
 import type { Activity } from "@/lib/discovery/types";
 import { getAssociation, imagesBehind } from "@/lib/discovery/associations";
 import { BOOK_COUNT, IDEA_COUNT } from "@/lib/productStructure";
+import { overlappingSeeds } from "@/lib/discovery/engine/overlap";
 
 // The Idea Book pipeline for people who used the card wizard (phase 4 of the discovery
 // upgrade). Four steps, only two of which cost money:
@@ -624,7 +625,7 @@ export function seedResearch(seed: Seed, byActivity: ReadonlyMap<string, SeedRes
     return options.length === r.options.length ? r : { ...r, options };
   };
   const mine = fitting(own);
-  if (!partner || partner.options.length === 0) return mine;
+  if (own?.partnerMerged || !partner || partner.options.length === 0) return mine;
   const key = (o: LocalOption) => `${o.name}|${o.city}`.toLowerCase();
   const seen = new Set((mine?.options ?? []).map(key));
   const options = [...(mine?.options ?? []), ...(fitting(partner)?.options ?? []).filter((o) => !seen.has(key(o)))];
@@ -687,6 +688,9 @@ export function isOnlineByNature(a: Activity | undefined): boolean {
  * One place, one idea: an option (name + city) that an earlier idea already has is taken away from a later one. The person's own choices
  * come first, so a place they asked for is never lost to an idea the engine added. A later idea whose every option was already taken is left
  * with none, and so counts as lacking an option (it is replaced, never written around a place that is already used).
+ * A curated combination also reads its partner activity's options (seedResearch); those count too, and are merged into the combination's own entry
+ * here (partnerMerged), so the partner's place cannot reach the book a second time through the combination (the Laren book of 14 Nov 2026: a pen shop
+ * for "fountain pens" and, through the combination "letters with a fountain pen", the same shop again).
  */
 export function dedupePlaces(seeds: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>, ownPicks: ReadonlySet<string> = new Set()): Map<string, SeedResearch> {
   const out = new Map(byActivity);
@@ -694,10 +698,11 @@ export function dedupePlaces(seeds: readonly Seed[], byActivity: ReadonlyMap<str
   const key = (o: LocalOption) => `${o.name}|${o.city}`.toLowerCase();
   const ordered = [...seeds.filter((s) => ownPicks.has(s.activityId)), ...seeds.filter((s) => !ownPicks.has(s.activityId))];
   for (const s of ordered) {
-    const r = out.get(s.activityId);
+    const r = s.hybrid && s.hybrid.partnerId !== s.activityId ? seedResearch(s, out) : out.get(s.activityId);
     if (!r || r.options.length === 0) continue;
     const kept = r.options.filter((o) => !used.has(key(o)));
-    if (kept.length !== r.options.length) out.set(s.activityId, { ...r, options: kept });
+    if (s.hybrid && s.hybrid.partnerId !== s.activityId) out.set(s.activityId, { ...r, options: kept, partnerMerged: true });
+    else if (kept.length !== r.options.length) out.set(s.activityId, { ...r, options: kept });
     // only the first option is "the" place of the idea; the others are alternatives and may be shared
     if (kept[0]) used.add(key(kept[0]));
   }
@@ -1055,7 +1060,8 @@ export async function generateIdeaBookFromSeeds(
   if (requireOptions) {
     for (const s of seedsWithoutSupply(engine.seeds, research.byActivity, true)) {
       const inBook = new Set(engine.seeds.flatMap((x) => [x.activityId, x.hybrid?.partnerId ?? ""]));
-      const fits = (c: Seed) => !inBook.has(c.activityId) && (seedResearch(c, everything)?.options.length ?? 0) > 0 && (c.direction === "wildcard") === (s.direction === "wildcard");
+      // A combination whose partner is already an idea of the book would be the same idea twice (Stap 199).
+      const fits = (c: Seed) => !inBook.has(c.activityId) && !inBook.has(c.hybrid?.partnerId ?? "") && (seedResearch(c, everything)?.options.length ?? 0) > 0 && (c.direction === "wildcard") === (s.direction === "wildcard");
       const pool = [...everSeen.values()].filter(fits);
       const swap = pool.find((c) => c.direction === s.direction) ?? pool[0];
       if (!swap) continue;
@@ -1079,6 +1085,8 @@ export async function generateIdeaBookFromSeeds(
     }
     if (seedsWithoutSupply(engine.seeds, research.byActivity, true).length > 0) notes.push("coverage_incomplete");
   }
+  // The same idea twice (a combination next to its own pick) is never built by the selection; if something ever does, it is said here.
+  for (const [x, y] of overlappingSeeds(engine.seeds)) notes.push(`overlapping_ideas:${x}+${y}`);
   for (const id of broadened) notes.push(`broadened_search:${id}`);
   for (const id of widened) notes.push(`widened_radius:${id}`);
   // The picks that stay without a provider: said plainly in the book (see seedBlock), noted here for the log and the harness.

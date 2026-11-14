@@ -86,6 +86,11 @@ export interface SeedResearch {
   options: LocalOption[];
   /** Where the answer came from; "none" = nothing could be researched (soft failure). */
   source: "cache" | "search" | "none";
+  /**
+   * Set by dedupePlaces on the entry of a curated combination: the options of its partner activity are already merged into `options` (and de-duplicated
+   * against the other ideas of the book), so seedResearch must not add the partner's options a second time.
+   */
+  partnerMerged?: boolean;
 }
 
 export interface ResearchStats {

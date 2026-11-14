@@ -296,6 +296,8 @@ describe("no idea goes into the book without an option (Jan, 14 Nov 2026)", () =
   const hash = (s: string) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 9973, 7);
 
   it("holds when half of all searches come back empty and there are no online providers at all", async () => {
+    // The production path: since Stap 197 the coverage stage (replace, then leave out) is what keeps an idea without a place out of the book.
+    vi.stubEnv("WINDOW_COVERAGE", "1");
     const lacking: string[] = [];
     const mechanisms = new Set<string>();
     for (let i = 0; i < 8; i++) {

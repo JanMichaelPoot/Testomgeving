@@ -148,16 +148,27 @@ describe("selectSeeds", () => {
       tags: ["a", "b", "c", "d", "e", "f"].map((t) => tag(t)),
       activities: [
         act("pick", "d1", "s1", ["a", "b"]),
+        act("pick2", "d9", "s9", ["a", "c"]),
         act("partner", "d2", "s2", ["a", "b"]),
         ...["x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11", "x12"].map((id, i) => act(id, `d${3 + (i % 4)}`, `s${i}`, ["e", "f", i % 2 ? "c" : "d"])),
       ],
       hybrids: [{ a: "pick", b: "partner", label: { nl: "Gecombineerd", en: "Combined" } } as Hybrid],
     };
-    const { seeds } = selectSeeds({ ...BASE, interests: ["pick"] }, small);
-    const u = seeds.find((s) => s.direction === "unexpected");
-    expect(u?.activityId).toBe("partner");
-    expect(u?.hybrid?.label.nl).toBe("Gecombineerd");
-    expect(u?.chain).toEqual(["pick", "partner"]);
+    // The combination grows out of a pick that is NOT itself an idea of the book (a combination next to its own pick would be the same idea twice, Stap 199):
+    // so it appears for the visitors whose one familiar idea is the other pick, and never next to "pick".
+    let used = 0;
+    for (let i = 0; i < 30; i++) {
+      const { seeds } = selectSeeds({ ...BASE, interests: ["pick", "pick2"], seed: `combo-${i}` }, small);
+      const u = seeds.find((s) => s.direction === "unexpected");
+      if (u?.hybrid) {
+        used++;
+        expect(u.activityId).toBe("partner");
+        expect(u.hybrid.label.nl).toBe("Gecombineerd");
+        expect(u.chain).toEqual(["pick", "partner"]);
+        expect(seeds.map((s) => s.activityId)).not.toContain("pick");
+      }
+    }
+    expect(used).toBeGreaterThan(5);
   });
 
   it("gives a broad, varied set when nothing is known, with doors by how demanding it is", () => {

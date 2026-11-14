@@ -23,7 +23,8 @@ export interface Finding {
 
 /** Floors for the spread of one book. The baseline averages are 6.0 worlds and about 5 photo categories. */
 export const MIN_DOMAINS_PER_BOOK = MIN_DOMAINS;
-export const MIN_PHOTO_CATEGORIES_PER_BOOK = 3;
+// 3 of 7 ideas became 2 of 5 (Stap 198): a book of five that is deep in one world (board games, say) cannot always span three photo looks.
+export const MIN_PHOTO_CATEGORIES_PER_BOOK = 2;
 
 const normalise = (s: string) =>
   s
