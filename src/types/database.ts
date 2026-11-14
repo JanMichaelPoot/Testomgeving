@@ -555,6 +555,11 @@ export interface Database {
         Args: Record<string, never>;
         Returns: string;
       };
+      // Takes up to p_n Google Places lookups from the month's allowance (migration 0025); returns how many were granted.
+      places_usage_take: {
+        Args: { p_month: string; p_n: number; p_limit: number };
+        Returns: number;
+      };
     };
   };
 }

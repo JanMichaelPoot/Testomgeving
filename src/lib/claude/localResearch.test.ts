@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { createRatingEnricher } from "@/lib/claude/placesRatings";
 import {
   buildResearchPrompt,
   cleanOptions,
@@ -348,12 +349,12 @@ describe("physical places only", () => {
 describe("searching for the form and for reviews (Jan, 14 Nov 2026)", () => {
   const text = buildResearchPrompt(["high-tea"], "Laren", "city", "nl", new Date("2026-11-14T10:00:00Z"));
 
-  it("tells the researcher how to search: queries that surface reviews, reading the reviews of the best candidates, and the bar", () => {
+  it("tells the researcher how to search: queries that surface reviews, and that the Google score is looked up afterwards", () => {
     expect(text).toMatch(/How to search/);
     expect(text).toMatch(/"<activity> <place>"/);
     expect(text).toMatch(/beoordelingen/);
-    expect(text).toMatch(/reviews of your best candidates/);
-    expect(text).toMatch(/4\.3 or more from at\s+least 15 reviews/);
+    expect(text).toMatch(/Google score\s+of\s+each place is looked up afterwards/);
+    expect(text).not.toMatch(/Spend at least one search on the reviews/);
   });
 
   it("asks for the form the idea names first, and for what each place really is", () => {
@@ -387,5 +388,45 @@ describe("searching for the form and for reviews (Jan, 14 Nov 2026)", () => {
     });
     const ranked = rankOptions([o("Close best", "close", 4.9), o("Exact good", "exact", 4.5), o("Exact better", "exact", 4.7)]);
     expect(ranked.map((x) => x.name)).toEqual(["Exact better", "Exact good", "Close best"]);
+  });
+});
+
+describe("the Google score in the research (Jan, 14 Nov 2026)", () => {
+  const args = { location: "Utrecht", searchDistance: "city", locale: "nl" as const, now: NOW, verify: false as const };
+  const enricher = (rating = 4.7) =>
+    createRatingEnricher({
+      apiKey: "KEY",
+      counter: async (n) => n,
+      fetchImpl: (async () => new Response(JSON.stringify({ places: [{ displayName: { text: "Yoga Studio" }, formattedAddress: "Straat 1, Utrecht", businessStatus: "OPERATIONAL", rating, userRatingCount: 150 }] }), { status: 200 })) as unknown as typeof fetch,
+    });
+
+  it("adds the score to a place that was just found and stores it with the option, so the cache holds it", async () => {
+    const { cache, store } = memoryCache();
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Yoga Studio")]])));
+    const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search, ratings: enricher() });
+    expect(byActivity.get("yoga")?.options[0]).toMatchObject({ name: "Yoga Studio", rating: { score: 4.7, reviews: 150, source: "Google" }, ratingChecked: true });
+    expect(store.get("yoga|utrecht|city|2026-10|v6")?.[0]).toMatchObject({ rating: { score: 4.7 }, ratingChecked: true });
+  });
+
+  it("gives a cached place that never had a score one, once, and puts the improved answer back", async () => {
+    const { cache, store } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [opt("Yoga Studio")] });
+    const search = vi.fn();
+    const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search, ratings: enricher(4.4) });
+    expect(search).not.toHaveBeenCalled(); // still an answer from the cache
+    expect(byActivity.get("yoga")?.options[0].rating?.score).toBe(4.4);
+    expect(store.get("yoga|utrecht|city|2026-10|v6")?.[0]).toMatchObject({ rating: { score: 4.4 }, ratingChecked: true });
+  });
+
+  it("does not look a cached place up again once it was looked up, also when there was no score", async () => {
+    const f = vi.fn(async () => new Response("{}", { status: 200 })) as unknown as typeof fetch;
+    const ratings = createRatingEnricher({ apiKey: "KEY", counter: async (n) => n, fetchImpl: f });
+    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [{ ...opt("Yoga Studio"), ratingChecked: true }] });
+    await researchSeeds({ ...args, activityIds: ["yoga"], cache, search: vi.fn(), ratings });
+    expect(f).not.toHaveBeenCalled();
+  });
+
+  it("keeps the flag when options are read back from the cache", () => {
+    expect(cleanOptions([{ name: "X", city: "Utrecht", url: null, note: "", ratingChecked: true }])[0].ratingChecked).toBe(true);
+    expect(cleanOptions([{ name: "X", city: "Utrecht", url: null, note: "" }])[0].ratingChecked).toBeUndefined();
   });
 });

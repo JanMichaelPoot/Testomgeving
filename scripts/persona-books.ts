@@ -107,6 +107,15 @@ async function main() {
       const line = a.map(String).join(" ");
       // Every model call logs "<prefix>: <what> took <ms>ms ... usage={...}". The prefix is "WINDOW" or "WindowInto" and the label may hold brackets ("research pass (broad)");
       // an older pattern matched only "WINDOW: " and so left the standard and broad research passes out of the total (found 14 Nov 2026).
+      const places = line.match(/WindowInto: google places ratings: (\d+) lookups/);
+      if (places) {
+        // Google Places (Text Search Enterprise): counted at list price, USD 0.035 each, although the first 1,000 a month are free.
+        const c = Number(places[1]) * 0.035;
+        cost += c;
+        calls.push(`google places ${places[1]} lookups ${c.toFixed(3)} (list price)`);
+        original(line);
+        return;
+      }
       const m = line.match(/(?:WINDOW|WindowInto): (.+?) took (\d+)ms.*usage=(\{.*\})/);
       if (m) {
         const model = line.match(/\((claude-[\w.-]+)\)/)?.[1];

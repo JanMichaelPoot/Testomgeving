@@ -6,6 +6,7 @@ import { getActivity } from "@/lib/discovery/library";
 import { hintLine } from "@/lib/discovery/searchHints";
 import { describeToday, isoDateNL } from "@/lib/discovery/season";
 import { cleanRating, type Rating } from "@/lib/claude/rating";
+import type { RatingEnricher } from "@/lib/claude/placesRatings";
 import { verifyOptionUrls } from "@/lib/claude/verifyUrls";
 
 export type { Rating };
@@ -36,6 +37,8 @@ export interface LocalOption {
   rating: Rating | null;
   /** What the place really is, in a few words ("café op de hei", "keramiekstudio met proeflessen"); null when the research did not say (older cached answers). The idea's title follows this. */
   kind?: string | null;
+  /** True once the Google score of this place was looked up (src/lib/claude/placesRatings.ts), also when there is none: it is not looked up again. */
+  ratingChecked?: boolean;
   /** "exact": it is the form the activity's usual way in names (a high tea in a country house); "close": the same activity in another form (a café on the heath). Absent when not stated. */
   match?: "exact" | "close" | null;
 }
@@ -198,9 +201,9 @@ export function createSupabaseResearchCache(): ResearchCache {
 
 /** Notes-taking from search results; a smaller model is enough (see docs/discovery-api-costs.md). */
 export const RESEARCH_MODEL = process.env.WINDOW_RESEARCH_MODEL || "claude-haiku-4-5-20251001";
-// Room to search AND to read the reviews of the best candidates (Jan, 14 Nov 2026: the options must be the highly rated ones): two more than before.
-const MAX_SEARCHES = 7;
-const MAX_PRIORITY_SEARCHES = 5;
+// The Google score of a place is looked up afterwards by the app (placesRatings.ts), so the model needs no extra searches to read reviews.
+const MAX_SEARCHES = 5;
+const MAX_PRIORITY_SEARCHES = 4;
 // The broad pass reads a lot back (35-55k tokens per round, measured): four searches at most.
 const MAX_BROAD_SEARCHES = 4;
 
@@ -321,8 +324,8 @@ How to search (this decides how good the options are):
   "<activity> proefles <place>", "<activity> cursus <place> beoordelingen", "beste <activity> <place>", "<activity> <place> reviews". Put "reviews" or "beoordelingen"
   in the first query so the results show review scores (Google Maps and Tripadvisor snippets, the venue's own page).
 - Take the exact name and the town from the result itself. A listing page of many venues is a lead, not an option: open or search the venue it names.
-- Spend at least one search on the reviews of your best candidates ("<name> <town> reviews") and keep the highest rated. Aim for a Google score of 4.3 or more from at
-  least 15 reviews. 4.0 to 4.2 is acceptable. Below 4.0 only when nothing better exists, and then last. An option without any score ranks after the rated ones.
+- Prefer venues that people rate highly: the review snippets in the results (Google, Tripadvisor) show which. Do not spend searches on reading scores: the Google score of
+  each place is looked up afterwards, so give a score only when a result happens to show one.
 - Match the form first. The "Usual way in" of an activity names the form people expect (a high tea in a country house or garden room, a class in a studio). Look inside the
   radius for options of that form first, and widen within the radius before you accept a different form. Only then list the nearest thing that really exists, and say
   plainly in "kind" what it is. Never describe an option as more than it is: a café on the heath is not a country house.
@@ -407,6 +410,7 @@ export function cleanOptions(raw: unknown, today?: string): LocalOption[] {
       note: typeof r.note === "string" ? r.note.trim() : "",
       until,
       rating: cleanRating(r.rating),
+      ...(r.ratingChecked === true ? { ratingChecked: true } : {}),
       kind: typeof r.kind === "string" && r.kind.trim() ? r.kind.trim().slice(0, 70) : null,
       match: r.match === "exact" || r.match === "close" ? r.match : null,
     });
@@ -470,7 +474,7 @@ async function searchOnce(
       ? Math.min(MAX_BROAD_SEARCHES, Math.max(3, activityIds.length * 2))
       : priority
         ? Math.min(MAX_PRIORITY_SEARCHES, Math.max(3, Math.ceil(activityIds.length * 1.5)))
-        : Math.min(MAX_SEARCHES, Math.max(3, Math.ceil(activityIds.length * 0.9)));
+        : Math.min(MAX_SEARCHES, Math.max(2, Math.ceil(activityIds.length * 0.7)));
   const message = await anthropic.messages.create({
     model: RESEARCH_MODEL,
     max_tokens: 3500,
@@ -572,6 +576,8 @@ export async function researchSeeds(opts: {
   country?: string | null;
   /** Practical wishes (researchNeedsFrom): evening, no car, step-free, with children. They change which options are kept, so they are part of the cache key. */
   needs?: readonly ResearchNeed[];
+  /** Adds the Google score to the places found (and to cached places that never had one); one enricher serves a whole book, so its cap holds for the book. */
+  ratings?: RatingEnricher;
 }): Promise<{ byActivity: Map<string, SeedResearch>; stats: ResearchStats }> {
   const startedAt = Date.now();
   const { activityIds, location, searchDistance, locale } = opts;
@@ -610,13 +616,31 @@ export async function researchSeeds(opts: {
     if (options.length === 0 && priority.has(id)) continue;
     byActivity.set(id, { activityId: id, options, source: "cache" });
   }
+  const ownFrom = new Set<string>(); // the activities whose cached answer came from the person's own key
   const ownToLookUp = toLookUp.filter((id) => priority.has(id) && !byActivity.has(id));
   if (cache && ownToLookUp.length > 0) {
     for (const [id, stored] of await cache.get(ownToLookUp, ownKey, locale)) {
       const options = physical(cleanOptions(stored, today));
       if (options.length === 0 && stored.length > 0) continue;
       byActivity.set(id, { activityId: id, options, source: "cache" });
+      ownFrom.add(id);
     }
+  }
+
+  // Cached places that never had a Google score get one now (once: the answer, also "none", is stored with the option).
+  if (opts.ratings?.enabled && !online && cache) {
+    const upgraded: { activityId: string; options: LocalOption[]; key: string }[] = [];
+    await Promise.all(
+      [...byActivity.entries()]
+        .filter(([, r]) => r.source === "cache" && r.options.some((x) => !x.rating && !x.ratingChecked))
+        .map(async ([id, r]) => {
+          const options = await opts.ratings!.enrich(r.options, { country: foreign ?? "NL", locale });
+          if (JSON.stringify(options) === JSON.stringify(r.options)) return;
+          byActivity.set(id, { ...r, options });
+          upgraded.push({ activityId: id, options, key: priority.has(id) && ownFrom.has(id) ? ownKey : cacheKey });
+        }),
+    );
+    for (const key of new Set(upgraded.map((u) => u.key))) await cache.put(upgraded.filter((u) => u.key === key).map(({ activityId, options }) => ({ activityId, options })), key, locale);
   }
 
   for (const [id, r] of opts.known ?? []) if (activityIds.includes(id) && !byActivity.has(id)) byActivity.set(id, r);
@@ -642,6 +666,8 @@ export async function researchSeeds(opts: {
             for (const d of result.dropped) console.warn(`WINDOW: research option dropped (${d.reason}): ${d.option.name} ${d.option.url ?? ""}`);
             options = result.kept;
           }
+          // The Google score of the places found, before they are stored, so the cache holds it and a place is looked up once.
+          if (opts.ratings && !online && options.length > 0) options = await opts.ratings.enrich(options, { country: foreign ?? "NL", locale });
           byActivity.set(id, { activityId: id, options, source: "search" });
         }),
       );

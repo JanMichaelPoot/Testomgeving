@@ -53,6 +53,14 @@ export function envChecks(env: Env): EnvCheck[] {
           : "ontbreekt: links in de mail en bij het delen kloppen niet",
   );
 
+  add(
+    "GOOGLE_PLACES_API_KEY",
+    has(env.GOOGLE_PLACES_API_KEY),
+    has(env.GOOGLE_PLACES_API_KEY)
+      ? `aanwezig: de plekken in een boek krijgen hun Google-score (maximaal ${env.GOOGLE_PLACES_MAX_PER_BOOK || 8} opzoekingen per boek, ${env.GOOGLE_PLACES_ALLOW_PAID === "1" ? "BETAALD gebruik staat AAN" : `gratis tegoed: stopt bij ${env.GOOGLE_PLACES_FREE_PER_MONTH || 900} per maand`}). Eenmalig migratie 0025 draaien.`
+      : "niet ingesteld: de plekken krijgen geen Google-score (niet erg: het boek wordt gewoon gemaakt)",
+    false,
+  );
   add("ANTHROPIC_API_KEY", has(env.ANTHROPIC_API_KEY), has(env.ANTHROPIC_API_KEY) ? "aanwezig" : "ontbreekt: boeken kunnen niet worden gemaakt");
   const stripe = env.STRIPE_SECRET_KEY?.trim();
   const stripeInfo = stripeModeInfo(env);

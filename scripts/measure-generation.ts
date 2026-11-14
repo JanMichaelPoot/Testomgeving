@@ -88,6 +88,14 @@ async function main() {
     console.log = (...args: unknown[]) => {
       const line = args.map(String).join(" ");
       // "WindowInto" since the rename of Step 163; an older pattern matched only "WINDOW: " and left the local research passes out of every total after that step.
+      const places = line.match(/WindowInto: google places ratings: (\d+) lookups/);
+      if (places) {
+        // Google Places (Text Search Enterprise), at list price: USD 0.035 a lookup, although the first 1,000 a month are free.
+        const lookupCost = Number(places[1]) * 0.035;
+        calls.push({ label: "google places (list)", ms: 0, u: {}, p: { inp: 0, out: 0, cw: 0, cr: 0, search: lookupCost, searches: Number(places[1]), total: lookupCost } });
+        original(line);
+        return;
+      }
       const m = line.match(/(?:WINDOW|WindowInto): (research pass|main generation call|.+?) took (\d+)ms.*usage=(\{.*\})/);
       if (m) {
         const u = JSON.parse(m[3]) as Usage;

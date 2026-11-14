@@ -17,6 +17,7 @@ import {
   toText,
   toTextArray,
 } from "@/lib/claude/generateIdeaBook";
+import { createRatingEnricher } from "@/lib/claude/placesRatings";
 import { researchNeedsFrom, researchSeeds, type LocalOption, type ResearchNeed, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
 import { currentMonth, describeToday, inSeason, isoDateNL } from "@/lib/discovery/season";
 import { editionDate, type Season } from "@/lib/seasonEdition";
@@ -748,10 +749,13 @@ export async function generateIdeaBookFromSeeds(
   // 2. Research, grouped and cached (once, outside the retry loop below).
   const ownPicks = new Set(explicitPickIds(intake));
   const researchStartedAt = Date.now();
+  // One enricher for the whole book: the Google scores of its places, within its own cap and the month's free allowance (placesRatings.ts).
+  const ratings = createRatingEnricher();
   // No further search round starts after the budget (RESEARCH_BUDGET_MS); what is still empty is then settled from what earlier rounds found.
   const overBudget = () => Date.now() - researchStartedAt > RESEARCH_BUDGET_MS;
   const researchFor = (seedList: readonly Seed[], known?: ReadonlyMap<string, SeedResearch>) =>
     researchSeeds({
+      ratings,
       activityIds: researchIds(seedList),
       location: intake.location,
       searchDistance: intake.searchDistance,
@@ -795,6 +799,7 @@ export async function generateIdeaBookFromSeeds(
     if (lacking.length === 0) return base;
     for (const id of lacking) broadTried.add(id);
     const broad = await researchSeeds({
+      ratings,
       activityIds: lacking,
       location: intake.location,
       searchDistance: intake.searchDistance,
@@ -825,7 +830,8 @@ export async function generateIdeaBookFromSeeds(
     const lacking = lackingOf(seedList, base).filter((id) => !onlineTried.has(id) && (which === "all" || isOnlineByNature(getActivity(id))));
     if (lacking.length === 0) return base;
     for (const id of lacking) onlineTried.add(id);
-    const online = await researchSeeds({ activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online", country: intake.country });
+    const online = await researchSeeds({
+      activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online", country: intake.country });
     const merged = new Map(base.byActivity);
     for (const id of lacking) {
       const found = online.byActivity.get(id);
@@ -1142,6 +1148,8 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
 
   const optionsOf = (s: Seed) => seedResearch(s, research.byActivity)?.options ?? [];
   const optionsCoverage = { ideas: seeds.length, withOption: seeds.filter((s) => optionsOf(s).length > 0).length, withRating: seeds.filter((s) => optionsOf(s).some((o) => o.rating)).length };
+  const placesLine = ratings.summary();
+  if (placesLine) console.log(placesLine);
   console.log(`WINDOW: options per idea: ${optionsCoverage.withOption}/${optionsCoverage.ideas} with a concrete option, ${optionsCoverage.withRating} with a rating`);
   const report: SeedPipelineReport = { seeds, notes, research: research.stats, options: optionsCoverage, issues, qa: { found: gate.foundBefore, remaining: gate.remaining } };
   console.log(
