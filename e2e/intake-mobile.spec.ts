@@ -130,12 +130,8 @@ test.describe("touch targets on a phone", () => {
     for (const h of rows) expect(h).toBeGreaterThanOrEqual(44);
     // The pay button is grey until both are ticked, and a line says why.
     await expect(page.locator("#pay-hint")).toBeVisible();
-    // There are two switches, and the text beside one of them switches it too.
-    await expect(page.locator('main [role="switch"]')).toHaveCount(2);
-    const memory = page.locator("#memory-switch");
-    await expect(memory).toHaveAttribute("aria-checked", "false");
-    await page.locator("#memory-label").click();
-    await expect(memory).toHaveAttribute("aria-checked", "true");
+    // The two optional switches (memory, follow-up) are no longer offered here.
+    await expect(page.locator('main [role="switch"]')).toHaveCount(0);
   });
 });
 
@@ -163,7 +159,7 @@ test.describe("keyboard open on a phone", () => {
     await openScreen(page, 5);
     // A phone keyboard takes about half the screen.
     await page.setViewportSize({ width: 390, height: 420 });
-    const field = page.locator("main textarea, main input:not([type]), main input[type='text']").last();
+    const field = page.locator("main textarea, main input:not([type]), main input[type='text'], main input[type='email']").last();
     await field.focus();
     await page.waitForTimeout(300);
     const [fieldBottom, barTop] = await Promise.all([

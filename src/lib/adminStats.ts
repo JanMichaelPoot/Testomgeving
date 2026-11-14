@@ -226,7 +226,7 @@ export function feedbackSummary(rows: readonly FeedbackRow[]): FeedbackSummary {
   const places = scoreSummary(rows.map((r) => r.places_score ?? null));
   const named: [string, ScoreSummary][] = [
     ["het invullen van het venster", flow],
-    ["het profiel ('Wat jouw keuzes ons vertellen')", profile],
+    ["het profiel ('Dit zien wij in jouw keuzes')", profile],
     ["begrijpen waarom je deze deuren kreeg", doors],
     ["de plekken en aanbieders in het boek", places],
   ];

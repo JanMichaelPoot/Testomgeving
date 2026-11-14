@@ -100,6 +100,9 @@ export interface VensterDictionary {
     kicker: string;
     heading: string;
     headingGift: string; // {name}
+    /** The line under the heading: what is written from this reading (the book to look forward to). */
+    lead: string;
+    leadGift: string; // {name}
     // The portrait: one headline line and two to four sentences of reading (not a list of what was chosen:
     // the thumbnails and the sill already show that). Every sentence is fixed text, picked by rules.
     and: string;
@@ -515,8 +518,10 @@ export const vensterNl: VensterDictionary = {
   },
   profile: {
     kicker: "Jouw venster",
-    heading: "Wat jouw keuzes ons vertellen",
-    headingGift: "Wat de keuzes voor {name} ons vertellen ‖ Wat deze keuzes ons vertellen ‖ Wat jullie keuzes ons vertellen",
+    heading: "Dit zien wij in jouw keuzes",
+    headingGift: "Dit zien wij in de keuzes voor {name} ‖ Dit zien wij in deze keuzes ‖ Dit zien wij in jullie keuzes",
+    lead: "Hierop schrijven we jouw Idea Book: zes ideeën en een wildcard, met echte plekken bij jou in de buurt.",
+    leadGift: "Hierop schrijven we het Idea Book voor {name}: zes ideeën en een wildcard, met echte plekken in de buurt. ‖ Hierop schrijven we het Idea Book: zes ideeën en een wildcard, met echte plekken in de buurt. ‖ Hierop schrijven we jullie Idea Book: zes ideeën en een wildcard, met echte plekken bij jullie in de buurt.",
     and: "en",
     headline: "Je houdt van {a}, en van {b}.",
     headlineGift: "{name} houdt van {a}, en van {b}. ‖ Wat opvalt: {a}, en {b}.",
@@ -906,8 +911,8 @@ export const vensterNl: VensterDictionary = {
   panes: { worlds: "Richting", places: "Plek", moments: "Moment", senses: "Zintuig", surprise: "Verras me" },
   sill: { empty: "Elke keuze krijgt een plek in je venster.", with: "met" },
   checkout: {
-    heading: "Je venster is vol.",
-    headingGift: "Het venster voor {name} is vol. ‖ Het venster is vol.",
+    heading: "Je venster is vol. Nu jouw Idea Book.",
+    headingGift: "Het venster voor {name} is vol. Nu het Idea Book. ‖ Het venster is vol. Nu het Idea Book.",
     whatYouGet: [
       `Zes ideeën en één verzegelde wildcard, van ${doorRange("nl")}`,
       "Per idee: waarom het bij je past, drie maten (proeven, doen, doorpakken) en een eerste stap",
@@ -979,7 +984,7 @@ export const vensterNl: VensterDictionary = {
     sub: "Dit is een testversie. Acht korte vragen, het kost ongeveer twee minuten. Alles mag je overslaan.",
     scoreLabel: "Hoe voelde het om je venster te vullen?",
     scoreOptions: ["Taai", "Matig", "Prima", "Fijn", "Heerlijk"],
-    profileLabel: "Voelde je je begrepen door \u201CWat jouw keuzes ons vertellen\u201D?",
+    profileLabel: "Voelde je je begrepen door \u201CDit zien wij in jouw keuzes\u201D?",
     doorsLabel: "Snapte je waarom je deze deuren kreeg?",
     agreeOptions: ["Helemaal niet", "Niet echt", "Half", "Vrij goed", "Helemaal"],
     pickLabel: "Welke deur zou je echt gaan doen?",
@@ -1168,8 +1173,10 @@ export const vensterEn: VensterDictionary = {
   },
   profile: {
     kicker: "Your window",
-    heading: "What your choices tell us",
-    headingGift: "What the choices for {name} tell us ‖ What these choices tell us ‖ What your choices tell us",
+    heading: "What we see in your choices",
+    headingGift: "What we see in the choices for {name} ‖ What we see in these choices ‖ What we see in your choices",
+    lead: "This is what we write your Idea Book from: six ideas and a wildcard, with real places near you.",
+    leadGift: "This is what we write the Idea Book for {name} from: six ideas and a wildcard, with real places nearby. ‖ This is what we write the Idea Book from: six ideas and a wildcard, with real places nearby. ‖ This is what we write your Idea Book from: six ideas and a wildcard, with real places near you.",
     and: "and",
     headline: "You enjoy {a}, and {b}.",
     headlineGift: "{name} enjoys {a}, and {b}. ‖ What stands out: {a}, and {b}.",
@@ -1559,8 +1566,8 @@ export const vensterEn: VensterDictionary = {
   panes: { worlds: "Direction", places: "Place", moments: "Moment", senses: "Sense", surprise: "Surprise me" },
   sill: { empty: "Every choice finds a place in your window.", with: "with" },
   checkout: {
-    heading: "Your window is full.",
-    headingGift: "{name}'s window is full. ‖ The window is full.",
+    heading: "Your window is full. Now your Idea Book.",
+    headingGift: "{name}'s window is full. Now the Idea Book. ‖ The window is full. Now the Idea Book.",
     whatYouGet: [
       `Six ideas and one sealed wildcard, from ${doorRange("en")}`,
       "For each idea: why it fits you, three sizes (taste, do, go deeper) and a first step",
@@ -1632,7 +1639,7 @@ export const vensterEn: VensterDictionary = {
     sub: "This is a test version. Eight short questions, about two minutes. You can skip anything.",
     scoreLabel: "How did it feel to fill your window?",
     scoreOptions: ["Tough", "So-so", "Fine", "Nice", "Lovely"],
-    profileLabel: "Did you feel understood by \u201CWhat your choices tell us\u201D?",
+    profileLabel: "Did you feel understood by \u201CWhat we see in your choices\u201D?",
     doorsLabel: "Did you get why you received these doors?",
     agreeOptions: ["Not at all", "Not really", "Half", "Fairly well", "Completely"],
     pickLabel: "Which door would you really do?",

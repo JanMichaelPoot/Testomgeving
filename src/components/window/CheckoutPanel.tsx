@@ -3,15 +3,14 @@
 import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { Switch } from "@/components/ui/Switch";
 import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
 import { createCheckoutSession } from "@/app/checkout/actions";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-const LEGAL_LINK = "inline-flex min-h-11 items-center underline underline-offset-2 hover:text-ink";
+// The one field that must be filled: larger than the rest, with a heavier border, so it is the first thing the eye lands on.
 const EMAIL_INPUT =
-  "mt-1.5 min-h-11 w-full rounded-lg border border-border bg-paper px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-ink/70 focus:border-ink";
+  "mt-2 min-h-14 w-full rounded-lg border-2 bg-paper px-4 py-3 text-base text-ink outline-none placeholder:text-ink/60 focus:ring-[3px] focus:ring-gold/45";
 
 function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -67,22 +66,6 @@ export function ComplianceCheckbox({
   );
 }
 
-/** One switch with its text: the text may wrap and shrink, the switch never leaves the block (it keeps its own width and stays at the end). */
-function SwitchRow({ id, label, hint, checked, onChange, children }: { id: string; label: string; hint?: string; checked: boolean; onChange: (next: boolean) => void; children?: React.ReactNode }) {
-  return (
-    <div className="mb-6 rounded-lg border border-border bg-cream p-5">
-      <div className="flex items-start justify-between gap-4">
-        <label id={`${id}-label`} htmlFor={`${id}-switch`} className="min-w-0 flex-1 py-2 text-sm font-medium text-ink [overflow-wrap:anywhere]">
-          {label}
-        </label>
-        <Switch id={`${id}-switch`} labelledBy={`${id}-label`} checked={checked} onChange={onChange} />
-      </div>
-      {hint && <p className="mt-1 text-xs leading-relaxed text-ink/70">{hint}</p>}
-      {children}
-    </div>
-  );
-}
-
 export function CheckoutPanel({
   dict,
   price,
@@ -109,11 +92,6 @@ export function CheckoutPanel({
   const [termsAccepted, setTermsAccepted] = useState(false);
   // Where the book should go if that is not the address typed at Stripe (a tester, someone who wants another inbox).
   const [deliveryEmail, setDeliveryEmail] = useState("");
-  // Optional repetition memory: never pre-ticked for a new visitor, and its own consent,
-  // unrelated to the two compliance checkboxes below.
-  const [remember, setRemember] = useState(rememberInitially);
-  // One e-mail after six weeks: its own consent, never pre-ticked, unrelated to the two compliance checkboxes.
-  const [followUp, setFollowUp] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -145,9 +123,11 @@ export function CheckoutPanel({
         await createCheckoutSession(
           termsAccepted,
           digitalDeliveryConsent,
-          remember,
+          // The two optional opt-ins (repetition memory, the one follow-up e-mail) are no longer offered here: the memory keeps what the
+          // device already had, the follow-up e-mail is never requested.
+          rememberInitially,
           deliveryEmail.trim(),
-          followUp,
+          false,
         );
       } catch (err) {
         // Next.js redirect() throws internally on success (to Stripe
@@ -162,9 +142,9 @@ export function CheckoutPanel({
     <div>
       <p className="mb-4 text-xs text-ink/70">{dict.requiredNote}</p>
 
-      {/* Where the book goes: required, and the address Stripe is given too. */}
-      <div className="mb-6">
-        <label htmlFor="delivery-email" className="block text-xs font-medium uppercase tracking-widest text-ink/70">
+      {/* Where the book goes: required, and the address Stripe is given too. A framed, warm panel with a larger field: the one thing to fill in. */}
+      <div className="mb-6 rounded-xl border-2 border-gold bg-gold/10 p-4 sm:p-5">
+        <label htmlFor="delivery-email" className="block text-base font-semibold text-ink">
           {dict.deliveryEmailLabel}
           <span className="ml-1 font-bold text-red-700" aria-hidden="true">
             *
@@ -183,29 +163,18 @@ export function CheckoutPanel({
           placeholder={dict.deliveryEmailPlaceholder}
           aria-invalid={showEmailError}
           aria-describedby={showEmailError ? "delivery-email-error" : "delivery-email-hint"}
-          className={`${EMAIL_INPUT} ${showEmailError ? "border-red-600 focus:border-red-600" : ""}`}
+          className={`${EMAIL_INPUT} ${showEmailError ? "border-red-600 focus:border-red-600" : "border-accent-dark/50 focus:border-accent-dark"}`}
         />
         {showEmailError ? (
-          <p id="delivery-email-error" role="alert" className="mt-1.5 text-sm font-medium text-red-700">
+          <p id="delivery-email-error" role="alert" className="mt-2 text-sm font-medium text-red-700">
             {dict.emailError}
           </p>
         ) : (
-          <p id="delivery-email-hint" className="mt-1.5 text-xs text-ink/70">
+          <p id="delivery-email-hint" className="mt-2 text-sm text-ink/75">
             {dict.deliveryEmailHint}
           </p>
         )}
       </div>
-
-      {/* Optional repetition memory (fase 5): its own choice, off unless switched on. */}
-      <SwitchRow id="memory" label={dict.memoryLabel} hint={dict.memoryHint} checked={remember} onChange={setRemember} />
-
-      {/* One follow-up e-mail after six weeks (improvement brief B5): its own choice, off unless switched on. */}
-      <SwitchRow id="followup" label={dict.followUpLabel} hint={dict.followUpHint} checked={followUp} onChange={setFollowUp} />
-
-      {/* Disclaimer */}
-      <p className="mb-5 rounded-lg bg-ink/4 p-4 text-xs leading-relaxed text-ink/70">
-        {dict.disclaimer}
-      </p>
 
       {/* Digital delivery explanation — shown before the checkboxes, per
           the compliance brief (never only disclosed after purchase). */}
@@ -233,28 +202,6 @@ export function CheckoutPanel({
         </ComplianceCheckbox>
       </div>
 
-      {/* Legal information, reachable before payment (compliance brief
-          section 8) — never only disclosed afterwards. */}
-      <div className="mb-5 text-xs text-ink/70">
-        <p>{dict.legalLinksIntro}</p>
-        {/* Each link is a 44px-high target of its own (they used to be 15px of running text). */}
-        {/* No separator dots: when the links wrap, a dot would hang at the end of a line. The 44px height keeps them apart. */}
-        <nav className="flex flex-wrap items-center gap-x-5" aria-label={dict.legalLinksIntro}>
-          <Link href="/terms" target="_blank" className={LEGAL_LINK}>
-            {dict.legalLinks.terms}
-          </Link>
-          <Link href="/herroepingsrecht" target="_blank" className={LEGAL_LINK}>
-            {dict.legalLinks.withdrawal}
-          </Link>
-          <Link href="/privacy" target="_blank" className={LEGAL_LINK}>
-            {dict.legalLinks.privacy}
-          </Link>
-          <Link href="/privacy#contact" target="_blank" className={LEGAL_LINK}>
-            {dict.legalLinks.contact}
-          </Link>
-        </nav>
-      </div>
-
       {error && (
         <p className="mb-4 text-sm text-red-600" role="alert">
           {error}
@@ -271,7 +218,7 @@ export function CheckoutPanel({
         aria-describedby={payHint ? "pay-hint" : undefined}
         variant="hero"
         size="lg"
-        className="min-h-14 w-full justify-center text-lg font-semibold"
+        className="min-h-16 w-full justify-center px-6 py-3 text-lg font-semibold leading-snug"
       >
         {isPending ? dict.ctaPending : dict.ctaIdle.replace("{price}", price)}
         {!isPending && (
@@ -280,8 +227,14 @@ export function CheckoutPanel({
           </span>
         )}
       </Button>
-      {/* The promise that goes with the payment, right where the decision is made. */}
-      <p className="mt-3 text-center text-sm text-ink/70">{dict.guarantee}</p>
+      {/* Why it is safe and how soon the book is there, right where the decision is made. */}
+      <p className="mt-3 flex items-center justify-center gap-2 text-center text-sm text-ink/75">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+          <rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+          <path d="M5.5 7V5a2.5 2.5 0 015 0v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+        {dict.payAssurance}
+      </p>
     </div>
   );
 }

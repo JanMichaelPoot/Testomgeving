@@ -63,7 +63,7 @@ for (const size of sizes) {
       await press("Verder");
 
       // 5. Results page: the reading, then the order block, complete and reachable. The pay button is never pressed.
-      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Wat jouw keuzes ons vertellen");
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dit zien wij in jouw keuzes");
       await expect(page.getByTestId("reading-opening")).not.toBeEmpty();
       await expect(page.getByTestId("reading-images").locator("li")).toHaveCount(5);
       await noSideways();
@@ -76,7 +76,7 @@ for (const size of sizes) {
         await page.getByTestId("order-cue").click();
         await expect(page.locator("#bestellen")).toBeInViewport();
       }
-      const pay = page.getByRole("button", { name: /Betalen en mijn PDF ontvangen/ });
+      const pay = page.getByRole("button", { name: /Ja, ik wil mijn Idea Book/ });
       await pay.scrollIntoViewIfNeeded();
       await expect(pay).toBeDisabled();
       // The e-mail is required (red asterisk, required for a screen reader) and blocks paying until it is valid; the two boxes come on top of that.
@@ -89,10 +89,10 @@ for (const size of sizes) {
       await email.fill("lezer@example.com");
       await expect(page.locator("#delivery-email-error")).toHaveCount(0);
       await expect(pay).toBeDisabled(); // still the two boxes
-      for (const id of ["memory", "followup"]) {
-        const box = (await page.locator(`#${id}-switch`).boundingBox())!;
-        expect(box.x + box.width).toBeLessThanOrEqual(size.width);
-      }
+      // The e-mail field stays on the screen and is the larger, framed one.
+      const emailBox = (await email.boundingBox())!;
+      expect(emailBox.x + emailBox.width).toBeLessThanOrEqual(size.width);
+      expect(emailBox.height).toBeGreaterThanOrEqual(52);
       await noSideways();
     });
   });

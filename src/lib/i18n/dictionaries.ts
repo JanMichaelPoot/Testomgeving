@@ -100,7 +100,6 @@ export interface Dictionary {
     subcopy: string;
     stepsHeading: string;
     steps: string[];
-    disclaimer: string;
     // The two explanation blocks required before the checkboxes: what
     // digital delivery means, and the immediate-delivery/withdrawal notice.
     digitalDeliveryHeading: string;
@@ -114,18 +113,6 @@ export interface Dictionary {
     termsAcceptanceLabelPrefix: string;
     termsAcceptanceLinkText: string;
     termsAcceptanceLabelSuffix: string;
-    legalLinksIntro: string;
-    legalLinks: {
-      terms: string;
-      withdrawal: string;
-      privacy: string;
-      contact: string;
-    };
-    memoryLabel: string;
-    memoryHint: string;
-    // One e-mail after six weeks, only with this switch on (improvement brief B5).
-    followUpLabel: string;
-    followUpHint: string;
     choicesHeading: string;
     choicesHint: string;
     choicesEdit: string;
@@ -144,8 +131,8 @@ export interface Dictionary {
     errorEmailRequired: string;
     ctaIdle: string;
     ctaPending: string;
-    /** One line under the pay button: the guarantee. */
-    guarantee: string;
+    /** One line under the pay button: why it is safe and how soon the book is there. */
+    payAssurance: string;
     /** Above the pay button while it is still grey: what is missing. */
     payHint: { consent: string; email: string; both: string };
     errorGeneric: string;
@@ -665,8 +652,6 @@ const nl: Dictionary = {
       "In 1 à 2 minuten stellen we jouw Idea Book samen.",
       "Je ziet 'm meteen hier, en we mailen 'm ook naar je.",
     ],
-    disclaimer:
-      "WindowInto biedt mogelijkheden om te verkennen — geen medisch, therapeutisch, financieel of juridisch advies. Gebruik je eigen inzicht en raadpleeg een professional waar dat nodig is.",
     digitalDeliveryHeading: "Digitale levering",
     digitalDeliveryBody:
       "Je persoonlijke WindowInto PDF wordt na betaling digitaal gegenereerd en beschikbaar gesteld.",
@@ -678,19 +663,6 @@ const nl: Dictionary = {
     termsAcceptanceLabelPrefix: "Ik heb de",
     termsAcceptanceLinkText: "Algemene voorwaarden",
     termsAcceptanceLabelSuffix: "gelezen en accepteer deze.",
-    legalLinksIntro: "Meer weten voordat je betaalt?",
-    legalLinks: {
-      terms: "Algemene voorwaarden",
-      withdrawal: "Herroepingsrecht",
-      privacy: "Privacybeleid",
-      contact: "Contact",
-    },
-    memoryLabel: "Onthoud wat ik op dit apparaat heb gezien, zodat een volgend Idea Book het niet herhaalt",
-    memoryHint:
-      "Optioneel. Slaat 12 maanden een willekeurige code op in een cookie op dit apparaat, en alleen welke activiteiten je boeken lieten zien. Geen naam of e-mailadres. Je kunt het hier of op de privacypagina uitzetten en dan wordt alles verwijderd.",
-    followUpLabel: "Mail me over zes weken één keer: tijd voor een nieuw venster?",
-    followUpHint:
-      "Optioneel. Eén e-mail, ongeveer zes weken na je boek, naar het adres van je bestelling. Met een link naar een nieuwe intake die geen ideeën herhaalt die je al kreeg. Daarna niets meer; geen nieuwsbrief. Je kunt je toestemming altijd intrekken via hello@windowinto.nl.",
     choicesHeading: "Jouw keuzes",
     choicesHint: "Kijk ze nog één keer na. Je kunt alles nog wijzigen voordat je betaalt.",
     choicesEdit: "Wijzig",
@@ -710,9 +682,9 @@ const nl: Dictionary = {
     requiredNote: "Velden met een * zijn verplicht.",
     requiredMark: "verplicht",
     errorEmailRequired: "Vul een geldig e-mailadres in om je boek te ontvangen.",
-    ctaIdle: "Betalen en mijn PDF ontvangen — {price}",
+    ctaIdle: "Ja, ik wil mijn Idea Book — betaal {price}",
     ctaPending: "Checkout wordt geopend…",
-    guarantee: "Klopt een plek niet? Je krijgt gratis een nieuw boek.",
+    payAssurance: "Veilig betalen via Stripe. Je Idea Book staat binnen 2 minuten klaar.",
     payHint: {
       consent: "Vink de twee vakjes hierboven aan om te kunnen betalen.",
       email: "Vul een geldig e-mailadres in om te kunnen betalen.",
@@ -1406,8 +1378,6 @@ const en: Dictionary = {
       "In 1 to 2 minutes, we put your Idea Book together.",
       "You'll see it right here, and we'll email you a copy too.",
     ],
-    disclaimer:
-      "WindowInto offers possibilities to explore — not medical, therapeutic, financial, or legal advice. Use your own judgment, and consult a professional where it matters.",
     digitalDeliveryHeading: "Digital delivery",
     digitalDeliveryBody:
       "Your personal WindowInto PDF is generated and made available digitally right after payment.",
@@ -1419,19 +1389,6 @@ const en: Dictionary = {
     termsAcceptanceLabelPrefix: "I have read and accept the",
     termsAcceptanceLinkText: "Terms of Service",
     termsAcceptanceLabelSuffix: ".",
-    legalLinksIntro: "Want to know more before you pay?",
-    legalLinks: {
-      terms: "Terms of Service",
-      withdrawal: "Right of withdrawal",
-      privacy: "Privacy Policy",
-      contact: "Contact",
-    },
-    memoryLabel: "Remember what I was shown on this device, so a next Idea Book doesn't repeat it",
-    memoryHint:
-      "Optional. Stores a random code in a cookie on this device for 12 months, and only which activities your books showed. No name or e-mail address. You can switch it off here or on the privacy page and everything is deleted.",
-    followUpLabel: "E-mail me once in six weeks: time for a new window?",
-    followUpHint:
-      "Optional. One e-mail, about six weeks after your book, to the address of your order. It links to a new intake that does not repeat the ideas you already received. Nothing after that; no newsletter. You can withdraw your consent at any time via hello@windowinto.nl.",
     choicesHeading: "Your choices",
     choicesHint: "Check them once more. You can still change everything before you pay.",
     choicesEdit: "Change",
@@ -1451,9 +1408,9 @@ const en: Dictionary = {
     requiredNote: "Fields marked * are required.",
     requiredMark: "required",
     errorEmailRequired: "Enter a valid e-mail address to receive your book.",
-    ctaIdle: "Pay and get my PDF — {price}",
+    ctaIdle: "Yes, I want my Idea Book — pay {price}",
     ctaPending: "Opening checkout…",
-    guarantee: "Is a place wrong? You get a new book for free.",
+    payAssurance: "Pay safely through Stripe. Your Idea Book is ready within 2 minutes.",
     payHint: {
       consent: "Tick the two boxes above to be able to pay.",
       email: "Enter a valid e-mail address to be able to pay.",

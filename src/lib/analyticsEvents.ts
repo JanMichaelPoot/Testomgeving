@@ -49,7 +49,7 @@ export const ANALYTICS_EVENTS = {
   },
   association_swipe: { when: "swipe mode: an image kept or passed", props: ["id", "liked"] },
   window_completed: { when: "the profile screen reached: the window is complete", props: ["images", "panes"] },
-  profile_viewed: { when: "the profile screen 'Wat jouw keuzes ons vertellen' shown", props: [] },
+  profile_viewed: { when: "the profile screen 'Dit zien wij in jouw keuzes' shown", props: [] },
   reading_shown: { when: "the short personal reading on the profile screen shown: the fixed text, or the model-written text when it arrived", props: ["source"] },
   profile_agreed: { when: "'Klopt, open mijn venster' pressed", props: ["adjusted"] },
   profile_reflection: { when: "profile agreed: did they fill 'Wat missen we nog?'", props: ["has_reflection"] },

@@ -1546,6 +1546,7 @@ export function AssociationWizard({
             copy={dict.profile}
             story={profile}
             heading={pick(dict.profile.heading, dict.profile.headingGift)}
+            lead={pick(dict.profile.lead, dict.profile.leadGift)}
             windowView={
               <div className="flex flex-col items-center">
                 <WindowFrame items={windowItems} size="hero" sill={sill || undefined} title={windowTitle} className="max-w-[320px]" />
@@ -1555,9 +1556,6 @@ export function AssociationWizard({
             readingRequest={readingRequest}
             fetchReading={interpretProfile}
             orderCue={dict.nav.scrollCue}
-            missTitle={pick(dict.profile.missTitle, dict.profile.missTitleGift)}
-            reflection={answers.personalReflection}
-            onReflection={(text) => set("personalReflection", text)}
             notes={
               flow2 && dropped.length > 0 ? (
                 <section className="mt-10 rounded-lg border border-gold/60 bg-paper p-5" aria-labelledby="dropped-title">

@@ -1,6 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
 
-// The results page ("Wat jouw keuzes ons vertellen"): a short personal reading in blocks, the images that were chosen, no lists of what
+// The results page ("Dit zien wij in jouw keuzes"): a short personal reading in blocks, the images that were chosen, no lists of what
 // we look for and leave out, no "Wat ons opviel". A Dutch browser, so the site opens in Dutch.
 
 const DRAFT = "window-venster-draft-images2";
@@ -59,13 +59,17 @@ test.describe("the results page", () => {
 
   test("is a short reading in blocks with the images chosen, and none of the old lists", async ({ page }) => {
     await openProfile(page);
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Wat jouw keuzes ons vertellen");
-    for (const id of ["reading-opening", "reading-thread", "reading-direction"]) {
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Dit zien wij in jouw keuzes");
+    for (const id of ["reading-opening", "reading-thread"]) {
       const text = (await page.getByTestId(id).textContent())?.trim() ?? "";
       expect(text.length, id).toBeGreaterThan(20);
     }
-    await expect(page.getByRole("heading", { name: "De rode draad" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Jouw ontdekkingsrichting" })).toBeVisible();
+    // One conclusion, not labelled sub-sections, and no question to the visitor.
+    await expect(page.getByRole("heading", { name: "De rode draad" })).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Jouw ontdekkingsrichting" })).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Zijn we iets vergeten?" })).toHaveCount(0);
+    await expect(page.getByTestId("reading-direction")).toHaveCount(0);
+    await expect(page.getByTestId("profile-lead")).toContainText("Hierop schrijven we jouw Idea Book");
     // The images that were chosen are part of the page, each with its caption.
     await expect(page.getByTestId("reading-images").locator("li")).toHaveCount(CHOSEN.length);
     // Gone: "Wat ons opviel", the lists, the old teaser, the explanation of the generation and the generic outlook block.
@@ -93,6 +97,8 @@ test.describe("on a computer", () => {
     const order = (await page.locator("#bestellen").boundingBox())!;
     expect(order.x).toBeGreaterThan(reading.x + reading.width - 5);
     await expect(page.locator("#bestellen")).toBeInViewport();
+    // The e-mail panel (larger and framed) follows the price and what you get: it is one short scroll away, not on another page.
+    await page.locator("#delivery-email").scrollIntoViewIfNeeded();
     await expect(page.locator("#delivery-email")).toBeInViewport();
     // No cue pointing down: the order is not below.
     await expect(page.getByTestId("order-cue")).toBeHidden();
@@ -118,7 +124,7 @@ test.describe("the order block", () => {
 
   test("the e-mail address is required: marked, explained, and the pay button waits for it", async ({ page }) => {
     await openProfile(page);
-    const pay = page.getByRole("button", { name: /Betalen en mijn PDF ontvangen/ });
+    const pay = page.getByRole("button", { name: /Ja, ik wil mijn Idea Book/ });
     // A red asterisk marks the required fields: the e-mail and both boxes.
     await expect(page.getByText("Velden met een * zijn verplicht.")).toBeVisible();
     await expect(page.locator("label[for='delivery-email']")).toContainText("E-mailadres voor je boek");
@@ -150,25 +156,27 @@ test.describe("the order block", () => {
   });
 });
 
-// The two switches (memory, follow-up) must stay inside the screen at every phone width, in both languages and with both on.
+// The order block no longer carries the two optional switches, the loose disclaimer, the legal links or the guarantee line, and the e-mail
+// field is the framed, larger one. The terms (with their link), the withdrawal notice and the two required boxes stay.
 for (const locale of ["nl-NL", "en-US"]) {
-  for (const width of [320, 360, 390]) {
-    test.describe(`switches at ${width}px in ${locale}`, () => {
+  for (const width of [320, 390]) {
+    test.describe(`order block at ${width}px in ${locale}`, () => {
       test.use({ viewport: { width, height: 800 }, hasTouch: true, isMobile: true, locale });
 
-      test("both stay on screen and nothing scrolls sideways", async ({ page }) => {
+      test("is the lean version, stays on screen and scrolls nowhere sideways", async ({ page }) => {
         await openProfile(page);
-        for (const id of ["memory", "followup"]) await page.locator(`#${id}-switch`).click();
-        for (const id of ["memory", "followup"]) {
-          await expect(page.locator(`#${id}-switch`)).toHaveAttribute("aria-checked", "true");
-          const box = (await page.locator(`#${id}-switch`).boundingBox())!;
-          expect(box.x, id).toBeGreaterThanOrEqual(0);
-          expect(box.x + box.width, id).toBeLessThanOrEqual(width);
-          expect(box.width, id).toBeGreaterThanOrEqual(44);
-        }
+        await expect(page.locator('main [role="switch"]')).toHaveCount(0);
+        await expect(page.locator('main nav[aria-label]')).toHaveCount(0);
+        await expect(page.locator("main label:has(input[type='checkbox'])")).toHaveCount(2);
+        await expect(page.locator('main a[href="/terms"]')).toHaveCount(1); // only inside the terms checkbox
         await expect(page.locator("#delivery-email")).toBeVisible();
         const emailBox = (await page.locator("#delivery-email").boundingBox())!;
+        expect(emailBox.x).toBeGreaterThanOrEqual(0);
         expect(emailBox.x + emailBox.width).toBeLessThanOrEqual(width);
+        expect(emailBox.height).toBeGreaterThanOrEqual(52);
+        const pay = page.getByRole("button", { name: locale === "nl-NL" ? /Ja, ik wil mijn Idea Book/ : /Yes, I want my Idea Book/ });
+        await pay.scrollIntoViewIfNeeded();
+        await expect(pay).toContainText(locale === "nl-NL" ? "betaal €7,50" : "pay €7.50");
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
       });
     });

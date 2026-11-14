@@ -8,8 +8,8 @@ import type { ProfileStory } from "@/lib/discovery/profileStory";
 import type { VensterDictionary } from "@/lib/i18n/venster";
 import { trackEvent } from "@/lib/posthog/client";
 
-// The last screen of the image intake, "Wat jouw keuzes ons vertellen", in two columns: on the left the personal reading of what was chosen (the
-// window, an opening, the images, the red thread and the direction of discovery) and one optional line of their own; on the right the order
+// The last screen of the image intake, "Dit zien wij in jouw keuzes", in two columns: on the left the personal reading of what was chosen (the
+// window, an opening, the images and the one conclusion that follows from them: no labelled sub-sections and no questions to the visitor); on the right the order
 // block, so the order is in view straight away on a computer (on a phone it follows, with a cue). The reading is fixed text built from the
 // choices (profileStory.ts) and shown at once; when the model-written version arrives (interpretation.ts, only from the facts of the choices)
 // it replaces the fixed text. There is no explanation of how it is made and no steering controls here (improvement brief, 11 Nov 2026).
@@ -104,10 +104,8 @@ export function ProfileStep({
   copy,
   story,
   heading,
+  lead,
   windowView,
-  missTitle,
-  reflection,
-  onReflection,
   payment,
   notes,
   readingRequest,
@@ -117,11 +115,10 @@ export function ProfileStep({
   copy: Copy;
   story: ProfileStory;
   heading: string;
+  /** The line under the heading: what the book is written from this reading. */
+  lead: string;
   /** The window (WindowFrame) at hero size, with the text answers on its sill. */
   windowView: ReactNode;
-  missTitle: string;
-  reflection: string;
-  onReflection: (text: string) => void;
   /** The order block (price, what you get, the payment): the right-hand column, so there is no separate checkout page. */
   payment: ReactNode;
   /** Optional notes under the reading (the two-page intake names a chosen activity that a limit rules out). */
@@ -144,6 +141,9 @@ export function ProfileStep({
     <div>
       <p className={title}>{copy.kicker}</p>
       <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{heading}</h1>
+      <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink/75 sm:text-lg" data-testid="profile-lead">
+        {lead}
+      </p>
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] lg:items-start lg:gap-10">
         {/* Left: the personal reading. */}
@@ -171,54 +171,11 @@ export function ProfileStep({
               </figure>
             )}
 
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 sm:gap-8">
-              <section aria-labelledby="reading-thread">
-                <h2 id="reading-thread" className={title}>
-                  {copy.interpret.threadTitle}
-                </h2>
-                <p className="mt-2 text-base leading-relaxed text-ink/80" data-testid="reading-thread">
-                  {blocks.thread}
-                </p>
-              </section>
-              <section aria-labelledby="reading-direction">
-                <h2 id="reading-direction" className={title}>
-                  {copy.interpret.directionTitle}
-                </h2>
-                <p className="mt-2 text-base leading-relaxed text-ink/80" data-testid="reading-direction">
-                  {blocks.direction}
-                </p>
-              </section>
-            </div>
+            <p className="mt-6 text-lg leading-relaxed text-ink/85" data-testid="reading-thread">
+              {blocks.thread}
+            </p>
           </article>
 
-          <section className="mt-8" aria-labelledby="profile-miss">
-            <h2 id="profile-miss" className="font-semibold text-ink">
-              {missTitle}
-            </h2>
-            <p className="mt-1 text-sm text-ink/70">{copy.missSub}</p>
-            {story.suggestions.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {story.suggestions.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() => onReflection(s)}
-                    className="min-h-11 rounded-full border border-border bg-paper px-3.5 py-1.5 text-xs text-ink/70 transition-colors hover:border-ink/40 hover:text-ink"
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            )}
-            <textarea
-              value={reflection}
-              onChange={(e) => onReflection(e.target.value.slice(0, 400))}
-              placeholder={copy.missPlaceholder}
-              aria-labelledby="profile-miss"
-              rows={2}
-              className="mt-3 w-full rounded-lg border border-border bg-paper px-4 py-3 leading-relaxed text-ink outline-none placeholder:text-ink/70 focus:border-ink"
-            />
-          </section>
           {notes}
         </div>
 

@@ -37,8 +37,8 @@ describe("home copy", () => {
   });
 
   it("the guarantee stands under the pay button, and the homepage no longer carries a guarantee card or a 'no reviews yet' line", () => {
-    expect(getDictionary("nl").checkout.guarantee).toBe("Klopt een plek niet? Je krijgt gratis een nieuw boek.");
-    expect(getDictionary("en").checkout.guarantee).toBe("Is a place wrong? You get a new book for free.");
+    expect(getDictionary("nl").checkout.payAssurance).toMatch(/binnen 2 minuten/);
+    expect(getDictionary("en").checkout.payAssurance).toMatch(/within 2 minutes/);
     for (const locale of LOCALES) {
       const trust = getHomeCopy(locale).trust as Record<string, unknown>;
       expect("guaranteeTitle" in trust).toBe(false);
