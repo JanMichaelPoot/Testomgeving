@@ -101,7 +101,9 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   // The lift is not the same for everybody: each visitor (seed) weighs an activity's rarity a little differently,
   // so the same few rare activities do not become the new hubs.
   const rare = (a: Activity) => graph.rarity(a) * (W.rareJitter.base + W.rareJitter.spread * mulberry32(hashSeed(`${input.seed}:rare:${a.id}`))());
-  const supplyCost = (a: Activity) => supplyPenalty(a, W.supply);
+  // What earlier research found nothing for near this place is a little less likely too (the person's own picks never are).
+  const quietSet = new Set(input.quietSupply ?? []);
+  const supplyCost = (a: Activity) => supplyPenalty(a, W.supply) + (quietSet.has(a.id) && !pickSet.has(a.id) ? W.supply.quiet : 0);
   const pickedIds = [...new Set(input.interests)].filter((id) => byId.has(id));
   const pickSet = new Set(pickedIds);
   // The most connected activities lead too many books: a little off, never for the person's own picks (weights.hub).

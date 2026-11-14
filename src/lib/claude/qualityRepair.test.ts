@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
+import { createCostLedger } from "@/lib/claude/costLedger";
 import { addsNoFacts, grammarPass, languageGuess, rewriteFailedIdeas, runQualityGate, type ModelCall } from "./qualityRepair";
 import { qaBook, rewriteTargets, type QaContext } from "./qualityGate";
 
@@ -144,6 +145,28 @@ describe("the whole gate", () => {
     expect(result.foundBefore.map((i) => i.code)).toEqual(expect.arrayContaining(["exposed_reasoning", "repeated_sentence"]));
     expect(result.log.join(" ")).toMatch(/exposed_reasoning_removed/);
     expect(result.log.join(" ")).toMatch(/rewrite_round_1/);
+  });
+
+  it("adds what its own calls cost to the book's ledger as \"qa\", each priced for the model that was called (Stap 195)", async () => {
+    const book = repeatedBook();
+    const ledger = createCostLedger({ capUsd: null });
+    // The call reports its usage the way the real one does: through onUsage, with the model it called.
+    const call: ModelCall = async ({ tool, model, onUsage }) => {
+      onUsage?.(tool.name === "rewrite_ideas" ? { input_tokens: 10_000, output_tokens: 2_000 } : { input_tokens: 8_000, output_tokens: 1_000 }, model);
+      if (tool.name === "rewrite_ideas") return { ideas: [rewriteRow(book.ideas[1], "idea2", "Een eigen, specifieke reden voor Idee B.")] };
+      return { fixes: [] };
+    };
+    await runQualityGate(book, CTX, { call, grammar: true, ledger });
+    // the rewrite: 10k in and 2k out on the writing model ($2/$10); the grammar pass: 8k in and 1k out on Haiku ($1/$5)
+    expect(ledger.breakdown().qa).toBeCloseTo(0.02 + 0.02 + 0.008 + 0.005, 3);
+    expect(Object.keys(ledger.breakdown())).toEqual(["qa"]);
+  });
+
+  it("costs nothing extra and changes nothing without a ledger", async () => {
+    const book = repeatedBook();
+    const call: ModelCall = vi.fn(async () => ({ fixes: [] }));
+    await runQualityGate(book, CTX, { call, grammar: true });
+    expect((call as unknown as { mock: { calls: { onUsage?: unknown }[][] } }).mock.calls.every(([args]) => args.onUsage === undefined)).toBe(true);
   });
 
   it("tries at most twice per idea, then reports what is left instead of failing", async () => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { activityIdsOf, feedbackSummary, intakeSummary, median, overview, readScore, scoreSummary, topCounts, type FeedbackRow, type PaymentRow, type PlanRow } from "@/lib/adminStats";
+import { activityIdsOf, costOverview, describeBookCost, feedbackSummary, intakeSummary, median, overview, readScore, scoreSummary, topCounts, type FeedbackRow, type PaymentRow, type PlanRow } from "@/lib/adminStats";
 import { csvCell } from "@/lib/csv";
 
 const NOW = new Date("2026-10-25T12:00:00Z");
@@ -130,5 +130,57 @@ describe("content", () => {
     expect(csvCell('say "hi", ok')).toBe('"say ""hi"", ok"');
     expect(csvCell("=HYPERLINK(1)")).toBe("'=HYPERLINK(1)");
     expect(csvCell(null)).toBe("");
+  });
+});
+
+describe("costOverview (Stap 195)", () => {
+  const cost = (usd: number, extra: Record<string, unknown> = {}) => ({ usd, capUsd: 0.4, skipped: [] as string[], breakdown: { standard: usd / 2, writing: usd / 2 }, ...extra });
+  const withCost = (id: string, c: ReturnType<typeof cost>, over: Partial<PlanRow> = {}) => plan({ id, progress_meta: { cost: c }, ...over });
+
+  it("adds up the books that kept a cost: total, average, median, the highest and the average per kind", () => {
+    const o = costOverview([withCost("a", cost(0.3)), withCost("b", cost(0.5)), withCost("c", cost(0.1))], NOW);
+    expect(o.books).toBe(3);
+    expect(o.totalUsd).toBeCloseTo(0.9, 6);
+    expect(o.averageUsd).toBeCloseTo(0.3, 6);
+    expect(o.medianUsd).toBe(0.3);
+    expect(o.maxUsd).toBe(0.5);
+    expect(o.perKind).toEqual([["standard", 0.15], ["writing", 0.15]].map(([k, v]) => [k, expect.closeTo(v as number, 6)]));
+  });
+
+  it("leaves out books from before the measurement, books that are not ready, and books older than the period", () => {
+    const o = costOverview(
+      [plan({ id: "old-format" }), withCost("failed", cost(9), { status: "failed" }), withCost("ancient", cost(9), { created_at: "2026-08-01T10:00:00Z" }), withCost("a", cost(0.2))],
+      NOW,
+    );
+    expect(o.books).toBe(1);
+    expect(o.totalUsd).toBeCloseTo(0.2, 6);
+  });
+
+  it("counts the books held to the cap, the books of the classic generation, the Google lookups and the share answered from the cache", () => {
+    const o = costOverview(
+      [
+        withCost("a", cost(0.4, { skipped: ["broad"], placesLookups: 5, research: { cached: 2, searched: 6, failed: 0 } })),
+        withCost("b", cost(0.1, { pipeline: "classic_after_failure", placesLookups: 3, research: { cached: 2, searched: 0, failed: 0 } })),
+      ],
+      NOW,
+    );
+    expect(o).toMatchObject({ cappedBooks: 1, classicBooks: 1, placesLookups: 8 });
+    expect(o.cacheShare).toBeCloseTo(0.4, 6); // 4 of 10 answers from the cache
+  });
+
+  it("says nothing instead of inventing a number when no book kept a cost", () => {
+    const o = costOverview([plan({ id: "a" })], NOW);
+    expect(o).toMatchObject({ books: 0, totalUsd: 0, averageUsd: null, medianUsd: null, maxUsd: null, cacheShare: null, perKind: [] });
+  });
+});
+
+describe("describeBookCost", () => {
+  it("says what a book cost, per kind, and what stayed out of it", () => {
+    const line = describeBookCost({ usd: 0.3612, capUsd: 0.4, skipped: ["broad"], breakdown: { standard: 0.07, writing: 0.1 }, placesLookups: 4, research: { cached: 2, searched: 5, failed: 0 }, quiet: { known: 3, inBook: 1 } });
+    expect(line).toBe("$0.361 aan modelaanroepen (standard 0.070, writing 0.100); overgeslagen voor de kostengrens: broad; 4 Google-opzoekingen; onderzoek: 2 uit de cache, 5 gezocht; aanbodindex: 3 stille activiteiten bekend, 1 toch in het boek");
+  });
+
+  it("is honest that the classic generation's own cost is not measured", () => {
+    expect(describeBookCost({ usd: 0.2, capUsd: 0.4, skipped: [], breakdown: {}, pipeline: "classic_after_failure" })).toContain("de kosten daarvan zijn niet gemeten");
   });
 });

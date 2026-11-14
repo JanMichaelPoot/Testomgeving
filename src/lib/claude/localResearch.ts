@@ -126,9 +126,43 @@ function radiusLine(radius: string): string {
 
 // --- cache ---------------------------------------------------------------------------------
 
-/** Found options are trusted for 30 days; "nothing verifiable" is remembered for 7. */
+/**
+ * Found options are trusted for 30 days; "nothing verifiable" is remembered for 14 (it was 7: an empty answer is mostly a search that was too thin, but
+ * every repeat costs a whole round, and what earlier empties found is kept for the supply index anyway, see supplyIndex.ts).
+ */
 export const FOUND_TTL_DAYS = 30;
-export const EMPTY_TTL_DAYS = 7;
+export const EMPTY_TTL_DAYS = 14;
+
+/**
+ * The version of what a cached answer MEANS. Bump it only when old answers would be wrong for the new question (v4 asked for physical places
+ * only, v5 let a group count without a dated session, v6 reads reviews on purpose); never for a change of wording that asks the same question,
+ * because every bump makes every stored answer useless (890 rows over 19 places were lost to the bumps from v2 to v6).
+ */
+export const RESEARCH_CACHE_EPOCH = "v6";
+
+/** The slider's steps, in kilometres: the radii a cached answer can have (distanceOptions.ts), "city" and "region" being the older classes of 15 and 75. */
+const RADIUS_STEPS_KM = [5, 10, 15, 25, 50, 75, 100] as const;
+const LEGACY_CLASS_KM: Record<string, number> = { city: 15, region: 75 };
+
+/**
+ * The cache keys of one research request: its own, and the same question asked for other radii (`narrower`: a smaller radius, `wider`: a larger one).
+ * What a cached answer says holds across radii in one direction each: options found within 15 km are real options for someone who searches within 25
+ * (a smaller set, but valid), and "nothing within 50 km" is true for someone who searches within 25. The other directions say nothing (nothing within 5 km
+ * does not mean nothing within 25; a venue found at 50 km may be too far for 5), so they are never read.
+ */
+export function radiusKeys(key: string): { narrower: string[]; wider: string[] } | null {
+  const parts = key.split("|");
+  const radius = parts[1];
+  const km = /^(\d+)km$/.exec(radius ?? "") ? Number(/^(\d+)km$/.exec(radius)![1]) : LEGACY_CLASS_KM[radius ?? ""];
+  if (km === undefined || parts[0] === "nl" || parts[0].startsWith("online")) return null;
+  const withRadius = (r: number) => [parts[0], `${r}km`, ...parts.slice(2)].join("|");
+  // A request in the older classes ("city" = 15 km) shares its answers with the same radius in kilometres.
+  const same = radius in LEGACY_CLASS_KM ? [withRadius(km)] : [];
+  return {
+    narrower: [...same, ...RADIUS_STEPS_KM.filter((r) => r < km).map(withRadius)],
+    wider: [...same, ...RADIUS_STEPS_KM.filter((r) => r > km).map(withRadius)],
+  };
+}
 
 /** When a cached answer stops being trusted: the TTL, or earlier when an option states the day it ends. */
 export function expiryMs(options: LocalOption[], now: number, emptyTtlDays: number = EMPTY_TTL_DAYS): number {
@@ -140,6 +174,11 @@ export function expiryMs(options: LocalOption[], now: number, emptyTtlDays: numb
 export interface ResearchCache {
   get(activityIds: string[], place: string, locale: Locale): Promise<Map<string, LocalOption[]>>;
   put(entries: { activityId: string; options: LocalOption[]; emptyTtlDays?: number }[], place: string, locale: Locale): Promise<void>;
+  /**
+   * The unexpired answers of several keys at once (the same question at other radii, see radiusKeys), per activity with the key each came from. Optional: a
+   * cache without it simply has no radius reuse.
+   */
+  getAcross?(activityIds: string[], keys: string[], locale: Locale): Promise<Map<string, { key: string; options: LocalOption[] }[]>>;
 }
 
 /** An empty answer for something the person chose themselves is only remembered briefly: it deserves another try soon. */
@@ -169,6 +208,25 @@ export function createSupabaseResearchCache(): ResearchCache {
           .gt("expires_at", new Date().toISOString());
         if (error) throw new Error(error.message);
         for (const row of data ?? []) out.set(row.activity_id, cleanOptions(row.options));
+      } catch (err) {
+        warn("read", err instanceof Error ? err.message : String(err));
+      }
+      return out;
+    },
+    async getAcross(activityIds, keys, locale) {
+      const out = new Map<string, { key: string; options: LocalOption[] }[]>();
+      if (activityIds.length === 0 || keys.length === 0) return out;
+      try {
+        const { createServiceRoleClient } = await import("@/lib/supabase/server");
+        const { data, error } = await createServiceRoleClient()
+          .from("local_research_cache")
+          .select("activity_id, place_key, options")
+          .in("activity_id", activityIds)
+          .in("place_key", keys)
+          .eq("locale", locale)
+          .gt("expires_at", new Date().toISOString());
+        if (error) throw new Error(error.message);
+        for (const row of data ?? []) out.set(row.activity_id, [...(out.get(row.activity_id) ?? []), { key: row.place_key, options: cleanOptions(row.options) }]);
       } catch (err) {
         warn("read", err instanceof Error ? err.message : String(err));
       }
@@ -599,15 +657,14 @@ export async function researchSeeds(opts: {
   const countryTag = foreign ? `${foreign.toLowerCase()}:` : "";
   const place = countryTag + placeKey(location, searchDistance, opts.searchDistanceKm);
   const radius = place.split("|")[1] ?? "city";
-  // The cache is kept per month: what is open or running in June says nothing about December.
-  // "v2": the notes are now always in the book's language; older cached notes could be in the language of the website.
-  // "v3": options now carry ratings and passed the stricter "is it really open" rules; older answers are not trusted.
-  // "v4": physical places only. "v5": permanent places and groups count without a dated session, with search terms per activity; the empties of v4 came from a stricter question.
-  // "v6": the research reads reviews on purpose and says what each place really is (kind) and whether it is the form the idea names (match).
+  // The cache has no month in its key any more (Stap 195): what is open or running in June says nothing about December, but the time limit of a row
+  // (30 days for found options, earlier when an option states its last day) already says so, and a month in the key made every answer useless on the 1st.
+  // RESEARCH_CACHE_EPOCH: the notes are in the book's language (v2), carry ratings (v3), are physical places only (v4), count a group without a dated
+  // session (v5), read reviews on purpose and say what each place is (v6). Bump it only when old answers would be wrong, never for a rewording.
   const online = opts.mode === "online";
   const needs = online ? [] : researchNeedsFrom(opts.needs ?? []);
   const pass: ResearchPass = !online && opts.pass === "broad" ? "broad" : "standard";
-  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${today.slice(0, 7)}|v6${online ? "|online" : ""}${pass === "broad" ? "|broad" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
+  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${RESEARCH_CACHE_EPOCH}${online ? "|online" : ""}${pass === "broad" ? "|broad" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
   const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 
@@ -638,12 +695,42 @@ export async function researchSeeds(opts: {
     }
   }
 
+  // The same question asked for another radius (radiusKeys): options found within a smaller radius are real options for this one, and "nothing within a
+  // wider radius" is a real empty answer. Used as they are and not stored under this key, so a borrowed answer never gets a new time limit.
+  const borrowed = new Set<string>();
+  const nearKeys = online ? null : radiusKeys(cacheKey);
+  if (cache?.getAcross && nearKeys) {
+    const open = toLookUp.filter((id) => !byActivity.has(id) && !priority.has(id));
+    if (open.length > 0) {
+      const rows = await cache.getAcross(open, [...nearKeys.narrower, ...nearKeys.wider], locale);
+      const kmOf = (key: string) => Number(/\|(\d+)km\|/.exec(key)?.[1] ?? 0);
+      const narrower = new Set(nearKeys.narrower);
+      const wider = new Set(nearKeys.wider);
+      for (const id of open) {
+        const list = rows.get(id) ?? [];
+        // The nearest smaller radius that found something comes first (it is the closest to what this person asked for).
+        const found = list
+          .filter((r) => narrower.has(r.key))
+          .sort((a, b) => kmOf(b.key) - kmOf(a.key))
+          .map((r) => physical(cleanOptions(r.options, today)))
+          .find((o) => o.length > 0);
+        if (found) {
+          byActivity.set(id, { activityId: id, options: found, source: "cache" });
+          borrowed.add(id);
+        } else if (list.some((r) => wider.has(r.key) && r.options.length === 0)) {
+          byActivity.set(id, { activityId: id, options: [], source: "cache" });
+          borrowed.add(id);
+        }
+      }
+    }
+  }
+
   // Cached places that never had a Google score get one now (once: the answer, also "none", is stored with the option).
   if (opts.ratings?.enabled && !online && cache) {
     const upgraded: { activityId: string; options: LocalOption[]; key: string }[] = [];
     await Promise.all(
       [...byActivity.entries()]
-        .filter(([, r]) => r.source === "cache" && r.options.some((x) => !x.rating && !x.ratingChecked))
+        .filter(([id, r]) => r.source === "cache" && !borrowed.has(id) && r.options.some((x) => !x.rating && !x.ratingChecked))
         .map(async ([id, r]) => {
           const options = await opts.ratings!.enrich(r.options, { country: foreign ?? "NL", locale });
           if (JSON.stringify(options) === JSON.stringify(r.options)) return;

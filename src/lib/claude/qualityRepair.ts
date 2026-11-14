@@ -4,6 +4,7 @@
 
 import { anthropic, CLAUDE_MODEL } from "@/lib/anthropic";
 import { extractToolInput } from "@/lib/claude/shared";
+import type { CostLedger, UsageLike } from "@/lib/claude/costLedger";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { autoFix, entriesOf, proseFields, qaBook, rewriteTargets, type QaContext, type QaIssue } from "@/lib/claude/qualityGate";
 
@@ -14,11 +15,19 @@ export const GRAMMAR_MODEL = process.env.WINDOW_QA_MODEL || "claude-haiku-4-5-20
 export const MAX_REWRITE_ATTEMPTS = 2;
 
 export interface ModelCall {
-  (args: { model: string; system: string; user: string; tool: { name: string; description: string; schema: Record<string, unknown> }; maxTokens: number }): Promise<unknown | null>;
+  (args: {
+    model: string;
+    system: string;
+    user: string;
+    tool: { name: string; description: string; schema: Record<string, unknown> };
+    maxTokens: number;
+    /** Called with the call's own usage once the model has answered (the cost ledger of the book listens here). */
+    onUsage?: (usage: UsageLike, model: string) => void;
+  }): Promise<unknown | null>;
 }
 
 /** Calls the model with one forced tool; null on any failure. */
-export const callModel: ModelCall = async ({ model, system, user, tool, maxTokens }) => {
+export const callModel: ModelCall = async ({ model, system, user, tool, maxTokens, onUsage }) => {
   try {
     const message = await anthropic.messages.create({
       model,
@@ -28,6 +37,7 @@ export const callModel: ModelCall = async ({ model, system, user, tool, maxToken
       tools: [{ name: tool.name, description: tool.description, input_schema: tool.schema as never }],
       tool_choice: { type: "tool", name: tool.name },
     });
+    onUsage?.(message.usage, model);
     return extractToolInput<unknown>(message, tool.name);
   } catch (err) {
     console.warn(`WINDOW: quality gate call (${tool.name}) failed: ${err instanceof Error ? err.message : String(err)}`);
@@ -265,10 +275,14 @@ export interface GateOptions {
   /** Switch the grammar pass off (default on; WINDOW_QA_GRAMMAR=0 also switches it off). */
   grammar?: boolean;
   maxRewriteAttempts?: number;
+  /** The book's cost ledger: what the gate's own model calls cost is added to it as "qa" (it was left out of the count before Stap 195). */
+  ledger?: CostLedger;
 }
 
 export async function runQualityGate(input: GeneratedIdeaBook, ctx: QaContext, opts: GateOptions = {}): Promise<GateResult> {
-  const call = opts.call ?? callModel;
+  const inner = opts.call ?? callModel;
+  const ledger = opts.ledger;
+  const call: ModelCall = ledger ? (args) => inner({ ...args, onUsage: (usage, model) => { ledger.add("qa", usage, model); args.onUsage?.(usage, model); } }) : inner;
   const log: string[] = [];
   const foundBefore = qaBook(input, ctx);
   try {

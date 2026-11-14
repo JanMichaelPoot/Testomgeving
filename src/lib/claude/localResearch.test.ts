@@ -87,14 +87,14 @@ describe("the person's own choices (Stap 124)", () => {
     expect(calls).toContainEqual({ ids: ["high-tea", "kralen-rijgen"], own: true });
     expect(calls).toContainEqual({ ids: ["pottenbakken"], own: false });
     expect(byActivity.get("high-tea")?.options).toHaveLength(1);
-    // empty answer for a pick: short memory, own key; for the rest: the usual week, shared key
+    // empty answer for a pick: short memory, own key; for the rest: the usual two weeks, shared key
     expect(puts.find((p) => p.activityId === "kralen-rijgen")?.emptyTtlDays).toBe(2);
     expect(puts.find((p) => p.activityId === "pottenbakken")?.emptyTtlDays).toBeUndefined();
     expect([...store.keys()].some((k) => k.startsWith("kralen-rijgen|") && k.endsWith("|own"))).toBe(true);
   });
 
   it("does not trust an empty answer in the shared cache for a pick, but does trust a found one", async () => {
-    const key = `utrecht|city|2026-10|v6`;
+    const key = `utrecht|city|v6`;
     const { cache } = memoryCache({ [`high-tea|${key}`]: [], [`kralen-rijgen|${key}`]: [opt("Kralenwinkel")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuw")]])));
     const { byActivity } = await researchSeeds({ ...config, activityIds: ["high-tea", "kralen-rijgen"], priorityIds: ["high-tea", "kralen-rijgen"], cache, search });
@@ -153,14 +153,14 @@ describe("the broad pass", () => {
   const cfg = { location: "Utrecht", searchDistance: "city", locale: "nl" as const, now: NOW, verify: false as const };
 
   it("is a pass of its own: its answers are cached under their own key and the standard cache does not answer for it", async () => {
-    const { cache, store } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [] });
+    const { cache, store } = memoryCache({ "yoga|utrecht|city|v6": [] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Brede club")]])));
     const { byActivity } = await researchSeeds({ ...cfg, activityIds: ["yoga"], cache, search, pass: "broad" });
     expect(search).toHaveBeenCalledTimes(1);
     expect((search.mock.calls[0] as unknown[])[9]).toBe("broad");
     expect(byActivity.get("yoga")?.options[0].name).toBe("Brede club");
-    expect(store.get("yoga|utrecht|city|2026-10|v6|broad")?.map((o) => o.name)).toEqual(["Brede club"]);
-    expect(store.get("yoga|utrecht|city|2026-10|v6")).toEqual([]);
+    expect(store.get("yoga|utrecht|city|v6|broad")?.map((o) => o.name)).toEqual(["Brede club"]);
+    expect(store.get("yoga|utrecht|city|v6")).toEqual([]);
   });
 
   it("is never used for the online providers", async () => {
@@ -188,7 +188,7 @@ describe("options with a last day", () => {
     const now = Date.parse("2026-10-25T10:00:00Z");
     const day = 86400000;
     expect(expiryMs([opt("A")], now)).toBe(now + 30 * day);
-    expect(expiryMs([], now)).toBe(now + 7 * day);
+    expect(expiryMs([], now)).toBe(now + 14 * day); // an empty answer is remembered for 14 days (EMPTY_TTL_DAYS), found options for 30
     const ends = expiryMs([opt("A", "2026-10-27")], now);
     expect(ends).toBeLessThan(now + 3 * day);
     expect(ends).toBeGreaterThan(now);
@@ -247,7 +247,7 @@ describe("researchSeeds", () => {
   });
 
   it("uses cached answers and only searches for what is missing", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|v6": [opt("Yoga Studio")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt(id)]])));
     const { byActivity, stats } = await researchSeeds({ ...args, activityIds: ["hardlopen", "yoga"], cache, search });
     expect(search.mock.calls[0][0]).toEqual(["hardlopen"]);
@@ -256,14 +256,14 @@ describe("researchSeeds", () => {
   });
 
   it("makes no call at all when everything is cached", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|v6": [opt("Yoga Studio")] });
     const search = vi.fn();
     await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).not.toHaveBeenCalled();
   });
 
   it("does not share answers between different places or radii", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [opt("Yoga Studio")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|v6": [opt("Yoga Studio")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, []])));
     await researchSeeds({ ...args, location: "Haarlem", activityIds: ["yoga"], cache, search });
     await researchSeeds({ ...args, searchDistance: "hour", activityIds: ["yoga"], cache, search });
@@ -274,7 +274,7 @@ describe("researchSeeds", () => {
     const { cache, store } = memoryCache();
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [] as LocalOption[]])));
     await researchSeeds({ ...args, activityIds: ["larp"], cache, search });
-    expect(store.get("larp|utrecht|city|2026-10|v6")).toEqual([]);
+    expect(store.get("larp|utrecht|city|v6")).toEqual([]);
     await researchSeeds({ ...args, activityIds: ["larp"], cache, search });
     expect(search).toHaveBeenCalledTimes(1);
   });
@@ -292,7 +292,7 @@ describe("researchSeeds", () => {
     expect(store.size).toBe(0);
   });
 
-  it("keeps the cache per month: an answer from September is not an answer for October", async () => {
+  it("does not read the older keys that carried a month (Stap 195): those rows are left unused, the time limit of a row decides now", async () => {
     const { cache } = memoryCache({ "yoga|utrecht|city|2026-09": [opt("Zomerbad")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Winterbad")]])));
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
@@ -301,7 +301,7 @@ describe("researchSeeds", () => {
   });
 
   it("searches again when every cached option has run out since", async () => {
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [opt("Herfstmarkt", "2026-10-10")] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|v6": [opt("Herfstmarkt", "2026-10-10")] });
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuwe markt", "2026-11-15")]])));
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
     expect(search).toHaveBeenCalledTimes(1);
@@ -320,7 +320,7 @@ describe("researchSeeds", () => {
     warn.mockRestore();
     expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Echt"]);
     expect(stats.dropped).toBe(1);
-    expect(store.get("yoga|utrecht|city|2026-10|v6")?.map((o) => o.name)).toEqual(["Echt"]);
+    expect(store.get("yoga|utrecht|city|v6")?.map((o) => o.name)).toEqual(["Echt"]);
   });
 
   it("works without a cache", async () => {
@@ -405,22 +405,22 @@ describe("the Google score in the research (Jan, 14 Nov 2026)", () => {
     const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Yoga Studio")]])));
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search, ratings: enricher() });
     expect(byActivity.get("yoga")?.options[0]).toMatchObject({ name: "Yoga Studio", rating: { score: 4.7, reviews: 150, source: "Google" }, ratingChecked: true });
-    expect(store.get("yoga|utrecht|city|2026-10|v6")?.[0]).toMatchObject({ rating: { score: 4.7 }, ratingChecked: true });
+    expect(store.get("yoga|utrecht|city|v6")?.[0]).toMatchObject({ rating: { score: 4.7 }, ratingChecked: true });
   });
 
   it("gives a cached place that never had a score one, once, and puts the improved answer back", async () => {
-    const { cache, store } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [opt("Yoga Studio")] });
+    const { cache, store } = memoryCache({ "yoga|utrecht|city|v6": [opt("Yoga Studio")] });
     const search = vi.fn();
     const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search, ratings: enricher(4.4) });
     expect(search).not.toHaveBeenCalled(); // still an answer from the cache
     expect(byActivity.get("yoga")?.options[0].rating?.score).toBe(4.4);
-    expect(store.get("yoga|utrecht|city|2026-10|v6")?.[0]).toMatchObject({ rating: { score: 4.4 }, ratingChecked: true });
+    expect(store.get("yoga|utrecht|city|v6")?.[0]).toMatchObject({ rating: { score: 4.4 }, ratingChecked: true });
   });
 
   it("does not look a cached place up again once it was looked up, also when there was no score", async () => {
     const f = vi.fn(async () => new Response("{}", { status: 200 })) as unknown as typeof fetch;
     const ratings = createRatingEnricher({ apiKey: "KEY", counter: async (n) => n, fetchImpl: f });
-    const { cache } = memoryCache({ "yoga|utrecht|city|2026-10|v6": [{ ...opt("Yoga Studio"), ratingChecked: true }] });
+    const { cache } = memoryCache({ "yoga|utrecht|city|v6": [{ ...opt("Yoga Studio"), ratingChecked: true }] });
     await researchSeeds({ ...args, activityIds: ["yoga"], cache, search: vi.fn(), ratings });
     expect(f).not.toHaveBeenCalled();
   });

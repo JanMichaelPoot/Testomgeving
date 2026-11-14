@@ -21,7 +21,8 @@ import { getSignedPdfUrl } from "@/lib/pdfAccess";
 import type { Locale } from "@/lib/language";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database, ProgressMeta, ProgressStage } from "@/types/database";
-import { PENDING_STALE_MS, mergeProgressMeta, shouldRetryStopped, stageDurations } from "@/lib/progressStage";
+import { PENDING_STALE_MS, mergeProgressMeta, publicProgressMeta, shouldRetryStopped, stageDurations } from "@/lib/progressStage";
+import { bookCostMeta, createCostLedger } from "@/lib/claude/costLedger";
 import { localizeBook } from "@/lib/claude/localizeBook";
 import { checkTestQuota, recordTestBook } from "@/lib/testQuota";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
@@ -69,7 +70,8 @@ type Generating = { generating: true; stage: ProgressStage | null; meta: Progres
 function generatingError(g: Generating, sessionId: string, orderRef: string | null = null): PlanNotReadyError {
   return new PlanNotReadyError(STILL_GENERATING, "generating", g.stage, sessionId, {
     startedAt: g.startedAt,
-    meta: g.meta,
+    // Only the counts the waiting screen shows: the cost of the book stays on the server.
+    meta: publicProgressMeta(g.meta),
     orderRef,
   });
 }
@@ -458,25 +460,29 @@ async function finishPlanGeneration(
     // the paid book is still delivered through the classic pipeline.
     let generated: GeneratedIdeaBook;
     let progressMeta: ProgressMeta = {};
+    // What this book cost, kept with it (progress_meta.cost) so the real cost per book can be read from the database instead of estimated.
+    // The ledger is made here, not inside the pipeline, so what a failed seed attempt had spent before it threw is not lost.
+    const ledger = createCostLedger();
     if (shouldUseEngine(profile)) {
       try {
         // Only devices that opted in on the checkout page have a history (empty otherwise).
         // Plus the ideas of the book a follow-up e-mail link pointed at (stored with the answers, see intake/actions.ts).
         const history = [...new Set([...(await loadShownBefore(supabase, pendingRow.session_id)), ...(profile.avoidActivityIds ?? [])])];
-        generated = (
-          await generateIdeaBookFromSeeds(profile, locale, characterProfile, {
-            sessionId: pendingRow.session_id,
-            history,
-            // The seasonal edition (off by default): stored with the answers only when the flag was on at the time, see intake/actions.ts.
-            season: profile.season ?? null,
-            onProgress: (stage, meta) => {
-              // Every step adds its numbers to the earlier ones; one write holds them all.
-              progressMeta = mergeProgressMeta(progressMeta, meta);
-              stageMarks[stage] = Date.now();
-              return setProgressStage(supabase, pendingRow.id, stage, progressMeta);
-            },
-          })
-        ).book;
+        const seeded = await generateIdeaBookFromSeeds(profile, locale, characterProfile, {
+          sessionId: pendingRow.session_id,
+          history,
+          // The seasonal edition (off by default): stored with the answers only when the flag was on at the time, see intake/actions.ts.
+          season: profile.season ?? null,
+          ledger,
+          onProgress: (stage, meta) => {
+            // Every step adds its numbers to the earlier ones; one write holds them all.
+            progressMeta = mergeProgressMeta(progressMeta, meta);
+            stageMarks[stage] = Date.now();
+            return setProgressStage(supabase, pendingRow.id, stage, progressMeta);
+          },
+        });
+        generated = seeded.book;
+        if (seeded.report.cost) progressMeta = mergeProgressMeta(progressMeta, { cost: seeded.report.cost });
         await recordShown(
           supabase,
           pendingRow.session_id,
@@ -484,15 +490,19 @@ async function finishPlanGeneration(
         );
       } catch (err) {
         console.error("WINDOW: seed pipeline failed, falling back to the classic generation", err);
+        // What the failed attempt had spent is paid for and counted; the classic generation's own cost (about $0.22) is not measured, only flagged.
+        progressMeta = mergeProgressMeta(progressMeta, { cost: bookCostMeta(ledger, { pipeline: "classic_after_failure" }) });
         generated = await generateIdeaBook(profile, locale, characterProfile);
       }
     } else {
+      progressMeta = mergeProgressMeta(progressMeta, { cost: bookCostMeta(ledger, { pipeline: "classic" }) });
       generated = await generateIdeaBook(profile, locale, characterProfile);
     }
     generated = localizeBook(generated, locale);
     console.log(`WINDOW: generateIdeaBook (Claude, total) took ${Date.now() - generateStartedAt}ms`);
     stageMarks.written = Date.now();
-    await setProgressStage(supabase, pendingRow.id, "written");
+    // The stage "written" carries the cost of the book with it (stored with the other numbers; a database without the column keeps the stage alone).
+    await setProgressStage(supabase, pendingRow.id, "written", progressMeta.cost ? progressMeta : undefined);
 
     // The thread per door (R2.2): which images and tags lie behind each idea from the library,
     // kept with the book and said in one line on the PDF page. Image intake only.

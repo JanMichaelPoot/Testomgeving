@@ -35,14 +35,17 @@ export async function prewarmBookResearch(supabase: ServiceRoleClient, sessionId
     if (!profile || !shouldUseEngine(profile)) return { started: false };
     // The same inputs as finishPlanGeneration (plan/data.ts): the history of this device and the ideas a follow-up e-mail asked to leave out.
     const history = [...new Set([...(await loadShownBefore(supabase, sessionId)), ...(profile.avoidActivityIds ?? [])])];
-    await generateIdeaBookFromSeeds(profile, profile.locale, computeCharacterProfile(profile), {
+    const { report } = await generateIdeaBookFromSeeds(profile, profile.locale, computeCharacterProfile(profile), {
       sessionId,
       history,
       season: profile.season ?? null,
       researchOnly: true,
     });
     const ms = Date.now() - startedAt;
-    console.log(`WindowInto: research warmed for the payment in ${ms}ms`);
+    // The cost of the warm-up is paid also for a buyer who does not pay (docs/kostenonderzoek-boekgeneratie.md §4.4). It has no book to be kept with yet,
+    // so it is in the log in one stable line: "research warmed ... usd=0.123", to be summed against the number of paid books.
+    const usd = report?.cost?.usd;
+    console.log(`WindowInto: research warmed for the payment in ${ms}ms${typeof usd === "number" ? `, usd=${usd.toFixed(3)} ${JSON.stringify(report.cost?.breakdown ?? {})}` : ""}`);
     return { started: true, ms };
   } catch (err) {
     // Never a reason to block or fail a payment.

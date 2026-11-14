@@ -16,8 +16,36 @@ export type PaymentStatus = "pending" | "succeeded" | "failed" | "refunded";
 export type PlanStatus = "pending" | "ready" | "failed";
 // How far a pending Idea Book has come (0016_progress_stage.sql).
 export type ProgressStage = "selected" | "researched" | "written" | "rendered";
-// What the generation knew at a step (0018_progress_meta.sql): counts only.
-export type ProgressMeta = { ideas?: number; places?: number; email_error?: string };
+// What one book cost to make (Stap 195), kept in window_plans.progress_meta.cost: the model calls priced from their own usage (the same prices as
+// src/lib/claude/costLedger.ts), the Google lookups counted apart (they are inside the free tier unless GOOGLE_PLACES_ALLOW_PAID is on).
+// Internal numbers: never sent to the browser (publicProgressMeta in src/lib/progressStage.ts).
+export type BookCostMeta = {
+  /** USD of model calls: research, writing and quality gate. */
+  usd: number;
+  /** The cap the book was held to (WINDOW_BOOK_COST_CAP), null when the limit was off. */
+  capUsd: number | null;
+  /** Optional rounds skipped to stay under the cap. */
+  skipped: string[];
+  /** USD per kind: standard, own, broad, online, writing, qa. */
+  breakdown: Record<string, number>;
+  /** Google Places lookups made for this book, and what they would cost at list price. */
+  placesLookups?: number;
+  placesListUsd?: number;
+  /** How many answers the research found in the cache, searched and failed. */
+  research?: { cached: number; searched: number; failed: number };
+  /**
+   * The supply index of this place (src/lib/claude/supplyIndex.ts): how many activities earlier research found nothing for, twice (`known`), and how many
+   * of those still ended up among the seeds of this book (`inBook`: their own picks, or nothing else fitted). 0 known = the index had nothing to say.
+   */
+  quiet?: { known: number; inBook: number };
+  /**
+   * Absent for a book of the seed pipeline. "classic": the older intake without the selection engine. "classic_after_failure": the seed pipeline failed
+   * after `usd` was spent and the classic generation made the book. The classic generation's own cost (about 0.22) is not measured.
+   */
+  pipeline?: "classic" | "classic_after_failure";
+};
+// What the generation knew at a step (0018_progress_meta.sql): counts only, plus the cost of the finished book.
+export type ProgressMeta = { ideas?: number; places?: number; email_error?: string; cost?: BookCostMeta };
 
 // Model C digital sale compliance (see supabase/migrations
 // /0010_digital_sales_compliance.sql) — which legal document a

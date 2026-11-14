@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { explainEmailError } from "@/lib/emailErrors";
+import { describeBookCost } from "@/lib/adminStats";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -76,6 +77,7 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
               <Field label="PDF-versie" value={String(plan.pdf_version)} />
               <Field label="E-mail verstuurd op" value={plan.email_sent_at ?? "nog niet verstuurd"} />
               <Field label="Ontvanger" value={plan.recipient_email ?? "—"} />
+              {plan.progress_meta?.cost && <Field label="Kosten van dit boek" value={describeBookCost(plan.progress_meta.cost)} />}
               {plan.progress_meta?.email_error && <Field label="E-mailfout" value={plan.progress_meta.email_error} />}
               {explainEmailError(plan.progress_meta?.email_error) && (
                 <Field label="Oorzaak en oplossing" value={`${explainEmailError(plan.progress_meta?.email_error)!.cause} ${explainEmailError(plan.progress_meta?.email_error)!.fix}`} />

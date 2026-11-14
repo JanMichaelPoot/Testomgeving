@@ -10,8 +10,11 @@
 //
 // Cached answers cost nothing and so never show up here. Pure: no network, no clock.
 
+import type { BookCostMeta } from "@/types/database";
+
 export type RoundKind = "standard" | "own" | "broad" | "online";
-export type SpendKind = RoundKind | "writing" | "other";
+/** "qa": the quality gate (the grammar pass, and the rewrite of ideas that failed a check). It is paid after the cap decisions are made, so it never blocks a round. */
+export type SpendKind = RoundKind | "writing" | "qa" | "other";
 
 export interface UsageLike {
   input_tokens?: number | null;
@@ -55,6 +58,32 @@ export function bookCostCap(env: Record<string, string | undefined> = process.en
   return Number.isFinite(n) && n > 0 ? n : DEFAULT_BOOK_CAP_USD;
 }
 
+const roundUsd = (n: number) => Math.round(n * 10000) / 10000;
+
+/**
+ * What one book cost, in the shape that is kept with it (progress_meta.cost, see BookCostMeta): the ledger's own numbers plus what it cannot
+ * know itself, the Google lookups and the research counts. Rounded to a hundredth of a cent so the stored numbers stay readable.
+ */
+export function bookCostMeta(
+  ledger: CostLedger,
+  extra: { placesLookups?: number; research?: { cached: number; searched: number; failed: number }; quiet?: { known: number; inBook: number }; pipeline?: "classic" | "classic_after_failure"; placesListPriceUsd?: number } = {},
+): BookCostMeta {
+  const meta: BookCostMeta = {
+    usd: roundUsd(ledger.spentUsd()),
+    capUsd: ledger.capUsd,
+    skipped: ledger.skipped(),
+    breakdown: ledger.breakdown(),
+  };
+  if (extra.placesLookups !== undefined) {
+    meta.placesLookups = extra.placesLookups;
+    meta.placesListUsd = roundUsd(extra.placesLookups * (extra.placesListPriceUsd ?? 0.035));
+  }
+  if (extra.research) meta.research = { cached: extra.research.cached, searched: extra.research.searched, failed: extra.research.failed };
+  if (extra.quiet) meta.quiet = { known: extra.quiet.known, inBook: extra.quiet.inBook };
+  if (extra.pipeline) meta.pipeline = extra.pipeline;
+  return meta;
+}
+
 export interface CostLedger {
   /** The cap in USD, or null when the limit is off. */
   readonly capUsd: number | null;
@@ -84,7 +113,7 @@ export function createCostLedger(opts: { capUsd?: number | null; writingReserveU
     add(kind, usage, model) {
       const cost = priceUsage(usage, model);
       spent[kind] = (spent[kind] ?? 0) + cost;
-      if (kind !== "writing" && kind !== "other") last[kind] = cost;
+      if (kind !== "writing" && kind !== "qa" && kind !== "other") last[kind] = cost;
       return cost;
     },
     spentUsd: total,

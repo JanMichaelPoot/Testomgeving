@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_BOOK_CAP_USD, DEFAULT_ROUND_USD, WRITING_RESERVE_USD, bookCostCap, createCostLedger, priceUsage } from "@/lib/claude/costLedger";
+import { DEFAULT_BOOK_CAP_USD, DEFAULT_ROUND_USD, WRITING_RESERVE_USD, bookCostCap, bookCostMeta, createCostLedger, priceUsage } from "@/lib/claude/costLedger";
 
 describe("pricing a model call", () => {
   it("prices Haiku research with its searches, as the cost meters do", () => {
@@ -79,5 +79,45 @@ describe("the ledger of one book", () => {
     l.skip("broad");
     l.skip("online");
     expect(l.skipped()).toEqual(["broad", "online"]);
+  });
+});
+
+describe("the cost of a finished book (Stap 195)", () => {
+  const cost = (usd: number) => ({ server_tool_use: { web_search_requests: Math.round(usd * 100) } });
+
+  it("keeps the quality gate apart as its own kind, without letting it set what a round is expected to cost", () => {
+    const l = createCostLedger({ capUsd: 0.4 });
+    l.add("standard", cost(0.07));
+    l.add("qa", cost(0.01));
+    expect(l.breakdown()).toEqual({ standard: 0.07, qa: 0.01 });
+    expect(l.spentUsd()).toBeCloseTo(0.08, 6);
+    expect(l.estimate("standard")).toBe(DEFAULT_ROUND_USD.standard);
+  });
+
+  it("is kept with the book in the shape that goes into progress_meta, with the lookups priced at list price apart from the model calls", () => {
+    const l = createCostLedger({ capUsd: 0.4 });
+    l.add("standard", cost(0.08));
+    l.add("writing", cost(0.1));
+    l.skip("broad");
+    const meta = bookCostMeta(l, { placesLookups: 6, research: { cached: 3, searched: 4, failed: 0, ...{ dropped: 1, ms: 9 } }, quiet: { known: 4, inBook: 1 } });
+    expect(meta).toEqual({
+      usd: 0.18,
+      capUsd: 0.4,
+      skipped: ["broad"],
+      breakdown: { standard: 0.08, writing: 0.1 },
+      placesLookups: 6,
+      placesListUsd: 0.21,
+      research: { cached: 3, searched: 4, failed: 0 },
+      quiet: { known: 4, inBook: 1 },
+    });
+  });
+
+  it("says nothing about what it does not know, and notes a book that the classic generation made", () => {
+    const l = createCostLedger({ capUsd: null });
+    l.add("standard", cost(0.3));
+    const meta = bookCostMeta(l, { pipeline: "classic_after_failure" });
+    expect(meta).toEqual({ usd: 0.3, capUsd: null, skipped: [], breakdown: { standard: 0.3 }, pipeline: "classic_after_failure" });
+    expect(meta).not.toHaveProperty("placesLookups");
+    expect(meta).not.toHaveProperty("research");
   });
 });

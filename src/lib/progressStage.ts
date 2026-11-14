@@ -63,6 +63,18 @@ export function mergeProgressMeta(previous: ProgressMeta | null | undefined, nex
   return { ...(previous ?? {}), ...(next ?? {}) };
 }
 
+/**
+ * The part of progress_meta the waiting screen may see in the browser: the two counts. The rest (the cost of the book, a mail error)
+ * is for the admin and stays on the server, also in what the polling endpoint and the page hand to the client.
+ */
+export function publicProgressMeta(meta: ProgressMeta | null | undefined): ProgressMeta | null {
+  if (!meta) return null;
+  const out: ProgressMeta = {};
+  if (typeof meta.ideas === "number") out.ideas = meta.ideas;
+  if (typeof meta.places === "number") out.places = meta.places;
+  return out;
+}
+
 /** Same, measured now (kept apart so server components need no impure call of their own). */
 export function elapsedSinceNow(startedAtIso: string | null | undefined): number | null {
   return elapsedSince(startedAtIso, Date.now());

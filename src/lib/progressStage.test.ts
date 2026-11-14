@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { activePhaseFor, elapsedSince, isStalePending, isStalled, mergeProgressMeta, PENDING_STALE_MS, phaseLabels, shouldRetryStopped, STALL_AFTER_MS } from "./progressStage";
+import { activePhaseFor, elapsedSince, isStalePending, isStalled, mergeProgressMeta, PENDING_STALE_MS, phaseLabels, publicProgressMeta, shouldRetryStopped, STALL_AFTER_MS } from "./progressStage";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 
 describe("activePhaseFor", () => {
@@ -138,5 +138,20 @@ describe("the function ceiling and the thresholds that depend on it", () => {
     expect(isStalePending(PENDING_STALE_MS - 1)).toBe(false);
     expect(isStalePending(PENDING_STALE_MS)).toBe(true);
     expect(isStalePending(null)).toBe(false);
+  });
+});
+
+describe("publicProgressMeta", () => {
+  it("hands the browser the two counts of the waiting screen and nothing else: the cost of the book and a mail error stay on the server", () => {
+    const stored = { ideas: 7, places: 17, email_error: "Missing API key", cost: { usd: 0.36, capUsd: 0.4, skipped: [], breakdown: { standard: 0.07 } } };
+    expect(publicProgressMeta(stored)).toEqual({ ideas: 7, places: 17 });
+    expect(JSON.stringify(publicProgressMeta(stored))).not.toMatch(/cost|usd|email/);
+  });
+
+  it("is null for nothing, and keeps only the counts that are numbers", () => {
+    expect(publicProgressMeta(null)).toBeNull();
+    expect(publicProgressMeta(undefined)).toBeNull();
+    expect(publicProgressMeta({ ideas: 7 })).toEqual({ ideas: 7 });
+    expect(publicProgressMeta({})).toEqual({});
   });
 });

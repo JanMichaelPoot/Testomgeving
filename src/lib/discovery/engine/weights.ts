@@ -16,8 +16,14 @@ export interface Weights {
   rare: Record<"familiar" | "adjacent" | "unexpected" | "stretch" | "wildcard", number>;
   /** Each visitor weighs an activity's rarity a little differently: factor = base + spread * (0..1 from the seed). */
   rareJitter: { base: number; spread: number };
-  /** Needs a provider within reach that may not be near: a small penalty, none for the person's own picks. */
-  supply: { rare: number; regional: number };
+  /**
+   * Needs a provider within reach that may not be near: a small penalty, none for the person's own picks.
+   * `quiet` is for an activity that earlier research near this very place found nothing for, twice (EngineInput.quietSupply, src/lib/claude/supplyIndex.ts):
+   * it costs the book a broad, an online or a replacement round, so it is about one noise unit less likely: wherever a near-equal alternative exists the selection takes
+   * it, and the quiet activity only stays when nothing else fits (measured on a profile with three picks: 53 appearances of the five most chosen in 30 books, 3 after).
+   * Only in play when the input names such activities; the evidence ages out after 120 days, so an activity that nobody researches any more is tried again.
+   */
+  supply: { rare: number; regional: number; quiet: number };
   /** Themes should not pile up: score lost per unit of bridge weight shared with an idea already chosen. */
   redundancyPerBridge: number;
   /**
@@ -67,7 +73,7 @@ export interface Weights {
 export const WEIGHTS_CURRENT: Weights = {
   rare: { familiar: 0.12, adjacent: 0.2, unexpected: 0.25, stretch: 0.15, wildcard: 1.5 },
   rareJitter: { base: 0.4, spread: 1.2 },
-  supply: { rare: 0.18, regional: 0.04 },
+  supply: { rare: 0.18, regional: 0.04, quiet: 0.3 },
   redundancyPerBridge: 0.05,
   sharedPairPenalty: 0,
   hub: 0,

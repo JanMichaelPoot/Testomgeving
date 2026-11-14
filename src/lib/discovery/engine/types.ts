@@ -35,6 +35,11 @@ export interface EngineInput {
   seed: string;
   /** Activities that must not be suggested at all, not even when picked (no real local offer was found for them). */
   exclude?: readonly string[];
+  /**
+   * Activities for which earlier research near this person's place found nothing (supplyIndex.ts). They get a soft penalty (weights.supply.quiet),
+   * never one for the person's own picks, and are never excluded: nothing else changes about how they are chosen.
+   */
+  quietSupply?: readonly string[];
   /** The calendar month (1-12) the person is asking in: seasonal activities outside it are never suggested. Unset = no season filter. */
   month?: number;
   /**

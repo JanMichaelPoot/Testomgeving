@@ -5,6 +5,7 @@
 // already anonymous apart from the e-mail address, and that address is not read here.
 
 import { explainEmailError } from "@/lib/emailErrors";
+import type { BookCostMeta } from "@/types/database";
 
 export interface PlanRow {
   id: string;
@@ -15,7 +16,7 @@ export interface PlanRow {
   email_sent_at: string | null;
   payment_id: string | null;
   pdf_version: number | null;
-  progress_meta: { email_error?: string } | null;
+  progress_meta: { email_error?: string; cost?: BookCostMeta } | null;
   ideas_json: unknown;
   wildcard_json: unknown;
   feedback_json: unknown;
@@ -69,6 +70,65 @@ export function median(values: readonly number[]): number | null {
   const s = [...values].sort((a, b) => a - b);
   const mid = Math.floor(s.length / 2);
   return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
+}
+
+/**
+ * What the books of the last `days` days cost to make, from the cost each one kept (progress_meta.cost, Stap 195). Model calls only: the Google lookups are
+ * counted apart and the classic generation's own cost is not measured (a book it made counts for what the failed seed attempt spent, if anything).
+ * Books from before the measurement have no cost and are not in it. Compare the total with the month's Anthropic invoice (M2 of docs/kostenonderzoek-boekgeneratie.md).
+ */
+export interface CostOverview {
+  /** Books with a measured cost in the period. */
+  books: number;
+  totalUsd: number;
+  averageUsd: number | null;
+  medianUsd: number | null;
+  maxUsd: number | null;
+  /** Books where an optional research round was skipped to stay under the cap. */
+  cappedBooks: number;
+  /** Books made by the classic generation (the older intake, or after a failed seed attempt). */
+  classicBooks: number;
+  /** Share of the research answers that came from the cache, over these books. */
+  cacheShare: number | null;
+  placesLookups: number;
+  /** Per kind (standard, own, broad, online, writing, qa): the average per book, most expensive first. */
+  perKind: [string, number][];
+}
+
+export function costOverview(plans: readonly PlanRow[], now: Date, days = 30): CostOverview {
+  const since = now.getTime() - days * DAY;
+  const measured = plans.filter((p) => p.status === "ready" && p.progress_meta?.cost && typeof p.progress_meta.cost.usd === "number" && Date.parse(p.created_at) >= since);
+  const costs = measured.map((p) => p.progress_meta!.cost!);
+  const usd = costs.map((c) => c.usd);
+  const kinds = new Map<string, number>();
+  for (const c of costs) for (const [k, v] of Object.entries(c.breakdown ?? {})) kinds.set(k, (kinds.get(k) ?? 0) + v);
+  const cached = costs.reduce((a, c) => a + (c.research?.cached ?? 0), 0);
+  const searched = costs.reduce((a, c) => a + (c.research?.searched ?? 0), 0);
+  return {
+    books: costs.length,
+    totalUsd: usd.reduce((a, b) => a + b, 0),
+    averageUsd: average(usd),
+    medianUsd: median(usd),
+    maxUsd: usd.length ? Math.max(...usd) : null,
+    cappedBooks: costs.filter((c) => (c.skipped ?? []).length > 0).length,
+    classicBooks: costs.filter((c) => c.pipeline).length,
+    cacheShare: ratio(cached, cached + searched),
+    placesLookups: costs.reduce((a, c) => a + (c.placesLookups ?? 0), 0),
+    perKind: [...kinds.entries()].map(([k, v]): [string, number] => [k, v / Math.max(1, costs.length)]).sort((a, b) => b[1] - a[1]),
+  };
+}
+
+/** The cost one book kept, in a line for the order page: the total, per kind, and what stayed out for the cost cap or ran through the classic generation. */
+export function describeBookCost(cost: BookCostMeta): string {
+  const kinds = Object.entries(cost.breakdown ?? {}).map(([kind, usd]) => `${kind} ${usd.toFixed(3)}`).join(", ");
+  const parts = [`$${cost.usd.toFixed(3)} aan modelaanroepen${kinds ? ` (${kinds})` : ""}`];
+  if (cost.skipped?.length) parts.push(`overgeslagen voor de kostengrens: ${cost.skipped.join(", ")}`);
+  if (cost.pipeline === "classic") parts.push("gemaakt met de klassieke generatie (oudere intake; de kosten daarvan zijn niet gemeten)");
+  if (cost.pipeline === "classic_after_failure") parts.push("de seed-pijplijn faalde; de klassieke generatie maakte het boek (de kosten daarvan zijn niet gemeten)");
+  if (cost.placesLookups !== undefined) parts.push(`${cost.placesLookups} Google-opzoekingen`);
+  if (cost.research) parts.push(`onderzoek: ${cost.research.cached} uit de cache, ${cost.research.searched} gezocht`);
+  if (cost.quiet && cost.quiet.known > 0) parts.push(`aanbodindex: ${cost.quiet.known} stille activiteiten bekend, ${cost.quiet.inBook} toch in het boek`);
+  return parts.join("; ");
 }
 
 /** The [label, count] pairs of a list of values, most frequent first. */

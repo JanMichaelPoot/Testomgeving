@@ -37,6 +37,12 @@ describe("GET /api/plan-status", () => {
     expect(body.elapsedMs).toBeGreaterThanOrEqual(59_000);
   });
 
+  it("never sends the cost of the book or a mail error to the browser", async () => {
+    row = { status: "pending", progress_stage: "written", progress_meta: { ideas: 7, places: 17, email_error: "x", cost: { usd: 0.4, capUsd: 0.4, skipped: [], breakdown: {} } }, created_at: ago(60_000) };
+    const body = await (await GET()).json();
+    expect(body.meta).toEqual({ ideas: 7, places: 17 });
+  });
+
   it("keeps a slow generation 'pending' right up to the point where the platform must have stopped it", async () => {
     row = { status: "pending", progress_stage: "researched", progress_meta: null, created_at: ago(PENDING_STALE_MS - 20_000) };
     expect((await (await GET()).json()).status).toBe("pending");

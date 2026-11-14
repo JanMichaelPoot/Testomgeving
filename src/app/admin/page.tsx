@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createServiceRoleClient } from "@/lib/supabase/server";
-import { overview, percent, ratio, type PaymentRow, type PlanRow } from "@/lib/adminStats";
+import { costOverview, overview, percent, ratio, type PaymentRow, type PlanRow } from "@/lib/adminStats";
 import { envChecks } from "@/lib/adminEnv";
 import { isExemptIp, parseExemptIps, quotaOverview, requestIp } from "@/lib/testQuota";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid, formatEuro, formatSeconds } from "./ui";
@@ -32,6 +32,8 @@ export default async function AdminOverviewPage() {
 
   const o = overview((plans ?? []) as unknown as PlanRow[], (payments ?? []) as unknown as PaymentRow[], new Date());
   const maxDay = Math.max(1, ...o.perDay.map((d) => d.count));
+  const costs = costOverview((plans ?? []) as unknown as PlanRow[], new Date());
+  const usd = (n: number | null) => (n === null ? "—" : `$${n.toFixed(2)}`);
   const emailRate = ratio(o.email.sent, o.email.expected);
   const checks = envChecks(process.env);
   const quota = await quotaOverview(supabase);
@@ -115,6 +117,35 @@ export default async function AdminOverviewPage() {
             ))}
           </div>
         </Card>
+      </Section>
+
+      <Section
+        title="Kosten per boek"
+        hint="Wat het maken van een boek aan modelaanroepen kostte (onderzoek, schrijven, kwaliteitscontrole), laatste 30 dagen, uit de kosten die elk boek bewaart. Boeken van vóór de meting staan er niet in. De Google-opzoekingen (gratis tot 1.000 per maand) en de opwarmstap tijdens het betalen (alleen in de Vercel-log) zijn niet meegeteld. Leg het totaal naast de Anthropic-factuur van de maand."
+      >
+        {costs.books === 0 ? (
+          <p className="rounded-2xl border border-line bg-surface px-4 py-3 text-sm text-ink/70">Nog geen boek met kostenmeting. Elk nieuw boek bewaart zijn kosten; ze verschijnen hier zodra het eerste klaar is.</p>
+        ) : (
+          <>
+            <TileGrid>
+              <Tile label="Gemiddeld per boek" value={usd(costs.averageUsd)} sub={`mediaan ${usd(costs.medianUsd)} · hoogste ${usd(costs.maxUsd)}`} />
+              <Tile label="Totaal, 30 dagen" value={usd(costs.totalUsd)} sub={`${costs.books} boeken met kostenmeting`} />
+              <Tile label="Antwoorden uit de cache" value={percent(costs.cacheShare)} sub="van alle onderzoeksantwoorden" />
+              <Tile label="Aan de kostengrens gehouden" value={costs.cappedBooks} sub={`${costs.classicBooks} met de klassieke terugval · ${costs.placesLookups} Google-opzoekingen`} />
+            </TileGrid>
+            <Card className="mt-4">
+              <p className="mb-2 text-xs text-ink/70">Gemiddeld per soort aanroep</p>
+              <ul className="space-y-1 text-sm">
+                {costs.perKind.map(([kind, v]) => (
+                  <li key={kind} className="flex justify-between gap-4">
+                    <span>{kind}</span>
+                    <span className="tabular-nums text-ink/70">{usd(v)}</span>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          </>
+        )}
       </Section>
 
       <Section title="E-mail" hint="Van elk betaald boek hoort een mail met de PDF te komen. Een mislukte mail bewaart zijn reden; die staat hieronder en bij de order.">

@@ -17,8 +17,10 @@ import {
   toText,
   toTextArray,
 } from "@/lib/claude/generateIdeaBook";
-import { createCostLedger, type CostLedger, type RoundKind } from "@/lib/claude/costLedger";
-import { createRatingEnricher } from "@/lib/claude/placesRatings";
+import { bookCostMeta, createCostLedger, type CostLedger, type RoundKind } from "@/lib/claude/costLedger";
+import { loadQuietSupply } from "@/lib/claude/supplyIndex";
+import type { BookCostMeta } from "@/types/database";
+import { PLACES_LIST_PRICE_USD, createRatingEnricher } from "@/lib/claude/placesRatings";
 import { researchNeedsFrom, researchSeeds, type LocalOption, type ResearchNeed, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
 import { currentMonth, describeToday, inSeason, isoDateNL } from "@/lib/discovery/season";
 import { editionDate, type Season } from "@/lib/seasonEdition";
@@ -712,8 +714,8 @@ export interface SeedPipelineReport {
   issues: string[];
   /** The quality gate: what it found before repairing and what was still wrong afterwards. */
   qa?: { found: QaIssue[]; remaining: QaIssue[] };
-  /** What the model calls of this book cost (USD), against the cap, and which optional rounds were skipped to stay under it. */
-  cost?: { usd: number; capUsd: number | null; skipped: string[]; breakdown: Record<string, number> };
+  /** What the model calls of this book cost (USD), against the cap, and which optional rounds were skipped to stay under it; kept with the book (progress_meta.cost). */
+  cost?: BookCostMeta;
 }
 
 export async function generateIdeaBookFromSeeds(
@@ -732,6 +734,10 @@ export async function generateIdeaBookFromSeeds(
      * research cache while the buyer is still paying (prewarmResearch.ts), so the real generation finds every answer waiting.
      */
     researchOnly?: boolean;
+    /** The cost ledger of the book. The caller makes it when it wants to read what a failed attempt had spent; without one the pipeline makes its own. */
+    ledger?: CostLedger;
+    /** Activities that earlier research near the person's place found nothing for (supplyIndex.ts). Without it they are read from the research cache. */
+    quietSupply?: readonly string[];
   } = {},
 ): Promise<{ book: GeneratedIdeaBook; report: SeedPipelineReport }> {
   // KNOWLEDGE_ENGINE_V2 (off by default): B4 ranking weights for the selection, B5 fill lines and honest wording for the writing.
@@ -744,8 +750,11 @@ export async function generateIdeaBookFromSeeds(
   const now = opts.season ? editionDate(opts.season, new Date()) : new Date();
   const month = currentMonth(now);
   const selectionSeed = opts.sessionId ?? `${Date.now()}`;
+  // What earlier books already learned about this place: activities nothing was found for, twice. A soft penalty in the selection, so fewer ideas
+  // need a broad, an online or a replacement round afterwards (the person's own picks are never touched). Fails soft: without it the selection is the old one.
+  const quietSupply = opts.quietSupply ?? (await loadQuietSupply({ location: intake.location, searchDistance: intake.searchDistance, searchDistanceKm: intake.searchDistanceKm, country: intake.country }));
   const select = (exclude: readonly string[]) =>
-    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude }), anchor ? { weights: knowledgeIndirectEnabled() ? WEIGHTS_ANCHOR : { ...WEIGHTS_ANCHOR, anchor: { ...WEIGHTS_ANCHOR.anchor, indirect: false } } } : ranking ? { weights: WEIGHTS_V2 } : undefined);
+    runEngine(engineInputFromIntake(intake, { seed: selectionSeed, history: opts.history, month, exclude, quietSupply }), anchor ? { weights: knowledgeIndirectEnabled() ? WEIGHTS_ANCHOR : { ...WEIGHTS_ANCHOR, anchor: { ...WEIGHTS_ANCHOR.anchor, indirect: false } } } : ranking ? { weights: WEIGHTS_V2 } : undefined);
   let engine: EngineResult = select([]);
   if (engine.seeds.length < 6) throw new Error("The selection engine could not find enough activities for this profile.");
   await opts.onProgress?.("selected", { ideas: engine.seeds.length });
@@ -756,7 +765,7 @@ export async function generateIdeaBookFromSeeds(
   // One enricher for the whole book: the Google scores of its places, within its own cap and the month's free allowance (placesRatings.ts).
   const ratings = createRatingEnricher();
   // What this book has cost so far (src/lib/claude/costLedger.ts): the optional rounds below stop when the next one would pass the cap (default USD 0.40).
-  const ledger = createCostLedger();
+  const ledger = opts.ledger ?? createCostLedger();
   // No further search round starts after the budget (RESEARCH_BUDGET_MS); what is still empty is then settled from what earlier rounds found.
   const overBudget = () => Date.now() - researchStartedAt > RESEARCH_BUDGET_MS;
   // The cost version: an optional round of this kind is skipped (and said so in the report) when it would take the book past its cap.
@@ -985,10 +994,21 @@ export async function generateIdeaBookFromSeeds(
   const foundPlaces = new Set<string>();
   for (const r of research.byActivity.values()) for (const o of r.options) foundPlaces.add(`${o.name}|${o.city}`.toLowerCase());
   await opts.onProgress?.("researched", { places: foundPlaces.size });
+  // What the book cost, in the shape that is kept with it. `quiet` says how many activities this place has a history of silence for, and how many of them
+  // still ended up in the book: the measurable effect of the supply index.
+  const costOf = () => {
+    const quiet = new Set(quietSupply);
+    return bookCostMeta(ledger, {
+      placesLookups: ratings.stats().lookups,
+      placesListPriceUsd: PLACES_LIST_PRICE_USD,
+      research: research.stats,
+      quiet: { known: quiet.size, inBook: seeds.filter((s) => quiet.has(s.activityId)).length },
+    });
+  };
   if (opts.researchOnly) {
     // Nothing is written. The caller asked for the research only; `book` is never read in that case.
     for (const kind of ledger.skipped()) notes.push(`cost_cap_skipped:${kind}`);
-    return { book: null as unknown as GeneratedIdeaBook, report: { seeds, notes, research: { ...research.stats }, issues: [], cost: { usd: ledger.spentUsd(), capUsd: ledger.capUsd, skipped: ledger.skipped(), breakdown: ledger.breakdown() } } };
+    return { book: null as unknown as GeneratedIdeaBook, report: { seeds, notes, research: { ...research.stats }, issues: [], cost: costOf() } };
   }
 
   // 3. Write the ideas (one retry on a malformed answer, without repeating the research).
@@ -1158,7 +1178,7 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
 
   // 5. The quality gate (Fase 3): takes the machinery out of the text, fixes chips that contradict the activity, rewrites only the
   // ideas that repeat a sentence or name something out of season (at most twice each) and runs one grammar pass. Fails soft.
-  const gate = await runQualityGate(assembled, { locale, month, budget: intake.budget, timeAvailable: intake.timeAvailable });
+  const gate = await runQualityGate(assembled, { locale, month, budget: intake.budget, timeAvailable: intake.timeAvailable }, { ledger });
   const book = gate.book;
   issues.push(...gate.log.map((l) => `qa:${l}`), ...gate.remaining.map((r) => `qa_remaining:${r.code}@${r.where}`));
 
@@ -1168,7 +1188,7 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   if (placesLine) console.log(placesLine);
   console.log(`WINDOW: options per idea: ${optionsCoverage.withOption}/${optionsCoverage.ideas} with a concrete option, ${optionsCoverage.withRating} with a rating`);
   for (const kind of ledger.skipped()) notes.push(`cost_cap_skipped:${kind}`);
-  const cost = { usd: ledger.spentUsd(), capUsd: ledger.capUsd, skipped: ledger.skipped(), breakdown: ledger.breakdown() };
+  const cost = costOf();
   // One line for the logs (the cost meters read the lines with "took ... usage", not this one): the book against its cap, and what was left out for it.
   console.log(`WindowInto: book cost so far ${cost.usd.toFixed(3)} of a cap of ${cost.capUsd === null ? "none" : "$" + cost.capUsd.toFixed(2)} (${JSON.stringify(cost.breakdown)})${cost.skipped.length ? `, rounds skipped for cost: ${cost.skipped.join(", ")}` : ""}`);
   const report: SeedPipelineReport = { seeds, notes, research: research.stats, options: optionsCoverage, issues, qa: { found: gate.foundBefore, remaining: gate.remaining }, cost };

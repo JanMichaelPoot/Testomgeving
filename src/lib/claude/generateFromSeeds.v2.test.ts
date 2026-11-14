@@ -317,3 +317,50 @@ describe("the cost of one book (Jan, 14 Nov 2026: at most USD 0.40)", () => {
     expect(report.cost?.breakdown.writing).toBeGreaterThan(0.05); // two calls of 10k in and 3k out at $2 and $10 per million
   });
 });
+
+describe("what is kept with the book (Stap 195)", () => {
+  const runWith = (extra: Record<string, unknown>, over: Partial<IntakeAnswers> = {}) => {
+    const answers = { ...intake, ...over };
+    return generateIdeaBookFromSeeds(answers, "nl", computeCharacterProfile(answers), { sessionId: "v2-test", ...extra });
+  };
+  const price = { usage: { input_tokens: 10_000, output_tokens: 3_000 } };
+  const answerWithUsage = () =>
+    create.mockImplementation(async (args: { tools: { name: string }[] }) => ({ ...(args.tools[0].name === "create_layers" ? layersAnswer(sevenLayers()) : coreAnswer()), ...price }));
+
+  it("reports the cost in the shape that goes into progress_meta: model calls, the Google lookups, the research counts and the supply index", async () => {
+    vi.stubEnv("WINDOW_BOOK_COST_CAP", "off");
+    answerWithUsage();
+    const { report } = await runWith({ quietSupply: ["fossielen", "kamperen"] });
+    expect(report.cost).toMatchObject({ capUsd: null, skipped: [], placesLookups: 0, placesListUsd: 0, research: { cached: expect.any(Number), searched: expect.any(Number), failed: 0 }, quiet: { known: 2, inBook: expect.any(Number) } });
+    expect(report.cost?.usd).toBeGreaterThan(0.05);
+  });
+
+  it("uses the ledger of the caller, so what a failed attempt had spent can still be read", async () => {
+    vi.stubEnv("WINDOW_BOOK_COST_CAP", "off");
+    answerWithUsage();
+    const { createCostLedger } = await import("@/lib/claude/costLedger");
+    const ledger = createCostLedger({ capUsd: null });
+    const { report } = await runWith({ ledger });
+    expect(ledger.spentUsd()).toBeCloseTo(report.cost!.usd, 3);
+    expect(ledger.breakdown().writing).toBeGreaterThan(0.05);
+  });
+
+  it("hands the quiet activities to the selection: fewer of them end up in the book, and the report counts the ones that still do", async () => {
+    answerWithUsage();
+    const plain = (await runWith({ quietSupply: [] })).report.seeds.map((s) => s.activityId);
+    const avoid = plain.filter((id) => id !== "pottenbakken").slice(0, 3);
+    expect(avoid.length).toBeGreaterThan(0);
+    const { report } = await runWith({ quietSupply: avoid });
+    // A soft penalty, not a ban: all of them were in the book before, a slot that nothing else fits may still hold one.
+    const stillIn = avoid.filter((id) => report.seeds.some((s) => s.activityId === id)).length;
+    expect(stillIn).toBeLessThan(avoid.length);
+    expect(report.cost?.quiet).toEqual({ known: avoid.length, inBook: stillIn });
+  });
+
+  it("reads the quiet activities from the research cache when the caller gives none, and a failure there only means a book without them", async () => {
+    answerWithUsage();
+    const { report } = await runWith({});
+    // WINDOW_SUPPLY_INDEX=0 in the test environment: the index is off, nothing is read, the book is made as before.
+    expect(report.cost?.quiet).toEqual({ known: 0, inBook: 0 });
+  });
+});

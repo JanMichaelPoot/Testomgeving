@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
-import { elapsedSince, isStalePending } from "@/lib/progressStage";
+import { elapsedSince, isStalePending, publicProgressMeta } from "@/lib/progressStage";
+import type { ProgressMeta } from "@/types/database";
 import { isMissingColumnError } from "@/lib/supabase/errors";
 
 // How far the book of this browser's session has come: the waiting screen asks this every few seconds instead of rendering the whole /plan page
@@ -36,7 +37,7 @@ export async function GET() {
     {
       status: dead ? "failed" : row.status === "ready" || row.status === "failed" || row.status === "pending" ? row.status : "unknown",
       stage: row.progress_stage ?? null,
-      meta: row.progress_meta ?? null,
+      meta: publicProgressMeta(row.progress_meta as ProgressMeta | null | undefined),
       elapsedMs,
     },
     { headers: { "Cache-Control": "no-store" } },
