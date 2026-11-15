@@ -87,8 +87,8 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
   return (
     <div className="flex min-h-full flex-col bg-cream">
       <SiteHeader locale={locale} dict={dict.header} />
-      <TestModeBanner notice={stripeTestNotice(dict.venster.testBanner)} />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-12 sm:px-10">
+        <TestModeBanner notice={stripeTestNotice(dict.venster.testBanner)} className="-mt-6 mb-6" />
         <Link
           href="/intake?edit=1"
           className="mb-8 inline-flex items-center gap-2 text-sm text-ink/70 transition-colors hover:text-ink"

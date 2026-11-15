@@ -27,7 +27,7 @@ for (const size of sizes) {
       await page.getByRole("link", { name: /Kijk door het venster/ }).first().click();
       await expect(page).toHaveURL(/\/intake/);
 
-      // 2. Start page: who, where (a place is the one required answer), the two sliders, the grouped limits.
+      // 2. Start page: who, where (a place is the one required answer), the two sliders (no limit chips any more).
       await expect(page.getByRole("heading", { level: 1 })).toHaveText("Een ontdekking begint bij jou");
       await page.locator('[data-context="self"]').click();
       await page.locator("#location").fill("Utrecht");
@@ -35,7 +35,7 @@ for (const size of sizes) {
       await expect(page.getByTestId("distance-km-value")).toHaveText("Tot 25 km");
       await page.locator("#budget-pp").fill("2");
       await expect(page.getByTestId("budget-pp-value")).toHaveText("Tot €50 per persoon");
-      await page.getByRole("button", { name: "Alleen buiten", exact: true }).click();
+      await expect(page.getByRole("button", { name: "Alleen buiten", exact: true })).toHaveCount(0);
       await noSideways();
       await press("Verder");
 

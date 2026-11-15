@@ -56,9 +56,10 @@ test.describe("the start page", () => {
     await expect(page.getByTestId("distance-km-value")).toHaveText("Tot 15 km");
     await expect(page.getByTestId("budget-pp-value")).toContainText("Nog niets gekozen");
     await expect(page.getByText("Wat mag deze ervaring ongeveer kosten per persoon?")).toBeVisible();
-    // The chips are grouped under headings.
-    for (const heading of ["Omgeving", "Bereikbaarheid", "Gezelschap", "Eten en drinken", "Wanneer"]) await expect(page.getByText(heading, { exact: true })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Alleen buiten", exact: true })).toBeVisible();
+    // The grouped "what matters" chips are gone (15 Nov 2026): the search stays broad.
+    await expect(page.getByText("Tik aan wat voor jou belangrijk is")).toHaveCount(0);
+    for (const heading of ["Omgeving", "Bereikbaarheid", "Gezelschap", "Eten en drinken", "Wanneer"]) await expect(page.getByText(heading, { exact: true })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Alleen buiten", exact: true })).toHaveCount(0);
     // "Wie gaat er mee?" is gone.
     await expect(page.getByText("Wie gaat er mee")).toHaveCount(0);
     // The place is the one required answer.
@@ -101,8 +102,6 @@ test.describe("the start page", () => {
     await expect(page.getByTestId("budget-pp-value")).toHaveText("Tot €25 per persoon");
     await page.locator("#distance-km").fill("4");
     await expect(page.getByTestId("distance-km-value")).toHaveText("Tot 50 km");
-    await page.getByRole("button", { name: "Alleen buiten", exact: true }).click();
-    await page.getByRole("button", { name: "Zonder auto bereikbaar", exact: true }).click();
     await page.getByRole("button", { name: "Verder", exact: true }).click();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Welke beelden wekken nieuwsgierigheid?");
     // 18 images, none of them chosen yet.
@@ -112,7 +111,6 @@ test.describe("the start page", () => {
     await page.getByRole("button", { name: "Terug" }).dispatchEvent("click");
     await expect(page.locator('[data-context="child"]')).toHaveAttribute("aria-pressed", "true");
     await expect(page.locator("#location")).toHaveValue("Haarlem");
-    await expect(page.getByRole("button", { name: "Alleen buiten", exact: true })).toHaveAttribute("aria-pressed", "true");
     await expect(page.getByTestId("distance-km-value")).toHaveText("Tot 50 km");
     await expect(page.getByTestId("budget-pp-value")).toHaveText("Tot €25 per persoon");
     const draft = await page.evaluate((k) => JSON.parse(sessionStorage.getItem(k) ?? "{}"), DRAFT);
@@ -121,7 +119,7 @@ test.describe("the start page", () => {
     expect(draft.answers.searchDistanceKm).toBe(50);
     expect(draft.answers.searchDistance).toBe("hour");
     expect(draft.answers.company).toEqual([]);
-    expect(draft.limitChips).toEqual(expect.arrayContaining(["Alleen buiten", "Zonder auto bereikbaar"]));
+    expect(draft.limitChips).toEqual([]);
     expect(draft.layout).toBe(2);
   });
 

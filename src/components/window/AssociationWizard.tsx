@@ -353,7 +353,8 @@ export function AssociationWizard({
       /* eslint-disable react-hooks/set-state-in-effect -- one-time, hydration-safe restore */
       // The "how" and age answers are no longer asked: whatever an older session holds must not steer the book unseen.
       setAnswers(withKm({ ...EMPTY, ...initial.answers, budget: currentBudget(initial.answers.budget ?? ""), socialFormats: [], ageCategory: "" }));
-      setLimitChips(split.chips);
+      // The beeld-intake no longer offers the limit chips (15 Nov 2026): an older session's chips must not steer the book unseen.
+      setLimitChips(flow2 ? [] : split.chips);
       setPage(Math.min(Math.max(initial.page, 0), pages.length - 1));
       setSeed(newSeed());
       setSeenBefore(loadSeen());
@@ -370,7 +371,7 @@ export function AssociationWizard({
             purpose: "self",
           }),
         );
-        setLimitChips(draft.limitChips);
+        setLimitChips(flow2 ? [] : draft.limitChips);
         setPage(draft.page);
         setSeed(draft.seed);
         setSeenBefore(draft.seen ?? loadSeen());
@@ -1268,28 +1269,6 @@ export function AssociationWizard({
             onClear={() => set("budget", "")}
             clearLabel={dict.start.budget.clear}
           />
-          <div role="group" aria-labelledby="start-chips" className="space-y-4">
-            <div>
-              <h3 id="start-chips" className="flex flex-wrap items-center gap-2 font-semibold text-ink">
-                {dict.start.limits.chipsTitle}
-                <span className="rounded-full border border-border bg-surface-active px-2.5 py-0.5 text-xs font-medium text-ink/70">{dict.start.limits.optional}</span>
-              </h3>
-              <p className="mt-1 text-sm text-ink/70">{dict.start.limits.chipsSub}</p>
-            </div>
-            {dict.start.limits.groups.map((g) => (
-              <fieldset key={g.title}>
-                <legend className="text-xs font-bold uppercase tracking-[0.09em] text-ink/70">{g.title}</legend>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {g.chips.map((c) => (
-                    <Chip key={c} selected={limitChips.includes(c)} onClick={() => setLimitChips((prev) => toggle(prev, c))}>
-                      {c}
-                    </Chip>
-                  ))}
-                </div>
-              </fieldset>
-            ))}
-            <p className="text-sm italic text-ink/65">{dict.start.limits.chipsSkip}</p>
-          </div>
         </section>
       </div>
     );
@@ -1585,8 +1564,8 @@ export function AssociationWizard({
             payment={
               (
               <section id="bestellen" aria-labelledby="order-title" className="scroll-mt-24 overflow-hidden rounded-lg border border-border bg-paper">
-                <TestModeBanner notice={payment.testNotice} />
                 <div className="flex flex-col gap-6 p-5 sm:p-6">
+                  <TestModeBanner notice={payment.testNotice} />
                   <div>
                     <h2 id="order-title" className="font-serif text-xl leading-tight text-ink sm:text-2xl">
                       {pick(dict.checkout.heading, dict.checkout.headingGift)}

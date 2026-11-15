@@ -163,7 +163,8 @@ export function ShareLinks({ siteUrl, copy, className }: { siteUrl: string; copy
           </li>
         ))}
       </ul>
-      <p className="min-h-5 text-sm text-ink/80" role="status" aria-live="polite">
+      {/* No reserved height: an empty line under the icons only added white space (the note appears for four seconds after "Instagram"). */}
+      <p className="text-sm text-ink/80 empty:hidden" role="status" aria-live="polite">
         {note}
       </p>
     </div>

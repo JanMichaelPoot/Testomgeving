@@ -100,12 +100,8 @@ export interface Dictionary {
     subcopy: string;
     stepsHeading: string;
     steps: string[];
-    // The two explanation blocks required before the checkboxes: what
-    // digital delivery means, and the immediate-delivery/withdrawal notice.
-    digitalDeliveryHeading: string;
-    digitalDeliveryBody: string;
-    withdrawalNoticeHeading: string;
-    withdrawalNoticeBody: string;
+    // The short line next to the checkbox (15 Nov 2026: the two explanation boxes above it are gone) and the quiet link to the full text on the withdrawal page.
+    digitalDeliveryMoreInfo: string;
     // Two separate, never-pre-checked checkboxes (never combined into
     // one) — digital delivery + withdrawal waiver together (that pairing
     // is allowed to be one checkbox), and terms acceptance on its own.
@@ -662,14 +658,9 @@ const nl: Dictionary = {
       "In 1 à 2 minuten stellen we jouw Idea Book samen.",
       "Je ziet 'm meteen hier, en we mailen 'm ook naar je.",
     ],
-    digitalDeliveryHeading: "Digitale levering",
-    digitalDeliveryBody:
-      "Je persoonlijke WindowInto PDF wordt na betaling digitaal gegenereerd en beschikbaar gesteld.",
-    withdrawalNoticeHeading: "Let op: directe levering van digitale inhoud",
-    withdrawalNoticeBody:
-      "Je koopt een gepersonaliseerd digitaal product dat direct na betaling wordt gegenereerd en beschikbaar gesteld.",
+    digitalDeliveryMoreInfo: "Meer over het herroepingsrecht",
     digitalDeliveryConsentLabel:
-      "Ik verzoek WindowInto om mijn digitale product direct na betaling te leveren. Ik begrijp dat ik hiermee uitdrukkelijk instem met de onmiddellijke levering van de digitale inhoud en erken dat ik mijn wettelijke herroepingsrecht verlies zodra de levering begint.",
+      "Ik verzoek WindowInto mijn digitale product direct na betaling te leveren en erken dat ik daarmee mijn herroepingsrecht verlies.",
     termsAcceptanceLabelPrefix: "Ik heb de",
     termsAcceptanceLinkText: "Algemene voorwaarden",
     termsAcceptanceLabelSuffix: "gelezen en accepteer deze.",
@@ -1396,14 +1387,9 @@ const en: Dictionary = {
       "In 1 to 2 minutes, we put your Idea Book together.",
       "You'll see it right here, and we'll email you a copy too.",
     ],
-    digitalDeliveryHeading: "Digital delivery",
-    digitalDeliveryBody:
-      "Your personal WindowInto PDF is generated and made available digitally right after payment.",
-    withdrawalNoticeHeading: "Please note: immediate delivery of digital content",
-    withdrawalNoticeBody:
-      "You're buying a personalised digital product that is generated and made available immediately after payment.",
+    digitalDeliveryMoreInfo: "More about the right of withdrawal",
     digitalDeliveryConsentLabel:
-      "I request that WindowInto deliver my digital product immediately after payment. I understand that by doing so I expressly consent to the immediate delivery of the digital content, and I acknowledge that I lose my statutory right of withdrawal once delivery begins.",
+      "I request that WindowInto deliver my digital product immediately after payment, and I acknowledge that I lose my right of withdrawal by doing so.",
     termsAcceptanceLabelPrefix: "I have read and accept the",
     termsAcceptanceLinkText: "Terms of Service",
     termsAcceptanceLabelSuffix: ".",

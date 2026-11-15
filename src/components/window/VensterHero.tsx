@@ -33,9 +33,9 @@ export function VensterHero({
         className="absolute inset-0 -z-10 bg-[radial-gradient(70%_80%_at_72%_46%,rgba(255,246,228,0.55),transparent_72%),radial-gradient(140%_120%_at_50%_40%,transparent_55%,rgba(60,41,32,0.22)_100%)]"
       />
       {/* The wall carries on into the page: it fades into the page colour just below the sill. */}
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-b from-transparent to-cream" />
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-16 bg-gradient-to-b from-transparent to-cream sm:h-32" />
 
-      <div className="mx-auto w-full max-w-[84rem] px-4 pb-24 pt-8 sm:px-10 sm:pb-28 sm:pt-14">
+      <div className="mx-auto w-full max-w-[84rem] px-4 pb-10 pt-8 sm:px-10 sm:pb-28 sm:pt-14">
         <div className="grid w-full items-center gap-10 md:grid-cols-[1fr_1.1fr] lg:gap-16">
           <div className="flex max-w-xl flex-col gap-6">
             <div className="inline-flex items-center gap-2 self-start rounded-full border border-border bg-paper px-3.5 py-1.5">

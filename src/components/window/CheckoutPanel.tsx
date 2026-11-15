@@ -176,22 +176,14 @@ export function CheckoutPanel({
         )}
       </div>
 
-      {/* Digital delivery explanation — shown before the checkboxes, per
-          the compliance brief (never only disclosed after purchase). */}
-      <div className="mb-4 rounded-lg border border-border bg-paper p-4">
-        <p className="text-sm font-medium text-ink">{dict.digitalDeliveryHeading}</p>
-        <p className="mt-1 text-xs leading-relaxed text-ink/70">{dict.digitalDeliveryBody}</p>
-      </div>
-      <div className="mb-5 rounded-lg border border-gold/40 bg-gold/10 p-4">
-        <p className="text-sm font-medium text-ink">{dict.withdrawalNoticeHeading}</p>
-        <p className="mt-1 text-xs leading-relaxed text-ink/70">{dict.withdrawalNoticeBody}</p>
-      </div>
-
       {/* Two separate, independently required checkboxes — see
           ComplianceCheckbox above. */}
       <div className="mb-5 flex flex-col gap-4">
         <ComplianceCheckbox checked={digitalDeliveryConsent} onChange={setDigitalDeliveryConsent} requiredMark={dict.requiredMark}>
-          {dict.digitalDeliveryConsentLabel}
+          {dict.digitalDeliveryConsentLabel}{" "}
+          <Link href="/herroepingsrecht" target="_blank" className="underline underline-offset-2 hover:text-ink">
+            {dict.digitalDeliveryMoreInfo}
+          </Link>
         </ComplianceCheckbox>
         <ComplianceCheckbox checked={termsAccepted} onChange={setTermsAccepted} requiredMark={dict.requiredMark}>
           {dict.termsAcceptanceLabelPrefix}{" "}

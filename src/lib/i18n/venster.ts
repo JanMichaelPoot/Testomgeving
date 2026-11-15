@@ -211,13 +211,7 @@ export interface VensterDictionary {
       timeLabelOther: string;
       chipsLabel: string;
       chipsSub: string;
-      /** The line under the chips: nothing ticked is fine. */
-      chipsSkip: string;
-      /** The heading of the grouped chips ("Tik aan wat voor jou belangrijk is"). */
-      chipsTitle: string;
       optional: string;
-      /** The chips of who.limitChips, grouped under a heading each (every chip appears in exactly one group). */
-      groups: { title: string; chips: string[] }[];
     };
   };
   /** The merged "Jouw situatie" screen (place, time, budget, company; the rest behind "more"). */
@@ -827,21 +821,8 @@ export const vensterNl: VensterDictionary = {
       sub: "Alleen als het ertoe doet.",
       timeLabelOther: "Hoeveel tijd is er?",
       chipsLabel: "Houden we ergens rekening mee?",
-      chipsTitle: "Tik aan wat voor jou belangrijk is",
       chipsSub: "Helemaal optioneel: we zoeken ook zonder. Tik alleen aan wat voor jou echt telt. Je mag er meerdere kiezen.",
-      chipsSkip: "Niets bijzonders? Dan ga je gewoon verder.",
       optional: "optioneel",
-      groups: [
-        { title: "Omgeving", chips: ["Alleen buiten", "Alleen binnen"] },
-        { title: "Bereikbaarheid", chips: ["Met de rolstoel bereikbaar", "Zonder auto bereikbaar"] },
-        { title: "Gezelschap", chips: ["Niet in een groep", "Met de hond", "Met kinderen", "Met jonge kinderen"] },
-        { title: "Tempo en prikkels", chips: ["Rustig tempo", "Rustig en voorspelbaar"] },
-        { title: "Hoe wil je meedoen?", chips: ["Mensen ontmoeten", "Met één ander", "Met een groep"] },
-        { title: "Eten en drinken", chips: ["Zonder alcohol", "Zonder vis of schaaldieren"] },
-        { title: "Taal", chips: ["Zonder Nederlands"] },
-        { title: "Dieren", chips: ["Zonder jagen of vissen", "Zonder dieren"] },
-        { title: "Wanneer", chips: ["In het weekend", "'s Avonds"] },
-      ],
     },
   },
   situation: {
@@ -1009,7 +990,7 @@ export const vensterNl: VensterDictionary = {
     error: "Versturen lukte niet. Probeer het later nog eens.",
   },
   pdf: { coverTitle: "Jouw venster staat open", coverTitleGift: "Het venster van {name} staat open", coverTitleGroup: "Jullie venster staat open" },
-  testBanner: "Testversie · betaal met testkaart 4242 4242 4242 4242, er wordt niets afgeschreven.",
+  testBanner: "Testversie: WindowInto is nu gratis te gebruiken. Betaal met testkaart 4242 4242 4242 4242, er wordt niets afgeschreven.",
   errorGeneric: "Er ging iets mis bij het opslaan van je keuzes. Ververs de pagina en probeer het opnieuw: je keuzes blijven bewaard.",
 };
 
@@ -1482,21 +1463,8 @@ export const vensterEn: VensterDictionary = {
       sub: "Only if it matters.",
       timeLabelOther: "How much time is there?",
       chipsLabel: "Anything we should keep in mind?",
-      chipsTitle: "Tap what matters to you",
       chipsSub: "Entirely optional: we search just fine without. Only tap what really matters to you. You can pick several.",
-      chipsSkip: "Nothing in particular? Just carry on.",
       optional: "optional",
-      groups: [
-        { title: "Setting", chips: ["Only outdoors", "Only indoors"] },
-        { title: "Access", chips: ["Wheelchair accessible", "Reachable without a car"] },
-        { title: "Company", chips: ["Not in a group", "With a dog", "With children", "With young children"] },
-        { title: "Pace and stimulation", chips: ["Calm pace", "Quiet and predictable"] },
-        { title: "How do you want to take part?", chips: ["Meet people", "With one other person", "With a group"] },
-        { title: "Food and drink", chips: ["No alcohol", "No fish or shellfish"] },
-        { title: "Language", chips: ["No Dutch needed"] },
-        { title: "Animals", chips: ["No hunting or fishing", "No animals"] },
-        { title: "When", chips: ["On weekends", "In the evening"] },
-      ],
     },
   },
   situation: {
@@ -1664,6 +1632,6 @@ export const vensterEn: VensterDictionary = {
     error: "Sending didn't work. Please try again later.",
   },
   pdf: { coverTitle: "Your window is open", coverTitleGift: "{name}'s window is open", coverTitleGroup: "Your window is open, all of you" },
-  testBanner: "Test version · pay with test card 4242 4242 4242 4242, nothing is charged.",
+  testBanner: "Test version: WindowInto is free to use for now. Pay with test card 4242 4242 4242 4242, nothing is charged.",
   errorGeneric: "Something went wrong while saving your choices. Refresh the page and try again: your choices are kept.",
 };

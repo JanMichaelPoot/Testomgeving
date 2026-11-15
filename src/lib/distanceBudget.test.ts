@@ -140,19 +140,20 @@ describe("the budget slider", () => {
   });
 });
 
-describe("the grouped 'what matters' chips", () => {
+describe("the limit chips", () => {
   for (const locale of ["nl", "en"] as const) {
-    it(`cover every chip exactly once, under a heading (${locale})`, () => {
+    it(`every chip of the older situation page steers the search: the parser understands it (${locale})`, () => {
       const v = getDictionary(locale).venster;
-      const grouped = v.start.limits.groups.flatMap((g) => g.chips);
-      expect([...grouped].sort()).toEqual([...v.who.limitChips].sort());
-      expect(new Set(grouped).size).toBe(grouped.length);
-      for (const g of v.start.limits.groups) expect(g.title.trim().length).toBeGreaterThan(0);
-      // Each one steers the search: the parser understands it.
-      for (const chip of grouped) {
+      for (const chip of v.who.limitChips) {
         const r = parseMustHaves(chip);
         expect(r.setting !== null || r.noGroups || r.verify.length > 0, chip).toBe(true);
       }
+    });
+
+    it(`the start page no longer offers the grouped "what matters" chips (${locale})`, () => {
+      const limits = getDictionary(locale).venster.start.limits as Record<string, unknown>;
+      expect(limits.groups).toBeUndefined();
+      expect(limits.chipsTitle).toBeUndefined();
     });
   }
 

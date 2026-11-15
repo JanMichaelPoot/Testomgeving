@@ -101,19 +101,20 @@ export default async function Home(props: {
         {/* How it works */}
         <section
           id="hoe"
-          className="mx-auto mt-14 w-full max-w-[84rem] scroll-mt-24 px-6 sm:px-10"
+          className="mx-auto mt-6 w-full max-w-[84rem] scroll-mt-24 px-4 sm:mt-14 sm:px-10"
         >
-          <div className="grid gap-8 border-t border-border pt-7 sm:grid-cols-3 lg:gap-12">
+          <div className="grid gap-5 border-t border-border pt-5 sm:grid-cols-3 sm:gap-8 sm:pt-7 lg:gap-12">
             <h2 className="sr-only">{dict.landing.howHeading}</h2>
             {howSteps.map((step, i) => (
-              <div key={step.title} className="flex flex-col gap-1.5">
-                <span className="font-serif text-3xl text-walnut-light">
+              // On a phone the number sits next to the text, so three steps take about half the height of three stacked blocks.
+              <div key={step.title} className="grid grid-cols-[1.75rem_1fr] items-baseline gap-x-3 gap-y-0.5 sm:flex sm:flex-col sm:gap-1.5">
+                <span className="row-span-2 font-serif text-3xl leading-none text-walnut-light sm:row-span-1 sm:leading-normal">
                   {i + 1}
                 </span>
                 <p className="text-[15px] font-semibold text-ink">
                   {step.title}
                 </p>
-                <p className="text-sm leading-relaxed text-ink/70">
+                <p className="col-start-2 text-sm leading-relaxed text-ink/70 sm:col-start-auto">
                   {step.body}
                 </p>
               </div>
