@@ -7,7 +7,8 @@ import type { IntakeAnswers } from "@/app/intake/actions";
 import type { CharacterProfile } from "@/lib/characterProfile";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { checkFill, fillConflicts, fillContext, repeatedOpenings, type IdeaFill } from "@/lib/claude/ideaFill";
-import { concreteOptionsRequired, coverageEnabled, knowledgeAnchorEnabled, knowledgeIndirectEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
+import { concreteOptionsRequired, coverageEnabled, knowledgeAnchorEnabled, knowledgeIndirectEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled, searchV2Enabled } from "@/lib/knowledgeFlags";
+import { fillFromReserve, reserveDepth, reserveExclusions, reserveFrom } from "@/lib/claude/searchPlan";
 import {
   LOCATION_SCHEMA,
   PRACTICAL_SCHEMA,
@@ -22,7 +23,7 @@ import { loadSupplyEvidence } from "@/lib/claude/supplyIndex";
 import { relevantOptions } from "@/lib/claude/optionRelevance";
 import type { BookCostMeta } from "@/types/database";
 import { PLACES_LIST_PRICE_USD, createRatingEnricher } from "@/lib/claude/placesRatings";
-import { researchNeedsFrom, researchSeeds, type LocalOption, type ResearchNeed, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
+import { adjustedScore, researchNeedsFrom, researchSeeds, type LocalOption, type ResearchNeed, type ResearchStats, type SeedResearch } from "@/lib/claude/localResearch";
 import { currentMonth, describeToday, inSeason, isoDateNL } from "@/lib/discovery/season";
 import { editionDate, type Season } from "@/lib/seasonEdition";
 import { engineInputFromIntake, relatedActivities, runEngine } from "@/lib/discovery/engine";
@@ -724,6 +725,7 @@ const addStats = (a: ResearchStats, b: ResearchStats): ResearchStats => ({
   searched: a.searched + b.searched,
   failed: a.failed + b.failed,
   dropped: a.dropped + b.dropped,
+  checked: (a.checked ?? 0) + (b.checked ?? 0),
   ms: a.ms + b.ms,
 });
 
@@ -736,6 +738,8 @@ export interface SeedPipelineReport {
   issues: string[];
   /** The quality gate: what it found before repairing and what was still wrong afterwards. */
   qa?: { found: QaIssue[]; remaining: QaIssue[] };
+  /** Only for a research-only run (the comparison script): the options found per idea, so the quality of the search can be read next to its cost. */
+  placesPerIdea?: { activityId: string; options: { name: string; city: string; url: string | null; rating: number | null }[] }[];
   /** What the model calls of this book cost (USD), against the cap, and which optional rounds were skipped to stay under it; kept with the book (progress_meta.cost). */
   cost?: BookCostMeta;
 }
@@ -804,8 +808,27 @@ export async function generateIdeaBookFromSeeds(
     ledger.skip(kind);
     return true;
   };
-  const researchFor = (seedList: readonly Seed[], known?: ReadonlyMap<string, SeedResearch>) =>
-    researchSeeds({
+  // Search Engine 2.0 (Stap 200, WINDOW_SEARCH_V2): the book's ideas AND a reserve are researched in one go; an idea without a real place is then swapped for the
+  // reserve idea of its direction that has one, instead of a new search round per replacement (src/lib/claude/searchPlan.ts).
+  const poolSearch = searchV2Enabled() && concreteOptionsRequired();
+  let reserve: Seed[] = [];
+  if (poolSearch) {
+    try {
+      // Each further selection leaves out the book and everything already in the reserve, so every one adds new ideas.
+      for (let level = 0; level < reserveDepth(); level++) {
+        const left = [...engine.seeds, ...reserve];
+        reserve = [...reserve, ...reserveFrom(left, select(reserveExclusions(left)).seeds)];
+      }
+    } catch (err) {
+      console.warn("WindowInto: the reserve selection failed, the book is searched without a reserve", err instanceof Error ? err.message : err);
+    }
+  }
+  const notes = [...engine.notes];
+  const replacedPicks = new Map<string, string>(); // replacement activity id -> the label of the choice it replaces
+  const researchedIds = new Set<string>();
+  const researchFor = (seedList: readonly Seed[], known?: ReadonlyMap<string, SeedResearch>) => {
+    for (const id of researchIds(seedList)) researchedIds.add(id);
+    return researchSeeds({
       ratings,
       activityIds: researchIds(seedList),
       location: intake.location,
@@ -819,10 +842,37 @@ export async function generateIdeaBookFromSeeds(
       country: intake.country,
       ledger,
     });
-  let research = await researchFor(engine.seeds);
+  };
+  let research = await researchFor([...engine.seeds, ...reserve]);
+  // The rounds after this one are the fallback; this many paid calls were the first round (own choices and the rest side by side).
+  const initialResearchCalls = ledger.calls().filter((c) => ["standard", "own", "broad", "online"].includes(c.kind)).length;
   // Every answer of every round, also of selections that were not kept: the last safety net swaps an idea without an option for one of these.
   const everything = new Map<string, SeedResearch>(research.byActivity);
-  const everSeen = new Map<string, Seed>(engine.seeds.map((s) => [s.activityId, s]));
+  const everSeen = new Map<string, Seed>([...engine.seeds, ...reserve].map((s) => [s.activityId, s]));
+  // The reserve swap: what has no real place is replaced by the reserve idea of its direction that has one. Free: the reserve was researched with the book.
+  const reserveSwaps: { out: string; in: string }[] = [];
+  if (poolSearch && reserve.length > 0) {
+    const placed = (s: Seed, book: readonly Seed[]) => (seedResearch(s, dedupePlaces(book, research.byActivity, ownPicks))?.options.length ?? 0) > 0;
+    const filled = fillFromReserve({
+      seeds: engine.seeds,
+      reserve,
+      hasOption: placed,
+      ownPicks,
+      domainOf: (id) => getActivity(id)?.domain,
+      quality: (s) => {
+        const first = seedResearch(s, research.byActivity)?.options[0];
+        return first?.rating ? adjustedScore(first.rating) : 0;
+      },
+    });
+    if (filled.swaps.length > 0) {
+      engine = { ...engine, seeds: filled.seeds };
+      for (const w of filled.swaps) {
+        reserveSwaps.push(w);
+        notes.push(`reserve_swapped:${w.out}>${w.in}`);
+        if (ownPicks.has(w.out) && !ownPicks.has(w.in)) replacedPicks.set(w.in, getActivity(w.out)?.label[locale] ?? w.out);
+      }
+    }
+  }
   const remember = (seedList: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>) => {
     for (const s of seedList) everSeen.set(s.activityId, s);
     for (const [id, r] of byActivity) if (r.options.length > 0 || !everything.has(id)) everything.set(id, r);
@@ -908,16 +958,17 @@ export async function generateIdeaBookFromSeeds(
   // still without a provider, and in that last round only activities that need nobody's offer are allowed at all.
   // What the person chose themselves is never swapped out (Stap 124): without a provider it stays, described honestly. Only the
   // ideas the engine added on its own are replaced, and the engine keeps every pick it had selected (a replacement that loses one is refused).
-  const notes = [...engine.notes];
   const tried: string[] = [];
   // One place, one idea: a place that an earlier idea already has does not count for a later one.
   const unsupported = (seeds: readonly Seed[], byActivity: ReadonlyMap<string, SeedResearch>) =>
     seedsWithoutSupply(seeds, dedupePlaces(seeds, byActivity, ownPicks), requireOptions).filter((s) => !ownPicks.has(s.activityId));
-  for (let round = 1; round <= SUPPLY_ROUNDS; round++) {
+  // With the pool search the reserve swap above has replaced what it could; the rest goes to the coverage stage, so these whole-selection retries are not run.
+  const supplyRounds = poolSearch ? 0 : SUPPLY_ROUNDS;
+  for (let round = 1; round <= supplyRounds; round++) {
     const noSupply = unsupported(engine.seeds, research.byActivity);
     if (noSupply.length === 0 || overBudget() || costBlocks("standard")) break;
     tried.push(...noSupply.map((s) => s.activityId));
-    const lastRound = round === SUPPLY_ROUNDS;
+    const lastRound = round === supplyRounds;
     // The last round only allows activities that need nobody's offer. It must not throw out what already has an offer or was chosen:
     // those stay eligible, so the rest of the selection hardly moves.
     const keep = new Set([...ownPicks, ...engine.seeds.filter((s) => !noSupply.includes(s)).map((s) => s.activityId)]);
@@ -948,7 +999,6 @@ export async function generateIdeaBookFromSeeds(
   // 2c. A choice of the person's own for which nothing real was found near them, not even by the broader and the wider search, is replaced by a
   // related activity that does have a real option (Jan, 14 Nov 2026: the book is about good, useful options; an idea without one is not worth a place).
   // The replacement comes from the relation graph, with the same hard filters as the selection, and the book says in one sentence that it replaces the choice.
-  const replacedPicks = new Map<string, string>(); // replacement activity id -> the label of the choice it replaces
   const lackingPicks = () => seedsWithoutSupply(engine.seeds, dedupePlaces(engine.seeds, research.byActivity, ownPicks), requireOptions).filter((s) => ownPicks.has(s.activityId));
   const toReplace = requireOptions && !coverage && !overBudget() && !(lackingPicks().length > 0 && costBlocks("standard")) ? lackingPicks() : [];
   if (toReplace.length > 0) {
@@ -1096,7 +1146,7 @@ export async function generateIdeaBookFromSeeds(
   const seeds = engine.seeds;
   // Only what was really found: distinct places over all the ideas (name + city).
   const foundPlaces = new Set<string>();
-  for (const r of research.byActivity.values()) for (const o of r.options) foundPlaces.add(`${o.name}|${o.city}`.toLowerCase());
+  for (const s of seeds) for (const o of seedResearch(s, research.byActivity)?.options ?? []) foundPlaces.add(`${o.name}|${o.city}`.toLowerCase());
   await opts.onProgress?.("researched", { places: foundPlaces.size });
   // What the book cost, in the shape that is kept with it. `quiet` says how many activities this place has a history of silence for, and how many of them
   // still ended up in the book: the measurable effect of the supply index.
@@ -1107,6 +1157,20 @@ export async function generateIdeaBookFromSeeds(
       placesListPriceUsd: PLACES_LIST_PRICE_USD,
       research: research.stats,
       quiet: { known: quiet.size, inBook: seeds.filter((s) => quiet.has(s.activityId)).length },
+      search: (() => {
+        const optionsPerIdea = seeds.map((s) => seedResearch(s, research.byActivity)?.options.length ?? 0);
+        const researchCalls = ledger.calls().filter((c) => ["standard", "own", "broad", "online"].includes(c.kind)).length;
+        return {
+          engine: poolSearch ? ("v2" as const) : ("v1" as const),
+          candidates: researchedIds.size,
+          candidatesWithOption: [...researchedIds].filter((id) => (everything.get(id)?.options.length ?? 0) > 0 || (research.byActivity.get(id)?.options.length ?? 0) > 0).length,
+          reserve: { researched: new Set(reserve.map((s) => s.activityId)).size, used: reserveSwaps.length },
+          fallbackRounds: Math.max(0, researchCalls - initialResearchCalls),
+          sitesChecked: research.stats.checked ?? 0,
+          optionsPerIdea,
+          presentedOptions: optionsPerIdea.reduce((a, b) => a + b, 0),
+        };
+      })(),
       ...(coverage
         ? { coverage: { replaced: notes.filter((n) => n.startsWith("coverage_replaced:")).length, dropped: notes.filter((n) => n.startsWith("dropped_no_option:")).length, incomplete: notes.includes("coverage_incomplete") } }
         : {}),
@@ -1115,7 +1179,7 @@ export async function generateIdeaBookFromSeeds(
   if (opts.researchOnly) {
     // Nothing is written. The caller asked for the research only; `book` is never read in that case.
     for (const kind of ledger.skipped()) notes.push(`cost_cap_skipped:${kind}`);
-    return { book: null as unknown as GeneratedIdeaBook, report: { seeds, notes, research: { ...research.stats }, issues: [], cost: costOf() } };
+    return { book: null as unknown as GeneratedIdeaBook, report: { seeds, notes, research: { ...research.stats }, issues: [], cost: costOf(), placesPerIdea: seeds.map((s) => ({ activityId: s.activityId, options: (seedResearch(s, research.byActivity)?.options ?? []).map((o) => ({ name: o.name, city: o.city, url: o.url, rating: o.rating?.score ?? null })) })) } };
   }
 
   // 3. Write the ideas (one retry on a malformed answer, without repeating the research).

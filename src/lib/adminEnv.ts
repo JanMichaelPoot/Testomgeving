@@ -7,7 +7,7 @@ import { stripeModeInfo } from "@/lib/stripeMode";
 import { parsePriceTest, variantIds } from "@/lib/priceTest";
 import { seasonalEditionEnabled } from "@/lib/seasonEdition";
 import { isVercelHost, siteUrl } from "@/lib/siteUrl";
-import { knowledgeAnchorEnabled, knowledgeAssociationLayerEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
+import { knowledgeAnchorEnabled, knowledgeAssociationLayerEnabled, knowledgeRankingV2Enabled, knowledgeWritingV2Enabled, searchV2Enabled } from "@/lib/knowledgeFlags";
 
 export interface EnvCheck {
   name: string;
@@ -104,6 +104,14 @@ export function envChecks(env: Env): EnvCheck[] {
   add("Kennisengine: ranking (B4)", true, knowledgeRankingV2Enabled(env.KNOWLEDGE_RANKING_V2, env.KNOWLEDGE_ENGINE_V2) ? "aan (KNOWLEDGE_RANKING_V2 of het oude KNOWLEDGE_ENGINE_V2)" : "uit", false);
   add("Kennisengine: schrijven (B5)", true, knowledgeWritingV2Enabled(env.KNOWLEDGE_WRITING_V2, env.KNOWLEDGE_ENGINE_V2) ? "aan (KNOWLEDGE_WRITING_V2 of het oude KNOWLEDGE_ENGINE_V2)" : "uit", false);
   add("Kennisengine: associatielaag op pagina 2", true, knowledgeAssociationLayerEnabled(env.KNOWLEDGE_ASSOCIATION_LAYER) ? "aan (KNOWLEDGE_ASSOCIATION_LAYER)" : "uit (zet KNOWLEDGE_ASSOCIATION_LAYER=1 om aan te zetten)", false);
+  add(
+    "Zoekmotor 2.0 (WINDOW_SEARCH_V2)",
+    true,
+    searchV2Enabled(env.WINDOW_SEARCH_V2)
+      ? `aan: de vijf ideeën en een reserve (WINDOW_SEARCH_RESERVE, standaard 2 selecties) worden samen onderzocht; een idee zonder plek wordt eerst door een reserve-idee vervangen, daarna pas door nieuwe zoekrondes`
+      : "uit (standaard): de vijf ideeën worden onderzocht en elk idee zonder plek kost een nieuwe zoekronde. Zet WINDOW_SEARCH_V2=1 pas na de vergelijking (scripts/compare-search.ts)",
+    false,
+  );
   add("Kennisengine: eigen keuzes eerst (anker)", true, knowledgeAnchorEnabled(env.KNOWLEDGE_ANCHOR_PICKS) ? "aan (standaard; uit met KNOWLEDGE_ANCHOR_PICKS=0): twee eigen keuzes in het boek" : "uit (KNOWLEDGE_ANCHOR_PICKS staat op uit)", false);
   const priceTest = parsePriceTest(env.PRICE_TEST);
   add("PRICE_TEST", !(has(env.PRICE_TEST) && !priceTest), has(env.PRICE_TEST) ? (priceTest ? `aan: ${variantIds(priceTest).join(", ")} (bezoekers krijgen na toestemming voor analytics een variant)` : "PROBLEEM: de waarde klopt niet (JSON met prijzen in centen, 100-10000), dus de test staat UIT") : "uit (iedereen betaalt de gewone prijs)", false);

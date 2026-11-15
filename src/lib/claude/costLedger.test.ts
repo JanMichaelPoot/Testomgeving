@@ -1,6 +1,29 @@
 import { describe, expect, it } from "vitest";
 import { DEFAULT_BOOK_CAP_USD, DEFAULT_ROUND_USD, WRITING_RESERVE_USD, bookCostCap, bookCostMeta, createCostLedger, priceUsage } from "@/lib/claude/costLedger";
 
+describe("per call (Stap 200)", () => {
+  it("keeps every call with its model, tokens, searches and cost, and totals the searches", () => {
+    const l = createCostLedger({ capUsd: null });
+    l.add("standard", { input_tokens: 40000, output_tokens: 1500, server_tool_use: { web_search_requests: 5 } }, "claude-haiku-4-5-20251001");
+    l.add("writing", { input_tokens: 5000, output_tokens: 3000 });
+    const calls = l.calls();
+    expect(calls).toHaveLength(2);
+    expect(calls[0]).toMatchObject({ kind: "standard", model: "claude-haiku-4-5-20251001", inputTokens: 40000, outputTokens: 1500, searches: 5 });
+    expect(calls[0].usd).toBeCloseTo(0.04 + 0.0075 + 0.05, 4);
+    const meta = bookCostMeta(l, { search: { engine: "v2", candidates: 10, candidatesWithOption: 6, reserve: { researched: 5, used: 1 }, fallbackRounds: 0, sitesChecked: 12, optionsPerIdea: [2, 1, 1, 0, 1], presentedOptions: 5 } });
+    expect(meta.searches).toBe(5);
+    expect(meta.searchUsd).toBeCloseTo(0.05, 4);
+    expect(meta.calls).toHaveLength(2);
+    expect(meta.search!.usdPerOption).toBeCloseTo(meta.usd / 5, 3);
+  });
+
+  it("has no cost per option for a book that presents none", () => {
+    const l = createCostLedger({ capUsd: null });
+    const meta = bookCostMeta(l, { search: { engine: "v1", candidates: 5, candidatesWithOption: 0, reserve: { researched: 0, used: 0 }, fallbackRounds: 0, sitesChecked: 0, optionsPerIdea: [0, 0, 0, 0, 0], presentedOptions: 0 } });
+    expect(meta.search!.usdPerOption).toBeNull();
+  });
+});
+
 describe("pricing a model call", () => {
   it("prices Haiku research with its searches, as the cost meters do", () => {
     // 40,000 input tokens at $1/M, 1,500 output at $5/M, 5 searches at $0.01
@@ -109,6 +132,13 @@ describe("the cost of a finished book (Stap 195)", () => {
       placesListUsd: 0.21,
       research: { cached: 3, searched: 4, failed: 0 },
       quiet: { known: 4, inBook: 1 },
+      // since Stap 200 every call is kept too, with its searches
+      calls: [
+        { kind: "standard", model: "claude-sonnet-5", inputTokens: 0, outputTokens: 0, searches: 8, usd: 0.08 },
+        { kind: "writing", model: "claude-sonnet-5", inputTokens: 0, outputTokens: 0, searches: 10, usd: 0.1 },
+      ],
+      searches: 18,
+      searchUsd: 0.18,
     });
   });
 
@@ -116,7 +146,7 @@ describe("the cost of a finished book (Stap 195)", () => {
     const l = createCostLedger({ capUsd: null });
     l.add("standard", cost(0.3));
     const meta = bookCostMeta(l, { pipeline: "classic_after_failure" });
-    expect(meta).toEqual({ usd: 0.3, capUsd: null, skipped: [], breakdown: { standard: 0.3 }, pipeline: "classic_after_failure" });
+    expect(meta).toMatchObject({ usd: 0.3, capUsd: null, skipped: [], breakdown: { standard: 0.3 }, pipeline: "classic_after_failure" });
     expect(meta).not.toHaveProperty("placesLookups");
     expect(meta).not.toHaveProperty("research");
   });

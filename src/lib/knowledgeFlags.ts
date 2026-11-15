@@ -88,6 +88,14 @@ export function coverageEnabled(value: string | undefined = process.env.WINDOW_C
   return !["0", "false", "off", "no"].includes(v);
 }
 
+/**
+ * Search Engine 2.0 (Stap 200): the pool search (the book's ideas and a reserve researched in one go, a swap instead of a new round when an idea has no real place).
+ * OFF unless WINDOW_SEARCH_V2 is set: it is switched on after the comparison against the old search (scripts/compare-search.ts) has shown it cheaper at equal quality.
+ */
+export function searchV2Enabled(value: string | undefined = process.env.WINDOW_SEARCH_V2): boolean {
+  return isOn(value);
+}
+
 /** The association layer on page 2 of the two-page intake. Off unless KNOWLEDGE_ASSOCIATION_LAYER is set. */
 export function knowledgeAssociationLayerEnabled(value: string | undefined = process.env.KNOWLEDGE_ASSOCIATION_LAYER): boolean {
   return isOn(value);

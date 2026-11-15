@@ -10,7 +10,7 @@
 //
 // Cached answers cost nothing and so never show up here. Pure: no network, no clock.
 
-import type { BookCostMeta } from "@/types/database";
+import type { BookCostMeta, SearchMeta } from "@/types/database";
 
 export type RoundKind = "standard" | "own" | "broad" | "online";
 /** "qa": the quality gate (the grammar pass, and the rewrite of ideas that failed a check). It is paid after the cap decisions are made, so it never blocks a round. */
@@ -79,7 +79,7 @@ const roundUsd = (n: number) => Math.round(n * 10000) / 10000;
  */
 export function bookCostMeta(
   ledger: CostLedger,
-  extra: { placesLookups?: number; research?: { cached: number; searched: number; failed: number }; quiet?: { known: number; inBook: number }; coverage?: { replaced: number; dropped: number; incomplete: boolean }; pipeline?: "classic" | "classic_after_failure"; placesListPriceUsd?: number } = {},
+  extra: { placesLookups?: number; research?: { cached: number; searched: number; failed: number }; quiet?: { known: number; inBook: number }; coverage?: { replaced: number; dropped: number; incomplete: boolean }; search?: SearchMeta; pipeline?: "classic" | "classic_after_failure"; placesListPriceUsd?: number } = {},
 ): BookCostMeta {
   const meta: BookCostMeta = {
     usd: roundUsd(ledger.spentUsd()),
@@ -94,8 +94,29 @@ export function bookCostMeta(
   if (extra.research) meta.research = { cached: extra.research.cached, searched: extra.research.searched, failed: extra.research.failed };
   if (extra.quiet) meta.quiet = { known: extra.quiet.known, inBook: extra.quiet.inBook };
   if (extra.coverage) meta.coverage = { ...extra.coverage };
+  const calls = ledger.calls();
+  if (calls.length > 0) {
+    meta.calls = calls.map((c) => ({ ...c, usd: roundUsd(c.usd) }));
+    meta.searches = calls.reduce((n, c) => n + c.searches, 0);
+    meta.searchUsd = roundUsd(meta.searches * SEARCH_USD);
+  }
+  if (extra.search) {
+    meta.search = { ...extra.search, optionsPerIdea: [...extra.search.optionsPerIdea] };
+    // The cost per option the book presents (Stap 200): the model cost of the whole book over the options in it; null when it presents none.
+    meta.search.usdPerOption = extra.search.presentedOptions > 0 ? roundUsd(meta.usd / extra.search.presentedOptions) : null;
+  }
   if (extra.pipeline) meta.pipeline = extra.pipeline;
   return meta;
+}
+
+/** One model call of a book, as the ledger saw it (Stap 200): which kind of round, the model, the tokens, the web searches and what it cost. */
+export interface CallRecord {
+  kind: SpendKind;
+  model: string;
+  inputTokens: number;
+  outputTokens: number;
+  searches: number;
+  usd: number;
 }
 
 export interface CostLedger {
@@ -111,6 +132,8 @@ export interface CostLedger {
   canAfford(kind: RoundKind): boolean;
   /** The same against the hard ceiling: for the rounds that make sure every idea has a real place. Always true without a ceiling. */
   canAffordCoverage(kind: RoundKind): boolean;
+  /** Every call recorded so far, in order. */
+  calls(): CallRecord[];
   /** Notes that a round was skipped for cost. */
   skip(kind: RoundKind): void;
   skipped(): string[];
@@ -124,12 +147,21 @@ export function createCostLedger(opts: { capUsd?: number | null; hardCapUsd?: nu
   const spent: Record<string, number> = {};
   const last: Partial<Record<RoundKind, number>> = {};
   const skipped: string[] = [];
+  const calls: CallRecord[] = [];
   const total = () => Object.values(spent).reduce((a, b) => a + b, 0);
   const estimate = (kind: RoundKind) => Math.max(DEFAULT_ROUND_USD[kind], last[kind] ?? 0);
   return {
     capUsd,
     add(kind, usage, model) {
       const cost = priceUsage(usage, model);
+      calls.push({
+        kind,
+        model: model ?? "claude-sonnet-5",
+        inputTokens: (usage?.input_tokens ?? 0) + (usage?.cache_creation_input_tokens ?? 0) + (usage?.cache_read_input_tokens ?? 0),
+        outputTokens: usage?.output_tokens ?? 0,
+        searches: usage?.server_tool_use?.web_search_requests ?? 0,
+        usd: cost,
+      });
       spent[kind] = (spent[kind] ?? 0) + cost;
       if (kind !== "writing" && kind !== "qa" && kind !== "other") last[kind] = cost;
       return cost;
@@ -143,5 +175,6 @@ export function createCostLedger(opts: { capUsd?: number | null; hardCapUsd?: nu
       if (!skipped.includes(kind)) skipped.push(kind);
     },
     skipped: () => [...skipped],
+    calls: () => calls.map((c) => ({ ...c })),
   };
 }

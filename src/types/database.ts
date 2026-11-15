@@ -19,6 +19,23 @@ export type ProgressStage = "selected" | "researched" | "written" | "rendered";
 // What one book cost to make (Stap 195), kept in window_plans.progress_meta.cost: the model calls priced from their own usage (the same prices as
 // src/lib/claude/costLedger.ts), the Google lookups counted apart (they are inside the free tier unless GOOGLE_PLACES_ALLOW_PAID is on).
 // Internal numbers: never sent to the browser (publicProgressMeta in src/lib/progressStage.ts).
+/**
+ * What the search stage did for one book (Stap 200), next to what it cost: which engine ran, how many activities were researched (the book's own and the
+ * reserve that waited for a swap), how many of them had a real option, how many reserve ideas took the place of one without, how many rounds had to be
+ * added afterwards, how many websites were checked and the options per idea of the book as presented.
+ */
+export type SearchMeta = {
+  engine: "v1" | "v2";
+  candidates: number;
+  candidatesWithOption: number;
+  reserve: { researched: number; used: number };
+  fallbackRounds: number;
+  sitesChecked: number;
+  optionsPerIdea: number[];
+  presentedOptions: number;
+  /** Model cost of the whole book per presented option; set by bookCostMeta. */
+  usdPerOption?: number | null;
+};
 export type BookCostMeta = {
   /** USD of model calls: research, writing and quality gate. */
   usd: number;
@@ -28,6 +45,13 @@ export type BookCostMeta = {
   skipped: string[];
   /** USD per kind: standard, own, broad, online, writing, qa. */
   breakdown: Record<string, number>;
+  /** Every model call of the book: kind, model, tokens, web searches and cost (Stap 200). */
+  calls?: { kind: string; model: string; inputTokens: number; outputTokens: number; searches: number; usd: number }[];
+  /** Web searches of the whole book, and what they cost (included in `usd`). */
+  searches?: number;
+  searchUsd?: number;
+  /** The search stage (Stap 200). */
+  search?: SearchMeta;
   /** Google Places lookups made for this book, and what they would cost at list price. */
   placesLookups?: number;
   placesListUsd?: number;

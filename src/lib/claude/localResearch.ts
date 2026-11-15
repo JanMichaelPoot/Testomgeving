@@ -99,6 +99,8 @@ export interface ResearchStats {
   failed: number;
   /** Options thrown away because their website does not exist or their date has passed. */
   dropped: number;
+  /** Options whose website was looked at (Stap 200); absent in older stats. */
+  checked?: number;
   ms: number;
 }
 
@@ -192,6 +194,15 @@ export const PICK_EMPTY_TTL_DAYS = 2;
 
 let cacheWarned = false;
 
+/**
+ * WINDOW_RESEARCH_CACHE=0 switches the shared cache off for a run: nothing is read from it or written to it. Only for measurements that must start cold and leave the
+ * production cache as it was (scripts/compare-search.ts); never set it in production, the cache is what keeps a book cheap.
+ */
+export function researchCacheEnabled(value: string | undefined = process.env.WINDOW_RESEARCH_CACHE): boolean {
+  const v = (value ?? "").trim().replace(/^["']|["']$/g, "").toLowerCase();
+  return v === "" || !["0", "false", "off", "no"].includes(v);
+}
+
 /** The shared cache in Supabase (migration 0014). If the table is missing it just does not cache. */
 export function createSupabaseResearchCache(): ResearchCache {
   const warn = (what: string, message: string) => {
@@ -267,7 +278,8 @@ export function createSupabaseResearchCache(): ResearchCache {
 /** Notes-taking from search results; a smaller model is enough (see docs/discovery-api-costs.md). */
 export const RESEARCH_MODEL = process.env.WINDOW_RESEARCH_MODEL || "claude-haiku-4-5-20251001";
 // The Google score of a place is looked up afterwards by the app (placesRatings.ts), so the model needs no extra searches to read reviews.
-const MAX_SEARCHES = 5;
+// 7 since Stap 200: a pool of ten activities (a book's five and their reserve) shares seven searches (0.7 per activity), where the five of a book never needed more than 4.
+const MAX_SEARCHES = 7;
 const MAX_PRIORITY_SEARCHES = 4;
 // The broad pass reads a lot back (35-55k tokens per round, measured): four searches at most.
 const MAX_BROAD_SEARCHES = 4;
@@ -675,7 +687,7 @@ export async function researchSeeds(opts: {
   const needs = online ? [] : researchNeedsFrom(opts.needs ?? []);
   const pass: ResearchPass = !online && opts.pass === "broad" ? "broad" : "standard";
   const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${RESEARCH_CACHE_EPOCH}${online ? "|online" : ""}${pass === "broad" ? "|broad" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
-  const cache = opts.cache === undefined ? createSupabaseResearchCache() : opts.cache;
+  const cache = opts.cache === undefined ? (researchCacheEnabled() ? createSupabaseResearchCache() : null) : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 
   const priority = new Set(opts.priorityIds ?? []);
@@ -757,6 +769,7 @@ export async function researchSeeds(opts: {
   const missing = activityIds.filter((id) => !byActivity.has(id));
   let failed = 0;
   let dropped = 0;
+  let checked = 0;
   // Does what was found exist? Websites that do not answer at all are thrown away before anything is stored.
   // In production the page itself is read too (closed for good, parked domain, wrong business); see verifyUrls.ts.
   const checker = opts.verify === false ? null : (opts.verify ?? ((o: LocalOption[]) => verifyOptionUrls(o, undefined, undefined, { content: true })));
@@ -776,6 +789,7 @@ export async function researchSeeds(opts: {
         ids.map(async (id) => {
           let options = answer.kept.get(id) ?? [];
           if (checker && options.length > 0) {
+            checked += options.length;
             const result = await checker(options);
             dropped += result.dropped.length;
             for (const d of result.dropped) console.warn(`WINDOW: research option dropped (${d.reason}): ${d.option.name} ${d.option.url ?? ""}`);
@@ -799,7 +813,7 @@ export async function researchSeeds(opts: {
   };
   await Promise.all([batch(missing.filter((id) => priority.has(id)), true), batch(missing.filter((id) => !priority.has(id)), false)]);
 
-  const stats: ResearchStats = { cached: activityIds.length - missing.length, searched: missing.length - failed, failed, dropped, ms: Date.now() - startedAt };
+  const stats: ResearchStats = { cached: activityIds.length - missing.length, searched: missing.length - failed, failed, dropped, checked, ms: Date.now() - startedAt };
   console.log(`WINDOW: local research: ${stats.cached} cached, ${stats.searched} searched, ${stats.failed} failed (${place})`);
   return { byActivity, stats };
 }

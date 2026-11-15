@@ -132,6 +132,13 @@ export function describeBookCost(cost: BookCostMeta): string {
       `ideeën zonder plek: ${cost.coverage.replaced} vervangen, ${cost.coverage.dropped} weggelaten${cost.coverage.incomplete ? ", en bij minstens één idee kon geen plek worden gevonden" : ""}`,
     );
   }
+  if (cost.search) {
+    const s = cost.search;
+    parts.push(
+      `zoekmotor ${s.engine}: ${s.candidates} activiteiten onderzocht (${s.candidatesWithOption} met een plek)${s.engine === "v2" ? `, reserve ${s.reserve.researched} onderzocht en ${s.reserve.used} gebruikt` : ""}, ${s.fallbackRounds} extra rondes, ${s.sitesChecked} websites gecontroleerd, opties per idee ${s.optionsPerIdea.join("/")}${s.usdPerOption != null ? `, $${s.usdPerOption.toFixed(3)} per getoonde optie` : ""}`,
+    );
+  }
+  if (cost.searches) parts.push(`${cost.searches} zoekopdrachten ($${(cost.searchUsd ?? 0).toFixed(2)})`);
   if (cost.quiet && cost.quiet.known > 0) parts.push(`aanbodindex: ${cost.quiet.known} stille activiteiten bekend, ${cost.quiet.inBook} toch in het boek`);
   return parts.join("; ");
 }
