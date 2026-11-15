@@ -28,7 +28,7 @@ for (const size of sizes) {
       await expect(page).toHaveURL(/\/intake/);
 
       // 2. Start page: who, where (a place is the one required answer), the two sliders (no limit chips any more).
-      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Een ontdekking begint bij jou");
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText("Laten we samen iets moois ontdekken");
       await page.locator('[data-context="self"]').click();
       await page.locator("#location").fill("Utrecht");
       await page.locator("#distance-km").fill("3");

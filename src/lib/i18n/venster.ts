@@ -186,7 +186,6 @@ export interface VensterDictionary {
     sub: string;
     sections: { who: string; where: string; limits: string };
     /** The line under the heading: only the place is needed, the rest is optional. */
-    optionalNote: string;
     /** The marker behind a required field, read out by a screen reader. */
     required: string;
     who: {
@@ -781,10 +780,9 @@ export const vensterNl: VensterDictionary = {
   },
   start: {
     kicker: "Fijn dat je er bent",
-    heading: "Een ontdekking begint bij jou",
-    sub: "Vertel ons voor wie we op zoek gaan en waar. Zo kunnen we iets ontdekken dat echt aansluit.",
+    heading: "Laten we samen iets moois ontdekken",
+    sub: "Vertel ons even voor wie je op zoek bent en waar je begint. Dan gaan wij op pad en komen we terug met dingen waar je zelf misschien nog nooit aan dacht.",
     sections: { who: "Voor wie", where: "Waar", limits: "Rekening mee houden" },
-    optionalNote: "Alleen je plaats is verplicht (*). Al het andere mag je overslaan; het maakt je boek alleen persoonlijker.",
     required: "verplicht",
     who: {
       label: "Voor wie is deze zoektocht bedoeld?",
@@ -1423,10 +1421,9 @@ export const vensterEn: VensterDictionary = {
   },
   start: {
     kicker: "Good to have you here",
-    heading: "A discovery starts with you",
-    sub: "Tell us who we are searching for and where, so we can find something that really fits.",
+    heading: "Let’s discover something lovely together",
+    sub: "Tell us who you are searching for and where you are starting from. Then we head out and come back with things you may never have thought of.",
     sections: { who: "For whom", where: "Where", limits: "Keep in mind" },
-    optionalNote: "Only your place is required (*). Everything else you can skip; it just makes your book more personal.",
     required: "required",
     who: {
       label: "Who is this search for?",

@@ -34,7 +34,7 @@ test.describe("the start page", () => {
 
   test("opens first with the three parts; only the place is required", async ({ page }) => {
     await open(page);
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Een ontdekking begint bij jou");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Laten we samen iets moois ontdekken");
     // Part A: two big visual choices, for myself (the default) and for someone else, each a proper touch target.
     const choices = page.locator("[data-audience]");
     await expect(choices).toHaveCount(2);
@@ -44,7 +44,8 @@ test.describe("the start page", () => {
     await expect(page.getByText(/oudere/i)).toHaveCount(0);
     for (const c of await choices.all()) expect((await c.boundingBox())!.height).toBeGreaterThanOrEqual(44);
     // Only the place is marked as required; everything else says it is optional.
-    await expect(page.getByText("Alleen je plaats is verplicht (*)")).toBeVisible();
+    // (The box that said so is gone, 15 Nov 2026: the red asterisk and the aria-required attribute carry it.)
+    await expect(page.getByText("Alleen je plaats is verplicht")).toHaveCount(0);
     await expect(page.locator("#location")).toHaveAttribute("aria-required", "true");
     // The country: all countries of the world, the Netherlands when nothing else is known.
     await expect(page.locator("#country")).toHaveValue("NL");
@@ -135,7 +136,7 @@ test.describe("the start page", () => {
   test("a draft from before the start page lands on the matching page", async ({ page }) => {
     // Old order: images (0), concrete (1), situation (2), profile (3).
     await open(page, "?wizard=images2", draftAt(2));
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Een ontdekking begint bij jou");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Laten we samen iets moois ontdekken");
     await expect(page.locator("#location")).toHaveValue("Utrecht");
   });
 });

@@ -1081,7 +1081,6 @@ export function AssociationWizard({
           <p className={sectionLabel}>{dict.start.kicker}</p>
           <h1 className="mt-2 font-serif text-[28px] leading-tight text-ink sm:text-4xl">{dict.start.heading}</h1>
           <p className="mt-2 text-ink/70">{dict.start.sub}</p>
-          <p className="mt-3 rounded-lg bg-surface-active px-4 py-3 text-sm text-ink/80">{dict.start.optionalNote}</p>
         </div>
 
         <section aria-labelledby="start-who" className="space-y-3">
