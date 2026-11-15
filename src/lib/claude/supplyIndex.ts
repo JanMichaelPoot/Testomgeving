@@ -1,4 +1,4 @@
-import { RESEARCH_CACHE_EPOCH, placeKey } from "@/lib/claude/localResearch";
+import { RESEARCH_CACHE_EPOCH, cacheEpochFor, placeKey } from "@/lib/claude/localResearch";
 
 // What the research of earlier books already says about the supply near a place (Stap 195, R1 of docs/kostenonderzoek-boekgeneratie.md).
 //
@@ -86,7 +86,7 @@ export function quietActivities(rows: readonly CacheEvidenceRow[], req: { place:
       found.add(row.activity_id);
       continue;
     }
-    if (key.epoch !== RESEARCH_CACHE_EPOCH || age > SILENT_MAX_AGE_DAYS * DAY || key.radiusKm < req.radiusKm) continue;
+    if (key.epoch !== cacheEpochFor(key.place) || age > SILENT_MAX_AGE_DAYS * DAY || key.radiusKm < req.radiusKm) continue;
     const set = empties.get(row.activity_id) ?? new Set<string>();
     set.add(row.place_key);
     empties.set(row.activity_id, set);

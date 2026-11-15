@@ -1,4 +1,5 @@
 import { countryName } from "@/lib/countries";
+import { searchLanguageFor } from "@/lib/claude/searchLanguage";
 import { radiusText, sanitizeDistanceKm } from "@/lib/distanceOptions";
 import type Anthropic from "@anthropic-ai/sdk";
 import { anthropic } from "@/lib/anthropic";
@@ -147,6 +148,16 @@ export const EMPTY_TTL_DAYS = 14;
  * because every bump makes every stored answer useless (890 rows over 19 places were lost to the bumps from v2 to v6).
  */
 export const RESEARCH_CACHE_EPOCH = "v6";
+
+/**
+ * A place abroad has its own version (16 Nov 2026): it is searched in the language of its country now (searchLanguage.ts), so the answers of the version before, found
+ * with Dutch words, are not read, and do not count as "nothing there" in the supply index either. The Dutch answers keep their version and stay valid.
+ */
+export const FOREIGN_CACHE_EPOCH = "v7";
+/** The version a cache key of this place (`de:wernigerode|15km`, a foreign one starts with its country code) belongs to. */
+export function cacheEpochFor(place: string): string {
+  return /^[a-z]{2}:/.test(place) ? FOREIGN_CACHE_EPOCH : RESEARCH_CACHE_EPOCH;
+}
 
 /** The slider's steps, in kilometres: the radii a cached answer can have (distanceOptions.ts), "city" and "region" being the older classes of 15 and 75. */
 const RADIUS_STEPS_KM = [5, 10, 15, 25, 50, 75, 100] as const;
@@ -336,16 +347,25 @@ export function buildResearchPrompt(
   country: string | null = null,
   /** "broad": the second attempt for activities the first search found nothing for (clubs, community centres, adult education, libraries, repair cafes ...). */
   pass: ResearchPass = "standard",
+  /** The ISO code of that country: it picks the words a local types (searchLanguage.ts). */
+  countryCode: string | null = null,
 ): string {
   const language = locale === "nl" ? "Dutch" : "English";
-  const searchLanguage = country ? "the local language of the country (and in English)" : "Dutch";
+  // Abroad, the queries are in the language of the country (Wernigerode, 16 Nov 2026: Dutch words in a German search found nothing).
+  const local = country ? searchLanguageFor(countryCode) : null;
+  const searchLanguage = country ? `the local language of the country${local ? ` (${local.name})` : ""} (and in English)` : "Dutch";
+  const foreignLanguage = country ? (local ? local.name : "the local language") : undefined;
   const countryName = country ?? "the Netherlands";
+  const where = location || countryName;
+  const queryExamples = local
+    ? `"<activity> ${where}", "<activity> ${local.words.trial} ${where}", "<activity> ${local.words.near}"`
+    : `"<activity> ${where}", "<activity> beginners class ${where}", "<activity> near me"`;
   // Activities the person chose themselves: search each one separately and accept a little more distance and evidence for
   // permanent places. Everything else (the rules of the next paragraphs: exists, open now, really offers it) stays as strict.
   const priorityBlock = priority
     ? `
 These activities were chosen by the person themselves, so try harder than usual. Search every activity on its own, in ${searchLanguage}
-(for example "<activity> ${location || countryName}", "<activity> beginners class ${location || countryName}", "<activity> near me"). If the place
+(for example ${queryExamples}). If the place
 itself has nothing, an option ${/^[0-9]+km$/.test(radius) ? "inside the search radius" : "within about 25 km"} counts: write its real city, never the place you searched. A permanent place
 (museum, estate, garden, shop, market hall) counts when its own website, or a source from the last 24 months, shows that it exists
 and is open. Classes, events and seasonal offers keep the stricter rules below.
@@ -355,7 +375,7 @@ and is open. Classes, events and seasonal offers keep the stricter rules below.
   const lines = activityIds.map((id, i) => {
     const a = getActivity(id);
     const entry = a?.entry ? ` Usual way in: ${a.entry.en}.` : "";
-    return `${i + 1}. id "${id}": ${a?.label.nl ?? id} (${a?.label.en ?? id}).${entry}${hintLine(id)}`;
+    return `${i + 1}. id "${id}": ${a?.label.nl ?? id} (${a?.label.en ?? id}).${entry}${hintLine(id, foreignLanguage)}`;
   });
   const broadBlock =
     pass === "broad"
@@ -399,9 +419,9 @@ Every option is listed under the activity it is about. Never put an option under
 unless it really offers each of them: an option found for one activity is not a substitute for another, and an empty list is the right answer when nothing fits.
 
 How to search (this decides how good the options are):
-- Search the way a local looks for it, in ${searchLanguage}, and combine related activities in one query where that works. Good queries: "<activity> <place>",
+- Search the way a local looks for it, in ${searchLanguage}, and combine related activities in one query where that works. ${country ? `The activity names below are Dutch and English: translate each into what people in ${countryName} call it, and search with that local name (the Dutch search terms are only a hint of what is meant, never the words to type). Good queries: "<activity> <place>", ${local ? `"<activity> ${local.words.trial} <place>", "<activity> ${local.words.course} <place> ${local.words.reviews}", "<activity> ${local.words.club} <place>", ` : ""}"<activity> <place> reviews". Put the word for reviews${local ? ` ("${local.words.reviews}")` : ""} in the first query so the results show review scores (Google Maps and Tripadvisor snippets, the venue's own page).` : `Good queries: "<activity> <place>",
   "<activity> proefles <place>", "<activity> cursus <place> beoordelingen", "beste <activity> <place>", "<activity> <place> reviews". Put "reviews" or "beoordelingen"
-  in the first query so the results show review scores (Google Maps and Tripadvisor snippets, the venue's own page).
+  in the first query so the results show review scores (Google Maps and Tripadvisor snippets, the venue's own page).`}
 - Take the exact name and the town from the result itself. A listing page of many venues is a lead, not an option: open or search the venue it names.
 - Prefer venues that people rate highly: the review snippets in the results (Google, Tripadvisor) show which. Do not spend searches on reading scores: the Google score of
   each place is looked up afterwards, so give a score only when a result happens to show one.
@@ -561,7 +581,7 @@ async function searchOnce(
     model: RESEARCH_MODEL,
     max_tokens: 3500,
     system: SYSTEM,
-    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now, priority, needs, country, pass) }],
+    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now, priority, needs, country, pass, countryCode) }],
     tools: [
       {
         type: "web_search_20250305",
@@ -686,7 +706,7 @@ export async function researchSeeds(opts: {
   const online = opts.mode === "online";
   const needs = online ? [] : researchNeedsFrom(opts.needs ?? []);
   const pass: ResearchPass = !online && opts.pass === "broad" ? "broad" : "standard";
-  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${RESEARCH_CACHE_EPOCH}${online ? "|online" : ""}${pass === "broad" ? "|broad" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
+  const cacheKey = `${online ? `online${foreign ? `:${foreign.toLowerCase()}` : ""}` : place}|${foreign ? FOREIGN_CACHE_EPOCH : RESEARCH_CACHE_EPOCH}${online ? "|online" : ""}${pass === "broad" ? "|broad" : ""}${needs.length ? `|n:${needs.join("+")}` : ""}`;
   const cache = opts.cache === undefined ? (researchCacheEnabled() ? createSupabaseResearchCache() : null) : opts.cache;
   const byActivity = new Map<string, SeedResearch>();
 

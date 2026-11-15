@@ -44,6 +44,7 @@ import type { Activity } from "@/lib/discovery/types";
 import { getAssociation, imagesBehind } from "@/lib/discovery/associations";
 import { BOOK_COUNT, IDEA_COUNT } from "@/lib/productStructure";
 import { overlappingSeeds } from "@/lib/discovery/engine/overlap";
+import { everywhereCandidates } from "@/lib/claude/everywhere";
 
 // The Idea Book pipeline for people who used the card wizard (phase 4 of the discovery
 // upgrade). Four steps, only two of which cost money:
@@ -677,8 +678,14 @@ export const RESEARCH_BUDGET_MS = 150_000;
 /** Rounds that replace ideas without a real place (the coverage stage), and how many candidates each lacking idea gets per round. */
 export const COVERAGE_ROUNDS = 3;
 export const COVERAGE_CANDIDATES_PER_SEED = 5;
-/** The fewest ideas (the wildcard included) a book is left with when ideas without a real place are left out. */
-export const MIN_SEEDS = BOOK_COUNT - 1;
+/** Of those, how many are "everywhere" activities (everywhere.ts) from the second coverage round on. */
+export const EVERYWHERE_PER_SEED = 3;
+/**
+ * The fewest ideas (the wildcard included) a book is left with. It is the whole book (Jan, 16 Nov 2026: a book with four instead of five is wrong): an idea
+ * without a real place is no longer left out, it is replaced (the reserve, the coverage rounds, the "everywhere" activities) and, when nothing at all can be
+ * found, kept and written honestly as something to find out first (coverage_incomplete).
+ */
+export const MIN_SEEDS = BOOK_COUNT;
 
 /** An activity that is online by nature (a writing course, a language app): its option is an online provider from the start, not a place. */
 export function isOnlineByNature(a: Activity | undefined): boolean {
@@ -1061,10 +1068,17 @@ export async function generateIdeaBookFromSeeds(
     const quiet = new Set(quietSupply);
     const proposals = new Map<Seed, Seed[]>();
     for (const s of lacking) {
-      const related = relatedActivities(s.activityId, engine.constraints, [...taken], 10)
+      let related = relatedActivities(s.activityId, engine.constraints, [...taken], 10)
         .filter((a) => inSeason(a, month) && !quiet.has(a.id))
         .sort((a, b) => Number(foundSupply.has(b.id)) - Number(foundSupply.has(a.id)))
         .slice(0, COVERAGE_CANDIDATES_PER_SEED);
+      // The last candidates: what almost every town has (everywhere.ts). From the second round three of the five places are for these, and in any round when
+      // nothing related is left: a small town, or a person whose own choices have no venue, would otherwise end with fewer than five ideas.
+      const everywhereRoom = round >= 2 ? EVERYWHERE_PER_SEED : related.length === 0 ? COVERAGE_CANDIDATES_PER_SEED : 0;
+      if (everywhereRoom > 0) {
+        const extra = everywhereCandidates({ constraints: engine.constraints, month, exclude: new Set([...taken, ...related.map((a) => a.id)]), quiet, max: everywhereRoom });
+        related = [...related.slice(0, COVERAGE_CANDIDATES_PER_SEED - extra.length), ...extra];
+      }
       for (const a of related) taken.add(a.id);
       proposals.set(
         s,

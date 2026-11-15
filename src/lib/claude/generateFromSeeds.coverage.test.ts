@@ -16,6 +16,7 @@ vi.mock("@/lib/claude/localResearch", async (orig) => ({
 }));
 
 import { MIN_SEEDS, generateIdeaBookFromSeeds } from "@/lib/claude/generateFromSeeds";
+import { EVERYWHERE_IDS } from "@/lib/claude/everywhere";
 
 const PICKS = ["pottenbakken", "kralen-rijgen", "high-tea", "modemuseum"];
 const base: IntakeAnswers = {
@@ -157,8 +158,9 @@ describe("an idea without a real place is replaced, not shown", () => {
     });
     const { report } = await run();
     expect(report.cost!.skipped.length).toBeGreaterThan(0); // the optional rounds were skipped for the soft cap
-    expect(report.seeds.map((s) => s.activityId)).not.toContain("kralen-rijgen");
-    expect(report.options!.withOption).toBe(report.options!.ideas);
+    // With the ceiling reached after the first call no coverage round fits: the idea stays (a book has five ideas, 16 Nov 2026) and is reported as incomplete.
+    expect(report.seeds).toHaveLength(5);
+    expect(report.notes).toContain("coverage_incomplete");
     expect(report.cost!.usd).toBeGreaterThan(0.4);
   });
 
@@ -169,22 +171,39 @@ describe("an idea without a real place is replaced, not shown", () => {
     const { report } = await run();
     expect(researchCalls()).toHaveLength(1);
     expect(report.notes).not.toEqual(expect.arrayContaining([expect.stringMatching(/^coverage_replaced:/)]));
-    expect(report.notes).toContain("dropped_no_option:kralen-rijgen"); // nothing could be tried, so the idea is left out of the book
+    expect(report.notes.some((n) => n.startsWith("dropped_no_option:"))).toBe(false); // nothing could be tried, but the idea is not left out any more
+    expect(report.notes).toContain("coverage_incomplete");
+    expect(report.seeds).toHaveLength(5);
   });
 });
 
-describe("an idea that cannot be replaced is left out", () => {
-  it("leaves it out of the book, which is written for one idea fewer", async () => {
+describe("an idea that cannot be replaced stays, so the book keeps its five ideas", () => {
+  it("keeps it and writes it as something to find out first, and reports the book as incomplete", async () => {
     placesOnlyForTheFirstSelection(["kralen-rijgen"]);
     const { book, report } = await run();
-    expect(report.notes).toContain("dropped_no_option:kralen-rijgen");
-    expect(report.seeds.map((s) => s.activityId)).not.toContain("kralen-rijgen");
-    expect(report.seeds).toHaveLength(4);
-    expect(book.ideas).toHaveLength(3);
-    expect([...book.ideas, book.wildcard].every((i) => (i.places?.length ?? 0) > 0)).toBe(true);
-    expect(report.notes).not.toContain("coverage_incomplete");
+    expect(report.notes.some((n) => n.startsWith("dropped_no_option:"))).toBe(false);
+    expect(report.seeds.map((s) => s.activityId)).toContain("kralen-rijgen");
+    expect(report.seeds).toHaveLength(5);
+    expect(book.ideas).toHaveLength(4);
+    expect(report.notes).toContain("coverage_incomplete");
     // kept with the book (progress_meta.cost.coverage), so it can be read from the admin
-    expect(report.cost!.coverage).toEqual({ replaced: 0, dropped: 1, incomplete: false });
+    expect(report.cost!.coverage).toEqual({ replaced: 0, dropped: 0, incomplete: true });
+  });
+
+  it("first tries what almost every town has: from the second round on, the candidates include the 'everywhere' activities, and one with a place takes the idea's seat", async () => {
+    const first = new Set<string>();
+    researchSeeds.mockImplementation(async (o: unknown) => {
+      if (first.size === 0) for (const id of ids(o)) first.add(id);
+      // Places for the first selection (except the pick with none) and, later, only for the activities of almost every town.
+      const hasPlace = (id: string) => modeOf(o) !== "online" && id !== "kralen-rijgen" && (first.has(id) || (EVERYWHERE_IDS as readonly string[]).includes(id));
+      return { byActivity: new Map(ids(o).map((id) => [id, { activityId: id, source: "search", options: hasPlace(id) ? [option(id)] : [] }])), stats: stats(o) };
+    });
+    const { report } = await run();
+    const replacement = report.notes.find((n) => n.startsWith("coverage_replaced:kralen-rijgen>"));
+    expect(replacement, report.notes.join(",")).toBeTruthy();
+    expect((EVERYWHERE_IDS as readonly string[]).includes(replacement!.split(">")[1])).toBe(true);
+    expect(report.seeds).toHaveLength(5);
+    expect(report.notes).not.toContain("coverage_incomplete");
   });
 
   it("never leaves out the wildcard and never goes below the fewest ideas; what stays without a place is reported", async () => {

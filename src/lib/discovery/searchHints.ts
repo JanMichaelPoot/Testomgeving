@@ -28,8 +28,13 @@ const KIND_TEXT: Record<HintKind, string> = {
   place: "a place to go to (a venue, park, route, nature site or museum) that is open to visit",
   event: "an organised outing, excursion, open day or event, or the group that organises it",
 };
-/** One line for the research prompt: what kind of option counts for this activity and what to type into the search. */
-export function hintLine(activityId: string): string {
+/**
+ * One line for the research prompt: what kind of option counts for this activity and what to type into the search. The terms are Dutch; for a place abroad
+ * (`foreignLanguage`: the language of that country) they are given as the meaning to look for, to be put into that language (Wernigerode, 16 Nov 2026).
+ */
+export function hintLine(activityId: string, foreignLanguage?: string): string {
   const h = searchHint(activityId);
-  return h ? ` Look for ${KIND_TEXT[h.kind]}. Search terms to try (Dutch): ${h.terms}.` : "";
+  if (!h) return "";
+  const terms = foreignLanguage ? `Search terms to try (Dutch, so put them into ${foreignLanguage} before you search)` : "Search terms to try (Dutch)";
+  return ` Look for ${KIND_TEXT[h.kind]}. ${terms}: ${h.terms}.`;
 }
