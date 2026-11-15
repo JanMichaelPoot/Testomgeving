@@ -99,8 +99,8 @@ async function main() {
         quiet(`STOP before ${p.id} ${engine}: spent ${spent.toFixed(3)} + worst case ${worst.toFixed(3)} would pass the budget of ${budget.toFixed(2)}.`);
         break outer;
       }
-      if (engine === "v2") process.env.WINDOW_SEARCH_V2 = "1";
-      else delete process.env.WINDOW_SEARCH_V2;
+      // The new search is the default since 15 Nov 2026, so the old one is asked for explicitly.
+      process.env.WINDOW_SEARCH_V2 = engine === "v2" ? "1" : "0";
       const b = build(p);
       const started = Date.now();
       console.log = () => {};

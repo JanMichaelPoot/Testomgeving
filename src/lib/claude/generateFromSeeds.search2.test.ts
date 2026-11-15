@@ -15,6 +15,7 @@ vi.mock("@/lib/claude/localResearch", async (orig) => ({
 }));
 
 import { generateIdeaBookFromSeeds } from "@/lib/claude/generateFromSeeds";
+import { searchV2Enabled } from "@/lib/knowledgeFlags";
 import { getActivity } from "@/lib/discovery/library";
 import { engineInputFromIntake, runEngine } from "@/lib/discovery/engine";
 import { fillFromReserve, reserveExclusions, reserveFrom } from "@/lib/claude/searchPlan";
@@ -125,7 +126,14 @@ const swappableVictim = () => {
 const roundsOf = () => researchCalls().filter((c) => modeOf(c) === undefined || modeOf(c) === "online").length;
 
 describe("the pool search (WINDOW_SEARCH_V2)", () => {
-  it("is off unless it is switched on, and the book is then researched as before", async () => {
+  it("is on unless it is switched off on purpose", () => {
+    expect(searchV2Enabled("")).toBe(true);
+    expect(searchV2Enabled("1")).toBe(true);
+    for (const off of ["0", "false", "off", "No"]) expect(searchV2Enabled(off)).toBe(false);
+  });
+
+  it("is off with WINDOW_SEARCH_V2=0, and the book is then researched as before", async () => {
+    vi.stubEnv("WINDOW_SEARCH_V2", "0");
     researchWithout();
     const { report } = await run();
     expect(report.cost!.search!.engine).toBe("v1");

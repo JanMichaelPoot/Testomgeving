@@ -63,9 +63,9 @@ Buiten het boek: de lezing op het profielscherm (Sonnet, `intake/interpret.ts`, 
 2. **We blijven op de bestaande zoekdienst** (de zoektool van Anthropic); geen ruwe zoek-API, geen nieuwe betaalde dienst.
 3. **De Google-score (Places API) blijft** voor de getoonde plekken; Google wordt niet gebruikt om te zoeken.
 
-## 5. Wat er gebouwd is (Stap 200), achter de schakelaar `WINDOW_SEARCH_V2`
+## 5. Wat er gebouwd is (Stap 200), met de schakelaar `WINDOW_SEARCH_V2`
 
-De schakelaar staat **uit** tot de gemeten vergelijking (zie 7) laat zien dat het goedkoper is bij gelijke kwaliteit.
+De schakelaar stond eerst uit tot de gemeten vergelijking (zie 9); **sinds 15 november 2026 staat de nieuwe zoekmotor standaard aan** op Jans verzoek, `WINDOW_SEARCH_V2=0` zet hem uit.
 
 | Onderdeel van de opdracht | Wat er is gedaan |
 |---|---|

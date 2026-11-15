@@ -17,7 +17,7 @@ export default defineConfig({
     // its extra online pass) are off here: the older tests describe the pipeline without them, and the tests of those two switch them on.
     // And the supply index (it reads the research cache of earlier books): the tests of the index itself pass their rows in. And the coverage stage (no idea without a real place:
     // extra replacement rounds and leaving ideas out): the older tests describe the pipeline before it, the tests of the stage switch it on.
-    env: { WINDOW_QA_GRAMMAR: "0", REQUIRE_CONCRETE_OPTIONS: "0", KNOWLEDGE_ANCHOR_PICKS: "0", PREWARM_RESEARCH: "0", WINDOW_SUPPLY_INDEX: "0", WINDOW_COVERAGE: "0" },
+    env: { WINDOW_QA_GRAMMAR: "0", REQUIRE_CONCRETE_OPTIONS: "0", KNOWLEDGE_ANCHOR_PICKS: "0", PREWARM_RESEARCH: "0", WINDOW_SUPPLY_INDEX: "0", WINDOW_COVERAGE: "0", WINDOW_SEARCH_V2: "0" },
   },
   resolve: {
     alias: {

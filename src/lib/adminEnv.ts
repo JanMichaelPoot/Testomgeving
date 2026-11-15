@@ -108,8 +108,8 @@ export function envChecks(env: Env): EnvCheck[] {
     "Zoekmotor 2.0 (WINDOW_SEARCH_V2)",
     true,
     searchV2Enabled(env.WINDOW_SEARCH_V2)
-      ? `aan: de vijf ideeën en een reserve (WINDOW_SEARCH_RESERVE, standaard 2 selecties) worden samen onderzocht; een idee zonder plek wordt eerst door een reserve-idee vervangen, daarna pas door nieuwe zoekrondes`
-      : "uit (standaard): de vijf ideeën worden onderzocht en elk idee zonder plek kost een nieuwe zoekronde. Zet WINDOW_SEARCH_V2=1 pas na de vergelijking (scripts/compare-search.ts)",
+      ? `aan (standaard; uit met WINDOW_SEARCH_V2=0): de vijf ideeën en een reserve (WINDOW_SEARCH_RESERVE, standaard 2 selecties) worden samen onderzocht; een idee zonder plek wordt eerst door een reserve-idee vervangen, daarna pas door nieuwe zoekrondes`
+      : "UIT (WINDOW_SEARCH_V2 staat op uit): de vijf ideeën worden onderzocht en elk idee zonder plek kost een nieuwe zoekronde",
     false,
   );
   add("Kennisengine: eigen keuzes eerst (anker)", true, knowledgeAnchorEnabled(env.KNOWLEDGE_ANCHOR_PICKS) ? "aan (standaard; uit met KNOWLEDGE_ANCHOR_PICKS=0): twee eigen keuzes in het boek" : "uit (KNOWLEDGE_ANCHOR_PICKS staat op uit)", false);
