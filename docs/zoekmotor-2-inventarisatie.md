@@ -108,3 +108,24 @@ De uitkomst is vooral een **kwaliteitswinst binnen dezelfde kostengrens** (het o
 ## 8. Wat nog gemeten moet worden (betaald, wacht op een bedrag van Jan)
 
 `npx tsx scripts/compare-search.ts --dry-run P12 P13` (gratis) toont wat er zou draaien. Een echte vergelijking draait elke persona tweemaal (oud en nieuw, beide met koude cache, zonder supply-index en zonder Google-score) en schrijft `scratch/compare-search/summary.md` met kosten, aanroepen, zoekopdrachten, extra rondes, gecontroleerde websites, opties per idee, kosten per optie en de gevonden plekken, zodat relevantie en diversiteit naast de kosten gelezen kunnen worden. Richtbedrag: ≈ $0,35 per run in het slechtste geval; twee persona's = vier runs ≈ $1,40 (de poort stopt vóór het budget).
+
+## 9. De echte meting (15 november 2026, $1,163 van het goedgekeurde budget van $2,00) [B]
+
+`compare-search.ts --budget 2.00 P12 P13`: twee persona's, elk oud en nieuw, koude cache, zonder supply-index en zonder Google-score, alleen onderzoek. **Twee paren zijn een aanwijzing, geen bewijs**: het web is niet deterministisch en de twee zoekmotoren kozen in P13 deels andere ideeën.
+
+| Persona | Zoekmotor | Modelkosten | Aanroepen | Zoekopdr. | Extra rondes | Reserve gebruikt | Opties per idee | Ideeën zonder plek | Kosten per optie | Tijd |
+|---|---|---|---|---|---|---|---|---|---|---|
+| P12 Priya | oud | $0,234 | 3 | 10 | 1 | - | 3/1/1/3/2 | 0 | $0,023 | 29 s |
+| P12 Priya | **nieuw** | $0,268 | 2 | 11 | 0 | 0 | 3/1/1/5/3 | 0 | $0,021 | 31 s |
+| P13 Jan en Ria | oud | $0,409 | 5 | 19 | 3 | - | 2/1/3/1/0 | **1** | $0,058 | 64 s |
+| P13 Jan en Ria | **nieuw** | $0,253 | 2 | 11 | 0 | 2 | 3/1/3/1/1 | 0 | $0,028 | 26 s |
+| **Gemiddeld** | oud | **$0,321** | 4,0 | 14,5 | 2,0 | | | 0,5 | | 46 s |
+| **Gemiddeld** | nieuw | **$0,260** | 2,0 | 11,0 | 0 | | | 0 | | 29 s |
+
+Wat de meting laat zien:
+- **Nieuw is gemiddeld 19% goedkoper** ($0,260 tegen $0,321), heeft de helft van de betaalde aanroepen, 24% minder zoekopdrachten en is een derde sneller. Dat is meer dan de simulatie voorspelde (−11%), maar het zijn twee paren.
+- **In P13 bereikte de oude zoekmotor de kostengrens** ($0,409; de rondes `standard`, `broad` en `online` zijn overgeslagen) en liet een idee (portemonnee maken) **zonder plek** achter; de nieuwe vond voor alle vijf een plek, voor $0,253, doordat twee reserve-ideeën direct konden instappen (een eigen keuze werd door een andere eigen keuze vervangen).
+- **In P12 was nieuw $0,034 duurder**: de reserve is onderzocht (16 activiteiten, 10 met een plek) maar niet nodig geweest. Dat is de prijs van het vooraf onderzoeken; het boek kreeg wel meer plekken per idee (5 en 3 tegen 3 en 2).
+- **Relevantie en betrouwbaarheid, handmatig gelezen** (`scratch/compare-search/summary.md`): de plekken van de nieuwe zijn echte aanbieders in of rond Utrecht met een website die de controle haalde. Twee dingen om bij de eerste echte boeken te controleren: de vogelkijkhutten van het idee "ganzenkijken" in P13 liggen in Soesterberg en bij Amersfoort (de persona heeft geen auto en 25 km zoekafstand), en bij "koor" in P12 staat "Guilty Pleasures"; in het oude run viel een site met die naam af omdat de host niet bestond, in het nieuwe staat een koor met die naam in Utrecht dat de controle haalde.
+
+**Conclusie**: de aanwijzing is positief (goedkoper, sneller, vaker een plek bij elk idee), maar rust op twee paren. Aanbeveling: zet `WINDOW_SEARCH_V2=1` pas aan na een tweede, groter paar (bijvoorbeeld vier persona's, ≈ $2,50) of aan op een deel van de boeken en volg dan `/admin` (kosten per boek, extra rondes, opties per idee).
