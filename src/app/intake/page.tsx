@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { stripeTestNotice } from "@/lib/stripeMode";
+import { freeTestOrdersEnabled } from "@/lib/freeTest";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { IntakeEntry } from "@/components/window/IntakeEntry";
 import type { IntakeAnswers } from "@/app/intake/actions";
@@ -96,7 +97,8 @@ export default async function IntakePage(props: PageProps<"/intake">) {
               price: visitorPrice.label(locale),
               priceVariant: visitorPrice.variant,
               rememberInitially: (await getDeviceId()) !== null,
-              testNotice: stripeTestNotice(dict.venster.testBanner),
+              testNotice: freeTestOrdersEnabled() ? dict.venster.testBannerFree : stripeTestNotice(dict.venster.testBanner),
+              freeTest: freeTestOrdersEnabled(),
               // Stripe sends the buyer back here (via /checkout) after a cancelled or failed payment.
               paymentFailed: searchParams.payment === "cancelled",
             }}

@@ -25,6 +25,7 @@ import { PENDING_STALE_MS, mergeProgressMeta, publicProgressMeta, shouldRetrySto
 import { bookCostMeta, createCostLedger } from "@/lib/claude/costLedger";
 import { localizeBook } from "@/lib/claude/localizeBook";
 import { checkTestQuota, recordTestBook } from "@/lib/testQuota";
+import { isFreeOrderId } from "@/lib/freeTest";
 import { feedbackLink } from "@/lib/testFeedback";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { isMissingColumnError } from "@/lib/supabase/errors";
@@ -632,6 +633,9 @@ interface PaidOrder {
 export async function getOrCreateWindowPlan(
   checkoutSessionId: string
 ): Promise<WindowPlanRow> {
+  // A free test order (src/lib/freeTest.ts) has no Stripe session: its order row is the proof.
+  if (isFreeOrderId(checkoutSessionId)) return getOrCreateFreeOrderPlan(checkoutSessionId);
+
   const checkoutSession = await getStripe().checkout.sessions.retrieve(
     checkoutSessionId
   );
@@ -684,6 +688,44 @@ export async function getOrCreateWindowPlan(
     amountCents: checkoutSession.amount_total ?? 0,
     priceVariant: checkoutSession.metadata?.price_variant || null,
     orderer,
+  });
+}
+
+// The same as getOrCreateWindowPlan, for an order that was placed without Stripe (the test phase). The order row must exist, carry the
+// free-order id and an amount of 0; nothing here is reachable for a real payment.
+async function getOrCreateFreeOrderPlan(freeOrderId: string): Promise<WindowPlanRow> {
+  const supabase = createServiceRoleClient();
+  const { data: paymentRow } = await supabase
+    .from("payments")
+    .select("id, session_id, order_number, amount, currency, created_at")
+    .eq("stripe_payment_id", freeOrderId)
+    .maybeSingle();
+  if (!paymentRow || paymentRow.amount !== 0) {
+    throw new Error("This test order could not be found.");
+  }
+
+  const { data: geoRow } = await supabase.from("payments").select("ip_country, ip_city").eq("stripe_payment_id", freeOrderId).maybeSingle();
+  const geoValues = geoRow as { ip_country?: string | null; ip_city?: string | null } | null;
+
+  // The address typed at the checkout was kept with the account when the order was placed (checkout/actions.ts).
+  const { data: session } = await supabase.from("sessions").select("user_id").eq("id", paymentRow.session_id).maybeSingle();
+  let email: string | null = null;
+  if (session?.user_id) {
+    const { data: user } = await supabase.from("users").select("email").eq("id", session.user_id).maybeSingle();
+    email = user?.email ?? null;
+  }
+
+  return createPaidPlan({
+    sessionId: paymentRow.session_id,
+    paymentRow: { id: paymentRow.id, order_number: paymentRow.order_number, amount: paymentRow.amount, currency: paymentRow.currency, created_at: paymentRow.created_at },
+    planQuery: `checkout_session_id=${freeOrderId}`,
+    accountEmail: email,
+    deliveryEmail: email,
+    // The follow-up e-mail is not offered at the checkout any more, so there is nothing to follow up on.
+    followUpEmail: null,
+    amountCents: 0,
+    priceVariant: null,
+    orderer: ordererGeoFrom(geoValues?.ip_country, geoValues?.ip_city),
   });
 }
 

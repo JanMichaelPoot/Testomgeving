@@ -260,6 +260,8 @@ export interface WizardPayment {
   rememberInitially: boolean;
   /** The text of the test banner on the test preview; the banner itself always shows (it holds the "skip payment" test button). */
   testNotice?: string;
+  /** The test phase: the book starts without any payment (src/lib/freeTest.ts). */
+  freeTest?: boolean;
   /** Stripe sent the visitor back after a cancelled or failed payment. */
   paymentFailed: boolean;
   /** The price-test variant this visitor was shown; null while the test is off. */
@@ -1593,7 +1595,7 @@ export function AssociationWizard({
                         {payment.dict.errorPaymentFailed}
                       </p>
                     )}
-                    <CheckoutPanel dict={payment.dict} price={payment.price} rememberInitially={payment.rememberInitially} beforePay={saveForPayment} priceVariant={payment.priceVariant} />
+                    <CheckoutPanel dict={payment.dict} price={payment.price} rememberInitially={payment.rememberInitially} beforePay={saveForPayment} priceVariant={payment.priceVariant} freeTest={payment.freeTest} />
                   </div>
                 </div>
               </section>

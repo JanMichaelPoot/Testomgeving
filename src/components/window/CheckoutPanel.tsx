@@ -72,6 +72,7 @@ export function CheckoutPanel({
   rememberInitially = false,
   beforePay,
   priceVariant = null,
+  freeTest = false,
 }: {
   dict: Dictionary["checkout"];
   price: string;
@@ -83,6 +84,8 @@ export function CheckoutPanel({
   // The price-test variant this visitor was shown (null while the test is off). Only recorded with the analytics events here; the
   // server decides the price that is charged (checkout/actions.ts), never this value.
   priceVariant?: string | null;
+  // The test phase (src/lib/freeTest.ts): the button starts the book without any payment, so it must not talk about paying or Stripe.
+  freeTest?: boolean;
 }) {
   // Two independent, never-pre-checked checkboxes — digital delivery +
   // withdrawal waiver combined (allowed to be one checkbox per the
@@ -212,7 +215,7 @@ export function CheckoutPanel({
         size="lg"
         className="min-h-16 w-full justify-center px-6 py-3 text-lg font-semibold leading-snug"
       >
-        {isPending ? dict.ctaPending : dict.ctaIdle.replace("{price}", price)}
+        {isPending ? dict.ctaPending : (freeTest ? dict.ctaIdleFree : dict.ctaIdle).replace("{price}", price)}
         {!isPending && (
           <span aria-hidden="true" className="cta-arrow inline-block">
             →
@@ -225,7 +228,7 @@ export function CheckoutPanel({
           <rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
           <path d="M5.5 7V5a2.5 2.5 0 015 0v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
-        {dict.payAssurance}
+        {freeTest ? dict.payAssuranceFree : dict.payAssurance}
       </p>
     </div>
   );

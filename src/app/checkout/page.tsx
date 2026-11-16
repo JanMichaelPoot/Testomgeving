@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/window/SiteHeader";
 import { CheckoutPanel } from "@/components/window/CheckoutPanel";
 import { TestModeBanner } from "@/components/window/TestModeBanner";
 import { stripeTestNotice } from "@/lib/stripeMode";
+import { freeTestOrdersEnabled } from "@/lib/freeTest";
 import { LUXURY_ILLUSTRATIONS } from "@/lib/illustrations";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -88,7 +89,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
     <div className="flex min-h-full flex-col bg-cream">
       <SiteHeader locale={locale} dict={dict.header} />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-12 sm:px-10">
-        <TestModeBanner notice={stripeTestNotice(dict.venster.testBanner)} className="-mt-6 mb-6" />
+        <TestModeBanner notice={freeTestOrdersEnabled() ? dict.venster.testBannerFree : stripeTestNotice(dict.venster.testBanner)} className="-mt-6 mb-6" />
         <Link
           href="/intake?edit=1"
           className="mb-8 inline-flex items-center gap-2 text-sm text-ink/70 transition-colors hover:text-ink"
@@ -188,7 +189,7 @@ export default async function CheckoutPage(props: PageProps<"/checkout">) {
 
           {/* Right: waiver/payment */}
           <div className="lg:pl-0">
-            <CheckoutPanel dict={dict.checkout} price={price} rememberInitially={rememberInitially} priceVariant={visitorPrice.variant} />
+            <CheckoutPanel dict={dict.checkout} price={price} rememberInitially={rememberInitially} priceVariant={visitorPrice.variant} freeTest={freeTestOrdersEnabled()} />
           </div>
         </div>
       </main>

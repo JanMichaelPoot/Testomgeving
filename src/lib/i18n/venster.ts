@@ -347,6 +347,7 @@ export interface VensterDictionary {
   };
   pdf: { coverTitle: string; coverTitleGift: string; coverTitleGroup: string }; // {name}
   testBanner: string;
+  testBannerFree: string; // the same notice when the book starts without any payment (src/lib/freeTest.ts)
   errorGeneric: string;
 }
 
@@ -989,6 +990,7 @@ export const vensterNl: VensterDictionary = {
   },
   pdf: { coverTitle: "Jouw venster staat open", coverTitleGift: "Het venster van {name} staat open", coverTitleGroup: "Jullie venster staat open" },
   testBanner: "Testversie: WindowInto is nu gratis te gebruiken. Betaal met testkaart 4242 4242 4242 4242, er wordt niets afgeschreven.",
+  testBannerFree: "Testversie: WindowInto is nu gratis te gebruiken. Er hoeft niets betaald te worden.",
   errorGeneric: "Er ging iets mis bij het opslaan van je keuzes. Ververs de pagina en probeer het opnieuw: je keuzes blijven bewaard.",
 };
 
@@ -1630,5 +1632,6 @@ export const vensterEn: VensterDictionary = {
   },
   pdf: { coverTitle: "Your window is open", coverTitleGift: "{name}'s window is open", coverTitleGroup: "Your window is open, all of you" },
   testBanner: "Test version: WindowInto is free to use for now. Pay with test card 4242 4242 4242 4242, nothing is charged.",
+  testBannerFree: "Test version: WindowInto is free to use for now. There is nothing to pay.",
   errorGeneric: "Something went wrong while saving your choices. Refresh the page and try again: your choices are kept.",
 };

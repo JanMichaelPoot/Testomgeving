@@ -24,6 +24,7 @@ const callLog: string[] = [];
 // What the code under test handed to Stripe and to the payments table, for the price-test and follow-up cases.
 const stripeParams: { customer_email?: string; line_items: { price_data: { unit_amount: number } }[]; metadata: Record<string, string> }[] = [];
 const orderRows: Record<string, unknown>[] = [];
+const userUpserts: Record<string, unknown>[] = [];
 let priceVariantCookie: string | null = null;
 
 vi.mock("@/lib/session", () => ({
@@ -124,6 +125,15 @@ vi.mock("@/lib/supabase/server", () => ({
         if (table === "intake_answers") return intakeChain();
         if (table === "payments") return { insert: (row: Record<string, unknown>) => (orderRows.push(row), paymentsInsertChain) };
         if (table === "sessions") return { update: () => sessionsUpdateChain };
+        if (table === "users") {
+          return {
+            upsert: (row: Record<string, unknown>) => {
+              userUpserts.push(row);
+              callLog.push("users.upsert");
+              return { select: () => ({ single: () => Promise.resolve({ data: { id: "user-1" } }) }) };
+            },
+          };
+        }
         throw new Error(`Unexpected table in test: ${table}`);
       },
     };
@@ -139,12 +149,15 @@ beforeEach(() => {
   callLog.length = 0;
   stripeParams.length = 0;
   orderRows.length = 0;
+  userUpserts.length = 0;
   afterCallbacks.length = 0;
   prewarmCalls.length = 0;
   priceVariantCookie = null;
   requestHeaders = {};
   delete process.env.PRICE_TEST;
   process.env.NEXT_PUBLIC_SITE_URL = "https://windowinto.test";
+  // The Stripe flow is what most tests below are about: the free test-phase route (src/lib/freeTest.ts) is switched off, and has its own tests.
+  process.env.FREE_TEST_ORDERS = "0";
 });
 
 describe("createCheckoutSession — server-side compliance validation", () => {
@@ -286,5 +299,60 @@ describe("createCheckoutSession — where the order was placed from", () => {
     await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
     expect("ip_country" in orderRows[0]).toBe(false);
     expect(callLog).toContain("payments.insert");
+  });
+});
+
+describe("createCheckoutSession — free test orders (no Stripe)", () => {
+  const saved = { key: process.env.STRIPE_SECRET_KEY, mode: process.env.STRIPE_MODE };
+  const restore = () => {
+    for (const [name, value] of [["STRIPE_SECRET_KEY", saved.key], ["STRIPE_MODE", saved.mode]] as const) {
+      if (value === undefined) delete process.env[name];
+      else process.env[name] = value;
+    }
+  };
+
+  it("starts the book straight away in test mode: no Stripe session, an order of 0 with a test id, the consents stored, no prewarm", async () => {
+    process.env.STRIPE_SECRET_KEY = "sk_test_abc";
+    delete process.env.STRIPE_MODE;
+    delete process.env.FREE_TEST_ORDERS;
+    try {
+      await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
+    } finally {
+      restore();
+    }
+    expect(stripeParams).toHaveLength(0);
+    expect(orderRows[0]).toMatchObject({ amount: 0, status: "succeeded", order_number: "WI-2026-000001" });
+    const id = String(orderRows[0].stripe_payment_id);
+    expect(id.startsWith("cs_test_free_")).toBe(true);
+    // The consents are stored before the redirect, exactly like for a paid order, and the address is kept with the account.
+    expect(callLog.indexOf("recordTermsAcceptance")).toBeLessThan(callLog.findIndex((c) => c.startsWith("redirect:")));
+    expect(callLog.indexOf("recordDigitalDeliveryConsent")).toBeLessThan(callLog.findIndex((c) => c.startsWith("redirect:")));
+    expect(userUpserts).toEqual([{ email: EMAIL }]);
+    expect(callLog).toContain(`redirect:/plan?checkout_session_id=${id}`);
+    // Nobody pays meanwhile, so the real generation starts at once: searching the same places twice would only cost double.
+    expect(afterCallbacks).toHaveLength(0);
+    expect(prewarmCalls).toHaveLength(0);
+  });
+
+  it("is never free with a live Stripe key, whatever else is set", async () => {
+    process.env.STRIPE_SECRET_KEY = "sk_live_abc";
+    process.env.STRIPE_MODE = "test";
+    delete process.env.FREE_TEST_ORDERS;
+    try {
+      await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
+    } finally {
+      restore();
+    }
+    expect(stripeParams).toHaveLength(1);
+    expect(orderRows[0]).toMatchObject({ stripe_payment_id: "cs_test_123", status: "pending" });
+    expect(orderRows[0].amount).toBeGreaterThan(0);
+  });
+
+  it("uses Stripe in test mode too when FREE_TEST_ORDERS=0", async () => {
+    process.env.STRIPE_SECRET_KEY = "sk_test_abc";
+    await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
+    restore();
+    expect(stripeParams).toHaveLength(1);
+    expect(callLog).toContain("redirect:https://checkout.stripe.test/pay/cs_test_123");
   });
 });

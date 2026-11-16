@@ -19,6 +19,7 @@ import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { disableDeviceMemory, enableDeviceMemory } from "@/lib/discovery/historyStore";
 import { checkTestQuota } from "@/lib/testQuota";
+import { freeTestOrdersEnabled, newFreeOrderId } from "@/lib/freeTest";
 
 // Model C digital sale compliance: two separate, independently required
 // checkboxes on /checkout (see CheckoutPanel.tsx) — termsAccepted (the
@@ -84,7 +85,10 @@ export async function createCheckoutSession(
   // the same function showed. While the price test is off this is the normal price and the variant is null.
   const price = await getVisitorPrice("self");
 
-  const checkoutSession = await getStripe().checkout.sessions.create({
+  // Test phase (src/lib/freeTest.ts): no Stripe at all, the order gets an id of its own and the book starts straight away.
+  const freeId = freeTestOrdersEnabled() ? newFreeOrderId() : null;
+
+  const checkoutSession = freeId ? null : await getStripe().checkout.sessions.create({
     mode: "payment",
     // Stripe's own page in the visitor's language. No payment_method_types on purpose: Checkout then offers every method that is
     // switched on in the Stripe dashboard for EUR (iDEAL and cards; see docs/live-gaan.md), so the code never needs to change for that.
@@ -122,7 +126,8 @@ export async function createCheckoutSession(
     },
   });
 
-  if (!checkoutSession.url) {
+  const stripeUrl = checkoutSession?.url ?? null;
+  if (!freeId && !stripeUrl) {
     throw new Error("Could not start checkout.");
   }
 
@@ -130,10 +135,10 @@ export async function createCheckoutSession(
 
   const orderRow = {
     session_id: sessionId,
-    stripe_payment_id: checkoutSession.id,
-    amount: price.cents,
+    stripe_payment_id: freeId ?? checkoutSession!.id,
+    amount: freeId ? 0 : price.cents,
     currency: WINDOW_PLAN_PRICE.currency,
-    status: "pending" as const,
+    status: freeId ? ("succeeded" as const) : ("pending" as const),
     order_number: orderNumber,
     product_id: "windowinto-pdf",
     withdrawal_waiver_confirmed_at: new Date().toISOString(),
@@ -194,9 +199,17 @@ export async function createCheckoutSession(
   if (rememberDevice === true) await enableDeviceMemory(supabase, sessionId);
   else if (rememberDevice === false) await disableDeviceMemory(supabase);
 
+  if (freeId) {
+    // The address the book is sent to is kept with the account, as it is after a Stripe payment (plan/data.ts reads it back from there).
+    const { data: user } = await supabase.from("users").upsert({ email }, { onConflict: "email" }).select("id").single();
+    if (user) await supabase.from("sessions").update({ user_id: user.id }).eq("id", sessionId);
+    // No prewarm: nobody is paying meanwhile, so the real generation starts at once and would only search the same places twice.
+    redirect(`/plan?checkout_session_id=${freeId}`);
+  }
+
   // While the buyer pays at Stripe, the search for real places already runs (src/lib/claude/prewarmResearch.ts): after the order, the
   // consents and the device memory are stored, so the real generation later reads every answer from the cache.
   after(() => prewarmBookResearch(supabase, sessionId));
 
-  redirect(checkoutSession.url);
+  redirect(stripeUrl!);
 }

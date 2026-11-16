@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
+import { isFreeOrderId } from "@/lib/freeTest";
 import { resolveIdeaByKey } from "@/lib/ideaKeys";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 
@@ -30,8 +31,14 @@ export async function retryPlanGeneration(formData: FormData) {
   if (typeof testSessionId === "string" && testSessionId) {
     sessionId = testSessionId;
   } else if (typeof checkoutSessionId === "string" && checkoutSessionId) {
-    const checkoutSession = await getStripe().checkout.sessions.retrieve(checkoutSessionId);
-    sessionId = checkoutSession.metadata?.session_id ?? null;
+    if (isFreeOrderId(checkoutSessionId)) {
+      // A free test order (src/lib/freeTest.ts): the session is on the order row, there is no Stripe session to ask.
+      const { data: order } = await supabase.from("payments").select("session_id").eq("stripe_payment_id", checkoutSessionId).maybeSingle();
+      sessionId = order?.session_id ?? null;
+    } else {
+      const checkoutSession = await getStripe().checkout.sessions.retrieve(checkoutSessionId);
+      sessionId = checkoutSession.metadata?.session_id ?? null;
+    }
   }
 
   if (sessionId) {

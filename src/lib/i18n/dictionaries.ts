@@ -126,9 +126,11 @@ export interface Dictionary {
     requiredMark: string;
     errorEmailRequired: string;
     ctaIdle: string;
+    ctaIdleFree: string;
     ctaPending: string;
     /** One line under the pay button: why it is safe and how soon the book is there. */
     payAssurance: string;
+    payAssuranceFree: string;
     /** Above the pay button while it is still grey: what is missing. */
     payHint: { consent: string; email: string; both: string };
     errorGeneric: string;
@@ -684,8 +686,10 @@ const nl: Dictionary = {
     requiredMark: "verplicht",
     errorEmailRequired: "Vul een geldig e-mailadres in om je boek te ontvangen.",
     ctaIdle: "Ja, ik wil mijn Idea Book — betaal {price}",
+    ctaIdleFree: "Ja, ik wil mijn Idea Book — gratis in de testfase",
     ctaPending: "Checkout wordt geopend…",
     payAssurance: "Veilig betalen via Stripe. Je Idea Book staat binnen 2 minuten klaar.",
+    payAssuranceFree: "Gratis in de testfase: je hoeft niet te betalen. Je Idea Book staat binnen 2 minuten klaar.",
     payHint: {
       consent: "Vink de twee vakjes hierboven aan om te kunnen betalen.",
       email: "Vul een geldig e-mailadres in om te kunnen betalen.",
@@ -1413,8 +1417,10 @@ const en: Dictionary = {
     requiredMark: "required",
     errorEmailRequired: "Enter a valid e-mail address to receive your book.",
     ctaIdle: "Yes, I want my Idea Book — pay {price}",
+    ctaIdleFree: "Yes, I want my Idea Book — free during the test phase",
     ctaPending: "Opening checkout…",
     payAssurance: "Pay safely through Stripe. Your Idea Book is ready within 2 minutes.",
+    payAssuranceFree: "Free during the test phase: there is nothing to pay. Your Idea Book is ready within 2 minutes.",
     payHint: {
       consent: "Tick the two boxes above to be able to pay.",
       email: "Enter a valid e-mail address to be able to pay.",
