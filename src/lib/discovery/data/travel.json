@@ -684,5 +684,40 @@
     },
     "scene": "a set of house keys with a leather tag, a dog lead on a hook and a map on a hallway table",
     "status": "concept"
+  },
+  {
+    "id": "pretpark",
+    "domain": "travel",
+    "sub": "journeys",
+    "label": {
+      "nl": "Een dag naar een pretpark",
+      "en": "A day at a theme park"
+    },
+    "tags": [
+      "play",
+      "suspense",
+      "conviviality"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 3,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een dagkaart, vaak goedkoper vooraf online",
+      "en": "A day ticket, often cheaper booked online first"
+    },
+    "scene": "a roller coaster track curving against a blue sky with a carousel in the foreground",
+    "status": "concept"
   }
 ]

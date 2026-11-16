@@ -3405,5 +3405,79 @@
     },
     "scene": "a flock of geese landing on a frosty field at dawn with a wooden bird hide at the edge",
     "status": "concept"
+  },
+  {
+    "id": "uitkijktoren",
+    "domain": "nature",
+    "sub": "walking",
+    "label": {
+      "nl": "Een uitkijktoren beklimmen",
+      "en": "Climbing a lookout tower"
+    },
+    "tags": [
+      "height",
+      "discovery",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "De meeste torens zijn gratis te beklimmen; kijk op een wandelkaart",
+      "en": "Most towers are free to climb; check a hiking map"
+    },
+    "scene": "a wooden lookout tower rising above a forest with a long view over the treetops",
+    "status": "concept"
+  },
+  {
+    "id": "bollenvelden",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Door de bloembollenvelden fietsen of wandelen",
+      "en": "Cycling or walking through the bulb fields"
+    },
+    "tags": [
+      "color",
+      "nature",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "months": [
+      4,
+      5
+    ],
+    "supply": "regional",
+    "entry": {
+      "nl": "Volg een bloembollenroute in het voorjaar; langs de weg kijken is gratis",
+      "en": "Follow a bulb-field route in spring; looking from the road is free"
+    },
+    "scene": "stripes of red, yellow and pink tulips running to the horizon under a wide sky",
+    "status": "concept"
   }
 ]

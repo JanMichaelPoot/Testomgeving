@@ -926,5 +926,40 @@
     "scene": "a tiny golf green with a flag and short rough around it, a single white ball on the fringe",
     "supply": "regional",
     "status": "concept"
+  },
+  {
+    "id": "kegelen",
+    "domain": "target",
+    "sub": "fine_aim",
+    "label": {
+      "nl": "Kegelen in een kegelbaan",
+      "en": "Skittles in a skittle alley"
+    },
+    "tags": [
+      "precision",
+      "competition",
+      "conviviality"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Boek een baan voor een uur; ballen en schoenen zijn te huur",
+      "en": "Book a lane for an hour; balls and shoes can be hired"
+    },
+    "scene": "nine wooden skittles standing in a diamond at the end of a polished wooden alley",
+    "status": "concept"
   }
 ]

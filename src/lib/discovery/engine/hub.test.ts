@@ -14,7 +14,8 @@ describe("hub damping (weights.hub)", () => {
       expect(h).toBeGreaterThanOrEqual(0);
       expect(h).toBeLessThanOrEqual(1);
     }
-    expect(graph.hubness(byId.get("wandelen")!)).toBeGreaterThan(0.6);
+    // wandelen was above 0.6 until 16 Nov 2026; the 18 everyday activities added then raised the maximum the scale is stretched to, so it is 0.49 now (still the 89th percentile).
+    expect(graph.hubness(byId.get("wandelen")!)).toBeGreaterThan(0.4);
     expect(graph.hubness(byId.get("natuurbeheer")!)).toBeGreaterThan(0.6);
     expect(graph.hubness(byId.get("glasblazen")!)).toBe(0);
   });

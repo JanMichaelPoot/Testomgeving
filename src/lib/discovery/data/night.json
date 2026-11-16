@@ -911,5 +911,88 @@
       "source_record_id": "RA-440",
       "method": "curated"
     }
+  },
+  {
+    "id": "kermis",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Een avond op de kermis",
+      "en": "An evening at the fair"
+    },
+    "tags": [
+      "play",
+      "retro",
+      "conviviality"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "supply": "common",
+    "entry": {
+      "nl": "Loop gewoon binnen; je betaalt per attractie of kraam",
+      "en": "Just walk in; you pay per ride or stall"
+    },
+    "scene": "a lit ferris wheel and a popcorn stall glowing at dusk",
+    "status": "concept"
+  },
+  {
+    "id": "kerstmarkt",
+    "domain": "night",
+    "sub": "evening_out",
+    "label": {
+      "nl": "Een kerstmarkt bezoeken",
+      "en": "Visiting a Christmas market"
+    },
+    "tags": [
+      "conviviality",
+      "retro",
+      "food"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "months": [
+      11,
+      12
+    ],
+    "supply": "common",
+    "entry": {
+      "nl": "Loop gewoon binnen; glühwein en lekkers betaal je per kraam",
+      "en": "Just walk in; you pay per stall for mulled wine and treats"
+    },
+    "scene": "wooden market stalls hung with fairy lights and a steaming mug on a counter in the snow",
+    "status": "concept"
   }
 ]

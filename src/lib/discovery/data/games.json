@@ -1286,5 +1286,40 @@
     },
     "scene": "a sketched game board with wooden pieces, index cards and a pencil on a table",
     "status": "concept"
+  },
+  {
+    "id": "tafelvoetbal",
+    "domain": "games",
+    "sub": "digital_action",
+    "label": {
+      "nl": "Tafelvoetbal in een spelletjescafé",
+      "en": "Table football in a games café"
+    },
+    "tags": [
+      "competition",
+      "play",
+      "conviviality"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known",
+      "drop_in_alone"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Veel cafés hebben een tafel; vraag om een bal aan de bar",
+      "en": "Many cafés have a table; ask the bar for a ball"
+    },
+    "scene": "a foosball table with red and blue rods under a warm café lamp",
+    "status": "concept"
   }
 ]

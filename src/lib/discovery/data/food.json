@@ -1044,5 +1044,82 @@
         "source_record_id": "RA-301"
       }
     ]
+  },
+  {
+    "id": "brunchen",
+    "domain": "food",
+    "sub": "drink_craft",
+    "label": {
+      "nl": "Uitgebreid brunchen",
+      "en": "A long brunch out"
+    },
+    "tags": [
+      "food",
+      "conviviality",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Reserveer een tafel in het weekend; vaak een vaste prijs per persoon",
+      "en": "Book a weekend table; often a fixed price per person"
+    },
+    "scene": "a table with a tiered stand of pastries, eggs and a pot of coffee in soft morning light",
+    "status": "concept"
+  },
+  {
+    "id": "zelfpluktuin",
+    "domain": "food",
+    "sub": "harvest",
+    "label": {
+      "nl": "Zelf plukken in een pluktuin",
+      "en": "Picking your own at a pick-your-own farm"
+    },
+    "tags": [
+      "food",
+      "growing",
+      "outdoors"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "supply": "common",
+    "entry": {
+      "nl": "Loop binnen bij een pluktuin of boerderij en betaal per kilo",
+      "en": "Walk into a pick-your-own farm and pay by the kilo"
+    },
+    "scene": "rows of strawberry plants with a wicker basket of ripe fruit between them",
+    "status": "concept"
   }
 ]

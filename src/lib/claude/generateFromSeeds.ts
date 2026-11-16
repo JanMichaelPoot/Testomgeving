@@ -1107,10 +1107,19 @@ export async function generateIdeaBookFromSeeds(
     remember(candidates, found.byActivity);
     research = { byActivity: new Map([...research.byActivity, ...found.byActivity]), stats: addStats(research.stats, found.stats) };
     const taking = new Set<string>();
+    // One place, one idea (dedupePlaces): a candidate whose only places are already the places of other ideas of the book would lose them again and leave the idea
+    // without one (Wernigerode, 16 Nov 2026: a replacement with a place that the "old map walk" already had), so it is chosen only when it has a place of its own.
+    const placeKey = (o: LocalOption) => `${o.name}|${o.city}`.toLowerCase();
+    const usedPlaces = new Set<string>();
+    {
+      const deduped = dedupePlaces(engine.seeds, research.byActivity, ownPicks);
+      for (const x of engine.seeds) if (!lacking.includes(x)) for (const o of seedResearch(x, deduped)?.options ?? []) usedPlaces.add(placeKey(o));
+    }
     for (const s of lacking) {
-      const choice = (proposals.get(s) ?? []).find((c) => !taking.has(c.activityId) && (seedResearch(c, research.byActivity)?.options.length ?? 0) > 0);
+      const choice = (proposals.get(s) ?? []).find((c) => !taking.has(c.activityId) && (seedResearch(c, research.byActivity)?.options ?? []).some((o) => !usedPlaces.has(placeKey(o))));
       if (!choice) continue;
       taking.add(choice.activityId);
+      for (const o of seedResearch(choice, research.byActivity)?.options ?? []) usedPlaces.add(placeKey(o));
       engine = { ...engine, seeds: engine.seeds.map((x) => (x === s ? { ...choice, level: s.level } : x)) };
       if (ownPicks.has(s.activityId)) replacedPicks.set(choice.activityId, getActivity(s.activityId)?.label[locale] ?? s.activityId);
       notes.push(`coverage_replaced:${s.activityId}>${choice.activityId}`);

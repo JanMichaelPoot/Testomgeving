@@ -1414,5 +1414,46 @@
       "source_record_id": "RA-046",
       "method": "curated"
     }
+  },
+  {
+    "id": "windsurfen",
+    "domain": "adventure",
+    "sub": "wild_water",
+    "label": {
+      "nl": "Windsurfles",
+      "en": "A windsurfing lesson"
+    },
+    "tags": [
+      "water",
+      "balance",
+      "challenge"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 3,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "supply": "regional",
+    "entry": {
+      "nl": "Boek een beginnersles met materiaal bij een windsurfschool",
+      "en": "Book a beginner lesson with equipment at a windsurf school"
+    },
+    "scene": "a windsurf board with a bright sail on a calm lake, a wooden jetty beside it",
+    "status": "concept"
   }
 ]

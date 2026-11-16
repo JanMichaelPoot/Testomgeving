@@ -1329,5 +1329,50 @@
     },
     "scene": "a market table of antique brass candlesticks, porcelain cups, old keys and lace linen",
     "status": "concept"
+  },
+  {
+    "id": "rommelmarkt",
+    "domain": "collecting",
+    "sub": "collecting_hunting",
+    "label": {
+      "nl": "Rommelmarkt of vlooienmarkt snuffelen",
+      "en": "Browsing a flea market"
+    },
+    "tags": [
+      "collecting",
+      "discovery",
+      "retro"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "supply": "common",
+    "entry": {
+      "nl": "Kom vroeg in het weekend; entree is vaak gratis",
+      "en": "Come early at the weekend; entry is often free"
+    },
+    "scene": "a trestle table of old teapots, books and brass lamps under a striped awning",
+    "status": "concept"
   }
 ]

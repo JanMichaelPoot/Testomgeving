@@ -57,3 +57,23 @@ Pagina 2 wordt samengesteld uit wat bij de gekozen beelden past, met een demper 
 1. Een vaste "klassiekers"-plek op pagina 2: twee of drie bekende activiteiten (bowlen, tennis, een wandelgroep, een museum) naast de activiteiten die bij de beelden passen, of een zoekveld "Mis je iets? Typ het hier". Dat lost het gevoel op zonder de bibliotheek te vergroten.
 2. De gaten hierboven toevoegen (±18 activiteiten). Met `image_pending` zijn ze onzichtbaar tot ze een foto hebben; twee vellen van 3×3 kosten ongeveer $0,27.
 3. De 70 activiteiten die nooit in een boek komen nakijken: te smal, te abstract of te weinig gekoppeld.
+
+## 3. Controle met het nieuwe prompt (16 nov 2026, één echte run, $0,305)
+
+Dezelfde invoer als het boek van 15 november (Wernigerode, 15 km, dezelfde zeven eigen keuzes), alleen het onderzoek, zonder Googlescore, met het nieuwe prompt en de nieuwe dekkingsronde. Jan koos voor één run (geen oude-tegen-nieuwe-vergelijking); de oude cijfers komen uit het opgeslagen boek.
+
+| | Boek 15 nov (oud prompt) | Controle (nieuw prompt) |
+|---|---|---|
+| Kosten onderzoek | $0,286 (boek $0,361) | $0,305 |
+| Activiteiten onderzocht / met plek | 15 / 3 | 20 / 8 |
+| Ideeën in het boek | 4 (3 + wildcard) | 5 |
+| Ideeën met een plek | 3 | 4 |
+| Eigen keuze `monumenten` | geen plek | Schloss Wernigerode |
+| `oude-kaart-wandeling` | geen plek | Stadtführung "1000 Schritte rund um's Rathaus" |
+| `ballroom` | n.v.t. | Tanzschule Kastern, Pure Dance Academy |
+
+Eerlijk: één run is een aanwijzing, het web geeft niet elke keer hetzelfde terug. De vondstkans per onderzocht idee ging van 20% naar 40%, en een eigen keuze die eerst niets opleverde (`monumenten`, een stad vol monumenten) vindt nu een kasteel. Dat past bij Duitse zoektermen. Het vijfde idee (`architectuur`) bleef zonder plek: de dekkingsronde koos een vervanger waarvan de enige plek al bij het stadswandelingidee hoorde, waarna die plek terecht verviel (één plek, één idee). Dat is hersteld: een vervanger wordt nu alleen gekozen als hij een plek heeft die nog bij geen ander idee van het boek hoort. Daarna zijn de extra rondes wegens het kostenplafond ($0,40) niet meer uitgevoerd (`cost_cap_skipped:broad`); dat ene idee staat dus als "eerst uitzoeken" in het boek. Dat dit hersteld is, is niet opnieuw met een echte run gemeten.
+
+## 4. Nieuwe activiteiten (Jan: "ja" op punt 3)
+
+Achttien activiteiten uit de gaten hierboven zijn toegevoegd, met foto (twee vellen 3×3 bij Gemini, ≈ $0,27 binnen het goedgekeurde bedrag): `pretpark`, `kermis`, `brunchen`, `zaalvoetbal`, `wielrennen`, `e-bike-tocht`, `windsurfen`, `triatlon`, `tafelvoetbal`, `hardloopgroep`, `zelfpluktuin`, `zwemparadijs`, `rommelmarkt`, `uitkijktoren`, `bollenvelden`, `pickleball`, `kegelen`, `kerstmarkt`. Bibliotheek 756 → 774. Elk met seizoen waar dat telt (kermis maart-oktober, kerstmarkt november-december, bollenvelden april-mei, ...), een stijlregister, Nederlandse zoektermen en status `concept`. De foto's tonen geen mensen; op de kermisfoto staat een lichtbord "POPCORN" en op de hardloopfoto een banner "START" (leesbare tekst, zoals eerder zonder tekst bedoeld was; opnieuw maken kost ≈ $0,27).

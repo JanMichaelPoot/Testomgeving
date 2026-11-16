@@ -2991,5 +2991,254 @@
     },
     "scene": "a taut flat line strung between two trees in a sunlit park, a rucksack on the grass",
     "status": "concept"
+  },
+  {
+    "id": "zaalvoetbal",
+    "domain": "movement",
+    "sub": "moving_together",
+    "label": {
+      "nl": "Zaalvoetbal met een buurtteam",
+      "en": "Five-a-side football with a local team"
+    },
+    "tags": [
+      "teamwork",
+      "competition",
+      "movement"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Loop mee met een open trainingsavond of huur een veld met vrienden",
+      "en": "Join an open training night or rent a pitch with friends"
+    },
+    "scene": "a football on an indoor court floor with painted lines and a small goal",
+    "status": "concept"
+  },
+  {
+    "id": "wielrennen",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Meerijden met een wielerclub",
+      "en": "Riding along with a cycling club"
+    },
+    "tags": [
+      "movement",
+      "challenge",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Veel clubs hebben een proefrit voor beginners op zondagochtend",
+      "en": "Many clubs offer a beginners' trial ride on Sunday morning"
+    },
+    "scene": "a road bike with thin tyres leaning against a post on a quiet country lane",
+    "status": "concept"
+  },
+  {
+    "id": "e-bike-tocht",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Een tocht op een elektrische fiets",
+      "en": "A ride on an electric bike"
+    },
+    "tags": [
+      "outdoors",
+      "discovery",
+      "movement"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Huur een e-bike bij een verhuurder en volg een fietsroute",
+      "en": "Rent an e-bike and follow a cycling route"
+    },
+    "scene": "an electric bike with a rear battery against a rail on a tree-lined path",
+    "status": "concept"
+  },
+  {
+    "id": "triatlon",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Een sprinttriatlon voor beginners",
+      "en": "A beginners' sprint triathlon"
+    },
+    "tags": [
+      "challenge",
+      "movement",
+      "water"
+    ],
+    "formats": [
+      "solo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "supply": "regional",
+    "entry": {
+      "nl": "Begin met een proeftraining bij een triatlonclub of een kleine wedstrijd",
+      "en": "Start with a trial session at a triathlon club or a small race"
+    },
+    "scene": "a bike, running shoes and a swim cap laid out in a transition area at sunrise",
+    "status": "concept"
+  },
+  {
+    "id": "hardloopgroep",
+    "domain": "movement",
+    "sub": "endurance",
+    "label": {
+      "nl": "Meelopen met een hardloopgroep of parkrun",
+      "en": "Running with a group or a parkrun"
+    },
+    "tags": [
+      "movement",
+      "conviviality",
+      "challenge"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "large_group"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Veel groepen en parkruns zijn gratis en welkom voor beginners",
+      "en": "Many groups and parkruns are free and open to beginners"
+    },
+    "scene": "a gravel path through a park with a start banner and a row of orange cones at dawn",
+    "status": "concept"
+  },
+  {
+    "id": "zwemparadijs",
+    "domain": "movement",
+    "sub": "water",
+    "label": {
+      "nl": "Een dag naar een subtropisch zwemparadijs",
+      "en": "A day at a tropical swimming paradise"
+    },
+    "tags": [
+      "water",
+      "play",
+      "conviviality"
+    ],
+    "formats": [
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een dagkaart; glijbanen en golfbad zitten er meestal bij",
+      "en": "A day ticket; slides and a wave pool are usually included"
+    },
+    "scene": "a curving water slide, palm trees and a turquoise pool under a glass roof",
+    "status": "concept"
+  },
+  {
+    "id": "pickleball",
+    "domain": "movement",
+    "sub": "precision_strength",
+    "label": {
+      "nl": "Pickleball proberen",
+      "en": "Trying pickleball"
+    },
+    "tags": [
+      "competition",
+      "movement",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 2,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Veel clubs hebben een kennismakingsuur met bats te leen",
+      "en": "Many clubs offer an intro hour with paddles to borrow"
+    },
+    "scene": "two wooden paddles and a perforated plastic ball on a small blue court",
+    "status": "concept"
   }
 ]
