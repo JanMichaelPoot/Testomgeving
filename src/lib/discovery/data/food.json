@@ -1121,5 +1121,42 @@
     },
     "scene": "rows of strawberry plants with a wicker basket of ripe fruit between them",
     "status": "concept"
+  },
+  {
+    "id": "gezond-koken",
+    "domain": "food",
+    "sub": "cooking_craft",
+    "label": {
+      "nl": "Een workshop gezond en voedzaam koken",
+      "en": "A healthy cooking workshop"
+    },
+    "tags": [
+      "food",
+      "health",
+      "learning",
+      "conviviality"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Een kookworkshop met een diëtist of kookstudio; je kookt en eet samen",
+      "en": "A cooking workshop with a dietitian or cooking studio; you cook and eat together"
+    },
+    "scene": "a wooden board of colourful vegetables, a bowl of grains and a small herb pot on a bright kitchen counter",
+    "status": "concept",
+    "image_pending": true
   }
 ]

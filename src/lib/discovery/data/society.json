@@ -127,7 +127,8 @@
     "tags": [
       "caring",
       "story",
-      "conviviality"
+      "conviviality",
+      "health"
     ],
     "formats": [
       "drop_in_alone",
@@ -330,7 +331,8 @@
     "tags": [
       "caring",
       "animals",
-      "growing"
+      "growing",
+      "health"
     ],
     "formats": [
       "drop_in_alone",
@@ -600,5 +602,107 @@
     },
     "scene": "two cups of tea on a table beside a phrasebook and a notepad with simple words",
     "status": "concept"
+  },
+  {
+    "id": "bloeddonor",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Bloed of plasma geven",
+      "en": "Donating blood or plasma"
+    },
+    "tags": [
+      "caring",
+      "health"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Meld je aan bij een donorlocatie; er volgt een korte intake en een gezondheidscheck",
+      "en": "Register at a donation site; a short intake and health check follows"
+    },
+    "scene": "an empty reclining donor chair, a glass of juice and a plate of biscuits in a bright clinic room",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "hospice-vrijwilliger",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Vrijwilliger in een hospice of bij palliatieve zorg",
+      "en": "Volunteer at a hospice or in palliative care"
+    },
+    "tags": [
+      "caring",
+      "health",
+      "stillness",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een kennismakingsgesprek met de coördinator van een hospice; je krijgt eerst een training",
+      "en": "An introduction with a hospice coordinator; training comes first"
+    },
+    "scene": "an armchair by a window with a folded blanket, a cup of tea and a small lamp in a quiet room",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "ziekenhuis-gastheer",
+    "domain": "society",
+    "sub": "helping",
+    "label": {
+      "nl": "Gastheer of gastvrouw in een ziekenhuis",
+      "en": "Host or guide volunteer in a hospital"
+    },
+    "tags": [
+      "caring",
+      "health",
+      "conviviality"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 4,
+    "setting": "indoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een kennismakingsgesprek bij de vrijwilligerscoördinator van een ziekenhuis",
+      "en": "An introduction with a hospital's volunteer coordinator"
+    },
+    "scene": "a bright hospital entrance hall with a welcome desk, a bench and a green plant",
+    "status": "concept",
+    "image_pending": true
   }
 ]

@@ -1199,6 +1199,14 @@
         "en": "Style"
       },
       "generic": false
+    },
+    {
+      "id": "health",
+      "label": {
+        "nl": "Gezondheid",
+        "en": "Health"
+      },
+      "generic": false
     }
   ]
 }

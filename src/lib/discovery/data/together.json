@@ -1031,5 +1031,41 @@
       "source_record_id": "RA-058",
       "method": "curated"
     }
+  },
+  {
+    "id": "mantelzorgcafe",
+    "domain": "together",
+    "sub": "join_in",
+    "label": {
+      "nl": "Een inloop- of mantelzorgcafé bezoeken",
+      "en": "Dropping in at a carers' or Alzheimer café"
+    },
+    "tags": [
+      "caring",
+      "health",
+      "conviviality",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een inloopavond; gewoon aanschuiven met een kop koffie, zonder aanmelding vooraf",
+      "en": "A drop-in evening; just join with a cup of coffee, usually without registration"
+    },
+    "scene": "a round table with coffee cups, a teapot and a plate of biscuits in a warm community room",
+    "status": "concept",
+    "image_pending": true
   }
 ]

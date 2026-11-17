@@ -44,5 +44,21 @@
   "bollenvelden": { "kind": "place", "terms": "bollenvelden bloei; tulpenvelden; bloembollenroute" },
   "pickleball": { "kind": "club", "terms": "pickleball proefles; pickleball vereniging; pickleball spelen" },
   "kegelen": { "kind": "venue", "terms": "kegelbaan; kegelen; kegelclub; bowling kegelen" },
-  "kerstmarkt": { "kind": "event", "terms": "kerstmarkt; wintermarkt; kerstmarkt agenda" }
+  "kerstmarkt": { "kind": "event", "terms": "kerstmarkt; wintermarkt; kerstmarkt agenda" },
+  "reanimatie-aed": { "kind": "venue", "terms": "reanimatiecursus AED training beginners; reanimatie en AED cursus in de buurt; EHBO vereniging reanimatie avond" },
+  "kinder-ehbo": { "kind": "venue", "terms": "kinder-EHBO cursus; EHBO voor baby's en kinderen cursus; eerste hulp kinderen avond" },
+  "bloeddonor": { "kind": "place", "terms": "bloed geven donorlocatie in de buurt; plasma doneren donorcentrum; bloeddonor worden aanmelden" },
+  "hospice-vrijwilliger": { "kind": "club", "terms": "hospice vrijwilliger worden; vrijwilligerswerk palliatieve zorg; vrijwilliger bijna-thuis-huis hospice" },
+  "ziekenhuis-gastheer": { "kind": "club", "terms": "vrijwilliger ziekenhuis gastheer gastvrouw; vrijwilligerswerk ziekenhuis wegwijzer; vrijwilliger zorginstelling" },
+  "mantelzorgcafe": { "kind": "event", "terms": "mantelzorgcafé inloop; Alzheimer Café bezoeken; inloopavond mantelzorg in de buurt" },
+  "geneeskunde-museum": { "kind": "place", "terms": "museum geneeskunde; anatomisch museum bezoeken; apothekersmuseum; museum menselijk lichaam" },
+  "gezond-koken": { "kind": "venue", "terms": "kookworkshop gezond koken; kookstudio voedingsworkshop; gezonde kookcursus diëtist" },
+  "zorgberoep-meekijken": { "kind": "event", "terms": "open dag verpleegkunde opleiding; snuffelstage zorg volwassenen; meelopen zorgberoep ziekenhuis; open dag zorgopleiding" },
+  "anatomie-tekenen": { "kind": "venue", "terms": "anatomisch tekenen workshop; tekenen naar skelet cursus; anatomie tekenen beginners" },
+  "planetarium-sterrenwacht": { "kind": "place", "terms": "planetarium voorstelling; sterrenwacht publieksavond; sterrenwacht open avond bezoeken" },
+  "natuurkunde-proefjes": { "kind": "venue", "terms": "natuurkunde workshop wetenschapscentrum; proefjes workshop volwassenen; science centre experimenteren" },
+  "fossielen-zoeken": { "kind": "event", "terms": "fossielen zoeken excursie; haaientanden zoeken strand; geologische vereniging excursie; fossielen speuren groeve" },
+  "wetenschapscafe": { "kind": "event", "terms": "wetenschapscafé avond; publiekscollege universiteit; lezing wetenschap in de buurt" },
+  "onderzoeksinstituut-bezoek": { "kind": "event", "terms": "open dag universiteit onderzoek; rondleiding onderzoeksinstituut; open dag laboratorium" },
+  "waterraket": { "kind": "event", "terms": "waterraket lanceren vereniging; raketbouw workshop; modelraket club open dag; waterraketten bouwen" }
 }

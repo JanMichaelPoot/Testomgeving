@@ -1402,5 +1402,43 @@
       "source_record_id": "RA-290",
       "method": "curated"
     }
+  },
+  {
+    "id": "geneeskunde-museum",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Een museum over geneeskunde en het lichaam bezoeken",
+      "en": "Visiting a museum of medicine and the human body"
+    },
+    "tags": [
+      "health",
+      "history",
+      "discovery",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een bezoek aan een museum over geneeskunde, het lichaam of de apothekerij; vaak met audiotour",
+      "en": "A visit to a museum of medicine, the body or pharmacy history; often with an audio tour"
+    },
+    "scene": "a glass cabinet of antique surgical instruments, brass scales and old apothecary jars under museum lighting",
+    "status": "concept",
+    "image_pending": true
   }
 ]

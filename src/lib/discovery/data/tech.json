@@ -1438,5 +1438,203 @@
     },
     "scene": "a laptop showing lines of colourful code beside a notebook with a sketched plan and a mug",
     "status": "concept"
+  },
+  {
+    "id": "planetarium-sterrenwacht",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Een planetarium of sterrenwacht bezoeken",
+      "en": "Visiting a planetarium or observatory"
+    },
+    "tags": [
+      "stars",
+      "discovery",
+      "learning",
+      "stillness"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een voorstelling in een planetarium of een publieksavond bij een sterrenwacht",
+      "en": "A show in a planetarium or a public evening at an observatory"
+    },
+    "scene": "a domed observatory building under a deep night sky full of stars, a single warm window glowing",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "natuurkunde-proefjes",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Natuurkundeproefjes doen",
+      "en": "Doing physics experiments"
+    },
+    "tags": [
+      "discovery",
+      "learning",
+      "play",
+      "technique"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Begin thuis met een proefjesboek of boek een workshop in een wetenschapscentrum",
+      "en": "Start at home with an experiment book or book a workshop at a science centre"
+    },
+    "scene": "a table with a prism, a magnet, a small spinning top and glass beakers in strong window light",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "wetenschapscafe",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Een wetenschapscafé of publiekscollege bijwonen",
+      "en": "Attending a science café or public lecture"
+    },
+    "tags": [
+      "discovery",
+      "learning",
+      "conviviality",
+      "language"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een avond in een wetenschapscafé of universiteitsgebouw; je schuift gewoon aan",
+      "en": "An evening at a science café or university hall; just join in"
+    },
+    "scene": "a café table with two glasses, a chalkboard of formulas and warm pendant lights",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "onderzoeksinstituut-bezoek",
+    "domain": "tech",
+    "sub": "science",
+    "label": {
+      "nl": "Een open dag bij een universiteit of onderzoeksinstituut",
+      "en": "An open day at a university or research institute"
+    },
+    "tags": [
+      "discovery",
+      "learning",
+      "technique",
+      "history"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een open dag of rondleiding bij een universiteit, onderzoeksinstituut of laboratorium",
+      "en": "An open day or tour at a university, research institute or laboratory"
+    },
+    "scene": "a bright laboratory bench with glassware, a microscope and a notebook beside a large window",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "waterraket",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Een waterraket bouwen en lanceren",
+      "en": "Building and launching a water rocket"
+    },
+    "tags": [
+      "making",
+      "technique",
+      "discovery",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "common",
+    "entry": {
+      "nl": "Bouw een raket van een petfles, een stuk karton en een fietspomp; lanceer 'm op een open veld",
+      "en": "Build a rocket from a plastic bottle, card and a bike pump; launch it in an open field"
+    },
+    "scene": "a plastic-bottle rocket with cardboard fins standing on a launch stand in an open meadow, a bike pump beside it",
+    "status": "concept",
+    "image_pending": true,
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
   }
 ]

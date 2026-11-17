@@ -3479,5 +3479,52 @@
     },
     "scene": "stripes of red, yellow and pink tulips running to the horizon under a wide sky",
     "status": "concept"
+  },
+  {
+    "id": "fossielen-zoeken",
+    "domain": "nature",
+    "sub": "walking",
+    "label": {
+      "nl": "Fossielen of haaientanden zoeken",
+      "en": "Hunting for fossils or shark teeth"
+    },
+    "tags": [
+      "nature",
+      "discovery",
+      "learning",
+      "outdoors"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 0,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 1
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een begeleide zoektocht van een geologievereniging, of een dag speuren op een strand of in een groeve",
+      "en": "A guided search with a geology society, or a day looking on a beach or in a quarry"
+    },
+    "scene": "a sandy beach at low tide with a small bucket of pebbles, a magnifying glass and a spiral fossil in the sand",
+    "status": "concept",
+    "image_pending": true,
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
   }
 ]

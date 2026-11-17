@@ -6,21 +6,21 @@
    "adjacent:discovery:fermenteren",
    "unexpected:unexpected:stop-motion",
    "stretch:stretch:houtbewerking",
-   "wildcard:wildcard:willekeurig-station"
+   "wildcard:wildcard:boulderen"
   ],
   "P02": [
    "familiar:natural:lasergamen",
-   "adjacent:discovery:breien-haken",
+   "adjacent:discovery:biljarten",
    "unexpected:unexpected:voedselbank",
    "stretch:stretch:teamsport",
-   "wildcard:wildcard:miniaturen"
+   "wildcard:wildcard:mondelinge-geschiedenis"
   ],
   "P03": [
    "familiar:natural:klimmen",
    "adjacent:discovery:ruilkaarten",
-   "unexpected:unexpected:bosbaden",
-   "stretch:stretch:obstacle-run",
-   "wildcard:wildcard:tai-chi"
+   "unexpected:unexpected:bomen-herkennen",
+   "stretch:stretch:boksles",
+   "wildcard:wildcard:zeevissen"
   ],
   "P04": [
    "familiar:natural:hofjes",
@@ -30,32 +30,32 @@
    "wildcard:wildcard:mentor-zoeken"
   ],
   "P05": [
-   "familiar:natural:potluck",
-   "adjacent:discovery:cactussen",
-   "unexpected:unexpected:foerageren",
-   "stretch:stretch:tuinieren",
-   "wildcard:wildcard:boomerang"
+   "familiar:natural:massage",
+   "adjacent:discovery:open-tuinen",
+   "unexpected:unexpected:telescoop",
+   "stretch:stretch:bandje-beginnen",
+   "wildcard:wildcard:kasteel-overnachting"
   ],
   "P06": [
    "familiar:natural:strips",
    "adjacent:discovery:oude-kaart-wandeling",
    "unexpected:unexpected:schaduwtheater",
    "stretch:stretch:kamperen",
-   "wildcard:wildcard:stop-motion"
+   "wildcard:wildcard:pizza-oven"
   ],
   "P07": [
    "familiar:natural:kerstmarkt",
    "adjacent:discovery:kaarsen-gieten",
    "unexpected:unexpected:pottenbakken",
-   "stretch:stretch:munten-zegels",
-   "wildcard:wildcard:verteluur"
+   "stretch:stretch:kasteel-overnachting",
+   "wildcard:wildcard:hardlopen"
   ],
   "P08": [
    "familiar:natural:modelbouw",
    "adjacent:discovery:pastel-tekenen",
    "unexpected:unexpected:boulderen",
    "stretch:stretch:muziek-componeren",
-   "wildcard:wildcard:tarot"
+   "wildcard:wildcard:jongleren-leren"
   ],
   "P09": [
    "familiar:natural:biljarten",
@@ -66,10 +66,10 @@
   ],
   "P10": [
    "familiar:natural:speedcuben",
-   "adjacent:discovery:oldtimerrit",
+   "adjacent:discovery:sterrenkijken",
    "unexpected:unexpected:geologie",
    "stretch:stretch:kitesurfen",
-   "wildcard:wildcard:speurtocht-kaart"
+   "wildcard:wildcard:lederwerk"
   ],
   "P11": [
    "explore:natural:schaken",
@@ -94,31 +94,31 @@
   ],
   "P14": [
    "familiar:natural:nordic-walking",
-   "adjacent:discovery:kattencafe",
+   "adjacent:discovery:reptielen",
    "unexpected:unexpected:bandje-beginnen",
-   "stretch:stretch:rolschaatsen",
-   "wildcard:wildcard:beatboxen"
+   "stretch:stretch:fossielen",
+   "wildcard:wildcard:karaoke"
   ],
   "P15": [
    "familiar:natural:willekeurig-station",
-   "adjacent:discovery:sagen",
+   "adjacent:discovery:begraafplaats",
    "unexpected:unexpected:miniaturen",
    "stretch:stretch:week-meewerken-boerderij",
-   "wildcard:wildcard:jongleren-leren"
+   "wildcard:wildcard:gezichtsbehandeling"
   ],
   "P16": [
    "familiar:natural:fietsvakantie",
    "adjacent:discovery:vuurtoren",
    "unexpected:unexpected:legpuzzels",
-   "stretch:stretch:triatlon",
-   "wildcard:wildcard:muziek-componeren"
+   "stretch:stretch:skihal",
+   "wildcard:wildcard:column-schrijven"
   ],
   "P17": [
    "familiar:natural:levensverhaal",
    "adjacent:discovery:cactussen",
    "unexpected:unexpected:buitenplaats",
    "stretch:stretch:munten-zegels",
-   "wildcard:wildcard:krabben-vangen"
+   "wildcard:wildcard:wildkijken"
   ],
   "P18": [
    "familiar:natural:escape-room",
