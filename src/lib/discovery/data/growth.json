@@ -924,8 +924,7 @@
       "en": "An evening course at a recognised first-aid or CPR organisation; you practise on a dummy"
     },
     "scene": "a training dummy, a bright defibrillator case and a first-aid kit on a pale wooden floor in soft daylight",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "kinder-ehbo",
@@ -961,8 +960,7 @@
       "en": "An evening course in first aid for children; often open to grandparents and babysitters"
     },
     "scene": "a small first-aid box with colourful plasters, a soft toy bear and a bandage roll on a nursery shelf",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "zorgberoep-meekijken",
@@ -996,7 +994,6 @@
       "en": "An open day at a healthcare programme or a taster placement at a care institution"
     },
     "scene": "a stethoscope, a notebook and a name badge on a clean desk beside a window with a view of a hospital garden",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

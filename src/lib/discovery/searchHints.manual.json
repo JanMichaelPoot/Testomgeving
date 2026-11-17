@@ -60,5 +60,7 @@
   "fossielen-zoeken": { "kind": "event", "terms": "fossielen zoeken excursie; haaientanden zoeken strand; geologische vereniging excursie; fossielen speuren groeve" },
   "wetenschapscafe": { "kind": "event", "terms": "wetenschapscafé avond; publiekscollege universiteit; lezing wetenschap in de buurt" },
   "onderzoeksinstituut-bezoek": { "kind": "event", "terms": "open dag universiteit onderzoek; rondleiding onderzoeksinstituut; open dag laboratorium" },
-  "waterraket": { "kind": "event", "terms": "waterraket lanceren vereniging; raketbouw workshop; modelraket club open dag; waterraketten bouwen" }
+  "waterraket": { "kind": "event", "terms": "waterraket lanceren vereniging; raketbouw workshop; modelraket club open dag; waterraketten bouwen" },
+  "medicinale-kruidentuin": { "kind": "place", "terms": "medicinale kruidentuin bezoeken; apothekerstuin; kruidentuin rondleiding; hortus botanicus kruiden" },
+  "natuurhistorisch-museum": { "kind": "place", "terms": "natuurhistorisch museum; museum natuur skeletten fossielen; dinosaurusmuseum bezoeken" }
 }

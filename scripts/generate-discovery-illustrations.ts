@@ -14,6 +14,7 @@
 //   npx tsx scripts/generate-discovery-illustrations.ts --associations --sheet 2x2 --dry-run   cost, no calls
 //   npx tsx scripts/generate-discovery-illustrations.ts --associations --sheet 2x2 --limit 1
 //   npx tsx scripts/generate-discovery-illustrations.ts --hero --sheet 3x3 --dry-run
+//   npx tsx scripts/generate-discovery-illustrations.ts --themes --sheet 3x3 --dry-run   the "Iets met ..." theme tiles, into public/illustrations/themes/
 //                                    the pool of landing-hero photos (src/lib/discovery/heroPool.json),
 //                                    900px wide, into public/illustrations/hero-pool/<id>.jpg
 //                                    the association images of the image intake ("Het venster"),
@@ -40,6 +41,7 @@ import { ALL_ACTIVITIES, ALL_DOMAINS as DOMAINS } from "../src/lib/discovery/lib
 import { sliceSheet } from "../src/lib/discovery/sheetSlicer";
 import { ASSOCIATIONS } from "../src/lib/discovery/associations";
 import { HERO_POOL } from "../src/lib/heroPool";
+import themesJson from "../src/lib/discovery/themes.json";
 
 if (!process.env.GEMINI_API_KEY && existsSync(".env.local")) process.loadEnvFile(".env.local");
 if (!process.env.GEMINI_API_KEY && !process.argv.includes("--dry-run")) {
@@ -48,13 +50,15 @@ if (!process.env.GEMINI_API_KEY && !process.argv.includes("--dry-run")) {
 }
 
 const HERO_MODE = process.argv.includes("--hero");
-const ASSOCIATION_MODE = process.argv.includes("--associations") || HERO_MODE;
+const THEME_MODE = process.argv.includes("--themes");
+const ASSOCIATION_MODE = process.argv.includes("--associations") || HERO_MODE || THEME_MODE;
 const OUT = path.join(process.cwd(), "public/illustrations/discovery");
 const ASSOCIATION_OUT = path.join(process.cwd(), "public/illustrations/associations");
 const HERO_OUT = path.join(process.cwd(), "public/illustrations/hero-pool");
+const THEME_OUT = path.join(process.cwd(), "public/illustrations/themes");
 const ASSOCIATIONS_JSON = path.join(process.cwd(), "src/lib/discovery/associations.json");
 const HERO_JSON = path.join(process.cwd(), "src/lib/discovery/heroPool.json");
-const WIDTH = HERO_MODE ? 900 : ASSOCIATION_MODE ? 1000 : 800;
+const WIDTH = HERO_MODE ? 900 : THEME_MODE ? 960 : ASSOCIATION_MODE ? 1000 : 800;
 
 // Association images (bouwopdracht "Het venster", fase 2): a mood, a place, a texture or a
 // fall of light, never a recognisable hobby set-up, so the images call up a feeling instead
@@ -67,11 +71,20 @@ const ASSOCIATION_STYLE =
   "simple uncluttered composition, shallow depth of field, crisp detail. " +
   "Strictly no people, no faces, no hands, no body parts, no text, no letters, no logos.";
 
+// Theme tiles ("Iets met natuur", ...; docs/voorstel-themabeelden.md): the opposite of the association cards. The theme must be
+// named at a glance, not hinted at. People may be present when small, far away or seen from behind; hands only where they carry the subject.
+const THEME_STYLE =
+  "Photorealistic contemporary editorial photographs in a premium travel-magazine style. Each photograph shows ONE theme, instantly recognisable at thumbnail size: " +
+  "the subject is clearly named by what is in the frame, not merely hinted at. Warm natural light, rich saturated colour that follows the subject, " +
+  "simple uncluttered composition, shallow depth of field, crisp detail. No recognisable faces: any person is small, far away or seen from behind, " +
+  "and hands appear only where they carry the subject. No text, no letters, no logos anywhere.";
+
 // Same photographic language as the rest of the site (warm walnut, linen, cream),
 // with ONE bold accent colour per domain so the cards are recognisable at a
 // glance and the wizard doesn't turn beige. No people: it avoids stereotypes
 // about who does which hobby and generation glitches with faces and hands.
 function stylePrefix(colorName: string, hex: string) {
+  if (THEME_MODE) return THEME_STYLE.replace("photographs in", "photograph in").replace("Each photograph shows", "The photograph shows");
   if (!hex) return ASSOCIATION_STYLE;
   return (
     "Photorealistic contemporary editorial photograph in a premium travel-magazine style. " +
@@ -97,7 +110,7 @@ const SHEET_STYLE =
 
 function sheetPrompt(cells: Job[], cols: number, rows: number) {
   const lines = cells.map((c, i) => (c.hex ? `${i + 1}. (${c.colorName}, ${c.hex}) ${c.scene}.` : `${i + 1}. ${c.scene}.`));
-  const style = cells.some((c) => !c.hex) ? ASSOCIATION_STYLE.replace("photograph in", "photographs in") : SHEET_STYLE;
+  const style = THEME_MODE ? THEME_STYLE : cells.some((c) => !c.hex) ? ASSOCIATION_STYLE.replace("photograph in", "photographs in") : SHEET_STYLE;
   return {
     prefix:
       `${style} Create ONE single image that is a grid of ${cols} columns by ${rows} rows: ${cells.length} separate photographs of exactly equal size, ` +
@@ -134,6 +147,11 @@ if (HERO_MODE) {
   for (const h of HERO_POOL) {
     if (only && !only.includes(h.id)) continue;
     jobs.push({ file: path.join(HERO_OUT, `${h.id}.jpg`), label: h.id, scene: h.scene, colorName: "", hex: "" });
+  }
+} else if (THEME_MODE) {
+  for (const t of themesJson) for (const im of t.images) {
+    if (only && !only.includes(im.id) && !only.includes(t.id)) continue;
+    jobs.push({ file: path.join(THEME_OUT, `${im.id}.jpg`), label: im.id, scene: im.scene, colorName: "", hex: "" });
   }
 } else if (ASSOCIATION_MODE) {
   for (const c of ASSOCIATIONS) {
@@ -298,7 +316,7 @@ async function runSheets() {
 
 // Points associations.json at the generated images that exist now (keeps the stand-in otherwise).
 function linkAssociationImages() {
-  if (!ASSOCIATION_MODE) return;
+  if (!ASSOCIATION_MODE || THEME_MODE) return;
   const jsonFile = HERO_MODE ? HERO_JSON : ASSOCIATIONS_JSON;
   const outDir = HERO_MODE ? HERO_OUT : ASSOCIATION_OUT;
   const publicDir = HERO_MODE ? "hero-pool" : "associations";

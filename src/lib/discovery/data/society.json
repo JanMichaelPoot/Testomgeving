@@ -633,8 +633,7 @@
       "en": "Register at a donation site; a short intake and health check follows"
     },
     "scene": "an empty reclining donor chair, a glass of juice and a plate of biscuits in a bright clinic room",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "hospice-vrijwilliger",
@@ -668,8 +667,7 @@
       "en": "An introduction with a hospice coordinator; training comes first"
     },
     "scene": "an armchair by a window with a folded blanket, a cup of tea and a small lamp in a quiet room",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "ziekenhuis-gastheer",
@@ -702,7 +700,6 @@
       "en": "An introduction with a hospital's volunteer coordinator"
     },
     "scene": "a bright hospital entrance hall with a welcome desk, a bench and a green plant",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

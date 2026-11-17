@@ -1,0 +1,1379 @@
+[
+  {
+    "id": "natuur",
+    "group": "nature",
+    "label": {
+      "nl": "Iets met natuur",
+      "en": "Something with nature"
+    },
+    "blurb": {
+      "nl": "Bos, heide, duin en weidse uitzichten.",
+      "en": "Forest, heath, dunes and wide views."
+    },
+    "images": [
+      {
+        "id": "natuur-a",
+        "image": "/illustrations/themes/natuur-a.jpg",
+        "scene": "A beech forest edge at golden hour with a mossy path leading in and soft mist between the trunks"
+      },
+      {
+        "id": "natuur-b",
+        "image": "/illustrations/themes/natuur-b.jpg",
+        "scene": "A green hill landscape with a wooden gate and wildflowers under a wide blue sky, one tiny hiker far away seen from behind"
+      },
+      {
+        "id": "natuur-c",
+        "image": "/illustrations/themes/natuur-c.jpg",
+        "scene": "A mountain meadow with a small wooden hut and snowy peaks glowing at sunset"
+      }
+    ],
+    "members": {
+      "subs": [
+        "nature"
+      ],
+      "tags": [
+        "nature"
+      ]
+    },
+    "tagWeights": {
+      "nature": 1,
+      "animals": 0.44,
+      "outdoors": 0.37,
+      "discovery": 0.3
+    },
+    "axes": {
+      "social": -0.05,
+      "energy": 0.04,
+      "setting": 0.77,
+      "novelty": 0
+    },
+    "size": 138
+  },
+  {
+    "id": "dieren",
+    "group": "nature",
+    "label": {
+      "nl": "Iets met dieren",
+      "en": "Something with animals"
+    },
+    "blurb": {
+      "nl": "Paarden, schapen, vogels en alles wat leeft.",
+      "en": "Horses, sheep, birds and everything that lives."
+    },
+    "images": [
+      {
+        "id": "dieren-a",
+        "image": "/illustrations/themes/dieren-a.jpg",
+        "scene": "A chestnut horse looking over a fence in a misty morning meadow"
+      },
+      {
+        "id": "dieren-b",
+        "image": "/illustrations/themes/dieren-b.jpg",
+        "scene": "Close-up of a woolly sheep and a lamb on a green hillside in soft sunlight"
+      },
+      {
+        "id": "dieren-c",
+        "image": "/illustrations/themes/dieren-c.jpg",
+        "scene": "A golden retriever puppy and a tabby cat together on a sunny window seat"
+      }
+    ],
+    "members": {
+      "subs": [
+        "nature:animals"
+      ],
+      "tags": [
+        "animals"
+      ]
+    },
+    "tagWeights": {
+      "animals": 1,
+      "nature": 0.48,
+      "caring": 0.4,
+      "outdoors": 0.31
+    },
+    "axes": {
+      "social": -0.1,
+      "energy": -0.19,
+      "setting": 0.78,
+      "novelty": 0
+    },
+    "size": 55
+  },
+  {
+    "id": "water",
+    "group": "nature",
+    "label": {
+      "nl": "Iets met water",
+      "en": "Something with water"
+    },
+    "blurb": {
+      "nl": "Meren, zee en rivieren, op en in het water.",
+      "en": "Lakes, sea and rivers, on and in the water."
+    },
+    "images": [
+      {
+        "id": "water-a",
+        "image": "/illustrations/themes/water-a.jpg",
+        "scene": "A calm lake at sunrise with a red canoe and a wooden jetty"
+      },
+      {
+        "id": "water-b",
+        "image": "/illustrations/themes/water-b.jpg",
+        "scene": "A sailing boat on bright blue sea with a white wake and sun glitter"
+      }
+    ],
+    "members": {
+      "subs": [
+        "movement:water",
+        "adventure:wild_water"
+      ],
+      "tags": [
+        "water"
+      ]
+    },
+    "tagWeights": {
+      "water": 1,
+      "challenge": 0.38
+    },
+    "axes": {
+      "social": -0.06,
+      "energy": 0.47,
+      "setting": 0.64,
+      "novelty": 0
+    },
+    "size": 53
+  },
+  {
+    "id": "tuin",
+    "group": "nature",
+    "label": {
+      "nl": "Iets met tuin en planten",
+      "en": "Something with gardens and plants"
+    },
+    "blurb": {
+      "nl": "Moestuinen, kassen, bloemen en groeien.",
+      "en": "Vegetable gardens, greenhouses, flowers and growing things."
+    },
+    "images": [
+      {
+        "id": "tuin-a",
+        "image": "/illustrations/themes/tuin-a.jpg",
+        "scene": "A sunny vegetable garden with raised wooden beds full of lettuce and tomatoes and a metal watering can"
+      },
+      {
+        "id": "tuin-b",
+        "image": "/illustrations/themes/tuin-b.jpg",
+        "scene": "Inside a bright glasshouse full of green plants, flowering orchids and hanging baskets"
+      }
+    ],
+    "members": {
+      "subs": [
+        "nature:plants",
+        "food:harvest"
+      ],
+      "tags": [
+        "growing"
+      ]
+    },
+    "tagWeights": {
+      "growing": 1,
+      "nature": 0.77,
+      "caring": 0.65,
+      "color": 0.38,
+      "food": 0.38,
+      "discovery": 0.35
+    },
+    "axes": {
+      "social": 0.06,
+      "energy": 0.04,
+      "setting": 0.67,
+      "novelty": 0
+    },
+    "size": 37
+  },
+  {
+    "id": "buitenleven",
+    "group": "nature",
+    "label": {
+      "nl": "Iets met buitenleven en overleven",
+      "en": "Something with camping and survival"
+    },
+    "blurb": {
+      "nl": "Kampvuur, tent, vuur maken en op eigen kracht.",
+      "en": "Campfire, tent, fire making and self-reliance."
+    },
+    "images": [
+      {
+        "id": "buitenleven-a",
+        "image": "/illustrations/themes/buitenleven-a.jpg",
+        "scene": "A small orange tent beside a crackling campfire at dusk in a pine forest"
+      },
+      {
+        "id": "buitenleven-b",
+        "image": "/illustrations/themes/buitenleven-b.jpg",
+        "scene": "A bushcraft camp with a hammock, a blackened tin kettle on a fire and a hand axe in a log"
+      }
+    ],
+    "members": {
+      "subs": [
+        "elements:wild_skills",
+        "elements:fire_metal"
+      ],
+      "tags": [
+        "fire"
+      ]
+    },
+    "tagWeights": {
+      "fire": 1,
+      "craft": 0.8,
+      "making": 0.47,
+      "technique": 0.4
+    },
+    "axes": {
+      "social": 0.02,
+      "energy": 0.19,
+      "setting": 0.39,
+      "novelty": 0
+    },
+    "size": 21
+  },
+  {
+    "id": "avontuur",
+    "group": "move",
+    "label": {
+      "nl": "Iets met avontuur",
+      "en": "Something with adventure"
+    },
+    "blurb": {
+      "nl": "Ontdekken, uitdaging en spanning.",
+      "en": "Discovery, challenge and thrills."
+    },
+    "images": [
+      {
+        "id": "avontuur-a",
+        "image": "/illustrations/themes/avontuur-a.jpg",
+        "scene": "A climber seen from behind on a steep rock face with a bright rope, vast mountains below in dramatic light"
+      },
+      {
+        "id": "avontuur-b",
+        "image": "/illustrations/themes/avontuur-b.jpg",
+        "scene": "A rafting boat hitting white water between canyon walls with spray in the sun"
+      },
+      {
+        "id": "avontuur-c",
+        "image": "/illustrations/themes/avontuur-c.jpg",
+        "scene": "A paraglider silhouette floating over a green alpine valley at golden hour"
+      }
+    ],
+    "members": {
+      "subs": [
+        "adventure",
+        "movement:climbing"
+      ],
+      "tags": [
+        "height",
+        "depths"
+      ]
+    },
+    "tagWeights": {
+      "challenge": 1,
+      "height": 1,
+      "depths": 1,
+      "water": 0.44,
+      "technique": 0.34
+    },
+    "axes": {
+      "social": -0.16,
+      "energy": 0.63,
+      "setting": 0.8,
+      "novelty": 0.7
+    },
+    "size": 43
+  },
+  {
+    "id": "sport",
+    "group": "move",
+    "label": {
+      "nl": "Iets met sport",
+      "en": "Something with sports"
+    },
+    "blurb": {
+      "nl": "Hardlopen, fietsen, balsport en in beweging blijven.",
+      "en": "Running, cycling, ball sports and staying in motion."
+    },
+    "images": [
+      {
+        "id": "sport-a",
+        "image": "/illustrations/themes/sport-a.jpg",
+        "scene": "An empty running track at sunrise with painted lanes and starting blocks, a football resting on the grass beside it"
+      },
+      {
+        "id": "sport-b",
+        "image": "/illustrations/themes/sport-b.jpg",
+        "scene": "A cyclist on a quiet country road at sunrise seen from behind, long shadows and green fields"
+      }
+    ],
+    "members": {
+      "subs": [
+        "movement:endurance",
+        "movement:moving_together",
+        "movement:precision_strength"
+      ],
+      "tags": []
+    },
+    "tagWeights": {
+      "movement": 1,
+      "competition": 0.55,
+      "outdoors": 0.45,
+      "challenge": 0.45,
+      "teamwork": 0.32
+    },
+    "axes": {
+      "social": 0.27,
+      "energy": 0.8,
+      "setting": 0.31,
+      "novelty": 0
+    },
+    "size": 50
+  },
+  {
+    "id": "snelheid",
+    "group": "move",
+    "label": {
+      "nl": "Iets met snelheid en motoren",
+      "en": "Something with speed and engines"
+    },
+    "blurb": {
+      "nl": "Racebaan, motor en vliegen.",
+      "en": "Race track, motorbikes and flying."
+    },
+    "images": [
+      {
+        "id": "snelheid-a",
+        "image": "/illustrations/themes/snelheid-a.jpg",
+        "scene": "A red racing kart cornering fast on a track lined with tyre barriers"
+      },
+      {
+        "id": "snelheid-b",
+        "image": "/illustrations/themes/snelheid-b.jpg",
+        "scene": "A white glider soaring above green fields and a patchwork landscape in a bright sky"
+      }
+    ],
+    "members": {
+      "subs": [
+        "speed"
+      ],
+      "tags": [
+        "speed"
+      ]
+    },
+    "tagWeights": {
+      "speed": 1,
+      "challenge": 0.44,
+      "technique": 0.36,
+      "competition": 0.32
+    },
+    "axes": {
+      "social": 0.16,
+      "energy": 0.62,
+      "setting": 0.77,
+      "novelty": 0
+    },
+    "size": 28
+  },
+  {
+    "id": "mikken",
+    "group": "move",
+    "label": {
+      "nl": "Iets met mikken en precisie",
+      "en": "Something with aiming and precision"
+    },
+    "blurb": {
+      "nl": "Boogschieten, darts, werpen en raak mikken.",
+      "en": "Archery, darts, throwing and hitting the mark."
+    },
+    "images": [
+      {
+        "id": "mikken-a",
+        "image": "/illustrations/themes/mikken-a.jpg",
+        "scene": "A wooden archery target with arrows in the bullseye outdoors, shallow depth of field"
+      },
+      {
+        "id": "mikken-b",
+        "image": "/illustrations/themes/mikken-b.jpg",
+        "scene": "A dartboard close-up with three darts in the treble twenty in a warm pub light"
+      }
+    ],
+    "members": {
+      "subs": [
+        "target"
+      ],
+      "tags": []
+    },
+    "tagWeights": {
+      "precision": 1,
+      "play": 0.62,
+      "focus": 0.48,
+      "technique": 0.33
+    },
+    "axes": {
+      "social": 0.51,
+      "energy": 0.09,
+      "setting": 0.41,
+      "novelty": 0
+    },
+    "size": 23
+  },
+  {
+    "id": "kunst-cultuur",
+    "group": "culture",
+    "label": {
+      "nl": "Iets met kunst en cultuur",
+      "en": "Something with art and culture"
+    },
+    "blurb": {
+      "nl": "Musea, galerijen, gebouwen en tentoonstellingen.",
+      "en": "Museums, galleries, buildings and exhibitions."
+    },
+    "images": [
+      {
+        "id": "kunst-cultuur-a",
+        "image": "/illustrations/themes/kunst-cultuur-a.jpg",
+        "scene": "A quiet museum hall with large framed paintings and a wooden bench in soft light"
+      },
+      {
+        "id": "kunst-cultuur-b",
+        "image": "/illustrations/themes/kunst-cultuur-b.jpg",
+        "scene": "A modern gallery with a white sculpture and tall windows, one visitor tiny and seen from behind"
+      }
+    ],
+    "members": {
+      "subs": [
+        "history:places_stories",
+        "solo_explore:own_pace"
+      ],
+      "tags": []
+    },
+    "tagWeights": {
+      "discovery": 1,
+      "learning": 0.8,
+      "story": 0.8,
+      "history": 0.6,
+      "stillness": 0.55,
+      "color": 0.35
+    },
+    "axes": {
+      "social": -0.8,
+      "energy": -0.04,
+      "setting": 0.24,
+      "novelty": 0
+    },
+    "size": 38
+  },
+  {
+    "id": "beeld",
+    "group": "culture",
+    "label": {
+      "nl": "Iets met tekenen, schilderen en foto's",
+      "en": "Something with drawing, painting and photos"
+    },
+    "blurb": {
+      "nl": "Verf, potlood, camera en beeld maken.",
+      "en": "Paint, pencil, camera and making images."
+    },
+    "images": [
+      {
+        "id": "beeld-a",
+        "image": "/illustrations/themes/beeld-a.jpg",
+        "scene": "An easel with a half-finished colourful landscape painting, paint tubes and brushes in a sunny studio"
+      },
+      {
+        "id": "beeld-b",
+        "image": "/illustrations/themes/beeld-b.jpg",
+        "scene": "A vintage film camera on a table beside a sketchbook and coloured pencils in warm window light"
+      }
+    ],
+    "members": {
+      "subs": [
+        "creative:visual",
+        "stage:film_media"
+      ],
+      "tags": []
+    },
+    "tagWeights": {
+      "making": 1,
+      "color": 1,
+      "focus": 0.75,
+      "story": 0.54,
+      "precision": 0.39,
+      "technique": 0.39
+    },
+    "axes": {
+      "social": -0.23,
+      "energy": -0.28,
+      "setting": -0.36,
+      "novelty": 0
+    },
+    "size": 44
+  },
+  {
+    "id": "ambacht",
+    "group": "culture",
+    "label": {
+      "nl": "Iets met ambacht en handwerk",
+      "en": "Something with crafts and making by hand"
+    },
+    "blurb": {
+      "nl": "Hout, klei, textiel en iets echts maken.",
+      "en": "Wood, clay, textile and making something real."
+    },
+    "images": [
+      {
+        "id": "ambacht-a",
+        "image": "/illustrations/themes/ambacht-a.jpg",
+        "scene": "A woodworker's bench with a hand plane, curls of fresh wood and chisels in warm light"
+      },
+      {
+        "id": "ambacht-b",
+        "image": "/illustrations/themes/ambacht-b.jpg",
+        "scene": "Hands shaping a wet clay bowl on a pottery wheel in a warm studio"
+      }
+    ],
+    "members": {
+      "subs": [
+        "creative:shaping",
+        "creative:textile_paper",
+        "elements:wood_stone"
+      ],
+      "tags": []
+    },
+    "tagWeights": {
+      "craft": 1,
+      "making": 0.98,
+      "color": 0.41,
+      "precision": 0.41,
+      "technique": 0.41
+    },
+    "axes": {
+      "social": -0.17,
+      "energy": -0.16,
+      "setting": -0.52,
+      "novelty": 0
+    },
+    "size": 67
+  },
+  {
+    "id": "muziek",
+    "group": "culture",
+    "label": {
+      "nl": "Iets met muziek",
+      "en": "Something with music"
+    },
+    "blurb": {
+      "nl": "Zingen, spelen, luisteren en ritme.",
+      "en": "Singing, playing, listening and rhythm."
+    },
+    "images": [
+      {
+        "id": "muziek-a",
+        "image": "/illustrations/themes/muziek-a.jpg",
+        "scene": "An acoustic guitar leaning on an armchair beside an upright piano in a sunny room"
+      },
+      {
+        "id": "muziek-b",
+        "image": "/illustrations/themes/muziek-b.jpg",
+        "scene": "A drum kit and amplifiers on a small stage in colourful stage light"
+      }
+    ],
+    "members": {
+      "subs": [
+        "creative:sound_stage",
+        "night:music_night"
+      ],
+      "tags": [
+        "sound"
+      ]
+    },
+    "tagWeights": {
+      "sound": 1,
+      "rhythm": 0.48,
+      "story": 0.42,
+      "language": 0.34,
+      "conviviality": 0.32,
+      "performance": 0.3
+    },
+    "axes": {
+      "social": 0.02,
+      "energy": -0.14,
+      "setting": -0.59,
+      "novelty": 0
+    },
+    "size": 68
+  },
+  {
+    "id": "podium",
+    "group": "culture",
+    "label": {
+      "nl": "Iets met dans, theater en podium",
+      "en": "Something with dance, theatre and stage"
+    },
+    "blurb": {
+      "nl": "Dansen, toneel, show en applaus.",
+      "en": "Dancing, acting, shows and applause."
+    },
+    "images": [
+      {
+        "id": "podium-a",
+        "image": "/illustrations/themes/podium-a.jpg",
+        "scene": "A theatre stage with red velvet curtains half open and a single warm spotlight"
+      },
+      {
+        "id": "podium-b",
+        "image": "/illustrations/themes/podium-b.jpg",
+        "scene": "A dance studio with a long mirror wall, a wooden floor and a ballet barre in golden light"
+      }
+    ],
+    "members": {
+      "subs": [
+        "movement:dance",
+        "stage:spoken_word",
+        "stage:show_craft"
+      ],
+      "tags": [
+        "performance",
+        "roleplay"
+      ]
+    },
+    "tagWeights": {
+      "performance": 1,
+      "roleplay": 1,
+      "story": 0.58,
+      "language": 0.37,
+      "rhythm": 0.35
+    },
+    "axes": {
+      "social": 0.1,
+      "energy": 0,
+      "setting": -0.62,
+      "novelty": 0
+    },
+    "size": 74
+  },
+  {
+    "id": "taal",
+    "group": "culture",
+    "label": {
+      "nl": "Iets met schrijven, taal en verhalen",
+      "en": "Something with writing, language and stories"
+    },
+    "blurb": {
+      "nl": "Boeken, pen en papier, talen en verhalen.",
+      "en": "Books, pen and paper, languages and stories."
+    },
+    "images": [
+      {
+        "id": "taal-a",
+        "image": "/illustrations/themes/taal-a.jpg",
+        "scene": "A writing desk by a window with an open notebook, a fountain pen, a stack of books and a cup of tea"
+      },
+      {
+        "id": "taal-b",
+        "image": "/illustrations/themes/taal-b.jpg",
+        "scene": "A cosy bookshop corner with a wooden ladder and shelves full of books"
+      }
+    ],
+    "members": {
+      "subs": [
+        "restful:read_listen"
+      ],
+      "tags": [
+        "language"
+      ]
+    },
+    "tagWeights": {
+      "language": 1,
+      "story": 0.44
+    },
+    "axes": {
+      "social": -0.2,
+      "energy": -0.29,
+      "setting": -0.67,
+      "novelty": 0
+    },
+    "size": 71
+  },
+  {
+    "id": "mode",
+    "group": "culture",
+    "label": {
+      "nl": "Iets met mode, stijl en schoonheid",
+      "en": "Something with fashion, style and beauty"
+    },
+    "blurb": {
+      "nl": "Kleding, sieraden, bloemen en verzorging.",
+      "en": "Clothing, jewellery, flowers and self-care."
+    },
+    "images": [
+      {
+        "id": "mode-a",
+        "image": "/illustrations/themes/mode-a.jpg",
+        "scene": "A boutique rack of colourful garments with shoes and jewellery on a shelf in soft light"
+      },
+      {
+        "id": "mode-b",
+        "image": "/illustrations/themes/mode-b.jpg",
+        "scene": "A tailor's table with fabric, scissors, a measuring tape and a sewing machine"
+      }
+    ],
+    "members": {
+      "subs": [
+        "style"
+      ],
+      "tags": []
+    },
+    "tagWeights": {
+      "style": 1,
+      "color": 0.67,
+      "making": 0.43,
+      "craft": 0.33,
+      "learning": 0.33
+    },
+    "axes": {
+      "social": -0.26,
+      "energy": -0.34,
+      "setting": -0.74,
+      "novelty": 0
+    },
+    "size": 21
+  },
+  {
+    "id": "techniek",
+    "group": "mind",
+    "label": {
+      "nl": "Iets met techniek en bouwen",
+      "en": "Something with technology and building"
+    },
+    "blurb": {
+      "nl": "Maken, repareren, elektronica en slimme dingen bouwen.",
+      "en": "Making, repairing, electronics and building clever things."
+    },
+    "images": [
+      {
+        "id": "techniek-a",
+        "image": "/illustrations/themes/techniek-a.jpg",
+        "scene": "A workbench with a circuit board, a soldering iron, tools and a small robot in cool light"
+      },
+      {
+        "id": "techniek-b",
+        "image": "/illustrations/themes/techniek-b.jpg",
+        "scene": "A 3D printer making a small object beside a laptop showing code"
+      }
+    ],
+    "members": {
+      "subs": [
+        "tech:making_tech",
+        "tech:repair_craft"
+      ],
+      "tags": []
+    },
+    "tagWeights": {
+      "technique": 1,
+      "making": 0.57,
+      "puzzling": 0.43,
+      "craft": 0.43,
+      "learning": 0.33
+    },
+    "axes": {
+      "social": -0.14,
+      "energy": -0.17,
+      "setting": -0.63,
+      "novelty": 0
+    },
+    "size": 24
+  },
+  {
+    "id": "wetenschap",
+    "group": "mind",
+    "label": {
+      "nl": "Iets met wetenschap en sterren",
+      "en": "Something with science and stars"
+    },
+    "blurb": {
+      "nl": "Sterrenhemel, proefjes, onderzoek en waarom.",
+      "en": "Night sky, experiments, research and why."
+    },
+    "images": [
+      {
+        "id": "wetenschap-a",
+        "image": "/illustrations/themes/wetenschap-a.jpg",
+        "scene": "A telescope under a spectacular milky way night sky"
+      },
+      {
+        "id": "wetenschap-b",
+        "image": "/illustrations/themes/wetenschap-b.jpg",
+        "scene": "A microscope, glass beakers and a notebook on a bright laboratory table"
+      }
+    ],
+    "members": {
+      "subs": [
+        "tech:science"
+      ],
+      "tags": [
+        "stars"
+      ]
+    },
+    "tagWeights": {
+      "stars": 1,
+      "learning": 1,
+      "discovery": 0.71,
+      "technique": 0.57,
+      "nature": 0.36
+    },
+    "axes": {
+      "social": 0.17,
+      "energy": -0.17,
+      "setting": -0.12,
+      "novelty": 0.3
+    },
+    "size": 17
+  },
+  {
+    "id": "spel",
+    "group": "mind",
+    "label": {
+      "nl": "Iets met spel, puzzel en strategie",
+      "en": "Something with games, puzzles and strategy"
+    },
+    "blurb": {
+      "nl": "Schaken, bordspellen, puzzels en slim zijn.",
+      "en": "Chess, board games, puzzles and being clever."
+    },
+    "images": [
+      {
+        "id": "spel-a",
+        "image": "/illustrations/themes/spel-a.jpg",
+        "scene": "A chess board mid-game with dice and jigsaw pieces on a wooden table"
+      },
+      {
+        "id": "spel-b",
+        "image": "/illustrations/themes/spel-b.jpg",
+        "scene": "A board game spread out on a table with cards, colourful pawns and dice"
+      }
+    ],
+    "members": {
+      "subs": [
+        "games",
+        "night:card_chance"
+      ],
+      "tags": [
+        "strategy",
+        "puzzling",
+        "chance"
+      ]
+    },
+    "tagWeights": {
+      "puzzling": 1,
+      "strategy": 1,
+      "chance": 1,
+      "learning": 0.45,
+      "focus": 0.41,
+      "teamwork": 0.38
+    },
+    "axes": {
+      "social": 0.11,
+      "energy": -0.19,
+      "setting": -0.49,
+      "novelty": 0
+    },
+    "size": 103
+  },
+  {
+    "id": "mysterie",
+    "group": "mind",
+    "label": {
+      "nl": "Iets met mysterie en speurwerk",
+      "en": "Something with mystery and detective work"
+    },
+    "blurb": {
+      "nl": "Raadsels, sporen, escape rooms en geheimen.",
+      "en": "Riddles, clues, escape rooms and secrets."
+    },
+    "images": [
+      {
+        "id": "mysterie-a",
+        "image": "/illustrations/themes/mysterie-a.jpg",
+        "scene": "A corkboard wall with photos, red string and a magnifying glass in dim moody light"
+      },
+      {
+        "id": "mysterie-b",
+        "image": "/illustrations/themes/mysterie-b.jpg",
+        "scene": "An old iron key and a locked wooden chest in a candle-lit room with a mysterious door"
+      }
+    ],
+    "members": {
+      "subs": [
+        "mystery"
+      ],
+      "tags": [
+        "suspense"
+      ]
+    },
+    "tagWeights": {
+      "suspense": 1,
+      "puzzling": 0.64,
+      "discovery": 0.59,
+      "story": 0.55,
+      "history": 0.41
+    },
+    "axes": {
+      "social": 0.16,
+      "energy": -0.03,
+      "setting": 0.05,
+      "novelty": 0.3
+    },
+    "size": 35
+  },
+  {
+    "id": "verzamelen",
+    "group": "mind",
+    "label": {
+      "nl": "Iets met verzamelen en modelbouw",
+      "en": "Something with collecting and models"
+    },
+    "blurb": {
+      "nl": "Munten, miniaturen, modellen en speuren naar vondsten.",
+      "en": "Coins, miniatures, models and hunting for finds."
+    },
+    "images": [
+      {
+        "id": "verzamelen-a",
+        "image": "/illustrations/themes/verzamelen-a.jpg",
+        "scene": "A display cabinet of coins, stamps and tiny painted miniatures under a lamp"
+      },
+      {
+        "id": "verzamelen-b",
+        "image": "/illustrations/themes/verzamelen-b.jpg",
+        "scene": "A shelf of detailed model ships and cars with a magnifying glass"
+      }
+    ],
+    "members": {
+      "subs": [
+        "collecting"
+      ],
+      "tags": [
+        "collecting",
+        "miniature"
+      ]
+    },
+    "tagWeights": {
+      "collecting": 1,
+      "miniature": 1,
+      "discovery": 0.43,
+      "precision": 0.4,
+      "retro": 0.4,
+      "making": 0.33
+    },
+    "axes": {
+      "social": -0.02,
+      "energy": -0.25,
+      "setting": -0.33,
+      "novelty": 0
+    },
+    "size": 50
+  },
+  {
+    "id": "geschiedenis",
+    "group": "mind",
+    "label": {
+      "nl": "Iets met geschiedenis en nostalgie",
+      "en": "Something with history and nostalgia"
+    },
+    "blurb": {
+      "nl": "Oude kaarten, kastelen, antiek en vroeger.",
+      "en": "Old maps, castles, antiques and the past."
+    },
+    "images": [
+      {
+        "id": "geschiedenis-a",
+        "image": "/illustrations/themes/geschiedenis-a.jpg",
+        "scene": "An old map, a brass compass and a leather book on an oak table beside a castle window"
+      },
+      {
+        "id": "geschiedenis-b",
+        "image": "/illustrations/themes/geschiedenis-b.jpg",
+        "scene": "An ancient stone castle wall and tower at golden hour"
+      }
+    ],
+    "members": {
+      "subs": [
+        "history:lived_past",
+        "history:research"
+      ],
+      "tags": [
+        "history",
+        "retro"
+      ]
+    },
+    "tagWeights": {
+      "history": 1,
+      "retro": 1,
+      "discovery": 0.59,
+      "story": 0.37,
+      "conviviality": 0.32
+    },
+    "axes": {
+      "social": 0,
+      "energy": -0.03,
+      "setting": -0.09,
+      "novelty": -0.2
+    },
+    "size": 101
+  },
+  {
+    "id": "eten",
+    "group": "people",
+    "label": {
+      "nl": "Iets met eten en drinken",
+      "en": "Something with food and drink"
+    },
+    "blurb": {
+      "nl": "Koken, bakken, proeven en samen tafelen.",
+      "en": "Cooking, baking, tasting and sharing a table."
+    },
+    "images": [
+      {
+        "id": "eten-a",
+        "image": "/illustrations/themes/eten-a.jpg",
+        "scene": "A long table set with fresh bread, fruit, cheese and a jug of water in warm light"
+      },
+      {
+        "id": "eten-b",
+        "image": "/illustrations/themes/eten-b.jpg",
+        "scene": "A rustic kitchen counter with fresh pasta being rolled, herbs and a glass of red wine"
+      }
+    ],
+    "members": {
+      "subs": [
+        "food:cooking_craft",
+        "food:drink_craft"
+      ],
+      "tags": [
+        "food"
+      ]
+    },
+    "tagWeights": {
+      "food": 1,
+      "conviviality": 0.42,
+      "making": 0.34
+    },
+    "axes": {
+      "social": 0.18,
+      "energy": -0.11,
+      "setting": -0.07,
+      "novelty": 0
+    },
+    "size": 50
+  },
+  {
+    "id": "rust",
+    "group": "people",
+    "label": {
+      "nl": "Iets met rust en stilte",
+      "en": "Something with calm and stillness"
+    },
+    "blurb": {
+      "nl": "Stilte, ademen, yoga en even niets moeten.",
+      "en": "Quiet, breathing, yoga and nothing to do."
+    },
+    "images": [
+      {
+        "id": "rust-a",
+        "image": "/illustrations/themes/rust-a.jpg",
+        "scene": "A lit candle, a folded blanket and a yoga mat by a window in soft morning light"
+      },
+      {
+        "id": "rust-b",
+        "image": "/illustrations/themes/rust-b.jpg",
+        "scene": "A hammock under tall trees in dappled light with a book resting on it"
+      }
+    ],
+    "members": {
+      "subs": [
+        "restful:body_breath",
+        "restful:reflection"
+      ],
+      "tags": [
+        "stillness"
+      ]
+    },
+    "tagWeights": {
+      "stillness": 1,
+      "focus": 0.36
+    },
+    "axes": {
+      "social": -0.29,
+      "energy": -0.21,
+      "setting": -0.04,
+      "novelty": -0.4
+    },
+    "size": 92
+  },
+  {
+    "id": "zorg",
+    "group": "people",
+    "label": {
+      "nl": "Iets medisch of met gezondheid",
+      "en": "Something medical or health-related"
+    },
+    "blurb": {
+      "nl": "Eerste hulp, zorg, het lichaam en gezond blijven.",
+      "en": "First aid, care, the body and staying healthy."
+    },
+    "images": [
+      {
+        "id": "zorg-a",
+        "image": "/illustrations/themes/zorg-a.jpg",
+        "scene": "A stethoscope, a first-aid kit and a green plant on a clean white desk in soft light"
+      },
+      {
+        "id": "zorg-b",
+        "image": "/illustrations/themes/zorg-b.jpg",
+        "scene": "An open first-aid kit with bandages, a defibrillator case and a heart-rate monitor in bright light"
+      }
+    ],
+    "members": {
+      "subs": [],
+      "tags": [
+        "health"
+      ]
+    },
+    "tagWeights": {
+      "health": 1,
+      "caring": 0.69,
+      "learning": 0.44
+    },
+    "axes": {
+      "social": -0.26,
+      "energy": -0.09,
+      "setting": -0.49,
+      "novelty": 0
+    },
+    "size": 16
+  },
+  {
+    "id": "helpen",
+    "group": "people",
+    "label": {
+      "nl": "Iets met anderen helpen",
+      "en": "Something with helping others"
+    },
+    "blurb": {
+      "nl": "Vrijwilligerswerk, de buurt en er voor elkaar zijn.",
+      "en": "Volunteering, the neighbourhood and being there for each other."
+    },
+    "images": [
+      {
+        "id": "helpen-a",
+        "image": "/illustrations/themes/helpen-a.jpg",
+        "scene": "A community garden with raised beds, a wheelbarrow and an open gate, a hand-painted sign without any lettering"
+      },
+      {
+        "id": "helpen-b",
+        "image": "/illustrations/themes/helpen-b.jpg",
+        "scene": "A community hall table with crates of vegetables and bread and aprons hanging on hooks"
+      }
+    ],
+    "members": {
+      "subs": [
+        "society"
+      ],
+      "tags": [
+        "caring"
+      ]
+    },
+    "tagWeights": {
+      "caring": 1
+    },
+    "axes": {
+      "social": -0.01,
+      "energy": -0.06,
+      "setting": -0.03,
+      "novelty": 0
+    },
+    "size": 83
+  },
+  {
+    "id": "samen",
+    "group": "people",
+    "label": {
+      "nl": "Iets met mensen ontmoeten",
+      "en": "Something with meeting people"
+    },
+    "blurb": {
+      "nl": "Aanschuiven, buurt, clubs en nieuwe gezichten.",
+      "en": "Joining in, neighbours, clubs and new faces."
+    },
+    "images": [
+      {
+        "id": "samen-a",
+        "image": "/illustrations/themes/samen-a.jpg",
+        "scene": "A long outdoor table with lanterns, shared dishes and many empty chairs at dusk"
+      },
+      {
+        "id": "samen-b",
+        "image": "/illustrations/themes/samen-b.jpg",
+        "scene": "A circle of colourful chairs around a campfire at dusk"
+      }
+    ],
+    "members": {
+      "subs": [
+        "together"
+      ],
+      "tags": [
+        "conviviality"
+      ]
+    },
+    "tagWeights": {
+      "conviviality": 1
+    },
+    "axes": {
+      "social": 0.64,
+      "energy": -0.08,
+      "setting": -0.24,
+      "novelty": 0
+    },
+    "size": 135
+  },
+  {
+    "id": "leren",
+    "group": "people",
+    "label": {
+      "nl": "Iets met leren en groeien",
+      "en": "Something with learning and growing"
+    },
+    "blurb": {
+      "nl": "Cursussen, nieuwe vaardigheden en jezelf ontwikkelen.",
+      "en": "Courses, new skills and growing yourself."
+    },
+    "images": [
+      {
+        "id": "leren-a",
+        "image": "/illustrations/themes/leren-a.jpg",
+        "scene": "An empty lecture hall with wooden desks and a chalkboard full of diagrams"
+      },
+      {
+        "id": "leren-b",
+        "image": "/illustrations/themes/leren-b.jpg",
+        "scene": "A desk with a laptop, textbooks, highlighters and a world globe"
+      }
+    ],
+    "members": {
+      "subs": [
+        "growth"
+      ],
+      "tags": [
+        "learning"
+      ]
+    },
+    "tagWeights": {
+      "learning": 1,
+      "discovery": 0.38
+    },
+    "axes": {
+      "social": -0.07,
+      "energy": -0.16,
+      "setting": -0.36,
+      "novelty": 0
+    },
+    "size": 123
+  },
+  {
+    "id": "avond-uit",
+    "group": "out",
+    "label": {
+      "nl": "Iets met een avond uit",
+      "en": "Something with a night out"
+    },
+    "blurb": {
+      "nl": "Neon, terrassen, muziek en de stad bij avond.",
+      "en": "Neon, terraces, music and the city at night."
+    },
+    "images": [
+      {
+        "id": "avond-uit-a",
+        "image": "/illustrations/themes/avond-uit-a.jpg",
+        "scene": "A city street at night with neon signs and glowing terrace lights on wet pavement"
+      },
+      {
+        "id": "avond-uit-b",
+        "image": "/illustrations/themes/avond-uit-b.jpg",
+        "scene": "A cocktail bar counter with glasses and warm bokeh lights"
+      }
+    ],
+    "members": {
+      "subs": [
+        "night:evening_out"
+      ],
+      "tags": []
+    },
+    "tagWeights": {
+      "conviviality": 1,
+      "retro": 0.6,
+      "play": 0.5,
+      "performance": 0.3,
+      "food": 0.3,
+      "discovery": 0.3
+    },
+    "axes": {
+      "social": 0.65,
+      "energy": -0.03,
+      "setting": 0.02,
+      "novelty": 0
+    },
+    "size": 13
+  },
+  {
+    "id": "reizen",
+    "group": "out",
+    "label": {
+      "nl": "Iets met reizen en nieuwe plekken",
+      "en": "Something with travel and new places"
+    },
+    "blurb": {
+      "nl": "Treinen, steden, routes en een andere omgeving.",
+      "en": "Trains, cities, routes and a different place."
+    },
+    "images": [
+      {
+        "id": "reizen-a",
+        "image": "/illustrations/themes/reizen-a.jpg",
+        "scene": "A railway platform at sunrise with a vintage suitcase and a train arriving"
+      },
+      {
+        "id": "reizen-b",
+        "image": "/illustrations/themes/reizen-b.jpg",
+        "scene": "A European old-town street with a café terrace, cobblestones and a church tower"
+      }
+    ],
+    "members": {
+      "subs": [
+        "travel"
+      ],
+      "tags": []
+    },
+    "tagWeights": {
+      "outdoors": 1,
+      "story": 0.54,
+      "challenge": 0.46,
+      "discovery": 0.46,
+      "conviviality": 0.31
+    },
+    "axes": {
+      "social": -0.26,
+      "energy": 0.14,
+      "setting": 0.53,
+      "novelty": 0.5
+    },
+    "size": 18
+  }
+]

@@ -41,6 +41,11 @@
       "license": "generated"
     },
     {
+      "match": "illustrations/themes/*.jpg",
+      "source": "Gemini image model, scripts/generate-discovery-illustrations.ts --themes (theme tiles of the image intake)",
+      "license": "generated"
+    },
+    {
       "match": "illustrations/hero-pool/*.jpg",
       "source": "Gemini image model, scripts/generate-discovery-illustrations.ts --hero (landing hero pool)",
       "license": "generated"

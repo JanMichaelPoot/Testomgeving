@@ -1475,8 +1475,7 @@
       "en": "A show in a planetarium or a public evening at an observatory"
     },
     "scene": "a domed observatory building under a deep night sky full of stars, a single warm window glowing",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "natuurkunde-proefjes",
@@ -1512,8 +1511,7 @@
       "en": "Start at home with an experiment book or book a workshop at a science centre"
     },
     "scene": "a table with a prism, a magnet, a small spinning top and glass beakers in strong window light",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "wetenschapscafe",
@@ -1549,8 +1547,7 @@
       "en": "An evening at a science café or university hall; just join in"
     },
     "scene": "a café table with two glasses, a chalkboard of formulas and warm pendant lights",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "onderzoeksinstituut-bezoek",
@@ -1587,8 +1584,7 @@
       "en": "An open day or tour at a university, research institute or laboratory"
     },
     "scene": "a bright laboratory bench with glassware, a microscope and a notebook beside a large window",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "waterraket",
@@ -1626,7 +1622,6 @@
     },
     "scene": "a plastic-bottle rocket with cardboard fins standing on a launch stand in an open meadow, a bike pump beside it",
     "status": "concept",
-    "image_pending": true,
     "months": [
       4,
       5,

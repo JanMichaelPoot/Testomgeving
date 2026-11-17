@@ -3516,7 +3516,6 @@
     },
     "scene": "a sandy beach at low tide with a small bucket of pebbles, a magnifying glass and a spiral fossil in the sand",
     "status": "concept",
-    "image_pending": true,
     "months": [
       4,
       5,
@@ -3526,5 +3525,89 @@
       9,
       10
     ]
+  },
+  {
+    "id": "medicinale-kruidentuin",
+    "domain": "nature",
+    "sub": "plants",
+    "label": {
+      "nl": "Een medicinale kruidentuin bezoeken",
+      "en": "Visiting a medicinal herb garden"
+    },
+    "tags": [
+      "health",
+      "nature",
+      "learning",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een bezoek aan een apothekerstuin of kruidentuin; vaak met een rondleiding in de zomer",
+      "en": "A visit to an apothecary or herb garden; often with a guided tour in summer"
+    },
+    "scene": "a sunlit herb garden with labelled clay pots of lavender, sage and chamomile, a stone mortar on a bench",
+    "status": "concept"
+  },
+  {
+    "id": "natuurhistorisch-museum",
+    "domain": "nature",
+    "sub": "walking",
+    "label": {
+      "nl": "Een natuurhistorisch museum bezoeken",
+      "en": "Visiting a natural history museum"
+    },
+    "tags": [
+      "nature",
+      "animals",
+      "discovery",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 2,
+    "duration": 3,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Een bezoek aan een natuurhistorisch museum met skeletten, fossielen en opgezette dieren",
+      "en": "A visit to a natural history museum with skeletons, fossils and mounted animals"
+    },
+    "scene": "a grand museum hall with a whale skeleton hanging from the ceiling and glass cases of minerals and butterflies",
+    "status": "concept"
   }
 ]
