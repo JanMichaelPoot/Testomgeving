@@ -5,6 +5,7 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/language";
 import { formatAmount } from "@/lib/pricing";
 import { ideaPhoto } from "@/lib/illustrations";
+import { WILDCARD_KEY, ideaKey, ideaUrl } from "@/lib/ideaKeys";
 import { pickOneThingIndex } from "@/lib/possibilityMap";
 
 // The same pick as the book's "if you only choose one" (easiest to start), and for an older book without
@@ -75,8 +76,9 @@ export function buildIdeaBookEmail(params: {
   const ideasHtml = book.ideas
     .map((idea, i) => {
       const thumb = images?.thumb(ideaPhoto(idea, i)) ?? null;
+      const link = ideaUrl(planUrl, ideaKey(i));
       const visual = thumb
-        ? `<img src="${escapeHtml(thumb)}" width="96" height="72" alt="" style="display:block;width:96px;height:72px;border:0;border-radius:12px;">`
+        ? `<img src="${escapeHtml(thumb)}" width="96" height="72" alt="${escapeHtml(idea.title)}" style="display:block;width:96px;height:72px;border:0;border-radius:12px;">`
         : `<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="32" height="32" align="center" valign="middle" bgcolor="${c.orangeSoft}" style="width:32px;height:32px;border-radius:16px;background:${c.orangeSoft};font-family:${EMAIL_FONTS.serif};font-size:16px;color:${c.orangeText};font-weight:bold;">${i + 1}</td></tr></table>`;
       return `<tr>
         <td valign="top" width="${thumb ? 108 : 48}" style="padding:0 ${thumb ? 14 : 12}px 18px 0;">${visual}</td>
@@ -84,6 +86,7 @@ export function buildIdeaBookEmail(params: {
           ${doorOf(idea) ? `<p style="margin:0 0 3px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:${c.orangeText};">${escapeHtml(doorOf(idea)!)}</p>` : ""}
           <p style="margin:0;font-family:${EMAIL_FONTS.serif};font-size:18px;line-height:1.3;color:${c.navy};font-weight:bold;">${escapeHtml(idea.title)}</p>
           <p style="margin:4px 0 0;font-size:14px;line-height:1.55;color:${c.muted};">${escapeHtml(idea.intro)}</p>
+          <p style="margin:6px 0 0;"><a href="${escapeHtml(link)}" style="font-family:${EMAIL_FONTS.sans};font-size:14px;font-weight:700;color:${c.blue};text-decoration:underline;">${escapeHtml(dict.viewIdea)} &rarr;</a></p>
         </td>
       </tr>`;
     })
@@ -105,11 +108,12 @@ export function buildIdeaBookEmail(params: {
   const wildcardHtml = `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:6px;">
       <tr><td bgcolor="${c.skySoft}" style="background:${c.skySoft};border-radius:16px;padding:18px 20px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-          ${wildcardThumb ? `<td valign="top" width="108" style="padding:0 14px 0 0;"><img src="${escapeHtml(wildcardThumb)}" width="96" height="72" alt="" style="display:block;width:96px;height:72px;border:0;border-radius:12px;"></td>` : ""}
+          ${wildcardThumb ? `<td valign="top" width="108" style="padding:0 14px 0 0;"><img src="${escapeHtml(wildcardThumb)}" width="96" height="72" alt="${escapeHtml(book.wildcard.title)}" style="display:block;width:96px;height:72px;border:0;border-radius:12px;"></td>` : ""}
           <td valign="top">
             ${emailEyebrow(wildcardHeading)}
             <p style="margin:0;font-family:${EMAIL_FONTS.serif};font-size:18px;line-height:1.3;color:${c.navy};font-weight:bold;">${escapeHtml(book.wildcard.title)}</p>
             <p style="margin:4px 0 0;font-size:14px;line-height:1.55;color:${c.ink};">${escapeHtml(book.wildcard.intro)}</p>
+            <p style="margin:6px 0 0;"><a href="${escapeHtml(ideaUrl(planUrl, WILDCARD_KEY))}" style="font-family:${EMAIL_FONTS.sans};font-size:14px;font-weight:700;color:${c.blue};text-decoration:underline;">${escapeHtml(dict.viewIdea)} &rarr;</a></p>
           </td>
         </tr></table>
       </td></tr>
@@ -193,8 +197,10 @@ export function buildIdeaBookEmail(params: {
     "",
     start && startAction ? `${dict.firstStepHeading.toUpperCase()}\n${dict.firstStepLead}\n${start.title}: ${startAction}\n` : "",
     dict.heading.toUpperCase(),
-    ...book.ideas.map((idea, i) => `${i + 1}. ${doorOf(idea) ? `[${doorOf(idea)}] ` : ""}${idea.title}: ${idea.intro}`),
-    `${wildcardHeading}: ${book.wildcard.title}: ${book.wildcard.intro}`,
+    ...book.ideas.map((idea, i) => `${i + 1}. ${doorOf(idea) ? `[${doorOf(idea)}] ` : ""}${idea.title}: ${idea.intro}
+   ${dict.viewIdea}: ${ideaUrl(planUrl, ideaKey(i))}`),
+    `${wildcardHeading}: ${book.wildcard.title}: ${book.wildcard.intro}
+   ${dict.viewIdea}: ${ideaUrl(planUrl, WILDCARD_KEY)}`,
     "",
     feedbackUrl ? `${dict.feedbackHeading.toUpperCase()}
 ${dict.feedbackLead}

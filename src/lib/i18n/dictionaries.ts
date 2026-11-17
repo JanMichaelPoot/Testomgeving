@@ -275,6 +275,8 @@ export interface Dictionary {
     subjectSuffix: string;
     heading: string;
     viewOnline: string;
+    /** The link under every idea in the mail: it opens that idea in the online book. */
+    viewIdea: string;
     readyHeading: string;
     lead: string; // {count}
     quoteLabel: string;
@@ -848,6 +850,7 @@ const nl: Dictionary = {
     subjectSuffix: "je mogelijkheden zijn klaar",
     heading: "Jouw mogelijkheden",
     viewOnline: "Bekijk je Idea Book online",
+    viewIdea: "Bekijk dit idee",
     readyHeading: "Je venster staat open",
     lead: "Er staan {count} deuren voor je klaar, gekozen uit wat jij liet zien. Eén daarvan zag je vast niet aankomen.",
     quoteLabel: "Zo lazen we je",
@@ -1579,6 +1582,7 @@ const en: Dictionary = {
     subjectSuffix: "your possibilities are ready",
     heading: "Your possibilities",
     viewOnline: "View your Idea Book online",
+    viewIdea: "View this idea",
     readyHeading: "Your window is open",
     lead: "{count} doors are waiting for you, chosen from what you showed us. One of them you probably didn't see coming.",
     quoteLabel: "How we read you",

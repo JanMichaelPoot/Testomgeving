@@ -1,3 +1,4 @@
+import { existsSync, readdirSync } from "node:fs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const send = vi.fn();
@@ -199,6 +200,20 @@ describe("buildIdeaBookEmail: look and content", () => {
     expect(text).not.toMatch(/<\/?(table|td|tr|img|a|p|div|span|hr)[\s>]/i);
   });
 
+  it("links every idea, and the wildcard, to its own window in the online book", () => {
+    const { html, text } = buildIdeaBookEmail(params);
+    expect(html).toContain("https://windowinto.nl/plan?checkout_session_id=cs_test_1&amp;idee=idea-0");
+    expect(html).toContain("https://windowinto.nl/plan?checkout_session_id=cs_test_1&amp;idee=idea-1");
+    expect(html).toContain("https://windowinto.nl/plan?checkout_session_id=cs_test_1&amp;idee=wildcard");
+    expect(html).toContain("Bekijk dit idee");
+    expect(text).toContain("https://windowinto.nl/plan?checkout_session_id=cs_test_1&idee=idea-0");
+    expect(text).toContain("https://windowinto.nl/plan?checkout_session_id=cs_test_1&idee=wildcard");
+  });
+
+  it("gives each photo the idea's title as its alternative text", () => {
+    expect(buildIdeaBookEmail(params).html).toContain('alt="Klei &amp; meer"');
+  });
+
   it("says how many doors there are, the wildcard included", () => {
     expect(buildIdeaBookEmail(params).html).toContain("3 deuren");
   });
@@ -234,6 +249,23 @@ describe("emailImages", () => {
     expect(img.thumb("/illustrations/discovery/escape-room.jpg")).toBe("https://windowinto.nl/email/thumbs/discovery/escape-room.jpg");
     expect(img.thumb("/illustrations/idea-book/categories/art_culture-2.jpg")).toBe("https://windowinto.nl/email/thumbs/categories/art_culture-2.jpg");
     expect(img.thumb("/somewhere/else.jpg")).toBeNull();
+  });
+});
+
+describe("e-mail thumbnails", () => {
+  // The mail shows every idea's photo from /email/thumbs/..., a small twin made by scripts/make-email-assets.ts. A photo without its twin is a
+  // broken image (a cross) in the reader's mail (testers, 16 nov 2026: 560 of 774 activity photos had none). Add a photo, run the script.
+  it("exist for every activity photo and every category photo", () => {
+    const missing: string[] = [];
+    for (const [from, to] of [
+      ["public/illustrations/discovery", "public/email/thumbs/discovery"],
+      ["public/illustrations/idea-book/categories", "public/email/thumbs/categories"],
+    ]) {
+      for (const f of readdirSync(from).filter((n) => n.endsWith(".jpg"))) {
+        if (!existsSync(`${to}/${f}`)) missing.push(`${to}/${f}`);
+      }
+    }
+    expect(missing, "run: npx tsx scripts/make-email-assets.ts").toEqual([]);
   });
 });
 

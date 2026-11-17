@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
-import { ideaKey, resolveIdeaByKey } from "./ideaKeys";
+import { ideaKey, ideaUrl, parseIdeaParam, resolveIdeaByKey } from "./ideaKeys";
 
 const idea = (title: string) => ({ title }) as IdeaBookEntry;
 
@@ -26,5 +26,21 @@ describe("resolveIdeaByKey", () => {
     expect(resolveIdeaByKey("idea-x", ideas, wildcard)).toBeNull();
     expect(resolveIdeaByKey("idea-3", ideas, wildcard)).toBeNull();
     expect(resolveIdeaByKey("idea-1; drop", ideas, wildcard)).toBeNull();
+  });
+});
+
+describe("links to one idea", () => {
+  it("adds the idea to a plan address with or without a query", () => {
+    expect(ideaUrl("https://windowinto.nl/plan?checkout_session_id=cs_1", "idea-2")).toBe("https://windowinto.nl/plan?checkout_session_id=cs_1&idee=idea-2");
+    expect(ideaUrl("https://windowinto.nl/plan", "wildcard")).toBe("https://windowinto.nl/plan?idee=wildcard");
+  });
+
+  it("accepts an idea key from an address and nothing else", () => {
+    expect(parseIdeaParam("idea-0")).toBe("idea-0");
+    expect(parseIdeaParam("idea-12")).toBe("idea-12");
+    expect(parseIdeaParam("wildcard")).toBe("wildcard");
+    for (const bad of ["idea-", "idea-x", "idea-123", "../x", "<script>", "", ["idea-1", "idea-2"], undefined, null, 3]) {
+      expect(parseIdeaParam(bad), String(bad)).toBeNull();
+    }
   });
 });

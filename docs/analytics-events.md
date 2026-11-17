@@ -85,7 +85,7 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `followup_link_opened` | de link in de follow-up e-mail geopend, vanaf de server | – |
 | `generation_stalled` | wachtscherm langer dan 120 s | `stage`, `seconds` |
 | `plan_viewed` | het boek geopend | `planId` |
-| `idea_opened` | een idee geopend | `planId`, `ideaKey`, `level` (1-7, 0 = boek van vóór de niveaus) |
+| `idea_opened` | een idee geopend | `planId`, `ideaKey`, `level` (1-7, 0 = boek van vóór de niveaus), `source` (`overview` = geopend in het overzicht, `email` = geopend via de link per idee in de mail) |
 | `idea_liked` | hartje of duim bij een idee | `planId`, `ideaKey`, `value` |
 | `idea_feedback_given` | duim omhoog of omlaag in het ideevenster | `planId`, `ideaKey`, `value` |
 | `one_thing_committed` | "Dit ga ik doen" | `planId`, `ideaKey`, `isOneThing` |

@@ -24,3 +24,16 @@ export function resolveIdeaByKey(
   if (!match) return null;
   return ideas[Number(match[1])] ?? null;
 }
+
+// A link to one idea of a plan (the e-mail has one per idea): the plan address plus ?idee=<key>. The plan page reads it and opens that idea's
+// window at once. Only the key formats above are accepted back, so the parameter can never carry anything else into the page.
+export const IDEA_LINK_PARAM = "idee";
+
+export function ideaUrl(planUrl: string, key: string): string {
+  return `${planUrl}${planUrl.includes("?") ? "&" : "?"}${IDEA_LINK_PARAM}=${encodeURIComponent(key)}`;
+}
+
+/** A key from a link, or null when it is not an idea key (a malformed value, an array of values, nothing). */
+export function parseIdeaParam(raw: unknown): string | null {
+  return typeof raw === "string" && (raw === WILDCARD_KEY || /^idea-\d{1,2}$/.test(raw)) ? raw : null;
+}

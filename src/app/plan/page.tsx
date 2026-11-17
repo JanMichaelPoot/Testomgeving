@@ -32,6 +32,7 @@ import { parseAssociationSources } from "@/lib/discovery/associations";
 import { buildIdeaThreads } from "@/lib/ideaThread";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import { displayPlace } from "@/lib/place";
+import { IDEA_LINK_PARAM, parseIdeaParam } from "@/lib/ideaKeys";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -309,6 +310,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           canInteract={canInteract}
           initialFeedback={plan.feedback_json ?? {}}
           initialCommittedKey={plan.committed_idea_key ?? null}
+          initialOpenKey={parseIdeaParam(searchParams[IDEA_LINK_PARAM])}
           echo={echo}
           dateLabel={dateLabel}
           vensterEcho={vensterEcho}

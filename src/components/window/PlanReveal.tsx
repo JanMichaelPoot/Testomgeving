@@ -92,6 +92,8 @@ export interface PlanRevealProps {
   canInteract: boolean;
   initialFeedback: Record<string, string>;
   initialCommittedKey: string | null;
+  /** An idea to open at once: the key from a link in the e-mail (?idee=idea-2), already checked for its format. */
+  initialOpenKey?: string | null;
   echo: PlanEcho;
   dateLabel: string;
   // Books from the image intake ("Het venster"): the chosen images as the echo. Absent for older books and the other wizards.
@@ -120,6 +122,7 @@ export function PlanReveal({
   canInteract,
   initialFeedback,
   initialCommittedKey,
+  initialOpenKey = null,
   echo,
   dateLabel,
   vensterEcho = null,
@@ -131,12 +134,25 @@ export function PlanReveal({
   const [feedback, setFeedback] = useState<Record<string, string>>(initialFeedback);
   const [committedKey, setCommittedKey] = useState<string | null>(initialCommittedKey);
   const [commitState, setCommitState] = useState<"idle" | "pending" | "error">("idle");
-  const [selectedKey, setSelectedKey] = useState<string | null>(null);
+  // An address from the mail opens that idea straight away, but only one that exists in this book (a key for an idea that is not there is ignored).
+  const [selectedKey, setSelectedKey] = useState<string | null>(() => {
+    if (!initialOpenKey) return null;
+    const exists = initialOpenKey === WILDCARD_KEY ? !!wildcard : !!ideas[Number(initialOpenKey.replace("idea-", ""))];
+    return exists ? initialOpenKey : null;
+  });
   const [, startTransition] = useTransition();
 
   useEffect(() => {
     trackEvent("plan_viewed", { planId });
   }, [planId]);
+
+  // Measure how often the links in the mail are used (once, for the idea that opened from the address).
+  useEffect(() => {
+    if (!initialOpenKey) return;
+    const opened = initialOpenKey === WILDCARD_KEY ? wildcard : ideas[Number(initialOpenKey.replace("idea-", ""))];
+    if (opened) trackEvent("idea_opened", { planId, ideaKey: initialOpenKey, level: isDiscoveryLevel(opened.level) ? opened.level : 0, source: "email" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only the first render counts
+  }, []);
 
   // Same door order as the PDF, so an idea's page in the PDF is 4 + its position (page 1 cover, 2 profile and map).
   const orderedIdeas = useMemo(() => orderIdeasByDoor(ideas), [ideas]);
@@ -166,7 +182,7 @@ export function PlanReveal({
   function openIdea(key: string) {
     // The discovery level (1-7) of the door, 0 when the book is from before the levels.
     const opened = key === WILDCARD_KEY ? wildcard : ideas[Number(key.replace("idea-", ""))];
-    trackEvent("idea_opened", { planId, ideaKey: key, level: isDiscoveryLevel(opened?.level) ? opened.level : 0 });
+    trackEvent("idea_opened", { planId, ideaKey: key, level: isDiscoveryLevel(opened?.level) ? opened.level : 0, source: "overview" });
     setSelectedKey(key);
   }
 

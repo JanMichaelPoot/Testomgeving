@@ -78,7 +78,7 @@ export const ANALYTICS_EVENTS = {
 
   // --- the book
   plan_viewed: { when: "the book opened", props: ["planId"] },
-  idea_opened: { when: "an idea opened in the dialog", props: ["planId", "ideaKey", "level"] },
+  idea_opened: { when: "an idea opened in the dialog (source: email when the plan was opened from a link in the mail)", props: ["planId", "ideaKey", "level", "source"] },
   idea_liked: { when: "a heart or thumb on an idea", props: ["planId", "ideaKey", "value"] },
   idea_feedback_given: { when: "thumb up or down inside the idea dialog", props: ["planId", "ideaKey", "value"] },
   one_thing_committed: { when: "'Dit ga ik doen' pressed", props: ["planId", "ideaKey", "isOneThing"] },
