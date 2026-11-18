@@ -87,7 +87,7 @@ export default async function IntakePage(props: PageProps<"/intake">) {
             dict={dict.intake}
             vensterDict={dict.venster}
             library={buildCardLibrary(locale, month)}
-            associations={buildAssociationLibrary(locale, month)}
+            associations={buildAssociationLibrary(locale, month, undefined, wantsImages2 ? "themes" : "all")}
             concretePool={concretePool}
             initial={initial}
             geo={geo}

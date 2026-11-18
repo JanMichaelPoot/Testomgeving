@@ -22,7 +22,7 @@ const draftAt = (pageIndex: number, answers: Record<string, unknown> = {}, layou
   v: 3,
   ...(layout ? { layout } : {}),
   page: pageIndex,
-  answers: { associations: ["place-forest-edge", "moment-first-dance", "sense-perfume"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations", location: "Utrecht", ...answers },
+  answers: { associations: ["theme-natuur-a", "theme-podium-a", "theme-mode-a"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations", location: "Utrecht", ...answers },
   limitChips: [],
   limitText: "",
   seed: "e2e",
@@ -88,7 +88,7 @@ test.describe("the start page", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Welke beelden maken Oma Els nieuwsgierig?");
   });
 
-  test("choosing a child changes the images and the wording, and 'terug' keeps the answers", async ({ page }) => {
+  test("choosing a child changes the wording, and 'terug' keeps the answers", async ({ page }) => {
     await open(page);
     await page.locator('[data-audience="other"]').click();
     await page.locator('[data-context="child"]').click();
@@ -105,8 +105,8 @@ test.describe("the start page", () => {
     await expect(page.getByTestId("distance-km-value")).toHaveText("Tot 50 km");
     await page.getByRole("button", { name: "Verder", exact: true }).click();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Welke beelden wekken nieuwsgierigheid?");
-    // 18 images, none of them chosen yet.
-    await expect(page.locator("main button[aria-pressed] img")).toHaveCount(18);
+    // The 30 theme tiles (Step 210), none of them chosen yet; they are the same for every audience, only the wording changes.
+    await expect(page.locator("main button[aria-pressed] img")).toHaveCount(30);
     // Back: everything is still there, nothing is asked again. (In dev, the Next.js indicator floats over the corner of the bar and
     // takes real clicks, so the button gets the click event directly.)
     await page.getByRole("button", { name: "Terug" }).dispatchEvent("click");

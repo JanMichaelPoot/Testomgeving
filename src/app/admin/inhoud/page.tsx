@@ -4,7 +4,7 @@ import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { activityIdsOf, intakeSummary, percent, ratio, topCounts, type PlanRow } from "@/lib/adminStats";
 import { ALL_ACTIVITIES, DOMAINS, getActivity } from "@/lib/discovery/library";
-import { ASSOCIATIONS } from "@/lib/discovery/associations";
+import { ALL_ASSOCIATIONS } from "@/lib/discovery/associations";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid } from "../ui";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ const BUDGET: Record<string, string> = { free: "Gratis", "10": "Tot €10", "25"
 const TIME: Record<string, string> = { hour: "Een uur of twee", halfday: "Een halve dag", fullday: "Een hele dag", weekend: "Een weekend" };
 const DOOR: Record<string, string> = { natural: "Vertrouwd", discovery: "Ontdekking", unexpected: "Onverwacht", stretch: "Stretch", wildcard: "Wildcard" };
 const domainLabel = new Map(DOMAINS.map((d) => [d.id, d.short.nl]));
-const imageLabel = new Map(ASSOCIATIONS.map((c) => [c.id, c.label.nl]));
+const imageLabel = new Map(ALL_ASSOCIATIONS.map((c) => [c.id, c.label.nl]));
 
 export default async function AdminContentPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");

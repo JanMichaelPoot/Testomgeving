@@ -4,7 +4,7 @@ import { test, expect, type Page } from "@playwright/test";
 // we look for and leave out, no "Wat ons opviel". A Dutch browser, so the site opens in Dutch.
 
 const DRAFT = "window-venster-draft-images2";
-const CHOSEN = ["place-forest-edge", "moment-first-dance", "sense-perfume", "place-workshop"];
+const CHOSEN = ["theme-natuur-a", "theme-podium-a", "theme-mode-a", "theme-ambacht-a"];
 
 async function openProfile(page: Page, answers: Record<string, unknown> = {}) {
   const draft = {

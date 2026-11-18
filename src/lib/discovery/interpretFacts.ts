@@ -1,4 +1,4 @@
-import { ASSOCIATIONS } from "@/lib/discovery/associations";
+import { ALL_ASSOCIATIONS } from "@/lib/discovery/associations";
 import { getActivity, TAGS } from "@/lib/discovery/library";
 import { averageAxes, axisLeanings, effectiveAxes, sanitizeAxesOverride, type AxesOverride } from "@/lib/discovery/associationProfile";
 import { normalizeSearchContext } from "@/lib/discovery/audience";
@@ -30,7 +30,7 @@ const LEAN_WORDS: Record<string, string> = {
 
 /** The facts the model gets, rebuilt on the server from ids (nothing the browser typed except a first name, cleaned). */
 export function buildFacts(req: InterpretRequest, locale: "nl" | "en"): InterpretFacts | null {
-  const byId = new Map(ASSOCIATIONS.map((c) => [c.id, c]));
+  const byId = new Map(ALL_ASSOCIATIONS.map((c) => [c.id, c]));
   const cards = [...new Set(req.associations ?? [])].map((id) => byId.get(id)).filter((c): c is NonNullable<typeof c> => !!c).slice(0, 12);
   if (cards.length === 0) return null;
   const tagLabel = new Map(TAGS.map((t) => [t.id, t.label[locale].toLowerCase()]));

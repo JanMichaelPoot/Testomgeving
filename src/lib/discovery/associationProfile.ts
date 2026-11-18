@@ -5,7 +5,11 @@
 // same code. The data lives in associations.json (see associations.ts).
 
 export const ASSOCIATION_ROUNDS = ["places", "moments", "senses"] as const;
-export type AssociationRound = (typeof ASSOCIATION_ROUNDS)[number];
+/**
+ * The three rounds of the old cards, plus "themes": the 30 "Iets met ..." tiles of the image intake (themes.json). The old four-round and
+ * two-page flows only ever loop over ASSOCIATION_ROUNDS, so a theme card never appears there.
+ */
+export type AssociationRound = (typeof ASSOCIATION_ROUNDS)[number] | "themes";
 
 /** Social (alone -1 .. together 1), energy (calm -1 .. active 1), setting (inside -1 .. outside 1), novelty (familiar -1 .. new 1). */
 export interface AssociationAxes {
@@ -49,6 +53,8 @@ export interface AssociationCardData {
   /** The family the card is a variant of (see associationSampling.ts); the card's own id when it stands alone. */
   family?: string;
   round: AssociationRound;
+  /** Theme cards only: the group the tile belongs to (nature, move, culture, mind, people, out); the page shows the groups in that order. */
+  group?: string;
   tagWeights: Record<string, number>;
   axes: AssociationAxes;
   /** The reference-library associations the image evokes (association layer, cardAssociations.json). Only sent while the layer is on. */

@@ -1,5 +1,7 @@
 import associationsJson from "@/lib/discovery/associations.json";
 import cardAssociationsJson from "@/lib/discovery/cardAssociations.json";
+import themesJson from "@/lib/discovery/themes.json";
+import { MAX_IMAGE_PICKS } from "@/lib/discovery/twoPages";
 import { knowledgeAssociationLayerEnabled } from "@/lib/knowledgeFlags";
 import { TAGS, getActivities, getActivity, isImagePending } from "@/lib/discovery/library";
 import { inSeason } from "@/lib/discovery/season";
@@ -41,8 +43,44 @@ export interface AssociationCardFull extends AssociationCardData {
   status: Exclude<ActivityStatus, "retired">;
 }
 
+/**
+ * The old cards (places, moments, senses): 172 families kept in the data and in every stored book, but no longer offered by the image
+ * intake since the 30 theme tiles (Step 210). Old drafts and books still resolve their ids through ALL_ASSOCIATIONS.
+ */
 export const ASSOCIATIONS = associationsJson as unknown as AssociationCardFull[];
-const byId = new Map(ASSOCIATIONS.map((c) => [c.id, c]));
+
+/**
+ * The theme tiles of the image intake ("Iets met natuur", ...; themes.json, docs/voorstel-themabeelden.md). One family per theme, one card
+ * per image of it: the sampler shows one image per theme and rotates through the others on later visits.
+ */
+interface ThemeJson {
+  id: string;
+  group: string;
+  label: Localized;
+  blurb: Localized;
+  images: { id: string; image: string; scene: string }[];
+  tagWeights: Record<string, number>;
+  axes: AssociationAxes;
+}
+export const THEMES = themesJson as unknown as ThemeJson[];
+export const THEME_CARDS: AssociationCardFull[] = THEMES.flatMap((t) =>
+  t.images.map((im) => ({
+    id: `theme-${im.id}`,
+    family: `theme-${t.id}`,
+    round: "themes" as const,
+    group: t.group,
+    label: t.label,
+    scene: im.scene,
+    image: im.image,
+    tagWeights: t.tagWeights,
+    axes: t.axes,
+    status: "reviewed" as const,
+  })),
+);
+
+/** Every card an answer or a stored book can name: the old ones and the themes. */
+export const ALL_ASSOCIATIONS: AssociationCardFull[] = [...ASSOCIATIONS, ...THEME_CARDS];
+const byId = new Map(ALL_ASSOCIATIONS.map((c) => [c.id, c]));
 
 export function getAssociation(id: string): AssociationCardFull | undefined {
   return byId.get(id);
@@ -60,7 +98,8 @@ const CORRECTION_TAGS = [
  * under the wrong words, so such a card is simply left out until then.
  */
 export function hasOwnImage(c: { id: string; image: string }): boolean {
-  return c.image === `/illustrations/associations/${c.id}.jpg`;
+  // A theme card's image is named after the theme image, not after the card (themes.test.ts checks that every file exists).
+  return c.image === `/illustrations/associations/${c.id}.jpg` || c.image === `/illustrations/themes/${c.id.replace(/^theme-/, "")}.jpg`;
 }
 
 /** The slim card data the wizard receives (one language; no scenes). */
@@ -71,12 +110,19 @@ export function cardAssoc(c: { family?: string; id: string }): Record<string, nu
   return CARD_ASSOCIATIONS[c.family ?? c.id];
 }
 
-export function buildAssociationLibrary(locale: "nl" | "en", month?: number, layer: boolean = knowledgeAssociationLayerEnabled()): AssociationLibrary {
+export function buildAssociationLibrary(
+  locale: "nl" | "en",
+  month?: number,
+  layer: boolean = knowledgeAssociationLayerEnabled(),
+  /** "themes": only the 30 theme tiles (what the image intake offers). "all" (default): also the old cards, for showing a stored book. */
+  offer: "all" | "themes" = "all",
+): AssociationLibrary {
   return {
-    cards: ASSOCIATIONS.filter(hasOwnImage).map((c) => ({
+    cards: (offer === "themes" ? THEME_CARDS : ALL_ASSOCIATIONS).filter(hasOwnImage).map((c) => ({
       id: c.id,
       family: c.family,
       round: c.round,
+      ...(c.group ? { group: c.group } : {}),
       label: c.label[locale],
       image: c.image,
       tagWeights: c.tagWeights,
@@ -101,6 +147,8 @@ function worldExamples(locale: "nl" | "en", month?: number): Record<string, { la
 }
 
 const MAX_PER_ROUND = 5;
+/** The theme tiles are one round of up to MAX_IMAGE_PICKS (a visitor picks 3 to 8 of the 30). */
+const maxPerRound = (round: AssociationRound) => (round === "themes" ? MAX_IMAGE_PICKS : MAX_PER_ROUND);
 const MAX_CORRECTIONS = 3;
 
 /** Keeps only real card ids (at most five per round, in the order given) and real correction tags. */
@@ -115,7 +163,7 @@ export function sanitizeAssociations(raw: { associations?: unknown; associationC
     const card = byId.get(id);
     if (!card) continue;
     const n = perRound.get(card.round) ?? 0;
-    if (n >= MAX_PER_ROUND) continue;
+    if (n >= maxPerRound(card.round)) continue;
     perRound.set(card.round, n + 1);
     associations.push(id);
   }
@@ -286,7 +334,7 @@ export function associationsToEngineInput(input: {
   explicitInterests?: readonly string[];
 }): AssociationEngineInput {
   const chosen = input.associationIds.filter((id) => byId.has(id));
-  const axes = effectiveAxes(averageAxes(ASSOCIATIONS, chosen), input.axesOverride);
+  const axes = effectiveAxes(averageAxes(ALL_ASSOCIATIONS, chosen), input.axesOverride);
   // Moving a slider is an answer too, also when no image was chosen.
   const dials = deriveDials(axes, chosen.length > 0 || Object.keys(sanitizeAxesOverride(input.axesOverride)).length > 0);
   const interestDomains = [...input.interestDomains];
@@ -314,7 +362,7 @@ export function associationsToEngineInput(input: {
     return { interests: [], ...base, sources: {}, sourceTags: {} };
   }
 
-  const profile = tagProfile(ASSOCIATIONS, chosen, input.corrections ?? []);
+  const profile = tagProfile(ALL_ASSOCIATIONS, chosen, input.corrections ?? []);
   const constraints = resolveConstraints({
     interests: [],
     interestDomains,
@@ -385,15 +433,18 @@ export function associationsToEngineInput(input: {
 /** Labels of the chosen images, per round, for the prompt (English; the book is written in the person's language). */
 export function describeAssociationsForPrompt(ids: readonly string[], corrections: readonly string[] = []): string {
   const lines: string[] = [];
-  for (const round of ASSOCIATION_ROUNDS) {
+  for (const round of [...ASSOCIATION_ROUNDS, "themes"] as const) {
     const labels = ids.map((id) => byId.get(id)).filter((c) => c?.round === round).map((c) => c!.label.en);
     if (labels.length) lines.push(`${round}: ${labels.join("; ")}`);
   }
   if (lines.length === 0) return "";
+  const themesOnly = lines.every((l) => l.startsWith("themes:"));
   const tagLabel = new Map(TAGS.map((t) => [t.id, t.label.en]));
   const fixes = corrections.map((t) => tagLabel.get(t)).filter(Boolean);
   return [
-    "Imagery the person chose (association images of places, moments and senses, not activities):",
+    themesOnly
+      ? "Areas of interest the person chose by tapping pictures (broad themes such as nature, animals or culture, not activities):"
+      : "Imagery the person chose (association images of places, moments and senses, not activities):",
     ...lines.map((l) => `  ${l}`),
     ...(fixes.length ? [`  When we read these back, they said they want more of: ${fixes.join("; ")}`] : []),
     "Mention at most one chosen image per idea in why_it_fits, and only where it genuinely explains the choice.",

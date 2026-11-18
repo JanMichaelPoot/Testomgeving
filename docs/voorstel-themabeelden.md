@@ -132,7 +132,7 @@ Eerst een `--dry-run`, daarna pas echt genereren, en alleen met jouw akkoord op 
 
 **Bouwvolgorde (elk blok apart op te leveren en te testen)**
 1. Themadata: de 30 thema’s met gewichten (tags en assen) uit hun subdomeinen, plus de tegelomschrijvingen nl en en. Lokaal en gratis.
-2. Nieuwe steekproef voor pagina 1: alle 30 tonen, 2 beelden per thema met rotatie per bezoek; de oude kaarten blijven in de data maar worden niet meer getoond.
+2. **Gedaan (Stap 210, 18 nov):** nieuwe steekproef voor pagina 1: alle 30 tonen, 2 beelden per thema met rotatie per bezoek; de oude kaarten blijven in de data maar worden niet meer getoond.
 3. De tegel-UI (hele tegel is een knop, geselecteerde staat, toegankelijk) met tijdelijke beelden uit de bestaande foto’s, zodat het scherm al te beoordelen is.
 4. Beelden genereren (na akkoord op het bedrag) en de tijdelijke vervangen; herkomstregels in `imageProvenance.json`.
 5. Profielscherm en "Omdat je ... koos"-regel aanpassen naar thema’s; testen en meten (afhaken, diversiteit).

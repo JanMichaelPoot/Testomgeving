@@ -11,7 +11,7 @@ async function open(page: Page, pageIndex: number, answers: Record<string, unkno
     layout: 2,
     page: pageIndex,
     answers: {
-      associations: ["place-forest-edge", "moment-first-dance", "sense-perfume"],
+      associations: ["theme-natuur-a", "theme-podium-a", "theme-mode-a"],
       interestDomains: [],
       interests: [],
       intakeFlow: "images2",
@@ -66,30 +66,26 @@ test.describe("the images page", () => {
     await expect(flow.locator('[data-active="false"]')).toContainText("Richting bepalen");
     // Compact: it takes one row, not a block of explanation.
     expect((await flow.boundingBox())!.height).toBeLessThan(80);
-    await expect(page.locator("main button[aria-pressed] img")).toHaveCount(18);
+    // Step 210: the page is the 30 theme tiles, one image each.
+    await expect(page.locator("main button[aria-pressed] img")).toHaveCount(30);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   });
 
-  test("going back to an earlier set of images keeps everything that was chosen", async ({ page }) => {
+  test("shows all 30 themes at once, with no 'other images' button, and keeps what was chosen", async ({ page }) => {
     await open(page, 1, { associations: [] });
     const tiles = page.locator("main button[aria-pressed]:has(img)");
+    await expect(tiles).toHaveCount(30);
+    // Every theme is on the page already: nothing to refresh, and no sets to walk through.
+    await expect(page.getByTestId("set-more")).toHaveCount(0);
+    await expect(page.getByTestId("set-more-top")).toHaveCount(0);
+    await expect(page.getByTestId("set-prev")).toHaveCount(0);
     await tiles.nth(0).click();
     await tiles.nth(1).click();
-    await expect(page.getByText("2 gekozen")).toBeVisible();
-    await expect(page.getByTestId("set-prev")).toHaveCount(0);
-    await page.getByTestId("set-more").click();
-    await expect(page.getByTestId("set-counter")).toHaveText("Set 2 van 2");
-    await tiles.nth(0).click();
+    await tiles.nth(2).click();
     await expect(page.getByText("3 gekozen")).toBeVisible();
-    await page.getByTestId("set-prev").click();
-    await expect(page.getByTestId("set-counter")).toHaveText("Set 1 van 2");
-    // The two chosen in set 1 are still marked, and the count did not change.
-    await expect(page.locator('main button[aria-pressed="true"]:has(img)')).toHaveCount(2);
-    await expect(page.getByText("3 gekozen")).toBeVisible();
-    await page.getByTestId("set-next").click();
-    await expect(page.getByTestId("set-counter")).toHaveText("Set 2 van 2");
-    // What was chosen is carried into the newer set too ("Wat je koos blijft staan"), so all three are marked there.
     await expect(page.locator('main button[aria-pressed="true"]:has(img)')).toHaveCount(3);
+    await tiles.nth(1).click();
+    await expect(page.getByText("2 gekozen")).toBeVisible();
   });
 });
 

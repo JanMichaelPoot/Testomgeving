@@ -103,7 +103,7 @@ test.describe("trust and guarantee", () => {
         JSON.stringify({
           v: 3,
           page: 3,
-          answers: { associations: ["place-forest-edge", "moment-first-dance", "sense-perfume"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations" },
+          answers: { associations: ["theme-natuur-a", "theme-podium-a", "theme-mode-a"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations" },
           limitChips: [],
           limitText: "",
           seed: "e2e",
@@ -147,7 +147,7 @@ test.describe("screenshots", () => {
             v: 3,
             layout: 2,
             page: i,
-            answers: { associations: ["place-forest-edge", "moment-first-dance", "sense-perfume"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations" },
+            answers: { associations: ["theme-natuur-a", "theme-podium-a", "theme-mode-a"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations" },
             limitChips: [],
             limitText: "",
             seed: "e2e",

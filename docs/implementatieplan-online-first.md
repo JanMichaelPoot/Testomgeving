@@ -100,6 +100,37 @@ Elke stap: wat, waar in de code, acceptatie, kosten. Alles in Fase 0 is lokaal e
 
 ### Fase 2 - Aanleiding en doelgroep
 
+**2.0 Waar de aanleiding in de intake past (besluitadvies, 18 nov, na blok 2)**
+
+De intake heeft vier schermen: `start`, `images` (nu de 30 themategels), `concrete`, `profile`. De regel is maximaal vijf. De startpagina heeft drie blokken: **Voor wie** (`start-who`: voor mezelf, of voor iemand anders met kind, andere volwassene of groep), **Waar** (`start-where`: land, plaats, afstand) en **Beperkingen** (`start-limits`: let-op-chips, tijd, budget). Vijf plekken zijn mogelijk; dit is mijn afweging.
+
+| Optie | Voordeel | Nadeel | Oordeel |
+|---|---|---|---|
+| A. Nieuw scherm 0 "Waarvoor zoek je?" vóór de startpagina | Eén vraag per scherm, ruimte voor grote tegels met beeld; schermen worden vijf (de grens) | Eén klik extra voor de eerste waarde; de plaats en afstand komen pas na het eerste scherm, terwijl "vakantie" daar juist iets aan verandert | Tweede keus |
+| B. Als tweede vraag op de startpagina, direct onder "Voor wie" en boven "Waar" | Geen extra scherm; staat vóór plaats en tijd, dus die kunnen zich aanpassen ("Waar ga je naartoe?" bij vakantie, groter zoekgebied); de aanleiding en de zoekcontext (kind, groep) horen bij elkaar | De startpagina wordt langer (nu 5 blokken, dan 6); op een telefoon moet de aanleiding compact zijn (chips, geen grote tegels) | **Beste keus** |
+| C. Samenvoegen met "Voor wie" tot één vraag van 8 tegels | Kortste pagina | Mengt twee vragen (wie? en waarvoor?); "iets met kinderen" bestaat dan twee keer; de eerste vraag wordt zwaar | Niet doen |
+| D. Op de themapagina (scherm 1) bovenaan | Past bij "waar word je nieuwsgierig van" | Te laat: kop en toon van scherm 1, de zoekcontext, de plaats en het zoekgebied zijn dan al vastgelegd | Niet doen |
+| E. Tussen scherm 1 en 2 | Kan de lijst van scherm 2 sturen | Breekt de rustige reeks beelden naar activiteiten; weinig winst boven B | Niet doen |
+
+**Advies: optie B.** Concreet:
+- Plaats: tussen `start-who` en `start-where` van de startpagina, als rij van zeven chips met "Gewoon ontdekken" voorgeselecteerd en uitdrukkelijk optioneel. Het is een tweede soort vraag dan "Voor wie": "wie" bepaalt de wijze van vragen (kind, groep, naam), de aanleiding bepaalt de aard van het aanbod.
+- De zeven chips en wat ze doen (nieuw antwoordveld `occasion`, bewaard in `intake_answers.raw_json`, geen migratie nodig):
+
+| Aanleiding | Stuurt | Past zich aan |
+|---|---|---|
+| Gewoon ontdekken | niets (standaard) | niets |
+| Nieuwe hobby | gewicht op leren, maken, niveau 0; weinig materiaal vooraf | kop "waar word je nieuwsgierig van?" blijft |
+| Familie-uitje | formaten groep en met bekenden; kindvriendelijk filter (zoals nu "met kinderen") | tijdvraag: "een middag of een dag" |
+| Iets met kinderen | zoals nu de zoekcontext "kind", plus het kindfilter | toon en namen zoals nu |
+| Vakantie of dagje weg | domeinen reizen, avontuur, zelf op ontdekking; seizoen (`inSeason`) | "Waar ga je naartoe?" en een ruimer zoekgebied |
+| Vrijgezellenfeest of groepsuitje | groep, avond uit, eten, spel, uitdaging; budget per persoon | zoals de zoekcontext "groep" |
+| Vrijwilligerswerk | domein helpen en betrokken, tag zorgen voor; geen cursus maar organisatie of project | zoektermen via `searchHints.manual.json` met soort "club" of "plaats" |
+
+- Overlap met wat er al is: "Iets met kinderen" en "Vrijgezellenfeest of groepsuitje" zijn nu al de zoekcontexten `child` en `group` onder "Voor iemand anders". Nooit twee keer vragen: kiest iemand de chip, dan wordt `searchContext` gezet en verschijnt het vervolg zoals nu; kiest iemand eerst "voor iemand anders, een groep", dan staat de chip erop. Bouw dit als één stuk toestand, niet als twee.
+- Om de lengte te compenseren: de let-op-chips en tijd/budget blijven in het derde blok; de enige toevoeging is één rij chips.
+- Meting vóór en na (PostHog, bestaande `intake_page_viewed` en `intake_page_completed`): afhaken op de startpagina. Zakt het meer dan enkele procenten, dan is optie A (eigen scherm) de terugval en kan de chip-rij in een uur naar een eigen scherm.
+- Het boek en de mail noemen de aanleiding ("voor jullie familie-uitje"), zoals 2.1 al zegt.
+
 **2.1 "Waarvoor zoek je?" op de startpagina**
 - Zeven tegels: *gewoon ontdekken* (standaard), *familie-uitje*, *iets met kinderen*, *vakantie of dagje weg*, *vrijgezellenfeest of groepsuitje*, *vrijwilligerswerk*, *nieuwe hobby*. Optioneel, niet verplicht, naast de bestaande zoekcontext.
 - Nieuw veld `occasion` in de antwoorden (`answers.ts`) en in de opgeslagen intake; stuurt tag-gewichten, `formats` (groep, familie) en de zoekopdracht van het onderzoek (Haiku).

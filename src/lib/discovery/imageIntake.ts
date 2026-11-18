@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import type { StoredIntake } from "@/app/intake/actions";
 import { TAGS, getActivity, isImagePending } from "@/lib/discovery/library";
-import { ASSOCIATIONS, associationsToEngineInput, sanitizeAssociations } from "@/lib/discovery/associations";
+import { ALL_ASSOCIATIONS, associationsToEngineInput, sanitizeAssociations } from "@/lib/discovery/associations";
 import { averageAxes, effectiveAxes, sanitizeAxesOverride, tagProfile } from "@/lib/discovery/associationProfile";
 import { buildAudienceProfile, isForOther, normalizeSearchContext } from "@/lib/discovery/audience";
 import { currentMonth } from "@/lib/discovery/season";
@@ -82,8 +82,8 @@ export function applyImageIntake(stored: StoredIntake, locale: "nl" | "en", seed
   const tagLabel = new Map(TAGS.map((t) => [t.id, t.label[locale]]));
 
   // The Dynamic Audience & Interest Profile: what was said (context, age, who goes along) and what the choices point at.
-  const imageProfile = tagProfile(ASSOCIATIONS, associations, associationCorrections);
-  const axes = effectiveAxes(averageAxes(ASSOCIATIONS, associations), axesOverride);
+  const imageProfile = tagProfile(ALL_ASSOCIATIONS, associations, associationCorrections);
+  const axes = effectiveAxes(averageAxes(ALL_ASSOCIATIONS, associations), axesOverride);
   const pickTags = derived.interests.flatMap((id) => getActivity(id)?.tags ?? []);
   const audienceProfile = buildAudienceProfile({
     searchContext,

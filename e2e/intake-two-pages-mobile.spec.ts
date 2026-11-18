@@ -28,7 +28,7 @@ async function openScreen(page: Page, index: number) {
         v: 3,
         layout: 2,
         page: i,
-        answers: { associations: ["place-forest-edge", "moment-first-dance", "sense-perfume"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations", location: "Utrecht" },
+        answers: { associations: ["theme-natuur-a", "theme-podium-a", "theme-mode-a"], interestDomains: [], interests: [], intakeFlow: "images2", intakeVariant: "associations", location: "Utrecht" },
         limitChips: [],
         limitText: "",
         seed: "e2e",

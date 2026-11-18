@@ -254,6 +254,48 @@ export function registerMix(chosen: readonly { register: Register }[]): Register
   return { counts, total, dominant: total > 0 && leaders.length === 1 ? leaders[0] : null };
 }
 
+// --- page 1 as theme tiles ------------------------------------------------------------------------------------------------
+
+/** The theme tiles of the image intake: a visitor picks this many of the 30 (docs/voorstel-themabeelden.md). */
+export const MIN_THEME_PICKS = 3;
+export const MAX_THEME_PICKS = 8;
+/** The groups of the tiles, in the order the page shows them (themes.json `group`). */
+export const THEME_GROUP_ORDER = ["nature", "move", "culture", "mind", "people", "out"] as const;
+
+export interface ThemeTileOptions {
+  /** One per session, kept in the draft. */
+  seed: string;
+  /** Card ids this browser saw before, oldest first: an image of a theme not seen yet is preferred, so a returning visitor sees other images. */
+  seen?: readonly string[];
+  /** Ids the visitor chose: their theme keeps showing that image. */
+  keep?: readonly string[];
+}
+
+/**
+ * Page 1 as theme tiles: ALL themes, one image per theme (a family of 2 or 3 images), grouped by theme group in the fixed group order, with
+ * the tiles inside a group in a seeded order (so no tile always sits first). Deterministic for a seed; choosing a tile moves nothing,
+ * and a later visit (another seed, the images seen before) shows the other image of a theme. There is no balancing and no refresh: the page
+ * is the whole spectrum, so nobody has to ask for "other" images to find a taste.
+ */
+export function sampleThemeTiles<T extends AssociationCardData>(cards: readonly T[], opts: ThemeTileOptions): T[] {
+  const families = new Map<string, T[]>();
+  for (const c of cards) families.set(familyOf(c), [...(families.get(familyOf(c)) ?? []), c]);
+  const rank = new Map((opts.seen ?? []).map((id, i) => [id, i]));
+  const keep = new Set(opts.keep ?? []);
+  const rnd = mulberry32(hashSeed(`${opts.seed}:themes:order`));
+  const groups = new Map<string, string[]>();
+  for (const [family, members] of families) {
+    const g = members[0].group ?? "";
+    groups.set(g, [...(groups.get(g) ?? []), family]);
+  }
+  const rest = [...groups.keys()].filter((g) => !(THEME_GROUP_ORDER as readonly string[]).includes(g)).sort();
+  const out: T[] = [];
+  for (const g of [...THEME_GROUP_ORDER, ...rest]) {
+    for (const family of shuffled(groups.get(g) ?? [], rnd)) out.push(pickVariant(families.get(family) as T[], `${opts.seed}:themes:${family}`, rank, keep));
+  }
+  return out;
+}
+
 // --- page 2 -----------------------------------------------------------------------------------------------------------------
 
 export interface ConcreteActivity {
@@ -296,13 +338,43 @@ export interface ConcreteOptions<A extends ConcreteActivity = ConcreteActivity> 
   exclude?: readonly string[];
   /** 0..1 lean of an activity for the search context (audience.ts); a small addition to its score, never a filter. */
   prefer?: (a: A) => number;
+  /**
+   * The themes the visitor chose on page 1 (theme tiles, Step 211). Then page 2 covers every chosen theme (COVER_MIN plekken each), reserves
+   * COMBO_SLOTS for activities that fit TWO of the chosen themes at once, and draws its "Misschien ook?" slots from nearby themes that were not
+   * chosen. Left out (the old image intake, the tests), page 2 behaves exactly as before.
+   */
+  themes?: readonly ThemeProfile[];
+  /** Every theme on page 1, so the exploring slots can come from one that was not chosen. Needs `themes`. */
+  allThemes?: readonly ThemeProfile[];
+}
+
+/** A theme as page 2 sees it: its id and the tag weights of its tile. */
+export interface ThemeProfile {
+  id: string;
+  weights: Record<string, number>;
 }
 
 export interface ConcreteSlot<A extends ConcreteActivity = ConcreteActivity> {
   activity: A;
   /** From outside what the images pointed at: shown as "Misschien ook?". */
   explore: boolean;
+  /** Theme tiles: the two chosen themes this activity combines (a reserved combination slot). */
+  combo?: [string, string];
+  /** Theme tiles: the theme that was NOT chosen that an exploring slot comes from. */
+  exploreTheme?: string;
 }
+
+/** Page 2 as theme tiles (Step 211): the slots reserved for activities that fit two chosen themes, and what counts as fitting. */
+export const COMBO_SLOTS = 5;
+/** An activity combines two themes when it is at least this close to the weaker of them (0..1, relative to the best activity of that theme). */
+export const COMBO_FLOOR = 0.5;
+/** Every chosen theme gets at least this many of the 18 slots (1 when more than COVER_MANY themes were chosen). */
+export const COVER_MIN = 2;
+export const COVER_MANY = 5;
+/** An activity belongs to a theme when its closeness to it is at least this share of the best activity's. */
+export const COVER_REL = 0.5;
+/** The weight of the combination score next to the rest of the page-2 score. */
+export const COMBO_WEIGHT = 1;
 
 const JITTER = 0.5;
 /** How much the association layer counts next to tag closeness (1) when it is on. */
@@ -343,7 +415,33 @@ export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A
   // An activity without a vector gets half the average: not sunk against the ones that have one, but not lifted either.
   const assocWeight = opts.assocWeight ?? ASSOC_WEIGHT;
   const assocScore = (a: A) => (layer ? assocWeight * (a.assoc && a.assoc.length > 0 ? assoc(a) / maxAssoc : 0.5 * meanAssoc) : 0);
-  const score = new Map(pool.map((a) => [a.id, closeness(a) / maxClose + assocScore(a) + 0.25 * fit(a) + (opts.prefer ? 0.3 * opts.prefer(a) : 0) + JITTER * rnd(a.id)]));
+  // Theme tiles: how close every activity is to each chosen theme (0..1, relative to that theme's best activity).
+  const themeRel = (t: ThemeProfile) => {
+    const raw = (a: A) => a.tags.reduce((sum, tag) => sum + (t.weights[tag] ?? 0) * (generic.has(tag) ? 0.5 : 1), 0) / Math.sqrt(Math.max(1, a.tags.length));
+    const best = Math.max(0.0001, ...pool.map(raw));
+    return new Map(pool.map((a) => [a.id, raw(a) / best] as const));
+  };
+  const chosenThemes = opts.themes ?? [];
+  const rels = chosenThemes.map(themeRel);
+  /** The best pair of chosen themes an activity fits at once, and how well (the weaker of the two, so it needs both). */
+  const comboOf = (a: A): { value: number; pair: [string, string] | null } => {
+    let value = 0;
+    let pair: [string, string] | null = null;
+    for (let i = 0; i < rels.length; i++) {
+      for (let j = i + 1; j < rels.length; j++) {
+        const m = Math.min(rels[i].get(a.id) ?? 0, rels[j].get(a.id) ?? 0);
+        if (m > value) {
+          value = m;
+          pair = [chosenThemes[i].id, chosenThemes[j].id];
+        }
+      }
+    }
+    return { value, pair };
+  };
+  const comboValue = new Map(pool.map((a) => [a.id, comboOf(a)] as const));
+  const score = new Map(
+    pool.map((a) => [a.id, closeness(a) / maxClose + assocScore(a) + 0.25 * fit(a) + (opts.prefer ? 0.3 * opts.prefer(a) : 0) + (chosenThemes.length >= 2 ? COMBO_WEIGHT * (comboValue.get(a.id)?.value ?? 0) : 0) + JITTER * rnd(a.id)]),
+  );
 
   const keptList = pool.filter((a) => keepIds.has(a.id));
   const fresh = pool.filter((a) => !keepIds.has(a.id) && !excluded.has(a.id));
@@ -394,6 +492,41 @@ export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A
   };
   const allowed = (a: A, strict: boolean) => !chosen.includes(a) && (!strict || (!subs.has(a.sub) && (perDomain.get(a.domain) ?? 0) < 3));
 
+  // Theme tiles: first every chosen theme gets its share, then the reserved combination slots. Both stay inside the register targets, so the
+  // register floors of the page hold exactly as without themes.
+  const combos = new Map<string, [string, string]>();
+  if (chosenThemes.length > 0) {
+    const roomFor = (a: A) => have(a.register) < matchedTarget[a.register] && chosen.length < matchedSlots;
+    const need = chosenThemes.length > COVER_MANY ? 1 : COVER_MIN;
+    for (let i = 0; i < chosenThemes.length; i++) {
+      const inTheme = (a: A) => (rels[i].get(a.id) ?? 0) >= COVER_REL;
+      for (const pass of [candidates, recycled]) {
+        const ranked = [...pass].sort((x, y) => (rels[i].get(y.id) ?? 0) - (rels[i].get(x.id) ?? 0) || (score.get(y.id) ?? 0) - (score.get(x.id) ?? 0) || x.id.localeCompare(y.id));
+        for (const a of ranked) {
+          if (chosen.filter(inTheme).length >= need) break;
+          if (inTheme(a) && allowed(a, true) && roomFor(a)) take(a);
+        }
+      }
+    }
+    if (chosenThemes.length >= 2) {
+      // What was kept (the visitor's own picks) that already combines two themes counts towards the reserved slots.
+      for (const a of chosen) {
+        const c = comboValue.get(a.id);
+        if (c?.pair && c.value >= COMBO_FLOOR) combos.set(a.id, c.pair);
+      }
+      for (const pass of [candidates, recycled]) {
+        const ranked = pass.filter((a) => (comboValue.get(a.id)?.value ?? 0) >= COMBO_FLOOR).sort((x, y) => (comboValue.get(y.id)?.value ?? 0) - (comboValue.get(x.id)?.value ?? 0) || x.id.localeCompare(y.id));
+        for (const a of ranked) {
+          if (combos.size >= COMBO_SLOTS) break;
+          if (allowed(a, true) && roomFor(a)) {
+            take(a);
+            combos.set(a.id, comboValue.get(a.id)!.pair!);
+          }
+        }
+      }
+    }
+  }
+
   for (const pass of [candidates, recycled]) {
     // Strict first (one per sub-domain, three per domain); a register that cannot be filled that way is filled loosely.
     for (const strict of [true, false]) {
@@ -426,9 +559,32 @@ export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A
   const farther = exploreFrom.filter((a) => closeness(a) <= median);
   const shuffleExplore = (list: A[]) => shuffled(list, mulberry32(hashSeed(`${opts.seed}:concrete:${refresh}:explore`)));
   const exploring: A[] = [];
+  const exploreThemeOf = new Map<string, string>();
+  // Theme tiles: a "Misschien ook?" slot comes from a theme the visitor did NOT choose, one that lies near what they did choose (it shares tags
+  // with the profile) but is not already covered by a chosen theme. Three slots, three different themes.
+  const chosenThemeIds = new Set(chosenThemes.map((t) => t.id));
+  const unchosenRels = (opts.themes && opts.allThemes ? opts.allThemes.filter((t) => !chosenThemeIds.has(t.id)) : []).map((t) => ({ id: t.id, rel: themeRel(t) }));
+  const nearUnchosen = (a: A): string | null => {
+    if (closeness(a) <= 0) return null;
+    if (rels.some((r) => (r.get(a.id) ?? 0) >= COVER_REL * 0.8)) return null;
+    let best: { id: string; v: number } | null = null;
+    for (const u of unchosenRels) {
+      const v = u.rel.get(a.id) ?? 0;
+      if (v >= COVER_REL && (!best || v > best.v)) best = { id: u.id, v };
+    }
+    return best?.id ?? null;
+  };
   const exploreOk = (a: A, newDomain: boolean) =>
     !exploring.includes(a) && !chosen.includes(a) && (!newDomain || (!usedDomains.has(a.domain) && !exploring.some((e) => e.domain === a.domain)));
+  const nearby = unchosenRels.length > 0 ? shuffleExplore(exploreFrom).filter((a) => nearUnchosen(a) !== null) : [];
   for (const r of exploreRegisters) {
+    // Theme tiles first: the reserved register, from a nearby theme that was not chosen and that no other slot uses yet.
+    const near = nearby.find((a) => a.register === r && exploreOk(a, true) && ![...exploreThemeOf.values()].includes(nearUnchosen(a)!));
+    if (near) {
+      exploring.push(near);
+      exploreThemeOf.set(near.id, nearUnchosen(near)!);
+      continue;
+    }
     // The reserved register, a new domain, far from the images; then relax each in turn.
     const tiers: [A[], boolean][] = [[farther, true], [exploreFrom, true], [farther, false], [exploreFrom, false]];
     let found: A | undefined;
@@ -446,7 +602,10 @@ export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A
     }
   }
 
-  const slots: ConcreteSlot<A>[] = [...matched.map((activity) => ({ activity, explore: false })), ...exploring.map((activity) => ({ activity, explore: true }))];
+  const slots: ConcreteSlot<A>[] = [
+    ...matched.map((activity) => ({ activity, explore: false, ...(combos.has(activity.id) ? { combo: combos.get(activity.id)! } : {}) })),
+    ...exploring.map((activity) => ({ activity, explore: true, ...(exploreThemeOf.has(activity.id) ? { exploreTheme: exploreThemeOf.get(activity.id)! } : {}) })),
+  ];
   return shuffled(slots, mulberry32(hashSeed(`${opts.seed}:concrete:${refresh}:final`)));
 }
 

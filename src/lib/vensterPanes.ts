@@ -61,7 +61,7 @@ export function buildWindowItems(answers: Answers, lib: PaneLibrary, dict: Dicti
   for (const c of chosen) {
     items.push({
       id: c.id,
-      kind: twoPages ? "images" : c.round,
+      kind: twoPages || c.round === "themes" ? "images" : c.round,
       image: c.image,
       label: c.label,
       weight: max > 0 ? Math.round((mass(c) / max) * 100) / 100 : 0.5,

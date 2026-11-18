@@ -102,7 +102,8 @@ describe("the switch", () => {
     expect(knowledgeAssociationLayerEnabled("0")).toBe(false);
     expect(knowledgeAssociationLayerEnabled("1")).toBe(true);
     expect(buildAssociationLibrary("nl", 6, false).cards.some((c) => c.assoc)).toBe(false);
-    expect(buildAssociationLibrary("nl", 6, true).cards.every((c) => c.assoc)).toBe(true);
+    // The old cards carry the layer; the theme tiles (Step 210) have no reference-library associations of their own.
+    expect(buildAssociationLibrary("nl", 6, true).cards.filter((c) => c.round !== "themes").every((c) => c.assoc)).toBe(true);
     expect(buildConcretePool("nl", 6, false).activities.some((a) => a.assoc)).toBe(false);
     expect(buildConcretePool("nl", 6, true).activities.some((a) => a.assoc)).toBe(true);
   });

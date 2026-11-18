@@ -17,7 +17,7 @@ import { TestModeBanner } from "@/components/window/TestModeBanner";
 import { activityImage, domainImage } from "@/lib/discovery/paths";
 import { ASSOCIATION_ROUNDS, averageAxes, tagProfile, type AssociationCard, type AssociationLibrary, type AssociationRound } from "@/lib/discovery/associationProfile";
 import { assocProfile } from "@/lib/discovery/associationLayer";
-import { MAX_CONCRETE_PICKS, MAX_IMAGE_PICKS, MAX_REFRESHES, composeConcretePage, registerMix, sampleBalancedBatch, type RegisteredCard } from "@/lib/discovery/twoPages";
+import { MAX_CONCRETE_PICKS, MAX_IMAGE_PICKS, MAX_REFRESHES, composeConcretePage, registerMix, sampleBalancedBatch, sampleThemeTiles, type RegisteredCard, type ThemeProfile } from "@/lib/discovery/twoPages";
 import type { ConcretePool } from "@/lib/discovery/concretePool";
 import { buildProfileStory } from "@/lib/discovery/profileStory";
 import { ProfileStep, type ReadingRequest } from "@/components/window/ProfileStep";
@@ -64,7 +64,7 @@ const DRAFT_KEY_TWO = "window-venster-draft-images2";
 interface ConcreteState {
   /** The images chosen on page 1 when this was composed; another choice there composes page 2 again. */
   key: string;
-  batches: { id: string; explore: boolean }[][];
+  batches: { id: string; explore: boolean; combo?: [string, string]; exploreTheme?: string }[][];
 }
 
 const EMPTY: IntakeAnswers = {
@@ -362,6 +362,13 @@ export function AssociationWizard({
       setSeenBefore(loadSeen());
     } else {
       const draft = loadDraft(draftKey);
+      // The image intake offers the 30 theme tiles; a draft from before (old card ids) must not carry them over unseen.
+      if (draft && flow2 && library.cards.some((c) => c.round === "themes")) {
+        const offered = new Set(library.cards.map((c) => c.id));
+        draft.answers = { ...draft.answers, associations: (draft.answers.associations ?? []).filter((id) => offered.has(id)) };
+        if (draft.imageFirst?.ids.some((id) => !offered.has(id))) draft.imageFirst = null;
+        draft.imageMore = (draft.imageMore ?? []).filter((batch) => batch.every((id) => offered.has(id)));
+      }
       if (draft && (draft.page > 0 || (draft.answers.associations ?? []).length > 0 || draft.answers.location.trim().length > 0 || normalizeSearchContext(draft.answers.searchContext) !== "unknown")) {
         setAnswers(
           withKm({
@@ -447,9 +454,13 @@ export function AssociationWizard({
   const cardById = useMemo(() => new Map(library.cards.map((c) => [c.id, c])), [library.cards]);
   // The first page depends on the session seed (and what this browser saw) only, never on what is chosen, so choosing moves nothing.
   // It leans on who the search is for (audience.ts) but only that: choosing moves nothing. Once shown it is kept in the draft.
+  // The theme tiles (Step 210): all 30 on one page, one image per theme, another image on a later visit. No balancing, no refresh.
+  const themeMode = flow2 && library.cards.some((c) => c.round === "themes");
   const computedFirst = useMemo(
     () =>
-      flow2 && seed
+      themeMode && seed
+        ? sampleThemeTiles(library.cards, { seed, seen: seenBefore }).map((c) => c.id)
+        : flow2 && seed
         ? sampleBalancedBatch(registered, {
             seed,
             seen: seenBefore,
@@ -459,7 +470,7 @@ export function AssociationWizard({
                 : undefined,
           }).map((c) => c.id)
         : [],
-    [flow2, seed, registered, seenBefore, searchContext],
+    [flow2, themeMode, seed, library.cards, registered, seenBefore, searchContext],
   );
   const firstImages = imageFirst && imageFirst.ids.length > 0 && (imageFirst.ctx === searchContext || (answers.associations ?? []).length > 0) ? imageFirst.ids : computedFirst;
   const imageBatches = [firstImages, ...imageMore];
@@ -467,6 +478,8 @@ export function AssociationWizard({
   const currentImageIds = imageBatches[imageViewIdx] ?? [];
   const currentImages = currentImageIds.map((id) => cardById.get(id)).filter((c): c is AssociationCard => !!c);
   const imageRefreshes = imageMore.length;
+  // The theme page has no "Andere beelden": it already shows every theme.
+  const canMoreImages = !themeMode && imageRefreshes < MAX_REFRESHES;
   const picks = answers.interests ?? [];
   const chosenImagesKey = chosen.join("|");
   // Page 2 is composed again when the images or who the search is for change.
@@ -501,6 +514,12 @@ export function AssociationWizard({
   const currentConcrete = concreteBatches[concreteViewIdx] ?? [];
   const concreteRefreshes = Math.max(0, concreteBatches.length - 1);
   // The images chosen on page 1 are what page 2 follows (and how they divide over the registers, a number nobody sees).
+  /** One profile per theme: the family of the tiles, with the tag weights every image of it shares. */
+  function themeProfiles(list: readonly AssociationCard[]): ThemeProfile[] {
+    const seen = new Map<string, ThemeProfile>();
+    for (const c of list) if (c.round === "themes" && !seen.has(c.family ?? c.id)) seen.set(c.family ?? c.id, { id: c.family ?? c.id, weights: c.tagWeights });
+    return [...seen.values()];
+  }
   function concreteInput() {
     const ids = chosenImagesKey ? chosenImagesKey.split("|") : [];
     const cards = ids.map((id) => cardById.get(id)).filter((c): c is AssociationCard => !!c);
@@ -511,6 +530,8 @@ export function AssociationWizard({
       axes: averageAxes(library.cards, ids),
       genericTags: new Set(concretePool?.genericTags ?? []),
       mix: registerMix(cards.filter((c): c is AssociationCard & RegisteredCard => c.register !== undefined)),
+      // Theme tiles: page 2 covers each chosen theme, reserves slots for combinations, and explores from nearby themes that were not chosen.
+      ...(themeMode ? { themes: themeProfiles(cards), allThemes: themeProfiles(library.cards) } : {}),
     };
   }
   useEffect(() => {
@@ -519,7 +540,7 @@ export function AssociationWizard({
     const slots = composeConcretePage(poolActivities, { seed, keep: picks, prefer: contextPrefer, ...concreteInput() });
     // Page 2 is composed once per set of chosen images and then kept in the draft, so a reload shows the same page.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setConcrete({ key: concreteKey, batches: [slots.map((x) => ({ id: x.activity.id, explore: x.explore }))] });
+    setConcrete({ key: concreteKey, batches: [slots.map((x) => ({ id: x.activity.id, explore: x.explore, ...(x.combo ? { combo: x.combo } : {}), ...(x.exploreTheme ? { exploreTheme: x.exploreTheme } : {}) }))] });
     // concreteInput reads only the values listed here.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flow2, hydrated, seed, poolActivities, pageId, concreteKey, concrete?.key]);
@@ -713,7 +734,7 @@ export function AssociationWizard({
 
   /** "Andere beelden": a new page of images, none of the families shown before; what was chosen stays. */
   function moreImages() {
-    if (imageRefreshes >= MAX_REFRESHES) return;
+    if (!canMoreImages) return;
     // The follow-up page deepens what was chosen so far and, on every other card, opens something not yet chosen (audience.ts imagePreference).
     const chosenTags = tagProfile(library.cards, chosen);
     const next = sampleBalancedBatch(registered, {
@@ -734,7 +755,7 @@ export function AssociationWizard({
     if (!poolActivities || concreteRefreshes >= MAX_REFRESHES) return;
     const shown = concreteBatches.flat().map((x) => x.id);
     const slots = composeConcretePage(poolActivities, { seed, refresh: concreteRefreshes + 1, keep: picks, exclude: shown, prefer: contextPrefer, ...concreteInput() });
-    setConcrete({ key: concreteKey, batches: [...concreteBatches, slots.map((x) => ({ id: x.activity.id, explore: x.explore }))] });
+    setConcrete({ key: concreteKey, batches: [...concreteBatches, slots.map((x) => ({ id: x.activity.id, explore: x.explore, ...(x.combo ? { combo: x.combo } : {}), ...(x.exploreTheme ? { exploreTheme: x.exploreTheme } : {}) }))] });
     setConcreteView(null);
     setNotice(null);
   }
@@ -889,7 +910,7 @@ export function AssociationWizard({
   const chapterNames = flow2 ? [dict.chapters.situation, dict.chapters.images, dict.chapters.extra] : [dict.chapters.images, dict.chapters.situation, dict.chapters.extra];
   const windowTitle = dict.nav.windowTitle;
 
-  const roundPage = (r: AssociationRound) => {
+  const roundPage = (r: (typeof ASSOCIATION_ROUNDS)[number]) => {
     const copy = dict.rounds[r];
     const cards = decks[r];
     const current = cards[swipeIdx];
@@ -1290,7 +1311,7 @@ export function AssociationWizard({
           missingText={dict.twoPages.images.min.replace("{n}", String(MIN_IMAGES_REQUIRED))}
           className="flex-1"
         />
-        {imageViewIdx >= imageBatches.length - 1 && imageRefreshes < MAX_REFRESHES && (
+        {imageViewIdx >= imageBatches.length - 1 && canMoreImages && (
           <button type="button" data-testid="set-more-top" onClick={moreImages} className={MORE_BUTTON}>
             <RefreshIcon />
             {dict.twoPages.images.more}
@@ -1330,11 +1351,11 @@ export function AssociationWizard({
           total: imageBatches.length,
           view: imageViewIdx,
           setView: setImageView,
-          canMore: imageRefreshes < MAX_REFRESHES,
+          canMore: canMoreImages,
           onMore: moreImages,
           moreLabel: dict.twoPages.images.more,
           moreSub: dict.twoPages.images.moreSub,
-          noMore: dict.twoPages.images.noMore,
+          noMore: themeMode ? "" : dict.twoPages.images.noMore,
         })}
       </div>
     </div>
