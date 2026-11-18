@@ -81,4 +81,4 @@ Alles blijft binnen de grenzen die al gelden: geen nieuwe betaalde dienst, de $0
 | B. Bibliotheek | B1 + B2, B3, B4 en B5: alle |
 | C. Kwaliteit | C1, C2 en C3. **C4 (betaalde steekproef) niet nu**: komt alleen na een apart bedrag-akkoord |
 
-Stand: nulmeting C3 gedaan (Stap 214, `docs/eval/2026-11-18-theme-selection-baseline-stap-213.md`). Volgende: B1 + B2, dan A1 tot en met A3, dan R1 met C1 en C2.
+Stand: nulmeting C3 gedaan (Stap 214, `docs/eval/2026-11-18-theme-selection-baseline-stap-213.md`); B1 + B2 gedaan (Stap 215, `activityKind.json`). Volgende: A1 tot en met A3, dan R1 met C1 en C2.
