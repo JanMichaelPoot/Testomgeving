@@ -111,14 +111,28 @@ function Layers({ idea, copy, mode }: { idea: IdeaBookEntry; copy: More; mode: "
 
       {full && idea.related && idea.related.length > 0 && (
         <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-accent">{copy.relatedHeading}</p>
-          <ul role="list" className="flex flex-wrap gap-2">
-            {idea.related.map((r) => (
-              <li key={r.id} className="rounded-full border border-border bg-surface-active px-3.5 py-1.5 text-sm text-accent-dark">
-                {r.label}
-              </li>
-            ))}
-          </ul>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-accent">
+            {idea.direction ? copy.option.direction.replace("{themes}", idea.direction) : copy.relatedHeading}
+          </p>
+          {idea.related.some((r) => r.facts) ? (
+            // R1: an option of three. The idea above is worked out; its two companions get one line of facts each.
+            <ul role="list" className="grid gap-2 @md:grid-cols-2">
+              {idea.related.map((r) => (
+                <li key={r.id} className="rounded-md border border-border bg-surface-active px-3.5 py-2.5">
+                  <p className="text-[15px] font-semibold leading-snug text-accent-dark">{r.label}</p>
+                  {r.facts && <p className="mt-0.5 text-sm leading-snug text-ink/75">{r.facts}</p>}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul role="list" className="flex flex-wrap gap-2">
+              {idea.related.map((r) => (
+                <li key={r.id} className="rounded-full border border-border bg-surface-active px-3.5 py-1.5 text-sm text-accent-dark">
+                  {r.label}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
 

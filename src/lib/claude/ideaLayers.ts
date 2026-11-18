@@ -29,10 +29,12 @@ export interface IdeaPlace {
   rating?: Rating;
 }
 
-/** Another activity in the same direction, chosen by code from the relation graph. */
+/** Another activity in the same direction, chosen by code (an option companion, R1, or the relation graph). */
 export interface RelatedActivity {
   id: string;
   label: string;
+  /** R1: one short line of facts (kind, cost, duration, how it can be done), built by code from the library. Absent on older books. */
+  facts?: string;
 }
 
 export interface IdeaLayers {
@@ -44,6 +46,8 @@ export interface IdeaLayers {
   next_step?: string;
   places?: IdeaPlace[];
   related?: RelatedActivity[];
+  /** R1: the direction of this idea's option as words ("natuur + ambacht en handwerk"), when it comes from the chosen themes. */
+  direction?: string;
 }
 
 // Hard limits (characters). The prompt asks for much shorter text; these only catch a runaway
@@ -56,6 +60,8 @@ export const LAYER_LIMITS = {
   size_cost: 42,
   size_duration: 42,
   next_step: 170,
+  direction: 90,
+  facts: 160,
 } as const;
 
 const clean = (v: unknown): string => (typeof v === "string" ? v.replace(/\s+/g, " ").trim() : "");
@@ -113,6 +119,8 @@ export function readStoredLayers(raw: unknown): IdeaLayers {
   if (places.length) layers.places = places;
   const related = normalizeRelated(r.related);
   if (related.length) layers.related = related;
+  const direction = clean(r.direction);
+  if (direction && direction.length <= LAYER_LIMITS.direction) layers.direction = direction;
   return layers;
 }
 
@@ -145,7 +153,8 @@ export function normalizeRelated(value: unknown, max = 3): RelatedActivity[] {
     const r = raw as Record<string, unknown>;
     const id = clean(r.id);
     const label = clean(r.label);
-    if (id && label) out.push({ id, label });
+    const facts = clean(r.facts);
+    if (id && label) out.push({ id, label, ...(facts && facts.length <= LAYER_LIMITS.facts ? { facts } : {}) });
     if (out.length === max) break;
   }
   return out;
@@ -174,7 +183,7 @@ export function pdfPageNumbers(orderedIdeas: readonly IdeaLayers[], first = 3): 
 
 /** The entry with its layers replaced by their validated form (anything invalid or malformed is gone). */
 export function withValidLayers<T extends IdeaLayers>(entry: T): T {
-  const { feels_like: _f, sizes: _s, next_step: _n, places: _p, related: _r, ...rest } = entry;
-  void [_f, _s, _n, _p, _r];
+  const { feels_like: _f, sizes: _s, next_step: _n, places: _p, related: _r, direction: _d, ...rest } = entry;
+  void [_f, _s, _n, _p, _r, _d];
   return { ...rest, ...readStoredLayers(entry) } as T;
 }

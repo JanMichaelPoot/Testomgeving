@@ -405,7 +405,8 @@ export function qaBook(book: GeneratedIdeaBook, ctx: QaContext): QaIssue[] {
     const timeProblem = timeChipConflict(entry, activity);
     if (timeProblem) push("time_chip", where, `says ${timeProblem.hours} h, an idea of this kind takes ${timeProblem.expected[0]}-${timeProblem.expected[1]} h`, false);
     for (const r of entry.related ?? []) {
-      if (!relatedIsPlausible(activity, r.id)) push("related", where, `${r.id} has nothing in common with ${entry.activity_id}`, false);
+      // An option companion (it has its facts line) was chosen for the idea's theme, not for shared tags with the idea.
+      if (!r.facts && !relatedIsPlausible(activity, r.id)) push("related", where, `${r.id} has nothing in common with ${entry.activity_id}`, false);
     }
     const online = onlineStart(entry);
     if (online) push("online_start", where, `${online.field}: "${online.match}"`, true);
@@ -467,7 +468,7 @@ export function autoFix(book: GeneratedIdeaBook, locale: QaLocale): { book: Gene
       }
     }
     if (next.related && next.related.length > 0) {
-      const kept = next.related.filter((r) => relatedIsPlausible(activity, r.id));
+      const kept = next.related.filter((r) => r.facts || relatedIsPlausible(activity, r.id));
       if (kept.length !== next.related.length) {
         fixes.push(`${where}:related_dropped`);
         next = { ...next, related: kept.length > 0 ? kept : undefined };

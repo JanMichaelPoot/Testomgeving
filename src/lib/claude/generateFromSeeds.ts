@@ -27,6 +27,8 @@ import { adjustedScore, researchNeedsFrom, researchSeeds, type LocalOption, type
 import { currentMonth, describeToday, inSeason, isoDateNL } from "@/lib/discovery/season";
 import { editionDate, type Season } from "@/lib/seasonEdition";
 import { engineInputFromIntake, relatedActivities, runEngine } from "@/lib/discovery/engine";
+import { companionLine, companionsOf, directionLabel } from "@/lib/claude/optionLines";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 import { WEIGHTS_ANCHOR, WEIGHTS_V2 } from "@/lib/discovery/engine/weights";
 import {
   normalizeFeelsLike,
@@ -566,7 +568,7 @@ function buildEntry(
   raw: unknown,
   seed: Seed,
   research: SeedResearch | undefined,
-  related: RelatedActivity[],
+  option: { related: RelatedActivity[]; direction?: string },
   layer: RawLayer | undefined,
   fill?: IdeaFill,
 ): IdeaBookEntry {
@@ -577,6 +579,7 @@ function buildEntry(
   const sizes = normalizeSizes(layer?.sizes);
   const next_step = normalizeNextStep(layer?.next_step);
   const places = normalizePlaces(research?.options);
+  const { related, direction } = option;
   return {
     ...(feels_like ? { feels_like } : {}),
     ...(sizes ? { sizes } : {}),
@@ -584,6 +587,7 @@ function buildEntry(
     // Straight from the research (never written by the model), so each one is a verified place.
     ...(places.length ? { places } : {}),
     ...(related.length ? { related } : {}),
+    ...(direction ? { direction } : {}),
     ...(fill ? { fill } : {}),
     title: toText(e.title),
     intro: toText(e.intro),
@@ -1303,10 +1307,22 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   // "Also in this direction": by code, from the relation graph, with the same hard filters as the
   // selection. The doors of the book are never listed, and one activity is shown at most once.
   const taken = new Set(seeds.map((s) => s.activityId));
-  const relatedFor = (seed: Seed): RelatedActivity[] => {
-    const found = relatedActivities(seed.activityId, engine.constraints, taken, 3);
-    for (const a of found) taken.add(a.id);
-    return found.map((a) => ({ id: a.id, label: a.label[locale] }));
+  // R1: every idea heads an option of three, the idea and two companions chosen by the engine for the idea's direction (a chosen theme, or the
+  // idea's own neighbourhood when it fits none). A companion that the book uses in the meantime (a replacement idea) is skipped and the option
+  // is filled up from the relation graph, so an option stays three. Each companion carries one short facts line made from the library.
+  const optionCopy = getDictionary(locale).venster.more.option;
+  const optionFor = (seed: Seed): { related: RelatedActivity[]; direction?: string } => {
+    const companions = companionsOf(seed, locale, optionCopy).filter((c) => !taken.has(c.id)).slice(0, 2);
+    for (const c of companions) taken.add(c.id);
+    const wanted = seed.option ? 2 : 3;
+    if (companions.length < wanted) {
+      for (const a of relatedActivities(seed.activityId, engine.constraints, taken, wanted - companions.length)) {
+        taken.add(a.id);
+        companions.push(companionLine(a.id, locale, optionCopy) ?? { id: a.id, label: a.label[locale] });
+      }
+    }
+    const direction = directionLabel(seed.option?.themes ?? [], locale, optionCopy);
+    return { related: companions, ...(direction ? { direction } : {}) };
   };
   // A layer the model wrote but that did not pass validation is left out; say so, so it shows in the log.
   const layerFor = (seed: Seed): RawLayer | undefined => layers?.[seeds.indexOf(seed)];
@@ -1338,13 +1354,13 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   const ideas = (raw.ideas as unknown[]).map((r, i) => {
     const seed = regular[i];
     layerIssues(`idea${i + 1}`, seed);
-    const checked = checkEntry(buildEntry(r, seed, seedResearch(seed, research.byActivity), relatedFor(seed), layerFor(seed), fillFor(`idea${i + 1}`, seed)), seedResearch(seed, research.byActivity)?.options ?? [], allHosts);
+    const checked = checkEntry(buildEntry(r, seed, seedResearch(seed, research.byActivity), optionFor(seed), layerFor(seed), fillFor(`idea${i + 1}`, seed)), seedResearch(seed, research.byActivity)?.options ?? [], allHosts);
     issues.push(...checked.issues.map((x) => `idea${i + 1}:${x}`));
     return checked.entry;
   });
   layerIssues("wildcard", wild);
   const wildChecked = checkEntry(
-    buildEntry(raw.wildcard, wild, seedResearch(wild, research.byActivity), relatedFor(wild), layerFor(wild), fillFor("wildcard", wild)),
+    buildEntry(raw.wildcard, wild, seedResearch(wild, research.byActivity), optionFor(wild), layerFor(wild), fillFor("wildcard", wild)),
     seedResearch(wild, research.byActivity)?.options ?? [],
     allHosts,
   );

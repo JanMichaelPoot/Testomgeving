@@ -1,4 +1,5 @@
 import { doorRange } from "@/lib/productStructure";
+import type { OptionCopy } from "@/lib/claude/optionLines";
 // Copy of the image intake and its window ("Het venster", WindowInto/WINDOW_Bouwopdracht_Venster_Fase0-8.md).
 // Kept in its own file because dictionaries.ts is already very long; it is part of the same
 // Dictionary (dict.venster) and follows the same rules: nl and en, same tone (warm, curious,
@@ -304,6 +305,8 @@ export interface VensterDictionary {
     mapLink: string;
     siteLink: string;
     relatedHeading: string;
+    /** R1: the facts line and the heading of an option's companions. */
+    option: OptionCopy;
     nextHeading: string;
     /** The PDF's extra page: its small heading and the line above the idea's title. */
     pdfEyebrow: string;
@@ -954,6 +957,12 @@ export const vensterNl: VensterDictionary = {
     mapLink: "Op de kaart",
     siteLink: "Website",
     relatedHeading: "Ook in deze richting",
+    option: {
+      costs: ["gratis", "tot €15", "€15 tot €50", "meer dan €50"],
+      durations: ["minder dan een uur", "1 tot 3 uur", "een halve dag of meer", "meerdere dagen of doorlopend"],
+      direction: "In deze richting: {themes}",
+      and: " + ",
+    },
     nextHeading: "Daarna",
     pdfEyebrow: "Meer over deze deur",
   },
@@ -1604,6 +1613,12 @@ export const vensterEn: VensterDictionary = {
     mapLink: "On the map",
     siteLink: "Website",
     relatedHeading: "Also in this direction",
+    option: {
+      costs: ["free", "up to €15", "€15 to €50", "over €50"],
+      durations: ["under an hour", "1 to 3 hours", "half a day or more", "several days or ongoing"],
+      direction: "In this direction: {themes}",
+      and: " + ",
+    },
     nextHeading: "Next",
     pdfEyebrow: "More about this door",
   },

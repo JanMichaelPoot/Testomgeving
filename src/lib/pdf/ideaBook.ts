@@ -1678,8 +1678,19 @@ export async function renderIdeaBookPdf(
     const placeH = (r: { nameL: string[]; noteL: string[] }, withNotes: boolean) =>
       PAD * 2 + r.nameL.length * 13.5 + (withNotes && r.noteL.length ? 3 + r.noteL.length * 12.5 : 0) + 6 + 14;
 
+    // R1: an option of three. Companions that carry a facts line are drawn as small panels (name, then kind, cost, duration and how it can be
+    // done); an older book without facts keeps the pill row below.
+    const companionRows = idea.related?.some((r) => r.facts)
+      ? idea.related.map((r) => ({
+          nameL: wrapText(r.label, fonts.sansBold, 10.25, W - PAD * 2, 1),
+          factsL: r.facts ? wrapText(r.facts, fonts.sans, 9, W - PAD * 2, 2) : [],
+        }))
+      : [];
+    const companionH = (r: { nameL: string[]; factsL: string[] }) => PAD * 2 - 2 + r.nameL.length * 13.5 + (r.factsL.length ? 3 + r.factsL.length * 12 : 0);
+    const relatedHeading = idea.direction ? moreCopy.option.direction.replace("{themes}", idea.direction) : moreCopy.relatedHeading;
+
     // Pill rows, counted the way drawPillRow wraps them.
-    const relatedLabels = (idea.related ?? []).map((r) => r.label);
+    const relatedLabels = companionRows.length ? [] : (idea.related ?? []).map((r) => r.label);
     let pillRows = 0;
     if (relatedLabels.length) {
       pillRows = 1;
@@ -1711,6 +1722,11 @@ export async function renderIdeaBookPdf(
         h += lv.gap - 7;
       }
       if (pillRows) h += LABEL_SIZE + 8 + pillRows * PILL_ROW + (pillRows - 1) * PWA4_SPACE_2 + lv.gap;
+      if (companionRows.length) {
+        h += LABEL_SIZE + 8;
+        for (const r of companionRows) h += companionH(r) + 6;
+        h += lv.gap - 6;
+      }
       if (nextLines.length) h += LABEL_SIZE + 7 + nextLines.length * 15.5;
       return h;
     };
@@ -1790,8 +1806,23 @@ export async function renderIdeaBookPdf(
       top -= GAP - 7;
     }
 
+    if (companionRows.length) {
+      drawLabel(relatedHeading, x0, top, PWA4_ACCENT);
+      top -= LABEL_SIZE + 8;
+      for (const r of companionRows) {
+        const h = companionH(r);
+        drawPanel(x0, top, W, h, PWA4_SURFACE_PANEL, PWA4_RADIUS_SM);
+        let ty = top - PAD + 1;
+        drawTextLines(r.nameL, x0 + PAD, ty, 10.25, 13.5, fonts.sansBold, PWA4_INK);
+        ty -= r.nameL.length * 13.5;
+        if (r.factsL.length) drawTextLines(r.factsL, x0 + PAD, ty - 3, 9, 12, fonts.sans, PWA4_INK_MUTED);
+        top -= h + 6;
+      }
+      top -= GAP - 6;
+    }
+
     if (pillRows) {
-      drawLabel(moreCopy.relatedHeading, x0, top, PWA4_ACCENT);
+      drawLabel(idea.direction ? relatedHeading : moreCopy.relatedHeading, x0, top, PWA4_ACCENT);
       top -= LABEL_SIZE + 8;
       y = top;
       drawPillRow(relatedLabels, PWA4_SURFACE_PANEL, PWA4_INK);
