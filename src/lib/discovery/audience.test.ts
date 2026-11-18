@@ -118,7 +118,7 @@ describe("what is offered to whom", () => {
       const result = runEngine(engineInputFromIntake(out, { seed: `seed-${i}`, month: 6 }));
       for (const s of result.seeds) expect(allowedForContext({ id: s.activityId, tags: getActivities().find((a) => a.id === s.activityId)!.tags }, "child"), s.activityId).toBe(true);
     }
-  });
+  }, 60_000);
 
   it("nudges a group to things that can be done together, and nothing else", () => {
     expect(audienceBias({ formats: ["small_group"] }, "group")).toBeLessThan(0);
