@@ -52,6 +52,15 @@ export interface Weights {
   stretch: { base: number; bridge: number; noise: number; targetByWildness: readonly number[] };
   wildcard: { bridge: number; newWorld: number; redundancyFactor: number; ageDecay: number; baseRare: number; supplyDecay: number };
 
+  /**
+   * R1 options (engine/options.ts) and theme coverage (docs/plan-activiteitenselectie.md, A1-A3). The suitability of a companion is: theme fit x `theme`
+   * + similarity to the idea x `sim` + practicality x `practical` + rarity x `rare` + noise, minus the soft profile terms the selection already uses
+   * (age, audience, hub, supply). `minThemeRel` / `relaxedRel`: how close to a theme a companion must be (tried strictest first). `maxTagOverlap`: two
+   * activities of an option that share this much of their tags are variations of one thing. `coverage`: with two or more chosen themes the adjacent slot
+   * leans to an activity that fits a chosen theme no idea of the book fits yet (times its fit; 0 = off).
+   */
+  option: { theme: number; sim: number; practical: number; rare: number; noise: number; otherKind: number; clusterPenalty: number; minThemeRel: number; relaxedRel: number; maxTagOverlap: number; coverage: number };
+
   // --- B4 behaviour switches (all off in WEIGHTS_CURRENT) --------------------------------------------
   /** An activity whose cost is unknown does not pass a "free" budget: unknown is never a favourable answer. */
   strictFreeCost: boolean;
@@ -82,6 +91,7 @@ export const WEIGHTS_CURRENT: Weights = {
   adjacent: { noise: 0.15, noveltyOtherWorld: 0.15, peak: 0.38 },
   stretch: { base: 2, bridge: 0.15, noise: 0.2, targetByWildness: [1, 1.2, 2, 2.8] },
   wildcard: { bridge: 2, newWorld: 2, redundancyFactor: 4, ageDecay: 2, baseRare: 0.5, supplyDecay: 3 },
+  option: { theme: 1.2, sim: 0.6, practical: 0.2, rare: 0.1, noise: 0.15, otherKind: 0.15, clusterPenalty: 0.5, minThemeRel: 0.5, relaxedRel: 0.35, maxTagOverlap: 0.6, coverage: 1 },
   strictFreeCost: false,
   explain: false,
   anchor: { picks: 0, indirect: false },

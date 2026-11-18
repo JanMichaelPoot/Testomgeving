@@ -56,6 +56,13 @@ export interface EngineInput {
   themes?: readonly ThemeProfile[];
 }
 
+export interface SeedOption {
+  /** The chosen themes this direction is about (one, or two for a combination; empty when the idea fits none of them). */
+  themes: string[];
+  /** Two other activities in the same direction, different in kind and sub-domain from the idea and from each other. */
+  companions: string[];
+}
+
 export interface Seed {
   activityId: string;
   direction: Direction;
@@ -69,6 +76,8 @@ export interface Seed {
   via: string[];
   /** For a curated combination: the partner activity and the combined activity's name. */
   hybrid?: { partnerId: string; label: { nl: string; en: string } };
+  /** R1 (options.ts): the direction of this idea (chosen theme ids, none when it fits no chosen theme) and two companion activities, so the idea heads an option of three. */
+  option?: SeedOption;
   /** E4: the two chosen themes (ids like "theme-natuur") this unexpected idea combines. */
   themeCombo?: [string, string];
   /** The social form to lead with (their own choice), or null when they did not choose or it is unknown. */

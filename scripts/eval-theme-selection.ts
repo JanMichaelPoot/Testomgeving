@@ -13,6 +13,7 @@ import { composeConcretePage, registerMix, type ConcreteActivity } from "../src/
 import { hashSeed, mulberry32, shuffled } from "../src/lib/discovery/rng";
 import { themeCosine, themeRelative } from "../src/lib/discovery/themeFit";
 import { registerOfActivity, registerOfCard } from "../src/lib/discovery/register";
+import { kindOfActivity, modeOfActivity } from "../src/lib/discovery/activityKind";
 
 const label = process.argv[2] ?? "baseline";
 const PER = Number(process.argv[3] ?? 12);
@@ -58,6 +59,17 @@ const m = {
   combo: 0,
   comboWeak: 0, // theme combinations whose weaker theme is under 0.6
   regionalOrRare: 0,
+  optFull: 0, // options with two companions (an option of three)
+  optOnTheme: [] as number[], // share of companions that belong to the option's theme (>= 0.5)
+  optThemed: 0, // options that have a theme at all
+  optNear: 0, // options with two activities that overlap 0.6 or more in tags
+  optSameSub: 0, // options with two activities from one subdomain
+  optKinds: [] as number[], // distinct kinds per option of three
+  optDup: 0, // books where an activity occurs in two options
+  optDirections: [] as number[], // distinct directions (theme sets) among the five options
+  optCoverage: [] as number[], // share of chosen themes that any of the 15 activities belongs to
+  optSelf: 0, // activities (of 15) that can be done by yourself
+  optActs: 0,
   supervised: 0,
 };
 
@@ -104,6 +116,39 @@ for (const ids of THEME_SETS) {
       if (rel.length) m.relatedOnTheme.push(rel.filter((r) => rels[ti](r.tags) >= 0.5).length / rel.length);
       rel.forEach((r) => exclude.add(r.id));
     });
+    // Options (R1): the idea and its two companions.
+    const seen = new Set<string>();
+    let dup = false;
+    const dirs = new Set<string>();
+    const all15: typeof acts = [];
+    res.seeds.forEach((sd, i) => {
+      const op = sd.option;
+      if (!op) return;
+      const group = [acts[i], ...op.companions.map((id) => byId.get(id)!).filter(Boolean)];
+      if (op.companions.length === 2) m.optFull++;
+      for (const a of group) {
+        if (seen.has(a.id)) dup = true;
+        seen.add(a.id);
+        all15.push(a);
+        m.optActs++;
+        if (modeOfActivity(a) === "self") m.optSelf++;
+      }
+      if (op.themes.length) {
+        m.optThemed++;
+        const ti = op.themes.map((id) => themes.findIndex((t) => t.id === id));
+        const comps = group.slice(1);
+        if (comps.length) m.optOnTheme.push(comps.filter((c) => ti.some((k) => rels[k](c.tags) >= 0.5)).length / comps.length);
+      }
+      dirs.add(op.themes.join("+") || `none-${i}`);
+      let near = false;
+      for (let x = 0; x < group.length; x++) for (let y = x + 1; y < group.length; y++) if (tagCos(group[x].tags, group[y].tags) >= 0.6) near = true;
+      if (near) m.optNear++;
+      if (new Set(group.map((a) => a.sub)).size < group.length) m.optSameSub++;
+      m.optKinds.push(new Set(group.map((a) => kindOfActivity(a))).size);
+    });
+    if (dup) m.optDup++;
+    m.optDirections.push(dirs.size);
+    m.optCoverage.push(themes.filter((t, i) => all15.some((a) => rels[i](a.tags) >= 0.5)).length / themes.length);
     // Challenge, combinations, practicality.
     const picks = input.interests.map((i) => byId.get(i)).filter(<T,>(x: T | undefined): x is T => !!x);
     const top = Math.max(0, ...picks.map(lvl));
@@ -140,6 +185,16 @@ const rows: [string, string][] = [
   ["Daarvan zwak (zwakste thema onder 0,6)", m.combo ? pct(m.comboWeak / m.combo) : "-"],
   ["Ideeën met regionaal of zeldzaam aanbod", pct(m.regionalOrRare / m.ideas)],
   ["Ideeën onder gekwalificeerd toezicht", pct(m.supervised / m.ideas)],
+  ["Opties met twee metgezellen (een optie van drie)", pct(m.optFull / m.ideas)],
+  ["Opties met een thema als richting", pct(m.optThemed / m.ideas)],
+  ["Metgezellen die bij het thema van hun optie passen", pct(avg(m.optOnTheme))],
+  ["Verschillende richtingen per boek van vijf opties", avg(m.optDirections).toFixed(2)],
+  ["Gekozen thema's gedekt door de 15 activiteiten (gemiddeld)", pct(avg(m.optCoverage))],
+  ["Opties met twee bijna gelijke activiteiten (tagoverlap 0,6 of meer)", pct(m.optNear / m.ideas)],
+  ["Opties met twee activiteiten uit één subdomein", pct(m.optSameSub / m.ideas)],
+  ["Verschillende soorten per optie van drie (max. 3)", avg(m.optKinds).toFixed(2)],
+  ["Boeken waarin een activiteit in twee opties staat", pct(m.optDup / m.books)],
+  ["Van de 15 activiteiten: zelf te doen", pct(m.optSelf / m.optActs)],
 ];
 
 const date = new Date().toISOString().slice(0, 10);

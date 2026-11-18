@@ -12,6 +12,7 @@ import { internationalBias, meetingBias } from "@/lib/discovery/suitability";
 import { MAX_PER_CLUSTER, clusterOf } from "@/lib/discovery/clusters";
 import { IDEA_COUNT } from "@/lib/productStructure";
 import { THEME_FAR_COS, themeCosine, themeRelative } from "@/lib/discovery/themeFit";
+import { buildOptions } from "@/lib/discovery/engine/options";
 
 // The selection engine. Four regular seeds in four directions, plus one wildcard (Stap 198: five ideas, fewer but better worked out):
 //   familiar x1   the pick itself, or a direct neighbour of it
@@ -146,7 +147,15 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   // E4: with two or more chosen themes, how close every activity is to each (0..1 against that theme's best activity, the same measure page 2 uses).
   const chosenThemes = input.themes ?? [];
   const genericTags = new Set(lib.tags.filter((t) => t.generic).map((t) => t.id));
-  const themeRels = chosenThemes.length >= 2 ? chosenThemes.map((t) => themeRelative(t.weights, all, genericTags)) : [];
+  const optRels = chosenThemes.map((t) => themeRelative(t.weights, all, genericTags));
+  const themeRels = chosenThemes.length >= 2 ? optRels : [];
+  /** A1: the chosen themes no idea of the book belongs to yet (fit 0.5 or more), as they stand now; the adjacent slot leans to an activity that fits one of them. */
+  const coverBonus = (): ((a: Activity) => number) => {
+    if (chosenThemes.length < 2 || W.option.coverage <= 0) return () => 0;
+    const open = optRels.filter((r) => !seeds.some((u) => r(byId.get(u.activityId)!.tags) >= 0.5));
+    if (open.length === 0) return () => 0;
+    return (a) => W.option.coverage * Math.max(...open.map((r) => r(a.tags)));
+  };
   /** The pair of far-apart chosen themes an activity fits at once, and how well (the weaker of the two: it has to fit both). */
   const themeComboOf = (a: Activity): { value: number; pair: [string, string] | null } => {
     let value = 0;
@@ -441,21 +450,24 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
 
   // --- adjacent x1 ----------------------------------------------------------------------------
   {
-    const set = (lo: number, hi: number, minBridge: number) => () =>
-      pool
+    const set = (lo: number, hi: number, minBridge: number) => () => {
+      const cover = coverBonus();
+      return pool
         .filter((a) => !pickSet.has(a.id) && rel(a) >= lo && rel(a) < hi && bestBridgeTo(a) >= minBridge)
         .map<Cand>((a) => {
           const r = rel(a);
           // Someone who picked from one world only (a niche) keeps the one adjacent idea in that world: with four ideas, their own world has to be worth
           // two of them (the pick and its neighbour); the unexpected idea, the stretch and the wildcard are what leave it (Stap 198).
           const novelty = pickedDomains.size === 1 ? (pickedDomains.has(a.domain) ? NICHE_ADJACENT_BONUS : 0) : pickedDomains.has(a.domain) ? 0 : W.adjacent.noveltyOtherWorld;
-          return { a, score: r * (1 - Math.abs(r - W.adjacent.peak)) + novelty + rnd() * W.adjacent.noise - redundancy(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a) };
+          return { a, score: r * (1 - Math.abs(r - W.adjacent.peak)) + novelty + rnd() * W.adjacent.noise - redundancy(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a) + cover(a) };
         });
+    };
     // The master prompt's "indirect" slot (Stap 127): with the anchor on, the one non-picked idea around the choices comes from
     // the same interest cluster as at least two of them (it shares a real tag with each) and is a real neighbour of at least one (two or more tags), not a loose single bridge. This is what keeps "helicopter flight" away from a book about animals and nature.
     const indirect = () => {
       if (!anchored || !W.anchor.indirect) return [] as Cand[];
       const pickSubs = new Set(usablePicks.map((p) => p.sub));
+      const cover = coverBonus();
       return pool
         .filter((a) => !pickSet.has(a.id))
         .map((a) => {
@@ -466,7 +478,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
         .filter((x) => x.sharers >= 2 && x.strong >= 1)
         .map<Cand>(({ a, sharers, strong }) => ({
           a,
-          score: sharers * 0.5 + strong * 0.4 + (pickSubs.has(a.sub) ? 0 : 0.25) + (pickedDomains.has(a.domain) ? 0 : 0.15) + rnd() * W.adjacent.noise - redundancyBeyondPicks(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a),
+          score: sharers * 0.5 + strong * 0.4 + (pickSubs.has(a.sub) ? 0 : 0.25) + (pickedDomains.has(a.domain) ? 0 : 0.15) + rnd() * W.adjacent.noise - redundancyBeyondPicks(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a) + cover(a),
         }));
     };
     // A niche's neighbours in their own world are close to their picks: the preferred set reaches further for them.
@@ -562,7 +574,21 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     const ordered = [...regular].sort((a, b) => DOOR_ORDER.indexOf(a.door) - DOOR_ORDER.indexOf(b.door));
     const levels = assignLevels(seeds, byId);
     const withLevel = (list: Seed[]) => list.map((s) => (levels.has(s.activityId) ? { ...s, level: levels.get(s.activityId) } : s));
-    return { seeds: withLevel([...ordered, ...wildcard]), constraints, notes };
+    const final = withLevel([...ordered, ...wildcard]);
+    // R1: every idea heads an option of three (the idea and two companions in the same direction).
+    const options = buildOptions({
+      seeds: final,
+      pool,
+      byId,
+      graph,
+      themes: chosenThemes.map((t, i) => ({ id: t.id, rel: optRels[i] })),
+      age,
+      supplyCost,
+      rare,
+      rnd: mulberry32(hashSeed(`${input.seed}:options`)),
+      W: W.option,
+    });
+    return { seeds: final.map((s) => (options.has(s.activityId) ? { ...s, option: options.get(s.activityId) } : s)), constraints, notes };
   }
 }
 
