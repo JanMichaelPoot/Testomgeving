@@ -18,6 +18,7 @@ import { activityImage, domainImage } from "@/lib/discovery/paths";
 import { ASSOCIATION_ROUNDS, averageAxes, tagProfile, type AssociationCard, type AssociationLibrary, type AssociationRound } from "@/lib/discovery/associationProfile";
 import { assocProfile } from "@/lib/discovery/associationLayer";
 import { MAX_CONCRETE_PICKS, MAX_IMAGE_PICKS, MAX_REFRESHES, composeConcretePage, registerMix, sampleBalancedBatch, sampleThemeTiles, type RegisteredCard, type ThemeProfile } from "@/lib/discovery/twoPages";
+import { themeNameInSentence } from "@/lib/discovery/themeFit";
 import type { ConcretePool } from "@/lib/discovery/concretePool";
 import { buildProfileStory } from "@/lib/discovery/profileStory";
 import { ProfileStep, type ReadingRequest } from "@/components/window/ProfileStep";
@@ -452,6 +453,8 @@ export function AssociationWizard({
     [library.cards],
   );
   const cardById = useMemo(() => new Map(library.cards.map((c) => [c.id, c])), [library.cards]);
+  // Theme tiles: the short name of every theme ("natuur", "ambacht en handwerk"), for the small lines on page 2 ("natuur + ambacht", "Misschien ook: kunst en cultuur").
+  const themeNames = useMemo(() => new Map(library.cards.filter((c) => c.round === "themes" && c.family).map((c) => [c.family!, themeNameInSentence(c.label)] as const)), [library.cards]);
   // The first page depends on the session seed (and what this browser saw) only, never on what is chosen, so choosing moves nothing.
   // It leans on who the search is for (audience.ts) but only that: choosing moves nothing. Once shown it is kept in the draft.
   // The theme tiles (Step 210): all 30 on one page, one image per theme, another image on a later visit. No balancing, no refresh.
@@ -1390,7 +1393,7 @@ export function AssociationWizard({
         </p>
       )}
       <div className={cn("mt-4 grid grid-cols-3 gap-2 sm:gap-3", answers.surpriseMe && "opacity-50")}>
-        {currentConcrete.map(({ id, explore }) => {
+        {currentConcrete.map(({ id, explore, combo, exploreTheme }) => {
           const a = poolById.get(id);
           if (!a) return null;
           const on = picks.includes(id);
@@ -1408,7 +1411,16 @@ export function AssociationWizard({
             >
               <Image src={activityImage(id)} alt="" fill sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
               <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-2 pb-2 pt-8 text-xs font-semibold leading-tight text-white sm:px-3 sm:pb-3 sm:pt-10 sm:text-sm sm:leading-snug">
-                {explore && <span className="mb-0.5 block text-[10px] font-bold uppercase tracking-[0.08em] text-gold-light">{dict.twoPages.concrete.maybe}</span>}
+                {explore && (
+                  <span className="mb-0.5 block text-[10px] font-bold uppercase tracking-[0.08em] text-gold-light">
+                    {exploreTheme && themeNames.get(exploreTheme) ? dict.twoPages.concrete.maybeTheme.replace("{theme}", themeNames.get(exploreTheme)!) : dict.twoPages.concrete.maybe}
+                  </span>
+                )}
+                {!explore && combo && themeNames.get(combo[0]) && themeNames.get(combo[1]) && (
+                  <span className="mb-0.5 block text-[10px] font-bold uppercase tracking-[0.08em] text-gold-light">
+                    {themeNames.get(combo[0])} + {themeNames.get(combo[1])}
+                  </span>
+                )}
                 {a.label}
               </span>
               <span className="absolute right-1.5 top-1.5 sm:right-2 sm:top-2">{on ? <Check /> : <span className="block h-6 w-6 rounded-full border-2 border-white/80 bg-black/10 sm:h-7 sm:w-7" />}</span>

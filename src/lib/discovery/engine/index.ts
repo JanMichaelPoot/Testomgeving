@@ -1,6 +1,7 @@
 import type { IntakeAnswers } from "@/app/intake/actions";
 import { HYBRIDS, TAGS, getActivities } from "@/lib/discovery/library";
 import { DISCOVERY_MIN_STATUS } from "@/lib/discovery/cardLibrary";
+import { themeProfilesFor } from "@/lib/discovery/associations";
 import { selectSeeds, type EngineLibrary, type SelectOptions } from "@/lib/discovery/engine/select";
 import { relatedActivitiesIn } from "@/lib/discovery/engine/related";
 import type { Activity } from "@/lib/discovery/types";
@@ -29,9 +30,11 @@ export function engineInputFromIntake(
     IntakeAnswers,
     "practicalToWild" | "budget" | "effort" | "timeAvailable" | "ageCategory" | "mustHaves"
   > &
-    Partial<Pick<IntakeAnswers, "interests" | "interestDomains" | "socialFormats" | "surpriseMe" | "intakeFlow" | "searchContext">>,
+    Partial<Pick<IntakeAnswers, "interests" | "interestDomains" | "socialFormats" | "surpriseMe" | "intakeFlow" | "searchContext" | "associations">>,
   extra: { seed: string; history?: readonly string[]; month?: number; exclude?: readonly string[]; quietSupply?: readonly string[] },
 ): EngineInput {
+  // The theme tiles of page 1 (E4): the engine may build its unexpected idea from two of them that lie far apart.
+  const themes = intake.intakeFlow === "images2" ? themeProfilesFor(intake.associations ?? []) : [];
   return {
     interests: intake.interests ?? [],
     interestDomains: intake.interestDomains ?? [],
@@ -50,6 +53,7 @@ export function engineInputFromIntake(
     exclude: extra.exclude,
     ...(extra.quietSupply?.length ? { quietSupply: extra.quietSupply } : {}),
     ...(intake.intakeFlow === "images2" ? { explicitPicks: true } : {}),
+    ...(themes.length >= 2 ? { themes } : {}),
   };
 }
 

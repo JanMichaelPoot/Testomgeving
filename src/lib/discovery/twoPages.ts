@@ -5,6 +5,7 @@ import type { AssociationCardData } from "@/lib/discovery/associationProfile";
 import { assocCloseness, type ActivityVector } from "@/lib/discovery/associationLayer";
 import { REGISTERS, countRegisters, emptyCounts, type Register, type RegisterCounts } from "@/lib/discovery/registerTypes";
 import type { UnfitFlag } from "@/lib/discovery/suitability";
+import { themeRelative, type ThemeProfile } from "@/lib/discovery/themeFit";
 
 // The two image pages of the image intake (docs/plan-twee-beeldpagina-s.md, docs/fase4-opzet.md):
 //   page 1  associative: 18 images, mixed from places, moments and senses, balanced over the four style registers
@@ -348,11 +349,7 @@ export interface ConcreteOptions<A extends ConcreteActivity = ConcreteActivity> 
   allThemes?: readonly ThemeProfile[];
 }
 
-/** A theme as page 2 sees it: its id and the tag weights of its tile. */
-export interface ThemeProfile {
-  id: string;
-  weights: Record<string, number>;
-}
+export type { ThemeProfile };
 
 export interface ConcreteSlot<A extends ConcreteActivity = ConcreteActivity> {
   activity: A;
@@ -417,9 +414,8 @@ export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A
   const assocScore = (a: A) => (layer ? assocWeight * (a.assoc && a.assoc.length > 0 ? assoc(a) / maxAssoc : 0.5 * meanAssoc) : 0);
   // Theme tiles: how close every activity is to each chosen theme (0..1, relative to that theme's best activity).
   const themeRel = (t: ThemeProfile) => {
-    const raw = (a: A) => a.tags.reduce((sum, tag) => sum + (t.weights[tag] ?? 0) * (generic.has(tag) ? 0.5 : 1), 0) / Math.sqrt(Math.max(1, a.tags.length));
-    const best = Math.max(0.0001, ...pool.map(raw));
-    return new Map(pool.map((a) => [a.id, raw(a) / best] as const));
+    const rel = themeRelative(t.weights, pool, generic);
+    return new Map(pool.map((a) => [a.id, rel(a.tags)] as const));
   };
   const chosenThemes = opts.themes ?? [];
   const rels = chosenThemes.map(themeRel);
@@ -514,13 +510,22 @@ export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A
         const c = comboValue.get(a.id);
         if (c?.pair && c.value >= COMBO_FLOOR) combos.set(a.id, c.pair);
       }
-      for (const pass of [candidates, recycled]) {
-        const ranked = pass.filter((a) => (comboValue.get(a.id)?.value ?? 0) >= COMBO_FLOOR).sort((x, y) => (comboValue.get(y.id)?.value ?? 0) - (comboValue.get(x.id)?.value ?? 0) || x.id.localeCompare(y.id));
-        for (const a of ranked) {
-          if (combos.size >= COMBO_SLOTS) break;
-          if (allowed(a, true) && roomFor(a)) {
-            take(a);
-            combos.set(a.id, comboValue.get(a.id)!.pair!);
+      // The slots are spread over the pairs of chosen themes (three themes: two per pair at most; four or more: one), so one close pair does not fill them
+      // all; what is left over after that goes to the best of any pair.
+      const pairs = (chosenThemes.length * (chosenThemes.length - 1)) / 2;
+      const perPair = Math.ceil(COMBO_SLOTS / pairs);
+      const inPair = (key: string) => [...combos.values()].filter((p) => p.join("|") === key).length;
+      for (const capped of [true, false]) {
+        for (const pass of [candidates, recycled]) {
+          const ranked = pass.filter((a) => (comboValue.get(a.id)?.value ?? 0) >= COMBO_FLOOR).sort((x, y) => (comboValue.get(y.id)?.value ?? 0) - (comboValue.get(x.id)?.value ?? 0) || x.id.localeCompare(y.id));
+          for (const a of ranked) {
+            if (combos.size >= COMBO_SLOTS) break;
+            const pair = comboValue.get(a.id)!.pair!;
+            if (capped && inPair(pair.join("|")) >= perPair) continue;
+            if (allowed(a, true) && roomFor(a)) {
+              take(a);
+              combos.set(a.id, pair);
+            }
           }
         }
       }

@@ -1,7 +1,8 @@
 import associationsJson from "@/lib/discovery/associations.json";
 import cardAssociationsJson from "@/lib/discovery/cardAssociations.json";
 import themesJson from "@/lib/discovery/themes.json";
-import { MAX_IMAGE_PICKS } from "@/lib/discovery/twoPages";
+import { COMBO_FLOOR, MAX_IMAGE_PICKS } from "@/lib/discovery/twoPages";
+import { themeNameInSentence, themeRelative, type ThemeProfile } from "@/lib/discovery/themeFit";
 import { knowledgeAssociationLayerEnabled } from "@/lib/knowledgeFlags";
 import { TAGS, getActivities, getActivity, isImagePending } from "@/lib/discovery/library";
 import { inSeason } from "@/lib/discovery/season";
@@ -195,6 +196,59 @@ export function activityAxes(a: Activity): Omit<AssociationAxes, "novelty"> {
 
 const GENERIC = new Set(TAGS.filter((t) => t.generic).map((t) => t.id));
 
+/** The themes among the chosen card ids (one per theme, whichever of its images was shown), as the engine and page 2 read them; ids like "theme-natuur". */
+export function themeProfilesFor(cardIds: readonly string[]): ThemeProfile[] {
+  const out: ThemeProfile[] = [];
+  const seen = new Set<string>();
+  for (const id of cardIds) {
+    const card = byId.get(id);
+    if (!card || card.round !== "themes" || !card.family || seen.has(card.family)) continue;
+    seen.add(card.family);
+    out.push({ id: card.family, weights: card.tagWeights });
+  }
+  return out;
+}
+
+/** "natuur", "ambacht en handwerk": the theme's name without its "Iets met" (inside a sentence, between quotes). */
+export function themeShortLabel(themeId: string, locale: "nl" | "en"): string {
+  const theme = THEMES.find((t) => `theme-${t.id}` === themeId);
+  if (!theme) return themeId;
+  return themeNameInSentence(theme.label[locale]);
+}
+
+// How close an activity is to a theme, against the best activity of the whole shown library (E5: "omdat je natuur en ambacht koos").
+const themeRelCache = new Map<string, (tags: readonly string[]) => number>();
+function themeRelOf(theme: ThemeProfile) {
+  let rel = themeRelCache.get(theme.id);
+  if (!rel) {
+    rel = themeRelative(theme.weights, getActivities(), GENERIC);
+    themeRelCache.set(theme.id, rel);
+  }
+  return rel;
+}
+
+/**
+ * The two chosen themes an activity fits at once (the weaker of the two at least COMBO_FLOOR of the best activity of that theme, the same
+ * measure page 2 uses for its combination slots), the pair with the highest minimum; null when it fits fewer than two. Ids like "theme-natuur".
+ */
+export function themeComboFor(activityTags: readonly string[], chosenIds: readonly string[]): [string, string] | null {
+  const themes = themeProfilesFor(chosenIds);
+  if (themes.length < 2) return null;
+  const rels = themes.map((t) => themeRelOf(t)(activityTags));
+  let best = 0;
+  let pair: [string, string] | null = null;
+  for (let i = 0; i < themes.length; i++) {
+    for (let j = i + 1; j < themes.length; j++) {
+      const m = Math.min(rels[i], rels[j]);
+      if (m > best) {
+        best = m;
+        pair = [themes[i].id, themes[j].id];
+      }
+    }
+  }
+  return pair && best >= COMBO_FLOOR ? pair : null;
+}
+
 export interface AssociationEngineInput {
   /** 4-6 activity ids that stand in for "what they picked" (empty: the engine's surprise path). */
   interests: string[];
@@ -249,6 +303,8 @@ export interface AssociationSources {
   sourceTags: Record<string, string[]>;
   /** Two-page intake: the activities of this book that the person chose themselves on page 2 (not derived from the images). */
   own?: string[];
+  /** Theme tiles (E5): per activity the two chosen themes it fits at once (ids like "theme-natuur"), for "omdat je natuur en ambacht koos". */
+  combos?: Record<string, [string, string]>;
 }
 
 /** For every idea that came from the library (it has an activity_id): its images and tags. */
@@ -259,6 +315,7 @@ export function buildAssociationSources(
 ): AssociationSources {
   const sources: Record<string, string[]> = {};
   const sourceTags: Record<string, string[]> = {};
+  const combos: Record<string, [string, string]> = {};
   for (const idea of ideas) {
     const activity = idea.activity_id ? getActivity(idea.activity_id) : undefined;
     if (!activity) continue;
@@ -266,9 +323,11 @@ export function buildAssociationSources(
     const tags = sourceTagsFor(activity.tags, chosenIds, 2);
     if (images.length) sources[activity.id] = images;
     if (tags.length) sourceTags[activity.id] = tags;
+    const combo = themeComboFor(activity.tags, chosenIds);
+    if (combo) combos[activity.id] = combo;
   }
   const own = ideas.map((i) => i.activity_id).filter((id): id is string => !!id && ownPicks.includes(id));
-  return { version: 2, sources, sourceTags, ...(own.length ? { own: [...new Set(own)] } : {}) };
+  return { version: 2, sources, sourceTags, ...(own.length ? { own: [...new Set(own)] } : {}), ...(Object.keys(combos).length ? { combos } : {}) };
 }
 
 const stringList = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x is string => typeof x === "string").slice(0, 4) : []);
@@ -289,7 +348,13 @@ export function parseAssociationSources(raw: unknown): AssociationSources | null
   };
   if (obj.version === 2) {
     const own = Array.isArray(obj.own) ? obj.own.filter((x): x is string => typeof x === "string").slice(0, 12) : [];
-    return { version: 2, sources: pick(obj.sources), sourceTags: pick(obj.sourceTags), ...(own.length ? { own } : {}) };
+    const combos: Record<string, [string, string]> = {};
+    if (obj.combos && typeof obj.combos === "object" && !Array.isArray(obj.combos)) {
+      for (const [id, pair] of Object.entries(obj.combos as Record<string, unknown>)) {
+        if (Array.isArray(pair) && pair.length === 2 && pair.every((x) => typeof x === "string") && pair[0] !== pair[1]) combos[id] = [pair[0], pair[1]];
+      }
+    }
+    return { version: 2, sources: pick(obj.sources), sourceTags: pick(obj.sourceTags), ...(own.length ? { own } : {}), ...(Object.keys(combos).length ? { combos } : {}) };
   }
   // The old shape: just the images per activity.
   const legacy = pick(obj);

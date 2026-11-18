@@ -1,6 +1,7 @@
 import type { IdeaDoor } from "@/lib/claude/ideaBookTypes";
 import type { SocialFormat } from "@/lib/discovery/types";
 import type { DiscoveryLevel } from "@/lib/discoveryLevels";
+import type { ThemeProfile } from "@/lib/discovery/themeFit";
 
 // The selection engine: from what a person picked and stated, choose the six
 // ideas plus a wildcard (as "seeds": which activity, in which direction, why,
@@ -48,6 +49,11 @@ export interface EngineInput {
    * legal way in); every other hard limit still applies.
    */
   explicitPicks?: boolean;
+  /**
+   * The theme tiles the person chose on page 1 (docs/voorstel-associatie-engine.md, E4). With two or more of them the "unexpected" idea can come
+   * from the overlap of two themes that lie far apart (an activity that fits both), next to the curated combinations. Absent = as before.
+   */
+  themes?: readonly ThemeProfile[];
 }
 
 export interface Seed {
@@ -63,6 +69,8 @@ export interface Seed {
   via: string[];
   /** For a curated combination: the partner activity and the combined activity's name. */
   hybrid?: { partnerId: string; label: { nl: string; en: string } };
+  /** E4: the two chosen themes (ids like "theme-natuur") this unexpected idea combines. */
+  themeCombo?: [string, string];
   /** The social form to lead with (their own choice), or null when they did not choose or it is unknown. */
   lead: SocialFormat | null;
   /** Other forms the activity also supports. */

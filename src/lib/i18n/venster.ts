@@ -74,6 +74,8 @@ export interface VensterDictionary {
       chooseForMeSub: string;
       chooseForMeSubGift: string;
       maybe: string;
+      /** Theme tiles: a "Misschien ook?" slot that comes from a theme the person did not choose. {theme} */
+      maybeTheme: string;
     };
   };
   rounds: Record<
@@ -257,6 +259,9 @@ export interface VensterDictionary {
     wrote: string; // {text}
     because: string; // {image}
     becauseGift: string; // {image}
+    /** Theme tiles: an idea that fits two chosen themes at once. {a} {b} */
+    becauseTwo: string;
+    becauseTwoGift: string;
     placeLabel: string;
     mapLink: string;
   };
@@ -273,6 +278,9 @@ export interface VensterDictionary {
     pdfImage: string; // {image}
     pdfTags: string; // {tags}
     pdfOwn: string;
+    /** Theme tiles: an idea that fits two chosen themes at once. */
+    comboCaption: string;
+    pdfCombo: string; // {a} {b}
     // B5 / V2, only shown with KNOWLEDGE_ENGINE_V2: the activities between the image and the door, derived by us.
     pathCaption: string;
     pdfPath: string; // {path}
@@ -474,6 +482,7 @@ export const vensterNl: VensterDictionary = {
       chooseForMeSub: "We kiezen iets passends bij je beelden",
       chooseForMeSubGift: "We kiezen iets passends bij de beelden",
       maybe: "Misschien ook leuk?",
+      maybeTheme: "Misschien ook: {theme}",
     },
   },
   rounds: {
@@ -910,6 +919,8 @@ export const vensterNl: VensterDictionary = {
     wrote: "Je schreef: ‘{text}’.",
     because: "Omdat je {image} koos",
     becauseGift: "Gekozen met {image} in gedachten",
+    becauseTwo: "Omdat je ‘{a}’ en ‘{b}’ koos",
+    becauseTwoGift: "Gekozen met ‘{a}’ en ‘{b}’ in gedachten",
     placeLabel: "Waar",
     mapLink: "Op de kaart",
   },
@@ -924,6 +935,8 @@ export const vensterNl: VensterDictionary = {
     pdfImage: "Bij deze deur hoort het beeld ‘{image}’.",
     pdfTags: "In de gekozen beelden lazen we {tags}.",
     pdfOwn: "Dit koos je zelf.",
+    comboCaption: "Twee thema’s die jij koos, in één idee",
+    pdfCombo: "Dit idee komt uit twee dingen die je koos: ‘{a}’ en ‘{b}’.",
     pathCaption: "Waar je beelden naartoe wezen: door ons afgeleid, niet door jou gekozen",
     pdfPath: "Onderweg kwamen we langs {path}: dat leiden wij uit je beelden af, het is niet iets dat je zelf koos.",
   },
@@ -1119,6 +1132,7 @@ export const vensterEn: VensterDictionary = {
       chooseForMeSub: "We'll pick something that fits your images",
       chooseForMeSubGift: "We'll pick something that fits the images",
       maybe: "Maybe fun too?",
+      maybeTheme: "Maybe also: {theme}",
     },
   },
   rounds: {
@@ -1555,6 +1569,8 @@ export const vensterEn: VensterDictionary = {
     wrote: "You wrote: ‘{text}’.",
     because: "Because you chose {image}",
     becauseGift: "Chosen with {image} in mind",
+    becauseTwo: "Because you chose ‘{a}’ and ‘{b}’",
+    becauseTwoGift: "Chosen with ‘{a}’ and ‘{b}’ in mind",
     placeLabel: "Where",
     mapLink: "On the map",
   },
@@ -1569,6 +1585,8 @@ export const vensterEn: VensterDictionary = {
     pdfImage: "This door follows from the image ‘{image}’.",
     pdfTags: "In the chosen images we read {tags}.",
     pdfOwn: "You chose this yourself.",
+    comboCaption: "Two themes you chose, in one idea",
+    pdfCombo: "This idea comes from two things you chose: ‘{a}’ and ‘{b}’.",
     pathCaption: "Where your images pointed: derived by us, not chosen by you",
     pdfPath: "On the way we passed {path}: we derive that from your images, it is not something you picked.",
   },

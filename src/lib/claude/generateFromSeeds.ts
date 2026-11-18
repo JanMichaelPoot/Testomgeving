@@ -41,7 +41,7 @@ import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
 import { ALL_ACTIVITIES, TAGS, getActivity } from "@/lib/discovery/library";
 import type { Activity } from "@/lib/discovery/types";
-import { getAssociation, imagesBehind } from "@/lib/discovery/associations";
+import { getAssociation, imagesBehind, themeShortLabel } from "@/lib/discovery/associations";
 import { BOOK_COUNT, IDEA_COUNT } from "@/lib/productStructure";
 import { overlappingSeeds } from "@/lib/discovery/engine/overlap";
 import { everywhereCandidates } from "@/lib/claude/everywhere";
@@ -285,6 +285,11 @@ const FORMAT_TEXT: Record<string, string> = {
 export function why(seed: Seed, locale: Locale, fromImages = false, honest = false): string {
   const label = (id: string) => getActivity(id)?.label[locale] ?? id;
   const via = seed.via.map((t) => TAG_LABEL.get(t)?.[locale] ?? t).join(", ");
+  // Theme tiles (E4): an idea at the meeting point of two areas the person chose that lie far apart. They chose both areas, not this mix.
+  if (seed.themeCombo && !seed.hybrid) {
+    const [x, y] = seed.themeCombo.map((t) => themeShortLabel(t, locale));
+    return `An unexpected meeting of two areas the person chose, "${x}" and "${y}": the combination is ours, the two areas are theirs. Let the idea show how both come together${via ? ` (shared: ${via})` : ""}.`;
+  }
   if (honest && fromImages) {
     const sharing = via ? ` (shared: ${via})` : "";
     if (seed.hybrid) {

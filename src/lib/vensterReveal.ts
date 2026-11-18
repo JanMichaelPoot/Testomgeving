@@ -1,8 +1,9 @@
-import { getAssociation, imagesBehind } from "@/lib/discovery/associations";
+import { getAssociation, imagesBehind, themeComboFor } from "@/lib/discovery/associations";
 import { getActivity } from "@/lib/discovery/library";
 import { ideaKey, WILDCARD_KEY } from "@/lib/ideaKeys";
 import { formatSituationForEcho } from "@/lib/planEcho";
 import { isForOther } from "@/lib/discovery/audience";
+import { themeNameInSentence } from "@/lib/discovery/themeFit";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -69,6 +70,14 @@ export function buildBecauseLines(
   const add = (key: string, idea: IdeaBookEntry | null) => {
     const activity = idea?.activity_id ? getActivity(idea.activity_id) : undefined;
     if (!activity) return;
+    // Theme tiles (E5): an idea that fits two chosen themes at once says so, with the image of the first.
+    const combo = themeComboFor(activity.tags, chosen);
+    const comboCard = combo ? chosen.map((c) => getAssociation(c)).find((c) => c?.family === combo[0]) : undefined;
+    if (combo && comboCard) {
+      const names = combo.map((t) => themeNameInSentence(chosen.map((c) => getAssociation(c)).find((c) => c?.family === t)?.label[locale] ?? t));
+      out[key] = { src: comboCard.image, label: comboCard.label[locale], text: (forOther ? dict.reveal.becauseTwoGift : dict.reveal.becauseTwo).replace("{a}", names[0]).replace("{b}", names[1]) };
+      return;
+    }
     const [id] = imagesBehind(activity.tags, chosen, 1);
     const card = id ? getAssociation(id) : undefined;
     if (!card) return;

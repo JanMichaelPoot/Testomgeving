@@ -47,7 +47,7 @@ export interface Weights {
     /** Fase 3 "Praktisch": added to the SECOND familiar slot, times the activity's practicality (engine/levels.ts). 0 = off. */
     practicalBonus: number;
   };
-  unexpected: { hybridBase: number; hybridBridge: number; hybridNoise: number; chainNoise: number; oneStepBridge: number; oneStepNoise: number; farRelMax: number };
+  unexpected: { hybridBase: number; hybridBridge: number; hybridNoise: number; chainNoise: number; oneStepBridge: number; oneStepNoise: number; farRelMax: number; themeComboBase: number; themeComboFit: number; themeComboNoise: number; themeComboFloor: number };
   adjacent: { noise: number; noveltyOtherWorld: number; peak: number };
   stretch: { base: number; bridge: number; noise: number; targetByWildness: readonly number[] };
   wildcard: { bridge: number; newWorld: number; redundancyFactor: number; ageDecay: number; baseRare: number; supplyDecay: number };
@@ -78,7 +78,7 @@ export const WEIGHTS_CURRENT: Weights = {
   sharedPairPenalty: 0,
   hub: 0,
   familiar: { pickedScore: 2, nearRel: 0.4, noise: 0.3, spreadPerSameDomain: 0.35, practicalBonus: 0 },
-  unexpected: { hybridBase: 2.5, hybridBridge: 0.15, hybridNoise: 0.3, chainNoise: 0.15, oneStepBridge: 0.1, oneStepNoise: 0.15, farRelMax: 0.3 },
+  unexpected: { hybridBase: 2.5, hybridBridge: 0.15, hybridNoise: 0.3, chainNoise: 0.15, oneStepBridge: 0.1, oneStepNoise: 0.15, farRelMax: 0.3, themeComboBase: 2.2, themeComboFit: 0.6, themeComboNoise: 0.3, themeComboFloor: 0.5 },
   adjacent: { noise: 0.15, noveltyOtherWorld: 0.15, peak: 0.38 },
   stretch: { base: 2, bridge: 0.15, noise: 0.2, targetByWildness: [1, 1.2, 2, 2.8] },
   wildcard: { bridge: 2, newWorld: 2, redundancyFactor: 4, ageDecay: 2, baseRare: 0.5, supplyDecay: 3 },

@@ -1,4 +1,4 @@
-import { getAssociation, type AssociationSources } from "@/lib/discovery/associations";
+import { getAssociation, themeShortLabel, type AssociationSources } from "@/lib/discovery/associations";
 import { TAGS, getActivity } from "@/lib/discovery/library";
 import { ideaKey, WILDCARD_KEY } from "@/lib/ideaKeys";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
@@ -26,6 +26,8 @@ export interface IdeaThreadData {
   place: string | null;
   /** Two-page intake: the person chose this activity themselves (page 2), it was not derived from their images. */
   own?: boolean;
+  /** Theme tiles (E5): the two chosen themes this idea fits at once, as short names ("natuur", "ambacht en handwerk"). Shown instead of a single image. */
+  themes?: [string, string];
 }
 
 const tagLabel = (locale: "nl" | "en") => new Map(TAGS.map((t) => [t.id, t.label[locale].toLowerCase()]));
@@ -53,14 +55,18 @@ export function buildIdeaThreads(
       .map((t) => labels.get(t))
       .filter((t): t is string => !!t);
     const own = (sources.own ?? []).includes(id);
+    // An idea the person chose themselves says that first; otherwise two chosen themes that both fit it are the thread (E5).
+    const pair = !own ? sources.combos?.[id] : undefined;
+    const themes: [string, string] | undefined = pair ? [themeShortLabel(pair[0], locale), themeShortLabel(pair[1], locale)] : undefined;
     // A thread needs at least one thing the person recognises: the image, the words we read, or that they chose it themselves.
-    if (!card && tags.length === 0 && !own) return;
+    if (!card && tags.length === 0 && !own && !themes) return;
     const place = idea.location ? [idea.location.name, idea.location.city].filter(Boolean).join(", ") : "";
     // The chain ends at the idea itself; what stands before it is the way our selection got here.
     const via = opts.showPath && idea.chain && idea.chain.length > 1 ? idea.chain.slice(0, -1) : [];
     const path = via.map((a) => getActivity(a)?.label[locale]).filter((l): l is string => !!l);
     out[key] = {
-      image: card ? { src: card.image, label: card.label[locale] } : null,
+      image: card && !themes ? { src: card.image, label: card.label[locale] } : null,
+      ...(themes ? { themes } : {}),
       tags,
       ...(path.length > 0 ? { path: path.join(" → ") } : {}),
       title: idea.title,
@@ -78,6 +84,10 @@ export function threadSentence(thread: IdeaThreadData | undefined, copy: Diction
   if (!thread) return null;
   const tags = thread.tags.length <= 1 ? thread.tags.join("") : `${thread.tags.slice(0, -1).join(", ")} ${and} ${thread.tags[thread.tags.length - 1]}`;
   const image = thread.image?.label.replace(/^./, (c) => c.toLowerCase());
+  if (thread.themes) {
+    const combo = copy.pdfCombo.replace("{a}", thread.themes[0]).replace("{b}", thread.themes[1]);
+    return tags ? `${combo} ${copy.pdfTags.replace("{tags}", tags)}` : combo;
+  }
   const read = image && tags ? copy.pdfBoth.replace("{image}", image).replace("{tags}", tags) : image ? copy.pdfImage.replace("{image}", image) : tags ? copy.pdfTags.replace("{tags}", tags) : null;
   // Chosen by the person themselves: said first, and the reading of the images comes after as what it adds.
   const base = thread.own ? (read ? `${copy.pdfOwn} ${read}` : copy.pdfOwn) : read;

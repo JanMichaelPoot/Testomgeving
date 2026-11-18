@@ -11,6 +11,7 @@ import { audienceBias, effectiveAgeCategory } from "@/lib/discovery/audience";
 import { internationalBias, meetingBias } from "@/lib/discovery/suitability";
 import { MAX_PER_CLUSTER, clusterOf } from "@/lib/discovery/clusters";
 import { IDEA_COUNT } from "@/lib/productStructure";
+import { THEME_FAR_COS, themeCosine, themeRelative } from "@/lib/discovery/themeFit";
 
 // The selection engine. Four regular seeds in four directions, plus one wildcard (Stap 198: five ideas, fewer but better worked out):
 //   familiar x1   the pick itself, or a direct neighbour of it
@@ -142,6 +143,27 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   const explore = refs.length === 0;
   if (explore) notes.push(input.surpriseMe ? "surprise_me" : "no_picks");
 
+  // E4: with two or more chosen themes, how close every activity is to each (0..1 against that theme's best activity, the same measure page 2 uses).
+  const chosenThemes = input.themes ?? [];
+  const genericTags = new Set(lib.tags.filter((t) => t.generic).map((t) => t.id));
+  const themeRels = chosenThemes.length >= 2 ? chosenThemes.map((t) => themeRelative(t.weights, all, genericTags)) : [];
+  /** The pair of far-apart chosen themes an activity fits at once, and how well (the weaker of the two: it has to fit both). */
+  const themeComboOf = (a: Activity): { value: number; pair: [string, string] | null } => {
+    let value = 0;
+    let pair: [string, string] | null = null;
+    for (let i = 0; i < themeRels.length; i++) {
+      for (let j = i + 1; j < themeRels.length; j++) {
+        if (themeCosine(chosenThemes[i].weights, chosenThemes[j].weights) >= THEME_FAR_COS) continue;
+        const m = Math.min(themeRels[i](a.tags), themeRels[j](a.tags));
+        if (m > value) {
+          value = m;
+          pair = [chosenThemes[i].id, chosenThemes[j].id];
+        }
+      }
+    }
+    return { value, pair };
+  };
+
   const rel = (a: Activity) => refs.reduce((m, r) => Math.max(m, graph.sim(a, r)), 0);
   const bestBridgeTo = (a: Activity) => refs.reduce((m, r) => Math.max(m, graph.bridge(a, r)), 0);
   const nearestRef = (a: Activity) => refs.reduce<Activity | null>((best, r) => (!best || graph.bridge(a, r) > graph.bridge(a, best) ? r : best), null);
@@ -202,12 +224,13 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   // How well an idea fits the person, measured: 1 for their own pick, else the similarity to the nearest pick (0..1);
   // with nothing to compare to it is neutral (0.5), never favourable.
   const fitOf = (a: Activity) => (explore ? 0.5 : pickSet.has(a.id) ? 1 : Math.min(1, rel(a)));
-  const reasonsOf = (a: Activity, direction: Direction, extra: Partial<Pick<Seed, "chain" | "via" | "hybrid">>): string[] => {
+  const reasonsOf = (a: Activity, direction: Direction, extra: Partial<Pick<Seed, "chain" | "via" | "hybrid" | "themeCombo">>): string[] => {
     const out: string[] = [];
     if (pickSet.has(a.id)) out.push("picked");
     else if (direction === "explore") out.push("explore");
     else {
       if (extra.hybrid) out.push(`hybrid:${extra.hybrid.partnerId}`);
+      if (extra.themeCombo) out.push(`themes:${extra.themeCombo.join("+")}`);
       if (extra.chain && extra.chain.length > 1) out.push(`chain:${extra.chain.join(">")}`);
       if (extra.via && extra.via.length > 0) out.push(`bridge:${extra.via.join("+")}`);
       if (!pickedDomains.has(a.domain)) out.push("new_world");
@@ -217,7 +240,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     return out;
   };
 
-  function commit(a: Activity, direction: Direction, extra: Partial<Pick<Seed, "chain" | "via" | "hybrid">> = {}, door?: IdeaDoor) {
+  function commit(a: Activity, direction: Direction, extra: Partial<Pick<Seed, "chain" | "via" | "hybrid" | "themeCombo">> = {}, door?: IdeaDoor) {
     const { lead, also } = formatsFor(a);
     seeds.push({
       activityId: a.id,
@@ -226,6 +249,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
       chain: extra.chain ?? [a.id],
       via: extra.via ?? [],
       ...(extra.hybrid ? { hybrid: extra.hybrid } : {}),
+      ...(extra.themeCombo ? { themeCombo: extra.themeCombo } : {}),
       lead,
       alsoFormats: also,
       verify: verifyOf.get(a.id) ?? [],
@@ -341,7 +365,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
 
   // --- unexpected x1: curated combination first, then a two-step chain (before adjacent, so the partner of a curated combination is not used up as a plain neighbour) -------------------
   {
-    type Path = { chain: string[]; via: string[]; hybrid?: Seed["hybrid"] };
+    type Path = { chain: string[]; via: string[]; hybrid?: Seed["hybrid"]; themeCombo?: [string, string] };
     // (a) a curated combination of a pick with something from another world, and
     // (b) pick -> middle -> far activity, every step with a real bridge
     const strong = (): Cand<Path>[] => {
@@ -359,6 +383,23 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
             chain: [p, q],
             via: graph.shared(from, to).slice(0, 2),
             hybrid: { partnerId: p, label: h.label },
+          });
+        }
+      }
+      // (a2) E4: an activity that fits two chosen themes that lie far apart. It is the person's own two worlds meeting, so it is not "far from every pick" in the
+      // old sense, but nobody asked for the combination. Never the person's own pick (that one is already in the book as such).
+      if (themeRels.length >= 2) {
+        for (const x of pool) {
+          if (pickSet.has(x.id) || used.has(x.id)) continue;
+          const { value, pair } = themeComboOf(x);
+          if (!pair || value < W.unexpected.themeComboFloor) continue;
+          const p = nearestRef(x);
+          cands.push({
+            a: x,
+            score: W.unexpected.themeComboBase + value * W.unexpected.themeComboFit + rnd() * W.unexpected.themeComboNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) - supplyCost(x),
+            chain: p ? [p.id, x.id] : [x.id],
+            via: p ? graph.shared(p, x).slice(0, 2) : [],
+            themeCombo: pair,
           });
         }
       }
@@ -394,7 +435,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     const found = firstFit<Path>([strong, oneStep, anyFar]);
     if (found) {
       if (found.set > 0) notes.push(`direction_relaxed:unexpected${found.set === 2 ? ":random" : ""}`);
-      commit(found.top.a, "unexpected", { chain: found.top.chain, via: found.top.via, hybrid: found.top.hybrid });
+      commit(found.top.a, "unexpected", { chain: found.top.chain, via: found.top.via, hybrid: found.top.hybrid, themeCombo: found.top.themeCombo });
     } else notes.push("direction_missing:unexpected");
   }
 
