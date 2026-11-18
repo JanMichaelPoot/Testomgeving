@@ -1,0 +1,153 @@
+// Measures how well the book follows the chosen themes and the profile (docs/plan-activiteitenselectie.md, C3). Free: no API calls.
+//   npx tsx scripts/eval-theme-selection.ts <label> [profilesPerThemeSet]
+// Writes docs/eval/<date>-theme-selection-<label>.md and .json, so a later change can be compared with this one (use the same label
+// for the same state, another label for the next).
+import { mkdirSync, writeFileSync } from "node:fs";
+import { defaultEngineLibrary, selectSeeds, WEIGHTS_ANCHOR } from "../src/lib/discovery/engine";
+import { relatedActivitiesIn } from "../src/lib/discovery/engine/related";
+import { syntheticTwoPageProfiles } from "../src/lib/discovery/engine/syntheticTwoPages";
+import { THEME_CARDS, activityAxes, themeProfilesFor } from "../src/lib/discovery/associations";
+import { getActivities } from "../src/lib/discovery/library";
+import { averageAxes, tagProfile } from "../src/lib/discovery/associationProfile";
+import { composeConcretePage, registerMix, type ConcreteActivity } from "../src/lib/discovery/twoPages";
+import { hashSeed, mulberry32, shuffled } from "../src/lib/discovery/rng";
+import { themeCosine, themeRelative } from "../src/lib/discovery/themeFit";
+import { registerOfActivity, registerOfCard } from "../src/lib/discovery/register";
+
+const label = process.argv[2] ?? "baseline";
+const PER = Number(process.argv[3] ?? 12);
+const lib = defaultEngineLibrary();
+const byId = new Map(lib.activities.map((a) => [a.id, a]));
+const generic = new Set(lib.tags.filter((t) => t.generic).map((t) => t.id));
+
+const pool: ConcreteActivity[] = getActivities().map((a) => ({ id: a.id, domain: a.domain, sub: a.sub, register: registerOfActivity(a), tags: a.tags, axes: activityAxes(a) }));
+const THEME_SETS: string[][] = [
+  ["natuur", "techniek", "ambacht"],
+  ["muziek", "techniek", "dieren"],
+  ["geschiedenis", "sport", "eten"],
+  ["wetenschap", "kunst-cultuur", "tuin"],
+  ["podium", "water", "spel"],
+  ["rust", "samen", "reizen", "beeld"],
+  ["natuur", "wetenschap"],
+  ["dieren", "zorg", "helpen", "natuur", "tuin"],
+];
+
+const tagCos = (x: string[], y: string[]) => {
+  const a = new Set(x);
+  const inter = y.filter((t) => a.has(t)).length;
+  return inter / Math.sqrt(Math.max(1, x.length) * Math.max(1, y.length));
+};
+const lvl = (a: { level: number | null; intensity: number | null }) => (a.level ?? 0) + (a.intensity ?? 0) / 2;
+const avg = (xs: number[]) => (xs.length ? xs.reduce((s, x) => s + x, 0) / xs.length : 0);
+const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
+
+const m = {
+  books: 0,
+  themeCoverage: [] as number[], // share of the chosen themes that have at least one idea that belongs to it (relative fit >= 0.5)
+  fullCoverage: 0, // books where every chosen theme is covered
+  bestFit: [] as number[], // mean over ideas of the best relative theme fit
+  weakIdeas: 0, // ideas with no theme at >= 0.3
+  ideas: 0,
+  directions: [] as number[], // distinct dominant themes among the five ideas
+  subs: [] as number[], // distinct subdomains among the five ideas
+  nearVariant: 0, // books with a pair of ideas whose tags overlap 0.6 or more
+  relatedPerIdea: [] as number[], // "also in this direction" per idea
+  relatedOnTheme: [] as number[], // share of those that belong to the idea's dominant theme (>= 0.5)
+  ideasWith3: 0, // ideas with at least 3 related activities (idea + 3 = an option with >= 3 activities)
+  challenge: 0, // books with a more demanding idea than the person's picks
+  combo: 0,
+  comboWeak: 0, // theme combinations whose weaker theme is under 0.6
+  regionalOrRare: 0,
+  supervised: 0,
+};
+
+for (const ids of THEME_SETS) {
+  const themes = themeProfilesFor(ids.map((id) => `theme-${id}-a`));
+  const rels = themes.map((t) => themeRelative(t.weights, lib.activities, generic));
+  const cardIds = ids.map((id) => `theme-${id}-a`);
+  const slim = cardIds.map((cid) => THEME_CARDS.find((c) => c.id === cid)!).map((c) => ({ id: c.id, family: c.family, round: c.round, tagWeights: c.tagWeights, axes: c.axes, register: registerOfCard(c) }));
+  const allThemes = THEME_CARDS.filter((c) => c.id.endsWith("-a")).map((c) => ({ id: `theme-${c.family!.replace(/^theme-/, "")}`, weights: c.tagWeights }));
+  let k = 0;
+  for (const p of syntheticTwoPageProfiles(PER, `ts-${ids.join("-")}`)) {
+    // The person's own picks: what page 2 offers for these themes, three to five of them (as a real visitor would choose).
+    const page = composeConcretePage(pool, { seed: `ev${k++}`, profile: tagProfile(slim, cardIds), axes: averageAxes(slim, cardIds), genericTags: generic, mix: registerMix(slim), themes, allThemes });
+    const rnd = mulberry32(hashSeed(`pick-${ids.join("-")}-${k}`));
+    const interests = shuffled(page.filter((x) => !x.explore).map((x) => x.activity.id), rnd).slice(0, 3 + (k % 3));
+    const input = { ...p.input, themes, interests };
+    const res = selectSeeds(input, lib, { weights: WEIGHTS_ANCHOR });
+    const acts = res.seeds.map((s) => byId.get(s.activityId)!).filter(Boolean);
+    m.books++;
+    m.ideas += acts.length;
+    // Coverage and fit.
+    const dominant = acts.map((a) => {
+      const r = rels.map((f) => f(a.tags));
+      const best = Math.max(...r);
+      return { theme: themes[r.indexOf(best)].id, best };
+    });
+    const covered = themes.filter((t, i) => acts.some((a) => rels[i](a.tags) >= 0.5)).length;
+    m.themeCoverage.push(covered / themes.length);
+    if (covered === themes.length) m.fullCoverage++;
+    m.bestFit.push(avg(dominant.map((d) => d.best)));
+    m.weakIdeas += dominant.filter((d) => d.best < 0.3).length;
+    m.directions.push(new Set(dominant.map((d) => d.theme)).size);
+    m.subs.push(new Set(acts.map((a) => `${a.domain}/${a.sub}`)).size);
+    let near = false;
+    for (let i = 0; i < acts.length; i++) for (let j = i + 1; j < acts.length; j++) if (tagCos(acts[i].tags, acts[j].tags) >= 0.6) near = true;
+    if (near) m.nearVariant++;
+    // Related activities per idea (what "an option with three activities" would have to lean on today).
+    const exclude = new Set(res.seeds.map((s) => s.activityId));
+    acts.forEach((a, i) => {
+      const rel = relatedActivitiesIn(lib, a.id, res.constraints, exclude, 3);
+      m.relatedPerIdea.push(rel.length);
+      if (rel.length >= 3) m.ideasWith3++;
+      const ti = themes.findIndex((t) => t.id === dominant[i].theme);
+      if (rel.length) m.relatedOnTheme.push(rel.filter((r) => rels[ti](r.tags) >= 0.5).length / rel.length);
+      rel.forEach((r) => exclude.add(r.id));
+    });
+    // Challenge, combinations, practicality.
+    const picks = input.interests.map((i) => byId.get(i)).filter(<T,>(x: T | undefined): x is T => !!x);
+    const top = Math.max(0, ...picks.map(lvl));
+    if (res.seeds.some((s, i) => s.direction === "stretch" || (!input.interests.includes(s.activityId) && lvl(acts[i]) > top))) m.challenge++;
+    res.seeds.forEach((s, i) => {
+      if (s.themeCombo) {
+        m.combo++;
+        const [x, y] = s.themeCombo.map((id) => themes.findIndex((t) => t.id === id));
+        if (Math.min(rels[x](acts[i].tags), rels[y](acts[i].tags)) < 0.6) m.comboWeak++;
+      }
+      if (acts[i].supply === "regional" || acts[i].supply === "rare") m.regionalOrRare++;
+      if (acts[i].safety.tier === 2) m.supervised++;
+    });
+  }
+}
+
+void themeCosine;
+void registerOfActivity;
+
+const rows: [string, string][] = [
+  ["Boeken gemeten", String(m.books)],
+  ["Gekozen thema's gedekt door een idee (gemiddeld)", pct(avg(m.themeCoverage))],
+  ["Boeken waarin elk gekozen thema een idee heeft", pct(m.fullCoverage / m.books)],
+  ["Beste themafit per idee (gemiddeld, 0 tot 1)", avg(m.bestFit).toFixed(2)],
+  ["Ideeën zonder echt thema (fit onder 0,3)", pct(m.weakIdeas / m.ideas)],
+  ["Verschillende richtingen (dominant thema) per boek van vijf", avg(m.directions).toFixed(2)],
+  ["Verschillende subdomeinen per boek", avg(m.subs).toFixed(2)],
+  ["Boeken met twee bijna gelijke ideeën (tagoverlap 0,6 of meer)", pct(m.nearVariant / m.books)],
+  ["'Ook in deze richting' per idee (gemiddeld, max. 3)", avg(m.relatedPerIdea).toFixed(2)],
+  ["Ideeën met drie verwante activiteiten (dus een optie van minimaal drie)", pct(m.ideasWith3 / m.ideas)],
+  ["Van die verwante activiteiten: past bij het thema van het idee", pct(avg(m.relatedOnTheme))],
+  ["Boeken met een uitdagender idee dan de eigen keuzes", pct(m.challenge / m.books)],
+  ["Onverwachte deuren uit twee thema's", `${m.combo} (${pct(m.combo / m.books)} van de boeken)`],
+  ["Daarvan zwak (zwakste thema onder 0,6)", m.combo ? pct(m.comboWeak / m.combo) : "-"],
+  ["Ideeën met regionaal of zeldzaam aanbod", pct(m.regionalOrRare / m.ideas)],
+  ["Ideeën onder gekwalificeerd toezicht", pct(m.supervised / m.ideas)],
+];
+
+const date = new Date().toISOString().slice(0, 10);
+mkdirSync("docs/eval", { recursive: true });
+const base = `docs/eval/${date}-theme-selection-${label}`;
+writeFileSync(`${base}.json`, JSON.stringify(Object.fromEntries(rows), null, 2));
+writeFileSync(
+  `${base}.md`,
+  `# Themaselectie, meting "${label}" (${date})\n\n${THEME_SETS.length} themasets x ${PER} synthetische profielen, productiegewichten (WEIGHTS_ANCHOR). Gratis, geen API.\n\n| Maat | Waarde |\n|---|---|\n${rows.map(([k, v]) => `| ${k} | ${v} |`).join("\n")}\n`,
+);
+console.log(rows.map(([k, v]) => `${k.padEnd(74)} ${v}`).join("\n"));
