@@ -62,6 +62,8 @@ export const YOUNG_KIDS_UNSUITABLE: ReadonlySet<string> = new Set([
   // movement and speed that needs more than a young child can do or that has an age minimum
   ...ids(`bergtoppen-afvinken wandeltocht-lang langlaufen slackline-park quad-buggy karten buikdans golfles cricket-beginners draakbootvaren sloeproeien
     fpv-drone helikoptervlucht vliegsimulator rib-boot paardenrennen trekkertrek`),
+  // B3: print tools and a press, water and a long pole, poems and card games for older readers and players, a stage
+  ...ids(`etsen-droge-naald letterpers fierljeppen voordragen poezie-lezen poezieavond klaverjassen`),
   // nature work and hobbies with sharp tools or a long wait
   ...ids(`natuurbeheer fruitbomen-snoeien vijver-aanleggen tuin-ontwerpen dierenasiel hondensport natuurfotografie dierenfotografie trektocht`),
 ]);
@@ -88,7 +90,7 @@ export const WHEELCHAIR_UNSUITABLE: ReadonlySet<string> = new Set(
   ids(`wandeltocht-lang trektocht bergtoppen-afvinken hardlopen nordic-walking skaten rolschaatsen schaatsen langlaufen sneeuwschoenen slackline-park
     touwtjespringen modderlopen bushcraft boomhut-nacht tarp-nacht dauwtrappen strandjutten plogging bunkertocht urbex-tour houthakken droge-stenen-muur
     metaaldetectie natuurbeheer mountainbiken wildwaterraften kajak-wildwater suppen snorkelen klipper-zeilen draakbootvaren sloeproeien boomklimmen
-    kano-uithollen quad-buggy`),
+    kano-uithollen quad-buggy fierljeppen`),
 );
 
 /** True when an activity has a known conflict with being in a wheelchair. Everything else stays in and is checked for step-free access. */
@@ -217,7 +219,7 @@ export const DUTCH_BOUND: ReadonlySet<string> = new Set(
     feedback-geven onderhandelen-oefenen pitch-geven vergadering-leiden luistercursus mentor-zoeken geheugentechnieken ondernemersidee-uitwerken eerste-klant-vinden
     plannen-workshop live-comedy gids-wandeling mondelinge-geschiedenis genealogie archief archief-indexeren handschriften legendes sagen
     voedselbank buurtvrijwilliger buurtproject ouderenbezoek bestuurslid-vereniging inzamelingsactie-organiseren vrijwilligers-coordineren erfgoed-vrijwilliger
-    huiswerkbegeleiding bibliotheek-vrijwilliger mentor-jongere festival-vrijwilliger`),
+    huiswerkbegeleiding bibliotheek-vrijwilliger mentor-jongere festival-vrijwilliger voordragen poezieavond`),
 );
 
 /** Welcoming to newcomers and mostly language-free: a language café, a shared dinner, board games, a repair evening. Favoured for somebody without Dutch. */

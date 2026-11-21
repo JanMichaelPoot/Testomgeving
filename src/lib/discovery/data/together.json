@@ -1066,5 +1066,49 @@
     },
     "scene": "a round table with coffee cups, a teapot and a plate of biscuits in a warm community room",
     "status": "concept"
+  },
+  {
+    "id": "oud-hollandse-volksspelen",
+    "domain": "together",
+    "sub": "organise",
+    "label": {
+      "nl": "Oud-Hollandse volksspelen organiseren",
+      "en": "Organising old Dutch folk games"
+    },
+    "tags": [
+      "play",
+      "teamwork",
+      "competition",
+      "retro",
+      "conviviality"
+    ],
+    "formats": [
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een speelmiddag met ringsteken, zaklopen, koekhappen en spijkerslaan, georganiseerd met buren of vrienden",
+      "en": "A play afternoon with ring jousting, sack races, cookie biting and nail driving, organised with neighbours or friends"
+    },
+    "scene": "a lawn set with burlap sacks, a pastry hanging on a string, a wooden beam studded with nails and a striped finish line",
+    "status": "concept",
+    "image_pending": true
   }
 ]

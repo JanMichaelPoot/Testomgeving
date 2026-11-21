@@ -5569,5 +5569,346 @@
     },
     "scene": "a small wooden anatomical hand model, a pencil and a sketchbook open on a drawing desk in side light",
     "status": "concept"
+  },
+  {
+    "id": "weven-weefraam",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Weven op een klein weefraam",
+      "en": "Weaving on a small loom"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "color",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een klein weefraam kost weinig; handwerkwinkels en creatieve ateliers geven beginnerscursussen",
+      "en": "A small loom costs little; haberdashers and creative studios give beginner classes"
+    },
+    "scene": "a small wooden loom strung with cream warp threads and a half-woven band of earth-coloured wool",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "papier-knippen",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Papierknippen (silhouetten en scherenschnitt)",
+      "en": "Paper cutting (silhouettes and scherenschnitt)"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "color",
+      "miniature"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Papier, een scherp schaartje of mesje en een snijmat is genoeg; bibliotheken en creatieve cafés houden soms een workshop",
+      "en": "Paper, small sharp scissors or a knife and a cutting mat are enough; libraries and creative cafés sometimes hold a workshop"
+    },
+    "scene": "a delicate paper-cut silhouette of leaves and a lantern pinned on a pale cutting mat beside small scissors",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "etsen-droge-naald",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Etsen (droge naald)",
+      "en": "Etching (drypoint)"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "color",
+      "learning"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "regional",
+    "entry": {
+      "nl": "Grafische ateliers en kunstenaarsverenigingen geven proeflessen droge naald; de pers is van het atelier",
+      "en": "Print studios and artists' associations give drypoint trial classes; the press is the studio's"
+    },
+    "scene": "an etching press with a pale paper print lifted from a copper plate beside ink rollers and a dabber",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "letterpers",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Drukken met losse letters (boekdrukkunst)",
+      "en": "Printing with movable type (letterpress)"
+    },
+    "tags": [
+      "craft",
+      "precision",
+      "language",
+      "retro"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Drukkerijmuseums en grafische ateliers laten je met losse letters een eigen kaart zetten en drukken",
+      "en": "Printing museums and graphic studios let you set and print your own card with movable type"
+    },
+    "scene": "a wooden type case with rows of small metal letters beside a hand-inked proof of a card on a cast-iron press",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "stoepkrijt-kunst",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Stoepkrijtkunst en straattekeningen",
+      "en": "Pavement chalk art and street drawings"
+    },
+    "tags": [
+      "color",
+      "outdoors",
+      "play",
+      "craft"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een doos stoepkrijt kost een paar euro; een plein, schoolplein of rustige stoep is genoeg",
+      "en": "A box of pavement chalk costs a few euros; a square, a schoolyard or a quiet pavement is enough"
+    },
+    "scene": "a pavement covered with a large chalk drawing of colourful flowers beside a scatter of worn chalk sticks",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "houtskool-tekenen",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Houtskool tekenen",
+      "en": "Charcoal drawing"
+    },
+    "tags": [
+      "craft",
+      "color",
+      "precision"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Houtskool en schetspapier kosten weinig; tekenclubs en creatieve cursussen geven beginnerslessen",
+      "en": "Charcoal and sketch paper cost little; drawing clubs and creative courses give beginner lessons"
+    },
+    "scene": "sticks of willow charcoal and a smudged tonal sketch of a pear on cream paper on a wooden easel",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "ecoprinten",
+    "domain": "creative",
+    "sub": "textile_paper",
+    "label": {
+      "nl": "Ecoprinten met bladeren en bloemen",
+      "en": "Eco-printing with leaves and flowers"
+    },
+    "tags": [
+      "craft",
+      "nature",
+      "color",
+      "making"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Met bladeren, bloemen en een katoenen doek; creatieve cafés en natuurcentra geven workshops",
+      "en": "With leaves, flowers and a cotton cloth; creative cafés and nature centres give workshops"
+    },
+    "scene": "a cotton cloth printed with the delicate outlines of leaves and petals, steamed bundles beside a pot",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "pigmenten-maken",
+    "domain": "creative",
+    "sub": "visual",
+    "label": {
+      "nl": "Verf maken van aarde en planten",
+      "en": "Making paint from earth and plants"
+    },
+    "tags": [
+      "craft",
+      "nature",
+      "color",
+      "discovery"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Aarde, klei en plantenresten fijnwrijven en met bindmiddel mengen tot eigen verf; natuurcentra en ateliers geven workshops",
+      "en": "Grind earth, clay and plant remains fine and mix them with a binder into your own paint; nature centres and studios give workshops"
+    },
+    "scene": "small jars of earth-coloured pigment powders in ochre red and umber beside a glass muller and a wooden palette",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "vlieger-bouwen",
+    "domain": "creative",
+    "sub": "shaping",
+    "label": {
+      "nl": "Een vlieger bouwen en oplaten",
+      "en": "Building and flying a kite"
+    },
+    "tags": [
+      "craft",
+      "making",
+      "outdoors",
+      "play"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 1,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Met bamboe stokjes, lichte stof en touw; bouw er een in een middag en laat hem op het strand of op een heuvel op",
+      "en": "With bamboo sticks, light fabric and string; build one in an afternoon and fly it on the beach or on a hill"
+    },
+    "scene": "a handmade diamond kite of bright fabric with a long tail of bows lying on a grassy dune",
+    "status": "concept",
+    "image_pending": true
   }
 ]

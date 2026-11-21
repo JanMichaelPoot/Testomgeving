@@ -1631,5 +1631,41 @@
       9,
       10
     ]
+  },
+  {
+    "id": "zonne-energie-bouwen",
+    "domain": "tech",
+    "sub": "making_tech",
+    "label": {
+      "nl": "Een kleine zonne-energieopstelling bouwen",
+      "en": "Building a small solar-power setup"
+    },
+    "tags": [
+      "technique",
+      "making",
+      "nature",
+      "learning"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 2,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een bouwpakket met een klein zonnepaneel en motortje kost een paar tientjes; maakplaatsen en natuurcentra geven workshops",
+      "en": "A kit with a small solar panel and motor costs a few tens of euros; maker spaces and nature centres give workshops"
+    },
+    "scene": "a small solar panel wired to a tiny motor spinning a paper propeller on a sunny windowsill",
+    "status": "concept",
+    "image_pending": true
   }
 ]

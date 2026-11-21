@@ -3,6 +3,7 @@ import { defaultEngineLibrary, parseMustHaves, resolveConstraints, selectSeeds }
 import type { EngineInput } from "@/lib/discovery/engine";
 import { whyNot } from "@/lib/discovery/engine/droppedPicks";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { ALL_ACTIVITIES } from "@/lib/discovery/library";
 import { hiddenByNeeds } from "@/lib/discovery/needs";
 import {
   ALCOHOL_CENTRAL,
@@ -28,7 +29,8 @@ import {
 } from "@/lib/discovery/suitability";
 
 const lib = defaultEngineLibrary();
-const byId = new Map(lib.activities.map((a) => [a.id, a]));
+// Every activity of the library, also the ones that wait for their photo (B3): a list may name those already, so it is right the day the photo is made.
+const byId = new Map([...lib.activities, ...ALL_ACTIVITIES.filter((a) => a.status !== "retired")].map((a) => [a.id, a]));
 
 const BASE: EngineInput = {
   interests: [],

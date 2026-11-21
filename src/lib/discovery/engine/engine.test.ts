@@ -291,7 +291,7 @@ describe("variety (Stap 88): the long tail is lifted, the same few activities do
     // 0.6 until 16 Nov 2026; 462 of 774 (59.7%) after 18 everyday activities were added (pretpark, kermis, wielrennen ...): the new ones are shown to few visitors, so
     // the share of the library that appears in 200 books slips a little with every addition. The guard is meant to catch a collapse onto a few activities, not 0.3 points.
     expect(count.size).toBeGreaterThan(lib.activities.length * 0.58);
-  }, 120_000);
+  }, 360_000); // 200 profiles x 3 sessions, about 0.25 s each (most of it the two-step chain search of the unexpected slot, not the options): 140 s on a quiet machine
 
   it("includes the new, exotic activities in the library the engine draws from", () => {
     for (const id of ["grotduiken", "meswerpen", "canyoning", "schietles", "escape-room", "abseilen", "boulderen"]) expect(byId.has(id), id).toBe(true);

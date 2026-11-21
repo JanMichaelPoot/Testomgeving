@@ -1108,5 +1108,77 @@
     },
     "scene": "a wooden jetty over still grey winter water with a steaming flask and a towel in morning mist",
     "status": "concept"
+  },
+  {
+    "id": "poezie-lezen",
+    "domain": "restful",
+    "sub": "read_listen",
+    "label": {
+      "nl": "Poëzie lezen",
+      "en": "Reading poetry"
+    },
+    "tags": [
+      "language",
+      "stillness",
+      "story"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een bundel van de bibliotheek, een kop thee en een uur; of een poëzieleeskring in de buurt",
+      "en": "A volume from the library, a cup of tea and an hour; or a poetry reading circle nearby"
+    },
+    "scene": "an open poetry book on a windowsill with a cup of tea and a sprig of rosemary in soft morning light",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "poezieavond",
+    "domain": "restful",
+    "sub": "read_listen",
+    "label": {
+      "nl": "Een poëzieavond bijwonen",
+      "en": "Attending a poetry evening"
+    },
+    "tags": [
+      "language",
+      "performance",
+      "story",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Dichters lezen voor in boekwinkels, bibliotheken en cafés, vaak met een open podium erna",
+      "en": "Poets read in bookshops, libraries and cafés, often with an open stage afterwards"
+    },
+    "scene": "rows of empty wooden chairs facing a small lectern with a reading lamp and a stack of slim poetry volumes",
+    "status": "concept",
+    "image_pending": true
   }
 ]

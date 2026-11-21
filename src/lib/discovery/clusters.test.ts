@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { CLUSTERS, MAX_PER_CLUSTER, clusterOf } from "@/lib/discovery/clusters";
+import { ALL_ACTIVITIES } from "@/lib/discovery/library";
 import { defaultEngineLibrary, selectSeeds, WEIGHTS_ANCHOR } from "@/lib/discovery/engine";
 import type { EngineInput } from "@/lib/discovery/engine";
 import { syntheticTwoPageProfiles } from "@/lib/discovery/engine/syntheticTwoPages";
 
 const lib = defaultEngineLibrary();
-const have = new Set(lib.activities.map((a) => a.id));
+// Every activity of the library, also the ones that wait for their photo (B3): a cluster may name those already.
+const have = new Set([...lib.activities, ...ALL_ACTIVITIES.filter((a) => a.status !== "retired")].map((a) => a.id));
 
 describe("the clusters of the same kind of activity", () => {
   it("only name activities that exist, and no activity is in two clusters", () => {

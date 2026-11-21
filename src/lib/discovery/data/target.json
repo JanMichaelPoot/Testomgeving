@@ -961,5 +961,42 @@
     },
     "scene": "nine wooden skittles standing in a diamond at the end of a polished wooden alley",
     "status": "concept"
+  },
+  {
+    "id": "ringwerpen",
+    "domain": "target",
+    "sub": "throwing",
+    "label": {
+      "nl": "Ringwerpen en traditionele werpspellen",
+      "en": "Ring toss and traditional throwing games"
+    },
+    "tags": [
+      "precision",
+      "play",
+      "competition",
+      "conviviality"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "large_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 1,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een set rubber of touwen ringen kost weinig; ook te spelen op verenigingsdagen en pleinfeesten",
+      "en": "A set of rope or rubber rings is cheap; also found at club days and street fairs"
+    },
+    "scene": "wooden pegs on a lawn with rope rings hooked over several of them in the afternoon sun",
+    "status": "concept",
+    "image_pending": true
   }
 ]

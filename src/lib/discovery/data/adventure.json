@@ -1455,5 +1455,48 @@
     },
     "scene": "a windsurf board with a bright sail on a calm lake, a wooden jetty beside it",
     "status": "concept"
+  },
+  {
+    "id": "fierljeppen",
+    "domain": "adventure",
+    "sub": "rough_terrain",
+    "label": {
+      "nl": "Fierljeppen: met een polsstok over een sloot",
+      "en": "Fierljeppen: vaulting a ditch with a pole"
+    },
+    "tags": [
+      "challenge",
+      "balance",
+      "water",
+      "height"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 3,
+    "level": 1,
+    "cost": 1,
+    "duration": 2,
+    "setting": "outdoor",
+    "months": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "safety": {
+      "tier": 1
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "Proeflessen bij een fierljepvereniging, vooral in Friesland waar de sport vandaan komt; je springt met een lange polsstok over een sloot",
+      "en": "Trial lessons at a fierljep club, mostly in Friesland where the sport comes from; you vault across a ditch with a long pole"
+    },
+    "scene": "a tall pole planted in the bed of a narrow canal beside green meadows under a wide sky",
+    "status": "concept",
+    "image_pending": true
   }
 ]

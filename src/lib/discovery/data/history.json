@@ -1439,5 +1439,78 @@
     },
     "scene": "a glass cabinet of antique surgical instruments, brass scales and old apothecary jars under museum lighting",
     "status": "concept"
+  },
+  {
+    "id": "molen-bezoeken",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Een werkende molen bezoeken",
+      "en": "Visiting a working windmill"
+    },
+    "tags": [
+      "history",
+      "discovery",
+      "technique",
+      "outdoors"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "both",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Veel korenmolens en poldermolens draaien op zaterdag voor bezoekers; de molenaar legt uit hoe het werkt",
+      "en": "Many grain mills and polder mills turn on Saturdays for visitors; the miller explains how it works"
+    },
+    "scene": "a traditional brick windmill with turning sails beside a canal that reflects a bright sky",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "hunebedden-bezoeken",
+    "domain": "history",
+    "sub": "places_stories",
+    "label": {
+      "nl": "Hunebedden bezoeken",
+      "en": "Visiting the dolmens (hunebedden)"
+    },
+    "tags": [
+      "history",
+      "outdoors",
+      "nature",
+      "discovery"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 0,
+    "duration": 3,
+    "setting": "outdoor",
+    "safety": {
+      "tier": 0
+    },
+    "supply": "rare",
+    "entry": {
+      "nl": "In Drenthe en Groningen liggen grafmonumenten van duizenden jaren oud, vrij toegankelijk langs wandel- en fietsroutes",
+      "en": "In Drenthe and Groningen lie burial monuments thousands of years old, freely accessible along walking and cycling routes"
+    },
+    "scene": "a massive prehistoric stone burial chamber of boulders under heather and birch trees",
+    "status": "concept",
+    "image_pending": true
   }
 ]

@@ -1294,5 +1294,40 @@
     },
     "scene": "a wooden stool and a small lamp in a dim storytelling room with a worn rug",
     "status": "concept"
+  },
+  {
+    "id": "voordragen",
+    "domain": "stage",
+    "sub": "spoken_word",
+    "label": {
+      "nl": "Een gedicht of tekst voordragen",
+      "en": "Reciting a poem or text"
+    },
+    "tags": [
+      "performance",
+      "language",
+      "story",
+      "focus"
+    ],
+    "formats": [
+      "solo",
+      "drop_in_alone",
+      "small_group"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 1,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Open podia en voordrachtavonden in bibliotheek en café geven beginners een paar minuten; kies een tekst die je mooi vindt en lees hem hardop",
+      "en": "Open stages and reading evenings in libraries and cafés give beginners a few minutes; pick a text you love and read it aloud"
+    },
+    "scene": "a single microphone stand beside a wooden stool and a lamp on a small bare stage, an open book on the stool",
+    "status": "concept",
+    "image_pending": true
   }
 ]

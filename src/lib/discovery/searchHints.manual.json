@@ -62,5 +62,13 @@
   "onderzoeksinstituut-bezoek": { "kind": "event", "terms": "open dag universiteit onderzoek; rondleiding onderzoeksinstituut; open dag laboratorium" },
   "waterraket": { "kind": "event", "terms": "waterraket lanceren vereniging; raketbouw workshop; modelraket club open dag; waterraketten bouwen" },
   "medicinale-kruidentuin": { "kind": "place", "terms": "medicinale kruidentuin bezoeken; apothekerstuin; kruidentuin rondleiding; hortus botanicus kruiden" },
-  "natuurhistorisch-museum": { "kind": "place", "terms": "natuurhistorisch museum; museum natuur skeletten fossielen; dinosaurusmuseum bezoeken" }
+  "natuurhistorisch-museum": { "kind": "place", "terms": "natuurhistorisch museum; museum natuur skeletten fossielen; dinosaurusmuseum bezoeken" },
+  "fierljeppen": { "kind": "club", "terms": "fierljepvereniging proefles; fierljeppen beginners; polsstokverspringen sloot club; fierljepaccommodatie" },
+  "voordragen": { "kind": "event", "terms": "open podium voordragen; voordrachtavond bibliotheek; poezie open podium beginners; spoken word avond café" },
+  "poezieavond": { "kind": "event", "terms": "poëzieavond; dichters lezen voor boekwinkel; poëziecafé agenda; poezie bibliotheek avond" },
+  "etsen-droge-naald": { "kind": "venue", "terms": "grafisch atelier etsen proefles; droge naald etsen workshop; etspers atelier cursus beginners; kunstenaarsvereniging grafiek" },
+  "letterpers": { "kind": "venue", "terms": "drukkerijmuseum letterzetten workshop; boekdrukkunst workshop letterpers; grafisch atelier drukken losse letters; typografie workshop letterpers" },
+  "eendenkooi-bezoeken": { "kind": "place", "terms": "eendenkooi bezoeken rondleiding; eendenkooi open dag; eendenkooi natuurmonument rondleiding; eendenkooi beheerder excursie" },
+  "zonne-energie-bouwen": { "kind": "venue", "terms": "workshop zonne-energie bouwen; maakplaats zonnepaneel workshop; natuurcentrum duurzame energie workshop; zonnecel knutselen cursus" },
+  "molen-bezoeken": { "kind": "place", "terms": "molen bezoeken open zaterdag; korenmolen rondleiding; molenaar rondleiding molen; poldermolen bezoek" }
 }

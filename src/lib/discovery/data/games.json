@@ -1321,5 +1321,113 @@
     },
     "scene": "a foosball table with red and blue rods under a warm café lamp",
     "status": "concept"
+  },
+  {
+    "id": "dominoen",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Dominoën",
+      "en": "Dominoes"
+    },
+    "tags": [
+      "strategy",
+      "play",
+      "conviviality",
+      "chance"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "duo",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een set kost een paar euro; veel buurthuizen en cafés houden een dominoavond",
+      "en": "A set costs a few euros; many community centres and cafés hold a domino night"
+    },
+    "scene": "black domino tiles with white dots laid in a snaking line across a wooden table",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "klaverjassen",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Klaverjassen",
+      "en": "Klaverjassen (Dutch card game)"
+    },
+    "tags": [
+      "strategy",
+      "competition",
+      "conviviality",
+      "chance"
+    ],
+    "formats": [
+      "drop_in_alone",
+      "small_group",
+      "with_known"
+    ],
+    "intensity": 0,
+    "level": 1,
+    "cost": 0,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Klaverjasclubs en kaartavonden in het buurthuis nemen graag nieuwe spelers aan; met vier spelers en een pak kaarten ben je begonnen",
+      "en": "Klaverjas clubs and card nights at the community centre welcome new players; with four players and a deck of cards you are under way"
+    },
+    "scene": "playing cards fanned out on green baize beside a score pad and a pencil",
+    "status": "concept",
+    "image_pending": true
+  },
+  {
+    "id": "woordspellen",
+    "domain": "games",
+    "sub": "tabletop",
+    "label": {
+      "nl": "Woordspellen (Scrabble, Boggle en meer)",
+      "en": "Word games (Scrabble, Boggle and more)"
+    },
+    "tags": [
+      "language",
+      "strategy",
+      "play",
+      "competition"
+    ],
+    "formats": [
+      "solo",
+      "duo",
+      "small_group",
+      "with_known",
+      "online"
+    ],
+    "intensity": 0,
+    "level": 0,
+    "cost": 1,
+    "duration": 2,
+    "setting": "indoor",
+    "safety": {
+      "tier": 0
+    },
+    "entry": {
+      "nl": "Een spel kost weinig; ook online met vrienden te spelen of in een spellencafé",
+      "en": "A game costs little; also playable online with friends or in a games café"
+    },
+    "scene": "wooden letter tiles forming crossing words on a board with a small cloth bag of spare tiles",
+    "status": "concept",
+    "image_pending": true
   }
 ]
