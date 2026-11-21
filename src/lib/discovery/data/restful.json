@@ -1142,8 +1142,7 @@
       "en": "A volume from the library, a cup of tea and an hour; or a poetry reading circle nearby"
     },
     "scene": "an open poetry book on a windowsill with a cup of tea and a sprig of rosemary in soft morning light",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "poezieavond",
@@ -1178,7 +1177,6 @@
       "en": "Poets read in bookshops, libraries and cafés, often with an open stage afterwards"
     },
     "scene": "rows of empty wooden chairs facing a small lectern with a reading lamp and a stack of slim poetry volumes",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

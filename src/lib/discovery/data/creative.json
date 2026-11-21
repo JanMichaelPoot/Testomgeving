@@ -5603,8 +5603,7 @@
       "en": "A small loom costs little; haberdashers and creative studios give beginner classes"
     },
     "scene": "a small wooden loom strung with cream warp threads and a half-woven band of earth-coloured wool",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "papier-knippen",
@@ -5639,8 +5638,7 @@
       "en": "Paper, small sharp scissors or a knife and a cutting mat are enough; libraries and creative cafés sometimes hold a workshop"
     },
     "scene": "a delicate paper-cut silhouette of leaves and a lantern pinned on a pale cutting mat beside small scissors",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "etsen-droge-naald",
@@ -5674,8 +5672,7 @@
       "en": "Print studios and artists' associations give drypoint trial classes; the press is the studio's"
     },
     "scene": "an etching press with a pale paper print lifted from a copper plate beside ink rollers and a dabber",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "letterpers",
@@ -5709,8 +5706,7 @@
       "en": "Printing museums and graphic studios let you set and print your own card with movable type"
     },
     "scene": "a wooden type case with rows of small metal letters beside a hand-inked proof of a card on a cast-iron press",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "stoepkrijt-kunst",
@@ -5755,8 +5751,7 @@
       "en": "A box of pavement chalk costs a few euros; a square, a schoolyard or a quiet pavement is enough"
     },
     "scene": "a pavement covered with a large chalk drawing of colourful flowers beside a scatter of worn chalk sticks",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "houtskool-tekenen",
@@ -5791,8 +5786,7 @@
       "en": "Charcoal and sketch paper cost little; drawing clubs and creative courses give beginner lessons"
     },
     "scene": "sticks of willow charcoal and a smudged tonal sketch of a pear on cream paper on a wooden easel",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "ecoprinten",
@@ -5836,8 +5830,7 @@
       "en": "With leaves, flowers and a cotton cloth; creative cafés and nature centres give workshops"
     },
     "scene": "a cotton cloth printed with the delicate outlines of leaves and petals, steamed bundles beside a pot",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "pigmenten-maken",
@@ -5872,8 +5865,7 @@
       "en": "Grind earth, clay and plant remains fine and mix them with a binder into your own paint; nature centres and studios give workshops"
     },
     "scene": "small jars of earth-coloured pigment powders in ochre red and umber beside a glass muller and a wooden palette",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "vlieger-bouwen",
@@ -5908,7 +5900,6 @@
       "en": "With bamboo sticks, light fabric and string; build one in an afternoon and fly it on the beach or on a hill"
     },
     "scene": "a handmade diamond kite of bright fabric with a long tail of bows lying on a grassy dune",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

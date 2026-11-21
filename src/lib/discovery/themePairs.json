@@ -2,15 +2,15 @@
   "_readme": "Hand-made verdicts for theme pairs (docs/plan-activiteitenselectie.md, A4). Per pair of chosen themes: 'good' are activities that really are both at once (they are preferred, whatever the tag arithmetic says), 'bad' are activities the tags wrongly put in the pair (they are never the combination of that pair). The key is the two theme ids, alphabetical, joined with '+'. A pair that is not here falls back to the tag arithmetic with a stricter floor.",
   "pairs": {
     "natuur+techniek": {
-      "good": ["weerstation", "sterren-fotograferen", "telescoop", "natuurfotografie", "veldopnames-maken", "citizen-science", "geocaching", "drones", "dierenfotografie", "macrofotografie"],
+      "good": ["weerstation", "sterren-fotograferen", "telescoop", "natuurfotografie", "veldopnames-maken", "citizen-science", "geocaching", "drones", "dierenfotografie", "macrofotografie", "zonne-energie-bouwen"],
       "bad": ["boomklimmen", "bushcraft", "overleven", "buiten-klimmen", "enduro-offroad"]
     },
     "ambacht+natuur": {
-      "good": ["nestkast-bouwen", "wilgenvlechten", "droge-stenen-muur", "knotten-heggenvlechten", "bloemschikken", "kruidenspiraal-bouwen", "planten-verven", "papier-scheppen", "droogbloemen", "fruitbomen-snoeien", "boomhut-bouwen", "houtsnijden"],
+      "good": ["nestkast-bouwen", "wilgenvlechten", "droge-stenen-muur", "knotten-heggenvlechten", "bloemschikken", "kruidenspiraal-bouwen", "planten-verven", "papier-scheppen", "droogbloemen", "fruitbomen-snoeien", "boomhut-bouwen", "houtsnijden", "ecoprinten", "herbarium-maken"],
       "bad": ["stoeterij"]
     },
     "kunst-cultuur+natuur": {
-      "good": ["plein-air-schilderen", "natuurfotografie", "botanisch-tekenen", "begraafplaats", "geologie", "cyanotypie", "haiku-schrijven", "fotowandeling", "natuurhistorisch-museum", "planten-verven"],
+      "good": ["plein-air-schilderen", "natuurfotografie", "botanisch-tekenen", "begraafplaats", "geologie", "cyanotypie", "haiku-schrijven", "fotowandeling", "natuurhistorisch-museum", "planten-verven", "herbarium-maken"],
       "bad": ["sneeuwschoenen", "trektocht", "zeehonden-varen"]
     },
     "dieren+techniek": {
@@ -38,15 +38,15 @@
       "bad": ["re-enactment"]
     },
     "geschiedenis+sport": {
-      "good": ["schermen", "hist-dans", "re-enactment", "speerwerpen-atlatl", "boogschieten", "kruisboog", "highlandgames", "klootschieten", "beugelen", "sjoelen", "limesroute", "pelgrimsroute"],
+      "good": ["schermen", "hist-dans", "re-enactment", "speerwerpen-atlatl", "boogschieten", "kruisboog", "highlandgames", "klootschieten", "beugelen", "sjoelen", "limesroute", "pelgrimsroute", "fierljeppen", "oud-hollandse-volksspelen", "ringwerpen"],
       "bad": ["nachttrein", "flipperkast", "rolschaatsdisco", "swingdansen", "cricket-beginners", "hema", "kastelenroute"]
     },
     "geschiedenis+natuur": {
-      "good": ["oude-kaart-wandeling", "limesroute", "metaaldetectie", "geologie", "fossielen-zoeken", "slagveld", "begraafplaats", "pelgrimsroute", "kastelenroute"],
+      "good": ["oude-kaart-wandeling", "limesroute", "metaaldetectie", "geologie", "fossielen-zoeken", "slagveld", "begraafplaats", "pelgrimsroute", "kastelenroute", "hunebedden-bezoeken", "eendenkooi-bezoeken"],
       "bad": ["stedentrip-zonder-plan", "detective-wandeling"]
     },
     "geschiedenis+techniek": {
-      "good": ["industrieel-erfgoed", "retrocomputing", "smeden", "restaureren", "modeltreinen", "klokken", "stoomtrein", "kortegolf-luisteren", "bunkertocht"],
+      "good": ["industrieel-erfgoed", "retrocomputing", "smeden", "restaureren", "modeltreinen", "klokken", "stoomtrein", "kortegolf-luisteren", "bunkertocht", "molen-bezoeken"],
       "bad": ["vlog-maken", "blog-nieuwsbrief-schrijven", "hema", "stoel-bekleden"]
     },
     "kunst-cultuur+wetenschap": {
@@ -58,7 +58,7 @@
       "bad": ["keukenplank-maken", "ander-land"]
     },
     "beeld+natuur": {
-      "good": ["natuurfotografie", "macrofotografie", "plein-air-schilderen", "cyanotypie", "botanisch-tekenen", "bloemschikken", "droogbloemen", "planten-verven"],
+      "good": ["natuurfotografie", "macrofotografie", "plein-air-schilderen", "cyanotypie", "botanisch-tekenen", "bloemschikken", "droogbloemen", "planten-verven", "herbarium-maken", "ecoprinten", "pigmenten-maken"],
       "bad": ["lichtfestival", "mineralen-edelstenen"]
     },
     "beeld+techniek": {
@@ -70,7 +70,7 @@
       "bad": ["stedentrip-zonder-plan", "kastelenroute", "streek-weekend"]
     },
     "natuur+spel": {
-      "good": ["geocaching", "citizen-science", "speurtocht-kaart", "kubb", "frisbeegolf", "boerengolf"],
+      "good": ["geocaching", "citizen-science", "speurtocht-kaart", "kubb", "frisbeegolf", "boerengolf", "ringwerpen", "vlieger-bouwen"],
       "bad": ["willekeurig-station", "oude-kaart-wandeling"]
     },
     "spel+techniek": {
@@ -134,11 +134,11 @@
       "bad": ["aquarium", "kamerplanten", "cactussen", "zaailingen-kweken"]
     },
     "beeld+taal": {
-      "good": ["kalligrafie", "handlettering", "stripverhaal-tekenen", "kinderboek-illustreren", "sketchnotes-maken"],
+      "good": ["kalligrafie", "handlettering", "stripverhaal-tekenen", "kinderboek-illustreren", "sketchnotes-maken", "letterpers"],
       "bad": ["huiswerkbegeleiding", "bibliotheek-vrijwilliger", "lezen", "luisterboek"]
     },
     "avond-uit+podium": {
-      "good": ["live-comedy", "variete", "karaoke", "stand-up", "poetry-slam", "amateurtoneel"],
+      "good": ["live-comedy", "variete", "karaoke", "stand-up", "poetry-slam", "amateurtoneel", "poezieavond", "voordragen"],
       "bad": []
     },
     "avond-uit+beeld": {

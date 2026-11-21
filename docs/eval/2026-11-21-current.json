@@ -1,0 +1,2011 @@
+{
+ "engine": "current",
+ "mode": "seeds-only",
+ "source": "scripts/eval/profiles (20 vaste profielen)",
+ "generatedAt": "2026-11-21T18:48:27.434Z",
+ "metrics": {
+  "profiles": 20,
+  "seeds": 100,
+  "violations": {
+   "E1": 0,
+   "E3": 0,
+   "E4": 0,
+   "E5": 0,
+   "E6": 0
+  },
+  "rates": {
+   "seedsAtLeastSix": 1,
+   "fourDomains": 1,
+   "maxTwoPerDomain": 1,
+   "allDirections": 1,
+   "nicheOwnWorld": 1,
+   "unexpectedHasBridge": 1,
+   "noRelaxation": 0.9
+  },
+  "notes": {
+   "surprise_me": 1,
+   "direction_relaxed": 2
+  },
+  "worldsPerBook": 4.6,
+  "subsPerBook": 4.85,
+  "photoCategoriesPerBook": 3.95,
+  "kindsPerBook": 3.85,
+  "pairBooks": 0.15,
+  "sameSubBooks": 0.15,
+  "relaxedBooks": 0.1,
+  "verifySeeds": 0.44,
+  "tier2Seeds": 0.03,
+  "costUnknownSeeds": 0.01,
+  "freeBudgetBooks": 2,
+  "freeBudgetWithUnknownCost": 0,
+  "socialKindShare": 0.13,
+  "oneThingByDoor": {
+   "unexpected": 0.9,
+   "natural": 0.05,
+   "discovery": 0.05
+  },
+  "levelCompleteBooks": 0,
+  "levelShare": {
+   "1": 1,
+   "2": 0.05,
+   "3": 1,
+   "4": 0.05,
+   "5": 0.95,
+   "6": 0.95,
+   "7": 1
+  },
+  "practicalityByLevel": {
+   "level1": 0.8543333333333333,
+   "level2": 0.9466666666666667
+  },
+  "pickCoverage": {
+   "profiles": 0,
+   "mean": 0,
+   "meanInBook": 0,
+   "goalMet": 0,
+   "none": 0
+  },
+  "activitiesUsed": 88,
+  "topActivity": {
+   "id": "skihal",
+   "share": 0.15
+  },
+  "top10Share": 0.22
+ },
+ "profiles": [
+  {
+   "id": "P01",
+   "title": "Stille creatieveling",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 35-44, Utrecht",
+    "budget 25, tijd hour, gezelschap solo",
+    "koos beelden: Een werkplaats met zaagsel, Een atelier vol licht, Handen vol klei, Helemaal stil worden, Houtgeur, Kaarslicht",
+    "richtingen: creative"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "upcycle-kleding",
+     "label": {
+      "nl": "Kleding herstellen en upcyclen",
+      "en": "Visible mending and upcycling clothes"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Kleding herstellen en upcyclen"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "beatboxen",
+     "label": {
+      "nl": "Beatboxen leren",
+      "en": "Learning beatboxing"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Een cosplay-outfit maken",
+      "Beatboxen leren"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "ander-land",
+     "label": {
+      "nl": "Een gerecht uit een land dat je niet kent",
+      "en": "Cooking from an unfamiliar cuisine"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Jam en inmaken",
+      "Fermenteren: zuurkool, kimchi en kombucha",
+      "Een gerecht uit een land dat je niet kent"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "steigerhout-meubel",
+     "label": {
+      "nl": "Een meubel van steigerhout timmeren",
+      "en": "Building a piece of furniture from scaffold boards"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Zelf je fiets repareren",
+      "Een meubel van steigerhout timmeren"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "droogbloemen",
+     "label": {
+      "nl": "Een krans of boeket van droogbloemen maken",
+      "en": "Making a wreath or bouquet of dried flowers"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Kleding herstellen en upcyclen",
+      "Een krans of boeket van droogbloemen maken"
+     ],
+     "lead": "solo",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P02",
+   "title": "Sociale beweger",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 25-34, Eindhoven",
+    "budget 25, tijd halfday, gezelschap small_group",
+    "koos beelden: Een arena vol licht, Een straat vol neon in de nacht, Het scorebord na een spannende ronde, Samen hard lachen, Ritme in je lijf, Gejuich in de verte",
+    "richtingen: movement, together"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "silent-disco",
+     "label": {
+      "nl": "Silent disco",
+      "en": "Silent disco"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Silent disco"
+     ],
+     "lead": "small_group",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "familie-uitje",
+     "label": {
+      "nl": "Een familie-uitje organiseren",
+      "en": "Family outing"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Oud-Hollandse volksspelen organiseren",
+      "Een familie-uitje organiseren"
+     ],
+     "lead": "small_group",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "statistiek-begrijpen",
+     "label": {
+      "nl": "Statistiek en cijfers leren begrijpen",
+      "en": "Learning to understand statistics and numbers"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Puzzeljacht (puzzle hunt)",
+      "Codes kraken: cryptografie voor beginners",
+      "Statistiek en cijfers leren begrijpen"
+     ],
+     "lead": "small_group",
+     "verify": []
+    },
+    {
+     "activityId": "zumba",
+     "label": {
+      "nl": "Zumba of dansfitness",
+      "en": "Zumba or dance fitness"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Silent disco",
+      "Zumba of dansfitness"
+     ],
+     "lead": "small_group",
+     "verify": []
+    },
+    {
+     "activityId": "rommelmarkt",
+     "label": {
+      "nl": "Rommelmarkt of vlooienmarkt snuffelen",
+      "en": "Browsing a flea market"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Oud-Hollandse volksspelen organiseren",
+      "Rommelmarkt of vlooienmarkt snuffelen"
+     ],
+     "lead": "small_group",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P03",
+   "title": "Avontuurzoeker met geld",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 25-34, Groningen",
+    "budget allin, tijd weekend, gezelschap duo",
+    "koos beelden: Een bergkam boven de wolken, Een circuit met banden en vlaggen, Net voor de sprong, Vlak voor de start, Het brullen van een motor, Hartslag in je oren",
+    "richtingen: adventure, speed"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "open-water",
+     "label": {
+      "nl": "Zwemmen in open water",
+      "en": "Open-water swimming"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Zwemmen in open water"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "willekeurig-station",
+     "label": {
+      "nl": "Uitstappen op een willekeurig station",
+      "en": "Getting off at a random station"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Een meerdaagse fietstocht met overnachtingen",
+      "Uitstappen op een willekeurig station"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "planetarium-sterrenwacht",
+     "label": {
+      "nl": "Een planetarium of sterrenwacht bezoeken",
+      "en": "Visiting a planetarium or observatory"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Zwemmen in open water",
+      "Sterrenkijken",
+      "Een planetarium of sterrenwacht bezoeken"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "skihal",
+     "label": {
+      "nl": "Indoor skiën of snowboarden",
+      "en": "Indoor skiing or snowboarding"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Pumptrack of BMX-baan",
+      "Indoor skiën of snowboarden"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "kubb",
+     "label": {
+      "nl": "Kubb (Zweedse werpspel)",
+      "en": "Kubb (Swedish throwing game)"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Klimmen met touw",
+      "Kubb (Zweedse werpspel)"
+     ],
+     "lead": "duo",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P04",
+   "title": "Kleine portemonnee",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 18-24, Zwolle",
+    "budget free, tijd hour, gezelschap solo",
+    "koos beelden: Een stille bosrand, Rond het kampvuur, Helemaal stil worden, Rook van een houtvuur, Gras onder blote voeten",
+    "richtingen: nature",
+    "harde grenzen: geen auto"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "wandelen",
+     "label": {
+      "nl": "Een lange wandeling",
+      "en": "A long walk"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Een lange wandeling"
+     ],
+     "lead": "solo",
+     "verify": [
+      "transport"
+     ]
+    },
+    {
+     "activityId": "citizen-science",
+     "label": {
+      "nl": "Citizen science (tellen, meten, melden)",
+      "en": "Citizen science"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Een lange wandeling",
+      "Citizen science (tellen, meten, melden)"
+     ],
+     "lead": "solo",
+     "verify": [
+      "transport"
+     ]
+    },
+    {
+     "activityId": "bloemenmarkt",
+     "label": {
+      "nl": "De bloemenmarkt of de veiling bezoeken",
+      "en": "Visiting a flower market or auction"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Een lange wandeling",
+      "Open tuinen bezoeken",
+      "De bloemenmarkt of de veiling bezoeken"
+     ],
+     "lead": "solo",
+     "verify": [
+      "transport"
+     ]
+    },
+    {
+     "activityId": "limesroute",
+     "label": {
+      "nl": "Langs de Romeinse limes",
+      "en": "Along the Roman limes"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Geologie en stenen lezen",
+      "Langs de Romeinse limes"
+     ],
+     "lead": "solo",
+     "verify": [
+      "transport"
+     ]
+    },
+    {
+     "activityId": "voorlezen",
+     "label": {
+      "nl": "Voorlezen voor publiek",
+      "en": "Reading aloud for an audience"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Wandeling over een oude begraafplaats",
+      "Voorlezen voor publiek"
+     ],
+     "lead": "solo",
+     "verify": [
+      "transport"
+     ]
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P05",
+   "title": "Gezin met kinderen",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 35-44, Maastricht",
+    "budget 100, tijd fullday, gezelschap with_known",
+    "koos beelden: Een stal met warm stro, Een volle keukentafel, Iets zien groeien, Het brood dat uit de oven komt, Kruiden uit de tuin, Warme vacht, zachte neus",
+    "richtingen: nature, food",
+    "harde grenzen: kinderen, geen alcohol"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "droge-stenen-muur",
+     "label": {
+      "nl": "Een droge stenen muur bouwen",
+      "en": "Building a dry-stone wall"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Een droge stenen muur bouwen"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "no_alcohol",
+      "children"
+     ]
+    },
+    {
+     "activityId": "fermenteren",
+     "label": {
+      "nl": "Fermenteren: zuurkool, kimchi en kombucha",
+      "en": "Fermenting: sauerkraut, kimchi and kombucha"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Tuinieren of een moestuin",
+      "Fermenteren: zuurkool, kimchi en kombucha"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "no_alcohol",
+      "children"
+     ]
+    },
+    {
+     "activityId": "brocante-antiek",
+     "label": {
+      "nl": "Brocante- en antiekmarkt",
+      "en": "Brocante and antiques market"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Meubels restaureren",
+      "Brocante- en antiekmarkt"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "no_alcohol",
+      "children"
+     ]
+    },
+    {
+     "activityId": "wandeltocht-lang",
+     "label": {
+      "nl": "Een lange wandeltocht in etappes",
+      "en": "A long-distance walk in stages"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Een droge stenen muur bouwen",
+      "Een lange wandeltocht in etappes"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "no_alcohol",
+      "children"
+     ]
+    },
+    {
+     "activityId": "stoomtrein",
+     "label": {
+      "nl": "Meerijden op een stoomtrein",
+      "en": "A ride on a steam train"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Meubels restaureren",
+      "Meerijden op een stoomtrein"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "no_alcohol",
+      "children"
+     ]
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P06",
+   "title": "Mobiliteitsbeperking",
+   "kind": "images",
+   "edge": true,
+   "brief": [
+    "voor zichzelf, leeftijd 65plus, Utrecht",
+    "budget 25, tijd halfday, gezelschap duo",
+    "koos beelden: Een oude leeszaal, Een atelier vol licht, Verdwalen in een verhaal, Helemaal stil worden, Het kraken van een oud boek, Kaarslicht",
+    "richtingen: creative, history",
+    "harde grenzen: Rolstoeltoegankelijk"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "spookwandeling",
+     "label": {
+      "nl": "Spookwandeling en legendes bij kaarslicht",
+      "en": "Ghost walk and legends by candlelight"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Spookwandeling en legendes bij kaarslicht"
+     ],
+     "lead": "duo",
+     "verify": [
+      "accessibility"
+     ]
+    },
+    {
+     "activityId": "fossielen",
+     "label": {
+      "nl": "Fossielen en mineralen zoeken",
+      "en": "Fossil and mineral hunting"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Brocante- en antiekmarkt",
+      "Fossielen en mineralen zoeken"
+     ],
+     "lead": "duo",
+     "verify": [
+      "accessibility"
+     ]
+    },
+    {
+     "activityId": "restaureren",
+     "label": {
+      "nl": "Meubels restaureren",
+      "en": "Furniture restoration"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Brocante- en antiekmarkt",
+      "Meubels restaureren"
+     ],
+     "lead": "duo",
+     "verify": [
+      "cost_near_budget",
+      "accessibility"
+     ]
+    },
+    {
+     "activityId": "musea",
+     "label": {
+      "nl": "Museumbezoek",
+      "en": "Museum visit"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Een slagveld of historische plek bezoeken",
+      "Museumbezoek"
+     ],
+     "lead": "duo",
+     "verify": [
+      "cost_near_budget",
+      "accessibility"
+     ]
+    },
+    {
+     "activityId": "ballroom",
+     "label": {
+      "nl": "Stijldansen en ballroom",
+      "en": "Ballroom and social dance"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Stijldansen en ballroom"
+     ],
+     "lead": "duo",
+     "verify": [
+      "cost_near_budget",
+      "accessibility"
+     ]
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P07",
+   "title": "Dieet en alcoholvrij",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 25-34, Eindhoven",
+    "budget 100, tijd halfday, gezelschap with_known",
+    "koos beelden: Een volle keukentafel, Een rommelmarkt met oude schatten, Het brood dat uit de oven komt, Rond het kampvuur, Versgebakken brood, Kruiden uit de tuin",
+    "richtingen: food",
+    "harde grenzen: vegetarisch, geen alcohol"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "kerstmarkt",
+     "label": {
+      "nl": "Een kerstmarkt bezoeken",
+      "en": "Visiting a Christmas market"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Een kerstmarkt bezoeken"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "dietary",
+      "alcohol",
+      "no_alcohol"
+     ]
+    },
+    {
+     "activityId": "bomen-herkennen",
+     "label": {
+      "nl": "Bomen herkennen en bladeren sorteren",
+      "en": "Learning to recognise trees"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Composteren en een wormenbak beheren",
+      "Bomen herkennen en bladeren sorteren"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "dietary",
+      "alcohol",
+      "no_alcohol"
+     ]
+    },
+    {
+     "activityId": "buurtproject",
+     "label": {
+      "nl": "Een eigen buurtproject starten",
+      "en": "Starting a neighbourhood project of your own"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Potluck-avond",
+      "Een straatfeest of buurtborrel organiseren",
+      "Een eigen buurtproject starten"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "dietary",
+      "alcohol",
+      "no_alcohol"
+     ]
+    },
+    {
+     "activityId": "paddenstoelen",
+     "label": {
+      "nl": "Paddenstoelen zoeken",
+      "en": "Mushroom hunting"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Een weekend in een streek die je niet kent",
+      "Paddenstoelen zoeken"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "dietary",
+      "alcohol",
+      "no_alcohol"
+     ]
+    },
+    {
+     "activityId": "massage",
+     "label": {
+      "nl": "Massage of wellnessdag",
+      "en": "Massage or wellness day"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Composteren en een wormenbak beheren",
+      "Massage of wellnessdag"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "cost_near_budget",
+      "dietary",
+      "alcohol",
+      "no_alcohol"
+     ]
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P08",
+   "title": "Digitale maker",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 18-24, Groningen",
+    "budget 25, tijd hour, gezelschap solo",
+    "koos beelden: Een atelier vol licht, Een tafel vol miniatuurwereld, Het stukje dat past, Voor het eerst iets leren, Het klikken van een mechanisme",
+    "richtingen: tech, games",
+    "harde grenzen: binnen"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "linoleum-snijden",
+     "label": {
+      "nl": "Een linoleumsnede maken",
+      "en": "Making a linocut"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Een linoleumsnede maken"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "cryptografie",
+     "label": {
+      "nl": "Codes kraken: cryptografie voor beginners",
+      "en": "Cracking codes: cryptography for beginners"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Een eigen website bouwen",
+      "Codes kraken: cryptografie voor beginners"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "make-up-workshop",
+     "label": {
+      "nl": "Make-upworkshop: leer je eigen look",
+      "en": "Make-up workshop: find your own look"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Theatrale make-up",
+      "Make-upworkshop: leer je eigen look"
+     ],
+     "lead": "solo",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "motor-sleutelen",
+     "label": {
+      "nl": "Sleutelen aan een motor of scooter",
+      "en": "Tinkering with a motorbike or scooter"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Een linoleumsnede maken",
+      "Sleutelen aan een motor of scooter"
+     ],
+     "lead": "solo",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "geneeskunde-museum",
+     "label": {
+      "nl": "Een museum over geneeskunde en het lichaam bezoeken",
+      "en": "Visiting a museum of medicine and the human body"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Een museum over geneeskunde en het lichaam bezoeken"
+     ],
+     "lead": "solo",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P09",
+   "title": "Zeer smalle interesse",
+   "kind": "images",
+   "edge": true,
+   "brief": [
+    "voor zichzelf, leeftijd 45-54, Zwolle",
+    "budget 25, tijd halfday, gezelschap solo",
+    "koos beelden: Een tafel vol miniatuurwereld, Het ontbrekende stuk in je verzameling, Een penseel met één haar",
+    "richtingen: collecting"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "zaden-ruilen",
+     "label": {
+      "nl": "Zaden verzamelen en ruilen",
+      "en": "Collecting and swapping seeds"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Zaden verzamelen en ruilen"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "personal-shopping",
+     "label": {
+      "nl": "Een middag personal shopping",
+      "en": "An afternoon of personal shopping"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Haarspelden en haaraccessoires maken",
+      "Een middag personal shopping"
+     ],
+     "lead": "solo",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "raadsels",
+     "label": {
+      "nl": "Raadsels en cryptogrammen",
+      "en": "Riddles and cryptic crosswords"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Een dag boekwinkels en bibliotheken",
+      "Esperanto of een verzonnen taal leren",
+      "Raadsels en cryptogrammen"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "stop-motion",
+     "label": {
+      "nl": "Stop-motion animatie",
+      "en": "Stop-motion animation"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Origami",
+      "Stop-motion animatie"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "archief-indexeren",
+     "label": {
+      "nl": "Archiefstukken indexeren als vrijwilliger",
+      "en": "Indexing archive records as a volunteer"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Archiefstukken indexeren als vrijwilliger"
+     ],
+     "lead": "solo",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P10",
+   "title": "Tegenstrijdige wensen",
+   "kind": "images",
+   "edge": true,
+   "brief": [
+    "voor zichzelf, leeftijd 35-44, Maastricht",
+    "budget 100, tijd hour, gezelschap duo",
+    "koos beelden: Stil water bij zonsopgang, Een circuit met banden en vlaggen, Onder water, alles stil, Vlak voor de start, Een diepe bas, De koele lucht van een grot",
+    "richtingen: restful, speed",
+    "harde grenzen: buiten of binnen, druk maar niet druk"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "speedcuben",
+     "label": {
+      "nl": "Speedcuben",
+      "en": "Speedcubing"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Speedcuben"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "oldtimerrit",
+     "label": {
+      "nl": "Oldtimerrit of klassiekerdag",
+      "en": "Classic-car drive day"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Pumptrack of BMX-baan",
+      "Oldtimerrit of klassiekerdag"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "planetarium-sterrenwacht",
+     "label": {
+      "nl": "Een planetarium of sterrenwacht bezoeken",
+      "en": "Visiting a planetarium or observatory"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Zwemmen in open water",
+      "Sterrenkijken",
+      "Een planetarium of sterrenwacht bezoeken"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "skihal",
+     "label": {
+      "nl": "Indoor skiën of snowboarden",
+      "en": "Indoor skiing or snowboarding"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Surfles aan zee",
+      "Indoor skiën of snowboarden"
+     ],
+     "lead": "duo",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "spookwandeling",
+     "label": {
+      "nl": "Spookwandeling en legendes bij kaarslicht",
+      "en": "Ghost walk and legends by candlelight"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Spookwandeling en legendes bij kaarslicht"
+     ],
+     "lead": "duo",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P11",
+   "title": "Verras me overal",
+   "kind": "images",
+   "edge": true,
+   "brief": [
+    "voor zichzelf, leeftijd 35-44, Utrecht",
+    "budget 100, tijd halfday, gezelschap duo",
+    "koos geen beelden (verras me)"
+   ],
+   "notes": [
+    "surprise_me"
+   ],
+   "seeds": [
+    {
+     "activityId": "raadsels",
+     "label": {
+      "nl": "Raadsels en cryptogrammen",
+      "en": "Riddles and cryptic crosswords"
+     },
+     "door": "natural",
+     "direction": "explore",
+     "chain": [
+      "Raadsels en cryptogrammen"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "modemuseum",
+     "label": {
+      "nl": "Een modemuseum of kostuumcollectie bezoeken",
+      "en": "Visiting a fashion museum or costume collection"
+     },
+     "door": "discovery",
+     "direction": "explore",
+     "chain": [
+      "Een modemuseum of kostuumcollectie bezoeken"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "roofvogelshow",
+     "label": {
+      "nl": "Een roofvogelshow of valkeniersdag",
+      "en": "A bird of prey show or falconry day"
+     },
+     "door": "unexpected",
+     "direction": "explore",
+     "chain": [
+      "Een roofvogelshow of valkeniersdag"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "groundhoppen",
+     "label": {
+      "nl": "Groundhoppen: stadions bezoeken",
+      "en": "Groundhopping: visiting stadiums"
+     },
+     "door": "stretch",
+     "direction": "explore",
+     "chain": [
+      "Groundhoppen: stadions bezoeken"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "modeltreinen",
+     "label": {
+      "nl": "Modeltreinen",
+      "en": "Model railways"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Modeltreinen"
+     ],
+     "lead": "duo",
+     "verify": [
+      "cost_near_budget"
+     ]
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P12",
+   "title": "Voor een kunstliefhebber (iemand anders)",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor Anna, leeftijd 55-64, Haarlem",
+    "budget 100, tijd halfday, gezelschap duo",
+    "koos beelden: Een leeg podium met één lamp, Een atelier vol licht, Het applaus na jouw optreden, Handen vol klei, Warm spotlight op je gezicht, Een penseel met één haar",
+    "richtingen: stage, creative"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "flamenco",
+     "label": {
+      "nl": "Flamenco leren",
+      "en": "Learning flamenco"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Flamenco leren"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "bloemenmarkt",
+     "label": {
+      "nl": "De bloemenmarkt of de veiling bezoeken",
+      "en": "Visiting a flower market or auction"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Een modeshow of modebeurs bijwonen",
+      "De bloemenmarkt of de veiling bezoeken"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "stop-motion",
+     "label": {
+      "nl": "Stop-motion animatie",
+      "en": "Stop-motion animation"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Diorama's en landschapsbouw",
+      "Stop-motion animatie"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "langlaufen",
+     "label": {
+      "nl": "Langlaufen",
+      "en": "Cross-country skiing"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Flamenco leren",
+      "Langlaufen"
+     ],
+     "lead": "duo",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "detectivebox",
+     "label": {
+      "nl": "Detectivebox: een zaak aan tafel oplossen",
+      "en": "Detective box: solving a case at the table"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Een poëzieavond bijwonen",
+      "Detectivebox: een zaak aan tafel oplossen"
+     ],
+     "lead": "duo",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P13",
+   "title": "Voor een puber (iemand anders)",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor Sam, leeftijd under18, Eindhoven",
+    "budget 25, tijd hour, gezelschap with_known",
+    "koos beelden: Een arena vol licht, Een straat vol neon in de nacht, Het aftellen, de klok loopt, Samen hard lachen, Het drumroffel voor de start, Een diepe bas",
+    "richtingen: speed, night",
+    "harde grenzen: geen alcohol"
+   ],
+   "notes": [
+    "direction_relaxed:stretch"
+   ],
+   "seeds": [
+    {
+     "activityId": "djembe-trommelcirkel",
+     "label": {
+      "nl": "Trommelen in een groep",
+      "en": "Drumming in a group"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Trommelen in een groep"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "no_alcohol"
+     ]
+    },
+    {
+     "activityId": "badminton",
+     "label": {
+      "nl": "Badminton spelen",
+      "en": "Playing badminton"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Paintball of airsoft",
+      "Badminton spelen"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "no_alcohol"
+     ]
+    },
+    {
+     "activityId": "onder-de-stad",
+     "label": {
+      "nl": "Onder de stad: tunnels en kelders",
+      "en": "Under the city: tunnels and cellars"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Legendes en spooktocht",
+      "Een nacht in een kasteel of spookachtig huis",
+      "Onder de stad: tunnels en kelders"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "no_alcohol"
+     ]
+    },
+    {
+     "activityId": "open-source",
+     "label": {
+      "nl": "Meebouwen aan open-source software",
+      "en": "Contributing to open-source software"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Paintball of airsoft",
+      "Meebouwen aan open-source software"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "alcohol",
+      "no_alcohol"
+     ]
+    },
+    {
+     "activityId": "retrogaming",
+     "label": {
+      "nl": "Retrogaming",
+      "en": "Retro gaming"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "VR-arcade",
+      "Retrogaming"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "cost_near_budget",
+      "alcohol",
+      "no_alcohol"
+     ]
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P14",
+   "title": "Actieve senior",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 65plus, Groningen",
+    "budget 25, tijd halfday, gezelschap small_group",
+    "koos beelden: Stil water bij zonsopgang, Een warm hoekje, Helemaal stil worden, Ritme in je lijf, Gras onder blote voeten, Zout op je huid",
+    "richtingen: movement, restful",
+    "harde grenzen: geen zware inspanning"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "nordic-walking",
+     "label": {
+      "nl": "Nordic walking",
+      "en": "Nordic walking"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Nordic walking"
+     ],
+     "lead": "small_group",
+     "verify": []
+    },
+    {
+     "activityId": "kinderboerderij",
+     "label": {
+      "nl": "Een uur op de kinderboerderij",
+      "en": "An hour at a petting farm"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Yoga tussen de geiten",
+      "Een uur op de kinderboerderij"
+     ],
+     "lead": "small_group",
+     "verify": []
+    },
+    {
+     "activityId": "bandje-beginnen",
+     "label": {
+      "nl": "Een bandje beginnen",
+      "en": "Starting a band"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Zangles voor beginners",
+      "Meespelen in een fanfare of harmonieorkest",
+      "Een bandje beginnen"
+     ],
+     "lead": "small_group",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "rolschaatsen",
+     "label": {
+      "nl": "Rolschaatsen",
+      "en": "Roller skating"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Yoga",
+      "Rolschaatsen"
+     ],
+     "lead": "small_group",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "kunstgeschiedenis-cursus",
+     "label": {
+      "nl": "Een cursus kunstgeschiedenis",
+      "en": "An art history course"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Een cursus kunstgeschiedenis"
+     ],
+     "lead": "small_group",
+     "verify": [
+      "cost_near_budget"
+     ]
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P15",
+   "title": "Weinig tijd, veel zin",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 35-44, Zwolle",
+    "budget 25, tijd hour, gezelschap solo",
+    "koos beelden: Een straat vol neon in de nacht, Een stille bosrand, Voor het eerst iets leren, Samen hard lachen, Wind in je gezicht"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "willekeurig-station",
+     "label": {
+      "nl": "Uitstappen op een willekeurig station",
+      "en": "Getting off at a random station"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Uitstappen op een willekeurig station"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "wandelmeditatie",
+     "label": {
+      "nl": "Wandelmeditatie",
+      "en": "Walking meditation"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Een lange wandeling",
+      "Wandelmeditatie"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "miniaturen",
+     "label": {
+      "nl": "Miniaturen schilderen",
+      "en": "Miniature painting"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Fotografie",
+      "Miniaturen schilderen"
+     ],
+     "lead": "solo",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "zwemmen-baantjes",
+     "label": {
+      "nl": "Baantjes zwemmen met een plan",
+      "en": "Lap swimming with a plan"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Nordic walking",
+      "Baantjes zwemmen met een plan"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "stenen-stapelen",
+     "label": {
+      "nl": "Stenen stapelen",
+      "en": "Rock balancing"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Een lange wandeling",
+      "Stenen stapelen"
+     ],
+     "lead": "solo",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P16",
+   "title": "Weekendontsnapping",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 25-34, Maastricht",
+    "budget 100, tijd weekend, gezelschap solo",
+    "koos beelden: Een bergkam boven de wolken, Een grot met druipend water, Boven komen, Een geheim dat open gaat, Wind in je gezicht, De koele lucht van een grot",
+    "richtingen: solo_explore, adventure",
+    "harde grenzen: geen auto"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "fietsroute",
+     "label": {
+      "nl": "Solo fietstocht langs rivier of kust",
+      "en": "Solo bike ride"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Solo fietstocht langs rivier of kust"
+     ],
+     "lead": "solo",
+     "verify": [
+      "transport"
+     ]
+    },
+    {
+     "activityId": "vuurtoren",
+     "label": {
+      "nl": "Een vuurtoren beklimmen",
+      "en": "Climbing a lighthouse"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Tokkelbaan",
+      "Een vuurtoren beklimmen"
+     ],
+     "lead": "solo",
+     "verify": [
+      "transport"
+     ]
+    },
+    {
+     "activityId": "legpuzzels",
+     "label": {
+      "nl": "Legpuzzels",
+      "en": "Jigsaw puzzles"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Boulderen",
+      "Legpuzzels"
+     ],
+     "lead": "solo",
+     "verify": [
+      "transport"
+     ]
+    },
+    {
+     "activityId": "skihal",
+     "label": {
+      "nl": "Indoor skiën of snowboarden",
+      "en": "Indoor skiing or snowboarding"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Een meerdaagse fietstocht met overnachtingen",
+      "Indoor skiën of snowboarden"
+     ],
+     "lead": "solo",
+     "verify": [
+      "cost_near_budget",
+      "transport"
+     ]
+    },
+    {
+     "activityId": "vertalen",
+     "label": {
+      "nl": "Vertalen als hobby",
+      "en": "Translation as a hobby"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Boulderen",
+      "Vertalen als hobby"
+     ],
+     "lead": "solo",
+     "verify": [
+      "transport"
+     ]
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P17",
+   "title": "Verzamelaar",
+   "kind": "images",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 45-54, Utrecht",
+    "budget 25, tijd halfday, gezelschap solo",
+    "koos beelden: Een rommelmarkt met oude schatten, Een oude leeszaal, Het ontbrekende stuk in je verzameling, Verdwalen in een verhaal, Het kraken van een oud boek, Het kraken van vinyl",
+    "richtingen: collecting, history"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "stomme-film",
+     "label": {
+      "nl": "Stomme film met live muziek",
+      "en": "Silent film with live music"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Stomme film met live muziek"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "cactussen",
+     "label": {
+      "nl": "Cactussen en zeldzame planten verzamelen",
+      "en": "Collecting cacti and rare plants"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Een veiling of kijkdag bezoeken",
+      "Cactussen en zeldzame planten verzamelen"
+     ],
+     "lead": "solo",
+     "verify": [
+      "cost_unknown"
+     ]
+    },
+    {
+     "activityId": "journaling",
+     "label": {
+      "nl": "Journaling",
+      "en": "Journaling"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Je levensverhaal of familieverhalen opschrijven",
+      "Schrijven in een tweede taal",
+      "Journaling"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "lezen",
+     "label": {
+      "nl": "Een roman van begin tot eind lezen",
+      "en": "Reading a novel"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Een dag boekwinkels en bibliotheken",
+      "Een roman van begin tot eind lezen"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "eerste-klant-vinden",
+     "label": {
+      "nl": "Je eerste klant of opdracht vinden",
+      "en": "Finding your first client or commission"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Je eerste klant of opdracht vinden"
+     ],
+     "lead": "solo",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P18",
+   "title": "Kaarten: gezelschap en spel",
+   "kind": "cards",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 25-34, Haarlem",
+    "budget 25, tijd halfday, gezelschap with_known",
+    "koos activiteiten: Moderne bordspellen, Pubquiz, Escape room, Kaartspellen (bridge, klaverjassen)",
+    "richtingen: games, night"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "escape-room",
+     "label": {
+      "nl": "Escape room",
+      "en": "Escape room"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Escape room"
+     ],
+     "lead": "with_known",
+     "verify": [
+      "cost_near_budget"
+     ]
+    },
+    {
+     "activityId": "tafelvoetbal",
+     "label": {
+      "nl": "Tafelvoetbal in een spelletjescafé",
+      "en": "Table football in a games café"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Moderne bordspellen",
+      "Tafelvoetbal in een spelletjescafé"
+     ],
+     "lead": "with_known",
+     "verify": []
+    },
+    {
+     "activityId": "wandelen",
+     "label": {
+      "nl": "Een lange wandeling",
+      "en": "A long walk"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Moderne bordspellen",
+      "Een lange wandeling"
+     ],
+     "lead": "with_known",
+     "verify": []
+    },
+    {
+     "activityId": "pokeravond",
+     "label": {
+      "nl": "Pokeravond voor beginners",
+      "en": "Poker night for beginners"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Pubquiz",
+      "Pokeravond voor beginners"
+     ],
+     "lead": "with_known",
+     "verify": []
+    },
+    {
+     "activityId": "wilgenvlechten",
+     "label": {
+      "nl": "Wilgentenen vlechten",
+      "en": "Willow weaving"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Wilgentenen vlechten"
+     ],
+     "lead": "with_known",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P19",
+   "title": "Kaarten: rust",
+   "kind": "cards",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 55-64, Haarlem",
+    "budget free, tijd hour, gezelschap solo",
+    "koos activiteiten: Meditatie, Bosbaden (shinrin-yoku), Een roman van begin tot eind lezen, Journaling",
+    "richtingen: restful, nature",
+    "harde grenzen: stil"
+   ],
+   "notes": [
+    "direction_relaxed:stretch"
+   ],
+   "seeds": [
+    {
+     "activityId": "meditatie",
+     "label": {
+      "nl": "Meditatie",
+      "en": "Meditation"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Meditatie"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "weekreview",
+     "label": {
+      "nl": "Wekelijks ritueel van terugkijken",
+      "en": "Weekly review ritual"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Een roman van begin tot eind lezen",
+      "Wekelijks ritueel van terugkijken"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "sterrenkijken",
+     "label": {
+      "nl": "Sterrenkijken",
+      "en": "Stargazing"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Bosbaden (shinrin-yoku)",
+      "Wolken en weer lezen",
+      "Sterrenkijken"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "origami",
+     "label": {
+      "nl": "Origami",
+      "en": "Origami"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Meditatie",
+      "Origami"
+     ],
+     "lead": "solo",
+     "verify": []
+    },
+    {
+     "activityId": "stop-motion",
+     "label": {
+      "nl": "Stop-motion animatie",
+      "en": "Stop-motion animation"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Een roman van begin tot eind lezen",
+      "Stop-motion animatie"
+     ],
+     "lead": "solo",
+     "verify": []
+    }
+   ],
+   "findings": []
+  },
+  {
+   "id": "P20",
+   "title": "Kaarten: wild",
+   "kind": "cards",
+   "edge": false,
+   "brief": [
+    "voor zichzelf, leeftijd 25-34, Haarlem",
+    "budget allin, tijd weekend, gezelschap duo",
+    "koos activiteiten: Boogschieten, Abseilen, Buiten klimmen op echte rots, Schietles (sportschieten)",
+    "richtingen: adventure, target",
+    "harde grenzen: alleen met instructeur"
+   ],
+   "notes": [],
+   "seeds": [
+    {
+     "activityId": "buiten-klimmen",
+     "label": {
+      "nl": "Buiten klimmen op echte rots",
+      "en": "Climbing on real rock outdoors"
+     },
+     "door": "natural",
+     "direction": "familiar",
+     "chain": [
+      "Buiten klimmen op echte rots"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "oude-kaart-wandeling",
+     "label": {
+      "nl": "Een wandeling met een oude kaart van je stad",
+      "en": "A walk with an old map of your city"
+     },
+     "door": "discovery",
+     "direction": "adjacent",
+     "chain": [
+      "Boogschieten",
+      "Een wandeling met een oude kaart van je stad"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "tafelvoetbal",
+     "label": {
+      "nl": "Tafelvoetbal in een spelletjescafé",
+      "en": "Table football in a games café"
+     },
+     "door": "unexpected",
+     "direction": "unexpected",
+     "chain": [
+      "Schietles (sportschieten)",
+      "Simracen",
+      "Tafelvoetbal in een spelletjescafé"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "boksles",
+     "label": {
+      "nl": "Boksles of kickboksen",
+      "en": "Boxing or kickboxing class"
+     },
+     "door": "stretch",
+     "direction": "stretch",
+     "chain": [
+      "Buiten klimmen op echte rots",
+      "Boksles of kickboksen"
+     ],
+     "lead": "duo",
+     "verify": []
+    },
+    {
+     "activityId": "personal-shopping",
+     "label": {
+      "nl": "Een middag personal shopping",
+      "en": "An afternoon of personal shopping"
+     },
+     "door": "wildcard",
+     "direction": "wildcard",
+     "chain": [
+      "Een middag personal shopping"
+     ],
+     "lead": "duo",
+     "verify": []
+    }
+   ],
+   "findings": []
+  }
+ ]
+}

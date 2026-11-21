@@ -1473,8 +1473,7 @@
       "en": "Many grain mills and polder mills turn on Saturdays for visitors; the miller explains how it works"
     },
     "scene": "a traditional brick windmill with turning sails beside a canal that reflects a bright sky",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "hunebedden-bezoeken",
@@ -1510,7 +1509,6 @@
       "en": "In Drenthe and Groningen lie burial monuments thousands of years old, freely accessible along walking and cycling routes"
     },
     "scene": "a massive prehistoric stone burial chamber of boulders under heather and birch trees",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

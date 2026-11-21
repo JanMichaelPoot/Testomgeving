@@ -1355,8 +1355,7 @@
       "en": "A set costs a few euros; many community centres and cafés hold a domino night"
     },
     "scene": "black domino tiles with white dots laid in a snaking line across a wooden table",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "klaverjassen",
@@ -1390,8 +1389,7 @@
       "en": "Klaverjas clubs and card nights at the community centre welcome new players; with four players and a deck of cards you are under way"
     },
     "scene": "playing cards fanned out on green baize beside a score pad and a pencil",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "woordspellen",
@@ -1427,7 +1425,6 @@
       "en": "A game costs little; also playable online with friends or in a games café"
     },
     "scene": "wooden letter tiles forming crossing words on a board with a small cloth bag of spare tiles",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

@@ -3652,8 +3652,7 @@
       "en": "Picking is not allowed everywhere: look for fallen leaves and flowers, dry them between newspapers under a stack of books and glue them in a notebook"
     },
     "scene": "pressed ferns and wildflowers mounted on the cream pages of an open herbarium album beside a pencil and small labels",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "zaden-ruilen",
@@ -3688,8 +3687,7 @@
       "en": "Collect seeds from your garden or the verge, dry them and swap them at a seed swap or through a garden society"
     },
     "scene": "paper envelopes of hand-labelled seeds laid out on a wooden table beside dried flower heads and a small jar",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   },
   {
     "id": "eendenkooi-bezoeken",
@@ -3725,7 +3723,6 @@
       "en": "A number of duck decoys in the Netherlands can be visited with a tour by the keeper; ask about open days"
     },
     "scene": "a still pond ringed by willows with a curved tunnel of reed screens leading to a hidden trap at the water's edge",
-    "status": "concept",
-    "image_pending": true
+    "status": "concept"
   }
 ]

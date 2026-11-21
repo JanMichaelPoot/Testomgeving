@@ -128,6 +128,8 @@ interface Job {
   scene: string;
   colorName: string;
   hex: string;
+  /** A filler cell that only completes a sheet: its tile is thrown away, nothing is written. */
+  discard?: boolean;
 }
 
 const args = process.argv.slice(2);
@@ -228,6 +230,7 @@ async function makeSheet(cells: Job[], n: number): Promise<string[]> {
       const seconds = Math.round((Date.now() - t0) / 1000);
       const lines: string[] = [];
       for (let i = 0; i < cells.length; i++) {
+        if (cells[i].discard) continue;
         mkdirSync(path.dirname(cells[i].file), { recursive: true });
         await writeFile(cells[i].file, tiles[i].jpeg);
         const soft = tiles[i].sourceWidth < WIDTH * 0.8 ? `, source ${tiles[i].sourceWidth}px` : "";
@@ -246,6 +249,15 @@ async function makeSheet(cells: Job[], n: number): Promise<string[]> {
   return cells.map((c) => `${c.label} FAILED (sheet)`);
 }
 
+/** The cells of a partly filled sheet plus enough fillers (activities that already have a photo, marked discard) to make `size` cells. */
+function padCells(cells: Job[], size: number): Job[] {
+  const fillers = jobs
+    .filter((j) => !j.label.startsWith("domain ") && existsSync(j.file) && !cells.includes(j))
+    .slice(0, size - cells.length)
+    .map((j) => ({ ...j, discard: true }));
+  return [...cells, ...fillers];
+}
+
 async function runSheets() {
   const activityJobs = batch.filter((j) => !j.label.startsWith("domain "));
   const domainJobs = batch.filter((j) => j.label.startsWith("domain "));
@@ -262,6 +274,11 @@ async function runSheets() {
     while (remaining.length >= n * n) {
       sheets.push({ cells: remaining.slice(0, n * n), n });
       remaining = remaining.slice(n * n);
+    }
+    // --pad: one more sheet of the biggest grid, completed with filler cells whose tiles are thrown away, is cheaper than a 2x2 plus singles.
+    if (n === gridN && flag("pad") && remaining.length >= 2) {
+      sheets.push({ cells: padCells(remaining, n * n), n });
+      remaining = [];
     }
   }
   const singles = [...domainJobs, ...remaining];
@@ -356,9 +373,15 @@ async function main() {
     if (sheetSpec) {
       let left = todo.length;
       images = 0;
-      for (let n = gridN; n >= 2; n--) while (left >= n * n) {
-        images++;
-        left -= n * n;
+      for (let n = gridN; n >= 2; n--) {
+        while (left >= n * n) {
+          images++;
+          left -= n * n;
+        }
+        if (n === gridN && flag("pad") && left >= 2) {
+          images++;
+          left = 0;
+        }
       }
       images += left;
     }

@@ -1,6 +1,6 @@
 # Plan van aanpak: van associaties en profiel naar de juiste activiteiten (18 november 2026)
 
-Opdracht van Jan: de bibliotheek (792 activiteiten) zo goed mogelijk benutten en op basis van thema's/associaties **in combinatie met het profiel** de juiste, interessante en geschikte activiteiten kiezen, met de referentie "De activiteiten-engine" (4.1 tot 4.4) als maatstaf. Jan bepaalt met vinkjes welke onderdelen gebouwd worden; dit document is de onderbouwing.
+Opdracht van Jan: de bibliotheek (816 activiteiten) zo goed mogelijk benutten en op basis van thema's/associaties **in combinatie met het profiel** de juiste, interessante en geschikte activiteiten kiezen, met de referentie "De activiteiten-engine" (4.1 tot 4.4) als maatstaf. Jan bepaalt met vinkjes welke onderdelen gebouwd worden; dit document is de onderbouwing.
 
 Zekerheid: **[B]** gelezen in de code of gemeten, **[O]** onderbouwde raming.
 
@@ -13,7 +13,7 @@ Zekerheid: **[B]** gelezen in de code of gemeten, **[O]** onderbouwde raming.
 | 4.1 Voorkeuren (associaties) | 30 themategels, gewicht per tag; pagina 2 en de onverwachte deur gebruiken ze (Stap 211-212) | Gedekt voor pagina 2 en één deur; de **overige vier ideeën** kiest de motor nog op de eigen kiezen en tags, niet vanuit de thema's |
 | 4.1 Combinaties | E4: onverwachte deur uit twee thema's, 39% van de boeken | Gedekt, zwakke treffers blijven (boomklimmen als natuur+techniek) |
 | 4.1 Randvoorwaarden | Tijd, budget, inspanning, gezelschap, must-haves | Gedekt |
-| 4.2 Omvang 500-1.000 | **792** activiteiten, 22 werelden | Gedekt |
+| 4.2 Omvang 500-1.000 | **816** activiteiten, 22 werelden | Gedekt |
 | 4.2 Kenmerken per activiteit | Wel: domein, subdomein, tags, formats (groepsgrootte), setting, intensiteit, niveau, kosten, duur, supply (beschikbaarheid), entry (praktisch), veiligheid, maanden. **Niet:** een type (zelf maken, leren, bijwonen...), een verrassingsgraad, een doelgroep als data (alleen lijsten), een uitvoeringsvorm | Gaten |
 | 4.2 Brede lijst | Aanwezig: escaperoom, naaien, duiken, parachute, houtbewerking, poppenhuis, fotografie, poetry slam. **Ontbreekt**: ringwerpen en traditionele spellen (0), voordragen/presenteren (0), poëzie (alleen slam), textiel (3) | Kleine gaten |
 | 4.3 Vijf opties, elk met minimaal drie activiteiten | Het boek heeft **vijf ideeën van één activiteit**; daaronder staan tot drie "ook in deze richting" (uit de relatiegraaf van de activiteit, niet uit de thema's), drie maten (proeven, doen, verdiepen) en tot drie plekken. Jan besliste op 15 november: "vijf opties = de vijf ideeën" | **Grootste verschil**: een optie is nu een activiteit, niet een richting met drie activiteiten |
