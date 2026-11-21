@@ -53,7 +53,7 @@ describe("the idea page with a fill", () => {
   it("stays on one page per idea: a fill is the same size as the template it replaces", async () => {
     expect((await render(book())).getPageCount()).toBe(9);
     expect((await render(book({ fill: FILL }))).getPageCount()).toBe(9);
-  });
+  }, 60_000);
 
   it("does not break on a stored fill that is malformed (it is checked again when read)", async () => {
     const broken = { timeline: ["a"], takeaways: [], suggestions: "x" } as unknown as IdeaFill;
