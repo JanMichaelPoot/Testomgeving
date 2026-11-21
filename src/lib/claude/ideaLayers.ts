@@ -6,6 +6,7 @@
 // was, and the book never fails because of a layer.
 
 import { storedRating, type Rating } from "@/lib/claude/rating";
+import { MODES, type ExecutionMode } from "@/lib/discovery/activityKind";
 
 /** The three sizes of one door, in this fixed order. */
 export const SIZE_KINDS = ["taste", "do", "deepen"] as const;
@@ -48,6 +49,8 @@ export interface IdeaLayers {
   related?: RelatedActivity[];
   /** R1: the direction of this idea's option as words ("natuur + ambacht en handwerk"), when it comes from the chosen themes. */
   direction?: string;
+  /** C2: how this idea can be done (by yourself, through a provider or venue, or after organising), from the library. Absent on older books. */
+  mode?: ExecutionMode;
 }
 
 // Hard limits (characters). The prompt asks for much shorter text; these only catch a runaway
@@ -121,6 +124,7 @@ export function readStoredLayers(raw: unknown): IdeaLayers {
   if (related.length) layers.related = related;
   const direction = clean(r.direction);
   if (direction && direction.length <= LAYER_LIMITS.direction) layers.direction = direction;
+  if (typeof r.mode === "string" && (MODES as readonly string[]).includes(r.mode)) layers.mode = r.mode as ExecutionMode;
   return layers;
 }
 
@@ -183,7 +187,7 @@ export function pdfPageNumbers(orderedIdeas: readonly IdeaLayers[], first = 3): 
 
 /** The entry with its layers replaced by their validated form (anything invalid or malformed is gone). */
 export function withValidLayers<T extends IdeaLayers>(entry: T): T {
-  const { feels_like: _f, sizes: _s, next_step: _n, places: _p, related: _r, direction: _d, ...rest } = entry;
-  void [_f, _s, _n, _p, _r, _d];
+  const { feels_like: _f, sizes: _s, next_step: _n, places: _p, related: _r, direction: _d, mode: _m, ...rest } = entry;
+  void [_f, _s, _n, _p, _r, _d, _m];
   return { ...rest, ...readStoredLayers(entry) } as T;
 }

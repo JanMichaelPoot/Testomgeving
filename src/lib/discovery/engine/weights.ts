@@ -61,6 +61,13 @@ export interface Weights {
    */
   option: { theme: number; sim: number; practical: number; rare: number; noise: number; otherKind: number; clusterPenalty: number; minThemeRel: number; relaxedRel: number; maxTagOverlap: number; coverage: number };
 
+  /**
+   * C2 (docs/plan-activiteitenselectie.md): how an idea can be done (activityKind.ts) steers the book a little. While no idea of the book can be done by
+   * yourself, an activity that can gets `self` less cost (a bonus); an activity that has to be organised first costs `organise` more once two ideas of the
+   * book already do. It is a nudge in every slot, never a hard rule: the pool decides whether it can be met. 0 = off (every set but WEIGHTS_ANCHOR).
+   */
+  balance: { self: number; organise: number };
+
   // --- B4 behaviour switches (all off in WEIGHTS_CURRENT) --------------------------------------------
   /** An activity whose cost is unknown does not pass a "free" budget: unknown is never a favourable answer. */
   strictFreeCost: boolean;
@@ -92,6 +99,7 @@ export const WEIGHTS_CURRENT: Weights = {
   stretch: { base: 2, bridge: 0.15, noise: 0.2, targetByWildness: [1, 1.2, 2, 2.8] },
   wildcard: { bridge: 2, newWorld: 2, redundancyFactor: 4, ageDecay: 2, baseRare: 0.5, supplyDecay: 3 },
   option: { theme: 1.2, sim: 0.6, practical: 0.2, rare: 0.1, noise: 0.15, otherKind: 0.15, clusterPenalty: 0.5, minThemeRel: 0.5, relaxedRel: 0.35, maxTagOverlap: 0.6, coverage: 1 },
+  balance: { self: 0, organise: 0 },
   strictFreeCost: false,
   explain: false,
   anchor: { picks: 0, indirect: false },
@@ -115,6 +123,7 @@ export const WEIGHTS_ANCHOR: Weights = {
   ...WEIGHTS_V2,
   anchor: { picks: 2, indirect: true },
   hub: 0.6,
+  balance: { self: 1, organise: 0.6 },
 };
 
 /** Doors and directions are listed here only so the type stays close to the weights that use them. */

@@ -129,7 +129,7 @@ export function buildOptions(ctx: OptionContext): Map<string, SeedOption> {
         }
       }
     }
-    out.set(seed.activityId, { themes, companions: companions.map((c) => c.id) });
+    out.set(seed.activityId, { for: seed.activityId, themes, companions: companions.map((c) => c.id) });
   }
   return out;
 }

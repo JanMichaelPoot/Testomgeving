@@ -81,4 +81,4 @@ Alles blijft binnen de grenzen die al gelden: geen nieuwe betaalde dienst, de $0
 | B. Bibliotheek | B1 + B2, B3, B4 en B5: alle |
 | C. Kwaliteit | C1, C2 en C3. **C4 (betaalde steekproef) niet nu**: komt alleen na een apart bedrag-akkoord |
 
-Stand: nulmeting C3 (Stap 214); B1 + B2 (Stap 215, `activityKind.json`); A1 tot en met A3 in de motor (Stap 216, `engine/options.ts`); R1 in het boek (Stap 217: richting en twee metgezellen met feitenregel op /plan en in de PDF). Volgende: C1 en C2, daarna A4, A5, B3, B4, B5.
+Stand: nulmeting C3 (Stap 214); B1 + B2 (Stap 215, `activityKind.json`); A1 tot en met A3 in de motor (Stap 216, `engine/options.ts`); R1 in het boek (Stap 217); C1 + C2 met evenwichtsregel (Stap 218, `bookCriteria.ts`, `weights.balance`). Volgende: A4, A5, B3, B4, B5, en eventueel C4 (betaalde steekproef, apart bedrag-akkoord).

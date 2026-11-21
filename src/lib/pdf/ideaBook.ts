@@ -46,6 +46,7 @@ import {
 } from "@/lib/pdf/ideaContent";
 import { fillConflicts, fillContext, normalizeFill, withoutConflicts } from "@/lib/claude/ideaFill";
 import { getActivity } from "@/lib/discovery/library";
+import { MODE_SHORT } from "@/lib/discovery/activityKind";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import { layoutWindow, type WindowItem } from "@/lib/windowLayout";
 
@@ -1033,7 +1034,7 @@ export async function renderIdeaBookPdf(
   const drawPanel = (x: number, top: number, w: number, h: number, color: RGB, radius = PWA4_RADIUS_MD) =>
     page.drawSvgPath(roundedRectPath(w, h, radius), { x, y: top, color });
 
-  type IconKind = "clock" | "level" | "people" | "pin" | "type";
+  type IconKind = "clock" | "level" | "people" | "pin" | "type" | "route";
 
   // Simple line icons, drawn as vectors (the bundled fonts have no icon glyphs,
   // and several symbols we might reach for are missing from Noto Sans).
@@ -1051,6 +1052,11 @@ export async function renderIdeaBookPdf(
     } else if (kind === "people") {
       page.drawCircle({ x: cx, y: cy + s * 0.2, size: s * 0.2, borderColor: color, borderWidth: w });
       page.drawEllipse({ x: cx, y: cy - s * 0.32, xScale: s * 0.36, yScale: s * 0.2, borderColor: color, borderWidth: w });
+    } else if (kind === "route") {
+      // two stops joined by a path: how you get there
+      page.drawCircle({ x: cx - s * 0.32, y: cy - s * 0.22, size: s * 0.15, color });
+      page.drawCircle({ x: cx + s * 0.32, y: cy + s * 0.22, size: s * 0.15, color });
+      page.drawLine({ start: { x: cx - s * 0.2, y: cy - s * 0.12 }, end: { x: cx + s * 0.2, y: cy + s * 0.12 }, thickness: w, color });
     } else if (kind === "pin") {
       page.drawCircle({ x: cx, y: cy + s * 0.12, size: s * 0.26, color });
       page.drawSvgPath(`M ${-s * 0.2},0 L ${s * 0.2},0 L 0,${s * 0.5} Z`, { x: cx, y: cy + s * 0.12 - s * 0.05, color });
@@ -1444,6 +1450,7 @@ export async function renderIdeaBookPdf(
       companyLabels.length > 0 ? { icon: "people" as const, label: pageLabels.company, value: companyLabels.join(", ") } : null,
       place ? { icon: "pin" as const, label: pageLabels.place, value: place } : null,
       { icon: "type" as const, label: pageLabels.type, value: copy.label },
+      idea.mode ? { icon: "route" as const, label: pageLabels.how, value: MODE_SHORT[idea.mode][locale] } : null,
     ].filter((c): c is GlanceCell => c !== null);
 
     const profileRows = EXPERIENCE_DIMENSIONS.map((d) => ({ name: pageLabels.dimensions[d], score: profile[d] }));

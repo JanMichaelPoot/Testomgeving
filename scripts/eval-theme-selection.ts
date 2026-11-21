@@ -70,6 +70,8 @@ const m = {
   optCoverage: [] as number[], // share of chosen themes that any of the 15 activities belongs to
   optSelf: 0, // activities (of 15) that can be done by yourself
   optActs: 0,
+  withSelf: 0, // books with at least one idea that can be done by yourself
+  fewOrganise: 0, // books with at most two ideas that have to be organised first
   supervised: 0,
 };
 
@@ -86,7 +88,7 @@ for (const ids of THEME_SETS) {
     const rnd = mulberry32(hashSeed(`pick-${ids.join("-")}-${k}`));
     const interests = shuffled(page.filter((x) => !x.explore).map((x) => x.activity.id), rnd).slice(0, 3 + (k % 3));
     const input = { ...p.input, themes, interests };
-    const res = selectSeeds(input, lib, { weights: WEIGHTS_ANCHOR });
+    const res = selectSeeds(input, lib, { weights: process.env.BALANCE_OFF ? { ...WEIGHTS_ANCHOR, balance: { self: 0, organise: 0 } } : WEIGHTS_ANCHOR });
     const acts = res.seeds.map((s) => byId.get(s.activityId)!).filter(Boolean);
     m.books++;
     m.ideas += acts.length;
@@ -116,6 +118,9 @@ for (const ids of THEME_SETS) {
       if (rel.length) m.relatedOnTheme.push(rel.filter((r) => rels[ti](r.tags) >= 0.5).length / rel.length);
       rel.forEach((r) => exclude.add(r.id));
     });
+    const modes = acts.map((a) => modeOfActivity(a));
+    if (modes.includes("self")) m.withSelf++;
+    if (modes.filter((x) => x === "organise").length <= 2) m.fewOrganise++;
     // Options (R1): the idea and its two companions.
     const seen = new Set<string>();
     let dup = false;
@@ -194,6 +199,8 @@ const rows: [string, string][] = [
   ["Opties met twee activiteiten uit één subdomein", pct(m.optSameSub / m.ideas)],
   ["Verschillende soorten per optie van drie (max. 3)", avg(m.optKinds).toFixed(2)],
   ["Boeken waarin een activiteit in twee opties staat", pct(m.optDup / m.books)],
+  ["Boeken met minstens één idee dat je zelf kunt doen", pct(m.withSelf / m.books)],
+  ["Boeken met hoogstens twee ideeën die eerst georganiseerd moeten worden", pct(m.fewOrganise / m.books)],
   ["Van de 15 activiteiten: zelf te doen", pct(m.optSelf / m.optActs)],
 ];
 

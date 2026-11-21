@@ -32,6 +32,13 @@ export const MODE_LABELS: Record<ExecutionMode, Localized> = {
   organise: { nl: "Eerst te organiseren", en: "Needs organising first" },
 };
 
+/** The same three words, short enough for a chip next to time and cost. */
+export const MODE_SHORT: Record<ExecutionMode, Localized> = {
+  self: { nl: "Zelf te doen", en: "Do it yourself" },
+  provider: { nl: "Via aanbieder", en: "Via a provider" },
+  organise: { nl: "Eerst organiseren", en: "Organise first" },
+};
+
 interface KindTable {
   kinds: Record<string, ActivityKind>;
   modes: Record<string, ExecutionMode>;

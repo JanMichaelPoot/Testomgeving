@@ -57,6 +57,8 @@ export interface EngineInput {
 }
 
 export interface SeedOption {
+  /** The activity this option was built for. A seed that is replaced later (a copy of it) keeps the option, but it no longer belongs to the new idea. */
+  for: string;
   /** The chosen themes this direction is about (one, or two for a combination; empty when the idea fits none of them). */
   themes: string[];
   /** Two other activities in the same direction, different in kind and sub-domain from the idea and from each other. */

@@ -56,7 +56,7 @@ describe("the facts line of a companion", () => {
 
   it("takes the companions of a seed in order and nothing for a seed without an option", () => {
     const copy = getDictionary("nl").venster.more.option;
-    expect(companionsOf(seedWith({ themes: [], companions: ["wandelen", "yoga"] }), "nl", copy).map((c) => c.id)).toEqual(["wandelen", "yoga"]);
+    expect(companionsOf(seedWith({ for: "houtbewerking", themes: [], companions: ["wandelen", "yoga"] }), "nl", copy).map((c) => c.id)).toEqual(["wandelen", "yoga"]);
     expect(companionsOf(seedWith(undefined), "nl", copy)).toEqual([]);
   });
 });

@@ -8,6 +8,8 @@
 //   related             an "also in this direction" item that has nothing to do with the idea
 //   title_place         the title names a kind of place (a country house, a beach, a rooftop ...) that none of the places found for the idea is
 //   coverage_time / coverage_budget   the book does not use the time or budget the person gave
+//   incomplete          an idea too thin to act on: no real first step, fewer than two steps, no intro, no cost or duration (C1, "concrete")
+//   invented_fact       a phone number or opening hours in the text: not from the research and not ours to give (C1, "nothing invented")
 // Pure functions, no network: the repair calls to the model live in qualityRepair.ts and only run for what this file cannot fix.
 
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
@@ -28,7 +30,9 @@ export type QaCode =
   | "online_start"
   | "title_place"
   | "coverage_time"
-  | "coverage_budget";
+  | "coverage_budget"
+  | "incomplete"
+  | "invented_fact";
 
 export interface QaContext {
   locale: QaLocale;
@@ -69,6 +73,28 @@ export function proseFields(entry: IdeaBookEntry): [string, string][] {
   entry.sizes?.forEach((s, i) => out.push([`sizes[${i}].description`, s.description]));
   for (const k of ["timeline", "takeaways", "suggestions"] as const) entry.fill?.[k]?.forEach((t, i) => out.push([`fill.${k}[${i}]`, t]));
   return out.filter(([, text]) => typeof text === "string" && text.trim().length > 0);
+}
+
+// --- C1: thin ideas and invented facts ---------------------------------------------------------------------------------
+
+// A Dutch landline or mobile number written out, with or without a country code (not a date or a price).
+export const PHONE_RE = /(?:\+31|0031|\b0)[\s-]?\(?\d{1,3}\)?[\s-]?\d{3}[\s-]?\d{2,4}[\s-]?\d{0,2}\b/;
+// Opening hours claimed in the text ("geopend van 9.00 tot 17.00", "open from 10:00").
+export const HOURS_RE = /\b(?:geopend|openingstijden|opening hours|open\s+(?:van|from|vanaf|until|tot))\b[^.]{0,40}\d{1,2}[:.]\d{2}/i;
+
+/** What makes an idea too thin to act on (the "concrete" criterion): empty when it is fine. */
+export function thinParts(entry: Pick<IdeaBookEntry, "first_action" | "details" | "intro" | "practical">): string[] {
+  const thin: string[] = [];
+  if ((entry.first_action ?? "").trim().length < 20) thin.push("first step");
+  if ((entry.details ?? []).filter((d) => d.trim().length > 10).length < 2) thin.push("steps");
+  if (!(entry.intro ?? "").trim()) thin.push("intro");
+  if (!entry.practical?.estimated_cost?.trim() || !entry.practical?.duration?.trim()) thin.push("cost or duration");
+  return thin;
+}
+
+/** The sentences of a text that claim a phone number or opening hours: the repair takes exactly these out. */
+export function inventedSentences(text: string): string[] {
+  return splitSentences(text).filter((s) => PHONE_RE.test(s) || HOURS_RE.test(s));
 }
 
 export function splitSentences(text: string): string[] {
@@ -408,6 +434,11 @@ export function qaBook(book: GeneratedIdeaBook, ctx: QaContext): QaIssue[] {
       // An option companion (it has its facts line) was chosen for the idea's theme, not for shared tags with the idea.
       if (!r.facts && !relatedIsPlausible(activity, r.id)) push("related", where, `${r.id} has nothing in common with ${entry.activity_id}`, false);
     }
+    const thin = thinParts(entry);
+    if (thin.length > 0) push("incomplete", where, `too thin to act on: ${thin.join(", ")}`, true);
+    for (const [field, text] of proseFields(entry)) {
+      if (inventedSentences(text).length > 0) push("invented_fact", where, `${field}: a phone number or opening hours that no research gave`, false);
+    }
     const online = onlineStart(entry);
     if (online) push("online_start", where, `${online.field}: "${online.match}"`, true);
     const titleKinds = titlePlaceConflicts(entry);
@@ -454,6 +485,15 @@ export function autoFix(book: GeneratedIdeaBook, locale: QaLocale): { book: Gene
       const cleaned = stripExposed(t);
       if (cleaned !== t) fixes.push(`${where}:exposed_reasoning_removed`);
       return cleaned;
+    });
+    // C1 "nothing invented": a sentence that names a phone number or opening hours is taken out (never leaving a field empty).
+    next = mapEntry(next, (t) => {
+      const bad = inventedSentences(t);
+      if (bad.length === 0) return t;
+      const kept = splitSentences(t).filter((s) => !bad.includes(s)).join(" ");
+      if (!kept) return t;
+      fixes.push(`${where}:invented_fact_removed`);
+      return kept;
     });
     const activity = entry.activity_id ? getActivity(entry.activity_id) : undefined;
     if (titlePlaceConflicts(next).length > 0) {

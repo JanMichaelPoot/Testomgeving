@@ -13,6 +13,7 @@ import { MAX_PER_CLUSTER, clusterOf } from "@/lib/discovery/clusters";
 import { IDEA_COUNT } from "@/lib/productStructure";
 import { THEME_FAR_COS, themeCosine, themeRelative } from "@/lib/discovery/themeFit";
 import { buildOptions } from "@/lib/discovery/engine/options";
+import { modeOfActivity } from "@/lib/discovery/activityKind";
 
 // The selection engine. Four regular seeds in four directions, plus one wildcard (Stap 198: five ideas, fewer but better worked out):
 //   familiar x1   the pick itself, or a direct neighbour of it
@@ -109,7 +110,17 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
   const rare = (a: Activity) => graph.rarity(a) * (W.rareJitter.base + W.rareJitter.spread * mulberry32(hashSeed(`${input.seed}:rare:${a.id}`))());
   // What earlier research found nothing for near this place is a little less likely too (the person's own picks never are).
   const quietSet = new Set(input.quietSupply ?? []);
-  const supplyCost = (a: Activity) => supplyPenalty(a, W.supply) + (quietSet.has(a.id) && !pickSet.has(a.id) ? W.supply.quiet : 0);
+  const plainSupplyCost = (a: Activity) => supplyPenalty(a, W.supply) + (quietSet.has(a.id) && !pickSet.has(a.id) ? W.supply.quiet : 0);
+  // C2: a nudge towards a book that has an idea you can start by yourself and not more than two that have to be organised first. It rides on the supply cost,
+  // which every slot already subtracts (and the wildcard weighs by), so it reaches every direction without touching their scores one by one.
+  const modeNudge = (a: Activity) => {
+    if (W.balance.self <= 0 && W.balance.organise <= 0) return 0;
+    const mode = modeOfActivity(a);
+    if (mode === "self") return seeds.some((u) => modeOfActivity(byId.get(u.activityId)!) === "self") ? 0 : W.balance.self;
+    if (mode === "organise") return seeds.filter((u) => modeOfActivity(byId.get(u.activityId)!) === "organise").length >= 2 ? -W.balance.organise : 0;
+    return 0;
+  };
+  const supplyCost = (a: Activity) => plainSupplyCost(a) - modeNudge(a);
   const pickedIds = [...new Set(input.interests)].filter((id) => byId.has(id));
   const pickSet = new Set(pickedIds);
   // The most connected activities lead too many books: a little off, never for the person's own picks (weights.hub).
@@ -583,7 +594,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
       graph,
       themes: chosenThemes.map((t, i) => ({ id: t.id, rel: optRels[i] })),
       age,
-      supplyCost,
+      supplyCost: plainSupplyCost,
       rare,
       rnd: mulberry32(hashSeed(`${input.seed}:options`)),
       W: W.option,

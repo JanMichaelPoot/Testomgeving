@@ -747,6 +747,8 @@ export interface IdeaPageLabels {
   company: string;
   place: string;
   type: string;
+  /** C2: the small label over how an idea can be done. */
+  how: string;
   match: string;
   experience: string;
   dimensions: Record<ExperienceDimension, string>;
@@ -780,6 +782,7 @@ const NL_LABELS: IdeaPageLabels = {
   company: "Gezelschap",
   place: "Plaats",
   type: "Type",
+  how: "Aanpak",
   match: "Waarom dit bij jou past",
   experience: "Jouw ervaring",
   dimensions: {
@@ -831,6 +834,7 @@ const EN_LABELS: IdeaPageLabels = {
   company: "Company",
   place: "Place",
   type: "Type",
+  how: "Approach",
   match: "Why this fits you",
   experience: "Your experience",
   dimensions: {

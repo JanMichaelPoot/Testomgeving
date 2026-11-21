@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
+import { MODE_SHORT } from "@/lib/discovery/activityKind";
 import { mapsSearchUrl } from "@/lib/maps";
 import { ideaPhoto } from "@/lib/illustrations";
 import { cn } from "@/lib/utils";
@@ -43,6 +44,7 @@ export function IdeaDetail({
     idea.practical.estimated_cost,
     idea.practical.duration,
     DIFFICULTY_LABELS[locale][idea.practical.difficulty],
+    idea.mode ? MODE_SHORT[idea.mode][locale] : "",
   ]
     .filter(Boolean)
     .join(" · ");

@@ -28,6 +28,9 @@ import { currentMonth, describeToday, inSeason, isoDateNL } from "@/lib/discover
 import { editionDate, type Season } from "@/lib/seasonEdition";
 import { engineInputFromIntake, relatedActivities, runEngine } from "@/lib/discovery/engine";
 import { companionLine, companionsOf, directionLabel } from "@/lib/claude/optionLines";
+import { modeOfActivity } from "@/lib/discovery/activityKind";
+import { bookCriteria, criteriaSummary, type CriteriaReport } from "@/lib/claude/bookCriteria";
+import { passesConstraints } from "@/lib/discovery/engine/constraints";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { WEIGHTS_ANCHOR, WEIGHTS_V2 } from "@/lib/discovery/engine/weights";
 import {
@@ -284,6 +287,13 @@ const FORMAT_TEXT: Record<string, string> = {
  * The "Why it was chosen" line of one seed. `honest` (KNOWLEDGE_ENGINE_V2 and the image intake) never calls a
  * derived activity "picked": the person chose images, and the activities in between are what we read from them.
  */
+/** C2: what the writer must know about how an idea can be done, so the first step matches (nobody is told to book a trial class for something they do at home). */
+const MODE_FOR_PROMPT = {
+  self: "by themselves, starting with what is at hand; the first step is something they can do today, and they do not need a provider",
+  provider: "it needs a provider, a class, a club or a venue; the first step is to find or book one (the verified options below are the ones to use)",
+  organise: "it has to be organised first (a trip, an event, something to set up); the first step is to plan it: who, when and where",
+} as const;
+
 export function why(seed: Seed, locale: Locale, fromImages = false, honest = false): string {
   const label = (id: string) => getActivity(id)?.label[locale] ?? id;
   const via = seed.via.map((t) => TAG_LABEL.get(t)?.[locale] ?? t).join(", ");
@@ -381,6 +391,7 @@ function seedBlock(
       : null,
     behind ? `  Image behind it: "${behind}" (the chosen image this idea connects to; name it in why_it_fits)` : null,
     `  How to take part: ${take}`,
+    `  How it can be done: ${MODE_FOR_PROMPT[modeOfActivity(a)]}`,
     `  Easy way in (a general hint, not a fact about the options below): ${a.entry ? a.entry[locale] : "not known; suggest a beginner-friendly first step"}`,
     a.safety.tier === 2 && a.safety.note
       ? `  Supervision: only with qualified supervision. ${a.safety.note[locale]}`
@@ -588,6 +599,7 @@ function buildEntry(
     ...(places.length ? { places } : {}),
     ...(related.length ? { related } : {}),
     ...(direction ? { direction } : {}),
+    mode: modeOfActivity(a),
     ...(fill ? { fill } : {}),
     title: toText(e.title),
     intro: toText(e.intro),
@@ -754,6 +766,8 @@ export interface SeedPipelineReport {
   issues: string[];
   /** The quality gate: what it found before repairing and what was still wrong afterwards. */
   qa?: { found: QaIssue[]; remaining: QaIssue[] };
+  /** C1: the six criteria of the reference's 4.4 on the finished book (bookCriteria.ts): how many checks applied, how many passed, and what failed. */
+  criteria?: CriteriaReport;
   /** Only for a research-only run (the comparison script): the options found per idea, so the quality of the search can be read next to its cost. */
   placesPerIdea?: { activityId: string; options: { name: string; city: string; url: string | null; rating: number | null }[] }[];
   /** What the model calls of this book cost (USD), against the cap, and which optional rounds were skipped to stay under it; kept with the book (progress_meta.cost). */
@@ -1312,16 +1326,22 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   // is filled up from the relation graph, so an option stays three. Each companion carries one short facts line made from the library.
   const optionCopy = getDictionary(locale).venster.more.option;
   const optionFor = (seed: Seed): { related: RelatedActivity[]; direction?: string } => {
-    const companions = companionsOf(seed, locale, optionCopy).filter((c) => !taken.has(c.id)).slice(0, 2);
+    // The option was built for the idea the engine chose; a replacement idea (copied from it) has its companions looked up again.
+    const own = seed.option && seed.option.for === seed.activityId ? seed : { ...seed, option: undefined };
+    const suits = (id: string) => {
+      const x = getActivity(id);
+      return !!x && passesConstraints(x, engine.constraints).ok;
+    };
+    const companions = companionsOf(own, locale, optionCopy).filter((c) => !taken.has(c.id) && suits(c.id)).slice(0, 2);
     for (const c of companions) taken.add(c.id);
-    const wanted = seed.option ? 2 : 3;
+    const wanted = own.option ? 2 : 3;
     if (companions.length < wanted) {
       for (const a of relatedActivities(seed.activityId, engine.constraints, taken, wanted - companions.length)) {
         taken.add(a.id);
         companions.push(companionLine(a.id, locale, optionCopy) ?? { id: a.id, label: a.label[locale] });
       }
     }
-    const direction = directionLabel(seed.option?.themes ?? [], locale, optionCopy);
+    const direction = directionLabel(own.option?.themes ?? [], locale, optionCopy);
     return { related: companions, ...(direction ? { direction } : {}) };
   };
   // A layer the model wrote but that did not pass validation is left out; say so, so it shows in the log.
@@ -1396,6 +1416,11 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   const gate = await runQualityGate(assembled, { locale, month, budget: intake.budget, timeAvailable: intake.timeAvailable }, { ledger });
   const book = gate.book;
   issues.push(...gate.log.map((l) => `qa:${l}`), ...gate.remaining.map((r) => `qa_remaining:${r.code}@${r.where}`));
+  // C1: the six criteria on the finished book. What can be repaired was repaired above; what is left is recorded here, per criterion, so it shows in the log
+  // and can be read per book. The structural ones were already enforced where the book was assembled (the replacement rounds, the companions' own check).
+  const criteria = bookCriteria(book, { constraints: engine.constraints, budget: intake.budget, ownPicks, knownHosts: allHosts });
+  notes.push(criteriaSummary(criteria));
+  for (const fail of criteria.failures) issues.push(`criteria:${fail.criterion}@${fail.where}:${fail.activityId}`);
 
   const optionsOf = (s: Seed) => seedResearch(s, research.byActivity)?.options ?? [];
   const optionsCoverage = { ideas: seeds.length, withOption: seeds.filter((s) => optionsOf(s).length > 0).length, withRating: seeds.filter((s) => optionsOf(s).some((o) => o.rating)).length };
@@ -1406,7 +1431,7 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   const cost = costOf();
   // One line for the logs (the cost meters read the lines with "took ... usage", not this one): the book against its cap, and what was left out for it.
   console.log(`WindowInto: book cost so far ${cost.usd.toFixed(3)} of a cap of ${cost.capUsd === null ? "none" : "$" + cost.capUsd.toFixed(2)} (${JSON.stringify(cost.breakdown)})${cost.skipped.length ? `, rounds skipped for cost: ${cost.skipped.join(", ")}` : ""}`);
-  const report: SeedPipelineReport = { seeds, notes, research: research.stats, options: optionsCoverage, issues, qa: { found: gate.foundBefore, remaining: gate.remaining }, cost };
+  const report: SeedPipelineReport = { seeds, notes, research: research.stats, options: optionsCoverage, issues, qa: { found: gate.foundBefore, remaining: gate.remaining }, criteria, cost };
   console.log(
     `WindowInto: seed pipeline: ${seeds.map((s) => `${s.direction}:${s.activityId}`).join(", ")} | issues: ${issues.length ? issues.join("; ") : "none"}`,
   );
