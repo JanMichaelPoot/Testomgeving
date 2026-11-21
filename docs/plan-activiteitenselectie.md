@@ -81,4 +81,4 @@ Alles blijft binnen de grenzen die al gelden: geen nieuwe betaalde dienst, de $0
 | B. Bibliotheek | B1 + B2, B3, B4 en B5: alle |
 | C. Kwaliteit | C1, C2 en C3. **C4 (betaalde steekproef) niet nu**: komt alleen na een apart bedrag-akkoord |
 
-Stand: nulmeting C3 (Stap 214); B1 + B2 (Stap 215); A1 tot en met A3 (Stap 216); R1 in het boek (Stap 217); C1 + C2 met evenwichtsregel (Stap 218); A4 + A5 (Stap 219); B3: 24 activiteiten geschreven, wachten op foto (Stap 220, ±$0,67 voor de foto's, akkoord nodig). Volgende: B4, B5, en eventueel C4 (betaalde steekproef, apart bedrag-akkoord).
+Stand: nulmeting C3 (Stap 214); B1 + B2 (Stap 215); A1 tot en met A3 (Stap 216); R1 in het boek (Stap 217); C1 + C2 met evenwichtsregel (Stap 218); A4 + A5 (Stap 219); B3: 24 activiteiten met foto (Stap 220-221); B4: verrassingsniveau per activiteit (Stap 222). Volgende: B5, en eventueel C4 (betaalde steekproef, apart bedrag-akkoord).

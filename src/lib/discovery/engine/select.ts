@@ -14,6 +14,7 @@ import { IDEA_COUNT } from "@/lib/productStructure";
 import { THEME_FAR_COS, themeCosine, themeRelative } from "@/lib/discovery/themeFit";
 import { buildOptions } from "@/lib/discovery/engine/options";
 import { modeOfActivity } from "@/lib/discovery/activityKind";
+import { surpriseCentered, surpriseOf } from "@/lib/discovery/engine/surprise";
 import { CURATED_COMBO_VALUE, pairKey, pairVerdict } from "@/lib/discovery/themePairs";
 
 // The selection engine. Four regular seeds in four directions, plus one wildcard (Stap 198: five ideas, fewer but better worked out):
@@ -130,6 +131,10 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     if (seeds.some((u) => !pickSet.has(u.activityId) && challengeOf(byId.get(u.activityId)!) > top)) return 0;
     return W.challenge.bonus * (W.challenge.byWildness[WILDNESS[input.practicalToWild] ?? 1] ?? 1);
   };
+  // B4: a surprising idea is worth a little more in the slots that are about the unfamiliar, an everyday one a little less (a hand-corrected derivation, engine/surprise.ts).
+  // Only the sets that use it pay for it: the level needs the graph's hubness, which is a pass over every pair of activities.
+  const SURPRISE_ON = Object.values(W.surprise).some((v) => v > 0);
+  const surp = (dir: "adjacent" | "unexpected" | "stretch", a: Activity) => (W.surprise[dir] === 0 || pickSet.has(a.id) ? 0 : W.surprise[dir] * surpriseCentered(surpriseOf(a, graph)));
   const supplyCost = (a: Activity) => plainSupplyCost(a) - modeNudge(a) - challengeNudge(a);
   const pickedIds = [...new Set(input.interests)].filter((id) => byId.has(id));
   const pickSet = new Set(pickedIds);
@@ -304,6 +309,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
       lead,
       alsoFormats: also,
       verify: verifyOf.get(a.id) ?? [],
+      ...(SURPRISE_ON ? { surprise: surpriseOf(a, graph) } : {}),
       ...(W.explain ? { fit: fitOf(a), reasons: reasonsOf(a, direction, extra) } : {}),
     });
     used.add(a.id);
@@ -430,7 +436,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
           if (!from || !to || !pickSet.has(p) || used.has(p) || !pool.includes(to) || to.domain === from.domain) continue;
           cands.push({
             a: to,
-            score: W.unexpected.hybridBase + graph.bridge(from, to) * W.unexpected.hybridBridge + rnd() * W.unexpected.hybridNoise - redundancy(to) - age(to) + RARE.unexpected * rare(to) - supplyCost(to),
+            score: W.unexpected.hybridBase + graph.bridge(from, to) * W.unexpected.hybridBridge + rnd() * W.unexpected.hybridNoise - redundancy(to) - age(to) + RARE.unexpected * rare(to) + surp("unexpected", to) - supplyCost(to),
             chain: [p, q],
             via: graph.shared(from, to).slice(0, 2),
             hybrid: { partnerId: p, label: h.label },
@@ -461,7 +467,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
           const p = nearestRef(x);
           cands.push({
             a: x,
-            score: W.unexpected.themeComboBase + value * W.unexpected.themeComboFit + (curated ? W.unexpected.themeComboCuratedBonus : 0) + rnd() * W.unexpected.themeComboNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) - supplyCost(x),
+            score: W.unexpected.themeComboBase + value * W.unexpected.themeComboFit + (curated ? W.unexpected.themeComboCuratedBonus : 0) + rnd() * W.unexpected.themeComboNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) + surp("unexpected", x) - supplyCost(x),
             chain: p ? [p.id, x.id] : [x.id],
             via: p ? graph.shared(p, x).slice(0, 2) : [],
             themeCombo: pair,
@@ -477,7 +483,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
             const b1 = graph.bridge(p, m);
             if (b1 < BRIDGE_MIN) continue;
             if (graph.bridge(m, x) < BRIDGE_MIN) continue;
-            const score = Math.min(graph.sim(p, m), graph.sim(m, x)) + rnd() * W.unexpected.chainNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) - supplyCost(x);
+            const score = Math.min(graph.sim(p, m), graph.sim(m, x)) + rnd() * W.unexpected.chainNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) + surp("unexpected", x) - supplyCost(x);
             if (!top || score > top.score) top = { a: x, score, chain: [p.id, m.id, x.id], via: graph.shared(m, x).slice(0, 2) };
           }
         }
@@ -491,11 +497,11 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
         .filter((x) => !pickedDomains.has(x.domain) && rel(x) < W.unexpected.farRelMax && bestBridgeTo(x) >= BRIDGE_MIN)
         .map((x) => {
           const p = nearestRef(x)!;
-          return { a: x, score: bestBridgeTo(x) * W.unexpected.oneStepBridge + rnd() * W.unexpected.oneStepNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) - supplyCost(x), chain: [p.id, x.id], via: graph.shared(p, x).slice(0, 2) };
+          return { a: x, score: bestBridgeTo(x) * W.unexpected.oneStepBridge + rnd() * W.unexpected.oneStepNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) + surp("unexpected", x) - supplyCost(x), chain: [p.id, x.id], via: graph.shared(p, x).slice(0, 2) };
         });
     // (d) anything from a world they did not pick
     const anyFar = (): Cand<Path>[] =>
-      pool.filter((a) => !pickedDomains.has(a.domain)).map((x) => ({ a: x, score: rnd() - age(x) + RARE.unexpected * rare(x) - supplyCost(x), chain: [x.id], via: [] }));
+      pool.filter((a) => !pickedDomains.has(a.domain)).map((x) => ({ a: x, score: rnd() - age(x) + RARE.unexpected * rare(x) + surp("unexpected", x) - supplyCost(x), chain: [x.id], via: [] }));
 
     const found = firstFit<Path>([strong, oneStep, anyFar]);
     if (found) {
@@ -515,7 +521,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
           // Someone who picked from one world only (a niche) keeps the one adjacent idea in that world: with four ideas, their own world has to be worth
           // two of them (the pick and its neighbour); the unexpected idea, the stretch and the wildcard are what leave it (Stap 198).
           const novelty = pickedDomains.size === 1 ? (pickedDomains.has(a.domain) ? NICHE_ADJACENT_BONUS : 0) : pickedDomains.has(a.domain) ? 0 : W.adjacent.noveltyOtherWorld;
-          return { a, score: r * (1 - Math.abs(r - W.adjacent.peak)) + novelty + rnd() * W.adjacent.noise - redundancy(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a) + cover(a) };
+          return { a, score: r * (1 - Math.abs(r - W.adjacent.peak)) + novelty + rnd() * W.adjacent.noise - redundancy(a) - age(a) + RARE.adjacent * rare(a) + surp("adjacent", a) - supplyCost(a) + cover(a) };
         });
     };
     // The master prompt's "indirect" slot (Stap 127): with the anchor on, the one non-picked idea around the choices comes from
@@ -534,7 +540,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
         .filter((x) => x.sharers >= 2 && x.strong >= 1)
         .map<Cand>(({ a, sharers, strong }) => ({
           a,
-          score: sharers * 0.5 + strong * 0.4 + (pickSubs.has(a.sub) ? 0 : 0.25) + (pickedDomains.has(a.domain) ? 0 : 0.15) + rnd() * W.adjacent.noise - redundancyBeyondPicks(a) - age(a) + RARE.adjacent * rare(a) - supplyCost(a) + cover(a),
+          score: sharers * 0.5 + strong * 0.4 + (pickSubs.has(a.sub) ? 0 : 0.25) + (pickedDomains.has(a.domain) ? 0 : 0.15) + rnd() * W.adjacent.noise - redundancyBeyondPicks(a) - age(a) + RARE.adjacent * rare(a) + surp("adjacent", a) - supplyCost(a) + cover(a),
         }));
     };
     // A niche's neighbours in their own world are close to their picks: the preferred set reaches further for them.
@@ -578,7 +584,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
         .filter((a) => !pickSet.has(a.id) && graph.bridge(a, p0) >= minBridge)
         .map((a) => ({ a, m: magnitude(a) }))
         .filter(({ m }) => m.total >= minTotal && (!m.down || minBridge === 0) && (!strict || m.total <= target + 1))
-        .map<Cand>(({ a, m }) => ({ a, score: W.stretch.base - Math.abs(m.total - target) + graph.bridge(a, p0) * W.stretch.bridge + rnd() * W.stretch.noise - redundancy(a) - age(a) + RARE.stretch * rare(a) - supplyCost(a) }));
+        .map<Cand>(({ a, m }) => ({ a, score: W.stretch.base - Math.abs(m.total - target) + graph.bridge(a, p0) * W.stretch.bridge + rnd() * W.stretch.noise - redundancy(a) - age(a) + RARE.stretch * rare(a) + surp("stretch", a) - supplyCost(a) }));
     const found = firstFit([set(1.5, 1, true), set(0.8, 1, true), set(0.8, 0.7, false), set(0, 0.5, false)]);
     if (found) {
       if (found.set > 1) notes.push("direction_relaxed:stretch");
@@ -603,7 +609,7 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     const historyDomains = new Set([...history].map((id) => byId.get(id)?.domain).filter(Boolean) as string[]);
     const cands = pool.filter((a) => !pickedDomains.has(a.domain) && canUse(a, 1));
     const weightOf = (a: Activity) =>
-      ((1 + W.wildcard.bridge * bestBridgeTo(a) + (historyDomains.has(a.domain) ? 0 : W.wildcard.newWorld)) / (1 + redundancy(a) * W.wildcard.redundancyFactor)) * Math.exp(-W.wildcard.ageDecay * age(a)) * (W.wildcard.baseRare + RARE.wildcard * rare(a)) * Math.exp(-W.wildcard.supplyDecay * supplyCost(a));
+      ((1 + W.wildcard.bridge * bestBridgeTo(a) + (historyDomains.has(a.domain) ? 0 : W.wildcard.newWorld)) / (1 + redundancy(a) * W.wildcard.redundancyFactor)) * Math.exp(-W.wildcard.ageDecay * age(a)) * (W.wildcard.baseRare + RARE.wildcard * rare(a)) * Math.exp(W.surprise.wildcard === 0 ? 0 : W.surprise.wildcard * surpriseCentered(surpriseOf(a, graph))) * Math.exp(-W.wildcard.supplyDecay * supplyCost(a));
     const total = cands.reduce((s, a) => s + weightOf(a), 0);
     let roll = rnd() * total;
     let chosen: Activity | undefined;

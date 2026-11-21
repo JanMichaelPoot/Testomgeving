@@ -1,0 +1,26 @@
+{
+  "_readme": "B4 (docs/plan-activiteitenselectie.md): hand-made corrections on the derived surprise level of an activity (0 everyday, 1 known, 2 unusual, 3 hardly anyone thinks of it). The derivation (surprise.ts) only sees the library's tags and supply, never how many people actually do something; this list holds what is known from outside: 'everyday' is what most people already do or have done (never above level 0), 'known' is a familiar leisure activity (never above level 1), 'unusual' is something most people have not done (at least level 2), 'striking' is something hardly anyone thinks of (level 3). An id on two lists is an error (a test checks).",
+  "everyday": [
+    "wandelen", "wandelgroep", "wandeltocht-lang", "fietsen", "fietsroute", "e-bike-tocht", "zwemmen", "zwemmen-baantjes", "hardlopen", "hardloopgroep", "lezen",
+    "koffie-thee", "musea", "film-theater", "picknick", "dansen", "tuinieren", "kamerplanten", "fotografie", "brunchen", "gezond-koken", "bordspellen", "kaartspellen",
+    "bowlen", "kermis", "pretpark", "dierentuin", "kinderboerderij", "concert", "yoga", "zumba", "badminton", "zaalvoetbal", "teamsport", "markt-ingredient", "rommelmarkt",
+    "kringloop", "kamperen", "stadswandeling", "sauna", "massage", "spa-dag", "vissen", "tennis-proefles", "pilates", "nordic-walking", "trektocht", "toerist"
+  ],
+  "known": [
+    "schilderen", "tekenen", "breien-haken", "naaien", "pottenbakken", "koor", "instrument", "muziek-maken", "schrijven", "schaken", "legpuzzels", "escape-room",
+    "karaoke", "bingo-avond", "darten-pool", "minigolf", "karten", "klimmen", "boulderen", "schaatsen", "skaten", "kanoen", "zeilen", "meditatie", "bloemschikken",
+    "wijnproeverij", "cocktailworkshop", "high-tea", "vogels", "paardrijden", "golfles", "padel", "pasta-maken", "patisserie", "zuurdesem", "taal-leren", "online-cursus",
+    "bloeddonor", "festival-vrijwilliger", "buurtmaaltijd", "kook-club", "lasergamen", "paintball-airsoft", "trampolinepark", "klimpark", "suppen", "surfles", "snorkelen",
+    "geocaching", "bomen-herkennen", "kookwetenschap", "wetenschapsmuseum", "planetarium-sterrenwacht", "stand-up", "live-comedy", "openluchtbioscoop"
+  ],
+  "unusual": [
+    "zeepkistenrace", "bubble-football", "onderwaterhockey", "curling", "highlandgames", "schapendrijven", "geitenyoga", "alpaca-wandeling", "floattank", "klankbad",
+    "tarot", "urbex-tour", "bunkertocht", "lockpicking", "cryptografie", "puzzeljacht", "mes-smeden", "metaalgieten", "raku-stoken", "glasblazen", "kantklossen",
+    "schaduwtheater", "poppentheater", "goochelen", "circusles", "aerial-silks", "speerwerpen-atlatl", "boomerang", "katapult-schieten", "kubb", "sjoelen"
+  ],
+  "striking": [
+    "jachthoorn-blazen", "kaninhop", "kano-uithollen", "eendenkooi-bezoeken", "duivenwedstrijd", "pluimveetentoonstelling", "hertenbronst", "magneetvissen", "klifduiken",
+    "ringrijden", "beiaard-leren", "speeldozen", "zendamateur", "dxen", "kortegolf-luisteren", "kasteel-overnachting", "kettingzaagcursus", "steenhouwen-dag", "blaaspijp",
+    "trekkertrek", "fierljeppen", "klootschieten", "onder-de-stad", "paranormaal", "eigen-taal", "esperanto-leren", "gebarentaal-leren", "wikipedia-bijdragen", "postcrossing"
+  ]
+}

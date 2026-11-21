@@ -75,6 +75,12 @@ export interface Weights {
    * supervision) decide what is in the pool, so a cautious person is only stretched by what they allow. 0 = off (every set but WEIGHTS_ANCHOR).
    */
   challenge: { bonus: number; byWildness: readonly number[] };
+  /**
+   * B4 (engine/surprise.ts): every activity has a surprise level, 0 everyday .. 3 striking. In the slots that are about the unfamiliar a surprising idea gets
+   * `surprise[direction]` x (-1 for an everyday one .. +1 for a striking one) added to its score (the wildcard, which multiplies, takes the exponential of it), so the
+   * unexpected idea is not a walk in other clothes. The person's own picks are never touched. 0 = off (every set but WEIGHTS_ANCHOR).
+   */
+  surprise: { adjacent: number; unexpected: number; stretch: number; wildcard: number };
 
   // --- B4 behaviour switches (all off in WEIGHTS_CURRENT) --------------------------------------------
   /** An activity whose cost is unknown does not pass a "free" budget: unknown is never a favourable answer. */
@@ -109,6 +115,7 @@ export const WEIGHTS_CURRENT: Weights = {
   option: { theme: 1.2, sim: 0.6, practical: 0.2, rare: 0.1, noise: 0.15, otherKind: 0.15, clusterPenalty: 0.5, minThemeRel: 0.5, relaxedRel: 0.35, maxTagOverlap: 0.6, coverage: 1 },
   balance: { self: 0, organise: 0 },
   challenge: { bonus: 0, byWildness: [1, 1, 1, 1] },
+  surprise: { adjacent: 0, unexpected: 0, stretch: 0, wildcard: 0 },
   strictFreeCost: false,
   explain: false,
   anchor: { picks: 0, indirect: false },
@@ -134,6 +141,7 @@ export const WEIGHTS_ANCHOR: Weights = {
   hub: 0.6,
   balance: { self: 1.6, organise: 0.6 },
   challenge: { bonus: 1.5, byWildness: [0.6, 1, 1.2, 1.5] },
+  surprise: { adjacent: 0.1, unexpected: 0.5, stretch: 0.2, wildcard: 0.8 },
 };
 
 /** Doors and directions are listed here only so the type stays close to the weights that use them. */

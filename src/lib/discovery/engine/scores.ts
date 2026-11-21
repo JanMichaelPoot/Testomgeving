@@ -1,6 +1,7 @@
 import type { IdeaScores } from "@/lib/claude/ideaBookTypes";
 import type { Activity } from "@/lib/discovery/types";
 import type { Direction, Seed } from "@/lib/discovery/engine/types";
+import { SURPRISE_SCORE } from "@/lib/discovery/engine/surprise";
 
 // The Idea Book keeps a set of internal 0-100 scores per idea (the "One Thing" pick uses
 // four of them; the admin export shows them all). Before the engine, Claude estimated
@@ -21,6 +22,10 @@ const clamp = (n: number) => Math.max(0, Math.min(100, Math.round(n)));
 
 export function scoresForSeed(seed: Seed, activity: Activity): IdeaScores {
   const d = BY_DIRECTION[seed.direction];
+  // B4: the idea's own surprise level (engine/surprise.ts) weighs as much as its direction for "surprise" and a little for "novelty"; a seed without one keeps the direction's value.
+  const own = seed.surprise === undefined ? undefined : SURPRISE_SCORE[seed.surprise];
+  const surprise = own === undefined ? d.surprise : (d.surprise + own) / 2;
+  const novelty = own === undefined ? d.novelty : d.novelty * 0.7 + own * 0.3;
   // How doable it is for a beginner: cost, physical effort, experience and supervision count against it;
   // an unknown facet costs a little (we cannot promise it).
   const unknown = [activity.cost, activity.intensity, activity.level].filter((v) => v === null).length;
@@ -30,9 +35,9 @@ export function scoresForSeed(seed: Seed, activity: Activity): IdeaScores {
   const cost = activity.cost === null ? 50 : activity.cost * 30 + 5;
   return {
     relevance: clamp(d.relevance),
-    novelty: clamp(d.novelty),
+    novelty: clamp(novelty),
     feasibility: clamp(feasibility),
-    surprise: clamp(d.surprise),
+    surprise: clamp(surprise),
     shareability: clamp(d.shareability),
     effort: clamp(effort),
     cost: clamp(cost),

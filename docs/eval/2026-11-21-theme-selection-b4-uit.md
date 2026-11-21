@@ -1,0 +1,41 @@
+# Themaselectie, meting "b4-uit" (2026-11-21)
+
+8 themasets x 12 synthetische profielen, productiegewichten (WEIGHTS_ANCHOR). Gratis, geen API.
+
+| Maat | Waarde |
+|---|---|
+| Boeken gemeten | 96 |
+| Gekozen thema's gedekt door een idee (gemiddeld) | 83.9% |
+| Boeken waarin elk gekozen thema een idee heeft | 60.4% |
+| Beste themafit per idee (gemiddeld, 0 tot 1) | 0.58 |
+| Ideeën zonder echt thema (fit onder 0,3) | 21.5% |
+| Verschillende richtingen (dominant thema) per boek van vijf | 2.74 |
+| Verschillende subdomeinen per boek | 4.79 |
+| Boeken met twee bijna gelijke ideeën (tagoverlap 0,6 of meer) | 28.1% |
+| 'Ook in deze richting' per idee (gemiddeld, max. 3) | 2.96 |
+| Ideeën met drie verwante activiteiten (dus een optie van minimaal drie) | 97.9% |
+| Van die verwante activiteiten: past bij het thema van het idee | 47.7% |
+| Boeken met een uitdagender idee dan de eigen keuzes | 89.6% |
+| Boeken waarvan het onverwachte idee verrassingsniveau 2 of 3 heeft (ongewoon of opvallend) | 41.7% |
+| Boeken waarvan de wildcard verrassingsniveau 2 of 3 heeft | 45.8% |
+| Ideeën buiten de eigen keuzes die alledaags zijn (niveau 0) | 14.5% |
+| Gemiddeld verrassingsniveau van de ideeën buiten de eigen keuzes (0 tot 3) | 1.37 |
+| Onverwachte deuren uit twee thema's | 67 (69.8% van de boeken) |
+| Daarvan op de handgemaakte lijst van het paar | 83.6% |
+| Daarvan op de 'slecht'-lijst van het paar (moet 0 zijn) | 0 |
+| Daarvan van een paar zonder lijst | 16.4% |
+| Daarvan zwak en niet handgemaakt (zwakste thema onder 0,6) | 0.0% |
+| Ideeën met regionaal of zeldzaam aanbod | 36.9% |
+| Ideeën onder gekwalificeerd toezicht | 4.6% |
+| Opties met twee metgezellen (een optie van drie) | 100.0% |
+| Opties met een thema als richting | 69.2% |
+| Metgezellen die bij het thema van hun optie passen | 99.8% |
+| Verschillende richtingen per boek van vijf opties | 4.33 |
+| Gekozen thema's gedekt door de 15 activiteiten (gemiddeld) | 91.2% |
+| Opties met twee bijna gelijke activiteiten (tagoverlap 0,6 of meer) | 0.0% |
+| Opties met twee activiteiten uit één subdomein | 0.0% |
+| Verschillende soorten per optie van drie (max. 3) | 2.58 |
+| Boeken waarin een activiteit in twee opties staat | 0.0% |
+| Boeken met minstens één idee dat je zelf kunt doen | 100.0% |
+| Boeken met hoogstens twee ideeën die eerst georganiseerd moeten worden | 100.0% |
+| Van de 15 activiteiten: zelf te doen | 42.9% |

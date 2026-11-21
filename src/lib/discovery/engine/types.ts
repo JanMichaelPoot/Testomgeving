@@ -82,6 +82,8 @@ export interface Seed {
   option?: SeedOption;
   /** E4: the two chosen themes (ids like "theme-natuur") this unexpected idea combines. */
   themeCombo?: [string, string];
+  /** B4 (engine/surprise.ts): how far this idea is from what most people choose, 0 everyday .. 3 striking. */
+  surprise?: 0 | 1 | 2 | 3;
   /** The social form to lead with (their own choice), or null when they did not choose or it is unknown. */
   lead: SocialFormat | null;
   /** Other forms the activity also supports. */

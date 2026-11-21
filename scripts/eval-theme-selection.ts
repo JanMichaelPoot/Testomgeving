@@ -21,6 +21,7 @@ const WEIGHTS = {
   ...WEIGHTS_ANCHOR,
   balance: process.env.BALANCE_OFF ? { self: 0, organise: 0 } : { ...WEIGHTS_ANCHOR.balance, ...(process.env.BALANCE_SELF ? { self: Number(process.env.BALANCE_SELF) } : {}) },
   challenge: { ...WEIGHTS_ANCHOR.challenge, ...(process.env.CHALLENGE ? { bonus: Number(process.env.CHALLENGE) } : {}) },
+  surprise: process.env.SURPRISE_OFF ? { adjacent: 0, unexpected: 0, stretch: 0, wildcard: 0 } : WEIGHTS_ANCHOR.surprise,
 };
 const label = process.argv[2] ?? "baseline";
 const PER = Number(process.argv[3] ?? 12);
@@ -63,6 +64,11 @@ const m = {
   relatedOnTheme: [] as number[], // share of those that belong to the idea's dominant theme (>= 0.5)
   ideasWith3: 0, // ideas with at least 3 related activities (idea + 3 = an option with >= 3 activities)
   challenge: 0, // books with a more demanding idea than the person's picks
+  unexpectedSurprising: 0, // books whose unexpected idea is surprise level 2 or 3
+  wildcardSurprising: 0, // books whose wildcard is surprise level 2 or 3
+  everydayIdeas: 0, // ideas that are not the person's own pick and are everyday (level 0)
+  surpriseSum: 0, // sum of the surprise level of the ideas that are not the person's own picks
+  foreignIdeas: 0, // those ideas
   combo: 0,
   comboWeak: 0,
   comboGood: 0, // combinations that are on the pair's hand-made list
@@ -169,6 +175,14 @@ for (const ids of THEME_SETS) {
     const top = Math.max(0, ...picks.map(lvl));
     if (res.seeds.some((s, i) => s.direction === "stretch" || (!input.interests.includes(s.activityId) && lvl(acts[i]) > top))) m.challenge++;
     res.seeds.forEach((s, i) => {
+      const own = input.interests.includes(s.activityId);
+      if (!own) {
+        m.foreignIdeas++;
+        m.surpriseSum += s.surprise ?? 0;
+        if ((s.surprise ?? 0) === 0) m.everydayIdeas++;
+      }
+      if (s.direction === "unexpected" && (s.surprise ?? 0) >= 2) m.unexpectedSurprising++;
+      if (s.direction === "wildcard" && (s.surprise ?? 0) >= 2) m.wildcardSurprising++;
       if (s.themeCombo) {
         m.combo++;
         const verdict = pairVerdict(s.themeCombo[0], s.themeCombo[1]);
@@ -200,6 +214,10 @@ const rows: [string, string][] = [
   ["Ideeën met drie verwante activiteiten (dus een optie van minimaal drie)", pct(m.ideasWith3 / m.ideas)],
   ["Van die verwante activiteiten: past bij het thema van het idee", pct(avg(m.relatedOnTheme))],
   ["Boeken met een uitdagender idee dan de eigen keuzes", pct(m.challenge / m.books)],
+  ["Boeken waarvan het onverwachte idee verrassingsniveau 2 of 3 heeft (ongewoon of opvallend)", pct(m.unexpectedSurprising / m.books)],
+  ["Boeken waarvan de wildcard verrassingsniveau 2 of 3 heeft", pct(m.wildcardSurprising / m.books)],
+  ["Ideeën buiten de eigen keuzes die alledaags zijn (niveau 0)", pct(m.everydayIdeas / m.foreignIdeas)],
+  ["Gemiddeld verrassingsniveau van de ideeën buiten de eigen keuzes (0 tot 3)", (m.surpriseSum / m.foreignIdeas).toFixed(2)],
   ["Onverwachte deuren uit twee thema's", `${m.combo} (${pct(m.combo / m.books)} van de boeken)`],
   ["Daarvan op de handgemaakte lijst van het paar", m.combo ? pct(m.comboGood / m.combo) : "-"],
   ["Daarvan op de 'slecht'-lijst van het paar (moet 0 zijn)", String(m.comboBad)],
