@@ -6,6 +6,7 @@ import { syntheticTwoPageProfiles } from "@/lib/discovery/engine/syntheticTwoPag
 import { THEMES, buildAssociationSources, parseAssociationSources, themeComboFor, themeProfilesFor, themeShortLabel } from "@/lib/discovery/associations";
 import { THEME_FAR_COS, themeCosine, themeNameInSentence, themeRelative } from "@/lib/discovery/themeFit";
 import { COMBO_FLOOR } from "@/lib/discovery/twoPages";
+import { COMBO_FLOOR_UNCURATED, pairVerdict } from "@/lib/discovery/themePairs";
 import { buildIdeaThreads, threadSentence } from "@/lib/ideaThread";
 import { buildBecauseLines } from "@/lib/vensterReveal";
 import { IdeaThread } from "@/components/plan/IdeaThread";
@@ -63,8 +64,12 @@ describe("E4: the unexpected idea from two chosen themes that lie far apart", ()
           expect(x).not.toBe(y);
           const a = byId.get(s.activityId)!;
           expect(picks.has(s.activityId)).toBe(false);
-          expect(Math.min(rel.get(x)!(a.tags), rel.get(y)!(a.tags))).toBeGreaterThanOrEqual(0.5);
-          expect(themeCosine(themes.find((t) => t.id === x)!.weights, themes.find((t) => t.id === y)!.weights)).toBeLessThan(THEME_FAR_COS);
+          // A hand-made combination (themePairs.json, A4) needs no tag fit and is never on the pair's own "bad" list; any other must fit both themes at the floor.
+          const verdict = pairVerdict(x, y);
+          expect(verdict?.bad.has(s.activityId) ?? false).toBe(false);
+          if (!verdict?.good.has(s.activityId)) expect(Math.min(rel.get(x)!(a.tags), rel.get(y)!(a.tags))).toBeGreaterThanOrEqual(verdict ? 0.5 : COMBO_FLOOR_UNCURATED);
+          // Only a pair nobody made a list for has to lie far apart; a hand-made list may also join two themes that are close (natuur and wetenschap).
+          if (!verdict) expect(themeCosine(themes.find((t) => t.id === x)!.weights, themes.find((t) => t.id === y)!.weights)).toBeLessThan(THEME_FAR_COS);
         }
         expect(seeds.filter((x) => x.themeCombo).length).toBeLessThanOrEqual(1);
       }

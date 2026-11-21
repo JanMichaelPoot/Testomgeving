@@ -1,4 +1,5 @@
 import type { Direction } from "@/lib/discovery/engine/types";
+import { COMBO_FLOOR_UNCURATED } from "@/lib/discovery/themePairs";
 
 // Every number that steers the selection, in one place (knowledge-engine assignment, B4). Nothing here is a
 // measurement: they are relative nudges, tuned against the shadow runs (scripts/eval, scripts/discovery-shadow.ts),
@@ -47,7 +48,7 @@ export interface Weights {
     /** Fase 3 "Praktisch": added to the SECOND familiar slot, times the activity's practicality (engine/levels.ts). 0 = off. */
     practicalBonus: number;
   };
-  unexpected: { hybridBase: number; hybridBridge: number; hybridNoise: number; chainNoise: number; oneStepBridge: number; oneStepNoise: number; farRelMax: number; themeComboBase: number; themeComboFit: number; themeComboNoise: number; themeComboFloor: number };
+  unexpected: { hybridBase: number; hybridBridge: number; hybridNoise: number; chainNoise: number; oneStepBridge: number; oneStepNoise: number; farRelMax: number; themeComboBase: number; themeComboFit: number; themeComboNoise: number; themeComboFloor: number; themeComboFloorUncurated: number; themeComboCuratedBonus: number };
   adjacent: { noise: number; noveltyOtherWorld: number; peak: number };
   stretch: { base: number; bridge: number; noise: number; targetByWildness: readonly number[] };
   wildcard: { bridge: number; newWorld: number; redundancyFactor: number; ageDecay: number; baseRare: number; supplyDecay: number };
@@ -67,6 +68,13 @@ export interface Weights {
    * book already do. It is a nudge in every slot, never a hard rule: the pool decides whether it can be met. 0 = off (every set but WEIGHTS_ANCHOR).
    */
   balance: { self: number; organise: number };
+  /**
+   * A5 (docs/plan-activiteitenselectie.md): a book has one idea that asks more than the person's own choices do (a higher level, more physical effort). While no
+   * idea of the book does, an activity that does gets `bonus` less cost, scaled by how adventurous the person said they are (`byWildness`, indexed like the
+   * "practical to wild" dial: grounded, practical, either... see WILDNESS in select.ts). A nudge in every slot, never a hard rule: the hard limits (budget, effort,
+   * supervision) decide what is in the pool, so a cautious person is only stretched by what they allow. 0 = off (every set but WEIGHTS_ANCHOR).
+   */
+  challenge: { bonus: number; byWildness: readonly number[] };
 
   // --- B4 behaviour switches (all off in WEIGHTS_CURRENT) --------------------------------------------
   /** An activity whose cost is unknown does not pass a "free" budget: unknown is never a favourable answer. */
@@ -94,12 +102,13 @@ export const WEIGHTS_CURRENT: Weights = {
   sharedPairPenalty: 0,
   hub: 0,
   familiar: { pickedScore: 2, nearRel: 0.4, noise: 0.3, spreadPerSameDomain: 0.35, practicalBonus: 0 },
-  unexpected: { hybridBase: 2.5, hybridBridge: 0.15, hybridNoise: 0.3, chainNoise: 0.15, oneStepBridge: 0.1, oneStepNoise: 0.15, farRelMax: 0.3, themeComboBase: 2.2, themeComboFit: 0.6, themeComboNoise: 0.3, themeComboFloor: 0.5 },
+  unexpected: { hybridBase: 2.5, hybridBridge: 0.15, hybridNoise: 0.3, chainNoise: 0.15, oneStepBridge: 0.1, oneStepNoise: 0.15, farRelMax: 0.3, themeComboBase: 2.2, themeComboFit: 0.6, themeComboNoise: 0.3, themeComboFloor: 0.5, themeComboFloorUncurated: COMBO_FLOOR_UNCURATED, themeComboCuratedBonus: 0.2 },
   adjacent: { noise: 0.15, noveltyOtherWorld: 0.15, peak: 0.38 },
   stretch: { base: 2, bridge: 0.15, noise: 0.2, targetByWildness: [1, 1.2, 2, 2.8] },
   wildcard: { bridge: 2, newWorld: 2, redundancyFactor: 4, ageDecay: 2, baseRare: 0.5, supplyDecay: 3 },
   option: { theme: 1.2, sim: 0.6, practical: 0.2, rare: 0.1, noise: 0.15, otherKind: 0.15, clusterPenalty: 0.5, minThemeRel: 0.5, relaxedRel: 0.35, maxTagOverlap: 0.6, coverage: 1 },
   balance: { self: 0, organise: 0 },
+  challenge: { bonus: 0, byWildness: [1, 1, 1, 1] },
   strictFreeCost: false,
   explain: false,
   anchor: { picks: 0, indirect: false },
@@ -123,7 +132,8 @@ export const WEIGHTS_ANCHOR: Weights = {
   ...WEIGHTS_V2,
   anchor: { picks: 2, indirect: true },
   hub: 0.6,
-  balance: { self: 1, organise: 0.6 },
+  balance: { self: 1.6, organise: 0.6 },
+  challenge: { bonus: 1.5, byWildness: [0.6, 1, 1.2, 1.5] },
 };
 
 /** Doors and directions are listed here only so the type stays close to the weights that use them. */

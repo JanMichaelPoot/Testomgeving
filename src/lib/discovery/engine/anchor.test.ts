@@ -14,8 +14,8 @@ import { buildGraph } from "@/lib/discovery/engine/graph";
 const lib = defaultEngineLibrary();
 const profiles = syntheticTwoPageProfiles(60, "anchor-test");
 // "The anchor model off": WEIGHTS_V2 with the same hub damping (weights.hub, Stap 171) the production set has. The tests below are about the anchor
-// model changing nothing for visitors it does not apply to, so the other differences between the two sets (the hub damping and the mode balance, C2) are held equal.
-const WITHOUT_ANCHOR = { ...WEIGHTS_V2, hub: WEIGHTS_ANCHOR.hub, balance: WEIGHTS_ANCHOR.balance };
+// model changing nothing for visitors it does not apply to, so the other differences between the two sets (the hub damping, the mode balance (C2) and the challenge nudge (A5)) are held equal.
+const WITHOUT_ANCHOR = { ...WEIGHTS_V2, hub: WEIGHTS_ANCHOR.hub, balance: WEIGHTS_ANCHOR.balance, challenge: WEIGHTS_ANCHOR.challenge };
 
 const usable = (id: string, result: ReturnType<typeof selectSeeds>) => {
   const a = getActivity(id);

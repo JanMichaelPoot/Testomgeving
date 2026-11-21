@@ -3,6 +3,7 @@ import { THEMES, THEME_CARDS, activityAxes } from "@/lib/discovery/associations"
 import { TAGS, getActivities } from "@/lib/discovery/library";
 import { registerOfActivity, registerOfCard } from "@/lib/discovery/register";
 import { REGISTERS, countRegisters } from "@/lib/discovery/registerTypes";
+import { pairVerdict } from "@/lib/discovery/themePairs";
 import { averageAxes, tagProfile } from "@/lib/discovery/associationProfile";
 import {
   COMBO_FLOOR,
@@ -95,6 +96,8 @@ describe("page 2 with chosen themes", () => {
         for (const s of combos) {
           const [a, b] = s.combo!;
           expect(a).not.toBe(b);
+          // A hand-made combination (themePairs.json, A4) counts whatever the tags say; any other must fit both themes.
+          if (pairVerdict(a, b)?.good.has(s.activity.id)) continue;
           expect(Math.min(rel(ALL.find((t) => t.id === a)!)(s.activity), rel(ALL.find((t) => t.id === b)!)(s.activity)), `${ids.join("+")} ${s.activity.id}`).toBeGreaterThanOrEqual(COMBO_FLOOR);
         }
       }

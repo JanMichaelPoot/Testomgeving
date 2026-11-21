@@ -71,7 +71,7 @@ export function buildBecauseLines(
     const activity = idea?.activity_id ? getActivity(idea.activity_id) : undefined;
     if (!activity) return;
     // Theme tiles (E5): an idea that fits two chosen themes at once says so, with the image of the first.
-    const combo = themeComboFor(activity.tags, chosen);
+    const combo = themeComboFor(activity.tags, chosen, activity.id);
     const comboCard = combo ? chosen.map((c) => getAssociation(c)).find((c) => c?.family === combo[0]) : undefined;
     if (combo && comboCard) {
       const names = combo.map((t) => themeNameInSentence(chosen.map((c) => getAssociation(c)).find((c) => c?.family === t)?.label[locale] ?? t));

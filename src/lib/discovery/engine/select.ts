@@ -14,6 +14,7 @@ import { IDEA_COUNT } from "@/lib/productStructure";
 import { THEME_FAR_COS, themeCosine, themeRelative } from "@/lib/discovery/themeFit";
 import { buildOptions } from "@/lib/discovery/engine/options";
 import { modeOfActivity } from "@/lib/discovery/activityKind";
+import { CURATED_COMBO_VALUE, pairKey, pairVerdict } from "@/lib/discovery/themePairs";
 
 // The selection engine. Four regular seeds in four directions, plus one wildcard (Stap 198: five ideas, fewer but better worked out):
 //   familiar x1   the pick itself, or a direct neighbour of it
@@ -120,7 +121,16 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     if (mode === "organise") return seeds.filter((u) => modeOfActivity(byId.get(u.activityId)!) === "organise").length >= 2 ? -W.balance.organise : 0;
     return 0;
   };
-  const supplyCost = (a: Activity) => plainSupplyCost(a) - modeNudge(a);
+  // A5: and towards one idea that asks more than the person's own choices do (level, then physical effort), scaled by how adventurous they said they are.
+  const challengeOf = (a: Activity) => (a.level ?? 0) + (a.intensity ?? 0) / 2;
+  const challengeNudge = (a: Activity) => {
+    if (W.challenge.bonus <= 0 || pickedIds.length === 0 || pickSet.has(a.id)) return 0;
+    const top = Math.max(0, ...pickedIds.map((id) => challengeOf(byId.get(id)!)));
+    if (challengeOf(a) <= top) return 0;
+    if (seeds.some((u) => !pickSet.has(u.activityId) && challengeOf(byId.get(u.activityId)!) > top)) return 0;
+    return W.challenge.bonus * (W.challenge.byWildness[WILDNESS[input.practicalToWild] ?? 1] ?? 1);
+  };
+  const supplyCost = (a: Activity) => plainSupplyCost(a) - modeNudge(a) - challengeNudge(a);
   const pickedIds = [...new Set(input.interests)].filter((id) => byId.has(id));
   const pickSet = new Set(pickedIds);
   // The most connected activities lead too many books: a little off, never for the person's own picks (weights.hub).
@@ -167,21 +177,42 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
     if (open.length === 0) return () => 0;
     return (a) => W.option.coverage * Math.max(...open.map((r) => r(a.tags)));
   };
-  /** The pair of far-apart chosen themes an activity fits at once, and how well (the weaker of the two: it has to fit both). */
-  const themeComboOf = (a: Activity): { value: number; pair: [string, string] | null } => {
+  /** A4: for a pair with a hand-made list (themePairs.json), whether the pool still holds a "good" activity for it. While it does, the list replaces the tag arithmetic for that pair. Set when the unexpected slot is built. */
+  const curatedLeft = new Map<string, boolean>();
+  /**
+   * The pair of chosen themes an activity fits at once, and how well. A hand-made list decides first: an activity on the pair's "bad" list is never its combination,
+   * one on its "good" list always is (strong, whatever the tags say, and `curated`). Otherwise the tag arithmetic: the weaker of the two fits has to reach the floor
+   * (0.5 for a pair with a list that has run out, a stricter 0.6 for a pair nobody made a list for, which must also lie far apart).
+   */
+  const themeComboOf = (a: Activity): { value: number; pair: [string, string] | null; curated: boolean } => {
     let value = 0;
     let pair: [string, string] | null = null;
+    let curated = false;
     for (let i = 0; i < themeRels.length; i++) {
       for (let j = i + 1; j < themeRels.length; j++) {
-        if (themeCosine(chosenThemes[i].weights, chosenThemes[j].weights) >= THEME_FAR_COS) continue;
+        const verdict = pairVerdict(chosenThemes[i].id, chosenThemes[j].id);
+        if (verdict?.bad.has(a.id)) continue;
         const m = Math.min(themeRels[i](a.tags), themeRels[j](a.tags));
+        if (verdict?.good.has(a.id)) {
+          const v = Math.max(CURATED_COMBO_VALUE, m);
+          if (!curated || v > value) {
+            value = v;
+            pair = [chosenThemes[i].id, chosenThemes[j].id];
+            curated = true;
+          }
+          continue;
+        }
+        if (curated) continue;
+        if (verdict && curatedLeft.get(pairKey(chosenThemes[i].id, chosenThemes[j].id))) continue;
+        if (!verdict && themeCosine(chosenThemes[i].weights, chosenThemes[j].weights) >= THEME_FAR_COS) continue;
+        if (m < (verdict ? W.unexpected.themeComboFloor : W.unexpected.themeComboFloorUncurated)) continue;
         if (m > value) {
           value = m;
           pair = [chosenThemes[i].id, chosenThemes[j].id];
         }
       }
     }
-    return { value, pair };
+    return { value, pair, curated };
   };
 
   const rel = (a: Activity) => refs.reduce((m, r) => Math.max(m, graph.sim(a, r)), 0);
@@ -409,14 +440,28 @@ export function selectSeeds(input: EngineInput, lib: EngineLibrary, opts: Select
       // (a2) E4: an activity that fits two chosen themes that lie far apart. It is the person's own two worlds meeting, so it is not "far from every pick" in the
       // old sense, but nobody asked for the combination. Never the person's own pick (that one is already in the book as such).
       if (themeRels.length >= 2) {
+        curatedLeft.clear();
+        for (let i = 0; i < chosenThemes.length; i++) {
+          for (let j = i + 1; j < chosenThemes.length; j++) {
+            const verdict = pairVerdict(chosenThemes[i].id, chosenThemes[j].id);
+            if (!verdict) continue;
+            curatedLeft.set(
+              pairKey(chosenThemes[i].id, chosenThemes[j].id),
+              [...verdict.good].some((id) => {
+                const g = byId.get(id);
+                return !!g && pool.includes(g) && !pickSet.has(id) && !used.has(id);
+              }),
+            );
+          }
+        }
         for (const x of pool) {
           if (pickSet.has(x.id) || used.has(x.id)) continue;
-          const { value, pair } = themeComboOf(x);
+          const { value, pair, curated } = themeComboOf(x);
           if (!pair || value < W.unexpected.themeComboFloor) continue;
           const p = nearestRef(x);
           cands.push({
             a: x,
-            score: W.unexpected.themeComboBase + value * W.unexpected.themeComboFit + rnd() * W.unexpected.themeComboNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) - supplyCost(x),
+            score: W.unexpected.themeComboBase + value * W.unexpected.themeComboFit + (curated ? W.unexpected.themeComboCuratedBonus : 0) + rnd() * W.unexpected.themeComboNoise - redundancy(x) - age(x) + RARE.unexpected * rare(x) - supplyCost(x),
             chain: p ? [p.id, x.id] : [x.id],
             via: p ? graph.shared(p, x).slice(0, 2) : [],
             themeCombo: pair,

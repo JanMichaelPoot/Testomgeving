@@ -14,7 +14,14 @@ import { hashSeed, mulberry32, shuffled } from "../src/lib/discovery/rng";
 import { themeCosine, themeRelative } from "../src/lib/discovery/themeFit";
 import { registerOfActivity, registerOfCard } from "../src/lib/discovery/register";
 import { kindOfActivity, modeOfActivity } from "../src/lib/discovery/activityKind";
+import { pairVerdict } from "../src/lib/discovery/themePairs";
 
+// Trying other weights without editing them: CHALLENGE=1.2 BALANCE_SELF=1.5 BALANCE_OFF=1 (the production set otherwise).
+const WEIGHTS = {
+  ...WEIGHTS_ANCHOR,
+  balance: process.env.BALANCE_OFF ? { self: 0, organise: 0 } : { ...WEIGHTS_ANCHOR.balance, ...(process.env.BALANCE_SELF ? { self: Number(process.env.BALANCE_SELF) } : {}) },
+  challenge: { ...WEIGHTS_ANCHOR.challenge, ...(process.env.CHALLENGE ? { bonus: Number(process.env.CHALLENGE) } : {}) },
+};
 const label = process.argv[2] ?? "baseline";
 const PER = Number(process.argv[3] ?? 12);
 const lib = defaultEngineLibrary();
@@ -57,7 +64,10 @@ const m = {
   ideasWith3: 0, // ideas with at least 3 related activities (idea + 3 = an option with >= 3 activities)
   challenge: 0, // books with a more demanding idea than the person's picks
   combo: 0,
-  comboWeak: 0, // theme combinations whose weaker theme is under 0.6
+  comboWeak: 0,
+  comboGood: 0, // combinations that are on the pair's hand-made list
+  comboBad: 0, // combinations that are on the pair's own "bad" list (never allowed)
+  comboUnlisted: 0, // combinations of a pair nobody made a list for // theme combinations whose weaker theme is under 0.6
   regionalOrRare: 0,
   optFull: 0, // options with two companions (an option of three)
   optOnTheme: [] as number[], // share of companions that belong to the option's theme (>= 0.5)
@@ -88,7 +98,7 @@ for (const ids of THEME_SETS) {
     const rnd = mulberry32(hashSeed(`pick-${ids.join("-")}-${k}`));
     const interests = shuffled(page.filter((x) => !x.explore).map((x) => x.activity.id), rnd).slice(0, 3 + (k % 3));
     const input = { ...p.input, themes, interests };
-    const res = selectSeeds(input, lib, { weights: process.env.BALANCE_OFF ? { ...WEIGHTS_ANCHOR, balance: { self: 0, organise: 0 } } : WEIGHTS_ANCHOR });
+    const res = selectSeeds(input, lib, { weights: WEIGHTS });
     const acts = res.seeds.map((s) => byId.get(s.activityId)!).filter(Boolean);
     m.books++;
     m.ideas += acts.length;
@@ -161,8 +171,12 @@ for (const ids of THEME_SETS) {
     res.seeds.forEach((s, i) => {
       if (s.themeCombo) {
         m.combo++;
+        const verdict = pairVerdict(s.themeCombo[0], s.themeCombo[1]);
+        if (!verdict) m.comboUnlisted++;
+        else if (verdict.good.has(acts[i].id)) m.comboGood++;
+        if (verdict?.bad.has(acts[i].id)) m.comboBad++;
         const [x, y] = s.themeCombo.map((id) => themes.findIndex((t) => t.id === id));
-        if (Math.min(rels[x](acts[i].tags), rels[y](acts[i].tags)) < 0.6) m.comboWeak++;
+        if (!verdict?.good.has(acts[i].id) && Math.min(rels[x](acts[i].tags), rels[y](acts[i].tags)) < 0.6) m.comboWeak++;
       }
       if (acts[i].supply === "regional" || acts[i].supply === "rare") m.regionalOrRare++;
       if (acts[i].safety.tier === 2) m.supervised++;
@@ -187,7 +201,10 @@ const rows: [string, string][] = [
   ["Van die verwante activiteiten: past bij het thema van het idee", pct(avg(m.relatedOnTheme))],
   ["Boeken met een uitdagender idee dan de eigen keuzes", pct(m.challenge / m.books)],
   ["Onverwachte deuren uit twee thema's", `${m.combo} (${pct(m.combo / m.books)} van de boeken)`],
-  ["Daarvan zwak (zwakste thema onder 0,6)", m.combo ? pct(m.comboWeak / m.combo) : "-"],
+  ["Daarvan op de handgemaakte lijst van het paar", m.combo ? pct(m.comboGood / m.combo) : "-"],
+  ["Daarvan op de 'slecht'-lijst van het paar (moet 0 zijn)", String(m.comboBad)],
+  ["Daarvan van een paar zonder lijst", m.combo ? pct(m.comboUnlisted / m.combo) : "-"],
+  ["Daarvan zwak en niet handgemaakt (zwakste thema onder 0,6)", m.combo ? pct(m.comboWeak / m.combo) : "-"],
   ["Ideeën met regionaal of zeldzaam aanbod", pct(m.regionalOrRare / m.ideas)],
   ["Ideeën onder gekwalificeerd toezicht", pct(m.supervised / m.ideas)],
   ["Opties met twee metgezellen (een optie van drie)", pct(m.optFull / m.ideas)],

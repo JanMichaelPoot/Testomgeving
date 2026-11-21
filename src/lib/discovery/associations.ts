@@ -2,6 +2,7 @@ import associationsJson from "@/lib/discovery/associations.json";
 import cardAssociationsJson from "@/lib/discovery/cardAssociations.json";
 import themesJson from "@/lib/discovery/themes.json";
 import { COMBO_FLOOR, MAX_IMAGE_PICKS } from "@/lib/discovery/twoPages";
+import { COMBO_FLOOR_UNCURATED, CURATED_COMBO_VALUE, pairVerdict } from "@/lib/discovery/themePairs";
 import { themeNameInSentence, themeRelative, type ThemeProfile } from "@/lib/discovery/themeFit";
 import { knowledgeAssociationLayerEnabled } from "@/lib/knowledgeFlags";
 import { TAGS, getActivities, getActivity, isImagePending } from "@/lib/discovery/library";
@@ -231,22 +232,40 @@ function themeRelOf(theme: ThemeProfile) {
  * The two chosen themes an activity fits at once (the weaker of the two at least COMBO_FLOOR of the best activity of that theme, the same
  * measure page 2 uses for its combination slots), the pair with the highest minimum; null when it fits fewer than two. Ids like "theme-natuur".
  */
-export function themeComboFor(activityTags: readonly string[], chosenIds: readonly string[]): [string, string] | null {
+export function themeComboFor(activityTags: readonly string[], chosenIds: readonly string[], activityId?: string): [string, string] | null {
   const themes = themeProfilesFor(chosenIds);
   if (themes.length < 2) return null;
   const rels = themes.map((t) => themeRelOf(t)(activityTags));
   let best = 0;
   let pair: [string, string] | null = null;
+  let curated = false;
   for (let i = 0; i < themes.length; i++) {
     for (let j = i + 1; j < themes.length; j++) {
+      // A4: the hand-made list (themePairs.json) decides first, the same way the selection and page 2 read it. With the activity known, a pair that has a list
+      // claims only the activities on its "good" list; a pair without one needs the stricter tag floor. Without the activity the plain tag rule stays.
+      const verdict = pairVerdict(themes[i].id, themes[j].id);
       const m = Math.min(rels[i], rels[j]);
+      if (activityId && verdict) {
+        if (verdict.bad.has(activityId) || !verdict.good.has(activityId)) continue;
+        const v = Math.max(CURATED_COMBO_VALUE, m);
+        if (!curated || v > best) {
+          best = v;
+          pair = [themes[i].id, themes[j].id];
+          curated = true;
+        }
+        continue;
+      }
+      if (curated) continue;
       if (m > best) {
         best = m;
         pair = [themes[i].id, themes[j].id];
       }
     }
   }
-  return pair && best >= COMBO_FLOOR ? pair : null;
+  if (!pair) return null;
+  if (curated) return pair;
+  // The tag rule: 0.5 when the activity is not known (as before), the stricter floor of the selection when it is.
+  return best >= (activityId ? COMBO_FLOOR_UNCURATED : COMBO_FLOOR) ? pair : null;
 }
 
 export interface AssociationEngineInput {
@@ -323,7 +342,7 @@ export function buildAssociationSources(
     const tags = sourceTagsFor(activity.tags, chosenIds, 2);
     if (images.length) sources[activity.id] = images;
     if (tags.length) sourceTags[activity.id] = tags;
-    const combo = themeComboFor(activity.tags, chosenIds);
+    const combo = themeComboFor(activity.tags, chosenIds, activity.id);
     if (combo) combos[activity.id] = combo;
   }
   const own = ideas.map((i) => i.activity_id).filter((id): id is string => !!id && ownPicks.includes(id));

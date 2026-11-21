@@ -6,6 +6,7 @@ import { assocCloseness, type ActivityVector } from "@/lib/discovery/association
 import { REGISTERS, countRegisters, emptyCounts, type Register, type RegisterCounts } from "@/lib/discovery/registerTypes";
 import type { UnfitFlag } from "@/lib/discovery/suitability";
 import { themeRelative, type ThemeProfile } from "@/lib/discovery/themeFit";
+import { CURATED_COMBO_VALUE, pairVerdict } from "@/lib/discovery/themePairs";
 
 // The two image pages of the image intake (docs/plan-twee-beeldpagina-s.md, docs/fase4-opzet.md):
 //   page 1  associative: 18 images, mixed from places, moments and senses, balanced over the four style registers
@@ -425,7 +426,11 @@ export function composeConcretePage<A extends ConcreteActivity>(pool: readonly A
     let pair: [string, string] | null = null;
     for (let i = 0; i < rels.length; i++) {
       for (let j = i + 1; j < rels.length; j++) {
-        const m = Math.min(rels[i].get(a.id) ?? 0, rels[j].get(a.id) ?? 0);
+        // A4: a hand-made list decides first (themePairs.json): an activity on a pair's "bad" list is never its combination, one on its "good" list is a strong one.
+        const verdict = pairVerdict(chosenThemes[i].id, chosenThemes[j].id);
+        if (verdict?.bad.has(a.id)) continue;
+        let m = Math.min(rels[i].get(a.id) ?? 0, rels[j].get(a.id) ?? 0);
+        if (verdict?.good.has(a.id)) m = Math.max(m, CURATED_COMBO_VALUE);
         if (m > value) {
           value = m;
           pair = [chosenThemes[i].id, chosenThemes[j].id];
