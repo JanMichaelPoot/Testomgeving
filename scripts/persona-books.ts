@@ -5,6 +5,8 @@
 //   npx tsx scripts/persona-books.ts --dry-run                  free: the intake, the seeds and the rules the writer will get, per persona
 //   npx tsx scripts/persona-books.ts --budget 1.00 P04 P12 P10   real books, in this order, stopping before the budget could be passed
 //   add --reserve 0.25 to assume a cheaper worst case per book (the four books measured so far cost 0.21-0.23)
+//   add --research-only to run the selection and the research (the places) without the writing, about USD 0.11 cheaper per book (Step 224: measuring places and links)
+//   add --out scratch/persona-books-after to write the files elsewhere, so an earlier set is not overwritten
 //
 // The budget is checked BEFORE each book against the worst cost seen so far (RESERVE until two books are measured, then 1.25 x the dearest): a book cannot be stopped halfway, so the
 // total can only pass the budget if a single book costs more than the reserve. Books go to scratch/persona-books/<id>.json with a compact review.
@@ -89,7 +91,9 @@ async function main() {
     return;
   }
 
-  mkdirSync("scratch/persona-books", { recursive: true });
+  const researchOnly = args.includes("--research-only");
+  const outDir = args.includes("--out") ? args[args.indexOf("--out") + 1] : "scratch/persona-books";
+  mkdirSync(outDir, { recursive: true });
   const { generateIdeaBookFromSeeds } = await import("../src/lib/claude/generateFromSeeds");
   let spent = 0;
   let worst = RESERVE;
@@ -125,12 +129,12 @@ async function main() {
       } else original(line);
     };
     try {
-      const { book, report } = await generateIdeaBookFromSeeds(b.intake, b.locale, computeCharacterProfile(b.intake), { sessionId: `persona-${p.id}` });
+      const { book, report } = await generateIdeaBookFromSeeds(b.intake, b.locale, computeCharacterProfile(b.intake), { sessionId: `persona-${p.id}`, ...(researchOnly ? { researchOnly: true } : {}) });
       console.log = original;
       spent += cost;
       observed.push(cost);
       worst = observed.length >= 2 ? Math.max(...observed) * 1.25 : RESERVE;
-      writeFileSync(`scratch/persona-books/${p.id}.json`, JSON.stringify({ persona: p.id, label: p.label, locale: b.locale, intake: b.intake, cost, calls, report, book }, null, 1));
+      writeFileSync(`${outDir}/${p.id}.json`, JSON.stringify({ persona: p.id, label: p.label, locale: b.locale, intake: b.intake, cost, calls, report, book }, null, 1));
       original(`${p.id} ${p.label}: $${cost.toFixed(3)} (${calls.join("; ")}) | total so far $${spent.toFixed(3)} of ${budget.toFixed(2)}`);
       original(`  issues: ${report.issues.length ? report.issues.join("; ") : "none"}; notes: ${report.notes.join(",") || "-"}`);
     } catch (err) {

@@ -1,0 +1,388 @@
+{
+  "summary": {
+    "books": 2,
+    "ideas": 14,
+    "ideasWithAPlace": 14,
+    "ideasWithALinkedPlace": 14,
+    "ideasCovered": 13,
+    "ideasGood": 7,
+    "ideasCoveredPct": "93%",
+    "ideasGoodPct": "50%",
+    "avgPlacesPerIdea": 2,
+    "avgWorkingPerIdea": 1.71,
+    "linkClasses": {
+      "works": 23,
+      "works-not-relevant": 1,
+      "broken": 1,
+      "unverified": 1,
+      "none": 1,
+      "wrong_site": 1
+    }
+  },
+  "rows": [
+    {
+      "book": "scratch/persona-books/P12.json",
+      "idea": "Solve a Murder in a Cellar",
+      "activity": "detectivebox",
+      "places": [
+        {
+          "name": "Belle's Detective Game",
+          "url": "https://salonvanweleer.nl/mysterie/detectivegame.html",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "scratch/persona-books/P12.json",
+      "idea": "A Free Communal Dinner",
+      "activity": "buurtmaaltijd",
+      "places": [
+        {
+          "name": "BuurtBuik Utrecht Overvecht",
+          "url": "https://buurtbuik.nl/utrecht/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Buurtmaaltijd Huis van Vrede",
+          "url": "https://diaconieutrecht.nl/activiteit/buurtmaaltijd/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Buurtmaaltijden platform various locations",
+          "url": "https://buurtmaaltijden.nl/voor-bewoners",
+          "cls": "works",
+          "detail": "200",
+          "relevant": false
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 2
+    },
+    {
+      "book": "scratch/persona-books/P12.json",
+      "idea": "Build Your Own Small Program",
+      "activity": "leren-programmeren",
+      "places": [
+        {
+          "name": "School of Data Science - Introductie in Programmeren",
+          "url": "https://schoolofdatascience.nl/cursussen/cursus-introductie-in-programmeren/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "scratch/persona-books/P12.json",
+      "idea": "Bring a Dish, Meet Everyone",
+      "activity": "potluck",
+      "places": [
+        {
+          "name": "XR Utrecht Potluck",
+          "url": "https://extinctionrebellion.nl/events/potluck-16/",
+          "cls": "broken",
+          "detail": "HTTP 404",
+          "relevant": false
+        }
+      ],
+      "covered": false,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 0
+    },
+    {
+      "book": "scratch/persona-books/P12.json",
+      "idea": "Evening High Tea at a Café",
+      "activity": "high-tea",
+      "places": [
+        {
+          "name": "Teds Utrecht",
+          "url": "https://www.hightea.nl/utrecht/teds-utrecht/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Ubica Utrecht",
+          "url": "https://ubicautrecht.nl/high-tea",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "De Kwekerij",
+          "url": "https://dekwekerijutrecht.nl/high-tea-bij-de-kwekerij/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    },
+    {
+      "book": "scratch/persona-books/P12.json",
+      "idea": "High Tea in a Wine Cellar",
+      "activity": "buitenplaats",
+      "places": [
+        {
+          "name": "Teds Utrecht",
+          "url": "https://www.hightea.nl/utrecht/teds-utrecht/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Ubica Utrecht",
+          "url": "https://ubicautrecht.nl/high-tea",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "De Kwekerij",
+          "url": "https://dekwekerijutrecht.nl/high-tea-bij-de-kwekerij/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    },
+    {
+      "book": "scratch/persona-books/P12.json",
+      "idea": "Guided Evening Mushroom Walk",
+      "activity": "paddenstoelen",
+      "places": [
+        {
+          "name": "Op zoek naar paddenstoelen - Kaapse Bossen",
+          "url": "https://www.natuurmonumenten.nl/natuurgebieden/kaapse-bossen/agenda/op-zoek-naar-paddenstoelen",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "scratch/persona-books/P13.json",
+      "idea": "Bloemschikken in De Meern",
+      "activity": "bloemschikken",
+      "places": [
+        {
+          "name": "Groei & Bloei Utrecht - Cursus Schik met de natuur",
+          "url": "https://utrecht.groei.nl/activiteiten/bloemschikken",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "scratch/persona-books/P13.json",
+      "idea": "Online cursus beginnen",
+      "activity": "online-cursus",
+      "places": [
+        {
+          "name": "TU Delft Online Beginners Course",
+          "url": "https://onlinecourses.tudelft.nl",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "FutureLearn Introduction to Dutch",
+          "url": "https://www.futurelearn.com/courses/dutch",
+          "cls": "unverified",
+          "detail": "HTTP 403",
+          "relevant": false
+        },
+        {
+          "name": "Babel Online Dutch Courses",
+          "url": "https://www.babel.nl/cursus/nederlands-beginners/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    },
+    {
+      "book": "scratch/persona-books/P13.json",
+      "idea": "Een dag paarden verzorgen",
+      "activity": "paardenverzorgingsdag",
+      "places": [
+        {
+          "name": "Manege 't Hoogt",
+          "url": "https://www.zorgboeren.nl/zorgboerderijen/manege-t-hoogt",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Manege Stal van Brenk",
+          "url": "https://stalvanbrenk.nl/activiteiten/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 2
+    },
+    {
+      "book": "scratch/persona-books/P13.json",
+      "idea": "Wandelmeditatie bij Mindful Walk",
+      "activity": "wandelmeditatie",
+      "places": [
+        {
+          "name": "Mindful Run - Mindful Walk",
+          "url": "https://mindfulrun.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "scratch/persona-books/P13.json",
+      "idea": "Klaverjassen aan de beginnerstafel",
+      "activity": "kaartspellen",
+      "places": [
+        {
+          "name": "Klaverjas Vereniging Utrecht",
+          "url": "https://www.klaverjasverenigingutrecht.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Buurthuis De Speler",
+          "url": null,
+          "cls": "none",
+          "detail": "no link",
+          "relevant": false
+        },
+        {
+          "name": "BC'80 - Bridgeclub Utrecht",
+          "url": "https://2043.bridge.nl",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 2,
+      "working": 2
+    },
+    {
+      "book": "scratch/persona-books/P13.json",
+      "idea": "Ganzen kijken bij Arkemheen",
+      "activity": "ganzenkijken",
+      "places": [
+        {
+          "name": "Vogelwacht Utrecht Arkemheen excursie",
+          "url": "https://vogelwacht-utrecht.nl/excursies-amersfoort/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Vogelexcursie Flevopolder",
+          "url": "https://vogelwacht-utrecht.nl/excursies-afd-vechtplassen/",
+          "cls": "wrong_site",
+          "detail": "name_not_on_site",
+          "relevant": false
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 1
+    },
+    {
+      "book": "scratch/persona-books/P13.json",
+      "idea": "Nordic walking in Utrecht",
+      "activity": "nordic-walking",
+      "places": [
+        {
+          "name": "Moving to Better Health",
+          "url": "https://movingtobetterhealth.nl/nordic-walking/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "SVZAWA",
+          "url": "https://svzawa.nl/nordic-walking/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Fysiotherapie Colli",
+          "url": "https://www.fysiotherapiecolli.nl/nordic-walking-cursus-voor-hart-vaat-en-longpatienten/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    }
+  ]
+}

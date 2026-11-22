@@ -9,7 +9,7 @@ import { describeToday, isoDateNL } from "@/lib/discovery/season";
 import { cleanRating, type Rating } from "@/lib/claude/rating";
 import type { RatingEnricher } from "@/lib/claude/placesRatings";
 import type { CostLedger } from "@/lib/claude/costLedger";
-import { verifyOptionUrls } from "@/lib/claude/verifyUrls";
+import { isPublicWebAddress, verifyOptionUrls } from "@/lib/claude/verifyUrls";
 import { filterRelevant, relevantOptions } from "@/lib/claude/optionRelevance";
 
 export type { Rating };
@@ -58,6 +58,20 @@ const PRIOR_WEIGHT = 20;
  * the highly rated ones, so the bar is 4.0, the same as the prior: an option the reviews put under it gives way to one above it.
  */
 const POOR_SCORE = 4.0;
+
+/**
+ * A place counts only with a link (Jan, 22 Nov 2026: every option needs at least one real place with a link to a working site, preferably two). The link is part of
+ * the place: a venue without a website cannot be checked by the app or visited by the reader, and the measurement of the finished books found one place in ten without one.
+ * Public web address only (no localhost, no IP address); whether it still answers is the job of verifyOptionUrls.
+ */
+export function hasLink(o: Pick<LocalOption, "url">): boolean {
+  return !!o.url && isPublicWebAddress(o.url) !== null;
+}
+
+/** The options that have a link, in their order. */
+export function withLinks<T extends Pick<LocalOption, "url">>(options: readonly T[]): T[] {
+  return options.filter(hasLink);
+}
 
 export function adjustedScore(r: Rating): number {
   const n = r.reviews ?? 3;
@@ -439,7 +453,9 @@ usual way in and "close" when it is the same activity in another form.
 Activities:
 ${lines.join("\n")}
 
-Rules: only list options that appear in your search results. Give the website exactly as it appeared, or null.
+Rules: only list options that appear in your search results. Every option needs a website address: its own official site, or failing that the page you found it on (its page on the club's
+federation, the municipality, a listing of that venue); give it exactly as it appeared. An option for which you saw no website at all is not listed, however good it sounds, because the reader must be able to open it.
+When two or more qualify, list at least two: a second option next to the first is worth the same care.
 The note is one short line: what it is, how a beginner takes part (trial lesson, open evening, drop-in, booking), and prices or times only when the source states them. Prefer the option's own website over a listing or directory page.
 
 Finish with one JSON code block, exactly this shape:
@@ -719,7 +735,8 @@ export async function researchSeeds(opts: {
   // Physical places only (the online pass, when it is asked for at all, is the one exception).
   const physical = (list: LocalOption[]) => (online ? list : list.filter(isPhysicalOption));
   // And only what is about the activity it is stored for (optionRelevance.ts): an answer cached before that check existed may hold another activity's options.
-  const about = (id: string, list: LocalOption[]) => relevantOptions(list, id, { online });
+  // And only with a link (hasLink): an answer cached before that rule may hold places without one; when that leaves nothing the answer is stale and the question is asked again.
+  const about = (id: string, list: LocalOption[]) => withLinks(relevantOptions(list, id, { online }));
   for (const [id, stored] of cached) {
     const options = about(id, physical(cleanOptions(stored, today)));
     // Everything that was stored has run out since: that is a new question, not an answer.
@@ -769,6 +786,36 @@ export async function researchSeeds(opts: {
     }
   }
 
+  // Does what was found exist? Websites that do not answer at all are thrown away before anything is stored.
+  // In production the page itself is read too (closed for good, parked domain, wrong business); see verifyUrls.ts.
+  const checker = opts.verify === false ? null : (opts.verify ?? ((o: LocalOption[]) => verifyOptionUrls(o, undefined, undefined, { content: true })));
+  let dropped = 0;
+  let checked = 0;
+
+  // A cached place is up to 30 days old, and a site can go away in that time (a persona book of 18 Nov 2026 linked to a page that answered 404 four days later). The
+  // links of cached places are looked at again now, once per book and for free (a page request, no model call): what no longer answers is dropped, a page that moved to its
+  // front page is corrected, and the answer is written back so the next book starts from the cleaned one. An answer that is empty after this is a new question.
+  if (checker && !online && cache) {
+    const rewritten: { activityId: string; options: LocalOption[]; key: string }[] = [];
+    await Promise.all(
+      [...byActivity.entries()]
+        .filter(([id, r]) => r.source === "cache" && !borrowed.has(id) && r.options.length > 0)
+        .map(async ([id, r]) => {
+          checked += r.options.length;
+          const result = await checker(r.options);
+          dropped += result.dropped.length;
+          for (const d of result.dropped) console.warn(`WINDOW: cached option dropped (${d.reason}): ${d.option.name} ${d.option.url ?? ""}`);
+          if (result.dropped.length === 0 && result.kept.every((o, i) => o.url === r.options[i]?.url)) return;
+          if (result.kept.length === 0) byActivity.delete(id);
+          else {
+            byActivity.set(id, { ...r, options: result.kept });
+            rewritten.push({ activityId: id, options: result.kept, key: priority.has(id) && ownFrom.has(id) ? ownKey : cacheKey });
+          }
+        }),
+    );
+    for (const key of new Set(rewritten.map((u) => u.key))) await cache.put(rewritten.filter((u) => u.key === key).map(({ activityId, options }) => ({ activityId, options })), key, locale);
+  }
+
   // Cached places that never had a Google score get one now (once: the answer, also "none", is stored with the option).
   if (opts.ratings?.enabled && !online && cache) {
     const upgraded: { activityId: string; options: LocalOption[]; key: string }[] = [];
@@ -788,11 +835,6 @@ export async function researchSeeds(opts: {
   for (const [id, r] of opts.known ?? []) if (activityIds.includes(id) && !byActivity.has(id)) byActivity.set(id, r);
   const missing = activityIds.filter((id) => !byActivity.has(id));
   let failed = 0;
-  let dropped = 0;
-  let checked = 0;
-  // Does what was found exist? Websites that do not answer at all are thrown away before anything is stored.
-  // In production the page itself is read too (closed for good, parked domain, wrong business); see verifyUrls.ts.
-  const checker = opts.verify === false ? null : (opts.verify ?? ((o: LocalOption[]) => verifyOptionUrls(o, undefined, undefined, { content: true })));
 
   // One call for the book's own choices and one for the rest, side by side (so the wait does not grow); a failure of one leaves the other alone.
   const batch = async (ids: string[], own: boolean) => {
@@ -814,6 +856,13 @@ export async function researchSeeds(opts: {
             dropped += result.dropped.length;
             for (const d of result.dropped) console.warn(`WINDOW: research option dropped (${d.reason}): ${d.option.name} ${d.option.url ?? ""}`);
             options = result.kept;
+          }
+          // A place without a link is left out before it is stored: the prompt asks for the website, this is the check behind the prompt.
+          const linked = withLinks(options);
+          if (linked.length !== options.length) {
+            dropped += options.length - linked.length;
+            for (const o of options) if (!hasLink(o)) console.warn(`WINDOW: research option dropped (no_link): ${o.name} ${o.city}`);
+            options = linked;
           }
           // The Google score of the places found, before they are stored, so the cache holds it and a place is looked up once.
           if (opts.ratings && !online && options.length > 0) options = await opts.ratings.enrich(options, { country: foreign ?? "NL", locale });

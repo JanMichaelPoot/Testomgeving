@@ -4,11 +4,13 @@ import {
   buildResearchPrompt,
   cleanOptions,
   expiryMs,
+  hasLink,
   isPhysicalOption,
   parseResearchAnswer,
   placeKey,
   rankOptions,
   researchSeeds,
+  withLinks,
   type LocalOption,
   type ResearchCache,
 } from "@/lib/claude/localResearch";
@@ -428,5 +430,103 @@ describe("the Google score in the research (Jan, 14 Nov 2026)", () => {
   it("keeps the flag when options are read back from the cache", () => {
     expect(cleanOptions([{ name: "X", city: "Utrecht", url: null, note: "", ratingChecked: true }])[0].ratingChecked).toBe(true);
     expect(cleanOptions([{ name: "X", city: "Utrecht", url: null, note: "" }])[0].ratingChecked).toBeUndefined();
+  });
+});
+
+// Jan, 22 Nov 2026: every option needs at least one real place with a link to a working site, preferably two. The link is part of the place.
+describe("a place has a link", () => {
+  const args = { location: "Utrecht", searchDistance: "city", locale: "nl" as const, verify: false as const, now: NOW };
+  const noLink = (name: string): LocalOption => ({ ...opt(name), url: null });
+
+  it("counts a public web address as a link and nothing else", () => {
+    expect(hasLink({ url: "https://www.klimhal.nl/proefles" })).toBe(true);
+    expect(hasLink({ url: "http://klimhal.nl" })).toBe(true);
+    expect(hasLink({ url: null })).toBe(false);
+    expect(hasLink({ url: "" })).toBe(false);
+    expect(hasLink({ url: "http://localhost:3000/x" })).toBe(false);
+    expect(hasLink({ url: "https://192.168.0.1/" })).toBe(false);
+    expect(withLinks([noLink("A"), opt("B")]).map((o) => o.name)).toEqual(["B"]);
+  });
+
+  it("leaves a place without a website out before it is stored, and counts it as dropped", async () => {
+    const { cache, store } = memoryCache();
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [noLink("Yoga Zonder Site"), opt("Yoga Met Site")]])));
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const { byActivity, stats } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
+    warn.mockRestore();
+    expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Yoga Met Site"]);
+    expect(stats.dropped).toBe(1);
+    expect([...store.values()][0].map((o) => o.name)).toEqual(["Yoga Met Site"]);
+  });
+
+  it("an idea whose only places have no website ends with none, which the pipeline then repairs", async () => {
+    const { cache } = memoryCache();
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [noLink("Alleen Facebook")]])));
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
+    warn.mockRestore();
+    expect(byActivity.get("yoga")?.options).toEqual([]);
+  });
+
+  it("does not trust a cached answer that only holds places without a website: it is a new question", async () => {
+    const { cache } = memoryCache({ "yoga|utrecht|city|v6": [noLink("Oude Yogaplek")] });
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Nieuwe Yogaklas")]])));
+    const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
+    expect(search).toHaveBeenCalledTimes(1);
+    expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Nieuwe Yogaklas"]);
+  });
+
+  it("keeps the places with a website from a mixed cached answer, and does not search again", async () => {
+    const { cache } = memoryCache({ "yoga|utrecht|city|v6": [noLink("Zonder"), opt("Yoga Studio")] });
+    const search = vi.fn();
+    const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search });
+    expect(search).not.toHaveBeenCalled();
+    expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Yoga Studio"]);
+  });
+
+  it("tells the research that every option needs a website and that two are better than one", () => {
+    const prompt = buildResearchPrompt(["hardlopen"], "Utrecht", "city", "nl", NOW);
+    expect(prompt).toMatch(/Every option needs a website address/);
+    expect(prompt).toMatch(/not listed/);
+    expect(prompt).toMatch(/list at least two/);
+  });
+
+  // The links of cached places are looked at again (a cached place is up to 30 days old).
+  it("looks at the links of cached places again: a dead one is dropped and the cleaned answer is written back", async () => {
+    const { cache, store } = memoryCache({ "yoga|utrecht|city|v6": [opt("Yoga Dood"), opt("Yoga Levend")] });
+    const search = vi.fn();
+    const verify = vi.fn(async (options: LocalOption[]) => ({
+      kept: options.filter((o) => o.name !== "Yoga Dood"),
+      dropped: options.filter((o) => o.name === "Yoga Dood").map((option) => ({ option, reason: "page_gone" })),
+    }));
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const { byActivity, stats } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search, verify });
+    warn.mockRestore();
+    expect(search).not.toHaveBeenCalled();
+    expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Yoga Levend"]);
+    expect(stats.dropped).toBe(1);
+    expect(store.get("yoga|utrecht|city|v6")?.map((o) => o.name)).toEqual(["Yoga Levend"]);
+  });
+
+  it("an answer whose links are all dead is a new question, searched again", async () => {
+    const { cache } = memoryCache({ "yoga|utrecht|city|v6": [opt("Yoga Dood")] });
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Yoga Nieuw")]])));
+    const verify = vi.fn(async (options: LocalOption[]) =>
+      options[0].name === "Yoga Dood" ? { kept: [], dropped: [{ option: options[0], reason: "host_does_not_exist" }] } : { kept: options, dropped: [] },
+    );
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const { byActivity } = await researchSeeds({ ...args, activityIds: ["yoga"], cache, search, verify });
+    warn.mockRestore();
+    expect(search).toHaveBeenCalledTimes(1);
+    expect(byActivity.get("yoga")?.options.map((o) => o.name)).toEqual(["Yoga Nieuw"]);
+  });
+
+  it("writes nothing back when every cached link still answers", async () => {
+    const { cache } = memoryCache({ "yoga|utrecht|city|v6": [opt("Yoga Studio")] });
+    const put = vi.spyOn(cache, "put");
+    const verify = vi.fn(async (options: LocalOption[]) => ({ kept: options, dropped: [] }));
+    await researchSeeds({ ...args, activityIds: ["yoga"], cache, search: vi.fn(), verify });
+    expect(verify).toHaveBeenCalledTimes(1);
+    expect(put).not.toHaveBeenCalled();
   });
 });

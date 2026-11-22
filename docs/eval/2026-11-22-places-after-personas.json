@@ -1,0 +1,244 @@
+{
+  "summary": {
+    "books": 2,
+    "ideas": 10,
+    "ideasWithAPlace": 9,
+    "ideasWithALinkedPlace": 9,
+    "ideasCovered": 9,
+    "ideasGood": 4,
+    "ideasCoveredPct": "90%",
+    "ideasGoodPct": "40%",
+    "avgPlacesPerIdea": 1.5,
+    "avgWorkingPerIdea": 1.5,
+    "linkClasses": {
+      "works": 14,
+      "unverified": 1
+    }
+  },
+  "rows": [
+    {
+      "book": "scratch/persona-books-after/P13.json",
+      "idea": "ganzenkijken",
+      "activity": "ganzenkijken",
+      "places": [],
+      "covered": false,
+      "good": false,
+      "placesCount": 0,
+      "linked": 0,
+      "working": 0
+    },
+    {
+      "book": "scratch/persona-books-after/P12.json",
+      "idea": "detectivebox",
+      "activity": "detectivebox",
+      "places": [
+        {
+          "name": "Belle's Detective Game - Salon van Weleer",
+          "url": "https://real-live-games.nl/belledetective/index.html",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "scratch/persona-books-after/P12.json",
+      "idea": "kaartspellen",
+      "activity": "kaartspellen",
+      "places": [
+        {
+          "name": "Klaverjas Vereniging Utrecht",
+          "url": "https://www.klaverjasverenigingutrecht.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "BC'80 Bridge Club",
+          "url": "https://volksuniversiteitutrecht.nl/cursussen/bridge-clinic-voor-beginners",
+          "cls": "unverified",
+          "detail": "HTTP 403",
+          "relevant": false
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 2
+    },
+    {
+      "book": "scratch/persona-books-after/P13.json",
+      "idea": "klaverjassen",
+      "activity": "klaverjassen",
+      "places": [
+        {
+          "name": "Klaverjas Vereniging Utrecht",
+          "url": "https://www.klaverjasverenigingutrecht.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Theater Utrecht",
+          "url": "https://www.theaterutrecht.nl/nl/agenda/klaverjassen",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 2
+    },
+    {
+      "book": "scratch/persona-books-after/P13.json",
+      "idea": "paardenverzorgingsdag",
+      "activity": "paardenverzorgingsdag",
+      "places": [
+        {
+          "name": "Manege 't Hoogt",
+          "url": "https://manegethoogt.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "scratch/persona-books-after/P12.json",
+      "idea": "open-source",
+      "activity": "open-source",
+      "places": [
+        {
+          "name": "NodeSchool Utrecht",
+          "url": "https://nodeschool.io/utrecht/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "scratch/persona-books-after/P13.json",
+      "idea": "solo-rpg",
+      "activity": "solo-rpg",
+      "places": [
+        {
+          "name": "RPG Night Utrecht",
+          "url": "https://warhorn.net/events/rpg-night-utrecht",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "scratch/persona-books-after/P12.json",
+      "idea": "high-tea",
+      "activity": "high-tea",
+      "places": [
+        {
+          "name": "De Kwekerij",
+          "url": "https://www.hightea.nl/utrecht/de-kwekerij-utrecht/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Ubica Utrecht",
+          "url": "https://ubicautrecht.nl/high-tea",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Carmel Market Mediterranean High Tea",
+          "url": "https://carmelmarket.nl/high-tea/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    },
+    {
+      "book": "scratch/persona-books-after/P13.json",
+      "idea": "nordic-walking",
+      "activity": "nordic-walking",
+      "places": [
+        {
+          "name": "Moving to Better Health",
+          "url": "https://movingtobetterhealth.nl/nordic-walking/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Het Stichts Langlauf Team",
+          "url": "https://www.langlaufen.nl/over-ons/het+stichts+langlauf+team/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Centrum voor Fysiotherapie Colli",
+          "url": "https://www.fysiotherapiecolli.nl/nordic-walking-cursus-voor-hart-vaat-en-longpatienten/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    },
+    {
+      "book": "scratch/persona-books-after/P12.json",
+      "idea": "poppentheater",
+      "activity": "poppentheater",
+      "places": [
+        {
+          "name": "Aldo theater met poppen",
+          "url": "https://www.aldo.nl",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    }
+  ]
+}

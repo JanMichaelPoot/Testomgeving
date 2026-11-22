@@ -687,6 +687,9 @@ export function widerRadiusKm(searchDistance: string | undefined, km: number | u
   return Math.min(150, base * 2);
 }
 
+/** What a second place is worth when the reserve ideas are compared (the unit is a rating point: a venue with 4.5 against one with 4.0 and two places). */
+export const SECOND_PLACE_BONUS = 0.3;
+
 /** Rounds of replacing ideas whose provider could not be found. The last round only allows activities that need none. */
 export const SUPPLY_ROUNDS = 2;
 
@@ -890,8 +893,9 @@ export async function generateIdeaBookFromSeeds(
       ownPicks,
       domainOf: (id) => getActivity(id)?.domain,
       quality: (s) => {
-        const first = seedResearch(s, research.byActivity)?.options[0];
-        return first?.rating ? adjustedScore(first.rating) : 0;
+        const options = seedResearch(s, research.byActivity)?.options ?? [];
+        // The best rating first; a second place with a link (every place has one, see withLinks) is worth a little more: the book should show two where it can (Jan, 22 Nov 2026).
+        return (options[0]?.rating ? adjustedScore(options[0].rating) : 0) + (options.length >= 2 ? SECOND_PLACE_BONUS : 0);
       },
     });
     if (filled.swaps.length > 0) {

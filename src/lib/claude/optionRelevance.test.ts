@@ -7,7 +7,7 @@ import type { Seed } from "@/lib/discovery/engine";
 // Jan, 14 Nov 2026: the book "Een avond je eigen bordspel schetsen" showed two make-up courses as its "echte plekken". The online round had been asked about
 // both ideas in one call and answered both with the same make-up courses. These tests pin that, with the options exactly as they were found.
 
-const opt = (name: string, note: string, extra: Partial<LocalOption> = {}): LocalOption => ({ name, city: "Online", url: null, note, until: null, rating: null, ...extra });
+const opt = (name: string, note: string, extra: Partial<LocalOption> = {}): LocalOption => ({ name, city: "Online", url: "https://example.org/" + encodeURIComponent(name), note, until: null, rating: null, ...extra });
 const LOI = opt("LOI - Cursus Make-up artist", "Praktijkgerichte cursus met materialenpakket, 12 maanden, €89/maand");
 const THEATER = opt("Online Cursus Theater en Special Effects Make Up", "Uitgebreide cursus speciale effecten make-up, €39");
 const UDEMY = opt("Udemy: The Board Game Developer", "Online cursus over het ontwerpen en uitbrengen van een bordspel");

@@ -1,0 +1,945 @@
+{
+  "summary": {
+    "books": 8,
+    "ideas": 40,
+    "ideasWithAPlace": 35,
+    "ideasWithALinkedPlace": 32,
+    "ideasCovered": 28,
+    "ideasGood": 13,
+    "ideasCoveredPct": "70%",
+    "ideasGoodPct": "33%",
+    "avgPlacesPerIdea": 1.45,
+    "avgWorkingPerIdea": 1.15,
+    "linkClasses": {
+      "none": 6,
+      "works": 43,
+      "works-not-relevant": 4,
+      "wrong_site": 1,
+      "unverified": 3,
+      "broken": 1
+    }
+  },
+  "rows": [
+    {
+      "book": "03dc7eff-26f5-4962-9a9a-070b3c6c05de",
+      "created_at": "2026-11-22T00:31:32.162392+00:00",
+      "idea": "Learn Clock and Watch Repair",
+      "activity": "klokken",
+      "places": [],
+      "covered": false,
+      "good": false,
+      "placesCount": 0,
+      "linked": 0,
+      "working": 0
+    },
+    {
+      "book": "03dc7eff-26f5-4962-9a9a-070b3c6c05de",
+      "created_at": "2026-11-22T00:31:32.162392+00:00",
+      "idea": "Try Building a Mechanical Toy",
+      "activity": "houten-klok-bouwen",
+      "places": [],
+      "covered": false,
+      "good": false,
+      "placesCount": 0,
+      "linked": 0,
+      "working": 0
+    },
+    {
+      "book": "0bdba25b-560f-47df-a334-6ff6708f13e1",
+      "created_at": "2026-11-17T11:00:13.915114+00:00",
+      "idea": "Reptielen van dichtbij bekijken",
+      "activity": "reptielen",
+      "places": [
+        {
+          "name": "Reptielenzoo SERPO",
+          "url": null,
+          "cls": "none",
+          "detail": "no link",
+          "relevant": false
+        }
+      ],
+      "covered": false,
+      "good": false,
+      "placesCount": 1,
+      "linked": 0,
+      "working": 0
+    },
+    {
+      "book": "03dc7eff-26f5-4962-9a9a-070b3c6c05de",
+      "created_at": "2026-11-22T00:31:32.162392+00:00",
+      "idea": "Guided Tour of a Waterline Fort",
+      "activity": "bunkertocht",
+      "places": [
+        {
+          "name": "Waterliniemuseum (Fort bij Vechten)",
+          "url": "https://waterliniemuseum.nl/rondleidingen/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "0bdba25b-560f-47df-a334-6ff6708f13e1",
+      "created_at": "2026-11-17T11:00:13.915114+00:00",
+      "idea": "Historische geocaching-route",
+      "activity": "geocaching",
+      "places": [
+        {
+          "name": "Gooi & Vecht GeoTour routes",
+          "url": "https://www.visitgooivecht.nl/en/see-do/geocaching",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "5f5db228-4864-4268-bea0-66393ddc8b30",
+      "created_at": "2026-11-17T10:57:03.877036+00:00",
+      "idea": "Go leren spelen in café",
+      "activity": "go",
+      "places": [
+        {
+          "name": "Amersfoortse Go Club Knipoog",
+          "url": "https://www.gobond.nl/index.php?page=Clubs_Amersfoort&sid=2",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "0bdba25b-560f-47df-a334-6ff6708f13e1",
+      "created_at": "2026-11-17T11:00:13.915114+00:00",
+      "idea": "Een nacht in een kasteelhotel",
+      "activity": "kasteel-overnachting",
+      "places": [
+        {
+          "name": "HotelSpecials",
+          "url": "https://www.hotelspecials.nl/kasteel",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Kasteelovernachtingen.nl",
+          "url": "https://www.kasteelovernachtingen.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "TopOvernachtingen",
+          "url": "https://www.topovernachtingen.nl/kastelen/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    },
+    {
+      "book": "03dc7eff-26f5-4962-9a9a-070b3c6c05de",
+      "created_at": "2026-11-22T00:31:32.162392+00:00",
+      "idea": "Visualise a Dataset Yourself",
+      "activity": "data-visualisatie",
+      "places": [
+        {
+          "name": "Training Data Visualisatie Utrecht",
+          "url": "https://www.eduvision.nl/course/data-visualisatie",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Data Visualization – EN",
+          "url": "https://www.beeckestijn.org/en/courses/data-visualization-training/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 2
+    },
+    {
+      "book": "0ce79b3d-c467-4785-a04a-2cdfd269918f",
+      "created_at": "2026-11-16T15:37:57.611118+00:00",
+      "idea": "Weave Your Own Willow Basket",
+      "activity": "wilgenvlechten",
+      "places": [
+        {
+          "name": "Weidenflechten – runder Einkaufskorb",
+          "url": "https://gartenakademie.wyssgarten.ch/angebot/details/8731?angebotTitel=weidenflechten-runder-einkaufskorb",
+          "cls": "works",
+          "detail": "200",
+          "relevant": false
+        }
+      ],
+      "covered": false,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 0
+    },
+    {
+      "book": "5f5db228-4864-4268-bea0-66393ddc8b30",
+      "created_at": "2026-11-17T10:57:03.877036+00:00",
+      "idea": "Stadsspel door Amersfoort",
+      "activity": "stadsspel",
+      "places": [
+        {
+          "name": "Outside Escape Amersfoort",
+          "url": null,
+          "cls": "none",
+          "detail": "no link",
+          "relevant": false
+        },
+        {
+          "name": "Escape Tour Amersfoort",
+          "url": "https://www.escapetours.com/stad/amersfoort",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Escape the City Amersfoort",
+          "url": "https://escaperoom-events.nl/escape-games/escape-the-city-amersfoort/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 2,
+      "working": 2
+    },
+    {
+      "book": "5f5db228-4864-4268-bea0-66393ddc8b30",
+      "created_at": "2026-11-17T10:57:03.877036+00:00",
+      "idea": "Sterren fotograferen met statief",
+      "activity": "sterrenkijken",
+      "places": [
+        {
+          "name": "Sterrenwacht Midden-Nederland",
+          "url": "https://sterrenwacht-mn.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "0ce79b3d-c467-4785-a04a-2cdfd269918f",
+      "created_at": "2026-11-16T15:37:57.611118+00:00",
+      "idea": "Restore a Found Antique Piece",
+      "activity": "brocante-antiek",
+      "places": [],
+      "covered": false,
+      "good": false,
+      "placesCount": 0,
+      "linked": 0,
+      "working": 0
+    },
+    {
+      "book": "0ce79b3d-c467-4785-a04a-2cdfd269918f",
+      "created_at": "2026-11-16T15:37:57.611118+00:00",
+      "idea": "Write a Two-Character Scene",
+      "activity": "scenario-schrijven",
+      "places": [
+        {
+          "name": "WORTSTELLWERK",
+          "url": "https://wortstellwerk.ch/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": false
+        }
+      ],
+      "covered": false,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 0
+    },
+    {
+      "book": "0ce79b3d-c467-4785-a04a-2cdfd269918f",
+      "created_at": "2026-11-16T15:37:57.611118+00:00",
+      "idea": "Sit In On a Jam Session",
+      "activity": "jamsessie",
+      "places": [
+        {
+          "name": "Basel Jam Sessions – Sing & Jam Session",
+          "url": "https://www.baseljamsessions.com",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "0bdba25b-560f-47df-a334-6ff6708f13e1",
+      "created_at": "2026-11-17T11:00:13.915114+00:00",
+      "idea": "Rondleiding op een historische buitenplaats",
+      "activity": "buitenplaats",
+      "places": [
+        {
+          "name": "Buitenplaats De Hoorneboeg",
+          "url": "https://www.livehilversum.com/nl/specials/wellness/buitenplaats-de-hoorneboeg",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Buitenplaats Trompenburgh",
+          "url": null,
+          "cls": "none",
+          "detail": "no link",
+          "relevant": false
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 2,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "e06cbad3-5d78-4cfd-bed4-423bed398986",
+      "created_at": "2026-11-16T12:19:51.481884+00:00",
+      "idea": "Een lange wandeling langs knooppunten",
+      "activity": "wandelen",
+      "places": [
+        {
+          "name": "Wandelnetwerk Utrecht",
+          "url": "https://www.wandelknooppunt.nl",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "0ce79b3d-c467-4785-a04a-2cdfd269918f",
+      "created_at": "2026-11-16T15:37:57.611118+00:00",
+      "idea": "Make Your Own Natural Cosmetics",
+      "activity": "cosmetica-maken",
+      "places": [
+        {
+          "name": "Katharina rührt",
+          "url": "https://www.katharinaruehrt.com/",
+          "cls": "wrong_site",
+          "detail": "name_not_on_site",
+          "relevant": false
+        },
+        {
+          "name": "Heilpflanzen Atelier - Basislehrgang Naturkosmetik",
+          "url": "https://heilpflanzen-atelier.ch/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": false
+        }
+      ],
+      "covered": false,
+      "good": false,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 0
+    },
+    {
+      "book": "0bdba25b-560f-47df-a334-6ff6708f13e1",
+      "created_at": "2026-11-17T11:00:13.915114+00:00",
+      "idea": "Roeien in een sloep op een rivier in Hilversum",
+      "activity": "sloeproeien",
+      "places": [
+        {
+          "name": "Hilversumse Roeivereniging Tromp",
+          "url": "https://www.ctromp.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "e06cbad3-5d78-4cfd-bed4-423bed398986",
+      "created_at": "2026-11-16T12:19:51.481884+00:00",
+      "idea": "Molenbezoek aan de Vecht",
+      "activity": "industrieel-erfgoed",
+      "places": [
+        {
+          "name": "Molen De Hoop",
+          "url": "https://www.utrechtslandschap.nl/molen-de-hoop",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "e06cbad3-5d78-4cfd-bed4-423bed398986",
+      "created_at": "2026-11-16T12:19:51.481884+00:00",
+      "idea": "E-biketocht door het Utrechtse landschap",
+      "activity": "e-bike-tocht",
+      "places": [
+        {
+          "name": "Black Bikes Utrecht",
+          "url": "https://black-bikes.com/bike-rental-locations/utrecht/e-bike/",
+          "cls": "unverified",
+          "detail": "HTTP 403",
+          "relevant": false
+        },
+        {
+          "name": "Willemstraat Bike",
+          "url": "https://willemstraatbike.nl/en",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 2
+    },
+    {
+      "book": "e06cbad3-5d78-4cfd-bed4-423bed398986",
+      "created_at": "2026-11-16T12:19:51.481884+00:00",
+      "idea": "Gratis proefles salsa",
+      "activity": "dansen",
+      "places": [
+        {
+          "name": "Union Salsa Dance Company",
+          "url": "https://www.unionsalsadancecompany.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Nova Dance Utrecht",
+          "url": "https://www.novadance.nl/dansen-in-utrecht",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Salsachun",
+          "url": "https://salsachun.nl/salsa-proeflessen/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    },
+    {
+      "book": "e06cbad3-5d78-4cfd-bed4-423bed398986",
+      "created_at": "2026-11-16T12:19:51.481884+00:00",
+      "idea": "Diner met onbekenden",
+      "activity": "onbekenden-diner",
+      "places": [
+        {
+          "name": "The Dinner Club",
+          "url": "https://thedinnerclub.eu/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "5f5db228-4864-4268-bea0-66393ddc8b30",
+      "created_at": "2026-11-17T10:57:03.877036+00:00",
+      "idea": "Gratis proefles hondensport",
+      "activity": "hondensport",
+      "places": [
+        {
+          "name": "Hondensportclub De Volharding",
+          "url": "https://hscdevolharding.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Hondensportvereniging Amersfoort",
+          "url": "https://hsva.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Hondenschool Teamspirit",
+          "url": "https://www.hondenschool-teamspirit.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    },
+    {
+      "book": "efc32f1a-d592-4eef-a154-df14223e9dd4",
+      "created_at": "2026-11-16T11:06:21.11218+00:00",
+      "idea": "Je eerste stappen met Arduino",
+      "activity": "elektronica",
+      "places": [],
+      "covered": false,
+      "good": false,
+      "placesCount": 0,
+      "linked": 0,
+      "working": 0
+    },
+    {
+      "book": "3f021773-d1a5-43d8-9268-e79f1781f02d",
+      "created_at": "2026-11-16T12:11:19.955854+00:00",
+      "idea": "Darten en poolen zonder plan",
+      "activity": "darten-pool",
+      "places": [
+        {
+          "name": "Biljart- en Snookercentrum Zoetermeer",
+          "url": "https://biljartensnookercentrumzoetermeer.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "5f5db228-4864-4268-bea0-66393ddc8b30",
+      "created_at": "2026-11-17T10:57:03.877036+00:00",
+      "idea": "Statistiek leren begrijpen",
+      "activity": "statistiek-begrijpen",
+      "places": [
+        {
+          "name": "Centrum voor Afstandsonderwijs - Statistiek",
+          "url": "https://afstandsonderwijs.nu/opleidingen/statistiek",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "NHA - Wijzer met Statistiek",
+          "url": "https://www.nha.nl/beroepsopleidingen/persoonlijke-ontwikkeling/wijzer-met-statistiek",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Hulp bij Statistiek - Statistiek voor beginners",
+          "url": "https://hulpbijonderzoek.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    },
+    {
+      "book": "efc32f1a-d592-4eef-a154-df14223e9dd4",
+      "created_at": "2026-11-16T11:06:21.11218+00:00",
+      "idea": "Op zoek naar een kattencafé",
+      "activity": "kattencafe",
+      "places": [],
+      "covered": false,
+      "good": false,
+      "placesCount": 0,
+      "linked": 0,
+      "working": 0
+    },
+    {
+      "book": "3f021773-d1a5-43d8-9268-e79f1781f02d",
+      "created_at": "2026-11-16T12:11:19.955854+00:00",
+      "idea": "Kennismakingsles boogschieten",
+      "activity": "boogschieten",
+      "places": [
+        {
+          "name": "HKS Zoetermeer",
+          "url": "https://www.hkszoetermeer.nl/index.php/over-hks/kennismaken-volwassenen",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "efc32f1a-d592-4eef-a154-df14223e9dd4",
+      "created_at": "2026-11-16T11:06:21.11218+00:00",
+      "idea": "Je eigen website online zetten",
+      "activity": "website-bouwen",
+      "places": [
+        {
+          "name": "WordPress Cursus 2026",
+          "url": "https://soofos.nl/cursus/website-maken-met-wordpress/",
+          "cls": "unverified",
+          "detail": "HTTP 403",
+          "relevant": false
+        },
+        {
+          "name": "JouwWeb",
+          "url": "https://www.jouwweb.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 2
+    },
+    {
+      "book": "efc32f1a-d592-4eef-a154-df14223e9dd4",
+      "created_at": "2026-11-16T11:06:21.11218+00:00",
+      "idea": "Ganzen spotten vanuit de vogelkijkhut",
+      "activity": "ganzenkijken",
+      "places": [
+        {
+          "name": "Vogeluitkijk Loosdrecht",
+          "url": "https://loosdrechtsplassengebied.nl/zien-doen/bezienswaardigheden/vogeluitkijk/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": false
+        }
+      ],
+      "covered": false,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 0
+    },
+    {
+      "book": "8f949e75-a0b3-4920-a44f-e19f43198c2f",
+      "created_at": "2026-11-16T10:09:29.945159+00:00",
+      "idea": "Meekijken bij een toneelrepetitie",
+      "activity": "regie-amateurstuk",
+      "places": [
+        {
+          "name": "Toneelgezelschap Vita Nuova",
+          "url": null,
+          "cls": "none",
+          "detail": "no link",
+          "relevant": false
+        }
+      ],
+      "covered": false,
+      "good": false,
+      "placesCount": 1,
+      "linked": 0,
+      "working": 0
+    },
+    {
+      "book": "03dc7eff-26f5-4962-9a9a-070b3c6c05de",
+      "created_at": "2026-11-22T00:31:32.162392+00:00",
+      "idea": "Zipline Through the Treetops",
+      "activity": "zipline",
+      "places": [
+        {
+          "name": "Klimbos Lage Vuursche",
+          "url": "https://klimbos.nl/en/locations/lage-vuursche/",
+          "cls": "unverified",
+          "detail": "HTTP 403",
+          "relevant": false
+        },
+        {
+          "name": "Coronel",
+          "url": "https://coronel.nl/indoor-klimmen-utrecht/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 2
+    },
+    {
+      "book": "8f949e75-a0b3-4920-a44f-e19f43198c2f",
+      "created_at": "2026-11-16T10:09:29.945159+00:00",
+      "idea": "Alleen naar het filmhuis",
+      "activity": "film-theater",
+      "places": [
+        {
+          "name": "Filmtheater Hilversum",
+          "url": null,
+          "cls": "none",
+          "detail": "no link",
+          "relevant": false
+        },
+        {
+          "name": "Vue Hilversum",
+          "url": null,
+          "cls": "none",
+          "detail": "no link",
+          "relevant": false
+        }
+      ],
+      "covered": false,
+      "good": false,
+      "placesCount": 2,
+      "linked": 0,
+      "working": 0
+    },
+    {
+      "book": "3f021773-d1a5-43d8-9268-e79f1781f02d",
+      "created_at": "2026-11-16T12:11:19.955854+00:00",
+      "idea": "Inloopavond schaken",
+      "activity": "schaken",
+      "places": [
+        {
+          "name": "SV Promotie",
+          "url": "https://www.svpromotie.nl/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "8f949e75-a0b3-4920-a44f-e19f43198c2f",
+      "created_at": "2026-11-16T10:09:29.945159+00:00",
+      "idea": "Een eigen programma bouwen",
+      "activity": "leren-programmeren",
+      "places": [
+        {
+          "name": "CoderDojo Hilversum",
+          "url": "https://coderdojo-hilversum.nl",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "8f949e75-a0b3-4920-a44f-e19f43198c2f",
+      "created_at": "2026-11-16T10:09:29.945159+00:00",
+      "idea": "Beginnersles patchwork en quilten",
+      "activity": "quilten",
+      "places": [
+        {
+          "name": "Atelier De Witte Pimpernel",
+          "url": "https://wittepimpernel.nl/cursussen-workshops",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "The Quilt Cottage",
+          "url": "https://thequiltcottage.nl/workshops/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Cordiatelier",
+          "url": "https://www.cordiatelier.nl/cursussen-workshops/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 3
+    },
+    {
+      "book": "efc32f1a-d592-4eef-a154-df14223e9dd4",
+      "created_at": "2026-11-16T11:06:21.11218+00:00",
+      "idea": "Bomen herkennen bij de Loosdrechtse Plassen",
+      "activity": "bomen-herkennen",
+      "places": [
+        {
+          "name": "Loosdrechtse Plassen",
+          "url": "https://www.natuurmonumenten.nl/natuurgebieden/loosdrechtse-plassen",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": false,
+      "placesCount": 1,
+      "linked": 1,
+      "working": 1
+    },
+    {
+      "book": "8f949e75-a0b3-4920-a44f-e19f43198c2f",
+      "created_at": "2026-11-16T10:09:29.945159+00:00",
+      "idea": "Fietsroute langs kastelen en forten",
+      "activity": "kastelenroute",
+      "places": [
+        {
+          "name": "Kastelenroute Utrechtse Heuvelrug en Kromme Rijn",
+          "url": "https://www.opdeheuvelrug.nl/plan-je-bezoek/routes/2316734788/kastelenroute-utrechtse-heuvelrug-en-kromme-rijn",
+          "cls": "broken",
+          "detail": "HTTP 404",
+          "relevant": false
+        },
+        {
+          "name": "Vorstelijke kastelenroute over de Utrechtse Heuvelrug",
+          "url": "https://www.opdeheuvelrug.nl/plan-je-bezoek/routes/2030776847/vorstelijke-kastelenroute-over-de-utrechtse-heuvelrug",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Kasteel- en fortenroute nabij Hilversum",
+          "url": "https://routiq.com/nl/route/138970/kasteel-en-fortenroute-nabij-hilversum",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 3,
+      "linked": 3,
+      "working": 2
+    },
+    {
+      "book": "3f021773-d1a5-43d8-9268-e79f1781f02d",
+      "created_at": "2026-11-16T12:11:19.955854+00:00",
+      "idea": "Bestuurslid van een vereniging in Zoetermeer",
+      "activity": "bestuurslid-vereniging",
+      "places": [
+        {
+          "name": "Road Runners Zoetermeer",
+          "url": "https://roadrunnerszoetermeer.nl/informatie-lidmaatschap/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Historische Vereniging Zoetermeer",
+          "url": "https://www.oudsoetermeer.nl/historisch-genootschap/over-ons/word-ook-lid",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 2
+    },
+    {
+      "book": "3f021773-d1a5-43d8-9268-e79f1781f02d",
+      "created_at": "2026-11-16T12:11:19.955854+00:00",
+      "idea": "Online cursus fruitbomen snoeien",
+      "activity": "fruitbomen-snoeien",
+      "places": [
+        {
+          "name": "De Wilde School - Online cursus Natuurlijk snoeien",
+          "url": "https://wildeschool.nl/de-wilde-school/natuurlijk-snoeien-cursus/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        },
+        {
+          "name": "Tuincursus Online - Fruitbomen snoeien online-cursus",
+          "url": "https://www.tuincursus-online.nl/product/fruitbomen-snoeien-online-cursus-video/",
+          "cls": "works",
+          "detail": "200",
+          "relevant": true
+        }
+      ],
+      "covered": true,
+      "good": true,
+      "placesCount": 2,
+      "linked": 2,
+      "working": 2
+    }
+  ]
+}
