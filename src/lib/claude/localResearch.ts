@@ -4,13 +4,13 @@ import { radiusText, sanitizeDistanceKm } from "@/lib/distanceOptions";
 import type Anthropic from "@anthropic-ai/sdk";
 import { anthropic } from "@/lib/anthropic";
 import { getActivity } from "@/lib/discovery/library";
-import { hintLine } from "@/lib/discovery/searchHints";
+import { hintLine, searchHint } from "@/lib/discovery/searchHints";
 import { describeToday, isoDateNL } from "@/lib/discovery/season";
 import { cleanRating, type Rating } from "@/lib/claude/rating";
 import type { RatingEnricher } from "@/lib/claude/placesRatings";
 import type { CostLedger } from "@/lib/claude/costLedger";
 import { isPublicWebAddress, verifyOptionUrls } from "@/lib/claude/verifyUrls";
-import { filterRelevant, relevantOptions } from "@/lib/claude/optionRelevance";
+import { filterRelevant, relevanceScore, relevantOptions } from "@/lib/claude/optionRelevance";
 
 export type { Rating };
 import type { Locale } from "@/lib/locale";
@@ -548,6 +548,55 @@ export function isPhysicalOption(o: Pick<LocalOption, "name" | "city">): boolean
   return true;
 }
 
+/** How many places an idea should have when they can be had: the book shows two where it can (Jan, 22 Nov 2026). */
+export const WANTED_PLACES = 2;
+
+/**
+ * The free top-up (Jan, 22 Nov 2026: "use Google Places sparingly, to improve the results a little"). An idea with fewer than two places gets one Google text search for
+ * more (src/lib/claude/placesRatings.ts: one lookup of the month's free allowance, a few a book), BEFORE any paid search round: an idea with none is the one that costs a
+ * round of about USD 0.07 otherwise. What Google returns is only an option when it passes the same checks as everything else: open, a site of its own, a score of 4.0 from 5
+ * reviews, about the activity (it must share a word with it: stricter than the benefit of the doubt a model's answer gets), and the site answers and carries the place's name.
+ * Idea ids with no place come first. Returns the ids that gained a place.
+ */
+export async function topUpFromGoogle(opts: {
+  ids: readonly string[];
+  byActivity: Map<string, SeedResearch>;
+  ratings: RatingEnricher;
+  location: string;
+  locale: Locale;
+  country?: string | null;
+  checker?: ((options: LocalOption[]) => Promise<{ kept: LocalOption[]; dropped: { option: LocalOption; reason: string }[] }>) | null;
+}): Promise<string[]> {
+  const { byActivity, ratings, location } = opts;
+  if (!ratings.enabled || !location.trim()) return [];
+  const thin = opts.ids
+    .filter((id, i, all) => all.indexOf(id) === i)
+    .filter((id) => {
+      const r = byActivity.get(id);
+      return !!r && r.source !== "none" && r.options.length < WANTED_PLACES && !!getActivity(id);
+    })
+    .sort((a, b) => byActivity.get(a)!.options.length - byActivity.get(b)!.options.length)
+    .slice(0, ratings.findsLeft());
+  const gained: string[] = [];
+  await Promise.all(
+    thin.map(async (id) => {
+      const current = byActivity.get(id)!;
+      const term = (searchHint(id)?.terms.split(";")[0] ?? getActivity(id)?.label.nl ?? "").trim();
+      const found = await ratings.find(term, location, { country: opts.country ?? "NL", locale: opts.locale });
+      const have = new Set(current.options.map((o) => `${o.name}|${o.city}`.toLowerCase()));
+      let fresh = found.filter((o) => !have.has(`${o.name}|${o.city}`.toLowerCase()) && isPhysicalOption(o) && relevanceScore(o, id) > 0);
+      if (fresh.length === 0) return;
+      // The site has to answer and carry the place's name before it is believed (the same free page read as every other option).
+      if (opts.checker) fresh = (await opts.checker(fresh)).kept;
+      fresh = withLinks(fresh).slice(0, WANTED_PLACES - current.options.length);
+      if (fresh.length === 0) return;
+      byActivity.set(id, { ...current, options: rankOptions([...current.options, ...fresh]) });
+      gained.push(id);
+    }),
+  );
+  return gained;
+}
+
 /** Reads the model's JSON answer; anything malformed yields null (the caller treats it as "no research"). */
 export function parseResearchAnswer(text: string, wanted: string[], today?: string): Map<string, LocalOption[]> | null {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i)?.[1];
@@ -881,6 +930,28 @@ export async function researchSeeds(opts: {
     }
   };
   await Promise.all([batch(missing.filter((id) => priority.has(id)), true), batch(missing.filter((id) => !priority.has(id)), false)]);
+
+  // The free top-up: what has fewer than two places gets one Google search for more, before any paid round is asked for it. Not for the activities that were handed in as known
+  // (an earlier round already looked at them), and what was gained is stored with the answer so the next book starts from it.
+  if (opts.ratings?.enabled && !online && !foreign) {
+    const gained = await topUpFromGoogle({
+      ids: activityIds.filter((id) => !opts.known?.has(id)),
+      byActivity,
+      ratings: opts.ratings,
+      location,
+      locale,
+      checker,
+    });
+    const fresh = new Set(missing);
+    const storable = gained.filter((id) => !borrowed.has(id));
+    for (const k of new Set(storable.map((id) => (priority.has(id) && (ownFrom.has(id) || fresh.has(id)) ? ownKey : cacheKey)))) {
+      await cache?.put(
+        storable.filter((id) => (priority.has(id) && (ownFrom.has(id) || fresh.has(id)) ? ownKey : cacheKey) === k).map((id) => ({ activityId: id, options: byActivity.get(id)!.options })),
+        k,
+        locale,
+      );
+    }
+  }
 
   const stats: ResearchStats = { cached: activityIds.length - missing.length, searched: missing.length - failed, failed, dropped, checked, ms: Date.now() - startedAt };
   console.log(`WINDOW: local research: ${stats.cached} cached, ${stats.searched} searched, ${stats.failed} failed (${place})`);

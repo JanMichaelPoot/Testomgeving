@@ -421,7 +421,7 @@ describe("the Google score in the research (Jan, 14 Nov 2026)", () => {
 
   it("does not look a cached place up again once it was looked up, also when there was no score", async () => {
     const f = vi.fn(async () => new Response("{}", { status: 200 })) as unknown as typeof fetch;
-    const ratings = createRatingEnricher({ apiKey: "KEY", counter: async (n) => n, fetchImpl: f });
+    const ratings = createRatingEnricher({ apiKey: "KEY", counter: async (n) => n, fetchImpl: f, maxFinds: 0 });
     const { cache } = memoryCache({ "yoga|utrecht|city|v6": [{ ...opt("Yoga Studio"), ratingChecked: true }] });
     await researchSeeds({ ...args, activityIds: ["yoga"], cache, search: vi.fn(), ratings });
     expect(f).not.toHaveBeenCalled();
@@ -528,5 +528,88 @@ describe("a place has a link", () => {
     await researchSeeds({ ...args, activityIds: ["yoga"], cache, search: vi.fn(), verify });
     expect(verify).toHaveBeenCalledTimes(1);
     expect(put).not.toHaveBeenCalled();
+  });
+});
+
+// Jan, 22 Nov 2026: Google Places used sparingly (free allowance) to give an idea with fewer than two places a second one, before any paid round.
+describe("the free Google top-up", () => {
+  const args = { location: "Utrecht", searchDistance: "city", locale: "nl" as const, verify: false as const, now: NOW };
+  const gResult = (name: string, extra: Record<string, unknown> = {}) => ({
+    displayName: { text: name },
+    formattedAddress: "Oudegracht 1, 3511 AB Utrecht, Nederland",
+    businessStatus: "OPERATIONAL",
+    rating: 4.6,
+    userRatingCount: 80,
+    websiteUri: `https://www.${name.toLowerCase().replace(/\W/g, "")}.nl/`,
+    primaryTypeDisplayName: { text: "Klimhal" },
+    ...extra,
+  });
+  /** A Google that answers every search with the given places, and records the queries. */
+  const google = (places: Record<string, unknown>[]) => {
+    const queries: string[] = [];
+    const impl = vi.fn(async (_u: unknown, init?: RequestInit) => {
+      // only the finds (their mask has the website): the score lookups of the same enricher are not what these tests count
+      if (String((init?.headers as Record<string, string>)["X-Goog-FieldMask"]).includes("websiteUri")) queries.push(String((JSON.parse(String(init?.body)) as { textQuery: string }).textQuery));
+      return new Response(JSON.stringify({ places }), { status: 200 });
+    }) as unknown as typeof fetch;
+    return { impl, queries };
+  };
+  const enricher = (places: Record<string, unknown>[], maxFinds = 3) => {
+    const g = google(places);
+    return { ...g, ratings: createRatingEnricher({ apiKey: "k", counter: async (n) => n, fetchImpl: g.impl, maxFinds }) };
+  };
+
+  it("gives an idea with one place a second one from Google, and stores the pair", async () => {
+    const { cache, store } = memoryCache();
+    const g = enricher([gResult("Boulderhal Zuid"), gResult("Klimmuur Noord")]);
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Boulderen Centrum")]])));
+    const { byActivity } = await researchSeeds({ ...args, activityIds: ["boulderen"], cache, search, ratings: g.ratings });
+    const names = byActivity.get("boulderen")!.options.map((o) => o.name);
+    expect(names).toHaveLength(2);
+    expect(names).toContain("Boulderen Centrum");
+    expect(g.queries[0]).toBe("klimhal boulderen introductie beginners Utrecht");
+    expect([...store.values()][0]).toHaveLength(2);
+  });
+
+  it("fills an idea with no place at all, with up to two, before any paid round has to", async () => {
+    const g = enricher([gResult("Boulderhal Zuid"), gResult("Boulderhal Noord"), gResult("Boulderhal Oost")]);
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [] as LocalOption[]])));
+    const { byActivity } = await researchSeeds({ ...args, activityIds: ["boulderen"], cache: null, search, ratings: g.ratings });
+    expect(byActivity.get("boulderen")!.options).toHaveLength(2);
+    expect(byActivity.get("boulderen")!.options.every((o) => hasLink(o))).toBe(true);
+  });
+
+  it("leaves out what is not about the activity, what has no working site, and a place the idea already has", async () => {
+    const g = enricher([gResult("Kapsalon Mooi", { primaryTypeDisplayName: { text: "Kapper" } }), gResult("Boulderhal Dood"), gResult("Boulderen Centrum"), gResult("Boulderhal Goed")]);
+    const verify = vi.fn(async (options: LocalOption[]) => ({
+      kept: options.filter((o) => !o.name.includes("Dood")),
+      dropped: options.filter((o) => o.name.includes("Dood")).map((option) => ({ option, reason: "dead" })),
+    }));
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [opt("Boulderen Centrum")]])));
+    const { byActivity } = await researchSeeds({ ...args, verify, activityIds: ["boulderen"], cache: null, search, ratings: g.ratings });
+    expect(byActivity.get("boulderen")!.options.map((o) => o.name).sort()).toEqual(["Boulderen Centrum", "Boulderhal Goed"]);
+  });
+
+  it("does not ask for an idea that already has two, and stops at its cap", async () => {
+    const g = enricher([gResult("Boulderhal Zuid")], 1);
+    const search = vi.fn(async (ids: string[]) =>
+      new Map(ids.map((id) => [id, id === "boulderen" ? [opt("Boulderen Een"), opt("Boulderen Twee")] : id === "hardlopen" ? [] : [opt("Yoga Een")]])),
+    );
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    await researchSeeds({ ...args, activityIds: ["boulderen", "hardlopen", "yoga"], cache: null, search, ratings: g.ratings });
+    warn.mockRestore();
+    // boulderen has two: no search. hardlopen (none) comes before yoga (one), and the cap of one find is used on it.
+    expect(g.queries).toHaveLength(1);
+    expect(g.queries[0]).not.toContain("klimhal");
+  });
+
+  it("does nothing for a place abroad (the terms are Dutch), online research, or without the key", async () => {
+    const g = enricher([gResult("Boulderhal Zuid")]);
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [] as LocalOption[]])));
+    await researchSeeds({ ...args, activityIds: ["boulderen"], cache: null, search, ratings: g.ratings, country: "DE" });
+    await researchSeeds({ ...args, activityIds: ["boulderen"], cache: null, search, ratings: g.ratings, mode: "online" });
+    const off = createRatingEnricher({ apiKey: "", counter: async (n) => n, fetchImpl: g.impl });
+    await researchSeeds({ ...args, activityIds: ["boulderen"], cache: null, search, ratings: off });
+    expect(g.queries).toEqual([]);
   });
 });

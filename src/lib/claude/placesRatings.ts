@@ -14,7 +14,7 @@
 // Only the place's name and town are sent: no personal data.
 
 import { cleanRating, type Rating } from "@/lib/claude/rating";
-import { isPhysicalOption, rankOptions, type LocalOption } from "@/lib/claude/localResearch";
+import { adjustedScore, isPhysicalOption, rankOptions, type LocalOption } from "@/lib/claude/localResearch";
 
 /** Text Search Enterprise (the rating fields), per request, after the free tier. */
 export const PLACES_LIST_PRICE_USD = 0.035;
@@ -90,13 +90,72 @@ export interface RatingHint {
 export interface RatingEnricher {
   /** The options of one activity with the Google score added where it was missing, a closed place removed and the rest ranked again. */
   enrich(options: LocalOption[], hint?: RatingHint): Promise<LocalOption[]>;
+  /**
+   * One text search for places that offer an activity ("klimhal boulderen introductie beginners Utrecht"): the open, well rated ones that have a website of their own,
+   * as options (not yet checked for being about the activity or for the site answering: the caller does that). One lookup of the month's allowance, and at most
+   * GOOGLE_PLACES_FIND_PER_BOOK a book (default 3). Empty when it is off, over its cap or the allowance is used up.
+   */
+  find(query: string, fallbackCity: string, hint?: RatingHint): Promise<LocalOption[]>;
   readonly enabled: boolean;
-  stats(): { lookups: number; rated: number; closed: number; limited: boolean };
+  /** How many finds this book may still make. */
+  findsLeft(): number;
+  stats(): { lookups: number; rated: number; closed: number; limited: boolean; finds: number };
   /** One log line for the cost meters, or "" when nothing was looked up. */
   summary(): string;
 }
 
 const goodEnough = (r: Rating | null | undefined) => !!r && r.score >= GOOD_SCORE && (r.reviews ?? 0) >= GOOD_REVIEWS;
+
+/** A place that only Google found must show it is real and liked: this score from this many reviews. */
+export const FIND_MIN_SCORE = 4.0;
+export const FIND_MIN_REVIEWS = 5;
+const DEFAULT_FINDS_PER_BOOK = 3;
+/** The fields of a find: the Enterprise SKU again (website and rating are both in it), so a find costs the same one lookup as a score. */
+const FIND_FIELD_MASK = `${FIELD_MASK},places.websiteUri,places.primaryTypeDisplayName`;
+const NO_SITE_HOSTS = /(^|\.)(facebook|instagram|linkedin|tiktok|twitter|x|youtube|pinterest|google|goo|maps)\.(com|nl|gl|app)$/i;
+
+export interface FoundResult extends PlacesResult {
+  websiteUri?: string;
+  primaryTypeDisplayName?: { text?: string };
+}
+
+/** The town of a Google address ("Oudegracht 1, 3511 AB Utrecht, Nederland" gives "Utrecht"); the given fallback when it cannot be read. */
+export function cityOfAddress(address: string | undefined, fallback: string): string {
+  const parts = (address ?? "").split(",").map((p) => p.trim()).filter(Boolean);
+  if (parts.length < 2) return fallback;
+  const town = parts[parts.length - 2].replace(/^(?:[A-Z]{1,3}[-\s])?\d[\w-]*(?:\s+[A-Z]{2})?\s+(?=\p{L})/u, "").trim();
+  return town && /\p{L}/u.test(town) ? town : fallback;
+}
+
+/** A website address without the tracking parameters Google adds, or null when it is not a site of the place's own (a social page, a map link). */
+export function ownSite(uri: string | undefined): string | null {
+  if (!uri) return null;
+  try {
+    const u = new URL(uri);
+    if ((u.protocol !== "https:" && u.protocol !== "http:") || !u.hostname.includes(".") || NO_SITE_HOSTS.test(u.hostname)) return null;
+    for (const k of [...u.searchParams.keys()]) if (/^utm_|^fbclid$|^gclid$/i.test(k)) u.searchParams.delete(k);
+    return u.toString();
+  } catch {
+    return null;
+  }
+}
+
+/** The results of a find that are usable options: open, with a site of their own, and a score of FIND_MIN_SCORE from FIND_MIN_REVIEWS reviews. Exported for the tests. */
+export function optionsFromFind(results: readonly FoundResult[], fallbackCity: string): LocalOption[] {
+  const out: LocalOption[] = [];
+  for (const r of results) {
+    const name = r.displayName?.text?.trim();
+    const url = ownSite(r.websiteUri);
+    if (!name || !url) continue;
+    if (r.businessStatus && r.businessStatus !== "OPERATIONAL") continue;
+    const rating = typeof r.rating === "number" ? cleanRating({ score: r.rating, scale: 5, reviews: r.userRatingCount, source: "Google" }) : null;
+    if (!rating || rating.score < FIND_MIN_SCORE || (rating.reviews ?? 0) < FIND_MIN_REVIEWS) continue;
+    const kind = r.primaryTypeDisplayName?.text?.trim() || null;
+    out.push({ name, city: cityOfAddress(r.formattedAddress, fallbackCity), url, note: kind ?? "", until: null, rating, kind, ratingChecked: true, match: null });
+  }
+  // Best first, all of them: the caller still has to check relevance and the site, so cutting to three here could lose the one that passes.
+  return out.sort((a, b) => adjustedScore(b.rating!) - adjustedScore(a.rating!));
+}
 
 /** The monthly counter in the database: the free tier cannot be passed through this. Not there (migration not run) means no lookups. */
 export function monthlyCounter(limit: number, now: () => Date = () => new Date()): LookupCounter {
@@ -119,7 +178,7 @@ export function monthlyCounter(limit: number, now: () => Date = () => new Date()
 }
 
 export function createRatingEnricher(
-  deps: { apiKey?: string | null; counter?: LookupCounter; fetchImpl?: Fetch; maxPerBook?: number; allowPaid?: boolean } = {},
+  deps: { apiKey?: string | null; counter?: LookupCounter; fetchImpl?: Fetch; maxPerBook?: number; maxFinds?: number; allowPaid?: boolean } = {},
 ): RatingEnricher {
   const apiKey = (deps.apiKey === undefined ? process.env.GOOGLE_PLACES_API_KEY : deps.apiKey)?.trim() || "";
   const allowPaid = deps.allowPaid ?? process.env.GOOGLE_PLACES_ALLOW_PAID === "1";
@@ -130,7 +189,9 @@ export function createRatingEnricher(
   const counter: LookupCounter = deps.counter ?? (allowPaid ? async (n) => n : monthlyCounter(limit));
   const doFetch = deps.fetchImpl ?? fetch;
   const enabled = apiKey.length > 0 && maxPerBook > 0;
-  const state = { lookups: 0, rated: 0, closed: 0, limited: false };
+  const envFinds = Number(process.env.GOOGLE_PLACES_FIND_PER_BOOK);
+  const maxFinds = deps.maxFinds ?? (Number.isFinite(envFinds) && envFinds >= 0 && process.env.GOOGLE_PLACES_FIND_PER_BOOK ? envFinds : DEFAULT_FINDS_PER_BOOK);
+  const state = { lookups: 0, rated: 0, closed: 0, limited: false, finds: 0 };
 
   async function lookup(option: LocalOption, hint: RatingHint): Promise<LookupOutcome> {
     try {
@@ -150,11 +211,40 @@ export function createRatingEnricher(
 
   return {
     enabled,
+    findsLeft: () => (enabled ? Math.max(0, maxFinds - state.finds) : 0),
     stats: () => ({ ...state }),
     summary: () =>
       state.lookups === 0
         ? ""
-        : `WindowInto: google places ratings: ${state.lookups} lookups (list price $${(state.lookups * PLACES_LIST_PRICE_USD).toFixed(3)}, inside the free tier unless GOOGLE_PLACES_ALLOW_PAID is on), ${state.rated} ratings found, ${state.closed} closed dropped${state.limited ? ", stopped at the monthly limit" : ""}`,
+        : `WindowInto: google places ratings: ${state.lookups} lookups (list price $${(state.lookups * PLACES_LIST_PRICE_USD).toFixed(3)}, inside the free tier unless GOOGLE_PLACES_ALLOW_PAID is on), ${state.rated} ratings found, ${state.finds} finds, ${state.closed} closed dropped${state.limited ? ", stopped at the monthly limit" : ""}`,
+    async find(query, fallbackCity, hint = {}) {
+      if (!enabled || state.finds >= maxFinds || !query.trim()) return [];
+      state.finds++; // before the first await: the activities of a pass run side by side
+      state.lookups++;
+      if ((await counter(1)) < 1) {
+        state.finds--;
+        state.lookups--;
+        state.limited = true;
+        return [];
+      }
+      try {
+        const res = await doFetch(ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-Goog-Api-Key": apiKey, "X-Goog-FieldMask": FIND_FIELD_MASK },
+          body: JSON.stringify({ textQuery: `${query} ${fallbackCity}`.trim(), languageCode: hint.locale ?? "nl", regionCode: (hint.country ?? "NL").toUpperCase(), pageSize: 6 }),
+          signal: AbortSignal.timeout(TIMEOUT_MS),
+        });
+        if (!res.ok) {
+          console.warn(`WindowInto: google places find failed for "${query}": HTTP ${res.status}`);
+          return [];
+        }
+        const body = (await res.json()) as { places?: FoundResult[] };
+        return optionsFromFind(body.places ?? [], fallbackCity);
+      } catch (err) {
+        console.warn(`WindowInto: google places find failed for "${query}": ${err instanceof Error ? err.message : String(err)}`);
+        return [];
+      }
+    },
     async enrich(options, hint = {}) {
       if (!enabled || options.length === 0) return options;
       let out = [...options];

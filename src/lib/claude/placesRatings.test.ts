@@ -139,3 +139,82 @@ describe("the enricher", () => {
     expect(e.summary()).toContain(`$${PLACES_LIST_PRICE_USD.toFixed(3)}`);
   });
 });
+
+// Jan, 22 Nov 2026: Google Places used sparingly to find a second place, with its website, for an idea that has fewer than two.
+import { FIND_MIN_REVIEWS, cityOfAddress, optionsFromFind, ownSite, type FoundResult } from "@/lib/claude/placesRatings";
+
+const found = (name: string, extra: Partial<FoundResult> = {}): FoundResult => ({
+  displayName: { text: name },
+  formattedAddress: "Oudegracht 1, 3511 AB Utrecht, Nederland",
+  businessStatus: "OPERATIONAL",
+  rating: 4.6,
+  userRatingCount: 80,
+  websiteUri: `https://www.${name.toLowerCase().replace(/\W/g, "")}.nl/?utm_source=google`,
+  primaryTypeDisplayName: { text: "Klimhal" },
+  ...extra,
+});
+
+describe("finding places with Google", () => {
+  it("reads the town of an address, and falls back when it cannot", () => {
+    expect(cityOfAddress("Oudegracht 1, 3511 AB Utrecht, Nederland", "Zeist")).toBe("Utrecht");
+    expect(cityOfAddress("Hauptstrasse 4, 38855 Wernigerode, Deutschland", "X")).toBe("Wernigerode");
+    expect(cityOfAddress("Utrecht", "Zeist")).toBe("Zeist");
+    expect(cityOfAddress(undefined, "Zeist")).toBe("Zeist");
+  });
+
+  it("only takes a site of the own place, without tracking parameters", () => {
+    expect(ownSite("https://www.klimhal.nl/proefles?utm_source=google&x=1")).toBe("https://www.klimhal.nl/proefles?x=1");
+    expect(ownSite("https://www.facebook.com/klimhal")).toBeNull();
+    expect(ownSite("https://maps.google.com/?cid=1")).toBeNull();
+    expect(ownSite("mailto:a@b.nl")).toBeNull();
+    expect(ownSite(undefined)).toBeNull();
+  });
+
+  it("keeps open, well rated places with a site, and drops the rest", () => {
+    const options = optionsFromFind(
+      [
+        found("Boulderhal Zuid"),
+        found("Gesloten Hal", { businessStatus: "CLOSED_PERMANENTLY" }),
+        found("Zonder Site", { websiteUri: undefined }),
+        found("Alleen Facebook", { websiteUri: "https://facebook.com/x" }),
+        found("Matig Beoordeeld", { rating: 3.6 }),
+        found("Te Weinig Reviews", { userRatingCount: FIND_MIN_REVIEWS - 1 }),
+        found("Zonder Score", { rating: undefined, userRatingCount: undefined }),
+      ],
+      "Zeist",
+    );
+    expect(options.map((o) => o.name)).toEqual(["Boulderhal Zuid"]);
+    expect(options[0]).toMatchObject({ city: "Utrecht", url: "https://www.boulderhalzuid.nl/", kind: "Klimhal", rating: { score: 4.6, reviews: 80, source: "Google" }, ratingChecked: true });
+  });
+
+  it("asks for website and rating in one search, counts one lookup, and stops at its cap", async () => {
+    const f = fakeFetch({ "klimhal boulderen Utrecht": [found("Boulderhal Zuid"), found("Boulderhal Noord")] });
+    const counter = vi.fn(allow);
+    const e = createRatingEnricher({ apiKey: "k", counter, fetchImpl: f.impl, maxFinds: 1 });
+    expect(e.findsLeft()).toBe(1);
+    const options = await e.find("klimhal boulderen", "Utrecht", { locale: "nl" });
+    expect(options.map((o) => o.name).sort()).toEqual(["Boulderhal Noord", "Boulderhal Zuid"]);
+    expect(f.calls[0].headers["X-Goog-FieldMask"]).toContain("places.websiteUri");
+    expect(f.calls[0].body).toMatchObject({ textQuery: "klimhal boulderen Utrecht", languageCode: "nl", regionCode: "NL" });
+    expect(counter).toHaveBeenCalledTimes(1);
+    expect(e.stats()).toMatchObject({ lookups: 1, finds: 1 });
+    expect(e.findsLeft()).toBe(0);
+    expect(await e.find("klimhal boulderen", "Utrecht")).toEqual([]);
+    expect(f.impl).toHaveBeenCalledTimes(1);
+    expect(e.summary()).toContain("1 finds");
+  });
+
+  it("does nothing without a key, when the allowance is used up, or when Google fails", async () => {
+    const off = fakeFetch({});
+    expect(await createRatingEnricher({ apiKey: "", counter: allow, fetchImpl: off.impl }).find("x", "Utrecht")).toEqual([]);
+    expect(off.impl).not.toHaveBeenCalled();
+    const spent = createRatingEnricher({ apiKey: "k", counter: async () => 0, fetchImpl: off.impl });
+    expect(await spent.find("x", "Utrecht")).toEqual([]);
+    expect(spent.stats()).toMatchObject({ lookups: 0, finds: 0, limited: true });
+    expect(off.impl).not.toHaveBeenCalled();
+    const broken = fakeFetch({ "x Utrecht": 500 });
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    expect(await createRatingEnricher({ apiKey: "k", counter: allow, fetchImpl: broken.impl }).find("x", "Utrecht")).toEqual([]);
+    warn.mockRestore();
+  });
+});
