@@ -1228,6 +1228,7 @@ export function AssociationWizard({
                   locale={locale}
                   required
                   describedBy={showGeoNote ? "geo-note" : undefined}
+                  selectOnFocus={showGeoNote}
                   value={answers.location}
                   onChange={(v) => {
                     set("location", v);

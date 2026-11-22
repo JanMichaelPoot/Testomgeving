@@ -161,6 +161,22 @@ test.describe("country and place from the connection", () => {
     expect(draft.answers.location).toBe("Gent");
   });
 
+  // 22 Nov 2026, live: the place was pre-filled with the guess from the connection and what a person typed came after it ("HilversumUtrecht").
+  test("typing a place over the guessed one replaces it, and a place typed by the person is not selected again", async ({ page }) => {
+    await open(page);
+    const place = page.locator("#location");
+    await expect(place).toHaveValue("Lyon");
+    await place.click();
+    await page.keyboard.type("Lille");
+    await expect(place).toHaveValue("Lille");
+    // Now it is the person's own text: coming back into the field keeps the caret where it is, nothing is selected.
+    await page.locator("#country").focus();
+    await place.click();
+    await page.keyboard.type("x");
+    await expect(place).not.toHaveValue("x");
+    await expect(place).toHaveValue(/x/);
+  });
+
   test("the audience stays visible on the next screens", async ({ page }) => {
     await open(page);
     await expect(page.getByTestId("audience-pill")).toHaveCount(0); // not on the start page itself

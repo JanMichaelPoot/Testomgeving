@@ -17,6 +17,7 @@ export function LocationAutocomplete({
   locale,
   required = false,
   describedBy,
+  selectOnFocus = false,
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -30,10 +31,15 @@ export function LocationAutocomplete({
   locale?: "nl" | "en";
   required?: boolean;
   describedBy?: string;
+  /** Select the whole text when the field gets focus, so typing replaces it. For a value that was only a guess (the place read from the connection): a person who types a place of their own
+   *  must not end up with "HilversumUtrecht" (seen on the live site, 22 Nov 2026). */
+  selectOnFocus?: boolean;
 }) {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // True between a focus that selected the text and the mouse button coming up: some browsers drop the selection again on that mouse-up.
+  const keepSelection = useRef(false);
   // The value that was not typed in this session (a picked suggestion or a restored answer): it is
   // shown tidied until the person edits it. Anything they type is shown, and stored, as typed.
   const [untyped, setUntyped] = useState<string | null>(value || null);
@@ -89,7 +95,17 @@ export function LocationAutocomplete({
           onChange(e.target.value);
           setOpen(true);
         }}
-        onFocus={() => setOpen(true)}
+        onFocus={(e) => {
+          setOpen(true);
+          if (selectOnFocus && e.currentTarget.value) {
+            e.currentTarget.select();
+            keepSelection.current = true;
+          }
+        }}
+        onMouseUp={(e) => {
+          if (keepSelection.current) e.preventDefault();
+          keepSelection.current = false;
+        }}
         onBlur={() => {
           // Delay so a click on a suggestion (which blurs the input first)
           // still registers before the list disappears.
