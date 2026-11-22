@@ -32,13 +32,17 @@
     },
     "scene": "a glowing orange blob of glass on the end of a steel blowpipe in front of a furnace mouth",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-185"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "metaalgieten",
@@ -78,13 +82,17 @@
     },
     "scene": "a clay mould and a crucible with bright molten metal glowing orange and throwing sparks",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-409"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vuur-maken",
@@ -119,7 +127,11 @@
     },
     "scene": "a ferrocerium rod, a bundle of birch bark and a small tinder nest on a flat stone",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "raku-stoken",
@@ -158,13 +170,17 @@
     },
     "scene": "a freshly fired raku pot glowing orange being lifted from a kiln into a bed of sawdust with smoke curling",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-186"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "mes-smeden",
@@ -203,13 +219,17 @@
     },
     "scene": "a half-forged blade glowing dull red on an anvil beside a hammer in a dark forge",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-190"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kaarsen-gieten",
@@ -244,7 +264,7 @@
     },
     "scene": "rows of hand-poured beeswax candles cooling on a rack beside a pot of melted wax",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -260,6 +280,10 @@
       "en": [
         "candlemaking"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -296,13 +320,17 @@
     },
     "scene": "a half-carved birch wooden spoon on a stump beside a pile of pale curled wood shavings",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-014"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "droge-stenen-muur",
@@ -347,13 +375,17 @@
     },
     "scene": "a dry-stone wall in progress with neat layered grey stones beside a heap of sorted rocks in low sun",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-358"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kettingzaagcursus",
@@ -391,13 +423,17 @@
     },
     "scene": "a freshly cut oak log on a sawhorse with sawdust piles, ear defenders and chaps hanging on a nail",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-391"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kano-uithollen",
@@ -431,13 +467,17 @@
     },
     "scene": "the curved ribs of an unfinished wooden canoe in a sunny boatyard shed with shavings on the floor",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-390"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bushcraft",
@@ -482,13 +522,17 @@
     },
     "scene": "a lean-to shelter of branches and bracken built against a leaning pine in a misty wood",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-208"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "overleven",
@@ -535,7 +579,11 @@
     },
     "scene": "a small tarp stretched between two birches over a bed of pine boughs beside a dying fire ring at dusk",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "orientatieloop",
@@ -571,13 +619,17 @@
     },
     "scene": "a red-and-white orienteering flag on a post in a green forest clearing, a punch box hanging below",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-038"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "knopen-touwwerk",
@@ -612,7 +664,11 @@
     },
     "scene": "a tangle of rope turned into neat decorative knots on a weathered wooden board",
     "supply": "common",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "boomhut-nacht",
@@ -656,13 +712,17 @@
     },
     "scene": "a small wooden treehouse with a lantern glowing in its window among autumn oak branches",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-100"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "glasfusing",
@@ -698,13 +758,17 @@
     },
     "scene": "small pieces of coloured glass arranged on a kiln shelf, one already melted into a glossy tile",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-408"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wilgenvlechten",
@@ -739,13 +803,17 @@
     },
     "scene": "freshly cut willow rods in warm brown and green tied in bundles beside a half-woven basket",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-181"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "houthakken",
@@ -790,13 +858,17 @@
     },
     "scene": "a chopping block beside a neat pile of split logs and a stack of kindling beside a woodshed",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-389"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kampvuuravond",
@@ -840,7 +912,11 @@
     },
     "scene": "a campfire burning in a ring of stones with sparks rising into a dark blue night sky",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "goudsmeden",
@@ -875,14 +951,18 @@
       "en": "A day workshop: saw, solder and polish your own ring"
     },
     "scene": "a goldsmith's bench with a soldering torch flame on a silver ring, files, a mallet and a leather skin below",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-020"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "tarp-nacht",
@@ -918,7 +998,20 @@
       "en": "Sleep a night under a tarp at an official camping spot in the woods"
     },
     "scene": "a green tarp stretched between two pines with a small stove and a coil of rope at dusk",
-    "status": "concept"
+    "status": "reviewed",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "steenhouwen-dag",
@@ -954,7 +1047,11 @@
       "en": "Book a stone carving day in which you chisel a simple shape from limestone"
     },
     "scene": "a block of pale limestone with a chisel and a wooden mallet on a stone-cutter's bench in fine dust",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "steigerhout-meubel",
@@ -990,6 +1087,10 @@
       "en": "Build a low bench or chest from a plan, in a shared workshop or with a friend who has tools"
     },
     "scene": "a sturdy low bench of weathered scaffold boards with a spirit level, pencil and a box of screws on top",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

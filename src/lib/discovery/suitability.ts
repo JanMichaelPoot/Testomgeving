@@ -58,7 +58,7 @@ export const YOUNG_KIDS_UNSUITABLE: ReadonlySet<string> = new Set([
   // mystery that is dark, technical or on private ground
   ...ids(`lockpicking cryptografie cold-case forensisch paranormaal spookwandeling bunkertocht onder-de-stad escape-room-ontwerpen detectiveverhaal kasteel-overnachting`),
   // collecting for adults
-  ...ids(`veiling vulpennen koffie-thee vinyl zendamateur antieke-poppen brocante-antiek vintage-kleding`),
+  ...ids(`veiling vulpennen koffie-thee vinyl radioamateur antieke-poppen brocante-antiek vintage-kleding`),
   // movement and speed that needs more than a young child can do or that has an age minimum
   ...ids(`bergtoppen-afvinken wandeltocht-lang langlaufen slackline-park quad-buggy karten buikdans golfles cricket-beginners draakbootvaren sloeproeien
     fpv-drone helikoptervlucht vliegsimulator rib-boot paardenrennen trekkertrek`),
@@ -132,7 +132,7 @@ export const LOUD_OR_CROWDED: ReadonlySet<string> = new Set(
     swingdansen bingo-avond stand-up poetry-slam open-podium beatboxen rappen festival-vrijwilliger straatfeest drumcirkel djembe-trommelcirkel fanfare-orkest
     drummen-leren trekkertrek zeepkistenrace karten quad-buggy lasergamen bowlen vr-arcade flipperkast pubquiz darten-pool larp paintball-airsoft teamsport
     rugby-proeftraining handbal-vereniging waterpolo onderwaterhockey ijshockey boksles streetfoodtour modeshow musical-bezoek wielerwedstrijd-kijken
-    paardenrennen circusles bollywood pokeravond casinoavond schermen hema driftles circuitdag enduro-offroad jetski
+    paardenrennen circusles bollywood pokeravond casinoavond schermen driftles circuitdag enduro-offroad jetski
     netwerkborrel vriendschapsdaten murder-mystery`),
 );
 

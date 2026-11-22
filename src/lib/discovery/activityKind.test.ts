@@ -8,7 +8,8 @@ const ids = new Set(ALL_ACTIVITIES.map((a) => a.id));
 
 describe("activity kind and execution mode", () => {
   it("has a valid line for every activity, and no line for an id that does not exist", () => {
-    for (const a of ALL_ACTIVITIES) {
+    // A retired activity (a duplicate of another) needs no line; every other one does.
+    for (const a of ALL_ACTIVITIES.filter((x) => x.status !== "retired")) {
       expect(KINDS, `kind of ${a.id}`).toContain(KIND_TABLE.kinds[a.id]);
       expect(MODES, `mode of ${a.id}`).toContain(KIND_TABLE.modes[a.id]);
     }

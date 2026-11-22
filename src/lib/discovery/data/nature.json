@@ -34,13 +34,17 @@
       "en": "A walking-node route or a free walking app"
     },
     "scene": "hiking boots on a forest trail with dappled sunlight and a trail marker post",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-266"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "trektocht",
@@ -84,13 +88,17 @@
       "en": "Start with a two-day trek on a waymarked route"
     },
     "scene": "a backpack and trekking poles by a mountain hut door at sunrise",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-095"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "gids-wandeling",
@@ -126,13 +134,17 @@
       "en": "A walk run by a nature organisation, just sign up"
     },
     "scene": "a wooden signpost in a nature reserve with binoculars hanging on it",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-267"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "geocaching",
@@ -169,7 +181,7 @@
       "en": "Free app and a first cache nearby"
     },
     "scene": "a small camouflaged cache container hidden in tree roots with a handheld GPS",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -179,7 +191,11 @@
         "source_id": "RL",
         "source_record_id": "RA-268"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kamperen",
@@ -223,7 +239,7 @@
       "en": "One night in a trekker's cabin or at a small campsite"
     },
     "scene": "a small tent glowing at dusk beside a lake with a lantern",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -241,6 +257,10 @@
       "en": [
         "camping"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -278,7 +298,7 @@
       "en": "Morning walk with a bird-watching group; binoculars can be borrowed"
     },
     "scene": "binoculars and a field guide on a wooden hide ledge overlooking reeds",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -294,6 +314,10 @@
         "vogelen"
       ],
       "en": []
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -325,14 +349,18 @@
       "en": "Introduction day, or dog walking as a first task"
     },
     "scene": "a leash and a dog bowl by an animal shelter door with folded blankets",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-359"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "paardrijden",
@@ -371,7 +399,7 @@
       "en": "Trial lesson with an instructor; caring without riding is also possible"
     },
     "scene": "a saddle and bridle on a stable door with hay",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
@@ -390,6 +418,10 @@
       "en": [
         "equestrianism"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -426,14 +458,18 @@
       "en": "Free trial lesson at a dog club (your own dog or borrow one)"
     },
     "scene": "an agility hurdle and tunnel on a grassy field with dog toys",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-491"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "imkeren",
@@ -479,7 +515,7 @@
       "en": "Open day or introduction at an apiary, protective clothing provided"
     },
     "scene": "beehives in a flower meadow with a smoker and a veil hat",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
@@ -496,6 +532,10 @@
         "bijenhouderij"
       ],
       "en": []
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -539,14 +579,18 @@
       "en": "An organised evening walk by a nature society"
     },
     "scene": "a bat detector and a torch on a fence post at dusk in a meadow",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-270"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vissen",
@@ -581,13 +625,17 @@
       "en": "Start with an introduction day; arrange the fishing licence beforehand"
     },
     "scene": "a fishing rod resting on a wooden jetty at misty dawn with a tackle box",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-271"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "tuinieren",
@@ -633,7 +681,7 @@
       "en": "A community garden with an open morning, or a planter on your balcony"
     },
     "scene": "a wooden crate of vegetables, gardening gloves and a trowel in a raised bed",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -662,6 +710,10 @@
         "food gardening",
         "A vegetable garden on a balcony or roof terrace"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -696,13 +748,17 @@
       "en": "One cutting, one pot, one windowsill"
     },
     "scene": "propagation jars with plant cuttings on a bright windowsill",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-280"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kruiden",
@@ -750,13 +806,17 @@
       "en": "Only with a guide or expert; never taste anything without certainty"
     },
     "scene": "a basket of wild herbs and a field guide on a mossy log",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-117"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "paddenstoelen",
@@ -800,7 +860,7 @@
       "en": "Autumn excursion with mycologists; never eat without an expert check"
     },
     "scene": "a wicker basket of forest mushrooms and a small knife on fallen leaves",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
@@ -817,6 +877,10 @@
         "plukken van paddenstoelen"
       ],
       "en": []
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -851,13 +915,17 @@
       "en": "Help out on a work day of a nature organisation"
     },
     "scene": "a wheelbarrow and hand tools in heathland at golden hour",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-272"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "sterrenkijken",
@@ -894,13 +962,17 @@
       "en": "Open evening at an observatory or a star-chart app"
     },
     "scene": "a telescope silhouette under a milky-way sky over a dark field",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-048"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "natuurfotografie",
@@ -936,13 +1008,17 @@
       "en": "An early morning in a park with your phone"
     },
     "scene": "a camera with a long lens on a tripod at a misty lake at sunrise",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-192"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "open-water",
@@ -987,13 +1063,17 @@
       "en": "Only at designated spots or with a group and a buoy"
     },
     "scene": "an orange swim buoy floating on a calm lake at dawn",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-144"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zeehonden-varen",
@@ -1037,13 +1117,17 @@
     },
     "scene": "grey seals resting on a pale sandbank at low tide, calm silver water and a distant boat mast",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-273"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "insecten-tellen",
@@ -1086,7 +1170,7 @@
     },
     "scene": "a small orange butterfly on purple thistle flowers in a sunlit meadow, a notebook open on a stone",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -1102,6 +1186,10 @@
       "en": [
         "butterfly watching"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1144,13 +1232,17 @@
     },
     "scene": "wet meadow grass with silver dew drops catching low pink sunrise light and a mist over distant trees",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-274"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bomen-herkennen",
@@ -1185,13 +1277,17 @@
     },
     "scene": "a collection of oak, beech and maple leaves in autumn colours laid out in rows beside a small pocket guide",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-112"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wolken",
@@ -1226,13 +1322,17 @@
     },
     "scene": "towering white cumulus clouds with grey undersides over a flat green polder horizon",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-275"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "plogging",
@@ -1268,13 +1368,17 @@
     },
     "scene": "a canvas bag half full of collected litter beside a reusable glove on a park bench at dawn",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-277"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "proplifting",
@@ -1307,7 +1411,7 @@
       "en": "Ask a garden centre or plant shop for discarded plants and put a cutting in a glass of water"
     },
     "scene": "a wilted plant cutting in a glass jar of water on a sunny windowsill beside small clay pots",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q108572898",
@@ -1318,7 +1422,11 @@
         "source_id": "RL",
         "source_record_id": "RA-281"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "strandjutten",
@@ -1352,7 +1460,7 @@
       "en": "A walk along the tide line, ideally after a storm or at low tide"
     },
     "scene": "driftwood, shells and a smooth piece of sea glass collected on wet sand at the waterline in morning light",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q1757816",
@@ -1363,7 +1471,11 @@
         "source_id": "RL",
         "source_record_id": "RA-276"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "duiven-houden",
@@ -1397,11 +1509,15 @@
       "en": "An open day or introduction at a pigeon-fanciers' club"
     },
     "scene": "a wooden pigeon loft with white and grey homing pigeons on a perch in warm light, a leg ring and a feed scoop on a shelf",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q2396572",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1436,11 +1552,15 @@
       "en": "An ant nest (formicarium) from a specialist shop or breeder"
     },
     "scene": "a glass ant farm formicarium with tunnels and a small colony in pale sand, softly lit on a shelf",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q30594741",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1477,7 +1597,7 @@
       "en": "Visit an open garden day or route and pick up ideas"
     },
     "scene": "a cottage garden border with foxgloves and roses and a gravel path to a wooden gate",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "months": [
       4,
@@ -1492,7 +1612,11 @@
         "source_id": "RL",
         "source_record_id": "RA-285"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "dierentuin",
@@ -1527,7 +1651,11 @@
       "en": "One day with a map and two animals you really want to see"
     },
     "scene": "a zoo map, a pencil and a ticket stub beside a pair of binoculars on a bench",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kinderboerderij",
@@ -1562,7 +1690,11 @@
       "en": "Just walk in; usually free"
     },
     "scene": "a bucket of hay, a wooden fence and a small chalkboard with feeding times",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "roofvogelshow",
@@ -1607,13 +1739,17 @@
       "en": "A demonstration at a bird park or falconer"
     },
     "scene": "a leather falconry glove, a feather and a small hood on a wooden perch",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-487"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vlindertuin",
@@ -1648,13 +1784,17 @@
       "en": "An hour's stroll, ideally on a sunny day"
     },
     "scene": "a glass greenhouse with orange and blue butterflies on a tropical leaf and a plant label",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-488"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "reptielen",
@@ -1689,13 +1829,17 @@
       "en": "A visit to a reptile zoo or an open day"
     },
     "scene": "a glass terrarium with a coiled gecko on bark under a warm heat lamp glow",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-489"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "stoeterij",
@@ -1730,7 +1874,11 @@
       "en": "An open day or guided tour"
     },
     "scene": "a leather halter, a brush and a bale of straw at a stable door",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "safaripark",
@@ -1766,7 +1914,11 @@
       "en": "A day by car or bus through the park"
     },
     "scene": "a car window view of a wide meadow with a pair of binoculars and a ticket on the dashboard",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "dierenfotografie",
@@ -1801,13 +1953,17 @@
       "en": "A one-day workshop in a nature reserve or animal park"
     },
     "scene": "a long telephoto lens, a lens cloth and a field guide on a wooden hide ledge",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-416"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "alpaca-wandeling",
@@ -1851,13 +2007,17 @@
       "en": "An hour's walk at an alpaca farm"
     },
     "scene": "a braided lead rope, a bag of pellets and a woolly fence post in a meadow",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-490"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "dierensporen-lezen",
@@ -1900,11 +2060,15 @@
       "en": "A tracking walk with a forest ranger or nature club"
     },
     "scene": "Animal tracks pressed into soft mud and snow beside a tracking guide book, a small ruler and a magnifying glass.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-082",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1944,11 +2108,15 @@
       "en": "An evening count with a volunteer group"
     },
     "scene": "A common toad on wet leaves near a small pond edge at dusk, a small bucket with a reflector strip and a count sheet on a clipboard.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-083",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1982,11 +2150,15 @@
       "en": "A free workshop at a municipality or community garden"
     },
     "scene": "An open worm bin with dark crumbly compost, a handful of kitchen scraps and a small trowel on a balcony table.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-084",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2030,11 +2202,15 @@
       "en": "A neighbourhood work day or a small first pond in a bucket"
     },
     "scene": "A small garden pond with marginal plants and stepping stones, a spade, a pond liner and a bucket of water plants.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-085",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2076,11 +2252,15 @@
       "en": "A pruning course from a fruit-growers' association"
     },
     "scene": "A young apple tree with bare winter branches beside pruning shears, a small saw and a ladder in a cold sunny orchard.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-086",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2119,11 +2299,15 @@
       "en": "A planting day in a community garden or a bag of bulbs in your own garden"
     },
     "scene": "Tulip and crocus bulbs in a wooden crate beside a trowel and a patch of dark soil with a few rows planted.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-495",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2164,11 +2348,15 @@
       "en": "A neighbourhood action or a patch of lawn with a seed mix"
     },
     "scene": "A bare strip of soil raked and sown with wildflower seed mix, a packet of seeds with poppies and cornflowers and a watering can.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-496",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2202,11 +2390,15 @@
       "en": "A garden design workshop or a sketch of your own garden or balcony"
     },
     "scene": "A garden design plan on graph paper with plant symbols and a small scale ruler next to coloured pencils and a plant tag.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-497",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2246,11 +2438,15 @@
       "en": "A sowing evening or a starter kit on your windowsill"
     },
     "scene": "A tray of tiny seedlings under a window with a labelled marker and a small spray bottle beside a bag of potting soil.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-498",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2294,11 +2490,15 @@
       "en": "A build day in a community garden or first a small version in a pot"
     },
     "scene": "A herb spiral built from stones with thyme, mint and parsley planted in tiers beside a wheelbarrow and a shovel.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-499",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2335,7 +2535,11 @@
       "en": "An hour with a cup of tea among the cats; booking ahead is often possible"
     },
     "scene": "a sunny cafe window sill with two sleeping cats, a teacup and a soft cushion",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "geitenyoga",
@@ -2379,7 +2583,11 @@
       "en": "A trial session at a goat farm; the mat and the instructions are there"
     },
     "scene": "two goats standing on yoga mats in a green meadow with a wooden barn behind them",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ezel-wandeling",
@@ -2424,7 +2632,11 @@
       "en": "An hour or an afternoon walking with a donkey at a donkey farm"
     },
     "scene": "a grey donkey with a leather halter and a lead rope beside a hedgerow in golden light",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "lammetjesdag",
@@ -2464,7 +2676,11 @@
       "en": "A spring open day; watching and stroking the lambs and sometimes bottle-feeding"
     },
     "scene": "a spring meadow with a few small lambs beside a wooden fence and a farm gate",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "dierenopvang-knuffelen",
@@ -2499,7 +2715,11 @@
       "en": "An open day or cuddle afternoon at a shelter for rabbits, guinea pigs and cats"
     },
     "scene": "a soft blanket with a rabbit and two guinea pigs in a wooden pen in warm light",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "paardenverzorgingsdag",
@@ -2534,7 +2754,11 @@
       "en": "A trial day at a riding school or stable: grooming, feeding and mucking out"
     },
     "scene": "a brown horse tied at a stable door with a brush, a hoof pick and a bucket on a bale of straw",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ponyrijden",
@@ -2568,7 +2792,11 @@
       "en": "A ride or trial lesson on a pony, led by an instructor at a riding school or petting farm"
     },
     "scene": "a small pony with a leather saddle in a sandy paddock behind a white fence",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "hondenshow",
@@ -2612,7 +2840,11 @@
       "en": "An exhibition or agility competition by a breed club; often free to visit"
     },
     "scene": "a green show ring with a rope border, a blue ribbon and a bowl of water, a groomed spaniel waiting",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "paardensportwedstrijd",
@@ -2656,7 +2888,11 @@
       "en": "A show-jumping or dressage event of a riding school or club; watching is usually free"
     },
     "scene": "an empty sand arena with a colourful show-jumping fence and a bell on a pole",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "duivenwedstrijd",
@@ -2698,7 +2934,11 @@
       "en": "An open day at a pigeon fanciers' club or a show in the autumn"
     },
     "scene": "a wooden pigeon loft at dusk with pigeons on the landing board and a numbered ring on a post",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "pluimveetentoonstelling",
@@ -2739,7 +2979,11 @@
       "en": "A winter show by a breeders' association; looking and asking questions"
     },
     "scene": "rows of cages with proud hens and a rooster in a hall, rosette ribbons pinned to a board",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "schapendrijven",
@@ -2783,7 +3027,11 @@
       "en": "A demonstration or competition at a shepherd's or sheepdog club"
     },
     "scene": "a border collie crouching low in front of a small flock of sheep on a green slope",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ringrijden",
@@ -2825,7 +3073,11 @@
       "en": "A ring-riding festival in Zeeland or Brabant; watching the parade and the riding"
     },
     "scene": "a wooden arch with a small ring hanging from a hook and a decorated horse harness nearby",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "karpervissen",
@@ -2875,7 +3127,11 @@
       "en": "A trial day at an angling club or fishing water; the VISpas and the gear are often arranged"
     },
     "scene": "a fishing rod on a rod pod beside a calm pond at sunrise with a landing net and a small tent",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vliegvissen",
@@ -2923,7 +3179,11 @@
       "en": "An introduction course at a fly-fishing school; you learn casting on the grass"
     },
     "scene": "a fly rod and a small box of colourful flies on a mossy stone beside a clear stream",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zeevissen",
@@ -2971,7 +3231,11 @@
       "en": "A day trip on a sea-angling cutter; gear is for rent and the skipper helps"
     },
     "scene": "a fishing cutter with rods in holders on the deck, gulls and a grey sea at sunrise",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "visvijver",
@@ -3014,7 +3278,11 @@
       "en": "A fishing pond where you can rent a rod and where fishing is allowed; good with children"
     },
     "scene": "a small pond with a wooden jetty and a bright red float on the water, a bucket and a net",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "krabben-vangen",
@@ -3055,7 +3323,11 @@
       "en": "A crab line and a bucket at a pier or harbour wall; children love it"
     },
     "scene": "a bucket with small crabs on wet sand at a pier, a string with bait and a crab line",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "jachtkennismaking",
@@ -3093,7 +3365,11 @@
       "en": "An open day or introductory evening of a hunters' association or hunting course; watching and explanations"
     },
     "scene": "a forest clearing with a wooden high seat and a notebook of nature notes on a tree stump in autumn light",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wildkijken",
@@ -3138,7 +3414,11 @@
       "en": "A guided walk at dusk with a ranger; roe deer, red deer and wild boar"
     },
     "scene": "a deer standing at a misty forest clearing, seen through binoculars resting on a wooden post",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "hertenbronst",
@@ -3178,7 +3458,11 @@
       "en": "An excursion at sunrise or dusk on the Veluwe or in the Oostvaardersplassen"
     },
     "scene": "a red deer stag in the autumn mist with its breath visible and its antlers against the grey",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "valkerij",
@@ -3212,7 +3496,11 @@
       "en": "A workshop with a falconer; flying a bird of prey and calling it back"
     },
     "scene": "a peregrine falcon on a leather perch with a small hood and a leather falconry glove on a wooden post",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "jachthoorn-blazen",
@@ -3246,7 +3534,11 @@
       "en": "A trial lesson with a hunting-horn group; blowing signals in the woods or in the hall"
     },
     "scene": "a polished brass hunting horn lying on green felt next to sheet music in warm lamp light",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "jachthonden-demo",
@@ -3291,7 +3583,11 @@
       "en": "An open day or trial by a hunting-dog club: retrieving and tracking"
     },
     "scene": "a retriever with a training dummy in its mouth in a field of long grass and a whistle hanging on a post",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kaninhop",
@@ -3327,7 +3623,11 @@
       "en": "A demonstration or open day of a rabbit-hopping club; watching and sometimes trying"
     },
     "scene": "a rabbit jumping over a small wooden hurdle on a green mat with bunting in the background",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "koeknuffelen",
@@ -3361,7 +3661,11 @@
       "en": "An hour with the cows on a care farm or dairy farm; brushing and cuddling"
     },
     "scene": "a gentle black-and-white cow leaning over a farm gate in soft light with a brush hanging beside it",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ganzenkijken",
@@ -3404,7 +3708,11 @@
       "en": "A bird hide or an excursion by a bird group to the wintering geese"
     },
     "scene": "a flock of geese landing on a frosty field at dawn with a wooden bird hide at the edge",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "uitkijktoren",
@@ -3439,7 +3747,11 @@
       "en": "Most towers are free to climb; check a hiking map"
     },
     "scene": "a wooden lookout tower rising above a forest with a long view over the treetops",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bollenvelden",
@@ -3478,7 +3790,11 @@
       "en": "Follow a bulb-field route in spring; looking from the road is free"
     },
     "scene": "stripes of red, yellow and pink tulips running to the horizon under a wide sky",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "fossielen-zoeken",
@@ -3515,7 +3831,7 @@
       "en": "A guided search with a geology society, or a day looking on a beach or in a quarry"
     },
     "scene": "a sandy beach at low tide with a small bucket of pebbles, a magnifying glass and a spiral fossil in the sand",
-    "status": "concept",
+    "status": "reviewed",
     "months": [
       4,
       5,
@@ -3524,7 +3840,11 @@
       8,
       9,
       10
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "medicinale-kruidentuin",
@@ -3570,7 +3890,11 @@
       "en": "A visit to an apothecary or herb garden; often with a guided tour in summer"
     },
     "scene": "a sunlit herb garden with labelled clay pots of lavender, sage and chamomile, a stone mortar on a bench",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "natuurhistorisch-museum",
@@ -3608,7 +3932,11 @@
       "en": "A visit to a natural history museum with skeletons, fossils and mounted animals"
     },
     "scene": "a grand museum hall with a whale skeleton hanging from the ceiling and glass cases of minerals and butterflies",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "herbarium-maken",
@@ -3652,7 +3980,11 @@
       "en": "Picking is not allowed everywhere: look for fallen leaves and flowers, dry them between newspapers under a stack of books and glue them in a notebook"
     },
     "scene": "pressed ferns and wildflowers mounted on the cream pages of an open herbarium album beside a pencil and small labels",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zaden-ruilen",
@@ -3687,7 +4019,11 @@
       "en": "Collect seeds from your garden or the verge, dry them and swap them at a seed swap or through a garden society"
     },
     "scene": "paper envelopes of hand-labelled seeds laid out on a wooden table beside dried flower heads and a small jar",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "eendenkooi-bezoeken",
@@ -3723,6 +4059,10 @@
       "en": "A number of duck decoys in the Netherlands can be visited with a tour by the keeper; ask about open days"
     },
     "scene": "a still pond ringed by willows with a curved tunnel of reed screens leading to a hidden trap at the water's edge",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

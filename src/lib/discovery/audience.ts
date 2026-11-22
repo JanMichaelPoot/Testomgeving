@@ -57,7 +57,7 @@ export const MINOR_UNSUITABLE: ReadonlySet<string> = new Set([
   "paaldansen",
   // risk sports and motor sport with an adult minimum age at most providers, and trespassing
   "vrije-val", "tandem-parachute", "bungeejump", "grotduiken", "wrakduiken", "freediven", "jetski", "driftles", "circuitdag",
-  "enduro-offroad", "motorvlucht", "ijsbaden", "urbex-tour",
+  "enduro-offroad", "motorvlucht", "koud-water-sessie", "urbex-tour",
   // hunting (a licence and an adult course are needed even to be introduced)
   "jachtkennismaking",
 ]);

@@ -33,13 +33,17 @@
     },
     "scene": "a glowing neon microphone sign and a lyrics screen in an empty karaoke room with a velvet sofa",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-430"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bingo-avond",
@@ -75,7 +79,11 @@
     },
     "scene": "a bingo card with a few circled numbers and a bright wooden number drum on a plain table",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "rolschaatsdisco",
@@ -111,7 +119,11 @@
     },
     "scene": "a roller rink with disco lights reflecting on a polished maple floor and a row of rental skates",
     "supply": "rare",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "silent-disco",
@@ -146,13 +158,17 @@
     },
     "scene": "a field of glowing white headphones hung on a rail with colour-changing LEDs at night",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-434"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "dineren-in-het-donker",
@@ -186,7 +202,11 @@
     },
     "scene": "a dinner table set with candles in complete darkness, glasses glowing softly in the black room",
     "supply": "rare",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "openluchtbioscoop",
@@ -227,13 +247,17 @@
     },
     "scene": "a white screen lit by a projection beneath tall trees at dusk with folding chairs in rows",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-419"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "lichtfestival",
@@ -274,7 +298,11 @@
     },
     "scene": "a canal lined with glowing light installations reflecting on dark water",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "pokeravond",
@@ -309,7 +337,11 @@
     },
     "scene": "a green felt poker table with stacks of clay chips and fanned cards under a hanging lamp",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "casinoavond",
@@ -344,7 +376,11 @@
     },
     "scene": "a roulette wheel and stacked chips on green felt in warm low light",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bridge",
@@ -377,13 +413,17 @@
     },
     "scene": "a card table with four chairs and bidding boxes under a green shaded lamp",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-505"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "backgammon",
@@ -417,7 +457,7 @@
     },
     "scene": "a wooden backgammon board with polished checkers and two dice mid-game under a lamp",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -440,6 +480,10 @@
         "backgammon",
         "Tavli"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -474,7 +518,11 @@
     },
     "scene": "a spread of ornate tarot cards on dark velvet with a candle and a small crystal",
     "supply": "common",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "dj-workshop",
@@ -510,13 +558,17 @@
     },
     "scene": "twin turntables and a mixer with glowing faders on a dark desk beside a stack of vinyl crates",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-429"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "swingdansen",
@@ -552,13 +604,17 @@
     },
     "scene": "a polished wooden dance floor with vintage lamps and brass instruments waiting on a small stage",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-451"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "klein-festival",
@@ -600,7 +656,11 @@
     },
     "scene": "colourful bunting strung between trees above closed wooden festival stalls and an empty small stage before the doors open, soft dusk light and string lights switched on",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "luisterbar",
@@ -634,13 +694,17 @@
     },
     "scene": "a vintage hi-fi with a vinyl record spinning in a dim wood-panelled lounge",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-230"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "jamsessie",
@@ -672,13 +736,17 @@
     },
     "scene": "a drum kit, an upright bass and a small amplifier on a low café stage under one warm lamp",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-229"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "nachtmarkt",
@@ -722,7 +790,11 @@
     },
     "scene": "rows of wooden market stalls with glowing paper lanterns, string lights and trays of steaming food left on empty counters at blue hour, nobody around",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "live-comedy",
@@ -757,13 +829,17 @@
     },
     "scene": "a small round table with two drinks facing a lit stage with a microphone and a brick wall",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-460"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "variete",
@@ -798,7 +874,11 @@
     },
     "scene": "a small candle-lit table before a red velvet stage curtain with gold tassels and a spotlight",
     "supply": "rare",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "pingpongbar",
@@ -833,7 +913,11 @@
     },
     "scene": "a green ping-pong table with a net and two paddles under a hanging neon sign in a brick-walled bar",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "folk-sessie",
@@ -867,11 +951,15 @@
       "en": "An open session at a pub, listeners welcome too"
     },
     "scene": "A table in a pub corner with a fiddle, a tin whistle, a bodhran and pints, with warm lamp light and a stack of tune books.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-439",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -905,11 +993,15 @@
       "en": "A listening night at a record shop or community centre"
     },
     "scene": "A turntable with a spinning record and speakers beside shelves of sleeves, two armchairs and warm lamplight.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-440",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -954,7 +1046,11 @@
       "en": "Just walk in; you pay per ride or stall"
     },
     "scene": "a lit ferris wheel and a popcorn stall glowing at dusk",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kerstmarkt",
@@ -993,6 +1089,10 @@
       "en": "Just walk in; you pay per stall for mulled wine and treats"
     },
     "scene": "wooden market stalls hung with fairy lights and a steaming mug on a counter in the snow",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

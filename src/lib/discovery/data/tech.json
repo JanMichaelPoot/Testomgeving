@@ -33,7 +33,7 @@
       "en": "Beginner workshop or a starter kit"
     },
     "scene": "a breadboard with LEDs, wires and a microcontroller on a desk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -49,6 +49,10 @@
       "en": [
         "hobby electronics"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -84,7 +88,7 @@
       "en": "Print one design at a makerspace or library"
     },
     "scene": "a 3D printer printing a small object in colorful filament",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -102,6 +106,10 @@
       "en": [
         "3D printing"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -138,7 +146,7 @@
       "en": "A free online environment and a first drawing"
     },
     "scene": "a laptop showing colorful generative art in a dim room",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
@@ -156,6 +164,10 @@
       "en": [
         "Learning to program with Python"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -192,14 +204,18 @@
       "en": "Robot club or a beginner kit"
     },
     "scene": "a small wheeled robot with sensors on a workbench",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-055"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "makerspace",
@@ -233,14 +249,18 @@
       "en": "Open drop-in; staff help you get started"
     },
     "scene": "a makerspace workshop with a laser cutter, tools and shelves",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-312"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "drones",
@@ -279,7 +299,7 @@
       "en": "Only within the rules (registration, flight zones); start at a club day"
     },
     "scene": "a small quadcopter drone on a grass field beside a controller",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
@@ -296,6 +316,10 @@
       "en": [
         "drone flying"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -329,13 +353,17 @@
       "en": "Bring something broken or just look along, always free"
     },
     "scene": "a table with a toaster, screwdrivers and a tool roll at a repair café",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-313"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "fietsreparatie",
@@ -370,13 +398,17 @@
       "en": "Bike mechanic workshop or a neighbourhood workshop"
     },
     "scene": "a bicycle upside down on a workshop stand with wrenches",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-109"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "restaureren",
@@ -411,13 +443,17 @@
       "en": "Beginner course or a chair from a thrift shop"
     },
     "scene": "an old wooden chair with sandpaper and brushes in a workshop",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-015"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "smeden",
@@ -454,14 +490,18 @@
       "en": "Only under supervision, with protective gear"
     },
     "scene": "an anvil, a hammer and glowing iron in a dark forge",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-314"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "lassen",
@@ -497,14 +537,18 @@
       "en": "Intro course at a training centre, with equipment"
     },
     "scene": "a welding helmet and gloves on a steel workbench with sparks",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-508"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "klokken",
@@ -539,13 +583,17 @@
       "en": "Workshop or a cheap mechanical movement"
     },
     "scene": "an open mechanical watch movement with tweezers and a loupe",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-509"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "telescoop",
@@ -582,7 +630,7 @@
       "en": "Public observatory evening"
     },
     "scene": "a refractor telescope on a tripod on a rooftop at twilight",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -600,6 +648,10 @@
       "en": [
         "amateur astronomy"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -638,13 +690,17 @@
       "en": "One counting app, one measurement, five minutes"
     },
     "scene": "a clipboard, a magnifier and a notebook beside a wildflower in a field",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-316"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "microscopie",
@@ -679,13 +735,17 @@
       "en": "Look at a drop of pond water"
     },
     "scene": "a brass microscope with glass slides and a leaf sample",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-107"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "geologie",
@@ -721,7 +781,7 @@
       "en": "Excursion with a guide or a map of your region"
     },
     "scene": "a layered rock cliff with a hammer and a notebook on the ground",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -737,6 +797,10 @@
       "en": [
         "amateur geology"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -771,13 +835,17 @@
       "en": "A simple rain gauge and a notebook"
     },
     "scene": "a small garden weather station with a rain gauge and an anemometer in a meadow",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-108"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wetenschapsmuseum",
@@ -813,13 +881,17 @@
       "en": "Adult evening or check a science center's calendar"
     },
     "scene": "interactive science exhibits with glowing light displays in a dim hall",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-211"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kookwetenschap",
@@ -854,13 +926,17 @@
       "en": "One experiment from a book, like making cheese or bread"
     },
     "scene": "glass flasks and a bowl of dough with a whisk on a kitchen counter",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-318"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "data-visualisatie",
@@ -895,13 +971,17 @@
       "en": "A public dataset and a free tool"
     },
     "scene": "a screen showing a colorful chart beside a notebook with sketches",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-319"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "radioamateur",
@@ -936,13 +1016,17 @@
     },
     "scene": "a vintage radio set with glowing dials, a Morse key and a coil of antenna wire on a workbench",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-320"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "synthesizer-bouwen",
@@ -978,13 +1062,17 @@
     },
     "scene": "a circuit board with colourful knobs and patch cables laid out beside a soldering iron stand",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-232"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "motor-sleutelen",
@@ -1019,13 +1107,17 @@
     },
     "scene": "a half-disassembled vintage scooter engine on a workbench under a hanging lamp with a tidy set of spanners",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-321"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kortegolf-luisteren",
@@ -1058,7 +1150,7 @@
       "en": "An online receiver (WebSDR) for listening to stations from around the world"
     },
     "scene": "a vintage shortwave radio with a glowing frequency dial, a notebook of station logs and headphones on a desk",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q1073309",
@@ -1069,7 +1161,11 @@
         "source_id": "RL",
         "source_record_id": "RA-510"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "dxen",
@@ -1102,7 +1198,7 @@
       "en": "A radio with a good antenna or a WebSDR, and a logbook of what you catch"
     },
     "scene": "a radio receiver with a long wire antenna by a window and a logbook of received call signs with a world map pinned behind it",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q844865",
@@ -1113,7 +1209,11 @@
         "source_id": "RL",
         "source_record_id": "RA-511"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "retrocomputing",
@@ -1147,7 +1247,7 @@
       "en": "Visit a retro-computer fair or club and watch an old computer boot"
     },
     "scene": "a beige 1980s home computer with a chunky keyboard and a green-text monitor on a workbench with floppy disks and a screwdriver",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q389525",
@@ -1158,7 +1258,11 @@
         "source_id": "RL",
         "source_record_id": "RA-322"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wikipedia-bijdragen",
@@ -1190,7 +1294,7 @@
       "en": "Improve one sentence or add one source to an article about something you know well"
     },
     "scene": "a laptop showing an encyclopedia-style article with a footnote list, beside a notebook of sources and a mug",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q134715708",
@@ -1201,7 +1305,11 @@
         "source_id": "RL",
         "source_record_id": "RA-352"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "open-source",
@@ -1236,7 +1344,7 @@
       "en": "Pick a 'good first issue' in a small project and fix one small bug"
     },
     "scene": "a laptop with a code editor showing a small bug fix and a sticky note checklist next to a mechanical keyboard",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q7096425",
@@ -1247,7 +1355,11 @@
         "source_id": "RL",
         "source_record_id": "RA-512"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "game-ontwikkelen",
@@ -1280,13 +1392,17 @@
       "en": "A game engine with a one-hour tutorial"
     },
     "scene": "a laptop showing a pixel-art level, a game controller and sticky notes with level sketches",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-323"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ai-creatie",
@@ -1319,13 +1435,17 @@
       "en": "A free AI image or text app and a vague idea"
     },
     "scene": "a laptop with abstract generated shapes on screen, a notebook with scribbled prompts and a mug",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-420"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "website-bouwen",
@@ -1358,11 +1478,15 @@
       "en": "A free online beginners' course or a first page about your hobby"
     },
     "scene": "A laptop showing a simple website layout in progress beside a notebook with wireframe sketches and a mug.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-288",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1396,11 +1520,15 @@
       "en": "An energy coach from the municipality or a first home measurement"
     },
     "scene": "A smart energy meter reading on a wall with a thermostat, a small notebook of readings and an LED bulb on a shelf.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-289",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1437,7 +1565,11 @@
       "en": "Build a small program in a weekend that does something you find useful or fun"
     },
     "scene": "a laptop showing lines of colourful code beside a notebook with a sketched plan and a mug",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "planetarium-sterrenwacht",
@@ -1475,7 +1607,11 @@
       "en": "A show in a planetarium or a public evening at an observatory"
     },
     "scene": "a domed observatory building under a deep night sky full of stars, a single warm window glowing",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "natuurkunde-proefjes",
@@ -1511,7 +1647,11 @@
       "en": "Start at home with an experiment book or book a workshop at a science centre"
     },
     "scene": "a table with a prism, a magnet, a small spinning top and glass beakers in strong window light",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wetenschapscafe",
@@ -1547,7 +1687,11 @@
       "en": "An evening at a science café or university hall; just join in"
     },
     "scene": "a café table with two glasses, a chalkboard of formulas and warm pendant lights",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "onderzoeksinstituut-bezoek",
@@ -1584,7 +1728,11 @@
       "en": "An open day or tour at a university, research institute or laboratory"
     },
     "scene": "a bright laboratory bench with glassware, a microscope and a notebook beside a large window",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "waterraket",
@@ -1621,7 +1769,7 @@
       "en": "Build a rocket from a plastic bottle, card and a bike pump; launch it in an open field"
     },
     "scene": "a plastic-bottle rocket with cardboard fins standing on a launch stand in an open meadow, a bike pump beside it",
-    "status": "concept",
+    "status": "reviewed",
     "months": [
       4,
       5,
@@ -1630,7 +1778,11 @@
       8,
       9,
       10
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zonne-energie-bouwen",
@@ -1665,6 +1817,10 @@
       "en": "A kit with a small solar panel and motor costs a few tens of euros; maker spaces and nature centres give workshops"
     },
     "scene": "a small solar panel wired to a tiny motor spinning a paper propeller on a sunny windowsill",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

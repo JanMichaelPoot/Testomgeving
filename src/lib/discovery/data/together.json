@@ -29,13 +29,17 @@
       "en": "Usually you can join alone; ask about the introduction round"
     },
     "scene": "a long communal table set with plates, bowls and lanterns",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-529"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "taalcafe",
@@ -67,13 +71,17 @@
       "en": "Free, often in the library; you can also just listen"
     },
     "scene": "a café table with a world map and coffee cups in a library corner",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-351"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wandelgroep",
@@ -106,13 +114,17 @@
       "en": "Join once; you don't have to talk"
     },
     "scene": "walking sticks and backpacks leaning together on a trailhead board",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-530"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "book-club-stil",
@@ -144,13 +156,17 @@
       "en": "Bring your own book; talking is possible afterwards"
     },
     "scene": "armchairs in a circle with stacks of books and reading lamps",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-443"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kletscafe",
@@ -181,13 +197,17 @@
       "en": "Coming alone is normal; there is often a host"
     },
     "scene": "a cozy coffee-morning table with cups and a cake",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-531"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "buurtvrijwilliger",
@@ -219,13 +239,17 @@
       "en": "An introduction afternoon without obligation"
     },
     "scene": "a neighbourhood community-center table with a pinboard and cups",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-066"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "body-doubling",
@@ -257,13 +281,17 @@
       "en": "The camera is often off; see how it works"
     },
     "scene": "a laptop and a coffee cup on a home desk with a small plant in soft light",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-538"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "potluck",
@@ -296,13 +324,17 @@
       "en": "Everyone brings one dish"
     },
     "scene": "a table full of different home-cooked dishes in mismatched bowls",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-532"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "buurttuin",
@@ -345,13 +377,17 @@
       "en": "Open morning; work at your own pace"
     },
     "scene": "community garden beds with watering cans and hand tools",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-118"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "nieuwkomers",
@@ -383,7 +419,7 @@
       "en": "Meant for people looking for someone; nobody knows each other"
     },
     "scene": "a welcome sign and blank name tags on a table at a meet-up",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
@@ -401,6 +437,10 @@
       "en": [
         "Language buddy for a newcomer"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -434,13 +474,17 @@
       "en": "Watching and listening is enough; performing is not required"
     },
     "scene": "a small stage with a microphone and a stool in a warm room",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-249"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kook-club",
@@ -474,13 +518,17 @@
       "en": "Cooking workshop for beginners, just sign up"
     },
     "scene": "a kitchen counter with chopped vegetables and pans ready for a group",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-126"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "spelavond-thuis",
@@ -512,13 +560,17 @@
       "en": "Invite two people and pick one easy game"
     },
     "scene": "a living-room coffee table with snacks and a board game",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-537"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vriendschapsdaten",
@@ -549,7 +601,11 @@
       "en": "Organised by a platform; meet in a public place"
     },
     "scene": "two coffee cups on a café table by a window",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "onbekenden-diner",
@@ -581,13 +637,17 @@
       "en": "An organised evening in a restaurant, in a public place"
     },
     "scene": "a long restaurant table set for many with candles",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-535"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wandelmaatje",
@@ -619,13 +679,17 @@
       "en": "A voluntary match via a welfare organisation"
     },
     "scene": "two pairs of walking shoes side by side at a trail start",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-534"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "proefles-avond",
@@ -657,13 +721,17 @@
       "en": "Pick a course that says \"no experience needed\""
     },
     "scene": "a beginner-class sign on an easel in a community center",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-536"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "festival-vrijwilliger",
@@ -703,13 +771,17 @@
       "en": "A short shift with a team and free entry"
     },
     "scene": "a volunteer vest and wristbands hanging on a fence at dusk with string lights",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-330"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "familie-uitje",
@@ -741,7 +813,11 @@
       "en": "Pick one activity and let everyone choose one thing"
     },
     "scene": "a map with pinned spots and colorful tickets on a family table",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "online-praatgroep",
@@ -773,13 +849,17 @@
       "en": "Read along without saying anything; join in when it feels right"
     },
     "scene": "a laptop showing a chat window and a mug on a sofa arm",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-533"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "naaicafe",
@@ -813,14 +893,18 @@
       "en": "A sewing café or mending night: bring your own project, others help"
     },
     "scene": "a long table with sewing machines, fabric offcuts, thread spools and mugs of tea",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-355"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "schrijfcirkel",
@@ -854,14 +938,18 @@
       "en": "A writing circle at a library or community centre: ten minutes writing on a prompt, then reading aloud"
     },
     "scene": "notebooks and pens on a library table with a lamp, a prompt card and cups of coffee",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-235"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kledingruil",
@@ -896,14 +984,18 @@
       "en": "Bring clothes you no longer wear and go home with something new"
     },
     "scene": "clothes racks and folded sweaters on tables with hangers and a mirror in a community hall",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-382"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "muurschildering",
@@ -938,7 +1030,7 @@
       "en": "Help paint a mural or neighbourhood art project, often guided by an artist"
     },
     "scene": "a half-painted wall mural with scaffolding, paint buckets, rollers and a colour chart",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "months": [
       4,
@@ -954,7 +1046,11 @@
         "source_id": "RL",
         "source_record_id": "RA-362"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "netwerkborrel",
@@ -986,13 +1082,17 @@
       "en": "A free drop-in drinks of a local business network"
     },
     "scene": "a table with coffee cups, name badges and a bowl of nuts at a casual meet-up",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-332"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "leesclub",
@@ -1025,11 +1125,15 @@
       "en": "An open reading club at the library"
     },
     "scene": "A circle of armchairs in a library corner with a stack of the same paperback, a pot of tea and reading glasses.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-058",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1065,7 +1169,11 @@
       "en": "A drop-in evening; just join with a cup of coffee, usually without registration"
     },
     "scene": "a round table with coffee cups, a teapot and a plate of biscuits in a warm community room",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "oud-hollandse-volksspelen",
@@ -1108,6 +1216,10 @@
       "en": "A play afternoon with ring jousting, sack races, cookie biting and nail driving, organised with neighbours or friends"
     },
     "scene": "a lawn set with burlap sacks, a pastry hanging on a string, a wooden beam studded with nails and a striped finish line",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

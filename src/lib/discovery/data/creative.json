@@ -33,7 +33,7 @@
       "en": "Single workshop or trial class, everything supplied"
     },
     "scene": "a potter's wheel with a wet clay bowl, ceramic tools and an apron on a stool",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -55,6 +55,10 @@
       "en": [
         "ceramic art"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -90,7 +94,7 @@
       "en": "Beginner course at a workshop, tools provided"
     },
     "scene": "a wooden workbench with chisels, a plane and fresh wood shavings",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -100,7 +104,11 @@
         "source_id": "RL",
         "source_record_id": "RA-179"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "lederwerk",
@@ -134,7 +142,7 @@
       "en": "One-off workshop, for example making a wallet"
     },
     "scene": "leather pieces, a stitching awl and waxed thread on a workbench",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -152,6 +160,10 @@
       "en": [
         "leather crafting"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -185,7 +197,7 @@
       "en": "Day workshop in clay, wood or stone"
     },
     "scene": "a small stone sculpture in progress with chisels and a mallet, stone dust on the bench",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
@@ -204,6 +216,10 @@
       "en": [
         "art of sculpture"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -239,14 +255,18 @@
       "en": "Half-day workshop, materials included"
     },
     "scene": "mosaic tiles in bright colors laid out beside a half-finished mosaic",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-019"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "sieraden",
@@ -282,7 +302,7 @@
       "en": "Beginner workshop in silversmithing or beading"
     },
     "scene": "jewelry pliers, silver wire and beads on a velvet tray",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -300,6 +320,10 @@
       "en": [
         "jewelry design"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -338,7 +362,7 @@
       "en": "Knitting café or starter kit; also easy to learn online"
     },
     "scene": "balls of colorful wool and knitting needles in a wicker basket",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -362,6 +386,10 @@
         "knitting",
         "crocheting"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -399,7 +427,7 @@
       "en": "Starter kit or workshop; start very small"
     },
     "scene": "an embroidery hoop with colorful floral thread and a needle",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -429,6 +457,10 @@
         "weaving",
         "Hand embroidery"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -463,7 +495,7 @@
       "en": "Sewing café or beginner lesson on the organiser's machine"
     },
     "scene": "a vintage sewing machine with fabric, pins and spools of thread",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -481,6 +513,10 @@
       "en": [
         "sewing"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -516,13 +552,17 @@
       "en": "Half-day workshop, everything included"
     },
     "scene": "a handmade notebook with a stitched spine, a calligraphy pen and an ink pot",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-022"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zeefdruk",
@@ -556,14 +596,18 @@
       "en": "Open studio or workshop; your own print in two hours"
     },
     "scene": "a screen-printing frame and a bright print on a table with a squeegee",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-166"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "schilderen",
@@ -600,7 +644,7 @@
       "en": "Painting workshop with materials, no talent needed"
     },
     "scene": "an easel with a canvas, paint tubes and brushes in jars near a window",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -616,6 +660,10 @@
         "schilderkunst"
       ],
       "en": []
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -654,7 +702,7 @@
       "en": "A sketchbook and a pen; sketchcrawl groups are open"
     },
     "scene": "an open sketchbook with a pen sketch of a street and watercolor pencils on a café table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
@@ -672,6 +720,10 @@
       "en": [
         "Learning to draw for beginners"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -710,7 +762,7 @@
       "en": "A photo walk with your phone or a beginner course"
     },
     "scene": "a vintage camera on a windowsill with a blurred street view behind it",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -720,7 +772,11 @@
         "source_id": "RL",
         "source_record_id": "RA-191"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "collage",
@@ -756,7 +812,7 @@
       "en": "An evening with magazines, scissors and glue"
     },
     "scene": "paper cutouts, scissors and glue on a table forming a colorful collage",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -774,6 +830,10 @@
       "en": [
         "scrapbooking"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -808,14 +868,18 @@
       "en": "Open choir or trial rehearsal, no need to read music"
     },
     "scene": "a stack of sheet music on a piano with a tuning fork in a church hall",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-030"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "instrument",
@@ -851,13 +915,17 @@
       "en": "Trial lesson or rent an instrument; ukulele is quick to learn"
     },
     "scene": "a ukulele leaning on a chair beside a window with sheet music",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-028"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "muziek-maken",
@@ -892,13 +960,17 @@
       "en": "Beginner workshop or free software"
     },
     "scene": "a small synthesizer and headphones on a desk with a laptop glow",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-226"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "improvisatie",
@@ -932,13 +1004,17 @@
       "en": "Beginner workshop where everyone is new"
     },
     "scene": "an empty small theatre stage with two chairs and a single spotlight",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-036"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "schrijven",
@@ -975,13 +1051,17 @@
       "en": "Writing group, or a writing prompt and thirty minutes"
     },
     "scene": "a typewriter with a sheet of paper and a mug of coffee on a desk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-233"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "graffiti",
@@ -1017,13 +1097,17 @@
     },
     "scene": "a wall of layered spray-painted colours with rolled paint cans and a stencil leaning against a concrete block",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-169"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kalligrafie",
@@ -1059,7 +1143,7 @@
     },
     "scene": "a fountain pen, a bottle of ink and a sheet with flowing black lettering on a sloped writing desk",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -1069,7 +1153,11 @@
         "source_id": "RL",
         "source_record_id": "RA-170"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "analoge-fotografie",
@@ -1105,13 +1193,17 @@
     },
     "scene": "a red safelight glowing over a tray of developer with a wet print and hanging film strips",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-024"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "indigo-verven",
@@ -1146,13 +1238,17 @@
     },
     "scene": "indigo-dyed cloths in deep blue with white tie-dye patterns hanging to dry on a line in a courtyard",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-175"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "parfum-maken",
@@ -1186,13 +1282,17 @@
     },
     "scene": "rows of amber glass bottles and strips of paper in front of an organ of tiny scent vials on a marble table",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-411"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zeep-maken",
@@ -1227,7 +1327,7 @@
     },
     "scene": "cut bars of soap in soft colours with dried petals stacked on a linen cloth beside wooden moulds",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -1243,6 +1343,10 @@
       "en": [
         "soap-making"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1278,13 +1382,17 @@
     },
     "scene": "a carved lino block, an ink roller and a fresh print drying on a rack in a bright studio",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-167"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ballonmodelleren",
@@ -1318,11 +1426,15 @@
       "en": "A beginners' workshop or a bag of modelling balloons with a pump"
     },
     "scene": "a colourful balloon dog and a twisted balloon flower on a table with a pump and bags of long balloons",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q805333",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1357,7 +1469,7 @@
       "en": "A flower-arranging workshop where everything is supplied"
     },
     "scene": "a loose seasonal bouquet being arranged in a ceramic vase with scissors, ribbon and stems on a wooden table",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q1460219",
@@ -1368,7 +1480,11 @@
         "source_id": "RL",
         "source_record_id": "RA-050"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "quilten",
@@ -1402,7 +1518,7 @@
       "en": "A beginners' class or quilting café; fabric and sewing machines are often there"
     },
     "scene": "patchwork quilt squares in warm colours pinned on a table with a rotary cutter, a ruler and spools of thread",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q1920065",
@@ -1413,7 +1529,11 @@
         "source_id": "RL",
         "source_record_id": "RA-010"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kaarten-maken",
@@ -1447,7 +1567,7 @@
       "en": "A few sheets of card, stamps and a glue stick: a card for someone you care about"
     },
     "scene": "handmade greeting cards with stamped flowers and washi tape next to a paper trimmer on a craft desk",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q2987950",
@@ -1458,7 +1578,11 @@
         "source_id": "RL",
         "source_record_id": "RA-364"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "eigen-taal",
@@ -1491,7 +1615,7 @@
       "en": "A free tool for sounds and words, and one sentence in your language"
     },
     "scene": "a notebook with invented alphabet characters and a hand-drawn map beside a word list and a pencil",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q19642588",
@@ -1502,7 +1626,11 @@
         "source_id": "RL",
         "source_record_id": "RA-442"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "straatfotografie",
@@ -1536,7 +1664,7 @@
       "en": "An hour's walk with your phone and one brief, for instance only shadows or doors"
     },
     "scene": "a quiet cobbled street corner with long afternoon shadows, a bicycle against a wall and a camera lying on a stone bench",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q10284385",
@@ -1547,7 +1675,11 @@
         "source_id": "RL",
         "source_record_id": "RA-023"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "figuurzagen",
@@ -1580,7 +1712,7 @@
       "en": "A beginners' course at a hobby club or adult-education centre"
     },
     "scene": "a fine fretwork scroll saw with a half-cut thin plywood ornament and a pencil pattern on a bright workshop table",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q2880401",
@@ -1591,7 +1723,11 @@
         "source_id": "RL",
         "source_record_id": "RA-180"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kostuumontwerp",
@@ -1627,14 +1763,18 @@
       "en": "A workshop at a theatre group or costume studio: sketching, choosing fabric, a first pattern"
     },
     "scene": "a costume designer's table with fabric swatches, a mannequin draped in half-pinned velvet, pins and sketches",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-354"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "hoeden-maken",
@@ -1670,14 +1810,18 @@
       "en": "A beginner workshop: steaming felt or straw into shape and trimming it"
     },
     "scene": "a wooden hat block with a steamed felt hat, ribbons and millinery wire on a workbench",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "rare",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-011"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "patroontekenen",
@@ -1713,14 +1857,18 @@
       "en": "A course with a simple skirt or top as the first project"
     },
     "scene": "large sheets of pattern paper with curved lines, tailor's chalk, a measuring tape and a french curve ruler",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-178"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "upcycle-kleding",
@@ -1756,13 +1904,17 @@
       "en": "A mending evening: give a damaged garment new life with visible embroidery"
     },
     "scene": "a denim jacket with colourful visible stitching, embroidery thread skeins and a darning needle on a table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-177"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "macrame",
@@ -1798,13 +1950,17 @@
       "en": "A beginner workshop: knot a wall hanging or plant hanger"
     },
     "scene": "cream cotton cord knotted into a wall hanging on a wooden dowel with a few thread tassels",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-012"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "spinnen",
@@ -1840,14 +1996,18 @@
       "en": "An afternoon of spinning with a wheel or drop spindle, sometimes with natural dyeing"
     },
     "scene": "a wooden spinning wheel beside baskets of carded wool in natural colours and a skein of hand-dyed yarn",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-176"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "modeillustratie",
@@ -1881,13 +2041,17 @@
       "en": "An afternoon of fashion sketching with markers and watercolour, no experience needed"
     },
     "scene": "a sketchbook page of elongated fashion outlines with watercolour washes, markers and fabric swatches clipped beside it",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-363"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "schoenmaken",
@@ -1921,14 +2085,18 @@
       "en": "An introduction day with a shoemaker: a simple leather shoe or sandal"
     },
     "scene": "a cobbler's bench with leather hide, wooden lasts, awls and a half-finished leather shoe",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "rare",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-189"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "edelstenen-slijpen",
@@ -1962,14 +2130,18 @@
       "en": "An introduction at a lapidary or jewellery studio"
     },
     "scene": "a small faceting machine with a cut gemstone, polishing laps and tweezers on a bench",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "rare",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-184"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kralen-rijgen",
@@ -2005,13 +2177,17 @@
       "en": "An hour of beading at a table in a shop or café"
     },
     "scene": "bowls of glass beads in many colours with a beading board and a half-strung necklace",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-356"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "emailleren",
@@ -2045,14 +2221,18 @@
       "en": "An enamelling workshop: small pieces of jewellery fired in a kiln"
     },
     "scene": "small copper discs with bright enamel glaze, a kiln tray and jars of fine powder",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "rare",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-183"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "sieraad-ontwerpen",
@@ -2087,14 +2267,18 @@
       "en": "A jewellery design workshop: sketching and carving a wax model"
     },
     "scene": "a jeweller's sketch of a ring with a pencil, a carved wax ring model and a ring sizer",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-410"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "operazang",
@@ -2128,14 +2312,18 @@
       "en": "A trial lesson in classical singing: breathing, posture and a first aria"
     },
     "scene": "a grand piano with sheet music of an aria and a tuning fork in a warm rehearsal room",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-428"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "schilder-avond",
@@ -2171,13 +2359,17 @@
       "en": "A painting evening with step-by-step guidance, no experience needed"
     },
     "scene": "easels holding the same half-painted landscape canvas, paint palettes, brushes and glasses on a long table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-360"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "nestkast-bouwen",
@@ -2214,7 +2406,7 @@
       "en": "A kit or workshop through a nature society or garden centre"
     },
     "scene": "a wooden birdhouse with a round entrance hole on a workbench with a hammer, nails and cut planks",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
@@ -2232,6 +2424,10 @@
       "en": [
         "Building a bee hive box"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2265,13 +2461,17 @@
       "en": "One four-line poem about something on your desk"
     },
     "scene": "a fountain pen, a loose page with short lines and a small vase on a wooden desk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-033"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "scenario-schrijven",
@@ -2304,13 +2504,17 @@
       "en": "One two-page scene with two characters"
     },
     "scene": "a typewriter with a half-typed script page and a small clapperboard on a desk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-238"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "songteksten",
@@ -2343,13 +2547,17 @@
       "en": "Write a verse about yesterday and read it aloud"
     },
     "scene": "a notebook with crossed-out lyric lines, a guitar pick and headphones on a bed",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-029"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vertalen",
@@ -2381,13 +2589,17 @@
       "en": "Translate one short text or song lyric"
     },
     "scene": "two open dictionaries, a pencil and a mug on a writing desk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-136"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "levensverhaal",
@@ -2419,13 +2631,17 @@
       "en": "Start with one memory of ten lines"
     },
     "scene": "a stack of old photographs, a notebook and a pen on a kitchen table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-032"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "muziek-opnemen",
@@ -2458,13 +2674,17 @@
       "en": "A free recording app and one chord or rhythm"
     },
     "scene": "a small audio interface, headphones and a laptop showing a waveform on a desk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-227"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "digitale-kunst",
@@ -2496,13 +2716,17 @@
       "en": "A free drawing app and a tablet or mouse"
     },
     "scene": "a drawing tablet with a stylus, a half-finished colourful landscape on a screen and a mug",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-171"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "fotobewerking",
@@ -2535,13 +2759,17 @@
       "en": "Pick twenty photos from one trip and turn them into a booklet"
     },
     "scene": "a laptop with photo thumbnails, a printed photo book and a pencil on a desk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-196"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "levend-model-tekenen",
@@ -2575,11 +2803,15 @@
       "en": "An open life-drawing night or trial class in a studio"
     },
     "scene": "A drawing board on an easel with a charcoal study of folded drapery over a stool, sticks of charcoal, a kneaded eraser and an empty wooden posing platform in soft studio light; no human figure drawn.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-001",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2613,11 +2845,15 @@
       "en": "A beginners' workshop in a garden or botanical garden"
     },
     "scene": "A sketchbook open on a detailed ink-and-watercolour drawing of a fern beside a pressed leaf, fine pens and a small glass jar of water.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-002",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2650,11 +2886,15 @@
       "en": "A short children's-book illustration course or an online class"
     },
     "scene": "A drawing table with painted storybook pages drying, a fox character sketch, gouache pots and brushes, warm lamp light.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-003",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2687,11 +2927,15 @@
       "en": "A beginners' comics course or a drawing night"
     },
     "scene": "A comic page with inked panels of a cat and a rocket and empty speech bubbles on a light table, brush pens, a ruler and pencil layouts; no human characters drawn.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-004",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2726,11 +2970,15 @@
       "en": "A watercolour trial class or an open painting evening"
     },
     "scene": "A watercolour palette with wet blooms of colour, a round brush resting on a half-finished landscape on thick paper, a jar of cloudy water.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-005",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2765,11 +3013,15 @@
       "en": "A pastel drawing workshop for beginners"
     },
     "scene": "Soft pastel sticks in a wooden tray beside a dusty-coloured landscape on tinted paper, a smudged blending stump and a fixative can.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-148",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2803,11 +3055,15 @@
       "en": "Follow a free online example or practise for an hour on a talk you attend"
     },
     "scene": "A notebook page of hand-drawn sketchnotes with banners, arrows and tiny icons next to fine liner pens and a cup of tea.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-149",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2841,11 +3097,15 @@
       "en": "A short pen-and-ink workshop or an hour of practice at home"
     },
     "scene": "A dip pen and bottle of black ink on a page of fine crosshatched drawing of a leaf, with an inkwell and blotting paper.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-150",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2881,11 +3141,15 @@
       "en": "An open drawing evening or a beginners' portrait class"
     },
     "scene": "An easel with an oval sheet clipped in place showing a half-finished charcoal study, a tin of pencils, a hand mirror leaning on the easel and a kneaded eraser, soft window light.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-151",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2928,11 +3192,15 @@
       "en": "A plein-air painting day with a group or a first sketch in the park"
     },
     "scene": "A small field easel with a painted landscape of dunes and clouds, a folded stool, a paint box and a hat on the grass.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-369",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -2968,11 +3236,15 @@
       "en": "An acrylic pouring workshop with all materials provided"
     },
     "scene": "A canvas flooded with swirling poured acrylic in blue, teal and gold with cells and ripples, paint cups and a silicone spatula on a protected table.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-370",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3005,11 +3277,15 @@
       "en": "A starter set and an hour of practice with an online lesson"
     },
     "scene": "A realistic coloured-pencil drawing of a pear half finished, a fan of pencils, a sharpener with shavings and a ruler.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-371",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3044,11 +3320,15 @@
       "en": "A hand-lettering workshop or a free starter lesson online"
     },
     "scene": "A sheet of brush-pen lettering with flowing script and flourishes, a practice grid sheet, brush pens in a row and a cup of tea.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-372",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3083,11 +3363,15 @@
       "en": "A quiet drawing evening or an hour at home with a first pattern"
     },
     "scene": "A round mandala drawn in fine black pen with repeating petals and dots, a compass and ruler beside it, dried flowers on the paper.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-373",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3122,11 +3406,15 @@
       "en": "A papier-mache workshop or an afternoon at home with a balloon"
     },
     "scene": "A half-finished papier-mache animal head with torn newspaper strips, a bowl of paste and a roll of masking tape on a covered table.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-374",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3160,11 +3448,15 @@
       "en": "A beginners' gouache course or a first painting at home"
     },
     "scene": "Opaque gouache jars in bright flat colours and a small painting of overlapping shapes, a flat brush and a ceramic palette.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-375",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3199,11 +3491,15 @@
       "en": "A needle-felting workshop or a starter kit at home"
     },
     "scene": "A small felted fox in progress with a barbed needle in a cork handle, wool roving in orange and white and a foam pad.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-152",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3238,11 +3534,15 @@
       "en": "A mending workshop or first stitches on an old pair of jeans"
     },
     "scene": "An indigo cloth with white running-stitch geometric patterns, a long needle, a spool of thick white thread and a small pair of scissors.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-153",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3277,11 +3577,15 @@
       "en": "A trial lesson at a lace-making guild or a museum demonstration"
     },
     "scene": "A round lace pillow with dozens of wooden bobbins and pins forming a delicate white lace edge in progress, a pattern card underneath.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-154",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3316,11 +3620,15 @@
       "en": "A tufting workshop where you make a small rug"
     },
     "scene": "A tufting frame with a bold geometric rug design half filled with colourful yarn, a tufting gun and trimmed yarn tails on a mat.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-386",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3363,11 +3671,15 @@
       "en": "A natural-dye workshop or first experiments with onions and red cabbage"
     },
     "scene": "Skeins of wool dyed in ochre, madder red and indigo hanging beside a pot of simmering dye and bundles of dried plants.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-387",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3402,11 +3714,15 @@
       "en": "An introductory band-weaving class or a starter loom at home"
     },
     "scene": "A narrow band loom with a striped woven ribbon in progress, small shuttles, a ball of cotton yarn and a wooden heddle.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-388",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3441,11 +3757,15 @@
       "en": "A supervised woodturning workshop at a woodturning club"
     },
     "scene": "A wooden bowl on a lathe with curling shavings, turning chisels on a rack and a pile of pale beech blanks on a workshop bench.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-155",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3480,11 +3800,15 @@
       "en": "A marquetry course or a beginner kit"
     },
     "scene": "A small box lid with intricate marquetry inlay in contrasting woods, a fretsaw, veneer scraps and a sharp knife on a green mat.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-156",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3518,11 +3842,15 @@
       "en": "A toy-making workshop at a workshop or a first job at home"
     },
     "scene": "A small wooden train and a rolling duck on a workbench with sandpaper, a vice and a few painted wooden wheels.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-157",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3557,11 +3885,15 @@
       "en": "A weekend furniture-making course or a guided kit"
     },
     "scene": "A solid oak side table built with visible joints, a hand plane, clamps and a folding rule resting on a planked workbench.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-395",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3597,11 +3929,15 @@
       "en": "An upholstery workshop where you take a chair home"
     },
     "scene": "A dining chair with its seat stripped to the wooden frame, new patterned fabric folded on top, a staple gun and an upholstery hammer.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-396",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3635,11 +3971,15 @@
       "en": "A dovetail workshop at a woodworking shop"
     },
     "scene": "A small wooden chest with crisp dovetail joints at the corners, a marking gauge, a dovetail saw and chisels in a row.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-397",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3674,11 +4014,15 @@
       "en": "A building workshop where you make a ukulele, no experience needed"
     },
     "scene": "A half-assembled ukulele body with braces and a spruce top beside binding strips, clamps and a luthier's small plane.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-398",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3722,11 +4066,15 @@
       "en": "A build day at a playground association or neighbourhood project"
     },
     "scene": "A small wooden treehouse platform with railing and a rope ladder in a leafy tree, a tool belt and a pile of planks below.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-399",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3760,11 +4108,15 @@
       "en": "A workshop afternoon at a repair cafe or a first plank at home"
     },
     "scene": "A low garden bench built from sanded pallet planks with cushions and a pot of herbs, a crowbar and a sanding block nearby.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-400",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3799,11 +4151,15 @@
       "en": "An introduction at a model club or a starter kit"
     },
     "scene": "A detailed wooden sailing ship model with tiny rigging threads on a cradle, tweezers, a magnifying lamp and a plan sheet.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-402",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3837,11 +4193,15 @@
       "en": "A weekend course or a starter kit with board and pieces"
     },
     "scene": "A chessboard of light and dark wood squares being glued up, with a few carved pawns, clamps and a block plane.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-403",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3885,11 +4245,15 @@
       "en": "A build workshop or a kit with instructions"
     },
     "scene": "A rustic garden bench with sawhorses, pine planks, a cordless drill and a pencil behind the ear of a tape measure.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-404",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3932,11 +4296,15 @@
       "en": "A build day with a neighbourhood project or course"
     },
     "scene": "A neat wooden deck platform under construction beside a garden bed, deck screws, a spirit level and an impact driver.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-405",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -3970,11 +4338,15 @@
       "en": "A kit or a mechanical-toy workshop"
     },
     "scene": "A wooden gear clock with exposed gears and a pendulum, small cut gears on a bench, a saw and a pair of calipers.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-406",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4009,11 +4381,15 @@
       "en": "An afternoon workshop where you make a board"
     },
     "scene": "A serving board of walnut and maple with a rounded edge, a bottle of food-safe oil and a rag, a block plane and a rasp.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-407",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4047,11 +4423,15 @@
       "en": "A paper-making workshop or an afternoon at home with scrap paper"
     },
     "scene": "A deckle-framed sheet of handmade paper with pressed flowers and dried petals drying on a cloth, a vat of pulp and a sponge.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-158",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4086,11 +4466,15 @@
       "en": "A workshop in ebru or paper marbling"
     },
     "scene": "A shallow tray of floating swirled marbling inks in blue, red and gold with a comb and a sheet of paper lifted off.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-159",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4124,11 +4508,15 @@
       "en": "A casting workshop with moulds and materials provided"
     },
     "scene": "A small grey concrete bowl and a tealight holder beside silicone moulds, a mixing bucket and a smooth trowel on newspaper.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-413",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4162,11 +4550,15 @@
       "en": "A starter set and an afternoon with an online lesson or a workshop"
     },
     "scene": "Tiny polymer clay earrings in marbled colours, a pasta machine, a blade and a few baking tiles with small cane slices.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-414",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4200,11 +4592,15 @@
       "en": "A short leather-jewellery workshop or a kit at home"
     },
     "scene": "A braided leather bracelet with a brass snap, strips of leather in brown and tan, a snap tool and a cutting mat.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-415",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4240,11 +4636,15 @@
       "en": "A film workshop or a short introduction with a local documentary maker"
     },
     "scene": "A tripod and a small camera in front of a worn armchair by a window with an interview notebook and a lamp, a pair of headphones on the arm.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-026",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4279,11 +4679,15 @@
       "en": "A sound walk with a recorder or with your phone"
     },
     "scene": "A handheld audio recorder with a furry wind cover on a fence post, headphones and a notebook with sound notes in a misty field.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-027",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4325,11 +4729,15 @@
       "en": "A sun-print workshop or a starter kit in the sun"
     },
     "scene": "A blue cyanotype print of ferns and leaves on cotton paper pinned out in the sun, a glass plate and a tray of rinse water.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-160",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4363,11 +4771,15 @@
       "en": "An online beginners' course or an hour of practice with your own footage"
     },
     "scene": "A video editing timeline on a monitor with colourful clips, a mixing slider panel and a pair of headphones on a desk.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-161",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4410,11 +4822,15 @@
       "en": "A macro workshop or an afternoon with a close-up lens"
     },
     "scene": "A close-up of dewdrops on a spider web and a small camera with a macro lens on a mini tripod low in the grass.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-421",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4449,11 +4865,15 @@
       "en": "A portrait photography workshop or a session to practise lighting"
     },
     "scene": "A studio set with a soft light box and a reflector next to a stool and a plain backdrop, a camera on a tripod.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-422",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4487,11 +4907,15 @@
       "en": "A workshop or a first timelapse from your window"
     },
     "scene": "A camera on a tripod pointed at a distant city skyline at dusk with a remote shutter, a spare battery and a dew shield.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-423",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4525,11 +4949,15 @@
       "en": "A free workshop or a first short video about your own neighbourhood"
     },
     "scene": "A small camera on a mini tripod, a microphone and a notebook with shot ideas and a ring light on a desk.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-424",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4573,11 +5001,15 @@
       "en": "A night-photography workshop or a clear night with a camera"
     },
     "scene": "A camera on a tripod under a clear sky with a rich Milky Way arc over a dark field, a red headlamp and a star chart.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-426",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4611,11 +5043,15 @@
       "en": "An animation workshop or your first flipbook"
     },
     "scene": "A flipbook of animation drawings of a bouncing ball on a lightbox with a stack of frames and a pencil.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-427",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4650,11 +5086,15 @@
       "en": "A free online beginners' course or a production workshop"
     },
     "scene": "A compact synth, a drum pad controller and a laptop with a tracker grid beside studio headphones and a few cables.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-031",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4689,11 +5129,15 @@
       "en": "A drum trial lesson or a rehearsal room with a teacher"
     },
     "scene": "A small drum kit with sticks resting across the snare, a metronome and a notebook of rhythm patterns in a practice room.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-090",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4727,11 +5171,15 @@
       "en": "A short course or writing a first motif with free software"
     },
     "scene": "Sheet music with pencil notes on a piano music stand next to a small keyboard and a pair of headphones.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-091",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4766,11 +5214,15 @@
       "en": "A tour of a carillon tower and an introduction"
     },
     "scene": "A close view of a carillon keyboard of wooden batons and pedals inside a stone tower with bells visible overhead.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-092",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4806,11 +5258,15 @@
       "en": "An open drum circle where you can just join in"
     },
     "scene": "A circle of djembes and hand drums on a wooden floor with shakers and a bell tree in warm evening light.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-221",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4846,11 +5302,15 @@
       "en": "A singing trial lesson or an open singing evening"
     },
     "scene": "A music stand with a song sheet beside a small upright piano and a glass of water, bright open room with a window.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-435",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4884,11 +5344,15 @@
       "en": "A starter pack with a first song or a group lesson"
     },
     "scene": "A silver harmonica on a worn denim jacket with a blues songbook and a small tambourine on a wooden table.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-436",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4923,11 +5387,15 @@
       "en": "A trial rehearsal with a local brass or wind band"
     },
     "scene": "A row of brass instruments and a snare drum on a bandstand with music stands and folded uniform caps.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-437",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -4962,11 +5430,15 @@
       "en": "A handpan trial lesson or a calm playing evening"
     },
     "scene": "A shiny steel handpan on a cloth in a quiet room with a candle and a small tapestry, soft overhead light.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-438",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5001,11 +5473,15 @@
       "en": "An introduction with an organist in a church"
     },
     "scene": "A church organ console with stops and two keyboards and pedals, with sheet music and a bench in a stone nave.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-441",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5039,11 +5515,15 @@
       "en": "A short writing walk or a first haiku from your window"
     },
     "scene": "A single sheet with a haiku in black ink on handmade paper beside a stone, a twig and an ink brush.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-087",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5077,11 +5557,15 @@
       "en": "A first post of 300 words about something you know"
     },
     "scene": "A laptop with a blog draft and a notebook of headlines beside a mug and a stack of printed articles.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-088",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5115,11 +5599,15 @@
       "en": "A first scene from a story you love"
     },
     "scene": "A notebook of character notes and plot arrows beside a laptop and a stack of well-loved paperback novels.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-089",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5153,11 +5641,15 @@
       "en": "A writing club or a daily writing hour with a first chapter"
     },
     "scene": "A thick stack of printed manuscript pages with red pencil edits, a typewriter-style keyboard and a pot of tea.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-222",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5191,11 +5683,15 @@
       "en": "A first short story for a child you know"
     },
     "scene": "A picture-book dummy with rough drawings and a short story typed beside it, crayons and a small stuffed animal on the desk.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-223",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5228,11 +5724,15 @@
       "en": "A short piece about your last trip or day out"
     },
     "scene": "A weathered travel journal open beside a postcard, a pen and a small map of a coastal town on a cafe table.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-446",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5266,11 +5766,15 @@
       "en": "A first column of 400 words about something that annoys or surprises you"
     },
     "scene": "A newspaper-style column on a printed page with a red pen, a cup of coffee and a notepad with headlines.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-447",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5304,11 +5808,15 @@
       "en": "A short piece in a language you are learning and a language partner for feedback"
     },
     "scene": "A notebook with a paragraph in another language and a pocket dictionary and a highlighter on a cafe table.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-448",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5341,11 +5849,15 @@
       "en": "Write a letter you open in a year"
     },
     "scene": "A sealed envelope with a handwritten label to the future, a fountain pen and a small stack of old letters tied with string.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-449",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5380,11 +5892,15 @@
       "en": "A free online beginners' course or a study evening"
     },
     "scene": "A notebook of scales, chords and circle-of-fifths diagrams beside a small keyboard and a pencil.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-162",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -5422,7 +5938,7 @@
       "en": "Cut a simple motif into a piece of lino and print it"
     },
     "scene": "a carved linoleum block beside an ink roller and a first print drying on a rack",
-    "status": "concept"
+    "status": "retired"
   },
   {
     "id": "batiken",
@@ -5459,7 +5975,11 @@
       "en": "Take a batik workshop or start with a kit of wax and dye on a cotton cloth"
     },
     "scene": "a cotton cloth with wax-resist patterns dipped in indigo, hung to dry on a line",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "djembe-trommelcirkel",
@@ -5495,7 +6015,11 @@
       "en": "Drop in at a drum circle or djembe workshop; the instruments are ready"
     },
     "scene": "a circle of wooden drums with goatskin heads on a bare floor in warm light",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zichtbaar-herstellen",
@@ -5532,7 +6056,11 @@
       "en": "Mend a hole in a jumper with colourful stitches instead of invisibly"
     },
     "scene": "a worn knit jumper with a bright darned patch, wool in several colours and a darning mushroom",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "anatomie-tekenen",
@@ -5568,7 +6096,11 @@
       "en": "A drawing workshop with an anatomical model or skeleton; just pencil and paper"
     },
     "scene": "a small wooden anatomical hand model, a pencil and a sketchbook open on a drawing desk in side light",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "weven-weefraam",
@@ -5603,7 +6135,11 @@
       "en": "A small loom costs little; haberdashers and creative studios give beginner classes"
     },
     "scene": "a small wooden loom strung with cream warp threads and a half-woven band of earth-coloured wool",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "papier-knippen",
@@ -5638,7 +6174,11 @@
       "en": "Paper, small sharp scissors or a knife and a cutting mat are enough; libraries and creative cafés sometimes hold a workshop"
     },
     "scene": "a delicate paper-cut silhouette of leaves and a lantern pinned on a pale cutting mat beside small scissors",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "etsen-droge-naald",
@@ -5672,7 +6212,11 @@
       "en": "Print studios and artists' associations give drypoint trial classes; the press is the studio's"
     },
     "scene": "an etching press with a pale paper print lifted from a copper plate beside ink rollers and a dabber",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "letterpers",
@@ -5706,7 +6250,11 @@
       "en": "Printing museums and graphic studios let you set and print your own card with movable type"
     },
     "scene": "a wooden type case with rows of small metal letters beside a hand-inked proof of a card on a cast-iron press",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "stoepkrijt-kunst",
@@ -5751,7 +6299,11 @@
       "en": "A box of pavement chalk costs a few euros; a square, a schoolyard or a quiet pavement is enough"
     },
     "scene": "a pavement covered with a large chalk drawing of colourful flowers beside a scatter of worn chalk sticks",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "houtskool-tekenen",
@@ -5786,7 +6338,11 @@
       "en": "Charcoal and sketch paper cost little; drawing clubs and creative courses give beginner lessons"
     },
     "scene": "sticks of willow charcoal and a smudged tonal sketch of a pear on cream paper on a wooden easel",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ecoprinten",
@@ -5830,7 +6386,11 @@
       "en": "With leaves, flowers and a cotton cloth; creative cafés and nature centres give workshops"
     },
     "scene": "a cotton cloth printed with the delicate outlines of leaves and petals, steamed bundles beside a pot",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "pigmenten-maken",
@@ -5865,7 +6425,11 @@
       "en": "Grind earth, clay and plant remains fine and mix them with a binder into your own paint; nature centres and studios give workshops"
     },
     "scene": "small jars of earth-coloured pigment powders in ochre red and umber beside a glass muller and a wooden palette",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vlieger-bouwen",
@@ -5900,6 +6464,10 @@
       "en": "With bamboo sticks, light fabric and string; build one in an afternoon and fly it on the beach or on a hill"
     },
     "scene": "a handmade diamond kite of bright fabric with a long tail of bows lying on a grassy dune",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

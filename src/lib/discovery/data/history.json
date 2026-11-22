@@ -31,7 +31,7 @@
       "en": "Introduction at a group day or market; costumes can often be borrowed"
     },
     "scene": "a medieval tent, shield, helmet and banner on a grass camp",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
@@ -50,6 +50,10 @@
       "en": [
         "historical reenactment"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -87,14 +91,18 @@
       "en": "Trial class at a recognised club with protective gear"
     },
     "scene": "a fencing mask and a longsword on a wooden rack in a stone hall",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-040"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "hist-dans",
@@ -128,13 +136,17 @@
       "en": "Beginner evening where the steps are explained"
     },
     "scene": "an empty historic ballroom with a polished floor and candelabras",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-457"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "hist-koken",
@@ -169,13 +181,17 @@
       "en": "Workshop with old recipes in a museum or open-air museum"
     },
     "scene": "an iron pot over an open fire with herbs and an old cookbook",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-127"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ambachten",
@@ -211,13 +227,17 @@
       "en": "Demonstration day at an open-air museum with hands-on activities"
     },
     "scene": "a rope-making wheel and hemp cords in a rustic barn",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-412"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "levend-verleden",
@@ -262,13 +282,17 @@
       "en": "Visit as a spectator; nobody expects you to dress up"
     },
     "scene": "banner-lined medieval market stalls with wooden goods",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-515"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "genealogie",
@@ -304,7 +328,7 @@
       "en": "Start with your grandparents; online archives are free"
     },
     "scene": "a hand-drawn family tree on aged parchment with a fountain pen, an old leather-bound family bible and a magnifier on a wooden desk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -320,6 +344,10 @@
         "genealogie"
       ],
       "en": []
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -362,7 +390,7 @@
       "en": "Open day or volunteer day via an archaeological society"
     },
     "scene": "an archaeological trench with a measuring tape, trowel and finds tray",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
@@ -381,6 +409,10 @@
       "en": [
         "amateur archaeology"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -416,7 +448,7 @@
       "en": "Look up a street or family name in a digital newspaper archive"
     },
     "scene": "a stack of old newspapers and a magnifier on an archive table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -434,6 +466,10 @@
       "en": [
         "local historian"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -474,7 +510,7 @@
       "en": "Only with landowner permission and within the law; join a society"
     },
     "scene": "a metal detector head over sandy soil with a small found coin",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "rare",
     "source_links": [
       {
@@ -491,6 +527,10 @@
       "en": [
         "metal detecting"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -526,14 +566,18 @@
       "en": "Start with an online reading lesson; many archives offer help"
     },
     "scene": "an old handwritten manuscript page with a quill and an ink well",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-074"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "stadswandeling",
@@ -570,13 +614,17 @@
       "en": "Guided group or audio tour, sign up or just start"
     },
     "scene": "an old brick city street with a wall plaque and a guide's flag pole",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-345"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "monumenten",
@@ -612,13 +660,17 @@
       "en": "Open Monument Day or a single castle with an audio guide"
     },
     "scene": "a castle gatehouse with a drawbridge in warm evening light",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-344"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "musea",
@@ -654,13 +706,17 @@
       "en": "A small museum near you; one room is enough"
     },
     "scene": "an empty museum gallery with a single large abstract painting in bold colours and a wooden bench in front of it",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-343"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "industrieel-erfgoed",
@@ -696,13 +752,17 @@
       "en": "Mills and pumping stations often have an open day"
     },
     "scene": "a historic windmill with wooden sails beside a canal",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-072"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "verzetsroute",
@@ -738,13 +798,17 @@
       "en": "A marked route with information panels or an app"
     },
     "scene": "a quiet forest path with a small memorial stone",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-516"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "architectuur",
@@ -780,7 +844,11 @@
       "en": "Guided or app route past striking buildings"
     },
     "scene": "the facade of a striking modern building with geometric windows against a blue sky",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "legendes",
@@ -817,7 +885,11 @@
       "en": "Evening tour by local guides"
     },
     "scene": "a cobbled alley lit by a lantern at dusk, light fog",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "begraafplaats",
@@ -852,7 +924,7 @@
       "en": "A guided tour or your own walk, with respect for the place"
     },
     "scene": "an old cemetery gate with ivy and a gravel path, autumn leaves",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -868,6 +940,10 @@
       "en": [
         "cemeterying"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -904,7 +980,11 @@
       "en": "Start with a story walk or an audiobook"
     },
     "scene": "an old open book of folk tales with a candle on an oak table",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "slagveld",
@@ -940,7 +1020,11 @@
     },
     "scene": "a quiet green field with a weathered stone memorial and low evening mist rising",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "limesroute",
@@ -976,7 +1060,11 @@
     },
     "scene": "a reconstructed wooden Roman watchtower on a low river bank in dawn mist",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "middeleeuws-banket",
@@ -1012,7 +1100,11 @@
     },
     "scene": "a long oak table set with pewter cups, bread and tallow candles in a stone hall",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "hema",
@@ -1048,7 +1140,7 @@
     },
     "scene": "a fencing mask and two wooden-handled training swords laid crossed on a dusty wooden gym floor",
     "supply": "regional",
-    "status": "concept"
+    "status": "retired"
   },
   {
     "id": "oude-kaarten",
@@ -1084,13 +1176,17 @@
     },
     "scene": "an aged hand-coloured map of a coastline spread on a table under a green shaded reading lamp",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-348"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "regency-bal",
@@ -1126,8 +1222,12 @@
       "en": "A ball in period style where the steps are explained at the start"
     },
     "scene": "a candlelit ballroom with a polished parquet floor, long gowns draped over a chair and fans on a console",
-    "status": "concept",
-    "supply": "rare"
+    "status": "reviewed",
+    "supply": "rare",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "buitenplaats",
@@ -1162,13 +1262,17 @@
       "en": "Visit a country estate or castle garden, with a tour or audio guide"
     },
     "scene": "a manor house reflected in a moat with clipped hedges and a gravel path in soft morning light",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-347"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "latijn-grieks-lezen",
@@ -1202,11 +1306,15 @@
       "en": "A beginners' course or a reading group"
     },
     "scene": "A worn Latin textbook open on a page of Cicero beside a Greek lexicon, a pencil and a small marble bust.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-057",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1241,11 +1349,15 @@
       "en": "An open evening or a short course at a museum or university for adults"
     },
     "scene": "A table with open art-history books and a set of postcards of paintings, a magnifier and a small notebook.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-526",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1280,11 +1392,15 @@
       "en": "A small question and a free source at the library"
     },
     "scene": "A desk with a handwritten research question, index cards, a notebook of findings, a tape measure and a magnifier.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-528",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1318,11 +1434,15 @@
       "en": "An introduction via a museum or designing your own coat of arms"
     },
     "scene": "A heraldic shield with a lion and bold colours on a parchment beside coloured pencils and a drawing compass.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-069",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1356,11 +1476,15 @@
       "en": "A conversation with an older person in your neighbourhood, first recorded on your phone"
     },
     "scene": "A small voice recorder on a tablecloth between two cups of tea with a framed old photograph and a notebook.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-070",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1396,11 +1520,15 @@
       "en": "A volunteer afternoon at an archive or an online indexing project"
     },
     "scene": "A table with old index cards and a handwritten ledger under a desk lamp, a pair of cotton gloves and a magnifier.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-290",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1438,7 +1566,11 @@
       "en": "A visit to a museum of medicine, the body or pharmacy history; often with an audio tour"
     },
     "scene": "a glass cabinet of antique surgical instruments, brass scales and old apothecary jars under museum lighting",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "molen-bezoeken",
@@ -1473,7 +1605,11 @@
       "en": "Many grain mills and polder mills turn on Saturdays for visitors; the miller explains how it works"
     },
     "scene": "a traditional brick windmill with turning sails beside a canal that reflects a bright sky",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "hunebedden-bezoeken",
@@ -1509,6 +1645,10 @@
       "en": "In Drenthe and Groningen lie burial monuments thousands of years old, freely accessible along walking and cycling routes"
     },
     "scene": "a massive prehistoric stone burial chamber of boulders under heather and birch trees",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

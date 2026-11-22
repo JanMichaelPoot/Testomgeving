@@ -30,13 +30,17 @@
       "en": "An introduction at a mentoring programme; the organisation handles screening"
     },
     "scene": "two empty chairs at a small table with a notebook and a pencil case in a community centre",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-324"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "voedselbank",
@@ -69,13 +73,17 @@
       "en": "Help for an afternoon with sorting or handing out"
     },
     "scene": "crates of fresh vegetables and tinned goods on a sorting table with a clipboard",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-325"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "erfgoed-vrijwilliger",
@@ -108,13 +116,17 @@
       "en": "Attend an open day or work day"
     },
     "scene": "a brass mill key, a work glove and a feather duster on an old oak beam",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-068"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ouderenbezoek",
@@ -148,13 +160,17 @@
       "en": "First an introduction and training at the organisation"
     },
     "scene": "a teapot, two cups and a photo album on a small table by a window",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-326"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "knotten-heggenvlechten",
@@ -195,13 +211,17 @@
       "en": "A work day of a nature organisation; tools are provided"
     },
     "scene": "a billhook, leather gloves and bundled willow rods against a pollarded willow trunk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-392"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "buurtproject",
@@ -234,13 +254,17 @@
       "en": "Pick one thing and put a card through six neighbours' doors"
     },
     "scene": "a hand-painted neighbourhood sign, a pot of paint and a stack of flyers on a street bench",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-327"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "huiswerkbegeleiding",
@@ -273,13 +297,17 @@
       "en": "An introduction at a school or library, which handles screening"
     },
     "scene": "a desk with a school exercise book, a ruler and a mug of hot chocolate",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-067"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bibliotheek-vrijwilliger",
@@ -312,13 +340,17 @@
       "en": "An afternoon helping at the desk or sorting books"
     },
     "scene": "a trolley of returned books, a date stamp and a reading lamp on a library desk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-328"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zorgboerderij",
@@ -352,13 +384,17 @@
       "en": "An introduction day; the farm provides guidance"
     },
     "scene": "a wheelbarrow, a pair of rubber boots and a basket of eggs by a barn door",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-329"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "straatfeest",
@@ -399,7 +435,7 @@
       "en": "An invitation in fifteen letterboxes and one long table"
     },
     "scene": "a long table of mismatched chairs, paper bunting and a tray of glasses on a quiet street",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
@@ -413,6 +449,10 @@
       "en": [
         "Organising a neighbourhood event"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -446,11 +486,15 @@
       "en": "Attend a meeting as a guest at a local association"
     },
     "scene": "A meeting table with a club agenda, a notebook, a gavel-like wooden block and a small stack of club flyers.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-062",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -485,11 +529,15 @@
       "en": "A trial evening shadowing at a local club"
     },
     "scene": "A set of coloured training cones and a mesh bag of balls with a whistle and a clipboard on a sports-field line.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-063",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -523,11 +571,15 @@
       "en": "A small action of your own with a goal in your street or club"
     },
     "scene": "A donation box and hand-painted poster with a thermometer goal, a stack of flyers and a coffee urn on a folding table.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-065",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -562,11 +614,15 @@
       "en": "An afternoon helping at a local event or volunteer centre"
     },
     "scene": "A volunteer schedule on a corkboard with coloured sticky notes and name tags, a coffee machine and a clipboard.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-543",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -601,7 +657,11 @@
       "en": "Sign up with a language buddy project; the organisation matches you and guides the first meetings"
     },
     "scene": "two cups of tea on a table beside a phrasebook and a notepad with simple words",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bloeddonor",
@@ -633,7 +693,11 @@
       "en": "Register at a donation site; a short intake and health check follows"
     },
     "scene": "an empty reclining donor chair, a glass of juice and a plate of biscuits in a bright clinic room",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "hospice-vrijwilliger",
@@ -667,7 +731,11 @@
       "en": "An introduction with a hospice coordinator; training comes first"
     },
     "scene": "an armchair by a window with a folded blanket, a cup of tea and a small lamp in a quiet room",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ziekenhuis-gastheer",
@@ -700,6 +768,10 @@
       "en": "An introduction with a hospital's volunteer coordinator"
     },
     "scene": "a bright hospital entrance hall with a welcome desk, a bench and a green plant",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

@@ -28,13 +28,17 @@
       "en": "Pick one neighbourhood you don't know and walk through it"
     },
     "scene": "a city map, a camera and a coffee cup on a café table with a street view",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-335"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "film-theater",
@@ -65,7 +69,11 @@
       "en": "A regular showing on a weeknight"
     },
     "scene": "a single empty velvet cinema seat in a dim theatre",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "cafe-schrijven",
@@ -97,13 +105,17 @@
       "en": "One coffee and thirty minutes"
     },
     "scene": "a notebook and pen with a latte on a café window table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-234"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "fotowandeling",
@@ -134,13 +146,17 @@
       "en": "Pick a theme, for example doors or colors"
     },
     "scene": "colorful painted doors along an old street",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-336"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "audiowandeling",
@@ -172,13 +188,17 @@
       "en": "Headphones and a route in an app"
     },
     "scene": "headphones on a park bench with a winding path behind",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-337"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "trein-dagtrip",
@@ -209,13 +229,17 @@
       "en": "Drop a pin on a place an hour away"
     },
     "scene": "a small village train station platform with an old sign",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-099"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "boekwinkels",
@@ -247,13 +271,17 @@
       "en": "Walk into three shops and take one book home"
     },
     "scene": "cozy bookshop shelves floor to ceiling with a rolling ladder",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-338"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ander-land",
@@ -285,7 +313,11 @@
       "en": "A recipe and one ingredient you never bought"
     },
     "scene": "spices and fresh ingredients on a kitchen counter with a recipe card",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "picknick",
@@ -326,13 +358,17 @@
       "en": "A blanket, a sandwich and a view"
     },
     "scene": "a picnic blanket with a basket on a hillside with a view",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-340"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "buurtkaart",
@@ -364,13 +400,17 @@
       "en": "Paper, pen and half an hour of walking"
     },
     "scene": "a hand-drawn neighbourhood map with colored pencils on a table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-361"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "fietsroute",
@@ -411,13 +451,17 @@
       "en": "A 30-kilometre route along water"
     },
     "scene": "a bicycle at a river bank at golden hour",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-339"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "online-cursus",
@@ -449,13 +493,17 @@
       "en": "A free trial week or open course"
     },
     "scene": "a laptop showing a course next to a notebook and tea",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-349"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "taal-leren",
@@ -487,13 +535,17 @@
       "en": "Ten minutes a day with an app"
     },
     "scene": "language flashcards and a phrasebook on a desk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-060"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "platenwinkel",
@@ -525,13 +577,17 @@
       "en": "Choose one album and put your phone away"
     },
     "scene": "a turntable playing a vinyl record beside a lamp",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-231"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ateliers",
@@ -563,13 +619,17 @@
       "en": "An open-studio day or gallery route"
     },
     "scene": "an artist studio door standing open with canvases and paint tubes",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-367"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "detox",
@@ -600,7 +660,11 @@
       "en": "Start with half a day and a paper map"
     },
     "scene": "a phone in a drawer beside a paper map and hiking boots",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "dertig-dagen",
@@ -633,13 +697,17 @@
       "en": "Pick something small: five minutes a day"
     },
     "scene": "a wall calendar with days crossed off in red marker",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-521"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "slow-travel",
@@ -670,13 +738,17 @@
       "en": "One overnight stay, public transport only"
     },
     "scene": "a night-train window with a suitcase on the seat",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-164"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "brieven",
@@ -709,13 +781,17 @@
       "en": "One letter to someone you haven't spoken to in a while"
     },
     "scene": "a handwritten letter with an envelope, stamps and a fountain pen",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-236"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "markt-ingredient",
@@ -746,7 +822,11 @@
       "en": "Ask the stallholder what to do with it"
     },
     "scene": "a market stall with an unusual vegetable in close-up, such as romanesco",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "groundhoppen",
@@ -781,11 +861,15 @@
       "en": "An amateur match at a stadium or village you do not know yet"
     },
     "scene": "an empty small-town football stand with weathered seats, a floodlight pole and a corner flag at dusk",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q1547701",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -820,11 +904,15 @@
       "en": "An introductory course or an open evening in your area"
     },
     "scene": "A set of illustrated sign alphabet cards laid out in a fan on a wooden table with a notebook and a pen.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-056",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -859,11 +947,15 @@
       "en": "A free online course or a local Esperanto group"
     },
     "scene": "A small Esperanto textbook with a green star on the cover beside a notebook of phrases and a cup of tea.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-522",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -897,11 +989,15 @@
       "en": "An introduction through a book or a free online practice app"
     },
     "scene": "A chalkboard with mental arithmetic tricks, a worn abacus and a deck of playing cards on a wooden desk.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-525",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -936,6 +1032,10 @@
       "en": "Reserve a table for one at a restaurant you have wanted to try for a long time"
     },
     "scene": "a small table for one with a single candle, a folded napkin and a menu card in a quiet restaurant",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

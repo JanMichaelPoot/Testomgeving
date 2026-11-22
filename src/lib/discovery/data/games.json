@@ -34,7 +34,7 @@
       "en": "Games café or game night; rules are explained"
     },
     "scene": "a modern board game in progress with wooden pieces and cards on a table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -57,6 +57,10 @@
         "board game",
         "Board gaming"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -94,7 +98,7 @@
       "en": "Beginner club afternoon, or a game with friends"
     },
     "scene": "fanned playing cards on a wooden table beside a cup of tea",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -112,6 +116,10 @@
       "en": [
         "card game"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -148,13 +156,17 @@
       "en": "Free drop-in evening at a chess club, or online"
     },
     "scene": "a chessboard mid-game with a wooden set by a window",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-053"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "go",
@@ -190,13 +202,17 @@
       "en": "Introduction evening; the rules are learned in ten minutes"
     },
     "scene": "a go board with black and white stones and wooden bowls",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-302"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "mahjong",
@@ -232,13 +248,17 @@
       "en": "Beginner afternoon in a community centre or specialist shop"
     },
     "scene": "mahjong tiles arranged in rows on a table with a tea cup",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-303"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ruilkaarten",
@@ -275,7 +295,11 @@
       "en": "Beginner tournament or play night at a hobby shop"
     },
     "scene": "trading cards fanned on a shop counter with card sleeves",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wargaming",
@@ -309,14 +333,18 @@
       "en": "Demo game in a hobby shop; figures are lent"
     },
     "scene": "miniature armies on a detailed tabletop battlefield with terrain",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-506"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "tabletop-rpg",
@@ -351,7 +379,7 @@
       "en": "Beginner one-shot at a game shop or online"
     },
     "scene": "polyhedral dice, a character sheet and a hand-drawn map on a table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -369,6 +397,10 @@
       "en": [
         "role-playing game"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -403,14 +435,18 @@
       "en": "Beginner day; costume and rules are explained"
     },
     "scene": "a foam sword, a cloak and leather bracers on a wooden bench in a forest clearing",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-305"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "solo-rpg",
@@ -444,13 +480,17 @@
       "en": "A small solo game with a die and a notebook"
     },
     "scene": "a single die, a notebook and a pencil on a cozy desk with a lamp",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-507"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "murder-mystery",
@@ -485,13 +525,17 @@
       "en": "A ready-made game box or an organised evening"
     },
     "scene": "a magnifying glass, a candle and torn letters on a dark table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-306"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "legpuzzels",
@@ -527,7 +571,7 @@
       "en": "A 500-piece puzzle on the kitchen table"
     },
     "scene": "a half-finished jigsaw puzzle on a table with piece trays",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -545,6 +589,10 @@
       "en": [
         "jigsaw puzzle"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -579,14 +627,18 @@
       "en": "An escape room with a beginner theme; team of two to six"
     },
     "scene": "old brass keys and a padlocked wooden chest with a map",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-307"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "pubquiz",
@@ -620,13 +672,17 @@
       "en": "Coming alone is often fine: teams are formed"
     },
     "scene": "quiz sheets, pens and a chalkboard scoreboard on a café table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-308"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "raadsels",
@@ -660,7 +716,7 @@
       "en": "A cryptic crossword in a newspaper or a riddle app"
     },
     "scene": "a folded newspaper crossword with a pencil and a coffee",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -678,6 +734,10 @@
       "en": [
         "crossword"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -713,13 +773,17 @@
       "en": "A cube and an online tutorial"
     },
     "scene": "a scrambled colorful puzzle cube on a wooden desk with a timer",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-131"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "coop-games",
@@ -754,13 +818,17 @@
       "en": "A cooperative game with friends or in a gaming café"
     },
     "scene": "two game controllers on a couch with a glowing screen",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-309"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "lasergamen",
@@ -794,8 +862,12 @@
       "en": "Beginner round with instructions and equipment"
     },
     "scene": "a laser tag arena with neon lights and fog, vests on a rack",
-    "status": "concept",
-    "supply": "regional"
+    "status": "reviewed",
+    "supply": "regional",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "darten-pool",
@@ -830,7 +902,11 @@
       "en": "A single lane or game evening, no experience needed"
     },
     "scene": "a dartboard with darts in a cozy game room",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bowlen",
@@ -864,7 +940,11 @@
       "en": "A single lane; shoes for hire"
     },
     "scene": "a bowling lane with pins and a bright ball",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "stadsspel",
@@ -899,7 +979,11 @@
       "en": "A city game with an app or map, start it yourself, about two hours"
     },
     "scene": "a folded paper map with a dotted route, a magnifying glass and a brass compass on a stone bench in a cobbled street",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "escape-doos",
@@ -934,13 +1018,17 @@
       "en": "A ready-made escape box or printable game, playable at home tonight"
     },
     "scene": "a closed wooden puzzle box with brass padlocks, old keys and a folded cryptic note on a dark table in candlelight",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-310"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vr-arcade",
@@ -975,14 +1063,18 @@
       "en": "An hour of VR at an arcade, headset and briefing included"
     },
     "scene": "a virtual reality headset resting on a pedestal in a dark room washed in neon blue and magenta light",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-311"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "simracen",
@@ -1018,8 +1110,12 @@
       "en": "A session on a racing simulator at a sim centre, with a briefing"
     },
     "scene": "a racing simulator cockpit with a steering wheel, pedals and a curved screen showing a track at dusk",
-    "status": "concept",
-    "supply": "regional"
+    "status": "reviewed",
+    "supply": "regional",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bubble-football",
@@ -1053,7 +1149,11 @@
     },
     "scene": "two large clear inflatable balls resting on an artificial grass pitch with white lines at golden hour",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "flipperkast",
@@ -1089,7 +1189,11 @@
     },
     "scene": "a glowing pinball machine playfield with bumpers and neon lights in a dim arcade hall",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "rummikub-kaartclub",
@@ -1124,7 +1228,11 @@
     },
     "scene": "shelves of colourful board-game boxes behind a wooden table with a half-played game and two tea cups",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "dammen",
@@ -1158,7 +1266,7 @@
       "en": "A game in a board-game café or at a draughts club that welcomes new players"
     },
     "scene": "a wooden checkers board with round red and black pieces mid-game on a café table by a window",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q1293",
@@ -1169,7 +1277,11 @@
         "source_id": "RL",
         "source_record_id": "RA-502"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "sudoku",
@@ -1201,7 +1313,7 @@
       "en": "A puzzle book or a free app; ten minutes is enough"
     },
     "scene": "a sudoku puzzle in a newspaper with a sharpened pencil and an eraser beside a coffee cup on a wooden table",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q44914",
@@ -1212,7 +1324,11 @@
         "source_id": "RL",
         "source_record_id": "RA-503"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "jojo",
@@ -1244,11 +1360,15 @@
       "en": "A yo-yo that costs a few euros and a video with the first three tricks"
     },
     "scene": "a red wooden yo-yo with a looped string resting on a workbench next to a small tutorial notebook",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q183621",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1285,7 +1405,11 @@
       "en": "Sketch a board in one evening, make up three rules and test it with one friend"
     },
     "scene": "a sketched game board with wooden pieces, index cards and a pencil on a table",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "tafelvoetbal",
@@ -1320,7 +1444,11 @@
       "en": "Many cafés have a table; ask the bar for a ball"
     },
     "scene": "a foosball table with red and blue rods under a warm café lamp",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "dominoen",
@@ -1355,7 +1483,11 @@
       "en": "A set costs a few euros; many community centres and cafés hold a domino night"
     },
     "scene": "black domino tiles with white dots laid in a snaking line across a wooden table",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "klaverjassen",
@@ -1389,7 +1521,11 @@
       "en": "Klaverjas clubs and card nights at the community centre welcome new players; with four players and a deck of cards you are under way"
     },
     "scene": "playing cards fanned out on green baize beside a score pad and a pencil",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "woordspellen",
@@ -1425,6 +1561,10 @@
       "en": "A game costs little; also playable online with friends or in a games café"
     },
     "scene": "wooden letter tiles forming crossing words on a board with a small cloth bag of spare tiles",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

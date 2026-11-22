@@ -18,7 +18,7 @@ Zekerheid: **[B]** gelezen in de code of gemeten, **[O]** onderbouwde raming.
 | 4.2 Brede lijst | Aanwezig: escaperoom, naaien, duiken, parachute, houtbewerking, poppenhuis, fotografie, poetry slam. **Ontbreekt**: ringwerpen en traditionele spellen (0), voordragen/presenteren (0), poëzie (alleen slam), textiel (3) | Kleine gaten |
 | 4.3 Vijf opties, elk met minimaal drie activiteiten | Het boek heeft **vijf ideeën van één activiteit**; daaronder staan tot drie "ook in deze richting" (uit de relatiegraaf van de activiteit, niet uit de thema's), drie maten (proeven, doen, verdiepen) en tot drie plekken. Jan besliste op 15 november: "vijf opties = de vijf ideeën" | **Grootste verschil**: een optie is nu een activiteit, niet een richting met drie activiteiten |
 | 4.4 Zes kwaliteitscriteria | Bestaan: websitecontrole, relevantie, "nooit verzinnen" in de zoekprompt. Doelgroep: harde regels. Relatie: `reasons` en `fit`. **Niet** als één poort per boek, en **geen** onderscheid zelf/aanbieder/organiseren | Gedeeltelijk |
-| Status van de bibliotheek | Alle 792 activiteiten staan op `concept`; geen enkele is `reviewed` | Open |
+| Status van de bibliotheek | Stap 223 (B5): 808 activiteiten staan op `reviewed` (gelezen door Claude, nog te bevestigen door een mens), 8 dubbelen op `retired`; niets staat op `live` | Gedeeltelijk |
 | Uitdaging in het boek (Stap 213) | Slechts 24% van de boeken heeft een uitdagend idee | Open |
 
 ## 2. Het kernbesluit: wat is een "optie"?
@@ -81,4 +81,4 @@ Alles blijft binnen de grenzen die al gelden: geen nieuwe betaalde dienst, de $0
 | B. Bibliotheek | B1 + B2, B3, B4 en B5: alle |
 | C. Kwaliteit | C1, C2 en C3. **C4 (betaalde steekproef) niet nu**: komt alleen na een apart bedrag-akkoord |
 
-Stand: nulmeting C3 (Stap 214); B1 + B2 (Stap 215); A1 tot en met A3 (Stap 216); R1 in het boek (Stap 217); C1 + C2 met evenwichtsregel (Stap 218); A4 + A5 (Stap 219); B3: 24 activiteiten met foto (Stap 220-221); B4: verrassingsniveau per activiteit (Stap 222). Volgende: B5, en eventueel C4 (betaalde steekproef, apart bedrag-akkoord).
+Stand: nulmeting C3 (Stap 214); B1 + B2 (Stap 215); A1 tot en met A3 (Stap 216); R1 in het boek (Stap 217); C1 + C2 met evenwichtsregel (Stap 218); A4 + A5 (Stap 219); B3: 24 activiteiten met foto (Stap 220-221); B4: verrassingsniveau per activiteit (Stap 222); B5: leesronde van de hele bibliotheek (Stap 223). Volgende: eventueel C4 (betaalde steekproef, apart bedrag-akkoord).

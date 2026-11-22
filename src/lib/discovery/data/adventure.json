@@ -36,13 +36,17 @@
     },
     "scene": "a red climbing rope hanging down a weathered brick tower wall, harness gear on a hook, soft morning light",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-197"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bungeejump",
@@ -79,13 +83,17 @@
     },
     "scene": "a tall steel crane arm against a bright sky with a thick elastic cord hanging down, a river far below",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-473"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "tandem-parachute",
@@ -131,13 +139,17 @@
     },
     "scene": "a small yellow-and-orange parachute canopy open over green polder fields seen from far above",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-042"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "paragliden",
@@ -183,13 +195,17 @@
     },
     "scene": "a curved paraglider wing laid out on a grassy hillside launch slope with a windsock, blue sky",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-043"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zipline",
@@ -224,13 +240,17 @@
     },
     "scene": "a steel cable stretching between two tall pine trees with a pulley and safety line, mist in the valley below",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-198"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ballonvaart",
@@ -264,13 +284,17 @@
     },
     "scene": "a large striped hot-air balloon on a dewy field at dawn, burner flame glowing, mist over meadows",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-199"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "boomklimmen",
@@ -318,13 +342,17 @@
     },
     "scene": "a thick oak with a climbing rope rising into its canopy and a small seat sling, sun through green leaves",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-474"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "grotduiken",
@@ -362,13 +390,17 @@
     },
     "scene": "a narrow flooded cave passage with turquoise water and one beam of light across pale limestone walls",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-475"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "grotten-verkennen",
@@ -407,7 +439,7 @@
     },
     "scene": "a dim limestone tunnel with carved chalk walls, a hanging lantern and cool mist drifting along the floor",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -425,6 +457,10 @@
       "en": [
         "caving"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -464,13 +500,17 @@
     },
     "scene": "a long black-and-white diving line hanging straight down in clear turquoise pool water, soft light",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-200"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "snorkelen",
@@ -512,7 +552,7 @@
     },
     "scene": "a snorkel mask and fins lying on a wooden jetty above clear green water with sunlit weed beneath",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -530,6 +570,10 @@
       "en": [
         "snorkeling"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -578,7 +622,7 @@
     },
     "scene": "a round wooden tub of icy water with floating ice pieces beside a steaming sauna cabin in the snow",
     "supply": "common",
-    "status": "concept",
+    "status": "retired",
     "source_links": [
       {
         "source_id": "RL",
@@ -627,13 +671,17 @@
     },
     "scene": "a bright surfboard stuck upright in dune sand with grey-green waves breaking behind it",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-201"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kitesurfen",
@@ -680,13 +728,17 @@
     },
     "scene": "a large colourful kite arcing over a shallow lagoon beach, a small board lying on the sand",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-477"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wakeboarden",
@@ -729,13 +781,17 @@
     },
     "scene": "a cable wakeboard park on a lake with a taut tow line and floating ramps in low evening light",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-478"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "suppen",
@@ -778,7 +834,11 @@
     },
     "scene": "an inflatable paddleboard with a wooden paddle floating by a reed bank in still water at dawn",
     "supply": "common",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wadlopen",
@@ -826,13 +886,17 @@
     },
     "scene": "wide grey tidal mudflats with ripple patterns and a long line of footprints toward a pale horizon at low tide",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-202"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "canyoning",
@@ -877,13 +941,17 @@
     },
     "scene": "a narrow emerald canyon with a waterfall into a clear rock pool, slick stone walls and a rope along the rock",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-044"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "mountainbiken",
@@ -920,7 +988,7 @@
     },
     "scene": "a muddy mountain bike leaning against a pine trunk on a sandy forest trail in morning mist",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -930,7 +998,11 @@
         "source_id": "RL",
         "source_record_id": "RA-203"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "obstacle-run",
@@ -974,13 +1046,17 @@
     },
     "scene": "a muddy wooden wall obstacle with a rope net in a sandy dune terrain under a grey sky",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-479"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "parkour",
@@ -1016,13 +1092,17 @@
     },
     "scene": "concrete blocks and low walls in an empty city park at dusk with chalk marks on the stone",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-204"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "buiten-klimmen",
@@ -1071,13 +1151,17 @@
     },
     "scene": "a sunlit sandstone rock wall with a line of fixed bolts and a rope hanging down, green forest below",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-205"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kajak-wildwater",
@@ -1125,13 +1209,17 @@
     },
     "scene": "a bright yellow kayak resting on rocks beside churning white water in a narrow river channel",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-480"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wrakduiken",
@@ -1169,13 +1257,17 @@
     },
     "scene": "the rusted bow of a sunken ship covered in green weed in dark blue water with a single shaft of light",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-481"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "klipper-zeilen",
@@ -1220,13 +1312,17 @@
     },
     "scene": "a tall wooden sailing ship with brown sails under a blue sky on a calm grey-green sea, coiled ropes on deck",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-206"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "modderlopen",
@@ -1268,7 +1364,11 @@
     },
     "scene": "a thick brown mud pit with a rope slide and wooden planks leading across it under an overcast sky",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "tokkelbaan",
@@ -1316,11 +1416,15 @@
       "en": "A zip line in a climbing park, with instruction and a safety check"
     },
     "scene": "a steel zip-line cable stretching between two tall pines with a harness and pulley hanging at the start platform",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q1154882",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1359,11 +1463,15 @@
       "en": "An organised magnet-fishing session or clean-up, with the permission of the owner or municipality"
     },
     "scene": "a strong neodymium magnet on a rope lowered beside a canal quay with rusty metal finds laid out on a tarp",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q30589378",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1408,11 +1516,15 @@
       "en": "Only through a recognised provider with an instructor, starting from low heights"
     },
     "scene": "A coastal cliff edge with a calm blue sea below, safety ropes, a rescue buoy and a wetsuit hung over a rock.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-046",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1454,7 +1566,11 @@
       "en": "Book a beginner lesson with equipment at a windsurf school"
     },
     "scene": "a windsurf board with a bright sail on a calm lake, a wooden jetty beside it",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "fierljeppen",
@@ -1496,6 +1612,10 @@
       "en": "Trial lessons at a fierljep club, mostly in Friesland where the sport comes from; you vault across a ditch with a long pole"
     },
     "scene": "a tall pole planted in the bed of a narrow canal beside green meadows under a wide sky",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

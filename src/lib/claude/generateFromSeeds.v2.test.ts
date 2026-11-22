@@ -331,7 +331,7 @@ describe("what is kept with the book (Stap 195)", () => {
   it("reports the cost in the shape that goes into progress_meta: model calls, the Google lookups, the research counts and the supply index", async () => {
     vi.stubEnv("WINDOW_BOOK_COST_CAP", "off");
     answerWithUsage();
-    const { report } = await runWith({ quietSupply: ["fossielen", "kamperen"] });
+    const { report } = await runWith({ quietSupply: ["fossielen-zoeken", "kamperen"] });
     expect(report.cost).toMatchObject({ capUsd: null, skipped: [], placesLookups: 0, placesListUsd: 0, research: { cached: expect.any(Number), searched: expect.any(Number), failed: 0 }, quiet: { known: 2, inBook: expect.any(Number) } });
     expect(report.cost?.usd).toBeGreaterThan(0.05);
   });

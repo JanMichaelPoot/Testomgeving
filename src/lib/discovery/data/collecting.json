@@ -32,7 +32,7 @@
       "en": "A starter kit and one evening"
     },
     "scene": "a plastic model ship partly assembled with glue, paints and tweezers",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -66,6 +66,10 @@
         "Cardboard modeling",
         "ship modelling"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -104,13 +108,17 @@
       "en": "Paint evening at a hobby shop; paint is often lent"
     },
     "scene": "tiny painted miniature figures with brushes and paint pots under a lamp",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-172"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "modeltreinen",
@@ -145,7 +153,7 @@
       "en": "Visit a model railway society or exhibition"
     },
     "scene": "a model railway landscape with a tiny steam train and trees",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -163,6 +171,10 @@
       "en": [
         "rail transport modelling"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -198,13 +210,17 @@
       "en": "A small scene on a small board"
     },
     "scene": "a miniature forest diorama with tiny trees and a cabin",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-017"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "lego",
@@ -241,13 +257,17 @@
       "en": "A small set, or a building evening of a LEGO user group"
     },
     "scene": "a colorful brick architecture model on a table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-132"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bonsai",
@@ -282,7 +302,7 @@
       "en": "Beginner workshop, tree included"
     },
     "scene": "a bonsai tree in a ceramic pot with pruning shears",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -292,7 +312,11 @@
         "source_id": "RL",
         "source_record_id": "RA-049"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "origami",
@@ -328,7 +352,7 @@
       "en": "A pack of paper and one video"
     },
     "scene": "colorful origami cranes on a table",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -338,7 +362,11 @@
         "source_id": "RL",
         "source_record_id": "RA-357"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "munten-zegels",
@@ -363,7 +391,7 @@
     ],
     "intensity": 0,
     "level": 0,
-    "cost": null,
+    "cost": 1,
     "duration": 4,
     "setting": "indoor",
     "safety": {
@@ -374,7 +402,7 @@
       "en": "Visit a swap meet or a collectors' society"
     },
     "scene": "a coin album and a stamp album with a magnifier and tweezers",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -398,6 +426,10 @@
         "stamp collecting",
         "coin collecting"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -422,7 +454,7 @@
     ],
     "intensity": 0,
     "level": 0,
-    "cost": null,
+    "cost": 1,
     "duration": 3,
     "setting": "indoor",
     "safety": {
@@ -433,13 +465,17 @@
       "en": "An afternoon browsing a record shop"
     },
     "scene": "crates of vinyl records with colorful sleeves",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-431"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kringloop",
@@ -471,11 +507,15 @@
       "tier": 0
     },
     "entry": {
-      "nl": "Een rondje door één kringloopwinkel, budget €10",
+      "nl": "Een rondje door één kringloopwinkel, met een budget van tien euro",
       "en": "One round through a thrift shop, budget 10 euros"
     },
     "scene": "a shelf of vintage objects in a thrift store: teapots, lamps, books",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "fossielen",
@@ -511,7 +551,7 @@
       "en": "Excursion with a geological society"
     },
     "scene": "an ammonite fossil and mineral specimens on a rock with a hammer",
-    "status": "concept",
+    "status": "retired",
     "source_links": [
       {
         "source_id": "S3",
@@ -551,7 +591,7 @@
     ],
     "intensity": 0,
     "level": 0,
-    "cost": null,
+    "cost": 1,
     "duration": 3,
     "setting": "indoor",
     "safety": {
@@ -562,7 +602,7 @@
       "en": "Visit a comic shop or library; read one series first"
     },
     "scene": "a stack of comic books and manga on a windowsill",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -574,6 +614,10 @@
       "en": [
         "comic book collecting"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -599,7 +643,7 @@
     ],
     "intensity": 0,
     "level": 0,
-    "cost": null,
+    "cost": 1,
     "duration": 4,
     "setting": "indoor",
     "safety": {
@@ -610,13 +654,17 @@
       "en": "Plant swap fair or visit a specialist"
     },
     "scene": "rows of small cacti and succulents in terracotta pots",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-283"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zendamateur",
@@ -651,7 +699,7 @@
       "en": "Intro day at an amateur-radio society; licence comes later"
     },
     "scene": "a vintage radio transceiver with dials and a headset",
-    "status": "concept",
+    "status": "retired",
     "source_links": [
       {
         "source_id": "S3",
@@ -698,13 +746,17 @@
       "en": "Watch a club day first; rules apply to aircraft"
     },
     "scene": "a remote-controlled model airplane on a grass strip beside a transmitter",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-394"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "spotten",
@@ -741,7 +793,7 @@
       "en": "Bring binoculars and go to a spotters' hill"
     },
     "scene": "binoculars on a railing overlooking an airport runway",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -772,6 +824,10 @@
         "ship spotter",
         "railfanning"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -808,7 +864,11 @@
       "en": "Visit a pen shop or pen fair"
     },
     "scene": "fountain pens in a leather case with an ink bottle and a notebook",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "koffie-thee",
@@ -844,7 +904,11 @@
       "en": "Tasting at a roastery or tea house"
     },
     "scene": "coffee cupping spoons and small cups beside coffee beans in warm light",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "aquarium",
@@ -879,7 +943,7 @@
       "en": "A small aquarium, or visit a society"
     },
     "scene": "a planted freshwater aquarium with colorful fish and mossy rocks",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -897,6 +961,10 @@
       "en": [
         "fishkeeping"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -934,7 +1002,11 @@
       "en": "A retro-game evening, or visit an arcade"
     },
     "scene": "a vintage game console with cartridges and a CRT screen glow",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "veiling",
@@ -970,7 +1042,11 @@
     },
     "scene": "rows of antique vases and a brass bell on numbered plinths in a skylit auction room",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ruilbeurs-planten",
@@ -1015,13 +1091,17 @@
     },
     "scene": "small pots of cuttings and paper seed envelopes lined up on a trestle table in a sunny yard",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-282"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "postcrossing",
@@ -1053,11 +1133,15 @@
       "en": "Sign up free at Postcrossing and send your first card"
     },
     "scene": "a stack of colourful postcards from different countries with foreign stamps, a pen and a small map on a desk",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q643420",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1092,11 +1176,15 @@
       "en": "A swap meet or swap day, or start with a small collection and trade with a friend"
     },
     "scene": "an enamel pin collection arranged on a corkboard beside a canvas bag covered in colourful badges",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q17141620",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1132,13 +1220,17 @@
       "en": "An afternoon through vintage and charity shops, trying on and combining"
     },
     "scene": "a rail of vintage dresses and a velvet blazer, with leather shoes and a felt hat on a shelf above",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-381"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "mineralen-edelstenen",
@@ -1173,7 +1265,11 @@
       "en": "Visit a mineral or gem fair or museum and learn to recognise stones"
     },
     "scene": "polished gemstones, amethyst geodes and a jeweller's loupe on a dark velvet cloth",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "speeldozen",
@@ -1208,14 +1304,18 @@
       "en": "Visit a museum or fair with music boxes and mechanical instruments"
     },
     "scene": "an antique wooden music box open to show its brass comb and pinned cylinder beside porcelain figurines",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-432"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "poppenhuis",
@@ -1250,14 +1350,18 @@
       "en": "A workshop furnishing a dollhouse or building a miniature room"
     },
     "scene": "a victorian dollhouse room with tiny furniture, a rug and a miniature lamp under warm light",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-013"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "antieke-poppen",
@@ -1292,8 +1396,12 @@
       "en": "Visit a doll museum or fair, or learn to restore an old doll"
     },
     "scene": "a shelf of porcelain antique dolls in lace dresses with a small repair kit of brushes and glue",
-    "status": "concept",
-    "supply": "rare"
+    "status": "reviewed",
+    "supply": "rare",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "brocante-antiek",
@@ -1328,7 +1436,11 @@
       "en": "Browse an antiques or brocante market and look for something with a story"
     },
     "scene": "a market table of antique brass candlesticks, porcelain cups, old keys and lace linen",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "rommelmarkt",
@@ -1373,6 +1485,10 @@
       "en": "Come early at the weekend; entry is often free"
     },
     "scene": "a trestle table of old teapots, books and brass lamps under a striped awning",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

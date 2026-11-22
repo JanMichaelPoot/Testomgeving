@@ -232,7 +232,7 @@
     }
   },
   {
-    "a": "fossielen",
+    "a": "fossielen-zoeken",
     "b": "wandelen",
     "label": {
       "nl": "Fossielenwandeling langs strand of groeve",
@@ -360,7 +360,7 @@
     }
   },
   {
-    "a": "ijsbaden",
+    "a": "koud-water-sessie",
     "b": "sauna",
     "label": {
       "nl": "Wisselbaden: sauna en ijsbad",

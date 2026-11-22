@@ -139,10 +139,6 @@
     "kind": "place",
     "terms": "lange-afstandspad etappe; wandelroute etappes; lange afstandswandeling"
   },
-  "zwemmen-baantjes": {
-    "kind": "venue",
-    "terms": "zwembad baantjes; training zwemmen; baan zwemmen"
-  },
   "paaldansen": {
     "kind": "venue",
     "terms": "paaldansen studio beginners; pole dance les; pole fitness"
@@ -775,10 +771,6 @@
     "kind": "venue",
     "terms": "muziektheorie cursus; muziekles beginners; theorieles"
   },
-  "linoleum-snijden": {
-    "kind": "venue",
-    "terms": "linosnede workshop; linoleumsnijden cursus; drukkunst workshop"
-  },
   "batiken": {
     "kind": "venue",
     "terms": "batik workshop; batiken cursus; textielverf workshop"
@@ -1163,10 +1155,6 @@
     "kind": "event",
     "terms": "middeleeuws banket; historisch banket reserveren; kasteel diner"
   },
-  "hema": {
-    "kind": "venue",
-    "terms": "HEMA club; historisch zwaardvechten; schermclub HEMA"
-  },
   "oude-kaarten": {
     "kind": "place",
     "terms": "oude kaarten archief; historische kaarten bibliotheek; cartografie collectie"
@@ -1354,10 +1342,6 @@
   "cactussen": {
     "kind": "event",
     "terms": "plantenruilbeurs; plantenbeurs; cactus verzameling"
-  },
-  "zendamateur": {
-    "kind": "club",
-    "terms": "zendamateur club; radioamateur vereniging; introductiedag radio"
   },
   "rc-modellen": {
     "kind": "club",
@@ -1887,10 +1871,6 @@
     "kind": "place",
     "terms": "snorkelgebied; meer zee snorkelen; snorkelroute"
   },
-  "ijsbaden": {
-    "kind": "club",
-    "terms": "ijsbad groep; winter zwem club; cold water swimming"
-  },
   "surfles": {
     "kind": "venue",
     "terms": "surf school; surfles beginners; surfkursus"
@@ -1974,10 +1954,6 @@
   "klootschieten": {
     "kind": "club",
     "terms": "klootschieten club; boßeln; boßel wedstrijd"
-  },
-  "werpspellen-boules": {
-    "kind": "club",
-    "terms": "boules club; jeu de boules; boulesvereniging"
   },
   "petanque": {
     "kind": "club",

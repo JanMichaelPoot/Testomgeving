@@ -24,7 +24,10 @@ const BASE: EngineInput = {
   seed: "t1",
 };
 
-const unknownCost = lib.activities.filter((a) => a.cost === null);
+// The library has no activity of unknown cost any more (the B5 review round filled the last four), so one is made here: a copy of "vinyl" whose cost nobody established.
+const unknownOne = { ...lib.activities.find((a) => a.id === "vinyl")!, cost: null };
+const libUnknown = { ...lib, activities: lib.activities.map((a) => (a.id === "vinyl" ? unknownOne : a)) };
+const unknownCost = libUnknown.activities.filter((a) => a.cost === null);
 
 describe("unknown is never a favourable answer (strictFreeCost)", () => {
   it("the library still has activities of unknown cost to test with", () => {
@@ -50,7 +53,7 @@ describe("unknown is never a favourable answer (strictFreeCost)", () => {
   it("no seed of a free-budget visitor has an unknown cost under the v2 weights, over 300 visitors", () => {
     const profiles = syntheticProfiles(300, "b4-free", lib).map((p) => ({ ...p, input: { ...p.input, budget: "free" } }));
     for (const p of profiles) {
-      const { seeds } = selectSeeds(p.input, lib, { weights: WEIGHTS_V2 });
+      const { seeds } = selectSeeds(p.input, libUnknown, { weights: WEIGHTS_V2 });
       for (const s of seeds) expect(unknownCost.some((a) => a.id === s.activityId), `${p.id} ${s.activityId}`).toBe(false);
     }
 }, 120_000);

@@ -135,7 +135,6 @@ const OVERRIDE: Record<string, PhotoCategory> = {
   "wijngaard-oogst": "nature_outdoor",
   wadlopen: "nature_outdoor",
   "zeehonden-varen": "nature_outdoor",
-  "ijsbaden": "wellness_relax",
   freediven: "water_activity",
   grotduiken: "water_activity",
   wrakduiken: "water_activity",

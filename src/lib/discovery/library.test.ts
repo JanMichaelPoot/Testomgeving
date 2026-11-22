@@ -57,10 +57,10 @@ describe("discovery library", () => {
     }
   });
 
-  it("marks unknown facets as null instead of guessing", () => {
-    const unknowns = ALL_ACTIVITIES.filter((a) => a.cost === null);
-    expect(unknowns.length).toBeGreaterThan(0); // the concept has a few "varies widely" costs
-    for (const a of unknowns) expect(a.cost).toBeNull();
+  it("never guesses a facet: what is unknown is null, and none is left unknown once reviewed (the B5 round filled the last four costs)", () => {
+    for (const a of ALL_ACTIVITIES.filter((x) => x.status === "reviewed" || x.status === "live")) {
+      for (const k of ["cost", "intensity", "level", "duration", "setting"] as const) expect(a[k], `${a.id}.${k}`).not.toBeNull();
+    }
   });
 
   it("has a bridge tag vocabulary that is used", () => {
@@ -78,7 +78,7 @@ describe("discovery library", () => {
 
   it("filters by review status", () => {
     expect(getActivities({ minStatus: "live" })).toEqual([]); // nothing reviewed yet
-    expect(getActivities().length).toBe(ALL_ACTIVITIES.filter((a) => !isImagePending(a)).length);
+    expect(getActivities().length).toBe(ALL_ACTIVITIES.filter((a) => a.status !== "retired" && !isImagePending(a)).length);
   });
 
   it("leaves out an activity whose photo is pending, and a whole domain whose photo is pending, but still resolves their ids", () => {

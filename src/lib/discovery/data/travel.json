@@ -31,13 +31,17 @@
       "en": "A day trip past three places you do not know yet"
     },
     "scene": "a folded paper road map with a marked route, sunglasses and a travel thermos on a car dashboard",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-545"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "nachttrein",
@@ -70,13 +74,17 @@
       "en": "Start with one night train to a faraway city, with a sleeper berth booked"
     },
     "scene": "a vintage train ticket, a small brass reading lamp and a folded blanket on a train seat by a dark window",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-098"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "camper-weekend",
@@ -118,13 +126,17 @@
       "en": "One night at a campsite close by"
     },
     "scene": "a small campervan with its side door open at a campsite, an enamel mug and a folded camping chair",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-546"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "eilandhoppen",
@@ -168,13 +180,17 @@
       "en": "One island, one day, first ferry out and last one back"
     },
     "scene": "a ferry ticket, a thermos and a tuft of dune grass on a wooden ferry bench",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-547"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kastelenroute",
@@ -209,13 +225,17 @@
       "en": "Three castles in one day by bike or car"
     },
     "scene": "a hand-drawn castle route map, a bicycle bell and a leaflet beside a stone gatehouse",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-548"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "themareis",
@@ -248,7 +268,11 @@
       "en": "Choose one theme, such as gardens or architecture, and one city"
     },
     "scene": "a close-up of a city map with circled addresses, a small notebook and an espresso cup on an empty marble table, nothing else in the frame",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "fietsvakantie",
@@ -290,13 +314,17 @@
       "en": "Two days with luggage and a place to sleep on the way"
     },
     "scene": "a loaded bicycle pannier, a folded map and a water bottle leaning on a wooden fence",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-097"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "boot-slapen",
@@ -339,13 +367,17 @@
       "en": "Book a single night on a houseboat or in a boat hotel"
     },
     "scene": "a small brass porthole, a rolled-up blanket and a mug on a wooden bunk",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-549"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "pelgrimsroute",
@@ -388,13 +420,17 @@
       "en": "One stage of ten to fifteen kilometres, back by train"
     },
     "scene": "a worn walking stick, a shell badge and a small trail guide on a wooden milestone",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-550"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "streek-weekend",
@@ -428,7 +464,11 @@
       "en": "Book one bed and breakfast and leave the rest open"
     },
     "scene": "a bed-and-breakfast key on a wooden tag, a regional map and a cup of tea on a windowsill",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wandelroute-cartograferen",
@@ -462,11 +502,15 @@
       "en": "Plan and walk your own 5 km loop with an app"
     },
     "scene": "A hand-drawn map of a walking route with landmarks and arrows on a clipboard, a compass and a pencil on a stone bench.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-076",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -499,11 +543,15 @@
       "en": "Write down a first day in your own city as if you were travelling"
     },
     "scene": "A leather travel journal filled with sketches, ticket stubs and a pressed flower beside a pen and a small paintbrush.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-077",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -538,11 +586,15 @@
       "en": "Plan a weekend around a theme that fascinates you"
     },
     "scene": "A map pinned with themed stops and coloured string on a corkboard with a printed itinerary and a notebook.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-163",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -579,7 +631,11 @@
       "en": "Book only a bed and a train ticket and let the first day decide the rest"
     },
     "scene": "a folded city map with a single pencil circle, a day ticket and a small rucksack on a station bench",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "willekeurig-station",
@@ -615,7 +671,11 @@
       "en": "Roll a die to pick a station nearby, get off and walk around for an hour"
     },
     "scene": "a small wooden die on a station timetable board with a rail ticket beside it",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "week-meewerken-boerderij",
@@ -649,7 +709,11 @@
       "en": "Find, through a recognised volunteering platform, a farm that wants help for a week, with board and lodging"
     },
     "scene": "a rustic farm gate with a wooden crate of vegetables and a pair of muddy boots in early light",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "huis-passen",
@@ -683,7 +747,11 @@
       "en": "Sign up with a trustworthy house-sitting platform and start with one short job in your own region"
     },
     "scene": "a set of house keys with a leather tag, a dog lead on a hook and a map on a hallway table",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "pretpark",
@@ -718,6 +786,10 @@
       "en": "A day ticket, often cheaper booked online first"
     },
     "scene": "a roller coaster track curving against a blue sky with a carousel in the foreground",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

@@ -33,13 +33,17 @@
     },
     "scene": "a brass cipher wheel, a strip of coded letters and a pencil on a worn desk under a green lamp",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-110"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "lockpicking",
@@ -74,7 +78,11 @@
     },
     "scene": "a transparent practice lock with brass pins visible and a few slim metal picks beside it on a felt cloth",
     "supply": "rare",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "puzzeljacht",
@@ -109,13 +117,17 @@
     },
     "scene": "a stack of folded riddles, a brass compass and a stopwatch on a map table lit by a desk lamp",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-134"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "speurtocht-kaart",
@@ -150,7 +162,11 @@
     },
     "scene": "an aged parchment map with a dotted route and a red wax X, a brass key resting on its corner",
     "supply": "common",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "detectivebox",
@@ -184,7 +200,11 @@
     },
     "scene": "a sealed case-file box with a magnifying glass, a photo envelope and a tiny brass key on a dark table",
     "supply": "common",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "urbex-tour",
@@ -223,7 +243,11 @@
     },
     "scene": "a derelict factory hall with a shaft of dusty light, peeling green paint and a rusted iron door",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "bunkertocht",
@@ -258,7 +282,11 @@
     },
     "scene": "a moss-covered concrete bunker entrance half-hidden by ferns with a rusted steel door in dusky light",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "onder-de-stad",
@@ -293,7 +321,11 @@
     },
     "scene": "a brick-arched tunnel lit by a row of lanterns with a thin stream of water along the floor",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "nachtwandeling",
@@ -337,13 +369,17 @@
     },
     "scene": "a forest path at blue hour with a single warm lantern glowing between dark trunks",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-341"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "spookwandeling",
@@ -378,7 +414,11 @@
     },
     "scene": "a narrow cobbled alley at night lit by a hanging lantern with thin mist at ground level",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vuurtoren",
@@ -423,7 +463,11 @@
     },
     "scene": "a white lighthouse with a red band standing on a dune ridge under a stormy-blue sky",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "cold-case",
@@ -459,13 +503,17 @@
     },
     "scene": "a corkboard with red string, index cards and a desk lamp in a dim study",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-519"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "forensisch",
@@ -500,13 +548,17 @@
     },
     "scene": "a fingerprint dusting kit with a soft brush, powder jar and a glass slide on a white table",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-518"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "detective-wandeling",
@@ -542,7 +594,11 @@
     },
     "scene": "a gas-lamp-style street lantern beside a brick wall with a vintage street name plate in fog",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "hofjes",
@@ -578,13 +634,17 @@
     },
     "scene": "a hidden courtyard garden behind a heavy wooden door with a brick path, a pump and climbing roses",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-342"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "kasteel-overnachting",
@@ -618,7 +678,11 @@
     },
     "scene": "a stone castle tower window glowing with warm candlelight against a twilight blue sky",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "detectiveverhaal",
@@ -654,13 +718,17 @@
     },
     "scene": "a typewriter with a half-typed page, a magnifying glass, and a cup of black coffee on a dark desk",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-237"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "spionagespel",
@@ -696,7 +764,11 @@
     },
     "scene": "a worn trench-coat-coloured envelope, a pair of binoculars and a coded note on a park bench",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "paranormaal",
@@ -731,7 +803,7 @@
     },
     "scene": "a candle in a brass holder on a creaking staircase in a dim old house with long shadows",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -743,6 +815,10 @@
       "en": [
         "ghost hunting"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -776,11 +852,15 @@
       "en": "An escape-room design workshop or a first puzzle for friends"
     },
     "scene": "A pile of handwritten clue cards, a padlock, a locked toolbox and a small sketched floor plan on a table.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-054",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -818,6 +898,10 @@
       "en": "Print a historical map of your city and look for three places where something of it is left"
     },
     "scene": "an antique folded city map with a brass compass on a cobbled stone ledge",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

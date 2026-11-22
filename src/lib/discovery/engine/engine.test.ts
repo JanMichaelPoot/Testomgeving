@@ -216,10 +216,13 @@ describe("seasons", () => {
   });
 
   it("does suggest them in season", () => {
-    const all = new Set([...[7, 8, 9].flatMap((m) => idsOf(m)), ...[11, 12, 1].flatMap((m) => idsOf(m)), ...[10, 11].flatMap((m) => idsOf(m))]);
+    // every month of each season (the library grows and the draw moves: one month each was too few samples)
+    const all = new Set([...[6, 7, 8, 9].flatMap((m) => idsOf(m)), ...[10, 11, 12, 1, 2, 3].flatMap((m) => idsOf(m))]);
     expect(all.has("open-water")).toBe(true);
     expect(all.has("schaatsen")).toBe(true);
-    expect(all.has("paddenstoelen")).toBe(true);
+    // with three picks only two are anchored, so the autumn pick gets its own book
+    const autumn = new Set([9, 10, 11].flatMap((m) => selectSeeds({ ...BASE, interests: ["paddenstoelen"], interestDomains: ["nature"], month: m }, lib).seeds.map((s) => s.activityId)));
+    expect(autumn.has("paddenstoelen")).toBe(true);
   });
 
   it("passesConstraints is the one place that decides: an out-of-season activity is a known conflict", () => {

@@ -39,7 +39,7 @@
     },
     "geschiedenis+sport": {
       "good": ["schermen", "hist-dans", "re-enactment", "speerwerpen-atlatl", "boogschieten", "kruisboog", "highlandgames", "klootschieten", "beugelen", "sjoelen", "limesroute", "pelgrimsroute", "fierljeppen", "oud-hollandse-volksspelen", "ringwerpen"],
-      "bad": ["nachttrein", "flipperkast", "rolschaatsdisco", "swingdansen", "cricket-beginners", "hema", "kastelenroute"]
+      "bad": ["nachttrein", "flipperkast", "rolschaatsdisco", "swingdansen", "cricket-beginners", "kastelenroute"]
     },
     "geschiedenis+natuur": {
       "good": ["oude-kaart-wandeling", "limesroute", "metaaldetectie", "geologie", "fossielen-zoeken", "slagveld", "begraafplaats", "pelgrimsroute", "kastelenroute", "hunebedden-bezoeken", "eendenkooi-bezoeken"],
@@ -47,11 +47,11 @@
     },
     "geschiedenis+techniek": {
       "good": ["industrieel-erfgoed", "retrocomputing", "smeden", "restaureren", "modeltreinen", "klokken", "stoomtrein", "kortegolf-luisteren", "bunkertocht", "molen-bezoeken"],
-      "bad": ["vlog-maken", "blog-nieuwsbrief-schrijven", "hema", "stoel-bekleden"]
+      "bad": ["vlog-maken", "blog-nieuwsbrief-schrijven", "stoel-bekleden"]
     },
     "kunst-cultuur+wetenschap": {
       "good": ["planetarium-sterrenwacht", "wetenschapsmuseum", "natuurhistorisch-museum", "geologie", "onderzoeksinstituut-bezoek", "musea", "oude-kaarten", "kunstgeschiedenis-cursus", "natuurkunde-proefjes"],
-      "bad": ["energie-besparen", "zendamateur", "stadswandeling"]
+      "bad": ["energie-besparen", "radioamateur", "stadswandeling"]
     },
     "eten+wetenschap": {
       "good": ["kookwetenschap", "fermenteren", "zuurdesem", "kaas-maken", "bier-brouwen", "koffie-thee", "kruiden", "paddenstoelen", "foerageren"],
@@ -82,7 +82,7 @@
       "bad": ["stedentrip-zonder-plan", "slow-travel", "detective-wandeling", "kastelenroute", "larp"]
     },
     "eten+natuur": {
-      "good": ["foerageren", "paddenstoelen", "kruiden", "pluktuin", "zelfpluktuin", "wijngaard-oogst", "picknick", "boerderijdag", "sap-persen", "open-vuur-koken"],
+      "good": ["foerageren", "paddenstoelen", "kruiden", "pluktuin", "wijngaard-oogst", "picknick", "boerderijdag", "sap-persen", "open-vuur-koken"],
       "bad": ["streek-weekend"]
     },
     "ambacht+eten": {
@@ -123,7 +123,7 @@
     },
     "kunst-cultuur+spel": {
       "good": ["escape-room", "tabletop-rpg", "larp", "murder-mystery", "bordspel-ontwerpen", "escape-room-ontwerpen", "improvisatie", "stadsspel"],
-      "bad": ["onderhandelen-oefenen", "ondernemersidee-uitwerken", "eerste-klant-vinden", "thematrip-plannen", "cold-case", "statistiek-begrijpen", "zendamateur"]
+      "bad": ["onderhandelen-oefenen", "ondernemersidee-uitwerken", "eerste-klant-vinden", "thematrip-plannen", "cold-case", "statistiek-begrijpen", "radioamateur"]
     },
     "dieren+mysterie": {
       "good": ["nachtdieren", "hertenbronst", "dierensporen-lezen", "nachtwandeling", "wildkijken"],

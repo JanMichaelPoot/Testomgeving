@@ -30,13 +30,17 @@
     },
     "scene": "a lone microphone on a stand under a warm spotlight in front of a brick wall in an empty comedy club",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-138"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "poetry-slam",
@@ -69,13 +73,17 @@
     },
     "scene": "a stool and a microphone with a pool of warm light on a small dark stage",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-239"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "storytelling",
@@ -108,13 +116,17 @@
     },
     "scene": "a lone wooden chair and a lamp on a stage beside a tall stack of old books",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-140"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "amateurtoneel",
@@ -148,13 +160,17 @@
     },
     "scene": "a red velvet curtain half drawn on a school-hall stage with a painted backdrop of a village",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-137"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "debatclub",
@@ -188,13 +204,17 @@
     },
     "scene": "two empty wooden lecterns facing each other under a hanging lamp in a wood-panelled hall",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-035"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "podcast-maken",
@@ -230,13 +250,17 @@
     },
     "scene": "a condenser microphone with a pop filter, headphones and a folded blanket on a quiet desk",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-034"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "goochelen",
@@ -271,7 +295,7 @@
     },
     "scene": "a top hat, a deck of cards fanned out and a silver coin on a dark velvet cloth",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -289,6 +313,10 @@
       "en": [
         "magic trick"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -325,13 +353,17 @@
     },
     "scene": "three juggling balls and clubs scattered on a mat in a circus training hall with hanging aerial silks",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-139"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "aerial-silks",
@@ -371,13 +403,17 @@
     },
     "scene": "two long crimson silks hanging from a high rig in a bright studio above soft mats",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-243"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "poppentheater",
@@ -413,13 +449,17 @@
     },
     "scene": "a hand-sewn wool puppet with button eyes sitting in a tiny painted wooden puppet theatre",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-241"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "cosplay",
@@ -455,7 +495,7 @@
     },
     "scene": "a half-finished armour piece in painted foam on a mannequin torso with sewing patterns pinned around",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -473,6 +513,10 @@
       "en": [
         "cosplay"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -508,7 +552,7 @@
     },
     "scene": "a smartphone on a small tripod pointed at a tiny cardboard set with a paper moon and a lamp",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -526,6 +570,10 @@
       "en": [
         "video production"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -562,13 +610,17 @@
     },
     "scene": "a small clay figure on a miniature set under a desk lamp with a phone camera on a mount",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-025"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "hoorspel",
@@ -603,13 +655,17 @@
     },
     "scene": "a coconut-shell pair, a rain stick and a tin tray beside a microphone on a blanket-draped table",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-194"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "lokale-radio",
@@ -641,13 +697,17 @@
     },
     "scene": "an on-air sign glowing red above a studio door and a mixing desk with faders in a small booth",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-195"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "schaduwtheater",
@@ -682,13 +742,17 @@
     },
     "scene": "a lit white sheet with the crisp black silhouette of a paper bird and a tree, a lamp behind it",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-244"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "beatboxen",
@@ -724,7 +788,7 @@
     },
     "scene": "a microphone with a pop shield and a looping pedal glowing on a dark table beside a pair of headphones",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -742,6 +806,10 @@
       "en": [
         "beatboxing"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -778,13 +846,17 @@
     },
     "scene": "a notebook crammed with lyrics next to a small speaker and a headphone cable on a beat-up desk",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-246"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "voorlezen",
@@ -818,13 +890,17 @@
     },
     "scene": "a warm reading armchair with an open picture book on its arm and a stack of books beside a standing lamp",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-247"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "commedia",
@@ -858,13 +934,17 @@
     },
     "scene": "a leather half-mask with a long nose and a feathered hat resting on a wooden crate under a spotlight",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-248"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "opera-bezoek",
@@ -899,14 +979,18 @@
       "en": "A student show, matinee or open rehearsal: often cheaper than an opening night"
     },
     "scene": "a gilded opera house with red velvet seats, a lit stage curtain and a crystal chandelier",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-458"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ballet-bezoek",
@@ -942,8 +1026,12 @@
       "en": "Attend a matinee or open rehearsal, often with an introduction beforehand"
     },
     "scene": "a theatre stage with soft spotlights and a ballet barre in the wings, pointe shoes in a pool of light",
-    "status": "concept",
-    "supply": "regional"
+    "status": "reviewed",
+    "supply": "regional",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "musical-bezoek",
@@ -980,7 +1068,11 @@
       "en": "An afternoon performance or last-minute tickets for an evening"
     },
     "scene": "a bright theatre auditorium with a painted city-street stage set and a playbill in the foyer",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "theatermake-up",
@@ -1015,14 +1107,18 @@
       "en": "A workshop: from ageing a look to a fantasy creature"
     },
     "scene": "a dressing-room mirror with round bulbs, greasepaint sticks, brushes and a wig stand",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-250"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "theater-backstage",
@@ -1057,14 +1153,18 @@
       "en": "A behind-the-scenes tour of a theatre or opera house"
     },
     "scene": "a theatre backstage with rope rigging, flight cases, a prop table and a work light over an empty stage",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-459"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "stomme-film",
@@ -1099,14 +1199,18 @@
       "en": "A silent film with live piano accompaniment at an arthouse cinema or museum"
     },
     "scene": "a vintage cinema auditorium with a piano beside a screen that glows with flickering black-and-white light",
-    "status": "concept",
+    "status": "reviewed",
     "supply": "regional",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-418"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "filmclub",
@@ -1140,11 +1244,15 @@
       "en": "A film night at an arthouse cinema or neighbourhood club"
     },
     "scene": "A small cinema screen with a title frame and a row of red seats, a popcorn bowl and a program card on an armrest.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-425",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1178,11 +1286,15 @@
       "en": "An open rehearsal room or a call for musicians"
     },
     "scene": "A rehearsal space with an electric guitar on a stand, a bass, a drum kit and an amplifier, with a setlist taped to a speaker.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-220",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1217,11 +1329,15 @@
       "en": "Watch a rehearsal of a local theatre company"
     },
     "scene": "A bare small stage with a director's chair, a clipboard script and a pair of spotlights, props stacked in the wings.",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "RL",
       "source_record_id": "RA-224",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -1258,7 +1374,11 @@
       "en": "Start with two scarves and ten minutes a day, in a fixed spot"
     },
     "scene": "three colourful juggling balls in mid-air above a wooden floor in soft window light",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "verteluur",
@@ -1293,7 +1413,11 @@
       "en": "Go to a storytelling evening and listen first, then tell a short anecdote yourself the second time"
     },
     "scene": "a wooden stool and a small lamp in a dim storytelling room with a worn rug",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "voordragen",
@@ -1327,6 +1451,10 @@
       "en": "Open stages and reading evenings in libraries and cafés give beginners a few minutes; pick a text you love and read it aloud"
     },
     "scene": "a single microphone stand beside a wooden stool and a lamp on a small bare stage, an open book on the stool",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   }
 ]

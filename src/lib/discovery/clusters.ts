@@ -27,7 +27,7 @@ export const CLUSTERS: Readonly<Record<string, readonly string[]>> = {
   tabletop: ids(`bordspellen kaartspellen schaken go mahjong dammen rummikub-kaartclub backgammon bridge wargaming tabletop-rpg solo-rpg murder-mystery bordspel-ontwerpen dominoen klaverjassen woordspellen`),
   escape: ids(`escape-room escape-doos escape-room-ontwerpen puzzeljacht speurtocht-kaart detectivebox cold-case`),
   poetry: ids(`voordragen poezie-lezen poezieavond poetry-slam`),
-  radio: ids(`zendamateur radioamateur kortegolf-luisteren dxen`),
+  radio: ids(`radioamateur kortegolf-luisteren dxen`),
   reptile_pets: ids(`reptielen aquarium duiven-houden mieren-houden insecten-tellen`),
 };
 

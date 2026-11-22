@@ -34,7 +34,11 @@
     },
     "scene": "a skid pad with curved black tyre marks on wet asphalt and orange cones under a grey sky",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "circuitdag",
@@ -71,7 +75,11 @@
     },
     "scene": "a racing circuit kerb in red and white with a pit-lane sign and a tyre barrier in golden hour light",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "enduro-offroad",
@@ -109,7 +117,11 @@
     },
     "scene": "an off-road motorbike leaning on its stand on a sandy forest track, mud on the fenders, low sun",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "oldtimerrit",
@@ -154,7 +166,11 @@
     },
     "scene": "a polished cream-coloured vintage car parked on a cobbled village square with a picnic basket on the bonnet",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "pumptrack",
@@ -201,7 +217,11 @@
     },
     "scene": "a rolling asphalt pump track with humps and banked turns in a green park, a small bike on the grass",
     "supply": "common",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "zeepkistenrace",
@@ -243,7 +263,11 @@
     },
     "scene": "a hand-painted wooden soapbox racer with four small wheels at the top of a straw-bale-lined street slope",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "stoomtrein",
@@ -288,13 +312,17 @@
     },
     "scene": "a black steam locomotive puffing white steam beside a small station platform with an old lamp",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-101"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "motorvlucht",
@@ -331,7 +359,11 @@
     },
     "scene": "a small white propeller plane parked on a grass airfield with a windsock and an open hangar door",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vlieger-stunt",
@@ -377,7 +409,7 @@
     },
     "scene": "a large diamond kite in primary colours straining on its line over a flat dune beach, ground anchor in the sand",
     "supply": "common",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "S3",
@@ -391,6 +423,10 @@
       "en": [
         "kite flying"
       ]
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   },
   {
@@ -426,13 +462,17 @@
     },
     "scene": "a small black racing drone with green LEDs resting on a hexagonal gate frame in a dark hangar",
     "supply": "rare",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-513"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "helikoptervlucht",
@@ -465,7 +505,11 @@
     },
     "scene": "a red helicopter on a helipad at the edge of a dune coast with grey sea beyond, rotor still",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "vliegsimulator",
@@ -500,13 +544,17 @@
     },
     "scene": "a cockpit panel of dials and switches lit in amber with a wide screen showing a runway at dusk",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-514"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "skihal",
@@ -543,7 +591,11 @@
     },
     "scene": "an indoor ski slope with white snow under cold ceiling lights and an empty chairlift",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "ijshockey",
@@ -585,13 +637,17 @@
     },
     "scene": "an empty ice-hockey rink with red and blue lines, a goal net and a puck on the ice, white glare",
     "supply": "regional",
-    "status": "concept",
+    "status": "reviewed",
     "source_links": [
       {
         "source_id": "RL",
         "source_record_id": "RA-472"
       }
-    ]
+    ],
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "sneeuwschoenen",
@@ -633,7 +689,11 @@
     },
     "scene": "a pair of snowshoes planted upright in deep white snow with a quiet fir forest behind, blue shadows",
     "supply": "rare",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "paardenrennen",
@@ -678,7 +738,11 @@
     },
     "scene": "a white railing curving around a green turf racetrack, a numbered board and a bright flag mast",
     "supply": "rare",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "strandzeilen",
@@ -723,7 +787,11 @@
     },
     "scene": "a three-wheeled sail kart with a bright triangular sail standing on a wide empty beach at low tide",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "rib-boot",
@@ -767,7 +835,11 @@
     },
     "scene": "an empty grey rigid inflatable boat with an outboard motor moored at a wooden jetty on a calm blue bay at dawn, console and bench seats visible, a lighthouse far away",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "jetski",
@@ -812,7 +884,11 @@
     },
     "scene": "a jet ski with bright stripes bouncing on small waves leaving a white wake on a large lake",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "trekkertrek",
@@ -855,7 +931,11 @@
     },
     "scene": "a huge polished tractor with chrome exhausts at the start of a dirt strip with a weighing sled, rural fair bunting",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "wielerwedstrijd-kijken",
@@ -901,7 +981,11 @@
     },
     "scene": "a roadside barrier with a finish banner and a stretch of tarmac curving through green hills",
     "supply": "regional",
-    "status": "concept"
+    "status": "reviewed",
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
+    }
   },
   {
     "id": "deltavliegen",
@@ -947,11 +1031,15 @@
       "en": "A tandem flight at a recognised school or club, often abroad or with a tow launch"
     },
     "scene": "a colourful delta wing glider spread on a green hill launch site with a windsock and a harness laid beside it",
-    "status": "concept",
+    "status": "reviewed",
     "provenance": {
       "source_id": "S3",
       "source_record_id": "Q208147",
       "method": "curated"
+    },
+    "reviewed_by": {
+      "by": "Claude (leesronde B5, nog te bevestigen door een mens)",
+      "at": "2026-11-22"
     }
   }
 ]

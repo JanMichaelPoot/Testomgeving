@@ -1,7 +1,7 @@
 {
   "_readme": "B4 (docs/plan-activiteitenselectie.md): hand-made corrections on the derived surprise level of an activity (0 everyday, 1 known, 2 unusual, 3 hardly anyone thinks of it). The derivation (surprise.ts) only sees the library's tags and supply, never how many people actually do something; this list holds what is known from outside: 'everyday' is what most people already do or have done (never above level 0), 'known' is a familiar leisure activity (never above level 1), 'unusual' is something most people have not done (at least level 2), 'striking' is something hardly anyone thinks of (level 3). An id on two lists is an error (a test checks).",
   "everyday": [
-    "wandelen", "wandelgroep", "wandeltocht-lang", "fietsen", "fietsroute", "e-bike-tocht", "zwemmen", "zwemmen-baantjes", "hardlopen", "hardloopgroep", "lezen",
+    "wandelen", "wandelgroep", "wandeltocht-lang", "fietsen", "fietsroute", "e-bike-tocht", "zwemmen", "hardlopen", "hardloopgroep", "lezen",
     "koffie-thee", "musea", "film-theater", "picknick", "dansen", "tuinieren", "kamerplanten", "fotografie", "brunchen", "gezond-koken", "bordspellen", "kaartspellen",
     "bowlen", "kermis", "pretpark", "dierentuin", "kinderboerderij", "concert", "yoga", "zumba", "badminton", "zaalvoetbal", "teamsport", "markt-ingredient", "rommelmarkt",
     "kringloop", "kamperen", "stadswandeling", "sauna", "massage", "spa-dag", "vissen", "tennis-proefles", "pilates", "nordic-walking", "trektocht", "toerist"
@@ -20,7 +20,7 @@
   ],
   "striking": [
     "jachthoorn-blazen", "kaninhop", "kano-uithollen", "eendenkooi-bezoeken", "duivenwedstrijd", "pluimveetentoonstelling", "hertenbronst", "magneetvissen", "klifduiken",
-    "ringrijden", "beiaard-leren", "speeldozen", "zendamateur", "dxen", "kortegolf-luisteren", "kasteel-overnachting", "kettingzaagcursus", "steenhouwen-dag", "blaaspijp",
+    "ringrijden", "beiaard-leren", "speeldozen", "radioamateur", "dxen", "kortegolf-luisteren", "kasteel-overnachting", "kettingzaagcursus", "steenhouwen-dag", "blaaspijp",
     "trekkertrek", "fierljeppen", "klootschieten", "onder-de-stad", "paranormaal", "eigen-taal", "esperanto-leren", "gebarentaal-leren", "wikipedia-bijdragen", "postcrossing"
   ]
 }

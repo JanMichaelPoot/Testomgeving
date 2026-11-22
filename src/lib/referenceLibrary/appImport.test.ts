@@ -54,7 +54,8 @@ describe("the reference library in the app", () => {
       expect(a.tags.every((t) => tags.has(t)), a.id).toBe(true);
       expect(registerOfActivity(a), `${a.id} register`).toBeTruthy();
       // Written as a concept: a human has not reviewed it yet. (It is also hidden while its photo is missing; see taxonomy:check.)
-      expect(a.status, a.id).toBe("concept");
+      // Since the B5 review round (Stap 223) it may be "reviewed" or, as a duplicate, "retired"; "live" stays for a human to decide.
+      expect(["concept", "reviewed", "retired"], a.id).toContain(a.status);
     }
     expect(ALL_ACTIVITIES.filter((x) => x.provenance?.source_id === SOURCE_ID).length).toBe(Object.keys(crosswalk.activities).length);
   });

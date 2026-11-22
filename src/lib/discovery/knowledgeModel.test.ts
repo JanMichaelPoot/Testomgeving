@@ -78,7 +78,7 @@ describe("provenance and source links", () => {
 
 describe("review", () => {
   it("a reviewed or live activity must say who reviewed it and when", () => {
-    expect(check(withChange(A.id, { status: "reviewed" })).errors.join("\n")).toContain("needs reviewed_by");
+    expect(check(withChange(A.id, { status: "reviewed", reviewed_by: undefined })).errors.join("\n")).toContain("needs reviewed_by");
     expect(check(withChange(A.id, { status: "live", reviewed_by: { by: "Jan", at: "not-a-date" } })).errors.join("\n")).toContain("needs reviewed_by");
     expect(check(withChange(A.id, { status: "live", reviewed_by: { by: "Jan", at: "2026-10-28" } })).errors).toEqual([]);
   });
