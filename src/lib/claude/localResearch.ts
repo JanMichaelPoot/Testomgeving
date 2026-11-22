@@ -533,6 +533,17 @@ export function cleanOptions(raw: unknown, today?: string): LocalOption[] {
     });
     if (out.length === MAX_CANDIDATES) break;
   }
+  // One Google listing is one place: two options of an answer with exactly the same Google score from exactly the same number of reviews were given the listing of one of them
+  // (22 Nov 2026: Repair Cafe Utrecht-Oost and Overvecht). The first keeps it, the others lose the score; they stay checked, so it is not looked up again.
+  const seen = new Set<string>();
+  for (const o of out) {
+    if (o.rating?.source !== "Google" || o.rating.reviews === null) continue;
+    const sig = `${o.rating.score}/${o.rating.reviews}`;
+    if (seen.has(sig)) {
+      o.rating = null;
+      o.ratingChecked = true;
+    } else seen.add(sig);
+  }
   return rankOptions(out);
 }
 
@@ -584,11 +595,15 @@ export async function topUpFromGoogle(opts: {
       const term = (searchHint(id)?.terms.split(";")[0] ?? getActivity(id)?.label.nl ?? "").trim();
       const found = await ratings.find(term, location, { country: opts.country ?? "NL", locale: opts.locale });
       const have = new Set(current.options.map((o) => `${o.name}|${o.city}`.toLowerCase()));
+      const usable = found.length;
       let fresh = found.filter((o) => !have.has(`${o.name}|${o.city}`.toLowerCase()) && isPhysicalOption(o) && relevanceScore(o, id) > 0);
-      if (fresh.length === 0) return;
+      const relevant = fresh.length;
       // The site has to answer and carry the place's name before it is believed (the same free page read as every other option).
-      if (opts.checker) fresh = (await opts.checker(fresh)).kept;
+      if (opts.checker && fresh.length > 0) fresh = (await opts.checker(fresh)).kept;
+      const answered = fresh.length;
       fresh = withLinks(fresh).slice(0, WANTED_PLACES - current.options.length);
+      // One line per top-up, so the next book shows where it stops: what Google gave, what was about the activity, what had a site that answers, what was added.
+      console.log(`WindowInto: google top-up for ${id} (had ${current.options.length}): ${usable} usable from Google, ${relevant} about the activity and new, ${answered} with a site that answers, ${fresh.length} added${fresh.length > 0 ? ` (${fresh.map((o) => o.name).join("; ")})` : ""}`);
       if (fresh.length === 0) return;
       byActivity.set(id, { ...current, options: rankOptions([...current.options, ...fresh]) });
       gained.push(id);

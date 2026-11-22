@@ -47,6 +47,13 @@ const norm = (s: string) =>
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
 const tokens = (s: string) => norm(s).split(" ").filter((t) => t.length >= 3 && !STOP_WORDS.has(t));
+/** Words that say what kind of place it is, not which one: they cannot tell two places of one kind apart. */
+const TYPE_WORDS = new Set(["cafe", "restaurant", "theehuis", "studio", "atelier", "centrum", "school", "hal", "museum", "winkel", "repair", "werkplaats", "praktijk", "huis"]);
+/** The words that make a name this one place: no type words, no words of the town it is in. */
+const distinctive = (name: string, city: string) => {
+  const inCity = new Set(tokens(city));
+  return tokens(name).filter((t) => !TYPE_WORDS.has(t) && !inCity.has(t));
+};
 
 /** The result that is the option itself: a name that contains or largely shares the option's name, in the option's town. */
 export function matchPlace(option: Pick<LocalOption, "name" | "city">, results: readonly PlacesResult[]): PlacesResult | null {
@@ -57,16 +64,19 @@ export function matchPlace(option: Pick<LocalOption, "name" | "city">, results: 
     const found = norm(r.displayName?.text ?? "");
     if (!found) continue;
     if (city && !norm(r.formattedAddress ?? "").includes(city)) continue;
+    // Every word that makes the option this place must be in the result's name too: "Repair Café Overvecht" is not the listing "Repair Café Utrecht" (22 Nov 2026: two
+    // repair cafés of one idea both showed the score of the one listing). A result with a more specific name than the option is still the option.
+    const foundWords = new Set(tokens(r.displayName?.text ?? ""));
+    if (distinctive(option.name, option.city).some((t) => !foundWords.has(t) && !found.includes(t))) continue;
     if (found.includes(wanted) || wanted.includes(found)) return r;
-    const foundTokens = new Set(tokens(r.displayName?.text ?? ""));
-    if (wantedTokens.length === 0 || foundTokens.size === 0) continue;
-    const shared = wantedTokens.filter((t) => foundTokens.has(t)).length;
-    if (shared / Math.min(wantedTokens.length, foundTokens.size) >= 0.6) return r;
+    if (wantedTokens.length === 0 || foundWords.size === 0) continue;
+    const shared = wantedTokens.filter((t) => foundWords.has(t)).length;
+    if (shared / Math.min(wantedTokens.length, foundWords.size) >= 0.6) return r;
   }
   return null;
 }
 
-export type LookupOutcome = { status: "found"; rating: Rating | null } | { status: "closed" } | { status: "nomatch" } | { status: "error"; reason: string };
+export type LookupOutcome = { status: "found"; rating: Rating | null; placeId?: string } | { status: "closed" } | { status: "nomatch" } | { status: "error"; reason: string };
 
 /** Reads the answer of a text search for one option. Exported for the tests. */
 export function outcomeFrom(option: Pick<LocalOption, "name" | "city">, results: readonly PlacesResult[]): LookupOutcome {
@@ -74,7 +84,7 @@ export function outcomeFrom(option: Pick<LocalOption, "name" | "city">, results:
   if (!hit) return { status: "nomatch" };
   if (hit.businessStatus === "CLOSED_PERMANENTLY") return { status: "closed" };
   const rating = typeof hit.rating === "number" ? cleanRating({ score: hit.rating, scale: 5, reviews: hit.userRatingCount, source: "Google" }) : null;
-  return { status: "found", rating };
+  return { status: "found", rating, ...(hit.id ? { placeId: hit.id } : {}) };
 }
 
 type Fetch = typeof fetch;
@@ -114,6 +124,13 @@ const DEFAULT_FINDS_PER_BOOK = 3;
 const FIND_FIELD_MASK = `${FIELD_MASK},places.websiteUri,places.primaryTypeDisplayName`;
 const NO_SITE_HOSTS = /(^|\.)(facebook|instagram|linkedin|tiktok|twitter|x|youtube|pinterest|google|goo|maps)\.(com|nl|gl|app)$/i;
 
+/** Why the results of one find fell away (counted by optionsFromFind, logged by find). */
+export interface FindWhy {
+  closed: number;
+  noSite: number;
+  lowScore: number;
+}
+
 export interface FoundResult extends PlacesResult {
   websiteUri?: string;
   primaryTypeDisplayName?: { text?: string };
@@ -141,15 +158,25 @@ export function ownSite(uri: string | undefined): string | null {
 }
 
 /** The results of a find that are usable options: open, with a site of their own, and a score of FIND_MIN_SCORE from FIND_MIN_REVIEWS reviews. Exported for the tests. */
-export function optionsFromFind(results: readonly FoundResult[], fallbackCity: string): LocalOption[] {
+export function optionsFromFind(results: readonly FoundResult[], fallbackCity: string, why?: FindWhy): LocalOption[] {
   const out: LocalOption[] = [];
   for (const r of results) {
     const name = r.displayName?.text?.trim();
     const url = ownSite(r.websiteUri);
-    if (!name || !url) continue;
-    if (r.businessStatus && r.businessStatus !== "OPERATIONAL") continue;
+    if (!name) continue;
+    if (r.businessStatus && r.businessStatus !== "OPERATIONAL") {
+      if (why) why.closed++;
+      continue;
+    }
+    if (!url) {
+      if (why) why.noSite++;
+      continue;
+    }
     const rating = typeof r.rating === "number" ? cleanRating({ score: r.rating, scale: 5, reviews: r.userRatingCount, source: "Google" }) : null;
-    if (!rating || rating.score < FIND_MIN_SCORE || (rating.reviews ?? 0) < FIND_MIN_REVIEWS) continue;
+    if (!rating || rating.score < FIND_MIN_SCORE || (rating.reviews ?? 0) < FIND_MIN_REVIEWS) {
+      if (why) why.lowScore++;
+      continue;
+    }
     const kind = r.primaryTypeDisplayName?.text?.trim() || null;
     out.push({ name, city: cityOfAddress(r.formattedAddress, fallbackCity), url, note: kind ?? "", until: null, rating, kind, ratingChecked: true, match: null });
   }
@@ -239,7 +266,10 @@ export function createRatingEnricher(
           return [];
         }
         const body = (await res.json()) as { places?: FoundResult[] };
-        return optionsFromFind(body.places ?? [], fallbackCity);
+        const why: FindWhy = { closed: 0, noSite: 0, lowScore: 0 };
+        const options = optionsFromFind(body.places ?? [], fallbackCity, why);
+        console.log(`WindowInto: google places find "${query} ${fallbackCity}": ${(body.places ?? []).length} results, ${options.length} usable (closed ${why.closed}, no own site ${why.noSite}, score under ${FIND_MIN_SCORE} or under ${FIND_MIN_REVIEWS} reviews ${why.lowScore})`);
+        return options;
       } catch (err) {
         console.warn(`WindowInto: google places find failed for "${query}": ${err instanceof Error ? err.message : String(err)}`);
         return [];
@@ -249,6 +279,10 @@ export function createRatingEnricher(
       if (!enabled || options.length === 0) return options;
       let out = [...options];
       let looked = 0;
+      // One Google listing is one place: a second option that gets the same listing (the same id, or the very same score from the very same number of reviews as an
+      // option that already has one) is not it, and gets no score.
+      const usedIds = new Set<string>();
+      const sameScore = (r: Rating) => r.reviews !== null && out.some((o) => o.rating?.source === "Google" && o.rating.score === r.score && o.rating.reviews === r.reviews);
       for (let i = 0; i < out.length && looked < 2; ) {
         const option = out[i];
         // Already known (a score from the search, or looked up before, also when there was none): it counts, and a good one ends the search.
@@ -281,7 +315,10 @@ export function createRatingEnricher(
           continue;
         }
         const next: LocalOption = { ...option, ratingChecked: true };
-        if (outcome.status === "found" && outcome.rating) {
+        const taken = outcome.status === "found" && ((!!outcome.placeId && usedIds.has(outcome.placeId)) || (!!outcome.rating && sameScore(outcome.rating)));
+        if (taken) console.log(`WindowInto: google places: "${option.name}" matched a listing another option of the idea already has, no score`);
+        if (outcome.status === "found" && outcome.placeId) usedIds.add(outcome.placeId);
+        if (outcome.status === "found" && outcome.rating && !taken) {
           next.rating = outcome.rating;
           state.rated++;
         }

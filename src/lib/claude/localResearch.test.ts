@@ -613,3 +613,38 @@ describe("the free Google top-up", () => {
     expect(g.queries).toEqual([]);
   });
 });
+
+describe("the top-up says where it stops", () => {
+  it("logs one line with what Google gave, what was about the activity, what had a working site and what was added", async () => {
+    const places = [
+      { displayName: { text: "Boulderhal Zuid" }, formattedAddress: "Oudegracht 1, 3511 AB Utrecht, Nederland", businessStatus: "OPERATIONAL", rating: 4.6, userRatingCount: 80, websiteUri: "https://www.boulderhalzuid.nl/", primaryTypeDisplayName: { text: "Klimhal" } },
+      { displayName: { text: "Kapsalon Mooi" }, formattedAddress: "Oudegracht 2, 3511 AB Utrecht, Nederland", businessStatus: "OPERATIONAL", rating: 4.9, userRatingCount: 90, websiteUri: "https://www.kapsalonmooi.nl/", primaryTypeDisplayName: { text: "Kapper" } },
+    ];
+    const impl = vi.fn(async (_u: unknown, init?: RequestInit) =>
+      String((init?.headers as Record<string, string>)["X-Goog-FieldMask"]).includes("websiteUri") ? new Response(JSON.stringify({ places }), { status: 200 }) : new Response("{}", { status: 200 }),
+    ) as unknown as typeof fetch;
+    const ratings = createRatingEnricher({ apiKey: "k", counter: async (n) => n, fetchImpl: impl });
+    const search = vi.fn(async (ids: string[]) => new Map(ids.map((id) => [id, [] as LocalOption[]])));
+    const log = vi.spyOn(console, "log").mockImplementation(() => {});
+    await researchSeeds({ location: "Utrecht", searchDistance: "city", locale: "nl", verify: false, now: NOW, activityIds: ["boulderen"], cache: null, search, ratings });
+    const line = log.mock.calls.map((c) => String(c[0])).find((l) => l.includes("google top-up for boulderen"));
+    log.mockRestore();
+    expect(line).toContain("(had 0): 2 usable from Google, 1 about the activity and new, 1 with a site that answers, 1 added (Boulderhal Zuid)");
+  });
+});
+
+describe("a score that two options share is one listing", () => {
+  it("lets only the first of two options with the very same Google score and review count keep it, when an answer is read", () => {
+    const g = (score: number, reviews: number) => ({ score, reviews, source: "Google" });
+    const read = cleanOptions([
+      { name: "Repair Café Utrecht-Oost", city: "Utrecht", url: "https://a.nl", note: "", rating: g(4.6, 8), ratingChecked: true },
+      { name: "Repair Café Overvecht", city: "Utrecht", url: "https://b.nl", note: "", rating: g(4.6, 8), ratingChecked: true },
+      { name: "Fietsenmaker Noord", city: "Utrecht", url: "https://c.nl", note: "", rating: g(4.6, 9), ratingChecked: true },
+    ]);
+    const byName = new Map(read.map((o) => [o.name, o]));
+    expect(byName.get("Repair Café Utrecht-Oost")?.rating).toMatchObject({ score: 4.6, reviews: 8 });
+    expect(byName.get("Repair Café Overvecht")?.rating).toBeNull();
+    expect(byName.get("Repair Café Overvecht")?.ratingChecked).toBe(true);
+    expect(byName.get("Fietsenmaker Noord")?.rating).toMatchObject({ score: 4.6, reviews: 9 });
+  });
+});

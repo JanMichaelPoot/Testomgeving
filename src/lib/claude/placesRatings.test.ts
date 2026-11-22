@@ -218,3 +218,59 @@ describe("finding places with Google", () => {
     warn.mockRestore();
   });
 });
+
+// Jan, 22 Nov 2026: two repair cafés of one idea (Utrecht-Oost and Overvecht) both showed 4,6 from 8 reviews: the score of one Google listing, given to two places.
+describe("one Google listing is one place", () => {
+  const listing = (id: string, name: string, rating = 4.6, reviews = 8): PlacesResult => ({ ...place(name, rating, reviews), id });
+
+  it("does not match a result that lacks the word that makes the option this place", () => {
+    const generic = [listing("g1", "Repair Café Utrecht")];
+    expect(matchPlace({ name: "Repair Café Overvecht", city: "Utrecht" }, generic)).toBeNull();
+    expect(matchPlace({ name: "Repair Café Utrecht-Oost", city: "Utrecht" }, generic)).toBeNull();
+    expect(matchPlace({ name: "Repair Café Utrecht", city: "Utrecht" }, generic)).not.toBeNull();
+    expect(matchPlace({ name: "Repair Café Overvecht", city: "Utrecht" }, [listing("g2", "Repair Café Overvecht")])).not.toBeNull();
+    // a type word on one side only is not a difference, and neither is a more specific name on Google's side
+    expect(matchPlace({ name: "Café De Kwekerij", city: "Utrecht" }, [listing("g3", "De Kwekerij")])).not.toBeNull();
+    expect(matchPlace({ name: "Klei Atelier", city: "Utrecht" }, [listing("g4", "Klei Atelier Utrecht Zuid")])).not.toBeNull();
+  });
+
+  it("gives the same listing to one option of an idea only, by its id", async () => {
+    // Google answers both searches with the same listing (a name that matches both options by containment).
+    const same = listing("g1", "Buurtwerkplaats Zuid");
+    const f = fakeFetch({ "Buurtwerkplaats Zuid Utrecht": [same], "Buurtwerkplaats Zuid Oost Utrecht": [same] });
+    const e = createRatingEnricher({ apiKey: "k", counter: allow, fetchImpl: f.impl });
+    const log = vi.spyOn(console, "log").mockImplementation(() => {});
+    const out = await e.enrich([opt("Buurtwerkplaats Zuid"), opt("Buurtwerkplaats Zuid Oost")]);
+    log.mockRestore();
+    expect(out.filter((o) => o.rating).map((o) => o.name)).toEqual(["Buurtwerkplaats Zuid"]);
+    expect(out.every((o) => o.ratingChecked)).toBe(true);
+    expect(e.stats().rated).toBe(1);
+  });
+
+  it("gives no score to a second option that shows exactly the score and review count of the first (a listing an earlier book gave to the other)", async () => {
+    const f = fakeFetch({ "Vogelwacht Noord Utrecht": [{ ...place("Vogelwacht Noord", 4.6, 8) }] });
+    const e = createRatingEnricher({ apiKey: "k", counter: allow, fetchImpl: f.impl });
+    const log = vi.spyOn(console, "log").mockImplementation(() => {});
+    const out = await e.enrich([opt("Vogelwacht Zuid", "Utrecht", { rating: { score: 4.6, reviews: 8, source: "Google" }, ratingChecked: true }), opt("Vogelwacht Noord")]);
+    log.mockRestore();
+    expect(out.find((o) => o.name === "Vogelwacht Noord")?.rating).toBeNull();
+    expect(out.find((o) => o.name === "Vogelwacht Zuid")?.rating).toMatchObject({ score: 4.6, reviews: 8 });
+  });
+
+  it("still gives two different places their own scores", async () => {
+    const f = fakeFetch({ "Klei Atelier Utrecht": [listing("a", "Klei Atelier", 4.4, 10)], "Pottenbakkerij Noord Utrecht": [listing("b", "Pottenbakkerij Noord", 4.7, 60)] });
+    const e = createRatingEnricher({ apiKey: "k", counter: allow, fetchImpl: f.impl });
+    const out = await e.enrich([opt("Klei Atelier"), opt("Pottenbakkerij Noord")]);
+    expect(out.map((o) => o.rating?.score).sort()).toEqual([4.4, 4.7]);
+  });
+
+  it("logs what a find gave and why results fell away", async () => {
+    const f = fakeFetch({ "klimhal Utrecht": [found("Boulderhal Zuid"), found("Zonder Site", { websiteUri: undefined }), found("Gesloten", { businessStatus: "CLOSED_PERMANENTLY" }), found("Matig", { rating: 3.5 })] });
+    const e = createRatingEnricher({ apiKey: "k", counter: allow, fetchImpl: f.impl });
+    const log = vi.spyOn(console, "log").mockImplementation(() => {});
+    await e.find("klimhal", "Utrecht");
+    const line = log.mock.calls.map((c) => String(c[0])).find((l) => l.includes("google places find"));
+    log.mockRestore();
+    expect(line).toContain("4 results, 1 usable (closed 1, no own site 1, score under 4 or under 5 reviews 1)");
+  });
+});
