@@ -31,7 +31,7 @@ const NL: FollowUpCopy = {
   unsubscribe: {
     title: "Afgemeld",
     body: "Gelukt: we bewaren je e-mailadres niet meer voor een herinnering en sturen je geen mail over een nieuw venster.",
-    invalid: "Deze afmeldlink werkt niet (meer). Mail hello@windowinto.nl en we regelen het.",
+    invalid: "Deze afmeldlink werkt niet (meer). Mail info@vantagelabs.nl en we regelen het.",
   },
 };
 
@@ -49,7 +49,7 @@ const EN: FollowUpCopy = {
   unsubscribe: {
     title: "Unsubscribed",
     body: "Done: we no longer keep your e-mail address for a reminder and will not e-mail you about a new window.",
-    invalid: "This unsubscribe link does not work (any more). E-mail hello@windowinto.nl and we will sort it out.",
+    invalid: "This unsubscribe link does not work (any more). E-mail info@vantagelabs.nl and we will sort it out.",
   },
 };
 

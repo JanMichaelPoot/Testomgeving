@@ -573,7 +573,7 @@ const nl: Dictionary = {
       {
         id: "wie-zijn-we",
         heading: "Wie zijn we",
-        body: "WindowInto is een klein product in de testfase. Vragen of verzoeken over je gegevens? Mail naar hello@windowinto.nl.",
+        body: "WindowInto is een klein product in de testfase. Vragen of verzoeken over je gegevens? Mail naar info@vantagelabs.nl.",
       },
       {
         id: "gegevens",
@@ -608,7 +608,7 @@ const nl: Dictionary = {
       {
         id: "rechten",
         heading: "Jouw rechten",
-        body: "Je kunt op elk moment inzage of verwijdering van je gegevens aanvragen. Mail daarvoor naar hello@windowinto.nl.",
+        body: "Je kunt op elk moment inzage of verwijdering van je gegevens aanvragen. Mail daarvoor naar info@vantagelabs.nl.",
       },
       {
         id: "cookies",
@@ -618,7 +618,7 @@ const nl: Dictionary = {
       {
         id: "contact",
         heading: "Contact",
-        body: "Vragen over je gegevens, je bestelling, of iets anders? Mail naar hello@windowinto.nl.",
+        body: "Vragen over je gegevens, je bestelling, of iets anders? Mail naar info@vantagelabs.nl.",
       },
       {
         id: "bedrijfsgegevens",
@@ -652,7 +652,7 @@ const nl: Dictionary = {
       },
       {
         heading: "Klachten",
-        body: "Niet tevreden, of iets onduidelijk? Mail naar hello@windowinto.nl — we reageren zo snel mogelijk.",
+        body: "Niet tevreden, of iets onduidelijk? Mail naar info@vantagelabs.nl — we reageren zo snel mogelijk.",
       },
     ],
     withdrawalTitle: "Herroepingsrecht — WindowInto",
@@ -670,7 +670,7 @@ const nl: Dictionary = {
       },
       {
         heading: "Wettelijke grondslag",
-        body: "Deze uitzondering is gebaseerd op artikel 6:230p van het Burgerlijk Wetboek, de Nederlandse implementatie van artikel 16 onder m van de Europese Richtlijn Consumentenrechten (2011/83/EU). Twijfel je over jouw situatie, of wil je een klacht indienen? Neem contact op via hello@windowinto.nl.",
+        body: "Deze uitzondering is gebaseerd op artikel 6:230p van het Burgerlijk Wetboek, de Nederlandse implementatie van artikel 16 onder m van de Europese Richtlijn Consumentenrechten (2011/83/EU). Twijfel je over jouw situatie, of wil je een klacht indienen? Neem contact op via info@vantagelabs.nl.",
       },
     ],
   },
@@ -1331,7 +1331,7 @@ const en: Dictionary = {
       {
         id: "wie-zijn-we",
         heading: "Who we are",
-        body: "WindowInto is a small product still in its testing phase. Questions or requests about your data? Email hello@windowinto.nl.",
+        body: "WindowInto is a small product still in its testing phase. Questions or requests about your data? Email info@vantagelabs.nl.",
       },
       {
         id: "gegevens",
@@ -1366,7 +1366,7 @@ const en: Dictionary = {
       {
         id: "rechten",
         heading: "Your rights",
-        body: "You can request access to or deletion of your data at any time. Email hello@windowinto.nl.",
+        body: "You can request access to or deletion of your data at any time. Email info@vantagelabs.nl.",
       },
       {
         id: "cookies",
@@ -1376,7 +1376,7 @@ const en: Dictionary = {
       {
         id: "contact",
         heading: "Contact",
-        body: "Questions about your data, your order, or anything else? Email hello@windowinto.nl.",
+        body: "Questions about your data, your order, or anything else? Email info@vantagelabs.nl.",
       },
       {
         id: "bedrijfsgegevens",
@@ -1410,7 +1410,7 @@ const en: Dictionary = {
       },
       {
         heading: "Complaints",
-        body: "Not happy, or something unclear? Email hello@windowinto.nl — we'll get back to you as soon as we can.",
+        body: "Not happy, or something unclear? Email info@vantagelabs.nl — we'll get back to you as soon as we can.",
       },
     ],
     withdrawalTitle: "Right of withdrawal — WindowInto",
@@ -1428,7 +1428,7 @@ const en: Dictionary = {
       },
       {
         heading: "Legal basis",
-        body: "This exception is based on article 6:230p of the Dutch Civil Code, the Dutch implementation of article 16(m) of the EU Consumer Rights Directive (2011/83/EU). Unsure about your situation, or want to file a complaint? Contact us at hello@windowinto.nl.",
+        body: "This exception is based on article 6:230p of the Dutch Civil Code, the Dutch implementation of article 16(m) of the EU Consumer Rights Directive (2011/83/EU). Unsure about your situation, or want to file a complaint? Contact us at info@vantagelabs.nl.",
       },
     ],
   },

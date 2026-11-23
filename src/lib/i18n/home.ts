@@ -12,7 +12,8 @@ import { doorRange, doorsSummary } from "@/lib/productStructure";
 
 export type HomeLocale = "nl" | "en";
 
-export const CONTACT_EMAIL = "hello@windowinto.nl";
+// The one address a visitor is sent to (privacy, terms, the questions on the home page): the support address of the company behind WindowInto (src/lib/supportEmail.ts).
+export const CONTACT_EMAIL = SUPPORT_EMAIL;
 
 export interface FaqItem {
   id: string;
