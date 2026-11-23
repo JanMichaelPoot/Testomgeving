@@ -80,6 +80,8 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `window_exported` | de afbeelding van het venster gedownload | `images` (aantal beelden) |
 | `checkout_viewed` | betaalpagina getoond | `price_variant` |
 | `checkout_pay_clicked` | "Maak het echt" ingedrukt | `price_variant` |
+| `discount_code_applied` | een eenmalige kortingscode geaccepteerd bij de bestelling (de code zelf wordt nooit verstuurd) | |
+| `discount_code_rejected` | een kortingscode geweigerd bij de bestelling | `reason` (vast woord: invalid, used, expired, busy, unavailable of limit) |
 | `payment_succeeded` | een betaald boek start (Stripe zegt betaald), vanaf de server | `amount_cents`, `price_variant` |
 | `followup_email_sent` | de follow-up e-mail verstuurd, vanaf de server | – |
 | `followup_link_opened` | de link in de follow-up e-mail geopend, vanaf de server | – |

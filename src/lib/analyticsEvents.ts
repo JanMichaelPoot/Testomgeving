@@ -67,6 +67,8 @@ export const ANALYTICS_EVENTS = {
   window_exported: { when: "the picture of the window downloaded", props: ["images"] },
   checkout_viewed: { when: "checkout page shown", props: ["price_variant"] },
   checkout_pay_clicked: { when: "'Maak het echt' pressed", props: ["price_variant"] },
+  discount_code_applied: { when: "a one-time discount code accepted at the order (the code itself is never sent)", props: [] },
+  discount_code_rejected: { when: "a discount code refused at the order, with the reason as a fixed word", props: ["reason"] },
   // Sent by the server (trackServerEvent), not the browser: it does not wait for the cookie banner and carries no
   // person. It cannot be joined to the browser events of the same visitor, by design: compare counts per day.
   payment_succeeded: { when: "a paid book starts (Stripe says paid), server side", props: ["amount_cents", "price_variant"] },

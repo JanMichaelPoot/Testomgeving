@@ -278,3 +278,49 @@ describe("emailShell", () => {
     expect(html).toContain("display:none");
   });
 });
+
+describe("buildIdeaBookEmail: the one-time discount code for a next book (Step 230)", () => {
+  const params = {
+    title: "Jouw Window Idea Book",
+    book,
+    planUrl: "https://windowinto.nl/plan?checkout_session_id=cs_live_1",
+    locale: "nl" as const,
+    siteUrl: "https://windowinto.nl",
+    order: { orderNumber: "W-0002", amountCents: 750, currency: "eur", orderDate: new Date("2026-11-23"), termsVersion: "1" },
+  };
+  const discount = { code: "WI-ABCD-EFGH", amountCents: 250, expiresAt: new Date("2027-02-21T12:00:00Z") };
+
+  it("shows the code, what it is worth, until when, and a button to start a new book", () => {
+    const { html, text } = buildIdeaBookEmail({ ...params, discount });
+    expect(html).toContain("WI-ABCD-EFGH");
+    expect(html).toContain("€2,50 goedkoper");
+    expect(html).toContain("21 februari 2027");
+    expect(html).toContain("Eén keer te gebruiken");
+    expect(html).toContain("https://windowinto.nl/intake?lang=nl");
+    expect(text).toContain("Jouw kortingscode: WI-ABCD-EFGH");
+    expect(text).toContain("https://windowinto.nl/intake?lang=nl");
+  });
+
+  it("is written in English, with the English link", () => {
+    const { html, text } = buildIdeaBookEmail({ ...params, locale: "en", discount });
+    expect(html).toContain("€2.50 off");
+    expect(html).toContain("Valid until 21 February 2027");
+    expect(html).toContain("https://windowinto.nl/intake?lang=en");
+    expect(text).toContain("Your discount code: WI-ABCD-EFGH");
+  });
+
+  it("has no such block without a code (an order without one, or a database without the table), and never shows the code of a test mail", () => {
+    for (const d of [undefined, null]) {
+      const { html, text } = buildIdeaBookEmail({ ...params, discount: d });
+      expect(html).not.toContain("WI-");
+      expect(html).not.toContain("kortingscode");
+      expect(text).not.toContain("kortingscode");
+    }
+  });
+
+  it("escapes the code like any other text", () => {
+    const { html } = buildIdeaBookEmail({ ...params, discount: { ...discount, code: "<b>x</b>" } });
+    expect(html).not.toContain("<b>x</b>");
+    expect(html).toContain("&lt;b&gt;x&lt;/b&gt;");
+  });
+});

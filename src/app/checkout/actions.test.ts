@@ -8,6 +8,10 @@ const CHECKOUT_DICT = {
   errorTermsRequired: "Je moet akkoord gaan met de Algemene Voorwaarden.",
   errorConsentRequired: "Je moet instemmen met directe digitale levering.",
   errorEmailRequired: "Vul een geldig e-mailadres in.",
+  discount: {
+    errors: { invalid: "Code onbekend.", used: "Code al gebruikt.", expired: "Code verlopen.", busy: "Code in gebruik.", unavailable: "Codes niet beschikbaar.", limit: "Te veel pogingen." },
+    stripeName: "Kortingscode",
+  },
 };
 // The delivery e-mail is required (improvement brief of 11 Nov 2026); every happy-path call passes one.
 const EMAIL = "reader@example.com";
@@ -22,7 +26,9 @@ vi.mock("@/lib/i18n/dictionaries", () => ({
 
 const callLog: string[] = [];
 // What the code under test handed to Stripe and to the payments table, for the price-test and follow-up cases.
-const stripeParams: { customer_email?: string; line_items: { price_data: { unit_amount: number } }[]; metadata: Record<string, string> }[] = [];
+const stripeParams: { customer_email?: string; line_items: { price_data: { unit_amount: number } }[]; metadata: Record<string, string>; discounts?: { coupon: string }[]; expires_at?: number }[] = [];
+const couponParams: Record<string, unknown>[] = [];
+let couponFails = false;
 const orderRows: Record<string, unknown>[] = [];
 const userUpserts: Record<string, unknown>[] = [];
 let priceVariantCookie: string | null = null;
@@ -33,6 +39,13 @@ vi.mock("@/lib/session", () => ({
 
 vi.mock("@/lib/stripe", () => ({
   getStripe: vi.fn(() => ({
+    coupons: {
+      create: vi.fn(async (params: Record<string, unknown>) => {
+        if (couponFails) throw new Error("stripe is down");
+        couponParams.push(params);
+        return { id: "coupon_1" };
+      }),
+    },
     checkout: {
       sessions: {
         create: vi.fn(async (params: (typeof stripeParams)[number]) => {
@@ -140,6 +153,44 @@ vi.mock("@/lib/supabase/server", () => ({
   }),
 }));
 
+// The one-time discount codes (src/lib/discountCode.ts): the rules are the real ones, the storage is a small in-memory table with one code in it.
+interface CodeRow { id: string; code: string; amountCents: number; expiresAt: Date; reservedUntil: Date | null; redeemedAt: Date | null }
+const codeRows: CodeRow[] = [];
+const redeemed: string[] = [];
+vi.mock("@/lib/discountCode", async (importOriginal) => {
+  const real = await importOriginal<typeof import("@/lib/discountCode")>();
+  return {
+    ...real,
+    supabaseStore: () => ({
+      async findByPayment() {
+        return null;
+      },
+      async insert() {
+        return "taken" as const;
+      },
+      async findByCode(code: string) {
+        const r = codeRows.find((x) => x.code === code);
+        return r ? { ...r } : null;
+      },
+      async hold(code: string, now: Date, until: Date) {
+        const r = codeRows.find((x) => x.code === code);
+        if (!r || r.redeemedAt || r.expiresAt <= now || (r.reservedUntil && r.reservedUntil > now)) return null;
+        r.reservedUntil = until;
+        return { id: r.id, amountCents: r.amountCents };
+      },
+      async releaseForOrder() {},
+      async releaseById(id: string) {
+        const r = codeRows.find((x) => x.id === id);
+        if (r && !r.redeemedAt) r.reservedUntil = null;
+      },
+      async redeemForOrder(session: string) {
+        redeemed.push(session);
+        return true;
+      },
+    }),
+  };
+});
+
 // Imported after the mocks above so createCheckoutSession picks them up —
 // vi.mock calls are hoisted above imports by vitest, but importing the
 // module under test last keeps the intent readable regardless.
@@ -152,6 +203,11 @@ beforeEach(() => {
   userUpserts.length = 0;
   afterCallbacks.length = 0;
   prewarmCalls.length = 0;
+  couponParams.length = 0;
+  couponFails = false;
+  redeemed.length = 0;
+  codeRows.length = 0;
+  codeRows.push({ id: "code-1", code: "WI-ABCD-EFGH", amountCents: 250, expiresAt: new Date(Date.now() + 30 * 86_400_000), reservedUntil: null, redeemedAt: null });
   priceVariantCookie = null;
   requestHeaders = {};
   delete process.env.PRICE_TEST;
@@ -354,5 +410,73 @@ describe("createCheckoutSession — free test orders (no Stripe)", () => {
     restore();
     expect(stripeParams).toHaveLength(1);
     expect(callLog).toContain("redirect:https://checkout.stripe.test/pay/cs_test_123");
+  });
+});
+
+describe("createCheckoutSession — a one-time discount code (Step 230)", () => {
+  it("takes EUR 2.50 off through a Stripe coupon, holds the code for this order, and records what was charged", async () => {
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "wi abcd efgh")).rejects.toThrow("NEXT_REDIRECT");
+    // Stripe shows the full price, the discount and what is paid: the line item keeps its price and the coupon takes the amount off, once.
+    expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(750);
+    expect(couponParams[0]).toMatchObject({ amount_off: 250, currency: "eur", duration: "once", max_redemptions: 1, name: "Kortingscode" });
+    expect(stripeParams[0].discounts).toEqual([{ coupon: "coupon_1" }]);
+    // The Checkout Session runs out well before the hold on the code does.
+    const minutes = (stripeParams[0].expires_at! * 1000 - Date.now()) / 60_000;
+    expect(minutes).toBeGreaterThan(55);
+    expect(minutes).toBeLessThanOrEqual(60);
+    expect(codeRows[0].reservedUntil!.getTime()).toBeGreaterThan(Date.now() + 80 * 60_000);
+    expect(codeRows[0].redeemedAt).toBeNull(); // used up only when Stripe confirms the payment (the webhook)
+    expect(orderRows[0]).toMatchObject({ amount: 500, status: "pending", discount_code_id: "code-1", discount_cents: 250 });
+    expect(stripeParams[0].metadata.discount_code_id).toBe("code-1");
+  });
+
+  it("charges the normal price, with no coupon, when no code was given", async () => {
+    await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
+    expect(couponParams).toHaveLength(0);
+    expect(stripeParams[0].discounts).toBeUndefined();
+    expect(stripeParams[0].expires_at).toBeUndefined();
+    expect(orderRows[0]).toMatchObject({ amount: 750 });
+    expect(orderRows[0]).not.toHaveProperty("discount_code_id");
+  });
+
+  it("refuses a code that is wrong, used up, expired or held, before any order, consent or Stripe step", async () => {
+    for (const [typed, expected, mutate] of [
+      ["hello", "Code onbekend.", () => {}],
+      ["WI-ZZZZ-ZZZZ", "Code onbekend.", () => {}],
+      ["WI-ABCD-EFGH", "Code al gebruikt.", () => { codeRows[0].redeemedAt = new Date(); }],
+      ["WI-ABCD-EFGH", "Code verlopen.", () => { codeRows[0].redeemedAt = null; codeRows[0].expiresAt = new Date(Date.now() - 1000); }],
+      ["WI-ABCD-EFGH", "Code in gebruik.", () => { codeRows[0].expiresAt = new Date(Date.now() + 86_400_000); codeRows[0].reservedUntil = new Date(Date.now() + 600_000); }],
+    ] as const) {
+      mutate();
+      await expect(createCheckoutSession(true, true, undefined, EMAIL, false, typed)).rejects.toThrow(expected);
+    }
+    expect(stripeParams).toHaveLength(0);
+    expect(orderRows).toHaveLength(0);
+    expect(callLog).not.toContain("recordTermsAcceptance");
+  });
+
+  it("lets the code go again when the order cannot be started at Stripe", async () => {
+    couponFails = true;
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH")).rejects.toThrow("stripe is down");
+    expect(codeRows[0].reservedUntil).toBeNull();
+    expect(orderRows).toHaveLength(0);
+  });
+
+  it("uses the code up at once for a free test order, which has no Stripe payment to confirm", async () => {
+    const saved = { key: process.env.STRIPE_SECRET_KEY, mode: process.env.STRIPE_MODE };
+    process.env.STRIPE_SECRET_KEY = "sk_test_abc";
+    delete process.env.STRIPE_MODE;
+    delete process.env.FREE_TEST_ORDERS;
+    try {
+      await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH")).rejects.toThrow("NEXT_REDIRECT");
+    } finally {
+      if (saved.key === undefined) delete process.env.STRIPE_SECRET_KEY;
+      else process.env.STRIPE_SECRET_KEY = saved.key;
+      if (saved.mode === undefined) delete process.env.STRIPE_MODE;
+      else process.env.STRIPE_MODE = saved.mode;
+    }
+    expect(stripeParams).toHaveLength(0);
+    expect(couponParams).toHaveLength(0);
+    expect(redeemed).toEqual([String(orderRows[0].stripe_payment_id)]);
   });
 });

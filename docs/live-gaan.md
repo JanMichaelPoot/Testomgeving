@@ -25,3 +25,49 @@ Wat de code al doet (Fase 1): de modus staat in `STRIPE_MODE` (`test` of `live`)
 - Btw-nummer in `src/lib/company.ts` (staat er nog niet).
 - Resend-domein verifiëren, anders komt de bevestigingsmail niet aan bij klanten.
 - Juridische controle van voorwaarden, herroepingsrecht en privacyverklaring.
+
+---
+
+# Live gaan met 20 echte testers (23 nov 2026)
+
+De technische stappen staan hierboven (Stripe, sleutels, webhook). Dit deel is de volgorde, de bewaking en de meting.
+
+## Fase A: klaarzetten (jij, ±1 dag; niets daarvan kost modelgeld)
+
+1. **Migratie 0027** (`supabase/migrations/0027_discount_codes.sql`) in de SQL-editor draaien, daarna `npx tsx --env-file=.env.local scripts/discount-smoke.ts`: dat controleert tabel, uitgeven, tegelijk vasthouden en opruimen, en ruimt zijn eigen testrij op. Zonder migratie draait alles gewoon door, alleen zonder kortingscodes.
+2. **Resend-domein verifiëren** (DNS-records bij je domeinhost) en `EMAIL_FROM` op een adres van dat domein zetten. Zonder dit gaat een mail alleen naar het adres van het Resend-account: testers krijgen hun boek en code dan niet. Controle: laat een boek naar een gewoon hotmail- of gmail-adres gaan.
+3. **Stripe live** volgens de stappen hierboven (bedrijfsgegevens, iDEAL en kaarten, live-sleutels, webhook met `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `checkout.session.expired` en `charge.refunded`, variabelen op Production, redeploy zonder buildcache). Zet in Stripe ook je logo en kleuren (Instellingen, Branding), je supportadres en "klantmails over betalingen" aan.
+4. **Testlimiet**: `TEST_MAX_BOOKS_PER_IP=2` in Vercel (twee boeken per verbinding) en je eigen adres in `TEST_QUOTA_EXEMPT_IPS`. Dan blijft een verdwaalde link of een dubbele klik binnen je budget.
+5. **Uitgavenplafonds buiten de code**: een maandlimiet in de Anthropic-console (bijvoorbeeld $50), een budgetmelding op de Google-sleutel (staat op $5 voorgesteld in `docs/google-places-instellen.md`), en kijk of Vercel een uitgavenlimiet heeft. Reken: 20 testers x 2 boeken x ±$0,40 is ±$16, de harde grens per boek is $0,50.
+6. **Btw-nummer** in `src/lib/company.ts` en een juridische controle van voorwaarden, herroepingsrecht en privacyverklaring. **De voorwaarden moeten de kortingscode noemen** (eenmalig, geldig 90 dagen, niet inwisselbaar voor geld, niet te combineren): de mail belooft dat al.
+7. **Bewaking aanzetten**: een gratis pinger op `https://www.windowinto.nl/api/health` (mailt jou bij een niet-200), en kijk in de Vercel-logs naar `"event":"request_error"`. `NEXT_PUBLIC_TEST_FEEDBACK=1` laat de mail om de vragenlijst vragen.
+8. **Twee echte betalingen van jezelf**: één met iDEAL, één met kaart. Controleer per betaling: geen testbanner, bevestigingsmail met PDF **en kortingscode**, boek in beeld, in Stripe één regel met de betaling, in `/admin` de bestelling op "succeeded". Gebruik daarna de code voor een tweede, echte bestelling: Stripe moet €2,50 korting tonen en €5,00 rekenen, en de code staat daarna op "gebruikt" (een tweede poging moet "al gebruikt" zeggen). Boek beide terug in Stripe; `charge.refunded` zet de bestelling op "refunded". (Een code van een terugbetaalde bestelling blijft geldig: bewust niet gebouwd.)
+
+## Fase B: de test met 20 testers (2 weken)
+
+**Wie**: 20 mensen die je niet dagelijks spreekt, gemengd: ±15 Nederlandstalig en ±5 Engelstalig, voor zichzelf of voor iemand anders, verschillende plaatsen (ook buiten de Randstad: daar valt de plekkendekking het eerst tegen).
+
+**Hoe betalen**: echt, met iDEAL of kaart. Dat test de hele keten en laat zien waar mensen afhaken. Zeg vooraf: "je krijgt je €7,50 terug nadat je de vragen hebt ingevuld" (terugboeken in Stripe). Het meet de betaalstroom, niet hoeveel ze zouden willen betalen: dat vraag je in de vragenlijst (de vier Van Westendorp-prijsvragen; die staan nog niet in het formulier). Een korting van 100% laat de betaalstroom onbewezen en geeft geen prijssignaal.
+
+**Volgorde**:
+1. **Dag 1 (kanarie)**: 3 vertrouwde testers. Kijk dezelfde dag in de Vercel-logs (`request_error`), in `/admin` (mislukte of blijven-hangende boeken) en laat de plekken van hun boeken controleren met `npx tsx scripts/places-audit.ts --since <datum>`.
+2. **Dag 3 tot 7**: de overige 17, in twee golven. Een fout die je in golf 1 ziet, los je op voor golf 2.
+3. **Dag 7 tot 14**: terugboeken, de vragenlijst en eventueel een korte videocall met 3 testers; kijk of de kortingscode wordt gebruikt.
+
+**Wat je meet** (PostHog en de database):
+- De trechter: `landing_viewed`, `intake_started`, `profile_viewed`, `checkout_pay_clicked`, `payment_succeeded`, `plan_viewed`; per stap hoeveel afhaken.
+- Techniek: aantal mislukte of blijven-hangende boeken (`/admin`), mailbezorging (`email_sent_at`), de duur tot het boek klaar is, kosten per boek (`progress_meta.cost`).
+- Kwaliteit: `scripts/places-audit.ts` (dekking en werkende links per idee), de vragenlijst (stroom, profiel, plekken, "zou je €7,50 betalen").
+- Korting: hoeveel testers de code gebruiken binnen twee weken.
+
+**Vooraf vastgelegd wanneer het slaagt** (stel dit zelf bij, maar leg het vóór de start vast):
+- 0 betalingen die technisch mislukken; 100% van de betaalde boeken wordt geleverd (scherm én mail) binnen 3 minuten.
+- Plekkendekking minstens 90% van de ideeën met een werkende link.
+- Gemiddelde stroomscore minstens 4 van 5, en minstens de helft zegt "ja" of "misschien" op €7,50.
+- Minstens 3 van de 20 gebruiken de kortingscode (een teken dat een tweede boek bij hen leeft).
+
+**Stoppen**: een kritieke fout (verkeerde bedragen, dubbele afschrijving, boeken zonder mail) legt je meteen stil door in Vercel `STRIPE_MODE` terug te zetten of de betaalknop te laten falen; boek alle open betalingen terug in Stripe. Hou een lijstje met de mailadressen van de testers bij zodat je ze kunt bereiken.
+
+## Kortingscode (Stap 230)
+Na elke betaalde bestelling krijgt de koper in de mail een eenmalige code (`WI-XXXX-XXXX`) voor €2,50 korting op één volgend boek, 90 dagen geldig. Bij de bestelling is er een stil "Heb je een kortingscode?" onder de vinkjes. De code wordt vastgehouden zodra de betaling bij Stripe start, verbruikt als Stripe de betaling bevestigt (webhook) en komt vrij als de betaling mislukt of verloopt; een Stripe Checkout met code duurt hoogstens een uur. Elke betaalde bestelling levert opnieuw een code op, ook een bestelling met korting. Een bestelling gaat nooit mis door de code: zonder de tabel krijgt de mail gewoon geen codeblok.
+

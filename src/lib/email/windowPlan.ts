@@ -30,6 +30,8 @@ export function buildIdeaBookEmail(params: {
   planUrl: string;
   /** The page with the short questionnaire for this book (/feedback/<book>); when given, the mail asks the reader to fill it in. Absent = no request. */
   feedbackUrl?: string | null;
+  /** The one-time code for a next book (src/lib/discountCode.ts), when this order has earned one; absent = the mail has no such block. */
+  discount?: { code: string; amountCents: number; expiresAt: Date } | null;
   locale: Locale;
   siteUrl: string;
   // Model C digital sale compliance (section 17: "correcte orderbevestiging").
@@ -49,7 +51,7 @@ export function buildIdeaBookEmail(params: {
     termsVersion: string;
   };
 }): { subject: string; html: string; text: string } {
-  const { title, book, planUrl, feedbackUrl, locale, siteUrl, order } = params;
+  const { title, book, planUrl, feedbackUrl, discount, locale, siteUrl, order } = params;
   const fullDict = getDictionary(locale);
   const dict = fullDict.email;
   const images = emailImages(siteUrl);
@@ -142,6 +144,23 @@ export function buildIdeaBookEmail(params: {
     </table>`
     : "";
 
+  // The reward for ordering: one code for one next book, with what it is worth and until when. The code is big, in a plain font and on its own line, so it can be read
+  // and copied; the button leads to the start of the intake (the language link keeps the reader in the language of this mail).
+  const discountAmount = discount ? formatAmount(discount.amountCents, "eur", locale) : "";
+  const discountUntil = discount ? new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", { dateStyle: "long" }).format(discount.expiresAt) : "";
+  const discountHtml = discount
+    ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:32px;">
+      <tr><td bgcolor="${c.orangeSoft}" style="background:${c.orangeSoft};border-radius:16px;padding:20px 22px;">
+        ${emailEyebrow(dict.discountHeading.replace("{amount}", discountAmount), c.orangeText)}
+        <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:${c.ink};">${escapeHtml(dict.discountLead)}</p>
+        <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:${c.muted};">${escapeHtml(dict.discountCodeLabel)}</p>
+        <p style="margin:0 0 10px;font-family:'Courier New',Courier,monospace;font-size:26px;line-height:1.3;font-weight:bold;letter-spacing:0.08em;color:${c.navy};">${escapeHtml(discount.code)}</p>
+        <p style="margin:0 0 16px;font-size:13px;line-height:1.5;color:${c.muted};">${escapeHtml(dict.discountValid.replace("{date}", discountUntil))}</p>
+        ${emailButton(`${siteUrl}/intake?lang=${locale}`, dict.discountButton)}
+      </td></tr>
+    </table>`
+    : "";
+
   const bodyHtml = `
     ${emailEyebrow(title, c.orangeText)}
     <h1 style="margin:0 0 14px;font-family:${EMAIL_FONTS.serif};font-size:32px;line-height:1.2;font-weight:normal;color:${c.navy};letter-spacing:-0.01em;">${escapeHtml(dict.readyHeading)}</h1>
@@ -160,7 +179,8 @@ export function buildIdeaBookEmail(params: {
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:26px;"><tr><td>
       <a href="${escapeHtml(planUrl)}" style="font-family:${EMAIL_FONTS.sans};font-size:15px;font-weight:700;color:${c.blue};text-decoration:underline;">${escapeHtml(dict.viewOnline)} &rarr;</a>
     </td></tr></table>
-    ${feedbackHtml}`;
+    ${feedbackHtml}
+    ${discountHtml}`;
 
   const orderRow = (label: string, value: string, bold = false) => `<tr>
       <td style="padding:3px 0;font-size:12px;color:${c.muted};">${escapeHtml(label)}</td>
@@ -205,6 +225,12 @@ export function buildIdeaBookEmail(params: {
     feedbackUrl ? `${dict.feedbackHeading.toUpperCase()}
 ${dict.feedbackLead}
 ${dict.feedbackButton}: ${feedbackUrl}
+` : "",
+    discount ? `${dict.discountHeading.replace("{amount}", discountAmount).toUpperCase()}
+${dict.discountLead}
+${dict.discountCodeLabel}: ${discount.code}
+${dict.discountValid.replace("{date}", discountUntil)}
+${dict.discountButton}: ${siteUrl}/intake?lang=${locale}
 ` : "",
     `${dict.orderHeading}: ${dict.orderNumberLabel} ${order.orderNumber}, ${dict.priceLabel} ${price}, ${dict.dateLabel} ${orderDateFormatted}`,
     dict.digitalDeliveryNote,

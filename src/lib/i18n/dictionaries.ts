@@ -131,6 +131,20 @@ export interface Dictionary {
     /** One line under the pay button: why it is safe and how soon the book is there. */
     payAssurance: string;
     payAssuranceFree: string;
+    /** The one-time discount code a buyer gets in the e-mail after an order (Step 230). {amount} and {price} are filled in. */
+    discount: {
+      toggle: string;
+      label: string;
+      placeholder: string;
+      apply: string;
+      applying: string;
+      remove: string;
+      applied: string;
+      newTotal: string;
+      errors: Record<"invalid" | "used" | "expired" | "busy" | "unavailable" | "limit", string>;
+      /** The name of the discount on Stripe's own page and receipt. */
+      stripeName: string;
+    };
     /** Above the pay button while it is still grey: what is missing. */
     payHint: { consent: string; email: string; both: string };
     errorGeneric: string;
@@ -290,6 +304,12 @@ export interface Dictionary {
     feedbackHeading: string;
     feedbackLead: string;
     feedbackButton: string;
+    /** The one-time discount code for a next book. {amount} and {date} are filled in. */
+    discountHeading: string;
+    discountLead: string;
+    discountCodeLabel: string;
+    discountValid: string;
+    discountButton: string;
     orderHeading: string;
     // Order confirmation additions (section 17): order number, price,
     // date, an explicit digital-delivery note, a re-confirmation of the
@@ -692,6 +712,25 @@ const nl: Dictionary = {
     ctaPending: "Checkout wordt geopend…",
     payAssurance: "Veilig betalen via Stripe. Je Idea Book staat binnen 2 minuten klaar.",
     payAssuranceFree: "Gratis in de testfase: je hoeft niet te betalen. Je Idea Book staat binnen 2 minuten klaar.",
+    discount: {
+      toggle: "Heb je een kortingscode?",
+      label: "Kortingscode",
+      placeholder: "WI-XXXX-XXXX",
+      apply: "Toepassen",
+      applying: "Even controleren…",
+      remove: "Verwijder",
+      applied: "Kortingscode toegepast: {amount} korting",
+      newTotal: "Je betaalt {price}.",
+      errors: {
+        invalid: "Deze code kennen we niet. Controleer de letters en cijfers.",
+        used: "Deze code is al gebruikt.",
+        expired: "Deze code is verlopen.",
+        busy: "Deze code wordt nu gebruikt voor een andere bestelling. Probeer het over een uur nog eens.",
+        unavailable: "Kortingscodes zijn nu even niet beschikbaar. Je kunt zonder code bestellen.",
+        limit: "Te veel pogingen. Probeer het over een paar minuten opnieuw.",
+      },
+      stripeName: "Kortingscode",
+    },
     payHint: {
       consent: "Vink de twee vakjes hierboven aan om te kunnen betalen.",
       email: "Vul een geldig e-mailadres in om te kunnen betalen.",
@@ -863,6 +902,11 @@ const nl: Dictionary = {
     feedbackHeading: "Heb je twee minuten voor ons?",
     feedbackLead: "WindowInto is nog jong, en jij hebt zojuist als een van de eersten een boek gekregen. Acht korte vragen: wat klopte, wat niet, en welke deur je echt gaat openen. Alles mag je overslaan.",
     feedbackButton: "Vul de vragen in",
+    discountHeading: "Een volgend Idea Book, {amount} goedkoper",
+    discountLead: "Bedankt voor je bestelling. Wil je nog een boek laten maken, bijvoorbeeld voor iemand anders of met een ander profiel? Gebruik dan deze code bij het bestellen.",
+    discountCodeLabel: "Jouw kortingscode",
+    discountValid: "Geldig tot {date}. Eén keer te gebruiken, voor één boek. Niet inwisselbaar voor geld en niet te combineren met andere acties.",
+    discountButton: "Een nieuw Idea Book maken",
     orderHeading: "Je bestelling",
     orderNumberLabel: "Ordernummer",
     priceLabel: "Prijs",
@@ -1424,6 +1468,25 @@ const en: Dictionary = {
     ctaPending: "Opening checkout…",
     payAssurance: "Pay safely through Stripe. Your Idea Book is ready within 2 minutes.",
     payAssuranceFree: "Free during the test phase: there is nothing to pay. Your Idea Book is ready within 2 minutes.",
+    discount: {
+      toggle: "Have a discount code?",
+      label: "Discount code",
+      placeholder: "WI-XXXX-XXXX",
+      apply: "Apply",
+      applying: "Checking…",
+      remove: "Remove",
+      applied: "Discount code applied: {amount} off",
+      newTotal: "You pay {price}.",
+      errors: {
+        invalid: "We don't know this code. Check the letters and digits.",
+        used: "This code has already been used.",
+        expired: "This code has expired.",
+        busy: "This code is being used for another order right now. Try again in an hour.",
+        unavailable: "Discount codes are not available right now. You can order without one.",
+        limit: "Too many tries. Please try again in a few minutes.",
+      },
+      stripeName: "Discount code",
+    },
     payHint: {
       consent: "Tick the two boxes above to be able to pay.",
       email: "Enter a valid e-mail address to be able to pay.",
@@ -1595,6 +1658,11 @@ const en: Dictionary = {
     feedbackHeading: "Have two minutes for us?",
     feedbackLead: "WindowInto is still young, and you just got one of the first books. Eight short questions: what fit, what did not, and which door you will really open. You may skip any of them.",
     feedbackButton: "Answer the questions",
+    discountHeading: "Your next Idea Book, {amount} off",
+    discountLead: "Thank you for your order. Would you like another book, for someone else or with a different profile? Use this code when you order.",
+    discountCodeLabel: "Your discount code",
+    discountValid: "Valid until {date}. One use, for one book. Cannot be exchanged for money or combined with other offers.",
+    discountButton: "Make a new Idea Book",
     orderHeading: "Your order",
     orderNumberLabel: "Order number",
     priceLabel: "Price",

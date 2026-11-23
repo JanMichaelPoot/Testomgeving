@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { createServiceRoleClient } from "@/lib/supabase/server";
+import { supabaseStore } from "@/lib/discountCode";
 
 // Payment bookkeeping only. Generating the actual Window Plan content
 // (steps, PDF, email) happens on the /plan screen — a separate build block.
@@ -43,6 +44,13 @@ export async function POST(request: Request) {
         .update({ status: "succeeded" })
         .eq("stripe_payment_id", session.id);
 
+      // The discount code of this order (if it used one) is used up for good now that the payment is confirmed. Never a reason to fail the webhook.
+      try {
+        await supabaseStore(supabase).redeemForOrder(session.id, new Date());
+      } catch (err) {
+        console.error("WINDOW: could not use up the discount code of a paid order:", err);
+      }
+
       const sessionId = session.metadata?.session_id;
       if (sessionId) {
         await supabase
@@ -76,6 +84,12 @@ export async function POST(request: Request) {
         .from("payments")
         .update({ status: "failed" })
         .eq("stripe_payment_id", session.id);
+      // A payment that failed or ran out lets the code go again.
+      try {
+        await supabaseStore(supabase).releaseForOrder(session.id);
+      } catch (err) {
+        console.error("WINDOW: could not release the discount code of a failed order:", err);
+      }
       break;
     }
     default:

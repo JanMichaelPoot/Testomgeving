@@ -318,6 +318,9 @@ export interface Database {
           // 0023: where the order was placed from, as the host derives it from the connection (ISO country code and city; never the IP address).
           ip_country?: string | null;
           ip_city?: string | null;
+          // 0027: the one-time discount code this order used and what it took off (the amount above is what was charged, after it).
+          discount_code_id?: string | null;
+          discount_cents?: number | null;
           created_at: string;
         };
         Insert: {
@@ -335,6 +338,9 @@ export interface Database {
           // 0023: where the order was placed from (ISO country code and city; never the IP address).
           ip_country?: string | null;
           ip_city?: string | null;
+          // 0027: the one-time discount code this order used and what it took off (the amount above is what was charged, after it).
+          discount_code_id?: string | null;
+          discount_cents?: number | null;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["payments"]["Insert"]>;

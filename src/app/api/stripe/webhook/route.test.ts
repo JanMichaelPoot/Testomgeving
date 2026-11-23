@@ -63,6 +63,23 @@ vi.mock("@/lib/stripe", () => ({
   })),
 }));
 
+// The one-time discount code of an order (src/lib/discountCode.ts): used up when the payment is confirmed, let go when it fails or runs out.
+const discountCalls: string[] = [];
+let discountThrows = false;
+vi.mock("@/lib/discountCode", () => ({
+  supabaseStore: () => ({
+    async redeemForOrder(session: string) {
+      discountCalls.push(`redeem:${session}`);
+      if (discountThrows) throw new Error("table missing");
+      return true;
+    },
+    async releaseForOrder(session: string) {
+      discountCalls.push(`release:${session}`);
+      if (discountThrows) throw new Error("table missing");
+    },
+  }),
+}));
+
 import { POST } from "./route";
 
 function fakeRequest(withSignature = true) {
@@ -98,5 +115,42 @@ describe("Stripe webhook — idempotency", () => {
     const response = await POST(fakeRequest(false));
     expect(response.status).toBe(400);
     expect(updateCalls).toHaveLength(0);
+  });
+});
+
+describe("Stripe webhook — the one-time discount code of an order (Step 230)", () => {
+  const original = fakeEvent.type;
+  beforeEach(() => {
+    discountCalls.length = 0;
+    discountThrows = false;
+  });
+  const deliver = async (type: string) => {
+    fakeEvent.type = type;
+    try {
+      return await POST(fakeRequest());
+    } finally {
+      fakeEvent.type = original;
+    }
+  };
+
+  it("uses the code up when the payment is confirmed, also when it is confirmed later (iDEAL and the like)", async () => {
+    expect((await deliver("checkout.session.completed")).status).toBe(200);
+    expect((await deliver("checkout.session.async_payment_succeeded")).status).toBe(200);
+    expect(discountCalls).toEqual(["redeem:cs_test_1", "redeem:cs_test_1"]);
+  });
+
+  it("lets the code go when the payment fails or the Checkout Session runs out, and never uses it up", async () => {
+    expect((await deliver("checkout.session.expired")).status).toBe(200);
+    expect((await deliver("checkout.session.async_payment_failed")).status).toBe(200);
+    expect(discountCalls).toEqual(["release:cs_test_1", "release:cs_test_1"]);
+  });
+
+  it("never fails the webhook because of the code (a database without the table, an error): the payment is still recorded", async () => {
+    discountThrows = true;
+    const err = vi.spyOn(console, "error").mockImplementation(() => {});
+    expect((await deliver("checkout.session.completed")).status).toBe(200);
+    expect(supabaseMock.__row.status).toBe("succeeded");
+    expect((await deliver("checkout.session.expired")).status).toBe(200);
+    err.mockRestore();
   });
 });

@@ -11,6 +11,7 @@ import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
 import { paneActivities } from "@/lib/discovery/concretePool";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
+import { issueCode, supabaseStore } from "@/lib/discountCode";
 import { recordAuditLogEntry } from "@/lib/auditLog";
 import { getOrdererGeo, ordererGeoFrom, type OrdererGeo } from "@/lib/geo";
 import { computeCharacterProfile, type CharacterProfile } from "@/lib/characterProfile";
@@ -836,8 +837,13 @@ async function createPaidPlan(order: PaidOrder): Promise<WindowPlanRow> {
             );
           }
 
+          // The one-time code for a next book (src/lib/discountCode.ts): one per paid order, the same one when the book is sent again. A database without the table
+          // (migration 0027) gives none, and the mail is sent without that block.
+          const discount = await issueCode(supabaseStore(supabase), paymentRow.id);
+
           await sendIdeaBookEmail({
             to: deliveryEmail,
+            discount,
             title: plan.title,
             book: generated,
             pdfBytes,

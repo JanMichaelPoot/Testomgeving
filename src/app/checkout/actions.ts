@@ -8,7 +8,9 @@ import { prewarmBookResearch } from "@/lib/claude/prewarmResearch";
 import { getSessionId } from "@/lib/session";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
-import { WINDOW_PLAN_PRICE } from "@/lib/pricing";
+import type Stripe from "stripe";
+import { WINDOW_PLAN_PRICE, formatPrice } from "@/lib/pricing";
+import { CHECKOUT_MINUTES, checkCode, createAttemptLimiter, priceAfterDiscount, releaseCode, reserveCode, supabaseStore } from "@/lib/discountCode";
 import { getVisitorPrice } from "@/lib/visitorPrice";
 import { isMissingColumnError } from "@/lib/supabase/errors";
 import { getOrdererGeo } from "@/lib/geo";
@@ -30,6 +32,28 @@ import { freeTestOrdersEnabled, newFreeOrderId } from "@/lib/freeTest";
 // re-validated here, server-side — the disabled button on the client is a
 // UX nicety, not the actual gate, per "vertrouw nooit uitsluitend op
 // frontend-validatie".
+// A brake on trying codes: a few tries per visitor in a few minutes (the code space is about 10^12; this only stops someone from running through it).
+const allowCodeAttempt = createAttemptLimiter();
+
+/**
+ * What the book would cost with this code, for the order block: the code is checked and nothing is held yet. The price and the amount are decided here, from the
+ * same functions the order uses; the page only shows them.
+ */
+export async function previewDiscount(
+  rawCode: string,
+): Promise<{ ok: true; code: string; amountLabel: string; priceLabel: string } | { ok: false; error: string }> {
+  const locale = await getLocale();
+  const dict = getDictionary(locale).checkout.discount;
+  const sessionId = (await getSessionId()) ?? "anonymous";
+  if (!allowCodeAttempt(sessionId)) return { ok: false, error: dict.errors.limit };
+  const supabase = createServiceRoleClient();
+  const checked = await checkCode(supabaseStore(supabase), rawCode);
+  if (!checked.ok) return { ok: false, error: dict.errors[checked.reason] };
+  const price = await getVisitorPrice("self");
+  const final = priceAfterDiscount(price.cents, checked.amountCents);
+  return { ok: true, code: checked.code, amountLabel: formatPrice(locale, price.cents - final), priceLabel: formatPrice(locale, final) };
+}
+
 export async function createCheckoutSession(
   termsAccepted: boolean,
   digitalDeliveryConsent: boolean,
@@ -40,6 +64,8 @@ export async function createCheckoutSession(
   deliveryEmail?: string,
   // The optional consent to one follow-up e-mail after six weeks (improvement brief B5). Never assumed.
   followUpConsent?: boolean,
+  // A one-time discount code from an earlier order (src/lib/discountCode.ts): checked and held here, for this order only.
+  discountCode?: string,
 ) {
   const locale = await getLocale();
   const dict = getDictionary(locale).checkout;
@@ -85,10 +111,26 @@ export async function createCheckoutSession(
   // the same function showed. While the price test is off this is the normal price and the variant is null.
   const price = await getVisitorPrice("self");
 
+  // A discount code is held for this order before anything is made at Stripe (two orders cannot spend one code), and let go again when the order cannot be started.
+  const store = supabaseStore(supabase);
+  let discount: { id: string; amountCents: number } | null = null;
+  if ((discountCode ?? "").trim()) {
+    const held = await reserveCode(store, discountCode!);
+    if (!held.ok) throw new Error(dict.discount.errors[held.reason]);
+    discount = { id: held.id, amountCents: held.amountCents };
+  }
+  const finalCents = discount ? priceAfterDiscount(price.cents, discount.amountCents) : price.cents;
+  const discountedCents = price.cents - finalCents;
+
   // Test phase (src/lib/freeTest.ts): no Stripe at all, the order gets an id of its own and the book starts straight away.
   const freeId = freeTestOrdersEnabled() ? newFreeOrderId() : null;
 
-  const checkoutSession = freeId ? null : await getStripe().checkout.sessions.create({
+  let checkoutSession: Stripe.Checkout.Session | null = null;
+  try {
+  if (!freeId) {
+  // The discount is a Stripe coupon of its own (once, for this order): Stripe's page and the receipt then show the full price, the discount and what is paid.
+  const coupon = discountedCents > 0 ? await getStripe().coupons.create({ amount_off: discountedCents, currency: WINDOW_PLAN_PRICE.currency, duration: "once", max_redemptions: 1, name: dict.discount.stripeName }) : null;
+  checkoutSession = await getStripe().checkout.sessions.create({
     mode: "payment",
     // Stripe's own page in the visitor's language. No payment_method_types on purpose: Checkout then offers every method that is
     // switched on in the Stripe dashboard for EUR (iDEAL and cards; see docs/live-gaan.md), so the code never needs to change for that.
@@ -108,6 +150,7 @@ export async function createCheckoutSession(
     ],
     // The address the buyer gave us is the one Stripe uses for the receipt too (and it is not editable there: one address for everything).
     customer_email: email,
+    ...(coupon ? { discounts: [{ coupon: coupon.id }], expires_at: Math.floor(Date.now() / 1000) + CHECKOUT_MINUTES * 60 } : {}),
     success_url: `${siteUrl}/plan?checkout_session_id={CHECKOUT_SESSION_ID}`,
     // A `payment=cancelled` marker so /checkout can show
     // dict.checkout.errorPaymentFailed when Stripe sends the buyer back
@@ -123,11 +166,18 @@ export async function createCheckoutSession(
       // "1" only when the buyer switched the follow-up e-mail on; the address is chosen later, from where the book is sent.
       followup_consent: followUpConsent === true ? "1" : "",
       price_variant: price.variant ?? "",
+      discount_code_id: discount?.id ?? "",
     },
   });
+  }
+  } catch (err) {
+    if (discount) await releaseCode(store, discount.id);
+    throw err;
+  }
 
   const stripeUrl = checkoutSession?.url ?? null;
   if (!freeId && !stripeUrl) {
+    if (discount) await releaseCode(store, discount.id);
     throw new Error("Could not start checkout.");
   }
 
@@ -136,7 +186,7 @@ export async function createCheckoutSession(
   const orderRow = {
     session_id: sessionId,
     stripe_payment_id: freeId ?? checkoutSession!.id,
-    amount: freeId ? 0 : price.cents,
+    amount: freeId ? 0 : finalCents,
     currency: WINDOW_PLAN_PRICE.currency,
     status: freeId ? ("succeeded" as const) : ("pending" as const),
     order_number: orderNumber,
@@ -149,6 +199,7 @@ export async function createCheckoutSession(
   const geo = await getOrdererGeo();
   const extras = {
     ...(price.variant ? { price_variant: price.variant } : {}),
+    ...(discount ? { discount_code_id: discount.id, discount_cents: discountedCents } : {}),
     ...(geo ? { ip_country: geo.country, ip_city: geo.city || null } : {}),
     ...(followUpConsent === true ? { followup_consent_at: new Date().toISOString() } : {}),
   };
@@ -159,6 +210,7 @@ export async function createCheckoutSession(
   }
 
   if (paymentError || !order) {
+    if (discount) await releaseCode(store, discount.id);
     throw new Error(paymentError?.message ?? "Could not create the order.");
   }
 
@@ -198,6 +250,9 @@ export async function createCheckoutSession(
   // Best effort and never a reason to block a payment.
   if (rememberDevice === true) await enableDeviceMemory(supabase, sessionId);
   else if (rememberDevice === false) await disableDeviceMemory(supabase);
+
+  // A free test order has no Stripe payment to confirm, so its code is used up now; at Stripe the webhook does it when the payment is confirmed.
+  if (freeId && discount) await store.redeemForOrder(freeId, new Date());
 
   if (freeId) {
     // The address the book is sent to is kept with the account, as it is after a Stripe payment (plan/data.ts reads it back from there).

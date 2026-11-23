@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
-import { createCheckoutSession } from "@/app/checkout/actions";
+import { createCheckoutSession, previewDiscount } from "@/app/checkout/actions";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 // The one field that must be filled: larger than the rest, with a heavier border, so it is the first thing the eye lands on.
@@ -98,6 +98,42 @@ export function CheckoutPanel({
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
+  // A one-time discount code from an earlier order. The code is checked on the server and shown with the new price; what is charged is decided there again at the order.
+  const [codeOpen, setCodeOpen] = useState(false);
+  const [codeText, setCodeText] = useState("");
+  const [codeError, setCodeError] = useState<string | null>(null);
+  const [applied, setApplied] = useState<{ code: string; amountLabel: string; priceLabel: string } | null>(null);
+  const [codePending, startCodeCheck] = useTransition();
+
+  function applyCode() {
+    if (!codeText.trim() || codePending) return;
+    setCodeError(null);
+    startCodeCheck(async () => {
+      try {
+        const result = await previewDiscount(codeText);
+        if (result.ok) {
+          setApplied({ code: result.code, amountLabel: result.amountLabel, priceLabel: result.priceLabel });
+          setCodeText(result.code);
+          trackEvent("discount_code_applied");
+        } else {
+          setApplied(null);
+          setCodeError(result.error);
+          trackEvent("discount_code_rejected", { reason: "refused" });
+        }
+      } catch {
+        setApplied(null);
+        setCodeError(dict.discount.errors.unavailable);
+        trackEvent("discount_code_rejected", { reason: "unavailable" });
+      }
+    });
+  }
+
+  function removeCode() {
+    setApplied(null);
+    setCodeText("");
+    setCodeError(null);
+  }
+
   // Funnel steps around the price: seen, and pay button pressed (before Stripe).
   useEffect(() => {
     trackEvent("checkout_viewed", { price_variant: priceVariant ?? "none" });
@@ -131,6 +167,7 @@ export function CheckoutPanel({
           rememberInitially,
           deliveryEmail.trim(),
           false,
+          applied?.code,
         );
       } catch (err) {
         // Next.js redirect() throws internally on success (to Stripe
@@ -197,6 +234,67 @@ export function CheckoutPanel({
         </ComplianceCheckbox>
       </div>
 
+      {/* A discount code from an earlier order: a quiet link that opens one field, so it is there for whoever has one and out of the way for everyone else. */}
+      <div className="mb-5" data-testid="discount">
+        {applied ? (
+          <div className="rounded-lg border border-gold/60 bg-gold/10 px-4 py-3" role="status">
+            <p className="text-sm font-semibold text-ink">{dict.discount.applied.replace("{amount}", applied.amountLabel)}</p>
+            <p className="mt-0.5 text-sm text-ink/75">
+              {dict.discount.newTotal.replace("{price}", applied.priceLabel)}{" "}
+              <button type="button" onClick={removeCode} className="font-semibold text-accent-dark underline underline-offset-2 hover:text-ink">
+                {dict.discount.remove}
+              </button>
+            </p>
+          </div>
+        ) : codeOpen ? (
+          <div>
+            <label htmlFor="discount-code" className="block text-sm font-semibold text-ink">
+              {dict.discount.label}
+            </label>
+            <div className="mt-1.5 flex gap-2">
+              <input
+                id="discount-code"
+                value={codeText}
+                onChange={(e) => {
+                  setCodeText(e.target.value.slice(0, 24));
+                  setCodeError(null);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    applyCode();
+                  }
+                }}
+                autoComplete="off"
+                autoCapitalize="characters"
+                spellCheck={false}
+                placeholder={dict.discount.placeholder}
+                aria-invalid={!!codeError}
+                aria-describedby={codeError ? "discount-code-error" : undefined}
+                className="min-h-11 min-w-0 flex-1 rounded-lg border border-border bg-paper px-3 font-mono text-base uppercase tracking-wider text-ink outline-none placeholder:normal-case placeholder:tracking-normal placeholder:text-ink/50 focus:border-ink"
+              />
+              <button
+                type="button"
+                onClick={applyCode}
+                disabled={!codeText.trim() || codePending}
+                className="min-h-11 shrink-0 rounded-lg border border-border bg-cream px-4 text-sm font-semibold text-ink transition hover:border-ink disabled:opacity-50"
+              >
+                {codePending ? dict.discount.applying : dict.discount.apply}
+              </button>
+            </div>
+            {codeError && (
+              <p id="discount-code-error" role="alert" className="mt-2 text-sm font-medium text-red-700">
+                {codeError}
+              </p>
+            )}
+          </div>
+        ) : (
+          <button type="button" onClick={() => setCodeOpen(true)} className="min-h-11 text-sm font-semibold text-accent-dark underline underline-offset-4 hover:text-ink">
+            {dict.discount.toggle}
+          </button>
+        )}
+      </div>
+
       {error && (
         <p className="mb-4 text-sm text-red-600" role="alert">
           {error}
@@ -215,7 +313,7 @@ export function CheckoutPanel({
         size="lg"
         className="min-h-16 w-full justify-center px-6 py-3 text-lg font-semibold leading-snug"
       >
-        {isPending ? dict.ctaPending : (freeTest ? dict.ctaIdleFree : dict.ctaIdle).replace("{price}", price)}
+        {isPending ? dict.ctaPending : (freeTest ? dict.ctaIdleFree : dict.ctaIdle).replace("{price}", applied ? applied.priceLabel : price)}
         {!isPending && (
           <span aria-hidden="true" className="cta-arrow inline-block">
             →
