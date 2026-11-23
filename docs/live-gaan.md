@@ -19,7 +19,7 @@ Wat de code al doet (Fase 1): de modus staat in `STRIPE_MODE` (`test` of `live`)
 7. **Controle** (`/admin`, blok "Instellingen van deze deployment"): `STRIPE_MODE` toont LIVE zonder PROBLEEM, `NEXT_PUBLIC_SITE_URL` toont het echte adres.
 8. **Eén echte betaling** van €7,50 met je eigen kaart en iDEAL, daarna in het Stripe-dashboard terugboeken. Controleer: geen testbanner, de mail komt aan, het boek verschijnt.
 
-**Testfase zonder Stripe-pagina** (Stap 206): zolang Stripe in testmodus draait, slaat de betaalknop Stripe over en start het boek meteen (`src/lib/freeTest.ts`). Met een live-sleutel staat dat vanzelf uit; `FREE_TEST_ORDERS=0` zet het ook in testmodus uit, om de echte Stripe-testbetaling te proberen.
+**Gratis testboeken zonder Stripe-pagina** (Stap 206, sinds Stap 232 standaard UIT): alleen met `FREE_TEST_ORDERS=1` én Stripe in testmodus slaat de betaalknop Stripe over en start het boek meteen (`src/lib/freeTest.ts`). Met een live-sleutel staat dat vanzelf uit; `FREE_TEST_ORDERS=0` zet het ook in testmodus uit, om de echte Stripe-testbetaling te proberen.
 
 ## Nog open vóór echte verkoop (buiten deze fase)
 - Btw-nummer in `src/lib/company.ts` (staat er nog niet).

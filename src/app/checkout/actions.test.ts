@@ -372,7 +372,7 @@ describe("createCheckoutSession — free test orders (no Stripe)", () => {
   it("starts the book straight away in test mode: no Stripe session, an order of 0 with a test id, the consents stored, no prewarm", async () => {
     process.env.STRIPE_SECRET_KEY = "sk_test_abc";
     delete process.env.STRIPE_MODE;
-    delete process.env.FREE_TEST_ORDERS;
+    process.env.FREE_TEST_ORDERS = "1";
     try {
       await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
     } finally {
@@ -395,7 +395,7 @@ describe("createCheckoutSession — free test orders (no Stripe)", () => {
   it("is never free with a live Stripe key, whatever else is set", async () => {
     process.env.STRIPE_SECRET_KEY = "sk_live_abc";
     process.env.STRIPE_MODE = "test";
-    delete process.env.FREE_TEST_ORDERS;
+    process.env.FREE_TEST_ORDERS = "1";
     try {
       await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
     } finally {
@@ -470,7 +470,7 @@ describe("createCheckoutSession — a one-time discount code (Step 230)", () => 
     const saved = { key: process.env.STRIPE_SECRET_KEY, mode: process.env.STRIPE_MODE };
     process.env.STRIPE_SECRET_KEY = "sk_test_abc";
     delete process.env.STRIPE_MODE;
-    delete process.env.FREE_TEST_ORDERS;
+    process.env.FREE_TEST_ORDERS = "1";
     try {
       await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH")).rejects.toThrow("NEXT_REDIRECT");
     } finally {

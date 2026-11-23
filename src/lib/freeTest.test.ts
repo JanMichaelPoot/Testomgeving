@@ -2,16 +2,19 @@ import { describe, expect, it } from "vitest";
 import { FREE_ORDER_PREFIX, freeTestOrdersEnabled, isFreeOrderId, newFreeOrderId } from "./freeTest";
 
 describe("free test orders", () => {
-  it("are on in test mode, by default", () => {
-    expect(freeTestOrdersEnabled({ STRIPE_SECRET_KEY: "sk_test_abc", STRIPE_MODE: "test" })).toBe(true);
-    expect(freeTestOrdersEnabled({ STRIPE_SECRET_KEY: "sk_test_abc" })).toBe(true);
+  it("are off by default, also in test mode: a site that is still in test mode by mistake must not give books away", () => {
+    expect(freeTestOrdersEnabled({ STRIPE_SECRET_KEY: "sk_test_abc", STRIPE_MODE: "test" })).toBe(false);
+    expect(freeTestOrdersEnabled({ STRIPE_SECRET_KEY: "sk_test_abc" })).toBe(false);
+    expect(freeTestOrdersEnabled({})).toBe(false);
   });
 
-  it("can be switched off in test mode with FREE_TEST_ORDERS=0", () => {
-    for (const v of ["0", "false", "off", "no", '"0"']) {
+  it("are switched on in test mode only by FREE_TEST_ORDERS=1 (or true, on, yes)", () => {
+    for (const v of ["1", "true", "on", "yes", '"1"', " TRUE "]) {
+      expect(freeTestOrdersEnabled({ STRIPE_SECRET_KEY: "sk_test_abc", FREE_TEST_ORDERS: v })).toBe(true);
+    }
+    for (const v of ["", "0", "false", "off", "no", "maybe"]) {
       expect(freeTestOrdersEnabled({ STRIPE_SECRET_KEY: "sk_test_abc", FREE_TEST_ORDERS: v })).toBe(false);
     }
-    expect(freeTestOrdersEnabled({ STRIPE_SECRET_KEY: "sk_test_abc", FREE_TEST_ORDERS: "1" })).toBe(true);
   });
 
   it("are never on in live mode, whatever else is set", () => {
