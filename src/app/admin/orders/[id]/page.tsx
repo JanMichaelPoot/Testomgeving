@@ -5,6 +5,9 @@ import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { explainEmailError } from "@/lib/emailErrors";
 import { describeBookCost } from "@/lib/adminStats";
 import { createServiceRoleClient } from "@/lib/supabase/server";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { MAX_COMPENSATIONS_PER_ORDER } from "@/lib/discountCode";
+import { sendCompensationAction } from "./actions";
 
 export const metadata: Metadata = {
   title: "Orderdetail — WindowInto admin",
@@ -17,7 +20,7 @@ export const metadata: Metadata = {
 // terms_acceptance + digital_delivery_consent rows written in
 // checkout/actions.ts, plus the resulting window_plans row (generation,
 // e-mail delivery, PDF template version). Read-only — this page never
-// writes anything; it's a lookup tool for a legal/support question, not an
+// writes anything (only the compensation form below sends a code, through its own action); it's a lookup tool for a legal/support question, not an
 // editor.
 export default async function AdminOrderDetailPage(props: PageProps<"/admin/orders/[id]">) {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
@@ -39,6 +42,22 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
     supabase.from("digital_delivery_consent").select("*").eq("order_id", id).maybeSingle(),
     supabase.from("products").select("name").eq("id", order.product_id).maybeSingle(),
   ]);
+
+  // The one-time discount codes of this order: the one it earned by ordering and any compensation codes (Step 235). The first query works without migration 0028; the second
+  // (kind and note) only with it.
+  const searchParams = await props.searchParams;
+  const status = typeof searchParams.compensation === "string" ? searchParams.compensation : null;
+  // The table of the discount codes is not in the typed database description (it is read and written through src/lib/discountCode.ts too): an untyped view of the same client.
+  const loose = supabase as unknown as SupabaseClient;
+  const { data: codeRows } = await loose
+    .from("discount_codes")
+    .select("code, created_at, expires_at, redeemed_at")
+    .eq("issued_for_payment_id", id)
+    .order("created_at", { ascending: true });
+  const { data: kindRows, error: kindError } = await loose.from("discount_codes").select("code, kind, reason").eq("issued_for_payment_id", id);
+  const kindOf = new Map<string, { kind: string; reason: string | null }>((kindRows ?? []).map((r: { code: string; kind: string; reason: string | null }) => [r.code, r]));
+  const codes = ((codeRows ?? []) as { code: string; created_at: string; expires_at: string; redeemed_at: string | null }[]).map((r, i) => ({ ...r, kind: kindOf.get(r.code)?.kind ?? (i === 0 ? "order" : "compensation"), reason: kindOf.get(r.code)?.reason ?? null }));
+  const compensations = codes.filter((c) => c.kind === "compensation");
 
   return (
     <div className="min-h-full bg-cream px-6 py-10 sm:px-10">
@@ -88,6 +107,58 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
           )}
         </Section>
 
+        <Section title="Kortingscodes en compensatie">
+          {status && COMPENSATION_STATUS[status] && (
+            <p
+              role="status"
+              className={`rounded-md border px-3 py-2 text-sm ${status === "sent" ? "border-green-300 bg-green-50 text-green-900" : "border-red-300 bg-red-50 text-red-800"}`}
+            >
+              {COMPENSATION_STATUS[status].replace("{email}", plan?.recipient_email ?? "de koper")}
+            </p>
+          )}
+          {codes.length === 0 ? (
+            <p className="text-sm text-ink/70">Er zijn nog geen kortingscodes voor deze bestelling.</p>
+          ) : (
+            codes.map((c) => (
+              <div key={c.code} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 text-sm">
+                <dt className="text-ink/70">
+                  <span className="font-mono text-xs text-ink">{c.code}</span> · {c.kind === "compensation" ? "compensatie" : "bij de bestelling"}
+                  {c.reason ? ` · ${c.reason}` : ""}
+                </dt>
+                <dd className="text-right text-ink">
+                  {c.redeemed_at ? `gebruikt ${new Date(c.redeemed_at).toLocaleDateString("nl-NL")}` : `geldig tot ${new Date(c.expires_at).toLocaleDateString("nl-NL")}`}
+                </dd>
+              </div>
+            ))
+          )}
+          {plan && order.status === "succeeded" ? (
+            <form action={sendCompensationAction} className="mt-4 space-y-3 border-t border-ink/10 pt-4">
+              <input type="hidden" name="orderId" value={order.id} />
+              <p className="text-sm text-ink/80">
+                Een plek in het boek klopte niet? Maak een extra kortingscode van €2,50 en mail die naar{" "}
+                <strong>{plan.recipient_email ?? "(geen e-mailadres bij deze bestelling)"}</strong> ({plan.language === "en" ? "Engels" : "Nederlands"}). Antwoorden op die mail gaan naar info@vantagelabs.nl.
+              </p>
+              <label className="block text-sm">
+                <span className="text-ink/70">Reden (alleen voor jezelf, niet in de mail)</span>
+                <input name="reason" maxLength={300} placeholder="Bijvoorbeeld: Pottenbakkerij X in Laren bleek gesloten" className="mt-1 w-full rounded-md border border-ink/20 bg-white px-3 py-2 text-sm" />
+              </label>
+              <label className="flex items-start gap-2 text-sm">
+                <input type="checkbox" name="confirm" className="mt-0.5" />
+                <span>Ik wil deze mail nu naar de koper sturen.</span>
+              </label>
+              <button type="submit" disabled={!plan.recipient_email} className="rounded-md bg-accent-dark px-4 py-2 text-sm font-semibold text-paper hover:bg-ink disabled:opacity-50">
+                Mail extra kortingscode van €2,50
+              </button>
+              <p className="text-xs text-ink/60">
+                Hoogstens {MAX_COMPENSATIONS_PER_ORDER} compensatiecodes per bestelling{compensations.length > 0 ? ` (al ${compensations.length} verstuurd)` : ""}.
+                {kindError ? " Let op: migratie 0028_discount_compensation.sql is nog niet gedraaid; zonder die migratie lukt het versturen niet." : ""}
+              </p>
+            </form>
+          ) : (
+            <p className="mt-3 text-sm text-ink/70">Een compensatiecode kan alleen bij een betaalde bestelling met een boek.</p>
+          )}
+        </Section>
+
         <Section title="Algemene voorwaarden">
           {terms ? (
             <>
@@ -131,6 +202,17 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
     </div>
   );
 }
+
+const COMPENSATION_STATUS: Record<string, string> = {
+  sent: "De mail met een extra kortingscode van €2,50 is verstuurd naar {email}.",
+  mailfailed: "De code is gemaakt, maar de mail kon niet worden verstuurd. De code staat hieronder: stuur hem zelf naar de koper.",
+  confirm: "Vink eerst aan dat je de mail echt wilt sturen. Er is niets verstuurd.",
+  noemail: "Bij deze bestelling is geen e-mailadres bekend. Er is niets verstuurd.",
+  notpaid: "Deze bestelling is niet betaald. Er is niets verstuurd.",
+  max: "Er zijn al het maximale aantal compensatiecodes voor deze bestelling verstuurd.",
+  migration: "Migratie 0028_discount_compensation.sql is nog niet gedraaid in Supabase. Er is niets verstuurd.",
+  storage: "Het maken van de code mislukte. Er is niets verstuurd; kijk in de logs.",
+};
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (

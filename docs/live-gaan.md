@@ -77,3 +77,6 @@ De betaalknop zegt dan "We konden de betaling niet starten. Er is niets afgeschr
 ## Staat de kortingscode in de mail? (Stap 234)
 Alleen als migratie `0027_discount_codes.sql` is gedraaid. Controleer `https://www.windowinto.nl/api/health`: `"discountCodes":true`. Zonder de tabel gaat een bestelling gewoon door maar de mail heeft geen codeblok, en `/admin` meldt dat in rood. Bestellingen van vóór de migratie krijgen alsnog een code met `npx tsx --env-file=.env.local scripts/discount-backfill.ts --issue` (zonder `--issue` een proefrun); het script verstuurt niets, de codes worden afgedrukt.
 
+## Een plek klopt niet: compensatiecode sturen (Stap 235)
+De startpagina belooft: mail naar `info`vantagelabs.nl` en je krijgt een extra kortingscode van €2,50. Zo stuur je hem: open in `/admin/orders` de bestelling van de koper (zoek op het ordernummer), ga naar het blok "Kortingscodes en compensatie", noteer eventueel de reden (alleen voor jezelf), vink "Ik wil deze mail nu naar de koper sturen" aan en klik "Mail extra kortingscode van €2,50". De mail gaat naar het adres van de bestelling, in de taal van het boek; antwoorden komen bij `info`vantagelabs.nl` binnen. Hoogstens 3 per bestelling. Eenmalig te draaien in de Supabase SQL-editor, na 0027: `supabase/migrations/0028_discount_compensation.sql`; zonder die migratie meldt het formulier dat hij ontbreekt.
+

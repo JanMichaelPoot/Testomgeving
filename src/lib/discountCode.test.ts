@@ -6,8 +6,10 @@ import {
   VALID_DAYS,
   checkCode,
   createAttemptLimiter,
+  MAX_COMPENSATIONS_PER_ORDER,
   generateCode,
   issueCode,
+  issueCompensation,
   normalizeCode,
   priceAfterDiscount,
   reserveCode,
@@ -23,18 +25,20 @@ interface Row {
   expiresAt: Date;
   reservedUntil: Date | null;
   redeemedAt: Date | null;
+  kind?: string;
 }
 function memoryStore(seedPayments: Record<string, string> = {}) {
   const rows: Row[] = [];
   const orderCode = new Map<string, string>(); // stripe session id of an order -> the code row it uses
   const store: DiscountStore = {
     async findByPayment(paymentId) {
-      const r = rows.find((x) => x.paymentId === paymentId);
+      const r = rows.find((x) => x.paymentId === paymentId && x.kind !== "compensation");
       return r ? { id: r.id, code: r.code, amountCents: r.amountCents, expiresAt: r.expiresAt } : null;
     },
-    async insert({ code, paymentId, amountCents, expiresAt }) {
-      if (rows.some((x) => x.code === code || x.paymentId === paymentId)) return "taken";
-      const r: Row = { id: `id-${rows.length + 1}`, code, paymentId, amountCents, expiresAt, reservedUntil: null, redeemedAt: null };
+    async insert({ code, paymentId, amountCents, expiresAt, kind }) {
+      // a code is unique; an order has one "order" code, and any number of compensation codes (migration 0028)
+      if (rows.some((x) => x.code === code || (kind !== "compensation" && x.paymentId === paymentId && x.kind !== "compensation"))) return "taken";
+      const r: Row = { id: `id-${rows.length + 1}`, code, paymentId, amountCents, expiresAt, reservedUntil: null, redeemedAt: null, kind };
       rows.push(r);
       return { id: r.id, code, amountCents, expiresAt };
     },
@@ -201,5 +205,50 @@ describe("the brake on guessing", () => {
     expect(allow("other")).toBe(true);
     t = 1500;
     expect(allow("s")).toBe(true);
+  });
+});
+
+describe("compensation codes (Step 235)", () => {
+  it("gives an order any number of extra codes next to the one it earned, each worth EUR 2.50 and valid for 90 days", async () => {
+    const { store, rows } = memoryStore();
+    const earned = (await issueCode(store, "pay-1", NOW))!;
+    const first = await issueCompensation(store, "pay-1", "Plek X was gesloten", NOW);
+    const second = await issueCompensation(store, "pay-1", "", NOW);
+    expect(first).toMatchObject({ ok: true, code: { amountCents: 250 } });
+    expect(second.ok && first.ok && second.code.code !== first.code.code && first.code.code !== earned.code).toBe(true);
+    expect(rows.filter((r) => r.paymentId === "pay-1")).toHaveLength(3);
+    expect(first.ok && first.code.expiresAt.getTime() - NOW.getTime()).toBe(VALID_DAYS * 86_400_000);
+    // the code the order earned by ordering is still the one asked for, and still one per order
+    expect((await issueCode(store, "pay-1", NOW))!.code).toBe(earned.code);
+    expect(rows.filter((r) => r.paymentId === "pay-1" && r.kind !== "compensation")).toHaveLength(1);
+    expect(MAX_COMPENSATIONS_PER_ORDER).toBe(3);
+  });
+
+  it("is a code like any other: it can be checked, held and used up", async () => {
+    const { store } = memoryStore();
+    const made = await issueCompensation(store, "pay-1", "x", NOW);
+    expect(made.ok).toBe(true);
+    const code = made.ok ? made.code.code : "";
+    expect((await reserveCode(store, code, NOW)).ok).toBe(true);
+    expect(await reserveCode(store, code, NOW)).toEqual({ ok: false, reason: "busy" });
+  });
+
+  it("says 'migration' when the columns of migration 0028 are not there, and 'storage' for any other failure", async () => {
+    const { store } = memoryStore();
+    const err = vi.spyOn(console, "error").mockImplementation(() => {});
+    const noColumns: DiscountStore = { ...store, insert: async () => { throw new Error("Could not find the 'kind' column of 'discount_codes' in the schema cache"); } };
+    expect(await issueCompensation(noColumns, "pay-1", "x", NOW)).toEqual({ ok: false, error: "migration" });
+    const down: DiscountStore = { ...store, insert: async () => { throw new Error("connection refused"); } };
+    expect(await issueCompensation(down, "pay-1", "x", NOW)).toEqual({ ok: false, error: "storage" });
+    err.mockRestore();
+  });
+
+  it("keeps the note short and for the owner only", async () => {
+    const { store, rows } = memoryStore();
+    const seen: string[] = [];
+    const spy: DiscountStore = { ...store, insert: async (i) => { seen.push(i.reason ?? ""); return store.insert(i); } };
+    await issueCompensation(spy, "pay-1", `  ${"x".repeat(500)}  `, NOW);
+    expect(seen[0]).toHaveLength(300);
+    expect(rows).toHaveLength(1);
   });
 });

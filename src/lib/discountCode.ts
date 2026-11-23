@@ -59,10 +59,10 @@ export type DiscountCheck = { ok: true; id: string; code: string; amountCents: n
 
 /** What the rules need from the storage. The Supabase store below is the real one, a test hands in an in-memory one. */
 export interface DiscountStore {
-  /** The code earned by this order, or null. */
+  /** The code this order earned by ordering (its first one: compensation codes come later), or null. */
   findByPayment(paymentId: string): Promise<(IssuedCode & { id: string }) | null>;
   /** Stores a new code for an order; null when the code is already taken by another (the caller then tries another), or an error when the storage fails. */
-  insert(input: { code: string; paymentId: string; amountCents: number; expiresAt: Date }): Promise<(IssuedCode & { id: string }) | "taken">;
+  insert(input: { code: string; paymentId: string; amountCents: number; expiresAt: Date; kind?: "order" | "compensation"; reason?: string }): Promise<(IssuedCode & { id: string }) | "taken">;
   /** The row of a code, with what is needed to tell why it cannot be used. */
   findByCode(code: string): Promise<{ id: string; code: string; amountCents: number; expiresAt: Date; redeemedAt: Date | null; reservedUntil: Date | null } | null>;
   /** One atomic step: holds the code until `until` if it is not used up, not expired and not held by somebody else. Returns what was held, or null. */
@@ -133,6 +133,29 @@ export async function reserveCode(store: DiscountStore, raw: string, now: Date =
   }
 }
 
+/** The most compensation codes one order can get from the admin: a brake on a slip of the finger, not a business rule. */
+export const MAX_COMPENSATIONS_PER_ORDER = 3;
+
+export type CompensationResult = { ok: true; code: IssuedCode } | { ok: false; error: "storage" | "migration" };
+
+/**
+ * A compensation code (Step 235): another code for an order, worth the same as the one it earned, for a buyer whose book had a place that was wrong. Each call makes a new one;
+ * "reason" is a note for the owner (never shown to the buyer). Needs migration 0028 (it says "migration" when the columns are not there).
+ */
+export async function issueCompensation(store: DiscountStore, paymentId: string, reason: string, now: Date = new Date(), pick?: (n: number) => number): Promise<CompensationResult> {
+  try {
+    for (let attempt = 0; attempt < 6; attempt++) {
+      const stored = await store.insert({ code: generateCode(pick), paymentId, amountCents: DISCOUNT_CENTS, expiresAt: addDays(now, VALID_DAYS), kind: "compensation", reason: reason.trim().slice(0, 300) });
+      if (stored !== "taken") return { ok: true, code: { code: stored.code, amountCents: stored.amountCents, expiresAt: stored.expiresAt } };
+    }
+    return { ok: false, error: "storage" };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("WINDOW: could not issue a compensation code (has migration 0028 been run?):", message);
+    return { ok: false, error: /kind|reason|column/i.test(message) ? "migration" : "storage" };
+  }
+}
+
 /** Lets a held code go when the order could not be started. Never throws: a code that stays held frees itself when the hold runs out. */
 export async function releaseCode(store: DiscountStore, id: string): Promise<void> {
   try {
@@ -168,14 +191,17 @@ export function supabaseStore(supabase: SupabaseClient): DiscountStore {
   const issued = (r: Row) => ({ id: r.id, code: r.code, amountCents: r.amount_cents, expiresAt: new Date(r.expires_at) });
   return {
     async findByPayment(paymentId) {
-      const { data, error } = await supabase.from("discount_codes").select("id, code, amount_cents, expires_at").eq("issued_for_payment_id", paymentId).maybeSingle();
+      // The first code of the order is the one it earned by ordering (a compensation code is made later); asked this way it also works before migration 0028.
+      const { data, error } = await supabase.from("discount_codes").select("id, code, amount_cents, expires_at").eq("issued_for_payment_id", paymentId).order("created_at", { ascending: true }).limit(1);
       if (error) throw new Error(error.message);
-      return data ? issued(data as Row) : null;
+      const first = (data ?? [])[0];
+      return first ? issued(first as Row) : null;
     },
-    async insert({ code, paymentId, amountCents, expiresAt }) {
+    async insert({ code, paymentId, amountCents, expiresAt, kind, reason }) {
+      // The columns of migration 0028 are only written for a compensation code: the code of an order works without that migration.
       const { data, error } = await supabase
         .from("discount_codes")
-        .insert({ code, issued_for_payment_id: paymentId, amount_cents: amountCents, expires_at: expiresAt.toISOString() })
+        .insert({ code, issued_for_payment_id: paymentId, amount_cents: amountCents, expires_at: expiresAt.toISOString(), ...(kind === "compensation" ? { kind, reason: reason ?? null } : {}) })
         .select("id, code, amount_cents, expires_at")
         .single();
       if (error) {
