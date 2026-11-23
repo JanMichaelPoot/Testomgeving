@@ -159,7 +159,8 @@ export function CheckoutPanel({
     startTransition(async () => {
       try {
         await beforePay?.();
-        await createCheckoutSession(
+        // Only a failure comes back (as a message); a good start is a redirect and never returns.
+        const failed = await createCheckoutSession(
           termsAccepted,
           digitalDeliveryConsent,
           // The two optional opt-ins (repetition memory, the one follow-up e-mail) are no longer offered here: the memory keeps what the
@@ -169,6 +170,7 @@ export function CheckoutPanel({
           false,
           applied?.code,
         );
+        if (failed && failed.ok === false) setError(failed.error);
       } catch (err) {
         // Next.js redirect() throws internally on success (to Stripe
         // Checkout) — let that propagate instead of showing it as an error.

@@ -8,6 +8,8 @@ const CHECKOUT_DICT = {
   errorTermsRequired: "Je moet akkoord gaan met de Algemene Voorwaarden.",
   errorConsentRequired: "Je moet instemmen met directe digitale levering.",
   errorEmailRequired: "Vul een geldig e-mailadres in.",
+  errorGeneric: "Er ging iets mis bij het openen van de checkout.",
+  errorStartFailed: "We konden de betaling niet starten. Er is niets afgeschreven.",
   discount: {
     errors: { invalid: "Code onbekend.", used: "Code al gebruikt.", expired: "Code verlopen.", busy: "Code in gebruik.", unavailable: "Codes niet beschikbaar.", limit: "Te veel pogingen." },
     stripeName: "Kortingscode",
@@ -56,6 +58,11 @@ vi.mock("@/lib/stripe", () => ({
       },
     },
   })),
+}));
+
+let ownerLoggedIn = false;
+vi.mock("@/lib/adminAuth", () => ({
+  isAdminAuthenticated: vi.fn(async () => ownerLoggedIn),
 }));
 
 vi.mock("@/lib/orderNumber", () => ({
@@ -205,6 +212,7 @@ beforeEach(() => {
   prewarmCalls.length = 0;
   couponParams.length = 0;
   couponFails = false;
+  ownerLoggedIn = false;
   redeemed.length = 0;
   codeRows.length = 0;
   codeRows.push({ id: "code-1", code: "WI-ABCD-EFGH", amountCents: 250, expiresAt: new Date(Date.now() + 30 * 86_400_000), reservedUntil: null, redeemedAt: null });
@@ -223,34 +231,28 @@ describe("createCheckoutSession — server-side compliance validation", () => {
   // (disabled DOM attributes, a direct fetch to the action). These tests
   // are the actual gate.
   it("rejects when the terms checkbox was not accepted", async () => {
-    await expect(createCheckoutSession(false, true)).rejects.toThrow(
-      CHECKOUT_DICT.errorTermsRequired
-    );
+    await expect(createCheckoutSession(false, true)).resolves.toEqual({ ok: false, error: CHECKOUT_DICT.errorTermsRequired });
     expect(callLog).toEqual([]);
   });
 
   it("rejects when the digital-delivery/withdrawal consent checkbox was not accepted", async () => {
-    await expect(createCheckoutSession(true, false)).rejects.toThrow(
-      CHECKOUT_DICT.errorConsentRequired
-    );
+    await expect(createCheckoutSession(true, false)).resolves.toEqual({ ok: false, error: CHECKOUT_DICT.errorConsentRequired });
     expect(callLog).toEqual([]);
   });
 
   it("rejects when neither checkbox was accepted, with the terms error taking priority", async () => {
-    await expect(createCheckoutSession(false, false)).rejects.toThrow(
-      CHECKOUT_DICT.errorTermsRequired
-    );
+    await expect(createCheckoutSession(false, false)).resolves.toEqual({ ok: false, error: CHECKOUT_DICT.errorTermsRequired });
   });
 
   it("rejects a missing or malformed delivery e-mail before any order, consent or Stripe step", async () => {
     for (const email of [undefined, "", "   ", "no-at-sign", "a@b", "two words@example.com"]) {
-      await expect(createCheckoutSession(true, true, undefined, email)).rejects.toThrow(CHECKOUT_DICT.errorEmailRequired);
+      await expect(createCheckoutSession(true, true, undefined, email)).resolves.toEqual({ ok: false, error: CHECKOUT_DICT.errorEmailRequired });
     }
     expect(callLog).toEqual([]);
   });
 
   it("never reaches Stripe or writes any order/consent row when validation fails", async () => {
-    await expect(createCheckoutSession(false, false)).rejects.toThrow();
+    await expect(createCheckoutSession(false, false)).resolves.toMatchObject({ ok: false });
     expect(callLog).not.toContain("stripe.checkout.sessions.create");
     expect(callLog).not.toContain("payments.insert");
     expect(callLog).not.toContain("recordTermsAcceptance");
@@ -292,7 +294,7 @@ describe("createCheckoutSession — the search for places starts while the buyer
   });
 
   it("schedules nothing when validation fails", async () => {
-    await expect(createCheckoutSession(true, true, undefined, "nope")).rejects.toThrow();
+    await expect(createCheckoutSession(true, true, undefined, "nope")).resolves.toMatchObject({ ok: false });
     expect(afterCallbacks).toHaveLength(0);
   });
 });
@@ -448,7 +450,7 @@ describe("createCheckoutSession — a one-time discount code (Step 230)", () => 
       ["WI-ABCD-EFGH", "Code in gebruik.", () => { codeRows[0].expiresAt = new Date(Date.now() + 86_400_000); codeRows[0].reservedUntil = new Date(Date.now() + 600_000); }],
     ] as const) {
       mutate();
-      await expect(createCheckoutSession(true, true, undefined, EMAIL, false, typed)).rejects.toThrow(expected);
+      await expect(createCheckoutSession(true, true, undefined, EMAIL, false, typed)).resolves.toEqual({ ok: false, error: expected });
     }
     expect(stripeParams).toHaveLength(0);
     expect(orderRows).toHaveLength(0);
@@ -457,7 +459,9 @@ describe("createCheckoutSession — a one-time discount code (Step 230)", () => 
 
   it("lets the code go again when the order cannot be started at Stripe", async () => {
     couponFails = true;
-    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH")).rejects.toThrow("stripe is down");
+    const err = vi.spyOn(console, "error").mockImplementation(() => {});
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH")).resolves.toEqual({ ok: false, error: CHECKOUT_DICT.errorStartFailed });
+    err.mockRestore();
     expect(codeRows[0].reservedUntil).toBeNull();
     expect(orderRows).toHaveLength(0);
   });
@@ -478,5 +482,45 @@ describe("createCheckoutSession — a one-time discount code (Step 230)", () => 
     expect(stripeParams).toHaveLength(0);
     expect(couponParams).toHaveLength(0);
     expect(redeemed).toEqual([String(orderRows[0].stripe_payment_id)]);
+  });
+});
+
+describe("createCheckoutSession — a payment that cannot be started comes back as a message, never as a crash (23 Nov 2026)", () => {
+  // Live: Stripe refuses (a wrong or inactive live key, Stripe down). In production Next.js hides the text of a thrown server-action error and reloads the page, which
+  // sent the visitor back to the profile screen with nothing explained. The action now answers with a message and says what happened in one log line.
+  const stripeFailure = () => Object.assign(new Error("Invalid API Key provided: sk_live_*****abcd"), { type: "StripeAuthenticationError", code: "api_key_invalid", statusCode: 401 });
+
+  it("answers with the message that nothing was charged, writes no order, and logs the cause in one line without anything private", async () => {
+    couponFails = true; // the coupon is made first when a code is used: any Stripe call that fails stands for Stripe failing
+    const lines: string[] = [];
+    const err = vi.spyOn(console, "error").mockImplementation((line: unknown) => {
+      lines.push(String(line));
+    });
+    const result = await createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH");
+    err.mockRestore();
+    expect(result).toEqual({ ok: false, error: CHECKOUT_DICT.errorStartFailed });
+    expect(orderRows).toHaveLength(0);
+    const logged = JSON.parse(lines.find((l) => l.includes("checkout_start_failed"))!);
+    expect(logged).toMatchObject({ level: "error", event: "checkout_start_failed", name: "Error", message: "stripe is down" });
+    expect(JSON.stringify(logged)).not.toContain(EMAIL);
+  });
+
+  it("shows the owner (logged in at /admin in this browser) the cause as well, and nobody else", async () => {
+    couponFails = true;
+    const err = vi.spyOn(console, "error").mockImplementation(() => {});
+    const visitor = await createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH");
+    ownerLoggedIn = true;
+    const owner = await createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH");
+    err.mockRestore();
+    expect(visitor).toEqual({ ok: false, error: CHECKOUT_DICT.errorStartFailed });
+    expect(owner).toMatchObject({ ok: false });
+    expect((owner as { error: string }).error).toContain(CHECKOUT_DICT.errorStartFailed);
+    expect((owner as { error: string }).error).toContain("stripe is down");
+  });
+
+  it("scrubs keys and e-mail addresses from what it logs and shows", async () => {
+    // exercised through the same path: the helper that cleans the line is the one used for the request-error log
+    const { scrub } = await import("@/lib/requestError");
+    expect(scrub(stripeFailure().message + " for jan@example.nl")).toBe("Invalid API Key provided: sk_live_*****abcd for [email]");
   });
 });

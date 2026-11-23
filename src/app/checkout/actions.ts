@@ -21,6 +21,9 @@ import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { disableDeviceMemory, enableDeviceMemory } from "@/lib/discovery/historyStore";
 import { checkTestQuota } from "@/lib/testQuota";
+import { isAdminAuthenticated } from "@/lib/adminAuth";
+import { isRedirectError } from "@/lib/isRedirectError";
+import { scrub } from "@/lib/requestError";
 import { freeTestOrdersEnabled, newFreeOrderId } from "@/lib/freeTest";
 
 // Model C digital sale compliance: two separate, independently required
@@ -54,7 +57,49 @@ export async function previewDiscount(
   return { ok: true, code: checked.code, amountLabel: formatPrice(locale, price.cents - final), priceLabel: formatPrice(locale, final) };
 }
 
+// A failure the visitor can be told about (a box not ticked, a wrong code, the test limit): its message is for them, in their language.
+class CheckoutFailure extends Error {}
+
+/**
+ * Starts the payment, and only ever comes back with a message: success is a redirect (to Stripe, or to the book in the test phase). Every failure is an answer, not an
+ * exception: in production Next.js hides the text of a thrown server-action error and reloads the page, so a visitor whose payment could not be started (live Stripe set up
+ * wrongly, Stripe down) saw "something went wrong" and was back on the profile screen with nothing explained (23 Nov 2026). Now the screen stays, says nothing was charged,
+ * and the real cause goes to the log as one line ("event":"checkout_start_failed") and, for the owner (logged in at /admin in this browser), is shown on the screen too.
+ */
 export async function createCheckoutSession(
+  termsAccepted: boolean,
+  digitalDeliveryConsent: boolean,
+  rememberDevice?: boolean,
+  deliveryEmail?: string,
+  followUpConsent?: boolean,
+  discountCode?: string,
+): Promise<{ ok: false; error: string }> {
+  try {
+    return await startCheckout(termsAccepted, digitalDeliveryConsent, rememberDevice, deliveryEmail, followUpConsent, discountCode);
+  } catch (err) {
+    // The redirect (to Stripe, or to the book) is how a good start ends: it must reach Next.js.
+    if (isRedirectError(err) || (err instanceof Error && err.message === "NEXT_REDIRECT")) throw err;
+    if (err instanceof CheckoutFailure) return { ok: false, error: err.message };
+    const dict = getDictionary(await getLocale()).checkout;
+    const e = err as { name?: string; message?: string; type?: string; code?: string; statusCode?: number };
+    console.error(
+      JSON.stringify({
+        level: "error",
+        event: "checkout_start_failed",
+        at: new Date().toISOString(),
+        name: e?.name ?? "Error",
+        stripeType: e?.type ?? null,
+        stripeCode: e?.code ?? null,
+        status: e?.statusCode ?? null,
+        message: scrub(String(e?.message ?? err)).slice(0, 300),
+      }),
+    );
+    const owner = await isAdminAuthenticated().catch(() => false);
+    return { ok: false, error: owner ? `${dict.errorStartFailed} [${e?.type ?? e?.name ?? "Error"}: ${scrub(String(e?.message ?? err)).slice(0, 200)}]` : dict.errorStartFailed };
+  }
+}
+
+async function startCheckout(
   termsAccepted: boolean,
   digitalDeliveryConsent: boolean,
   // The optional "remember what I was shown on this device" choice (fase 5): true = opt in,
@@ -66,31 +111,31 @@ export async function createCheckoutSession(
   followUpConsent?: boolean,
   // A one-time discount code from an earlier order (src/lib/discountCode.ts): checked and held here, for this order only.
   discountCode?: string,
-) {
+): Promise<never> {
   const locale = await getLocale();
   const dict = getDictionary(locale).checkout;
 
   if (!termsAccepted) {
-    throw new Error(dict.errorTermsRequired);
+    throw new CheckoutFailure(dict.errorTermsRequired);
   }
   if (!digitalDeliveryConsent) {
-    throw new Error(dict.errorConsentRequired);
+    throw new CheckoutFailure(dict.errorConsentRequired);
   }
   const email = (deliveryEmail ?? "").trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
-    throw new Error(dict.errorEmailRequired);
+    throw new CheckoutFailure(dict.errorEmailRequired);
   }
 
   const sessionId = await getSessionId();
   if (!sessionId) {
-    throw new Error("No active session.");
+    throw new CheckoutFailure(dict.errorGeneric);
   }
 
   const supabase = createServiceRoleClient();
 
   // Test phase limit (src/lib/testQuota.ts): checked again here, the page is not the gate.
   if (!(await checkTestQuota(supabase, sessionId)).allowed) {
-    throw new Error(getDictionary(locale).venster.testLimit.title);
+    throw new CheckoutFailure(getDictionary(locale).venster.testLimit.title);
   }
 
   const { data: intake } = await supabase
@@ -102,7 +147,7 @@ export async function createCheckoutSession(
     .maybeSingle();
 
   if (!intake) {
-    throw new Error("That session could not be found.");
+    throw new CheckoutFailure(dict.errorGeneric);
   }
 
   const siteUrl = getSiteUrl();
@@ -116,7 +161,7 @@ export async function createCheckoutSession(
   let discount: { id: string; amountCents: number } | null = null;
   if ((discountCode ?? "").trim()) {
     const held = await reserveCode(store, discountCode!);
-    if (!held.ok) throw new Error(dict.discount.errors[held.reason]);
+    if (!held.ok) throw new CheckoutFailure(dict.discount.errors[held.reason]);
     discount = { id: held.id, amountCents: held.amountCents };
   }
   const finalCents = discount ? priceAfterDiscount(price.cents, discount.amountCents) : price.cents;

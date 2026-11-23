@@ -131,6 +131,8 @@ export interface Dictionary {
     /** One line under the pay button: why it is safe and how soon the book is there. */
     payAssurance: string;
     payAssuranceFree: string;
+    /** The payment could not be started (Stripe or the database failed): nothing was charged. */
+    errorStartFailed: string;
     /** The one-time discount code a buyer gets in the e-mail after an order (Step 230). {amount} and {price} are filled in. */
     discount: {
       toggle: string;
@@ -712,6 +714,7 @@ const nl: Dictionary = {
     ctaPending: "Checkout wordt geopend…",
     payAssurance: "Veilig betalen via Stripe. Je Idea Book staat binnen 2 minuten klaar.",
     payAssuranceFree: "Gratis in de testfase: je hoeft niet te betalen. Je Idea Book staat binnen 2 minuten klaar.",
+    errorStartFailed: "We konden de betaling niet starten. Er is niets afgeschreven. Probeer het over een minuut nog eens; lukt het dan nog niet, mail ons dan.",
     discount: {
       toggle: "Heb je een kortingscode?",
       label: "Kortingscode",
@@ -1468,6 +1471,7 @@ const en: Dictionary = {
     ctaPending: "Opening checkout…",
     payAssurance: "Pay safely through Stripe. Your Idea Book is ready within 2 minutes.",
     payAssuranceFree: "Free during the test phase: there is nothing to pay. Your Idea Book is ready within 2 minutes.",
+    errorStartFailed: "We could not start the payment. You have not been charged. Please try again in a minute; if it still does not work, email us.",
     discount: {
       toggle: "Have a discount code?",
       label: "Discount code",
