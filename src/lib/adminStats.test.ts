@@ -191,3 +191,21 @@ describe("describeBookCost", () => {
     expect(describeBookCost({ usd: 0.2, capUsd: 0.4, skipped: [], breakdown: {}, pipeline: "classic_after_failure" })).toContain("de kosten daarvan zijn niet gemeten");
   });
 });
+
+describe("overview: a paid book whose mail had no discount code (Step 234)", () => {
+  const paid = (over: Partial<PlanRow>) => plan({ payment_id: "x", email_sent_at: "2026-10-25T10:02:00Z", ...over });
+
+  it("raises a red notice that names the migration, for a recent paid book only", () => {
+    const o = overview([paid({ id: "a", progress_meta: { discount_error: "no discount code was issued" } }), paid({ id: "b" })], [pay({ id: "x" })], NOW);
+    const notice = o.attention.find((a) => a.text.includes("kortingscode"));
+    expect(notice).toMatchObject({ level: "red" });
+    expect(notice!.text).toContain("1 betaald boek kreeg geen kortingscode");
+    expect(notice!.text).toContain("0027_discount_codes.sql");
+  });
+
+  it("says nothing for a book with its code, for a test book, or for one older than two weeks", () => {
+    const old = paid({ id: "o", created_at: "2026-10-01T10:00:00Z", progress_meta: { discount_error: "x" } });
+    const test = plan({ id: "t", progress_meta: { discount_error: "x" } });
+    expect(overview([paid({ id: "a" }), old, test], [pay({ id: "x" })], NOW).attention.some((a) => a.text.includes("kortingscode"))).toBe(false);
+  });
+});

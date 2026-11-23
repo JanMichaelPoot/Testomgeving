@@ -110,17 +110,21 @@ async function recordEmailError(supabase: ServiceRoleClient, planId: string, err
 
 // A mail that was accepted leaves its Resend id and the sender domain with the plan (progress_meta, no migration needed): "sent" only says Resend took it, and to find out
 // what happened to it (delivered, delayed, bounced, held back by the reader's mail server) it has to be looked up in Resend by this id.
-async function recordEmailSent(supabase: ServiceRoleClient, planId: string, sent: { id: string; from: string }): Promise<void> {
+async function recordPlanNote(supabase: ServiceRoleClient, planId: string, patch: ProgressMeta): Promise<void> {
   try {
     const { data } = await supabase.from("window_plans").select("progress_meta").eq("id", planId).single();
-    const from = (/@([^>\s]+)/.exec(sent.from)?.[1] ?? "").toLowerCase().slice(0, 80);
     await supabase
       .from("window_plans")
-      .update({ progress_meta: mergeProgressMeta(data?.progress_meta, { email_id: sent.id, email_from: from }) })
+      .update({ progress_meta: mergeProgressMeta(data?.progress_meta, patch) })
       .eq("id", planId);
   } catch (inner) {
-    console.error("WINDOW: could not record the e-mail id:", inner);
+    console.error("WINDOW: could not record a note with the plan:", inner);
   }
+}
+
+async function recordEmailSent(supabase: ServiceRoleClient, planId: string, sent: { id: string; from: string }): Promise<void> {
+  const from = (/@([^>\s]+)/.exec(sent.from)?.[1] ?? "").toLowerCase().slice(0, 80);
+  await recordPlanNote(supabase, planId, { email_id: sent.id, email_from: from });
 }
 
 async function setProgressStage(
@@ -855,6 +859,8 @@ async function createPaidPlan(order: PaidOrder): Promise<WindowPlanRow> {
           // The one-time code for a next book (src/lib/discountCode.ts): one per paid order, the same one when the book is sent again. A database without the table
           // (migration 0027) gives none, and the mail is sent without that block.
           const discount = await issueCode(supabaseStore(supabase), paymentRow.id);
+          // The mail then goes out without the code block: say so with the plan (and in /admin), so a missing code is never a silent surprise.
+          if (!discount) await recordPlanNote(supabase, plan.id, { discount_error: "no discount code was issued (has migration 0027 been run?)" });
 
           const sent = await sendIdeaBookEmail({
             to: deliveryEmail,

@@ -23,7 +23,14 @@ export async function GET() {
   } catch {
     db = false;
   }
+  // Whether the table of the one-time discount codes is there (migration 0027): without it an order's mail goes out without its code.
+  let discountCodes = false;
+  try {
+    discountCodes = !(await createServiceRoleClient().from("discount_codes").select("id").limit(1)).error;
+  } catch {
+    discountCodes = false;
+  }
   const version = (process.env.VERCEL_GIT_COMMIT_SHA ?? "").slice(0, 7) || null;
   const stripe = stripeModeInfo();
-  return NextResponse.json({ ok: db, db, version, payments: stripe.problem ? "misconfigured" : stripe.mode, freeOrders: freeTestOrdersEnabled(), at: new Date().toISOString() }, { status: db ? 200 : 503, headers });
+  return NextResponse.json({ ok: db, db, version, payments: stripe.problem ? "misconfigured" : stripe.mode, freeOrders: freeTestOrdersEnabled(), discountCodes, at: new Date().toISOString() }, { status: db ? 200 : 503, headers });
 }

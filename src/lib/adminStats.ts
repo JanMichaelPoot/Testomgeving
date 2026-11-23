@@ -16,7 +16,7 @@ export interface PlanRow {
   email_sent_at: string | null;
   payment_id: string | null;
   pdf_version: number | null;
-  progress_meta: { email_error?: string; cost?: BookCostMeta } | null;
+  progress_meta: { email_error?: string; discount_error?: string; cost?: BookCostMeta } | null;
   ideas_json: unknown;
   wildcard_json: unknown;
   feedback_json: unknown;
@@ -205,6 +205,14 @@ export function overview(plans: readonly PlanRow[], payments: readonly PaymentRo
     attention.push({
       level: "red",
       text: `${unsent.length} betaald boek${unsent.length === 1 ? "" : "en"} zonder verstuurde e-mail (laatste 14 dagen).${help ? ` ${help.cause} ${help.fix}` : ' Zie de reden onder "E-mail".'}`,
+    });
+  }
+  // A paid order whose mail went out without its discount code (migration 0027 not run, or the database failed): the buyer was promised one.
+  const noCode = paidReady.filter((p) => p.progress_meta?.discount_error && t - Date.parse(p.created_at) < 14 * DAY);
+  if (noCode.length) {
+    attention.push({
+      level: "red",
+      text: `${noCode.length} betaald boek${noCode.length === 1 ? "" : "en"} kreeg geen kortingscode in de e-mail (laatste 14 dagen). Draai migratie 0027_discount_codes.sql in Supabase en controleer /api/health ("discountCodes":true).`,
     });
   }
   const pendingPayments = payments.filter((p) => p.status === "pending" && t - Date.parse(p.created_at) > DAY);

@@ -81,6 +81,8 @@ export type ProgressMeta = {
   /** The id Resend gave the delivery mail, and the sender domain it went out from ("resend.dev" means the test sender): to look the mail up in the Resend dashboard. */
   email_id?: string;
   email_from?: string;
+  /** The order earned a discount code but none could be issued (migration 0027 not run, or the database failed): the mail went out without it. */
+  discount_error?: string;
   cost?: BookCostMeta;
 };
 
