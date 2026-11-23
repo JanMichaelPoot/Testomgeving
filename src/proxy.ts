@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
+import { LOCALE_COOKIE_NAME, langParam } from "@/lib/locale";
 
 // A per-request nonce for the CSP's script-src, following Next.js's own
 // documented recipe: https://nextjs.org/docs/app/guides/content-security-policy
@@ -48,6 +49,17 @@ function buildCsp(nonce: string): string {
 }
 
 export async function proxy(request: NextRequest) {
+  // A link with ?lang=en (or nl) is a language choice, the same as the toggle: the cookie is set and the page is opened again without the parameter, so the address that stays
+  // is the clean one. Pages only, not the API (its own ?lang= belongs to the place suggestions), and only for a plain page request.
+  const wanted = langParam(request.nextUrl.searchParams.get("lang"));
+  if (wanted && request.method === "GET" && !request.nextUrl.pathname.startsWith("/api/")) {
+    const clean = request.nextUrl.clone();
+    clean.searchParams.delete("lang");
+    const redirect = NextResponse.redirect(clean);
+    redirect.cookies.set(LOCALE_COOKIE_NAME, wanted, { sameSite: "lax", secure: process.env.NODE_ENV === "production", maxAge: 60 * 60 * 24 * 365, path: "/" });
+    return redirect;
+  }
+
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
   const csp = buildCsp(nonce);
 

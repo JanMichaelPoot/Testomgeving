@@ -202,3 +202,26 @@ test.describe("no connection hint", () => {
     await expect(page.getByTestId("audience-pill")).toHaveText("Voor mezelf");
   });
 });
+
+// A link that carries its language: windowinto.nl/?lang=en opens in English for someone whose browser and country say Dutch, sets the same cookie as the toggle,
+// and leaves the clean address behind. The API keeps its own ?lang= (place suggestions).
+test.describe("a link with ?lang=", () => {
+  test.use({ viewport: { width: 1280, height: 900 }, locale: "nl-NL" });
+
+  test("?lang=en opens the page in English, keeps it on the next page, and the address is clean", async ({ page }) => {
+    await page.goto("/?lang=en");
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await page.goto("/privacy");
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await page.goto("/?lang=nl&utm_source=mail");
+    await expect(page).toHaveURL(/utm_source=mail/);
+    await expect(page).not.toHaveURL(/lang=/);
+    await expect(page.locator("html")).toHaveAttribute("lang", "nl");
+  });
+
+  test("the place suggestions API still takes its own lang parameter", async ({ request }) => {
+    const res = await request.get("/api/location-suggest?q=Utrecht&lang=en");
+    expect(res.status()).toBe(200);
+  });
+});

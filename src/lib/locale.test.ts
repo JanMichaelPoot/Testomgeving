@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { detectLocale, freeWord } from "@/lib/locale";
+import { detectLocale, freeWord, langParam } from "@/lib/locale";
 
 describe("detectLocale", () => {
   it("starts in Dutch in the Netherlands and Belgium, whatever the browser says", () => {
@@ -30,5 +30,17 @@ describe("freeWord", () => {
   it("is the word for no cost in the book's language", () => {
     expect(freeWord("nl")).toBe("Gratis");
     expect(freeWord("en")).toBe("Free");
+  });
+});
+
+describe("langParam (a link that carries its language)", () => {
+  it("accepts the two supported languages in any case and refuses everything else", () => {
+    expect(langParam("en")).toBe("en");
+    expect(langParam("NL")).toBe("nl");
+    expect(langParam(" en ")).toBe("en");
+    expect(langParam("de")).toBeNull();
+    expect(langParam("")).toBeNull();
+    expect(langParam(null)).toBeNull();
+    expect(langParam(undefined)).toBeNull();
   });
 });

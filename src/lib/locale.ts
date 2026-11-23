@@ -16,6 +16,15 @@ export function languageLabel(code: string): string {
   return SUPPORTED_LOCALES.find((locale) => locale.code === code)?.label ?? code;
 }
 
+/**
+ * A link that carries its own language: "?lang=en" or "?lang=nl" (a link to share with an English or a Dutch reader, in a mail or a post). Anything else is no choice.
+ * The proxy turns it into the language cookie, so it is the same choice as the toggle.
+ */
+export function langParam(value: string | null | undefined): Locale | null {
+  const v = (value ?? "").trim().toLowerCase();
+  return SUPPORTED_LOCALES.some((l) => l.code === v) ? (v as Locale) : null;
+}
+
 /** The word for "no cost" in a book's language: written into the prompts, and the fallback in localizeBook. */
 export function freeWord(locale: string): string {
   return locale === "nl" ? "Gratis" : "Free";
