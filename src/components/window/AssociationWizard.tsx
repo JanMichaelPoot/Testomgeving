@@ -22,6 +22,8 @@ import { themeNameInSentence } from "@/lib/discovery/themeFit";
 import type { ConcretePool } from "@/lib/discovery/concretePool";
 import { buildProfileStory } from "@/lib/discovery/profileStory";
 import { ProfileStep, type ReadingRequest } from "@/components/window/ProfileStep";
+import { SearchBrief } from "@/components/window/SearchBrief";
+import { buildSearchBrief } from "@/lib/searchBrief";
 import { interpretProfile } from "@/app/intake/interpret";
 import { directionOrder, initialDirections, rotateDirections, sampleRoundCards, sampleWorldExamples } from "@/lib/discovery/associationSampling";
 import { loadSeen, recordSeen } from "@/lib/associationSeen";
@@ -1570,6 +1572,29 @@ export function AssociationWizard({
             readingRequest={readingRequest}
             fetchReading={interpretProfile}
             orderCue={dict.nav.scrollCue}
+            brief={
+              flow2 ? (
+                <SearchBrief
+                  brief={buildSearchBrief(
+                    {
+                      searchContext: answers.searchContext,
+                      recipientName: answers.recipientName,
+                      location: answers.location,
+                      countryName: countries.find((c) => c.code === country)?.name,
+                      distanceKm: answers.searchDistanceKm ?? DEFAULT_DISTANCE_KM,
+                      timeLabel: intakeDict.timeAvailable.options.find((o) => o.value === answers.timeAvailable)?.label,
+                      budgetLabel: budgetStepIndex(answers.budget) >= 0 && BUDGET_STEPS[budgetStepIndex(answers.budget)].euro !== null ? dict.start.budget.upTo.replace("{n}", String(BUDGET_STEPS[budgetStepIndex(answers.budget)].euro)) : "",
+                      limits: limitChips,
+                      picks: (droppedFor === limitsKey ? picks.filter((id) => !dropped.some((d) => d.id === id)) : picks).map((id) => poolById.get(id)?.label).filter((l): l is string => !!l),
+                      surpriseMe: answers.surpriseMe,
+                    },
+                    dict.brief,
+                  )}
+                  copy={dict.brief}
+                  onEdit={(row) => go(pages.indexOf(row.editPage === "concrete" ? "concrete" : "start"))}
+                />
+              ) : undefined
+            }
             notes={
               flow2 && dropped.length > 0 ? (
                 <section className="mt-10 rounded-lg border border-gold/60 bg-paper p-5" aria-labelledby="dropped-title">

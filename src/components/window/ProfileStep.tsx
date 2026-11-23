@@ -107,6 +107,7 @@ export function ProfileStep({
   lead,
   windowView,
   payment,
+  brief,
   notes,
   readingRequest,
   fetchReading,
@@ -121,6 +122,8 @@ export function ProfileStep({
   windowView: ReactNode;
   /** The order block (price, what you get, the payment): the right-hand column, so there is no separate checkout page. */
   payment: ReactNode;
+  /** The search profile ("Jouw zoekprofiel"): what the book is searched for, above the order on a phone and next to it on a computer. Left out where there is none (the older intakes). */
+  brief?: ReactNode;
   /** Optional notes under the reading (the two-page intake names a chosen activity that a limit rules out). */
   notes?: ReactNode;
   /** The choices the model-written reading is made from; null (or no fetcher) keeps the fixed reading. */
@@ -177,6 +180,9 @@ export function ProfileStep({
           </article>
 
           {notes}
+          {/* The search profile closes the left column: on a phone, where the columns follow each other, it stands right above the order; on a computer it is in view
+              next to the order, which keeps its place at the top of the screen. */}
+          {brief && <div className="mt-10">{brief}</div>}
         </div>
 
         {/* Right: the order, in view next to the reading on a computer; below it, behind a cue, on a phone. */}

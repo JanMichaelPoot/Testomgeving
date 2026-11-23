@@ -248,6 +248,25 @@ export interface VensterDictionary {
   };
   panes: { worlds: string; places: string; moments: string; senses: string; surprise: string };
   sill: { empty: string; with: string };
+  /** The search profile on the last screen, right above the order: what the book is searched for, each row with a way back to change it. */
+  brief: {
+    kicker: string;
+    heading: string;
+    sub: string;
+    edit: string;
+    /** Read out by a screen reader for the change link of a row: {row} is the row's label. */
+    editFor: string;
+    rows: Record<"who" | "where" | "time" | "budget" | "limits" | "picks", string>;
+    empty: { time: string; budget: string; limits: string; picks: string; surprise: string };
+    who: { self: string; other: string; named: string; group: string; child: string; childNamed: string };
+    /** Conditions that follow from who it is for (the engine keeps to them): shown next to what the person ticked. */
+    rules: { child: string; group: string };
+    within: string;
+    over100: string;
+    foot: string;
+    footWithin: string;
+    footWide: string;
+  };
   checkout: {
     heading: string;
     headingGift: string;
@@ -905,6 +924,22 @@ export const vensterNl: VensterDictionary = {
   },
   panes: { worlds: "Richting", places: "Plek", moments: "Moment", senses: "Zintuig", surprise: "Verras me" },
   sill: { empty: "Elke keuze krijgt een plek in je venster.", with: "met" },
+  brief: {
+    kicker: "Voordat we beginnen",
+    heading: "Jouw zoekprofiel",
+    sub: "Hiermee gaan we op zoek naar echte plekken. Klopt er iets niet? Pas het hier nog even aan, daarna schrijven we je boek.",
+    edit: "Wijzig",
+    editFor: "Wijzig: {row}",
+    rows: { who: "Voor wie", where: "Waar", time: "Tijd", budget: "Budget", limits: "Randvoorwaarden", picks: "Jouw keuzes" },
+    empty: { time: "Niet opgegeven", budget: "Maakt niet uit", limits: "Geen bijzonderheden", picks: "Nog niets gekozen", surprise: "Jij laat je verrassen" },
+    who: { self: "Voor mezelf", other: "Voor iemand anders", named: "Voor {name}", group: "Voor een groep", child: "Voor een kind", childNamed: "Voor {name} (kind)" },
+    rules: { child: "Alleen wat geschikt is voor kinderen", group: "Het liefst samen te doen" },
+    within: "Binnen {km} km",
+    over100: "Meer dan 100 km",
+    foot: "We zoeken naar echte plekken {where}.",
+    footWithin: "binnen {km} km van {place}",
+    footWide: "in een groot gebied rond {place}",
+  },
   checkout: {
     heading: "Je venster is vol. Nu jouw Idea Book.",
     headingGift: "Het venster voor {name} is vol. Nu het Idea Book. ‖ Het venster is vol. Nu het Idea Book.",
@@ -1561,6 +1596,22 @@ export const vensterEn: VensterDictionary = {
   },
   panes: { worlds: "Direction", places: "Place", moments: "Moment", senses: "Sense", surprise: "Surprise me" },
   sill: { empty: "Every choice finds a place in your window.", with: "with" },
+  brief: {
+    kicker: "Before we begin",
+    heading: "Your search profile",
+    sub: "This is what we search real places from. Something not right? Change it here, then we write your book.",
+    edit: "Change",
+    editFor: "Change: {row}",
+    rows: { who: "Who for", where: "Where", time: "Time", budget: "Budget", limits: "Conditions", picks: "Your choices" },
+    empty: { time: "Not given", budget: "Doesn't matter", limits: "Nothing in particular", picks: "Nothing chosen yet", surprise: "You let us surprise you" },
+    who: { self: "For myself", other: "For someone else", named: "For {name}", group: "For a group", child: "For a child", childNamed: "For {name} (child)" },
+    rules: { child: "Only what suits children", group: "Best done together" },
+    within: "Within {km} km",
+    over100: "More than 100 km",
+    foot: "We search for real places {where}.",
+    footWithin: "within {km} km of {place}",
+    footWide: "across a wide area around {place}",
+  },
   checkout: {
     heading: "Your window is full. Now your Idea Book.",
     headingGift: "{name}'s window is full. Now the Idea Book. ‖ The window is full. Now the Idea Book.",
