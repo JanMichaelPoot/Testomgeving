@@ -201,7 +201,9 @@ export interface Dictionary {
     downloadHeading: string;
     downloadNow: string;
     pdfUnavailable: string;
+    /** {address} is the delivery address with its name hidden (maskEmail); the second sentence is shown with it. */
     emailedCopy: string;
+    emailedCopyTo: string;
     emailNotSent: string;
     shareButtonLabel: string;
     shareCopiedLabel: string;
@@ -819,6 +821,7 @@ const nl: Dictionary = {
     downloadNow: "Download nu de PDF",
     pdfUnavailable: "Je PDF is nog niet beschikbaar. Ververs de pagina over een moment, of kijk in je e-mail.",
     emailedCopy: "We hebben ook een kopie gemaild.",
+    emailedCopyTo: "We hebben ook een kopie gemaild naar {address}. Niet binnen? Kijk in je ongewenste mail of spam. Je boek blijft ook hier staan, en de PDF kun je hierboven downloaden.",
     emailNotSent: "De e-mail met je boek is niet aangekomen. Download de PDF hier: hij blijft beschikbaar.",
     shareButtonLabel: "Deel je Idea Book",
     shareCopiedLabel: "Link gekopieerd!",
@@ -1576,6 +1579,7 @@ const en: Dictionary = {
     downloadNow: "Download the PDF now",
     pdfUnavailable: "Your PDF isn't available yet. Refresh the page in a moment, or check your e-mail.",
     emailedCopy: "We've also emailed a copy.",
+    emailedCopyTo: "We've also emailed a copy to {address}. Not there? Check your junk or spam folder. Your book also stays here, and you can download the PDF above.",
     emailNotSent: "The e-mail with your book did not arrive. Download the PDF here: it stays available.",
     shareButtonLabel: "Share your Idea Book",
     shareCopiedLabel: "Link copied!",

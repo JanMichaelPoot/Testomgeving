@@ -32,6 +32,7 @@ import { parseAssociationSources } from "@/lib/discovery/associations";
 import { buildIdeaThreads } from "@/lib/ideaThread";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import { displayPlace } from "@/lib/place";
+import { maskEmail } from "@/lib/maskEmail";
 import { IDEA_LINK_PARAM, parseIdeaParam } from "@/lib/ideaKeys";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -305,6 +306,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           pdfUrl={pdfUrl}
           shareUrl={`${getSiteUrl()}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
           showEmailedCopy={!testSessionId && !!plan.email_sent_at}
+          emailedTo={testSessionId ? null : maskEmail(plan.recipient_email)}
           // Only a recorded failure counts: while the mail is still being sent neither note is shown.
           emailNotSent={!testSessionId && !plan.email_sent_at && !!plan.progress_meta?.email_error}
           canInteract={canInteract}

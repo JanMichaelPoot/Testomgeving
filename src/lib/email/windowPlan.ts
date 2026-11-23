@@ -261,7 +261,7 @@ export async function sendIdeaBookEmail(
   const { to, pdfBytes, ...rest } = params;
   const { subject, html, text } = buildIdeaBookEmail(rest);
 
-  await sendEmail({
+  return sendEmail({
     from: process.env.EMAIL_FROM!,
     to,
     subject,

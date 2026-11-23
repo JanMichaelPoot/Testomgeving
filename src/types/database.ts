@@ -74,7 +74,15 @@ export type BookCostMeta = {
   pipeline?: "classic" | "classic_after_failure";
 };
 // What the generation knew at a step (0018_progress_meta.sql): counts only, plus the cost of the finished book.
-export type ProgressMeta = { ideas?: number; places?: number; email_error?: string; cost?: BookCostMeta };
+export type ProgressMeta = {
+  ideas?: number;
+  places?: number;
+  email_error?: string;
+  /** The id Resend gave the delivery mail, and the sender domain it went out from ("resend.dev" means the test sender): to look the mail up in the Resend dashboard. */
+  email_id?: string;
+  email_from?: string;
+  cost?: BookCostMeta;
+};
 
 // Model C digital sale compliance (see supabase/migrations
 // /0010_digital_sales_compliance.sql) — which legal document a

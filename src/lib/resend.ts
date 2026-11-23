@@ -34,14 +34,17 @@ export function isUnverifiedDomainError(error: { name?: string; message?: string
   return !!error && /domain/i.test(error.message ?? "") && /(not verified|not\s+registered|is not allowed)/i.test(error.message ?? "");
 }
 
-export async function sendEmail(payload: CreateEmailOptions): Promise<{ id: string }> {
+/** The id Resend gave the message (look it up in the Resend dashboard under Emails), and the sender it really went out from: the test sender when the domain was refused. */
+export async function sendEmail(payload: CreateEmailOptions): Promise<{ id: string; from: string }> {
+  let usedFrom: string = payload.from ?? "";
   let { data, error } = await getResend().emails.send(payload);
   if ((error || !data) && isUnverifiedDomainError(error) && payload.from !== TEST_SENDER) {
+    usedFrom = TEST_SENDER;
     console.warn(`WINDOW: Resend refused the sender (${error?.message}); trying once from the test sender`);
     ({ data, error } = await getResend().emails.send({ ...payload, from: TEST_SENDER }));
   }
   if (error || !data) {
     throw new Error(`Resend rejected the e-mail: ${error?.name ?? "unknown"} — ${error?.message ?? "no response data"}`);
   }
-  return { id: data.id };
+  return { id: data.id, from: usedFrom };
 }

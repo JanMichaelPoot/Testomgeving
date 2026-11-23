@@ -108,6 +108,21 @@ async function recordEmailError(supabase: ServiceRoleClient, planId: string, err
   }
 }
 
+// A mail that was accepted leaves its Resend id and the sender domain with the plan (progress_meta, no migration needed): "sent" only says Resend took it, and to find out
+// what happened to it (delivered, delayed, bounced, held back by the reader's mail server) it has to be looked up in Resend by this id.
+async function recordEmailSent(supabase: ServiceRoleClient, planId: string, sent: { id: string; from: string }): Promise<void> {
+  try {
+    const { data } = await supabase.from("window_plans").select("progress_meta").eq("id", planId).single();
+    const from = (/@([^>\s]+)/.exec(sent.from)?.[1] ?? "").toLowerCase().slice(0, 80);
+    await supabase
+      .from("window_plans")
+      .update({ progress_meta: mergeProgressMeta(data?.progress_meta, { email_id: sent.id, email_from: from }) })
+      .eq("id", planId);
+  } catch (inner) {
+    console.error("WINDOW: could not record the e-mail id:", inner);
+  }
+}
+
 async function setProgressStage(
   supabase: ServiceRoleClient,
   planId: string,
@@ -841,7 +856,7 @@ async function createPaidPlan(order: PaidOrder): Promise<WindowPlanRow> {
           // (migration 0027) gives none, and the mail is sent without that block.
           const discount = await issueCode(supabaseStore(supabase), paymentRow.id);
 
-          await sendIdeaBookEmail({
+          const sent = await sendIdeaBookEmail({
             to: deliveryEmail,
             discount,
             title: plan.title,
@@ -864,6 +879,7 @@ async function createPaidPlan(order: PaidOrder): Promise<WindowPlanRow> {
             .from("window_plans")
             .update({ email_sent_at: new Date().toISOString() })
             .eq("id", plan.id);
+          await recordEmailSent(supabase, plan.id, sent);
         } catch (err) {
           // Best-effort — the plan is already saved and viewable on this
           // page even if Resend is unreachable. Recorded as not-delivered

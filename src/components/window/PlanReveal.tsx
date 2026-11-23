@@ -83,6 +83,8 @@ export interface PlanRevealProps {
   pdfUrl: string | null;
   shareUrl: string;
   showEmailedCopy: boolean;
+  /** The delivery address with its name hidden (maskEmail), so the buyer can see where the copy went. */
+  emailedTo?: string | null;
   /** The delivery e-mail failed (recorded); the PDF here is then the only copy the buyer gets. */
   emailNotSent?: boolean;
   // Only the session that generated this plan may react to / commit to ideas
@@ -118,6 +120,7 @@ export function PlanReveal({
   pdfUrl,
   shareUrl,
   showEmailedCopy,
+  emailedTo = null,
   emailNotSent = false,
   canInteract,
   initialFeedback,
@@ -263,7 +266,7 @@ export function PlanReveal({
           {subline}
         </p>
         {emailNotSent && <p className="text-xs text-ink/70">{planDict.emailNotSent}</p>}
-        {showEmailedCopy && <p className="text-xs text-ink/70">{planDict.emailedCopy}</p>}
+        {showEmailedCopy && <p className="text-xs text-ink/70">{emailedTo ? planDict.emailedCopyTo.replace("{address}", emailedTo) : planDict.emailedCopy}</p>}
       </header>
 
       <ol className="mt-6 grid gap-3" data-testid="plan-overview" aria-label={planDict.book.mapHeading}>
