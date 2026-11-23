@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { stripeModeInfo } from "@/lib/stripeMode";
 import { freeTestOrdersEnabled } from "@/lib/freeTest";
+import { loadCapacity } from "@/lib/capacity";
 
 // For an uptime monitor (a free pinger that calls this address every few minutes and mails when it does not answer 200). It says whether the app is up and
 // whether the database answers, and which payment mode this deployment is in ("live", "test" or "misconfigured", and whether free test books are on): a visitor sees that on the
@@ -30,7 +31,15 @@ export async function GET() {
   } catch {
     discountCodes = false;
   }
+  // Whether visitors can order right now (src/lib/capacity.ts): "open", or why not ("daily", "paused", "failing"). No counts, as with the rest of this answer.
+  let ordering: string = "open";
+  try {
+    const status = await loadCapacity(createServiceRoleClient(), { maxAgeMs: 15_000 });
+    ordering = status.open ? "open" : (status.reason ?? "closed");
+  } catch {
+    ordering = "open";
+  }
   const version = (process.env.VERCEL_GIT_COMMIT_SHA ?? "").slice(0, 7) || null;
   const stripe = stripeModeInfo();
-  return NextResponse.json({ ok: db, db, version, payments: stripe.problem ? "misconfigured" : stripe.mode, freeOrders: freeTestOrdersEnabled(), discountCodes, at: new Date().toISOString() }, { status: db ? 200 : 503, headers });
+  return NextResponse.json({ ok: db, db, version, payments: stripe.problem ? "misconfigured" : stripe.mode, freeOrders: freeTestOrdersEnabled(), discountCodes, ordering, at: new Date().toISOString() }, { status: db ? 200 : 503, headers });
 }

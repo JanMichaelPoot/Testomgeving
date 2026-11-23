@@ -4,6 +4,7 @@
 // in the environment this deployment runs in (wrong environment ticked, not redeployed) shows up here as missing.
 
 import { stripeModeInfo } from "@/lib/stripeMode";
+import { DEFAULT_DAILY_BOOK_LIMIT, checkoutPaused, dailyBookLimit } from "@/lib/capacity";
 import { parsePriceTest, variantIds } from "@/lib/priceTest";
 import { seasonalEditionEnabled } from "@/lib/seasonEdition";
 import { isVercelHost, siteUrl } from "@/lib/siteUrl";
@@ -80,6 +81,20 @@ export function envChecks(env: Env): EnvCheck[] {
       "WINDOW_BOOK_HARD_CAP",
       true,
       off ? "UIT: de rondes die zorgen dat elk idee een echte plek heeft hebben geen grens" : `een boek kost in totaal maximaal $${cap} aan modelkosten, ook de rondes die zorgen dat elk idee een echte plek heeft (de optionele rondes stoppen eerder, bij de gewone grens hierboven)`,
+      false,
+    );
+  }
+  {
+    const limit = dailyBookLimit(env);
+    const paused = checkoutPaused(env);
+    add(
+      "WINDOW_DAILY_BOOK_LIMIT",
+      true,
+      paused
+        ? "bestellen staat UIT (WINDOW_CHECKOUT_PAUSED): bezoekers kunnen niets bestellen"
+        : limit === null
+          ? "UIT: geen dagmaximum aan boeken; een piek wordt niet afgeremd"
+          : `maximaal ${limit} boeken per dag (standaard ${DEFAULT_DAILY_BOOK_LIMIT}); daarna sluit de betaalknop tot middernacht`,
       false,
     );
   }

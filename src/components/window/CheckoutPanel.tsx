@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
-import { createCheckoutSession, previewDiscount } from "@/app/checkout/actions";
+import { checkoutCapacity, createCheckoutSession, previewDiscount } from "@/app/checkout/actions";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 // The one field that must be filled: larger than the rest, with a heavier border, so it is the first thing the eye lands on.
@@ -133,6 +133,20 @@ export function CheckoutPanel({
     setCodeText("");
     setCodeError(null);
   }
+
+  // Whether orders can be started at all right now. Asked when the block opens; if the question itself fails the button simply stays open (the order asks again on the server).
+  const [closedMessage, setClosedMessage] = useState<string | null>(null);
+  useEffect(() => {
+    let alive = true;
+    checkoutCapacity()
+      .then((c) => {
+        if (alive) setClosedMessage(c.open ? null : c.message);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   // Funnel steps around the price: seen, and pay button pressed (before Stripe).
   useEffect(() => {
@@ -303,13 +317,20 @@ export function CheckoutPanel({
         </p>
       )}
 
+      {/* The pay button is closed (the daily maximum of books, or orders paused: src/lib/capacity.ts): said here, before anything is filled in or paid. */}
+      {closedMessage && (
+        <p className="mb-4 rounded-xl border border-border bg-cream px-4 py-3 text-sm text-ink" role="status">
+          {closedMessage}
+        </p>
+      )}
+
       {/* Why the button is still grey: what is missing, in plain words (read out by screen readers too). */}
       <p id="pay-hint" aria-live="polite" className={`mb-3 text-center text-sm text-ink/70 ${payHint ? "" : "hidden"}`}>
         {payHint}
       </p>
       <Button
         onClick={handleSubmit}
-        disabled={!canSubmit || isPending}
+        disabled={!canSubmit || isPending || closedMessage !== null}
         aria-describedby={payHint ? "pay-hint" : undefined}
         variant="hero"
         size="lg"

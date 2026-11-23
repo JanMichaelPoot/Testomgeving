@@ -25,6 +25,7 @@ import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { isRedirectError } from "@/lib/isRedirectError";
 import { scrub } from "@/lib/requestError";
 import { freeTestOrdersEnabled, newFreeOrderId } from "@/lib/freeTest";
+import { loadCapacity, type ClosedReason } from "@/lib/capacity";
 
 // Model C digital sale compliance: two separate, independently required
 // checkboxes on /checkout (see CheckoutPanel.tsx) — termsAccepted (the
@@ -59,6 +60,22 @@ export async function previewDiscount(
 
 // A failure the visitor can be told about (a box not ticked, a wrong code, the test limit): its message is for them, in their language.
 class CheckoutFailure extends Error {}
+
+/** The sentence for a closed pay button (src/lib/capacity.ts): the daily maximum has its own, everything else is "not taking orders for a moment". */
+function capacityMessage(dict: ReturnType<typeof getDictionary>["checkout"], reason: ClosedReason | null): string {
+  return reason === "daily" ? dict.capacity.daily : dict.capacity.paused;
+}
+
+/**
+ * Whether an order can be started right now, for the order block to ask when it opens: a closed button with the reason is kinder than a filled-in form that is refused at the
+ * end. The order itself asks again (startCheckout), this is only the early warning. The owner is never held back.
+ */
+export async function checkoutCapacity(): Promise<{ open: true } | { open: false; message: string }> {
+  if (await isAdminAuthenticated().catch(() => false)) return { open: true };
+  const status = await loadCapacity(createServiceRoleClient(), { maxAgeMs: 15_000 });
+  if (status.open) return { open: true };
+  return { open: false, message: capacityMessage(getDictionary(await getLocale()).checkout, status.reason) };
+}
 
 /**
  * Starts the payment, and only ever comes back with a message: success is a redirect (to Stripe, or to the book in the test phase). Every failure is an answer, not an
@@ -132,6 +149,15 @@ async function startCheckout(
   }
 
   const supabase = createServiceRoleClient();
+
+  // The capacity brake (src/lib/capacity.ts): no money is taken for a book that cannot be made. Asked fresh, never from the page's cache; the owner is never held back.
+  if (!(await isAdminAuthenticated().catch(() => false))) {
+    const capacity = await loadCapacity(supabase);
+    if (!capacity.open) {
+      console.warn(JSON.stringify({ level: "warn", event: "checkout_blocked_capacity", at: new Date().toISOString(), reason: capacity.reason, startedToday: capacity.startedToday, limit: capacity.limit }));
+      throw new CheckoutFailure(capacityMessage(dict, capacity.reason));
+    }
+  }
 
   // Test phase limit (src/lib/testQuota.ts): checked again here, the page is not the gate.
   if (!(await checkTestQuota(supabase, sessionId)).allowed) {

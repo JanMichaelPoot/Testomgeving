@@ -10,6 +10,7 @@ const CHECKOUT_DICT = {
   errorEmailRequired: "Vul een geldig e-mailadres in.",
   errorGeneric: "Er ging iets mis bij het openen van de checkout.",
   errorStartFailed: "We konden de betaling niet starten. Er is niets afgeschreven.",
+  capacity: { daily: "Vandaag vol.", paused: "Even geen bestellingen." },
   discount: {
     errors: { invalid: "Code onbekend.", used: "Code al gebruikt.", expired: "Code verlopen.", busy: "Code in gebruik.", unavailable: "Codes niet beschikbaar.", limit: "Te veel pogingen." },
     stripeName: "Kortingscode",
@@ -198,12 +199,24 @@ vi.mock("@/lib/discountCode", async (importOriginal) => {
   };
 });
 
+// The capacity brake (Step 237) has its own tests (src/lib/capacity.test.ts): here only what the order does with its answer.
+let capacityStatus: { open: boolean; reason: "daily" | "paused" | "failing" | null; startedToday: number; limit: number | null } = { open: true, reason: null, startedToday: 0, limit: 40 };
+const capacityAsks: unknown[] = [];
+vi.mock("@/lib/capacity", () => ({
+  loadCapacity: vi.fn(async (_db: unknown, opts?: unknown) => {
+    capacityAsks.push(opts ?? {});
+    return capacityStatus;
+  }),
+}));
+
 // Imported after the mocks above so createCheckoutSession picks them up —
 // vi.mock calls are hoisted above imports by vitest, but importing the
 // module under test last keeps the intent readable regardless.
-import { createCheckoutSession } from "./actions";
+import { checkoutCapacity, createCheckoutSession } from "./actions";
 
 beforeEach(() => {
+  capacityStatus = { open: true, reason: null, startedToday: 0, limit: 40 };
+  capacityAsks.length = 0;
   callLog.length = 0;
   stripeParams.length = 0;
   orderRows.length = 0;
@@ -522,5 +535,69 @@ describe("createCheckoutSession — a payment that cannot be started comes back 
     // exercised through the same path: the helper that cleans the line is the one used for the request-error log
     const { scrub } = await import("@/lib/requestError");
     expect(scrub(stripeFailure().message + " for jan@example.nl")).toBe("Invalid API Key provided: sk_live_*****abcd for [email]");
+  });
+});
+
+describe("createCheckoutSession — the capacity brake (Step 237)", () => {
+  // No money is taken for a book that cannot be made: the pay button closes at the daily maximum, when orders are paused, and when books keep failing.
+  const closed = (reason: "daily" | "paused" | "failing") => {
+    capacityStatus = { open: false, reason, startedToday: 40, limit: 40 };
+  };
+
+  it("answers the daily maximum with its own message, before any order, consent, code or Stripe step", async () => {
+    closed("daily");
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH")).resolves.toEqual({ ok: false, error: CHECKOUT_DICT.capacity.daily });
+    expect(callLog).toEqual([]);
+    expect(orderRows).toHaveLength(0);
+    expect(redeemed).toHaveLength(0);
+    expect(codeRows[0].reservedUntil).toBeNull(); // the discount code was not held for an order that never started
+    const logged = JSON.parse(String(warn.mock.calls[0][0]));
+    expect(logged).toMatchObject({ event: "checkout_blocked_capacity", reason: "daily", startedToday: 40, limit: 40 });
+    expect(JSON.stringify(logged)).not.toContain(EMAIL);
+    warn.mockRestore();
+  });
+
+  it("says 'not taking orders for a moment' for a pause by hand and for the breaker", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    for (const reason of ["paused", "failing"] as const) {
+      closed(reason);
+      await expect(createCheckoutSession(true, true, undefined, EMAIL)).resolves.toEqual({ ok: false, error: CHECKOUT_DICT.capacity.paused });
+    }
+    expect(stripeParams).toHaveLength(0);
+    warn.mockRestore();
+  });
+
+  it("never holds the owner back, so a test is always possible", async () => {
+    closed("daily");
+    ownerLoggedIn = true;
+    await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow(); // the redirect to Stripe
+    expect(stripeParams).toHaveLength(1);
+  });
+
+  it("asks fresh at the order, never from the page's cache", async () => {
+    await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow();
+    expect(capacityAsks).toHaveLength(1);
+    expect((capacityAsks[0] as { maxAgeMs?: number }).maxAgeMs).toBeUndefined();
+  });
+});
+
+describe("checkoutCapacity — the early warning on the order block", () => {
+  it("says open when orders can be started", async () => {
+    await expect(checkoutCapacity()).resolves.toEqual({ open: true });
+  });
+
+  it("gives the message for the reason when closed, and allows a recent answer to be reused", async () => {
+    capacityStatus = { open: false, reason: "daily", startedToday: 40, limit: 40 };
+    await expect(checkoutCapacity()).resolves.toEqual({ open: false, message: CHECKOUT_DICT.capacity.daily });
+    capacityStatus = { open: false, reason: "failing", startedToday: 3, limit: 40 };
+    await expect(checkoutCapacity()).resolves.toEqual({ open: false, message: CHECKOUT_DICT.capacity.paused });
+    expect((capacityAsks[0] as { maxAgeMs?: number }).maxAgeMs).toBeGreaterThan(0);
+  });
+
+  it("is open for the owner, whatever the state", async () => {
+    capacityStatus = { open: false, reason: "paused", startedToday: 0, limit: 40 };
+    ownerLoggedIn = true;
+    await expect(checkoutCapacity()).resolves.toEqual({ open: true });
   });
 });

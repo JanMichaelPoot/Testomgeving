@@ -133,6 +133,8 @@ export interface Dictionary {
     payAssuranceFree: string;
     /** The payment could not be started (Stripe or the database failed): nothing was charged. */
     errorStartFailed: string;
+    /** The pay button is closed (Step 237, src/lib/capacity.ts): the daily maximum of books is reached, or orders are paused. Nothing was charged. */
+    capacity: { daily: string; paused: string };
     /** The one-time discount code a buyer gets in the e-mail after an order (Step 230). {amount} and {price} are filled in. */
     discount: {
       toggle: string;
@@ -717,6 +719,10 @@ const nl: Dictionary = {
     payAssurance: "Veilig betalen via Stripe. Je Idea Book staat binnen 2 minuten klaar.",
     payAssuranceFree: "Gratis in de testfase: je hoeft niet te betalen. Je Idea Book staat binnen 2 minuten klaar.",
     errorStartFailed: "We konden de betaling niet starten. Er is niets afgeschreven. Probeer het over een minuut nog eens; lukt het dan nog niet, mail ons dan.",
+    capacity: {
+      daily: "Vandaag zijn alle plekken voor een nieuw Idea Book vergeven. We maken elk boek met zorg en doen dat in beperkte aantallen per dag. Kom morgen terug. Er is niets afgeschreven.",
+      paused: "We nemen op dit moment even geen nieuwe bestellingen aan, zodat elk boek goed gemaakt kan worden. Er is niets afgeschreven. Probeer het later vandaag nog eens; lukt het dan nog niet, mail naar info@vantagelabs.nl.",
+    },
     discount: {
       toggle: "Heb je een kortingscode?",
       label: "Kortingscode",
@@ -1475,6 +1481,10 @@ const en: Dictionary = {
     payAssurance: "Pay safely through Stripe. Your Idea Book is ready within 2 minutes.",
     payAssuranceFree: "Free during the test phase: there is nothing to pay. Your Idea Book is ready within 2 minutes.",
     errorStartFailed: "We could not start the payment. You have not been charged. Please try again in a minute; if it still does not work, email us.",
+    capacity: {
+      daily: "All places for a new Idea Book are taken for today. We make every book with care, and only in limited numbers per day. Please come back tomorrow. You have not been charged.",
+      paused: "We are not taking new orders for a moment, so that every book can be made properly. You have not been charged. Please try again later today; if it still does not work, email info@vantagelabs.nl.",
+    },
     discount: {
       toggle: "Have a discount code?",
       label: "Discount code",

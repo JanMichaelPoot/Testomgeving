@@ -5,6 +5,7 @@ import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { costOverview, overview, percent, ratio, type PaymentRow, type PlanRow } from "@/lib/adminStats";
 import { envChecks } from "@/lib/adminEnv";
+import { loadCapacity, type ClosedReason } from "@/lib/capacity";
 import { isExemptIp, parseExemptIps, quotaOverview, requestIp } from "@/lib/testQuota";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid, formatEuro, formatSeconds } from "./ui";
 
@@ -15,6 +16,13 @@ export const metadata: Metadata = {
 
 // Always fresh: this page is for looking at what happened a minute ago.
 export const dynamic = "force-dynamic";
+
+// Why the pay button is closed, in words for the owner (src/lib/capacity.ts).
+const CLOSED_TEXT: Record<ClosedReason, string> = {
+  daily: "het dagmaximum aan boeken is bereikt (WINDOW_DAILY_BOOK_LIMIT). Morgen na middernacht gaat het vanzelf weer open; wil je eerder verder, verhoog dan de waarde in Vercel.",
+  paused: "je hebt het met de hand uitgezet (WINDOW_CHECKOUT_PAUSED=1 in Vercel). Haal die variabele weg om te heropenen.",
+  failing: "de laatste drie boeken mislukten achter elkaar, bij minstens twee bezoekers. Controleer het Anthropic-tegoed en de rate limits. Het gaat vanzelf weer open als die mislukkingen een half uur oud zijn.",
+};
 
 export default async function AdminOverviewPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
@@ -37,6 +45,7 @@ export default async function AdminOverviewPage() {
   const emailRate = ratio(o.email.sent, o.email.expected);
   const checks = envChecks(process.env);
   const quota = await quotaOverview(supabase);
+  const capacity = await loadCapacity(supabase);
   const myIp = await requestIp();
   const myIpExempt = isExemptIp(myIp, parseExemptIps(process.env.TEST_QUOTA_EXEMPT_IPS));
   const broken = checks.filter((c) => c.required && !c.ok);
@@ -50,6 +59,15 @@ export default async function AdminOverviewPage() {
       {planError && <p className="text-sm text-red-600">Kon de gegevens niet laden: {planError.message}</p>}
 
       <Section title="Aandacht nodig" hint="Dingen die nu iets van jou vragen. Leeg is goed.">
+        {capacity.open ? (
+          <p className="mb-3 text-sm text-ink/70">
+            Bestellen staat open: {capacity.startedToday} {capacity.startedToday === 1 ? "boek" : "boeken"} vandaag{capacity.limit !== null ? ` van maximaal ${capacity.limit}` : " (geen maximum)"}.
+          </p>
+        ) : (
+          <p className="mb-3 rounded-2xl border border-red-800/20 bg-red-50 px-4 py-3 text-sm text-red-900" role="status">
+            <strong>Bestellen is dicht voor bezoekers:</strong> {CLOSED_TEXT[capacity.reason as ClosedReason]} Jij zelf kunt nog gewoon bestellen om te testen.
+          </p>
+        )}
         {o.attention.length === 0 && broken.length === 0 ? (
           <p className="rounded-2xl border border-emerald-900/15 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">Niets dat aandacht vraagt.</p>
         ) : (
