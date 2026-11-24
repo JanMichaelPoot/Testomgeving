@@ -7,6 +7,7 @@ import { formatAmount } from "@/lib/pricing";
 import { ideaPhoto } from "@/lib/illustrations";
 import { WILDCARD_KEY, ideaKey, ideaUrl } from "@/lib/ideaKeys";
 import { pickOneThingIndex } from "@/lib/possibilityMap";
+import { friendLink, friendWhatsAppUrl } from "@/lib/friendCode";
 
 // The same pick as the book's "if you only choose one" (easiest to start), and for an older book without
 // scores simply the first idea that has a first step: a mail must never fail because of a missing field.
@@ -32,6 +33,8 @@ export function buildIdeaBookEmail(params: {
   feedbackUrl?: string | null;
   /** The one-time code for a next book (src/lib/discountCode.ts), when this order has earned one; absent = the mail has no such block. */
   discount?: { code: string; amountCents: number; expiresAt: Date } | null;
+  /** The codes the buyer can pass on to friends (Step 238): one friend each. Absent or empty = the mail has no such block. */
+  friendCodes?: { code: string; amountCents: number; expiresAt: Date }[] | null;
   locale: Locale;
   siteUrl: string;
   // Model C digital sale compliance (section 17: "correcte orderbevestiging").
@@ -51,7 +54,7 @@ export function buildIdeaBookEmail(params: {
     termsVersion: string;
   };
 }): { subject: string; html: string; text: string } {
-  const { title, book, planUrl, feedbackUrl, discount, locale, siteUrl, order } = params;
+  const { title, book, planUrl, feedbackUrl, discount, friendCodes, locale, siteUrl, order } = params;
   const fullDict = getDictionary(locale);
   const dict = fullDict.email;
   const images = emailImages(siteUrl);
@@ -161,6 +164,42 @@ export function buildIdeaBookEmail(params: {
     </table>`
     : "";
 
+  // The codes to pass on (Step 238): one row per friend, each with the code and a WhatsApp link that opens with the message and the link of that code ready to send. Every
+  // code has its own link (it opens the intake with the code already filled in at the order), so a friend never has to type anything.
+  const friends = friendCodes ?? [];
+  const friendAmount = friends[0] ? formatAmount(friends[0].amountCents, "eur", locale) : "";
+  const friendUntil = friends[0] ? new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", { dateStyle: "long" }).format(friends[0].expiresAt) : "";
+  const friendMessage = dict.friendShareMessage.replace("{amount}", friendAmount);
+  const friendRows = friends.map((f, i) => ({
+    label: dict.friendRowLabel.replace("{n}", String(i + 1)),
+    code: f.code,
+    link: friendLink(siteUrl, locale === "nl" ? "nl" : "en", f.code),
+  }));
+  const friendHtml = friends.length
+    ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;">
+      <tr><td bgcolor="${c.orangeSoft}" style="background:${c.orangeSoft};border-radius:16px;padding:20px 22px;">
+        ${emailEyebrow(dict.friendHeading.replace("{amount}", friendAmount), c.orangeText)}
+        <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:${c.ink};">${escapeHtml(dict.friendLead.replace("{amount}", friendAmount))}</p>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+          ${friendRows
+            .map(
+              (r) => `<tr>
+            <td style="padding:8px 0;border-top:1px solid ${c.border};">
+              <p style="margin:0 0 2px;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:${c.muted};">${escapeHtml(r.label)}</p>
+              <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:20px;line-height:1.4;font-weight:bold;letter-spacing:0.08em;color:${c.navy};">${escapeHtml(r.code)}</p>
+            </td>
+            <td align="right" valign="middle" style="padding:8px 0;border-top:1px solid ${c.border};">
+              <a href="${escapeHtml(friendWhatsAppUrl(friendMessage, r.link))}" style="font-family:${EMAIL_FONTS.sans};font-size:14px;font-weight:700;color:${c.blue};text-decoration:underline;white-space:nowrap;">${escapeHtml(dict.friendShare)} &rarr;</a>
+            </td>
+          </tr>`,
+            )
+            .join("")}
+        </table>
+        <p style="margin:12px 0 0;font-size:13px;line-height:1.5;color:${c.muted};">${escapeHtml(dict.friendValid.replace("{date}", friendUntil))}</p>
+      </td></tr>
+    </table>`
+    : "";
+
   const bodyHtml = `
     ${emailEyebrow(title, c.orangeText)}
     <h1 style="margin:0 0 14px;font-family:${EMAIL_FONTS.serif};font-size:32px;line-height:1.2;font-weight:normal;color:${c.navy};letter-spacing:-0.01em;">${escapeHtml(dict.readyHeading)}</h1>
@@ -180,7 +219,8 @@ export function buildIdeaBookEmail(params: {
       <a href="${escapeHtml(planUrl)}" style="font-family:${EMAIL_FONTS.sans};font-size:15px;font-weight:700;color:${c.blue};text-decoration:underline;">${escapeHtml(dict.viewOnline)} &rarr;</a>
     </td></tr></table>
     ${feedbackHtml}
-    ${discountHtml}`;
+    ${discountHtml}
+    ${friendHtml}`;
 
   const orderRow = (label: string, value: string, bold = false) => `<tr>
       <td style="padding:3px 0;font-size:12px;color:${c.muted};">${escapeHtml(label)}</td>
@@ -231,6 +271,11 @@ ${dict.discountLead}
 ${dict.discountCodeLabel}: ${discount.code}
 ${dict.discountValid.replace("{date}", discountUntil)}
 ${dict.discountButton}: ${siteUrl}/intake?lang=${locale}
+` : "",
+    friends.length ? `${dict.friendHeading.replace("{amount}", friendAmount).toUpperCase()}
+${dict.friendLead.replace("{amount}", friendAmount)}
+${friendRows.map((r) => [`${r.label}: ${r.code}`, r.link].join("\n")).join("\n")}
+${dict.friendValid.replace("{date}", friendUntil)}
 ` : "",
     `${dict.orderHeading}: ${dict.orderNumberLabel} ${order.orderNumber}, ${dict.priceLabel} ${price}, ${dict.dateLabel} ${orderDateFormatted}`,
     dict.digitalDeliveryNote,

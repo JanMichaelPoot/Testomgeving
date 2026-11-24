@@ -324,3 +324,73 @@ describe("buildIdeaBookEmail: the one-time discount code for a next book (Step 2
     expect(html).toContain("&lt;b&gt;x&lt;/b&gt;");
   });
 });
+
+describe("buildIdeaBookEmail: the codes to pass on to friends (Step 238)", () => {
+  const params = {
+    title: "Jouw Window Idea Book",
+    book,
+    planUrl: "https://windowinto.nl/plan?checkout_session_id=cs_live_1",
+    locale: "nl" as const,
+    siteUrl: "https://windowinto.nl",
+    order: { orderNumber: "W-0002", amountCents: 750, currency: "eur", orderDate: new Date("2026-11-23"), termsVersion: "1" },
+  };
+  const expiresAt = new Date("2027-02-21T12:00:00Z");
+  const friendCodes = [
+    { code: "WI-AAAA-BBBB", amountCents: 250, expiresAt },
+    { code: "WI-CCCC-DDDD", amountCents: 250, expiresAt },
+    { code: "WI-EEEE-FFFF", amountCents: 250, expiresAt },
+  ];
+
+  it("shows every code on its own row, with what it is worth and until when", () => {
+    const { html, text } = buildIdeaBookEmail({ ...params, friendCodes });
+    expect(html).toContain("Geef een vriend €2,50 korting");
+    for (const f of friendCodes) expect(html).toContain(f.code);
+    expect(html).toContain("Voor vriend 1");
+    expect(html).toContain("Voor vriend 3");
+    expect(html).toContain("21 februari 2027");
+    expect(html).toContain("één vriend");
+    expect(text).toContain("Voor vriend 2: WI-CCCC-DDDD");
+  });
+
+  it("gives each code its own WhatsApp link, with the message and the link of that code ready to send", () => {
+    const { html } = buildIdeaBookEmail({ ...params, friendCodes });
+    const links = [...html.matchAll(/href="(https:\/\/wa\.me\/\?text=[^"]+)"/g)].map((m) => decodeURIComponent(m[1].replace("https://wa.me/?text=", "").replace(/&amp;/g, "&")));
+    expect(links).toHaveLength(3);
+    friendCodes.forEach((f, i) => {
+      expect(links[i]).toContain("WindowInto");
+      expect(links[i]).toContain("€2,50 korting voor jou");
+      expect(links[i]).toContain(`https://windowinto.nl/intake?lang=nl&code=${f.code}&utm_source=friend_code&utm_medium=email`);
+      // no other code travels with it
+      for (const other of friendCodes.filter((x) => x !== f)) expect(links[i]).not.toContain(other.code);
+    });
+  });
+
+  it("is written in English, with English links", () => {
+    const { html, text } = buildIdeaBookEmail({ ...params, locale: "en", friendCodes });
+    expect(html).toContain("Give a friend €2.50 off");
+    expect(html).toContain("For friend 1");
+    expect(html).toContain("Send on WhatsApp");
+    expect(text).toContain("https://windowinto.nl/intake?lang=en&code=WI-AAAA-BBBB");
+  });
+
+  it("sits next to the buyer's own code without replacing it", () => {
+    const { html } = buildIdeaBookEmail({ ...params, discount: { code: "WI-OWNN-CODE", amountCents: 250, expiresAt }, friendCodes });
+    expect(html).toContain("Een volgend Idea Book, €2,50 goedkoper");
+    expect(html).toContain("WI-OWNN-CODE");
+    expect(html).toContain("Geef een vriend €2,50 korting");
+  });
+
+  it("has no such block without codes (a database without migration 0029)", () => {
+    for (const f of [undefined, null, []]) {
+      const { html, text } = buildIdeaBookEmail({ ...params, friendCodes: f });
+      expect(html).not.toContain("wa.me");
+      expect(html).not.toContain("Geef een vriend");
+      expect(text).not.toContain("Voor vriend");
+    }
+  });
+
+  it("escapes a code like any other text", () => {
+    const { html } = buildIdeaBookEmail({ ...params, friendCodes: [{ code: "<b>x</b>", amountCents: 250, expiresAt }] });
+    expect(html).not.toContain("<b>x</b>");
+  });
+});

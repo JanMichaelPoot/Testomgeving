@@ -48,6 +48,9 @@ export function priceAfterDiscount(priceCents: number, discountCents: number): n
   return Math.max(Math.min(priceCents, MIN_PRICE_CENTS), priceCents - discountCents);
 }
 
+/** Why a code exists: earned by ordering (one per order), sent as compensation (Step 235), or given to the buyer to pass on to a friend (Step 238). */
+export type CodeKind = "order" | "compensation" | "friend";
+
 export interface IssuedCode {
   code: string;
   amountCents: number;
@@ -62,7 +65,9 @@ export interface DiscountStore {
   /** The code this order earned by ordering (its first one: compensation codes come later), or null. */
   findByPayment(paymentId: string): Promise<(IssuedCode & { id: string }) | null>;
   /** Stores a new code for an order; null when the code is already taken by another (the caller then tries another), or an error when the storage fails. */
-  insert(input: { code: string; paymentId: string; amountCents: number; expiresAt: Date; kind?: "order" | "compensation"; reason?: string }): Promise<(IssuedCode & { id: string }) | "taken">;
+  insert(input: { code: string; paymentId: string; amountCents: number; expiresAt: Date; kind?: CodeKind; reason?: string }): Promise<(IssuedCode & { id: string }) | "taken">;
+  /** All the codes of one kind that an order has been given, oldest first. */
+  listByPaymentKind(paymentId: string, kind: CodeKind): Promise<(IssuedCode & { id: string })[]>;
   /** The row of a code, with what is needed to tell why it cannot be used. */
   findByCode(code: string): Promise<{ id: string; code: string; amountCents: number; expiresAt: Date; redeemedAt: Date | null; reservedUntil: Date | null } | null>;
   /** One atomic step: holds the code until `until` if it is not used up, not expired and not held by somebody else. Returns what was held, or null. */
@@ -156,6 +161,31 @@ export async function issueCompensation(store: DiscountStore, paymentId: string,
   }
 }
 
+/** How many friend codes the mail with the book carries (Step 238): one per friend, so a buyer can pass them to a few. */
+export const FRIEND_CODES_PER_ORDER = 3;
+
+/**
+ * The friend codes of a paid order (Step 238): up to FRIEND_CODES_PER_ORDER one-time codes worth the same as the order's own, for the buyer to pass on. Asked again (the book is
+ * sent again) it returns the ones that exist and makes only what is missing, so a retry never hands out more. Never throws: without migration 0029 (the kind "friend")
+ * it gives an empty list and the mail goes out without that block.
+ */
+export async function issueFriendCodes(store: DiscountStore, paymentId: string, now: Date = new Date(), pick?: (n: number) => number): Promise<IssuedCode[]> {
+  const codes: IssuedCode[] = [];
+  try {
+    const have = await store.listByPaymentKind(paymentId, "friend");
+    for (const c of have.slice(0, FRIEND_CODES_PER_ORDER)) codes.push({ code: c.code, amountCents: c.amountCents, expiresAt: c.expiresAt });
+    for (let attempt = 0; codes.length < FRIEND_CODES_PER_ORDER && attempt < FRIEND_CODES_PER_ORDER * 6; attempt++) {
+      const stored = await store.insert({ code: generateCode(pick), paymentId, amountCents: DISCOUNT_CENTS, expiresAt: addDays(now, VALID_DAYS), kind: "friend" });
+      if (stored !== "taken") codes.push({ code: stored.code, amountCents: stored.amountCents, expiresAt: stored.expiresAt });
+    }
+    return codes;
+  } catch (err) {
+    // What was made before the failure is kept: the mail carries those, and the next attempt makes the rest.
+    console.error("WINDOW: could not issue friend codes (has migration 0029 been run?):", err instanceof Error ? err.message : err);
+    return codes;
+  }
+}
+
 /** Lets a held code go when the order could not be started. Never throws: a code that stays held frees itself when the hold runs out. */
 export async function releaseCode(store: DiscountStore, id: string): Promise<void> {
   try {
@@ -198,10 +228,10 @@ export function supabaseStore(supabase: SupabaseClient): DiscountStore {
       return first ? issued(first as Row) : null;
     },
     async insert({ code, paymentId, amountCents, expiresAt, kind, reason }) {
-      // The columns of migration 0028 are only written for a compensation code: the code of an order works without that migration.
+      // The columns of migrations 0028 and 0029 are only written for a compensation or friend code: the code of an order works without them.
       const { data, error } = await supabase
         .from("discount_codes")
-        .insert({ code, issued_for_payment_id: paymentId, amount_cents: amountCents, expires_at: expiresAt.toISOString(), ...(kind === "compensation" ? { kind, reason: reason ?? null } : {}) })
+        .insert({ code, issued_for_payment_id: paymentId, amount_cents: amountCents, expires_at: expiresAt.toISOString(), ...(kind && kind !== "order" ? { kind, reason: reason ?? null } : {}) })
         .select("id, code, amount_cents, expires_at")
         .single();
       if (error) {
@@ -209,6 +239,11 @@ export function supabaseStore(supabase: SupabaseClient): DiscountStore {
         throw new Error(error.message);
       }
       return issued(data as Row);
+    },
+    async listByPaymentKind(paymentId, kind) {
+      const { data, error } = await supabase.from("discount_codes").select("id, code, amount_cents, expires_at").eq("issued_for_payment_id", paymentId).eq("kind", kind).order("created_at", { ascending: true });
+      if (error) throw new Error(error.message);
+      return (data ?? []).map((r) => issued(r as Row));
     },
     async findByCode(code) {
       const { data, error } = await supabase.from("discount_codes").select("id, code, amount_cents, expires_at, redeemed_at, reserved_until").eq("code", code).maybeSingle();

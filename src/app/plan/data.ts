@@ -11,7 +11,7 @@ import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
 import { paneActivities } from "@/lib/discovery/concretePool";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
-import { issueCode, supabaseStore } from "@/lib/discountCode";
+import { issueCode, issueFriendCodes, supabaseStore } from "@/lib/discountCode";
 import { recordAuditLogEntry } from "@/lib/auditLog";
 import { getOrdererGeo, ordererGeoFrom, type OrdererGeo } from "@/lib/geo";
 import { computeCharacterProfile, type CharacterProfile } from "@/lib/characterProfile";
@@ -862,9 +862,15 @@ async function createPaidPlan(order: PaidOrder): Promise<WindowPlanRow> {
           // The mail then goes out without the code block: say so with the plan (and in /admin), so a missing code is never a silent surprise.
           if (!discount) await recordPlanNote(supabase, plan.id, { discount_error: "no discount code was issued (has migration 0027 been run?)" });
 
+          // The codes to pass on to friends (Step 238): the same set when the book is sent again. Without migration 0029 there are none and the mail goes out without
+          // that block, which the admin overview says (amber) so it is never a silent gap.
+          const friendCodes = await issueFriendCodes(supabaseStore(supabase), paymentRow.id);
+          if (friendCodes.length === 0) await recordPlanNote(supabase, plan.id, { friend_error: "no friend codes were issued (has migration 0029 been run?)" });
+
           const sent = await sendIdeaBookEmail({
             to: deliveryEmail,
             discount,
+            friendCodes,
             title: plan.title,
             book: generated,
             pdfBytes,

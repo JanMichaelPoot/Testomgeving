@@ -209,3 +209,21 @@ describe("overview: a paid book whose mail had no discount code (Step 234)", () 
     expect(overview([paid({ id: "a" }), old, test], [pay({ id: "x" })], NOW).attention.some((a) => a.text.includes("kortingscode"))).toBe(false);
   });
 });
+
+describe("overview: a paid book that got no friend codes (Step 238)", () => {
+  const paid = (over: Partial<PlanRow>) => plan({ payment_id: "x", email_sent_at: "2026-10-25T10:02:00Z", ...over });
+
+  it("raises an amber notice that names migration 0029, for a recent paid book only", () => {
+    const o = overview([paid({ id: "a", progress_meta: { friend_error: "no friend codes" } }), paid({ id: "b" })], [pay({ id: "x" })], NOW);
+    const notice = o.attention.find((a) => a.text.includes("vriendcodes"));
+    expect(notice).toMatchObject({ level: "amber" });
+    expect(notice!.text).toContain("1 betaald boek kreeg geen vriendcodes");
+    expect(notice!.text).toContain("0029_discount_friend_codes.sql");
+  });
+
+  it("says nothing for a book with its codes, a test book, or one older than two weeks", () => {
+    const old = paid({ id: "o", created_at: "2026-10-01T10:00:00Z", progress_meta: { friend_error: "x" } });
+    const test = plan({ id: "t", progress_meta: { friend_error: "x" } });
+    expect(overview([paid({ id: "a" }), old, test], [pay({ id: "x" })], NOW).attention.some((a) => a.text.includes("vriendcodes"))).toBe(false);
+  });
+});

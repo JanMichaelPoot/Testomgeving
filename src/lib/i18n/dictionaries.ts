@@ -316,6 +316,13 @@ export interface Dictionary {
     discountCodeLabel: string;
     discountValid: string;
     discountButton: string;
+    /** The codes to pass on to friends (Step 238). {amount} and {date} are filled in; {n} is the number of the friend. */
+    friendHeading: string;
+    friendLead: string;
+    friendRowLabel: string;
+    friendShare: string;
+    friendShareMessage: string;
+    friendValid: string;
     orderHeading: string;
     // Order confirmation additions (section 17): order number, price,
     // date, an explicit digital-delivery note, a re-confirmation of the
@@ -919,6 +926,12 @@ const nl: Dictionary = {
     discountCodeLabel: "Jouw kortingscode",
     discountValid: "Geldig tot {date}. Eén keer te gebruiken, voor één boek. Niet inwisselbaar voor geld en niet te combineren met andere acties.",
     discountButton: "Een nieuw Idea Book maken",
+    friendHeading: "Geef een vriend {amount} korting",
+    friendLead: "Ken je iemand die dit ook leuk zou vinden? Hieronder staan codes, één per vriend of vriendin. Stuur er een door, dan krijgt die persoon {amount} korting op een eigen Idea Book.",
+    friendRowLabel: "Voor vriend {n}",
+    friendShare: "Stuur via WhatsApp",
+    friendShareMessage: "Ik liet bij WindowInto een persoonlijk Idea Book maken: ideeën voor wat ik echt leuk vind, met echte plekken erbij. Ik vond het mooi, dus hier is {amount} korting voor jou:",
+    friendValid: "Elke code is één keer te gebruiken, door één vriend, voor één boek, tot {date}. Niet inwisselbaar voor geld.",
     orderHeading: "Je bestelling",
     orderNumberLabel: "Ordernummer",
     priceLabel: "Prijs",
@@ -1681,6 +1694,12 @@ const en: Dictionary = {
     discountCodeLabel: "Your discount code",
     discountValid: "Valid until {date}. One use, for one book. Cannot be exchanged for money or combined with other offers.",
     discountButton: "Make a new Idea Book",
+    friendHeading: "Give a friend {amount} off",
+    friendLead: "Know someone who would enjoy this too? Below are codes, one per friend. Send one on, and that person gets {amount} off an Idea Book of their own.",
+    friendRowLabel: "For friend {n}",
+    friendShare: "Send on WhatsApp",
+    friendShareMessage: "I had a personal Idea Book made at WindowInto: ideas for what I really enjoy, with real places to go. I loved it, so here is {amount} off for you:",
+    friendValid: "Each code can be used once, by one friend, for one book, until {date}. Cannot be exchanged for money.",
     orderHeading: "Your order",
     orderNumberLabel: "Order number",
     priceLabel: "Price",

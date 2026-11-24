@@ -16,7 +16,7 @@ export interface PlanRow {
   email_sent_at: string | null;
   payment_id: string | null;
   pdf_version: number | null;
-  progress_meta: { email_error?: string; discount_error?: string; cost?: BookCostMeta } | null;
+  progress_meta: { email_error?: string; discount_error?: string; friend_error?: string; cost?: BookCostMeta } | null;
   ideas_json: unknown;
   wildcard_json: unknown;
   feedback_json: unknown;
@@ -213,6 +213,14 @@ export function overview(plans: readonly PlanRow[], payments: readonly PaymentRo
     attention.push({
       level: "red",
       text: `${noCode.length} betaald boek${noCode.length === 1 ? "" : "en"} kreeg geen kortingscode in de e-mail (laatste 14 dagen). Draai migratie 0027_discount_codes.sql in Supabase en controleer /api/health ("discountCodes":true).`,
+    });
+  }
+  // A paid order whose mail went out without the codes for friends (migration 0029 not run): nothing is lost for the buyer, but the sharing the mail asks for is missing.
+  const noFriendCodes = paidReady.filter((p) => p.progress_meta?.friend_error && t - Date.parse(p.created_at) < 14 * DAY);
+  if (noFriendCodes.length) {
+    attention.push({
+      level: "amber",
+      text: `${noFriendCodes.length} betaald boek${noFriendCodes.length === 1 ? "" : "en"} kreeg geen vriendcodes in de e-mail (laatste 14 dagen). Draai migratie 0029_discount_friend_codes.sql in Supabase.`,
     });
   }
   const pendingPayments = payments.filter((p) => p.status === "pending" && t - Date.parse(p.created_at) > DAY);

@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { isRedirectError } from "@/lib/isRedirectError";
 import { trackEvent } from "@/lib/posthog/client";
+import { FRIEND_CODE_STORAGE_KEY, friendCodeFromQuery } from "@/lib/friendCode";
 import { checkoutCapacity, createCheckoutSession, previewDiscount } from "@/app/checkout/actions";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 
@@ -105,19 +106,34 @@ export function CheckoutPanel({
   const [applied, setApplied] = useState<{ code: string; amountLabel: string; priceLabel: string } | null>(null);
   const [codePending, startCodeCheck] = useTransition();
 
-  function applyCode() {
-    if (!codeText.trim() || codePending) return;
+  function forgetFriendCode() {
+    try {
+      sessionStorage.removeItem(FRIEND_CODE_STORAGE_KEY);
+    } catch {
+      // nothing stored, nothing to forget
+    }
+  }
+
+  function applyCode(typed: string = codeText, source: "typed" | "friend_link" = "typed") {
+    if (!typed.trim() || codePending) return;
     setCodeError(null);
     startCodeCheck(async () => {
+      // A friend's code opens the field with the code in it, so a refusal can be read there too.
+      if (source === "friend_link") {
+        setCodeOpen(true);
+        setCodeText(typed);
+      }
       try {
-        const result = await previewDiscount(codeText);
+        const result = await previewDiscount(typed);
         if (result.ok) {
           setApplied({ code: result.code, amountLabel: result.amountLabel, priceLabel: result.priceLabel });
           setCodeText(result.code);
-          trackEvent("discount_code_applied");
+          trackEvent("discount_code_applied", { source });
         } else {
           setApplied(null);
           setCodeError(result.error);
+          // A friend's code that does not work is said so, once, and forgotten.
+          if (source === "friend_link") forgetFriendCode();
           trackEvent("discount_code_rejected", { reason: "refused" });
         }
       } catch {
@@ -132,7 +148,27 @@ export function CheckoutPanel({
     setApplied(null);
     setCodeText("");
     setCodeError(null);
+    forgetFriendCode();
   }
+
+  // A friend's link (Step 238) left its code in this tab (FriendCodeCapture): the field opens with it filled in and checked, so the friend sees the lower price without typing
+  // anything. A code that does not work (used, expired) is said so in the field like any other and then forgotten, so it does not come back on every visit.
+  const friendCodeTried = useRef(false);
+  useEffect(() => {
+    if (friendCodeTried.current) return;
+    friendCodeTried.current = true;
+    let stored: string | null = null;
+    try {
+      stored = friendCodeFromQuery(sessionStorage.getItem(FRIEND_CODE_STORAGE_KEY));
+    } catch {
+      stored = null;
+    }
+    if (!stored) return;
+    /* eslint-disable react-hooks/set-state-in-effect -- one-time: the code a friend's link left in this tab is checked when the order block opens */
+    applyCode(stored, "friend_link");
+    /* eslint-enable react-hooks/set-state-in-effect */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Whether orders can be started at all right now. Asked when the block opens; if the question itself fails the button simply stays open (the order asks again on the server).
   const [closedMessage, setClosedMessage] = useState<string | null>(null);
@@ -291,7 +327,7 @@ export function CheckoutPanel({
               />
               <button
                 type="button"
-                onClick={applyCode}
+                onClick={() => applyCode()}
                 disabled={!codeText.trim() || codePending}
                 className="min-h-11 shrink-0 rounded-lg border border-border bg-cream px-4 text-sm font-semibold text-ink transition hover:border-ink disabled:opacity-50"
               >

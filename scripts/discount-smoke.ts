@@ -27,6 +27,11 @@ async function main() {
   const { data: payments } = await supabase.from("payments").select("id").order("created_at", { ascending: false }).limit(1);
   const paymentId = (payments?.[0] as { id?: string } | undefined)?.id;
   if (!paymentId) throw new Error("There is no order to attach a test code to.");
+  // This check uses up and then deletes the code it works on: on an order that already has a real code (once a book has been sent) that would destroy the real one.
+  if (await store.findByPayment(paymentId)) {
+    console.log("The newest order already has a real discount code: nothing was touched. (Run this check only before the first book is sent; scripts/friend-code-smoke.ts is safe at any time.)");
+    process.exit(0);
+  }
 
   let id: string | null = null;
   try {

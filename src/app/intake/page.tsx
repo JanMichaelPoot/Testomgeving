@@ -3,6 +3,7 @@ import { stripeTestNotice } from "@/lib/stripeMode";
 import { freeTestOrdersEnabled } from "@/lib/freeTest";
 import { SiteHeader } from "@/components/window/SiteHeader";
 import { IntakeEntry } from "@/components/window/IntakeEntry";
+import { FriendCodeCapture } from "@/components/window/FriendCodeCapture";
 import type { IntakeAnswers } from "@/app/intake/actions";
 import { buildCardLibrary } from "@/lib/discovery/cardLibrary";
 import { getLocale } from "@/lib/language";
@@ -76,6 +77,7 @@ export default async function IntakePage(props: PageProps<"/intake">) {
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
+      <FriendCodeCapture />
       <main className="mx-auto flex w-full max-w-6xl flex-1 items-start justify-center px-4 py-6 sm:px-10 sm:py-16">
         <div className="flex w-full max-w-5xl flex-col gap-4">
           {editLocked && (

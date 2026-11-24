@@ -77,6 +77,26 @@ test.describe("the discount code field", () => {
   });
 });
 
+test.describe("a friend's link with a code (Step 238)", () => {
+  test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, locale: "nl-NL" });
+
+  test("fills the code in at the order, checks it, and takes it off the address bar", async ({ page }) => {
+    // A code nobody issued: the check says so in the field, which proves the code was carried from the link to the order block.
+    await openProfile(page, "&code=WI-ZZZZ-ZZZZ&utm_source=friend_code");
+    await expect(page.locator("#discount-code")).toHaveValue("WI-ZZZZ-ZZZZ");
+    await expect(page.locator("#discount-code-error")).toHaveText("Deze code kennen we niet. Controleer de letters en cijfers.");
+    // The code is off the address, the origin of the visit stays for the measurements.
+    expect(page.url()).not.toContain("code=");
+    expect(page.url()).toContain("utm_source=friend_code");
+  });
+
+  test("ignores something that cannot be a code, and leaves the field as it was", async ({ page }) => {
+    await openProfile(page, "&code=<script>");
+    await expect(page.locator("#discount-code")).toHaveCount(0);
+    expect(page.url()).not.toContain("code=");
+  });
+});
+
 test.describe("the discount code field in English", () => {
   test.use({ viewport: { width: 1280, height: 900 }, locale: "en-GB" });
 

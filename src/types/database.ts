@@ -83,6 +83,8 @@ export type ProgressMeta = {
   email_from?: string;
   /** The order earned a discount code but none could be issued (migration 0027 not run, or the database failed): the mail went out without it. */
   discount_error?: string;
+  /** The mail went out without the codes for friends (migration 0029 not run, or the database failed). */
+  friend_error?: string;
   cost?: BookCostMeta;
 };
 

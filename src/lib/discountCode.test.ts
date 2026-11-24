@@ -10,6 +10,8 @@ import {
   generateCode,
   issueCode,
   issueCompensation,
+  issueFriendCodes,
+  FRIEND_CODES_PER_ORDER,
   normalizeCode,
   priceAfterDiscount,
   reserveCode,
@@ -32,15 +34,19 @@ function memoryStore(seedPayments: Record<string, string> = {}) {
   const orderCode = new Map<string, string>(); // stripe session id of an order -> the code row it uses
   const store: DiscountStore = {
     async findByPayment(paymentId) {
-      const r = rows.find((x) => x.paymentId === paymentId && x.kind !== "compensation");
+      const r = rows.find((x) => x.paymentId === paymentId && (!x.kind || x.kind === "order"));
       return r ? { id: r.id, code: r.code, amountCents: r.amountCents, expiresAt: r.expiresAt } : null;
     },
     async insert({ code, paymentId, amountCents, expiresAt, kind }) {
-      // a code is unique; an order has one "order" code, and any number of compensation codes (migration 0028)
-      if (rows.some((x) => x.code === code || (kind !== "compensation" && x.paymentId === paymentId && x.kind !== "compensation"))) return "taken";
+      // a code is unique; an order has one "order" code, and any number of compensation (0028) and friend (0029) codes
+      const isOrder = !kind || kind === "order";
+      if (rows.some((x) => x.code === code || (isOrder && x.paymentId === paymentId && (!x.kind || x.kind === "order")))) return "taken";
       const r: Row = { id: `id-${rows.length + 1}`, code, paymentId, amountCents, expiresAt, reservedUntil: null, redeemedAt: null, kind };
       rows.push(r);
       return { id: r.id, code, amountCents, expiresAt };
+    },
+    async listByPaymentKind(paymentId, kind) {
+      return rows.filter((x) => x.paymentId === paymentId && (x.kind ?? "order") === kind).map((r) => ({ id: r.id, code: r.code, amountCents: r.amountCents, expiresAt: r.expiresAt }));
     },
     async findByCode(code) {
       const r = rows.find((x) => x.code === code);
@@ -250,5 +256,103 @@ describe("compensation codes (Step 235)", () => {
     await issueCompensation(spy, "pay-1", `  ${"x".repeat(500)}  `, NOW);
     expect(seen[0]).toHaveLength(300);
     expect(rows).toHaveLength(1);
+  });
+});
+
+describe("friend codes (Step 238)", () => {
+  const NOW = new Date("2026-11-24T10:00:00Z");
+
+  it("makes the set of codes for a paid order, each worth the same as its own, valid 90 days, all different", async () => {
+    const { store } = memoryStore();
+    const codes = await issueFriendCodes(store, "pay-1", NOW);
+    expect(codes).toHaveLength(FRIEND_CODES_PER_ORDER);
+    expect(new Set(codes.map((c) => c.code)).size).toBe(FRIEND_CODES_PER_ORDER);
+    for (const c of codes) {
+      expect(c.amountCents).toBe(DISCOUNT_CENTS);
+      expect(c.expiresAt.getTime()).toBe(NOW.getTime() + VALID_DAYS * 86_400_000);
+      expect(normalizeCode(c.code)).toBe(c.code);
+    }
+  });
+
+  it("gives the same codes when the book is sent again, and never more", async () => {
+    const { store, rows } = memoryStore();
+    const first = await issueFriendCodes(store, "pay-1", NOW);
+    const again = await issueFriendCodes(store, "pay-1", new Date(NOW.getTime() + 86_400_000));
+    expect(again.map((c) => c.code)).toEqual(first.map((c) => c.code));
+    expect(rows.filter((r) => r.kind === "friend")).toHaveLength(FRIEND_CODES_PER_ORDER);
+  });
+
+  it("makes only what is missing when an earlier attempt stopped half way", async () => {
+    const { store, rows } = memoryStore();
+    await store.insert({ code: "WI-AAAA-BBBB", paymentId: "pay-1", amountCents: DISCOUNT_CENTS, expiresAt: NOW, kind: "friend" });
+    const codes = await issueFriendCodes(store, "pay-1", NOW);
+    expect(codes).toHaveLength(FRIEND_CODES_PER_ORDER);
+    expect(codes[0].code).toBe("WI-AAAA-BBBB");
+    expect(rows.filter((r) => r.kind === "friend")).toHaveLength(FRIEND_CODES_PER_ORDER);
+  });
+
+  it("lives next to the order's own code and the compensation codes without touching them", async () => {
+    const { store } = memoryStore();
+    const own = await issueCode(store, "pay-1", NOW);
+    await issueFriendCodes(store, "pay-1", NOW);
+    const comp = await issueCompensation(store, "pay-1", "x", NOW);
+    expect(comp.ok).toBe(true);
+    // the order's code is still the first one, and asking again for it still gives it
+    expect((await issueCode(store, "pay-1", NOW))?.code).toBe(own?.code);
+    expect(await store.listByPaymentKind("pay-1", "friend")).toHaveLength(FRIEND_CODES_PER_ORDER);
+    expect(await store.listByPaymentKind("pay-1", "compensation")).toHaveLength(1);
+  });
+
+  it("is a code like any other: one friend can use it once, and the check says when it is used", async () => {
+    const { store } = memoryStore();
+    const [code] = await issueFriendCodes(store, "pay-1", NOW);
+    const held = await reserveCode(store, code.code, NOW);
+    expect(held.ok).toBe(true);
+    const second = await checkCode(store, code.code, NOW);
+    expect(second).toEqual({ ok: false, reason: "busy" });
+  });
+
+  it("gives an empty list, and says why in the log, when it cannot start (migration 0029 not run)", async () => {
+    const err = vi.spyOn(console, "error").mockImplementation(() => {});
+    const { store } = memoryStore();
+    const noMigration: DiscountStore = {
+      ...store,
+      async insert() {
+        throw new Error('new row violates check constraint "discount_codes_kind_check"');
+      },
+    };
+    expect(await issueFriendCodes(noMigration, "pay-1", NOW)).toEqual([]);
+    expect(err.mock.calls[0][0]).toContain("migration 0029");
+    err.mockRestore();
+  });
+
+  it("keeps what it made when the storage fails halfway, and the next attempt makes the rest", async () => {
+    const err = vi.spyOn(console, "error").mockImplementation(() => {});
+    const { store } = memoryStore();
+    let inserts = 0;
+    const flaky: DiscountStore = {
+      ...store,
+      async insert(input) {
+        if (++inserts > 1) throw new Error("connection reset");
+        return store.insert(input);
+      },
+    };
+    const partial = await issueFriendCodes(flaky, "pay-1", NOW);
+    err.mockRestore();
+    expect(partial).toHaveLength(1);
+    const whole = await issueFriendCodes(store, "pay-1", NOW);
+    expect(whole).toHaveLength(FRIEND_CODES_PER_ORDER);
+    expect(whole[0].code).toBe(partial[0].code);
+  });
+
+  it("retries a code that is already taken by another order", async () => {
+    const { store } = memoryStore();
+    await store.insert({ code: "WI-AAAA-AAAA", paymentId: "other", amountCents: DISCOUNT_CENTS, expiresAt: NOW, kind: "friend" });
+    // the first pick makes the taken code, the rest make fresh ones
+    let n = 0;
+    const pick = (max: number) => (n++ < 8 ? 0 : (n * 7) % max); // 8 signs of "A", then spread
+    const codes = await issueFriendCodes(store, "pay-1", NOW, pick);
+    expect(codes).toHaveLength(FRIEND_CODES_PER_ORDER);
+    expect(codes.some((c) => c.code === "WI-AAAA-AAAA")).toBe(false);
   });
 });
