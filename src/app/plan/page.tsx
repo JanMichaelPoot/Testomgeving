@@ -38,6 +38,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import type { BookRatingProps } from "@/components/window/BookRating";
 import { loadBookFeedback, loadFriendCodesToShare } from "@/lib/bookFeedbackData";
 import { getBookFeedbackCopy } from "@/lib/i18n/bookFeedback";
+import { getIdeaShareCopy } from "@/lib/i18n/ideaShare";
 import { formatAmount } from "@/lib/pricing";
 import { friendLink, friendWhatsAppUrl } from "@/lib/friendCode";
 
@@ -352,6 +353,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           threads={threads}
           vensterDict={dict.venster}
           bookRating={bookRating}
+          ideaShare={{ siteUrl: getSiteUrl(), copy: getIdeaShareCopy(locale) }}
         />
       </main>
     </div>

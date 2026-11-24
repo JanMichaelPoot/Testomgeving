@@ -96,6 +96,11 @@ export const ANALYTICS_EVENTS = {
   invite_card_opened: { when: "the invitation panel opened", props: ["source"] },
   invite_card_shared: { when: "the invitation shared, downloaded or copied", props: ["format", "method", "source"] },
 
+  // --- sharing one idea as a card (Step 242)
+  idea_shared: { when: "an idea card shared from the idea dialog (method: native, whatsapp, copy or download)", props: ["planId", "ideaKey", "method"] },
+  shared_idea_viewed: { when: "the page of a shared idea card opened by a friend", props: ["planId", "ideaKey"] },
+  shared_idea_cta_clicked: { when: "'make your own' pressed on the page of a shared idea card", props: ["planId", "ideaKey"] },
+
   // --- the buyer's rating of the book (Step 241); never the sentence itself
   book_rated: { when: "a score of 1-5 tapped under the book", props: ["planId", "rating", "stored"] },
   book_feedback_sent: { when: "the sentence under the rating sent", props: ["planId", "rating", "has_comment", "quote_consent", "stored"] },

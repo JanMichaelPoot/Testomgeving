@@ -100,6 +100,9 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `shared_idea_book_cta_clicked` | een knop op de gedeelde pagina geklikt | `planId` |
 | `invite_card_opened` | het uitnodigingspaneel geopend | `source` |
 | `invite_card_shared` | uitnodiging gedeeld, gedownload of gekopieerd | `format`, `method`, `source` |
+| `idea_shared` | een ideekaart gedeeld vanuit het ideevenster (Stap 242; `method`: native, whatsapp, copy of download) | `planId`, `ideaKey`, `method` |
+| `shared_idea_viewed` | de pagina van een gedeelde ideekaart geopend door een vriend | `planId`, `ideaKey` |
+| `shared_idea_cta_clicked` | "Maak jouw eigen Idea Book" gedrukt op die pagina | `planId`, `ideaKey` |
 | `book_rated` | een score van 1-5 onder het boek aangetikt (Stap 241) | `planId`, `rating`, `stored` |
 | `book_feedback_sent` | de zin onder de waardering verstuurd (nooit de zin zelf) | `planId`, `rating`, `has_comment`, `quote_consent`, `stored` |
 | `book_friend_code_shared` | een vriendcode via WhatsApp verstuurd vanuit het waarderingsblok | `planId`, `rating` |

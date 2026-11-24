@@ -11,6 +11,9 @@ import { IdeaThread } from "@/components/plan/IdeaThread";
 import { pdfPageNumbers } from "@/lib/claude/ideaLayers";
 import { ShareButton } from "@/components/window/ShareButton";
 import { BookRating, type BookRatingProps } from "@/components/window/BookRating";
+import { IdeaShare } from "@/components/window/IdeaShare";
+import { shortExplanation } from "@/lib/ideaShare";
+import type { IdeaShareCopy } from "@/lib/i18n/ideaShare";
 import { commitToIdea, submitIdeaFeedback, type IdeaFeedbackValue } from "@/app/plan/actions";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { ideaPhoto } from "@/lib/illustrations";
@@ -33,15 +36,6 @@ function metaParts(idea: IdeaBookEntry, locale: Locale): string[] {
 
 function isDoor(value: string): value is Door {
   return (DOOR_ORDER as readonly string[]).includes(value);
-}
-
-/** The short explanation next to an option: its own one-line intro, else the first sentence of why it fits. */
-function shortExplanation(idea: IdeaBookEntry): string {
-  const intro = (idea.intro ?? "").trim();
-  if (intro) return intro;
-  const why = (idea.why_it_fits ?? "").trim();
-  const first = why.match(/^[^.!?]+[.!?]/);
-  return (first ? first[0] : why).trim();
 }
 
 function CheckIcon() {
@@ -107,6 +101,8 @@ export interface PlanRevealProps {
   vensterDict?: Dictionary["venster"];
   /** The rating block under the PDF button (Step 241); only for the owner of the book, so absent for anyone else. */
   bookRating?: BookRatingProps;
+  /** Sharing one idea as a card (Step 242), in the idea dialog; absent in places that cannot share (nothing is shown then). */
+  ideaShare?: { siteUrl: string; copy: IdeaShareCopy };
 }
 
 // The paid result as one compact overview ("Jouw mogelijkheden in kaart"): all the ideas and the wildcard in one list, door by door, each with its
@@ -135,6 +131,7 @@ export function PlanReveal({
   threads = {},
   vensterDict,
   bookRating,
+  ideaShare,
 }: PlanRevealProps) {
   const t = planDict.reveal;
 
@@ -407,6 +404,7 @@ export function PlanReveal({
                 </div>
               </div>
             )}
+            {ideaShare && <IdeaShare planId={planId} ideaKey={selectedKey} title={selected.idea.title} siteUrl={ideaShare.siteUrl} copy={ideaShare.copy} />}
             {pdfHref(selectedKey) && (
               <a
                 href={pdfHref(selectedKey)!}
