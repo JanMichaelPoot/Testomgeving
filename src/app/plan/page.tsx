@@ -34,6 +34,12 @@ import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import { displayPlace } from "@/lib/place";
 import { maskEmail } from "@/lib/maskEmail";
 import { IDEA_LINK_PARAM, parseIdeaParam } from "@/lib/ideaKeys";
+import { createServiceRoleClient } from "@/lib/supabase/server";
+import type { BookRatingProps } from "@/components/window/BookRating";
+import { loadBookFeedback, loadFriendCodesToShare } from "@/lib/bookFeedbackData";
+import { getBookFeedbackCopy } from "@/lib/i18n/bookFeedback";
+import { formatAmount } from "@/lib/pricing";
+import { friendLink, friendWhatsAppUrl } from "@/lib/friendCode";
 
 export async function generateMetadata(): Promise<Metadata> {
   const dict = getDictionary(await getLocale());
@@ -286,6 +292,32 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   // controls for anyone else instead of showing buttons that would fail.
   const canInteract = (await getSessionId()) === plan.session_id;
 
+  // The rating block under the PDF button (Step 241), for the owner only: what they already answered, and the friend codes they can still pass on.
+  let bookRating: BookRatingProps | undefined;
+  if (canInteract) {
+    const supabase = createServiceRoleClient();
+    const [stored, friendCodes] = await Promise.all([
+      loadBookFeedback(supabase, plan.id),
+      testSessionId ? Promise.resolve([]) : loadFriendCodesToShare(supabase, plan.session_id),
+    ]);
+    const copy = getBookFeedbackCopy(locale);
+    const site = getSiteUrl();
+    const amount = friendCodes[0] ? formatAmount(friendCodes[0].amountCents, "eur", locale) : "";
+    const message = copy.friendMessage.replace("{amount}", amount);
+    bookRating = {
+      planId: plan.id,
+      locale,
+      copy,
+      initial: stored,
+      friends: friendCodes.map((c) => ({ code: c.code, whatsappUrl: friendWhatsAppUrl(message, friendLink(site, locale, c.code)) })),
+      friendAmount: amount,
+      friendDate: friendCodes[0]
+        ? new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Amsterdam" }).format(friendCodes[0].expiresAt)
+        : "",
+      share: { url: `${site}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`, label: dict.plan.shareButtonLabel, copiedLabel: dict.plan.shareCopiedLabel, whatsappLabel: dict.plan.shareWhatsappLabel },
+    };
+  }
+
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader locale={locale} dict={dict.header} />
@@ -319,6 +351,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           because={because}
           threads={threads}
           vensterDict={dict.venster}
+          bookRating={bookRating}
         />
       </main>
     </div>

@@ -96,6 +96,11 @@ export const ANALYTICS_EVENTS = {
   invite_card_opened: { when: "the invitation panel opened", props: ["source"] },
   invite_card_shared: { when: "the invitation shared, downloaded or copied", props: ["format", "method", "source"] },
 
+  // --- the buyer's rating of the book (Step 241); never the sentence itself
+  book_rated: { when: "a score of 1-5 tapped under the book", props: ["planId", "rating", "stored"] },
+  book_feedback_sent: { when: "the sentence under the rating sent", props: ["planId", "rating", "has_comment", "quote_consent", "stored"] },
+  book_friend_code_shared: { when: "a friend code sent on WhatsApp from the rating block", props: ["planId", "rating"] },
+
   // --- the tester questionnaire (test preview only)
   test_feedback_submitted: {
     when: "the tester questionnaire sent",

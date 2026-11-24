@@ -100,6 +100,9 @@ opnames in PostHog te verwachten. Zet gerust ook in het project zelf Session rep
 | `shared_idea_book_cta_clicked` | een knop op de gedeelde pagina geklikt | `planId` |
 | `invite_card_opened` | het uitnodigingspaneel geopend | `source` |
 | `invite_card_shared` | uitnodiging gedeeld, gedownload of gekopieerd | `format`, `method`, `source` |
+| `book_rated` | een score van 1-5 onder het boek aangetikt (Stap 241) | `planId`, `rating`, `stored` |
+| `book_feedback_sent` | de zin onder de waardering verstuurd (nooit de zin zelf) | `planId`, `rating`, `has_comment`, `quote_consent`, `stored` |
+| `book_friend_code_shared` | een vriendcode via WhatsApp verstuurd vanuit het waarderingsblok | `planId`, `rating` |
 | `test_feedback_submitted` | de testvragenlijst verstuurd | `flow_score`, `profile_score`, `doors_score`, `door_pick`, `door_kind`, `places_score`, `mail_status`, `would_pay`, `has_doubt`, `stored` |
 
 ### De testvragenlijst (alleen op de testversie)

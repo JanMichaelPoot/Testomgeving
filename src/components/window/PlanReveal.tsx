@@ -10,6 +10,7 @@ import { IdeaFeedback } from "@/components/window/IdeaFeedback";
 import { IdeaThread } from "@/components/plan/IdeaThread";
 import { pdfPageNumbers } from "@/lib/claude/ideaLayers";
 import { ShareButton } from "@/components/window/ShareButton";
+import { BookRating, type BookRatingProps } from "@/components/window/BookRating";
 import { commitToIdea, submitIdeaFeedback, type IdeaFeedbackValue } from "@/app/plan/actions";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { ideaPhoto } from "@/lib/illustrations";
@@ -104,6 +105,8 @@ export interface PlanRevealProps {
   // Per idea key: how that door came about (image, tags, door, place). Only books that stored it.
   threads?: Record<string, IdeaThreadData>;
   vensterDict?: Dictionary["venster"];
+  /** The rating block under the PDF button (Step 241); only for the owner of the book, so absent for anyone else. */
+  bookRating?: BookRatingProps;
 }
 
 // The paid result as one compact overview ("Jouw mogelijkheden in kaart"): all the ideas and the wildcard in one list, door by door, each with its
@@ -131,6 +134,7 @@ export function PlanReveal({
   vensterEcho = null,
   threads = {},
   vensterDict,
+  bookRating,
 }: PlanRevealProps) {
   const t = planDict.reveal;
 
@@ -351,6 +355,8 @@ export function PlanReveal({
           </p>
         )}
       </div>
+
+      {canInteract && bookRating && <BookRating {...bookRating} />}
 
       <IdeaDialog open={selected !== null} title={selected?.idea.title ?? ""} closeLabel={t.dialogClose} onClose={() => setSelectedKey(null)}>
         {selected && selectedKey && (

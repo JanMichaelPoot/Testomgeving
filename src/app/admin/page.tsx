@@ -6,6 +6,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { costOverview, overview, percent, ratio, type PaymentRow, type PlanRow } from "@/lib/adminStats";
 import { envChecks } from "@/lib/adminEnv";
 import { loadCapacity, type ClosedReason } from "@/lib/capacity";
+import { summarizeBookFeedback, type BookFeedbackRow } from "@/lib/bookFeedback";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { isExemptIp, parseExemptIps, quotaOverview, requestIp } from "@/lib/testQuota";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid, formatEuro, formatSeconds } from "./ui";
@@ -62,6 +63,9 @@ export default async function AdminOverviewPage() {
       text: `${unmailedRewards} beloningscode${unmailedRewards === 1 ? "" : "s"} voor een koper is gemaakt maar niet verstuurd (mailfout of geen adres). Zoek de bestelling in Orders, de code staat daar bij "beloning"; stuur de koper een compensatiecode of de code zelf.`,
     });
   }
+  // What buyers rate their book (Step 241): a tile only once the table exists and has answers.
+  const ratingResult = await loose.from("book_feedback").select("rating, comment, quote_consent, locale, created_at").limit(2000);
+  const ratings = summarizeBookFeedback(ratingResult.error ? [] : ((ratingResult.data ?? []) as BookFeedbackRow[]));
   const myIp = await requestIp();
   const myIpExempt = isExemptIp(myIp, parseExemptIps(process.env.TEST_QUOTA_EXEMPT_IPS));
   const broken = checks.filter((c) => c.required && !c.ok);
@@ -229,6 +233,11 @@ export default async function AdminOverviewPage() {
           <Tile label="Boeken met minstens één hartje" value={percent(ratio(o.engagement.liked, o.engagement.ready))} sub={`${o.engagement.liked} van ${o.engagement.ready}`} />
           <Tile label="Boeken met een gekozen idee" value={percent(ratio(o.engagement.committed, o.engagement.ready))} sub={`${o.engagement.committed} van ${o.engagement.ready}`} />
           <Tile label="Testfeedback ontvangen" value={feedback?.length ?? 0} sub="Zie het tabblad Feedback" />
+          <Tile
+            label="Waardering van kopers"
+            value={ratings.mean === null ? "—" : `${ratings.mean.toFixed(1)} / 5`}
+            sub={ratingResult.error ? "migratie 0031 nog niet gedraaid" : `${ratings.n} waardering${ratings.n === 1 ? "" : "en"} · ${percent(ratings.enthusiastic)} enthousiast`}
+          />
         </TileGrid>
       </Section>
 

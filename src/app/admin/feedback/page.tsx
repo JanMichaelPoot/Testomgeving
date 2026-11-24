@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { feedbackSummary, percent, readScore, type FeedbackRow, type ScoreSummary } from "@/lib/adminStats";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { summarizeBookFeedback, type BookFeedbackRow } from "@/lib/bookFeedback";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid } from "../ui";
 
 export const metadata: Metadata = {
@@ -54,6 +56,11 @@ export default async function AdminFeedbackPage() {
   const rows = (data ?? []) as unknown as FeedbackRow[];
   const s = feedbackSummary(rows);
 
+  // What buyers rated their own book (Step 241). Not in the generated types (migration 0031), and missing until that migration has run.
+  const loose = supabase as unknown as SupabaseClient;
+  const ratingResult = await loose.from("book_feedback").select("rating, comment, quote_consent, locale, created_at").order("created_at", { ascending: false }).limit(2000);
+  const ratings = summarizeBookFeedback(ratingResult.error ? [] : ((ratingResult.data ?? []) as BookFeedbackRow[]));
+
   return (
     <AdminShell
       active="/admin/feedback"
@@ -68,6 +75,47 @@ export default async function AdminFeedbackPage() {
       }
     >
       {error && <p className="text-sm text-red-600">Kon de feedback niet laden: {error.message}</p>}
+
+      <Section title="Waardering van kopers" hint={'"Hoe waardevol was dit boek voor je?" (1-5), onderaan het boek. Wie 4 of 5 geeft, ziet de vriendcodes en mag een zin achterlaten.'}>
+        {ratingResult.error ? (
+          <p className="text-sm text-amber-700">Nog niet beschikbaar: draai migratie 0031_book_feedback.sql in Supabase. Tot dan wordt de waardering niet opgeslagen (de knoppen werken wel).</p>
+        ) : (
+          <>
+            <TileGrid>
+              <Tile label="Waarderingen" value={ratings.n} sub={ratings.n < 20 ? "nog weinig: lees de zinnen" : undefined} />
+              <Tile label="Gemiddeld" value={ratings.mean === null ? "—" : ratings.mean.toFixed(1)} sub="van 5" />
+              <Tile
+                label="Enthousiast (4 of 5)"
+                value={percent(ratings.enthusiastic)}
+                tone={ratings.enthusiastic === null ? undefined : ratings.enthusiastic >= 0.6 ? "good" : ratings.enthusiastic < 0.4 ? "bad" : undefined}
+              />
+            </TileGrid>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <Card>
+                <BarList items={ratings.distribution.map((v, i) => ({ label: `${i + 1}`, value: v }))} total={ratings.n} />
+              </Card>
+              <Card>
+                {ratings.comments.length === 0 ? (
+                  <p className="text-sm text-ink/70">Nog geen zinnen.</p>
+                ) : (
+                  <ul className="space-y-3">
+                    {ratings.comments.slice(0, 12).map((c, i) => (
+                      <li key={i} className="text-sm text-ink">
+                        {c.text}
+                        <span className="mt-1 block text-xs text-ink/70">
+                          {c.rating} van 5 · {c.at.slice(0, 10)}
+                          {c.locale ? ` · ${c.locale.toUpperCase()}` : ""} ·{" "}
+                          {c.consent ? <strong className="text-emerald-700">mag anoniem op de site</strong> : "niet voor de site"}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </Card>
+            </div>
+          </>
+        )}
+      </Section>
 
       <Section title="Zo lees je dit" hint="Een paar vuistregels, zodat een getal niet te veel of te weinig zegt.">
         <Card>
