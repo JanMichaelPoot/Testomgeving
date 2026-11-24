@@ -168,7 +168,7 @@ export default async function Home(props: {
         <TrustBlock copy={home.trust} locale={locale} testimonials={TESTIMONIALS} />
 
         {/* FAQ */}
-        <section id="faq" className="mx-auto w-full max-w-3xl scroll-mt-24 px-6 pb-20 sm:px-10">
+        <section id="faq" className="mx-auto w-full max-w-3xl scroll-mt-12 px-6 pb-20 pt-16 sm:scroll-mt-8 sm:px-10 sm:pt-20">
           <h2 className="font-serif text-3xl text-ink sm:text-4xl">{home.faq.heading}</h2>
           <p className="mb-8 mt-3 text-ink/70">{home.faq.sub}</p>
           <FaqList items={home.faq.items} price={price} />
