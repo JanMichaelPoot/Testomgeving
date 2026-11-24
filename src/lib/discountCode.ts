@@ -48,8 +48,8 @@ export function priceAfterDiscount(priceCents: number, discountCents: number): n
   return Math.max(Math.min(priceCents, MIN_PRICE_CENTS), priceCents - discountCents);
 }
 
-/** Why a code exists: earned by ordering (one per order), sent as compensation (Step 235), or given to the buyer to pass on to a friend (Step 238). */
-export type CodeKind = "order" | "compensation" | "friend";
+/** Why a code exists: earned by ordering (one per order), sent as compensation (Step 235), given to the buyer to pass on to a friend (Step 238), or the buyer's reward once a friend used one (Step 239). */
+export type CodeKind = "order" | "compensation" | "friend" | "reward";
 
 export interface IssuedCode {
   code: string;
@@ -78,6 +78,18 @@ export interface DiscountStore {
   releaseById(id: string): Promise<void>;
   /** Uses the code of an order up (a confirmed payment); false when the order has none. */
   redeemForOrder(stripeSessionId: string, now: Date): Promise<boolean>;
+  /** The id of the code an order used (held or used up), or null when it used none. */
+  codeIdForOrder(stripeSessionId: string): Promise<string | null>;
+  /**
+   * The reward step of Step 239, one atomic claim: marks the friend code as rewarded, but only if it IS a friend code, it has been used up, and it has not been rewarded yet.
+   * Returns the order the code was issued for (the buyer who passed it on) and the code itself, or null when there is nothing to reward (another kind of code, not used,
+   * rewarded already, or the claim lost a race). One claim wins, however many times the payment is confirmed.
+   */
+  claimReward(codeId: string, now: Date): Promise<{ paymentId: string; code: string } | null>;
+  /** Takes the claim back (the reward could not be made), so a later attempt can give it. */
+  unclaimReward(codeId: string): Promise<void>;
+  /** Notes when the mail of a reward code went out. */
+  markMailed(codeId: string, now: Date): Promise<void>;
 }
 
 const addDays = (d: Date, days: number) => new Date(d.getTime() + days * 86_400_000);
@@ -275,6 +287,32 @@ export function supabaseStore(supabase: SupabaseClient): DiscountStore {
     },
     async releaseById(id) {
       const { error } = await supabase.from("discount_codes").update({ reserved_until: null }).eq("id", id).is("redeemed_at", null);
+      if (error) throw new Error(error.message);
+    },
+    async codeIdForOrder(stripeSessionId) {
+      const { data, error } = await supabase.from("payments").select("discount_code_id").eq("stripe_payment_id", stripeSessionId).maybeSingle();
+      if (error) throw new Error(error.message);
+      return (data as { discount_code_id?: string | null } | null)?.discount_code_id ?? null;
+    },
+    async claimReward(codeId, now) {
+      const { data, error } = await supabase
+        .from("discount_codes")
+        .update({ rewarded_at: now.toISOString() })
+        .eq("id", codeId)
+        .eq("kind", "friend")
+        .not("redeemed_at", "is", null)
+        .is("rewarded_at", null)
+        .select("code, issued_for_payment_id");
+      if (error) throw new Error(error.message);
+      const row = (data ?? [])[0] as { code: string; issued_for_payment_id: string } | undefined;
+      return row ? { paymentId: row.issued_for_payment_id, code: row.code } : null;
+    },
+    async unclaimReward(codeId) {
+      const { error } = await supabase.from("discount_codes").update({ rewarded_at: null }).eq("id", codeId);
+      if (error) throw new Error(error.message);
+    },
+    async markMailed(codeId, now) {
+      const { error } = await supabase.from("discount_codes").update({ mailed_at: now.toISOString() }).eq("id", codeId);
       if (error) throw new Error(error.message);
     },
     async redeemForOrder(stripeSessionId, now) {

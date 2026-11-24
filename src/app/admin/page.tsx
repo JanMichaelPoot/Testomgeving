@@ -6,6 +6,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { costOverview, overview, percent, ratio, type PaymentRow, type PlanRow } from "@/lib/adminStats";
 import { envChecks } from "@/lib/adminEnv";
 import { loadCapacity, type ClosedReason } from "@/lib/capacity";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { isExemptIp, parseExemptIps, quotaOverview, requestIp } from "@/lib/testQuota";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid, formatEuro, formatSeconds } from "./ui";
 
@@ -46,6 +47,21 @@ export default async function AdminOverviewPage() {
   const checks = envChecks(process.env);
   const quota = await quotaOverview(supabase);
   const capacity = await loadCapacity(supabase);
+  // The reward for a buyer whose friend ordered (Step 239): needs migration 0030, and a reward code whose mail did not go out is the owner's to send by hand.
+  const loose = supabase as unknown as SupabaseClient;
+  const tenMinutesAgo = new Date();
+  tenMinutesAgo.setMinutes(tenMinutesAgo.getMinutes() - 10);
+  const rewardProbe = await loose.from("discount_codes").select("rewarded_at, mailed_at").limit(1);
+  const unmailedRewards = rewardProbe.error
+    ? 0
+    : ((await loose.from("discount_codes").select("id", { count: "exact", head: true }).eq("kind", "reward").is("mailed_at", null).lt("created_at", tenMinutesAgo.toISOString())).count ?? 0);
+  if (rewardProbe.error) o.attention.push({ level: "amber", text: "De beloning voor kopers wier vriend bestelt wordt nog niet gegeven: draai migratie 0030_discount_reward_codes.sql in Supabase." });
+  if (unmailedRewards > 0) {
+    o.attention.push({
+      level: "red",
+      text: `${unmailedRewards} beloningscode${unmailedRewards === 1 ? "" : "s"} voor een koper is gemaakt maar niet verstuurd (mailfout of geen adres). Zoek de bestelling in Orders, de code staat daar bij "beloning"; stuur de koper een compensatiecode of de code zelf.`,
+    });
+  }
   const myIp = await requestIp();
   const myIpExempt = isExemptIp(myIp, parseExemptIps(process.env.TEST_QUOTA_EXEMPT_IPS));
   const broken = checks.filter((c) => c.required && !c.ok);

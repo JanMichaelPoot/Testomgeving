@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { supabaseStore } from "@/lib/discountCode";
+import { rewardReferrerForOrder } from "@/lib/referralRewardLive";
 
 // Payment bookkeeping only. Generating the actual Window Plan content
 // (steps, PDF, email) happens on the /plan screen — a separate build block.
@@ -49,6 +50,14 @@ export async function POST(request: Request) {
         await supabaseStore(supabase).redeemForOrder(session.id, new Date());
       } catch (err) {
         console.error("WINDOW: could not use up the discount code of a paid order:", err);
+      }
+
+      // If that code was one a buyer passed on to this friend (Step 239), the buyer gets a code of their own, by mail. Once per friend code, never for the buyer themselves, and
+      // never a reason to fail the webhook: it answers with what happened and logs it.
+      try {
+        await rewardReferrerForOrder(supabase, session.id, [session.metadata?.delivery_email, session.customer_details?.email, session.customer_email]);
+      } catch (err) {
+        console.error("WINDOW: the reward for a friend's order failed:", err instanceof Error ? err.message : err);
       }
 
       const sessionId = session.metadata?.session_id;

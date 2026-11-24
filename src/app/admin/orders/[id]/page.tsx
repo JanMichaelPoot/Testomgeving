@@ -122,7 +122,7 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
             codes.map((c) => (
               <div key={c.code} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 text-sm">
                 <dt className="text-ink/70">
-                  <span className="font-mono text-xs text-ink">{c.code}</span> · {c.kind === "compensation" ? "compensatie" : "bij de bestelling"}
+                  <span className="font-mono text-xs text-ink">{c.code}</span> · {KIND_LABEL[c.kind] ?? "bij de bestelling"}
                   {c.reason ? ` · ${c.reason}` : ""}
                 </dt>
                 <dd className="text-right text-ink">
@@ -202,6 +202,9 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
     </div>
   );
 }
+
+// What each kind of code is, in words for the owner: the one the order earned, a compensation code (Step 235), one for a friend (Step 238), the reward once a friend used one (Step 239).
+const KIND_LABEL: Record<string, string> = { order: "bij de bestelling", compensation: "compensatie", friend: "voor een vriend", reward: "beloning (een vriend bestelde)" };
 
 const COMPENSATION_STATUS: Record<string, string> = {
   sent: "De mail met een extra kortingscode van €2,50 is verstuurd naar {email}.",

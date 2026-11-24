@@ -65,11 +65,14 @@ vi.mock("@/lib/stripe", () => ({
 
 // The one-time discount code of an order (src/lib/discountCode.ts): used up when the payment is confirmed, let go when it fails or runs out.
 const discountCalls: string[] = [];
+// Every step in the order it happened (the code used up, then the reward asked for), for the reward tests below.
+const callOrder: string[] = [];
 let discountThrows = false;
 vi.mock("@/lib/discountCode", () => ({
   supabaseStore: () => ({
     async redeemForOrder(session: string) {
       discountCalls.push(`redeem:${session}`);
+      callOrder.push(`redeem:${session}`);
       if (discountThrows) throw new Error("table missing");
       return true;
     },
@@ -77,6 +80,18 @@ vi.mock("@/lib/discountCode", () => ({
       discountCalls.push(`release:${session}`);
       if (discountThrows) throw new Error("table missing");
     },
+  }),
+}));
+
+// The reward for the buyer who passed a friend code on (Step 239) has its own tests (src/lib/referralReward.test.ts): here only that the webhook asks for it, when, and that it never fails.
+const rewardCalls: unknown[][] = [];
+let rewardThrows = false;
+vi.mock("@/lib/referralRewardLive", () => ({
+  rewardReferrerForOrder: vi.fn(async (_db: unknown, ...args: unknown[]) => {
+    rewardCalls.push(args);
+    callOrder.push(`reward:${args[0]}`);
+    if (rewardThrows) throw new Error("mail service down");
+    return { status: "none", reason: "no_code" };
   }),
 }));
 
@@ -152,5 +167,58 @@ describe("Stripe webhook — the one-time discount code of an order (Step 230)",
     expect(supabaseMock.__row.status).toBe("succeeded");
     expect((await deliver("checkout.session.expired")).status).toBe(200);
     err.mockRestore();
+  });
+});
+
+describe("Stripe webhook — the reward for the buyer who passed a friend code on (Step 239)", () => {
+  const original = fakeEvent.type;
+  const object = fakeEvent.data.object as Record<string, unknown>;
+  beforeEach(() => {
+    discountCalls.length = 0;
+    callOrder.length = 0;
+    rewardCalls.length = 0;
+    rewardThrows = false;
+    discountThrows = false;
+    object.metadata = { session_id: "session-1", delivery_email: "friend@example.org" };
+    object.customer_details = { email: "friend@stripe.example" };
+    object.customer_email = "friend@example.org";
+  });
+  const deliver = async (type: string) => {
+    fakeEvent.type = type;
+    try {
+      return await POST(fakeRequest());
+    } finally {
+      fakeEvent.type = original;
+    }
+  };
+
+  it("asks for it after the code is used up, with every address the friend ordered with, when a payment is confirmed (also a later one, iDEAL and the like)", async () => {
+    expect((await deliver("checkout.session.completed")).status).toBe(200);
+    expect((await deliver("checkout.session.async_payment_succeeded")).status).toBe(200);
+    expect(callOrder).toEqual(["redeem:cs_test_1", "reward:cs_test_1", "redeem:cs_test_1", "reward:cs_test_1"]);
+    expect(rewardCalls[0]).toEqual(["cs_test_1", ["friend@example.org", "friend@stripe.example", "friend@example.org"]]);
+  });
+
+  it("does not ask when the payment fails or the Checkout Session runs out", async () => {
+    await deliver("checkout.session.expired");
+    await deliver("checkout.session.async_payment_failed");
+    expect(rewardCalls).toHaveLength(0);
+  });
+
+  it("never fails the webhook because of the reward: the payment is still recorded", async () => {
+    rewardThrows = true;
+    const err = vi.spyOn(console, "error").mockImplementation(() => {});
+    expect((await deliver("checkout.session.completed")).status).toBe(200);
+    expect(supabaseMock.__row.status).toBe("succeeded");
+    expect(err.mock.calls.some((c) => String(c[0]).includes("reward"))).toBe(true);
+    err.mockRestore();
+  });
+
+  it("still asks when using the code up failed, since the claim itself checks that the code is used", async () => {
+    discountThrows = true;
+    const err = vi.spyOn(console, "error").mockImplementation(() => {});
+    expect((await deliver("checkout.session.completed")).status).toBe(200);
+    err.mockRestore();
+    expect(rewardCalls).toHaveLength(1);
   });
 });
