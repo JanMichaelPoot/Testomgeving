@@ -96,6 +96,12 @@ export const ANALYTICS_EVENTS = {
   invite_card_opened: { when: "the invitation panel opened", props: ["source"] },
   invite_card_shared: { when: "the invitation shared, downloaded or copied", props: ["format", "method", "source"] },
 
+  // --- the check-in mail a week after a book (Step 243); never the sentence itself
+  checkin_email_sent: { when: "the check-in e-mail sent, server side", props: [] },
+  checkin_answered: { when: "the answer page of the check-in opened with an answer, or the answer changed there", props: ["choice", "stored"] },
+  checkin_comment_sent: { when: "the sentence on the answer page sent", props: ["choice", "has_comment", "quote_consent", "stored"] },
+  checkin_friend_code_shared: { when: "a friend code sent on WhatsApp from the answer page", props: ["choice"] },
+
   // --- sharing one idea as a card (Step 242)
   idea_shared: { when: "an idea card shared from the idea dialog (method: native, whatsapp, copy or download)", props: ["planId", "ideaKey", "method"] },
   shared_idea_viewed: { when: "the page of a shared idea card opened by a friend", props: ["planId", "ideaKey"] },

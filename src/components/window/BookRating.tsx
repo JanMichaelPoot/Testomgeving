@@ -3,16 +3,13 @@
 import { useId, useState, useTransition } from "react";
 import { saveBookFeedback } from "@/app/plan/bookFeedbackActions";
 import { ShareButton } from "@/components/window/ShareButton";
+import { FriendCodeList, type FriendShare } from "@/components/window/FriendCodeList";
 import { trackEvent } from "@/lib/posthog/client";
 import { COMMENT_MAX, isEnthusiastic } from "@/lib/bookFeedback";
 import type { BookFeedbackCopy } from "@/lib/i18n/bookFeedback";
 import { cn } from "@/lib/utils";
 
-export interface BookRatingFriend {
-  code: string;
-  /** WhatsApp with the message and the link ready, built on the server. */
-  whatsappUrl: string;
-}
+export type BookRatingFriend = FriendShare;
 
 export interface BookRatingProps {
   planId: string;
@@ -114,27 +111,7 @@ export function BookRating({ planId, locale, copy, initial, friends, friendAmoun
           </p>
 
           {friends.length > 0 ? (
-            <div className="flex flex-col gap-2">
-              <ul className="flex flex-col gap-2">
-                {friends.map((f, i) => (
-                  <li key={f.code} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-lg border border-border bg-cream px-4 py-2.5">
-                    <span className="text-sm text-ink/70">{copy.friendRow.replace("{n}", String(i + 1))}</span>
-                    <span className="font-mono text-sm font-semibold tracking-wide text-ink">{f.code}</span>
-                    <a
-                      href={f.whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => trackEvent("book_friend_code_shared", { planId, rating })}
-                      className="inline-flex min-h-11 items-center text-sm font-semibold text-accent-dark underline underline-offset-2 hover:text-accent"
-                    >
-                      {copy.friendSend} →
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <p className="text-sm text-ink/75">{copy.friendReward.replace("{amount}", friendAmount)}</p>
-              <p className="text-xs text-ink/70">{copy.friendValid.replace("{date}", friendDate)}</p>
-            </div>
+            <FriendCodeList friends={friends} copy={copy} amount={friendAmount} date={friendDate} onShare={() => trackEvent("book_friend_code_shared", { planId, rating })} />
           ) : (
             <div className="flex flex-wrap items-center gap-3">
               <ShareButton

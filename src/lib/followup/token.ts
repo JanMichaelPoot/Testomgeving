@@ -2,11 +2,12 @@ import { createHmac, createHash, timingSafeEqual } from "node:crypto";
 import { SUPABASE_SERVICE_ROLE_KEY } from "@/lib/supabase/env";
 
 // The links in the follow-up e-mail carry the id of the book and a signature, so nobody can open or unsubscribe someone else's by guessing an
-// id, and the link needs no login. One signature per purpose ("open" and "unsub"), so a token for one cannot be used for the other.
+// id, and the link needs no login. One signature per purpose ("open" and "unsub" for the follow-up mail, "checkin" and "checkin-out" for the check-in mail
+// of Step 243), so a token for one cannot be used for the other.
 
-export type FollowUpPurpose = "open" | "unsub";
+export type FollowUpPurpose = "open" | "unsub" | "checkin" | "checkin-out";
 
-function secret(): string {
+export function secret(): string {
   const explicit = (process.env.IP_HASH_SECRET ?? "").trim();
   if (explicit) return explicit;
   // No separate secret set: derive one from a key only the server has.

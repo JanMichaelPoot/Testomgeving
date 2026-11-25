@@ -13,7 +13,7 @@ export default function robots(): MetadataRoute.Robots {
       // discovery of someone else's personal Idea Book — /checkout and
       // /intake are mid-flow pages with nothing worth indexing.
       // /afmelden and /nieuw-venster are signed links from an e-mail.
-      disallow: ["/plan", "/checkout", "/intake", "/shared", "/api", "/admin", "/afmelden", "/nieuw-venster"],
+      disallow: ["/plan", "/checkout", "/intake", "/shared", "/terugkoppeling", "/api", "/admin", "/afmelden", "/nieuw-venster"],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
   };

@@ -66,6 +66,9 @@ export default async function AdminOverviewPage() {
   // What buyers rate their book (Step 241): a tile only once the table exists and has answers.
   const ratingResult = await loose.from("book_feedback").select("rating, comment, quote_consent, locale, created_at").limit(2000);
   const ratings = summarizeBookFeedback(ratingResult.error ? [] : ((ratingResult.data ?? []) as BookFeedbackRow[]));
+  // The check-in mail a week after a book (Step 243) needs migration 0032 (a column on window_plans and two tables); without it the daily job sends nothing.
+  const checkinProbe = await loose.from("window_plans").select("checkin_sent_at").limit(1);
+  if (checkinProbe.error) o.attention.push({ level: "amber", text: "De check-inmail een week na het boek wordt nog niet verstuurd: draai migratie 0032_book_checkins.sql in Supabase." });
   const myIp = await requestIp();
   const myIpExempt = isExemptIp(myIp, parseExemptIps(process.env.TEST_QUOTA_EXEMPT_IPS));
   const broken = checks.filter((c) => c.required && !c.ok);

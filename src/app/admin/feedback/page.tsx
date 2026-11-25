@@ -5,6 +5,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { feedbackSummary, percent, readScore, type FeedbackRow, type ScoreSummary } from "@/lib/adminStats";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { summarizeBookFeedback, type BookFeedbackRow } from "@/lib/bookFeedback";
+import { summarizeCheckins, type CheckinRow } from "@/lib/checkin";
 import { AdminShell, BarList, Card, Section, Tile, TileGrid } from "../ui";
 
 export const metadata: Metadata = {
@@ -61,6 +62,11 @@ export default async function AdminFeedbackPage() {
   const ratingResult = await loose.from("book_feedback").select("rating, comment, quote_consent, locale, created_at").order("created_at", { ascending: false }).limit(2000);
   const ratings = summarizeBookFeedback(ratingResult.error ? [] : ((ratingResult.data ?? []) as BookFeedbackRow[]));
 
+  // What buyers did with the book a week later (Step 243): the answers to the check-in mail, and how many mails went out. Missing until migration 0032 has run.
+  const checkinResult = await loose.from("book_checkins").select("answer, comment, quote_consent, locale, created_at").order("created_at", { ascending: false }).limit(2000);
+  const sentResult = await loose.from("window_plans").select("id", { count: "exact", head: true }).not("checkin_sent_at", "is", null);
+  const checkins = summarizeCheckins(checkinResult.error ? [] : ((checkinResult.data ?? []) as CheckinRow[]), sentResult.error ? 0 : (sentResult.count ?? 0));
+
   return (
     <AdminShell
       active="/admin/feedback"
@@ -113,6 +119,53 @@ export default async function AdminFeedbackPage() {
                 )}
               </Card>
             </div>
+          </>
+        )}
+      </Section>
+
+      <Section title="Wat deden kopers ermee?" hint={"De check-inmail een week na het boek: \"Heb je er al iets mee gedaan?\" met drie knoppen. Eén klik is het antwoord; wie \"ja\" kiest mag een zin achterlaten."}>
+        {checkinResult.error ? (
+          <p className="text-sm text-amber-700">Nog niet beschikbaar: draai migratie 0032_book_checkins.sql in Supabase. Tot dan wordt de mail niet verstuurd en worden antwoorden niet opgeslagen.</p>
+        ) : (
+          <>
+            <TileGrid>
+              <Tile label="Mails verstuurd" value={checkins.sent} />
+              <Tile label="Antwoorden" value={checkins.answered} sub={checkins.responseRate === null ? undefined : `${percent(checkins.responseRate)} van de mails`} />
+              <Tile
+                label="Ja, ermee aan de slag"
+                value={percent(checkins.doneShare)}
+                tone={checkins.doneShare === null ? undefined : checkins.doneShare >= 0.4 ? "good" : undefined}
+                sub={`${checkins.counts.done} ja · ${checkins.counts.planned} van plan · ${checkins.counts.not} nee`}
+              />
+            </TileGrid>
+            <Card>
+              <div className="mt-1">
+                <BarList
+                  items={[
+                    { label: "Ja, ermee aan de slag", value: checkins.counts.done },
+                    { label: "Nog niet, staat op de lijst", value: checkins.counts.planned },
+                    { label: "Nee, het is er niet van gekomen", value: checkins.counts.not },
+                  ]}
+                  total={checkins.answered}
+                />
+              </div>
+            </Card>
+            {checkins.comments.length > 0 && (
+              <Card>
+                <ul className="space-y-3">
+                  {checkins.comments.slice(0, 12).map((c, i) => (
+                    <li key={i} className="text-sm text-ink">
+                      {c.text}
+                      <span className="mt-1 block text-xs text-ink/70">
+                        {c.answer === "done" ? "ja" : c.answer === "planned" ? "van plan" : "nee, dit hield hen tegen"} · {c.at.slice(0, 10)}
+                        {c.locale ? ` · ${c.locale.toUpperCase()}` : ""} ·{" "}
+                        {c.usable ? <strong className="text-emerald-700">mag anoniem op de site</strong> : "niet voor de site"}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            )}
           </>
         )}
       </Section>

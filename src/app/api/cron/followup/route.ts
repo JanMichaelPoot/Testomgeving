@@ -5,12 +5,30 @@ import { sendFollowUpEmail } from "@/lib/email/followUp";
 import { makeFollowUpToken } from "@/lib/followup/token";
 import { trackServerEvent } from "@/lib/posthog/server";
 import type { Locale } from "@/lib/locale";
+import { runCheckins, supabaseCheckinStore, type CheckinRunResult } from "@/lib/checkin/run";
+import { sendCheckinEmail } from "@/lib/email/checkin";
 
-// The one follow-up e-mail (improvement brief B5), a daily job (vercel.json). Only books whose buyer ticked the box at checkout have a
+// The one follow-up e-mail (improvement brief B5), a daily job (vercel.json). The check-in mail a week after a book (Step 243) rides on the same job, so no third
+// cron is needed; it runs first and on its own, so a problem in one never stops the other. Only books whose buyer ticked the box at checkout have a
 // followup_email at all, and each is sent exactly once (followup_sent_at). Six weeks after the book; a book older than the window is left
 // alone (a job that was down for a while does not dredge up old orders).
 const SIX_WEEKS_MS = 42 * 24 * 60 * 60 * 1000;
 const WINDOW_MS = 90 * 24 * 60 * 60 * 1000;
+
+// The check-in mail (Step 243). Never throws: without migration 0032 it reports why it sent nothing, and the follow-up below carries on.
+async function runCheckinPart(supabase: ReturnType<typeof createServiceRoleClient>): Promise<CheckinRunResult | { error: string }> {
+  try {
+    return await runCheckins(supabaseCheckinStore(supabase), {
+      siteUrl: getSiteUrl(),
+      send: ({ to, locale, ideaTitle, answerUrls, optoutUrl }) => sendCheckinEmail({ to, locale, ideaTitle, answerUrls, optoutUrl }),
+      onSent: (c) => void trackServerEvent("checkin_email_sent", {}, c.sessionId),
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("WINDOW: check-in run failed:", message);
+    return { error: message };
+  }
+}
 
 export async function GET(request: Request) {
   const cronSecret = process.env.CRON_SECRET;
@@ -19,6 +37,7 @@ export async function GET(request: Request) {
   }
 
   const supabase = createServiceRoleClient();
+  const checkin = await runCheckinPart(supabase);
   const now = Date.now();
   const { data: plans, error } = await supabase
     .from("window_plans")
@@ -29,7 +48,7 @@ export async function GET(request: Request) {
     .gte("created_at", new Date(now - SIX_WEEKS_MS - WINDOW_MS).toISOString())
     .lte("created_at", new Date(now - SIX_WEEKS_MS).toISOString());
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) return NextResponse.json({ error: error.message, checkin }, { status: 500 });
 
   const siteUrl = getSiteUrl();
   let sent = 0;
@@ -61,5 +80,5 @@ export async function GET(request: Request) {
       failed++;
     }
   }
-  return NextResponse.json({ total: plans?.length ?? 0, sent, failed });
+  return NextResponse.json({ total: plans?.length ?? 0, sent, failed, checkin });
 }
