@@ -6,7 +6,6 @@ import { GeneratingScreen } from "@/components/window/GeneratingScreen";
 import {
   getOrCreateWindowPlan,
   getOrCreateTestWindowPlan,
-  getSignedPdfUrl,
   getIntakeEchoForSession,
   getWaitingContext,
   PlanNotReadyError,
@@ -234,7 +233,8 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           </div>
         );
       }
-      errorMessage = err.message;
+      // The error's own message is for the log only (it is English); the reader gets their own language.
+      errorMessage = dict.plan.errorUnpaid;
     } else {
       // Don't leak internal error details (API keys, stack traces) to the
       // user — log server-side and show a safe generic message instead.
@@ -265,11 +265,9 @@ export default async function PlanPage(props: PageProps<"/plan">) {
       : null;
   const labels = (plan.labels_json ?? {}) as Record<string, string>;
 
-  // window_plans.pdf_url is a private-bucket storage path, not a fetchable
-  // URL (see 0011_private_pdf_storage.sql + getSignedPdfUrl) — mint a
-  // fresh short-lived signed URL on every render rather than ever storing
-  // or reusing one.
-  const pdfUrl = await getSignedPdfUrl(plan.pdf_url);
+  // The PDF is read inside our own page (/plan/boek) and served by our own route (/plan/pdf): no storage address reaches the browser. A missing
+  // file is made again by that route.
+  const bookViewerHref = `/plan/boek?${refreshParams}`;
 
   // The quoted-back intake answers for the echo header. Read from the
   // plan's own session (not the cookie), so it also works for someone
@@ -336,7 +334,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           locale={locale}
           pdfChromeDict={dict.pdfChrome}
           planDict={dict.plan}
-          pdfUrl={pdfUrl}
+          pdfUrl={bookViewerHref}
           shareUrl={`${getSiteUrl()}/shared/${plan.id}?utm_source=window_share&utm_medium=idea_book`}
           showEmailedCopy={!testSessionId && !!plan.email_sent_at}
           emailedTo={testSessionId ? null : maskEmail(plan.recipient_email)}

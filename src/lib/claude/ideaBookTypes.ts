@@ -105,6 +105,8 @@ export interface IdeaBookEntry extends IdeaLayers {
   // made before that pipeline existed.
   activity_id?: string;
   chain?: string[];
+  /** What the person must already be able to do (priorSkill.ts): "none", "basic" or "specific(<skill>)". Set from the library, never by the model. */
+  requires_prior_skill?: "none" | "basic" | `specific(${string})`;
   // B5 / V1 (only with KNOWLEDGE_ENGINE_V2 on): the PDF's "way to spend it", "take away" and "make it yours"
   // lines written for this idea. Absent = the PDF uses its per-kind templates, as before.
   fill?: IdeaFill;

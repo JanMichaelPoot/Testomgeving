@@ -30,6 +30,8 @@ export interface EngineInput {
   searchContext?: string;
   /** Free text: what may not be missing or must stay away. Read conservatively. */
   mustHaves: string;
+  /** The specific skills the person said they have (priorSkill.ts). None by default: an activity that needs one is not offered. */
+  skills?: readonly string[];
   /** Activities shown to this visitor in recent sessions; not repeated unless picked again. */
   history?: readonly string[];
   /** Makes the result reproducible. */
@@ -113,6 +115,8 @@ export interface ResolvedConstraints {
   setting: "indoor" | "outdoor" | null;
   /** Things we cannot filter on (no data) but must not lose; passed on to be checked. */
   verify: string[];
+  /** Confirmed specific skills (priorSkill.ts). */
+  skills?: readonly string[];
   /** The month the person asks in; an activity with `months` that leaves it out is dropped. Null = no season filter. */
   month: number | null;
   /** The search is for a child or young person: activities that are not for minors are not offered (audience.ts). */

@@ -45,7 +45,7 @@ export interface VensterDictionary {
     dropped: {
       title: string;
       body: string;
-      reasons: Record<"season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "no_alcohol" | "quiet" | "meet" | "no_dutch" | "hunt_fish" | "animals" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups", string>;
+      reasons: Record<"season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "no_alcohol" | "quiet" | "meet" | "no_dutch" | "hunt_fish" | "animals" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups" | "skill", string>;
       editSituation: string;
       editChoices: string;
     };
@@ -462,6 +462,7 @@ export const vensterNl: VensterDictionary = {
         setting: "past niet bij je wens voor binnen of buiten",
         format: "kan niet op de manier waarop je wilt meedoen",
         groups: "is een groepsactiviteit",
+        skill: "vraagt een vaardigheid die je niet hebt genoemd",
       },
       editSituation: "Pas je situatie aan",
       editChoices: "Kies anders",
@@ -1134,6 +1135,7 @@ export const vensterEn: VensterDictionary = {
         setting: "does not fit your wish for indoors or outdoors",
         format: "cannot be done the way you want to take part",
         groups: "is a group activity",
+        skill: "needs a skill you did not mention",
       },
       editSituation: "Change your situation",
       editChoices: "Choose differently",

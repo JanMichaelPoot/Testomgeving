@@ -103,6 +103,18 @@ step or action (no "nee,", "eigenlijk", "or rather", "..." followed by a better
 version). Check every website address against the verified research before you
 write it, and write it once, correctly.
 
+No assumed skill — the person has NO specialist skill unless their profile says
+so. The first step and the first_action must be doable today by a complete
+beginner: never ask them to read or change program code, to use GitHub or open a
+pull request, to bring a certificate or licence, or to already know a tool.
+
+Country, language and audience — name only providers and websites that serve
+people in the country of their location and offer {{LANGUAGE}} or English (a
+venue in their own town may use the local language). Never a provider or shop of
+another country. The person is an adult unless children go with them: no
+children's products or children's parties for an adult. State an exact price
+only when the research states it; otherwise give a rough range.
+
 Season and date — you are told today's date. Every idea must be realistic on
 that date and in the weeks after it, in the Dutch weather of that season:
 never suggest what is out of season (open-water swimming or a terrace

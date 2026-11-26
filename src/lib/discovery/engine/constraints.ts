@@ -1,5 +1,6 @@
 import { SOCIAL_FORMATS, type Activity, type SocialFormat } from "@/lib/discovery/types";
 import { inSeason } from "@/lib/discovery/season";
+import { skillAllows } from "@/lib/discovery/priorSkill";
 import { allowedForContext, normalizeSearchContext } from "@/lib/discovery/audience";
 import {
   unsuitableForCalmPace,
@@ -126,6 +127,7 @@ export function resolveConstraints(input: EngineInput, opts: ResolveOptions = {}
   const costCap = COST_CAP[input.budget] ?? 2;
 
   return {
+    ...(input.skills?.length ? { skills: input.skills } : {}),
     costCap,
     nearBudgetCost: NEAR_BUDGET[input.budget] ?? null,
     // A calm pace never allows more than light movement, whatever the effort dial says.
@@ -164,6 +166,8 @@ export function passesConstraints(a: Activity, c: ResolvedConstraints): FilterRe
   const verify: string[] = [];
   const no = { ok: false, verify };
 
+  // A skill the person did not say they have (programming, a dive certificate) is a known conflict, also for their own pick.
+  if (!skillAllows(a.id, c.skills)) return no;
   // Out of season is a known conflict, however well the activity matches the person.
   if (!inSeason(a, c.month)) return no;
   // A search for a child or young person: nothing with alcohol, gambling, weapons or heavy tools.

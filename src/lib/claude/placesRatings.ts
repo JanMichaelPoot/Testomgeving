@@ -13,6 +13,7 @@
 //     month, not once a book.
 // Only the place's name and town are sent: no personal data.
 
+import { normalizeUrl } from "@/lib/links/normalizeUrl";
 import { cleanRating, type Rating } from "@/lib/claude/rating";
 import { adjustedScore, isPhysicalOption, rankOptions, type LocalOption } from "@/lib/claude/localResearch";
 
@@ -162,7 +163,7 @@ export function optionsFromFind(results: readonly FoundResult[], fallbackCity: s
   const out: LocalOption[] = [];
   for (const r of results) {
     const name = r.displayName?.text?.trim();
-    const url = ownSite(r.websiteUri);
+    const url = normalizeUrl(ownSite(r.websiteUri));
     if (!name) continue;
     if (r.businessStatus && r.businessStatus !== "OPERATIONAL") {
       if (why) why.closed++;

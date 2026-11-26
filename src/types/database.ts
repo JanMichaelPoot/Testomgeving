@@ -86,6 +86,8 @@ export type ProgressMeta = {
   /** The mail went out without the codes for friends (migration 0029 not run, or the database failed). */
   friend_error?: string;
   cost?: BookCostMeta;
+  /** The last link check before the book was saved (src/lib/links/verifyBook.ts): what was refused and why, what was rewritten. */
+  link_check?: { checked: number; rejected: { activityId: string; url: string; reason: string }[]; rewritten: string[]; prices: number };
 };
 
 // Model C digital sale compliance (see supabase/migrations

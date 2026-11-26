@@ -1,3 +1,6 @@
+import { priorSkillOf } from "@/lib/discovery/priorSkill";
+import { HOME_COUNTRY, countryName } from "@/lib/countries";
+import type { RejectedLink } from "@/lib/claude/localResearch";
 import { anthropic, CLAUDE_MODEL } from "@/lib/anthropic";
 import { runQualityGate } from "@/lib/claude/qualityRepair";
 import type { QaIssue } from "@/lib/claude/qualityGate";
@@ -133,6 +136,15 @@ For every idea:
 - Write final text only. Never include a self-correction, hesitation or alternative in a step or action (no "nee,",
   "eigenlijk", "or rather", "..." followed by a better version). Check every website address against that
   idea's verified local options BEFORE you write it, and write it once, correctly.
+- No assumed skill: the person has NO specialist skill unless their profile says so. The first step and the first_action must be doable today by
+  a complete beginner. Never ask them to read or change program code, to use GitHub or open a pull request, to bring a certificate or licence, or to
+  already know a tool or technique. For an idea built on a skill, the first step is the beginner's way in (a trial lesson, a starter kit, a first
+  guided exercise).
+- Country, language and audience: the profile says their country and the book's language. Name only providers and websites that serve people in
+  that country and offer the book's language or English (a venue in their own town may use the local language). Never send them to a provider or
+  shop of another country. The person is an adult unless children go with them: no children's products or children's parties for an adult.
+- Web addresses: write an address in a step only when it is the website of one of that idea's verified local options, exactly as given there.
+- Prices: state an exact price only when that idea's verified option states it; otherwise give a rough range.
 - Season and date: you are given today's date. Every idea must be realistic on that date and in the weeks after
   it, in the Dutch weather of that season. Never write about what is out of season (open-water swimming or a
   terrace evening in winter, a snow scene in autumn), and never promise a market, festival or event unless it is
@@ -618,7 +630,14 @@ function buildEntry(
     ...(seed.reasons ? { reasons: seed.reasons } : {}),
     activity_id: a.id,
     chain: seed.chain,
+    requires_prior_skill: priorSkillOf(a),
   };
+}
+
+/** The ideas are for adults, unless the search is for a child or children go along (then a page aimed at children is fine). */
+export function readerIsAdult(intake: Pick<IntakeAnswers, "company" | "searchContext">, verify: readonly string[]): boolean {
+  if (intake.searchContext === "child" || (intake.company ?? []).includes("family")) return false;
+  return !verify.includes("children") && !verify.includes("young_children");
 }
 
 /** The activities to research for these seeds: each seed's own and, for a curated combination, the other half too (Stap 125). */
@@ -859,6 +878,9 @@ export async function generateIdeaBookFromSeeds(
   const notes = [...engine.notes];
   const replacedPicks = new Map<string, string>(); // replacement activity id -> the label of the choice it replaces
   const researchedIds = new Set<string>();
+  // Who the book is for decides which pages fit (links/pageFit.ts); what is refused is passed to the later search rounds so they find other places.
+  const adultsOnly = readerIsAdult(intake, engine.constraints.verify);
+  const rejectedLinks: RejectedLink[] = [];
   const researchFor = (seedList: readonly Seed[], known?: ReadonlyMap<string, SeedResearch>) => {
     for (const id of researchIds(seedList)) researchedIds.add(id);
     return researchSeeds({
@@ -874,6 +896,8 @@ export async function generateIdeaBookFromSeeds(
       needs: researchNeedsFrom(engine.constraints.verify),
       country: intake.country,
       ledger,
+      adultsOnly,
+      rejected: rejectedLinks,
     });
   };
   let research = await researchFor([...engine.seeds, ...reserve]);
@@ -949,6 +973,8 @@ export async function generateIdeaBookFromSeeds(
       needs: researchNeedsFrom(engine.constraints.verify),
       country: intake.country,
       ledger,
+      adultsOnly,
+      rejected: rejectedLinks,
     });
     const merged = new Map(base.byActivity);
     for (const id of lacking) {
@@ -970,7 +996,7 @@ export async function generateIdeaBookFromSeeds(
     if (lacking.length === 0 || costBlocks("online")) return base;
     for (const id of lacking) onlineTried.add(id);
     const online = await researchSeeds({
-      activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online", country: intake.country, ledger });
+      activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online", country: intake.country, ledger, adultsOnly, rejected: rejectedLinks });
     const merged = new Map(base.byActivity);
     for (const id of lacking) {
       const found = online.byActivity.get(id);
@@ -1244,6 +1270,7 @@ export async function generateIdeaBookFromSeeds(
   const system = baseSystem.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
   const layersSystem = baseLayers.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
   const shared = `Today is ${describeToday(now, locale)} (${isoDateNL(now)}).
+Hard constraints: the person lives in ${countryName(intake.country || HOME_COUNTRY, "en")}. The book is written in ${language}.${adultsOnly ? " The ideas are for adults." : ""}
 
 ${formatProfile(intake, characterProfile)}
 

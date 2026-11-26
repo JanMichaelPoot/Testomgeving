@@ -1,5 +1,6 @@
 import type { Activity, SocialFormat } from "@/lib/discovery/types";
 import { inSeason } from "@/lib/discovery/season";
+import { skillAllows } from "@/lib/discovery/priorSkill";
 import { allowedForContext } from "@/lib/discovery/audience";
 import {
   unsuitableForCalmPace,
@@ -19,7 +20,7 @@ import type { ResolvedConstraints } from "@/lib/discovery/engine/types";
 // screen names it and says why, and the person can change the limit or the choice. This is the same rule as passesConstraints
 // (a test keeps the two in step), only it says which limit.
 
-export type DroppedReason = "season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "no_alcohol" | "quiet" | "meet" | "no_dutch" | "hunt_fish" | "animals" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups";
+export type DroppedReason = "season" | "audience" | "kids" | "young_kids" | "access" | "calm" | "no_alcohol" | "quiet" | "meet" | "no_dutch" | "hunt_fish" | "animals" | "budget" | "effort" | "supervised" | "setting" | "format" | "groups" | "skill";
 
 const GROUP_ONLY: readonly SocialFormat[] = ["small_group", "large_group"];
 
@@ -28,6 +29,7 @@ const GROUP_ONLY: readonly SocialFormat[] = ["small_group", "large_group"];
  * activity that needs supervision is not ruled out by the "predictable" dial.
  */
 export function whyNot(a: Activity, c: ResolvedConstraints, opts: { explicitPick?: boolean } = {}): DroppedReason | null {
+  if (!skillAllows(a.id, c.skills)) return "skill";
   if (!inSeason(a, c.month)) return "season";
   if (c.minorSafe && !allowedForContext(a, "child")) return "audience";
   if (c.withKids && !allowedForContext(a, "child")) return "kids";

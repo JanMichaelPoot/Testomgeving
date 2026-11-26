@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { DIFFICULTY_LABELS, type IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { MODE_SHORT } from "@/lib/discovery/activityKind";
+import { ExternalLink } from "@/components/ui/ExternalLink";
 import { mapsSearchUrl } from "@/lib/maps";
 import { ideaPhoto } from "@/lib/illustrations";
 import { cn } from "@/lib/utils";
@@ -139,14 +140,9 @@ export function IdeaDetail({
               <path d="M8 1.5C5.515 1.5 3.5 3.515 3.5 6c0 3.75 4.5 8.5 4.5 8.5S12.5 9.75 12.5 6c0-2.485-2.015-4.5-4.5-4.5zm0 6a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="currentColor" className="text-accent" />
             </svg>
             <span>{locationLine}</span>
-            <a
-              href={mapsSearchUrl(idea.location.name, idea.location.city)}
-              target="_blank"
-              rel="noreferrer"
-              className="text-xs font-medium text-accent-dark underline underline-offset-2"
-            >
-              {dict.mapLinkLabel} →
-            </a>
+            <ExternalLink href={mapsSearchUrl(idea.location.name, idea.location.city)} className="inline-flex items-center text-xs font-medium text-accent-dark underline underline-offset-2">
+              {dict.mapLinkLabel}
+            </ExternalLink>
           </div>
         )}
 

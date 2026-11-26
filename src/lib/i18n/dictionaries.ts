@@ -162,6 +162,7 @@ export interface Dictionary {
     refreshLink: string;
     errorNoPayment: string;
     errorGeneric: string;
+    errorUnpaid: string;
     // Shown instead of errorGeneric specifically once payment is already
     // confirmed but PDF generation itself failed (section 24) — the buyer
     // needs to know their money was received and nothing needs to be paid
@@ -767,6 +768,7 @@ const nl: Dictionary = {
     errorNoPayment:
       "Geen betalingsreferentie gevonden. Heb je net betaald? Gebruik dan de link uit je bevestigingsmail.",
     errorGeneric: "Er ging iets mis bij het samenstellen van je Idea Book.",
+    errorUnpaid: "We hebben je betaling nog niet bevestigd gekregen. Heb je net betaald? Vernieuw dan over een moment.",
     errorPdfGenerationFailed:
       "Je betaling is ontvangen, maar je PDF kon nog niet worden gegenereerd. We werken dit automatisch af en sturen je een bericht zodra je PDF beschikbaar is.",
     errorFailed:
@@ -1535,6 +1537,7 @@ const en: Dictionary = {
     errorNoPayment:
       "No payment reference was found. If you just paid, use the link from your confirmation email.",
     errorGeneric: "Something went wrong while putting your Idea Book together.",
+    errorUnpaid: "We haven't had your payment confirmed yet. If you just paid, refresh in a moment.",
     errorPdfGenerationFailed:
       "Your payment has been received, but your PDF could not be generated yet. We're automatically retrying and will let you know as soon as your PDF is available.",
     errorFailed:

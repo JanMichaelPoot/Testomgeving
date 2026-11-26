@@ -5,11 +5,6 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { generateIdeaBook, type GeneratedIdeaBook } from "@/lib/claude/generateIdeaBook";
 import { generateIdeaBookFromSeeds, shouldUseEngine } from "@/lib/claude/generateFromSeeds";
 import { loadShownBefore, recordShown } from "@/lib/discovery/historyStore";
-import { renderIdeaBookPdf, type IdeaBookPdfContext } from "@/lib/pdf/ideaBook";
-import { buildSill, buildWindowItems } from "@/lib/vensterPanes";
-import { buildAssociationLibrary } from "@/lib/discovery/associations";
-import { DOMAINS } from "@/lib/discovery/library";
-import { paneActivities } from "@/lib/discovery/concretePool";
 import { sendIdeaBookEmail } from "@/lib/email/windowPlan";
 import { issueCode, issueFriendCodes, supabaseStore } from "@/lib/discountCode";
 import { recordAuditLogEntry } from "@/lib/auditLog";
@@ -18,7 +13,6 @@ import { computeCharacterProfile, type CharacterProfile } from "@/lib/characterP
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { LEGAL_VERSIONS } from "@/lib/legal/versions";
 import { WINDOW_PLAN_PRICE } from "@/lib/pricing";
-import { getSignedPdfUrl } from "@/lib/pdfAccess";
 import type { Locale } from "@/lib/language";
 import type { StoredIntake } from "@/app/intake/actions";
 import type { Database, ProgressMeta, ProgressStage } from "@/types/database";
@@ -31,18 +25,13 @@ import { feedbackLink } from "@/lib/testFeedback";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { isMissingColumnError } from "@/lib/supabase/errors";
 import { buildAssociationSources, type AssociationSources } from "@/lib/discovery/associations";
-import { buildIdeaThreads, threadSentence } from "@/lib/ideaThread";
-import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
-import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
 import { trackServerEvent } from "@/lib/posthog/server";
-import { isForOther } from "@/lib/discovery/audience";
-
-// Re-exported so existing callers (src/app/plan/page.tsx) can keep
-// importing every plan-related helper from this one module; the
-// implementation itself lives in src/lib/pdfAccess.ts so it can be unit
-// tested without pulling in this file's much heavier import graph
-// (Claude/PDF generation, Resend, audit logging).
-export { getSignedPdfUrl };
+import { PDF_BUCKET, PDF_VERSION, pdfPathFor, renderPlanPdf } from "@/lib/planPdf";
+import { verifyBook } from "@/lib/links/verifyBook";
+import { readerIsAdult } from "@/lib/claude/generateFromSeeds";
+import { parseMustHaves } from "@/lib/discovery/engine/constraints";
+import { HOME_COUNTRY } from "@/lib/countries";
+import { displayPlace } from "@/lib/place";
 
 type WindowPlanRow = Database["public"]["Tables"]["window_plans"]["Row"];
 type ServiceRoleClient = ReturnType<typeof createServiceRoleClient>;
@@ -340,42 +329,6 @@ export async function getCharacterProfileForSession(
   return profile ? computeCharacterProfile(profile) : null;
 }
 
-// Bumped whenever renderIdeaBookPdf's output changes in a way worth being
-// able to tell apart later (layout, legal footer text, included sections) —
-// stored per plan in window_plans.pdf_version so a support/admin lookup can
-// tell which template generation a given customer's PDF actually reflects.
-// Not tied to LEGAL_VERSIONS — this versions the *document*, not the
-// consent copy.
-// 2: idea pages rebuilt as magazine spreads (experience profile, schedule,
-// takeaways, "make it yours", investment/location cards) — see
-// src/lib/pdf/ideaContent.ts.
-// 3: "Het venster" — Newsreader + Plus Jakarta Sans instead of Noto, gold instead of orange,
-// the person's own window on the cover (image intake), activity photos per idea.
-const PDF_VERSION = 6;
-
-// The cover window of an image-intake book (null otherwise): same panes as on the site.
-function coverWindowFor(profile: StoredIntake, locale: Locale): IdeaBookPdfContext["window"] {
-  if (profile.intakeVariant !== "associations") return undefined;
-  const dict = getDictionary(locale);
-  const items = buildWindowItems(
-    profile,
-    { cards: buildAssociationLibrary(locale).cards, domains: DOMAINS.map((d) => ({ id: d.id, label: d.short[locale] })), activities: paneActivities(locale) },
-    dict.venster,
-  );
-  return {
-    items,
-    sill: buildSill(profile, dict.intake, dict.venster),
-    recipientName: isForOther(profile) ? profile.recipientName : undefined,
-    forGroup: profile.searchContext === "group",
-    dateLabel: new Intl.DateTimeFormat(locale === "nl" ? "nl-NL" : "en-GB", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-      timeZone: "Europe/Amsterdam",
-    }).format(new Date()),
-  };
-}
-
 // Explicit request: every test-mode generation (the "Betaling overslaan"
 // bypass, never a real purchase) also sends the real order-confirmation
 // e-mail template to this fixed personal inbox, so what a real buyer
@@ -521,47 +474,48 @@ async function finishPlanGeneration(
       generated = await generateIdeaBook(profile, locale, characterProfile);
     }
     generated = localizeBook(generated, locale);
+    // Nothing is saved before every link has been looked at once more (links/verifyBook.ts): free, no model call. A failure of the check itself
+    // never costs the buyer their book: it is logged with the plan id and the book goes on as written.
+    try {
+      const startedAt = Date.now();
+      const checked = await verifyBook(generated, {
+        language: locale === "en" ? "en" : "nl",
+        country: profile.country || HOME_COUNTRY,
+        adultsOnly: readerIsAdult(profile, parseMustHaves(profile.mustHaves ?? "").verify),
+        place: displayPlace(profile.location) ?? "",
+      });
+      generated = checked.book;
+      const { rejected, rewritten, prices } = checked.report;
+      for (const r of rejected) console.warn(JSON.stringify({ event: "link_rejected", source: "book", planId: pendingRow.id, ...r }));
+      console.log(`WindowInto: link check of plan ${pendingRow.id}: ${checked.report.checked} addresses, ${rejected.length} refused, ${rewritten.length} fields rewritten, ${prices.length} prices marked as estimates (${Date.now() - startedAt}ms)`);
+      progressMeta = mergeProgressMeta(progressMeta, { link_check: { checked: checked.report.checked, rejected: rejected.slice(0, 20), rewritten, prices: prices.length } });
+    } catch (err) {
+      console.error(`WindowInto: the link check of plan ${pendingRow.id} failed, the book is delivered unchecked`, err);
+    }
     console.log(`WINDOW: generateIdeaBook (Claude, total) took ${Date.now() - generateStartedAt}ms`);
     stageMarks.written = Date.now();
     // The stage "written" carries the cost of the book with it (stored with the other numbers; a database without the column keeps the stage alone).
-    await setProgressStage(supabase, pendingRow.id, "written", progressMeta.cost ? progressMeta : undefined);
+    await setProgressStage(supabase, pendingRow.id, "written", progressMeta.cost || progressMeta.link_check ? progressMeta : undefined);
 
     // The thread per door (R2.2): which images and tags lie behind each idea from the library,
     // kept with the book and said in one line on the PDF page. Image intake only.
     let associationSources: AssociationSources | null = null;
-    const threadLines: Record<string, string> = {};
     if (profile.intakeVariant === "associations") {
-      const all = [...generated.ideas, generated.wildcard];
-      const built = buildAssociationSources(all, profile.associations ?? [], profile.intakeFlow === "images2" ? profile.interests ?? [] : []);
-      if (Object.keys(built.sources).length + Object.keys(built.sourceTags).length > 0) {
-        associationSources = built;
-        const copy = getDictionary(locale).venster;
-        const threads = buildIdeaThreads(generated.ideas, generated.wildcard, built, locale, { showPath: knowledgeWritingV2Enabled() });
-        all.forEach((idea, i) => {
-          const key = i < generated.ideas.length ? ideaKey(i) : WILDCARD_KEY;
-          const line = threadSentence(threads[key], copy.thread, copy.profile.and);
-          if (line && idea.activity_id) threadLines[idea.activity_id] = line;
-        });
-      }
+      const built = buildAssociationSources([...generated.ideas, generated.wildcard], profile.associations ?? [], profile.intakeFlow === "images2" ? profile.interests ?? [] : []);
+      if (Object.keys(built.sources).length + Object.keys(built.sourceTags).length > 0) associationSources = built;
     }
 
     const pdfStartedAt = Date.now();
-    const pdfBytes = await renderIdeaBookPdf(generated, bookTitle, locale, {
-      company: profile.company,
-      budget: profile.budget,
-      timeAvailable: profile.timeAvailable,
-      window: coverWindowFor(profile, locale),
-      threadLines,
-    });
+    const pdfBytes = await renderPlanPdf(generated, bookTitle, locale, profile, associationSources);
     console.log(`WINDOW: renderIdeaBookPdf took ${Date.now() - pdfStartedAt}ms`);
     stageMarks.rendered = Date.now();
     await setProgressStage(supabase, pendingRow.id, "rendered");
 
-    const pdfPath = `${pendingRow.session_id}/idea-book.pdf`;
+    const pdfPath = pdfPathFor(pendingRow.session_id);
 
     const uploadStartedAt = Date.now();
     const { error: uploadError } = await supabase.storage
-      .from("window-plans")
+      .from(PDF_BUCKET)
       .upload(pdfPath, Buffer.from(pdfBytes), {
         contentType: "application/pdf",
         upsert: true,
@@ -578,8 +532,7 @@ async function finishPlanGeneration(
     // `window-plans` bucket is private as of 0011_private_pdf_storage.sql,
     // so a public URL would just 400. `window_plans.pdf_url` now holds the
     // bare storage object path instead — never a directly-fetchable URL —
-    // and getSignedPdfUrl() below turns it into a short-lived signed URL
-    // on demand, freshly minted on every /plan render (see plan/page.tsx).
+    // and /plan/pdf streams it from there after the same check as this page.
     const pdfUrl = uploadError ? null : pdfPath;
 
     const readyUpdate = {

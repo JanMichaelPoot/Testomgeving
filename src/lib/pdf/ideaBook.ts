@@ -48,6 +48,7 @@ import { fillConflicts, fillContext, normalizeFill, withoutConflicts } from "@/l
 import { getActivity } from "@/lib/discovery/library";
 import { MODE_SHORT } from "@/lib/discovery/activityKind";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
+import { findWebAddresses, linkFor, normalizeUrl } from "@/lib/links/normalizeUrl";
 import { layoutWindow, type WindowItem } from "@/lib/windowLayout";
 
 // pdf-lib has no first-class "add a hyperlink" API, so a clickable region
@@ -56,8 +57,12 @@ import { layoutWindow, type WindowItem } from "@/lib/windowLayout";
 function addLinkAnnotation(
   page: PDFPage,
   rect: { x: number; y: number; width: number; height: number },
-  url: string
+  rawUrl: string
 ) {
+  // The last gate: a link in a PDF is an absolute https address, or there is none. A relative one would be resolved against the address the PDF
+  // was opened from.
+  const url = normalizeUrl(rawUrl);
+  if (!url) return;
   const annotRef = page.doc.context.register(
     page.doc.context.obj({
       Type: "Annot",
@@ -564,8 +569,22 @@ export async function renderIdeaBookPdf(
     return newPage;
   }
 
+  // The websites the research checked for this book. An address printed anywhere in the text links to the checked page of that website.
+  const verifiedUrls = [...book.ideas, book.wildcard].flatMap((idea) => (idea.places ?? []).flatMap((p) => (p.url ? [p.url] : [])));
+
   let page: PDFPage;
   let y = 0;
+  // A PDF reader may turn a printed "venue.nl" into a link of its own, resolved against where the PDF came from. So every printed address gets
+  // an absolute link over exactly its letters.
+  function linkPrintedAddresses(line: string, x: number, baseline: number, size: number, font: PDFFont, verified: readonly string[] = verifiedUrls) {
+    for (const found of findWebAddresses(line)) {
+      // An address cut off with "…" has no complete form on this line; the block that cut it adds its own link.
+      if (line.slice(found.index + found.text.length).startsWith("…")) continue;
+      const left = x + font.widthOfTextAtSize(line.slice(0, found.index), size);
+      const width = font.widthOfTextAtSize(found.text, size);
+      addLinkAnnotation(page, { x: left, y: baseline - size * 0.28, width, height: size * 1.3 }, linkFor(found, verified));
+    }
+  }
   // When true, every drawing helper below still moves the `y` cursor
   // exactly as it would when drawing for real, but skips the actual
   // page.draw* calls — lets a card's real height be measured by running
@@ -624,6 +643,7 @@ export async function renderIdeaBookPdf(
         drawTrackedLine(line, font, size, color, x, y, tracking);
       } else if (!dryRun) {
         page.drawText(line, { x, y, size, font, color });
+        linkPrintedAddresses(line, x, y, size, font);
       }
       y -= size + lineGap;
     }
@@ -979,6 +999,7 @@ export async function renderIdeaBookPdf(
       ty -= eyebrowSize + PWA4_SPACE_2;
       for (const line of bodyLines) {
         page.drawText(line, { x: PWA4_BODY_PAD_X + padX, y: ty, size: bodySize, font: fonts.sansBold, color: PWA4_INK_INVERSE });
+        linkPrintedAddresses(line, PWA4_BODY_PAD_X + padX, ty, bodySize, fonts.sansBold);
         ty -= bodyLineHeight;
       }
     }
@@ -1021,9 +1042,11 @@ export async function renderIdeaBookPdf(
   // baseline sits, so measuring and drawing agree.
   const textBaseline = (topY: number, size: number, lh: number) => topY - (lh - size) / 2 - size * 0.78;
 
-  function drawTextLines(lines: string[], x: number, topY: number, size: number, lh: number, font: PDFFont, color: RGB) {
+  function drawTextLines(lines: string[], x: number, topY: number, size: number, lh: number, font: PDFFont, color: RGB, links = true) {
     lines.forEach((line, i) => {
-      page.drawText(line, { x, y: textBaseline(topY - i * lh, size, lh), size, font, color });
+      const baseline = textBaseline(topY - i * lh, size, lh);
+      page.drawText(line, { x, y: baseline, size, font, color });
+      if (links) linkPrintedAddresses(line, x, baseline, size, font);
     });
   }
 
@@ -1348,7 +1371,7 @@ export async function renderIdeaBookPdf(
         drawTrackedLine(label.toUpperCase(), fonts.sansBold, LABEL_SIZE, PWA4_INK_INVERSE, x + padX + LABEL_SIZE + 6, top - padY - LABEL_SIZE, 0.85);
         let cursor = top - padY - LABEL_SIZE - 7;
         if (urlText && url) {
-          drawTextLines([urlText], x + padX, cursor, urlSize, 21, fonts.serif, PWA4_ACCENT);
+          drawTextLines([urlText], x + padX, cursor, urlSize, 21, fonts.serif, PWA4_ACCENT, false);
           const uw = fonts.serif.widthOfTextAtSize(urlText, urlSize);
           page.drawLine({
             start: { x: x + padX, y: cursor - 18 },
@@ -1486,9 +1509,11 @@ export async function renderIdeaBookPdf(
 
     // "Begin hier" goes straight to where it starts: the address in the action itself, else the website of a verified place of this
     // idea (found by the research and checked), else nothing.
-    const ownUrl = extractUrl(idea.first_action);
+    // This idea's own checked pages come first, so "venue.nl" opens the page that was checked for this idea.
+    const ideaVerified = [...(idea.places ?? []).flatMap((p) => (p.url ? [p.url] : [])), ...verifiedUrls];
+    const ownUrl = extractUrl(idea.first_action, ideaVerified);
     const placeSite = idea.places?.find((p) => p.url)?.url;
-    const url = ownUrl ?? (placeSite ? extractUrl(placeSite) : null);
+    const url = ownUrl ?? (placeSite ? extractUrl(placeSite, ideaVerified) : null);
     const startLabel = book.labels.first_action_heading || pageLabels.startHere;
 
     const subtitleLines = wrapText(idea.intro, fonts.sans, HERO_SUB_SIZE, PWA4_CONTENT_WIDTH, 2);

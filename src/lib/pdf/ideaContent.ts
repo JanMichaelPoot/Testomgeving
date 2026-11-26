@@ -1,3 +1,4 @@
+import { findWebAddresses, linkFor } from "@/lib/links/normalizeUrl";
 import type { IdeaBookEntry, IdeaDoor, PhotoCategory } from "@/lib/claude/ideaBookTypes";
 import type { Locale } from "@/lib/locale";
 
@@ -162,26 +163,19 @@ export function parseDurationHours(text: string): number | null {
 
 // --- URL pull-out ------------------------------------------------------------
 
-const URL_PATTERN =
-  /(?:https?:\/\/)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:nl|com|org|net|eu|be|de|fr|io|co|app|info|art|studio|amsterdam)(?:\/[^\s,;)"']*)?/i;
-
 /** The text with its first web address replaced (the address is shown on its own line, so the sentence points to it). */
 export function replaceUrl(text: string, replacement: string): string {
-  const match = text.match(URL_PATTERN);
-  if (!match) return text;
-  const trailing = match[0].match(/[.]+$/)?.[0] ?? "";
-  return text.replace(match[0], replacement + trailing);
+  const [first] = findWebAddresses(text);
+  return first ? text.slice(0, first.index) + replacement + text.slice(first.index + first.text.length) : text;
 }
 
-// The first web address in a text ("Open steckutrecht.nl and book …"), split
-// into what to show, where to link, and the sentence without it.
-export function extractUrl(text: string): { display: string; href: string } | null {
-  const match = text.match(URL_PATTERN);
-  if (!match) return null;
-  const raw = match[0].replace(/[.]+$/, "");
-  const display = raw.replace(/^https?:\/\//i, "").replace(/\/$/, "");
-  const href = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
-  return { display, href };
+// The first web address in a text ("Open steckutrecht.nl and book …"), split into what to show and where to link. The link is the verified
+// address of that website when the book has one (the exact page the research checked), never a bare domain.
+export function extractUrl(text: string, verified: readonly string[] = []): { display: string; href: string } | null {
+  const [first] = findWebAddresses(text);
+  if (!first) return null;
+  const display = first.text.replace(/^https?:\/\//i, "").replace(/\/$/, "");
+  return { display, href: linkFor(first, verified) };
 }
 
 // --- Stable choice -----------------------------------------------------------

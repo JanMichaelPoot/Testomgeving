@@ -30,6 +30,14 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // The PDF of a book is shown in a frame on our own reading page (/plan/boek), and only there; the later rule wins for this path.
+      {
+        source: "/plan/pdf",
+        headers: [
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+        ],
+      },
     ];
   },
 };

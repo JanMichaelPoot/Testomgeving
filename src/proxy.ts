@@ -76,7 +76,8 @@ export async function proxy(request: NextRequest) {
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   sessionResponse.cookies.getAll().forEach((cookie) => response.cookies.set(cookie));
-  response.headers.set("Content-Security-Policy", csp);
+  // The PDF itself is not a page of ours with scripts: it only may not be framed by another site. A page policy on it can break the PDF reader.
+  response.headers.set("Content-Security-Policy", request.nextUrl.pathname === "/plan/pdf" ? "frame-ancestors 'self'" : csp);
   return response;
 }
 

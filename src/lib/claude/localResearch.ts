@@ -1,3 +1,4 @@
+import { normalizeUrl } from "@/lib/links/normalizeUrl";
 import { countryName } from "@/lib/countries";
 import { searchLanguageFor } from "@/lib/claude/searchLanguage";
 import { radiusText, sanitizeDistanceKm } from "@/lib/distanceOptions";
@@ -9,7 +10,9 @@ import { describeToday, isoDateNL } from "@/lib/discovery/season";
 import { cleanRating, type Rating } from "@/lib/claude/rating";
 import type { RatingEnricher } from "@/lib/claude/placesRatings";
 import type { CostLedger } from "@/lib/claude/costLedger";
-import { isPublicWebAddress, verifyOptionUrls } from "@/lib/claude/verifyUrls";
+import { isFitReason, isPublicWebAddress, verifyOptionUrls } from "@/lib/claude/verifyUrls";
+import type { FitPolicy } from "@/lib/links/pageFit";
+import { isOnlineCity } from "@/lib/maps";
 import { filterRelevant, relevanceScore, relevantOptions } from "@/lib/claude/optionRelevance";
 
 export type { Rating };
@@ -443,6 +446,10 @@ How to search (this decides how good the options are):
   radius for options of that form first, and widen within the radius before you accept a different form. Only then list the nearest thing that really exists, and say
   plainly in "kind" what it is. Never describe an option as more than it is: a café on the heath is not a country house.
 
+Language, country and audience: the website must be the one that serves ${countryName} (never the branch, shop or version of another country). When a
+site has a version in ${language} or in English, give the address of that version, not a front page in another language. The reader is an adult
+unless the practical needs say they go with children: never list a children's party service, a toy shop or a children-only class otherwise.
+
 Ratings: when a search result shows a review score for an option (Google, Tripadvisor, the venue's own page, ...), give it as
 "rating": {"score": 4.6, "scale": 5, "reviews": 312, "source": "Google"} (scale 5 or 10; "reviews" null when not stated).
 Never estimate or remember a score: "rating" is null when the results do not show one. When more than 3 options qualify,
@@ -487,6 +494,9 @@ An option only counts when ALL of these are true:
 - Its own official website, or a source from the last 12 months, shows that it exists and is operating now (not closed, parked, "coming soon").
 - It really offers this activity to beginners, or the material to start it, not something merely similar.
 - It can actually be used by someone in ${countryName} (it ships to, or runs for, people there).
+- Its website is in ${language} or in English. A site in another language (a French shop for a Dutch reader) does not count, and neither does the
+  shop of another country. Give the exact page in ${language} or English, never a front page that opens in another language.
+- It is meant for adults (unless this search is about children): never a children's party service, a children's toy or a children-only offer.
 If the activity cannot sensibly be done or started online or by post (it needs a venue, a licence or an instructor on site), or nothing
 verifiable exists, give an empty options list. An empty answer is a good answer; never invent a name or URL.
 Every option is listed under the activity it is about. Never put an option under an activity it does not offer, and never list the same provider under several activities
@@ -517,7 +527,8 @@ export function cleanOptions(raw: unknown, today?: string): LocalOption[] {
     const r = o as Record<string, unknown>;
     const name = typeof r.name === "string" ? r.name.trim() : "";
     if (!name) continue;
-    const url = typeof r.url === "string" && /^https?:\/\//i.test(r.url.trim()) ? r.url.trim() : null;
+    // normalizeUrl: a bare "venue.nl" becomes https://venue.nl; anything that is not a public web address is no link.
+    const url = normalizeUrl(r.url);
     const until = typeof r.until === "string" && /^\d{4}-\d{2}-\d{2}$/.test(r.until.trim()) ? r.until.trim() : null;
     if (today && until && until < today) continue;
     out.push({
@@ -634,6 +645,39 @@ export function parseResearchAnswer(text: string, wanted: string[], today?: stri
   return out;
 }
 
+/** An address the checks refused, and why (kept for the log and for the next search round of the same book). */
+export interface RejectedLink {
+  activityId: string;
+  url: string;
+  reason: string;
+}
+
+const REJECTION_TEXT: Record<string, string> = {
+  "fit:wrong_language": "the page is in a language the reader does not read",
+  "fit:foreign_country": "it is the website or shop of another country",
+  "fit:child_focused": "it is aimed at children",
+  page_gone: "the page does not exist",
+  host_does_not_exist: "the website does not exist",
+  timeout: "the website did not answer",
+  unreachable: "the website could not be reached",
+  too_many_redirects: "the address only redirects",
+  http_403: "the website refused the automatic check",
+  site_says_closed: "the site says the business has closed",
+  parked_domain: "it is a parked or for-sale domain",
+  name_not_on_site: "the page is about something else",
+};
+
+/**
+ * The replacement request: a later round (broader, or online) is told which addresses the checks refused and why, so it finds others instead of the
+ * same ones. The broad and the online round are the two tries a refused address gets; after them the idea falls back to a search instruction.
+ */
+export function rejectedBlock(rejected: readonly RejectedLink[], activityIds: readonly string[]): string {
+  const mine = rejected.filter((r) => activityIds.includes(r.activityId)).slice(-12);
+  if (mine.length === 0) return "";
+  const lines = mine.map((r) => `- ${r.url} (activity "${r.activityId}"): ${REJECTION_TEXT[r.reason] ?? `refused (${r.reason})`}`);
+  return `\n\nThese addresses were checked and refused. Do not give them again; find a different option that passes:\n${lines.join("\n")}`;
+}
+
 async function searchOnce(
   activityIds: string[],
   location: string,
@@ -646,6 +690,7 @@ async function searchOnce(
   countryCode: string | null = null,
   pass: ResearchPass = "standard",
   ledger?: CostLedger,
+  rejected: readonly RejectedLink[] = [],
 ): Promise<Map<string, LocalOption[]> | null> {
   const startedAt = Date.now();
   // The person's own choices get about one and a half searches each (measured: 6 searches for 3 choices cost ~$0.14, mostly the
@@ -661,7 +706,7 @@ async function searchOnce(
     model: RESEARCH_MODEL,
     max_tokens: 3500,
     system: SYSTEM,
-    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now, priority, needs, country, pass, countryCode) }],
+    messages: [{ role: "user", content: buildResearchPrompt(activityIds, location, radius, locale, now, priority, needs, country, pass, countryCode) + rejectedBlock(rejected, activityIds) }],
     tools: [
       {
         type: "web_search_20250305",
@@ -703,13 +748,14 @@ async function searchOnlineOnce(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _pass: ResearchPass = "standard",
   ledger?: CostLedger,
+  rejected: readonly RejectedLink[] = [],
 ): Promise<Map<string, LocalOption[]> | null> {
   const startedAt = Date.now();
   const message = await anthropic.messages.create({
     model: RESEARCH_MODEL,
     max_tokens: 3000,
     system: SYSTEM,
-    messages: [{ role: "user", content: buildOnlinePrompt(activityIds, location, locale, now, country) }],
+    messages: [{ role: "user", content: buildOnlinePrompt(activityIds, location, locale, now, country) + rejectedBlock(rejected, activityIds) }],
     tools: [
       {
         type: "web_search_20250305",
@@ -767,6 +813,10 @@ export async function researchSeeds(opts: {
   needs?: readonly ResearchNeed[];
   /** The book's cost ledger: every search call of this research is recorded in it (src/lib/claude/costLedger.ts). */
   ledger?: CostLedger;
+  /** The ideas are for adults (the default): a page aimed at children is refused. False when children go along or the search is for a child. */
+  adultsOnly?: boolean;
+  /** Collects every refused address; a later pass of the same book is told about them (rejectedBlock). */
+  rejected?: RejectedLink[];
   /** Adds the Google score to the places found (and to cached places that never had one); one enricher serves a whole book, so its cap holds for the book. */
   ratings?: RatingEnricher;
 }): Promise<{ byActivity: Map<string, SeedResearch>; stats: ResearchStats }> {
@@ -852,7 +902,17 @@ export async function researchSeeds(opts: {
 
   // Does what was found exist? Websites that do not answer at all are thrown away before anything is stored.
   // In production the page itself is read too (closed for good, parked domain, wrong business); see verifyUrls.ts.
-  const checker = opts.verify === false ? null : (opts.verify ?? ((o: LocalOption[]) => verifyOptionUrls(o, undefined, undefined, { content: true })));
+  // Strict: what ends up in a book answers 2xx and suits this reader (language, country, audience); see verifyUrls.ts and links/pageFit.ts.
+  const fitFor = (o: LocalOption): FitPolicy => ({ country: foreign ?? "NL", language: locale, localVenue: !online && !isOnlineCity(o.city), adultsOnly: opts.adultsOnly ?? true });
+  const checker = opts.verify === false ? null : (opts.verify ?? ((o: LocalOption[]) => verifyOptionUrls(o, undefined, 5000, { strict: true, fit: fitFor })));
+  const rejected = opts.rejected ?? [];
+  const reject = (activityId: string, refused: { option: LocalOption; reason: string }[], source: string) => {
+    for (const d of refused) {
+      rejected.push({ activityId, url: d.option.url ?? "", reason: d.reason });
+      // One structured line per refused address, for tuning the research prompt.
+      console.warn(JSON.stringify({ event: "link_rejected", source, activityId, name: d.option.name, url: d.option.url, reason: d.reason, country: foreign ?? "NL", language: locale }));
+    }
+  };
   let dropped = 0;
   let checked = 0;
 
@@ -868,12 +928,13 @@ export async function researchSeeds(opts: {
           checked += r.options.length;
           const result = await checker(r.options);
           dropped += result.dropped.length;
-          for (const d of result.dropped) console.warn(`WINDOW: cached option dropped (${d.reason}): ${d.option.name} ${d.option.url ?? ""}`);
+          reject(id, result.dropped, "cache");
           if (result.dropped.length === 0 && result.kept.every((o, i) => o.url === r.options[i]?.url)) return;
           if (result.kept.length === 0) byActivity.delete(id);
           else {
             byActivity.set(id, { ...r, options: result.kept });
-            rewritten.push({ activityId: id, options: result.kept, key: priority.has(id) && ownFrom.has(id) ? ownKey : cacheKey });
+            // What was refused for who is reading is not removed from the shared cache: another reader may well get it.
+            if (!result.dropped.some((d) => isFitReason(d.reason))) rewritten.push({ activityId: id, options: result.kept, key: priority.has(id) && ownFrom.has(id) ? ownKey : cacheKey });
           }
         }),
     );
@@ -904,7 +965,7 @@ export async function researchSeeds(opts: {
   const batch = async (ids: string[], own: boolean) => {
     if (ids.length === 0) return;
     try {
-      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own, needs, countryEn, foreign, pass, opts.ledger);
+      const found = await (opts.search ?? (online ? searchOnlineOnce : searchOnce))(ids, location, radius, locale, now, own, needs, countryEn, foreign, pass, opts.ledger, pass === "broad" || online ? rejected : []);
       if (!found) throw new Error("the research answer could not be read");
       // Is each option about the activity it was given for? One call answers for several activities and the model sometimes files a provider under the wrong one
       // (the make-up courses under "design a board game", 14 Nov 2026). The same option under two activities stays with the one it fits best.
@@ -918,7 +979,7 @@ export async function researchSeeds(opts: {
             checked += options.length;
             const result = await checker(options);
             dropped += result.dropped.length;
-            for (const d of result.dropped) console.warn(`WINDOW: research option dropped (${d.reason}): ${d.option.name} ${d.option.url ?? ""}`);
+            reject(id, result.dropped, "search");
             options = result.kept;
           }
           // A place without a link is left out before it is stored: the prompt asks for the website, this is the check behind the prompt.

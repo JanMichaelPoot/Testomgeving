@@ -1,6 +1,7 @@
 import { TAGS, getActivities } from "@/lib/discovery/library";
 import { DISCOVERY_MIN_STATUS } from "@/lib/discovery/cardLibrary";
 import { inSeason } from "@/lib/discovery/season";
+import { skillAllows } from "@/lib/discovery/priorSkill";
 import { activityAxes } from "@/lib/discovery/associations";
 import { registerOfActivity } from "@/lib/discovery/register";
 import type { ConcreteActivity } from "@/lib/discovery/twoPages";
@@ -62,6 +63,8 @@ export function buildConcretePool(locale: "nl" | "en", month?: number, layer: bo
   return {
     activities: getActivities({ minStatus: DISCOVERY_MIN_STATUS })
       .filter((a) => inSeason(a, month))
+      // The card page cannot know what someone can do, so it never offers what needs a specific skill (priorSkill.ts): a pick would be dropped.
+      .filter((a) => skillAllows(a.id))
       .map((a) => {
         const unfit = unfitFlags(a);
         return {

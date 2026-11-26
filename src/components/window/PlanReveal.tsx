@@ -180,7 +180,7 @@ export function PlanReveal({
 
   function pdfHref(key: string): string | null {
     const page = pdfPageByKey.get(key);
-    return pdfUrl && page ? `${pdfUrl}#page=${page}` : null;
+    return pdfUrl && page ? `${pdfUrl}${pdfUrl.includes("?") ? "&" : "?"}page=${page}` : null;
   }
 
   function openIdea(key: string) {
@@ -330,14 +330,12 @@ export function PlanReveal({
         })}
       </ol>
 
-      {/* The one primary action: the PDF. It opens in a new tab (the browser shows it straight away). */}
+      {/* The one primary action: the PDF. It opens in our own reading page (/plan/boek), which has the way back and the download button. */}
       <div className="mt-8 flex flex-col items-center gap-3 rounded-2xl bg-accent-dark px-6 py-8 text-center sm:py-10">
         <p className="font-serif text-2xl leading-snug text-paper sm:text-3xl">{planDict.downloadHeading}</p>
         {pdfUrl ? (
           <Button
             href={pdfUrl}
-            target="_blank"
-            rel="noreferrer"
             size="lg"
             onClick={trackPdf("bottom")}
             data-testid="download-pdf"
@@ -408,8 +406,6 @@ export function PlanReveal({
             {pdfHref(selectedKey) && (
               <a
                 href={pdfHref(selectedKey)!}
-                target="_blank"
-                rel="noreferrer"
                 onClick={trackPdf("idea")}
                 className="inline-flex min-h-11 items-center self-start text-sm font-medium text-accent-dark underline underline-offset-2 hover:text-accent"
               >

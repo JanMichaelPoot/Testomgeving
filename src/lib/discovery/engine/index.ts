@@ -2,6 +2,7 @@ import type { IntakeAnswers } from "@/app/intake/actions";
 import { HYBRIDS, TAGS, getActivities } from "@/lib/discovery/library";
 import { DISCOVERY_MIN_STATUS } from "@/lib/discovery/cardLibrary";
 import { themeProfilesFor } from "@/lib/discovery/associations";
+import { confirmedSkills } from "@/lib/discovery/priorSkill";
 import { selectSeeds, type EngineLibrary, type SelectOptions } from "@/lib/discovery/engine/select";
 import { relatedActivitiesIn } from "@/lib/discovery/engine/related";
 import type { Activity } from "@/lib/discovery/types";
@@ -30,11 +31,13 @@ export function engineInputFromIntake(
     IntakeAnswers,
     "practicalToWild" | "budget" | "effort" | "timeAvailable" | "ageCategory" | "mustHaves"
   > &
-    Partial<Pick<IntakeAnswers, "interests" | "interestDomains" | "socialFormats" | "surpriseMe" | "intakeFlow" | "searchContext" | "associations">>,
+    Partial<Pick<IntakeAnswers, "interests" | "interestDomains" | "socialFormats" | "surpriseMe" | "intakeFlow" | "searchContext" | "associations" | "situation" | "preferences" | "personalReflection" | "purposeFollowUp">>,
   extra: { seed: string; history?: readonly string[]; month?: number; exclude?: readonly string[]; quietSupply?: readonly string[] },
 ): EngineInput {
   // The theme tiles of page 1 (E4): the engine may build its unexpected idea from two of them that lie far apart.
   const themes = intake.intakeFlow === "images2" ? themeProfilesFor(intake.associations ?? []) : [];
+  // Nobody is assumed to program or dive: only what they wrote themselves confirms it.
+  const skills = confirmedSkills([intake.situation, intake.preferences, intake.personalReflection, intake.purposeFollowUp, intake.mustHaves]);
   return {
     interests: intake.interests ?? [],
     interestDomains: intake.interestDomains ?? [],
@@ -47,6 +50,7 @@ export function engineInputFromIntake(
     ageCategory: intake.ageCategory,
     ...(intake.searchContext ? { searchContext: intake.searchContext } : {}),
     mustHaves: intake.mustHaves,
+    ...(skills.length ? { skills } : {}),
     history: extra.history,
     seed: extra.seed,
     month: extra.month,

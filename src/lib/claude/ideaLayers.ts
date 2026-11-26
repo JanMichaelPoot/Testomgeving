@@ -5,6 +5,7 @@
 // that broke a length limit simply has no such layer: the rest of the idea is shown as it always
 // was, and the book never fails because of a layer.
 
+import { normalizeUrl } from "@/lib/links/normalizeUrl";
 import { storedRating, type Rating } from "@/lib/claude/rating";
 import { MODES, type ExecutionMode } from "@/lib/discovery/activityKind";
 
@@ -141,7 +142,8 @@ export function normalizePlaces(value: unknown, max = 3): IdeaPlace[] {
     const key = `${name}|${city}`.toLowerCase();
     if (seen.has(key)) continue;
     seen.add(key);
-    const url = typeof r.url === "string" && /^https?:\/\//i.test(r.url.trim()) ? r.url.trim() : null;
+    // Every address that enters a book goes through normalizeUrl: absolute https, or no link at all.
+    const url = normalizeUrl(r.url);
     const rating = storedRating(r.rating);
     out.push({ name, city, url, note: clean(r.note), ...(rating ? { rating } : {}) });
     if (out.length === max) break;

@@ -1,4 +1,6 @@
 import type { LocalOption } from "@/lib/claude/localResearch";
+import { judgeFit, type FitPolicy } from "@/lib/links/pageFit";
+import { normalizeUrl } from "@/lib/links/normalizeUrl";
 
 // A cheap, free existence check on what the research found: does the website answer? The model is told to
 // list only what appeared in search results, but a mistyped or stale address still slips through now and
@@ -21,6 +23,11 @@ import type { LocalOption } from "@/lib/claude/localResearch";
 //  - it is a parked or for-sale domain page (the site behind a dead business often is);
 //  - none of the words of the option's name occur on it (the address is then about something else).
 // A redirect is only followed when it stays on the same host (http to https, with or without www).
+//
+// Strict mode (strict: true, fix round "plan links"; used for everything that ends up as a link in a book): the address must answer 2xx. Redirects are
+// followed to any public host (each hop checked, at most five). A timeout, a refusal (403, 429) or a server error drops the option: a link the app could
+// not open itself is not offered to a paying reader. With a fit policy the page must also suit the reader (src/lib/links/pageFit.ts): the language, the
+// country and the audience; a page that offers a fitting language version is replaced by that version.
 
 export interface FetchedPage {
   status: number;
@@ -28,6 +35,8 @@ export interface FetchedPage {
   location?: string | null;
   /** The (limited) text of the page, for the content check. Absent for fetchers that cannot provide it. */
   text?: () => Promise<string>;
+  /** The Content-Language header, for the language check. */
+  contentLanguage?: string | null;
 }
 
 export type Fetcher = (url: string, init: { method: string; redirect: "manual"; signal: AbortSignal; headers: Record<string, string> }) => Promise<FetchedPage>;
@@ -53,7 +62,7 @@ async function readLimited(res: Response, max: number): Promise<string> {
 const defaultFetcher: Fetcher = async (url, init) => {
   const res = await fetch(url, init);
   if (res.status !== 200) void res.body?.cancel().catch(() => undefined);
-  return { status: res.status, location: res.headers.get("location"), text: () => readLimited(res, MAX_PAGE_BYTES) };
+  return { status: res.status, location: res.headers.get("location"), contentLanguage: res.headers.get("content-language"), text: () => readLimited(res, MAX_PAGE_BYTES) };
 };
 
 // --- what a page says about the business ---------------------------------------------------------
@@ -144,6 +153,109 @@ async function status(fetcher: Fetcher, url: string, timeoutMs: number): Promise
 export interface VerifyOptions {
   /** Also read the page and drop an option whose site says it closed, is a parked domain, or is about something else. */
   content?: boolean;
+  /** The address must answer 2xx (after redirects); anything else drops the option. */
+  strict?: boolean;
+  /** With strict: the page must also suit this reader (language, country, audience). It can differ per option (a local venue or not). */
+  fit?: (option: LocalOption) => FitPolicy;
+  /** With strict: called with every page that passed, so a later step can check what stands on it (prices). */
+  onPage?: (url: string, html: string) => void;
+}
+
+/** A reason that depends on who is reading, not on whether the website works: never written back to the shared research cache. */
+export const isFitReason = (reason: string) => reason.startsWith("fit:");
+
+export interface CheckedPage {
+  /** The address to link (https; the language version that was chosen, or the site's front page when the page itself is gone). */
+  url: string;
+  html: string;
+}
+
+type Opened = { ok: true; status: number; html: string; finalUrl: string; contentLanguage: string | null } | { ok: false; reason: string };
+
+async function openPage(fetcher: Fetcher, address: string, timeoutMs: number): Promise<Opened> {
+  const first = await openOnce(fetcher, address, timeoutMs);
+  // A slow answer is often a one-off (measured on the stored books: a page that timed out answered in 0.2 s a minute later): one more try.
+  return !first.ok && first.reason === "timeout" ? openOnce(fetcher, address, timeoutMs) : first;
+}
+
+async function openOnce(fetcher: Fetcher, address: string, timeoutMs: number): Promise<Opened> {
+  const headers = { "user-agent": "WindowIntoLinkCheck/1.0 (+https://windowinto.nl)", accept: "text/html,*/*" };
+  const signal = AbortSignal.timeout(timeoutMs);
+  let current = address;
+  for (let hop = 0; hop <= 5; hop++) {
+    // Every hop is checked again: a redirect must not make this server call something internal.
+    if (!isPublicWebAddress(current)) return { ok: false, reason: "not_a_public_website" };
+    let res: FetchedPage;
+    try {
+      res = await fetcher(current, { method: "GET", redirect: "manual", signal, headers });
+    } catch (error) {
+      if (isDnsFailure(error)) return { ok: false, reason: "host_does_not_exist" };
+      const timedOut = error instanceof Error && /abort|timeout/i.test(`${error.name} ${error.message}`);
+      return { ok: false, reason: timedOut ? "timeout" : "unreachable" };
+    }
+    if (res.status >= 300 && res.status < 400 && res.location) {
+      try {
+        current = new URL(res.location, current).href;
+      } catch {
+        return { ok: false, reason: "bad_redirect" };
+      }
+      continue;
+    }
+    const html = res.status >= 200 && res.status < 300 && res.text ? await res.text().catch(() => "") : "";
+    return { ok: true, status: res.status, html, finalUrl: current, contentLanguage: res.contentLanguage ?? null };
+  }
+  return { ok: false, reason: "too_many_redirects" };
+}
+
+/** One address, strictly: it answers 2xx, it is not a closed or parked business, and (with a policy) it suits the reader. */
+export async function checkPage(
+  rawUrl: string,
+  name: string | null,
+  opts: { fetcher?: Fetcher; timeoutMs?: number; policy?: FitPolicy } = {},
+): Promise<{ ok: true; page: CheckedPage } | { ok: false; reason: string }> {
+  const { fetcher = defaultFetcher, timeoutMs = 5000, policy } = opts;
+  const url = normalizeUrl(rawUrl);
+  if (!url) return { ok: false, reason: "not_a_public_website" };
+  const gone = (status: number) => status === 404 || status === 410;
+  const problemOf = (html: string) => (html ? pageProblem(html, name ?? "") : null);
+
+  let target = url;
+  let res = await openPage(fetcher, target, timeoutMs);
+  if (res.ok && gone(res.status)) {
+    // The page is gone, the business may not be: its front page counts when that one passes.
+    const front = new URL(url).origin + "/";
+    if (front === new URL(url).href) return { ok: false, reason: "page_gone" };
+    target = front;
+    res = await openPage(fetcher, target, timeoutMs);
+    if (res.ok && gone(res.status)) return { ok: false, reason: "page_gone" };
+  }
+  if (!res.ok) return res;
+  if (res.status < 200 || res.status >= 300) return { ok: false, reason: `http_${res.status}` };
+  const closed = problemOf(res.html);
+  // Without a name there is nothing to look for on the page: only "closed" and "parked" count then.
+  if (closed && (name || closed !== "name_not_on_site")) return { ok: false, reason: closed };
+  if (!policy) return { ok: true, page: { url: target, html: res.html } };
+
+  // Judged on where the reader ends up, not only on the address that was written.
+  const verdict = judgeFit({ url: res.finalUrl, html: res.html, contentLanguage: res.contentLanguage }, policy);
+  if (!verdict.problem) return { ok: true, page: { url: target, html: res.html } };
+  if (verdict.better) {
+    let alternate: string | null = null;
+    try {
+      alternate = normalizeUrl(new URL(verdict.better, res.finalUrl).href);
+    } catch {
+      alternate = null;
+    }
+    if (alternate && alternate !== target) {
+      const other = await openPage(fetcher, alternate, timeoutMs);
+      if (other.ok && other.status >= 200 && other.status < 300) {
+        const again = judgeFit({ url: other.finalUrl, html: other.html, contentLanguage: other.contentLanguage }, policy);
+        const otherProblem = problemOf(other.html);
+        if (!again.problem && !(otherProblem && otherProblem !== "name_not_on_site")) return { ok: true, page: { url: alternate, html: other.html } };
+      }
+    }
+  }
+  return { ok: false, reason: `fit:${verdict.problem}` };
 }
 
 /** Content mode: fetch one address, following a redirect only within the same site (at most twice). */
@@ -181,6 +293,21 @@ export async function verifyOptionUrls(
   timeoutMs = 4000,
   opts: VerifyOptions = {},
 ): Promise<VerifyResult> {
+  if (opts.strict) {
+    const strict = await Promise.all(
+      options.map(async (option): Promise<{ option: LocalOption; reason: string | null }> => {
+        if (!option.url) return { option, reason: null };
+        const result = await checkPage(option.url, option.name, { fetcher, timeoutMs, policy: opts.fit?.(option) });
+        if (!result.ok) return { option, reason: result.reason };
+        opts.onPage?.(result.page.url, result.page.html);
+        return { option: result.page.url === option.url ? option : { ...option, url: result.page.url }, reason: null };
+      }),
+    );
+    return {
+      kept: strict.filter((c) => c.reason === null).map((c) => c.option),
+      dropped: strict.filter((c) => c.reason !== null).map((c) => ({ option: c.option, reason: c.reason! })),
+    };
+  }
   const checked = await Promise.all(
     options.map(async (option): Promise<{ option: LocalOption; reason: string | null }> => {
       if (!option.url) return { option, reason: null };
