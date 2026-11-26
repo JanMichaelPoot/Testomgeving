@@ -176,7 +176,7 @@ for (const locale of ["nl-NL", "en-US"]) {
         expect(emailBox.height).toBeGreaterThanOrEqual(52);
         const pay = page.getByRole("button", { name: locale === "nl-NL" ? /Ja, ik wil mijn Idea Book/ : /Yes, I want my Idea Book/ });
         await pay.scrollIntoViewIfNeeded();
-        await expect(pay).toContainText(locale === "nl-NL" ? "betaal €7,50" : "pay €7.50");
+        await expect(pay).toContainText(locale === "nl-NL" ? "betaal €5,99" : "pay €5.99");
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
       });
     });

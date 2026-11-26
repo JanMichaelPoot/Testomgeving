@@ -4,7 +4,7 @@
 //
 //   npx tsx --env-file=.env.local scripts/discount-smoke.ts
 import { createClient } from "@supabase/supabase-js";
-import { checkCode, issueCode, releaseCode, reserveCode, supabaseStore } from "../src/lib/discountCode";
+import { DISCOUNT_CENTS, checkCode, issueCode, releaseCode, reserveCode, supabaseStore } from "../src/lib/discountCode";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -41,7 +41,7 @@ async function main() {
     check("asking again gives the same code", (await issueCode(store, paymentId))?.code === issued.code);
     const row = await store.findByCode(issued.code);
     id = row?.id ?? null;
-    check("it is worth EUR 2.50 and valid for about 90 days", issued.amountCents === 250 && Math.abs((issued.expiresAt.getTime() - Date.now()) / 86_400_000 - 90) < 1);
+    check(`it is worth ${DISCOUNT_CENTS} cents and valid for about 90 days`, issued.amountCents === DISCOUNT_CENTS && Math.abs((issued.expiresAt.getTime() - Date.now()) / 86_400_000 - 90) < 1);
 
     const typed = issued.code.toLowerCase().replace(/-/g, " ");
     check("a good code, typed loosely, is accepted by the check", (await checkCode(store, typed)).ok);

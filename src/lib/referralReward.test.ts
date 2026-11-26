@@ -30,7 +30,7 @@ async function setup(over: { redeemed?: boolean; referrer?: Referrer | null } = 
 }
 
 describe("rewardReferrer", () => {
-  it("gives the buyer a code of EUR 2.50, 90 days, by mail to the address of their order, in their language", async () => {
+  it("gives the buyer a code worth the friend code, 90 days, by mail to the address of their order, in their language", async () => {
     const { deps, mails, rows } = await setup();
     const out = await rewardReferrer(deps, "cs_friend", ["friend@example.org"]);
     expect(out.status).toBe("granted");

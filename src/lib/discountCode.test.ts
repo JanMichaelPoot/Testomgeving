@@ -43,8 +43,9 @@ describe("the code itself", () => {
     expect(normalizeCode(undefined)).toBeNull();
   });
 
-  it("takes EUR 2.50 off, and never leaves a book under EUR 1", () => {
-    expect(DISCOUNT_CENTS).toBe(250);
+  it("makes new codes worth 25% of EUR 5,99 (EUR 1,50), and never leaves a book under EUR 1", () => {
+    expect(DISCOUNT_CENTS).toBe(150);
+    expect(priceAfterDiscount(599, DISCOUNT_CENTS)).toBe(449);
     expect(priceAfterDiscount(750, 250)).toBe(500);
     expect(priceAfterDiscount(595, 250)).toBe(345);
     expect(priceAfterDiscount(300, 250)).toBe(MIN_PRICE_CENTS);
@@ -56,7 +57,7 @@ describe("issuing", () => {
   it("gives a paid order one code that is valid for 90 days, and the same one when asked again", async () => {
     const { store } = memoryStore();
     const first = await issueCode(store, "pay-1", NOW);
-    expect(first).toMatchObject({ amountCents: 250 });
+    expect(first).toMatchObject({ amountCents: 150 });
     expect(first!.expiresAt.getTime() - NOW.getTime()).toBe(VALID_DAYS * 86_400_000);
     const again = await issueCode(store, "pay-1", new Date(NOW.getTime() + 5 * 86_400_000));
     expect(again!.code).toBe(first!.code);
@@ -90,7 +91,7 @@ describe("checking and holding a code", () => {
   it("accepts a good code, typed in any form, and changes nothing by checking", async () => {
     const { store, code, rows } = await ready();
     const typed = code.toLowerCase().replace(/-/g, " ");
-    expect(await checkCode(store, typed, NOW)).toMatchObject({ ok: true, amountCents: 250, code });
+    expect(await checkCode(store, typed, NOW)).toMatchObject({ ok: true, amountCents: 150, code });
     expect(rows[0].reservedUntil).toBeNull();
   });
 
@@ -161,7 +162,7 @@ describe("compensation codes (Step 235)", () => {
     const earned = (await issueCode(store, "pay-1", NOW))!;
     const first = await issueCompensation(store, "pay-1", "Plek X was gesloten", NOW);
     const second = await issueCompensation(store, "pay-1", "", NOW);
-    expect(first).toMatchObject({ ok: true, code: { amountCents: 250 } });
+    expect(first).toMatchObject({ ok: true, code: { amountCents: 150 } });
     expect(second.ok && first.ok && second.code.code !== first.code.code && first.code.code !== earned.code).toBe(true);
     expect(rows.filter((r) => r.paymentId === "pay-1")).toHaveLength(3);
     expect(first.ok && first.code.expiresAt.getTime() - NOW.getTime()).toBe(VALID_DAYS * 86_400_000);

@@ -1,4 +1,5 @@
 // One-time discount codes (Step 230): after an order the buyer gets a code in the e-mail; it takes DISCOUNT_CENTS off one next book.
+// Next to them there is the shared early-bird code (discountConfig.ts): not stored, not used up, checked here with the same answers.
 //
 //   issue    when the book is sent: one code per paid order (also when the book is sent again, the same code comes back)
 //   check    the buyer types it at the order: is it good, and what would the book cost
@@ -12,9 +13,11 @@
 
 import { randomInt } from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { PRICE_CENTS } from "@/lib/pricing";
+import { CODE_DISCOUNT_PERCENT, EARLY_BIRD, percentOffCents } from "@/lib/discountConfig";
 
-/** What a code takes off the price of one book, in cents. */
-export const DISCOUNT_CENTS = 250;
+/** What a newly made code takes off the price of one book, in cents (the configured percentage of the price). */
+export const DISCOUNT_CENTS = percentOffCents(PRICE_CENTS, CODE_DISCOUNT_PERCENT);
 /** How long a code can be used after the order that earned it. */
 export const VALID_DAYS = 90;
 /** How long a code is held for an order that is being paid. Longer than the Checkout Session lasts (CHECKOUT_MINUTES), so a held code is never free while its session can still be paid. */
@@ -58,7 +61,23 @@ export interface IssuedCode {
 }
 
 export type DiscountFailure = "invalid" | "used" | "expired" | "busy" | "unavailable";
-export type DiscountCheck = { ok: true; id: string; code: string; amountCents: number } | { ok: false; reason: DiscountFailure };
+export type DiscountCheck =
+  /** id is null for the early-bird code (nothing to hold or use up); percent is set when the discount follows the price instead of a stored amount. */
+  { ok: true; id: string | null; code: string; amountCents: number; percent?: number } | { ok: false; reason: DiscountFailure };
+
+/** What an accepted code takes off this price: the early bird its percentage, a stored code the amount it was made with. */
+export function discountOn(priceCents: number, accepted: { amountCents: number; percent?: number }): number {
+  return accepted.percent === undefined ? accepted.amountCents : percentOffCents(priceCents, accepted.percent);
+}
+
+/** The answer for the early-bird code, or null when something else was typed. Switched off or past its last day it says "expired". */
+export function checkEarlyBird(raw: string | null | undefined, now: Date = new Date()): DiscountCheck | null {
+  const flat = (value: string) => value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+  if (!EARLY_BIRD.code || flat(raw ?? "") !== flat(EARLY_BIRD.code)) return null;
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Amsterdam" }).format(now);
+  if (!EARLY_BIRD.enabled || (EARLY_BIRD.validUntil !== null && today > EARLY_BIRD.validUntil)) return { ok: false, reason: "expired" };
+  return { ok: true, id: null, code: EARLY_BIRD.code, amountCents: percentOffCents(PRICE_CENTS, EARLY_BIRD.percent), percent: EARLY_BIRD.percent };
+}
 
 /** What the rules need from the storage. The Supabase store below is the real one, a test hands in an in-memory one. */
 export interface DiscountStore {
@@ -85,7 +104,7 @@ export interface DiscountStore {
    * Returns the order the code was issued for (the buyer who passed it on) and the code itself, or null when there is nothing to reward (another kind of code, not used,
    * rewarded already, or the claim lost a race). One claim wins, however many times the payment is confirmed.
    */
-  claimReward(codeId: string, now: Date): Promise<{ paymentId: string; code: string } | null>;
+  claimReward(codeId: string, now: Date): Promise<{ paymentId: string; code: string; amountCents: number } | null>;
   /** Takes the claim back (the reward could not be made), so a later attempt can give it. */
   unclaimReward(codeId: string): Promise<void>;
   /** Notes when the mail of a reward code went out. */
@@ -125,6 +144,8 @@ async function judge(store: DiscountStore, code: string, now: Date): Promise<Dis
 
 /** Is this code good right now? Changes nothing: the buyer sees the new price before anything is held. */
 export async function checkCode(store: DiscountStore, raw: string, now: Date = new Date()): Promise<DiscountCheck> {
+  const earlyBird = checkEarlyBird(raw, now);
+  if (earlyBird) return earlyBird;
   const code = normalizeCode(raw);
   if (!code) return { ok: false, reason: "invalid" };
   try {
@@ -137,6 +158,8 @@ export async function checkCode(store: DiscountStore, raw: string, now: Date = n
 
 /** Holds the code for the order that is about to be paid. Atomic: of two orders that try at once, one gets it. */
 export async function reserveCode(store: DiscountStore, raw: string, now: Date = new Date()): Promise<DiscountCheck> {
+  const earlyBird = checkEarlyBird(raw, now);
+  if (earlyBird) return earlyBird;
   const code = normalizeCode(raw);
   if (!code) return { ok: false, reason: "invalid" };
   try {
@@ -302,10 +325,10 @@ export function supabaseStore(supabase: SupabaseClient): DiscountStore {
         .eq("kind", "friend")
         .not("redeemed_at", "is", null)
         .is("rewarded_at", null)
-        .select("code, issued_for_payment_id");
+        .select("code, issued_for_payment_id, amount_cents");
       if (error) throw new Error(error.message);
-      const row = (data ?? [])[0] as { code: string; issued_for_payment_id: string } | undefined;
-      return row ? { paymentId: row.issued_for_payment_id, code: row.code } : null;
+      const row = (data ?? [])[0] as { code: string; issued_for_payment_id: string; amount_cents: number } | undefined;
+      return row ? { paymentId: row.issued_for_payment_id, code: row.code, amountCents: row.amount_cents } : null;
     },
     async unclaimReward(codeId) {
       const { error } = await supabase.from("discount_codes").update({ rewarded_at: null }).eq("id", codeId);

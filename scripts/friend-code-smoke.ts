@@ -4,7 +4,7 @@
 //
 //   npx tsx --env-file=.env.local scripts/friend-code-smoke.ts
 import { createClient } from "@supabase/supabase-js";
-import { FRIEND_CODES_PER_ORDER, checkCode, issueFriendCodes, supabaseStore } from "../src/lib/discountCode";
+import { DISCOUNT_CENTS, FRIEND_CODES_PER_ORDER, checkCode, issueFriendCodes, supabaseStore } from "../src/lib/discountCode";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -43,7 +43,7 @@ async function main() {
     }
     const again = await issueFriendCodes(store, paymentId);
     check("asking again gives the same codes, none added", again.length === first.length && again.every((c, i) => c.code === first[i].code));
-    check("each is worth EUR 2.50, valid for about 90 days, and all different", first.every((c) => c.amountCents === 250 && Math.abs((c.expiresAt.getTime() - Date.now()) / 86_400_000 - 90) < 1) && new Set(first.map((c) => c.code)).size === first.length);
+    check(`each is worth ${DISCOUNT_CENTS} cents, valid for about 90 days, and all different`, first.every((c) => c.amountCents === DISCOUNT_CENTS && Math.abs((c.expiresAt.getTime() - Date.now()) / 86_400_000 - 90) < 1) && new Set(first.map((c) => c.code)).size === first.length);
     check("a friend can use one: the order check accepts it", (await checkCode(store, first[0].code)).ok);
     const own = await store.findByPayment(paymentId);
     check("the order's own code is still the first one, not a friend code", !first.some((c) => c.code === own?.code));

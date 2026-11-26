@@ -10,7 +10,7 @@ import { createServiceRoleClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
 import type Stripe from "stripe";
 import { WINDOW_PLAN_PRICE, formatPrice } from "@/lib/pricing";
-import { CHECKOUT_MINUTES, checkCode, createAttemptLimiter, priceAfterDiscount, releaseCode, reserveCode, supabaseStore } from "@/lib/discountCode";
+import { CHECKOUT_MINUTES, checkCode, createAttemptLimiter, discountOn, priceAfterDiscount, releaseCode, reserveCode, supabaseStore } from "@/lib/discountCode";
 import { getVisitorPrice } from "@/lib/visitorPrice";
 import { isMissingColumnError } from "@/lib/supabase/errors";
 import { getOrdererGeo } from "@/lib/geo";
@@ -45,7 +45,7 @@ const allowCodeAttempt = createAttemptLimiter();
  */
 export async function previewDiscount(
   rawCode: string,
-): Promise<{ ok: true; code: string; amountLabel: string; priceLabel: string } | { ok: false; error: string }> {
+): Promise<{ ok: true; code: string; amountLabel: string; priceLabel: string; originalLabel: string; percent: number } | { ok: false; error: string }> {
   const locale = await getLocale();
   const dict = getDictionary(locale).checkout.discount;
   const sessionId = (await getSessionId()) ?? "anonymous";
@@ -54,9 +54,19 @@ export async function previewDiscount(
   const checked = await checkCode(supabaseStore(supabase), rawCode);
   if (!checked.ok) return { ok: false, error: dict.errors[checked.reason] };
   const price = await getVisitorPrice("self");
-  const final = priceAfterDiscount(price.cents, checked.amountCents);
-  return { ok: true, code: checked.code, amountLabel: formatPrice(locale, price.cents - final), priceLabel: formatPrice(locale, final) };
+  const final = priceAfterDiscount(price.cents, discountOn(price.cents, checked));
+  return {
+    ok: true,
+    code: checked.code,
+    amountLabel: formatPrice(locale, price.cents - final),
+    priceLabel: formatPrice(locale, final),
+    originalLabel: formatPrice(locale, price.cents),
+    percent: discountPercent(price.cents, final),
+  };
 }
+
+/** The percentage shown with an applied code: what really comes off this price. */
+const discountPercent = (priceCents: number, finalCents: number) => Math.round(((priceCents - finalCents) / priceCents) * 100);
 
 // A failure the visitor can be told about (a box not ticked, a wrong code, the test limit): its message is for them, in their language.
 class CheckoutFailure extends Error {}
@@ -184,11 +194,12 @@ async function startCheckout(
 
   // A discount code is held for this order before anything is made at Stripe (two orders cannot spend one code), and let go again when the order cannot be started.
   const store = supabaseStore(supabase);
-  let discount: { id: string; amountCents: number } | null = null;
+  // One field, one code: discounts never add up. The early-bird code has no id (nothing to hold, release or use up).
+  let discount: { id: string | null; amountCents: number } | null = null;
   if ((discountCode ?? "").trim()) {
     const held = await reserveCode(store, discountCode!);
     if (!held.ok) throw new CheckoutFailure(dict.discount.errors[held.reason]);
-    discount = { id: held.id, amountCents: held.amountCents };
+    discount = { id: held.id, amountCents: discountOn(price.cents, held) };
   }
   const finalCents = discount ? priceAfterDiscount(price.cents, discount.amountCents) : price.cents;
   const discountedCents = price.cents - finalCents;
@@ -200,7 +211,7 @@ async function startCheckout(
   try {
   if (!freeId) {
   // The discount is a Stripe coupon of its own (once, for this order): Stripe's page and the receipt then show the full price, the discount and what is paid.
-  const coupon = discountedCents > 0 ? await getStripe().coupons.create({ amount_off: discountedCents, currency: WINDOW_PLAN_PRICE.currency, duration: "once", max_redemptions: 1, name: dict.discount.stripeName }) : null;
+  const coupon = discountedCents > 0 ? await getStripe().coupons.create({ amount_off: discountedCents, currency: WINDOW_PLAN_PRICE.currency, duration: "once", max_redemptions: 1, name: `${dict.discount.stripeName} (${discountPercent(price.cents, finalCents)}%)` }) : null;
   checkoutSession = await getStripe().checkout.sessions.create({
     mode: "payment",
     // Stripe's own page in the visitor's language. No payment_method_types on purpose: Checkout then offers every method that is
@@ -238,17 +249,18 @@ async function startCheckout(
       followup_consent: followUpConsent === true ? "1" : "",
       price_variant: price.variant ?? "",
       discount_code_id: discount?.id ?? "",
+      discount_type: discount ? (discount.id ? "code" : "early_bird") : "",
     },
   });
   }
   } catch (err) {
-    if (discount) await releaseCode(store, discount.id);
+    if (discount?.id) await releaseCode(store, discount.id);
     throw err;
   }
 
   const stripeUrl = checkoutSession?.url ?? null;
   if (!freeId && !stripeUrl) {
-    if (discount) await releaseCode(store, discount.id);
+    if (discount?.id) await releaseCode(store, discount.id);
     throw new Error("Could not start checkout.");
   }
 
@@ -270,7 +282,7 @@ async function startCheckout(
   const geo = await getOrdererGeo();
   const extras = {
     ...(price.variant ? { price_variant: price.variant } : {}),
-    ...(discount ? { discount_code_id: discount.id, discount_cents: discountedCents } : {}),
+    ...(discount ? { ...(discount.id ? { discount_code_id: discount.id } : {}), discount_cents: discountedCents } : {}),
     ...(geo ? { ip_country: geo.country, ip_city: geo.city || null } : {}),
     ...(followUpConsent === true ? { followup_consent_at: new Date().toISOString() } : {}),
   };
@@ -281,7 +293,7 @@ async function startCheckout(
   }
 
   if (paymentError || !order) {
-    if (discount) await releaseCode(store, discount.id);
+    if (discount?.id) await releaseCode(store, discount.id);
     throw new Error(paymentError?.message ?? "Could not create the order.");
   }
 
@@ -323,7 +335,7 @@ async function startCheckout(
   else if (rememberDevice === false) await disableDeviceMemory(supabase);
 
   // A free test order has no Stripe payment to confirm, so its code is used up now; at Stripe the webhook does it when the payment is confirmed.
-  if (freeId && discount) await store.redeemForOrder(freeId, new Date());
+  if (freeId && discount?.id) await store.redeemForOrder(freeId, new Date());
 
   if (freeId) {
     // The address the book is sent to is kept with the account, as it is after a Stripe payment (plan/data.ts reads it back from there).

@@ -7,6 +7,7 @@
 // against a structured source yet (Fase 3). So the copy says "we look places up and check that their website exists", not "verified".
 
 // Where a buyer writes when a place in the book is wrong: they get an extra discount code as compensation (sent from the admin, Step 235).
+import { CODE_DISCOUNT_PERCENT } from "@/lib/discountConfig";
 import { SUPPORT_EMAIL } from "@/lib/supportEmail";
 import { doorRange, doorsSummary } from "@/lib/productStructure";
 
@@ -113,7 +114,7 @@ const NL: HomeCopy = {
       {
         id: "plek-klopt-niet",
         question: "Wat als een plek niet klopt?",
-        answer: `Plekken veranderen: iets kan gesloten of verhuisd zijn. Klopt er iets niet? Mail naar ${SUPPORT_EMAIL} en je krijgt van ons een extra kortingscode van €2,50 als compensatie, voor je volgende boek.`,
+        answer: `Plekken veranderen: iets kan gesloten of verhuisd zijn. Klopt er iets niet? Mail naar ${SUPPORT_EMAIL} en je krijgt van ons een extra kortingscode voor ${CODE_DISCOUNT_PERCENT}% korting als compensatie, voor je volgende boek.`,
       },
       {
         id: "privacy",
@@ -208,7 +209,7 @@ const EN: HomeCopy = {
       {
         id: "plek-klopt-niet",
         question: "What if a place is wrong?",
-        answer: `Places change: something may have closed or moved. Something not right? Email ${SUPPORT_EMAIL} and you get an extra €2.50 discount code from us as compensation, for your next book.`,
+        answer: `Places change: something may have closed or moved. Something not right? Email ${SUPPORT_EMAIL} and you get an extra ${CODE_DISCOUNT_PERCENT}% discount code from us as compensation, for your next book.`,
       },
       {
         id: "privacy",

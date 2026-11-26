@@ -1,11 +1,11 @@
 import type { Locale } from "@/lib/locale";
 
 // Single price point for the MVP. Kept in cents since that's what Stripe expects.
-// €7,50 per product (Jan, 30 Oct 2026; it was €3,50). The price lives in code only: an environment variable used to override it
+// €5,99 per product, once, no subscription (26 Nov 2026; it was €7,50, and before that €3,50). The discounts are in discountConfig.ts. The price lives in code only: an environment variable used to override it
 // (NEXT_PUBLIC_WINDOW_PRICE_CENTS, 600 on the test preview) and a leftover value on Vercel kept the live site at €6,00 after this
 // default changed, so that override is gone. To change the price, change this number. The same value feeds the page copy, the
 // Stripe line item (checkout/actions.ts) and the order record, so they cannot differ.
-export const PRICE_CENTS = 750;
+export const PRICE_CENTS = 599;
 
 export const WINDOW_PLAN_PRICE = {
   currency: "eur",
@@ -20,8 +20,8 @@ export function basePriceCents(): number {
 }
 
 // Formatted manually (not via Intl.NumberFormat) so the output is always
-// exactly "€7,50" / "€7.50" — Intl's nl-NL currency format inserts a space
-// after the symbol, which reads oddly in short inline copy like "vanaf €7,50".
+// exactly "€5,99" / "€5.99" — Intl's nl-NL currency format inserts a space
+// after the symbol, which reads oddly in short inline copy like "vanaf €5,99".
 export function formatPrice(locale: Locale, cents: number = WINDOW_PLAN_PRICE.amountCents): string {
   const amount = (cents / 100).toFixed(2);
   return `€${locale === "nl" ? amount.replace(".", ",") : amount}`;

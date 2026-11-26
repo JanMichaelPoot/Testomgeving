@@ -103,7 +103,7 @@ export function CheckoutPanel({
   const [codeOpen, setCodeOpen] = useState(false);
   const [codeText, setCodeText] = useState("");
   const [codeError, setCodeError] = useState<string | null>(null);
-  const [applied, setApplied] = useState<{ code: string; amountLabel: string; priceLabel: string } | null>(null);
+  const [applied, setApplied] = useState<{ code: string; amountLabel: string; priceLabel: string; originalLabel: string; percent: number } | null>(null);
   const [codePending, startCodeCheck] = useTransition();
 
   function forgetFriendCode() {
@@ -126,7 +126,7 @@ export function CheckoutPanel({
       try {
         const result = await previewDiscount(typed);
         if (result.ok) {
-          setApplied({ code: result.code, amountLabel: result.amountLabel, priceLabel: result.priceLabel });
+          setApplied({ code: result.code, amountLabel: result.amountLabel, priceLabel: result.priceLabel, originalLabel: result.originalLabel, percent: result.percent });
           setCodeText(result.code);
           trackEvent("discount_code_applied", { source });
         } else {
@@ -290,9 +290,9 @@ export function CheckoutPanel({
       <div className="mb-5" data-testid="discount">
         {applied ? (
           <div className="rounded-lg border border-gold/60 bg-gold/10 px-4 py-3" role="status">
-            <p className="text-sm font-semibold text-ink">{dict.discount.applied.replace("{amount}", applied.amountLabel)}</p>
+            <p className="text-sm font-semibold text-ink">{dict.discount.applied.replace("{percent}", String(applied.percent)).replace("{amount}", applied.amountLabel)}</p>
             <p className="mt-0.5 text-sm text-ink/75">
-              {dict.discount.newTotal.replace("{price}", applied.priceLabel)}{" "}
+              {dict.discount.newTotal.replace("{original}", applied.originalLabel).replace("{price}", applied.priceLabel)}{" "}
               <button type="button" onClick={removeCode} className="font-semibold text-accent-dark underline underline-offset-2 hover:text-ink">
                 {dict.discount.remove}
               </button>

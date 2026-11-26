@@ -7,7 +7,7 @@ import { MAX_COMPENSATIONS_PER_ORDER, issueCompensation, supabaseStore } from "@
 import { sendCompensationEmail } from "@/lib/email/compensation";
 import { siteUrl as getSiteUrl } from "@/lib/siteUrl";
 
-// Sends the buyer of an order an extra one-time discount code of EUR 2.50 as compensation (Step 235: a place in the book was wrong). Checked here again, as everything in
+// Sends the buyer of an order an extra one-time discount code as compensation (Step 235: a place in the book was wrong). Checked here again, as everything in
 // the admin: the login, that the owner ticked the box, that the order is paid and has an address, and the limit per order. The address is read from the order, never taken from the
 // form. Whatever happens, the answer is a redirect back to the order with a status word the page turns into a sentence.
 export async function sendCompensationAction(formData: FormData): Promise<void> {

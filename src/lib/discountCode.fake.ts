@@ -40,7 +40,7 @@ export function memoryStore(seedPayments: Record<string, string> = {}) {
       const r = rows.find((x) => x.id === codeId);
       if (!r || r.kind !== "friend" || !r.redeemedAt || r.rewardedAt) return null;
       r.rewardedAt = now;
-      return { paymentId: r.paymentId, code: r.code };
+      return { paymentId: r.paymentId, code: r.code, amountCents: r.amountCents };
     },
     async unclaimReward(codeId) {
       const r = rows.find((x) => x.id === codeId);

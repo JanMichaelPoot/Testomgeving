@@ -1,7 +1,7 @@
-import { DISCOUNT_CENTS, VALID_DAYS, generateCode, type DiscountStore } from "@/lib/discountCode";
+import { VALID_DAYS, generateCode, type DiscountStore } from "@/lib/discountCode";
 
-// The reward for the buyer (Step 239): when a friend has paid for a book with one of the friend codes (Step 238), the buyer who passed that code on gets a code of EUR 2.50 of their
-// own for a next book, by e-mail. Called when a payment is confirmed (the Stripe webhook), after the friend's code has been used up. Everything is injected, so the rules are
+// The reward for the buyer (Step 239): when a friend has paid for a book with one of the friend codes (Step 238), the buyer who passed that code on gets a code of their own
+// for a next book, worth the same as the friend code (what its e-mail promised), by e-mail. Called when a payment is confirmed (the Stripe webhook), after the friend's code has been used up. Everything is injected, so the rules are
 // tested without a database or a mail service; src/lib/referralRewardLive.ts wires the real ones.
 //
 //   - Once per friend code: the claim (DiscountStore.claimReward) is one atomic step, so a payment that Stripe confirms twice rewards once.
@@ -64,7 +64,7 @@ export async function rewardReferrer(deps: RewardDeps, stripeSessionId: string, 
       const stored = await store.insert({
         code: generateCode(deps.pick),
         paymentId: claim.paymentId,
-        amountCents: DISCOUNT_CENTS,
+        amountCents: claim.amountCents,
         expiresAt: new Date(now.getTime() + VALID_DAYS * 86_400_000),
         kind: "reward",
         reason: `vriend gebruikte ${claim.code}`,
@@ -76,7 +76,7 @@ export async function rewardReferrer(deps: RewardDeps, stripeSessionId: string, 
 
     if (!referrer?.email) return { status: "unmailed", code: reward.code, reason: "no address for the buyer" };
     try {
-      await deps.sendMail({ to: referrer.email, locale: referrer.language, code: reward.code, amountCents: DISCOUNT_CENTS, expiresAt: reward.expiresAt, orderNumber: referrer.orderNumber });
+      await deps.sendMail({ to: referrer.email, locale: referrer.language, code: reward.code, amountCents: claim.amountCents, expiresAt: reward.expiresAt, orderNumber: referrer.orderNumber });
       await store.markMailed(reward.id, now).catch(() => {});
       return { status: "granted", code: reward.code };
     } catch (err) {

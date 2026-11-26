@@ -4,6 +4,7 @@
 // in the environment this deployment runs in (wrong environment ticked, not redeployed) shows up here as missing.
 
 import { stripeModeInfo } from "@/lib/stripeMode";
+import { PRICE_CENTS } from "@/lib/pricing";
 import { DEFAULT_DAILY_BOOK_LIMIT, checkoutPaused, dailyBookLimit } from "@/lib/capacity";
 import { parsePriceTest, variantIds } from "@/lib/priceTest";
 import { seasonalEditionEnabled } from "@/lib/seasonEdition";
@@ -131,6 +132,6 @@ export function envChecks(env: Env): EnvCheck[] {
   const priceTest = parsePriceTest(env.PRICE_TEST);
   add("PRICE_TEST", !(has(env.PRICE_TEST) && !priceTest), has(env.PRICE_TEST) ? (priceTest ? `aan: ${variantIds(priceTest).join(", ")} (bezoekers krijgen na toestemming voor analytics een variant)` : "PROBLEEM: de waarde klopt niet (JSON met prijzen in centen, 100-10000), dus de test staat UIT") : "uit (iedereen betaalt de gewone prijs)", false);
   add("SEASONAL_EDITION", true, seasonalEditionEnabled(env.SEASONAL_EDITION) ? "aan (een follow-uplink met ?season= schrijft het boek voor dat seizoen)" : "uit", false);
-  add("NEXT_PUBLIC_WINDOW_PRICE_CENTS", true, has(env.NEXT_PUBLIC_WINDOW_PRICE_CENTS) ? `${env.NEXT_PUBLIC_WINDOW_PRICE_CENTS} (wordt genegeerd: de prijs staat vast in de code, 750 cent)` : "vast in de code (750 cent)", false);
+  add("NEXT_PUBLIC_WINDOW_PRICE_CENTS", true, has(env.NEXT_PUBLIC_WINDOW_PRICE_CENTS) ? `${env.NEXT_PUBLIC_WINDOW_PRICE_CENTS} (wordt genegeerd: de prijs staat vast in de code, ${PRICE_CENTS} cent)` : `vast in de code (${PRICE_CENTS} cent)`, false);
   return checks;
 }

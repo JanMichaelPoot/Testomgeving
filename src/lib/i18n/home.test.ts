@@ -85,11 +85,11 @@ describe("hidden until filled", () => {
 });
 
 describe("the question about a place that is wrong (Step 235)", () => {
-  it("sends the buyer to the support address and promises an extra EUR 2.50 discount code as compensation, no free new book", () => {
+  it("sends the buyer to the support address and promises an extra 25% discount code as compensation, no free new book", () => {
     for (const locale of ["nl", "en"] as const) {
       const item = getHomeCopy(locale).faq.items.find((i) => i.id === "plek-klopt-niet")!;
       expect(item.answer).toContain("info@vantagelabs.nl");
-      expect(item.answer).toContain(locale === "nl" ? "€2,50" : "€2.50");
+      expect(item.answer).toContain("25%");
       expect(item.answer).not.toContain("hello@windowinto.nl");
       expect(item.answer).not.toMatch(/gratis|for free/i);
     }

@@ -6,8 +6,12 @@ import { explainEmailError } from "@/lib/emailErrors";
 import { describeBookCost } from "@/lib/adminStats";
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { MAX_COMPENSATIONS_PER_ORDER } from "@/lib/discountCode";
+import { DISCOUNT_CENTS, MAX_COMPENSATIONS_PER_ORDER } from "@/lib/discountCode";
+import { formatPrice } from "@/lib/pricing";
 import { sendCompensationAction } from "./actions";
+
+/** What a compensation code made today is worth, as shown to the owner. */
+const CODE_VALUE = formatPrice("nl", DISCOUNT_CENTS);
 
 export const metadata: Metadata = {
   title: "Orderdetail — WindowInto admin",
@@ -135,7 +139,7 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
             <form action={sendCompensationAction} className="mt-4 space-y-3 border-t border-ink/10 pt-4">
               <input type="hidden" name="orderId" value={order.id} />
               <p className="text-sm text-ink/80">
-                Een plek in het boek klopte niet? Maak een extra kortingscode van €2,50 en mail die naar{" "}
+                Een plek in het boek klopte niet? Maak een extra kortingscode van {CODE_VALUE} en mail die naar{" "}
                 <strong>{plan.recipient_email ?? "(geen e-mailadres bij deze bestelling)"}</strong> ({plan.language === "en" ? "Engels" : "Nederlands"}). Antwoorden op die mail gaan naar info@vantagelabs.nl.
               </p>
               <label className="block text-sm">
@@ -147,7 +151,7 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
                 <span>Ik wil deze mail nu naar de koper sturen.</span>
               </label>
               <button type="submit" disabled={!plan.recipient_email} className="rounded-md bg-accent-dark px-4 py-2 text-sm font-semibold text-paper hover:bg-ink disabled:opacity-50">
-                Mail extra kortingscode van €2,50
+                Mail extra kortingscode van {CODE_VALUE}
               </button>
               <p className="text-xs text-ink/60">
                 Hoogstens {MAX_COMPENSATIONS_PER_ORDER} compensatiecodes per bestelling{compensations.length > 0 ? ` (al ${compensations.length} verstuurd)` : ""}.
@@ -207,7 +211,7 @@ export default async function AdminOrderDetailPage(props: PageProps<"/admin/orde
 const KIND_LABEL: Record<string, string> = { order: "bij de bestelling", compensation: "compensatie", friend: "voor een vriend", reward: "beloning (een vriend bestelde)" };
 
 const COMPENSATION_STATUS: Record<string, string> = {
-  sent: "De mail met een extra kortingscode van €2,50 is verstuurd naar {email}.",
+  sent: `De mail met een extra kortingscode van ${CODE_VALUE} is verstuurd naar {email}.`,
   mailfailed: "De code is gemaakt, maar de mail kon niet worden verstuurd. De code staat hieronder: stuur hem zelf naar de koper.",
   confirm: "Vink eerst aan dat je de mail echt wilt sturen. Er is niets verstuurd.",
   noemail: "Bij deze bestelling is geen e-mailadres bekend. Er is niets verstuurd.",

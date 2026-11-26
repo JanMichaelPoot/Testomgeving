@@ -135,7 +135,7 @@ export interface Dictionary {
     errorStartFailed: string;
     /** The pay button is closed (Step 237, src/lib/capacity.ts): the daily maximum of books is reached, or orders are paused. Nothing was charged. */
     capacity: { daily: string; paused: string };
-    /** The one-time discount code a buyer gets in the e-mail after an order (Step 230). {amount} and {price} are filled in. */
+    /** The one-time discount code a buyer gets in the e-mail after an order (Step 230). {percent}, {amount}, {original} and {price} are filled in. */
     discount: {
       toggle: string;
       label: string;
@@ -738,8 +738,8 @@ const nl: Dictionary = {
       apply: "Toepassen",
       applying: "Even controleren…",
       remove: "Verwijder",
-      applied: "Kortingscode toegepast: {amount} korting",
-      newTotal: "Je betaalt {price}.",
+      applied: "Kortingscode toegepast: {percent}% korting ({amount})",
+      newTotal: "Normaal {original}, je betaalt {price}.",
       errors: {
         invalid: "Deze code kennen we niet. Controleer de letters en cijfers.",
         used: "Deze code is al gebruikt.",
@@ -1507,8 +1507,8 @@ const en: Dictionary = {
       apply: "Apply",
       applying: "Checking…",
       remove: "Remove",
-      applied: "Discount code applied: {amount} off",
-      newTotal: "You pay {price}.",
+      applied: "Discount code applied: {percent}% off ({amount})",
+      newTotal: "Regular price {original}, you pay {price}.",
       errors: {
         invalid: "We don't know this code. Check the letters and digits.",
         used: "This code has already been used.",

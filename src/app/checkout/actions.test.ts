@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Fixed dictionary strings for the two validation errors under test — kept
 // separate from the real src/lib/i18n/dictionaries.ts content so this test
@@ -213,6 +213,7 @@ vi.mock("@/lib/capacity", () => ({
 // vi.mock calls are hoisted above imports by vitest, but importing the
 // module under test last keeps the intent readable regardless.
 import { checkoutCapacity, createCheckoutSession } from "./actions";
+import { EARLY_BIRD } from "@/lib/discountConfig";
 
 beforeEach(() => {
   capacityStatus = { open: true, reason: null, startedToday: 0, limit: 40 };
@@ -228,7 +229,7 @@ beforeEach(() => {
   ownerLoggedIn = false;
   redeemed.length = 0;
   codeRows.length = 0;
-  codeRows.push({ id: "code-1", code: "WI-ABCD-EFGH", amountCents: 250, expiresAt: new Date(Date.now() + 30 * 86_400_000), reservedUntil: null, redeemedAt: null });
+  codeRows.push({ id: "code-1", code: "WI-ABCD-EFGH", amountCents: 150, expiresAt: new Date(Date.now() + 30 * 86_400_000), reservedUntil: null, redeemedAt: null });
   priceVariantCookie = null;
   requestHeaders = {};
   delete process.env.PRICE_TEST;
@@ -316,8 +317,8 @@ describe("createCheckoutSession — the price test and the follow-up consent", (
   it("charges the normal price and records no variant while the price test is off", async () => {
     priceVariantCookie = "B"; // a leftover cookie means nothing without the setting
     await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
-    expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(750);
-    expect(orderRows[0]).toMatchObject({ amount: 750 });
+    expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(599);
+    expect(orderRows[0]).toMatchObject({ amount: 599 });
     expect("price_variant" in orderRows[0]).toBe(false);
     expect(stripeParams[0].metadata.price_variant).toBe("");
   });
@@ -338,7 +339,7 @@ describe("createCheckoutSession — the price test and the follow-up consent", (
       orderRows.length = 0;
       priceVariantCookie = cookie;
       await expect(createCheckoutSession(true, true, undefined, EMAIL)).rejects.toThrow("NEXT_REDIRECT");
-      expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(750);
+      expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(599);
       expect(orderRows[0]).toMatchObject({ price_variant: "control" });
     }
   });
@@ -429,11 +430,11 @@ describe("createCheckoutSession — free test orders (no Stripe)", () => {
 });
 
 describe("createCheckoutSession — a one-time discount code (Step 230)", () => {
-  it("takes EUR 2.50 off through a Stripe coupon, holds the code for this order, and records what was charged", async () => {
+  it("takes 25% off a friend code (EUR 5,99 becomes EUR 4,49) through a Stripe coupon, holds the code for this order, and records what was charged", async () => {
     await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "wi abcd efgh")).rejects.toThrow("NEXT_REDIRECT");
     // Stripe shows the full price, the discount and what is paid: the line item keeps its price and the coupon takes the amount off, once.
-    expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(750);
-    expect(couponParams[0]).toMatchObject({ amount_off: 250, currency: "eur", duration: "once", max_redemptions: 1, name: "Kortingscode" });
+    expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(599);
+    expect(couponParams[0]).toMatchObject({ amount_off: 150, currency: "eur", duration: "once", max_redemptions: 1, name: "Kortingscode (25%)" });
     expect(stripeParams[0].discounts).toEqual([{ coupon: "coupon_1" }]);
     // The Checkout Session runs out well before the hold on the code does.
     const minutes = (stripeParams[0].expires_at! * 1000 - Date.now()) / 60_000;
@@ -441,8 +442,15 @@ describe("createCheckoutSession — a one-time discount code (Step 230)", () => 
     expect(minutes).toBeLessThanOrEqual(60);
     expect(codeRows[0].reservedUntil!.getTime()).toBeGreaterThan(Date.now() + 80 * 60_000);
     expect(codeRows[0].redeemedAt).toBeNull(); // used up only when Stripe confirms the payment (the webhook)
-    expect(orderRows[0]).toMatchObject({ amount: 500, status: "pending", discount_code_id: "code-1", discount_cents: 250 });
-    expect(stripeParams[0].metadata.discount_code_id).toBe("code-1");
+    expect(orderRows[0]).toMatchObject({ amount: 449, status: "pending", discount_code_id: "code-1", discount_cents: 150 });
+    expect(stripeParams[0].metadata).toMatchObject({ discount_code_id: "code-1", discount_type: "code" });
+  });
+
+  it("keeps what an earlier e-mail promised: a code made as EUR 2.50 still takes EUR 2.50 off", async () => {
+    codeRows[0].amountCents = 250;
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH")).rejects.toThrow("NEXT_REDIRECT");
+    expect(couponParams[0]).toMatchObject({ amount_off: 250, name: "Kortingscode (42%)" });
+    expect(orderRows[0]).toMatchObject({ amount: 349, discount_cents: 250 });
   });
 
   it("charges the normal price, with no coupon, when no code was given", async () => {
@@ -450,7 +458,8 @@ describe("createCheckoutSession — a one-time discount code (Step 230)", () => 
     expect(couponParams).toHaveLength(0);
     expect(stripeParams[0].discounts).toBeUndefined();
     expect(stripeParams[0].expires_at).toBeUndefined();
-    expect(orderRows[0]).toMatchObject({ amount: 750 });
+    expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(599);
+    expect(orderRows[0]).toMatchObject({ amount: 599 });
     expect(orderRows[0]).not.toHaveProperty("discount_code_id");
   });
 
@@ -495,6 +504,48 @@ describe("createCheckoutSession — a one-time discount code (Step 230)", () => 
     expect(stripeParams).toHaveLength(0);
     expect(couponParams).toHaveLength(0);
     expect(redeemed).toEqual([String(orderRows[0].stripe_payment_id)]);
+  });
+});
+
+describe("createCheckoutSession — the early-bird code", () => {
+  const saved = { ...EARLY_BIRD };
+  afterEach(() => {
+    Object.assign(EARLY_BIRD, saved);
+  });
+
+  it("takes 25% off (EUR 4,49), however it is typed, without a stored code to hold or use up", async () => {
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, " early-bird ")).rejects.toThrow("NEXT_REDIRECT");
+    expect(stripeParams[0].line_items[0].price_data.unit_amount).toBe(599);
+    expect(couponParams[0]).toMatchObject({ amount_off: 150, name: "Kortingscode (25%)", max_redemptions: 1 });
+    expect(orderRows[0]).toMatchObject({ amount: 449, discount_cents: 150 });
+    expect(orderRows[0]).not.toHaveProperty("discount_code_id");
+    expect(stripeParams[0].metadata).toMatchObject({ discount_code_id: "", discount_type: "early_bird" });
+    expect(codeRows[0].reservedUntil).toBeNull();
+    expect(redeemed).toEqual([]);
+  });
+
+  it("follows the configured percentage", async () => {
+    EARLY_BIRD.percent = 10;
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "EARLYBIRD")).rejects.toThrow("NEXT_REDIRECT");
+    expect(orderRows[0]).toMatchObject({ amount: 539, discount_cents: 60 });
+  });
+
+  it("is refused once switched off or past its last day, before any order or Stripe step; the other codes keep working", async () => {
+    EARLY_BIRD.enabled = false;
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "EARLYBIRD")).resolves.toEqual({ ok: false, error: "Code verlopen." });
+    EARLY_BIRD.enabled = true;
+    EARLY_BIRD.validUntil = "2020-01-01";
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "EARLYBIRD")).resolves.toEqual({ ok: false, error: "Code verlopen." });
+    expect(stripeParams).toHaveLength(0);
+    expect(orderRows).toHaveLength(0);
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "WI-ABCD-EFGH")).rejects.toThrow("NEXT_REDIRECT");
+    expect(orderRows[0]).toMatchObject({ amount: 449 });
+  });
+
+  it("cannot be combined with another code: two codes in the field are no code", async () => {
+    await expect(createCheckoutSession(true, true, undefined, EMAIL, false, "EARLYBIRD WI-ABCD-EFGH")).resolves.toEqual({ ok: false, error: "Code onbekend." });
+    expect(stripeParams).toHaveLength(0);
+    expect(codeRows[0].reservedUntil).toBeNull();
   });
 });
 

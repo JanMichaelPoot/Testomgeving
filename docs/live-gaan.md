@@ -17,7 +17,7 @@ Wat de code al doet (Fase 1): de modus staat in `STRIPE_MODE` (`test` of `live`)
    - Preview blijft op `STRIPE_MODE=test` en test-sleutels.
 6. **Redeploy** zonder buildcache.
 7. **Controle** (`/admin`, blok "Instellingen van deze deployment"): `STRIPE_MODE` toont LIVE zonder PROBLEEM, `NEXT_PUBLIC_SITE_URL` toont het echte adres.
-8. **Eén echte betaling** van €7,50 met je eigen kaart en iDEAL, daarna in het Stripe-dashboard terugboeken. Controleer: geen testbanner, de mail komt aan, het boek verschijnt.
+8. **Eén echte betaling** van €5,99 met je eigen kaart en iDEAL, daarna in het Stripe-dashboard terugboeken. Controleer: geen testbanner, de mail komt aan, het boek verschijnt.
 
 **Gratis testboeken zonder Stripe-pagina** (Stap 206, sinds Stap 232 standaard UIT): alleen met `FREE_TEST_ORDERS=1` én Stripe in testmodus slaat de betaalknop Stripe over en start het boek meteen (`src/lib/freeTest.ts`). Met een live-sleutel staat dat vanzelf uit; `FREE_TEST_ORDERS=0` zet het ook in testmodus uit, om de echte Stripe-testbetaling te proberen.
 
@@ -48,11 +48,15 @@ De technische stappen staan hierboven (Stripe, sleutels, webhook). Dit deel is d
 8. **Twee echte betalingen van jezelf**: één met iDEAL, één met kaart. Controleer per betaling: geen testbanner, bevestigingsmail met PDF **en kortingscode**, boek in beeld, in Stripe één regel met de betaling, in `/admin` de bestelling op "succeeded". Gebruik daarna de code voor een tweede, echte bestelling: Stripe moet €2,50 korting tonen en €5,00 rekenen, en de code staat daarna op "gebruikt" (een tweede poging moet "al gebruikt" zeggen). Boek beide terug in Stripe; `charge.refunded` zet de bestelling op "refunded". (Een code van een terugbetaalde bestelling blijft geldig: bewust niet gebouwd.)
 1e. **Opgeslagen boeken bijwerken (Stap 244)**, pas nadat de code live staat. Eerst de proefrun (schrijft niets): `npx tsx --env-file=.env.local scripts/fix-stored-plan-links.ts`. Daarna met `--apply`: de PDF's van de bestaande boeken worden opnieuw gemaakt zodat elk gedrukt adres een volledige link heeft (gratis, geen e-mail, teksten blijven gelijk; al verstuurde PDF-bijlagen veranderen niet). Controleer na de deploy ook één boek via `/plan/boek` op een computer en op een telefoon.
 
+## Prijs en early bird (Stap 245)
+
+Prijs €5,99, eenmalig. Elke nieuwe persoonlijke code (vriend, volgend boek, beloning, compensatie) en de early bird geven 25%: €4,49. Alles staat in `src/lib/discountConfig.ts`. Early bird: één gedeelde code (`EARLYBIRD`), die iedereen vaker kan gebruiken, ook dezelfde persoon. Uitzetten: `enabled: false`. Laatste dag instellen: `validUntil: "2026-12-31"` (Nederlandse tijd). Beide vragen een commit en deploy. Een bestelling met early bird herken je in `payments` aan `discount_cents` zonder `discount_code_id` (in Stripe: metadata `discount_type: early_bird`). Staat er op Vercel een `PRICE_TEST`-instelling, dan gaat die vóór de prijs van €5,99: controleer dat die leeg is.
+
 ## Fase B: de test met 20 testers (2 weken)
 
 **Wie**: 20 mensen die je niet dagelijks spreekt, gemengd: ±15 Nederlandstalig en ±5 Engelstalig, voor zichzelf of voor iemand anders, verschillende plaatsen (ook buiten de Randstad: daar valt de plekkendekking het eerst tegen).
 
-**Hoe betalen**: echt, met iDEAL of kaart. Dat test de hele keten en laat zien waar mensen afhaken. Zeg vooraf: "je krijgt je €7,50 terug nadat je de vragen hebt ingevuld" (terugboeken in Stripe). Het meet de betaalstroom, niet hoeveel ze zouden willen betalen: dat vraag je in de vragenlijst (de vier Van Westendorp-prijsvragen; die staan nog niet in het formulier). Een korting van 100% laat de betaalstroom onbewezen en geeft geen prijssignaal.
+**Hoe betalen**: echt, met iDEAL of kaart. Dat test de hele keten en laat zien waar mensen afhaken. Zeg vooraf: "je krijgt je €5,99 terug nadat je de vragen hebt ingevuld" (terugboeken in Stripe). Het meet de betaalstroom, niet hoeveel ze zouden willen betalen: dat vraag je in de vragenlijst (de vier Van Westendorp-prijsvragen; die staan nog niet in het formulier). Een korting van 100% laat de betaalstroom onbewezen en geeft geen prijssignaal.
 
 **Volgorde**:
 1. **Dag 1 (kanarie)**: 3 vertrouwde testers. Kijk dezelfde dag in de Vercel-logs (`request_error`), in `/admin` (mislukte of blijven-hangende boeken) en laat de plekken van hun boeken controleren met `npx tsx scripts/places-audit.ts --since <datum>`.
@@ -62,19 +66,19 @@ De technische stappen staan hierboven (Stripe, sleutels, webhook). Dit deel is d
 **Wat je meet** (PostHog en de database):
 - De trechter: `landing_viewed`, `intake_started`, `profile_viewed`, `checkout_pay_clicked`, `payment_succeeded`, `plan_viewed`; per stap hoeveel afhaken.
 - Techniek: aantal mislukte of blijven-hangende boeken (`/admin`), mailbezorging (`email_sent_at`), de duur tot het boek klaar is, kosten per boek (`progress_meta.cost`).
-- Kwaliteit: `scripts/places-audit.ts` (dekking en werkende links per idee), de vragenlijst (stroom, profiel, plekken, "zou je €7,50 betalen").
+- Kwaliteit: `scripts/places-audit.ts` (dekking en werkende links per idee), de vragenlijst (stroom, profiel, plekken, "zou je €5,99 betalen").
 - Korting: hoeveel testers de code gebruiken binnen twee weken.
 
 **Vooraf vastgelegd wanneer het slaagt** (stel dit zelf bij, maar leg het vóór de start vast):
 - 0 betalingen die technisch mislukken; 100% van de betaalde boeken wordt geleverd (scherm én mail) binnen 3 minuten.
 - Plekkendekking minstens 90% van de ideeën met een werkende link.
-- Gemiddelde stroomscore minstens 4 van 5, en minstens de helft zegt "ja" of "misschien" op €7,50.
+- Gemiddelde stroomscore minstens 4 van 5, en minstens de helft zegt "ja" of "misschien" op €5,99.
 - Minstens 3 van de 20 gebruiken de kortingscode (een teken dat een tweede boek bij hen leeft).
 
 **Stoppen**: een kritieke fout (verkeerde bedragen, dubbele afschrijving, boeken zonder mail) legt je meteen stil door in Vercel `STRIPE_MODE` terug te zetten of de betaalknop te laten falen; boek alle open betalingen terug in Stripe. Hou een lijstje met de mailadressen van de testers bij zodat je ze kunt bereiken.
 
 ## Kortingscode (Stap 230)
-Na elke betaalde bestelling krijgt de koper in de mail een eenmalige code (`WI-XXXX-XXXX`) voor €2,50 korting op één volgend boek, 90 dagen geldig. Bij de bestelling is er een stil "Heb je een kortingscode?" onder de vinkjes. De code wordt vastgehouden zodra de betaling bij Stripe start, verbruikt als Stripe de betaling bevestigt (webhook) en komt vrij als de betaling mislukt of verloopt; een Stripe Checkout met code duurt hoogstens een uur. Elke betaalde bestelling levert opnieuw een code op, ook een bestelling met korting. Een bestelling gaat nooit mis door de code: zonder de tabel krijgt de mail gewoon geen codeblok.
+Na elke betaalde bestelling krijgt de koper in de mail een eenmalige code (`WI-XXXX-XXXX`) voor 25% korting (€1,50; codes van vóór 26 nov 2026 houden hun €2,50) op één volgend boek, 90 dagen geldig. Bij de bestelling is er een stil "Heb je een kortingscode?" onder de vinkjes. De code wordt vastgehouden zodra de betaling bij Stripe start, verbruikt als Stripe de betaling bevestigt (webhook) en komt vrij als de betaling mislukt of verloopt; een Stripe Checkout met code duurt hoogstens een uur. Elke betaalde bestelling levert opnieuw een code op, ook een bestelling met korting. Een bestelling gaat nooit mis door de code: zonder de tabel krijgt de mail gewoon geen codeblok.
 
 ## Als de betaling niet start (Stap 231)
 De betaalknop zegt dan "We konden de betaling niet starten. Er is niets afgeschreven." en het scherm blijft staan. De oorzaak staat in de Vercel-logs als een regel met `"event":"checkout_start_failed"` (Stripe-type, -code en korte melding); ben je zelf ingelogd op `/admin` in dezelfde browser, dan staat de oorzaak ook achter de melding op het scherm. Meest voorkomend bij live gaan: de sleutel is niet de `sk_live_`-sleutel, `STRIPE_MODE` en de sleutel verschillen, het Stripe-account is nog niet geactiveerd voor live betalingen, of de wijziging is nog niet opnieuw gebouwd (een nieuwe waarde in Vercel geldt pas voor een nieuwe deploy). **Zie je nog "gratis in de testfase" of de testbanner, dan draait die omgeving nog in testmodus**: controleer in `/admin` (blok "Instellingen van deze deployment") of `STRIPE_MODE` op LIVE staat zonder PROBLEEM, en bouw opnieuw zonder buildcache.
@@ -83,5 +87,5 @@ De betaalknop zegt dan "We konden de betaling niet starten. Er is niets afgeschr
 Alleen als migratie `0027_discount_codes.sql` is gedraaid. Controleer `https://www.windowinto.nl/api/health`: `"discountCodes":true`. Zonder de tabel gaat een bestelling gewoon door maar de mail heeft geen codeblok, en `/admin` meldt dat in rood. Bestellingen van vóór de migratie krijgen alsnog een code met `npx tsx --env-file=.env.local scripts/discount-backfill.ts --issue` (zonder `--issue` een proefrun); het script verstuurt niets, de codes worden afgedrukt.
 
 ## Een plek klopt niet: compensatiecode sturen (Stap 235)
-De startpagina belooft: mail naar `info`vantagelabs.nl` en je krijgt een extra kortingscode van €2,50. Zo stuur je hem: open in `/admin/orders` de bestelling van de koper (zoek op het ordernummer), ga naar het blok "Kortingscodes en compensatie", noteer eventueel de reden (alleen voor jezelf), vink "Ik wil deze mail nu naar de koper sturen" aan en klik "Mail extra kortingscode van €2,50". De mail gaat naar het adres van de bestelling, in de taal van het boek; antwoorden komen bij `info`vantagelabs.nl` binnen. Hoogstens 3 per bestelling. Eenmalig te draaien in de Supabase SQL-editor, na 0027: `supabase/migrations/0028_discount_compensation.sql`; zonder die migratie meldt het formulier dat hij ontbreekt.
+De startpagina belooft: mail naar `info`vantagelabs.nl` en je krijgt een extra kortingscode voor 25% korting (€1,50). Zo stuur je hem: open in `/admin/orders` de bestelling van de koper (zoek op het ordernummer), ga naar het blok "Kortingscodes en compensatie", noteer eventueel de reden (alleen voor jezelf), vink "Ik wil deze mail nu naar de koper sturen" aan en klik "Mail extra kortingscode van €2,50". De mail gaat naar het adres van de bestelling, in de taal van het boek; antwoorden komen bij `info`vantagelabs.nl` binnen. Hoogstens 3 per bestelling. Eenmalig te draaien in de Supabase SQL-editor, na 0027: `supabase/migrations/0028_discount_compensation.sql`; zonder die migratie meldt het formulier dat hij ontbreekt.
 
