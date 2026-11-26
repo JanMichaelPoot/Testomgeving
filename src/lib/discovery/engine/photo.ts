@@ -18,7 +18,7 @@ const BY_SUB: Record<string, PhotoCategory> = {
   shaping: "creative_workshop",
   textile_paper: "creative_workshop",
   visual: "creative_workshop",
-  sound_stage: "music_nightlife",
+  sound_stage: "creative_workshop", // mostly writing and practising; what is done together is in OVERRIDE
   // nature
   walking: "nature_outdoor",
   animals: "nature_outdoor",
@@ -207,6 +207,25 @@ const OVERRIDE: Record<string, PhotoCategory> = {
   fossielen: "nature_outdoor",
   "rc-modellen": "nature_outdoor",
   spotten: "nature_outdoor",
+  // making music or theatre together
+  koor: "music_nightlife",
+  improvisatie: "music_nightlife",
+  drumcirkel: "music_nightlife",
+  "djembe-trommelcirkel": "music_nightlife",
+  "fanfare-orkest": "music_nightlife",
+  // alone at your own desk, although the subdomain is about performing
+  "podcast-maken": "creative_workshop",
+  rappen: "creative_workshop",
+  goochelen: "creative_workshop",
+  cosplay: "creative_workshop",
+  "theatermake-up": "creative_workshop",
+  "jongleren-leren": "creative_workshop",
+  beatboxen: "creative_workshop",
+  detectiveverhaal: "creative_workshop",
+  // going to watch
+  "opera-bezoek": "art_culture",
+  "ballet-bezoek": "art_culture",
+  "musical-bezoek": "art_culture",
 };
 
 // Learning, helping and collecting fit none of the types the 12 photo categories stand for (volunteering in a hospice would read "Social",

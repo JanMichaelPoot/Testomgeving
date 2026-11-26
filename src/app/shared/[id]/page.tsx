@@ -9,6 +9,7 @@ import { ShareButton } from "@/components/window/ShareButton";
 import { sharedMetadata } from "@/lib/shareCard";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { withValidLayers } from "@/lib/claude/ideaLayers";
+import { withCheckedPrices } from "@/lib/links/priceClaims";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/locale";
@@ -62,11 +63,11 @@ export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
   const bookDict = getDictionary(bookLocale);
 
   const ideas = Array.isArray(plan.ideas_json)
-    ? (plan.ideas_json as unknown as IdeaBookEntry[]).map(withValidLayers)
+    ? (plan.ideas_json as unknown as IdeaBookEntry[]).map((e) => withCheckedPrices(withValidLayers(e), bookLocale))
     : [];
   const wildcard =
     plan.wildcard_json && typeof plan.wildcard_json === "object"
-      ? withValidLayers(plan.wildcard_json as unknown as IdeaBookEntry)
+      ? withCheckedPrices(withValidLayers(plan.wildcard_json as unknown as IdeaBookEntry), bookLocale)
       : null;
   const labels = (plan.labels_json ?? {}) as Record<string, string>;
 

@@ -896,6 +896,10 @@ export interface IdeaPageLabels {
   bring: string; // prefix of the derived "what to bring" step
   invest: string;
   investIndication: string;
+  /** Under the price: where it comes from, or that it was not found (links/priceClaims.ts). */
+  priceFound: string;
+  priceNotFound: string;
+  priceAskNote: string;
   where: string;
   startHere: string;
   /** What stands in the sentence where its web address was, when the address is shown above it. */
@@ -936,6 +940,9 @@ const NL_LABELS: IdeaPageLabels = {
   bring: "Nodig",
   invest: "Jouw investering",
   investIndication: "Indicatie kosten",
+  priceFound: "Gevonden bij de aanbieder",
+  priceNotFound: "Niet door ons gevonden",
+  priceAskNote: "Vraag de prijs na voor je boekt en kijk of die in je budget past.",
   where: "Waar?",
   startHere: "Begin hier",
   addressAbove: "het adres hierboven",
@@ -988,6 +995,9 @@ const EN_LABELS: IdeaPageLabels = {
   bring: "You'll need",
   invest: "Your investment",
   investIndication: "Estimated cost",
+  priceFound: "Found at the provider",
+  priceNotFound: "We did not find it",
+  priceAskNote: "Ask the price before you book and check that it fits your budget.",
   where: "Where?",
   startHere: "Start here",
   addressAbove: "the address above",

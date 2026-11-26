@@ -1,4 +1,5 @@
 import { describeBudget } from "@/lib/budgetOptions";
+import { askPrice } from "@/lib/links/priceClaims";
 import { describeDistance } from "@/lib/distanceOptions";
 import type Anthropic from "@anthropic-ai/sdk";
 import { runQualityGate } from "@/lib/claude/qualityRepair";
@@ -112,8 +113,9 @@ Country, language and audience — name only providers and websites that serve
 people in the country of their location and offer {{LANGUAGE}} or English (a
 venue in their own town may use the local language). Never a provider or shop of
 another country. The person is an adult unless children go with them: no
-children's products or children's parties for an adult. State an exact price
-only when the research states it; otherwise give a rough range.
+children's products or children's parties for an adult. Never estimate or guess
+a price: write an amount only when the research states it, copied exactly, and
+never say something fits their budget unless such a price shows it.
 
 Season and date — you are told today's date. Every idea must be realistic on
 that date and in the weeks after it, in the Dutch weather of that season:
@@ -172,7 +174,9 @@ Rules for using the profile:
   filter on '<category>' in <city>." (max ~20 words). Never a vague "think
   about" or "consider".
 - practical is a small structured object, not free text:
-  estimated_cost (short, e.g. "€25–40" or "{{FREE}}"), duration (short,
+  estimated_cost (exactly one of: the price the research states for it, copied
+  exactly; "{{FREE}}" when it is free or nothing has to be bought or booked;
+  otherwise exactly "{{ASK}}"), duration (short,
   e.g. "a half day", in {{LANGUAGE}}), difficulty (exactly "easy", "moderate", or
   "demanding"), and preparation (one short line on what to arrange
   beforehand, or an empty string if nothing needs preparing).
@@ -192,7 +196,7 @@ Rules for using the profile:
   price, opening hours, or direct URL that isn't confirmed in the verified
   research brief below — you have no way to verify those yourself and a
   wrong one actively hurts trust, in a product people already paid for.
-  Keep estimated_cost approximate and don't mention opening hours at all.
+  Don't mention opening hours at all.
 - image_suggestion is a one-line internal art-direction note for a future
   illustration of this idea — not shown to the user, so it can be terse.
 - photo_category: pick exactly one value from this fixed list that best
@@ -539,7 +543,7 @@ async function callClaudeForIdeaBook(
   researchBrief: string
 ): Promise<GeneratedIdeaBook> {
   const language = languageLabel(locale);
-  const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
+  const system = SYSTEM_PROMPT.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale)).replaceAll("{{ASK}}", askPrice(locale));
   const researchBlock = researchBrief
     ? `Verified live web research (use ONLY these names for anything
 specific — never invent a business/venue/platform/route/event name beyond

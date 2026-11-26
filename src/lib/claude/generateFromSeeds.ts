@@ -46,6 +46,7 @@ import {
 } from "@/lib/claude/ideaLayers";
 import type { EngineResult, Seed } from "@/lib/discovery/engine";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
+import { askPrice } from "@/lib/links/priceClaims";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
 import { ALL_ACTIVITIES, TAGS, getActivity } from "@/lib/discovery/library";
 import type { Activity } from "@/lib/discovery/types";
@@ -118,7 +119,8 @@ For every idea:
 - first_action: one instruction the person can complete within 60 seconds of finishing reading: with a physical
   place listed, call or message it, open its booking page or check its opening times (name the place); with only an
   online provider listed, open its website or start there (max ~20 words).
-- practical: estimated_cost (short, e.g. "€25–40" or "{{FREE}}"), duration (short), difficulty ("easy",
+- practical: estimated_cost (exactly one of three: the price a verified local option of this idea states, copied exactly, e.g. "€19,50";
+  "{{FREE}}" when that option says it is free or nothing at all has to be bought or booked; otherwise exactly "{{ASK}}"), duration (short), difficulty ("easy",
   "moderate" or "demanding") and preparation (one short line, or empty).
 - location: only when the idea happens at one specific, findable place taken from the verified local options of
   THAT idea (name and city; the address only when the research gives it). Otherwise null. The options are listed
@@ -132,7 +134,7 @@ For every idea:
 - Never invent a business name, street address, ticket price, opening hours or website that is not in that idea's
   verified local options. Never say anything about a venue itself (a room, a cellar, a garden, a view, its history, a special seating, a menu) that
   its verified note does not state. For an idea that is a combination of two activities and has places for one half only, the other half is
-  something the person can add or look for (a historic setting, a second activity), never a claim about the venue. Keep costs approximate and do not mention opening hours.
+  something the person can add or look for (a historic setting, a second activity), never a claim about the venue. Do not mention opening hours.
 - Write final text only. Never include a self-correction, hesitation or alternative in a step or action (no "nee,",
   "eigenlijk", "or rather", "..." followed by a better version). Check every website address against that
   idea's verified local options BEFORE you write it, and write it once, correctly.
@@ -144,7 +146,9 @@ For every idea:
   that country and offer the book's language or English (a venue in their own town may use the local language). Never send them to a provider or
   shop of another country. The person is an adult unless children go with them: no children's products or children's parties for an adult.
 - Web addresses: write an address in a step only when it is the website of one of that idea's verified local options, exactly as given there.
-- Prices: state an exact price only when that idea's verified option states it; otherwise give a rough range.
+- Prices: never estimate, guess, round or give a range of your own, in any field. Write an amount only when a verified local option of
+  that idea states it, copied exactly. Never say or suggest that an idea is cheap or fits their budget unless such a stated price shows it.
+  A course or a series usually costs far more than one visit, so one lesson's price says nothing about it.
 - Season and date: you are given today's date. Every idea must be realistic on that date and in the weeks after
   it, in the Dutch weather of that season. Never write about what is out of season (open-water swimming or a
   terrace evening in winter, a snow scene in autumn), and never promise a market, festival or event unless it is
@@ -152,11 +156,10 @@ For every idea:
   (it has an end date), say so in the steps.
 
 - Use what the person gave (the profile lists their time, budget, company and distance). Across the five ideas: at
-  least one idea must fill the time they have (say its real duration honestly); at least two ideas must have an
-  estimated_cost that uses 40-100% of their budget and never goes above it; the others may cost less. Never inflate a
-  price to hit this: base the cost on the activity's typical cost and the verified local options, and when an idea
-  cannot reach it, leave it cheaper. Respect the company (alone, partner, friends, family), the distance and every
-  hard limit in every idea.
+  least one idea must fill the time they have (say its real duration honestly). Their budget is a limit: when a
+  verified option states a price above it, prefer an option that does not, and otherwise say plainly that it costs
+  more. Never write a price to make an idea fit. Respect the company (alone, partner, friends, family), the distance
+  and every hard limit in every idea.
 - Every idea has its own wording. Never reuse a sentence, or the same sentence frame, across ideas (not even "this
   fits your time and budget"): say what makes THIS idea suit THIS person.
 - Never show the machinery: no arrows, no talk about images, choices, how the idea was found or what "we derived".
@@ -195,7 +198,7 @@ For every idea:
 - sizes: exactly three, in this order: (1) a taste: the cheapest real way to try it, about one hour and never
   more than ninety minutes; (2) a day: about half a day, the proper first experience; (3) further: a weekend, a
   course or a series, for when they love it. Each has a title (max ~4 words), description (one sentence, max ~16
-  words), estimated_cost and duration (both short: at most 25 characters each, count them; "vanaf €15" is better than a sentence).
+  words), estimated_cost and duration (both short: at most 25 characters each, count them; estimated_cost follows the price rules below).
 - next_step: one sentence (max ~18 words): what to do after the first time (a second go, the next level,
   joining something).
 
@@ -204,10 +207,11 @@ Honesty. These matter more than anything above:
   stay generic (for example "a local club" or "a workshop nearby", written in {{LANGUAGE}}). Never name an organisation from memory,
   however well known it is.
 - Write "{{FREE}}" ONLY when that idea's verified local options or its "Easy way in" line say it is free, or when
-  nothing at all has to be bought or booked (sitting still at home, a walk from your own door). Anything that
-  depends on somebody else's offer (an open day, a trial class, a rental) gets a rough starting price ("from
-  about €10", in {{LANGUAGE}}) and the description says the price varies.
-- Keep every cost approximate. Never invent a price list, opening hours or an address.
+  nothing at all has to be bought or booked (sitting still at home, a walk from your own door).
+- Prices: write an amount only when a verified local option of that idea states it, copied exactly and for the same
+  thing (one lesson's price is not the price of a course). Everything else is exactly "{{ASK}}". Never estimate or
+  guess a price, in a cost field or in a sentence.
+- Never invent a price list, opening hours or an address.
 - You are given today's date. The taste, the day and the "further" size must all be realistic in this season and
   in the weeks after it; never describe something that is out of season or an event that is not one of that
   idea's verified local options.
@@ -411,9 +415,9 @@ function seedBlock(
         ? `  Permit or rule to mention in the first step: ${a.safety.note[locale]}`
         : null,
     seed.verify.includes("cost_unknown")
-      ? "  Cost: not known; keep the estimate approximate and say it varies."
+      ? "  Cost: not known; name no amount unless a verified option below states it."
       : seed.verify.includes("cost_near_budget")
-        ? "  Cost: typically close to or a little above their budget; quote the cheapest way in (a trial class or a single session) and say the price varies."
+        ? "  Cost: this kind of activity is often close to or above their budget; start with the cheapest way in (a trial class or a single session), tell them to ask its price, and name no amount the options below do not state."
         : null,
     `  Verified local options:\n${options}`,
   ]
@@ -1267,8 +1271,8 @@ export async function generateIdeaBookFromSeeds(
   const honestOrigin = v2 && chosenImages.length > 0 && !explicitPicks;
   const baseSystem = v2 ? SYSTEM_PROMPT.replace("For every idea:\n", () => `${ROUTE_CONSISTENCY_RULE}${honestOrigin ? HONEST_ORIGIN_RULE : ""}For every idea:\n`) : SYSTEM_PROMPT;
   const baseLayers = v2 ? LAYERS_SYSTEM_PROMPT.replace("\nHonesty. These matter", () => `${FILL_PROMPT_RULES}\nHonesty. These matter`) : LAYERS_SYSTEM_PROMPT;
-  const system = baseSystem.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
-  const layersSystem = baseLayers.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale));
+  const system = baseSystem.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale)).replaceAll("{{ASK}}", askPrice(locale));
+  const layersSystem = baseLayers.replaceAll("{{LANGUAGE}}", language).replaceAll("{{FREE}}", freeWord(locale)).replaceAll("{{ASK}}", askPrice(locale));
   const shared = `Today is ${describeToday(now, locale)} (${isoDateNL(now)}).
 Hard constraints: the person lives in ${countryName(intake.country || HOME_COUNTRY, "en")}. The book is written in ${language}.${adultsOnly ? " The ideas are for adults." : ""}
 

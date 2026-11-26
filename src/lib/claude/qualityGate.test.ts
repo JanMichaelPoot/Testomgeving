@@ -135,25 +135,23 @@ describe("chips", () => {
 });
 
 describe("coverage of what the person gave", () => {
-  it("counts ideas that fill the time and ideas that use 40-100% of the budget, sizes included", () => {
+  it("counts ideas that fill the time, sizes included", () => {
     const filling = idea("A", { practical: { estimated_cost: "€45", duration: "Een halve dag", difficulty: "easy", preparation: "" } });
     const cheap = idea("B", { practical: { estimated_cost: "Gratis", duration: "Een uur", difficulty: "easy", preparation: "" } });
     const viaSize = idea("C", {
       practical: { estimated_cost: "Gratis", duration: "Een uur", difficulty: "easy", preparation: "" },
       sizes: [{ kind: "do", title: "Doen", description: "Een middag", estimated_cost: "€70", duration: "Een halve dag" }],
     } as Partial<IdeaBookEntry>);
-    const c = coverageOf(book([filling, cheap, viaSize]), { budget: "100", timeAvailable: "halfday" });
-    expect(c).toMatchObject({ timeApplicable: true, budgetApplicable: true });
+    const c = coverageOf(book([filling, cheap, viaSize]), { timeAvailable: "halfday" });
+    expect(c).toMatchObject({ timeApplicable: true });
     expect(c.timeFilled).toBe(3); // the wildcard (a half day for €40) counts as well
-    expect(c.budgetUsed).toBe(3); // A (€45), C (€70 as the "do" size) and the wildcard (€40); B is free
   });
 
-  it("is not applicable without a time or an uncapped budget, and the gate reports a book that uses neither", () => {
-    expect(coverageOf(book(six()), { budget: "allin" }).budgetApplicable).toBe(false);
+  it("is not applicable without a time, and never asks a book to spend the budget", () => {
     expect(coverageOf(book(six()), {}).timeApplicable).toBe(false);
     const cheapBook = book(six().map((e) => ({ ...e, practical: { ...e.practical, estimated_cost: "Gratis", duration: "Een uur" } })), idea("W", { practical: { estimated_cost: "Gratis", duration: "Een uur", difficulty: "easy", preparation: "" } }));
     const codes = qaBook(cheapBook, CTX).map((i) => i.code);
-    expect(codes).toContain("coverage_budget");
+    expect(codes).not.toContain("coverage_budget");
     expect(codes).toContain("coverage_time");
   });
 });

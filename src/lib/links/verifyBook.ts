@@ -3,7 +3,8 @@
 //  - every place link answers 2xx and suits the reader (language, country, audience); a place that does not is left out;
 //  - every web address written in the text must be one of those places, or pass the same check itself;
 //  - a step that points at a refused address or a refused provider becomes a search instruction in the reader's language, never a dead or foreign link;
-//  - an exact price that is not on a checked page becomes a range marked as an estimate (prices.ts).
+//  - an exact price in a text that is not on a checked page becomes a range marked as an estimate (prices.ts);
+//  - a price field shows an amount only when the research found it for a provider of that idea, else "ask the price" (priceClaims.ts).
 // Replacements by the model happen earlier, in the research: a refused address is passed to the broader and the online search round, which look
 // for another place. This is the safety net after them, and for the classic pipeline.
 //
@@ -16,6 +17,7 @@ import { LAYER_LIMITS, type IdeaPlace } from "@/lib/claude/ideaLayers";
 import { findWebAddresses, hostKey, normalizeUrl } from "@/lib/links/normalizeUrl";
 import type { FitPolicy } from "@/lib/links/pageFit";
 import { guardPrices } from "@/lib/links/prices";
+import { withCheckedPrices } from "@/lib/links/priceClaims";
 import { getActivity } from "@/lib/discovery/library";
 import { isOnlineCity } from "@/lib/maps";
 
@@ -37,7 +39,7 @@ export interface BookCheckReport {
   rejected: RejectedLink[];
   /** Fields that were rewritten because they pointed at something refused ("idea1.first_action"). */
   rewritten: string[];
-  /** Exact prices that were turned into a labelled estimate. */
+  /** Exact prices that were turned into a labelled estimate, and price fields that were not shown ("ask the price"). */
   prices: string[];
 }
 
@@ -163,7 +165,7 @@ export async function verifyBook(book: GeneratedIdeaBook, ctx: BookCheckContext)
       const droppedLocation = !!entry.location && goneNames.some((name) => mentions(name, entry.location!.name) || mentions(entry.location!.name, name));
       const places = kept.map((p) => ({ ...p, note: money(neutral(p.note, "places.note")) }));
 
-      return {
+      const checked: IdeaBookEntry = {
         ...entry,
         title: neutral(entry.title, "title"),
         intro: money(neutral(entry.intro, "intro")),
@@ -186,6 +188,10 @@ export async function verifyBook(book: GeneratedIdeaBook, ctx: BookCheckContext)
             }
           : {}),
       };
+      // Last, on the finished places: an amount nobody found for this idea is not shown at all.
+      const priced = withCheckedPrices(checked, ctx.language);
+      if (priced.practical && priced.practical.estimated_cost !== checked.practical.estimated_cost) report.prices.push(`${label}: not shown, ${checked.practical.estimated_cost}`);
+      return priced;
     }),
   );
 

@@ -35,6 +35,11 @@ describe("the type of an idea", () => {
     }
   });
 
+  it("does not call writing or practising alone social", () => {
+    for (const id of ["roman-schrijven", "gedichten-schrijven", "orgel-leren", "videomontage-leren", "podcast-maken"]) expect(typeOf(id), id).toBe("Creatief");
+    expect(typeOf("koor")).toBe("Sociaal");
+  });
+
   it("keeps the type of the category for a book without activity ids", () => {
     expect(activityKindFor({ photo_category: "nature_outdoor" })).toBe("outdoor");
   });

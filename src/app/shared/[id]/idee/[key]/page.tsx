@@ -6,6 +6,7 @@ import { SharedIdeaCta, SharedIdeaView } from "@/components/window/SharedIdeaTra
 import { getSharedIdeaBook } from "../../data";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { withValidLayers } from "@/lib/claude/ideaLayers";
+import { withCheckedPrices } from "@/lib/links/priceClaims";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getIdeaShareCopy } from "@/lib/i18n/ideaShare";
@@ -23,8 +24,8 @@ async function load(rawId: string, rawKey: string) {
   if (!target) return null;
   const plan = await getSharedIdeaBook(target.planId);
   if (!plan) return null;
-  const ideas = Array.isArray(plan.ideas_json) ? (plan.ideas_json as unknown as IdeaBookEntry[]).map(withValidLayers) : [];
-  const wildcard = plan.wildcard_json && typeof plan.wildcard_json === "object" && Object.keys(plan.wildcard_json).length > 0 ? withValidLayers(plan.wildcard_json as unknown as IdeaBookEntry) : null;
+  const ideas = Array.isArray(plan.ideas_json) ? (plan.ideas_json as unknown as IdeaBookEntry[]).map((e) => withCheckedPrices(withValidLayers(e), plan.language)) : [];
+  const wildcard = plan.wildcard_json && typeof plan.wildcard_json === "object" && Object.keys(plan.wildcard_json).length > 0 ? withCheckedPrices(withValidLayers(plan.wildcard_json as unknown as IdeaBookEntry), plan.language) : null;
   const shared = resolveShared(target.key, ideas, wildcard);
   if (!shared) return null;
   return { plan, key: target.key, labels: (plan.labels_json ?? {}) as Record<string, string>, ...shared };

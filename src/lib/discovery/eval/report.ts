@@ -81,7 +81,6 @@ export function renderReport(file: EvalResultFile): string {
     line(`| Tijdchip klopt niet bij de activiteit | ${q.counts.time_chip} |`);
     line(`| "Ook in deze richting" zonder verband | ${q.counts.related} |`);
     line(`| Boeken zonder idee dat de beschikbare tijd vult | ${q.counts.coverage_time} |`);
-    line(`| Boeken met te weinig ideeën die het budget benutten | ${q.counts.coverage_budget} |`);
     line(`| Ideeën met een echte plek uit het onderzoek | ${q.ideasWithPlace} van ${q.ideas} (${pct(q.placeRate)}), waarvan ${q.ideasWithPlaceSite} met website |`);
     line(`| Kosten / gemiddelde duur | $${q.totalUsd.toFixed(3)} / ${q.avgSeconds.toFixed(0)} s |`);
     line();

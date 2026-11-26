@@ -235,7 +235,7 @@ async function main() {
     if (errors.length) anyErrors = true;
     if (result.quality) {
       const q = result.quality;
-      console.log(`kwaliteitspoort: ${q.releaseGate.pass ? "geslaagd" : "NIET geslaagd (" + q.releaseGate.failures.join("; ") + ")"} | seizoen ${q.counts.season} | tijdchip ${q.counts.time_chip} | tijd niet gevuld ${q.counts.coverage_time} | budget niet benut ${q.counts.coverage_budget} | plek bij ${(q.placeRate * 100).toFixed(0)}% van de ideeën`);
+      console.log(`kwaliteitspoort: ${q.releaseGate.pass ? "geslaagd" : "NIET geslaagd (" + q.releaseGate.failures.join("; ") + ")"} | seizoen ${q.counts.season} | tijdchip ${q.counts.time_chip} | tijd niet gevuld ${q.counts.coverage_time} | plek bij ${(q.placeRate * 100).toFixed(0)}% van de ideeën`);
     }
     console.log(`\n${source}: ${m.profiles} profielen, engine ${eng.name}, ${mode}`);
     console.log(`harde regels E1/E3/E4/E5/E6: ${m.violations.E1}/${m.violations.E3}/${m.violations.E4}/${m.violations.E5}/${m.violations.E6}`);

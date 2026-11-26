@@ -10,6 +10,7 @@ import { ideaPhoto } from "@/lib/illustrations";
 import { safeIllustrationPath } from "@/lib/shareCard";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { withValidLayers } from "@/lib/claude/ideaLayers";
+import { withCheckedPrices } from "@/lib/links/priceClaims";
 
 // The card of ONE idea (Step 242): the picture WhatsApp, iMessage and the others show when /shared/[id]/idee/[key] is pasted, and the picture the idea dialog offers to
 // share or download. The idea's own photo in the arch, its title, one line, the practical facts and the logo. Like the card of the whole book it shows what a
@@ -44,8 +45,8 @@ export default async function Image({ params }: { params: Promise<{ id: string; 
   const locale = plan?.language === "en" ? "en" : "nl";
   const copy = getIdeaShareCopy(locale);
 
-  const ideas = plan && Array.isArray(plan.ideas_json) ? (plan.ideas_json as unknown as IdeaBookEntry[]).map(withValidLayers) : [];
-  const wildcard = plan?.wildcard_json && typeof plan.wildcard_json === "object" && Object.keys(plan.wildcard_json).length > 0 ? withValidLayers(plan.wildcard_json as unknown as IdeaBookEntry) : null;
+  const ideas = plan && Array.isArray(plan.ideas_json) ? (plan.ideas_json as unknown as IdeaBookEntry[]).map((e) => withCheckedPrices(withValidLayers(e), locale)) : [];
+  const wildcard = plan?.wildcard_json && typeof plan.wildcard_json === "object" && Object.keys(plan.wildcard_json).length > 0 ? withCheckedPrices(withValidLayers(plan.wildcard_json as unknown as IdeaBookEntry), locale) : null;
   const shared = target ? resolveShared(target.key, ideas, wildcard) : null;
 
   const title = shared?.idea.title ?? "WindowInto";

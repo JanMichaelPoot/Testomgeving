@@ -48,6 +48,7 @@ import { fillConflicts, fillContext, normalizeFill, withoutConflicts } from "@/l
 import { getActivity } from "@/lib/discovery/library";
 import { MODE_SHORT } from "@/lib/discovery/activityKind";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
+import { priceKind, withCheckedPrices } from "@/lib/links/priceClaims";
 import { findWebAddresses, linkFor, normalizeUrl } from "@/lib/links/normalizeUrl";
 import { layoutWindow, type WindowItem } from "@/lib/windowLayout";
 
@@ -423,7 +424,8 @@ export async function renderIdeaBookPdf(
   locale: Locale,
   context: IdeaBookPdfContext = {}
 ): Promise<Uint8Array> {
-  let book = inputBook;
+  // A stored book follows the same price rule as a new one (links/priceClaims.ts).
+  let book: GeneratedIdeaBook = { ...inputBook, ideas: inputBook.ideas.map((e) => withCheckedPrices(e, locale)), wildcard: withCheckedPrices(inputBook.wildcard, locale) };
   const dict = getDictionary(locale);
   const chrome = dict.pdfChrome;
   // Fase 5 (PDF & Share) — the printed book now reflects the same
@@ -1263,7 +1265,7 @@ export async function renderIdeaBookPdf(
     };
   }
 
-  function blockInvest(width: number, labels: IdeaPageLabels, cost: string, status: string | null): Block {
+  function blockInvest(width: number, labels: IdeaPageLabels, cost: string, status: string | null, caption: string): Block {
     const padX = 13;
     const padY = 11;
     const costLines = wrapText(cost, fonts.display, 23, width - padX * 2, 2);
@@ -1278,7 +1280,7 @@ export async function renderIdeaBookPdf(
         let cursor = top - padY - LABEL_SIZE - 6;
         drawTextLines(costLines, x + padX, cursor, 23, 25, fonts.display, PWA4_INK);
         cursor -= costLines.length * 25 + 2;
-        drawTextLines([labels.investIndication], x + padX, cursor, 8.5, 11, fonts.sans, PWA4_INK_MUTED);
+        drawTextLines([caption], x + padX, cursor, 8.5, 11, fonts.sans, PWA4_INK_MUTED);
         cursor -= 11 + 6;
         drawTextLines(statusLines, x + padX, cursor, 9, 12, fonts.sansBold, PWA4_INK);
       },
@@ -1432,9 +1434,13 @@ export async function renderIdeaBookPdf(
     const costText = idea.practical.estimated_cost;
     const durationText = idea.practical.duration;
     const levelText = DIFFICULTY_LABELS[locale][idea.practical.difficulty];
-    const status = costText ? budgetStatusFor(costText, context.budget) : null;
+    // "Within your budget" can only follow from a price that was found; without one the reader is told to ask.
+    const price = costText ? priceKind(costText, idea) : null;
+    const status = costText && price !== "unconfirmed" ? budgetStatusFor(costText, context.budget) : null;
     const statusText =
-      status === "within"
+      price === "unconfirmed"
+        ? pageLabels.priceAskNote
+        : status === "within"
         ? pageLabels.budgetWithin
         : status === "slightlyAbove"
           ? pageLabels.budgetSlightlyAbove
@@ -1565,7 +1571,8 @@ export async function renderIdeaBookPdf(
       ];
       let next = 1;
       if (hasCost) {
-        cols.push({ block: blockInvest(colWidth(fracs, next), pageLabels, costText, statusText), frac: fracs[next] });
+        const caption = price === "found" ? pageLabels.priceFound : price === "unconfirmed" ? pageLabels.priceNotFound : pageLabels.investIndication;
+        cols.push({ block: blockInvest(colWidth(fracs, next), pageLabels, costText, statusText, caption), frac: fracs[next] });
         next++;
       }
       if (hasLocation) {

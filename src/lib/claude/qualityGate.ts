@@ -7,13 +7,13 @@
 //   time_chip           the time chip contradicts what the idea says about its own length
 //   related             an "also in this direction" item that has nothing to do with the idea
 //   title_place         the title names a kind of place (a country house, a beach, a rooftop ...) that none of the places found for the idea is
-//   coverage_time / coverage_budget   the book does not use the time or budget the person gave
+//   coverage_time       no idea of the book fills the time the person gave
 //   incomplete          an idea too thin to act on: no real first step, fewer than two steps, no intro, no cost or duration (C1, "concrete")
 //   invented_fact       a phone number or opening hours in the text: not from the research and not ours to give (C1, "nothing invented")
 // Pure functions, no network: the repair calls to the model live in qualityRepair.ts and only run for what this file cannot fix.
 
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
-import { AVAILABLE_HOURS, BUDGET_CAP, parseDurationHours, parseMaxCost } from "@/lib/pdf/ideaContent";
+import { AVAILABLE_HOURS, parseDurationHours } from "@/lib/pdf/ideaContent";
 import { getActivity } from "@/lib/discovery/library";
 import { isOnlineCity } from "@/lib/maps";
 import type { Activity } from "@/lib/discovery/types";
@@ -30,7 +30,6 @@ export type QaCode =
   | "online_start"
   | "title_place"
   | "coverage_time"
-  | "coverage_budget"
   | "incomplete"
   | "invented_fact";
 
@@ -371,27 +370,18 @@ export interface Coverage {
   /** Ideas (any of its three sizes) that fill at least half of the time the person has. */
   timeFilled: number;
   timeApplicable: boolean;
-  /** Ideas whose price for any size sits between 40% and 100% of the budget. */
-  budgetUsed: number;
-  budgetApplicable: boolean;
 }
 
 export const MIN_TIME_FILLED = 1;
-export const MIN_BUDGET_USED = 2;
 
-function costsOf(entry: IdeaBookEntry): string[] {
-  return [entry.practical.estimated_cost, ...(entry.sizes ?? []).map((s) => s.estimated_cost)].filter(Boolean);
-}
 function durationsOf(entry: IdeaBookEntry): string[] {
   return [entry.practical.duration, ...(entry.sizes ?? []).map((s) => s.duration)].filter(Boolean);
 }
 
-export function coverageOf(book: GeneratedIdeaBook, ctx: Pick<QaContext, "budget" | "timeAvailable">): Coverage {
+export function coverageOf(book: GeneratedIdeaBook, ctx: Pick<QaContext, "timeAvailable">): Coverage {
   const entries = entriesOf(book).map(([e]) => e);
   const available = ctx.timeAvailable ? AVAILABLE_HOURS[ctx.timeAvailable] : undefined;
-  const cap = ctx.budget ? BUDGET_CAP[ctx.budget === "free" ? "25" : ctx.budget] : undefined;
   const timeApplicable = available !== undefined;
-  const budgetApplicable = cap !== undefined && Number.isFinite(cap) && cap > 0;
   const timeFilled = timeApplicable
     ? entries.filter((e) =>
         durationsOf(e).some((d) => {
@@ -400,15 +390,7 @@ export function coverageOf(book: GeneratedIdeaBook, ctx: Pick<QaContext, "budget
         }),
       ).length
     : 0;
-  const budgetUsed = budgetApplicable
-    ? entries.filter((e) =>
-        costsOf(e).some((c) => {
-          const max = parseMaxCost(c);
-          return max !== null && max >= cap! * 0.4 && max <= cap!;
-        }),
-      ).length
-    : 0;
-  return { timeFilled, timeApplicable, budgetUsed, budgetApplicable };
+  return { timeFilled, timeApplicable };
 }
 
 // --- the whole gate ---------------------------------------------------------------------------------------
@@ -448,7 +430,6 @@ export function qaBook(book: GeneratedIdeaBook, ctx: QaContext): QaIssue[] {
 
   const coverage = coverageOf(book, ctx);
   if (coverage.timeApplicable && coverage.timeFilled < MIN_TIME_FILLED) push("coverage_time", "book", "no idea fills the time the person has", false);
-  if (coverage.budgetApplicable && coverage.budgetUsed < MIN_BUDGET_USED) push("coverage_budget", "book", `${coverage.budgetUsed} ideas use 40-100% of the budget (wanted ${MIN_BUDGET_USED})`, false);
   return issues;
 }
 

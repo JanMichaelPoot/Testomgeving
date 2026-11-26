@@ -13,6 +13,7 @@ import {
 import { retryPlanGeneration } from "@/app/plan/actions";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { withValidLayers } from "@/lib/claude/ideaLayers";
+import { withCheckedPrices } from "@/lib/links/priceClaims";
 import { getLocale, type Locale } from "@/lib/language";
 import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { getSessionId } from "@/lib/session";
@@ -257,11 +258,11 @@ export default async function PlanPage(props: PageProps<"/plan">) {
   }
 
   const ideas = Array.isArray(plan.ideas_json)
-    ? (plan.ideas_json as unknown as IdeaBookEntry[]).map(withValidLayers)
+    ? (plan.ideas_json as unknown as IdeaBookEntry[]).map((e) => withCheckedPrices(withValidLayers(e), plan.language))
     : [];
   const wildcard =
     plan.wildcard_json && typeof plan.wildcard_json === "object"
-      ? withValidLayers(plan.wildcard_json as unknown as IdeaBookEntry)
+      ? withCheckedPrices(withValidLayers(plan.wildcard_json as unknown as IdeaBookEntry), plan.language)
       : null;
   const labels = (plan.labels_json ?? {}) as Record<string, string>;
 
