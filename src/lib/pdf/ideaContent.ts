@@ -1,3 +1,5 @@
+import { bookKindOverride, type BookKindOverride } from "@/lib/discovery/engine/photo";
+import { getActivity } from "@/lib/discovery/library";
 import { findWebAddresses, linkFor } from "@/lib/links/normalizeUrl";
 import type { IdeaBookEntry, IdeaDoor, PhotoCategory } from "@/lib/claude/ideaBookTypes";
 import type { Locale } from "@/lib/locale";
@@ -26,7 +28,8 @@ export type ActivityKind =
   | "social"
   | "restful"
   | "adventure"
-  | "market";
+  | "market"
+  | BookKindOverride;
 
 // The idea's own photo category is Claude's classification of what the idea
 // actually is (see the category descriptions in generateIdeaBook.ts), so it is
@@ -46,8 +49,9 @@ const KIND_BY_CATEGORY: Record<PhotoCategory, ActivityKind> = {
   market_shopping: "market",
 };
 
-export function activityKindFor(idea: Pick<IdeaBookEntry, "photo_category">): ActivityKind {
-  return KIND_BY_CATEGORY[idea.photo_category] ?? "outdoor";
+export function activityKindFor(idea: Pick<IdeaBookEntry, "photo_category" | "activity_id">): ActivityKind {
+  const activity = idea.activity_id ? getActivity(idea.activity_id) : undefined;
+  return (activity && bookKindOverride(activity)) || (KIND_BY_CATEGORY[idea.photo_category] ?? "outdoor");
 }
 
 // --- Experience profile ------------------------------------------------------
@@ -76,6 +80,9 @@ export const EXPERIENCE_BASELINES: Record<ActivityKind, ExperienceProfile> = {
   restful: { creativity: 2, calm: 5, discovery: 2, social: 1, comfortZone: 1 },
   adventure: { creativity: 2, calm: 1, discovery: 5, social: 3, comfortZone: 4 },
   market: { creativity: 2, calm: 2, discovery: 4, social: 4, comfortZone: 2 },
+  learning: { creativity: 2, calm: 3, discovery: 4, social: 2, comfortZone: 2 },
+  helping: { creativity: 2, calm: 3, discovery: 3, social: 4, comfortZone: 3 },
+  collecting: { creativity: 2, calm: 4, discovery: 4, social: 2, comfortZone: 1 },
 };
 
 const DOOR_COMFORT: Record<IdeaDoor, number> = {
@@ -97,7 +104,7 @@ export interface ExperienceContext {
 }
 
 export function experienceProfileFor(
-  idea: Pick<IdeaBookEntry, "photo_category" | "door" | "scores">,
+  idea: Pick<IdeaBookEntry, "photo_category" | "activity_id" | "door" | "scores">,
   context: ExperienceContext = {}
 ): ExperienceProfile {
   const base = EXPERIENCE_BASELINES[activityKindFor(idea)];
@@ -431,6 +438,72 @@ const NL_KINDS: Record<ActivityKind, KindCopy> = {
       "Vraag één standhouder naar zijn verhaal",
     ],
   },
+  learning: {
+    label: "Leren",
+    timeline: [
+      "Rustig bekijken wat je wilt kunnen",
+      "Oefenen in kleine stappen",
+      "Kijken wat al lukt",
+      "Kiezen wat je de volgende keer oefent",
+    ],
+    takeaways: [
+      "Iets dat je nu een beetje beter kunt",
+      "Merken dat je op gang bent gekomen",
+      "Een vaardigheid die je kunt blijven gebruiken",
+      "Nieuwe vragen om verder uit te zoeken",
+    ],
+    suggestions: [
+      "Zet je telefoon op stil",
+      "Kies één ding dat je na afloop wilt kunnen",
+      "Schrijf op wat je niet meteen snapt",
+      "Leg na afloop in eigen woorden uit wat je hebt geleerd",
+      "Plan meteen je volgende oefenmoment",
+    ],
+  },
+  helping: {
+    label: "Voor een ander",
+    timeline: [
+      "Kennismaken en horen wat er nodig is",
+      "Aan de slag, in een tempo dat past",
+      "Netjes afronden of overdragen",
+      "Even stilstaan bij hoe het ging",
+    ],
+    takeaways: [
+      "Iets gedaan waar een ander echt wat aan heeft",
+      "Een kijkje in een wereld die je nog niet kende",
+      "Voldoening die niet om presteren draait",
+      "Een beter beeld van wat bij je past",
+    ],
+    suggestions: [
+      "Vraag vooraf wat er van je wordt verwacht",
+      "Begin klein: je hoeft je niet meteen vast te leggen",
+      "Zeg eerlijk hoeveel tijd je hebt",
+      "Stel gerust vragen als iets onduidelijk is",
+      "Schrijf na afloop op wat je is bijgebleven",
+    ],
+  },
+  collecting: {
+    label: "Verzamelen",
+    timeline: [
+      "Uitzoeken wat je zoekt en waar je dat vindt",
+      "Kijken en vergelijken, zonder haast",
+      "Kiezen wat bij je verzameling past",
+      "Je vondst goed bekijken en een plek geven",
+    ],
+    takeaways: [
+      "Meer oog voor details die je eerst niet zag",
+      "Een onderwerp waarin je steeds verder kunt duiken",
+      "Het plezier van zoeken, ook zonder vondst",
+      "Een stuk of verhaal om bij stil te staan",
+    ],
+    suggestions: [
+      "Spreek met jezelf een maximum af",
+      "Kies één klein thema om mee te beginnen",
+      "Zoek eerst op wat iets ongeveer waard is",
+      "Noteer waar elk stuk vandaan komt",
+      "Kijk eerst rond voor je iets koopt",
+    ],
+  },
 };
 
 const EN_KINDS: Record<ActivityKind, KindCopy> = {
@@ -652,6 +725,72 @@ const EN_KINDS: Record<ActivityKind, KindCopy> = {
       "Taste something you don't know",
       "Walk one lap before you buy anything",
       "Ask one stallholder for their story",
+    ],
+  },
+  learning: {
+    label: "Learning",
+    timeline: [
+      "Calmly looking at what you want to be able to do",
+      "Practising in small steps",
+      "Seeing what already works",
+      "Choosing what to practise next time",
+    ],
+    takeaways: [
+      "Something you can now do a little better",
+      "The feeling that you've got going",
+      "A skill you can keep using",
+      "New questions to look into",
+    ],
+    suggestions: [
+      "Put your phone on silent",
+      "Pick one thing you want to be able to do afterwards",
+      "Write down what you don't get straight away",
+      "Afterwards, explain what you learned in your own words",
+      "Plan your next practice moment right away",
+    ],
+  },
+  helping: {
+    label: "For others",
+    timeline: [
+      "Getting introduced and hearing what is needed",
+      "Getting to work at a pace that suits",
+      "Finishing or handing over properly",
+      "Taking a moment to think about how it went",
+    ],
+    takeaways: [
+      "Something done that really helps someone else",
+      "A look into a world you didn't know yet",
+      "Satisfaction that isn't about performing",
+      "A clearer idea of what suits you",
+    ],
+    suggestions: [
+      "Ask beforehand what will be expected of you",
+      "Start small: you don't have to commit right away",
+      "Be honest about how much time you have",
+      "Ask questions whenever something is unclear",
+      "Afterwards, write down what stayed with you",
+    ],
+  },
+  collecting: {
+    label: "Collecting",
+    timeline: [
+      "Working out what you're after and where to find it",
+      "Looking and comparing, no rush",
+      "Choosing what fits your collection",
+      "Taking a good look at your find and giving it a place",
+    ],
+    takeaways: [
+      "A sharper eye for details you used to miss",
+      "A subject you can keep digging into",
+      "The pleasure of searching, even without a find",
+      "A piece or a story to think about",
+    ],
+    suggestions: [
+      "Set yourself a maximum",
+      "Pick one small theme to start with",
+      "First look up roughly what something is worth",
+      "Note where each piece came from",
+      "Look around before you buy anything",
     ],
   },
 };

@@ -385,7 +385,7 @@ export const vensterNl: VensterDictionary = {
   landing: {
     selfCta: "Open je venster",
     heroCta: "Kijk door het venster",
-    heroCtaNote: "Kost 2 minuten · geen account nodig",
+    heroCtaNote: "Kost ±3 minuten · geen account nodig",
     badge: "Nieuw · {price} · geen account, klaar in minuten",
     headline: "Wat als je iets ontdekt waarvan je",
     headlineEmphasis: "nog niet wist dat het bij je past?",
@@ -1059,7 +1059,7 @@ export const vensterEn: VensterDictionary = {
   landing: {
     selfCta: "Open your window",
     heroCta: "Look through the window",
-    heroCtaNote: "Takes 2 minutes · no account needed",
+    heroCtaNote: "Takes about 3 minutes · no account needed",
     badge: "New · {price} · no account, ready in minutes",
     headline: "What if you discover something",
     headlineEmphasis: "you didn't know suited you?",

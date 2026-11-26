@@ -39,8 +39,10 @@ export function VensterHero({
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-16 bg-gradient-to-b from-transparent to-cream sm:h-32" />
 
       <div className="mx-auto w-full max-w-[84rem] px-4 pb-10 pt-8 sm:px-10 sm:pb-28 sm:pt-14">
-        <div className="grid w-full items-center gap-10 md:grid-cols-[1fr_1.1fr] lg:gap-16">
-          <div className="flex max-w-xl flex-col gap-6">
+        {/* On a phone the two columns dissolve into one list, so the way in comes right under the question and is on the first screen
+            (it started 980 px down with the window first). From md the text is a column again, next to the window. */}
+        <div className="grid w-full items-center gap-5 md:grid-cols-[1fr_1.1fr] md:gap-10 lg:gap-16">
+          <div className="contents md:flex md:max-w-xl md:flex-col md:gap-6">
             <div className="inline-flex items-center gap-2 self-start rounded-full border border-border bg-paper px-3.5 py-1.5">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold" />
               <span className="text-xs font-medium text-ink/70">{dict.badge.replace("{price}", price)}</span>
@@ -52,8 +54,8 @@ export function VensterHero({
             <p className="font-serif text-2xl leading-snug tracking-[-0.01em] text-ink/85 sm:text-[1.75rem]">
               {dict.headline} <em className="text-gold-text">{dict.headlineEmphasis}</em>
             </p>
-            <p className="max-w-md text-lg leading-relaxed text-ink/75">{dict.subcopy}</p>
-            <div className="flex flex-col gap-3">
+            <p className="order-last max-w-md text-lg leading-relaxed text-ink/75 md:order-none">{dict.subcopy}</p>
+            <div className="flex flex-col gap-2.5 sm:gap-3">
               <Button href={VENSTER_SELF_HREF} variant="hero" size="lg" className="min-h-14 w-full justify-center px-10 text-lg font-semibold sm:w-auto sm:min-w-72 sm:self-start">
                 {dict.heroCta}
                 <span aria-hidden="true" className="cta-arrow inline-block">
@@ -62,12 +64,14 @@ export function VensterHero({
               </Button>
               <p className="text-sm text-ink/65 sm:text-left">{dict.heroCtaNote}</p>
             </div>
-            <ShareLinks siteUrl={siteUrl} copy={dict.share} />
+            <div className="order-last md:order-none">
+              <ShareLinks siteUrl={siteUrl} copy={dict.share} />
+            </div>
           </div>
 
-          {/* On a phone the window comes first and the words follow; on a big screen it is as tall as fits under the header (never wider than 600px). */}
+          {/* On a phone the window follows the button; on a big screen it is as tall as fits under the header (never wider than 600px). */}
           <div
-            className="order-first mx-auto w-full max-w-[330px] sm:max-w-[440px] md:order-none lg:max-w-[clamp(380px,calc((100svh_-_170px)*var(--hero-aspect)),660px)]"
+            className="mx-auto w-full max-w-[330px] sm:max-w-[440px] lg:max-w-[clamp(380px,calc((100svh_-_170px)*var(--hero-aspect)),660px)]"
             style={{ "--hero-aspect": FRAME.aspect.toFixed(4) } as React.CSSProperties}
           >
             <HeroWindow items={hero.items} spare={hero.spare} title={dict.heroAlt} />

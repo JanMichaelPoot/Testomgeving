@@ -13,6 +13,7 @@ const BY_SUB: Record<string, PhotoCategory> = {
   climbing: "active_sport",
   moving_together: "active_sport",
   precision_strength: "active_sport",
+  dance: "active_sport",
   // creative
   shaping: "creative_workshop",
   textile_paper: "creative_workshop",
@@ -44,7 +45,7 @@ const BY_SUB: Record<string, PhotoCategory> = {
   own_pace: "travel_adventure",
   // together
   join_in: "social_games",
-  organise: "food_drink",
+  organise: "social_games",
   // restful
   body_breath: "wellness_relax",
   read_listen: "home_cozy",
@@ -82,6 +83,19 @@ const BY_SUB: Record<string, PhotoCategory> = {
   evening_out: "music_nightlife",
   card_chance: "social_games",
   music_night: "music_nightlife",
+  // style
+  making_wear: "creative_workshop",
+  scene_style: "creative_workshop",
+  look_care: "creative_workshop",
+  flowers_scent: "creative_workshop",
+  // travel
+  journeys: "travel_adventure",
+  stays: "travel_adventure",
+  // society and growth: the book types these by the activity itself (bookKindOverride); the category only picks a fallback photo
+  helping: "social_games",
+  place_care: "social_games",
+  speak_lead: "art_culture",
+  skills: "art_culture",
 };
 
 const OVERRIDE: Record<string, PhotoCategory> = {
@@ -156,7 +170,84 @@ const OVERRIDE: Record<string, PhotoCategory> = {
   genealogie: "home_cozy",
   archief: "home_cozy",
   handschriften: "home_cozy",
+  brieven: "home_cozy",
+  postcrossing: "home_cozy",
+  kamerplanten: "home_cozy",
+  "zaailingen-kweken": "home_cozy",
+  "mieren-houden": "home_cozy",
+  // places to look around in
+  "natuurhistorisch-museum": "art_culture",
+  vlindertuin: "art_culture",
+  reptielen: "art_culture",
+  pluimveetentoonstelling: "art_culture",
+  modemuseum: "art_culture",
+  modeshow: "art_culture",
+  "film-theater": "art_culture",
+  ateliers: "art_culture",
+  // making
+  muurschildering: "creative_workshop",
+  ambachten: "creative_workshop",
+  "knopen-touwwerk": "creative_workshop",
+  buurtkaart: "creative_workshop",
+  "cafe-schrijven": "creative_workshop",
+  // other cases where the subdomain's default is wrong
+  kattencafe: "food_drink",
+  "alleen-uit-eten": "food_drink",
+  "middeleeuws-banket": "food_drink",
+  "personal-shopping": "market_shopping",
+  bloemenmarkt: "market_shopping",
+  platenwinkel: "market_shopping",
+  gezichtsbehandeling: "wellness_relax",
+  detox: "wellness_relax",
+  schermen: "active_sport",
+  hema: "active_sport",
+  "regency-bal": "music_nightlife",
+  snorkelen: "water_activity",
+  ijsbaden: "water_activity",
+  fossielen: "nature_outdoor",
+  "rc-modellen": "nature_outdoor",
+  spotten: "nature_outdoor",
 };
+
+// Learning, helping and collecting fit none of the types the 12 photo categories stand for (volunteering in a hospice would read "Social",
+// ending in "one last drink"), so the book types these by the activity itself.
+export type BookKindOverride = "learning" | "helping" | "collecting";
+
+const KIND_OVERRIDE: Record<string, BookKindOverride> = {
+  "online-cursus": "learning",
+  "taal-leren": "learning",
+  "gebarentaal-leren": "learning",
+  "esperanto-leren": "learning",
+  hoofdrekenen: "learning",
+  "dertig-dagen": "learning",
+  volksuniversiteit: "learning",
+  "latijn-grieks-lezen": "learning",
+  "data-visualisatie": "learning",
+  "mini-onderzoek-doen": "learning",
+  dierenasiel: "helping",
+  natuurbeheer: "helping",
+  "festival-vrijwilliger": "helping",
+  "archief-indexeren": "helping",
+  "wikipedia-bijdragen": "helping",
+};
+
+/** Collecting where the outing itself is the market or shop: these stay "Markets & shopping". */
+const MARKET_OUTINGS = new Set(["kringloop", "rommelmarkt", "brocante-antiek", "veiling", "vintage-kleding", "ruilbeurs-planten"]);
+
+/** The type the book names for this activity when its photo category cannot; null when the category says it well enough. */
+export function bookKindOverride(activity: Activity): BookKindOverride | null {
+  const own = KIND_OVERRIDE[activity.id];
+  if (own) return own;
+  if (activity.domain === "society") return "helping";
+  if (activity.domain === "growth") return "learning";
+  if (activity.sub === "collecting_hunting" && !MARKET_OUTINGS.has(activity.id)) return "collecting";
+  return null;
+}
+
+/** Whether the subdomain has its own default; photo.test.ts keeps this true for every activity, so the fallback below is never relied on. */
+export function hasPhotoDefault(sub: string): boolean {
+  return sub in BY_SUB;
+}
 
 /** The photo category of an idea about this activity. Always one of the 12 library categories. */
 export function photoCategoryFor(activity: Activity): PhotoCategory {

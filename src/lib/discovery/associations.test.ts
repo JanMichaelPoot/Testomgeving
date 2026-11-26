@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  ALL_ASSOCIATIONS,
   ASSOCIATIONS,
   associationsToEngineInput,
   buildAssociationLibrary,
@@ -12,7 +13,7 @@ import { averageAxes, deriveDials, tagProfile, topTags } from "@/lib/discovery/a
 import { validateAssociations } from "@/lib/discovery/validate";
 import { VOCABULARY, getActivity } from "@/lib/discovery/library";
 import { defaultEngineLibrary, agePenalty, selectSeeds } from "@/lib/discovery/engine";
-import { evaluate, runProfiles } from "@/lib/discovery/engine/evaluate";
+import { evaluate, runProfiles, type Run } from "@/lib/discovery/engine/evaluate";
 import { syntheticAssociationProfiles } from "@/lib/discovery/engine/syntheticAssociations";
 import { syntheticProfiles } from "@/lib/discovery/engine/synthetic";
 import { applyImageIntake, cleanRecipientName } from "@/lib/discovery/imageIntake";
@@ -22,6 +23,20 @@ const CONSTRAINTS = { budget: "100", timeAvailable: "halfday", mustHaves: "", so
 const QUIET = ["place-forest-edge", "place-still-water", "moment-stillness", "sense-grass"];
 const BUSY = ["place-kitchen-table", "moment-laughing", "moment-rhythm", "sense-bass"];
 
+// Hundreds of synthetic visitors take minutes, more when the whole suite runs next to it.
+const HEAVY_TIMEOUT = 900_000;
+
+// The engine runs synchronously. In one block it starves the vitest worker's reporting channel ("Timeout calling onTaskUpdate"), which
+// fails a run in which every test passed, so these tests hand control back after every few profiles. runProfiles is a plain map.
+async function runInChunks(profiles: Parameters<typeof runProfiles>[0], lib: Parameters<typeof runProfiles>[1]): Promise<Run[]> {
+  const runs: Run[] = [];
+  for (let i = 0; i < profiles.length; i += 5) {
+    runs.push(...runProfiles(profiles.slice(i, i + 5), lib));
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+  return runs;
+}
+
 describe("association data", () => {
   it("is valid: at least nine families per round with three variants each, real tags, both languages, no people in the scenes", () => {
     const { errors } = validateAssociations(ASSOCIATIONS, VOCABULARY);
@@ -30,12 +45,12 @@ describe("association data", () => {
 
   it("gives the browser one language and no art direction", () => {
     const lib = buildAssociationLibrary("nl");
-    // A card without its own image yet (a stand-in path) is never sent to the browser.
-    const ready = ASSOCIATIONS.filter(hasOwnImage);
+    // A card without its own image yet (a stand-in path) is never sent to the browser. The old cards and the theme tiles both go.
+    const ready = ALL_ASSOCIATIONS.filter(hasOwnImage);
     expect(lib.cards).toHaveLength(ready.length);
-    expect(ready.length).toBeGreaterThanOrEqual(162);
+    expect(ASSOCIATIONS.filter(hasOwnImage).length).toBeGreaterThanOrEqual(162);
     expect(new Set(lib.cards.map((c) => c.family)).size).toBe(new Set(ready.map((c) => c.family ?? c.id)).size);
-    expect(lib.cards[0]).not.toHaveProperty("scene");
+    for (const card of lib.cards) expect(card).not.toHaveProperty("scene");
     expect(typeof lib.cards[0].label).toBe("string");
     expect(lib.correctionTags.every((t) => lib.tagLabels[t])).toBe(true);
   });
@@ -202,19 +217,19 @@ describe("applyImageIntake", () => {
 describe("the engine on image-intake visitors", () => {
   const lib = defaultEngineLibrary();
 
-  it("meets the hard rules E1-E6 and spreads at least as wide as the card wizard", () => {
-    const assoc = evaluate(runProfiles(syntheticAssociationProfiles(200, "t"), lib), lib);
+  it("meets the hard rules E1-E6 and spreads at least as wide as the card wizard", async () => {
+    const assoc = evaluate(await runInChunks(syntheticAssociationProfiles(200, "t"), lib), lib);
     for (const list of Object.values(assoc.violations)) expect(list).toEqual([]);
-    const cards = evaluate(runProfiles(syntheticProfiles(200, "t", lib), lib), lib);
+    const cards = evaluate(await runInChunks(syntheticProfiles(200, "t", lib), lib), lib);
     expect(assoc.rates.fourDomains).toBeGreaterThanOrEqual(cards.rates.fourDomains - 0.01);
     expect(assoc.rates.seedsAtLeastSix).toBe(1);
-  }, 300_000);
+  }, HEAVY_TIMEOUT);
 
-  it("still meets E1-E6 when visitors also move the sliders of the profile screen (R2.1)", () => {
-    const withSliders = evaluate(runProfiles(syntheticAssociationProfiles(300, "sliders", { overrides: true }), lib), lib);
+  it("still meets E1-E6 when visitors also move the sliders of the profile screen (R2.1)", async () => {
+    const withSliders = evaluate(await runInChunks(syntheticAssociationProfiles(300, "sliders", { overrides: true }), lib), lib);
     for (const list of Object.values(withSliders.violations)) expect(list).toEqual([]);
     expect(withSliders.rates.seedsAtLeastSix).toBe(1);
-  }, 300_000);
+  }, HEAVY_TIMEOUT);
 });
 
 describe("age weighting (fase 1.5)", () => {
@@ -238,12 +253,13 @@ describe("age weighting (fase 1.5)", () => {
     expect(r.seeds.map((s) => s.activityId)).toContain(demanding.id);
   });
 
-  it("makes supervised activities rarer for 65+ than for 35-44, same visitors otherwise", () => {
-    const share = (age: string) => {
-      const seeds = runProfiles(syntheticProfiles(200, "age", lib).map((p) => ({ ...p, input: { ...p.input, ageCategory: age } })), lib)
+  it("makes supervised activities rarer for 65+ than for 35-44, same visitors otherwise", async () => {
+    const share = async (age: string) => {
+      const profiles = syntheticProfiles(200, "age", lib).map((p) => ({ ...p, input: { ...p.input, ageCategory: age } }));
+      const seeds = (await runInChunks(profiles, lib))
         .flatMap((r) => r.result.seeds.map((s) => byId.get(s.activityId)!));
       return seeds.filter((a) => a.safety.tier === 2).length / seeds.length;
     };
-    expect(share("65plus")).toBeLessThan(share("35-44"));
-  }, 300_000);
+    expect(await share("65plus")).toBeLessThan(await share("35-44"));
+  }, HEAVY_TIMEOUT);
 });

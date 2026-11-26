@@ -96,7 +96,7 @@ describe("contradictions", () => {
   });
 
   it("is what makes the shipped templates safe: for every kind, enough lines stay for a solo idea", () => {
-    const kinds: ActivityKind[] = ["creative", "cultural", "outdoor", "active", "water", "food", "social", "restful", "adventure", "market"];
+    const kinds: ActivityKind[] = ["creative", "cultural", "outdoor", "active", "water", "food", "social", "restful", "adventure", "market", "learning", "helping", "collecting"];
     for (const locale of ["nl", "en"] as const) {
       for (const kind of kinds) {
         const copy = kindCopy(kind, locale);

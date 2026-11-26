@@ -536,7 +536,7 @@ const nl: Dictionary = {
     headlineEmphasis: "mogelijk is",
     headlineLine2: "voor jou.",
     subcopy:
-      "Vertel in drie minuten wat er speelt. Je krijgt vier ideeën die over jóu gaan — plus één wildcard — met de eerste stap er al bij.",
+      "In ongeveer drie minuten kies je wat bij je past. Je krijgt vier ideeën die over jóu gaan — plus één wildcard — met de eerste stap er al bij.",
     badge: "Nieuw · {price} · geen account nodig",
     startLabel: "Wat speelt er bij jou?",
     startCta: "Begin",
@@ -569,7 +569,7 @@ const nl: Dictionary = {
       "We zijn net begonnen, dus nog geen reviews. Liever zelf oordelen? Blader door een compleet Idea Book.",
     honestLinkLabel: "Bekijk het voorbeeld (PDF)",
     ctaBannerHeading: "Klaar om een venster te openen?",
-    ctaBannerBody: "In een paar minuten beantwoord je de intake. Je Idea Book staat er meteen na betaling.",
+    ctaBannerBody: "Kiezen kost ongeveer drie minuten. Na je betaling stellen we je Idea Book samen; dat duurt meestal 1 à 2 minuten.",
     ctaBannerCta: "Start de intake",
   },
   legal: {
@@ -1305,7 +1305,7 @@ const en: Dictionary = {
     headlineEmphasis: "possible",
     headlineLine2: "for you.",
     subcopy:
-      "Tell us in three minutes what's going on. You get four ideas that are about you — plus one wildcard — with the first step already included.",
+      "In about three minutes you pick what suits you. You get four ideas that are about you — plus one wildcard — with the first step already included.",
     badge: "New · {price} · no account needed",
     startLabel: "What's going on with you?",
     startCta: "Start",
@@ -1338,7 +1338,7 @@ const en: Dictionary = {
       "We've only just started, so no reviews yet. Rather judge for yourself? Leaf through a complete Idea Book.",
     honestLinkLabel: "See the example (PDF)",
     ctaBannerHeading: "Ready to open a window?",
-    ctaBannerBody: "The intake takes just a few minutes to answer. Your Idea Book is ready right after payment.",
+    ctaBannerBody: "Choosing takes about three minutes. After you pay we put your Idea Book together; that usually takes 1 to 2 minutes.",
     ctaBannerCta: "Start the intake",
   },
   legal: {

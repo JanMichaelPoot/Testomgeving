@@ -156,7 +156,7 @@ describe("extractUrl", () => {
 });
 
 describe("content libraries", () => {
-  const kinds: ActivityKind[] = ["creative", "cultural", "outdoor", "active", "water", "food", "social", "restful", "adventure", "market"];
+  const kinds: ActivityKind[] = ["creative", "cultural", "outdoor", "active", "water", "food", "social", "restful", "adventure", "market", "learning", "helping", "collecting"];
 
   it("has complete nl and en copy for every kind", () => {
     for (const locale of ["nl", "en"] as const) {

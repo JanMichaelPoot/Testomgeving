@@ -30,6 +30,15 @@ for (const vp of PHONES) {
       expect(box.x + box.width).toBeLessThanOrEqual(vp.width + 0.5);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     });
+
+    test("the way in is on the first screen, above the window", async ({ page }) => {
+      await page.goto("/?venster=1");
+      const button = (await page.locator('main a[href^="/intake"]').first().boundingBox())!;
+      // Well inside the screen: a phone's own bars take part of the height.
+      expect(button.y + button.height).toBeLessThanOrEqual(vp.height * 0.65);
+      const figure = (await page.locator("main figure").first().boundingBox())!;
+      expect(figure.y).toBeGreaterThan(button.y + button.height);
+    });
   });
 }
 
