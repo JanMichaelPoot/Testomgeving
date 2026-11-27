@@ -63,8 +63,11 @@ export function linkHints(texts: readonly string[]): string[] {
 }
 const HINT_FILLERS = new Set(["beginners", "beginner", "geschikt", "iedere", "online", "utrecht", "amsterdam", "website", "vanaf", "samen", "eerste", "dagen", "geven", "maken", "volgende"]);
 
-/** The links on the same site most likely to name the price of this offer, best first: price words weigh most, the offer's own words break the tie. */
-export function priceLinks(html: string, base: string, hints: readonly string[] = [], max = 2): string[] {
+/**
+ * Links on the same site, best first by what `score` makes of "address plus link text" (lower case); 0 = not wanted. Other sites, files and
+ * pages about terms, privacy, vouchers, discounts, jobs and renting out are never followed.
+ */
+export function siteLinks(html: string, base: string, score: (label: string) => number, max: number): string[] {
   let from: URL;
   try {
     from = new URL(base);
@@ -81,11 +84,21 @@ export function priceLinks(html: string, base: string, hints: readonly string[] 
     }
     if ((to.protocol !== "https:" && to.protocol !== "http:") || !sameHost(from, to) || to.pathname === from.pathname) continue;
     if (/\.(pdf|jpe?g|png|webp|zip|docx?|ics)$/i.test(to.pathname) || /voorwaarden|terms|privacy|cadeau|gift|korting|discount|vacature|verhuur|zakelijk/i.test(to.href)) continue;
-    const label = `${to.pathname} ${pageText(m[2])}`.toLowerCase();
-    const word = PRICE_LINK_WORDS.findIndex((re) => re.test(label));
-    const hinted = Math.min(2, hints.filter((h) => label.includes(h)).length);
-    const score = (word < 0 ? 0 : [30, 18, 8][word]) + hinted * 10;
-    if (score > (found.get(to.href) ?? 0)) found.set(to.href, score);
+    const points = score(`${to.pathname} ${pageText(m[2])}`.toLowerCase());
+    if (points > (found.get(to.href) ?? 0)) found.set(to.href, points);
   }
   return [...found].sort((a, b) => b[1] - a[1] || a[0].length - b[0].length).slice(0, max).map(([url]) => url);
+}
+
+/** The links on the same site most likely to name the price of this offer, best first: price words weigh most, the offer's own words break the tie. */
+export function priceLinks(html: string, base: string, hints: readonly string[] = [], max = 2): string[] {
+  return siteLinks(
+    html,
+    base,
+    (label) => {
+      const word = PRICE_LINK_WORDS.findIndex((re) => re.test(label));
+      return (word < 0 ? 0 : [30, 18, 8][word]) + Math.min(2, hints.filter((h) => label.includes(h)).length) * 10;
+    },
+    max,
+  );
 }

@@ -30,6 +30,16 @@ vi.mock("@/lib/claude/priceResearch", async (orig) => ({
   addPrices: (...a: Parameters<typeof addPrices>) => addPrices(...a),
 }));
 
+/** The fact check has its own tests (factCheck.test.ts); here: that the book is what it returns, and that the log says what it did. */
+const factCheck = vi.fn(async (book: { ideas: { intro: string }[] }) => ({
+  book: { ...book, ideas: book.ideas.map((e, i) => (i === 0 ? { ...e, intro: "Gecontroleerde zin." } : e)) },
+  report: { checked: 5, removed: ["idea1.intro: leen een drone"], fallbacks: 1, notOffered: ["idea1:fpv-drone"], unjudged: [] as string[] },
+}));
+vi.mock("@/lib/claude/factCheck", async (orig) => ({
+  ...(await orig<typeof import("@/lib/claude/factCheck")>()),
+  factCheck: (...a: Parameters<typeof factCheck>) => factCheck(...a),
+}));
+
 import { generateIdeaBookFromSeeds } from "@/lib/claude/generateFromSeeds";
 
 const PICKS = ["pottenbakken", "kralen-rijgen", "high-tea", "modemuseum"];
@@ -54,6 +64,7 @@ beforeEach(() => {
   create.mockReset();
   researchSeeds.mockReset();
   addPrices.mockClear();
+  factCheck.mockClear();
   amountFor = () => null;
   vi.stubEnv("REQUIRE_CONCRETE_OPTIONS", "1");
   vi.stubEnv("WINDOW_COVERAGE", "1");
@@ -131,5 +142,22 @@ describe("real prices in the pipeline", () => {
     expect(text).not.toContain("rough range");
     expect(text).not.toContain("{{ASK}}");
     expect(text).toContain("Prijs navragen");
+  });
+});
+
+describe("the fact check in the pipeline", () => {
+  it("delivers the checked book and records what was taken out", async () => {
+    vi.stubEnv("WINDOW_FACT_CHECK", "1");
+    const { book, report } = await run();
+    expect(factCheck).toHaveBeenCalledTimes(1);
+    expect(book.ideas[0].intro).toBe("Gecontroleerde zin.");
+    expect(report.issues).toContain("fact_removed:idea1.intro: leen een drone");
+    expect(report.notes).toEqual(expect.arrayContaining(["fact_not_offered:idea1:fpv-drone", "fact_checked:5,fallbacks:1"]));
+  });
+
+  it("is not run when it is switched off", async () => {
+    vi.stubEnv("WINDOW_FACT_CHECK", "0");
+    await run();
+    expect(factCheck).not.toHaveBeenCalled();
   });
 });

@@ -48,6 +48,7 @@ import type { EngineResult, Seed } from "@/lib/discovery/engine";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { askPrice } from "@/lib/links/priceClaims";
 import { addPrices, createPriceMemo, priceCheckEnabled, splitByBudget } from "@/lib/claude/priceResearch";
+import { factCheck, factCheckEnabled } from "@/lib/claude/factCheck";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
 import { ALL_ACTIVITIES, TAGS, getActivity } from "@/lib/discovery/library";
 import type { Activity } from "@/lib/discovery/types";
@@ -1475,8 +1476,17 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   // 5. The quality gate (Fase 3): takes the machinery out of the text, fixes chips that contradict the activity, rewrites only the
   // ideas that repeat a sentence or name something out of season (at most twice each) and runs one grammar pass. Fails soft.
   const gate = await runQualityGate(assembled, { locale, month, budget: intake.budget, timeAvailable: intake.timeAvailable }, { ledger });
-  const book = gate.book;
   issues.push(...gate.log.map((l) => `qa:${l}`), ...gate.remaining.map((r) => `qa_remaining:${r.code}@${r.where}`));
+  // Step 250: what an idea claims about its provider is held against the provider's own site; what the site does not carry is taken out
+  // (factCheck.ts). After the gate, so a rewrite of the gate is checked too. Fails soft.
+  let book = gate.book;
+  if (factCheckEnabled()) {
+    const facts = await factCheck(book, { locale, ledger });
+    book = facts.book;
+    issues.push(...facts.report.removed.map((r) => `fact_removed:${r}`));
+    notes.push(...facts.report.notOffered.map((x) => `fact_not_offered:${x}`), ...facts.report.unjudged.map((x) => `fact_unjudged:${x}`));
+    if (facts.report.checked > 0) notes.push(`fact_checked:${facts.report.checked}${facts.report.fallbacks ? `,fallbacks:${facts.report.fallbacks}` : ""}`);
+  }
   // C1: the six criteria on the finished book. What can be repaired was repaired above; what is left is recorded here, per criterion, so it shows in the log
   // and can be read per book. The structural ones were already enforced where the book was assembled (the replacement rounds, the companions' own check).
   const criteria = bookCriteria(book, { constraints: engine.constraints, budget: intake.budget, ownPicks, knownHosts: allHosts });

@@ -86,3 +86,21 @@ describe("links in the PDF", () => {
     for (const link of await linksOf(bytes)) expect(link).not.toContain("supabase");
   }, 30_000);
 });
+
+// Step 250: an address too long for the column of the steps was broken over two lines, and the first line linked to the cut-off half
+// ("bartsboekje.com/kat-en-bakkie-utrec").
+describe("an address that does not fit on one line", () => {
+  const LONG = "bartsboekje.com/kat-en-bakkie-utrecht-en-nog-een-heel-lang-stuk-adres-erachter";
+  const PAGE = `https://www.${LONG}/`;
+
+  it("never links to a part of it, whether the place is known or not", async () => {
+    for (const places of [[{ name: "Kat & Bakkie", city: "Utrecht", url: PAGE, note: "Koffie tussen katten" }], undefined]) {
+      for (const lead of ["", "Reserveer vooraf een plek via ", "Kijk nu even op ", "Loop binnen of reserveer vooraf een tafeltje via de pagina op "]) {
+        const links = await linksOf(await renderIdeaBookPdf(book({ details: [`${lead}${LONG}.`, "Ga zitten."], first_action: `Open ${LONG} vandaag.`, places }), "Title", "nl"));
+        const own = links.filter((l) => l.includes("bartsboekje.com") && !l.includes("google.com"));
+        expect(own.length, `${lead}${places ? " (place)" : ""}`).toBeGreaterThan(0);
+        for (const link of own) expect(link.replace(/\/$/, "")).toBe(places ? PAGE.replace(/\/$/, "") : link.includes("www.") ? PAGE.replace(/\/$/, "") : `https://${LONG}`);
+      }
+    }
+  }, 60_000);
+});

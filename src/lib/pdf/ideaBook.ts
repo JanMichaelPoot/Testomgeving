@@ -49,7 +49,7 @@ import { getActivity } from "@/lib/discovery/library";
 import { MODE_SHORT } from "@/lib/discovery/activityKind";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import { placePriceLine, priceKind, withCheckedPrices } from "@/lib/links/priceClaims";
-import { findWebAddresses, linkFor, normalizeUrl } from "@/lib/links/normalizeUrl";
+import { addressesIn, brokenAddress, findWebAddresses, linkFor, normalizeUrl } from "@/lib/links/normalizeUrl";
 import { layoutWindow, type WindowItem } from "@/lib/windowLayout";
 
 // pdf-lib has no first-class "add a hyperlink" API, so a clickable region
@@ -574,17 +574,24 @@ export async function renderIdeaBookPdf(
   // The websites the research checked for this book. An address printed anywhere in the text links to the checked page of that website.
   const verifiedUrls = [...book.ideas, book.wildcard].flatMap((idea) => (idea.places ?? []).flatMap((p) => (p.url ? [p.url] : [])));
 
+  // Every address of the book in full: a line that ends in half of one links to the whole of it.
+  const wholeAddresses = addressesIn(book);
   let page: PDFPage;
   let y = 0;
   // A PDF reader may turn a printed "venue.nl" into a link of its own, resolved against where the PDF came from. So every printed address gets
   // an absolute link over exactly its letters.
   function linkPrintedAddresses(line: string, x: number, baseline: number, size: number, font: PDFFont, verified: readonly string[] = verifiedUrls) {
+    const link = (at: number, shown: string, to: string) =>
+      addLinkAnnotation(page, { x: x + font.widthOfTextAtSize(line.slice(0, at), size), y: baseline - size * 0.28, width: font.widthOfTextAtSize(shown, size), height: size * 1.3 }, to);
+    const broken = brokenAddress(line, wholeAddresses);
+    if (broken && broken !== "unclear") link(broken.index, broken.part, linkFor(broken.found, verified));
+    const brokenFrom = broken ? (broken === "unclear" ? line.search(/\S+$/) : broken.index) : line.length;
     for (const found of findWebAddresses(line)) {
+      // Part of a broken address: handled above.
+      if (found.index >= brokenFrom) continue;
       // An address cut off with "…" has no complete form on this line; the block that cut it adds its own link.
       if (line.slice(found.index + found.text.length).startsWith("…")) continue;
-      const left = x + font.widthOfTextAtSize(line.slice(0, found.index), size);
-      const width = font.widthOfTextAtSize(found.text, size);
-      addLinkAnnotation(page, { x: left, y: baseline - size * 0.28, width, height: size * 1.3 }, linkFor(found, verified));
+      link(found.index, found.text, linkFor(found, verified));
     }
   }
   // When true, every drawing helper below still moves the `y` cursor

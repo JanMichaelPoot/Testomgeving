@@ -104,6 +104,32 @@ export function findWebAddresses(text: string): FoundAddress[] {
   return out;
 }
 
+/** Every web address anywhere in a value's texts (a whole book), as printed; for stored place addresses also as they are shown, without "https://". */
+export function addressesIn(value: unknown, out: FoundAddress[] = []): FoundAddress[] {
+  if (typeof value === "string") {
+    out.push(...findWebAddresses(value));
+    const shown = /^https?:\/\//i.test(value) && !/\s/.test(value) ? value.replace(/^https?:\/\//i, "").replace(/\/$/, "") : "";
+    const url = shown ? normalizeUrl(value) : null;
+    if (url) out.push({ text: shown, index: 0, url });
+  } else if (value && typeof value === "object") for (const v of Object.values(value)) addressesIn(v, out);
+  return out;
+}
+
+/**
+ * A line that ends in the first part of an address too long for its column: what the whole address is, so the part can link to it instead of to
+ * a cut-off one. Null when the line's last word is not such a part (also when it is a complete address of its own); "unclear" when it could
+ * be the start of more than one, in which case no link is better than a wrong one.
+ */
+export function brokenAddress(line: string, whole: readonly FoundAddress[]): { found: FoundAddress; index: number; part: string } | "unclear" | null {
+  const part = /[^\s(<"'“‘]+$/u.exec(line)?.[0] ?? "";
+  if (part.length < 8 || !part.includes(".") || whole.some((a) => a.text === part)) return null;
+  // What is missing has to be more than the punctuation of a sentence's end.
+  const longer = whole.filter((a) => a.text.startsWith(part) && /[\p{L}\p{N}]/u.test(a.text.slice(part.length)));
+  if (longer.length === 0) return null;
+  if (new Set(longer.map((a) => a.url.replace(/\/$/, "").replace("://www.", "://"))).size > 1) return "unclear";
+  return { found: longer[0], index: line.length - part.length, part };
+}
+
 /**
  * The link for an address printed in a book: the verified address of the same website when the book has one (the exact page the research
  * checked, in the reader's language), otherwise the address itself made absolute. A printed address with its own path keeps that path.

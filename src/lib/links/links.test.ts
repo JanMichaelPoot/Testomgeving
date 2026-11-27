@@ -1,6 +1,6 @@
 // Fix round "plan links": addresses, reader fit, prices and the check of a finished book. No network: the pages are made up here.
 import { describe, expect, it } from "vitest";
-import { findWebAddresses, linkFor, normalizeUrl } from "@/lib/links/normalizeUrl";
+import { findWebAddresses, linkFor, normalizeUrl, addressesIn, brokenAddress } from "@/lib/links/normalizeUrl";
 import { isChildFocused, judgeFit, type FitPolicy } from "@/lib/links/pageFit";
 import { guardPrices, priceOnPages } from "@/lib/links/prices";
 import { searchInstruction, verifyBook } from "@/lib/links/verifyBook";
@@ -222,5 +222,24 @@ describe("the check of a finished book", () => {
 
   it("writes the instruction without any address", () => {
     for (const language of ["nl", "en"] as const) expect(findWebAddresses(searchInstruction("pottenbakken", "Utrecht", language, false))).toEqual([]);
+  });
+});
+
+describe("the first part of a broken address", () => {
+  const whole = addressesIn({ steps: ["Reserveer via bartsboekje.com/kat-en-bakkie-utrecht. Of bel."], site: "https://club.test/agenda/" });
+
+  it("links to the whole one", () => {
+    const found = brokenAddress("of reserveer via bartsboekje.com/kat-en-bakkie-utrec", whole);
+    expect(found && found !== "unclear" ? found.found.url : found).toBe("https://bartsboekje.com/kat-en-bakkie-utrecht");
+    // broken before the ending of the host, where the part reads as another address
+    const early = brokenAddress("via bartsboekje.co", whole);
+    expect(early && early !== "unclear" ? early.found.url : early).toBe("https://bartsboekje.com/kat-en-bakkie-utrecht");
+  });
+
+  it("leaves a complete address and ordinary words alone, and links nothing when it is unclear", () => {
+    expect(brokenAddress("via bartsboekje.com/kat-en-bakkie-utrecht", whole)).toBeNull();
+    expect(brokenAddress("neem een boek mee.", whole)).toBeNull();
+    expect(brokenAddress("zie club.test/agen", whole)).not.toBeNull();
+    expect(brokenAddress("zie voorbeeld.nl/pag", addressesIn(["voorbeeld.nl/pagina-een", "voorbeeld.nl/pagina-twee"]))).toBe("unclear");
   });
 });
