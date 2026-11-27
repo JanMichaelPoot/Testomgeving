@@ -4,6 +4,7 @@ import { MODE_SHORT } from "@/lib/discovery/activityKind";
 import { ExternalLink } from "@/components/ui/ExternalLink";
 import { mapsSearchUrl } from "@/lib/maps";
 import { ideaPhoto } from "@/lib/illustrations";
+import { ideaImageOrigin, imageCaption } from "@/lib/copy/disclaimers";
 import { cn } from "@/lib/utils";
 import { IdeaMore } from "@/components/plan/IdeaMore";
 import type { Locale } from "@/lib/language";
@@ -79,8 +80,11 @@ export function IdeaDetail({
           {index !== null ? `${index + 1}. ${idea.title}` : idea.title}
         </p>
       </div>
+      <p data-testid="image-caption" className="px-6 pt-2 text-right text-[11px] leading-snug text-ink/65 sm:px-7">
+        {imageCaption(ideaImageOrigin(), locale)}
+      </p>
 
-      <div className="space-y-5 p-6 sm:p-7">
+      <div className="space-y-5 p-6 pt-3 sm:p-7 sm:pt-3">
         <p className="text-sm leading-relaxed text-ink/80">{idea.intro}</p>
 
         <div className="rounded-r-xl border-l-4 border-accent bg-accent/5 px-4 py-3.5">

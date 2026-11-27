@@ -11,6 +11,7 @@ import { safeIllustrationPath } from "@/lib/shareCard";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { withValidLayers } from "@/lib/claude/ideaLayers";
 import { withCheckedPrices } from "@/lib/links/priceClaims";
+import { imageDisclaimer } from "@/lib/copy/disclaimers";
 
 // The card of ONE idea (Step 242): the picture WhatsApp, iMessage and the others show when /shared/[id]/idee/[key] is pasted, and the picture the idea dialog offers to
 // share or download. The idea's own photo in the arch, its title, one line, the practical facts and the logo. Like the card of the whole book it shows what a
@@ -92,6 +93,7 @@ export default async function Image({ params }: { params: Promise<{ id: string; 
           {line && <div style={{ display: "flex", marginTop: 22, fontSize: 27, lineHeight: 1.35, color: "rgba(247,245,240,0.82)", fontFamily: "sans" }}>{line}</div>}
           {facts && <div style={{ display: "flex", marginTop: 22, fontSize: 24, fontWeight: 700, color: GOLD_LIGHT, fontFamily: "sans" }}>{facts}</div>}
           <div style={{ display: "flex", marginTop: 34, fontSize: 21, color: "rgba(247,245,240,0.6)", fontFamily: "sans" }}>{copy.cardFooter}</div>
+          <div style={{ display: "flex", marginTop: 10, fontSize: 17, color: "rgba(247,245,240,0.6)", fontFamily: "sans" }}>{imageDisclaimer(locale).short}</div>
         </div>
       </div>
     ),

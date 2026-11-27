@@ -14,6 +14,7 @@ import { retryPlanGeneration } from "@/app/plan/actions";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { withValidLayers } from "@/lib/claude/ideaLayers";
 import { withCheckedPrices } from "@/lib/links/priceClaims";
+import { ImageDisclaimer } from "@/components/window/ImageDisclaimer";
 import { getLocale, type Locale } from "@/lib/language";
 import { TestLimitNotice } from "@/components/window/TestLimitNotice";
 import { getSessionId } from "@/lib/session";
@@ -354,6 +355,7 @@ export default async function PlanPage(props: PageProps<"/plan">) {
           bookRating={bookRating}
           ideaShare={{ siteUrl: getSiteUrl(), copy: getIdeaShareCopy(locale) }}
         />
+        <ImageDisclaimer locale={locale} className="mx-auto mt-10 max-w-3xl text-center" />
       </main>
     </div>
   );

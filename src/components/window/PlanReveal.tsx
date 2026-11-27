@@ -23,6 +23,7 @@ import { WILDCARD_KEY, ideaKey } from "@/lib/ideaKeys";
 import { DOOR_ORDER, orderIdeasByDoor } from "@/lib/possibilityMap";
 import type { PlanEcho } from "@/lib/planEcho";
 import { trackEvent } from "@/lib/posthog/client";
+import { ideaImageOrigin, imageCaption, imageTag } from "@/lib/copy/disclaimers";
 import { cn } from "@/lib/utils";
 import type { Locale } from "@/lib/language";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -293,6 +294,10 @@ export function PlanReveal({
                 className="relative row-span-2 aspect-square w-full self-start overflow-hidden rounded-lg sm:row-span-1 sm:self-center"
               >
                 <Image src={ideaPhoto(row.idea, row.photoIndex)} alt="" fill sizes="96px" className="object-cover" />
+                {/* Too small for the whole caption: the one word here, the full caption with the large picture. */}
+                <span title={imageCaption(ideaImageOrigin(), locale)} className="absolute inset-x-0 bottom-0 bg-ink/60 py-0.5 text-center text-[10px] font-medium leading-tight text-white">
+                  {imageTag(ideaImageOrigin(), locale)}
+                </span>
               </button>
               <div className="min-w-0">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-gold-text">{eyebrow}</p>

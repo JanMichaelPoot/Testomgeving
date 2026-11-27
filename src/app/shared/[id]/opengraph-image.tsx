@@ -12,6 +12,7 @@ import { buildAssociationLibrary } from "@/lib/discovery/associations";
 import { DOMAINS } from "@/lib/discovery/library";
 import { paneActivities } from "@/lib/discovery/concretePool";
 import { shareCardLine } from "@/lib/shareCard";
+import { imageDisclaimer } from "@/lib/copy/disclaimers";
 
 // The card WhatsApp, iMessage, Slack, LinkedIn, X and Facebook show when a /shared/[id] link is
 // pasted (R1.3). Next.js wires a file with this name into openGraph/twitter metadata by itself.
@@ -77,8 +78,9 @@ export default async function Image({ params }: { params: Promise<{ id: string }
   const layout = hasWindow ? layoutWindow(items) : null;
   const scale = ARCH_H / WINDOW_HEIGHT;
 
-  const [serifBytes, logo] = await Promise.all([
+  const [serifBytes, sansBytes, logo] = await Promise.all([
     readFile(path.join(FONTS_DIR, "Newsreader-Medium.ttf")),
+    readFile(path.join(FONTS_DIR, "PlusJakartaSans-Regular.ttf")),
     dataUri(path.join(PUBLIC_DIR, "logo/windowinto-cream.png")),
   ]);
   const paneUris = layout ? await paneDataUris(layout, scale) : [];
@@ -99,6 +101,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           <img src={logo} alt="" width={300} height={89} />
           <div style={{ display: "flex", marginTop: 56, width: 60, height: 4, backgroundColor: GOLD_LIGHT }} />
           <div style={{ display: "flex", marginTop: 28, fontSize: 68, lineHeight: 1.1, color: CREAM, fontFamily: "serif" }}>{line}</div>
+          <div style={{ display: "flex", marginTop: 34, fontSize: 19, color: "rgba(247,245,240,0.65)", fontFamily: "sans" }}>{imageDisclaimer(locale).short}</div>
         </div>
       </div>
     ),
@@ -106,6 +109,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
       ...size,
       fonts: [
         { name: "serif", data: serifBytes, weight: 500, style: "normal" },
+        { name: "sans", data: sansBytes, weight: 400, style: "normal" },
       ],
     },
   );

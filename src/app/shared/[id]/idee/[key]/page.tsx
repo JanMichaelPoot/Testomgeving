@@ -7,6 +7,7 @@ import { getSharedIdeaBook } from "../../data";
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { withValidLayers } from "@/lib/claude/ideaLayers";
 import { withCheckedPrices } from "@/lib/links/priceClaims";
+import { ImageDisclaimer } from "@/components/window/ImageDisclaimer";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getIdeaShareCopy } from "@/lib/i18n/ideaShare";
@@ -99,6 +100,7 @@ export default async function SharedIdeaPage(props: IdeaPageProps) {
             {copy.pageCta}
           </SharedIdeaCta>
         </section>
+        <ImageDisclaimer locale={bookLocale} className="mt-10 text-center" />
       </main>
     </div>
   );

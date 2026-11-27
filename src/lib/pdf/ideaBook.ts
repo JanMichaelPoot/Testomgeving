@@ -49,6 +49,7 @@ import { getActivity } from "@/lib/discovery/library";
 import { MODE_SHORT } from "@/lib/discovery/activityKind";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
 import { placePriceLine, priceKind, withCheckedPrices } from "@/lib/links/priceClaims";
+import { ideaImageOrigin, imageCaption, imageDisclaimer } from "@/lib/copy/disclaimers";
 import { addressesIn, brokenAddress, findWebAddresses, linkFor, normalizeUrl } from "@/lib/links/normalizeUrl";
 import { layoutWindow, type WindowItem } from "@/lib/windowLayout";
 
@@ -720,6 +721,23 @@ export async function renderIdeaBookPdf(
     y = rowY - rowHeight;
   }
 
+  // The pictures (build brief 5a; the texts are in lib/copy/disclaimers.ts): the general text in full on the page that introduces the book and
+  // in short at the foot of every page with a picture, and under each idea's picture its own caption.
+  function coverDisclaimer(color: RGB, atY: number) {
+    const text = imageDisclaimer(locale).short;
+    page.drawText(text, { x: (PAGE_WIDTH - fonts.sans.widthOfTextAtSize(text, 7)) / 2, y: atY, size: 7, font: fonts.sans, color });
+  }
+  /** The caption of an idea's picture, on the picture itself, against its right edge; `top` is the upper edge of the little panel. */
+  function imagePill(top: number) {
+    const text = imageCaption(ideaImageOrigin(), locale);
+    const size = 7.5;
+    const height = 16;
+    const width = fonts.sans.widthOfTextAtSize(text, size) + 14;
+    const x = PAGE_WIDTH - PWA4_BODY_PAD_X - width;
+    page.drawSvgPath(roundedRectPath(width, height, height / 2), { x, y: top, color: PWA4_SURFACE_INVERSE, opacity: 0.74 });
+    page.drawText(text, { x: x + 7, y: top - height / 2 - size / 2.8, size, font: fonts.sans, color: PWA4_INK_INVERSE });
+  }
+
   // --- Page 1: Cover. Image-intake books: the person's own window on walnut ("Het venster"
   // fase 6). Everyone else: the full-bleed photo with a scrim, as before.
   page = addPage();
@@ -789,6 +807,7 @@ export async function renderIdeaBookPdf(
       cursor -= 27;
     }
     centred("WINDOWINTO.NL", fonts.sansBold, 7.5, theme.cover.eyebrow, 40, 1.6);
+    coverDisclaimer(theme.cover.eyebrow, 28);
   } else {
   // Full-bleed photo, a bottom scrim (the same gradient image as the idea pages' hero), the cream wordmark near the top, and the eyebrow/title/tagline set into the
   // dark part of the scrim.
@@ -828,6 +847,7 @@ export async function renderIdeaBookPdf(
     drawParagraph(title, fonts.display, 60, PWA4_INK_INVERSE, 8, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH, 2);
     y -= PWA4_SPACE_3;
     drawParagraph(chrome.coverTagline, fonts.displayItalic, 24, PWA4_INK_INVERSE, 6, PWA4_BODY_PAD_X, PWA4_CONTENT_WIDTH - 40, 3);
+    coverDisclaimer(PWA4_INK_INVERSE, 22);
   }
 
   }
@@ -965,7 +985,10 @@ export async function renderIdeaBookPdf(
     dryRun = false;
     // spread the free space over the (at most six) gaps that take it, never more than 18pt per gap
     const extra = Math.max(0, Math.min(18, (endY - (chosen.closing ? BOTTOM : MARGIN + 4)) / 6.5));
+    const introPage = page;
     layout(chosen, extra);
+    // The full text, between the page's content (which ends above MARGIN) and the footer.
+    wrapText(imageDisclaimer(locale).long, fonts.sans, 7.5, PWA4_CONTENT_WIDTH).forEach((line, i) => introPage.drawText(line, { x: PWA4_BODY_PAD_X, y: 55 - i * 10, size: 7.5, font: fonts.sans, color: PWA4_INK_MUTED }));
   }
 
   // Closing CTA — surface-inverse panel, the spark glyph in accent beside
@@ -1654,6 +1677,7 @@ export async function renderIdeaBookPdf(
       color: PWA4_ACCENT,
     });
     drawTrackedLine(label, fonts.sansBold, size, PWA4_INK, PWA4_BODY_PAD_X + padX, pillTop - pillHeight / 2 - size / 2.6, 0.9);
+    imagePill(pillTop - 1.5);
 
     // Subtitle sits at the bottom of the hero, the title just above it.
     let cursor = heroBottomY + 14 + hero.subtitleLines.length * HERO_SUB_LH;
@@ -1785,6 +1809,7 @@ export async function renderIdeaBookPdf(
     const GAP = level.gap;
 
     drawPhotoBand(photo, level.band);
+    imagePill(PAGE_HEIGHT - level.band + 22);
     let top = PAGE_HEIGHT - level.band - 22;
 
     drawLabel(badge ? `${moreCopy.pdfEyebrow}  ·  ${badge}` : moreCopy.pdfEyebrow, x0, top, PWA4_ACCENT);
@@ -1949,6 +1974,7 @@ export async function renderIdeaBookPdf(
       font: fonts.sans,
       color: PWA4_INK_MUTED,
     });
+    footerPage.drawText(imageDisclaimer(locale).short, { x: PWA4_BODY_PAD_X, y: 20, size: 7, font: fonts.sans, color: PWA4_INK_MUTED });
     const pageNumText = String(i + 1);
     const pageNumWidth = fonts.sans.widthOfTextAtSize(pageNumText, 8);
     footerPage.drawText(pageNumText, {

@@ -10,6 +10,7 @@ import { sharedMetadata } from "@/lib/shareCard";
 import type { IdeaBookEntry } from "@/lib/claude/generateIdeaBook";
 import { withValidLayers } from "@/lib/claude/ideaLayers";
 import { withCheckedPrices } from "@/lib/links/priceClaims";
+import { ImageDisclaimer } from "@/components/window/ImageDisclaimer";
 import { getLocale } from "@/lib/language";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/locale";
@@ -150,6 +151,7 @@ export default async function SharedPlanPage(props: PageProps<"/shared/[id]">) {
             whatsappLabel={bookDict.plan.shareWhatsappLabel}
           />
         </div>
+        <ImageDisclaimer locale={bookLocale} className="mt-10 text-center" />
       </main>
     </div>
   );
