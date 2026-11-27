@@ -49,6 +49,7 @@ import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { askPrice } from "@/lib/links/priceClaims";
 import { addPrices, createPriceMemo, priceCheckEnabled, splitByBudget } from "@/lib/claude/priceResearch";
 import { factCheck, factCheckEnabled } from "@/lib/claude/factCheck";
+import { CHECK_TIMES, timeFor } from "@/lib/claude/checkTime";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
 import { ALL_ACTIVITIES, TAGS, getActivity } from "@/lib/discovery/library";
 import type { Activity } from "@/lib/discovery/types";
@@ -897,9 +898,16 @@ export async function generateIdeaBookFromSeeds(
   const pricing = priceCheckEnabled() && !opts.researchOnly;
   const priceMemo = createPriceMemo();
   const tooDearPlaces = new Map<string, LocalOption[]>();
+  // Its own time per book and a latest moment in the book (checkTime.ts): slow sites may not cost the buyer the book.
+  let priceMsUsed = 0;
   const priced = async <R extends { byActivity: ReadonlyMap<string, SeedResearch> }>(found: R): Promise<R> => {
     if (!pricing) return found;
-    const split = splitByBudget(await addPrices(found.byActivity, { locale, memo: priceMemo, ledger }), intake.budget, ownPicks);
+    const asked = Date.now();
+    const timeMs = timeFor(researchStartedAt, asked, CHECK_TIMES.priceTotalMs - priceMsUsed, CHECK_TIMES.priceLatestEndMs);
+    if (timeMs === 0 && !notes.includes("price_check_stopped:no_time")) notes.push("price_check_stopped:no_time");
+    const checked = await addPrices(found.byActivity, { locale, memo: priceMemo, ledger, timeMs });
+    priceMsUsed += Date.now() - asked;
+    const split = splitByBudget(checked, intake.budget, ownPicks);
     for (const [id, options] of split.dear) if (!tooDearPlaces.has(id)) tooDearPlaces.set(id, options);
     return { ...found, byActivity: split.byActivity };
   };
@@ -1480,8 +1488,10 @@ Call the create_layers tool exactly once: ${seeds.length} entries in "ideas", fo
   // Step 250: what an idea claims about its provider is held against the provider's own site; what the site does not carry is taken out
   // (factCheck.ts). After the gate, so a rewrite of the gate is checked too. Fails soft.
   let book = gate.book;
-  if (factCheckEnabled()) {
-    const facts = await factCheck(book, { locale, ledger });
+  const factMs = timeFor(researchStartedAt, Date.now(), CHECK_TIMES.factTotalMs, CHECK_TIMES.factLatestEndMs);
+  if (factCheckEnabled() && factMs === 0) notes.push("fact_check_skipped:no_time");
+  if (factCheckEnabled() && factMs > 0) {
+    const facts = await factCheck(book, { locale, ledger, timeMs: factMs });
     book = facts.book;
     issues.push(...facts.report.removed.map((r) => `fact_removed:${r}`));
     notes.push(...facts.report.notOffered.map((x) => `fact_not_offered:${x}`), ...facts.report.unjudged.map((x) => `fact_unjudged:${x}`));

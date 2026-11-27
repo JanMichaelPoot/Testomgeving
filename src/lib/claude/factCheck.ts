@@ -11,6 +11,7 @@
 import { checkPage, fetcherWithLimit, type Fetcher } from "@/lib/claude/verifyUrls";
 import { addsNoFacts, callModel, languageGuess, type ModelCall } from "@/lib/claude/qualityRepair";
 import type { CostLedger } from "@/lib/claude/costLedger";
+import { within } from "@/lib/claude/checkTime";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { proseFields } from "@/lib/claude/qualityGate";
 import { getActivity } from "@/lib/discovery/library";
@@ -402,13 +403,17 @@ export interface FactDeps {
   ledger?: CostLedger;
   fetcher?: Fetcher;
   call?: ModelCall;
+  /** How long the whole check may take. The ideas run side by side, so each of them gets all of it. */
+  timeMs?: number;
 }
 
 /** The whole book held against the providers' sites, one idea at a time, side by side. Never throws. */
 export async function factCheck(book: GeneratedIdeaBook, deps: FactDeps): Promise<{ book: GeneratedIdeaBook; report: FactReport }> {
-  const { locale, ledger, fetcher, call = callModel } = deps;
+  const { locale, ledger, fetcher, call = callModel, timeMs } = deps;
   const report: FactReport = { checked: 0, removed: [], fallbacks: 0, notOffered: [], unjudged: [] };
   const startedAt = Date.now();
+  const left = () => (timeMs === undefined ? Number.POSITIVE_INFINITY : timeMs - (Date.now() - startedAt));
+  const bounded = <T>(work: Promise<T>, fallback: T): Promise<T> => (timeMs === undefined ? work : within(work, left(), fallback));
   const entries = [...book.ideas, book.wildcard];
   const labelOf = (i: number) => (i < book.ideas.length ? `idea${i + 1}` : "wildcard");
   const checked = await Promise.all(
@@ -416,13 +421,19 @@ export async function factCheck(book: GeneratedIdeaBook, deps: FactDeps): Promis
       // Without a place with a site the idea names no provider whose claims could be held against anything.
       if (!(entry.places ?? []).some((p) => !!p.url)) return entry;
       try {
-        const { evidence, full } = await readEvidence(entry, locale, fetcher);
+        const read = await bounded<Awaited<ReturnType<typeof readEvidence>> | null>(readEvidence(entry, locale, fetcher), null);
+        if (!read) {
+          report.unjudged.push(`${labelOf(i)}: the website was too slow`);
+          return entry;
+        }
+        const { evidence, full } = read;
         if (full.length < MIN_EVIDENCE) {
           report.unjudged.push(`${labelOf(i)}: no readable website`);
           return entry;
         }
         const asked = Date.now();
-        const answer = await call({
+        const asking = call({
+          ...(timeMs === undefined ? {} : { timeoutMs: Math.max(1000, left()) }),
           model: FACT_MODEL,
           system: SYSTEM(locale),
           user: buildFactPrompt(entry, evidence, locale),
@@ -433,9 +444,14 @@ export async function factCheck(book: GeneratedIdeaBook, deps: FactDeps): Promis
             console.log(`WindowInto: fact check took ${Date.now() - asked}ms for ${labelOf(i)} (${model}), usage=${JSON.stringify(usage)}`);
           },
         });
+        const answer = await bounded<unknown>(asking, null);
         if (!answer || !Array.isArray((answer as { claims?: unknown }).claims)) {
+          // No verdict (in time): what the code can tell by itself is still taken out, a promise of something to borrow or gear that is there.
+          const own = applyVerdict(entry, { offers: "", claims: [], fixes: [] }, full, locale);
           report.unjudged.push(`${labelOf(i)}: no usable answer`);
-          return entry;
+          report.removed.push(...own.removed.map((r) => `${labelOf(i)}.${r}`));
+          report.fallbacks += own.fallbacks;
+          return own.removed.length ? own.entry : entry;
         }
         const verdict = applyVerdict(entry, answer as Record<string, unknown>, full, locale);
         report.checked++;

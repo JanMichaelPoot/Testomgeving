@@ -173,9 +173,11 @@ describe("a whole book", () => {
   });
 
   it("fails soft: no answer or no readable site leaves the idea as written", async () => {
+    // without a verdict the code still takes out what it can tell by itself: the drone to borrow; the rest stays as written
     const noAnswer = await factCheck(book, { locale: "nl", fetcher, call: async () => null });
-    expect(noAnswer.book.ideas[0].details).toEqual(drone().details);
     expect(noAnswer.report.unjudged[0]).toContain("no usable answer");
+    expect(JSON.stringify(noAnswer.book.ideas[0].details)).not.toMatch(/leen/i);
+    expect(noAnswer.book.ideas[0].details[0]).toBe(drone().details[0]);
     const noSite = await factCheck(book, { locale: "nl", fetcher: async () => ({ status: 500, text: async () => "" }), call: async () => ({ offers: "", claims: [], fixes: [] }) });
     expect(noSite.report.unjudged[0]).toContain("no readable website");
     expect(noSite.book.ideas[0].intro).toBe(drone().intro);

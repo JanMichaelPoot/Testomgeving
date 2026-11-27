@@ -161,3 +161,31 @@ describe("the fact check in the pipeline", () => {
     expect(factCheck).not.toHaveBeenCalled();
   });
 });
+
+// Step 252: a book that is already late gets no more price work and no fact check; one on time gives both their limit.
+describe("the time limits in the pipeline", () => {
+  const depsOf = (fn: { mock: { calls: unknown[][] } }) => fn.mock.calls.map((c) => c[1] as { timeMs?: number });
+
+  it("gives both checks their own time when the book is on time", async () => {
+    vi.stubEnv("WINDOW_FACT_CHECK", "1");
+    const { report } = await run();
+    expect(depsOf(addPrices)[0].timeMs).toBe(35_000);
+    expect(depsOf(factCheck)[0].timeMs).toBe(30_000);
+    expect(report.notes.filter((n) => n.includes("no_time"))).toEqual([]);
+  });
+
+  it("stops both when the research has already used up the book's time", async () => {
+    vi.stubEnv("WINDOW_FACT_CHECK", "1");
+    const found = researchSeeds.getMockImplementation()!;
+    researchSeeds.mockImplementation(async (opts: { activityIds: string[] }) => {
+      vi.setSystemTime(new Date("2026-10-25T10:04:10Z")); // 250 s after the start
+      return found(opts);
+    });
+    const { book, report } = await run();
+    for (const deps of depsOf(addPrices)) expect(deps.timeMs).toBe(0);
+    expect(factCheck).not.toHaveBeenCalled();
+    expect(report.notes).toEqual(expect.arrayContaining(["price_check_stopped:no_time", "fact_check_skipped:no_time"]));
+    // the book is still made
+    expect(book.ideas.length).toBeGreaterThan(0);
+  });
+});

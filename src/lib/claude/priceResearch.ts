@@ -8,6 +8,7 @@
 // Server-only (it fetches pages).
 import { checkPage, fetcherWithLimit, type Fetcher } from "@/lib/claude/verifyUrls";
 import { callModel, type ModelCall } from "@/lib/claude/qualityRepair";
+import { within } from "@/lib/claude/checkTime";
 import type { CostLedger } from "@/lib/claude/costLedger";
 import type { LocalOption, SeedResearch } from "@/lib/claude/localResearch";
 import type { PlacePrice } from "@/lib/claude/ideaLayers";
@@ -151,13 +152,16 @@ export interface PriceCheckDeps {
   ledger?: CostLedger;
   fetcher?: Fetcher;
   call?: ModelCall;
+  /** How long this round may take. 0: nothing new is read; what the memo already knows is still put on the places. */
+  timeMs?: number;
 }
 
 /** The research with a verified price on every place one could be found for. Never throws; on trouble the research comes back as it was. */
 export async function addPrices(byActivity: ReadonlyMap<string, SeedResearch>, deps: PriceCheckDeps): Promise<Map<string, SeedResearch>> {
-  const { locale, memo, ledger, fetcher, call = callModel } = deps;
+  const { locale, memo, ledger, fetcher, call = callModel, timeMs } = deps;
   try {
     const startedAt = Date.now();
+    const left = () => (timeMs === undefined ? Number.POSITIVE_INFINITY : timeMs - (Date.now() - startedAt));
     const todo: { activityId: string; option: LocalOption }[] = [];
     for (const [activityId, research] of byActivity) {
       // Also for what the library calls free: writing a novel costs nothing at home, but the course the search found for it costs EUR 775.
@@ -166,11 +170,14 @@ export async function addPrices(byActivity: ReadonlyMap<string, SeedResearch>, d
     const room = Math.max(0, MAX_PLACES_PER_BOOK - memo.seen.size);
     const batch = todo.slice(0, room);
     const items: PriceItem[] = [];
-    for (let i = 0; i < batch.length; i += FETCH_AT_ONCE) {
+    // A third of the time is kept for asking the model about what was read.
+    for (let i = 0; i < batch.length && left() > (timeMs ?? 0) / 3; i += FETCH_AT_ONCE) {
+      const patience = left() - (timeMs ?? 0) / 3;
       const read = await Promise.all(
         batch.slice(i, i + FETCH_AT_ONCE).map(async ({ activityId, option }) => {
           const activity = getActivity(activityId)?.label[locale] ?? activityId;
-          const pages = await readPricePages(option, activity, fetcher);
+          const reading = readPricePages(option, activity, fetcher);
+          const pages = Number.isFinite(patience) ? await within(reading, patience, [] as PricedPage[]) : await reading;
           memo.seen.set(keyOf(activityId, option), null);
           return pages.length ? { activityId, activity, option, pages } : null;
         }),
@@ -178,10 +185,12 @@ export async function addPrices(byActivity: ReadonlyMap<string, SeedResearch>, d
       items.push(...read.filter((r): r is PriceItem => !!r));
     }
     let found = 0;
-    for (let i = 0; i < items.length; i += PLACES_PER_CALL) {
+    for (let i = 0; i < items.length && left() > 1000; i += PLACES_PER_CALL) {
       const group = items.slice(i, i + PLACES_PER_CALL);
       const asked = Date.now();
-      const answer = await call({
+      const patience = left();
+      const asking = call({
+        ...(Number.isFinite(patience) ? { timeoutMs: patience } : {}),
         model: PRICE_MODEL,
         system: SYSTEM(locale),
         user: buildPricePrompt(group),
@@ -193,6 +202,7 @@ export async function addPrices(byActivity: ReadonlyMap<string, SeedResearch>, d
           console.log(`WindowInto: price check took ${Date.now() - asked}ms for ${group.length} places (${model}), usage=${JSON.stringify(usage)}`);
         },
       });
+      const answer = Number.isFinite(patience) ? await within<unknown>(asking, patience, null) : await asking;
       verifiedPrices(answer, group, locale).forEach((price, j) => {
         if (price) found++;
         memo.seen.set(keyOf(group[j].activityId, group[j].option), price);

@@ -23,20 +23,25 @@ export interface ModelCall {
     maxTokens: number;
     /** Called with the call's own usage once the model has answered (the cost ledger of the book listens here). */
     onUsage?: (usage: UsageLike, model: string) => void;
+    /** The call is given up after this long, and not tried again. Without it the SDK waits up to ten minutes. */
+    timeoutMs?: number;
   }): Promise<unknown | null>;
 }
 
 /** Calls the model with one forced tool; null on any failure. */
-export const callModel: ModelCall = async ({ model, system, user, tool, maxTokens, onUsage }) => {
+export const callModel: ModelCall = async ({ model, system, user, tool, maxTokens, onUsage, timeoutMs }) => {
   try {
-    const message = await anthropic.messages.create({
-      model,
-      max_tokens: maxTokens,
-      system,
-      messages: [{ role: "user", content: user }],
-      tools: [{ name: tool.name, description: tool.description, input_schema: tool.schema as never }],
-      tool_choice: { type: "tool", name: tool.name },
-    });
+    const message = await anthropic.messages.create(
+      {
+        model,
+        max_tokens: maxTokens,
+        system,
+        messages: [{ role: "user", content: user }],
+        tools: [{ name: tool.name, description: tool.description, input_schema: tool.schema as never }],
+        tool_choice: { type: "tool", name: tool.name },
+      },
+      ...(timeoutMs ? [{ timeout: Math.ceil(timeoutMs), maxRetries: 0 }] : []),
+    );
     onUsage?.(message.usage, model);
     return extractToolInput<unknown>(message, tool.name);
   } catch (err) {
