@@ -21,6 +21,28 @@ export interface IdeaSize {
   duration: string;
 }
 
+/** What a beginner pays at a place, read from its own site and verified in that text (lib/claude/priceResearch.ts). */
+export interface PlacePrice {
+  amount: number;
+  /** The amount as shown, in euros: "€19,50". */
+  text: string;
+  /** What it buys ("cursus van vier zaterdagen"); empty when unclear. */
+  label: string;
+  /** The page it stands on. */
+  source: string;
+}
+
+/** A stored or researched price, only when it is whole and sane. */
+export function storedPrice(value: unknown): PlacePrice | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const r = value as Record<string, unknown>;
+  const source = normalizeUrl(r.source);
+  if (typeof r.amount !== "number" || !Number.isFinite(r.amount) || r.amount <= 0 || r.amount >= 100_000 || !source) return undefined;
+  const text = typeof r.text === "string" ? r.text.trim() : "";
+  if (!/^€\d+(?:[.,]\d{2})?$/.test(text)) return undefined;
+  return { amount: r.amount, text, label: typeof r.label === "string" ? r.label.replace(/\s+/g, " ").trim().slice(0, 48) : "", source };
+}
+
 /** A real place found by the local research (never written by the model). */
 export interface IdeaPlace {
   name: string;
@@ -29,6 +51,8 @@ export interface IdeaPlace {
   note: string;
   /** A review score a search result showed (with its source), or absent. */
   rating?: Rating;
+  /** The verified price from the place's own site, or absent. */
+  price?: PlacePrice;
 }
 
 /** Another activity in the same direction, chosen by code (an option companion, R1, or the relation graph). */
@@ -145,7 +169,8 @@ export function normalizePlaces(value: unknown, max = 3): IdeaPlace[] {
     // Every address that enters a book goes through normalizeUrl: absolute https, or no link at all.
     const url = normalizeUrl(r.url);
     const rating = storedRating(r.rating);
-    out.push({ name, city, url, note: clean(r.note), ...(rating ? { rating } : {}) });
+    const price = storedPrice(r.price);
+    out.push({ name, city, url, note: clean(r.note), ...(rating ? { rating } : {}), ...(price ? { price } : {}) });
     if (out.length === max) break;
   }
   return out;

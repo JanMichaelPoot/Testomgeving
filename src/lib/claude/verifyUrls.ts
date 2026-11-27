@@ -59,11 +59,13 @@ async function readLimited(res: Response, max: number): Promise<string> {
   return new TextDecoder("utf-8", { fatal: false }).decode(Buffer.concat(chunks.map((c) => Buffer.from(c))).subarray(0, max));
 }
 
-const defaultFetcher: Fetcher = async (url, init) => {
+/** The ordinary fetcher, reading at most `max` bytes of a page. */
+export const fetcherWithLimit = (max: number): Fetcher => async (url, init) => {
   const res = await fetch(url, init);
   if (res.status !== 200) void res.body?.cancel().catch(() => undefined);
-  return { status: res.status, location: res.headers.get("location"), contentLanguage: res.headers.get("content-language"), text: () => readLimited(res, MAX_PAGE_BYTES) };
+  return { status: res.status, location: res.headers.get("location"), contentLanguage: res.headers.get("content-language"), text: () => readLimited(res, max) };
 };
+const defaultFetcher: Fetcher = fetcherWithLimit(MAX_PAGE_BYTES);
 
 // --- what a page says about the business ---------------------------------------------------------
 

@@ -1,5 +1,6 @@
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { hasMoreLayers } from "@/lib/claude/ideaLayers";
+import { placePriceLine } from "@/lib/links/priceClaims";
 import { hasMapLink, mapsSearchUrl } from "@/lib/maps";
 import { ExternalLink } from "@/components/ui/ExternalLink";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -74,6 +75,7 @@ function Layers({ idea, copy, mode }: { idea: IdeaBookEntry; copy: More; mode: "
                   {place.city && <span className="font-normal text-ink/70">, {place.city}</span>}
                 </p>
                 {place.note && <p className="mt-0.5 text-sm leading-relaxed text-ink/75">{place.note}</p>}
+                {place.price && <p className="mt-0.5 text-sm font-semibold text-ink">{placePriceLine(copy.placePrice, place.price)}</p>}
                 {place.rating && (
                   <p className="mt-0.5 text-xs text-ink/70">
                     {copy.ratingLine

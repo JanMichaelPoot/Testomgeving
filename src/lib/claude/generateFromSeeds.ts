@@ -47,6 +47,7 @@ import {
 import type { EngineResult, Seed } from "@/lib/discovery/engine";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { askPrice } from "@/lib/links/priceClaims";
+import { addPrices, createPriceMemo, priceCheckEnabled, splitByBudget } from "@/lib/claude/priceResearch";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
 import { ALL_ACTIVITIES, TAGS, getActivity } from "@/lib/discovery/library";
 import type { Activity } from "@/lib/discovery/types";
@@ -390,7 +391,8 @@ function seedBlock(
         .map(
           (o) =>
             `    - ${o.name}${o.city ? ` (${o.city})` : ""}${o.kind ? ` — is: ${o.kind}` : ""}${o.match === "close" ? " [another form than the usual way in]" : ""}: ${o.note}${o.until ? ` (until ${o.until})` : ""}` +
-            `${o.rating ? ` [rated ${o.rating.score}/5${o.rating.reviews !== null ? `, ${o.rating.reviews} reviews` : ""}, ${o.rating.source}]` : ""}${o.url ? ` — ${o.url}` : ""}`,
+            `${o.rating ? ` [rated ${o.rating.score}/5${o.rating.reviews !== null ? `, ${o.rating.reviews} reviews` : ""}, ${o.rating.source}]` : ""}` +
+            `${o.price ? ` [price on its own website: ${o.price.text}${o.price.label ? `, ${o.price.label}` : ""}]` : ""}${o.url ? ` — ${o.url}` : ""}`,
         )
         .join("\n")
     : ownPick && needsProvider(a)
@@ -607,6 +609,10 @@ function buildEntry(
   const next_step = normalizeNextStep(layer?.next_step);
   const places = normalizePlaces(research?.options);
   const { related, direction } = option;
+  const location = normalizeLocation(e.location);
+  const practical = normalizePractical(e.practical);
+  // The price of the place the idea names (else of its first one) is the idea's price: copied by code, not by the writer.
+  const named = (location && places.find((p) => p.name.toLowerCase().includes(location.name.toLowerCase()) || location.name.toLowerCase().includes(p.name.toLowerCase()))) || places[0];
   return {
     ...(feels_like ? { feels_like } : {}),
     ...(sizes ? { sizes } : {}),
@@ -622,8 +628,8 @@ function buildEntry(
     why_it_fits: toText(e.why_it_fits),
     details: toTextArray(e.details),
     first_action: toText(e.first_action),
-    practical: normalizePractical(e.practical),
-    location: normalizeLocation(e.location),
+    practical: named?.price ? { ...practical, estimated_cost: named.price.text } : practical,
+    location,
     requirements: toTextArray(e.requirements),
     image_suggestion: a.scene,
     photo_category: photoCategoryFor(a),
@@ -885,9 +891,20 @@ export async function generateIdeaBookFromSeeds(
   // Who the book is for decides which pages fit (links/pageFit.ts); what is refused is passed to the later search rounds so they find other places.
   const adultsOnly = readerIsAdult(intake, engine.constraints.verify);
   const rejectedLinks: RejectedLink[] = [];
-  const researchFor = (seedList: readonly Seed[], known?: ReadonlyMap<string, SeedResearch>) => {
+  // Step 249: after every search the places' own sites are read for what a beginner pays (priceResearch.ts). A place far above the budget no
+  // longer counts, so the replacing below treats an idea with only such places like one without a place. What the person chose stays.
+  const pricing = priceCheckEnabled() && !opts.researchOnly;
+  const priceMemo = createPriceMemo();
+  const tooDearPlaces = new Map<string, LocalOption[]>();
+  const priced = async <R extends { byActivity: ReadonlyMap<string, SeedResearch> }>(found: R): Promise<R> => {
+    if (!pricing) return found;
+    const split = splitByBudget(await addPrices(found.byActivity, { locale, memo: priceMemo, ledger }), intake.budget, ownPicks);
+    for (const [id, options] of split.dear) if (!tooDearPlaces.has(id)) tooDearPlaces.set(id, options);
+    return { ...found, byActivity: split.byActivity };
+  };
+  const researchFor = async (seedList: readonly Seed[], known?: ReadonlyMap<string, SeedResearch>) => {
     for (const id of researchIds(seedList)) researchedIds.add(id);
-    return researchSeeds({
+    return priced(await researchSeeds({
       ratings,
       activityIds: researchIds(seedList),
       location: intake.location,
@@ -902,7 +919,7 @@ export async function generateIdeaBookFromSeeds(
       ledger,
       adultsOnly,
       rejected: rejectedLinks,
-    });
+    }));
   };
   let research = await researchFor([...engine.seeds, ...reserve]);
   // The rounds after this one are the fallback; this many paid calls were the first round (own choices and the rest side by side).
@@ -964,7 +981,7 @@ export async function generateIdeaBookFromSeeds(
     const lacking = physicalLacking(seedList, base).filter((id) => !broadTried.has(id));
     if (lacking.length === 0 || costBlocks("broad")) return base;
     for (const id of lacking) broadTried.add(id);
-    const broad = await researchSeeds({
+    const broad = await priced(await researchSeeds({
       ratings,
       activityIds: lacking,
       location: intake.location,
@@ -979,7 +996,7 @@ export async function generateIdeaBookFromSeeds(
       ledger,
       adultsOnly,
       rejected: rejectedLinks,
-    });
+    }));
     const merged = new Map(base.byActivity);
     for (const id of lacking) {
       const found = broad.byActivity.get(id);
@@ -999,8 +1016,8 @@ export async function generateIdeaBookFromSeeds(
     const lacking = lackingOf(seedList, base).filter((id) => !onlineTried.has(id) && (which === "all" || isOnlineByNature(getActivity(id))));
     if (lacking.length === 0 || costBlocks("online")) return base;
     for (const id of lacking) onlineTried.add(id);
-    const online = await researchSeeds({
-      activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online", country: intake.country, ledger, adultsOnly, rejected: rejectedLinks });
+    const online = await priced(await researchSeeds({
+      activityIds: lacking, location: intake.location, searchDistance: intake.searchDistance, locale, now, mode: "online", country: intake.country, ledger, adultsOnly, rejected: rejectedLinks }));
     const merged = new Map(base.byActivity);
     for (const id of lacking) {
       const found = online.byActivity.get(id);
@@ -1203,6 +1220,15 @@ export async function generateIdeaBookFromSeeds(
       notes.push(`swapped_no_option:${s.activityId}>${swap.activityId}`);
     }
   }
+  // 2f. An idea whose only places were far above the budget and that nothing could replace keeps its cheapest one, with the real price: the
+  // page then says it is above the budget. Better that than a shorter book, or a text that says nothing was found.
+  for (const s of seedsWithoutSupply(engine.seeds, research.byActivity, true)) {
+    const dear = tooDearPlaces.get(s.activityId);
+    if (!dear?.length) continue;
+    research = { ...research, byActivity: new Map([...research.byActivity, [s.activityId, { activityId: s.activityId, options: dear.slice(0, 1), source: "search" as const }]]) };
+    notes.push(`kept_above_budget:${s.activityId}`);
+  }
+  for (const [id, options] of tooDearPlaces) notes.push(`over_budget_place:${id} (${options.map((o) => o.price?.text).join(", ")})`);
   // 2g. What still has no real place after all of that is not shown (Jan, 14 Nov 2026): the idea is left out of the book, as long as at least MIN_SEEDS remain.
   // The wildcard stays (the writer treats the last idea as the wildcard) and so do the ideas that have a place; the ones of the engine's own go before the person's
   // own choices. What cannot be left out is reported (coverage_incomplete) and written honestly, as before.

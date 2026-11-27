@@ -58,7 +58,7 @@ const URL_RE = /\b(?:https?:\/\/|www\.)[^\s)<>"']+/gi;
 export function inventedFacts(entry: Pick<IdeaBookEntry, "title" | "intro" | "why_it_fits" | "details" | "first_action" | "requirements" | "practical" | "sizes" | "places">, knownHosts?: ReadonlySet<string>): string[] {
   const out: string[] = [];
   const texts = proseFields(entry as IdeaBookEntry);
-  const allowedAmounts = [entry.practical?.estimated_cost, ...(entry.sizes ?? []).map((s) => s.estimated_cost), ...(entry.places ?? []).map((p) => p.note)]
+  const allowedAmounts = [entry.practical?.estimated_cost, ...(entry.sizes ?? []).map((s) => s.estimated_cost), ...(entry.places ?? []).map((p) => p.note), ...(entry.places ?? []).map((p) => p.price?.text)]
     .flatMap((t) => (t ? (t.match(/\d+(?:[.,]\d+)?/g) ?? []) : []))
     .map((n) => parseFloat(n.replace(",", ".")));
   const ceiling = allowedAmounts.length ? Math.max(...allowedAmounts) : null;

@@ -48,7 +48,7 @@ import { fillConflicts, fillContext, normalizeFill, withoutConflicts } from "@/l
 import { getActivity } from "@/lib/discovery/library";
 import { MODE_SHORT } from "@/lib/discovery/activityKind";
 import { knowledgeWritingV2Enabled } from "@/lib/knowledgeFlags";
-import { priceKind, withCheckedPrices } from "@/lib/links/priceClaims";
+import { placePriceLine, priceKind, withCheckedPrices } from "@/lib/links/priceClaims";
 import { findWebAddresses, linkFor, normalizeUrl } from "@/lib/links/normalizeUrl";
 import { layoutWindow, type WindowItem } from "@/lib/windowLayout";
 
@@ -1269,9 +1269,10 @@ export async function renderIdeaBookPdf(
     const padX = 13;
     const padY = 11;
     const costLines = wrapText(cost, fonts.display, 23, width - padX * 2, 2);
+    const captionLines = wrapText(caption, fonts.sans, 8.5, width - padX * 2, 2);
     const statusLines = status ? wrapText(status, fonts.sansBold, 9, width - padX * 2, 4) : [];
     const height =
-      padY * 2 + LABEL_SIZE + 6 + costLines.length * 25 + 2 + 11 + (statusLines.length > 0 ? 6 + statusLines.length * 12 : 0);
+      padY * 2 + LABEL_SIZE + 6 + costLines.length * 25 + 2 + captionLines.length * 11 + (statusLines.length > 0 ? 6 + statusLines.length * 12 : 0);
     return {
       height,
       draw(x, top, h) {
@@ -1280,8 +1281,8 @@ export async function renderIdeaBookPdf(
         let cursor = top - padY - LABEL_SIZE - 6;
         drawTextLines(costLines, x + padX, cursor, 23, 25, fonts.display, PWA4_INK);
         cursor -= costLines.length * 25 + 2;
-        drawTextLines([caption], x + padX, cursor, 8.5, 11, fonts.sans, PWA4_INK_MUTED);
-        cursor -= 11 + 6;
+        drawTextLines(captionLines, x + padX, cursor, 8.5, 11, fonts.sans, PWA4_INK_MUTED);
+        cursor -= captionLines.length * 11 + 6;
         drawTextLines(statusLines, x + padX, cursor, 9, 12, fonts.sansBold, PWA4_INK);
       },
     };
@@ -1571,7 +1572,9 @@ export async function renderIdeaBookPdf(
       ];
       let next = 1;
       if (hasCost) {
-        const caption = price === "found" ? pageLabels.priceFound : price === "unconfirmed" ? pageLabels.priceNotFound : pageLabels.investIndication;
+        // With a price read from a place's site, say what it buys ("cursus van vier zaterdagen").
+        const bought = price === "found" ? idea.places?.find((p) => p.price?.text === costText)?.price?.label : "";
+        const caption = price === "found" ? bought || pageLabels.priceFound : price === "unconfirmed" ? pageLabels.priceNotFound : pageLabels.investIndication;
         cols.push({ block: blockInvest(colWidth(fracs, next), pageLabels, costText, statusText, caption), frac: fracs[next] });
         next++;
       }
@@ -1712,10 +1715,11 @@ export async function renderIdeaBookPdf(
     const placeRows = (idea.places ?? []).map((place) => {
       const nameL = wrapText(place.city ? `${place.name}, ${place.city}` : place.name, fonts.sansBold, 10.25, W - PAD * 2);
       const noteL = place.note ? wrapText(place.note, fonts.sans, 9.25, W - PAD * 2, 2) : [];
-      return { place, nameL, noteL };
+      const priceL = place.price ? wrapText(placePriceLine(moreCopy.placePrice, place.price), fonts.sansBold, 9.25, W - PAD * 2, 1) : [];
+      return { place, nameL, noteL, priceL };
     });
-    const placeH = (r: { nameL: string[]; noteL: string[] }, withNotes: boolean) =>
-      PAD * 2 + r.nameL.length * 13.5 + (withNotes && r.noteL.length ? 3 + r.noteL.length * 12.5 : 0) + 6 + 14;
+    const placeH = (r: { nameL: string[]; noteL: string[]; priceL: string[] }, withNotes: boolean) =>
+      PAD * 2 + r.nameL.length * 13.5 + (withNotes && r.noteL.length ? 3 + r.noteL.length * 12.5 : 0) + (r.priceL.length ? 2 + 12.5 : 0) + 6 + 14;
 
     // R1: an option of three. Companions that carry a facts line are drawn as small panels (name, then kind, cost, duration and how it can be
     // done); an older book without facts keeps the pill row below.
@@ -1826,6 +1830,11 @@ export async function renderIdeaBookPdf(
           ty -= 3;
           drawTextLines(r.noteL, x0 + PAD, ty, 9.25, 12.5, fonts.sans, PWA4_INK_MUTED);
           ty -= r.noteL.length * 12.5;
+        }
+        if (r.priceL.length) {
+          ty -= 2;
+          drawTextLines(r.priceL, x0 + PAD, ty, 9.25, 12.5, fonts.sansBold, PWA4_INK);
+          ty -= 12.5;
         }
         ty -= 6;
         // Links: a text label with an underline and a clickable region (same technique as the idea page).

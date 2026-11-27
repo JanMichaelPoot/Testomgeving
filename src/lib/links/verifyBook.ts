@@ -99,6 +99,8 @@ export async function verifyBook(book: GeneratedIdeaBook, ctx: BookCheckContext)
           }
         }),
       );
+      // A price read from the place's own site (maybe a sub page) was verified there: it counts as standing on a checked page.
+      for (const p of kept.filter(Boolean)) if (p.price) pages.push(`€ ${Number.isInteger(p.price.amount) ? p.price.amount : p.price.amount.toFixed(2)}`);
       return { kept: kept.filter(Boolean), gone, pages };
     }),
   );

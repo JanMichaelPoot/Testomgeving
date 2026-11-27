@@ -43,6 +43,8 @@ export interface LocalOption {
   rating: Rating | null;
   /** What the place really is, in a few words ("café op de hei", "keramiekstudio met proeflessen"); null when the research did not say (older cached answers). The idea's title follows this. */
   kind?: string | null;
+  /** The verified price from the place's own site (priceResearch.ts); added per book, not kept in the research cache. */
+  price?: import("@/lib/claude/ideaLayers").PlacePrice | null;
   /** True once the Google score of this place was looked up (src/lib/claude/placesRatings.ts), also when there is none: it is not looked up again. */
   ratingChecked?: boolean;
   /** "exact": it is the form the activity's usual way in names (a high tea in a country house); "close": the same activity in another form (a café on the heath). Absent when not stated. */

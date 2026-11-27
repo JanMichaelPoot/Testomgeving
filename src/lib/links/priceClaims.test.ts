@@ -35,7 +35,10 @@ describe("which price a reader may see", () => {
   it("treats 'free' as a claim as well", () => {
     expect(priceKind("Gratis", at("gratis inloopavond"))).toBe("free");
     expect(priceKind("Gratis", { activity_id: "wandelen" })).toBe("free");
-    expect(priceKind("Gratis", at("romancursus"))).toBe(priceKind("Gratis", { activity_id: "roman-schrijven" }));
+    // free by nature at home is not free at the course or the club the search found
+    expect(priceKind("Gratis", { activity_id: "roman-schrijven" })).toBe("free");
+    expect(priceKind("Gratis", at("Romancursus voor beginners"))).toBe("unconfirmed");
+    expect(priceKind("Gratis", { activity_id: "wandelen", places: [{ name: "Heuvelrug", city: "Doorn", note: "uitgezette routes", url: null }] })).toBe("free");
     expect(priceKind("Free", { activity_id: "wijnproeverij" })).toBe("unconfirmed");
   });
 
