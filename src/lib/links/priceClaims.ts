@@ -8,6 +8,7 @@
 import type { IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { getActivity } from "@/lib/discovery/library";
 import { amountOf } from "@/lib/links/prices";
+import { GROUP_FROM, isGroupPrice, minimumPeople } from "@/lib/links/priceTerms";
 import type { Locale } from "@/lib/locale";
 
 export const ASK_PRICE: Record<Locale, string> = { nl: "Prijs navragen", en: "Ask the price" };
@@ -42,9 +43,11 @@ export function priceKind(cost: string, entry: Priced): PriceKind {
     return notes.some((n) => FREE.test(n)) || (activity?.cost === 0 && !sells) ? "free" : "unconfirmed";
   }
   if (amounts.length === 0 || ESTIMATE.test(cost)) return "unconfirmed";
-  if ((entry.places ?? []).some((p) => p.price && amounts.every((a) => a === p.price!.amount))) return "found";
+  // A group's price is not one the reader can pay: not from the price read, and not from the note of such a place either.
+  const forOne = (entry.places ?? []).filter((p) => !isGroupPrice(p.price) && (minimumPeople(p.note ?? "") ?? 0) < GROUP_FROM);
+  if (forOne.some((p) => p.price && amounts.every((a) => a === p.price!.amount))) return "found";
   // All of it from one and the same provider: a range put together from two places is not a price anybody asks.
-  const found = notes.some((note) => {
+  const found = forOne.map((p) => p.note ?? "").filter(Boolean).some((note) => {
     if (ESTIMATE.test(note)) return false;
     const stated = moneyIn(note);
     return amounts.every((a) => stated.includes(a));

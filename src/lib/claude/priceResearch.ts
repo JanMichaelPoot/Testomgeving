@@ -14,7 +14,8 @@ import type { LocalOption, SeedResearch } from "@/lib/claude/localResearch";
 import type { PlacePrice } from "@/lib/claude/ideaLayers";
 import { getActivity } from "@/lib/discovery/library";
 import { linkHints, moneySnippets, priceLinks } from "@/lib/links/priceText";
-import { priceOnPages } from "@/lib/links/prices";
+import { amountOf, priceOnPages } from "@/lib/links/prices";
+import { GROUP_FROM, groupLabel, isAppPage, isGroupPrice, minimumForAmount } from "@/lib/links/priceTerms";
 import { BUDGET_CAP } from "@/lib/pdf/ideaContent";
 import type { Locale } from "@/lib/locale";
 
@@ -83,6 +84,8 @@ Rules:
   except the novel course which costs Y", a novel course costs Y).
 - The way in: when a beginner can do this activity there with a single visit, ticket or trial lesson of this activity, give that price.
   Otherwise give what the beginner must pay to take part (the course fee, the season).
+- Never the price of an app, a premium or paid version, a download, a map or a booking fee: only what taking part itself costs.
+- min_people: when the price is only offered from a minimum number of people (or at least that many must be paid for), that number; else null.
 - Never a discount, voucher, gift card, deposit, late fee, rental extra, a price for children when the book is for an adult, a membership
   of something else, or another activity's price.
 - Prices that start in different years: take the one that applies to the first date a beginner could start.
@@ -96,8 +99,8 @@ const SCHEMA = {
       type: "array",
       items: {
         type: "object",
-        properties: { n: { type: "integer" }, amount: { type: ["number", "null"] }, what: { type: "string" } },
-        required: ["n", "amount", "what"],
+        properties: { n: { type: "integer" }, amount: { type: ["number", "null"] }, what: { type: "string" }, min_people: { type: ["integer", "null"] } },
+        required: ["n", "amount", "what", "min_people"],
       },
     },
   },
@@ -117,6 +120,17 @@ export function buildPricePrompt(items: readonly PriceItem[]): string {
   return `${blocks.join("\n\n")}\n\nCall record_prices once, with one entry per item (n = the item number).`;
 }
 
+/** Every place where this amount stands in the passages as an amount, not as a number of people, years or hours. */
+function standsAt(amount: number, snippets: readonly string[]): { snippet: string; at: number; length: number }[] {
+  return snippets.flatMap((snippet) =>
+    [...snippet.matchAll(/\d+(?:[.,]\d{2}|,-)?/g)]
+      .filter((m) => amountOf(m[0]) === amount && !/^\s*\+?\s*(?:personen|persoon|pers\b|deelnemers|people|persons|jaar|years|uur|hours|min)/i.test(snippet.slice(m.index + m[0].length)))
+      .map((m) => ({ snippet, at: m.index, length: m[0].length })),
+  );
+}
+const nearby = (amount: number, snippets: readonly string[], word: RegExp, reach = 60) =>
+  standsAt(amount, snippets).some((s) => word.test(s.snippet.slice(Math.max(0, s.at - reach), s.at + s.length + reach)));
+
 const show = (amount: number, locale: Locale) => `€${Number.isInteger(amount) ? amount : amount.toFixed(2).replace(".", locale === "nl" ? "," : ".")}`;
 
 /** The picks of the model that can be shown: a positive amount that stands, with the euro, in the text the app fetched for that very item. */
@@ -124,16 +138,24 @@ export function verifiedPrices(answer: unknown, items: readonly PriceItem[], loc
   const out: (PlacePrice | null)[] = items.map(() => null);
   const rows = (answer as { prices?: unknown })?.prices;
   if (!Array.isArray(rows)) return out;
-  for (const row of rows as { n?: unknown; amount?: unknown; what?: unknown }[]) {
+  for (const row of rows as { n?: unknown; amount?: unknown; what?: unknown; min_people?: unknown }[]) {
     const index = typeof row?.n === "number" ? row.n - 1 : -1;
     const item = items[index];
     const amount = row?.amount;
     if (!item || typeof amount !== "number" || !Number.isFinite(amount) || amount <= 0 || amount >= 100_000) continue;
     // Euros only: the budget is in euros, and an amount in another currency must not be shown as euros.
-    const page = item.pages.find((p) => p.snippets.some((s) => priceOnPages(amount, [s]) && /€|EUR|euro/i.test(s)));
+    // Not from a page that sells an app or a paid version.
+    const page = item.pages.find((p) => !isAppPage(p.url) && p.snippets.some((s) => priceOnPages(amount, [s]) && /€|EUR|euro/i.test(s)));
     if (!page) continue;
     const label = typeof row.what === "string" ? row.what.replace(/\s+/g, " ").trim() : "";
-    out[index] = { amount, text: show(amount, locale), label: label.length <= LABEL_MAX ? label : "", source: page.url };
+    // A paid extra the page calls premium; it says so up to a few sentences before the amount.
+    if (nearby(amount, page.snippets, /premium/i, 160)) continue;
+    // A minimum number of people: what the page says next to the amount counts, whether or not the model saw it.
+    const said = typeof row.min_people === "number" && Number.isInteger(row.min_people) && row.min_people >= 2 && row.min_people <= 200 ? row.min_people : null;
+    const minima = [said, ...standsAt(amount, page.snippets).map((s) => minimumForAmount(s.snippet, s.at, s.length))].filter((n): n is number => n !== null);
+    const minPeople = minima.length ? Math.max(...minima) : null;
+    const shownLabel = minPeople && minPeople >= GROUP_FROM ? groupLabel(minPeople, locale) : label.length <= LABEL_MAX ? label : "";
+    out[index] = { amount, text: show(amount, locale), label: shownLabel, source: page.url, ...(minPeople ? { minPeople } : {}) };
   }
   return out;
 }
@@ -214,10 +236,13 @@ export async function addPrices(byActivity: ReadonlyMap<string, SeedResearch>, d
         activityId,
         {
           ...research,
-          options: research.options.map((o) => {
-            const price = memo.seen.get(keyOf(activityId, o));
-            return price ? { ...o, price } : o;
-          }),
+          // A place with only a group's price goes last: the writer names the first option that fits, and one anybody can book comes first.
+          options: research.options
+            .map((o) => {
+              const price = memo.seen.get(keyOf(activityId, o));
+              return price ? { ...o, price } : o;
+            })
+            .sort((a, b) => Number(isGroupPrice(a.price)) - Number(isGroupPrice(b.price))),
         },
       ]),
     );

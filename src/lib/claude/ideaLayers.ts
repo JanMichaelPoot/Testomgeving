@@ -30,6 +30,8 @@ export interface PlacePrice {
   label: string;
   /** The page it stands on. */
   source: string;
+  /** The price only holds from this many people (links/priceTerms.ts); absent when anyone can pay it. */
+  minPeople?: number;
 }
 
 /** A stored or researched price, only when it is whole and sane. */
@@ -40,7 +42,8 @@ export function storedPrice(value: unknown): PlacePrice | undefined {
   if (typeof r.amount !== "number" || !Number.isFinite(r.amount) || r.amount <= 0 || r.amount >= 100_000 || !source) return undefined;
   const text = typeof r.text === "string" ? r.text.trim() : "";
   if (!/^€\d+(?:[.,]\d{2})?$/.test(text)) return undefined;
-  return { amount: r.amount, text, label: typeof r.label === "string" ? r.label.replace(/\s+/g, " ").trim().slice(0, 48) : "", source };
+  const minPeople = typeof r.minPeople === "number" && Number.isInteger(r.minPeople) && r.minPeople >= 2 && r.minPeople <= 200 ? r.minPeople : undefined;
+  return { amount: r.amount, text, label: typeof r.label === "string" ? r.label.replace(/\s+/g, " ").trim().slice(0, 48) : "", source, ...(minPeople ? { minPeople } : {}) };
 }
 
 /** A real place found by the local research (never written by the model). */

@@ -340,6 +340,14 @@ const CLASS_TEXT: Record<QaLocale, Record<number, string>> = {
   en: { 1: "Under an hour", 2: "A few hours", 3: "Half a day", 4: "A weekend or longer" },
 };
 
+// "2 uur", "1,5 tot 2 hours"; a clock time ("13:30 uur", "10.30 uur") is no duration.
+const DURATION_IN_NOTE = /(?<![\d:.,])(\d{1,2}(?:,\d)?|\d(?:\.\d)?)(?:\s*(?:[-–]|tot|to)\s*(\d{1,2}(?:[.,]\d)?))?\s*(?:uur|uren|hours?)\b/gi;
+
+/** The durations the idea's places state in their notes. */
+function statedHours(entry: IdeaBookEntry): number[] {
+  return (entry.places ?? []).flatMap((p) => [...(p.note ?? "").matchAll(DURATION_IN_NOTE)].flatMap((m) => [m[1], m[2]].filter(Boolean).map((n) => parseFloat(n!.replace(",", ".")))));
+}
+
 /** A time chip that cannot be right for this activity; null when it agrees, or when either side is unknown. */
 export function timeChipConflict(entry: IdeaBookEntry, activity: Activity | undefined): { hours: number; expected: [number, number] } | null {
   const klass = activity?.duration;
@@ -347,6 +355,8 @@ export function timeChipConflict(entry: IdeaBookEntry, activity: Activity | unde
   const hours = parseDurationHours(entry.practical.duration);
   if (hours === null) return null;
   const [lo, hi] = CLASS_HOURS[klass];
+  // The provider's own duration beats the library's class: a cow cuddling visit of "about 2 hours" is not "under an hour".
+  if (statedHours(entry).some((h) => Math.abs(h - hours) <= 0.5)) return null;
   return hours < lo || hours > hi ? { hours, expected: [lo, hi] } : null;
 }
 

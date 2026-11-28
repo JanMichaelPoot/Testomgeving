@@ -48,6 +48,7 @@ import type { EngineResult, Seed } from "@/lib/discovery/engine";
 import { photoCategoryFor } from "@/lib/discovery/engine/photo";
 import { askPrice } from "@/lib/links/priceClaims";
 import { addPrices, createPriceMemo, priceCheckEnabled, splitByBudget } from "@/lib/claude/priceResearch";
+import { isGroupPrice } from "@/lib/links/priceTerms";
 import { factCheck, factCheckEnabled } from "@/lib/claude/factCheck";
 import { CHECK_TIMES, timeFor } from "@/lib/claude/checkTime";
 import { scoresForSeed } from "@/lib/discovery/engine/scores";
@@ -630,7 +631,7 @@ function buildEntry(
     why_it_fits: toText(e.why_it_fits),
     details: toTextArray(e.details),
     first_action: toText(e.first_action),
-    practical: named?.price ? { ...practical, estimated_cost: named.price.text } : practical,
+    practical: named?.price && !isGroupPrice(named.price) ? { ...practical, estimated_cost: named.price.text } : practical,
     location,
     requirements: toTextArray(e.requirements),
     image_suggestion: a.scene,

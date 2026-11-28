@@ -12,6 +12,7 @@ import { checkPage, fetcherWithLimit, type Fetcher } from "@/lib/claude/verifyUr
 import { addsNoFacts, callModel, languageGuess, type ModelCall } from "@/lib/claude/qualityRepair";
 import type { CostLedger } from "@/lib/claude/costLedger";
 import { within } from "@/lib/claude/checkTime";
+import { mainName, placesNamedFirst } from "@/lib/claude/namedPlace";
 import type { GeneratedIdeaBook, IdeaBookEntry } from "@/lib/claude/ideaBookTypes";
 import { proseFields } from "@/lib/claude/qualityGate";
 import { getActivity } from "@/lib/discovery/library";
@@ -26,8 +27,10 @@ export function factCheckEnabled(env: Record<string, string | undefined> = proce
 
 const PAGE_BYTES = 600_000;
 const PAGE_TIMEOUT_MS = 6000;
-const PLACES_PER_IDEA = 2;
-const SUBPAGES_PER_PLACE = 3;
+const PLACES_PER_IDEA = 3;
+/** Sub pages of the place the idea names, and of each other place. */
+const SUBPAGES_NAMED = 3;
+const SUBPAGES_OTHER = 1;
 /** The place's own page says most; its sub pages get less. */
 const CHARS_MAIN_PAGE = 6000;
 const CHARS_PER_PAGE = 2500;
@@ -91,26 +94,32 @@ export function passages(text: string, hints: readonly string[], budget = CHARS_
     .slice(0, budget);
 }
 
-/** The text of the idea's places' own sites: each place's page and a few of its pages about taking part. */
-export async function readEvidence(entry: IdeaBookEntry, locale: Locale, fetcher: Fetcher = fetcherWithLimit(PAGE_BYTES)): Promise<{ evidence: Evidence[]; full: string }> {
+/**
+ * The text of the idea's places' own sites, the place the idea names first: its page and a few of its pages about taking part, then the same
+ * of the others. `named` is the text of that first place alone.
+ */
+export async function readEvidence(entry: IdeaBookEntry, locale: Locale, fetcher: Fetcher = fetcherWithLimit(PAGE_BYTES)): Promise<{ evidence: Evidence[]; full: string; named: string }> {
   const activity = entry.activity_id ? getActivity(entry.activity_id)?.label[locale] : undefined;
   const hints = linkHints([activity ?? "", entry.title]);
   const open = (url: string) => checkPage(url, null, { fetcher, timeoutMs: PAGE_TIMEOUT_MS });
   const perPlace = await Promise.all(
-    (entry.places ?? [])
+    placesNamedFirst(entry)
       .filter((p) => !!p.url)
       .slice(0, PLACES_PER_IDEA)
-      .map(async (place) => {
+      .map(async (place, at) => {
         const first = await open(place.url!);
         if (!first.ok) return [];
-        const links = siteLinks(first.page.html, first.page.url, (label) => (INFO_LINK.test(label) ? 10 : 0) + Math.min(2, hints.filter((h) => label.includes(h)).length) * 10, SUBPAGES_PER_PLACE);
+        const links = siteLinks(first.page.html, first.page.url, (label) => (INFO_LINK.test(label) ? 10 : 0) + Math.min(2, hints.filter((h) => label.includes(h)).length) * 10, at === 0 ? SUBPAGES_NAMED : SUBPAGES_OTHER);
         // The page the price was read from is evidence as well.
         if (place.price?.source && place.price.source !== first.page.url && !links.includes(place.price.source)) links.push(place.price.source);
         const more = await Promise.all(links.map(async (url) => ({ url, page: await open(url) })));
         return [{ url: first.page.url, html: first.page.html }, ...more.flatMap((m) => (m.page.ok ? [{ url: m.page.page.url, html: m.page.page.html }] : []))];
       }),
   );
-  const pages = perPlace.flatMap((list) => list.map((p, i) => ({ url: p.url, text: pageText(p.html), main: i === 0 })));
+  const read = perPlace.map((list) => list.map((p, i) => ({ url: p.url, text: pageText(p.html), main: i === 0 })));
+  // Every place's own page before anybody's sub pages, so no place goes unread when the space runs out.
+  const pages = [...read.flatMap((list) => list.slice(0, 1)), ...read.flatMap((list) => list.slice(1))];
+  const named = (read[0] ?? []).map((p) => p.text).join(" \n ");
   const evidence: Evidence[] = [];
   let used = 0;
   for (const page of pages) {
@@ -122,7 +131,7 @@ export async function readEvidence(entry: IdeaBookEntry, locale: Locale, fetcher
     used += part.length;
   }
   // Quotes and provision words are looked up in everything that was read, not only in what was shown to the model.
-  return { evidence, full: pages.map((p) => p.text).join(" \n ") };
+  return { evidence, full: pages.map((p) => p.text).join(" \n "), named };
 }
 
 // --- what the code decides itself ------------------------------------------------------------------------------------
@@ -175,6 +184,16 @@ export function unbackedPromise(text: string, full: string): boolean {
     if (sentence.trim().endsWith("?")) return false;
     const stated = sentence.replace(ASKING, " ");
     return (LEND.test(stated) && !LEND_SITE.test(full)) || (PROVIDED.test(stated) && !PROVIDED_SITE.test(full));
+  });
+}
+
+const AGE = /(?:minim\w*(?:\s+leeftijd)?|vanaf|minimum age(?:\s+of)?|at least|from age)\D{0,15}?(\d{1,2})\s*(?:jaar|years)|(\d{1,2})\s*(?:jaar of ouder|years or older)/gi;
+
+/** A minimum age that the page of the place the idea names does not state (another club's age is not this one's). */
+export function unbackedAge(text: string, named: string): boolean {
+  return [...text.matchAll(AGE)].some((found) => {
+    const age = found[1] ?? found[2];
+    return !new RegExp(`(?<!\\d)${age}\\s*(?:jaar|years|\\+)|(?:vanaf|leeftijd|age)\\D{0,20}?${age}(?!\\d)`, "i").test(named);
   });
 }
 
@@ -235,7 +254,7 @@ export function buildFactPrompt(entry: IdeaBookEntry, evidence: readonly Evidenc
   const activity = entry.activity_id ? getActivity(entry.activity_id)?.label[locale] : undefined;
   return [
     `Activity: ${activity ?? entry.title}`,
-    `Provider(s): ${(entry.places ?? []).map((p) => [p.name, p.city].filter(Boolean).join(", ")).join(" | ")}`,
+    `Provider(s), the one the idea names first: ${placesNamedFirst(entry).map((p) => [p.name, p.city].filter(Boolean).join(", ")).join(" | ")}`,
     "",
     "The idea:",
     ...judgedFields(entry).map(([field, text]) => `${field}: ${text}`),
@@ -256,7 +275,7 @@ const WORDS = {
     why: "Dit sluit aan bij wat je koos.",
     offerStep: (place: string) => `Vraag ${place} of zij dit aanbieden en wanneer je mee kunt.`,
     step: (place: string) => `Neem contact op met ${place} en vraag hoe en wanneer je er terechtkunt.`,
-    nextStep: "Vraag meteen wat je zelf moet meenemen en wat er al is.",
+    nextStep: "Vraag vooraf waar en wanneer je moet zijn en wat er van je wordt verwacht.",
     action: (place: string) => `Open de website van ${place} en kijk wat zij aanbieden.`,
     size: "Vraag de aanbieder wat hier mogelijk is.",
   },
@@ -266,7 +285,7 @@ const WORDS = {
     why: "This follows from what you chose.",
     offerStep: (place: string) => `Ask ${place} whether they offer this and when you can join.`,
     step: (place: string) => `Contact ${place} and ask how and when you can come.`,
-    nextStep: "Ask right away what you need to bring and what is already there.",
+    nextStep: "Ask beforehand where and when to be and what is expected of you.",
     action: (place: string) => `Open the website of ${place} and see what they offer.`,
     size: "Ask the provider what is possible here.",
   },
@@ -297,9 +316,12 @@ export function fixAccepted(before: string, after: string, gone: readonly string
   return [...names(text)].every((n) => allowed.has(n) || fold(`${before} ${known}`).includes(fold(n)));
 }
 
-/** The field without the sentences that hold a refused claim or an unbacked promise; "" when nothing worth keeping is left. */
-function withoutSentences(text: string, gone: readonly string[], full: string): string {
-  const kept = sentences(text).filter((s) => !unbackedPromise(s, full) && !gone.some((claim) => fold(claim).length >= 6 && (fold(s).includes(fold(claim)) || fold(claim).includes(fold(s)))));
+/** A sentence the code refuses by itself: gear or a loan that nothing read promises, or an age the named place does not state. */
+const unbacked = (sentence: string, full: string, named: string) => unbackedPromise(sentence, full) || unbackedAge(sentence, named);
+
+/** The field without the sentences that hold a refused claim, promise or age; "" when nothing worth keeping is left. */
+function withoutSentences(text: string, gone: readonly string[], full: string, named: string): string {
+  const kept = sentences(text).filter((s) => !unbacked(s, full, named) && !gone.some((claim) => fold(claim).length >= 6 && (fold(s).includes(fold(claim)) || fold(claim).includes(fold(s)))));
   const out = kept.join(" ").trim();
   return out.length >= 20 && out !== text.trim() ? out : "";
 }
@@ -313,7 +335,7 @@ export interface IdeaVerdict {
   offered: boolean;
 }
 
-export function applyVerdict(entry: IdeaBookEntry, answer: { offers?: unknown; claims?: unknown; fixes?: unknown }, full: string, locale: Locale): IdeaVerdict {
+export function applyVerdict(entry: IdeaBookEntry, answer: { offers?: unknown; claims?: unknown; fixes?: unknown }, full: string, locale: Locale, named: string = full): IdeaVerdict {
   const w = WORDS[locale === "en" ? "en" : "nl"];
   const fields = new Map(checkedFields(entry));
   const claims = (Array.isArray(answer.claims) ? (answer.claims as Claim[]) : []).filter((c) => c && typeof c.field === "string" && typeof c.claim === "string");
@@ -325,11 +347,14 @@ export function applyVerdict(entry: IdeaBookEntry, answer: { offers?: unknown; c
   const add = (field: string, claim: string) => refused.set(field, [...(refused.get(field) ?? []), claim]);
   for (const claim of claims) if (judged.has(claim.field) && !carried({ ...claim, quote: String(claim.quote ?? "") }, full)) add(claim.field, claim.claim);
   // What the model did not notice: a promise of something to borrow or gear that is there, which the site never makes.
-  for (const [field, text] of fields) if (!refused.has(field) && unbackedPromise(text, full)) add(field, text);
+  // Sentence by sentence, so the rest of the field can stay.
+  for (const [field, text] of fields) if (!refused.has(field)) for (const sentence of sentences(text)) if (unbacked(sentence, full, named)) add(field, sentence);
 
   const activity = (entry.activity_id ? getActivity(entry.activity_id)?.label[locale] : undefined) ?? entry.title;
-  const place = entry.places?.[0]?.name.split("|")[0].trim() ?? entry.location?.name ?? "";
-  const city = entry.places?.[0]?.city ?? entry.location?.city ?? "";
+  // The place the idea is about, not simply the first of its list.
+  const first = placesNamedFirst(entry)[0];
+  const place = (first ? mainName(first.name) : entry.location?.name) ?? "";
+  const city = first?.city ?? entry.location?.city ?? "";
   const known = [activity, city, ...(entry.places ?? []).flatMap((p) => [p.name, p.url ?? ""])].join(" ");
 
   const removed: string[] = [];
@@ -340,19 +365,19 @@ export function applyVerdict(entry: IdeaBookEntry, answer: { offers?: unknown; c
     removed.push(`${field}: ${gone.join(" / ").slice(0, 160)}`);
     // When nothing shows the activity is offered there, a rewrite tends to claim something else instead: only the fixed sentences then.
     const fix = offered ? fixes.get(field) : undefined;
-    if (fix && fixAccepted(before, fix, gone.filter((g) => g !== before), full, locale, known)) {
+    if (fix && !unbackedAge(fix, named) && fixAccepted(before, fix, gone.filter((g) => g !== before), full, locale, known)) {
       next.set(field, fix.trim());
       continue;
     }
     fallbacks++;
     if (field === "title") next.set(field, w.title(activity, city));
-    else if (field === "intro") next.set(field, withoutSentences(before, gone, full) || w.intro(place));
-    else if (field === "why_it_fits") next.set(field, withoutSentences(before, gone, full) || w.why);
+    else if (field === "intro") next.set(field, withoutSentences(before, gone, full, named) || w.intro(place));
+    else if (field === "why_it_fits") next.set(field, withoutSentences(before, gone, full, named) || w.why);
     else if (field === "details[0]") next.set(field, offered ? w.step(place) : w.offerStep(place));
-    else if (field.startsWith("details[")) next.set(field, withoutSentences(before, gone, full) || w.nextStep);
+    else if (field.startsWith("details[")) next.set(field, withoutSentences(before, gone, full, named) || w.nextStep);
     else if (field === "first_action") next.set(field, w.action(place));
     else if (field.startsWith("sizes[")) next.set(field, w.size);
-    else next.set(field, withoutSentences(before, gone, full));
+    else next.set(field, withoutSentences(before, gone, full, named));
   }
   // Nothing shows that they offer this at all: the first step asks exactly that, whatever the model wrote there.
   if (!offered && claims.length > 0 && entry.details[0]) {
@@ -426,7 +451,7 @@ export async function factCheck(book: GeneratedIdeaBook, deps: FactDeps): Promis
           report.unjudged.push(`${labelOf(i)}: the website was too slow`);
           return entry;
         }
-        const { evidence, full } = read;
+        const { evidence, full, named } = read;
         if (full.length < MIN_EVIDENCE) {
           report.unjudged.push(`${labelOf(i)}: no readable website`);
           return entry;
@@ -447,13 +472,13 @@ export async function factCheck(book: GeneratedIdeaBook, deps: FactDeps): Promis
         const answer = await bounded<unknown>(asking, null);
         if (!answer || !Array.isArray((answer as { claims?: unknown }).claims)) {
           // No verdict (in time): what the code can tell by itself is still taken out, a promise of something to borrow or gear that is there.
-          const own = applyVerdict(entry, { offers: "", claims: [], fixes: [] }, full, locale);
+          const own = applyVerdict(entry, { offers: "", claims: [], fixes: [] }, full, locale, named);
           report.unjudged.push(`${labelOf(i)}: no usable answer`);
           report.removed.push(...own.removed.map((r) => `${labelOf(i)}.${r}`));
           report.fallbacks += own.fallbacks;
           return own.removed.length ? own.entry : entry;
         }
-        const verdict = applyVerdict(entry, answer as Record<string, unknown>, full, locale);
+        const verdict = applyVerdict(entry, answer as Record<string, unknown>, full, locale, named);
         report.checked++;
         report.removed.push(...verdict.removed.map((r) => `${labelOf(i)}.${r}`));
         report.fallbacks += verdict.fallbacks;

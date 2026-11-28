@@ -1569,16 +1569,19 @@ export async function renderIdeaBookPdf(
     // --- variants, richest first; the first that fits on one page wins ---
     function buildRows(level: number): Row[] {
       const rows: Row[] = [];
-      rows.push({ cols: [{ block: blockMatch(PWA4_CONTENT_WIDTH, pageLabels.match, matchText), frac: 1 }] });
+      rows.push({ cols: [{ block: blockMatch(PWA4_CONTENT_WIDTH, pageLabels.match, level < 4 ? matchText : idea.why_it_fits), frac: 1 }] });
       rows.push({ cols: [{ block: blockGlance(PWA4_CONTENT_WIDTH, glanceCells), frac: 1 }] });
 
-      const f2 = [0.46, 0.54];
-      rows.push({
-        cols: [
-          { block: blockProfile(colWidth(f2, 0), pageLabels.experience, profileRows), frac: f2[0] },
-          { block: blockSchedule(colWidth(f2, 1), pageLabels.schedule, schedule), frac: f2[1] },
-        ],
-      });
+      // The experience and the schedule give way only when nothing else is left to leave out or shorten.
+      if (level < 5) {
+        const f2 = [0.46, 0.54];
+        rows.push({
+          cols: [
+            { block: blockProfile(colWidth(f2, 0), pageLabels.experience, profileRows), frac: f2[0] },
+            { block: blockSchedule(colWidth(f2, 1), pageLabels.schedule, schedule), frac: f2[1] },
+          ],
+        });
+      }
 
       if (level < 3) {
         const n = level >= 2 ? 2 : 3;
@@ -1622,12 +1625,11 @@ export async function renderIdeaBookPdf(
 
     let rows: Row[] = [];
     let level = 0;
-    for (; level <= 3; level++) {
+    for (; level <= 5; level++) {
       rows = buildRows(level);
       const total = rows.reduce((sum, r) => sum + rowHeight(r), 0) + IDEA_GAP * (rows.length - 1);
       if (PAGE_HEIGHT - heroMin - 12 - total >= IDEA_BOTTOM) break;
     }
-    level = Math.min(level, 3);
 
     const total = rows.reduce((sum, r) => sum + rowHeight(r), 0) + IDEA_GAP * (rows.length - 1);
     const spare = Math.max(0, PAGE_HEIGHT - heroMin - 12 - total - IDEA_BOTTOM);
